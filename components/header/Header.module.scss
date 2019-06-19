@@ -1,0 +1,37 @@
+.wrap {
+  display: flex;
+  align-items: center;
+  height: 40px;
+}
+
+.menuButton {
+  width: 30px;
+  height: 30px;
+  margin-left: 10px;
+  background: url('/static/icon/menu.png') no-repeat center;
+  background-size: 30px;
+}
+
+.headerLogo {
+  width: 90px;
+  height: 22px;
+  margin-left: 10px;
+  background: url('/static/Guhada-LOGO.png') no-repeat center;
+  background-size: contain;
+}
+
+.searchButton {
+  width: 30px;
+  height: 30px;
+  margin-left: auto;
+  background: url('/static/icon/header-search.png') no-repeat center;
+  background-size: contain;
+}
+
+.cartButton {
+  width: 30px;
+  height: 30px;
+  margin-left: 5px;
+  background: url('/static/icon/header-shoppinBag.png') no-repeat center;
+  background-size: contain;
+}
