@@ -1,0 +1,56 @@
+@import 'styles/mixins/index';
+
+$MODAL_BODY_WIDTH: 500px;
+
+.modalBody {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  min-width: $MODAL_BODY_WIDTH;
+  max-width: 1024px;
+  padding: 50px 45px;
+  border: none;
+  background-color: #fff;
+  font-size: 16px;
+  border-radius: 2px;
+}
+
+.alertWrap {
+  @include centeredFixed;
+  width: 540px;
+  background-color: #424242;
+  z-index: 2000;
+  box-shadow: 0 24px 24px 0 rgba(0, 0, 0, 0.3), 0 0 24px 0 rgba(0, 0, 0, 0.22);
+}
+
+.alertBody {
+  position: relative;
+  text-align: center;
+  padding: 0;
+  font-size: 16px;
+}
+
+.alertButtons {
+  width: 100%;
+  text-align: center;
+  bottom: 48px;
+  margin-top: 42px;
+
+  button {
+    display: inline-block;
+    color: #ffffff;
+    background-color: #5d2ed1;
+    padding: 15px 30px;
+    border: none;
+    font-size: 16px;
+    border-radius: 2px;
+
+    &:nth-child(2n) {
+      margin-left: 10px;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

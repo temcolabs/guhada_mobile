@@ -1,0 +1,5 @@
+export default {
+  LOGIN_IN_PROGRESS: 'LOGIN_IN_PROGRESS',
+  LOGIN_DONE: 'LOGIN_DONE',
+  LOGOUT: 'LOGOUT',
+};

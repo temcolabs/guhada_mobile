@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "baseUrl": ".",
+    "paths": {
+      "components/*": ["./components/*"],
+      "constant/*": ["./constant/*"],
+      "js/*": ["./js/*"],
+      "lib/*": ["./lib/*"],
+      "pages/*": ["./pages/*"],
+      "stores/*": ["./stores/*"],
+      "styles/*": ["./styles/*"],
+      "template/*": ["./template/*"]
+    }
+  }
+}

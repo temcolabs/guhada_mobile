@@ -1,0 +1,15 @@
+@import './centered.scss';
+
+@mixin withDivider($height, $distance, $color: #ccc) {
+  position: relative;
+  margin-right: calc(#{$distance} * 2);
+
+  &:after {
+    @include centeredY;
+    content: ' ';
+    width: 1px;
+    height: $height;
+    background: $color;
+    right: calc(-1 * #{$distance});
+  }
+}

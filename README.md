@@ -1,1 +1,2 @@
-# guhada_mobile
+# 구하다 웹 모바일
+

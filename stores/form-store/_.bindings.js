@@ -1,0 +1,4 @@
+/**
+  Fields Bindings
+*/
+export default {};

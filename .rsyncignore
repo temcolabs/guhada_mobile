@@ -1,0 +1,7 @@
+.env
+.DS_Store*
+.git
+.gitignore
+.prettierrc
+.vscode
+node_modules

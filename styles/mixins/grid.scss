@@ -1,0 +1,29 @@
+@import './clearfix.scss';
+
+// 그리드 레이아웃은 grid > row > column 계층으로 이루어진다.
+// gap은 column 사이의 간격을 의미.
+@mixin gridContainer($gap: 30px) {
+  margin-left: calc(-1 * (#{$gap} / 2));
+  margin-right: calc(-1 * (#{$gap} / 2));
+
+  // row
+  & > [class^='gridRow'] {
+    display: block;
+    // column
+    & > [class^='col'] {
+      padding-left: calc(#{$gap} / 2);
+      padding-right: calc(#{$gap} / 2);
+    }
+  }
+}
+
+@mixin gridRow {
+  @include clearfix;
+  width: 100%;
+}
+
+// 그리드의 컬럼 박스
+@mixin gridColumn($ratio: 1/2) {
+  float: left;
+  width: calc(100% * #{$ratio});
+}

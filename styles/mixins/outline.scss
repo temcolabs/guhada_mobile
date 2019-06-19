@@ -1,0 +1,5 @@
+@mixin outline {
+  & * {
+    outline: 1px solid #ff814e;
+  }
+}

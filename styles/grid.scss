@@ -1,0 +1,56 @@
+// 그리드 적용을 위한 글로벌 클래스
+@import 'styles/mixins/index';
+
+// 기본 갭은 30x
+.grid {
+  @include gridContainer(30px);
+}
+
+// 갭 없음
+.grid_0 {
+  @include gridContainer(0);
+}
+
+.grid_10 {
+  @include gridContainer(10px);
+}
+
+.grid_20 {
+  @include gridContainer(20px);
+}
+
+.grid_30 {
+  @include gridContainer(30px);
+}
+
+.gridRow {
+  @include gridRow;
+}
+
+.col_1 {
+  width: 100%;
+}
+
+// 1/2 단위
+.col_1_2 {
+  @include gridColumn(1/2);
+}
+
+// 1/3 단위
+.col_1_3 {
+  @include gridColumn(1/3);
+}
+.col_2_3 {
+  @include gridColumn(2/3);
+}
+
+// 1/4 단위
+.col_1_4 {
+  @include gridColumn(1/4);
+}
+.col_2_4 {
+  @include gridColumn(2/4);
+}
+.col_3_4 {
+  @include gridColumn(3/4);
+}

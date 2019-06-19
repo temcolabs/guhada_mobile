@@ -1,0 +1,20 @@
+:global {
+  // react-modal 컴포넌트의 스타일링
+  // https://github.com/reactjs/react-modal/blob/master/docs/styles/transitions.md
+  .ReactModal__Overlay {
+    opacity: 0;
+    transition: opacity 200ms ease-in-out;
+  }
+
+  .ReactModal__Overlay--after-open {
+    opacity: 1;
+  }
+
+  .ReactModal__Overlay--before-close {
+    opacity: 0;
+  }
+
+  .ReactModal__Body--open {
+    // overflow: hidden; /* 모달 열렸을 때 스크롤 방지 */
+  }
+}
