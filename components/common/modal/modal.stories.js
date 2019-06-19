@@ -1,14 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import {
-  withKnobs,
-  text,
-  boolean,
-  number,
-  color,
-  select,
-} from '@storybook/addon-knobs';
+import { withKnobs, text, boolean } from '@storybook/addon-knobs';
 import ModalWrapper from './ModalWrapper';
 import Alert from './Alert';
 import Confirm from './Confirm';
@@ -34,6 +27,7 @@ stories.add('Modal', () => {
           padding: '20px',
           width: '400px',
           height: '200px',
+          background: '#fff',
         }}
       >
         {text('Label', 'modal')}

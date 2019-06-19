@@ -6,7 +6,7 @@
     "start": "next start -p $PORT",
     "start-server": "NODE_ENV=production node server.js",
     "start-pc": "set NODE_ENV=production && node server.js",
-    "storybook": "start-storybook -s ./ -p 6006",
+    "storybook": "start-storybook -s ./ -p 7007",
     "build-storybook": "build-storybook",
     "analyze": "npm run analyze:browser",
     "analyze:browser": "BUNDLE_ANALYZE=browser npm run build",

@@ -3,7 +3,7 @@ import ReactModal from 'react-modal';
 import css from './ModalWrapper.module.scss';
 import PropTypes from 'prop-types';
 import { documentHeight } from 'lib/dom';
-import { isServer } from 'lib/isServer';
+import isServer from 'lib/isServer';
 import setScrollability from 'lib/dom/setScrollability';
 
 export const ModalContentWrap = ({ children }) => (
