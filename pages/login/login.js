@@ -1,7 +1,8 @@
 import React from 'react';
 import Home from 'template/Home';
-import Head from 'next/head';
 import { inject, observer } from 'mobx-react';
+import Head from 'next/head';
+import Login from 'template/signin/Login';
 
 @inject('login')
 @observer
@@ -20,7 +21,7 @@ class index extends React.Component {
           />
         </Head>
         <div>
-          <Home></Home>
+          <Login></Login>
         </div>
       </>
     );

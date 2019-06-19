@@ -3,7 +3,7 @@ import Link from 'next/link';
 import css from './Header.module.scss';
 import HeaderMenu from './HeaderMenu';
 
-export default function Header() {
+export default function Header({ children }) {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   return (
     <>
@@ -12,9 +12,16 @@ export default function Header() {
           className={css.menuButton}
           onClick={() => setIsMenuVisible(true)}
         ></button>
-        <Link href="/">
-          <div className={css.headerLogo} />
-        </Link>
+
+        {/* 페이지 타이틀 또는 로고 렌더링 */}
+        {children ? (
+          <div className={css.pageTitle}>{children}</div>
+        ) : (
+          <Link href="/">
+            <div className={css.headerLogo} />
+          </Link>
+        )}
+
         <button className={css.searchButton} onClick={() => {}}></button>
         <button className={css.cartButton} onClick={() => {}}></button>
       </div>
