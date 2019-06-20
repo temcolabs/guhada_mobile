@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: 'guhada-web-dev',
+      name: 'guhada-mobile-dev',
       script: 'server.js',
       args: '',
       instances: 1,
@@ -16,7 +16,7 @@ module.exports = {
       },
     },
     {
-      name: 'guhada-web-qa',
+      name: 'guhada-mobile-qa',
       script: 'server.js',
       args: '',
       instances: 1,

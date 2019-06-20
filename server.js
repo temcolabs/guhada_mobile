@@ -6,7 +6,7 @@ const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 const routes = require('./routes');
-const PORT = 8080;
+const PORT = 8081;
 const returnUrls = require('./routes/returnUrls');
 
 mobxReact.useStaticRendering(true);
