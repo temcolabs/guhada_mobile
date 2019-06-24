@@ -28,6 +28,7 @@ import MypageAddressStore from './mypage/MypageAddressStore';
 import ProductRecentlySeenStore from './ProductRecentlySeenStore';
 import MypageLikeStore from './mypage/MypageLikeStore';
 import CountdownStore from './CountdownStore';
+import ToastStore from './ToastStore';
 
 class RootStore {
   constructor() {
@@ -73,6 +74,8 @@ class RootStore {
     this.mypageAddress = new MypageAddressStore(this);
     // mypage - 찜한상품
     this.mypageLike = new MypageLikeStore(this);
+
+    this.toast = new ToastStore(this);
   }
 }
 

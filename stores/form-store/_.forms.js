@@ -11,7 +11,7 @@ import FindPasswordMobileHooks from './hooks/login/findpassword/MobileHooks';
 import FindPasswordMobileAuthHooks from './hooks/login/findpassword/MobileAuthHooks';
 import FindPasswordEmailHooks from './hooks/login/findpassword/EmailHooks';
 import FindPasswordResultHooks from './hooks/login/findpassword/ResultHooks';
-import TermAgreeHooks from './hooks/login/TermAgreeHooks';
+// import TermAgreeHooks from './hooks/login/SignupHooksField';
 import TermSellerHooks from './hooks/login/TermSellerHooks';
 import TermBusinessHooks from './hooks/login/TermBusinessHooks';
 
@@ -71,10 +71,6 @@ export default {
     { hooks: ProductAddHooks, name: 'ProductAdd' }
   ),
   search: new SearchForm({ ...search }, { hooks: SearchHooks, name: 'Search' }),
-  termAgree: new TermAgreeForm(
-    { ...termagree },
-    { hooks: TermAgreeHooks, name: 'TermAgree' }
-  ),
   termSeller: new TermSellerForm(
     { ...termseller },
     { hooks: TermSellerHooks, name: 'TermSeller' }
@@ -83,7 +79,7 @@ export default {
     { ...termbusiness },
     { hooks: TermBusinessHooks, name: 'TermBusiness' }
   ),
-  signUp: new SignupForm({ ...signUp }, { hooks: SignupHooks, name: 'SignUp' }),
+  signUp: new Form({ ...signUp }, { hooks: SignupHooks, name: 'SignUp' }),
   signUpSeller: new SignupSellerForm(
     { ...signupseller },
     { hooks: SignupSellerHooks, name: 'SignUpSeller' }
@@ -92,7 +88,7 @@ export default {
     { ...signupbusiness },
     { hooks: SignupBusinessHooks, name: 'SignUpBusiness' }
   ),
-  signIn: new SigninForm({ ...signIn }, { hooks: SigninHooks, name: 'SignIn' }),
+  signIn: new Form({ ...signIn }, { hooks: SigninHooks, name: 'SignIn' }),
   idFind: new FindIdMyinfoForm(
     { ...idfind },
     { hooks: FindIdMyinfoHooks, name: 'IdFind' }

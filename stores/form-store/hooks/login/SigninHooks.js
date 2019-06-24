@@ -79,6 +79,15 @@ export default {
   onError(form) {
     console.log('Form Values', form.values());
     console.log('Form Errors', form.errors());
+    let error = form.errors();
+
+    let dir = [error.email, error.password];
+    for (let i = 0; i < dir.length; i++) {
+      if (dir[i]) {
+        root.toast.getToast(dir[i]);
+        return;
+      }
+    }
   },
 
   onClear(instance) {

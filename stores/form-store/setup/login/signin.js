@@ -11,6 +11,7 @@ export default {
       // hooks,
     },
     password: {
+      type: 'password',
       name: 'password',
       label: '비밀번호',
       autoComplete: 'password',

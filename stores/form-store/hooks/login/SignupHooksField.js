@@ -15,7 +15,6 @@ export default {
   onSuccess(form) {
     console.log('Success Values', form.values());
     console.log('api call start', form);
-    Router.push('/login/signup');
   },
 
   onError(form) {
@@ -42,7 +41,7 @@ export default {
 
   onChange(field) {
     console.log('-> onChange HOOK -', field.path, field.value);
-    let form = Form.termAgree;
+    let form = Form.signUp;
 
     function allAgreement(bool) {
       form.$('requireAgree').set(bool);
@@ -91,22 +90,5 @@ export default {
       } else {
         form.$('optionalAgree').set(false);
       }
-  },
-
-  // onFocus: field => {
-  //   console.log('-> onFocus HOOK -', field.path, field.value);
-  // },
-
-  onBlur: field => {
-    console.log('-> onBlur HOOK -', field.path, field.value);
-
-    // 모바일 번호 입력시
-    // 숫자만 입력받도록 처리
-    if (field.path === 'mobileNumber') {
-      let checkMobileNumber = field.value;
-
-      checkMobileNumber = checkMobileNumber.replace(/[^0-9]/g, '');
-      field.set(checkMobileNumber);
-    }
   },
 };

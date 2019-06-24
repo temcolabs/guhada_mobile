@@ -25,6 +25,13 @@ module.exports = [
     name: '로그인',
   },
 
+  // 회원가입
+  {
+    pagePath: '/login/signup',
+    asPath: '/login/signup',
+    name: '회원가입',
+  },
+
   // 마이페이지
   {
     pagePath: '/mypage/MyPageMain',
