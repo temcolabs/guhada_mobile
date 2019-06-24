@@ -1,0 +1,34 @@
+.wrap {
+    height: 50px;
+    margin-bottom: 10px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    & button {
+        width: 100%;
+        height: 50px;
+        border: solid 1px #cccccc;
+        background-color: #ffffff;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.14;
+        text-align: center;
+        color: #000000;
+
+        &.isGray {
+            background-color: #b7bec4;
+            border: solid 1px #b7bec4;
+            color: #ffffff;
+        }
+
+        &.isColored {
+            background-color: #5d2ed1;
+            border: solid 1px #5d2ed1;
+            color: #ffffff;
+        }
+    }
+
+
+}
