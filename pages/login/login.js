@@ -3,17 +3,19 @@ import Home from 'template/Home';
 import { inject, observer } from 'mobx-react';
 import Head from 'next/head';
 import Login from 'template/signin/Login';
+import Form from '../../stores/form-store/_.forms';
 
-@inject('login')
 @observer
 class index extends React.Component {
   componentDidMount() {}
 
   render() {
+    Form.signIn.clear();
+
     return (
       <>
         <Head>
-          <title>구하다 웹</title>
+          <title>로그인</title>
           <link
             rel="shortcut icon"
             type="image/x-icon"
@@ -21,7 +23,7 @@ class index extends React.Component {
           />
         </Head>
         <div>
-          <Login></Login>
+          <Login form={Form.signIn}></Login>
         </div>
       </>
     );

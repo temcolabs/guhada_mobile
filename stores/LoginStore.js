@@ -11,9 +11,10 @@ import { isBrowser } from 'lib/isServer';
 const isServer = typeof window === 'undefined';
 
 export default class LoginStore {
-  @observable facebookKey = '';
-  @observable googleKey = '';
-  @observable kakaoKey = '';
+  @observable facebookKey = '2298850760133957';
+  @observable googleKey =
+    '54498119926-06mhh1vfc281ki9cvs5aees5npp1p9m7.apps.googleusercontent.com';
+  @observable kakaoKey = '7ca6661594c9f669ca2fbe51f8a73f28';
   @observable naverKey = '';
 
   // accessToken으로 받아오는 info
@@ -190,5 +191,98 @@ export default class LoginStore {
 
     // 홈 화면으로 이동
     Router.push(`/`);
+  };
+
+  @action
+  responseFacebook = response => {
+    console.log('facebook', response);
+    let data = response;
+
+    API.user
+      .post('/facebookLogin', {
+        email: '',
+        profileJson: data,
+        snsId: data.id,
+      })
+      .then(function(res) {
+        let data = res.data;
+        console.log(data);
+        if (data.resultCode === 200) {
+          Cookies.set(key.ACCESS_TOKEN, data.data.accessToken);
+          Cookies.set(key.REFRESH_TOKEN, data.data.refreshToken);
+          Router.push('/');
+        } else {
+          alert(data.message);
+        }
+      });
+  };
+
+  @action
+  responseGoogle = response => {
+    let data = response || {};
+
+    if (data.profileObj) {
+      let Header = {
+        method: 'POST',
+        url: process.env.API_USER + '/googleLogin',
+        data: {
+          email: data.profileObj.email,
+          profileJson: data.profileObj,
+          snsId: data.profileObj.googleId,
+        },
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+      console.log(Header);
+      API.user
+        .post('/googleLogin', {
+          email: data.profileObj.email,
+          profileJson: data.profileObj,
+          snsId: data.profileObj.googleId,
+        })
+        .then(function(res) {
+          let data = res.data;
+          console.log(data);
+          if (data.resultCode === 200) {
+            Cookies.set(key.ACCESS_TOKEN, data.data.accessToken);
+            Cookies.set(key.REFRESH_TOKEN, data.data.refreshToken);
+            Router.push('/');
+          } else {
+            alert(data.message);
+          }
+        });
+    }
+  };
+
+  @action
+  responseKakao = response => {
+    console.log('kakao', response);
+
+    let data = response;
+
+    API.user
+      .post('/kakaoLogin', {
+        email: data.profile.kakao_account.email,
+        profileJson: data.profile.properties,
+        snsId: data.profile.id,
+      })
+      .then(function(res) {
+        let data = res.data;
+        console.log(data);
+        if (data.resultCode === 200) {
+          Cookies.set(key.ACCESS_TOKEN, data.data.accessToken);
+          Cookies.set(key.REFRESH_TOKEN, data.data.refreshToken);
+
+          root.login.handleLoginSuccess({
+            accessToken: data.data.accessToken,
+            refreshToken: data.data.refreshToken,
+            expiresIn: data.data.expiresIn,
+          });
+          Router.push('/');
+        } else {
+          alert(data.message);
+        }
+      });
   };
 }
