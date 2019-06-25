@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import Head from 'next/head';
 import Form from '../../stores/form-store/_.forms';
-import Signup from 'template/signin/Signup';
+import FindId from 'template/signin/FindId';
 
 @observer
-export class signup extends Component {
+export class findid extends Component {
   render() {
-    Form.signUp.clear();
+    Form.idFind.clear();
     return (
       <>
         <Head>
-          <title>회원가입</title>
+          <title>아이디 찾기</title>
           <link
             rel="shortcut icon"
             type="image/x-icon"
@@ -19,11 +19,11 @@ export class signup extends Component {
           />
         </Head>
         <div>
-          <Signup form={Form.signUp} />
+          <FindId form={Form.idFind} />
         </div>
       </>
     );
   }
 }
 
-export default signup;
+export default findid;

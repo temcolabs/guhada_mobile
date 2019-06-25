@@ -3,6 +3,7 @@ import hooks from '../../../hooks/login/findid/MyinfoHooks';
 export default {
   fields: {
     name: {
+      type: 'text',
       name: 'name',
       label: '성명',
       placeholder: '성명',
@@ -24,5 +25,8 @@ export default {
     email: {},
     phoneNumber: {},
     authMobile: {},
+    findId: {
+      type: 'radio',
+    },
   },
 };

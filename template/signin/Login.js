@@ -33,12 +33,19 @@ class Login extends React.Component {
     return (
       <DefaultLayout pageTitle={'로그인'}>
         <LoginWrapper>
-          <ErrorToast />
           <div className={css.wrap}>
             <div className={css.findIdWrap}>
-              <span>아이디찾기</span>
+              <span>
+                <LinkRoute href="/login/findid">
+                  <a className={css.findLinkWrap}>아이디찾기</a>
+                </LinkRoute>
+              </span>
               <span className={css.line}></span>
-              <span>비밀번호찾기</span>
+              <span>
+                <LinkRoute href="/login/findpassword">
+                  <a className={css.findLinkWrap}>비밀번호찾기</a>
+                </LinkRoute>
+              </span>
             </div>
             <div>
               <LoginInput field={form.$('email')} />

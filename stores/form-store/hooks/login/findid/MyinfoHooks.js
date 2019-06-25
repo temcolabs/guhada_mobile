@@ -1,6 +1,7 @@
 import Axios from 'axios';
 import Router from 'next/router';
 import API from 'lib/API';
+import { autoHypenTele, autoHypenPhone } from 'utils';
 
 export default {
   onInit() {
@@ -20,7 +21,7 @@ export default {
     API.user
       .get(
         '/findUserId?phoneNumber=' +
-          idFindData.mobile +
+          idFindData.mobile.replace(/-/gi, '') +
           '&name=' +
           idFindData.name
       )
@@ -64,10 +65,13 @@ export default {
 
   onChange(field) {
     console.log('-> onChange HOOK -', field.path, field.value);
-    let checkMobileNumber = field.value;
-
-    checkMobileNumber = checkMobileNumber.replace(/[^0-9]/g, '');
-    field.set(checkMobileNumber);
+    if (field.get('type') === 'tel') {
+      if (field.path === 'managerTelephone' || field.path === 'fax') {
+        field.set(autoHypenTele(field.value));
+      } else {
+        field.set(autoHypenPhone(field.value));
+      }
+    }
   },
 
   // onFocus: field => {

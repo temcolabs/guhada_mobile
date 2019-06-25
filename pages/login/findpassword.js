@@ -2,16 +2,19 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import Head from 'next/head';
 import Form from '../../stores/form-store/_.forms';
-import Signup from 'template/signin/Signup';
+import FindId from 'template/signin/FindId';
+import FindPassword from 'template/signin/FindPassword';
 
 @observer
-export class signup extends Component {
+export class findpassword extends Component {
   render() {
-    Form.signUp.clear();
+    Form.findPasswordMobile.clear();
+    Form.findPasswordEmail.clear();
+
     return (
       <>
         <Head>
-          <title>회원가입</title>
+          <title>패스워드 찾기</title>
           <link
             rel="shortcut icon"
             type="image/x-icon"
@@ -19,11 +22,14 @@ export class signup extends Component {
           />
         </Head>
         <div>
-          <Signup form={Form.signUp} />
+          <FindPassword
+            formMobile={Form.findPasswordMobile}
+            formEmail={Form.findPasswordEmail}
+          />
         </div>
       </>
     );
   }
 }
 
-export default signup;
+export default findpassword;

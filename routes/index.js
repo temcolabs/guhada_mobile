@@ -32,6 +32,20 @@ module.exports = [
     name: '회원가입',
   },
 
+  // 아이디 찾기
+  {
+    pagePath: '/login/findid',
+    asPath: '/login/findid',
+    name: '아이디 찾기',
+  },
+
+  // 패스워드 찾기
+  {
+    pagePath: '/login/findpassword',
+    asPath: '/login/findpassword',
+    name: '패스워드 찾기',
+  },
+
   // 마이페이지
   {
     pagePath: '/mypage/MyPageMain',

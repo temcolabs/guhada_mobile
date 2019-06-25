@@ -1,0 +1,53 @@
+.header {
+    padding: 22px 0 20px 0;
+    font-size: 15px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.53;
+    letter-spacing: normal;
+    text-align: center;
+    color: #555555;
+}
+
+.subTextWrap {
+    font-size: 12px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-align: left;
+    color: #a0a0a0;
+
+    &>div {
+        margin-top: 5px;
+        position: relative;
+
+
+        &:nth-child(1) {
+            margin-top: 20px;
+        }
+
+        &:last-child {
+            margin-bottom: 20px;
+        }
+
+        .text {
+            position: absolute;
+            left: 12px;
+
+        }
+    }
+
+    .dot {
+        width: 5px;
+        height: 5px;
+        border-radius: 5px;
+        background-color: #b7bec4;
+        float: left;
+        margin-right: 5px;
+        margin-top: 7px;
+    }
+
+}
