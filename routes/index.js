@@ -181,4 +181,10 @@ module.exports = [
     asPath: '/mypage/me',
     name: '회원정보 수정',
   },
+
+  // 상품 - 상세페이지
+  {
+    pagePath: '/product/productdetail',
+    asPath: '/product/productdetail',
+  },
 ];
