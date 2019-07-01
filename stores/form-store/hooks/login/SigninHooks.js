@@ -59,11 +59,11 @@ export default {
         } else {
           switch (data.resultCode) {
             case 6003:
-              form.$('password').invalidate(data.result);
+              root.toast.getToast(data.result);
               break;
 
             case 5004:
-              form.$('email').invalidate(data.result);
+              root.toast.getToast(data.result);
               break;
 
             default:

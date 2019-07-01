@@ -1,14 +1,14 @@
 .default {
+
     height: 46px;
     margin-bottom: 10px;
-    position: relative;
 
     &:last-child {
         margin-bottom: 0;
     }
 
     & input {
-        width: 100%;
+        width: calc(100% - 100px);
         height: 100%;
         border: solid 1px #cccccc;
         padding-left: 15px;
@@ -25,17 +25,12 @@
         }
     }
 
-    & .countDown {
-        position: absolute;
-        top: 15px;
-        right: 10px;
-        font-size: 13px;
-        font-weight: normal;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: 1.23;
-        letter-spacing: 0.46px;
-        text-align: right;
-        color: #5d2ed1;
+    & button {
+        width: 100px;
+        height: 100%;
+        background-color: #5d2ed1;
+        font-size: 14px;
+        font-weight: 500;
+        color: #ffffff;
     }
 }
