@@ -5,6 +5,7 @@ import Form from '../../../_.forms';
 import { autoHypenTele, autoHypenPhone } from 'utils';
 import { root } from 'store';
 import { toJS } from 'mobx';
+import autoTelNumber from 'lib/autoTelNumber';
 
 export default {
   onInit() {
@@ -62,16 +63,7 @@ export default {
   onChange(field) {
     console.log('-> onChange HOOK -', field.path, field.value);
 
-    if (field.get('type') === 'tel') {
-      console.log(field.path);
-      if (field.path === 'managerTelephone' || field.path === 'fax') {
-        field.set(autoHypenTele(field.value));
-        console.log('in');
-      } else {
-        console.log('out');
-        field.set(autoHypenPhone(field.value));
-      }
-    }
+    autoTelNumber(field);
   },
 
   onBlur: field => {

@@ -10,7 +10,7 @@ export class findpassword extends Component {
   render() {
     Form.findPasswordMobile.clear();
     Form.findPasswordEmail.clear();
-
+    
     return (
       <>
         <Head>

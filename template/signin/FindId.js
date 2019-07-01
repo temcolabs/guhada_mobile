@@ -28,7 +28,7 @@ export class FindId extends Component {
   render() {
     const { form } = this.props;
 
-    let value = form.get('value');
+    // let value = form.get('value');
     return (
       <DefaultLayout pageTitle={'아이디/비밀번호 찾기'}>
         <LoginWrapper>

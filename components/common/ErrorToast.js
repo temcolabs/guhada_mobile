@@ -11,7 +11,7 @@ import { toJS } from 'mobx';
 
 @inject('toast')
 @observer
-export class ErrorToast extends Component {
+class ErrorToast extends Component {
   render() {
     let { toast } = this.props;
 

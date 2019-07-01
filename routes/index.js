@@ -39,11 +39,25 @@ module.exports = [
     name: '아이디 찾기',
   },
 
+  // 아이디 찾기 결과
+  {
+    pagePath: '/login/findidresult',
+    asPath: '/login/findidresult',
+    name: '아이디 찾기 결과',
+  },
+
   // 패스워드 찾기
   {
     pagePath: '/login/findpassword',
     asPath: '/login/findpassword',
     name: '패스워드 찾기',
+  },
+
+  // 패스워드 찾기 결과
+  {
+    pagePath: '/login/findpasswordresult',
+    asPath: '/login/findpasswordresult',
+    name: '패스워드 찾기 결과',
   },
 
   // 마이페이지
