@@ -2,6 +2,7 @@ import Axios from 'axios';
 import Router from 'next/router';
 import termForm from '../../_.forms';
 import API from 'lib/API';
+import { root } from 'store';
 
 export default {
   onInit(form) {
@@ -34,9 +35,9 @@ export default {
         if (data.resultCode === 200) {
           Router.push('/?signupsuccess=true&email=' + loginData.email);
         } else if (data.resultCode === 6001) {
-          form.$('email').invalidate(data.data.result);
+          root.toast.getToast(data.data.result);
         } else if (data.resultCode === 6002) {
-          form.$('password').invalidate(data.data.result);
+          root.toast.getToast(data.data.result);
         }
       });
   },
