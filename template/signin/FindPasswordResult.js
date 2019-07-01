@@ -8,26 +8,42 @@ import { observer } from 'mobx-react';
 @observer
 export class FindPasswordResult extends Component {
   render() {
-    const { form } = this.props;
+    const { form, formValue } = this.props;
     let value = form.values();
+    let valueUser;
+    if (formValue) valueUser = formValue.get('value');
+
     return (
       <DefaultLayout pageTitle={'아이디/비밀번호 찾기'}>
         <LoginWrapper>
           <div className={css.wrap}>
             <div className={css.header}>
-              <span className={css.headerText}>{}</span> 님,
+              <span className={css.headerText}>
+                {valueUser ? valueUser.email : null}
+              </span>{' '}
+              님,
               <br />
               본인인증이 완료되었습니다.
               <br />
               새로운 비밀번호를 입력해주세요
               <br />
             </div>
-            <LoginInput field={form.$('password')} />
-            <LoginInput field={form.$('passwordConfirm')} />
+            <LoginInput field={form.$('password')} type="password" />
+            <LoginInput field={form.$('passwordConfirm')} type="password" />
             <div className={css.subText}>
               8~15자의 영문 대/소문자, 숫자, 특수문자 중 2개 이상 조합
             </div>
-            <LoginButton className="isColored">확인</LoginButton>
+            <LoginButton
+              className={
+                !(value.password && value.passwordConfirm)
+                  ? 'isGray'
+                  : 'isColored'
+              }
+              onClick={form.onSubmit}
+              disabled={!(value.password && value.passwordConfirm)}
+            >
+              확인
+            </LoginButton>
             <div className={css.loginBtn}>
               <LinkRoute href="/login">
                 <a>

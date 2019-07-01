@@ -4,6 +4,7 @@ import LoginButton from './LoginButton';
 
 export default class FindMobileAuth extends Component {
   render() {
+    const { authmobile } = this.props;
     return (
       <div>
         <div className={css.header}>
@@ -11,7 +12,10 @@ export default class FindMobileAuth extends Component {
           <br />
           아이디 전체를 확인하실 수 있습니다.
         </div>
-        <LoginButton className="isColored">
+        <LoginButton
+          className="isColored"
+          onClick={() => authmobile.getCertKey('findid')}
+        >
           본인 휴대폰 인증하여 아이디 찾기
         </LoginButton>
         <div className={css.subTextWrap}>

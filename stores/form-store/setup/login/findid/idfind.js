@@ -14,7 +14,6 @@ export default {
       name: 'mobile',
       label: '휴대폰 번호',
       placeholder: '휴대폰 번호(숫자만 입력)',
-      rules: 'required|string|between:11,12',
       hooks,
     },
     resendButton: {

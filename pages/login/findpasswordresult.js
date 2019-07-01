@@ -7,6 +7,14 @@ import FindPasswordResult from 'template/signin/FindPasswordResult';
 @observer
 export class findpasswordresult extends Component {
   render() {
+    let formValue;
+
+    if (Form.findPasswordEmail.values().verificationNumber !== '') {
+      formValue = Form.findPasswordEmail;
+    } else if (Form.findPasswordMobile.values().verificationNumber !== '') {
+      formValue = Form.findPasswordMobile;
+    }
+
     return (
       <>
         <Head>
@@ -18,7 +26,10 @@ export class findpasswordresult extends Component {
           />
         </Head>
         <div>
-          <FindPasswordResult form={Form.findPasswordResult} />
+          <FindPasswordResult
+            form={Form.findPasswordResult}
+            formValue={formValue}
+          />
         </div>
       </>
     );

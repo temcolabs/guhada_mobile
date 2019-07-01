@@ -21,7 +21,7 @@ export class FindIdResult extends Component {
               입력하신 정보와 일치하는 아이디입니다.
               <div className={css.emailWrap}>
                 <div className={css.email}>{value.email}</div>
-                <div className={css.joinDate}>{`(${value.email})`}</div>
+                <div className={css.joinDate}>{`(${value.joinAt})`}</div>
               </div>
               <div className={css.subText}>
                 개인정보보호를 위해 아이디 뒷자리는 *로 표시됩니다.
@@ -43,7 +43,12 @@ export class FindIdResult extends Component {
             </LinkRoute>
             <LinkRoute href="/login/">
               <a>
-                <LoginButton className="isColored">로그인하러 가기</LoginButton>
+                <LoginButton
+                  className="isColored"
+                  style={{ marginTop: '10px' }}
+                >
+                  로그인하러 가기
+                </LoginButton>
               </a>
             </LinkRoute>
           </div>

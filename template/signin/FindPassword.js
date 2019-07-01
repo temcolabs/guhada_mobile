@@ -4,12 +4,13 @@ import { LoginWrapper, LoginRadio } from 'components/login';
 import css from './FindId.module.scss';
 import FindLoginInfoHeader from 'components/login/FindLoginInfoHeader';
 import FindPasswordMobile from 'components/login/findpassword/FindPasswordMobile';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 import FindPasswordEmail from 'components/login/findpassword/FindPasswordEmail';
 import FindMobileAuthPassword from 'components/login/FindMobileAuthPassword';
 /**
  * formEmail, formMobile
  */
+@inject('authmobile')
 @observer
 export class FindPassword extends Component {
   state = {
@@ -17,14 +18,27 @@ export class FindPassword extends Component {
   };
 
   onChangeRadio = value => {
+    const { formEmail, formMobile } = this.props;
+
+    formEmail.update({
+      name: '',
+      email: '',
+      verificationNumber: '',
+    });
+    formMobile.update({
+      name: '',
+      email: '',
+      mobile: '',
+      verificationNumber: '',
+    });
+
     this.setState({
       radioChecked: value,
     });
   };
 
   render() {
-    const { formEmail, formMobile } = this.props;
-    // let valueEmail = formEmail.get('value');
+    const { formEmail, formMobile, authmobile } = this.props;
 
     return (
       <DefaultLayout pageTitle={'아이디/비밀번호 찾기'}>
@@ -65,9 +79,13 @@ export class FindPassword extends Component {
               onChangeRadio={this.onChangeRadio}
             />
             {this.state.radioChecked === 'findAuth' ? (
-              <FindMobileAuthPassword />
+              <FindMobileAuthPassword authmobile={authmobile} />
             ) : null}
           </div>
+          <form name="form_chk" method="post" style={{ display: 'none' }}>
+            <input type="hidden" name="m" value="checkplusSerivce" />
+            <input type="hidden" name="EncodeData" value={authmobile.authKey} />
+          </form>
         </LoginWrapper>
       </DefaultLayout>
     );

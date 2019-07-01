@@ -11,7 +11,10 @@ export default class FindMobileAuthPassword extends Component {
           <br />
           비밀번호 재설정을 하실 수 있습니다.
         </div>
-        <LoginButton className="isColored">
+        <LoginButton
+          className="isColored"
+          onClick={() => authmobile.getCertKey('findpassword')}
+        >
           본인 휴대폰 인증하여 비밀번호 재설정 하기
         </LoginButton>
         <div className={css.subTextWrap}>
