@@ -9,10 +9,11 @@ import {
 import css from './FindId.module.scss';
 import FindLoginInfoHeader from 'components/login/FindLoginInfoHeader';
 import LoginRadio from 'components/login/LoginRadio';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 import FindIdMyInfo from 'components/login/findid/FindIdMyInfo';
 import FindMobileAuth from 'components/login/FindMobileAuth';
 
+@inject('authmobile')
 @observer
 export class FindId extends Component {
   state = {
@@ -26,9 +27,10 @@ export class FindId extends Component {
   };
 
   render() {
-    const { form } = this.props;
+    const { form, authmobile } = this.props;
 
     let value = form.get('value');
+    // console.log('value', value);
     return (
       <DefaultLayout pageTitle={'아이디/비밀번호 찾기'}>
         <LoginWrapper>
@@ -56,9 +58,13 @@ export class FindId extends Component {
               onChangeRadio={this.onChangeRadio}
             />
             {this.state.radioChecked === 'findMobile' ? (
-              <FindMobileAuth />
+              <FindMobileAuth authmobile={authmobile} />
             ) : null}
           </div>
+          <form name="form_chk" method="post" style={{ display: 'none' }}>
+            <input type="hidden" name="m" value="checkplusSerivce" />
+            <input type="hidden" name="EncodeData" value={authmobile.authKey} />
+          </form>
         </LoginWrapper>
       </DefaultLayout>
     );

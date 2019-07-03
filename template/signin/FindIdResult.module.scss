@@ -1,0 +1,82 @@
+.wrap {
+    // padding: 0 20px;
+}
+
+.itemWrap {
+    padding-top: 35px;
+    font-size: 15px;
+    font-weight: 500;
+    font-style: normal;
+    line-height: 1.2;
+    text-align: left;
+    color: #333333;
+}
+
+.emailWrap {
+    height: 102px;
+    background-color: #f2f4f4;
+    margin-top: 6px;
+    padding-top: 34px;
+    margin-bottom: 12px;
+
+    & .email {
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.14;
+        text-align: center;
+        color: #5d2ed1;
+
+    }
+
+    & .joinDate {
+        font-size: 12px;
+        font-weight: normal;
+        line-height: 1.17;
+        text-align: center;
+        color: #9a9a9a;
+        margin-top: 10px;
+    }
+}
+
+.subText {
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 1.17;
+    text-align: left;
+    color: #9a9a9a;
+    margin-bottom: 13px;
+}
+
+.mobileWrap {
+    height: 120px;
+    background-color: #f2f4f4;
+    margin-top: 6px;
+    padding: 0 15px;
+    padding-top: 20px;
+    margin-bottom: 36px;
+
+    & .mobileLabel {
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 1.15;
+        text-align: center;
+        color: #000000;
+
+        & span {
+            margin-left: 15px;
+            color: #5d2ed1;
+        }
+    }
+
+    & button {
+        margin-top: 19px;
+        border: solid 1px #cccccc;
+        background-color: #ffffff;
+        width: 100%;
+        height: 46px;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 1.33;
+        color: #000000;
+    }
+}

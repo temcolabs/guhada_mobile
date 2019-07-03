@@ -16,7 +16,7 @@ import cn from 'classnames';
 
 export class LoginButton extends Component {
   render() {
-    const { field, children, className } = this.props;
+    const { field, children, className, style } = this.props;
     return (
       <div className={css.wrap}>
         <button
@@ -26,6 +26,7 @@ export class LoginButton extends Component {
           )}
           onClick={this.props.onClick}
           disabled={this.props.disabled}
+          style={style}
         >
           {children}
         </button>

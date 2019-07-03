@@ -27,5 +27,8 @@ export default {
       placeholder: '인증번호 (6자리 숫자 입력)',
       hooks,
     },
+    findPassword: {
+      type: 'radio',
+    },
   },
 };

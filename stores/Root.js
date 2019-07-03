@@ -5,8 +5,13 @@ import BrandsStore from './BrandsStore';
 import CategoryStore from './CategoryStore';
 import SearchStore from './SearchStore';
 import SearchItemStore from './SearchItemStore';
+<<<<<<< HEAD
 import ProductAddStore from './ProductAddStore';
 import ProductDetailStore from './productdetail/ProductDetailStore';
+=======
+
+import ProductDetailStore from './ProductDetailStore';
+>>>>>>> 9b3f909bcfe2a269fb3492598e529d7000e8eb20
 import OrderPaymentStore from './orderpayment/OrderPaymentStore';
 import OrderPaymentSuccessStore from './OrderPaymentSuccessStore';
 import ShoppingCartStore from './ShoppingCartStore';
@@ -42,7 +47,6 @@ class RootStore {
     this.category = new CategoryStore(this);
     this.search = new SearchStore(this);
     this.searchitem = new SearchItemStore(this);
-    this.productadd = new ProductAddStore(this);
     this.productdetail = new ProductDetailStore(this);
     this.orderpayment = new OrderPaymentStore(this);
     this.orderpaymentsuccess = new OrderPaymentSuccessStore(this);

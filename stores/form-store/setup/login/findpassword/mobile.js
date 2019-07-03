@@ -3,11 +3,14 @@ import hooks from '../../../hooks/login/findpassword/MobileHooksField';
 export default {
   fields: {
     name: {
+      type: 'text',
       name: 'name',
       label: 'name',
       placeholder: '이름',
+      rules: 'required|string',
     },
     email: {
+      type: 'text',
       name: 'email',
       label: 'email',
       placeholder: '아이디 (이메일)',

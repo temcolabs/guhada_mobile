@@ -2,21 +2,20 @@ import React, { Component } from 'react';
 import css from './FindMobileAuth.module.scss';
 import LoginButton from './LoginButton';
 
-export default class FindMobileAuth extends Component {
+export default class FindMobileAuthPassword extends Component {
   render() {
-    const { authmobile } = this.props;
     return (
       <div>
         <div className={css.header}>
           본인 명의의 휴대폰으로
           <br />
-          아이디 전체를 확인하실 수 있습니다.
+          비밀번호 재설정을 하실 수 있습니다.
         </div>
         <LoginButton
           className="isColored"
-          onClick={() => authmobile.getCertKey('findid')}
+          onClick={() => authmobile.getCertKey('findpassword')}
         >
-          본인 휴대폰 인증하여 아이디 찾기
+          본인 휴대폰 인증하여 비밀번호 재설정 하기
         </LoginButton>
         <div className={css.subTextWrap}>
           <div>

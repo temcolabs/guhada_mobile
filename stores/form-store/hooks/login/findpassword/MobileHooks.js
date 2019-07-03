@@ -1,6 +1,7 @@
 import Axios from 'axios';
 import Router from 'next/router';
 import API from 'lib/API';
+import { root } from 'store';
 
 export default {
   onInit() {
@@ -33,7 +34,7 @@ export default {
           form.$('verificationNumber').validate();
           Router.push('/login/findpasswordresult');
         } else {
-          form.$('verificationNumber').invalidate(data.data.result);
+          root.toast.getToast(data.data.result);
         }
       });
   },

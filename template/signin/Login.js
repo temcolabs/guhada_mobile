@@ -14,7 +14,10 @@ import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props
 import GoogleLogin from 'react-google-login';
 import KakaoLogin from 'react-kakao-login';
 import NaverLogin from 'components/login/NaverLogin';
-import { ErrorToast } from 'components/common/errorToast';
+import SaveIdCheckBox from 'components/login/SaveIdCheckBox';
+import Cookies from 'js-cookie';
+
+let userId = Cookies.get('userId');
 
 @inject('login')
 @observer
@@ -23,12 +26,32 @@ class Login extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { checkSaveId: userId ? true : false };
   }
+
+  componentDidMount() {
+    let { form } = this.props;
+    if (this.state.checkSaveId) {
+      form.$('email').set(userId);
+    }
+  }
+
+  onChangeSaveId = e => {
+    this.setState({
+      checkSaveId: !this.state.checkSaveId,
+    });
+  };
 
   render() {
     const { form, login } = this.props;
+    let { checkSaveId } = this.state;
     let value = form.get('value');
+
+    if (checkSaveId === true) {
+      Cookies.set('userId', value.email);
+    } else {
+      Cookies.remove('userId');
+    }
 
     return (
       <DefaultLayout pageTitle={'로그인'}>
@@ -52,8 +75,14 @@ class Login extends React.Component {
               <LoginInput field={form.$('password')} />
             </div>
             <div className={css.checkWrap}>
-              <LoginCheckBox id={'autoLogin'}>자동로그인</LoginCheckBox>
-              <LoginCheckBox id={'save-id'}>아이디저장</LoginCheckBox>
+              {/* <LoginCheckBox id={'autoLogin'}>자동로그인</LoginCheckBox> */}
+              <SaveIdCheckBox
+                id={'save-id'}
+                onChange={this.onChangeSaveId}
+                checked={this.state.checkSaveId}
+              >
+                아이디저장
+              </SaveIdCheckBox>
               <LinkRoute>
                 <a className={css.nomember__order}>비회원 주문조회</a>
               </LinkRoute>
