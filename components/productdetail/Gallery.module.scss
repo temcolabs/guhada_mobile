@@ -1,7 +1,23 @@
+@import '~slick-carousel/slick/slick.css';
+@import '~slick-carousel/slick/slick-theme.css';
 .detail__gallery {
+  position: relative;
   width: 100%;
-
-  img {
-    width: 100%;
+  div {
+    img {
+      width: 100%;
+    }
+  }
+  .index__box {
+    position: absolute;
+    bottom: 4%;
+    right: 4%;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 5px 9px;
+    font-size: 12px;
+    border-radius: 15px;
+    color: #fff;
+    font-weight: 500;
+    letter-spacing: 1px;
   }
 }

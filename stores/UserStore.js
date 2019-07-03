@@ -15,6 +15,8 @@ export default class UserStore {
     }
   }
 
+  actionAfterUserInfoFetched = []; // 사용자 정보 가져오기 완료되었을 때 실행할 함수
+
   @observable userInfo = {
     address: '',
     birth: '',
@@ -23,7 +25,7 @@ export default class UserStore {
     email: '',
     emailVerify: false,
     gender: '',
-    id: -1,
+    id: null,
     mobile: '',
     name: '',
     nickname: '',
@@ -43,8 +45,6 @@ export default class UserStore {
   @action
   getUserInfo = async ({ userId = '' }) => {
     console.group(`getUserInfo`);
-    console.log(`userId`, userId);
-
     try {
       const { data } = await API.user.get(`/users/${userId}`);
 
@@ -52,12 +52,27 @@ export default class UserStore {
         console.dir(data.data); // userInfo
         this.userInfo = data.data;
         localStorage.set(key.GUHADA_USERINFO, toJS(this.userInfo), 60);
+
+        while (this.actionAfterUserInfoFetched.length > 0) {
+          const cb = this.actionAfterUserInfoFetched.pop();
+
+          if (typeof cb === 'function') {
+            cb();
+          }
+        }
       }
     } catch (e) {
       console.error(e);
     } finally {
       console.groupEnd(`getUserInfo`);
     }
+  };
+
+  @action
+  addFetched = fn => {
+    this.actionAfterUserInfoFetched = this.actionAfterUserInfoFetched.concat(
+      fn
+    );
   };
 
   /**

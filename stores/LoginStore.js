@@ -274,7 +274,7 @@ export default class LoginStore {
           Cookies.set(key.ACCESS_TOKEN, data.data.accessToken);
           Cookies.set(key.REFRESH_TOKEN, data.data.refreshToken);
 
-          root.login.handleLoginSuccess({
+          this.root.login.handleLoginSuccess({
             accessToken: data.data.accessToken,
             refreshToken: data.data.refreshToken,
             expiresIn: data.data.expiresIn,

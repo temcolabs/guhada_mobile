@@ -1,10 +1,5 @@
 import React from 'react';
 import { observable, action, toJS } from 'mobx';
-import Cookies from 'js-cookie';
-import Router from 'next/router';
-import API from 'lib/API';
-import qs from 'qs';
-import { loginStatus } from 'constant';
 import { isServer } from 'lib/isServer';
 
 export default class ProductOptionStore {
@@ -24,132 +19,6 @@ export default class ProductOptionStore {
   @observable benefitToggle = false;
   @observable quantityMinusBtn = '/static/icon/quantity_minus_off.png';
   @observable quantityPlusBtn = '/static/icon/quantity_plus_on.png';
-  @observable associatedProduct = [];
-  @observable shoppingCartSuccess = false;
-
-  @action
-  setShoppingCart = () => {
-    if (this.root.login.loginStatus === loginStatus.LOGIN_DONE) {
-      if (this.options.selectedOption) {
-        API.order
-          .post(
-            `/cart/addCartItem`,
-            qs.stringify({
-              dealId: this.root.productdetail.deals.dealsId,
-              dealOptionId: this.options.selectedOption.id,
-              quantity: this.options.selectedQuantity,
-            }),
-            {
-              headers: {
-                'content-type': 'application/x-www-form-urlencoded',
-              },
-            }
-          )
-          .then(res => {
-            let data = res.data;
-            if (data.resultCode === 200) {
-              API.product
-                .get(
-                  `/deals`,
-                  qs.stringify({
-                    brandId: this.root.productdetail.deals.brandId,
-                    pageIndex: 0,
-                    unitPerPage: 3,
-                  }),
-                  {
-                    headers: {
-                      'content-type': 'application/x-www-form-urlencoded',
-                    },
-                  }
-                )
-                .then(res => {
-                  let data = res.data;
-                  if (data.resultCode === 200) {
-                    this.associatedProduct = data.data;
-                    this.shoppingCartSuccess = true;
-                  }
-                });
-            }
-          })
-          .catch(err => {
-            if (this.root.login.loginStatus === 'logout') {
-              this.root.alert.showAlert({
-                content: '로그인 을 해주세요.',
-              });
-            } else {
-              this.root.alert.showAlert({
-                content: '서버 에러 ' + err,
-              });
-            }
-          });
-      } else {
-        this.root.alert.showAlert({
-          content: '옵션을 선택 해주세요.',
-        });
-      }
-    } else {
-      this.root.alert.showAlert({
-        content: '로그인 을 해주세요.',
-      });
-    }
-  };
-
-  @action
-  immediatePurchase = () => {
-    if (this.root.login.loginStatus === loginStatus.LOGIN_DONE) {
-      if (this.options.selectedOption) {
-        API.order
-          .post(
-            `/cart/addCartItem`,
-            qs.stringify({
-              dealId: this.root.productdetail.deals.dealsId,
-              dealOptionId: this.options.selectedOption.id,
-              quantity: this.options.selectedQuantity,
-            }),
-            {
-              headers: {
-                'content-type': 'application/x-www-form-urlencoded',
-              },
-            }
-          )
-          .then(res => {
-            let data = res.data;
-            if (data.resultCode === 200) {
-              Router.push({
-                pathname: '/orderpayment',
-                query: {
-                  cartList: data.data.cartItemId,
-                },
-              });
-            }
-          })
-          .catch(err => {
-            if (this.root.login.loginStatus === 'logout') {
-              this.root.alert.showAlert({
-                content: '로그인 을 해주세요.',
-              });
-            } else {
-              this.root.alert.showAlert({
-                content: '서버 에러 ' + err,
-              });
-            }
-          });
-      } else {
-        this.root.alert.showAlert({
-          content: '옵션 을 선택해주세요.',
-        });
-      }
-    } else {
-      this.root.alert.showAlert({
-        content: '로그인 을 해주세요.',
-      });
-    }
-  };
-
-  @action
-  shoppingCartSuccessModalClose = () => {
-    this.shoppingCartSuccess = false;
-  };
 
   @action
   getOptions = () => {
@@ -282,38 +151,6 @@ export default class ProductOptionStore {
       this.options.selectedQuantity = 1;
       this.getTotalPrice();
     }
-  };
-
-  @action
-  quantityMinusHoverOn = () => {
-    if (this.options.selectedQuantity === 1) {
-      return false;
-    }
-    this.quantityMinusBtn = '/static/icon/quantity_minus_hover.png';
-  };
-
-  @action
-  quantityMinusHoverOut = () => {
-    if (this.options.selectedQuantity === 1) {
-      return false;
-    }
-    this.quantityMinusBtn = '/static/icon/quantity_minus_on.png';
-  };
-
-  @action
-  quantityPlusHoverOn = () => {
-    if (this.options.selectedQuantity >= this.options.selectedOption.stock) {
-      return false;
-    }
-    this.quantityPlusBtn = '/static/icon/quantity_plus_hover.png';
-  };
-
-  @action
-  quantityPlusHoverOut = () => {
-    if (this.options.selectedQuantity >= this.options.selectedOption.stock) {
-      return false;
-    }
-    this.quantityPlusBtn = '/static/icon/quantity_plus_on.png';
   };
 
   @action

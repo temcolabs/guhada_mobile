@@ -1,135 +1,115 @@
 @import 'styles/mixins/index';
-.modalWrap {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 999;
+$MODAL_BODY_WIDTH: 360px;
 
-  .modal {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 600px;
-    height: auto;
-    padding: 30px;
-    box-sizing: border-box;
-    background: #fff;
+.modal {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  min-width: $MODAL_BODY_WIDTH;
+  max-width: 1024px;
+  padding: 40px 20px 0;
+  border: none;
+  background-color: #fff;
+  font-size: 16px;
+  border-radius: 2px;
 
-    .modalClose {
-      position: relative;
-      text-align: right;
-      cursor: pointer;
-      img {
-        width: 29px;
-        height: 29px;
-      }
+  .modalClose {
+    position: relative;
+    text-align: right;
+    cursor: pointer;
+    img {
+      width: 29px;
+      height: 29px;
     }
+  }
 
-    .wrapTitle {
-      text-align: center;
-      font-size: 26px;
-      font-weight: normal;
+  .wrapTitle {
+    text-align: center;
+    font-size: 26px;
+    font-weight: normal;
+    color: #111;
+  }
+
+  .associatedProduct {
+    margin-top: 54px;
+
+    .associatedProductTitle {
+      font-size: 16px;
       color: #111;
+      font-weight: 500;
     }
 
-    .associatedProduct {
-      margin-top: 54px;
-
-      .associatedProductTitle {
-        font-size: 16px;
-        color: #111;
-        font-weight: 500;
-      }
-
-      ul {
-        @include clearfix;
-        li {
-          cursor: pointer;
-          list-style: none;
-          margin-top: 17px;
-          float: left;
-          margin-left: 12px;
-          width: 172px;
-          &:first-child {
-            margin-left: 0;
-          }
-          .associatedItemImage {
-            width: 172px;
-            height: 227px;
-
-            img {
-              width: 100%;
-            }
-          }
-
-          .brandName {
-            margin-top: 10px;
-            @include clearfix;
-            span {
-              height: 22px;
-              &:first-child {
-                display: block;
-                float: left;
-                font-size: 15px;
-                color: #111;
-                font-weight: 500;
-                max-width: 130px;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                overflow: hidden;
-              }
-              &:last-child {
-                float: left;
-                display: block;
-                font-size: 11px;
-                font-weight: normal;
-                margin-left: 5px;
-                line-height: 26px;
-              }
-            }
-          }
-
-          .productName {
-            margin-top: 3px;
-            font-size: 12px;
-            color: #111;
-            font-weight: normal;
-            max-width: 130px;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-          }
-        }
-      }
-    }
-
-    .btnGroup {
-      display: block;
-      margin-top: 50px;
-      box-sizing: border-box;
-      div {
-        width: 265px;
-        height: 60px;
-        display: inline-block;
-        text-align: center;
-        line-height: 60px;
-        font-size: 16px;
-        color: #fff;
+    ul {
+      @include clearfix;
+      li {
         cursor: pointer;
+        list-style: none;
+        margin-top: 17px;
+        float: left;
+        margin-left: 8px;
+        width: 100px;
         &:first-child {
-          background: #444;
+          margin-left: 0;
         }
-        &:last-child {
-          margin-left: 10px;
-          background: #5d2ed1;
+        .associatedItemImage {
+          width: 100px;
+          height: 130px;
+
+          img {
+            width: 100%;
+          }
+        }
+
+        .brandName {
+          margin-top: 10px;
+          @include clearfix;
+          span {
+            height: 22px;
+            &:first-child {
+              display: block;
+              float: left;
+              font-size: 15px;
+              color: #111;
+              font-weight: 500;
+              max-width: 130px;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              overflow: hidden;
+            }
+            &:last-child {
+              float: left;
+              display: block;
+              font-size: 11px;
+              font-weight: normal;
+              margin-left: 5px;
+              line-height: 26px;
+            }
+          }
+        }
+
+        .productName {
+          margin-top: 3px;
+          font-size: 12px;
+          color: #111;
+          font-weight: normal;
+          max-width: 130px;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
         }
       }
     }
+  }
+
+  .btnGroup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+    box-sizing: border-box;
+    background: #5d2ed1;
+    width: 100%;
+    height: 60px;
+    color: #fff;
   }
 }

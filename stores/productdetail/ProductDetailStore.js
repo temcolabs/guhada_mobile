@@ -1,21 +1,16 @@
 import { observable, action, toJS } from 'mobx';
 import Axios from 'axios';
 import Cookies from 'js-cookie';
-import Router from 'next/router';
-import { configureActions } from '@storybook/addon-actions/dist/preview';
 import API from 'lib/API';
 import { key } from 'constant';
 
 const isServer = typeof window === 'undefined';
 export default class ProductDetailStore {
+  constructor(root) {
+    if (!isServer) this.root = root;
+  }
   @observable deals;
   @observable dealsStatus = false;
-  @observable detailGallery = {
-    moveIndex: 0,
-    zoomImg: undefined,
-    leftArrow: false,
-    rightArrow: true,
-  };
 
   @observable dealsTag = [];
   @observable seletctedTab = 'detail';
@@ -29,10 +24,7 @@ export default class ProductDetailStore {
   @observable dealsOfRecommend;
   @observable dealsOfSellerStore;
 
-  constructor(root) {
-    if (!isServer) this.root = root;
-  }
-
+  actionAfterUserInfoFetched = [];
   @action
   getDeals = id => {
     API.product.get(`/deals/ ${id}`).then(res => {
@@ -42,6 +34,16 @@ export default class ProductDetailStore {
         this.root.productoption.getShipExpenseType();
         this.root.productoption.getOptions();
         this.getDealsTag();
+
+        console.log(this.deals, '상세페이지 데이터');
+
+        while (this.actionAfterUserInfoFetched.length > 0) {
+          const cb = this.actionAfterUserInfoFetched.pop();
+
+          if (typeof cb === 'function') {
+            cb();
+          }
+        }
 
         this.dealsStatus = true;
 
@@ -64,6 +66,13 @@ export default class ProductDetailStore {
         this.getBlockChainData();
       }
     });
+  };
+
+  @action
+  addFetched = fn => {
+    this.actionAfterUserInfoFetched = this.actionAfterUserInfoFetched.concat(
+      fn
+    );
   };
 
   @observable blockChainData;
@@ -95,54 +104,6 @@ export default class ProductDetailStore {
     this.setTableData(this.deals.productNotifies, this.notifiesTable);
     // 상품 정보 > 필터 목록
     this.setTableData(this.deals.filters, this.filtersTable);
-  };
-
-  @action
-  pagerLeftMove = () => {
-    let sNum = this.deals.imageUrls.length;
-    if (sNum - this.detailGallery.moveIndex <= sNum) {
-      return false;
-    } else {
-      if (this.detailGallery.moveIndex === -1) {
-        this.detailGallery.leftArrow = false;
-        this.detailGallery.moveIndex = this.detailGallery.moveIndex + 1;
-      } else {
-        this.detailGallery.leftArrow = true;
-        this.detailGallery.rightArrow = true;
-        this.detailGallery.moveIndex = this.detailGallery.moveIndex + 1;
-      }
-    }
-  };
-
-  @action
-  pagerRightMove = () => {
-    let sNum = this.deals.imageUrls.length;
-    if (sNum + this.detailGallery.moveIndex <= 6) {
-      return false;
-    } else {
-      if (6 - this.detailGallery.moveIndex === sNum - 1) {
-        this.detailGallery.rightArrow = false;
-        this.detailGallery.moveIndex = this.detailGallery.moveIndex - 1;
-      } else {
-        this.detailGallery.rightArrow = true;
-        this.detailGallery.leftArrow = true;
-        this.detailGallery.moveIndex = this.detailGallery.moveIndex - 1;
-      }
-    }
-  };
-  @action
-  zoomImg = src => {
-    this.detailGallery.zoomImg = src;
-  };
-
-  @action
-  setProductGalleryInit = () => {
-    this.detailGallery = {
-      moveIndex: 0,
-      zoomImg: undefined,
-      leftArrow: false,
-      rightArrow: true,
-    };
   };
 
   @action
@@ -258,7 +219,6 @@ export default class ProductDetailStore {
   getInquiry = (page, id, status, myinquiry = this.inquiryMy) => {
     this.inquiryMy = myinquiry;
     this.inquiryStatus = status;
-    let accessToken = Cookies.get(key.ACCESS_TOKEN);
 
     API.claim
       .get('/products/' + id + '/inquiries', {
@@ -316,9 +276,6 @@ export default class ProductDetailStore {
   @action
   getFollowers = () => {
     // TODO: 로그인 로직 나올 시 수정 필요
-
-    // this.root.login.decodeLoginData(Cookies.get('accessToken'));
-
     let loginInfo = this.root.login.loginInfo;
 
     if (loginInfo.userId !== undefined) {
@@ -400,8 +357,6 @@ export default class ProductDetailStore {
 
   @action
   setNewInquiry = (id, closeModal) => {
-    let accessToken = Cookies.get(key.ACCESS_TOKEN);
-
     API.claim
       .post('/products/' + id + '/inquiries', {
         content: this.inquiryContents,
@@ -422,9 +377,7 @@ export default class ProductDetailStore {
     if (this.deals.sellerId && this.deals.shipping.claimAddressId) {
       API.user
         .get(
-          `/sellers/${this.deals.sellerId}/departures-and-returns/${
-            this.deals.shipping.claimAddressId
-          }`
+          `/sellers/${this.deals.sellerId}/departures-and-returns/${this.deals.shipping.claimAddressId}`
         )
         .then(res => {
           let data = res.data;
@@ -464,9 +417,7 @@ export default class ProductDetailStore {
   getDealsOfRecommend = () => {
     API.product
       .get(
-        `/deals?division=RECOMMEND&pageIndex=0&unitPerPage=3&sellerId=${
-          this.deals.sellerId
-        }`
+        `/deals?division=RECOMMEND&pageIndex=0&unitPerPage=3&sellerId=${this.deals.sellerId}`
       )
       .then(res => {
         let data = res.data;

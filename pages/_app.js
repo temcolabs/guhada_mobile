@@ -6,11 +6,12 @@ import '../style.scss';
 import ReactModal from 'react-modal';
 import moment from 'moment';
 import AlertConductor from 'components/common/modal/AlertConductor';
+import AssociatedProduct from 'components/common/modal/AssociatedProduct';
 import 'react-dates/initialize';
 import routes from '../routes';
 import pathMatch from 'path-match';
 import Axios from 'axios';
-import { loadScript } from 'lib/dom';
+// import { loadScript } from 'lib/dom';
 
 const match = pathMatch();
 
@@ -66,27 +67,27 @@ class MarketPlatform extends App {
   }
 
   componentDidMount() {
-    this.loadPaymentScript();
+    // this.loadPaymentScript();
   }
 
   /**
    * 결제 모듈 로드. 리소스가 사용 가능한지 확인하고 불러온다.
    */
-  loadPaymentScript = () => {
-    const url = 'https://devstdpay.lpay.com:420/stdjs/INIStdPay_dev.js';
+  // loadPaymentScript = () => {
+  //   const url = 'https://devstdpay.lpay.com:420/stdjs/INIStdPay_dev.js';
 
-    Axios.request({
-      method: 'GET',
-      url: 'https://devstdpay.lpay.com:420/stdjs/INIStdPay_dev.js',
-      timeout: 1000,
-    })
-      .then(res => {
-        loadScript(url);
-      })
-      .catch(e => {
-        console.error('[INIStdPay_dev.js 불러오기 실패]', e);
-      });
-  };
+  //   Axios.request({
+  //     method: 'GET',
+  //     url: 'https://devstdpay.lpay.com:420/stdjs/INIStdPay_dev.js',
+  //     timeout: 1000,
+  //   })
+  //     .then(res => {
+  //       loadScript(url);
+  //     })
+  //     .catch(e => {
+  //       console.error('[INIStdPay_dev.js 불러오기 실패]', e);
+  //     });
+  // };
 
   render() {
     const { Component, initialProps, router, params } = this.props;
@@ -103,6 +104,8 @@ class MarketPlatform extends App {
             <Component {...initialProps} />
 
             <AlertConductor />
+
+            <AssociatedProduct />
           </>
         </Provider>
       </Container>

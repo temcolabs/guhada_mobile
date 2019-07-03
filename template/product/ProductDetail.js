@@ -1,11 +1,10 @@
 import React from 'react';
 import DefaultLayout from 'components/layout/DefaultLayout';
 import Gallery from 'components/productdetail/Gallery';
-import DetailProductInfo from 'components/productdetail/DetailProductInfo';
-import { observer, inject } from 'mobx-react';
+import ProductDetailName from 'components/productdetail/ProductDetailName';
+import ProductDetailOption from 'components/productdetail/ProductDetailOption';
+import CartAndPurchaseButton from 'components/productdetail/CartAndPurchaseButton';
 
-@inject('login')
-@observer
 class ProductDetail extends React.Component {
   static propTypes = {};
 
@@ -21,7 +20,13 @@ class ProductDetail extends React.Component {
         <Gallery />
 
         {/* 상세 상품 정보 */}
-        <DetailProductInfo />
+        <ProductDetailName />
+
+        {/* 상세 상품 옵션 */}
+        <ProductDetailOption />
+
+        {/* 상품 상세 장바구니 , 구매하기 버튼 */}
+        <CartAndPurchaseButton />
       </DefaultLayout>
     );
   }

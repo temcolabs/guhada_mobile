@@ -1,0 +1,35 @@
+.wrap {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  .btnGroup {
+    display: flex;
+    div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 60px;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 500;
+    }
+    .shoppingCart__btn {
+      width: 50%;
+      background: #444;
+    }
+    .buy__btn {
+      width: 50%;
+      background: #5d2ed1;
+    }
+
+    .reEntry__btn {
+      width: 50%;
+      background: #444;
+    }
+    .soldout {
+      width: 50%;
+      background: #ccc;
+    }
+  }
+}

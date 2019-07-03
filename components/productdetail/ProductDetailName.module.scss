@@ -1,0 +1,88 @@
+.wrap {
+  margin-top: 7%;
+  padding: 0 20px 7.5%;
+  border-bottom: 8px solid #f9f9fa;
+  .inner__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+    .brandName {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      font-weight: bold;
+      color: #111;
+      .arrow {
+        width: 20px;
+        height: 20px;
+        margin-top: 2px;
+        background: url('/static/icon/detail_brand_arrow.png') no-repeat;
+        background-size: cover;
+        background-position: center;
+      }
+    }
+
+    .detail__number {
+      color: #aaa;
+      font-size: 12px;
+    }
+  }
+
+  .inner__middle {
+    margin-top: 12px;
+    .product__name {
+      font-size: 18px;
+      font-weight: 500;
+      color: #111;
+    }
+  }
+
+  .inner__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 15px;
+    .product__price__wrap {
+      display: flex;
+      align-items: center;
+      .product__discount__price {
+        font-size: 22px;
+        font-weight: bold;
+        color: #111;
+      }
+
+      .product__sell__price {
+        margin-left: 12px;
+        font-size: 11px;
+        color: #777;
+        text-decoration: line-through;
+      }
+
+      .product__discount__rate {
+        margin-left: 12px;
+        color: #5d2ed1;
+        font-size: 14px;
+        font-weight: bold;
+      }
+    }
+
+    .utility__wrap {
+      display: flex;
+
+      .share__btn {
+        margin-right: 12px;
+        img {
+          width: 30px;
+          height: 30px;
+        }
+      }
+      .like__btn {
+        img {
+          width: 30px;
+          height: 30px;
+        }
+      }
+    }
+  }
+}
