@@ -1,0 +1,31 @@
+{
+  "presets": ["@babel/env", "@babel/preset-react"],
+  "plugins": [
+    [
+      "inline-dotenv",
+      {
+        "path": "./.env",
+        "systemVar": "all"
+      }
+    ],
+    ["@babel/plugin-proposal-decorators", { "legacy": true }],
+    ["@babel/plugin-proposal-class-properties", { "loose": true }],
+    [
+      "module-resolver",
+      {
+        "root": ["./"],
+        "alias": {
+          "components": "./components",
+          "constant": "./constant",
+          "js": "./js",
+          "lib": "./lib",
+          "static": "./static",
+          "stores": "./stores",
+          "styles": "./styles",
+          "template": "./template",
+          ".storybook": "./.storybook"
+        }
+      }
+    ]
+  ]
+}
