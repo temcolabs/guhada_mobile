@@ -22,13 +22,23 @@ export default class BrandsStore {
 
   @observable selectedBrandsKey = [];
   @observable filterLanguage = 'en';
+  /**
+   *
+   * mobile 추가 param
+   */
+  @observable selectedLanguage = 'english';
 
   constructor(root) {
-    this.getBrands();
     if (!isServer) this.root = root;
 
-    if (this.root) this.setFilterLabel();
+    this.setFilterLabel();
+    this.getBrands();
   }
+
+  @action
+  setSelectedLanguage = language => {
+    this.selectedLanguage = language;
+  };
 
   @action
   setBrands = (brands, selectedBrands) => {
@@ -62,6 +72,7 @@ export default class BrandsStore {
       let data = res.data;
       if (data.resultCode === 200) {
         this.setBrands(data.data, data.data['ALL']);
+        this.setGroupBrandList(data.data['ALL']);
         if (brand) {
           this.getSelectedTitle(brand);
 
@@ -111,7 +122,6 @@ export default class BrandsStore {
       filter = 'ALL';
     }
 
-    // console.log(filter);
     if (this.brands[filter]) {
       selectedBrands = this.brands[filter];
 
@@ -124,9 +134,12 @@ export default class BrandsStore {
     this.setBrands(this.brands, selectedBrands);
   };
 
+  /**
+   * 모바일 브랜드 검색을 위한 function
+   */
   @action
   searchBrand = search => {
-    let selectedBrands = [];
+    let selectedBrands = {};
     let searchText = search;
     var regKorean = /^[\가-\힣+]*$/;
 
@@ -139,37 +152,43 @@ export default class BrandsStore {
     }
 
     if (is_hangul_char(search)) {
-      this.setFilterLanguage('ko');
+      this.koFilter.forEach(element => {
+        selectedBrands[element] = [];
+      });
 
+      this.setSelectedLanguage('korean');
       if (!regKorean.test(searchText)) {
         searchText = searchText.substring(0, searchText.length - 1);
       }
 
-      // console.log(this.brands['ALL']);
-      this.brands['ALL'].sort(function(a, b) {
-        return a.nameKo < a.nameKo ? -1 : a.nameKo > b.nameKo ? 1 : 0;
+      this.koFilter.forEach(kobind => {
+        this.originalKoList[kobind].forEach(element => {
+          if (element['nameKo'].indexOf(searchText) !== -1) {
+            selectedBrands[kobind].push(element);
+          }
+        });
       });
-      // console.log(this.brands['ALL']);
 
-      this.brands['ALL'].forEach(element => {
-        if (element['nameKo'].indexOf(searchText) != -1) {
-          selectedBrands.push(element);
-        }
-      });
+      this.koList = selectedBrands;
     } else {
-      this.setFilterLanguage('en');
-      this.brands['ALL'].forEach(element => {
-        if (
-          element['nameEn'].toLowerCase().indexOf(searchText.toLowerCase()) !=
-          -1
-        ) {
-          selectedBrands.push(element);
-        }
+      this.enFilter.forEach(element => {
+        selectedBrands[element] = [];
       });
-    }
 
-    this.setFilter('ALL');
-    this.setBrands(this.brands, selectedBrands);
+      this.setSelectedLanguage('english');
+      this.enFilter.forEach(enbind => {
+        this.originalEnList[enbind].forEach(element => {
+          if (
+            element['nameEn'].toLowerCase().indexOf(searchText.toLowerCase()) !=
+            -1
+          ) {
+            selectedBrands[enbind].push(element);
+          }
+        });
+      });
+
+      this.enList = selectedBrands;
+    }
   };
 
   @action getTitle = id => {
@@ -195,10 +214,16 @@ export default class BrandsStore {
       });
   };
 
-  @observable enFilter = {};
+  @observable enFilter = [];
   @observable enList = [];
-  @observable koFilter = {};
+  @observable koFilter = [];
   @observable koList = [];
+
+  /**
+   * mobile 에서 추가로 정의 된 데이터
+   */
+  @observable originalEnList = [];
+  @observable originalKoList = [];
 
   @action
   setFilterLabel = () => {
@@ -280,11 +305,13 @@ export default class BrandsStore {
   @action
   setEnList = list => {
     this.enList = list;
+    this.originalEnList = list;
   };
 
   @action
   setKoList = list => {
     this.koList = list;
+    this.originalKoList = list;
   };
 
   // 구조화 시킨 오리지널 리스트

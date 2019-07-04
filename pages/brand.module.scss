@@ -1,0 +1,133 @@
+.headerWrap {
+    width: 100%;
+    height: 70px;
+    padding: 15px 5px 0 20px;
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    background-color: #ffffff;
+    z-index: 100;
+
+    input[type='text'] {
+        width: 205px;
+        height: 33px;
+        border-bottom: 1px solid #111111;
+        background-image: url('/static/icon/zoom-icon.png');
+        background-size: 16px;
+        background-repeat: no-repeat;
+        background-position: right center;
+
+    }
+
+    & .headerAlphabet {
+        display: flex;
+        align-items: center;
+        height: 30px;
+
+        & .alphabetItem {
+            width: 60px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: bold;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: 1.15;
+            letter-spacing: normal;
+            text-align: left;
+            color: #d9dde0;
+
+
+            &.selected {
+                color: #333333;
+            }
+        }
+
+        & .alphabetLine {
+            height: 10px;
+            border-left: solid 1px #d9dde0;
+        }
+    }
+}
+
+.brandWrap {
+    display: flex;
+    position: relative;
+    top: 70px;
+
+    & .brand {
+        padding-left: 20px;
+        width: calc(100% - 18px - 8px);
+    }
+
+    & .filter {
+        width: 18px;
+        margin-left: 8px;
+        margin-right: 14px;
+        position: fixed;
+        top: 80px;
+        right: 0;
+
+        & .item {
+            width: 18px;
+            height: 18px;
+            font-size: 10px;
+            font-weight: 500;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: 1.9;
+            letter-spacing: normal;
+            text-align: center;
+            color: #d9dde0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &.selected {
+                color: #5d2ed1;
+            }
+        }
+
+        & .filterDot {
+            width: 2px;
+            height: 2px;
+            background-color: #d9dde0;
+            margin: 0 auto;
+
+            &:last-child {
+                display: none;
+            }
+        }
+    }
+
+    & .languageIndex {
+        height: 37px;
+        padding-top: 5px;
+        font-size: 18px;
+        font-weight: 500;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.17;
+        letter-spacing: normal;
+        text-align: left;
+        color: #5d2ed1;
+    }
+
+    & .languageItem {
+        display: flex;
+        align-items: center;
+        height: 37px;
+        font-size: 14px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.14;
+        letter-spacing: normal;
+        text-align: left;
+        color: #333333;
+        padding-left: 30px;
+    }
+}
