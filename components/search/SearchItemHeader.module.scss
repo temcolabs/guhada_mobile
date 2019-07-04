@@ -1,0 +1,24 @@
+.wrap {
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.25;
+    color: #333333;
+
+    & .order {
+        margin-left: 20px;
+    }
+
+    & .detail {
+
+        margin-right: 20px;
+        background-image: url('/static/icon/fillter_icon.png');
+        background-size: 16px 14px;
+        background-repeat: no-repeat;
+        background-position: right;
+        padding-right: 21px;
+    }
+}

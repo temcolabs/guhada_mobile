@@ -1,0 +1,136 @@
+.wrap {
+    width: calc(50% - 5px);
+    float: left;
+    overflow: hidden;
+    margin-right: 10px;
+    margin-bottom: 40px;
+
+    &:nth-child(2n) {
+        margin-right: 0;
+    }
+
+    & .imageWrap {
+        position: relative;
+        width: 100%;
+        height: 0;
+        overflow: hidden;
+        padding-bottom: 124.84%;
+    }
+
+    & .color {
+        display: flex;
+        align-content: flex-start;
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        flex-direction: column;
+        flex-wrap: wrap;
+        width: 100px;
+        height: 100px;
+        justify-content: flex-end;
+        z-index: 100;
+
+        & .box {
+            width: 12px;
+            height: 12px;
+            margin-right: 5px;
+            margin-top: 6px;
+            border-radius: 12px;
+            border: 1px solid #ddd;
+        }
+    }
+
+    & .imageUrl {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    & .detailWrap {
+        height: 98px;
+        padding: 15px 0 0 10px;
+
+    }
+
+    & .brandName {
+        font-size: 13px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.48;
+        letter-spacing: normal;
+        text-align: left;
+        color: #111111;
+
+
+        & .productSeason {
+            font-size: 12px;
+            font-weight: normal;
+            color: #777777;
+            margin-left: 5px;
+        }
+    }
+
+    & .productName {
+        height: 33px;
+        font-size: 12px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.33;
+        letter-spacing: normal;
+        text-align: left;
+        color: #111111;
+        margin-top: 6px;
+    }
+
+    & .priceWrap {
+        margin-top: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        line-height: 1;
+
+        & .discountWrap {
+            display: flex;
+            align-items: center;
+        }
+
+        & .sellPrice {
+            font-size: 15px;
+            font-weight: bold;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: 1;
+            letter-spacing: normal;
+            text-align: left;
+            color: #111111;
+            margin-right: 5px;
+        }
+
+        & .discountPrice {
+            font-size: 11px;
+            font-weight: normal;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: 1.36;
+            letter-spacing: -0.28px;
+            text-align: left;
+            color: #777777;
+            text-decoration-line: line-through;
+        }
+
+        & .discountRate {
+            font-size: 13px;
+            font-weight: bold;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: 1.15;
+            letter-spacing: normal;
+            text-align: left;
+            color: #5d2ed1;
+            margin-right: 10px;
+        }
+    }
+}

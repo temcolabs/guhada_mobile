@@ -5,7 +5,7 @@ import Form from '../../stores/form-store/_.forms';
 import FindId from 'template/signin/FindId';
 
 @observer
-export class findid extends Component {
+class findid extends Component {
   render() {
     Form.idFind.clear();
     return (

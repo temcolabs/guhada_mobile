@@ -18,6 +18,7 @@ export default class SearchItemStore {
   @observable itemStatus = false;
 
   @observable hover = [false, false, false];
+  @observable deals = [];
 
   @action
   toggleHover = i => {
@@ -39,8 +40,53 @@ export default class SearchItemStore {
     // this.getTreeDataForFilter();
   }
 
+  @observable scrollPosition;
+  @observable dealsPage = 0;
+
+  @observable infinityStauts = true;
+  @observable endPage;
+
+  @action
+  listenToScroll = () => {
+    const winScroll =
+      document.body.scrollTop || document.documentElement.scrollTop;
+
+    const height =
+      document.documentElement.scrollHeight -
+      document.documentElement.clientHeight;
+
+    const scrolled = winScroll / height;
+
+    this.scrollPosition = scrolled;
+    let query = Router.router.query;
+
+    if (
+      this.scrollPosition > 0.7 &&
+      this.infinityStauts === true &&
+      this.dealsPage !== this.endPage
+    ) {
+      this.infinityStauts = false;
+      this.dealsPage += 1;
+
+      this.getSearchByUri(
+        query.brand,
+        query.category,
+        this.dealsPage,
+        query.unitPerPage,
+        query.order,
+        query.filter,
+        query.subcategory,
+        query.enter,
+        query.keyword
+      );
+    }
+  };
+
   @action
   setItem = item => {
+    let newDeals = this.deals;
+
+    this.deals = newDeals.concat(item.deals);
     this.item = item;
   };
 
@@ -162,7 +208,7 @@ export default class SearchItemStore {
     brandIds,
     categoryIds,
     page,
-    unitPerPage,
+    unitPerPage = 20,
     order,
     filterData,
     subcategory,
@@ -315,6 +361,14 @@ export default class SearchItemStore {
             let data = res.data;
             if (data.resultCode === 200) {
               this.setItem(data.data);
+              /**
+               * mobile 작업
+               */
+              this.infinityStauts = true;
+              this.setHeaderCategory(categoryIds);
+              this.endPage = Math.floor(data.data.countOfDeals / 20) + 1;
+              ////////////////////////////////////
+
               // console.log(hierarchy, "hierarchy");
               if (categoryIds)
                 this.setTitle(
@@ -417,7 +471,7 @@ export default class SearchItemStore {
                 // hierarchy === false 서버로부터 온 카테고리 데이타가 없음
                 if (hierarchy) {
                   if (hierarchy.length === 1) {
-                    console.log(toJS(this.treeDataForFilter));
+                    // console.log(toJS(this.treeDataForFilter));
                     this.setKeyArray(
                       getCategoryKeyArray(this.treeDataForFilter, hierarchy[0])
                     );
@@ -544,6 +598,14 @@ export default class SearchItemStore {
   @observable filterCategoryTitle = '';
   @observable filterCategoryList = [];
   // key 값(enter uri)을 받아서 rendering 할 category tree를 만드는 function
+
+  @observable headerCategory;
+  @action
+  setHeaderCategory = key => {
+    let filterCategory = this.treeDataForFilter;
+    this.headerCategory = toJS(getCategory(filterCategory, key)).children;
+    // console.log('setHeaderCategory', toJS(getCategory(filterCategory, key)));
+  };
 
   @action
   setCategoryTreeData = key => {
@@ -921,7 +983,7 @@ export default class SearchItemStore {
     category,
     brand,
     page,
-    unitPerPage,
+    unitPerPage = 20,
     order,
     filter,
     subcategory,
@@ -942,5 +1004,6 @@ export default class SearchItemStore {
         keyword: keyword,
       },
     });
+    this.deals = [];
   };
 }
