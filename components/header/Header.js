@@ -5,13 +5,14 @@ import HeaderMenu from './HeaderMenu';
 
 export default function Header({ children }) {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
+
   return (
     <>
       <div className={css.wrap}>
         <button
           className={css.menuButton}
           onClick={() => setIsMenuVisible(true)}
-        ></button>
+        />
 
         {/* 페이지 타이틀 또는 로고 렌더링 */}
         {children ? (
@@ -22,12 +23,10 @@ export default function Header({ children }) {
           </Link>
         )}
 
-        <button className={css.searchButton} onClick={() => {}}></button>
-        <button className={css.cartButton} onClick={() => {}}></button>
+        <button className={css.searchButton} onClick={() => {}} />
+        <button className={css.cartButton} onClick={() => {}} />
       </div>
-      {isMenuVisible && (
-        <HeaderMenu onClose={() => setIsMenuVisible(false)}></HeaderMenu>
-      )}
+      {isMenuVisible && <HeaderMenu onClose={() => setIsMenuVisible(false)} />}
     </>
   );
 }

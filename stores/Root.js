@@ -5,13 +5,7 @@ import BrandsStore from './BrandsStore';
 import CategoryStore from './CategoryStore';
 import SearchStore from './SearchStore';
 import SearchItemStore from './SearchItemStore';
-<<<<<<< HEAD
-import ProductAddStore from './ProductAddStore';
 import ProductDetailStore from './productdetail/ProductDetailStore';
-=======
-
-import ProductDetailStore from './ProductDetailStore';
->>>>>>> 9b3f909bcfe2a269fb3492598e529d7000e8eb20
 import OrderPaymentStore from './orderpayment/OrderPaymentStore';
 import OrderPaymentSuccessStore from './OrderPaymentSuccessStore';
 import ShoppingCartStore from './ShoppingCartStore';
