@@ -68,8 +68,10 @@ export default class SearchItemStore {
       this.infinityStauts = false;
       this.dealsPage += 1;
 
+      let brand = JSON.parse('[' + query.brand + ']');
+
       this.getSearchByUri(
-        query.brand,
+        brand,
         query.category,
         this.dealsPage,
         query.unitPerPage,
@@ -238,13 +240,6 @@ export default class SearchItemStore {
       if (data.resultCode === 200) {
         this.locationFilter = data.data.categories;
 
-        // if (Number.isInteger(categoryIds)) {
-        //   this.treeDataForFilter = data.data.categories;
-        // } else if (enter === 'brand' || enter === 'keyword') {
-        // } else {
-        //   this.treeDataForFilter = data.data.categories;
-        // }
-
         if (enter === 'brand' || enter === 'keyword') {
         } else if (Number.isInteger(categoryIds)) {
           this.treeDataForFilter = data.data.categories;
@@ -365,7 +360,8 @@ export default class SearchItemStore {
                * mobile 작업
                */
               this.infinityStauts = true;
-              this.setHeaderCategory(categoryIds);
+              if (categoryIds) this.setHeaderCategory(categoryIds);
+
               this.endPage = Math.floor(data.data.countOfDeals / 20) + 1;
               ////////////////////////////////////
 
@@ -378,7 +374,7 @@ export default class SearchItemStore {
               if (enter === 'all') {
                 // this.toGetBrandFilter(categoryList);
                 // this.root.brands.brandsByCategoryFilter = data.data.brands;
-                this.root.brands.setGroupBrandList(data.data.brands);
+                // this.root.brands.setGroupBrandList(data.data.brands);
                 let keyArray;
 
                 this.treeDataForFilter.map(treeData => {
@@ -394,7 +390,7 @@ export default class SearchItemStore {
                 if (categoryList[0] === '') {
                   // this.toGetBrandFilter([]);
                   // this.root.brands.brandsByCategoryFilter = data.data.brands;
-                  this.root.brands.setGroupBrandList(data.data.brands);
+                  // this.root.brands.setGroupBrandList(data.data.brands);
                   this.treeDataForFilter = data.data.categories;
                   this.setCategoryTreeData('brand');
                   if (enter === 'keyword') {
@@ -416,7 +412,7 @@ export default class SearchItemStore {
                   console.log('keyword');
                   // this.toGetBrandFilter([]);
                   // this.root.brands.brandsByCategoryFilter = data.data.brands;
-                  this.root.brands.setGroupBrandList(data.data.brands);
+                  // this.root.brands.setGroupBrandList(data.data.brands);
                   this.treeDataForFilter = data.data.categories;
                   this.setCategoryTreeData('brand');
                   if (enter === 'keyword') {
@@ -438,7 +434,7 @@ export default class SearchItemStore {
                   // 브랜드에서 category 목록이 있을 경우
                   // 전체 브랜드 목록을 보여준다.
                   // this.root.brands.brandsByCategoryFilter = data.data.brands;
-                  this.root.brands.setGroupBrandList(data.data.brands);
+                  // this.root.brands.setGroupBrandList(data.data.brands);
                   this.setKeyArray(
                     getCategoryKeyArray(this.treeDataForFilter, hierarchy[1])
                   );
@@ -467,7 +463,7 @@ export default class SearchItemStore {
               } else {
                 // this.toGetBrandFilter(categoryList);
                 // this.root.brands.brandsByCategoryFilter = data.data.brands;
-                this.root.brands.setGroupBrandList(data.data.brands);
+                // this.root.brands.setGroupBrandList(data.data.brands);
                 // hierarchy === false 서버로부터 온 카테고리 데이타가 없음
                 if (hierarchy) {
                   if (hierarchy.length === 1) {
@@ -604,7 +600,6 @@ export default class SearchItemStore {
   setHeaderCategory = key => {
     let filterCategory = this.treeDataForFilter;
     this.headerCategory = toJS(getCategory(filterCategory, key)).children;
-    // console.log('setHeaderCategory', toJS(getCategory(filterCategory, key)));
   };
 
   @action
@@ -979,17 +974,17 @@ export default class SearchItemStore {
   };
 
   @action
-  toSearch = (
-    category,
-    brand,
-    page,
+  toSearch = ({
+    category = '',
+    brand = '',
+    page = 1,
     unitPerPage = 20,
-    order,
-    filter,
-    subcategory,
-    enter,
-    keyword
-  ) => {
+    order = 'DATE',
+    filter = '',
+    subcategory = '',
+    enter = '',
+    keyword = '',
+  }) => {
     Router.push({
       pathname: '/search',
       query: {
@@ -1005,5 +1000,11 @@ export default class SearchItemStore {
       },
     });
     this.deals = [];
+  };
+
+  @observable thumbnail = 'list4';
+  @action
+  setThumbnailStyle = style => {
+    this.thumbnail = style;
   };
 }

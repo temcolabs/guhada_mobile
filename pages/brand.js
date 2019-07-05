@@ -17,8 +17,14 @@ class brand extends Component {
     window.scrollTo(0, absoluteTop - 70);
   };
 
+  toSearch = id => {
+    let { searchitem } = this.props;
+    searchitem.toSearch({ brand: id, enter: 'brand' });
+    // searchitem.toSearch('', id, 1, 20, 'DATE', '', '', 'brand');
+  };
+
   render() {
-    let { brands, searchitem } = this.props;
+    let { brands } = this.props;
 
     return (
       <>
@@ -69,18 +75,7 @@ class brand extends Component {
                               <div
                                 key={i}
                                 className={css.languageItem}
-                                onClick={() =>
-                                  searchitem.toSearch(
-                                    '',
-                                    brand.id,
-                                    1,
-                                    20,
-                                    'DATE',
-                                    '',
-                                    '',
-                                    'brand'
-                                  )
-                                }
+                                onClick={() => this.toSearch(brand.id)}
                               >
                                 {brand.nameEn}
                               </div>
@@ -102,18 +97,7 @@ class brand extends Component {
                               <div
                                 key={i}
                                 className={css.languageItem}
-                                onClick={() =>
-                                  searchitem.toSearch(
-                                    '',
-                                    brand.id,
-                                    1,
-                                    20,
-                                    'DATE',
-                                    '',
-                                    '',
-                                    'brand'
-                                  )
-                                }
+                                onClick={() => this.toSearch(brand.id)}
                               >
                                 {brand.nameKo}
                               </div>

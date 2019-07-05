@@ -18,17 +18,7 @@ class category extends Component {
 
   toSearch = category => {
     let { searchitem } = this.props;
-    searchitem.toSearch(
-      category,
-      '',
-      1,
-      searchitem.unitPerPage,
-      '',
-      '',
-      '',
-      'category',
-      ''
-    );
+    searchitem.toSearch({ category: category, enter: 'category' });
   };
 
   render() {
