@@ -49,6 +49,9 @@ const slideAnimation = {
         left: 0,
         duration: DURATION,
         easing: 'easeInOutQuad',
+        begin: function(anim) {
+          node.style.display = 'block'; // 애니메이션 시작할 none에서 block으로
+        },
       });
     },
     onExit: node => {
@@ -57,6 +60,9 @@ const slideAnimation = {
         left: '-100vw',
         duration: DURATION,
         easing: 'easeInOutQuad',
+        complete: function(anim) {
+          node.style.display = 'none';
+        },
       });
     },
   },
@@ -68,6 +74,9 @@ const slideAnimation = {
         left: 0,
         duration: DURATION,
         easing: 'easeInOutQuad',
+        begin: function(anim) {
+          node.style.display = 'block'; // 애니메이션 시작할 none에서 block으로
+        },
       });
     },
     onExit: node => {
@@ -76,6 +85,9 @@ const slideAnimation = {
         left: '100vw',
         duration: DURATION,
         easing: 'easeInOutQuad',
+        complete: function(anim) {
+          node.style.display = 'none';
+        },
       });
     },
   },
@@ -86,6 +98,9 @@ const slideAnimation = {
         bottom: '0',
         duration: DURATION,
         easing: 'easeInOutQuad',
+        begin: function(anim) {
+          node.style.display = 'block'; // 애니메이션 시작할 none에서 block으로
+        },
       });
     },
     onExit: node => {
@@ -94,6 +109,9 @@ const slideAnimation = {
         bottom: '100vh',
         duration: DURATION,
         easing: 'easeInOutQuad',
+        complete: function(anim) {
+          node.style.display = 'none';
+        },
       });
     },
   },
@@ -104,6 +122,9 @@ const slideAnimation = {
         top: '0',
         duration: DURATION,
         easing: 'easeInOutQuad',
+        begin: function(anim) {
+          node.style.display = 'block'; // 애니메이션 시작할 none에서 block으로
+        },
       });
     },
     onExit: node => {
@@ -112,6 +133,9 @@ const slideAnimation = {
         top: '100vh',
         duration: DURATION,
         easing: 'easeInOutQuad',
+        complete: function(anim) {
+          node.style.display = 'none';
+        },
       });
     },
   },
