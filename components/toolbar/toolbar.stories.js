@@ -9,14 +9,14 @@ import {
   color,
   select,
 } from '@storybook/addon-knobs';
-import DefaultLayout from './DefaultLayout';
+import ToolbarCategory from './ToolbarCategory';
 
-const stories = storiesOf('layout', module);
+const stories = storiesOf('toolbar', module);
 
 // Add the `withKnobs` decorator to add knobs support to your stories.
 // You can also configure `withKnobs` as a global decorator.
 stories.addDecorator(withKnobs);
 
-stories.add('DefaultLayout', () => {
-  return <DefaultLayout />;
+stories.add('ToolbarCategory', () => {
+  return <ToolbarCategory isVisible={boolean('isVisible', false)} />;
 });

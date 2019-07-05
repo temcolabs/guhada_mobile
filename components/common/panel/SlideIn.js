@@ -3,7 +3,8 @@ import ReactDom from 'react-dom';
 import css from './SlideIn.module.scss';
 import { Transition } from 'react-transition-group';
 import anime from 'animejs';
-import _ from 'lodash';
+import { isBrowser } from 'lib/isServer';
+import Mask from '../modal/Mask';
 
 /**
  * 진입 방향
@@ -120,33 +121,41 @@ export default function SlideIn({
   isVisible = false,
   direction,
   children,
-  zIndex,
+  zIndex, // css.wrap 클래스에 선언된 SlideIn의 기본 z-index는 1000.
   wrapperStyle = {}, // css.wrap 클래스의 스타일을 덮어씌움
 }) {
-  const bodyEl = document.getElementsByTagName('body')[0]; // target of portal
-  const positionStyle = defaultPosition[direction];
-  const animation = slideAnimation[direction];
+  if (isBrowser) {
+    const bodyEl = document.documentElement.getElementsByTagName('body')[0];
 
-  let style = Object.assign({}, positionStyle, wrapperStyle);
+    const positionStyle = defaultPosition[direction];
+    const animation = slideAnimation[direction];
 
-  if (zIndex) {
-    Object.assign(style, { zIndex });
+    let style = Object.assign({}, positionStyle, wrapperStyle);
+    if (zIndex) {
+      Object.assign(style, { zIndex });
+    }
+
+    return ReactDom.createPortal(
+      <>
+        <Transition
+          in={isVisible}
+          onEnter={animation.onEnter}
+          onExit={animation.onExit}
+          timeout={DURATION}
+        >
+          {state => {
+            return (
+              <div className={css.wrap} style={style}>
+                {children}
+              </div>
+            );
+          }}
+        </Transition>
+        <Mask isVisible={isVisible} />
+      </>,
+      bodyEl
+    );
+  } else {
+    return null;
   }
-
-  return ReactDom.createPortal(
-    <Transition
-      in={isVisible}
-      onEnter={animation.onEnter}
-      onExit={animation.onExit}
-    >
-      {state => {
-        return (
-          <div className={css.wrap} style={style}>
-            {children}
-          </div>
-        );
-      }}
-    </Transition>,
-    bodyEl
-  );
 }

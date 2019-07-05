@@ -10,7 +10,7 @@ export default class DefaultLayout extends Component {
       <div className={css.wrap}>
         <Header>{pageTitle}</Header>
         {this.props.children}
-        <ToolBar></ToolBar>
+        <ToolBar />
       </div>
     );
   }

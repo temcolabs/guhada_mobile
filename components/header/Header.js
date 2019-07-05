@@ -25,8 +25,12 @@ export default function Header({ children }) {
 
         <button className={css.searchButton} onClick={() => {}} />
         <button className={css.cartButton} onClick={() => {}} />
+
+        <HeaderMenu
+          isVisible={isMenuVisible}
+          onClose={() => setIsMenuVisible(false)}
+        />
       </div>
-      {isMenuVisible && <HeaderMenu onClose={() => setIsMenuVisible(false)} />}
     </>
   );
 }
