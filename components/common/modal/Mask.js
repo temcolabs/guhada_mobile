@@ -15,8 +15,7 @@ const animation = {
       easing: 'linear',
       duration: DURATION,
       begin: function(anim) {
-        console.log(`begin onenter anim`, anim);
-        node.style.display = 'block';
+        node.style.display = 'block'; // 애니메이션 시작할 none에서 block으로
       },
     });
   },
@@ -27,7 +26,6 @@ const animation = {
       easing: 'linear',
       duration: DURATION,
       complete: function(anim) {
-        console.log(`begin onenter anim`, anim);
         node.style.display = 'none';
       },
     });
@@ -38,14 +36,11 @@ const animation = {
  * 팝업이 열릴 때 뒤에 표시할 반투명 마스크
  *
  */
-export default function Mask({ zIndex, isVisible }) {
+export default function Mask({ zIndex = 999, isVisible = false }) {
   if (isBrowser) {
     const bodyEl = document.documentElement.getElementsByTagName('body')[0];
+    const style = Object.assign({}, { zIndex });
 
-    let style = {};
-    if (zIndex) {
-      style = Object.assign(style, { zIndex });
-    }
     return ReactDom.createPortal(
       <Transition
         in={isVisible}

@@ -25,5 +25,5 @@ stories.add('Header', () => {
 });
 
 stories.add('HeaderMenu', () => {
-  return <HeaderMenu />;
+  return <HeaderMenu isVisible={boolean('isVisible', false)} />;
 });

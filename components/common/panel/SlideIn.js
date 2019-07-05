@@ -4,6 +4,7 @@ import css from './SlideIn.module.scss';
 import { Transition } from 'react-transition-group';
 import anime from 'animejs';
 import { isBrowser } from 'lib/isServer';
+import Mask from '../modal/Mask';
 
 /**
  * 진입 방향
@@ -135,20 +136,23 @@ export default function SlideIn({
     }
 
     return ReactDom.createPortal(
-      <Transition
-        in={isVisible}
-        onEnter={animation.onEnter}
-        onExit={animation.onExit}
-        timeout={DURATION}
-      >
-        {state => {
-          return (
-            <div className={css.wrap} style={style}>
-              {children}
-            </div>
-          );
-        }}
-      </Transition>,
+      <>
+        <Transition
+          in={isVisible}
+          onEnter={animation.onEnter}
+          onExit={animation.onExit}
+          timeout={DURATION}
+        >
+          {state => {
+            return (
+              <div className={css.wrap} style={style}>
+                {children}
+              </div>
+            );
+          }}
+        </Transition>
+        <Mask isVisible={isVisible} />
+      </>,
       bodyEl
     );
   } else {
