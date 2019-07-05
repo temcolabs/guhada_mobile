@@ -1,0 +1,151 @@
+.wrap {
+    width: 100%;
+    float: left;
+    overflow: hidden;
+    padding: 0 0 0 10px;
+    margin-bottom: 20px;
+
+    &:nth-child(2n) {
+        margin-right: 0;
+    }
+
+    & .imageWrap {
+        position: relative;
+        width: 130px;
+        height: 164px;
+        float: left;
+    }
+
+    & .color {
+        display: flex;
+        align-content: flex-start;
+        position: absolute;
+        bottom: 6px;
+        left: 3px;
+        flex-direction: column;
+        flex-wrap: wrap;
+        width: 100px;
+        height: 100px;
+        justify-content: flex-end;
+        z-index: 100;
+
+        & .box {
+            width: 7px;
+            height: 7px;
+            margin-right: 5px;
+            margin-top: 6px;
+            border-radius: 12px;
+            border: 1px solid #ddd;
+        }
+    }
+
+    & .imageUrl {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    & .detailWrap {
+        height: 98px;
+        padding: 0 0 0 20px;
+        display: inline-block;
+    }
+
+    & .brandWrap {
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 1.37;
+        text-align: left;
+        color: #111111;
+        display: flex;
+        align-items: center;
+
+        & .brandName {
+            max-width: 100px;
+            max-width: 100px;
+            display: inline-block;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        & .productSeason {
+            font-size: 11px;
+            font-weight: normal;
+            color: #777777;
+            margin-left: 5px;
+        }
+    }
+
+    & .productName {
+        width: 147px;
+        height: 29px;
+        font-size: 12px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.17;
+        letter-spacing: normal;
+        text-align: left;
+        color: #111111;
+        margin-top: 6px;
+        overflow: hidden;
+    }
+
+    & .priceWrap {
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        line-height: 1;
+
+        & .discountWrap {
+            display: flex;
+            align-items: center;
+        }
+
+        & .sellPrice {
+            font-size: 16px;
+            font-weight: bold;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: 1;
+            letter-spacing: normal;
+            text-align: left;
+            color: #111111;
+            margin-right: 6px;
+        }
+
+        & .discountRate {
+            font-size: 13px;
+            font-weight: bold;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: 1.15;
+            letter-spacing: normal;
+            text-align: left;
+            color: #5d2ed1;
+        }
+    }
+
+    & .textOption {
+        margin-top: 10px;
+        display: flex;
+
+        & .sizeItem {
+            font-size: 9px;
+            font-weight: normal;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: 1.33;
+            letter-spacing: normal;
+            text-align: left;
+            color: #111111;
+            margin-right: 6px;
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+}

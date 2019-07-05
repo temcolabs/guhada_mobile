@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Home from 'template/Home';
 import { inject, observer } from 'mobx-react';
 import Head from 'next/head';
 import SearchList from 'template/search/SearchList';
@@ -13,15 +12,19 @@ class search extends Component {
     const { searchitem } = this.props;
     const query = Router.router.query;
     console.log('query', query);
+
+    let brand = JSON.parse('[' + query.brand + ']');
+    let subcategory = JSON.parse('[' + query.subcategory + ']');
+
     if (query.brand || query.category) {
       searchitem.getSearchByUri(
-        query.brand,
+        brand,
         query.category,
         query.page,
         query.unitPerPage,
         query.order,
         query.filter,
-        query.subcategory,
+        subcategory,
         query.enter,
         query.keyword
       );

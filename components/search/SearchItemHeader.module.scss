@@ -21,4 +21,52 @@
         background-position: right;
         padding-right: 21px;
     }
+
+    & .thumbnail {
+        display: flex;
+
+        & div {
+            margin-right: 1px;
+
+            &:last-child {
+                margin-right: 0
+            }
+        }
+
+        & .list4 {
+            width: 27px;
+            height: 27px;
+            background-size: 27px;
+            background-repeat: no-repeat;
+            background-image: url('/static/icon/search/list_btn_thumbnail01_off.png');
+
+            &.selected {
+                background-image: url('/static/icon/search/list_btn_thumbnail01_on.png');
+            }
+        }
+
+        & .list2 {
+            width: 27px;
+            height: 27px;
+            background-size: 27px;
+            background-repeat: no-repeat;
+            background-image: url('/static/icon/search/list_btn_thumbnail02_off.png');
+
+            &.selected {
+                background-image: url('/static/icon/search/list_btn_thumbnail02_on.png');
+            }
+        }
+
+        & .list6 {
+            width: 27px;
+            height: 27px;
+            background-size: 27px;
+            background-repeat: no-repeat;
+            background-image: url('/static/icon/search/list_btn_thumbnail03_off.png');
+
+            &.selected {
+                background-image: url('/static/icon/search/list_btn_thumbnail03_on.png');
+            }
+        }
+    }
 }

@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import css from './SearchItem.module.scss';
+import css from './SearchItem6.module.scss';
 import { observer } from 'mobx-react';
-import { toJS } from 'mobx';
 import PropTypes from 'prop-types';
 import { LinkRoute } from 'lib/router';
 
 @observer
-class SearchItem extends Component {
+class SearchItem6 extends Component {
   static propTypes = {
     brandId: PropTypes.number,
     brandName: PropTypes.string,
@@ -69,27 +68,14 @@ class SearchItem extends Component {
                   />
                 </div>
                 <div className={css.detailWrap}>
-                  <div className={css.brandName}>
-                    {deal.brandName}
-                    <span className={css.productSeason}>
-                      {deal.productSeason}
-                    </span>
-                  </div>
-                  <div className={css.productName}>{deal.productName}</div>
+                  <div className={css.productSeason}>{deal.productSeason}</div>
+                  <div className={css.brandName}>{deal.brandName}</div>
                   <div className={css.priceWrap}>
                     <div className={css.discountWrap}>
                       <span className={css.sellPrice}>
-                        {deal.sellPrice.toLocaleString()}
-                      </span>
-                      <span className={css.discountPrice}>
-                        {deal.discountPrice != 0
-                          ? deal.discountPrice.toLocaleString()
-                          : '100000'}
+                        {deal.sellPrice.toLocaleString() + '원'}
                       </span>
                     </div>
-                    <span className={css.discountRate}>
-                      {deal.discountRate !== 0 ? `${deal.discountRate}%` : '5%'}
-                    </span>
                   </div>
                 </div>
               </div>
@@ -101,4 +87,4 @@ class SearchItem extends Component {
   }
 }
 
-export default SearchItem;
+export default SearchItem6;
