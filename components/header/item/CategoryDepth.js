@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
-import css from './categoryDepth.module.scss';
+import css from './CategoryDepth.module.scss';
 import Router from 'next/router';
 
 @inject('category', 'searchitem')
 @observer
-class categoryDepth extends Component {
-  componentDidMount() {
-    const { category } = this.props;
-    let query = Router.router.query;
+class CategoryDepth extends Component {
+  state = {
+    categoryId: '',
+  };
 
-    category.returnCategory(query.category);
+  componentDidUpdate() {
+    if (this.state.categoryId !== this.props.categoryId) {
+      const { category, categoryId } = this.props;
+      category.returnCategory(categoryId);
+      this.setState({ categoryId: categoryId });
+    }
   }
 
   grow(params) {
@@ -39,10 +44,8 @@ class categoryDepth extends Component {
   };
 
   render() {
-    const { category, searchitem } = this.props;
-
+    const { category } = this.props;
     let categoryList = category.categoryList;
-
     return (
       <ul className={css.tree}>
         <label onClick={() => this.toSearch(Router.router.query.category)}>
@@ -97,4 +100,4 @@ class categoryDepth extends Component {
   }
 }
 
-export default categoryDepth;
+export default CategoryDepth;

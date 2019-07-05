@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import css from './ToolBar.module.scss';
 import cn from 'classnames';
 import ToolbarCategory from './ToolbarCategory';
+import ToolbarBrand from './ToolbarBrand';
 
 export default function ToolBar() {
   const [isCategoryVisible, setIsCategoryVisible] = useState(false);
@@ -15,7 +16,10 @@ export default function ToolBar() {
       >
         카테고리
       </div>
-      <div onClick={() => {}} className={cn(css.itemWrap, css.brand)}>
+      <div
+        onClick={() => setIsBrandVisible(true)}
+        className={cn(css.itemWrap, css.brand)}
+      >
         브랜드
       </div>
       <div onClick={() => {}} className={cn(css.itemWrap, css.home)}>
@@ -32,6 +36,12 @@ export default function ToolBar() {
       <ToolbarCategory
         isVisible={isCategoryVisible}
         onClose={() => setIsCategoryVisible(false)}
+      />
+
+      {/* 브랜드 슬라이드 업 모달 */}
+      <ToolbarBrand
+        isVisible={isBrandVisible}
+        onClose={() => setIsBrandVisible(false)}
       />
     </div>
   );

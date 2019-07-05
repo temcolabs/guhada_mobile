@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
-import css from './category.module.scss';
-import { LinkRoute } from 'lib/router';
+import css from './Category.module.scss';
 
 @inject('category', 'searchitem')
 @observer
-class category extends Component {
+class Category extends Component {
   grow(params) {
     var growDiv = document.getElementById(params);
     if (growDiv.clientHeight) {
@@ -48,14 +47,16 @@ class category extends Component {
                   </li>
                   {categoryMain.children.map(categoryItem => {
                     return (
-                      <LinkRoute
-                        href={`/categorydepth?category=${categoryItem.id}`}
+                      <li
                         key={categoryItem.id}
+                        className={css.arrow}
+                        onClick={() => (
+                          this.props.setIsCategoryVisible(true),
+                          this.props.setCategoryId(categoryItem.id)
+                        )}
                       >
-                        <a>
-                          <li className={css.arrow}>{categoryItem.title}</li>
-                        </a>
-                      </LinkRoute>
+                        {categoryItem.title}
+                      </li>
                     );
                   })}
                 </div>
@@ -63,14 +64,10 @@ class category extends Component {
             </li>
           );
         })}
-        <LinkRoute href={`/brand`}>
-          <a>
-            <label>브랜드</label>
-          </a>
-        </LinkRoute>
+        <label>브랜드</label>
       </ul>
     );
   }
 }
 
-export default category;
+export default Category;

@@ -1,31 +1,28 @@
 import React, { Component, Fragment } from 'react';
 import { inject, observer } from 'mobx-react';
-import { toJS } from 'mobx';
-import css from './brand.module.scss';
+import css from './Brand.module.scss';
 import cn from 'classnames';
 
 @inject('brands', 'searchitem')
 @observer
-class brand extends Component {
+class Brand extends Component {
   toScroll = en => {
     const target = document.getElementById('brand' + en); // 요소의 id 값이 target이라 가정
     const clientRect = target.getBoundingClientRect(); // DomRect 구하기 (각종 좌표값이 들어있는 객체)
     const relativeTop = clientRect.top; // Viewport의 시작지점을 기준으로한 상대좌표 Y 값.
-    const scrolledTopLength = window.pageYOffset; // 스크롤된 길이
-    const absoluteTop = scrolledTopLength + relativeTop; // 절대좌표
+    const scrolledTopLength = this.refs.brandScroll.scrollTop; // 스크롤된 길이
 
-    window.scrollTo(0, absoluteTop - 70);
+    const absoluteTop = relativeTop + scrolledTopLength; // 절대좌표
+    this.refs.brandScroll.scrollTo(0, absoluteTop - 185);
   };
 
   toSearch = id => {
     let { searchitem } = this.props;
     searchitem.toSearch({ brand: id, enter: 'brand' });
-    // searchitem.toSearch('', id, 1, 20, 'DATE', '', '', 'brand');
   };
 
   render() {
     let { brands } = this.props;
-
     return (
       <>
         <div className={css.headerWrap}>
@@ -60,7 +57,7 @@ class brand extends Component {
             </div>
           </div>
         </div>
-        <div className={css.brandWrap}>
+        <div className={css.brandWrap} ref="brandScroll">
           <div className={css.brand}>
             {brands.selectedLanguage === 'english'
               ? brands.enFilter.map((enbind, enIndex) => {
@@ -108,41 +105,34 @@ class brand extends Component {
                   );
                 })}
           </div>
-          <div className={css.filter}>
-            {brands.selectedLanguage === 'english'
-              ? brands.enFilter.map((en, enIndex) => {
-                  return (
-                    <>
-                      <div
-                        className={css.item}
-                        key={enIndex}
-                        onClick={() => this.toScroll(en)}
-                      >
-                        {en}
-                      </div>
-                      <div className={css.filterDot}></div>
-                    </>
-                  );
-                })
-              : brands.koFilter.map((ko, koIndex) => {
-                  return (
-                    <>
-                      <div
-                        className={css.item}
-                        key={koIndex}
-                        onClick={() => this.toScroll(ko)}
-                      >
-                        {ko}
-                      </div>
-                      <div className={css.filterDot}></div>
-                    </>
-                  );
-                })}
-          </div>
+        </div>
+        <div className={css.filter}>
+          {brands.selectedLanguage === 'english'
+            ? brands.enFilter.map((en, enIndex) => {
+                return (
+                  <div
+                    className={css.item}
+                    key={enIndex}
+                    onClick={() => this.toScroll(en)}
+                  >
+                    {en}
+                  </div>
+                );
+              })
+            : brands.koFilter.map((ko, koIndex) => {
+                return (
+                  <div
+                    className={css.item}
+                    key={koIndex}
+                    onClick={() => this.toScroll(ko)}
+                  >
+                    {ko}
+                  </div>
+                );
+              })}
         </div>
       </>
     );
   }
 }
-
-export default brand;
+export default Brand;

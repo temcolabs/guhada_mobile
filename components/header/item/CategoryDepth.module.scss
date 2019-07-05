@@ -1,6 +1,10 @@
 .tree {
     color: #393939;
 
+    & li {
+        list-style: none;
+    }
+
     & ul {
         list-style: none;
         -moz-transition: height .5s;
@@ -12,6 +16,7 @@
         overflow: hidden;
 
         & li {
+            list-style: none;
             font-size: 14px;
             font-weight: normal;
             font-style: normal;
@@ -21,14 +26,6 @@
             text-align: left;
             color: #111111;
             padding: 9px 0 8px 40px;
-
-
-            // &.arrow {
-    //     background-image: url('/static/icon/plus_icon.png');
-    //     background-size: 19px;
-    //     background-repeat: no-repeat;
-    //     background-position: right 30px center;
-    // }
         }
     }
 

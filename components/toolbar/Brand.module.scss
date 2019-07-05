@@ -1,11 +1,13 @@
+$topPosition: 60px;
+$toolbarHeader:55px;
+$brandHeader: 70px;
+
 .headerWrap {
     width: 100%;
     height: 70px;
     padding: 15px 5px 0 20px;
     display: flex;
     justify-content: space-between;
-    position: fixed;
-    top: 0;
     background-color: #ffffff;
     z-index: 100;
 
@@ -54,54 +56,18 @@
 }
 
 .brandWrap {
-    display: flex;
+    display: inline-block;
     position: relative;
-    top: 70px;
+    width: calc(100% - 32px);
+    height: calc(100vh - 70px);
+    overflow-y: auto;
 
     & .brand {
         padding-left: 20px;
         width: calc(100% - 18px - 8px);
     }
 
-    & .filter {
-        width: 18px;
-        margin-left: 8px;
-        margin-right: 14px;
-        position: fixed;
-        top: 80px;
-        right: 0;
 
-        & .item {
-            width: 18px;
-            height: 18px;
-            font-size: 10px;
-            font-weight: 500;
-            font-style: normal;
-            font-stretch: normal;
-            line-height: 1.9;
-            letter-spacing: normal;
-            text-align: center;
-            color: #d9dde0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            &.selected {
-                color: #5d2ed1;
-            }
-        }
-
-        & .filterDot {
-            width: 2px;
-            height: 2px;
-            background-color: #d9dde0;
-            margin: 0 auto;
-
-            &:last-child {
-                display: none;
-            }
-        }
-    }
 
     & .languageIndex {
         height: 37px;
@@ -129,5 +95,34 @@
         text-align: left;
         color: #333333;
         padding-left: 30px;
+    }
+}
+
+.filter {
+    width: 18px;
+    margin-right: 14px;
+    position: relative;
+    float: right;
+    height: calc(100vh - #{$topPosition} - #{$toolbarHeader} - #{$brandHeader});
+    overflow-y: auto;
+
+    & .item {
+        width: 18px;
+        height: 18px;
+        font-size: 10px;
+        font-weight: 500;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.9;
+        letter-spacing: normal;
+        text-align: center;
+        color: #d9dde0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &.selected {
+            color: #5d2ed1;
+        }
     }
 }
