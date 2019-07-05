@@ -5,6 +5,7 @@ import { withKnobs, text, boolean } from '@storybook/addon-knobs';
 import ModalWrapper from './ModalWrapper';
 import Alert from './Alert';
 import Confirm from './Confirm';
+import Mask from './Mask';
 import { scrollY } from 'lib/dom';
 
 const stories = storiesOf('common/modal', module);
@@ -68,6 +69,11 @@ stories.add('Alert', () => {
     />
   );
 });
+
 stories.add('Confirm', () => {
   return <Confirm isOpen={boolean('isOpen', true)} content={'확인 창입니다'} />;
+});
+
+stories.add('Mask', () => {
+  return <Mask />;
 });

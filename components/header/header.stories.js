@@ -18,7 +18,7 @@ const stories = storiesOf('header', module);
 // Add the `withKnobs` decorator to add knobs support to your stories.
 // You can also configure `withKnobs` as a global decorator.
 stories.addDecorator(withKnobs);
-stories.addDecorator(withMobile);
+// stories.addDecorator(withMobile);
 
 stories.add('Header', () => {
   return <Header />;
