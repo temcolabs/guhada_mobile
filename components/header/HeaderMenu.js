@@ -11,6 +11,7 @@ export default function HeaderMenu({
   onClose,
   setIsCategoryVisible,
   setCategoryId,
+  setCategoryTitle,
 }) {
   return (
     <SlideIn isVisible={isVisible} direction={slideDirection.LEFT}>
@@ -22,22 +23,23 @@ export default function HeaderMenu({
           <div className={css.itemWrap}>
             <LinkRoute href={`/`}>
               <a>
-                <div className={css.home}></div>
+                <div className={css.home} />
               </a>
             </LinkRoute>
             <LinkRoute href={`/`}>
               <a>
-                <div className={css.setting}></div>
+                <div className={css.setting} />
               </a>
             </LinkRoute>
             <a>
-              <div className={css.close} onClick={onClose}></div>
+              <div className={css.close} onClick={onClose} />
             </a>
           </div>
         </div>
         <Category
           setIsCategoryVisible={setIsCategoryVisible}
           setCategoryId={setCategoryId}
+          setCategoryTitle={setCategoryTitle}
         />
       </div>
     </SlideIn>
