@@ -23,24 +23,14 @@ class CategoryDepth extends Component {
     if (growDiv.clientHeight) {
       growDiv.style.height = 0;
     } else {
-      var wrapper = document.querySelector('.measuringWrapper');
+      var wrapper = document.querySelector(`.measuringWrapper${params}`);
       growDiv.style.height = wrapper.clientHeight + 'px';
     }
   }
 
   toSearch = category => {
     let { searchitem } = this.props;
-    searchitem.toSearch(
-      category,
-      '',
-      1,
-      searchitem.unitPerPage,
-      '',
-      '',
-      '',
-      'category',
-      ''
-    );
+    searchitem.toSearch({ category: category, enter: 'category' });
   };
 
   render() {
@@ -57,23 +47,21 @@ class CategoryDepth extends Component {
                 <li key={categoryMain.id}>
                   <input
                     type="checkbox"
-                    id={`${categoryMain.title}${categoryMain.key}category`}
+                    id={`${categoryMain.key}category`}
                     defaultChecked={false}
-                  ></input>
+                  />
                   <label
                     className={css.plus}
-                    htmlFor={`${categoryMain.title}${categoryMain.key}category`}
+                    htmlFor={`${categoryMain.key}category`}
                     onClick={() =>
-                      categoryMain.children
-                        ? this.grow(categoryMain.title + categoryMain.key)
-                        : null
+                      categoryMain.children ? this.grow(categoryMain.key) : null
                     }
                   >
                     {categoryMain.title}
                   </label>
                   {categoryMain.children ? (
-                    <ul id={`${categoryMain.title}${categoryMain.key}`}>
-                      <div className="measuringWrapper">
+                    <ul id={`${categoryMain.key}`}>
+                      <div className={`measuringWrapper${categoryMain.key}`}>
                         <li onClick={() => this.toSearch(categoryMain.id)}>
                           전체보기
                         </li>
