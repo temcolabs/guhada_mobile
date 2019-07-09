@@ -15,7 +15,7 @@ class ProductDetail extends React.Component {
 
   render() {
     return (
-      <DefaultLayout pageTitle={'상품-상세페이지'}>
+      <DefaultLayout pageTitle={'상품-상세페이지'} toolBar={false}>
         {/* 상세이미지갤러리 */}
         <Gallery />
 

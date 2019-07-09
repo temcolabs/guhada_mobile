@@ -8,6 +8,7 @@ export default function Header({ children }) {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isCategoryVisible, setIsCategoryVisible] = useState(false);
   const [categoryId, setCategoryId] = useState(0);
+  const [categoryTitle, setCategoryTitle] = useState('');
 
   return (
     <>
@@ -34,12 +35,20 @@ export default function Header({ children }) {
           onClose={() => setIsMenuVisible(false)}
           setIsCategoryVisible={setIsCategoryVisible}
           setCategoryId={setCategoryId}
+          setCategoryTitle={setCategoryTitle}
         />
 
         <CategoryDepthMenu
           isVisible={isCategoryVisible}
-          onClose={() => setIsCategoryVisible(false)}
+          onBack={() => setIsCategoryVisible(false)}
+          onClose={() => (
+            setIsMenuVisible(false),
+            setTimeout(() => {
+              setIsCategoryVisible(false);
+            }, 400)
+          )}
           categoryId={categoryId}
+          categoryTitle={categoryTitle}
         />
       </div>
     </>

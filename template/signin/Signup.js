@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import DefaultLayout from 'components/layout/DefaultLayout';
+import LoginLayout from 'components/layout/LoginLayout';
 import css from './Signup.module.scss';
 import {
   LoginInput,
@@ -10,13 +10,13 @@ import {
 } from 'components/login/';
 
 @observer
-export class Signup extends Component {
+class Signup extends Component {
   render() {
     const { form } = this.props;
     let value = form.get('value');
 
     return (
-      <DefaultLayout pageTitle={'회원가입'}>
+      <LoginLayout pageTitle={'회원가입'}>
         <LoginWrapper>
           <div className={css.wrap}>
             <div>
@@ -94,7 +94,7 @@ export class Signup extends Component {
             </div>
           </div>
         </LoginWrapper>
-      </DefaultLayout>
+      </LoginLayout>
     );
   }
 }

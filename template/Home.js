@@ -26,28 +26,28 @@ class Home extends React.Component {
             </button>
           </div>
           <div>
-            <button onClick={() => pushRoute('/unique?page=1&sort=ASC')}>
-              /unique?page=1&sort=ASC
+            <button onClick={() => pushRoute('/?page=1&sort=ASC')}>
+              /?page=1&sort=ASC
             </button>
           </div>
           <div>
-            <button onClick={() => pushRoute('/unique?page=2&sort=DESC')}>
-              /unique?page=2&sort=DESC
+            <button onClick={() => pushRoute('/?page=2&sort=DESC')}>
+              /?page=2&sort=DESC
             </button>
           </div>
           <div>
-            <button onClick={() => pushRoute('/pk?page=3&sort=DESC')}>
-              /pk?page=3&sort=DESC
+            <button onClick={() => pushRoute('/?page=3&sort=DESC')}>
+              /?page=3&sort=DESC
             </button>
           </div>
           <div>
-            <button onClick={() => pushRoute('/login/login')}>
-              /login/login
+            <button onClick={() => pushRoute('/login?testquery=testquery')}>
+              /login?testquery=testquery
             </button>
           </div>
 
-          <LinkRoute href={`/linkroutetest?page=10&sort=DONTKNOW`}>
-            /linkroutetest?page=10&sort=DONTKNOW
+          <LinkRoute href={`/login?page=10&sort=DONTKNOW`}>
+            /login?page=10&sort=DONTKNOW
           </LinkRoute>
         </div>
       </DefaultLayout>

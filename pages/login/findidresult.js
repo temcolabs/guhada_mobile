@@ -5,7 +5,7 @@ import Form from '../../stores/form-store/_.forms';
 import FindIdResult from 'template/signin/FindIdResult';
 
 @observer
-export class findidresult extends Component {
+class findidresult extends Component {
   render() {
     return (
       <>

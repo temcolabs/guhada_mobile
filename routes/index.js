@@ -8,7 +8,7 @@ module.exports = [
   {
     // 홈 화면
     pagePath: '/index',
-    asPath: '/:specialId',
+    asPath: '/',
   },
 
   // 리턴 URL
@@ -207,5 +207,11 @@ module.exports = [
   {
     pagePath: '/product/productdetail',
     asPath: '/product/productdetail',
+  },
+
+  // 장바구니
+  {
+    pagePath: '/shoppingcart/shoppingcart',
+    asPath: '/shoppingcart',
   },
 ];

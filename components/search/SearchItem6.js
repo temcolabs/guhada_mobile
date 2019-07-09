@@ -15,8 +15,12 @@ class SearchItem6 extends Component {
     discountPrice: PropTypes.number,
     discountRate: PropTypes.number,
     freeShipping: PropTypes.bool,
-    imageName: PropTypes.string,
-    imageUrl: PropTypes.string,
+    productImage: {
+      width: PropTypes.number,
+      height: PropTypes.number,
+      name: PropTypes.string,
+      url: PropTypes.string,
+    },
     options: [],
     productId: PropTypes.number,
     productName: PropTypes.string,
@@ -34,7 +38,10 @@ class SearchItem6 extends Component {
       <>
         {deals.map((deal, index) => {
           return (
-            <LinkRoute href={`/productdetail?deals=${deal.dealId}`} key={index}>
+            <LinkRoute
+              href={`/product/productdetail?deals=${deal.dealId}`}
+              key={index}
+            >
               <div className={css.wrap}>
                 <div className={css.imageWrap}>
                   <div className={css.color}>
@@ -61,10 +68,10 @@ class SearchItem6 extends Component {
                   </div>
                   <img
                     className={css.imageUrl}
-                    src={deal.imageUrl}
+                    src={deal.productImage.url}
                     width={165}
                     height={206}
-                    alt={deal.imageName.split('.')[0]}
+                    alt={deal.productImage.name}
                   />
                 </div>
                 <div className={css.detailWrap}>

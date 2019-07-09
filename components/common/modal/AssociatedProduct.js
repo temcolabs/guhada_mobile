@@ -4,14 +4,13 @@ import PropTypes from 'prop-types';
 import ModalWrapper from './ModalWrapper';
 import css from './AssociatedProduct.module.scss';
 import { inject, observer } from 'mobx-react';
-import Link from 'next/link';
 const AlertBtns = ({ onConfirm = () => {}, confirmText }) => (
   <div className={css.alertButtons}>
     <button onClick={onConfirm}>{confirmText || '확인'}</button>
   </div>
 );
 
-@inject('cartAndPurchase', 'shoppingCartSuccess')
+@inject('cartAndPurchase', 'shoppingCartSuccessModal')
 @observer
 class AssociatedProduct extends React.Component {
   static defaultProps = {
@@ -20,24 +19,22 @@ class AssociatedProduct extends React.Component {
   };
 
   get bodyText() {
-    const { content } = this.props.shoppingCartSuccess;
+    const { content } = this.props.shoppingCartSuccessModal;
     return ReactDOMServer.renderToString(content);
   }
 
   render() {
-    let { cartAndPurchase, shoppingCartSuccess } = this.props;
-
+    let { cartAndPurchase, shoppingCartSuccessModal } = this.props;
     const {
-      isOpen,
       onCancel,
       onConfirm,
-      isButtonVisible = true,
-      content,
-      children,
       contentLabel = 'alert',
+      contentStyle,
       zIndex,
       confirmText,
-    } = shoppingCartSuccess;
+    } = shoppingCartSuccessModal.props;
+
+    const { isOpen } = shoppingCartSuccessModal;
 
     return (
       <ModalWrapper
@@ -46,34 +43,27 @@ class AssociatedProduct extends React.Component {
         onClose={onConfirm || onCancel}
         zIndex={zIndex}
         confirmText={confirmText}
-        content={{
-          top: '100%',
-          left: '50%',
-          bottom: 'initial',
-          right: 'initial',
-          background: 'transparent',
-          width: '100%',
-          padding: 0,
-          overflow: 'hidden',
-          border: 'none',
-          borderRadius: 0,
-        }}
+        contentStyle={contentStyle}
+        onConfirm={onConfirm}
       >
-        <div className={css.ModalContentWrap}>
-          <div className={css.modal}>
-            <div
-              className={css.modalClose}
-              onClick={() => {
-                shoppingCartSuccess.shoppingCartSuccessModalClose();
-              }}
-            >
-              <img
-                src="/static/icon/modal_close.png"
-                alt="장바구니 모달창 닫기"
-              />
-            </div>
-            <div className={css.wrapTitle}>
-              상품이 장바구니에 추가되었습니다.
+        <div className={css.modal}>
+          <div className={css.modal__inner}>
+            <div className={css.modal__top}>
+              <div className={css.wrapTitle}>
+                상품이 장바구니에 <br />
+                추가되었습니다.
+              </div>
+              <div
+                className={css.modalClose}
+                onClick={() => {
+                  shoppingCartSuccessModal.hide();
+                }}
+              >
+                <img
+                  src="/static/icon/modal_close.png"
+                  alt="장바구니 모달창 닫기"
+                />
+              </div>
             </div>
             <div className={css.associatedProduct}>
               <div className={css.associatedProductTitle}>
@@ -84,37 +74,30 @@ class AssociatedProduct extends React.Component {
                   .slice(0, 3)
                   .map((data, index) => {
                     return (
-                      <Link
-                        href={`/productdetail?deals=${data.dealId}`}
+                      <li
+                        className={css.associatedItem}
                         key={index}
+                        onClick={() => {
+                          shoppingCartSuccessModal.goProduct(data.dealId);
+                        }}
                       >
-                        <li className={css.associatedItem}>
-                          <div className={css.associatedItemImage}>
-                            <img src={data.imageUrl} alt="연관상품" />
-                          </div>
-                          <div className={css.brandName}>
-                            <span>{data.brandName}</span>
-                            <span>{data.productSeason}</span>
-                          </div>
-                          <div className={css.productName}>
-                            {data.productName}
-                          </div>
-                        </li>
-                      </Link>
+                        <div className={css.associatedItemImage}>
+                          <img src={data.imageUrl} alt="연관상품" />
+                        </div>
+                        <div className={css.brandName}>
+                          <span>{data.brandName}</span>
+                          <span>{data.productSeason}</span>
+                        </div>
+                        <div className={css.productName}>
+                          {data.productName}
+                        </div>
+                      </li>
                     );
                   })}
               </ul>
             </div>
-            <div className={css.btnGroup}>
-              <div
-                onClick={() => {
-                  shoppingCartSuccess.shoppingCartSuccessModalClose();
-                }}
-              >
-                장바구니로 이동
-              </div>
-            </div>
           </div>
+          <AlertBtns confirmText={confirmText} onConfirm={onConfirm} />
         </div>
       </ModalWrapper>
     );

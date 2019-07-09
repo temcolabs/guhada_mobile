@@ -47,9 +47,9 @@
         width: 100%;
     }
 
-    // & input[type="checkbox"] {
-    //     display: none;
-    // }
+    & input[type="checkbox"] {
+        display: none;
+    }
 
     & input[type="checkbox"]:checked~label {
         color: #5d2ed1;
