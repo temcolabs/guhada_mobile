@@ -1,5 +1,5 @@
 import React from 'react';
-import { observable, action, toJS } from 'mobx';
+import { observable, action } from 'mobx';
 import { isServer } from 'lib/isServer';
 
 export default class ProductOptionStore {

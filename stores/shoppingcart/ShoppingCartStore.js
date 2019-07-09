@@ -1,9 +1,9 @@
-import { observable, action, toJS, extendObservable } from 'mobx';
-import Cookies from 'js-cookie';
+import React from 'react';
+import { observable, action } from 'mobx';
 import Router from 'next/router';
-import { componentByNodeRegistery } from 'mobx-react';
-const isServer = typeof window === 'undefined';
 import API from 'lib/API';
+import RealTimePopularityProducts from 'components/shoppingcart/RealTimePopularityProducts';
+const isServer = typeof window === 'undefined';
 
 export default class ShoppingCartStore {
   constructor(root) {
@@ -13,9 +13,10 @@ export default class ShoppingCartStore {
   @observable status = {
     pageStatus: false,
     priorityCheck: true,
-    optionChangeModal: false,
+    optionChangeModal: 0,
   };
   @observable selectedCheck = [];
+  @observable selectedCheckNumber = [];
   @observable totalAmount = {
     totalProdPrice: 0,
     totalDiscountDiffPrice: 0,
@@ -26,7 +27,10 @@ export default class ShoppingCartStore {
   @observable cartList;
   @observable cartListOptions = [];
 
+  @observable realTimePopularityProducts = [];
+
   @observable cartItemOptions = [];
+  @observable selectedOptions = [];
   @observable cartChangeOptions = {
     tempOptions: [],
     realOptions: [],
@@ -35,8 +39,8 @@ export default class ShoppingCartStore {
     willChangeSelectDealOptionId: 0,
     currentChangeSelectDealOptionId: 0,
   };
-
-  @observable quantityMinusBtn = '/static/icon/quantity_minus_off.png';
+  @observable selectedOptionIndex = 0;
+  @observable quantityMinusBtn = '/static/icon/quantity_minus_on.png';
   @observable quantityPlusBtn = '/static/icon/quantity_plus_on.png';
 
   //--------------------- 장바구니 전체 데이터 가져오기 ---------------------
@@ -45,12 +49,28 @@ export default class ShoppingCartStore {
     API.order.get(`/cart`).then(res => {
       let data = res.data;
       if (data.resultCode === 200) {
+        console.log(data, '장바구니 데이터');
         this.cartList = data.data.cartItemResponseList;
         this.getOptions();
         this.setTotalItemCheckbox();
         this.getTotalResultAmount();
         console.log(this.cartList, 'cartList');
         this.status.pageStatus = true;
+      }
+    });
+  };
+
+  //--------------------- 장바구니 실시간 인기 상품 가져오기 ---------------------
+  @action
+  getRealTimePopularityProducts = () => {
+    API.product.get(`/deals?division=MAIN_NEW_ARRIVALS`).then(res => {
+      let data = res.data;
+      if (data.resultCode === 200) {
+        this.realTimePopularityProducts = data.data;
+        console.log(
+          this.realTimePopularityProducts,
+          'this.realTimePopularityProducts'
+        );
       }
     });
   };
@@ -64,7 +84,6 @@ export default class ShoppingCartStore {
         this.cartList = data.data.cartItemResponseList;
         this.getOptions();
         this.getTotalResultAmount();
-        this.setTotalItemCheckbox();
       }
     });
   };
@@ -72,47 +91,51 @@ export default class ShoppingCartStore {
   //--------------------- 장바구니 체크박스 셋팅 ---------------------
   @action
   setTotalItemCheckbox = () => {
-    this.selectedCheck = [];
-
-    this.cartList.map(data => {
+    this.status.priorityCheck = true;
+    this.selectedCheck = this.cartList.map(data => {
       if (data.cartValidStatus.status) {
-        this.selectedCheck.push({ check: true });
+        return data.cartValidStatus.status;
       } else {
-        this.selectedCheck.push({ unSold: true });
+        this.status.soldOutProduct = true;
+        return null;
       }
     });
+    this.getTotalCheckBoxNumber();
   };
 
   @action
   changeTotalItemCheckboxPriority = () => {
     this.status.priorityCheck = !this.status.priorityCheck;
-
     if (this.status.priorityCheck) {
-      this.selectedCheck.map(data => {
-        if (!data.unSold) {
-          data.check = true;
+      for (let i = 0; i < this.selectedCheck.length; i++) {
+        if (this.selectedCheck[i] !== null) {
+          this.selectedCheck[i] = true;
         }
-      });
+      }
     } else {
-      this.selectedCheck.map(data => {
-        if (!data.unSold) {
-          data.check = false;
+      for (let i = 0; i < this.selectedCheck.length; i++) {
+        if (this.selectedCheck[i] !== null) {
+          this.selectedCheck[i] = false;
         }
-      });
+      }
     }
 
+    this.getTotalCheckBoxNumber();
     this.getTotalResultAmount();
   };
 
   @action
   changeItemCheckbox = targetIndex => {
     this.status.priorityCheck = false;
-    this.selectedCheck[targetIndex].check = !this.selectedCheck[targetIndex]
-      .check;
+    this.selectedCheck[targetIndex] = !this.selectedCheck[targetIndex];
 
+    this.getTotalCheckBoxNumber();
     this.getTotalResultAmount();
   };
 
+  getTotalCheckBoxNumber = () => {
+    this.selectedCheckNumber = this.selectedCheck.filter(data => data);
+  };
   //--------------------- 장바구니 토탈 계산 결과 값 ---------------------
   getTotalResultAmount = () => {
     this.totalAmount = {
@@ -121,13 +144,16 @@ export default class ShoppingCartStore {
       totalShipPrice: 0,
       totalPaymentPrice: 0,
     };
-    this.cartList.map((data, index) => {
-      if (this.selectedCheck[index].check) {
-        this.totalAmount.totalProdPrice += data.discountPrice;
-        this.totalAmount.totalDiscountDiffPrice += data.discountDiffPrice;
-        this.totalAmount.totalShipPrice += data.shipExpense;
+    for (let i = 0; i < this.cartList.length; i++) {
+      if (this.selectedCheck[i]) {
+        this.totalAmount.totalProdPrice += this.cartList[i].sellPrice;
+        this.totalAmount.totalDiscountDiffPrice += this.cartList[
+          i
+        ].discountDiffPrice;
+        this.totalAmount.totalShipPrice += this.cartList[i].shipExpense;
       }
-    });
+    }
+
     this.totalAmount.totalPaymentPrice =
       this.totalAmount.totalProdPrice -
       this.totalAmount.totalShipPrice -
@@ -154,120 +180,13 @@ export default class ShoppingCartStore {
         tempAttribute += tempArray[x] + '/';
       }
       tempAttribute = tempAttribute.substr(0, tempAttribute.length - 1);
-      if (tempAttribute == '') {
+      if (tempAttribute === '') {
         branchArray.push('옵션없는상품/' + data.currentQuantity + '개');
       } else {
         branchArray.push(tempAttribute + '/' + data.currentQuantity + '개');
       }
     });
     this.cartListOptions = branchArray;
-  };
-
-  @action
-  quantityMinus = id => {
-    let tempQuantity = 0;
-    let targetIndex = 0;
-    this.cartList.map((data, index) => {
-      if (data.cartItemId === id) {
-        tempQuantity = data.currentQuantity - 1;
-        targetIndex = index;
-      }
-    });
-
-    if (tempQuantity <= 0) {
-      this.root.alert.showAlert({
-        content: '1개 이상 선택해주세요!',
-      });
-      return false;
-    } else {
-      API.order
-        .post(`/cart/changeQuantity?cartItemId=${id}&quantity=${tempQuantity}`)
-        .then(res => {
-          let data = res.data;
-          if (data.resultCode === 200) {
-            // this.cartList[targetIndex].currentQuantity = tempQuantity;
-            this.getChangeShoppingCartList();
-          }
-        });
-    }
-  };
-
-  @action
-  quantityPlus = id => {
-    let tempQuantity = 0;
-    let targetIndex = 0;
-    let currentStock;
-    this.cartList.map((data, index) => {
-      if (data.cartItemId === id) {
-        data.selectedCartOption
-          ? (currentStock = data.selectedCartOption.stock)
-          : (currentStock = data.totalStock);
-        if (currentStock === data.currentQuantity) {
-          this.root.alert.showAlert({
-            content: `재고수량 ${currentStock} 개 초과 `,
-          });
-          return false;
-        } else {
-          tempQuantity = data.currentQuantity + 1;
-          targetIndex = index;
-        }
-      }
-    });
-    if (tempQuantity > 0) {
-      API.order
-        .post(`/cart/changeQuantity?cartItemId=${id}&quantity=${tempQuantity}`)
-        .then(res => {
-          let data = res.data;
-          if (data.resultCode === 200) {
-            // this.cartList[targetIndex].currentQuantity = tempQuantity;
-            this.getChangeShoppingCartList();
-          }
-        });
-    }
-  };
-
-  //--------------------- 수량변경 ---------------------
-  @action
-  quantityChange = (id, e) => {
-    let tempQuantity = 0;
-    let changeQuantity = parseInt(e.target.value);
-    let targetIndex = 0;
-    let currentStock;
-    this.cartList.map((data, index) => {
-      if (data.cartItemId === id) {
-        data.selectedCartOption
-          ? (currentStock = data.selectedCartOption.stock)
-          : (currentStock = data.totalStock);
-        if (isNaN(changeQuantity)) {
-          data.currentQuantity = '';
-          return false;
-        } else if (changeQuantity > currentStock) {
-          this.root.alert.showAlert({
-            content: `재고수량 ${currentStock} 개 초과 `,
-          });
-          tempQuantity = currentStock;
-        } else if (changeQuantity <= 0) {
-          this.root.alert.showAlert({
-            content: '1개 이상 구매',
-          });
-          return false;
-        } else {
-          data.currentQuantity = changeQuantity;
-          tempQuantity = changeQuantity;
-        }
-      }
-    });
-
-    if (tempQuantity > 0) {
-      API.order
-        .post(`/cart/changeQuantity?cartItemId=${id}&quantity=${tempQuantity}`)
-        .then(res => {
-          let data = res.data;
-          if (data.resultCode === 200) {
-            this.getChangeShoppingCartList();
-          }
-        });
-    }
   };
 
   @action
@@ -296,23 +215,39 @@ export default class ShoppingCartStore {
     }
   };
 
-  //--------------------- 장바구니 옵션바꾸는 모달 ---------------------
+  //--------------------- 장바구니 옵션바꾸기 위한 옵션 목록 호출 ---------------------
   @action
   optionChangeModal = (id, quantity, cartItemId, selectDealOptionId) => {
     this.cartChangeOptions.willChangeQuantity = quantity;
     this.cartChangeOptions.willChangeCartItemId = cartItemId;
     this.cartChangeOptions.currentChangeSelectDealOptionId = selectDealOptionId;
 
-    API.product.get(`/order-deals/${id}/options`).then(res => {
-      let data = res.data;
-      if (data.resultCode === 200) {
-        this.cartItemOptions = data.data;
-        console.log(this.cartItemOptions, 'this.cartItemOptions');
-        this.getChageItemOptionsLabel();
+    if (
+      this.status.optionChangeModal === 0 ||
+      this.status.optionChangeModal !== id
+    ) {
+      this.status.optionChangeModal = 0;
+      API.product.get(`/order-deals/${id}/options`).then(res => {
+        let data = res.data;
+        if (data.resultCode === 200) {
+          this.cartItemOptions = data.data;
 
-        this.status.optionChangeModal = !this.status.optionChangeModal;
-      }
-    });
+          this.cartItemOptions.map((data, index) => {
+            if (data.dealOptionSelectId === selectDealOptionId) {
+              this.selectedOptionIndex = index;
+              this.selectedOptions = data;
+              this.cartChangeOptions.willChangeSelectDealOptionId = selectDealOptionId;
+            }
+          });
+
+          this.getChageItemOptionsLabel();
+
+          this.status.optionChangeModal = id;
+        }
+      });
+    } else if (this.status.optionChangeModal === id) {
+      this.status.optionChangeModal = 0;
+    }
   };
 
   @action
@@ -388,6 +323,56 @@ export default class ShoppingCartStore {
     }
   };
 
+  //--------------------- 수량변경 ---------------------
+  @action
+  quantityChange = (id, e) => {
+    let changeQuantity = parseInt(e.target.value);
+    if (isNaN(changeQuantity)) {
+      this.cartChangeOptions.willChangeQuantity = '';
+      return false;
+    } else if (changeQuantity > this.selectedOptions.stock) {
+      this.root.alert.showAlert({
+        content: '재고수량 ' + this.selectedOptions.stock + ' 개 초과',
+      });
+      this.cartChangeOptions.willChangeQuantity = this.selectedOptions.stock;
+      return false;
+    } else if (changeQuantity < 0) {
+      return false;
+    } else {
+      if (changeQuantity === 0) {
+        this.cartChangeOptions.willChangeQuantity = 1;
+        return false;
+      }
+
+      this.cartChangeOptions.willChangeQuantity = changeQuantity;
+    }
+  };
+
+  @action
+  quantityMinus = () => {
+    if (this.cartChangeOptions.willChangeQuantity <= 1) {
+      this.cartChangeOptions.willChangeQuantity = 1;
+      return false;
+    }
+
+    this.cartChangeOptions.willChangeQuantity =
+      this.cartChangeOptions.willChangeQuantity - 1;
+  };
+
+  @action
+  quantityPlus = () => {
+    if (
+      this.cartChangeOptions.willChangeQuantity >= this.selectedOptions.stock
+    ) {
+      this.root.alert.showAlert({
+        content: '재고수량 ' + this.selectedOptions.stock + ' 개 초과',
+      });
+      return false;
+    }
+    this.cartChangeOptions.willChangeQuantity =
+      this.cartChangeOptions.willChangeQuantity + 1;
+  };
+
   //--------------------- 장바구니 옵션 변경할 옵션 아이디 값 바인딩 ---------------------
   @action
   setChangeItemData = value => {
@@ -400,7 +385,9 @@ export default class ShoppingCartStore {
       this.cartChangeOptions.willChangeSelectDealOptionId = 0;
       this.shoppingCartModalClose();
     } else {
+      this.selectedOptions = value;
       this.cartChangeOptions.willChangeSelectDealOptionId = value.id;
+      this.cartChangeOptions.willChangeQuantity = 1;
     }
   };
 
@@ -410,13 +397,7 @@ export default class ShoppingCartStore {
     if (this.cartChangeOptions.willChangeSelectDealOptionId !== 0) {
       API.order
         .post(
-          `/cart/changeSelectOption?cartItemId=${
-            this.cartChangeOptions.willChangeCartItemId
-          }&quantity=${
-            this.cartChangeOptions.willChangeQuantity
-          }&selectDealOptionId=${
-            this.cartChangeOptions.willChangeSelectDealOptionId
-          }`
+          `/cart/changeSelectOption?cartItemId=${this.cartChangeOptions.willChangeCartItemId}&quantity=${this.cartChangeOptions.willChangeQuantity}&selectDealOptionId=${this.cartChangeOptions.willChangeSelectDealOptionId}`
         )
         .then(res => {
           let data = res.data;
@@ -434,12 +415,13 @@ export default class ShoppingCartStore {
   //--------------------- 옵션 변경 모달 닫기 ---------------------
   @action
   shoppingCartModalClose = () => {
-    this.status.optionChangeModal = false;
+    this.status.optionChangeModal = 0;
   };
 
   //--------------------- 장바구니 아이템 삭제하기 ---------------------
   @action
   ShoppingCartItemDelete = id => {
+    console.log(id);
     this.root.alert.showConfirm({
       content: '해당 상품을 삭제하시겠습니까?',
       confirmText: '확인',
@@ -454,11 +436,12 @@ export default class ShoppingCartStore {
   @action
   selectedDelete = () => {
     let selectIdList = [];
-    this.selectedCheck.map((data, index) => {
-      if (data.check) {
-        selectIdList.push(this.cartList[index].cartItemId);
+
+    for (let i = 0; i < this.selectedCheck.length; i++) {
+      if (this.selectedCheck[i]) {
+        selectIdList.push(this.cartList[i].cartItemId);
       }
-    });
+    }
 
     if (selectIdList.length > 0) {
       this.root.alert.showConfirm({
@@ -480,11 +463,11 @@ export default class ShoppingCartStore {
   @action
   unSoldDelete = () => {
     let selectIdList = [];
-    this.selectedCheck.map((data, index) => {
-      if (data.unSold) {
-        selectIdList.push(this.cartList[index].cartItemId);
+    for (let i = 0; i < this.selectedCheck.length; i++) {
+      if (this.selectedCheck[i] === null) {
+        selectIdList.push(this.cartList[i].cartItemId);
       }
-    });
+    }
 
     if (selectIdList.length > 0) {
       this.root.alert.showConfirm({
@@ -527,14 +510,11 @@ export default class ShoppingCartStore {
   selectedItemOrder = () => {
     let selectIdList = ' ';
     this.selectedCheck.map((data, index) => {
-      if (data.check) {
+      if (data) {
         selectIdList += this.cartList[index].cartItemId + ',';
       }
     });
-
     if (selectIdList !== ' ') {
-      console.log(selectIdList);
-
       Router.push({
         pathname: '/orderpayment',
         query: {

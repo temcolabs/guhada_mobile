@@ -95,7 +95,6 @@ class ModalWrapper extends React.Component {
       children,
       closeTimeoutMS = 200,
     } = this.props;
-
     return (
       <ReactModal
         isOpen={isOpen}

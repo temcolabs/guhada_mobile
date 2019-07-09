@@ -1,0 +1,29 @@
+.wrap {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #5d2ed1;
+  height: 60px;
+  span {
+    color: #fff;
+
+    &:first-child {
+      font-size: 18px;
+    }
+
+    &:nth-child(2) {
+      margin-left: 5px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    &:last-child {
+      margin-left: 5px;
+      font-size: 18px;
+    }
+  }
+}
