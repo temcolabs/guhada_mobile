@@ -59,13 +59,6 @@ class MarketPlatform extends App {
     // this.loadPaymentScript();
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    devLog(
-      `[_app] componentDidUpdate: this.props.router`,
-      this.props.router.query
-    );
-  }
-
   /**
    * 결제 모듈 로드. 리소스가 사용 가능한지 확인하고 불러온다.
    */
