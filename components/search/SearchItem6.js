@@ -38,7 +38,10 @@ class SearchItem6 extends Component {
       <>
         {deals.map((deal, index) => {
           return (
-            <LinkRoute href={`/productdetail?deals=${deal.dealId}`} key={index}>
+            <LinkRoute
+              href={`/product/productdetail?deals=${deal.dealId}`}
+              key={index}
+            >
               <div className={css.wrap}>
                 <div className={css.imageWrap}>
                   <div className={css.color}>
