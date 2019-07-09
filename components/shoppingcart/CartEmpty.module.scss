@@ -1,0 +1,33 @@
+.wrap {
+  background: #fafafa;
+
+  .cartEmpty {
+    padding: 50px 0px 0px 20px;
+    font-size: 22px;
+    font-weight: 300;
+    color: #111;
+  }
+
+  .buttonGroup {
+    margin-top: 30px;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    div {
+      width: 50%;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+    }
+
+    .continueShopping {
+      background: #444;
+    }
+    .goLike {
+      margin-left: 8px;
+      background: #5d2ed1;
+    }
+  }
+}

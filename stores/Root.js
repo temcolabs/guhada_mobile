@@ -5,22 +5,16 @@ import BrandsStore from './BrandsStore';
 import CategoryStore from './CategoryStore';
 import SearchStore from './SearchStore';
 import SearchItemStore from './SearchItemStore';
-<<<<<<< HEAD
-import ProductAddStore from './ProductAddStore';
 import ProductDetailStore from './productdetail/ProductDetailStore';
-=======
-
-import ProductDetailStore from './ProductDetailStore';
->>>>>>> 9b3f909bcfe2a269fb3492598e529d7000e8eb20
 import OrderPaymentStore from './orderpayment/OrderPaymentStore';
 import OrderPaymentSuccessStore from './OrderPaymentSuccessStore';
-import ShoppingCartStore from './ShoppingCartStore';
+import ShoppingCartStore from './shoppingcart/ShoppingCartStore';
 import ProductReviewStore from './productdetail/ProductReviewStore';
 import ProductOptionStore from './productdetail/ProductOptionStore';
 import ProductDetailLikeStore from './productdetail/ProductDetailLikeStore';
 import ProductDetailGalleryStore from './productdetail/ProductDetailGalleryStore';
 import CartAndPurchaseStore from './productdetail/CartAndPurchaseStore';
-import ShoppingCartSuccessStore from './productdetail/ShoppingCartSuccessStore';
+import ShoppingCartSuccessModalStore from './productdetail/ShoppingCartSuccessModalStore';
 import AlertStore from './AlertStore';
 import BookMarkStore from './BookMarkStore';
 import AuthMobileStore from './AuthMobileStore';
@@ -51,7 +45,7 @@ class RootStore {
     this.orderpayment = new OrderPaymentStore(this);
     this.orderpaymentsuccess = new OrderPaymentSuccessStore(this);
     this.cartAndPurchase = new CartAndPurchaseStore(this);
-    this.shoppingCartSuccess = new ShoppingCartSuccessStore(this);
+    this.shoppingCartSuccessModal = new ShoppingCartSuccessModalStore(this);
     this.shoppingcart = new ShoppingCartStore(this);
     this.productreview = new ProductReviewStore(this);
     this.productoption = new ProductOptionStore(this);

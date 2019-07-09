@@ -1,8 +1,6 @@
-import { observable, action, toJS } from 'mobx';
+import { observable, action } from 'mobx';
 import Axios from 'axios';
-import Cookies from 'js-cookie';
 import API from 'lib/API';
-import { key } from 'constant';
 
 const isServer = typeof window === 'undefined';
 export default class ProductDetailStore {

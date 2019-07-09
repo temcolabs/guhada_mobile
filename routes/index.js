@@ -201,4 +201,10 @@ module.exports = [
     pagePath: '/product/productdetail',
     asPath: '/product/productdetail',
   },
+
+  // 장바구니
+  {
+    pagePath: '/shoppingcart/shoppingcart',
+    asPath: '/shoppingcart',
+  },
 ];

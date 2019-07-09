@@ -11,7 +11,6 @@ export default class CartAndPurchaseStore {
     if (!isServer) this.root = root;
   }
   @observable associatedProduct = [];
-  @observable shoppingCartSuccess = false;
 
   @action
   setShoppingCart = () => {
@@ -53,9 +52,24 @@ export default class CartAndPurchaseStore {
                   let data = res.data;
                   if (data.resultCode === 200) {
                     this.associatedProduct = data.data;
-                    // this.shoppingCartSuccess = true;
-                    this.root.shoppingCartSuccess.showModal({
+                    this.root.shoppingCartSuccessModal.showModal({
                       confirmText: '장바구니로 이동',
+                      contentStyle: {
+                        position: 'fixed',
+                        width: '100%',
+                        bottom: '0%',
+                        top: 'none',
+                        left: '50%',
+                        right: 'initial',
+                        transform: 'translate(-50%, 0%)',
+                        background: 'transparent',
+                        padding: 0,
+                        overflow: 'hidden',
+                        borderRadius: 0,
+                      },
+                      onConfirm: () => {
+                        Router.push('/shoppingcart');
+                      },
                     });
                   }
                 });
@@ -141,9 +155,5 @@ export default class CartAndPurchaseStore {
     this.root.alert.showAlert({
       content: '재입고 알림 완료(현재기능없음)',
     });
-  };
-  @action
-  shoppingCartSuccessModalClose = () => {
-    this.shoppingCartSuccess = false;
   };
 }

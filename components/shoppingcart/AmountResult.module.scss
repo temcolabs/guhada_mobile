@@ -1,0 +1,73 @@
+.wrap {
+  padding: 0 20px;
+  background: #fafafa;
+
+  .inner__top {
+    padding: 32px 0 20px 0;
+    border-bottom: 1px solid #ebebeb;
+    .total__itemNumber {
+      font-size: 14px;
+      color: #111;
+      font-weight: bold;
+    }
+
+    .total__orderPrice {
+      margin-top: 15px;
+      display: flex;
+      justify-content: space-between;
+      color: #777;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .total__shipPrice {
+      margin-top: 15px;
+      display: flex;
+      justify-content: space-between;
+      color: #777;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .total__discountPrice {
+      margin-top: 15px;
+      display: flex;
+      justify-content: space-between;
+      color: #777;
+      font-size: 13px;
+      font-weight: 500;
+
+      .title {
+        span {
+          margin-left: 7px;
+          img {
+            width: 14px;
+            height: 14px;
+          }
+        }
+      }
+    }
+  }
+
+  .inner__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0 100px;
+
+    .totalResult {
+      font-size: 14px;
+      font-weight: bold;
+      color: #111;
+    }
+
+    .totalResultPrice {
+      font-size: 21px;
+      color: #5d2ed1;
+      font-weight: bold;
+      span {
+        font-size: 14px;
+      }
+    }
+  }
+}

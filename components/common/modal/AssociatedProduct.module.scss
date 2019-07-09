@@ -1,111 +1,103 @@
-@import 'styles/mixins/index';
-$MODAL_BODY_WIDTH: 360px;
-
 .modal {
   position: relative;
-  margin-left: auto;
-  margin-right: auto;
-  min-width: $MODAL_BODY_WIDTH;
-  max-width: 1024px;
-  padding: 40px 20px 0;
-  border: none;
   background-color: #fff;
   font-size: 16px;
   border-radius: 2px;
-
-  .modalClose {
-    position: relative;
-    text-align: right;
-    cursor: pointer;
-    img {
-      width: 29px;
-      height: 29px;
-    }
-  }
-
-  .wrapTitle {
-    text-align: center;
-    font-size: 26px;
-    font-weight: normal;
-    color: #111;
-  }
-
-  .associatedProduct {
-    margin-top: 54px;
-
-    .associatedProductTitle {
-      font-size: 16px;
-      color: #111;
-      font-weight: 500;
-    }
-
-    ul {
-      @include clearfix;
-      li {
+  .modal__inner {
+    padding: 40px 20px 0;
+    .modal__top {
+      display: flex;
+      justify-content: space-between;
+      .modalClose {
+        position: relative;
+        text-align: right;
         cursor: pointer;
-        list-style: none;
-        margin-top: 17px;
-        float: left;
-        margin-left: 8px;
-        width: 100px;
-        &:first-child {
-          margin-left: 0;
+        img {
+          width: 29px;
+          height: 29px;
         }
-        .associatedItemImage {
+      }
+
+      .wrapTitle {
+        font-size: 26px;
+        font-weight: normal;
+        color: #111;
+      }
+    }
+
+    .associatedProduct {
+      margin-top: 40px;
+      max-width: 360px;
+      padding-bottom: 35px;
+      .associatedProductTitle {
+        font-size: 16px;
+        color: #111;
+        font-weight: bold;
+      }
+
+      ul {
+        display: flex;
+        justify-content: space-between;
+        li {
+          list-style: none;
+          margin-top: 17px;
+          margin-left: 8px;
           width: 100px;
-          height: 130px;
-
-          img {
-            width: 100%;
+          &:first-child {
+            margin-left: 0;
           }
-        }
+          .associatedItemImage {
+            width: 100px;
+            height: 130px;
 
-        .brandName {
-          margin-top: 10px;
-          @include clearfix;
-          span {
-            height: 22px;
-            &:first-child {
-              display: block;
-              float: left;
-              font-size: 15px;
-              color: #111;
-              font-weight: 500;
-              max-width: 130px;
-              text-overflow: ellipsis;
-              white-space: nowrap;
-              overflow: hidden;
-            }
-            &:last-child {
-              float: left;
-              display: block;
-              font-size: 11px;
-              font-weight: normal;
-              margin-left: 5px;
-              line-height: 26px;
+            img {
+              width: 100%;
             }
           }
-        }
 
-        .productName {
-          margin-top: 3px;
-          font-size: 12px;
-          color: #111;
-          font-weight: normal;
-          max-width: 130px;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          overflow: hidden;
+          .brandName {
+            margin-top: 10px;
+            display: flex;
+            span {
+              &:first-child {
+                display: block;
+                font-size: 13px;
+                color: #111;
+                font-weight: 500;
+                max-width: 130px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+              }
+              &:last-child {
+                display: block;
+                font-size: 11px;
+                font-weight: normal;
+                margin-left: 5px;
+              }
+            }
+          }
+
+          .productName {
+            margin-top: 3px;
+            font-size: 12px;
+            color: #111;
+            font-weight: normal;
+            max-width: 130px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+          }
         }
       }
     }
   }
 
-  .btnGroup {
+  .alertButtons {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 50px;
+
     box-sizing: border-box;
     background: #5d2ed1;
     width: 100%;
