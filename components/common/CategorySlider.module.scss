@@ -1,0 +1,26 @@
+.wrap {
+    width: 100%;
+    height: 40px;
+    white-space: nowrap;
+    overflow-x: auto;
+    display: flex;
+    align-items: center;
+    border-bottom: solid 1px #eeeeee;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    & .title {
+        display: inline-block;
+        font-size: 15px;
+        font-weight: 500;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.2;
+        letter-spacing: 0.45px;
+        text-align: left;
+        color: #111111;
+        margin: 0 22px;
+    }
+}

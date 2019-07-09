@@ -5,6 +5,7 @@ import { withKnobs, text, boolean } from '@storybook/addon-knobs';
 import ModalWrapper from './ModalWrapper';
 import Alert from './Alert';
 import Confirm from './Confirm';
+import Mask from './Mask';
 import { scrollY } from 'lib/dom';
 
 const stories = storiesOf('common/modal', module);
@@ -68,6 +69,43 @@ stories.add('Alert', () => {
     />
   );
 });
+
 stories.add('Confirm', () => {
   return <Confirm isOpen={boolean('isOpen', true)} content={'확인 창입니다'} />;
+});
+
+stories.add('Mask', () => {
+  return (
+    <div>
+      <Mask isVisible={boolean('isVisible', false)} />
+      <div>
+        <button onClick={() => alert('test')}>click</button>
+        <br />
+        <br />
+        <br />
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa nemo odit
+        qui consectetur ipsam atque assumenda, autem id a, repellat ipsum aut
+        nesciunt reiciendis tempore, cumque quo doloremque quam veritatis
+        accusantium? Provident eaque neque deleniti? Velit quibusdam eligendi
+        iste eum dolore asperiores nobis repellat perspiciatis perferendis
+        deleniti ab eveniet repellendus, atque commodi impedit voluptatum
+        nesciunt nam odit natus! Laborum ea exercitationem enim doloremque hic?
+        Dolores deserunt cum nesciunt modi soluta suscipit, atque delectus
+        aperiam qui in! Quibusdam fuga error officia aspernatur, sunt explicabo
+        cum quaerat sed nisi, corporis accusamus illo eligendi! Fugiat error
+        quisquam eaque recusandae, esse impedit, pariatur sequi dolorum minima
+        vitae a consectetur dolor ducimus laudantium explicabo, quia laboriosam
+        atque maiores voluptas labore fuga accusantium quo. Modi rerum sunt
+        nostrum accusantium dolorem unde eos distinctio quos odio ex quas sit
+        ullam, blanditiis facilis suscipit. Harum, quidem, dolorum totam
+        molestias eveniet veritatis quasi doloribus sapiente temporibus
+        explicabo assumenda ea sint dolore vitae nihil corrupti in. Ad maxime
+        dolores iusto impedit expedita perspiciatis natus commodi ipsam beatae
+        voluptates, numquam culpa inventore, eum quo tenetur aliquid mollitia
+        incidunt vero molestiae dicta, nesciunt debitis! Exercitationem adipisci
+        eum similique, repudiandae perferendis eaque laboriosam ad. Laboriosam
+        architecto rem unde temporibus sunt consequatur nisi ipsa.
+      </div>
+    </div>
+  );
 });

@@ -18,6 +18,7 @@ export default class SearchItemStore {
   @observable itemStatus = false;
 
   @observable hover = [false, false, false];
+  @observable deals = [];
 
   @action
   toggleHover = i => {
@@ -39,8 +40,55 @@ export default class SearchItemStore {
     // this.getTreeDataForFilter();
   }
 
+  @observable scrollPosition;
+  @observable dealsPage = 0;
+
+  @observable infinityStauts = true;
+  @observable endPage;
+
+  @action
+  listenToScroll = () => {
+    const winScroll =
+      document.body.scrollTop || document.documentElement.scrollTop;
+
+    const height =
+      document.documentElement.scrollHeight -
+      document.documentElement.clientHeight;
+
+    const scrolled = winScroll / height;
+
+    this.scrollPosition = scrolled;
+    let query = Router.router.query;
+
+    if (
+      this.scrollPosition > 0.7 &&
+      this.infinityStauts === true &&
+      this.dealsPage !== this.endPage
+    ) {
+      this.infinityStauts = false;
+      this.dealsPage += 1;
+
+      let brand = JSON.parse('[' + query.brand + ']');
+
+      this.getSearchByUri(
+        brand,
+        query.category,
+        this.dealsPage,
+        query.unitPerPage,
+        query.order,
+        query.filter,
+        query.subcategory,
+        query.enter,
+        query.keyword
+      );
+    }
+  };
+
   @action
   setItem = item => {
+    let newDeals = this.deals;
+
+    this.deals = newDeals.concat(item.deals);
     this.item = item;
   };
 
@@ -162,7 +210,7 @@ export default class SearchItemStore {
     brandIds,
     categoryIds,
     page,
-    unitPerPage,
+    unitPerPage = 20,
     order,
     filterData,
     subcategory,
@@ -191,13 +239,6 @@ export default class SearchItemStore {
       // console.log(data);
       if (data.resultCode === 200) {
         this.locationFilter = data.data.categories;
-
-        // if (Number.isInteger(categoryIds)) {
-        //   this.treeDataForFilter = data.data.categories;
-        // } else if (enter === 'brand' || enter === 'keyword') {
-        // } else {
-        //   this.treeDataForFilter = data.data.categories;
-        // }
 
         if (enter === 'brand' || enter === 'keyword') {
         } else if (Number.isInteger(categoryIds)) {
@@ -315,6 +356,15 @@ export default class SearchItemStore {
             let data = res.data;
             if (data.resultCode === 200) {
               this.setItem(data.data);
+              /**
+               * mobile 작업
+               */
+              this.infinityStauts = true;
+              if (categoryIds) this.setHeaderCategory(categoryIds);
+
+              this.endPage = Math.floor(data.data.countOfDeals / 20) + 1;
+              ////////////////////////////////////
+
               // console.log(hierarchy, "hierarchy");
               if (categoryIds)
                 this.setTitle(
@@ -324,7 +374,7 @@ export default class SearchItemStore {
               if (enter === 'all') {
                 // this.toGetBrandFilter(categoryList);
                 // this.root.brands.brandsByCategoryFilter = data.data.brands;
-                this.root.brands.setGroupBrandList(data.data.brands);
+                // this.root.brands.setGroupBrandList(data.data.brands);
                 let keyArray;
 
                 this.treeDataForFilter.map(treeData => {
@@ -340,7 +390,7 @@ export default class SearchItemStore {
                 if (categoryList[0] === '') {
                   // this.toGetBrandFilter([]);
                   // this.root.brands.brandsByCategoryFilter = data.data.brands;
-                  this.root.brands.setGroupBrandList(data.data.brands);
+                  // this.root.brands.setGroupBrandList(data.data.brands);
                   this.treeDataForFilter = data.data.categories;
                   this.setCategoryTreeData('brand');
                   if (enter === 'keyword') {
@@ -362,7 +412,7 @@ export default class SearchItemStore {
                   console.log('keyword');
                   // this.toGetBrandFilter([]);
                   // this.root.brands.brandsByCategoryFilter = data.data.brands;
-                  this.root.brands.setGroupBrandList(data.data.brands);
+                  // this.root.brands.setGroupBrandList(data.data.brands);
                   this.treeDataForFilter = data.data.categories;
                   this.setCategoryTreeData('brand');
                   if (enter === 'keyword') {
@@ -384,7 +434,7 @@ export default class SearchItemStore {
                   // 브랜드에서 category 목록이 있을 경우
                   // 전체 브랜드 목록을 보여준다.
                   // this.root.brands.brandsByCategoryFilter = data.data.brands;
-                  this.root.brands.setGroupBrandList(data.data.brands);
+                  // this.root.brands.setGroupBrandList(data.data.brands);
                   this.setKeyArray(
                     getCategoryKeyArray(this.treeDataForFilter, hierarchy[1])
                   );
@@ -413,11 +463,11 @@ export default class SearchItemStore {
               } else {
                 // this.toGetBrandFilter(categoryList);
                 // this.root.brands.brandsByCategoryFilter = data.data.brands;
-                this.root.brands.setGroupBrandList(data.data.brands);
+                // this.root.brands.setGroupBrandList(data.data.brands);
                 // hierarchy === false 서버로부터 온 카테고리 데이타가 없음
                 if (hierarchy) {
                   if (hierarchy.length === 1) {
-                    console.log(toJS(this.treeDataForFilter));
+                    // console.log(toJS(this.treeDataForFilter));
                     this.setKeyArray(
                       getCategoryKeyArray(this.treeDataForFilter, hierarchy[0])
                     );
@@ -544,6 +594,13 @@ export default class SearchItemStore {
   @observable filterCategoryTitle = '';
   @observable filterCategoryList = [];
   // key 값(enter uri)을 받아서 rendering 할 category tree를 만드는 function
+
+  @observable headerCategory;
+  @action
+  setHeaderCategory = key => {
+    let filterCategory = this.treeDataForFilter;
+    this.headerCategory = toJS(getCategory(filterCategory, key)).children;
+  };
 
   @action
   setCategoryTreeData = key => {
@@ -917,17 +974,17 @@ export default class SearchItemStore {
   };
 
   @action
-  toSearch = (
-    category,
-    brand,
-    page,
-    unitPerPage,
-    order,
-    filter,
-    subcategory,
-    enter,
-    keyword
-  ) => {
+  toSearch = ({
+    category = '',
+    brand = '',
+    page = 1,
+    unitPerPage = 20,
+    order = 'DATE',
+    filter = '',
+    subcategory = '',
+    enter = '',
+    keyword = '',
+  }) => {
     Router.push({
       pathname: '/search',
       query: {
@@ -942,5 +999,12 @@ export default class SearchItemStore {
         keyword: keyword,
       },
     });
+    this.deals = [];
+  };
+
+  @observable thumbnail = 'list4';
+  @action
+  setThumbnailStyle = style => {
+    this.thumbnail = style;
   };
 }

@@ -13,6 +13,9 @@
   margin-left: 10px;
   background: url('/static/icon/menu.png') no-repeat center;
   background-size: 30px;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .headerLogo {
@@ -21,6 +24,9 @@
   margin-left: 10px;
   background: url('/static/Guhada-LOGO.png') no-repeat center;
   background-size: contain;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .searchButton {
@@ -29,6 +35,9 @@
   margin-left: auto;
   background: url('/static/icon/header-search.png') no-repeat center;
   background-size: contain;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .cartButton {
@@ -38,6 +47,9 @@
   margin-right: 10px;
   background: url('/static/icon/header-shoppinBag.png') no-repeat center;
   background-size: contain;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .pageTitle {

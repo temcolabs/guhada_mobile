@@ -1,0 +1,13 @@
+@import 'styles/mixins/index';
+
+.wrap {
+  position: fixed;
+  display: none;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  opacity: 0;
+}

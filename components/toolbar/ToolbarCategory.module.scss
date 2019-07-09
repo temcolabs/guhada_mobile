@@ -1,0 +1,11 @@
+$topPosition: 70px;
+
+.wrap {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  height: calc(100vh - #{$topPosition});
+  background: #fff;
+  overflow: scroll;
+}

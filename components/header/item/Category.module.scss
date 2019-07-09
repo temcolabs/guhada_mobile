@@ -1,0 +1,57 @@
+.tree {
+    color: #393939;
+
+    & ul {
+        list-style: none;
+        -moz-transition: height .5s;
+        -ms-transition: height .5s;
+        -o-transition: height .5s;
+        -webkit-transition: height .5s;
+        transition: height .5s;
+        height: 0;
+        overflow: hidden;
+
+        & li {
+            font-size: 14px;
+            font-weight: normal;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: 1.71;
+            letter-spacing: 0.42px;
+            text-align: left;
+            color: #111111;
+            padding: 9px 0 8px 40px;
+
+
+            &.arrow {
+                background-image: url('/static/icon/arrow_icon.png');
+                background-size: 19px;
+                background-repeat: no-repeat;
+                background-position: right 30px center;
+            }
+        }
+    }
+
+    & label {
+        font-size: 16px;
+        font-weight: 500;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.5;
+        letter-spacing: 0.48px;
+        text-align: left;
+        color: #111111;
+        cursor: pointer;
+        padding: 16px 0 15px 30px;
+        margin-bottom: 0;
+        width: 100%;
+    }
+
+    // & input[type="checkbox"] {
+    //     display: none;
+    // }
+
+    & input[type="checkbox"]:checked~label {
+        color: #5d2ed1;
+    }
+}

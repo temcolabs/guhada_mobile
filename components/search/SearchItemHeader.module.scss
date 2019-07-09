@@ -1,0 +1,72 @@
+.wrap {
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.25;
+    color: #333333;
+
+    & .order {
+        margin-left: 20px;
+    }
+
+    & .detail {
+
+        margin-right: 20px;
+        background-image: url('/static/icon/fillter_icon.png');
+        background-size: 16px 14px;
+        background-repeat: no-repeat;
+        background-position: right;
+        padding-right: 21px;
+    }
+
+    & .thumbnail {
+        display: flex;
+
+        & div {
+            margin-right: 1px;
+
+            &:last-child {
+                margin-right: 0
+            }
+        }
+
+        & .list4 {
+            width: 27px;
+            height: 27px;
+            background-size: 27px;
+            background-repeat: no-repeat;
+            background-image: url('/static/icon/search/list_btn_thumbnail01_off.png');
+
+            &.selected {
+                background-image: url('/static/icon/search/list_btn_thumbnail01_on.png');
+            }
+        }
+
+        & .list2 {
+            width: 27px;
+            height: 27px;
+            background-size: 27px;
+            background-repeat: no-repeat;
+            background-image: url('/static/icon/search/list_btn_thumbnail02_off.png');
+
+            &.selected {
+                background-image: url('/static/icon/search/list_btn_thumbnail02_on.png');
+            }
+        }
+
+        & .list6 {
+            width: 27px;
+            height: 27px;
+            background-size: 27px;
+            background-repeat: no-repeat;
+            background-image: url('/static/icon/search/list_btn_thumbnail03_off.png');
+
+            &.selected {
+                background-image: url('/static/icon/search/list_btn_thumbnail03_on.png');
+            }
+        }
+    }
+}

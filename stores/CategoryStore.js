@@ -1,13 +1,10 @@
 import Axios from 'axios';
 import { observable, action, computed, runInAction, toJS } from 'mobx';
-import { searchCategoryName } from '../utils';
+import { searchCategoryName, searchTreeId, getCategory } from '../utils';
 import API from 'lib/API';
 
 export default class CategoryStore {
   @observable category = [];
-  @observable categoryWomen = [];
-  @observable categoryMen = [];
-  @observable categoryKids = [];
   @observable categoryStatus = false;
   @observable hover = false;
 
@@ -27,9 +24,7 @@ export default class CategoryStore {
 
   @action setCategory = category => {
     this.category = category;
-    this.categoryWomen = category[0].children;
-    this.categoryMen = category[1].children;
-    this.categoryKids = category[2].children;
+    // console.log('category', category);
   };
 
   @action
@@ -56,5 +51,21 @@ export default class CategoryStore {
   initSearchCategoryList = () => {
     console.log('blur');
     this.searchCategoryList = [];
+  };
+
+  @observable categoryList = [];
+
+  @action
+  returnCategory = id => {
+    this.categoryList = [];
+
+    if (this.category.length === 0) {
+      API.cloud.get('/guhada_category.json').then(res => {
+        let category = res.data;
+        this.categoryList = getCategory(category, id);
+      });
+    } else {
+      this.categoryList = getCategory(this.category, id);
+    }
   };
 }

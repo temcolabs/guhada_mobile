@@ -60,6 +60,13 @@ module.exports = [
     name: '패스워드 찾기 결과',
   },
 
+  // 검색 결과
+  {
+    pagePath: '/search/search',
+    asPath: '/search',
+    name: '검색 결과',
+  },
+
   // 마이페이지
   {
     pagePath: '/mypage/MyPageMain',
