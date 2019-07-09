@@ -3,6 +3,7 @@ import css from './ToolBar.module.scss';
 import cn from 'classnames';
 import ToolbarCategory from './ToolbarCategory';
 import ToolbarBrand from './ToolbarBrand';
+import Router from 'next/router';
 
 export default function ToolBar() {
   const [isCategoryVisible, setIsCategoryVisible] = useState(false);
@@ -30,9 +31,7 @@ export default function ToolBar() {
         브랜드
       </div>
       <div
-        onClick={() => {
-          setSelectedTool('home');
-        }}
+        onClick={() => (setSelectedTool('home'), Router.push('/'))}
         className={cn(css.itemWrap, css.home, {
           [css.selected]: selectedTool === 'home',
         })}

@@ -10,6 +10,8 @@ import {
 } from '../utils.js';
 import Router from 'next/router';
 import API from 'lib/API.js';
+import { pushRoute } from 'lib/router/index.js';
+import qs from 'qs';
 const isServer = typeof window === 'undefined';
 
 export default class SearchItemStore {
@@ -832,8 +834,8 @@ export default class SearchItemStore {
           this.checkedKeys.splice(idx, 1);
           this.checkedKeysId.splice(idx, 1);
         }
-        let query = Router.router.query;
 
+        let query = Router.router.query;
         this.categoryquery = this.checkedKeysId.join();
 
         if (query.enter === 'brand') {
@@ -985,9 +987,8 @@ export default class SearchItemStore {
     enter = '',
     keyword = '',
   }) => {
-    Router.push({
-      pathname: '/search',
-      query: {
+    pushRoute(
+      `/search?${qs.stringify({
         category: category,
         brand: brand,
         page: page,
@@ -997,8 +998,8 @@ export default class SearchItemStore {
         subcategory: subcategory,
         enter: enter,
         keyword: keyword,
-      },
-    });
+      })}`
+    );
     this.deals = [];
   };
 

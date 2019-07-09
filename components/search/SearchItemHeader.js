@@ -7,29 +7,37 @@ import cn from 'classnames';
 @observer
 class SearchItemHeader extends Component {
   render() {
-    const { searchitem } = this.props;
+    const { searchitem, setIsOrderVisible } = this.props;
     return (
       <div className={css.wrap}>
-        <div className={css.order}>신상품순</div>
+        <div className={css.order} onClick={setIsOrderVisible}>
+          {searchitem.searchOrderFilter === 'DATE'
+            ? '신상품 순'
+            : searchitem.searchOrderFilter === 'PRICE_ASC'
+            ? '낮은 가격 순'
+            : searchitem.searchOrderFilter === 'PRICE_DESC'
+            ? '높은 가격 순'
+            : '신상품 순'}
+        </div>
         <div className={css.thumbnail}>
           <div
             className={cn(css.list4, {
               [css.selected]: searchitem.thumbnail === 'list4',
             })}
             onClick={() => searchitem.setThumbnailStyle('list4')}
-          ></div>
+          />
           <div
             className={cn(css.list2, {
               [css.selected]: searchitem.thumbnail === 'list2',
             })}
             onClick={() => searchitem.setThumbnailStyle('list2')}
-          ></div>
+          />
           <div
             className={cn(css.list6, {
               [css.selected]: searchitem.thumbnail === 'list6',
             })}
             onClick={() => searchitem.setThumbnailStyle('list6')}
-          ></div>
+          />
         </div>
         <div className={css.detail}>상세검색</div>
       </div>
