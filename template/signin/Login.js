@@ -1,5 +1,5 @@
 import React from 'react';
-import DefaultLayout from 'components/layout/DefaultLayout';
+import LoginLayout from 'components/layout/LoginLayout';
 import css from './Login.module.scss';
 import {
   LoginInput,
@@ -54,7 +54,7 @@ class Login extends React.Component {
     }
 
     return (
-      <DefaultLayout pageTitle={'로그인'}>
+      <LoginLayout pageTitle={'로그인'} close={true} back={false}>
         <LoginWrapper>
           <div className={css.wrap}>
             <div className={css.findIdWrap}>
@@ -63,7 +63,7 @@ class Login extends React.Component {
                   <a className={css.findLinkWrap}>아이디찾기</a>
                 </LinkRoute>
               </span>
-              <span className={css.line}></span>
+              <span className={css.line} />
               <span>
                 <LinkRoute href="/login/findpassword">
                   <a className={css.findLinkWrap}>비밀번호찾기</a>
@@ -180,7 +180,7 @@ class Login extends React.Component {
             </div>
           </div>
         </LoginWrapper>
-      </DefaultLayout>
+      </LoginLayout>
     );
   }
 }
