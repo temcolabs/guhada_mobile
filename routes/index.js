@@ -8,7 +8,7 @@ module.exports = [
   {
     // 홈 화면
     pagePath: '/index',
-    asPath: '/',
+    asPath: '/:specialId',
   },
 
   // 리턴 URL

@@ -3,6 +3,7 @@ import css from './ToolBar.module.scss';
 import cn from 'classnames';
 import ToolbarCategory from './ToolbarCategory';
 import ToolbarBrand from './ToolbarBrand';
+import { pushRoute } from 'lib/router';
 
 export default function ToolBar() {
   const [isCategoryVisible, setIsCategoryVisible] = useState(false);
@@ -22,7 +23,10 @@ export default function ToolBar() {
       >
         브랜드
       </div>
-      <div onClick={() => {}} className={cn(css.itemWrap, css.home)}>
+      <div
+        onClick={() => pushRoute('/')}
+        className={cn(css.itemWrap, css.home)}
+      >
         홈
       </div>
       <div onClick={() => {}} className={cn(css.itemWrap, css.community)}>
