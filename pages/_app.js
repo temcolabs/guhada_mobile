@@ -10,8 +10,8 @@ import AssociatedProduct from 'components/common/modal/AssociatedProduct';
 import 'react-dates/initialize';
 import routes from '../routes';
 import pathMatch from 'path-match';
-import Axios from 'axios';
-// import { loadScript } from 'lib/dom';
+import qs from 'qs';
+import { isBrowser } from 'lib/isServer';
 
 const match = pathMatch();
 
@@ -19,6 +19,12 @@ moment.locale('ko');
 
 class MarketPlatform extends App {
   static async getInitialProps(appContext) {
+    if (process.env.NODE_ENV === 'development' && isBrowser) {
+      console.group(`app page rendered`);
+      console.log(`appContext`, appContext);
+      console.groupEnd(`app page rendered`);
+    }
+
     // Get or Create the store with `undefined` as initialState
     // This allows you to set a custom default initialState
     const mobxStore = initializeStore();
@@ -35,21 +41,22 @@ class MarketPlatform extends App {
       initialProps = await Component.getInitialProps(ctx);
     }
 
-    // routes.js 에 선언되어 있는 패턴 기반의 파라미터를 파싱해서 가져온다.
-    let params = {};
+    // 커스텀 라우트에 설정한 파라미터를 가져온다.
+    let query = {};
     const route = routes.find(r => r.pagePath === ctx.pathname);
     if (route) {
-      const paramsMatched = match(route.asPath)(ctx.asPath);
+      const [path, querystring] = ctx.asPath.split('?');
+      const paramsMatched = match(route.asPath)(path);
 
       if (!!paramsMatched) {
-        params = Object.assign({}, paramsMatched);
+        query = Object.assign({}, paramsMatched, qs.parse(querystring));
       }
     }
 
     return {
       initialMobxState: mobxStore,
       initialProps,
-      params,
+      query,
     };
   }
 
@@ -90,11 +97,11 @@ class MarketPlatform extends App {
   // };
 
   render() {
-    const { Component, initialProps, router, params } = this.props;
+    const { Component, initialProps, router, query } = this.props;
 
-    // 파싱된 파라미터가 있으면 next router의 쿼리 객체에 추가해준다.
-    if (router && !!params) {
-      router.query = Object.assign({}, router.query, params);
+    // 클라이언트 사이드 라우팅을 위해 파싱된 쿼리가 있으면 next router의 쿼리 객체에 추가해준다.
+    if (router && !!query) {
+      router.query = Object.assign({}, router.query, query);
     }
 
     return (
