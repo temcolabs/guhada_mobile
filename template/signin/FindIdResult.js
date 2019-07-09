@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import FindLoginInfoHeader from 'components/login/FindLoginInfoHeader';
-import DefaultLayout from 'components/layout/DefaultLayout';
+import LoginLayout from 'components/layout/LoginLayout';
 import { LoginWrapper, LoginButton } from 'components/login';
 import { observer } from 'mobx-react';
 import css from './FindIdResult.module.scss';
 import { LinkRoute } from 'lib/router';
 
 @observer
-export class FindIdResult extends Component {
+class FindIdResult extends Component {
   render() {
     const { form } = this.props;
     let value = form.values();
     return (
-      <DefaultLayout pageTitle={'아이디/비밀번호 찾기'}>
+      <LoginLayout pageTitle={'아이디/비밀번호 찾기'}>
         <LoginWrapper>
           <div className={css.wrap}>
             <FindLoginInfoHeader select={'FindId'} />
@@ -53,7 +53,7 @@ export class FindIdResult extends Component {
             </LinkRoute>
           </div>
         </LoginWrapper>
-      </DefaultLayout>
+      </LoginLayout>
     );
   }
 }

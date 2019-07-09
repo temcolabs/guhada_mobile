@@ -8,21 +8,16 @@ import moment from 'moment';
 import AlertConductor from 'components/common/modal/AlertConductor';
 import AssociatedProduct from 'components/common/modal/AssociatedProduct';
 import 'react-dates/initialize';
-import routes from '../routes';
-import pathMatch from 'path-match';
 import qs from 'qs';
 import { isBrowser } from 'lib/isServer';
-
-const match = pathMatch();
+import { devLog } from 'lib/devLog';
 
 moment.locale('ko');
 
 class MarketPlatform extends App {
   static async getInitialProps(appContext) {
     if (process.env.NODE_ENV === 'development' && isBrowser) {
-      console.group(`app page rendered`);
-      console.log(`appContext`, appContext);
-      console.groupEnd(`app page rendered`);
+      console.log(`[_app] getInitialProps: appContext`, appContext);
     }
 
     // Get or Create the store with `undefined` as initialState
@@ -41,22 +36,9 @@ class MarketPlatform extends App {
       initialProps = await Component.getInitialProps(ctx);
     }
 
-    // 커스텀 라우트에 설정한 파라미터를 가져온다.
-    let query = {};
-    const route = routes.find(r => r.pagePath === ctx.pathname);
-    if (route) {
-      const [path, querystring] = ctx.asPath.split('?');
-      const paramsMatched = match(route.asPath)(path);
-
-      if (!!paramsMatched) {
-        query = Object.assign({}, paramsMatched, qs.parse(querystring));
-      }
-    }
-
     return {
       initialMobxState: mobxStore,
       initialProps,
-      query,
     };
   }
 
@@ -96,19 +78,22 @@ class MarketPlatform extends App {
   //     });
   // };
 
-  render() {
-    const { Component, initialProps, router, query } = this.props;
+  /**
+   * next.router의 쿼리만 변경되었을 때는 Component를 다시 렌더링하지 않는다.
+   * 그래서 컴포넌트의 key를 쿼리스트링을 기반으로 만들어서 강제로 다시 렌더링시킨다₩
+   */
+  get componentKey() {
+    return qs.stringify(this.props.router.query);
+  }
 
-    // 클라이언트 사이드 라우팅을 위해 파싱된 쿼리가 있으면 next router의 쿼리 객체에 추가해준다.
-    if (router && !!query) {
-      router.query = Object.assign({}, router.query, query);
-    }
+  render() {
+    const { Component, initialProps } = this.props;
 
     return (
       <Container>
         <Provider {...this.mobxStore}>
           <>
-            <Component {...initialProps} />
+            <Component key={this.componentKey} {...initialProps} />
 
             <AlertConductor />
 

@@ -10,7 +10,7 @@ class Category extends Component {
     if (growDiv.clientHeight) {
       growDiv.style.height = 0;
     } else {
-      var wrapper = document.querySelector('.measuringWrapper');
+      var wrapper = document.querySelector(`.measuringWrapper${params}`);
       growDiv.style.height = wrapper.clientHeight + 'px';
     }
   }
@@ -33,15 +33,15 @@ class Category extends Component {
                 type="checkbox"
                 id={`${categoryMain.title}${categoryMain.key}category`}
                 defaultChecked={false}
-              ></input>
+              />
               <label
-                htmlFor={`${categoryMain.title}${categoryMain.key}category`}
-                onClick={() => this.grow(categoryMain.title + categoryMain.key)}
+                htmlFor={`${categoryMain.key}category`}
+                onClick={() => this.grow(categoryMain.key)}
               >
                 {categoryMain.title}
               </label>
-              <ul id={`${categoryMain.title}${categoryMain.key}`}>
-                <div className="measuringWrapper">
+              <ul id={`${categoryMain.key}`}>
+                <div className={`measuringWrapper${categoryMain.key}`}>
                   <li onClick={() => this.toSearch(categoryMain.id)}>
                     전체보기
                   </li>
@@ -52,7 +52,8 @@ class Category extends Component {
                         className={css.arrow}
                         onClick={() => (
                           this.props.setIsCategoryVisible(true),
-                          this.props.setCategoryId(categoryItem.id)
+                          this.props.setCategoryId(categoryItem.id),
+                          this.props.setCategoryTitle(categoryItem.title)
                         )}
                       >
                         {categoryItem.title}

@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import DefaultLayout from 'components/layout/DefaultLayout';
+import LoginLayout from 'components/layout/LoginLayout';
 import { LoginWrapper, LoginInput, LoginButton } from 'components/login';
 import css from './FindPasswordResult.module.scss';
 import { LinkRoute } from 'lib/router';
 import { observer } from 'mobx-react';
 
 @observer
-export class FindPasswordResult extends Component {
+class FindPasswordResult extends Component {
   render() {
     const { form, formValue } = this.props;
     let value = form.values();
@@ -14,7 +14,7 @@ export class FindPasswordResult extends Component {
     if (formValue) valueUser = formValue.get('value');
 
     return (
-      <DefaultLayout pageTitle={'아이디/비밀번호 찾기'}>
+      <LoginLayout pageTitle={'아이디/비밀번호 찾기'}>
         <LoginWrapper>
           <div className={css.wrap}>
             <div className={css.header}>
@@ -55,7 +55,7 @@ export class FindPasswordResult extends Component {
             </div>
           </div>
         </LoginWrapper>
-      </DefaultLayout>
+      </LoginLayout>
     );
   }
 }

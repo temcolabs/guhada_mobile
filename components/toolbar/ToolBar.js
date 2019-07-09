@@ -3,32 +3,66 @@ import css from './ToolBar.module.scss';
 import cn from 'classnames';
 import ToolbarCategory from './ToolbarCategory';
 import ToolbarBrand from './ToolbarBrand';
+import Router from 'next/router';
 
 export default function ToolBar() {
   const [isCategoryVisible, setIsCategoryVisible] = useState(false);
   const [isBrandVisible, setIsBrandVisible] = useState(false);
+  const [selectedTool, setSelectedTool] = useState('');
 
   return (
     <div className={css.wrap}>
       <div
-        onClick={() => setIsCategoryVisible(true)}
-        className={cn(css.itemWrap, css.category, css.selected)}
+        onClick={() => {
+          setIsCategoryVisible(true);
+          setSelectedTool('category');
+        }}
+        className={cn(css.itemWrap, css.category, {
+          [css.selected]: selectedTool === 'category',
+        })}
       >
         카테고리
       </div>
       <div
-        onClick={() => setIsBrandVisible(true)}
-        className={cn(css.itemWrap, css.brand)}
+        onClick={() => {
+          setIsBrandVisible(true);
+          setSelectedTool('brand');
+        }}
+        className={cn(css.itemWrap, css.brand, {
+          [css.selected]: selectedTool === 'brand',
+        })}
       >
         브랜드
       </div>
-      <div onClick={() => {}} className={cn(css.itemWrap, css.home)}>
+      <div
+        onClick={() => {
+          setSelectedTool('home');
+          Router.push('/');
+        }}
+        className={cn(css.itemWrap, css.home, {
+          [css.selected]: selectedTool === 'home',
+        })}
+      >
         홈
       </div>
-      <div onClick={() => {}} className={cn(css.itemWrap, css.community)}>
+      <div
+        onClick={() => {
+          setSelectedTool('community');
+        }}
+        className={cn(css.itemWrap, css.community, {
+          [css.selected]: selectedTool === 'community',
+        })}
+      >
         커뮤니티
       </div>
-      <div onClick={() => {}} className={cn(css.itemWrap, css.mypage)}>
+      <div
+        onClick={() => {
+          setSelectedTool('mypage');
+        }}
+        className={cn(css.itemWrap, css.mypage, {
+          [css.selected]: selectedTool === 'mypage',
+        })}
+      >
         마이페이지
       </div>
 

@@ -38,18 +38,38 @@
 
         &.brand {
             background-image: url('/static/icon/toolbar/btn-tool-brand.png');
+
+            &.selected {
+                background-image: url('/static/icon/toolbar/btn-tool-brand-on.png');
+                color: #5d2ed1;
+            }
         }
 
         &.home {
             background-image: url('/static/icon/toolbar/btn-tool-home.png');
+
+            &.selected {
+                background-image: url('/static/icon/toolbar/btn-tool-home-on.png');
+                color: #5d2ed1;
+            }
         }
 
         &.community {
             background-image: url('/static/icon/toolbar/btn-tool-community.png');
+
+            &.selected {
+                background-image: url('/static/icon/toolbar/btn-tool-community-on.png');
+                color: #5d2ed1;
+            }
         }
 
         &.mypage {
             background-image: url('/static/icon/toolbar/btn-tool-mypage.png');
+
+            &.selected {
+                background-image: url('/static/icon/toolbar/btn-tool-mypage-on.png');
+                color: #5d2ed1;
+            }
         }
     }
 }

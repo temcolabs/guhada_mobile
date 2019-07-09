@@ -8,7 +8,7 @@ $toolbarHeader:55px;
     left: 0;
     height: calc(100vh - #{$topPosition});
     background: #fff;
-    overflow: scroll;
+    overflow: hidden;
 
     & .header {
         width: 100%;
@@ -38,5 +38,21 @@ $toolbarHeader:55px;
 
     & .itemWrap {
         position: relative;
+
+
+        & .item {
+            width: 100%;
+            height: 50px;
+            padding-left: 30px;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 50px;
+            text-align: left;
+            color: #111111;
+
+            &.selected {
+                color: #5d2ed1;
+            }
+        }
     }
 }

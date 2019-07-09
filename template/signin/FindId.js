@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import DefaultLayout from 'components/layout/DefaultLayout';
+import LoginLayout from 'components/layout/LoginLayout';
 import {
   LoginWrapper,
   LoginCheckBox,
@@ -15,7 +15,7 @@ import FindMobileAuth from 'components/login/FindMobileAuth';
 
 @inject('authmobile')
 @observer
-export class FindId extends Component {
+class FindId extends Component {
   state = {
     radioChecked: 'findInfo',
   };
@@ -32,7 +32,7 @@ export class FindId extends Component {
     let value = form.get('value');
     // console.log('value', value);
     return (
-      <DefaultLayout pageTitle={'아이디/비밀번호 찾기'}>
+      <LoginLayout pageTitle={'아이디/비밀번호 찾기'}>
         <LoginWrapper>
           <div className={css.wrap}>
             <FindLoginInfoHeader select={'FindId'} />
@@ -66,7 +66,7 @@ export class FindId extends Component {
             <input type="hidden" name="EncodeData" value={authmobile.authKey} />
           </form>
         </LoginWrapper>
-      </DefaultLayout>
+      </LoginLayout>
     );
   }
 }

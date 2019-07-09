@@ -14,6 +14,7 @@ class search extends Component {
     console.log('query', query);
 
     let brand = JSON.parse('[' + query.brand + ']');
+    // let category = JSON.parse('[' + query.category + ']');
     let subcategory = JSON.parse('[' + query.subcategory + ']');
 
     if (query.brand || query.category) {
