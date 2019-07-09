@@ -2,7 +2,6 @@ import React from 'react';
 import { observable, action } from 'mobx';
 import Router from 'next/router';
 import API from 'lib/API';
-import RealTimePopularityProducts from 'components/shoppingcart/RealTimePopularityProducts';
 const isServer = typeof window === 'undefined';
 
 export default class ShoppingCartStore {

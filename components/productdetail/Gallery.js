@@ -23,6 +23,9 @@ class Gallery extends Component {
       slidesToShow: 1,
       slidesToScroll: 1,
       adaptiveHeight: false,
+      pauseOnFocus: true,
+      swipeToSlide: true,
+
       beforeChange: (current, next) => this.setState({ activeSlide: next + 1 }),
     };
     return (

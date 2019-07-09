@@ -46,7 +46,6 @@
     "qs": "^6.7.0",
     "rc-tree": "^1.15.2",
     "react": "^16.8.6",
-    "react-alice-carousel": "^1.13.11",
     "react-custom-scrollbars": "^4.2.1",
     "react-datepicker": "^2.3.0",
     "react-dates": "^20.2.0",
