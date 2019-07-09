@@ -13,9 +13,10 @@ export default function ToolBar() {
   return (
     <div className={css.wrap}>
       <div
-        onClick={() => (
-          setIsCategoryVisible(true), setSelectedTool('category')
-        )}
+        onClick={() => {
+          setIsCategoryVisible(true);
+          setSelectedTool('category');
+        }}
         className={cn(css.itemWrap, css.category, {
           [css.selected]: selectedTool === 'category',
         })}
@@ -23,7 +24,10 @@ export default function ToolBar() {
         카테고리
       </div>
       <div
-        onClick={() => (setIsBrandVisible(true), setSelectedTool('brand'))}
+        onClick={() => {
+          setIsBrandVisible(true);
+          setSelectedTool('brand');
+        }}
         className={cn(css.itemWrap, css.brand, {
           [css.selected]: selectedTool === 'brand',
         })}
@@ -31,7 +35,10 @@ export default function ToolBar() {
         브랜드
       </div>
       <div
-        onClick={() => (setSelectedTool('home'), Router.push('/'))}
+        onClick={() => {
+          setSelectedTool('home');
+          Router.push('/');
+        }}
         className={cn(css.itemWrap, css.home, {
           [css.selected]: selectedTool === 'home',
         })}
