@@ -21,7 +21,13 @@ class Home extends React.Component {
         <h1>home</h1>
         <div>
           <div>
-            <button onClick={() => pushRoute('/?test=query&string=custom')}>
+            <button
+              onClick={() =>
+                pushRoute('/', {
+                  query: { test: 'testvalue', string: 'custom string' },
+                })
+              }
+            >
               /?test=query&string=custom
             </button>
           </div>
