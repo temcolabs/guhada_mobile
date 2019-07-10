@@ -20,9 +20,8 @@ class index extends React.Component {
 
   componentDidUpdate(prevProps) {
     let { productdetail } = this.props;
-    if (
-      prevProps.productdetail.deals.dealsId !== this.props.router.query.deals
-    ) {
+
+    if (prevProps.router.query.deals !== this.props.router.query.deals) {
       let dealsId = getParameterByName('deals');
       productdetail.getDeals(dealsId);
     }
@@ -33,6 +32,7 @@ class index extends React.Component {
   }
   render() {
     let { productdetail } = this.props;
+
     return (
       <>
         <Head>
@@ -43,7 +43,16 @@ class index extends React.Component {
             href="/static/guhada.ico"
           />
         </Head>
-        <div>{productdetail.dealsStatus ? <ProductDetail /> : <Loading />}</div>
+        <div>
+          {productdetail.dealsStatus ? (
+            <ProductDetail
+              deals={productdetail.deals}
+              tags={productdetail.dealsTag}
+            />
+          ) : (
+            <Loading />
+          )}
+        </div>
       </>
     );
   }

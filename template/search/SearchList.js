@@ -16,59 +16,59 @@ import { withRouter } from 'next/router';
 @inject('searchitem')
 @observer
 class SearchList extends Component {
-  componentDidUpdate(prevProps, prevState) {
-    const { searchitem } = this.props;
-    console.log('componentDidup');
-    // TODO: query 데이터 사용
-    let query = this.props.router.query;
-    console.log('prevProps.router.query', prevProps.router.query);
-    console.log('query', query);
-    console.log('this', Router.router.query);
+  // componentDidUpdate(prevProps, prevState) {
+  //   const { searchitem } = this.props;
+  //   console.log('componentDidup');
+  //   // TODO: query 데이터 사용
+  //   let query = this.props.router.query;
+  //   console.log('prevProps.router.query', prevProps.router.query);
+  //   console.log('query', query);
+  //   console.log('this', Router.router.query);
 
-    if (prevProps.router.query !== query) {
-      let brand = query.brand;
-      let category = query.category;
-      let page = query.page;
-      let unitPerPage = query.unitPerPage;
-      let filter = query.filter;
-      let subcategory = query.subcategory;
-      let order = query.order;
-      let enter = query.enter;
-      let keyword = query.keyword;
+  //   if (prevProps.router.query !== query) {
+  //     let brand = query.brand;
+  //     let category = query.category;
+  //     let page = query.page;
+  //     let unitPerPage = query.unitPerPage;
+  //     let filter = query.filter;
+  //     let subcategory = query.subcategory;
+  //     let order = query.order;
+  //     let enter = query.enter;
+  //     let keyword = query.keyword;
 
-      brand = JSON.parse('[' + brand + ']');
-      category = JSON.parse('[' + category + ']');
-      subcategory = JSON.parse('[' + subcategory + ']');
+  //     brand = JSON.parse('[' + brand + ']');
+  //     category = JSON.parse('[' + category + ']');
+  //     subcategory = JSON.parse('[' + subcategory + ']');
 
-      if (brand.length > 0 || category.length > 0) {
-        console.log('1', 1);
-        searchitem.getSearchByUri(
-          brand,
-          category[0],
-          page,
-          unitPerPage,
-          order,
-          filter,
-          subcategory,
-          enter,
-          keyword
-        );
-      } else if (enter === 'brand' || enter === 'keyword') {
-        console.log('2', 2);
-        searchitem.getSearchByUri(
-          brand,
-          category[0] ? category[0] : '',
-          page,
-          unitPerPage,
-          order,
-          filter,
-          subcategory,
-          enter,
-          keyword
-        );
-      }
-    }
-  }
+  //     if (brand.length > 0 || category.length > 0) {
+  //       console.log('1', 1);
+  //       searchitem.getSearchByUri(
+  //         brand,
+  //         category[0],
+  //         page,
+  //         unitPerPage,
+  //         order,
+  //         filter,
+  //         subcategory,
+  //         enter,
+  //         keyword
+  //       );
+  //     } else if (enter === 'brand' || enter === 'keyword') {
+  //       console.log('2', 2);
+  //       searchitem.getSearchByUri(
+  //         brand,
+  //         category[0] ? category[0] : '',
+  //         page,
+  //         unitPerPage,
+  //         order,
+  //         filter,
+  //         subcategory,
+  //         enter,
+  //         keyword
+  //       );
+  //     }
+  //   }
+  // }
 
   state = {
     isOrderVisible: false,
