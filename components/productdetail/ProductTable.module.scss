@@ -1,0 +1,49 @@
+.wrap {
+    border: none;
+    font-size: 12px;
+    font-weight: normal;
+    text-align: left;
+    color: #444444;
+    margin-bottom: 10px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    & tbody {
+        & tr {
+            height: 40px;
+            border-top: 1px solid #eeeeee;
+            border-bottom: 1px solid #eeeeee;
+
+            & th {
+                width: 110px;
+                border: none;
+                text-align: left;
+                padding-left: 10px;
+                background-color: #f9f9fa;
+                font-weight: normal;
+            }
+
+            & td {
+                border: none;
+                text-align: left;
+                padding-left: 10px;
+                font-weight: normal;
+            }
+        }
+    }
+
+
+    & .subHeader {
+        font-size: 14px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.37;
+        letter-spacing: normal;
+        text-align: left;
+        color: #444444;
+        padding: 22px 0 8px 0;
+    }
+}
