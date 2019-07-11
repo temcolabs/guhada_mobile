@@ -1,0 +1,23 @@
+.wrap {
+    margin-bottom: 30px;
+
+    & .tag {
+        height: 26px;
+        border-radius: 15px;
+        border: solid 1px #5d2ed1;
+        background-color: #ffffff;
+        padding: 0 16px;
+        font-size: 12px;
+        font-weight: 500;
+        text-align: center;
+        color: #5d2ed1;
+        display: inline-block;
+        margin-right: 4px;
+        display: inline-flex;
+        align-items: center;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}

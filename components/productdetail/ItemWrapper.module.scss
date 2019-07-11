@@ -1,0 +1,16 @@
+.wrap {
+    padding: 0 20px;
+    margin-bottom: 30px;
+
+    & .header {
+        font-size: 16px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.2;
+        letter-spacing: normal;
+        text-align: left;
+        color: #444444;
+        margin-bottom: 12px;
+    }
+}
