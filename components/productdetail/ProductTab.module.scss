@@ -1,0 +1,29 @@
+.wrap {
+    height: 52px;
+    border-bottom: solid 3px #eeeeee;
+    position: relative;
+    padding: 15px 20px 0 20px;
+
+    & .item {
+        width: 33.3%;
+        height: calc(100% + 1px);
+        font-size: 15px;
+        font-weight: 500;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.12;
+        letter-spacing: normal;
+        text-align: center;
+        color: #111111;
+        display: inline-block;
+        cursor: pointer;
+
+        &.selected {
+            color: #5d2ed1;
+            border-bottom: 3px solid #5d2ed1;
+        }
+
+
+    }
+
+}

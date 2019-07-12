@@ -9,7 +9,7 @@ $duration: 3s;
   z-index: 1000;
   left: 50%;
   top: 50%;
-  transform: translate(-35%, -50%);
+  transform: translate(-50%, -50%);
 
   @mixin psuedo {
     display: block;
@@ -20,7 +20,7 @@ $duration: 3s;
     width: $size * 3;
     height: $size * 3;
     transform-style: preserve-3d;
-    transform: rotateX(45deg) rotate(45deg) translateX(-50%);
+    transform: rotateX(45deg) rotate(45deg);
   }
 
   .box {
