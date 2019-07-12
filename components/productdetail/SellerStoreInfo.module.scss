@@ -1,0 +1,194 @@
+.wrap {
+    padding: 0 20px;
+
+    & .headerWrap {
+        width: 100%;
+        height: 36px;
+
+        & .profileImage {
+            width: 40px;
+            height: 40px;
+            background-color: #dddddd;
+            border-radius: 40px;
+            margin-right: 12px;
+            float: left;
+        }
+
+        & .profileWrap {
+
+            float: left;
+
+            & .levelAndName {
+                display: flex;
+                align-items: center;
+                margin-bottom: 6.5px;
+            }
+
+            & .level {
+                width: 21px;
+                height: 13px;
+                border-radius: 6.5px;
+                border: solid 1px #dddddd;
+                background-color: #ffffff;
+                float: left;
+                margin-right: 3.5px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                & .levelText {
+                    font-size: 10px;
+                    font-weight: bold;
+                    line-height: 1.2;
+                    text-align: center;
+                    color: #111111;
+                    transform: scale(0.7);
+                }
+
+
+            }
+
+            & .satisfiedWrap {
+                font-size: 12px;
+                font-weight: 500;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: 1.2;
+                letter-spacing: normal;
+                text-align: left;
+                color: #333333;
+                display: flex;
+                align-items: center;
+
+                & .line {
+                    height: 8px;
+                    border-right: 1px solid #cccccc;
+                    margin: 0 10px;
+                    margin-top: 2px;
+                }
+
+                & .satisfiedLabel {
+                    color: #777777;
+                }
+            }
+
+
+            & .name {
+                font-size: 12px;
+                font-weight: normal;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: 1.4;
+                letter-spacing: normal;
+                text-align: left;
+                color: #333333;
+                float: left;
+            }
+        }
+
+        & .followBtn {
+            width: 100px;
+            height: 36px;
+            background-color: #5d2ed1;
+            float: right;
+            font-size: 14px;
+            font-weight: 500;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: 1.11;
+            letter-spacing: normal;
+            text-align: center;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &.following {
+                border: solid 1px #5d2ed1;
+                background-color: #ffffff;
+                color: #5d2ed1;
+            }
+        }
+
+    }
+
+    & .sellerItemWrap {
+        width: 100%;
+        display: inline-block;
+
+        & .sellerItem {
+            float: left;
+            width: calc((100% - 20px) / 3);
+            margin-top: 20px;
+            margin-right: 10px;
+
+            &:nth-child(3n) {
+                margin-right: 0;
+            }
+
+            & .image {
+                width: calc(100%);
+            }
+
+            & .contentsWrap {
+                padding-top: 12px;
+
+                & .brandWrap {
+                    width: 100%;
+                    font-size: 14px;
+                    font-weight: 500;
+                    font-style: normal;
+                    font-stretch: normal;
+                    line-height: 1.37;
+                    letter-spacing: normal;
+                    text-align: left;
+                    color: #111111;
+                    margin-bottom: 7px;
+
+                    & .brand {
+                        max-width: calc(100% - 32px);
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        float: left;
+                    }
+
+                    & .season {
+                        font-size: 11px;
+                        display: inline-block;
+                        font-weight: normal;
+                        color: #777777;
+                        margin-left: 4px;
+                    }
+                }
+
+                & .title {
+                    font-size: 12px;
+                    font-weight: normal;
+                    font-style: normal;
+                    font-stretch: normal;
+                    line-height: 1.17;
+                    letter-spacing: normal;
+                    text-align: left;
+                    color: #111111;
+                    width: 100%;
+                    height: 29px;
+                    overflow: hidden;
+                    white-space: normal;
+                    margin-bottom: 11px;
+                }
+
+                & .price {
+                    font-size: 16px;
+                    font-weight: bold;
+                    font-style: normal;
+                    font-stretch: normal;
+                    line-height: 0.94;
+                    letter-spacing: normal;
+                    text-align: left;
+                    color: #111111;
+                }
+            }
+        }
+    }
+}

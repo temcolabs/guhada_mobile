@@ -29,6 +29,8 @@ export const autoHypenPhone = function(str) {
 };
 
 export const autoHypenTele = function(obj) {
+  if (obj === undefined) return;
+
   var number = obj.replace(/[^0-9]/g, '');
   var tel = '';
 

@@ -4,6 +4,11 @@
     font-weight: normal;
     text-align: left;
     color: #444444;
+
+    &.noMargin {
+        margin-bottom: 0;
+    }
+
     margin-bottom: 10px;
 
     &:last-child {
@@ -28,6 +33,7 @@
             & td {
                 border: none;
                 text-align: left;
+                padding: 5px 10px;
                 padding-left: 10px;
                 font-weight: normal;
             }
@@ -35,15 +41,66 @@
     }
 
 
-    & .subHeader {
-        font-size: 14px;
-        font-weight: bold;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: 1.37;
-        letter-spacing: normal;
-        text-align: left;
-        color: #444444;
-        padding: 22px 0 8px 0;
+
+}
+
+.subHeader {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.37;
+    letter-spacing: normal;
+    text-align: left;
+    color: #444444;
+    padding: 22px 0 8px 0;
+}
+
+.subText {
+    width: 100%;
+    font-size: 12px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.3;
+    letter-spacing: normal;
+    text-align: left;
+    color: #777777;
+    margin-bottom: 20px;
+}
+
+.returnSubHeader {
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 1.23;
+    text-align: left;
+    color: #777777;
+    margin-top: 16px;
+    margin-bottom: 6px;
+
+    & .returnSubText {
+        margin-top: 8px;
+    }
+}
+
+.returnSubText {
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 1.3;
+    text-align: left;
+    color: #444444;
+
+    & .numberWrap {
+        display: flex;
+
+        & .numberItem {
+            float: left;
+            margin-right: 2px;
+        }
+    }
+
+
+    &.number {
+        line-height: 1.67;
     }
 }

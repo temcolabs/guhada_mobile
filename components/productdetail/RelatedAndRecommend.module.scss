@@ -1,0 +1,110 @@
+.wrap {
+    padding-left: 20px;
+
+    & .header {
+        font-size: 16px;
+        font-weight: bold;
+        line-height: 1.2;
+        color: #111111;
+        margin-bottom: 12px;
+    }
+
+    & .betweenMargin {
+        margin-top: 40px;
+    }
+
+    & .slideWrap {
+        height: 265px;
+        width: 100%;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        white-space: nowrap;
+        display: flex;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        & .itemWrap {
+            display: inline-block;
+            width: 130px;
+            height: 100%;
+            margin-right: 9.7px;
+
+            &:last-child {
+                margin-right: 20px;
+            }
+
+            & .image {
+                width: 130px;
+                height: 170px;
+                background-color: #eeeeee;
+                background-size: 130px 170px;
+                background-repeat: no-repeat;
+            }
+
+            & .contentsWrap {
+                padding-top: 12px;
+                padding-left: 4px;
+
+
+
+                & .brandWrap {
+                    width: 100%;
+                    font-size: 14px;
+                    font-weight: 500;
+                    font-style: normal;
+                    font-stretch: normal;
+                    line-height: 1.37;
+                    letter-spacing: normal;
+                    text-align: left;
+                    color: #111111;
+                    margin-bottom: 7px;
+
+                    & .brand {
+                        max-width: calc(100% - 30px);
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        float: left;
+                    }
+
+                    & .season {
+                        font-size: 11px;
+                        display: inline-block;
+                        font-weight: normal;
+                        color: #777777;
+                        margin-left: 4px;
+                    }
+                }
+
+                & .title {
+                    font-size: 12px;
+                    font-weight: normal;
+                    font-style: normal;
+                    font-stretch: normal;
+                    line-height: 1.17;
+                    letter-spacing: normal;
+                    text-align: left;
+                    color: #111111;
+                    width: 113px;
+                    height: 29px;
+                    overflow: hidden;
+                    white-space: normal;
+                    margin-bottom: 11px;
+                }
+
+                & .price {
+                    font-size: 16px;
+                    font-weight: bold;
+                    font-style: normal;
+                    font-stretch: normal;
+                    line-height: 0.94;
+                    letter-spacing: normal;
+                    text-align: left;
+                    color: #111111;
+                }
+            }
+        }
+    }
+}

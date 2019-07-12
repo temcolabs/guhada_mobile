@@ -1,4 +1,4 @@
-import { observable, action } from 'mobx';
+import { observable, action, toJS } from 'mobx';
 import Axios from 'axios';
 import API from 'lib/API';
 
@@ -25,7 +25,7 @@ export default class ProductDetailStore {
   actionAfterUserInfoFetched = [];
   @action
   getDeals = id => {
-    API.product.get(`/deals/ ${id}`).then(res => {
+    API.product.get(`/deals/${id}`).then(res => {
       let data = res.data;
       if (data.resultCode === 200) {
         this.deals = data.data;
@@ -33,7 +33,7 @@ export default class ProductDetailStore {
         this.root.productoption.getOptions();
         this.getDealsTag();
 
-        console.log(this.deals, '상세페이지 데이터');
+        // console.log(this.deals, '상세페이지 데이터');
 
         while (this.actionAfterUserInfoFetched.length > 0) {
           const cb = this.actionAfterUserInfoFetched.pop();
@@ -57,6 +57,7 @@ export default class ProductDetailStore {
         this.getSellerDetail();
         this.root.productreview.getProductReview();
         this.root.productreview.getProductReviewSummary();
+        this.getInquiry(0);
         // 데이터 테이블 형태로 가공해야 하는 attributes
         this.initTableData();
         // this.dealsStatus = true;
@@ -213,13 +214,16 @@ export default class ProductDetailStore {
   @observable itemCountOfDeals;
   @observable unitPerPage = 10;
   @observable pageList = [];
+  @observable inquiryPage = 0;
+
   @action
-  getInquiry = (page, id, status, myinquiry = this.inquiryMy) => {
+  getInquiry = (page, status, myinquiry = this.inquiryMy) => {
     this.inquiryMy = myinquiry;
     this.inquiryStatus = status;
+    this.inquiryPage = 0;
 
     API.claim
-      .get('/products/' + id + '/inquiries', {
+      .get('/products/' + this.deals.productId + '/inquiries', {
         params: {
           pageNo: page,
           size: 10,
@@ -231,13 +235,41 @@ export default class ProductDetailStore {
         let data = res.data;
         if (data.resultCode === 200) {
           this.inquiryList = data.data;
-          this.inquiryPage = page + 1;
-          this.setInquiryPageNavigation(data.data);
-          this.pageNavigator(data.data.totalElements, 10);
+          // this.inquiryPage = page + 1;
+          // this.setInquiryPageNavigation(data.data);
+          // this.pageNavigator(data.data.totalElements, 10);
         } else if (data.resultCode === 5004) {
           this.inquiryList = [];
-          this.initPageList();
+          // this.initPageList();
         }
+      });
+  };
+
+  @action
+  addInquiry = (status, myinquiry = this.inquiryMy) => {
+    this.inquiryMy = myinquiry;
+    this.inquiryStatus = status;
+
+    this.inquiryPage += 1;
+    API.claim
+      .get('/products/' + this.deals.productId + '/inquiries', {
+        params: {
+          pageNo: this.inquiryPage,
+          size: 10,
+          status: this.inquiryStatus,
+          isMyInquiry: this.inquiryMy,
+        },
+      })
+      .then(res => {
+        let data = res.data;
+        console.log('data', data);
+        if (data.resultCode === 200) {
+          let newInquiry = this.inquiryList.content;
+          this.inquiryList.content = newInquiry.concat(data.data.content);
+        } else
+          this.root.alert.showAlert({
+            content: '문의 데이터가 더 이상 존재하지 않습니다.',
+          });
       });
   };
 
@@ -354,17 +386,17 @@ export default class ProductDetailStore {
   };
 
   @action
-  setNewInquiry = (id, closeModal) => {
+  setNewInquiry = (content, closeModal) => {
     API.claim
-      .post('/products/' + id + '/inquiries', {
-        content: this.inquiryContents,
-        private: this.secretInquiry,
+      .post('/products/' + this.deals.productId + '/inquiries', {
+        content: content,
+        privateInquiry: this.secretInquiry,
       })
       .then(res => {
         let data = res.data;
 
         if (data.resultCode === 200) {
-          this.getInquiry(0, id, '');
+          this.getInquiry(0, '');
           closeModal();
         }
       });
@@ -375,7 +407,9 @@ export default class ProductDetailStore {
     if (this.deals.sellerId && this.deals.shipping.claimAddressId) {
       API.user
         .get(
-          `/sellers/${this.deals.sellerId}/departures-and-returns/${this.deals.shipping.claimAddressId}`
+          `/sellers/${this.deals.sellerId}/departures-and-returns/${
+            this.deals.shipping.claimAddressId
+          }`
         )
         .then(res => {
           let data = res.data;
@@ -415,7 +449,9 @@ export default class ProductDetailStore {
   getDealsOfRecommend = () => {
     API.product
       .get(
-        `/deals?division=RECOMMEND&pageIndex=0&unitPerPage=3&sellerId=${this.deals.sellerId}`
+        `/deals?division=RECOMMEND&pageIndex=0&unitPerPage=3&sellerId=${
+          this.deals.sellerId
+        }`
       )
       .then(res => {
         let data = res.data;

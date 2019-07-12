@@ -18,7 +18,7 @@ export default class ProductDetailGalleryStore {
           return { original: data };
         }
       );
-      console.log(this.galleryImageItems, 'this.galleryImageItems ');
+      // console.log(this.galleryImageItems, 'this.galleryImageItems ');
     };
 
     if (_.isNil(_.get(this.root.productdetail, 'deals.imageUrls'))) {

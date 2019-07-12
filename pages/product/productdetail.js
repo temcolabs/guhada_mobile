@@ -47,7 +47,15 @@ class index extends React.Component {
           {productdetail.dealsStatus ? (
             <ProductDetail
               deals={productdetail.deals}
+              claims={productdetail.claims}
               tags={productdetail.dealsTag}
+              businessSeller={productdetail.businessSeller}
+              seller={productdetail.seller}
+              dealsOfSameBrand={productdetail.dealsOfSameBrand}
+              dealsOfRecommend={productdetail.dealsOfRecommend}
+              dealsOfSellerStore={productdetail.dealsOfSellerStore}
+              followers={productdetail.followers}
+              satisfaction={productdetail.satisfaction}
             />
           ) : (
             <Loading />

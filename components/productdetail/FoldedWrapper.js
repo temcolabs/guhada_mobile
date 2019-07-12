@@ -15,12 +15,16 @@ class FoldedWrapper extends Component {
   };
 
   render() {
-    const { header, children } = this.props;
+    const { header, children, noline } = this.props;
     const { folded } = this.state;
     return (
       <div className={css.wrap}>
         <div
-          className={cn(css.header, { [css.folded]: folded === true })}
+          className={cn(
+            css.header,
+            { [css.folded]: folded === true },
+            { [css.noline]: noline === true }
+          )}
           onClick={() => this.setFoleded()}
         >
           {header}
