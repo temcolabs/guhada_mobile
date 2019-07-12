@@ -1,0 +1,98 @@
+.wrap {
+  margin-top: 30px;
+  padding: 0 20px;
+  border-top: 8px solid #f7f9f9;
+
+  .title {
+    margin-top: 20px;
+    font-size: 15px;
+    color: #111;
+    font-weight: bold;
+  }
+
+  .coupon {
+    margin-top: 25px;
+
+    .couponTitle {
+      font-size: 14px;
+      color: #111;
+      font-weight: 500;
+    }
+
+    .couponSelectBox {
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .couponSelect {
+      width: 100%;
+      margin-right: 7px;
+    }
+
+    .couponAutoSelect {
+      width: 80px;
+      height: 45px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #5d2ed1;
+      border: 1px solid #5d2ed1;
+      font-size: 13px;
+      font-weight: bold;
+    }
+  }
+
+  .point {
+    margin-top: 25px;
+    .pointTitle {
+      font-size: 14px;
+      color: #111;
+      font-weight: 500;
+    }
+
+    .pointSelectBox {
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .pointSelect {
+      position: relative;
+      width: 100%;
+      margin-right: 7px;
+
+      input {
+        border: 1px solid #ebebeb;
+        width: 100%;
+        height: 45px;
+        padding: 0 15px;
+      }
+
+      .myPoint {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 20px;
+        color: #777;
+
+        span {
+          color: #5d2ed1;
+          font-weight: bold;
+        }
+      }
+    }
+
+    .pointAutoSelect {
+      width: 80px;
+      height: 45px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #5d2ed1;
+      border: 1px solid #5d2ed1;
+      font-size: 13px;
+      font-weight: bold;
+    }
+  }
+}

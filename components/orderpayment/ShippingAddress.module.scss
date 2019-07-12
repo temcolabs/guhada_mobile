@@ -1,0 +1,90 @@
+.wrap {
+  margin-top: 30px;
+  padding: 0 20px;
+  border-top: 8px solid #f7f9f9;
+
+  .top {
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .title {
+      font-size: 15px;
+      color: #111;
+      font-weight: bold;
+    }
+    .changeAddress {
+      font-size: 13px;
+      color: #444;
+      display: flex;
+      align-items: center;
+      .arrow {
+        width: 20px;
+        height: 20px;
+        margin-top: 2px;
+        background: url('/static/icon/detail_brand_arrow.png') no-repeat;
+        background-size: cover;
+        background-position: center;
+      }
+    }
+  }
+
+  .shippingAddressWrap {
+    margin-top: 5px;
+
+    .shippingAddressItem {
+      margin-top: 20px;
+      &:first-child {
+        margin-top: 0;
+      }
+
+      .shippingName {
+        font-size: 14px;
+        color: #111;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        .defaultAddresss {
+          margin-left: 10px;
+          width: 44px;
+          height: 18px;
+          background: url('/static/icon/m_default_address.png') no-repeat;
+          background-size: cover;
+          background-position: center;
+        }
+      }
+    }
+
+    .shippingAddress {
+      margin-top: 15px;
+      font-size: 14px;
+      font-weight: normal;
+      color: #777;
+    }
+
+    .shippingCustomer {
+      margin-top: 6px;
+      display: flex;
+      color: #777;
+      .recipientMobile {
+        margin-left: 8px;
+      }
+    }
+  }
+
+  .selectBox {
+    margin-top: 25px;
+  }
+
+  .shippingMessageRequest {
+    margin-top: 10px;
+    width: 100%;
+    border: 1px solid #ddd;
+
+    textarea {
+      width: 100%;
+      padding: 15px;
+      padding-bottom: 15%;
+    }
+  }
+}

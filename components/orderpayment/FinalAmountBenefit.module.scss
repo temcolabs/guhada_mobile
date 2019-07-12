@@ -1,0 +1,208 @@
+.wrap {
+  margin-top: 40px;
+  .finalTop {
+    display: flex;
+    width: 100%;
+    background: #5d2de1;
+
+    div {
+      width: 33%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 50px;
+      border-right: 1px solid #6a3ed4;
+
+      &:last-child {
+        border-right: none;
+      }
+    }
+
+    .totalOrderTitle {
+      color: #aa91e6;
+      display: flex;
+    }
+
+    .totalDiscountTitle {
+      color: #aa91e6;
+      .dropArrowOpacity {
+        background: url('/static/icon/m_drop_arrow.png') no-repeat;
+        width: 14px;
+        height: 14px;
+        background-size: cover;
+        background-position: center;
+        opacity: 0.7;
+        margin-left: 6px;
+      }
+    }
+
+    .totalPaymentTitle {
+      color: #fff;
+      font-weight: bold;
+      font-size: 13px;
+    }
+  }
+
+  .finalResult {
+    background: #fafafa;
+    height: 100px;
+    display: flex;
+    border-bottom: 1px solid #eaeaea;
+    .totalOrderAmount {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 33%;
+      border-right: 1px solid #eaeaea;
+      .innerContent {
+        font-size: 16px;
+        font-weight: bold;
+        color: #444;
+        text-align: center;
+        .shippingType {
+          font-size: 12px;
+          color: #9a9fa8;
+        }
+      }
+
+      .minusImage {
+        background: url('/static/icon/m_minus_btn.png') no-repeat;
+        width: 15px;
+        height: 15px;
+        background-size: cover;
+        background-position: center;
+        position: absolute;
+        right: 0;
+        transform: translateX(50%);
+      }
+    }
+
+    .totalDiscountAmount {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 33%;
+      border-right: 1px solid #eaeaea;
+
+      font-size: 16px;
+      font-weight: bold;
+      color: #444;
+
+      .equalImage {
+        background: url('/static/icon/m_equal_btn.png') no-repeat;
+        width: 15px;
+        height: 15px;
+        background-size: cover;
+        background-position: center;
+        position: absolute;
+        right: 0;
+        transform: translateX(50%);
+      }
+    }
+
+    .totalPaymentAmount {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 33%;
+
+      font-size: 18px;
+      font-weight: bold;
+      color: #5d2de1;
+      span {
+        font-size: 14px;
+      }
+    }
+  }
+
+  .discountInfoWrap {
+    padding: 30px 20px 0;
+
+    .discountMenu {
+      display: flex;
+      justify-content: space-between;
+      color: #777;
+      font-weight: 500;
+      font-size: 13px;
+      height: 35px;
+      &:first-child {
+        margin-top: 0;
+      }
+      .sectionTitle {
+        .couponChange {
+          display: inline-block;
+          margin-left: 12px;
+          width: 52px;
+          height: 25px;
+          img {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  .dueSavePointWrap {
+    padding: 0 20px;
+    border-bottom: 1px solid #5d2de1;
+
+    .dueSavePointSummary {
+      height: 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .dueSaveTitle {
+        font-size: 14px;
+        color: #111;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        .dropArrow {
+          background: url('/static/icon/m_drop_arrow.png') no-repeat;
+          width: 14px;
+          height: 14px;
+          background-size: cover;
+          background-position: center;
+          margin-left: 6px;
+        }
+      }
+
+      .dueSavePoint {
+        color: #5d2de1;
+        span {
+          font-weight: bold;
+        }
+      }
+    }
+
+    .benefitInfoWrap {
+      padding: 10px 0;
+
+      .discountMenu {
+        display: flex;
+        justify-content: space-between;
+        color: #777;
+        font-weight: 500;
+        font-size: 13px;
+        height: 35px;
+        &:first-child {
+          margin-top: 0;
+        }
+        .sectionTitle {
+          .couponChange {
+            display: inline-block;
+            margin-left: 12px;
+            width: 52px;
+            height: 25px;
+            img {
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+}

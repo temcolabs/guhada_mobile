@@ -7,6 +7,7 @@ import SearchStore from './SearchStore';
 import SearchItemStore from './SearchItemStore';
 import ProductDetailStore from './productdetail/ProductDetailStore';
 import OrderPaymentStore from './orderpayment/OrderPaymentStore';
+import OrderPaymentPointStore from './orderpayment/OrderPaymentPointStore';
 import OrderPaymentSuccessStore from './OrderPaymentSuccessStore';
 import ShoppingCartStore from './shoppingcart/ShoppingCartStore';
 import ProductReviewStore from './productdetail/ProductReviewStore';
@@ -19,7 +20,6 @@ import AlertStore from './AlertStore';
 import BookMarkStore from './BookMarkStore';
 import AuthMobileStore from './AuthMobileStore';
 import CustomerAuthenticationStore from './orderpayment/CustomerAuthenticationStore';
-import SideTabStore from './orderpayment/SideTabStore';
 import MyOrderListStore from './myOrder/OrderListStore';
 import MyOrderDetailStore from './myOrder/OrderDetailStore';
 import MypagePointStore from './mypage/MypagePointStore.js';
@@ -43,6 +43,7 @@ class RootStore {
     this.searchitem = new SearchItemStore(this);
     this.productdetail = new ProductDetailStore(this);
     this.orderpayment = new OrderPaymentStore(this);
+    this.orderPaymentPoint = new OrderPaymentPointStore(this);
     this.orderpaymentsuccess = new OrderPaymentSuccessStore(this);
     this.cartAndPurchase = new CartAndPurchaseStore(this);
     this.shoppingCartSuccessModal = new ShoppingCartSuccessModalStore(this);
@@ -58,7 +59,6 @@ class RootStore {
     this.countdown = new CountdownStore(this);
 
     // order payment - 사이드 탭
-    this.sidetab = new SideTabStore(this);
     this.productRecentlySeen = new ProductRecentlySeenStore(this);
 
     // 나의 주문

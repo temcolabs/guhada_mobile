@@ -1,0 +1,44 @@
+.wrap {
+  margin-top: 50px;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  label {
+    display: flex;
+
+    input[type='checkbox'] {
+      display: block;
+      width: 20px;
+      height: 20px;
+      border: none;
+      border-radius: 0px;
+      background-image: url('/static/icon/checkbox_off.png');
+      background-size: 20px 20px;
+      background-position: center;
+      background-repeat: no-repeat;
+      margin-top: 1px;
+    }
+
+    input[type='checkbox']:checked {
+      border: none;
+      background-image: url('/static/icon/checkbox_on.png');
+      background-size: 20px 20px;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: all 0.5s;
+    }
+
+    span {
+      margin-left: 10px;
+      font-size: 14px;
+      color: #5d2de1;
+    }
+  }
+
+  .agreementText {
+    font-size: 12px;
+    color: #9a9fa8;
+    font-weight: 500;
+    text-decoration: underline;
+  }
+}

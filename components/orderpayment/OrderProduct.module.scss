@@ -1,0 +1,64 @@
+.wrap {
+  min-width: 320px;
+  margin-top: 20px;
+  border-bottom: 1px solid #ebebeb;
+  padding-bottom: 20px;
+  display: flex;
+
+  &:first-child {
+    margin-top: 5px;
+  }
+  &:last-child {
+    border-bottom: none;
+    padding-bottom: none;
+  }
+
+  .productImage {
+    width: 90px;
+    height: 115px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .productInfo {
+    margin-left: 25px;
+
+    .brand {
+      font-size: 13px;
+      font-weight: 500;
+      color: #111;
+    }
+
+    .productName {
+      width: 180px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 13px;
+      font-weight: 500;
+      color: #111;
+      margin-top: 6px;
+    }
+
+    .productPrice {
+      width: 180px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 14px;
+      font-weight: bold;
+      color: #111;
+      margin-top: 6px;
+    }
+
+    .productOpiton {
+      width: 180px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 13px;
+      font-weight: 500;
+      color: #777;
+      margin-top: 20px;
+    }
+  }
+}

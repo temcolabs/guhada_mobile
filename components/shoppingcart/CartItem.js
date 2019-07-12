@@ -62,7 +62,14 @@ class CartItem extends Component {
                   )}
                 </div>
 
-                <div className={css.purchase__button}>바로 구매</div>
+                <div
+                  className={css.purchase__button}
+                  onClick={() => {
+                    shoppingcart.shoppingCartimmediatePurchase(data.cartItemId);
+                  }}
+                >
+                  바로 구매
+                </div>
               </div>
             </div>
           </div>

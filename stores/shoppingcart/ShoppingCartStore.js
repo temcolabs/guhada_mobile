@@ -62,16 +62,18 @@ export default class ShoppingCartStore {
   //--------------------- 장바구니 실시간 인기 상품 가져오기 ---------------------
   @action
   getRealTimePopularityProducts = () => {
-    API.product.get(`/deals?division=MAIN_NEW_ARRIVALS`).then(res => {
-      let data = res.data;
-      if (data.resultCode === 200) {
-        this.realTimePopularityProducts = data.data;
-        console.log(
-          this.realTimePopularityProducts,
-          'this.realTimePopularityProducts'
-        );
-      }
-    });
+    API.product
+      .get(`/deals?division=MAIN_NEW_ARRIVALS&unitPerPage=3`)
+      .then(res => {
+        let data = res.data;
+        if (data.resultCode === 200) {
+          this.realTimePopularityProducts = data.data;
+          console.log(
+            this.realTimePopularityProducts,
+            'this.realTimePopularityProducts'
+          );
+        }
+      });
   };
 
   //--------------------- 옵션수량 바뀐 장바구니 전체 데이터 가져오기 ---------------------
@@ -495,7 +497,7 @@ export default class ShoppingCartStore {
   };
   //--------------------- 장바구니 아이템 즉시구매하기 ---------------------
   @action
-  ShoppingCartimmediatePurchase = id => {
+  shoppingCartimmediatePurchase = id => {
     Router.push({
       pathname: '/orderpayment',
       query: {

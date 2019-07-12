@@ -1,0 +1,54 @@
+.wrap {
+  margin-top: 40px;
+  padding: 0 20px;
+
+  .title {
+    color: #111;
+    font-size: 15px;
+    font-weight: bold;
+  }
+
+  .paymentMethod {
+    margin-top: 30px;
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    li {
+      list-style: none;
+      width: 50%;
+      display: flex;
+      &:nth-child(-n + 2) {
+        margin-bottom: 20px;
+      }
+      input[type='radio'] {
+        display: block;
+        width: 20px;
+        height: 20px;
+        border: none;
+        border-radius: 0px;
+        background-image: url('/static/icon/m_radio_btn_off.png');
+        background-size: 20px 20px;
+        background-position: center;
+        background-repeat: no-repeat;
+        margin-top: 1px;
+      }
+
+      input[type='radio']:checked {
+        border: none;
+        background-image: url('/static/icon/m_radio_btn_on.png');
+        background-size: 20px 20px;
+        background-position: center;
+        background-repeat: no-repeat;
+        transition: all 0.5s;
+      }
+
+      label {
+        margin-left: 15px;
+      }
+    }
+  }
+
+  .paymentForm {
+    display: none;
+  }
+}

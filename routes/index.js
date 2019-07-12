@@ -214,4 +214,10 @@ module.exports = [
     pagePath: '/shoppingcart/shoppingcart',
     asPath: '/shoppingcart',
   },
+
+  // 주문결제
+  {
+    pagePath: '/orderpayment/orderpayment',
+    asPath: '/orderpayment',
+  },
 ];

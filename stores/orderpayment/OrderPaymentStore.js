@@ -1,10 +1,11 @@
-import { observable, action, toJS } from 'mobx';
-import Cookies from 'js-cookie';
+/* eslint-disable no-undef */
+import { observable, action } from 'mobx';
 import { autoHypenPhone, getUserAgent } from '../../utils';
 import API from 'lib/API';
 import qs from 'qs';
 import { getParameterByName } from '../../utils';
 import Router from 'next/router';
+import { loadScript } from 'lib/dom';
 
 const isServer = typeof window === 'undefined';
 export default class OrderPaymentStore {
@@ -15,6 +16,7 @@ export default class OrderPaymentStore {
   @observable orderPaymentTotalInfo;
   @observable orderProductInfo;
   @observable orderUserInfo;
+  @observable orderPoint;
   @observable orderShippingList = {
     list: [],
     currentUseAddressId: 0,
@@ -27,8 +29,8 @@ export default class OrderPaymentStore {
       roadAddress: null,
       zip: null,
       detailAddress: null,
-      recepientName: null,
-      recepientMobile: null,
+      recipientName: null,
+      recipientMobile: null,
       shippingMessageType: null,
       defaultAddress: false,
     },
@@ -41,22 +43,21 @@ export default class OrderPaymentStore {
     newShppingRequestSelfStatus: false,
     shppingListModalStatus: false,
     totalBenefitDetailStatus: false,
+    totalDiscountDetailStatus: false,
     orderPaymentAgreement: false,
     paymentProceed: false,
     newShippingName: false,
     newAddress: false,
     newDetail: false,
-    newRecepientName: false,
-    newRecepientMobile: false,
+    newRecipientName: false,
+    newRecipientMobile: false,
+    orderProductOnOffStatus: true,
   };
+  @observable orderTotalQuantity = 0;
+  @observable shippingMessageOption = [];
   @observable option = [];
   @observable paymentMethod;
-  @observable paymentMethodImage = {
-    CARD: '/static/icon/order_payment_card_off.png',
-    DirectBank: '/static/icon/order_payment_directbank_off.png',
-    VBank: '/static/icon/order_payment_vbank_off.png',
-    TOKEN: '/static/icon/order_payment_token_off.png',
-  };
+
   @observable paymentForm = {};
 
   @observable paymentMethodStyle = {
@@ -69,16 +70,21 @@ export default class OrderPaymentStore {
   getOrderItems = cartList => {
     this.cartList = cartList;
     API.order
-      .get(`/order/orderForm?cartItemIdList= ${this.cartList}`)
+      .get(`/order/orderForm?cartItemIdList=${this.cartList}`)
       .then(res => {
-        let data = res.data;
+        let data = res.data.data;
         if (res.data.resultCode === 200) {
-          this.orderPaymentTotalInfo = data.data;
-          this.orderProductInfo = data.data.orderItemList;
-          this.orderUserInfo = data.data.user;
-          this.orderShippingList.defaultAddress = data.data.shippingAddress;
+          this.orderPaymentTotalInfo = data;
+          this.orderProductInfo = data.orderItemList;
+          this.orderUserInfo = data.user;
+          this.orderShippingList.defaultAddress = data.shippingAddress;
+          this.orderPoint = data.availablePointResponse;
+          this.orderPaymentTotalInfo.originPaymentPrice = this.orderPaymentTotalInfo.totalPaymentPrice; //총 결제금액 백업 저장
+          this.shippingMessageOption = data.shippingMessage;
           this.getOptions();
-
+          this.getTotalQuantity();
+          this.getShippingMessageOption();
+          console.log(res.data, '주문 데이터');
           this.orderProductInfo.map(data => {
             if (data.orderValidStatus !== 'VALID') {
               this.root.alert.showAlert({
@@ -91,10 +97,9 @@ export default class OrderPaymentStore {
             }
           });
           if (this.orderShippingList.defaultAddress) {
-            this.getPhoneWithHypen();
             this.status.selectedShipStatus = true;
           }
-          console.log(toJS(this.orderProductInfo), '주문정보');
+          this.getPhoneWithHypen();
 
           let paymentRemainCheck = JSON.parse(
             sessionStorage.getItem('paymentInfo')
@@ -123,18 +128,26 @@ export default class OrderPaymentStore {
             }
 
             this.paymentMethod = paymentRemainCheck.parentMethodCd;
-            this.methodChange();
             this.status.orderPaymentAgreement = !this.status
               .orderPaymentAgreement;
 
             sessionStorage.removeItem('paymentInfo');
           }
-
           this.status.pageStatus = true;
         }
+      })
+      .catch(err => {
+        this.root.alert.showAlert({
+          content: `${err}`,
+          onConfirm: () => {
+            this.gotoMain();
+          },
+        });
       });
   };
-
+  gotoMain = () => {
+    Router.push('/');
+  };
   //--------------------- 우편번호 검색 ---------------------
   @action
   searchZipcode = (path, addressEditing, setNewShippingAddress) => {
@@ -167,6 +180,8 @@ export default class OrderPaymentStore {
                   data.roadAddress;
               }
               break;
+            default:
+              break;
           }
         },
       }).open();
@@ -183,14 +198,14 @@ export default class OrderPaymentStore {
       case 'newDetailAddress':
         this.orderShippingList.newAddress.detailAddress = e.target.value;
         break;
-      case 'newRecepientName':
-        this.orderShippingList.newAddress.recepientName = e.target.value;
+      case 'newRecipientName':
+        this.orderShippingList.newAddress.recipientName = e.target.value;
         break;
-      case 'newRecepientMobile':
+      case 'newRecipientMobile':
         let phoneNum = e.target.value;
         phoneNum = phoneNum.replace(/[^0-9]/g, '');
 
-        this.orderShippingList.newAddress.recepientMobile = phoneNum;
+        this.orderShippingList.newAddress.recipientMobile = phoneNum;
         break;
       case 'roadAddress':
         this.orderShippingList.newAddress.roadAddress = address.roadAddress;
@@ -202,6 +217,8 @@ export default class OrderPaymentStore {
         this.orderShippingList.newAddress.zip = address.zonecode;
         this.orderShippingList.newAddress.roadAddress = address.roadAddress;
         break;
+      default:
+        break;
     }
   };
 
@@ -211,8 +228,8 @@ export default class OrderPaymentStore {
     this.status.newShippingName = false;
     this.status.newAddress = false;
     this.status.newDetail = false;
-    this.status.newRecepientName = false;
-    this.status.newRecepientMobile = false;
+    this.status.newRecipientName = false;
+    this.status.newRecipientMobile = false;
   };
   //--------------------- 주문배송 요청사항 변경 ---------------------
   @action
@@ -306,44 +323,18 @@ export default class OrderPaymentStore {
   //--------------------- 휴대폰번호에 ' - ' 추가 ---------------------
   getPhoneWithHypen = () => {
     this.orderUserInfo.mobile = autoHypenPhone(this.orderUserInfo.mobile);
-    this.orderShippingList.defaultAddress.hypenRecepientMobile = autoHypenPhone(
-      this.orderShippingList.defaultAddress.recepientMobile
-    );
+    if (this.orderShippingList.defaultAddress) {
+      this.orderShippingList.defaultAddress.hypenRecipientMobile = autoHypenPhone(
+        this.orderShippingList.defaultAddress.recipientMobile
+      );
+    }
   };
 
   //--------------------- 결제방법변경 ---------------------
   @action
   setPaymentMethod = targetMethod => {
     this.paymentMethod = targetMethod;
-    this.methodChange();
-  };
-
-  //--------------------- 결제방법변경 모듈 ---------------------
-  methodChange = () => {
-    this.paymentMethodImage = {
-      CARD: '/static/icon/order_payment_card_off.png',
-      DirectBank: '/static/icon/order_payment_directbank_off.png',
-      VBank: '/static/icon/order_payment_vbank_off.png',
-      TOKEN: '/static/icon/order_payment_token_off.png',
-    };
-
-    switch (this.paymentMethod) {
-      case 'CARD':
-        this.paymentMethodImage.CARD = '/static/icon/order_payment_card_on.png';
-        break;
-      case 'DirectBank':
-        this.paymentMethodImage.DirectBank =
-          '/static/icon/order_payment_directbank_on.png';
-        break;
-      case 'VBank':
-        this.paymentMethodImage.VBank =
-          '/static/icon/order_payment_vbank_on.png';
-        break;
-      case 'TOKEN':
-        this.paymentMethodImage.TOKEN =
-          '/static/icon/order_payment_token_on.png';
-        break;
-    }
+    console.log(this.paymentMethod, 'this.paymentMethod');
   };
 
   //--------------------- 주문페이지에 가져올 장바구니 아이템 리스트 아이디 값 설정 ---------------------
@@ -364,7 +355,7 @@ export default class OrderPaymentStore {
           this.orderShippingList.list = data.data;
 
           this.orderShippingList.list.map(data => {
-            data.recepientMobile = autoHypenPhone(data.recepientMobile);
+            data.recipientMobile = autoHypenPhone(data.recipientMobile);
             if (data.defaultAddress) {
               this.orderShippingList.currentUseAddressId = data.id;
             }
@@ -420,8 +411,8 @@ export default class OrderPaymentStore {
       editValue = e.target.value;
     }
     switch (target) {
-      case 'recepientName':
-        this.orderShippingList.tempEditAddress.recepientName = editValue;
+      case 'recipientName':
+        this.orderShippingList.tempEditAddress.recipientName = editValue;
         break;
       case 'shippingName':
         this.orderShippingList.tempEditAddress.shippingName = editValue;
@@ -429,8 +420,8 @@ export default class OrderPaymentStore {
       case 'detailAddress':
         this.orderShippingList.tempEditAddress.detailAddress = editValue;
         break;
-      case 'recepientMobile':
-        this.orderShippingList.tempEditAddress.recepientMobile = editValue;
+      case 'recipientMobile':
+        this.orderShippingList.tempEditAddress.recipientMobile = editValue;
         break;
       case 'roadAddress':
         this.orderShippingList.tempEditAddress.roadAddress =
@@ -443,6 +434,8 @@ export default class OrderPaymentStore {
         this.orderShippingList.tempEditAddress.zip = address.zonecode;
         this.orderShippingList.tempEditAddress.roadAddress =
           address.roadAddress;
+        break;
+      default:
         break;
     }
   };
@@ -569,32 +562,32 @@ export default class OrderPaymentStore {
         });
         this.status.newDetail = true;
         return false;
-      } else if (!this.orderShippingList.newAddress.recepientName) {
+      } else if (!this.orderShippingList.newAddress.recipientName) {
         this.root.alert.showAlert({
           content: '수령인을 입력해주세요.',
         });
-        this.status.newRecepientName = true;
+        this.status.newRecipientName = true;
         return false;
-      } else if (!this.orderShippingList.newAddress.recepientMobile) {
+      } else if (!this.orderShippingList.newAddress.recipientMobile) {
         this.root.alert.showAlert({
           content: '수령인 의 연락처를 입력해주세요.',
         });
-        this.status.newRecepientMobile = true;
+        this.status.newRecipientMobile = true;
         return false;
-      } else if (this.orderShippingList.newAddress.recepientMobile) {
-        let currentPhoneNum = this.orderShippingList.newAddress.recepientMobile;
+      } else if (this.orderShippingList.newAddress.recipientMobile) {
+        let currentPhoneNum = this.orderShippingList.newAddress.recipientMobile;
         let regPhone = /^((01[1|6|7|8|9])[0-9][0-9]{6,7})|(010[0-9][0-9]{7})$/;
         if (currentPhoneNum.length < 10 || currentPhoneNum.length > 11) {
           this.root.alert.showAlert({
             content: '휴대폰번호는 10자리 이상 11자리 이하입니다.',
           });
-          this.status.newRecepientMobile = true;
+          this.status.newRecipientMobile = true;
           return false;
         } else if (!regPhone.test(currentPhoneNum)) {
           this.root.alert.showAlert({
             content: '휴대폰번호 를 정확히 입력해주세요.',
           });
-          this.status.newRecepientMobile = true;
+          this.status.newRecipientMobile = true;
           return false;
         }
       } else if (!this.orderShippingList.newAddress.shippingMessageType) {
@@ -632,13 +625,15 @@ export default class OrderPaymentStore {
       addShippingAddress: this.orderShippingList.isAddShippingAddress,
       shippingType: this.status.selectedShipStatus,
       wScroll: window.scrollY,
+      consumptionPoint: this.root.orderPaymentPoint.usePoint,
+      web: true,
     };
-
+    console.log(forms, 'forms');
     const query = qs.stringify({
       cartList: cartList,
     });
 
-    let returnUrl = 'http://dev.guhada.com:8080/privyCertifyResult?' + query;
+    let returnUrl = `${process.env.HOSTNAME}/privyCertifyResult?` + query;
 
     API.order
       .post(`order/requestOrder`, forms)
@@ -675,8 +670,15 @@ export default class OrderPaymentStore {
             vbankTypeUse: '1',
             quotabase: data.cardQuota,
             returnUrl: returnUrl,
+            jsUrl: data.jsUrl,
           };
           sessionStorage.setItem('paymentInfo', JSON.stringify(forms));
+        } else {
+          this.root.alert.showAlert({
+            content: res.data.message
+              ? res.data.message
+              : '결제오류 상품을 다시 확인해주세요.',
+          });
         }
       })
       .catch(error => {
@@ -699,7 +701,20 @@ export default class OrderPaymentStore {
 
   @action
   paymentStart = () => {
-    window.INIStdPay.pay('paymentForm');
+    const action = () => {
+      if (window.INIStdPay.pay) {
+        window.INIStdPay.pay('paymentForm');
+      } else {
+        this.root.alert.showAlert({
+          content: '결제모듈 불러오기 실패',
+          onConfirm: () => {
+            this.gotoMain();
+          },
+        });
+      }
+    };
+    const url = this.paymentForm.jsUrl;
+    loadScript(url, { callback: action, async: false, id: 'INIStdPay' });
   };
   @action
   totalBenefitDetailActive = () => {
@@ -707,6 +722,11 @@ export default class OrderPaymentStore {
       .totalBenefitDetailStatus;
   };
 
+  @action
+  totalDiscountDetailActive = () => {
+    this.status.totalDiscountDetailStatus = !this.status
+      .totalDiscountDetailStatus;
+  };
   @action
   orderPaymentAgreement = () => {
     this.status.orderPaymentAgreement = !this.status.orderPaymentAgreement;
@@ -726,8 +746,8 @@ export default class OrderPaymentStore {
         roadAddress: null,
         zip: null,
         detailAddress: null,
-        recepientName: null,
-        recepientMobile: null,
+        recipientName: null,
+        recipientMobile: null,
         shippingMessageType: null,
         defaultAddress: false,
       },
@@ -745,16 +765,46 @@ export default class OrderPaymentStore {
       newShippingName: false,
       newAddress: false,
       newDetail: false,
-      newRecepientName: false,
-      newRecepientMobile: false,
+      newRecipientName: false,
+      newRecipientMobile: false,
     };
     this.paymentMethod = null;
-    this.paymentMethodImage = {
-      CARD: '/static/icon/order_payment_card_off.png',
-      DirectBank: '/static/icon/order_payment_directbank_off.png',
-      VBank: '/static/icon/order_payment_vbank_off.png',
-      TOKEN: '/static/icon/order_payment_token_off.png',
-    };
+
+    this.orderPoint = null;
+    this.root.orderPaymentPoint.usePoint = 0;
     this.shippingListModalClose();
+  };
+
+  /*
+    주문 포인트 스토어와 연결됨
+  */
+  @action
+  totalPaymentAmount = point => {
+    this.orderPaymentTotalInfo.totalPaymentPrice =
+      this.orderPaymentTotalInfo.originPaymentPrice - point;
+  };
+
+  getTotalQuantity = () => {
+    this.orderTotalQuantity = 0;
+    for (let i = 0; i < this.orderProductInfo.length; i++) {
+      this.orderTotalQuantity += this.orderProductInfo[i].quantity;
+    }
+  };
+
+  @action
+  orderProductOnOff = () => {
+    this.status.orderProductOnOffStatus = !this.status.orderProductOnOffStatus;
+  };
+
+  @action
+  getShippingMessageOption = () => {
+    this.shippingMessageOption = this.shippingMessageOption
+      .map(data => {
+        return {
+          value: data.type,
+          label: data.message,
+        };
+      })
+      .filter(opt => opt.value !== 'NONE');
   };
 }

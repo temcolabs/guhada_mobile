@@ -1,0 +1,23 @@
+.wrap {
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+
+  .totalOrder {
+    font-size: 15px;
+    color: #111;
+    font-weight: bold;
+
+    span {
+      color: #5d2ed1;
+    }
+  }
+  .button {
+    img {
+      width: 19px;
+      height: 19px;
+    }
+  }
+}
