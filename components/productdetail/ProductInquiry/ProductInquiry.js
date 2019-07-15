@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import css from './ProductInquiry.module.scss';
 import cn from 'classnames';
 import InquiryItem from './InquiryItem';
 import { inject, observer } from 'mobx-react';
 import { toJS } from 'mobx';
 import NewInquiry from './NewInquiry';
-import CheckBox from 'components/common/Checkbox';
+
 @inject('productdetail', 'login')
 @observer
 class ProductInquiry extends Component {
@@ -101,7 +101,7 @@ class ProductInquiry extends Component {
         <div>
           {inquiryList.content !== undefined ? (
             inquiryList.content.map(inquiry => {
-              return <InquiryItem inquiry={inquiry} />;
+              return <InquiryItem inquiry={inquiry} key={inquiry.id} />;
             })
           ) : (
             <div className={css.empty}>작성된 상품 문의가 없습니다.</div>

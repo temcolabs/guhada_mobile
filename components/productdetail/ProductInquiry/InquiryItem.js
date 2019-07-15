@@ -6,19 +6,19 @@ import memoize from 'memoize-one';
 
 export class InquiryItem extends Component {
   static propTypes = {
-    createdAt: [2019, 7, 4, 7, 3, 56],
+    // createdAt: [2019, 7, 4, 7, 3, 56],
     id: PropTypes.number,
     inquirer: PropTypes.number,
-    inquiry: PropTypes.string,
+    inquiry: PropTypes.object,
     nickname: PropTypes.string,
     private: PropTypes.bool,
     productId: PropTypes.number,
-    replier: null,
-    reply: null,
-    replyAt: null,
+    // replier: null,
+    // reply: null,
+    // replyAt: null,
     replyUpdated: PropTypes.bool,
     status: PropTypes.string,
-    updatedAt: (6)[(2019, 7, 4, 7, 3, 56)],
+    // updatedAt: (6)[(2019, 7, 4, 7, 3, 56)],
   };
 
   state = {

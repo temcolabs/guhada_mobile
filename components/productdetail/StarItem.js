@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function StarItem(item) {
   let rating;
-
+  console.log('item', item);
   switch (item) {
     case 'HALF':
       rating = 0.5;
