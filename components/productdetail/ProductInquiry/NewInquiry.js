@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import css from './NewInquiry.module.scss';
 import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
-import CheckBox from 'components/common/Checkbox';
 import { inject } from 'mobx-react';
 
 function NewInquiry({ isVisible, onClose, productdetail }) {
