@@ -14,6 +14,12 @@ import ProductInfo from 'components/productdetail/ProductInfo';
 import { SeparateLine } from 'components/productdetail/SeparateLine';
 import FoldedWrapper from 'components/productdetail/FoldedWrapper';
 import ShippingReturn from 'components/productdetail/ShippingReturn';
+import ProductNotifie from 'components/productdetail/ProductNotifie';
+import SectionWrap from 'components/productdetail/SectionWrap';
+import RelatedAndRecommend from 'components/productdetail/RelatedAndRecommend';
+import SellerStoreInfo from 'components/productdetail/SellerStoreInfo';
+import ProductInquiry from 'components/productdetail/ProductInquiry/ProductInquiry';
+import ProductReview from 'components/productdetail/ProductReview/ProductReview';
 
 @inject('searchitem')
 @observer
@@ -26,7 +32,18 @@ class ProductDetail extends React.Component {
   }
 
   render() {
-    const { deals, tags } = this.props;
+    const {
+      deals,
+      tags,
+      claims,
+      businessSeller,
+      seller,
+      dealsOfSameBrand,
+      dealsOfRecommend,
+      dealsOfSellerStore,
+      followers,
+      satisfaction,
+    } = this.props;
 
     return (
       <DefaultLayout pageTitle={'상품-상세페이지'} toolBar={false}>
@@ -43,7 +60,7 @@ class ProductDetail extends React.Component {
         <CartAndPurchaseButton />
 
         {/* 배송 정보 및 해택, 셀러 기본정보 */}
-        <ShippingBenefit />
+        <ShippingBenefit deals={deals} satisfaction={satisfaction} />
 
         {/* 상세정보, 상품문의, 셀러스토어 탭 */}
         <ProductTab />
@@ -63,18 +80,48 @@ class ProductDetail extends React.Component {
         {SeparateLine}
 
         {/* 상품 리뷰 */}
-        {/* 상품 문의 */}
-
-        {/* 배송/반품/교환정보 */}
-        <FoldedWrapper header={'배송/반품/교환정보'}>
-          <ShippingReturn deals={deals} />
-        </FoldedWrapper>
-        {/* 상품고시정보 */}
+        <ProductReview />
         {SeparateLine}
-        {/* 판매자의 연관상품 */}
-        {/* 추천상품 */}
+        {/* 상품 문의 */}
+        <SectionWrap>
+          <ProductInquiry />
+        </SectionWrap>
+        {SeparateLine}
+
+        {/* 배송/반품/교환정보, 판매자 정보*/}
+        <FoldedWrapper header={'배송/반품/교환정보'}>
+          <ShippingReturn
+            deals={deals}
+            claims={claims}
+            businessSeller={businessSeller}
+            seller={seller}
+          />
+        </FoldedWrapper>
+        {SeparateLine}
+        {/* 상품고시정보 */}
+        {deals.productNotifies ? (
+          <FoldedWrapper header={'상품고시정보'} noline={true}>
+            <ProductNotifie productNotifies={deals.productNotifies} />
+          </FoldedWrapper>
+        ) : null}
+
+        {SeparateLine}
+        {/* 판매자의 연관상품, 추천상품 */}
+        <SectionWrap>
+          <RelatedAndRecommend
+            dealsOfSameBrand={dealsOfSameBrand}
+            dealsOfRecommend={dealsOfRecommend}
+          />
+        </SectionWrap>
         {SeparateLine}
         {/* 셀러스토어 */}
+        <SectionWrap>
+          <SellerStoreInfo
+            deals={deals}
+            dealsOfSellerStore={dealsOfSellerStore}
+            followers={followers}
+          />
+        </SectionWrap>
       </DefaultLayout>
     );
   }

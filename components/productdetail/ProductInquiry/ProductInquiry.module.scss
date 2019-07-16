@@ -1,0 +1,145 @@
+.wrap {
+    & .headerWrap {
+        padding: 0 20px;
+    }
+
+    & .header {
+        font-size: 16px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.2;
+        letter-spacing: normal;
+        text-align: left;
+        color: #111111;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+
+        & .myinquiry {
+            font-size: 12px;
+            font-weight: 500;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: 1.3;
+            letter-spacing: normal;
+            text-align: left;
+            color: #444444;
+        }
+    }
+
+    & button {
+        width: calc(50% - 3px);
+        height: 44px;
+        background-color: #444444;
+        font-size: 14px;
+        font-weight: 500;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.11;
+        letter-spacing: normal;
+        text-align: center;
+        color: #ffffff;
+        margin-right: 6px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        &.isColored {
+            background-color: #5d2ed1;
+        }
+    }
+
+    & .desc {
+        font-size: 12px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.3;
+        letter-spacing: normal;
+        text-align: left;
+        color: #444444;
+        margin-top: 12px;
+        margin-bottom: 20px;
+    }
+
+    & .tabWrap {
+        height: 41px;
+
+        & .tabItem {
+            width: calc(100% / 3);
+            height: 41px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 500;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: 1.2;
+            letter-spacing: normal;
+            text-align: center;
+            color: #111111;
+            background-color: #f9f9fa;
+            border-bottom: solid 1px #111111;
+            cursor: pointer;
+
+            &.selectTab {
+                border: solid 1px #111111;
+                background-color: #ffffff;
+                border-bottom: 0;
+            }
+        }
+    }
+
+    & .empty {
+        width: 100%;
+        height: 170px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        font-weight: 500;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.37;
+        letter-spacing: normal;
+        text-align: left;
+        color: #444444;
+    }
+
+    & input[type='checkbox']+label span {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border: 1px solid #cccccc;
+        margin-right: 6px;
+        position: relative;
+        top: 3px;
+
+    }
+
+    & input[type='checkbox']:checked+label span {
+        border-color: #ffffff;
+        background-image: url('/static/icon/checkbox_on.png');
+        background-size: 16px 16px;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    & .pageButton {
+        margin: 0 20px;
+        height: 40px;
+        border: solid 1px #dddddd;
+        background-color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        font-weight: 500;
+        text-align: right;
+        color: #111111;
+    }
+}

@@ -3,6 +3,8 @@ import css from './ShippingBenefit.module.scss';
 import StarItem from './StarItem';
 class ShippingBenefit extends Component {
   render() {
+    const { deals, satisfaction } = this.props;
+
     return (
       <div className={css.wrap}>
         <div className={css.itemWrap}>
@@ -25,7 +27,7 @@ class ShippingBenefit extends Component {
           <div>
             <div>
               <div className={css.infoTop}>
-                <div>*아이디</div>
+                <div className={css.sellerName}>{deals.sellerName}</div>
                 <div>
                   <div className={css.levelWrap}>
                     <div>1</div>
@@ -43,9 +45,15 @@ class ShippingBenefit extends Component {
               </div>
             </div>
             <div className={css.satisfaction}>
-              <div className={css.good}>만족 *0명</div>
-              <div className={css.usual}>보통 *0명</div>
-              <div className={css.bad}>불만족 *0명</div>
+              <div className={css.good}>
+                만족 {satisfaction ? satisfaction.good : null}명
+              </div>
+              <div className={css.usual}>
+                보통 {satisfaction ? satisfaction.normal : null}명
+              </div>
+              <div className={css.bad}>
+                불만족 {satisfaction ? satisfaction.bad : null}명
+              </div>
             </div>
           </div>
         </div>

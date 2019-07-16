@@ -28,7 +28,7 @@ class Category extends Component {
       <ul className={css.tree}>
         {categoryList.map(categoryMain => {
           return (
-            <li key={categoryMain.id}>
+            <li key={`categoryMain${categoryMain.id}`}>
               <input
                 type="checkbox"
                 id={`${categoryMain.title}${categoryMain.key}category`}
@@ -48,7 +48,7 @@ class Category extends Component {
                   {categoryMain.children.map(categoryItem => {
                     return (
                       <li
-                        key={categoryItem.id}
+                        key={`categoryItem${categoryItem.id}`}
                         className={css.arrow}
                         onClick={() => (
                           this.props.setIsCategoryVisible(true),

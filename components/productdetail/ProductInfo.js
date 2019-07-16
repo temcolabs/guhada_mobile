@@ -11,7 +11,7 @@ export default function ProductInfo({
     },
   ],
 }) {
-  console.log('deals', toJS(deals));
+  // console.log('deals', toJS(deals));
   return (
     <>
       <table className={css.wrap}>

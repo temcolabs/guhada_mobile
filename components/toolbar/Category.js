@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import css from './Category.module.scss';
 import { inject, observer } from 'mobx-react';
 import { toJS } from 'mobx';
@@ -39,7 +39,7 @@ class Category extends Component {
       <ul className={css.tree}>
         {categoryList.map(categoryMain => {
           return (
-            <li key={categoryMain.id}>
+            <li key={`${categoryMain.id}categoryMainKey`}>
               <input
                 type="checkbox"
                 id={`${categoryMain.key}toolbarcategory`}
@@ -59,8 +59,8 @@ class Category extends Component {
                   </li>
                   {categoryMain.children.map(categoryItem => {
                     return (
-                      <>
-                        <li key={categoryItem.id}>
+                      <Fragment key={`${categoryItem.id}categoryItemKey`}>
+                        <li>
                           <input
                             type="checkbox"
                             id={`${categoryItem.key}category`}
@@ -92,8 +92,10 @@ class Category extends Component {
                             </li>
                             {categoryItem.children.map(categorySecond => {
                               return (
-                                <>
-                                  <li key={categorySecond.id}>
+                                <Fragment
+                                  key={`${categorySecond.key}categorySecondKey`}
+                                >
+                                  <li>
                                     <input
                                       type="checkbox"
                                       id={`${categorySecond.key}category`}
@@ -137,7 +139,9 @@ class Category extends Component {
                                             return (
                                               <li
                                                 className={css.categoryLast}
-                                                key={categoryLast.id}
+                                                key={`${
+                                                  categoryLast.id
+                                                }categoryLastKey`}
                                                 onClick={() =>
                                                   this.toSearch(categoryLast.id)
                                                 }
@@ -150,12 +154,12 @@ class Category extends Component {
                                       </div>
                                     </ul>
                                   ) : null}
-                                </>
+                                </Fragment>
                               );
                             })}
                           </div>
                         </ul>
-                      </>
+                      </Fragment>
                     );
                   })}
                 </div>

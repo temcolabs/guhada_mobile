@@ -1,6 +1,7 @@
 .wrap {
     width: 100%;
     padding: 30px 20px 0 20px;
+    margin-bottom: 30px;
 
     & .header {
         font-size: 16px;
@@ -17,6 +18,10 @@
         background-size: 16px;
         background-repeat: no-repeat;
         background-position: right top;
+
+        &.noline {
+            border-bottom: 0;
+        }
 
         &.folded {
             background-image: url('/static/icon/plus_icon_m.png');
