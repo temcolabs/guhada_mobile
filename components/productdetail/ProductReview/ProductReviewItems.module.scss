@@ -1,0 +1,162 @@
+.wrap {
+    padding: 16px 0 18px 0;
+    border-bottom: 1px solid #eeeeee;
+
+    &:last-child {
+        border-bottom: 0;
+    }
+
+    & .profileWrap {
+        display: flex;
+        margin-bottom: 12px;
+
+        & .profileImage {
+            width: 40px;
+            height: 40px;
+            border-radius: 40px;
+            background-color: #cccccc;
+            background-size: 40px;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin-right: 8px;
+        }
+
+        & .levelWrap {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            & .profileBox {
+                width: 21px;
+                height: 13px;
+                border-radius: 6.5px;
+                border: solid 1px #dddddd;
+                background-color: #ffffff;
+                margin-right: 4px;
+
+                & .level {
+                    font-size: 10px;
+                    font-weight: normal;
+                    color: #111111;
+                    text-align: center;
+                    transform: scale(0.7);
+                    line-height: 11px;
+                }
+            }
+
+            & .userNickname {
+                font-size: 12px;
+                font-weight: normal;
+                color: #444444;
+            }
+
+            & .profileSize {
+                font-size: 12px;
+                font-weight: normal;
+                color: #777777;
+                margin-left: 9px;
+            }
+        }
+    }
+
+    & .sizeWrap {
+
+        display: flex;
+        align-items: center;
+        margin-bottom: 16px;
+
+        & .itemWrap {
+            font-size: 11px;
+            font-weight: normal;
+            color: #444444;
+            display: flex;
+            align-items: center;
+            border-radius: 11px;
+            border: solid 1px #eeeeee;
+            background-color: #ffffff;
+            padding: 5px 10px 5px 10px;
+            margin-right: 6px;
+
+            &:last-child {
+                margin-right: 0;
+            }
+
+            & .colored {
+                color: #5d2ed1;
+            }
+
+            & .line {
+                height: 8px;
+                border-right: 1px solid #dddddd;
+                margin: 0 6px;
+            }
+        }
+    }
+
+    & .contentWrap {
+        font-size: 13px;
+        font-weight: normal;
+        color: #444444;
+        margin-bottom: 11px;
+    }
+
+    & .dateWrap {
+        font-size: 13px;
+        font-weight: normal;
+        color: #777777;
+        margin-bottom: 21px;
+    }
+
+    & .imageWrap {
+        margin-bottom: 16px;
+
+        & .reviewPhotos {
+            width: 100%;
+            margin-bottom: 16px;
+        }
+    }
+
+    & .likeCommentWrap {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        & .likeWrap {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            font-weight: normal;
+            color: #444444;
+
+            & .likeIcon {
+                width: 24px;
+                height: 24px;
+                background-size: 24px;
+                background-repeat: no-repeat;
+                background-image: url('/static/icon/icon_thumbsup_off.png');
+            }
+
+            &.likeCount {
+                color: #111111;
+            }
+        }
+
+        & .commentWrap {
+            font-size: 13px;
+            font-weight: normal;
+            color: #444444;
+            display: flex;
+            align-items: center;
+
+            & .line {
+                height: 10px;
+                border-right: 1px solid #cccccc;
+                margin: 0 10px;
+            }
+        }
+    }
+}

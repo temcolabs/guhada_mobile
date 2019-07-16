@@ -3,9 +3,7 @@ import {
   getCategoryTitle,
   getCategoryKeyArray,
   getCategory,
-  getParameterByName,
   getCategoryKey,
-  searchTreeId,
   getBrandTitle,
 } from '../utils.js';
 import Router from 'next/router';
