@@ -31,6 +31,7 @@ import ProductRecentlySeenStore from './ProductRecentlySeenStore';
 import MypageLikeStore from './mypage/MypageLikeStore';
 import CountdownStore from './CountdownStore';
 import ToastStore from './ToastStore';
+import RouteHistoryStore from './RouteHistoryStore';
 
 class RootStore {
   constructor() {
@@ -80,6 +81,7 @@ class RootStore {
     this.mypageLike = new MypageLikeStore(this);
 
     this.toast = new ToastStore(this);
+    this.history = new RouteHistoryStore(this);
   }
 }
 
