@@ -1,8 +1,8 @@
 import React from 'react';
 
-export default function StarItem(item) {
+export default function StarItem(item, reviewSummary) {
   let rating;
-  console.log('item', item);
+
   switch (item) {
     case 'HALF':
       rating = 0.5;
@@ -39,6 +39,10 @@ export default function StarItem(item) {
       break;
   }
 
+  if (reviewSummary === true) {
+    let roundItem = Math.round(item);
+    rating = roundItem;
+  }
   let starCount = rating * 2;
   let starItems = [];
 

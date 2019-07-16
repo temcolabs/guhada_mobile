@@ -68,11 +68,13 @@ export default function SellerStoreInfo({
         {dealsOfSellerStore.map(deal => {
           return (
             <div className={css.sellerItem} key={deal.dealId}>
-              <img
-                className={css.image}
-                src={deal.productImage.url}
-                alt={deal.productImage.name}
-              />
+              <div className={css.imageWrap}>
+                <img
+                  className={css.image}
+                  src={deal.productImage.url}
+                  alt={deal.productImage.name}
+                />
+              </div>
               <div className={css.contentsWrap}>
                 <div className={css.brandWrap}>
                   <div className={css.brand}>{deal.brandName}</div>

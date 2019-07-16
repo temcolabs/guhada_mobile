@@ -26,6 +26,7 @@ class CategorySlider extends Component {
             <div
               className={css.title}
               onClick={() => searchitem.toSearch({ category: item.id })}
+              key={item.id}
             >
               {item.title}
             </div>

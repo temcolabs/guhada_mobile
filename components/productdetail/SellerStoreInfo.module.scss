@@ -126,6 +126,12 @@
                 margin-right: 0;
             }
 
+            & .imageWrap {
+                height: 132px;
+                display: flex;
+                align-items: center;
+            }
+
             & .image {
                 width: calc(100%);
             }
