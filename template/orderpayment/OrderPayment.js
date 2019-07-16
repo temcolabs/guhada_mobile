@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import DefaultLayout from 'components/layout/DefaultLayout';
 import Controller from 'components/orderpayment/Controller';
 import OrderProduct from 'components/orderpayment/OrderProduct';

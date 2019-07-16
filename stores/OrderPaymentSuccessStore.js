@@ -1,9 +1,9 @@
 import { observable, action, toJS } from 'mobx';
-import Cookies from 'js-cookie';
 import { autoHypenPhone } from '../utils';
-import localStorage from 'lib/localStorage';
 import API from 'lib/API';
 import Router from 'next/router';
+import prependZero from '../lib/string/prependZero';
+
 const isServer = typeof window === 'undefined';
 export default class OrderPaymentStore {
   constructor(root) {
@@ -17,6 +17,7 @@ export default class OrderPaymentStore {
   @observable orderSuccessPayment;
   @observable orderSuccessUser;
   @observable vbankExpireAt;
+  @observable completeAt = '';
 
   @observable status = {
     pageStatus: false,
@@ -28,8 +29,6 @@ export default class OrderPaymentStore {
     totalDiscountDiffPrice: 0,
     totalPaymentPrice: 0,
   };
-
-  @observable userInfo = localStorage.get('guhada-userinfo');
 
   @action
   getOrderPaymentSuccessInfo = id => {
@@ -53,6 +52,7 @@ export default class OrderPaymentStore {
 
           this.getPhoneWithHypen();
           this.getOptions();
+          this.getCompleteAt();
 
           console.log(toJS(data), '주문완료 정보');
           this.status.pageStatus = true;
@@ -143,7 +143,26 @@ export default class OrderPaymentStore {
     }:${this.orderSuccessPayment.vbankExpireAt[4]} 까지)`;
 
     this.vbankExpireAt = tempDate;
+  };
 
-    console.log(this.vbankExpireAt, '확인');
+  getCompleteAt = () => {
+    // this.orderSuccessPayment.vbankExpireAt.map((data, index) => {
+    //   tempDate += data + '.';
+    // });
+
+    this.orderSuccessPayment.completeAt[1] = prependZero(
+      this.orderSuccessPayment.completeAt[1]
+    );
+    this.orderSuccessPayment.completeAt[2] = prependZero(
+      this.orderSuccessPayment.completeAt[2]
+    );
+
+    this.completeAt = `${this.orderSuccessPayment.completeAt[0]}.${
+      this.orderSuccessPayment.completeAt[1]
+    }.${this.orderSuccessPayment.completeAt[2]} ${
+      this.orderSuccessPayment.completeAt[3]
+    }:${this.orderSuccessPayment.completeAt[4]}`;
+
+    console.log(this.completeAt, 'this.completeAt');
   };
 }

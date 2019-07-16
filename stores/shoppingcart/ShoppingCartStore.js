@@ -398,7 +398,13 @@ export default class ShoppingCartStore {
     if (this.cartChangeOptions.willChangeSelectDealOptionId !== 0) {
       API.order
         .post(
-          `/cart/changeSelectOption?cartItemId=${this.cartChangeOptions.willChangeCartItemId}&quantity=${this.cartChangeOptions.willChangeQuantity}&selectDealOptionId=${this.cartChangeOptions.willChangeSelectDealOptionId}`
+          `/cart/changeSelectOption?cartItemId=${
+            this.cartChangeOptions.willChangeCartItemId
+          }&quantity=${
+            this.cartChangeOptions.willChangeQuantity
+          }&selectDealOptionId=${
+            this.cartChangeOptions.willChangeSelectDealOptionId
+          }`
         )
         .then(res => {
           let data = res.data;

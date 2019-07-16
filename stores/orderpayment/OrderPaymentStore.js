@@ -626,14 +626,15 @@ export default class OrderPaymentStore {
       shippingType: this.status.selectedShipStatus,
       wScroll: window.scrollY,
       consumptionPoint: this.root.orderPaymentPoint.usePoint,
-      web: true,
+      web: false,
     };
     console.log(forms, 'forms');
     const query = qs.stringify({
       cartList: cartList,
     });
 
-    let returnUrl = `${process.env.HOSTNAME}/privyCertifyResult?` + query;
+    let returnUrl = `http://192.168.50.17:8081/privyCertifyResult?` + query;
+    let nextUrl = `http://192.168.50.17:8081/privyCertifyResult`;
 
     API.order
       .post(`order/requestOrder`, forms)
@@ -665,12 +666,12 @@ export default class OrderPaymentStore {
             payViewType: data.payViewType,
             closeUrl: data.closeUrl,
             popupUrl: data.popupUrl,
-            ansim_quota: data.cardQuota,
             ini_onlycardcode: data.methodCd,
             vbankTypeUse: '1',
             quotabase: data.cardQuota,
             returnUrl: returnUrl,
             jsUrl: data.jsUrl,
+            nextUrl: nextUrl,
           };
           sessionStorage.setItem('paymentInfo', JSON.stringify(forms));
         } else {
@@ -701,20 +702,16 @@ export default class OrderPaymentStore {
 
   @action
   paymentStart = () => {
-    const action = () => {
-      if (window.INIStdPay.pay) {
-        window.INIStdPay.pay('paymentForm');
-      } else {
-        this.root.alert.showAlert({
-          content: '결제모듈 불러오기 실패',
-          onConfirm: () => {
-            this.gotoMain();
-          },
-        });
-      }
-    };
-    const url = this.paymentForm.jsUrl;
-    loadScript(url, { callback: action, async: false, id: 'INIStdPay' });
+    // const action = () => {
+    let form = document.getElementById('paymentForm');
+    form.P_GOODS.value = encodeURIComponent(form.P_GOODS.value);
+    form.P_UNAME.value = encodeURIComponent(form.P_UNAME.value);
+
+    form.action = this.paymentForm.jsUrl;
+    form.submit();
+    // };
+    // const url = this.paymentForm.jsUrl;
+    // loadScript(url, { callback: action, async: false, id: 'INIStdPay' });
   };
   @action
   totalBenefitDetailActive = () => {

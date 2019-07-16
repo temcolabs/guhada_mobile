@@ -3,18 +3,19 @@ const API = require('../../lib/API');
 module.exports = {
   method: 'post',
   url: '/privyCertifyResult',
+
   handler: function(req, res) {
     const authData = req.body;
+    console.log(req, authData, 'authData');
+    if (authData.P_STATUS !== '00') {
+      console.log(authData, 'authData123', authData.P_RMESG1, 'message');
 
-    if (authData.resultCode !== '0000') {
-      console.log(authData, 'authData', authData.resultMsg, 'message');
-
-      if (req.query.cartList && authData.resultMsg) {
+      if (req.query.cartList && authData.P_RMESG1) {
         res.redirect(
           '/orderpayment?cartList=' +
             req.query.cartList +
             '&resultMsg=' +
-            authData.resultMsg
+            authData.P_RMESG1
         );
       } else {
         res.redirect('/');
@@ -25,17 +26,18 @@ module.exports = {
 
     API.order
       .post(
-        `/order/orderApproval`,
+        `http://dev.order.guhada.com/order/orderApproval`,
         {
-          resultCode: authData.resultCode,
-          resultMsg: authData.resultMsg,
-          pgMid: authData.mid,
-          authToken: authData.authToken,
-          authUrl: authData.authUrl,
-          netCancel: authData.netCancelUrl,
-          checkAckUrl: authData.checkAckUrl,
-          pgOid: authData.orderNumber,
-          web: true,
+          resultCode: authData.P_STATUS,
+          resultMsg: authData.P_RMESG1,
+          // pgMid: authData.P_TID,
+          // authToken: authData.authToken,
+          // authUrl: authData.authUrl,
+          // netCancel: authData.netCancelUrl,
+          checkAckUrl: authData.P_REQ_URL,
+          pgOid: authData.P_OID,
+          pgTidSample: authData.P_TID,
+          web: false,
         },
         {
           headers: {

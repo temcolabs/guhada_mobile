@@ -49,62 +49,198 @@ class PaymentMethod extends Component {
           })}
         </ul>
 
-        {/* prettier-ignore */}
         <div className={css.paymentForm}>
           <form id="paymentForm" method="POST">
-            <input readOnly type="hidden" name="version" value={paymentForm.version} />
+            <input
+              readOnly
+              type="text"
+              name="version"
+              value={paymentForm.version}
+            />
+
+            <input readOnly type="text" name="P_MID" value={paymentForm.mid} />
+
+            <input
+              readOnly
+              type="text"
+              name="P_GOODS"
+              value={paymentForm.goodname}
+            />
+
+            <input
+              readOnly
+              type="text"
+              name="P_AMT"
+              value={paymentForm.price}
+            />
+
+            <input
+              readOnly
+              type="text"
+              name="P_UNAME"
+              value={paymentForm.buyername}
+            />
+
+            <input
+              readOnly
+              type="text"
+              name="P_MOBILE"
+              value={paymentForm.buyertel}
+            />
+
+            <input
+              readOnly
+              type="text"
+              name="P_EMAIL"
+              value={paymentForm.buyeremail}
+            />
+
+            <input
+              readOnly
+              type="text"
+              name="P_RETURN_URL"
+              value={paymentForm.returnUrl}
+            />
+
+            <input
+              readOnly
+              type="text"
+              name="P_NEXT_URL"
+              value={paymentForm.nextUrl}
+            />
+
+            <input
+              readOnly
+              type="text"
+              name="gopaymethod"
+              value={paymentForm.gopaymethod}
+              ref={this.textInput}
+            />
+
+            <input
+              readOnly
+              type="text"
+              name="P_CARD_OPTION"
+              value={paymentForm.ini_cardcode}
+            />
+
+            <input readOnly type="text" name="P_OID" value={paymentForm.oid} />
+
+            <input
+              readOnly
+              type="text"
+              name="P_TIMESTAMP"
+              value={paymentForm.timestamp}
+            />
+
+            <input
+              readOnly
+              type="text"
+              name="currency"
+              value={paymentForm.currency}
+            />
+
+            <input
+              readOnly
+              type="text"
+              name="P_SIGNATURE"
+              value={paymentForm.signature}
+            />
+
+            <input
+              readOnly
+              type="text"
+              name="P_MKEY"
+              value={paymentForm.mKey}
+            />
+
+            <input
+              readOnly
+              type="text"
+              name="P_OFFER_PERIOD"
+              value={paymentForm.offerPeriod}
+            />
+
+            <input
+              readOnly
+              type="text"
+              name="P_RESERVED"
+              value={paymentForm.acceptmethod}
+            />
+
+            <input
+              readOnly
+              type="text"
+              name="languageView"
+              value={paymentForm.languageView}
+            />
+
+            <input
+              readOnly
+              type="text"
+              name="P_CHARSET"
+              value={paymentForm.charset}
+            />
+
+            <input
+              readOnly
+              type="text"
+              name="P_HPP_METHOD"
+              value={paymentForm.acceptmethod}
+            />
+
+            <input
+              readOnly
+              type="text"
+              name="payViewType"
+              value={paymentForm.payViewType}
+            />
+
+            <input
+              readOnly
+              type="text"
+              name="closeUrl"
+              value={paymentForm.closeUrl}
+            />
+
+            <input
+              readOnly
+              type="text"
+              name="popupUrl"
+              value={paymentForm.popupUrl}
+            />
+
+            <input
+              readOnly
+              type="text"
+              name="ansim_quota"
+              value={paymentForm.quotabase}
+            />
+
+            <input type="hidden" name="vbankTypeUse" value="1" />
+
             <br />
-            <input readOnly type="hidden" name="mid" value={paymentForm.mid} />
+            <input
+              readOnly
+              type="text"
+              name="P_QUOTABASE"
+              value={paymentForm.quotabase}
+            />
             <br />
-            <input readOnly type="hidden" name="goodname" value={paymentForm.goodname} />
+            <input
+              readOnly
+              type="text"
+              name="ini_onlycardcode"
+              value={paymentForm.ini_onlycardcode}
+            />
+
             <br />
-            <input readOnly type="hidden" name="price" value={paymentForm.price} />
-            <br />
-            <input readOnly type="hidden" name="buyername" value={paymentForm.buyername} />
-            <br />
-            <input readOnly type="hidden" name="buyertel" value={paymentForm.buyertel} />
-            <br />
-            <input readOnly type="hidden" name="buyeremail" value={paymentForm.buyeremail} />
-            <br />
-            <input readOnly type="hidden" name="returnUrl" value={paymentForm.returnUrl} />
-            <br />
-            <input ref={this.textInput} readOnly type="hidden" name="gopaymethod" value={paymentForm.gopaymethod} />
-            <br />
-            <input readOnly type="hidden" name="ini_cardcode" value={paymentForm.ini_cardcode} />
-            <br />
-            <input readOnly type="hidden" name="oid" value={paymentForm.oid} />
-            <br />
-            <input readOnly type="hidden" name="timestamp" value={paymentForm.timestamp} />
-            <br />
-            <input readOnly type="hidden" name="currency" value={paymentForm.curreny} />
-            <br />
-            <input readOnly type="hidden" name="signature" value={paymentForm.signature} />
-            <br />
-            <input readOnly type="hidden" name="mKey" value={paymentForm.mKey} />
-            <br />
-            <input readOnly type="hidden" name="offerPeriod" value={paymentForm.offerPeriod} />
-            <br />
-            <input readOnly type="hidden" name="acceptmethod" value={paymentForm.acceptmethod} />
-            <br />
-            <input readOnly type="hidden" name="languageView" value={paymentForm.languageView} />
-            <br />
-            <input readOnly type="hidden" name="charset" value={paymentForm.charset} />
-            <br />
-            <input readOnly type="hidden" name="payViewType" value={paymentForm.payViewType} />
-            <br />
-            <input readOnly type="hidden" name="closeUrl" value={paymentForm.closeUrl} />
-            <br />
-            <input readOnly type="hidden" name="popupUrl" value={paymentForm.popupUrl} />
-            <br />
-            <input readOnly type="hidden" name="jsUrl" value={paymentForm.jsUrl} />
-            <br />
-            <input readOnly type="hidden" name="ansim_quota" value={paymentForm.ansim_quota} />
-            <br />
-            <input readOnly type="hidden" name="vbankTypeUse" value={paymentForm.vbankTypeUse} />
-            <input readOnly type="hidden" name="quotabase" value={paymentForm.quotabase} />
-            <br />
-            <input readOnly type="hidden" name="ini_onlycardcode" value={paymentForm.ini_onlycardcode} />
-            <br />
+            <input
+              readOnly
+              type="text"
+              name="lotteJs"
+              value={paymentForm.jsUrl}
+            />
           </form>
         </div>
       </div>

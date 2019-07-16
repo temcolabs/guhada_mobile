@@ -1,0 +1,152 @@
+.wrap {
+  margin-top: 30px;
+  padding: 0 20px;
+  background: url('/static/icon/m_result_bg.png');
+  background-size: cover;
+  width: 100%;
+
+  .resultWrap {
+    padding: 50px 0 0 0;
+
+    .totalOrderAmount {
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 20px;
+      .resultAmountSection {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+
+        &:first-child {
+          margin-top: 0px;
+        }
+
+        .bigTitle {
+          font-size: 14px;
+          color: #111;
+          font-weight: 500;
+        }
+
+        .bigAmount {
+          font-size: 14px;
+          color: #111;
+          font-weight: bold;
+        }
+
+        .title {
+          color: #777;
+          font-size: 13px;
+          font-weight: 500;
+        }
+
+        .amount {
+          color: #777;
+          font-size: 13px;
+          font-weight: 500;
+        }
+      }
+    }
+
+    .totalDiscountAmount {
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 20px;
+      .resultAmountSection {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+
+        &:first-child {
+          margin-top: 20px;
+        }
+
+        .bigTitle {
+          font-size: 14px;
+          color: #111;
+          font-weight: 500;
+        }
+
+        .bigAmount {
+          font-size: 14px;
+          color: #111;
+          font-weight: bold;
+        }
+
+        .title {
+          color: #777;
+          font-size: 13px;
+          font-weight: 500;
+        }
+
+        .amount {
+          color: #777;
+          font-size: 13px;
+          font-weight: 500;
+        }
+      }
+    }
+
+    .totalPaymentAmount {
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 20px;
+      .resultAmountSection {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+
+        &:first-child {
+          margin-top: 20px;
+        }
+
+        .bigTitle {
+          font-size: 14px;
+          color: #111;
+          font-weight: 500;
+        }
+
+        .bigAmount {
+          font-size: 21px;
+          color: #5d2ed1;
+          font-weight: bold;
+
+          span {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+
+    .savePoint {
+      padding-bottom: 40px;
+      .resultAmountSection {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+
+        &:first-child {
+          margin-top: 20px;
+        }
+
+        .bigTitle {
+          font-size: 14px;
+          color: #111;
+          font-weight: 500;
+          display: flex;
+          span {
+            margin-left: 6px;
+            width: 14px;
+            height: 14px;
+
+            img {
+              width: 100%;
+            }
+          }
+        }
+
+        .bigAmount {
+          font-size: 14px;
+          color: #5d2ed1;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

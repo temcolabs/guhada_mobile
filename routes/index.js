@@ -206,7 +206,7 @@ module.exports = [
   // 상품 - 상세페이지
   {
     pagePath: '/product/productdetail',
-    asPath: '/product/productdetail',
+    asPath: '/productdetail',
   },
 
   // 장바구니
@@ -219,5 +219,11 @@ module.exports = [
   {
     pagePath: '/orderpayment/orderpayment',
     asPath: '/orderpayment',
+  },
+
+  // 주문성공
+  {
+    pagePath: '/orderpaymentsuccess/orderpaymentsuccess',
+    asPath: '/orderpaymentsuccess',
   },
 ];

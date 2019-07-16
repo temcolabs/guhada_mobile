@@ -1,0 +1,53 @@
+.wrap {
+  margin-top: 60px;
+  padding: 0 20px;
+  .proudct {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ebebeb;
+    display: flex;
+
+    &:last-child {
+      border: none;
+    }
+    .productImage {
+      min-width: 90px;
+      height: 115px;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .productInfo {
+      margin-left: 25px;
+
+      .brandName {
+        color: #111;
+        font-size: 13px;
+        font-weight: 500;
+      }
+      .productName {
+        margin-top: 6px;
+        width: 180px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        color: #111;
+        font-size: 13px;
+        font-weight: 500;
+      }
+
+      .productPrice {
+        margin-top: 6px;
+        font-size: 14px;
+        color: #111;
+        font-weight: bold;
+      }
+
+      .productOption {
+        margin-top: 20px;
+        color: #777;
+        font-size: 13px;
+        font-weight: 500;
+      }
+    }
+  }
+}

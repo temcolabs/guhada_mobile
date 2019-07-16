@@ -54,7 +54,8 @@ class FinalAmountBenefit extends Component {
               최대 <span>{`${orderPaymentPoint.dueSavePoint}`}</span>p
             </div>
           </div>
-          <BenefitInfo />
+
+          {orderpayment.totalBenefitDetailStatus ? <BenefitInfo /> : null}
         </div>
       </div>
     );
