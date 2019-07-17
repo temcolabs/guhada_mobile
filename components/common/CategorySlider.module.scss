@@ -6,6 +6,10 @@
     display: flex;
     align-items: center;
     border-bottom: solid 1px #eeeeee;
+    position: fixed;
+    top: 40px;
+    background-color: #ffffff;
+    z-index: 101;
 
     &::-webkit-scrollbar {
         display: none;

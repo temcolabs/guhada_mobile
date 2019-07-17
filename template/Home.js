@@ -17,7 +17,7 @@ class Home extends React.Component {
     console.log(`[Home] this.props.router.query`, this.props.router.query);
 
     return (
-      <DefaultLayout title={null}>
+      <DefaultLayout title={null} paddingTop={40}>
         <h1>home</h1>
         <div>
           <div>

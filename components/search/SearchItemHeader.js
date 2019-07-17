@@ -7,9 +7,12 @@ import cn from 'classnames';
 @observer
 class SearchItemHeader extends Component {
   render() {
-    const { searchitem, setIsOrderVisible } = this.props;
+    const { searchitem, setIsOrderVisible, isBrand } = this.props;
     return (
-      <div className={css.wrap}>
+      <div
+        className={css.wrap}
+        style={{ top: `${isBrand === true ? 40 : 80}px` }}
+      >
         <div className={css.order} onClick={setIsOrderVisible}>
           {searchitem.searchOrderFilter === 'DATE'
             ? '신상품 순'

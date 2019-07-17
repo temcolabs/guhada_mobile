@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import SectionWrap from '../SectionWrap';
 import css from './ProductReview.module.scss';
 import { inject, observer } from 'mobx-react';
-import { toJS } from 'mobx';
 import ReviewSummary from './ReviewSummary';
 import ReviewTab from './ReviewTab';
 import ProductReviewItems from './ProductReviewItems';
