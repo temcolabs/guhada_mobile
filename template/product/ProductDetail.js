@@ -47,7 +47,7 @@ class ProductDetail extends React.Component {
 
     return (
       <DefaultLayout
-        paddingTop={40}
+        topLayout={'main'}
         pageTitle={null}
         toolBar={false}
         headerShape={'productDetail'}

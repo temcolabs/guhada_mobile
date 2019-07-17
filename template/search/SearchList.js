@@ -40,7 +40,7 @@ class SearchList extends Component {
     const { searchitem } = this.props;
     let isBrand = Router.router.query.enter === 'brand';
     return (
-      <DefaultLayout paddingTop={isBrand ? 80 : 136}>
+      <DefaultLayout topLayout={isBrand ? 'category' : 'search'}>
         {isBrand ? null : (
           <CategorySlider category={searchitem.headerCategory} />
         )}
