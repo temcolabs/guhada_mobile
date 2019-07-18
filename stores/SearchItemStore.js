@@ -184,6 +184,9 @@ export default class SearchItemStore {
         case '키즈':
           titleEnglish = 'Kids';
           break;
+        default:
+          titleEnglish = 'Women';
+          break;
       }
       firstLocationFilter.push({ id: locationFilter.id, title: titleEnglish });
     });
@@ -363,13 +366,21 @@ export default class SearchItemStore {
               if (categoryIds) this.setHeaderCategory(categoryIds);
 
               this.endPage = Math.floor(data.data.countOfDeals / 20) + 1;
-              ////////////////////////////////////
 
-              // console.log(hierarchy, "hierarchy");
-              if (categoryIds)
+              /**
+               * 카테고리 기준 title 값
+               */
+              console.log('subcategory', subcategory);
+              if (subcategory.length !== 0)
+                this.setTitle(
+                  getCategoryTitle(data.data.categories, subcategory)
+                );
+              else if (categoryIds)
                 this.setTitle(
                   getCategoryTitle(data.data.categories, categoryIds)
                 );
+
+              ////////////////////////////////////
 
               if (enter === 'all') {
                 // this.toGetBrandFilter(categoryList);
@@ -599,7 +610,35 @@ export default class SearchItemStore {
   @action
   setHeaderCategory = key => {
     let filterCategory = this.treeDataForFilter;
-    this.headerCategory = toJS(getCategory(filterCategory, key)).children;
+    let category = toJS(getCategory(filterCategory, key)).children;
+    let hierarchies = category[0].hierarchies;
+    let duplicated = false;
+    function checkDuplicated(element, index, array) {
+      let count = 0;
+      for (let x = 0; x < array.length; x++) {
+        if (array[x] === element) count++;
+      }
+
+      if (count > 1) duplicated = true;
+    }
+
+    hierarchies.find(checkDuplicated);
+
+    // 가방이나 슈즈 같은 중복으로 들어가 있는 부분 판별을 위해서 검사
+    if (duplicated === true) {
+      let hierarchies = category[0].children[0].hierarchies;
+      let parentIndex = hierarchies[hierarchies.length - 2];
+
+      category.splice(0, 0, { title: '전체', id: parentIndex });
+
+      this.headerCategory = category[0].children;
+    } else {
+      let hierarchies = category[0].hierarchies;
+      let parentIndex = hierarchies[hierarchies.length - 2];
+
+      category.splice(0, 0, { title: '전체', id: parentIndex });
+      this.headerCategory = category;
+    }
   };
 
   @action
@@ -678,7 +717,7 @@ export default class SearchItemStore {
         this.keyArray[2]
       ];
       let data = [];
-      console.log('filterCategory', filterCategory);
+      // console.log('filterCategory', filterCategory);
       data.push({
         title: filterCategory.title,
         disabled: true,
@@ -693,7 +732,7 @@ export default class SearchItemStore {
       filterCategory.children.map(filter => {
         data.push(filter);
       });
-      console.log('categoryFilterArray', data);
+      // console.log('categoryFilterArray', data);
       this.filterCategoryTitle = this.treeDataForFilter[this.keyArray[1]].title;
       this.categoryTreeData = data;
     }

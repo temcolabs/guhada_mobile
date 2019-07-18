@@ -1,0 +1,118 @@
+$imageHeight : 220px;
+$contentsHeight : 117px;
+
+.wrap {
+    width: calc(50% - 3px);
+    margin-top: 30px;
+    display: inline-block;
+
+
+    & .imageWrap {
+        position: relative;
+        width: 100%;
+        height: 0;
+        overflow: hidden;
+        padding-bottom: 124.84%;
+
+        & img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    }
+
+    & .contentWrap {
+        width: 100%;
+        height: $contentsHeight;
+        padding: 13px 16px 0 10px;
+
+        & .brandWrap {
+            display: flex;
+            align-items: baseline;
+            margin-bottom: 5px;
+
+            & .brandName {
+                font-size: 13px;
+                font-weight: bold;
+                color: #111111;
+                max-width: 80%;
+                overflow: hidden;
+            }
+
+            & .productSeason {
+                font-size: 12px;
+                font-weight: normal;
+                color: #777777;
+                margin-left: 4px;
+            }
+        }
+    }
+
+    & .dealName {
+        height: 31px;
+        font-size: 12px;
+        font-weight: normal;
+        color: #111111;
+        overflow: hidden;
+        margin-bottom: 10px;
+    }
+
+    & .priceWrap {
+        display: flex;
+        align-items: center;
+        position: relative;
+
+        & .sellPrice {
+            font-size: 15px;
+            font-weight: bold;
+            color: #111111;
+            margin-right: 6px;
+        }
+
+        & .discountPrice {
+            font-size: 11px;
+            font-weight: normal;
+            color: #777777;
+            text-decoration-line: line-through;
+            margin-right: 10px;
+        }
+
+        & .discountRate {
+            font-size: 13px;
+            font-weight: bold;
+            color: #5d2ed1;
+            position: absolute;
+            right: 0;
+        }
+
+    }
+
+    & .sellerWrap {
+        margin-top: 8px;
+
+        & .sellerLevel {
+            width: 21px;
+            height: 13px;
+            border-radius: 6.5px;
+            border: solid 1px #dddddd;
+            background-color: #ffffff;
+            margin-right: 3px;
+            font-size: 10px;
+            float: left;
+            text-align: center;
+
+            & .level {
+                transform: scale(0.7)
+            }
+        }
+
+        & .sellerName {
+            font-size: 10px;
+            font-weight: normal;
+            color: #333333;
+            float: left;
+            margin-left: 3px;
+        }
+    }
+}

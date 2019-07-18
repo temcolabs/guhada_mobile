@@ -10,13 +10,13 @@ import ToolBar from 'components/toolbar/ToolBar';
  *
  * headerShape 값에 따른 Header component 변경을 위해서 headerShape props 추가
  * @param {String} topLayout 페이지 레이아웃 형태에 따라서 사용된다. main, category, search 3가지 형태를 정의해두었다.
- *
+ * @param {String} pageTitle
  */
 export default class DefaultLayout extends Component {
   render() {
     const { pageTitle, toolBar, headerShape, topLayout } = this.props;
     const headerSize = 60;
-    const categorySize = 40;
+    const categorySize = 44;
     const searchTabSize = 56;
 
     let paddingTop;

@@ -39,10 +39,18 @@ class SearchList extends Component {
   render() {
     const { searchitem } = this.props;
     let isBrand = Router.router.query.enter === 'brand';
+
     return (
-      <DefaultLayout topLayout={isBrand ? 'category' : 'search'}>
+      <DefaultLayout
+        topLayout={isBrand ? 'category' : 'search'}
+        pageTitle={searchitem.title}
+        headerShape={'searchList'}
+      >
         {isBrand ? null : (
-          <CategorySlider category={searchitem.headerCategory} />
+          <CategorySlider
+            category={searchitem.headerCategory}
+            router={this.props.router}
+          />
         )}
         <SearchItemHeader
           setIsOrderVisible={this.setIsOrderVisible}

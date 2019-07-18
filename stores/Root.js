@@ -32,6 +32,7 @@ import MypageLikeStore from './mypage/MypageLikeStore';
 import CountdownStore from './CountdownStore';
 import ToastStore from './ToastStore';
 import RouteHistoryStore from './RouteHistoryStore';
+import MainStore from './MainStore';
 
 class RootStore {
   constructor() {
@@ -82,6 +83,7 @@ class RootStore {
 
     this.toast = new ToastStore(this);
     this.history = new RouteHistoryStore(this);
+    this.main = new MainStore(this);
   }
 }
 

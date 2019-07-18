@@ -1,9 +1,13 @@
 import React from 'react';
 import DefaultLayout from 'components/layout/DefaultLayout';
-import { pushRoute, LinkRoute } from 'lib/router';
 import { withRouter } from 'next/router';
+import css from './Home.module.scss';
+import MainSectionItem from 'components/home/MainSectionItem';
+import { inject, observer } from 'mobx-react';
 
 @withRouter
+@inject('main')
+@observer
 class Home extends React.Component {
   static propTypes = {};
 
@@ -13,49 +17,17 @@ class Home extends React.Component {
   }
 
   render() {
-    // FIXME: 라우팅 테스트를 위한 버튼. 삭제해도 상관없음.
-    console.log(`[Home] this.props.router.query`, this.props.router.query);
+    const { main } = this.props;
 
     return (
-      <DefaultLayout title={null} paddingTop={40}>
-        <h1>home</h1>
-        <div>
-          <div>
-            <button
-              onClick={() =>
-                pushRoute('/', {
-                  query: { test: 'testvalue', string: 'custom string' },
-                })
-              }
-            >
-              /?test=query&string=custom
-            </button>
-          </div>
-          <div>
-            <button onClick={() => pushRoute('/?page=1&sort=ASC')}>
-              /?page=1&sort=ASC
-            </button>
-          </div>
-          <div>
-            <button onClick={() => pushRoute('/?page=2&sort=DESC')}>
-              /?page=2&sort=DESC
-            </button>
-          </div>
-          <div>
-            <button onClick={() => pushRoute('/?page=3&sort=DESC')}>
-              /?page=3&sort=DESC
-            </button>
-          </div>
-          <div>
-            <button onClick={() => pushRoute('/login?testquery=testquery')}>
-              /login?testquery=testquery
-            </button>
-          </div>
-
-          <LinkRoute href={`/login?page=10&sort=DONTKNOW`}>
-            /login?page=10&sort=DONTKNOW
-          </LinkRoute>
+      <DefaultLayout title={null} topLayout={'main'}>
+        {/* todo :: 카테고리 네비게이터 */}
+        <div className={css.mainImage}>
+          <img src={'/static/01_visual.png'} alt="" />
         </div>
+        <MainSectionItem title={'PLUS ITEM'} items={main.plusItem} />
+        <MainSectionItem title={'NEW ARRIVALS'} items={main.newArrivals} />
+        <MainSectionItem title={'BEST ITEM'} items={main.hits} />
       </DefaultLayout>
     );
   }
