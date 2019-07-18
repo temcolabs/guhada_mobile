@@ -23,22 +23,21 @@
     }
 
     & .emptyButton {
-        width: 20px;
-        height: 20px;
+        width: 30px;
+        height: 30px;
     }
 
     & .prevButton {
-        width: 20px;
-        height: 20px;
-        background-size: 20px;
-        background-repeat: no-repeat;
-        background-image: url('/static/icon/back_btn.png');
+        width: 30px;
+        height: 30px;
+        background: url('/static/icon/btn-prevpage.png') no-repeat center;
+        background-size: 30px;
     }
 
     & .closeButton {
-        width: 20px;
-        height: 20px;
-        background-size: 20px;
+        width: 30px;
+        height: 30px;
+        background-size: 30px;
         background-repeat: no-repeat;
         background-image: url('/static/icon/close_btn.png');
     }

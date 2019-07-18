@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import css from './LoginCheckBox.module.scss';
 import cn from 'classnames';
-export class LoginCheckBox extends Component {
+import { observer } from 'mobx-react';
+
+@observer
+class LoginCheckBox extends Component {
   render() {
     const { children, field, id, className, big } = this.props;
     return (

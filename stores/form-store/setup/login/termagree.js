@@ -1,4 +1,4 @@
-import hooks from '../../hooks/login/SignupHooksField';
+import hooks from '../../hooks/login/TermAgreeHooks';
 
 export default {
   fields: {

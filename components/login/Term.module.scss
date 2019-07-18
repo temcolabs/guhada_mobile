@@ -1,0 +1,30 @@
+.wrap {
+    margin: 20px 0;
+
+    & .subText {
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.29;
+        letter-spacing: -0.42px;
+        color: #212121;
+    }
+
+    & .contentsWrap {
+        padding: 10px 0;
+        border-bottom: 1px solid #e6e6e6;
+    }
+
+    & .bigCheckboxWrap {
+        height: 50px;
+        display: flex;
+        align-items: center;
+    }
+
+    & .eventText {
+        font-size: 11px;
+        font-weight: 500;
+        line-height: 1.82;
+        color: #a0a0a0;
+        padding: 19px 0 27px 0;
+    }
+}

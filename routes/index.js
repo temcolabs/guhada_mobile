@@ -60,6 +60,13 @@ module.exports = [
     name: '패스워드 찾기 결과',
   },
 
+  // 약관 동의
+  {
+    pagePath: '/login/term',
+    asPath: '/login/term',
+    name: '약관 동의',
+  },
+
   // 검색 결과
   {
     pagePath: '/search/search',

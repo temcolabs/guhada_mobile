@@ -9,7 +9,7 @@ import FindPasswordMobileHooks from './hooks/login/findpassword/MobileHooks';
 import FindPasswordMobileAuthHooks from './hooks/login/findpassword/MobileAuthHooks';
 import FindPasswordEmailHooks from './hooks/login/findpassword/EmailHooks';
 import FindPasswordResultHooks from './hooks/login/findpassword/ResultHooks';
-
+import TermAgreeHooks from './hooks/login/TermAgreeHooks';
 import SearchHooks from './hooks/Search';
 
 // forms
@@ -25,11 +25,13 @@ import termagree from './setup/login/termagree';
 
 import search from './setup/search';
 
-class SearchForm extends Form {}
 export default {
   search: new Form({ ...search }, { hooks: SearchHooks, name: 'Search' }),
   signUp: new Form({ ...signUp }, { hooks: SignupHooks, name: 'SignUp' }),
-  termAgree: new Form({ ...termagree }, { name: 'TermAgree' }),
+  termAgree: new Form(
+    { ...termagree },
+    { hooks: TermAgreeHooks, name: 'TermAgree' }
+  ),
   signIn: new Form({ ...signIn }, { hooks: SigninHooks, name: 'SignIn' }),
   idFind: new Form({ ...idfind }, { hooks: FindIdMyinfoHooks, name: 'IdFind' }),
   idFindMobile: new Form(
