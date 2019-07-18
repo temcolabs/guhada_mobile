@@ -20,20 +20,17 @@ function Header({ children, headerShape, history }) {
   const [categoryId, setCategoryId] = useState(0);
   const [categoryTitle, setCategoryTitle] = useState('');
 
-  function findHistory() {
-    let prevUrl = sessionStorage.get('prevUrl');
-    let thisUrl = sessionStorage.get('thisUrl');
-    if (prevUrl === thisUrl) {
-      Router.push('/');
-    } else {
-      pushRoute(prevUrl);
-    }
-  }
+  let urlHistory = sessionStorage.get('urlHistory');
+
   return (
     <>
       <div className={css.wrap}>
-        {headerShape === 'productDetail' ? (
-          <button className={css.backButton} onClick={() => findHistory()} />
+        {(headerShape === 'productDetail' || headerShape === 'searchList') &&
+        urlHistory !== '' ? (
+          <button
+            className={css.backButton}
+            onClick={() => window.history.back()}
+          />
         ) : null}
         <button
           className={css.menuButton}
