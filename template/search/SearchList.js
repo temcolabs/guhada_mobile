@@ -5,12 +5,12 @@ import { toJS } from 'mobx';
 import SearchItem4 from 'components/search/SearchItem4';
 import css from './SearchList.module.scss';
 import SearchItemHeader from 'components/search/SearchItemHeader';
-import CategorySlider from 'components/common/CategorySlider';
 import SearchItem2 from 'components/search/SearchItem2';
 import SearchItem6 from 'components/search/SearchItem6';
 import Router from 'next/router';
 import SearchOrder from 'components/search/SearchOrder';
 import { withRouter } from 'next/router';
+import SearchCategorySlider from 'components/search/SearchCategorySlider';
 
 @withRouter
 @inject('searchitem')
@@ -47,7 +47,7 @@ class SearchList extends Component {
         headerShape={'searchList'}
       >
         {isBrand ? null : (
-          <CategorySlider
+          <SearchCategorySlider
             category={searchitem.headerCategory}
             router={this.props.router}
           />

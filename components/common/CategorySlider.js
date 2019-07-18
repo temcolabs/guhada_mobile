@@ -7,21 +7,21 @@ import cn from 'classnames';
 @inject('searchitem')
 @observer
 class CategorySlider extends Component {
+  state = {
+    selected: 0,
+  };
+
+  setSelected = id => {
+    this.setState({
+      selected: id,
+    });
+  };
   render() {
     let { category, searchitem, router } = this.props;
-    let query = router.query;
+    // let query = router.query;
     let categoryList;
 
     if (category) categoryList = category;
-
-    let selected;
-
-    if (query.subcategory !== '') {
-      selected = Number(query.subcategory);
-    } else if (query.category !== '') {
-      selected = Number(query.category);
-    }
-    console.log('toJS(categoryList)', toJS(categoryList));
 
     return (
       <div className={css.wrap}>
@@ -29,18 +29,9 @@ class CategorySlider extends Component {
           return (
             <div
               className={cn(css.title, {
-                [css.selected]: item.id === selected,
+                [css.selected]: item.id === this.state.selected,
               })}
-              onClick={() =>
-                item.hierarchies !== undefined
-                  ? item.hierarchies.length !== 4
-                    ? searchitem.toSearch({ category: item.id })
-                    : searchitem.toSearch({
-                        category: categoryList[0].id,
-                        subcategory: item.id,
-                      })
-                  : searchitem.toSearch({ category: item.id })
-              }
+              onClick={() => this.setSelected(item.id)}
               key={index}
             >
               <div className={css.dot} />

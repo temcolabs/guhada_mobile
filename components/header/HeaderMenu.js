@@ -44,6 +44,8 @@ export default function HeaderMenu({
           setCategoryId={setCategoryId}
           setCategoryTitle={setCategoryTitle}
         />
+        <div className={css.event}>event 영역</div>
+        <div className={css.categoryWrap}>category 영역</div>
       </div>
     </SlideIn>
   );
