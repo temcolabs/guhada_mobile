@@ -4,8 +4,8 @@ import cn from 'classnames';
 import ToolbarCategory from './ToolbarCategory';
 import ToolbarBrand from './ToolbarBrand';
 import Router from 'next/router';
-
-export default function ToolBar() {
+import { inject } from 'mobx-react';
+function ToolBar({ alert }) {
   const [isCategoryVisible, setIsCategoryVisible] = useState(false);
   const [isBrandVisible, setIsBrandVisible] = useState(false);
   const [selectedTool, setSelectedTool] = useState('');
@@ -47,7 +47,8 @@ export default function ToolBar() {
       </div>
       <div
         onClick={() => {
-          setSelectedTool('community');
+          setSelectedTool('community'),
+            alert.showAlert({ content: '모바일 버전 준비중입니다.' });
         }}
         className={cn(css.itemWrap, css.community, {
           [css.selected]: selectedTool === 'community',
@@ -57,7 +58,8 @@ export default function ToolBar() {
       </div>
       <div
         onClick={() => {
-          setSelectedTool('mypage');
+          setSelectedTool('mypage'),
+            alert.showAlert({ content: '모바일 버전 준비중입니다.' });
         }}
         className={cn(css.itemWrap, css.mypage, {
           [css.selected]: selectedTool === 'mypage',
@@ -80,3 +82,4 @@ export default function ToolBar() {
     </div>
   );
 }
+export default inject('alert')(ToolBar);

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './CategoryDepth.module.scss';
 import Router from 'next/router';
+import cn from 'classnames';
 
 @inject('category', 'searchitem')
 @observer
@@ -28,17 +29,13 @@ class CategoryDepth extends Component {
     }
   }
 
-  toSearch = category => {
-    let { searchitem } = this.props;
-    searchitem.toSearch({ category: category, enter: 'category' });
-  };
-
   render() {
-    const { category } = this.props;
+    const { category, searchitem } = this.props;
+    const { categoryId } = this.state;
     let categoryList = category.categoryList;
     return (
       <ul className={css.tree}>
-        <label onClick={() => this.toSearch(Router.router.query.category)}>
+        <label onClick={() => searchitem.toSearch({ category: categoryId })}>
           전체보기
         </label>
         {categoryList !== undefined && categoryList.children
@@ -51,10 +48,15 @@ class CategoryDepth extends Component {
                     defaultChecked={false}
                   />
                   <label
-                    className={css.plus}
+                    className={cn({ [css.plus]: categoryMain.children })}
                     htmlFor={`${categoryMain.key}category`}
                     onClick={() =>
-                      categoryMain.children ? this.grow(categoryMain.key) : null
+                      categoryMain.children
+                        ? this.grow(categoryMain.key)
+                        : searchitem.toSearch({
+                            category: categoryId,
+                            subcategory: categoryMain.id,
+                          })
                     }
                   >
                     {categoryMain.title}
@@ -62,7 +64,11 @@ class CategoryDepth extends Component {
                   {categoryMain.children ? (
                     <ul id={`${categoryMain.key}`}>
                       <div className={`measuringWrapper${categoryMain.key}`}>
-                        <li onClick={() => this.toSearch(categoryMain.id)}>
+                        <li
+                          onClick={() =>
+                            searchitem.toSearch({ category: categoryMain.id })
+                          }
+                        >
                           전체보기
                         </li>
                         {categoryMain.children.map(categoryItem => {
@@ -70,7 +76,12 @@ class CategoryDepth extends Component {
                             <li
                               key={categoryItem.id}
                               className={css.arrow}
-                              onClick={() => this.toSearch(categoryItem.id)}
+                              onClick={() =>
+                                searchitem.toSearch({
+                                  category: categoryMain.id,
+                                  subcategory: categoryItem.id,
+                                })
+                              }
                             >
                               {categoryItem.title}
                             </li>

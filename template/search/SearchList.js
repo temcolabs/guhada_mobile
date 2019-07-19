@@ -11,6 +11,7 @@ import Router from 'next/router';
 import SearchOrder from 'components/search/SearchOrder';
 import { withRouter } from 'next/router';
 import SearchCategorySlider from 'components/search/SearchCategorySlider';
+import { SearchFilter } from 'components/search/SearchFilter';
 
 @withRouter
 @inject('searchitem')
@@ -18,11 +19,18 @@ import SearchCategorySlider from 'components/search/SearchCategorySlider';
 class SearchList extends Component {
   state = {
     isOrderVisible: false,
+    isFilterVisible: false,
   };
 
   setIsOrderVisible = visible => {
     this.setState({
       isOrderVisible: visible,
+    });
+  };
+
+  setIsFilterVisible = visible => {
+    this.setState({
+      isFilterVisible: visible,
     });
   };
 
@@ -54,6 +62,7 @@ class SearchList extends Component {
         )}
         <SearchItemHeader
           setIsOrderVisible={this.setIsOrderVisible}
+          setIsFilterVisible={this.setIsFilterVisible}
           isBrand={isBrand ? true : false}
         />
         <div className={css.searchItemWrap}>
@@ -71,6 +80,12 @@ class SearchList extends Component {
           setSearchOrderFilter={searchitem.setSearchOrderFilter}
           searchOrderFilter={searchitem.searchOrderFilter}
           toSearch={searchitem.toSearch}
+        />
+
+        <SearchFilter
+          isVisible={this.state.isFilterVisible}
+          onClose={() => this.setIsFilterVisible(false)}
+          filters={searchitem.filterData}
         />
       </DefaultLayout>
     );

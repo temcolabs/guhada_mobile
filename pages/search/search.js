@@ -11,7 +11,8 @@ class search extends Component {
   componentDidMount() {
     const { searchitem } = this.props;
     const query = Router.router.query;
-    console.log('query', query);
+    // console.log('query', query);
+    searchitem.initDealspage();
 
     let brand = JSON.parse('[' + query.brand + ']');
     // let category = JSON.parse('[' + query.category + ']');

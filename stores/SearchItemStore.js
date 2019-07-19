@@ -59,7 +59,12 @@ export default class SearchItemStore {
 
     this.scrollPosition = scrolled;
     let query = Router.router.query;
-
+    // console.log(
+    //   'this.scrollPosition',
+    //   this.scrollPosition,
+    //   this.infinityStauts,
+    //   this.dealsPage
+    // );
     if (
       this.scrollPosition > 0.7 &&
       this.infinityStauts === true &&
@@ -82,6 +87,11 @@ export default class SearchItemStore {
         query.keyword
       );
     }
+  };
+
+  @action
+  initDealspage = () => {
+    this.dealsPage = 0;
   };
 
   @action
@@ -363,6 +373,7 @@ export default class SearchItemStore {
                * mobile 작업
                */
               this.infinityStauts = true;
+              this.scrollPosition = 0;
               if (categoryIds) this.setHeaderCategory(categoryIds);
 
               this.endPage = Math.floor(data.data.countOfDeals / 20) + 1;

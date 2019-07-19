@@ -31,10 +31,13 @@ export default class CategoryStore {
   getCategory() {
     this.category = [];
 
-    API.cloud.get('/guhada_category.json').then(res => {
-      // console.log(res);
-      this.setCategory(res.data);
+    API.product.get('/categories').then(res => {
+      this.setCategory(res.data.data);
     });
+    // API.cloud.get('/guhada_category.json').then(res => {
+    //   // console.log(res);
+    //   this.setCategory(res.data);
+    // });
   }
 
   @action
