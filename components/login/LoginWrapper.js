@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import css from './LoginWrapper.module.scss';
-import ErrorToast from 'components/common/errorToast';
+import ErrorToast from 'components/common/ErrorToast';
 import { observer } from 'mobx-react';
 
 class LoginWrapper extends Component {

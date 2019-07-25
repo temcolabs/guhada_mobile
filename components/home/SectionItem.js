@@ -48,12 +48,10 @@ export default function SectionItem({
         <div className={css.dealName}>{item.dealName}</div>
         <div className={css.priceWrap}>
           <span className={css.sellPrice}>
-            {item.sellPrice.toLocaleString()}
+            {item.discountPrice.toLocaleString()}
           </span>
           <span className={css.discountPrice}>
-            {item.discountPrice !== 0
-              ? item.discountPrice.toLocaleString()
-              : null}
+            {item.sellPrice !== 0 ? item.sellPrice.toLocaleString() : null}
           </span>
           <span className={css.discountRate}>
             {item.discountRate !== 0 ? `${item.discountRate}%` : null}
