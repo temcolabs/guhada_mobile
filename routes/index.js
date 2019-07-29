@@ -24,7 +24,12 @@ module.exports = [
     asPath: '/login',
     name: '로그인',
   },
-
+  // 네이버 로그인 콜백
+  {
+    pagePath: '/login/callbacknaver',
+    asPath: '/callbacknaver',
+    name: '네이버 로그인 콜백',
+  },
   // 회원가입
   {
     pagePath: '/login/signup',

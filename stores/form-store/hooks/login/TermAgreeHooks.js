@@ -1,12 +1,46 @@
-import Router from 'next/router';
 import Form from '../../_.forms';
-
+import API from 'lib/API';
+import { root } from 'store';
+import { snsType } from 'constant/sns';
 export default {
   onInit() {},
 
   onSuccess(form) {
     console.log('Success Values', form.values());
     console.log('api call start', form);
+    let value = form.values();
+    if (value.sns === true) {
+      let login = root.login;
+
+      API.user
+        .post('/sns-users', {
+          agreeCollectPersonalInfoTos: value.agreeCollectPersonalInfoTos,
+          agreeEmailReception: value.agreeEmailReception,
+          agreePurchaseTos: value.agreePurchaseTos,
+          agreeSaleTos: value.agreeSaleTos,
+          agreeSmsReception: value.agreeSmsReception,
+          email: login.email,
+          profileJson: login.profileJson,
+          snsId: login.snsId,
+          snsType: login.snsType,
+        })
+        .then(function(res) {
+          let data = res.data;
+          if (data.resultCode === 200) {
+            if (login.snsType === snsType.KAKAO) {
+              login.loginKakao();
+            } else if (login.snsType === snsType.GOOGLE) {
+              login.loginGoogle();
+            } else if (login.snsType === snsType.NAVER) {
+              login.loginNaver();
+            } else if (login.snsType === snsType.FACEBOOK) {
+            }
+          }
+        })
+        .catch(e => {
+          console.error(e);
+        });
+    }
   },
 
   onError(form) {

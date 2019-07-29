@@ -3,33 +3,34 @@ import React, { Fragment } from 'react';
 import css from '../../template/signin/Login.module.scss';
 import { observer } from 'mobx-react';
 import { loadScript } from 'lib/dom';
-
-// localhost
-// const client_id = "oSnaeFggtDJZypTfEO4c";
-// const redirectURI = encodeURI("http://localhost:3030/callbacknaver");
+import { snsAppKey } from 'constant/sns';
+import { isBrowser } from 'lib/isServer';
 
 // web poc
-const client_id = '9YQghvOUVglRVpJfYVpb';
-const redirectURI = encodeURI('http://localhost:8080/callbacknaver');
+const client_id = snsAppKey.NAVER;
+const redirectURI = encodeURI(`${process.env.HOSTNAME}/callbacknaver`);
 
 @observer
 class NaverLogin extends React.Component {
   componentDidMount() {
-    if (!document.getElementById('naverLoginInit')) {
-      loadScript(
-        'http://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js',
-        () => {
-          let naverLogin = new naver.LoginWithNaverId({
-            clientId: client_id,
-            callbackUrl: redirectURI,
-            isPopup: false,
-            callbackHandle: false,
-          });
-          naverLogin.init();
-        }
-      );
+    if (isBrowser) {
+      this.loadNaverLogin();
     }
   }
+
+  loadNaverLogin = () => {
+    loadScript('http://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js', {
+      id: 'naveridlogin_js_sdk',
+      onLoad: () => {
+        let naverLogin = new naver.LoginWithNaverId({
+          clientId: client_id,
+          callbackUrl: redirectURI,
+          isPopup: false,
+        });
+        naverLogin.init();
+      },
+    });
+  };
 
   render() {
     return (

@@ -7,16 +7,12 @@ import Router from 'next/router';
 import { loginStatus } from 'constant';
 import key from 'constant/key';
 import { isBrowser } from 'lib/isServer';
+import { pushRoute } from 'lib/router';
+import { snsType } from 'constant/sns';
 
 const isServer = typeof window === 'undefined';
 
 export default class LoginStore {
-  @observable facebookKey = '2298850760133957';
-  @observable googleKey =
-    '54498119926-06mhh1vfc281ki9cvs5aees5npp1p9m7.apps.googleusercontent.com';
-  @observable kakaoKey = '7ca6661594c9f669ca2fbe51f8a73f28';
-  @observable naverKey = '';
-
   // accessToken으로 받아오는 info
   @observable loginInfo = {};
 
@@ -193,96 +189,294 @@ export default class LoginStore {
     Router.push(`/`);
   };
 
+  @observable email;
+  @observable profileJson;
+  @observable snsId;
+  @observable snsType;
+
+  /**
+   * TODO : https 적용 후 테스트 가능 facebook
+   */
   @action
   responseFacebook = response => {
     console.log('facebook', response);
     let data = response;
 
+    // API.user
+    //   .post('/facebookLogin', {
+    //     email: '',
+    //     profileJson: data,
+    //     snsId: data.id,
+    //   })
+    //   .then(function(res) {
+    //     let data = res.data;
+    //     console.log(data);
+    //     if (data.resultCode === 200) {
+    //       Cookies.set(key.ACCESS_TOKEN, data.data.accessToken);
+    //       Cookies.set(key.REFRESH_TOKEN, data.data.refreshToken);
+    //       Router.push('/');
+    //     } else {
+    //       alert(data.message);
+    //     }
+    //   });
+  };
+
+  @action
+  responseGoogle = response => {
+    console.log('google', response);
+    let data = response;
+    let login = this;
+
+    this.email = data.profileObj.email;
+    this.profileJson = data.profileObj;
+    this.snsId = data.profileObj.googleId;
+    this.snsType = snsType.GOOGLE;
+
     API.user
-      .post('/facebookLogin', {
-        email: '',
-        profileJson: data,
-        snsId: data.id,
+      .get('/users/sns', {
+        params: {
+          email: this.email,
+          'sns-type': this.snsType,
+          uid: this.snsId,
+        },
       })
       .then(function(res) {
         let data = res.data;
-        console.log(data);
         if (data.resultCode === 200) {
-          Cookies.set(key.ACCESS_TOKEN, data.data.accessToken);
-          Cookies.set(key.REFRESH_TOKEN, data.data.refreshToken);
-          Router.push('/');
+          login.loginGoogle();
+        }
+      })
+      .catch(e => {
+        console.error(e);
+        console.log('e.status', e.status);
+        if (e.status === 200) {
+          if (_.get(e, 'data.data.resultCode') === 5004) {
+            pushRoute('/login/termagreesns');
+          }
         } else {
-          alert(data.message);
+          if (_.get(e, 'data.resultCode') === 5002) {
+            this.root.alert.showAlert('이미 해당 이메일로 가입되었습니다');
+          }
         }
       });
   };
 
   @action
-  responseGoogle = response => {
-    let data = response || {};
-
-    if (data.profileObj) {
-      let Header = {
-        method: 'POST',
-        url: process.env.API_USER + '/googleLogin',
-        data: {
-          email: data.profileObj.email,
-          profileJson: data.profileObj,
-          snsId: data.profileObj.googleId,
-        },
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      };
-      console.log(Header);
-      API.user
-        .post('/googleLogin', {
-          email: data.profileObj.email,
-          profileJson: data.profileObj,
-          snsId: data.profileObj.googleId,
-        })
-        .then(function(res) {
-          let data = res.data;
-          console.log(data);
-          if (data.resultCode === 200) {
-            Cookies.set(key.ACCESS_TOKEN, data.data.accessToken);
-            Cookies.set(key.REFRESH_TOKEN, data.data.refreshToken);
-            Router.push('/');
-          } else {
-            alert(data.message);
-          }
-        });
-    }
-  };
-
-  @action
-  responseKakao = response => {
-    console.log('kakao', response);
-
-    let data = response;
+  loginGoogle = () => {
+    let login = this;
 
     API.user
-      .post('/kakaoLogin', {
-        email: data.profile.kakao_account.email,
-        profileJson: data.profile.properties,
-        snsId: data.profile.id,
+      .post('/sns-users/googleLogin', {
+        email: this.email,
+        profileJson: this.profileJson,
+        snsId: this.snsId,
+        snsType: this.snsType,
       })
       .then(function(res) {
         let data = res.data;
         console.log(data);
+
         if (data.resultCode === 200) {
           Cookies.set(key.ACCESS_TOKEN, data.data.accessToken);
           Cookies.set(key.REFRESH_TOKEN, data.data.refreshToken);
 
-          this.root.login.handleLoginSuccess({
+          login.handleLoginSuccess({
             accessToken: data.data.accessToken,
             refreshToken: data.data.refreshToken,
             expiresIn: data.data.expiresIn,
           });
-          Router.push('/');
+          pushRoute('/');
         } else {
-          alert(data.message);
+          console.log('data.message', data.message);
         }
+      })
+      .catch(e => {
+        console.log('e', e);
+      });
+
+    // let data = response || {};
+
+    // if (data.profileObj) {
+    //   let Header = {
+    //     method: 'POST',
+    //     url: process.env.API_USER + '/googleLogin',
+    //     data: {
+    //       email: data.profileObj.email,
+    //       profileJson: data.profileObj,
+    //       snsId: data.profileObj.googleId,
+    //     },
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //   };
+    //   console.log(Header);
+    //   API.user
+    //     .post('/googleLogin', {
+    //       email: data.profileObj.email,
+    //       profileJson: data.profileObj,
+    //       snsId: data.profileObj.googleId,
+    //     })
+    //     .then(function(res) {
+    //       let data = res.data;
+    //       console.log(data);
+    //       if (data.resultCode === 200) {
+    //         Cookies.set(key.ACCESS_TOKEN, data.data.accessToken);
+    //         Cookies.set(key.REFRESH_TOKEN, data.data.refreshToken);
+    //         Router.push('/');
+    //       } else {
+    //         alert(data.message);
+    //       }
+    //     })
+    //     .catch(e => {
+    //       alert(_.get(e, 'data.message'));
+    //     });
+    // }
+  };
+  @action
+  responseKakao = response => {
+    console.log('kakao', response);
+    let data = response;
+    let login = this;
+
+    this.email = data.profile.kakao_account.email;
+    this.profileJson = data.profile.properties;
+    this.snsId = data.profile.id;
+    this.snsType = snsType.KAKAO;
+
+    API.user
+      .get('/users/sns', {
+        params: {
+          email: data.profile.kakao_account.email,
+          'sns-type': snsType.KAKAO,
+          uid: data.profile.id,
+        },
+      })
+      .then(function(res) {
+        let data = res.data;
+        if (data.resultCode === 200) {
+          login.loginKakao();
+        }
+      })
+      .catch(e => {
+        console.error(e);
+        console.log('e.status', e.status);
+        if (e.status === 200) {
+          if (_.get(e, 'data.data.resultCode') === 5004) {
+            pushRoute('/login/termagreesns');
+          }
+        } else {
+          if (_.get(e, 'data.data.resultCode') === 5002) {
+            this.root.alert.showAlert('이미 해당 이메일로 가입되었습니다');
+          }
+        }
+      });
+  };
+
+  @action
+  loginKakao = () => {
+    let login = this;
+
+    API.user
+      .post('/sns-users/kakaoLogin', {
+        email: this.email,
+        profileJson: this.profileJson,
+        snsId: this.snsId,
+        snsType: this.snsType,
+      })
+      .then(function(res) {
+        let data = res.data;
+        console.log(data);
+
+        if (data.resultCode === 200) {
+          Cookies.set(key.ACCESS_TOKEN, data.data.accessToken);
+          Cookies.set(key.REFRESH_TOKEN, data.data.refreshToken);
+
+          login.handleLoginSuccess({
+            accessToken: data.data.accessToken,
+            refreshToken: data.data.refreshToken,
+            expiresIn: data.data.expiresIn,
+          });
+          pushRoute('/');
+        } else {
+          console.log('data.message', data.message);
+        }
+      })
+      .catch(e => {
+        console.log('e', e);
+      });
+  };
+
+  @action
+  responseNaver = response => {
+    console.log('naver', response);
+    let data = response;
+    let login = this;
+
+    this.email = data.user.email;
+    this.profileJson = data.user;
+    this.snsId = data.user.id;
+    this.snsType = snsType.NAVER;
+
+    API.user
+      .get('/users/sns', {
+        params: {
+          email: this.email,
+          'sns-type': this.snsType,
+          uid: this.snsId,
+        },
+      })
+      .then(function(res) {
+        let data = res.data;
+        if (data.resultCode === 200) {
+          login.loginNaver();
+        }
+      })
+      .catch(e => {
+        console.error(e);
+        console.log('e.status', e.status);
+        if (e.status === 200) {
+          if (_.get(e, 'data.data.resultCode') === 5004) {
+            pushRoute('/login/termagreesns');
+          }
+        } else {
+          if (_.get(e, 'data.data.resultCode') === 5002) {
+            this.root.alert.showAlert('이미 해당 이메일로 가입되었습니다');
+          }
+        }
+      });
+  };
+
+  @action
+  loginNaver = () => {
+    let login = this;
+
+    API.user
+      .post('/sns-users/naverLogin', {
+        email: this.email,
+        profileJson: this.profileJson,
+        snsId: this.snsId,
+        snsType: this.snsType,
+      })
+      .then(function(res) {
+        let data = res.data;
+        console.log(data);
+
+        if (data.resultCode === 200) {
+          Cookies.set(key.ACCESS_TOKEN, data.data.accessToken);
+          Cookies.set(key.REFRESH_TOKEN, data.data.refreshToken);
+
+          login.handleLoginSuccess({
+            accessToken: data.data.accessToken,
+            refreshToken: data.data.refreshToken,
+            expiresIn: data.data.expiresIn,
+          });
+          pushRoute('/');
+        } else {
+          console.log('data.message', data.message);
+        }
+      })
+      .catch(e => {
+        console.log('e', e);
       });
   };
 }

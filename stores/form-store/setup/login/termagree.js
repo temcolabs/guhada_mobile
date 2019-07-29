@@ -59,5 +59,8 @@ export default {
       label: '문자수신',
       hooks,
     },
+    sns: {
+      value: false,
+    },
   },
 };

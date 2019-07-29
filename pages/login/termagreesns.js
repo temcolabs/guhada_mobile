@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import Head from 'next/head';
 import Term from 'components/login/Term';
 import Form from '../../stores/form-store/_.forms';
+import withAuth from 'components/common/hoc/withAuth';
 
-export class term extends Component {
+export class termagreesns extends Component {
   render() {
     return (
       <>
@@ -23,4 +24,6 @@ export class term extends Component {
   }
 }
 
-export default term;
+export default withAuth({ isAuthRequired: false, redirectTo: '/' })(
+  termagreesns
+);
