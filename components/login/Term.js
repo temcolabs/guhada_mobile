@@ -3,11 +3,14 @@ import LoginLayout from 'components/layout/LoginLayout';
 import { LoginWrapper, LoginCheckBox } from '.';
 import css from './Term.module.scss';
 import LoginButton from './LoginButton';
+import { observer } from 'mobx-react';
 
+@observer
 class Term extends Component {
   render() {
     const { form } = this.props;
     let value = form.get('value');
+    console.log('value', value);
     return (
       <LoginLayout pageTitle={'약관동의'}>
         <LoginWrapper>
