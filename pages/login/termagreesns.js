@@ -6,6 +6,9 @@ import withAuth from 'components/common/hoc/withAuth';
 
 export class termagreesns extends Component {
   render() {
+    Form.termAgree.clear();
+    Form.termAgree.$('sns').set('value', true);
+
     return (
       <>
         <Head>
