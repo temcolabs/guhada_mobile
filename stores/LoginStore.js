@@ -9,7 +9,7 @@ import key from 'constant/key';
 import { isBrowser } from 'lib/isServer';
 import { pushRoute } from 'lib/router';
 import { snsType } from 'constant/sns';
-
+import _ from 'lodash';
 const isServer = typeof window === 'undefined';
 
 export default class LoginStore {
@@ -252,11 +252,10 @@ export default class LoginStore {
         if (e.status === 200) {
           if (_.get(e, 'data.data.resultCode') === 5004) {
             pushRoute('/login/termagreesns');
+          } else if (_.get(e, 'data.data.resultCode') === 6001) {
+            this.root.alert.showAlert(_.get(e, 'data.message'));
           }
         } else {
-          if (_.get(e, 'data.resultCode') === 5002) {
-            this.root.alert.showAlert('이미 해당 이메일로 가입되었습니다');
-          }
         }
       });
   };
@@ -363,11 +362,10 @@ export default class LoginStore {
         if (e.status === 200) {
           if (_.get(e, 'data.data.resultCode') === 5004) {
             pushRoute('/login/termagreesns');
+          } else if (_.get(e, 'data.data.resultCode') === 6001) {
+            this.root.alert.showAlert(_.get(e, 'data.message'));
           }
         } else {
-          if (_.get(e, 'data.data.resultCode') === 5002) {
-            this.root.alert.showAlert('이미 해당 이메일로 가입되었습니다');
-          }
         }
       });
   };
@@ -437,11 +435,10 @@ export default class LoginStore {
         if (e.status === 200) {
           if (_.get(e, 'data.data.resultCode') === 5004) {
             pushRoute('/login/termagreesns');
+          } else if (_.get(e, 'data.data.resultCode') === 6001) {
+            this.root.alert.showAlert(_.get(e, 'data.message'));
           }
         } else {
-          if (_.get(e, 'data.data.resultCode') === 5002) {
-            this.root.alert.showAlert('이미 해당 이메일로 가입되었습니다');
-          }
         }
       });
   };
