@@ -27,6 +27,4 @@ export class termagreesns extends Component {
   }
 }
 
-export default withAuth({ isAuthRequired: false, redirectTo: '/' })(
-  termagreesns
-);
+export default termagreesns;
