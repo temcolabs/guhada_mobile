@@ -30,6 +30,12 @@ module.exports = [
     asPath: '/callbacknaver',
     name: '네이버 로그인 콜백',
   },
+  // 약관동의
+  {
+    pagePath: '/login/termagreesns',
+    asPath: '/login/termagreesns',
+    name: '약관동의',
+  },
   // 회원가입
   {
     pagePath: '/login/signup',
