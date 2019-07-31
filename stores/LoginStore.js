@@ -1,4 +1,4 @@
-import { computed, observable, action, toJS } from 'mobx';
+import { computed, observable, action } from 'mobx';
 import Cookies from 'js-cookie';
 import API from 'lib/API';
 import localStorage from 'lib/localStorage';

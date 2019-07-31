@@ -7,7 +7,7 @@ import StarItem from '../StarItem';
 import { yyyymmddhhmm } from 'utils';
 export default function ProductReviewItems({
   review = {
-    likesUserIds: 0,
+    bookmarksUserIds: 0,
     order: null,
     productOption: { color: '', size: '' },
     review: {
@@ -15,7 +15,7 @@ export default function ProductReviewItems({
       createdAt: '2019-06-24T06:05:04',
       id: 339,
       lengthSatisfaction: 'SHORT',
-      likeCount: 0,
+      bookmarkCount: 0,
       orderProductGroupId: 13170,
       photoCount: 0,
       productId: 12540,
@@ -110,7 +110,9 @@ export default function ProductReviewItems({
         <div className={css.likeWrap}>
           <div>도움되었어요</div>
           <div className={css.likeIcon} />
-          <div className={css.likeCount}>{`${review.review.likeCount}`}</div>
+          <div className={css.bookmarkCount}>{`${
+            review.review.bookmarkCount
+          }`}</div>
         </div>
         <div className={css.commentWrap}>
           <div>{`-댓글 6개`}</div>
