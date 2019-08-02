@@ -31,8 +31,8 @@ export default class OrderPaymentStore {
       detailAddress: null,
       recipientName: null,
       recipientMobile: null,
-      shippingMessageType: null,
       defaultAddress: false,
+      shippingMessage: false,
     },
     isAddShippingAddress: false,
   };
@@ -235,20 +235,18 @@ export default class OrderPaymentStore {
   @action
   changeShippingRequestOption = (shippingOption, target) => {
     if (target === '기본배송') {
-      this.orderShippingList.defaultAddress.shippingMessageType =
-        shippingOption.value;
       this.orderShippingList.defaultAddress.shippingMessage =
         shippingOption.label;
 
-      this.orderShippingList.defaultAddress.shippingMessageType == 'SELF'
+      this.orderShippingList.defaultAddress.shippingMessage ===
+      '배송 메세지를 입력해주세요.'
         ? (this.status.shppingRequestSelfStatus = true)
         : (this.status.shppingRequestSelfStatus = false);
     } else {
-      this.orderShippingList.newAddress.shippingMessageType =
-        shippingOption.value;
       this.orderShippingList.newAddress.shippingMessage = shippingOption.label;
 
-      this.orderShippingList.newAddress.shippingMessageType === 'SELF'
+      this.orderShippingList.newAddress.shippingMessage ===
+      '배송 메세지를 입력해주세요.'
         ? (this.status.newShppingRequestSelfStatus = true)
         : (this.status.newShppingRequestSelfStatus = false);
     }
@@ -590,13 +588,14 @@ export default class OrderPaymentStore {
           this.status.newRecipientMobile = true;
           return false;
         }
-      } else if (!this.orderShippingList.newAddress.shippingMessageType) {
+      } else if (!this.orderShippingList.newAddress.shippingMessage) {
         this.root.alert.showAlert({
           content: '배송메시지를 선택해주세요.',
         });
         return false;
       } else if (
-        this.orderShippingList.newAddress.shippingMessage == '직접입력'
+        this.orderShippingList.newAddress.shippingMessage ===
+        '배송 메세지를 입력해주세요.'
       ) {
         this.root.alert.showAlert({
           content: '배송메시지를 입력해주세요.',
@@ -604,7 +603,11 @@ export default class OrderPaymentStore {
         return false;
       }
     } else if (this.status.selectedShipStatus) {
-      if (this.orderShippingList.defaultAddress.shippingMessage == '직접입력') {
+      if (
+        this.orderShippingList.defaultAddress.shippingMessage ===
+          '배송 메세지를 입력해주세요.' ||
+        !this.orderShippingList.defaultAddress.shippingMessage
+      ) {
         this.root.alert.showAlert({
           content: '배송메시지를 입력해주세요.',
         });
@@ -798,7 +801,7 @@ export default class OrderPaymentStore {
     this.shippingMessageOption = this.shippingMessageOption
       .map(data => {
         return {
-          value: data.type,
+          value: data.message === '배송 메세지를 입력해주세요.' ? true : false,
           label: data.message,
         };
       })
