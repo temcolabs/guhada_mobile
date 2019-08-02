@@ -13,6 +13,7 @@ import ShoppingCartStore from './shoppingcart/ShoppingCartStore';
 import ProductReviewStore from './productdetail/ProductReviewStore';
 import ProductOptionStore from './productdetail/ProductOptionStore';
 import ProductDetailLikeStore from './productdetail/ProductDetailLikeStore';
+import ProductDetailBookmarkStore from './productdetail/ProductDetailBookmarkStore';
 import ProductDetailGalleryStore from './productdetail/ProductDetailGalleryStore';
 import CartAndPurchaseStore from './productdetail/CartAndPurchaseStore';
 import ShoppingCartSuccessModalStore from './productdetail/ShoppingCartSuccessModalStore';
@@ -53,6 +54,7 @@ class RootStore {
     this.productreview = new ProductReviewStore(this);
     this.productoption = new ProductOptionStore(this);
     this.productDetailLike = new ProductDetailLikeStore(this);
+    this.productDetailBookmark = new ProductDetailBookmarkStore(this);
     this.productDetailGallery = new ProductDetailGalleryStore(this);
     this.alert = new AlertStore(this);
     this.bookmark = new BookMarkStore(this);
