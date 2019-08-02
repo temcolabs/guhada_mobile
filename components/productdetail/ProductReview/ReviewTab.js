@@ -3,10 +3,11 @@ import css from './ReviewTab.module.scss';
 import cn from 'classnames';
 import ReviewOrder from './ReviewOrder';
 import ReviewRating from './ReviewRating';
-export default function ReviewTab() {
-  const [reviewTab, setReviewTab] = useState('all');
+export default function ReviewTab({ setReviewTab = () => {}, setOrder }) {
+  const [reviewTabText, setReviewTabText] = useState('all');
   const [isOrderVisible, setIsOrderVisible] = useState(false);
   const [isRatingVisible, setIsRatingVisible] = useState(false);
+  const [orderLabel, setOrderLabel] = useState('최신 순');
   return (
     <div className={css.wrap}>
       <div className={css.tabHeader}>
@@ -16,7 +17,7 @@ export default function ReviewTab() {
             className={css.orderItem}
             onClick={() => setIsOrderVisible(true)}
           >
-            <div>최신순</div>
+            <div>{orderLabel}</div>
             <img
               className={css.icon}
               src={'/static/icon/arrow_down_line.png'}
@@ -38,35 +39,41 @@ export default function ReviewTab() {
       </div>
       <div className={css.tabWrap}>
         <div
-          className={cn(css.tabItem, { [css.selected]: reviewTab === 'all' })}
+          className={cn(css.tabItem, {
+            [css.selected]: reviewTabText === 'all',
+          })}
           onClick={() => {
-            setReviewTab('all');
+            setReviewTabText('all'), setReviewTab('all');
           }}
         >
           전체리뷰
         </div>
         <div
-          className={cn(css.tabItem, { [css.selected]: reviewTab === 'photo' })}
+          className={cn(css.tabItem, {
+            [css.selected]: reviewTabText === 'photo',
+          })}
           onClick={() => {
-            setReviewTab('photo');
+            setReviewTabText('photo'), setReviewTab('photo');
           }}
         >
           포토리뷰
         </div>
         <div
           className={cn(css.tabItem, {
-            [css.selected]: reviewTab === 'personal',
+            [css.selected]: reviewTabText === 'personal',
           })}
           onClick={() => {
-            setReviewTab('personal');
+            setReviewTabText('personal'), setReviewTab('personal');
           }}
         >
           수치포함
         </div>
         <div
-          className={cn(css.tabItem, { [css.selected]: reviewTab === 'reply' })}
+          className={cn(css.tabItem, {
+            [css.selected]: reviewTabText === 'reply',
+          })}
           onClick={() => {
-            setReviewTab('reply');
+            setReviewTabText('reply'), setReviewTab('reply');
           }}
         >
           댓글포함
@@ -75,6 +82,8 @@ export default function ReviewTab() {
       <ReviewOrder
         isVisible={isOrderVisible}
         onClose={() => setIsOrderVisible(false)}
+        setOrder={setOrder}
+        setOrderLabel={setOrderLabel}
       />
       <ReviewRating
         isVisible={isRatingVisible}

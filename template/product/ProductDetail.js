@@ -46,7 +46,12 @@ class ProductDetail extends React.Component {
     } = this.props;
 
     return (
-      <DefaultLayout pageTitle={'상품-상세페이지'} toolBar={false}>
+      <DefaultLayout
+        topLayout={'main'}
+        pageTitle={null}
+        toolBar={false}
+        headerShape={'productDetail'}
+      >
         {/* 상세이미지갤러리 */}
         <Gallery />
 

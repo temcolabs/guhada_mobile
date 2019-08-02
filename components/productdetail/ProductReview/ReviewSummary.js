@@ -39,13 +39,16 @@ export default function ReviewSummary({
     { value: 'lengths', label: '길이감', max: 0 },
   ];
 
-  if (reviewSummary.satisfactionSummary.sizes.length > 1)
+  if (reviewSummary.satisfactionSummary.sizes.length > 1) {
     for (let i = 0; i < summary.length; i++) {
-      summary[i].max = Math.max(
-        summary[i].max,
-        reviewSummary.satisfactionSummary[summary[i].value][i].count
-      );
+      for (let j = 0; j < summary.length; j++) {
+        summary[i].max = Math.max(
+          summary[i].max,
+          reviewSummary.satisfactionSummary[summary[i].value][j].count
+        );
+      }
     }
+  }
 
   return (
     <div>
@@ -54,7 +57,7 @@ export default function ReviewSummary({
           <div className={css.header}>총 리뷰 평점</div>
           <div className={css.starWrap}>
             <div className={css.starItem}>
-              {StarItem(Math.round(reviewSummary.averageReviewsRating))}
+              {StarItem(reviewSummary.averageReviewsRating, true)}
             </div>
             <div className={css.averageReviewsRating}>{`${
               reviewSummary.averageReviewsRating
@@ -72,12 +75,13 @@ export default function ReviewSummary({
                   <div className={css.itemLabel}>{`${summary.label}`}</div>
                   <div className={css.valueWrap}>
                     {reviewSummary.satisfactionSummary[summary.value].map(
-                      data => {
+                      (data, dataIndex) => {
                         return fold ? (
                           <div
                             className={cn(css.valueItem, {
                               [css.max]: summary.max === data.count,
                             })}
+                            key={`${dataIndex}data`}
                           >
                             <div className={css.valueLabel}>
                               {data.description}
@@ -109,6 +113,7 @@ export default function ReviewSummary({
                                 [css.foldItem]: summary.max !== data.count,
                               }
                             )}
+                            key={`${dataIndex}data`}
                           >
                             <div className={css.valueLabel}>
                               {data.description}

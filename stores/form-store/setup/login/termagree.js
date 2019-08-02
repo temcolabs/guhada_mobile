@@ -1,4 +1,4 @@
-import hooks from '../../hooks/login/SignupHooksField';
+import hooks from '../../hooks/login/TermAgreeHooks';
 
 export default {
   fields: {
@@ -58,6 +58,9 @@ export default {
       id: 'agreeSmsReception',
       label: '문자수신',
       hooks,
+    },
+    sns: {
+      value: false,
     },
   },
 };

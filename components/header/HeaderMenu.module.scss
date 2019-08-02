@@ -65,4 +65,32 @@
             background-repeat: no-repeat;
         }
     }
+
+    & .event {
+        width: 100%;
+        height: 70px;
+        background-color: grey;
+        color: black;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    & .categoryWrap {
+        width: 100%;
+        height: 100px;
+        background-color: grey;
+        color: black;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        & .item {
+            width: calc(100% / 3);
+            height: 50px;
+        }
+    }
 }

@@ -24,7 +24,18 @@ module.exports = [
     asPath: '/login',
     name: '로그인',
   },
-
+  // 네이버 로그인 콜백
+  {
+    pagePath: '/login/callbacknaver',
+    asPath: '/callbacknaver',
+    name: '네이버 로그인 콜백',
+  },
+  // 약관동의
+  {
+    pagePath: '/login/termagreesns',
+    asPath: '/login/termagreesns',
+    name: '약관동의',
+  },
   // 회원가입
   {
     pagePath: '/login/signup',
@@ -58,6 +69,13 @@ module.exports = [
     pagePath: '/login/findpasswordresult',
     asPath: '/login/findpasswordresult',
     name: '패스워드 찾기 결과',
+  },
+
+  // 약관 동의
+  {
+    pagePath: '/login/term',
+    asPath: '/login/term',
+    name: '약관 동의',
   },
 
   // 검색 결과

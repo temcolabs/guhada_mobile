@@ -7,9 +7,17 @@ import cn from 'classnames';
 @observer
 class SearchItemHeader extends Component {
   render() {
-    const { searchitem, setIsOrderVisible } = this.props;
+    const {
+      searchitem,
+      setIsOrderVisible,
+      isBrand,
+      setIsFilterVisible,
+    } = this.props;
     return (
-      <div className={css.wrap}>
+      <div
+        className={css.wrap}
+        style={{ top: `${isBrand === true ? 60 : 104}px` }}
+      >
         <div className={css.order} onClick={setIsOrderVisible}>
           {searchitem.searchOrderFilter === 'DATE'
             ? '신상품 순'
@@ -39,7 +47,9 @@ class SearchItemHeader extends Component {
             onClick={() => searchitem.setThumbnailStyle('list6')}
           />
         </div>
-        <div className={css.detail}>상세검색</div>
+        <div className={css.detail} onClick={setIsFilterVisible}>
+          상세검색
+        </div>
       </div>
     );
   }

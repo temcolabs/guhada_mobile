@@ -3,9 +3,7 @@ import {
   getCategoryTitle,
   getCategoryKeyArray,
   getCategory,
-  getParameterByName,
   getCategoryKey,
-  searchTreeId,
   getBrandTitle,
 } from '../utils.js';
 import Router from 'next/router';
@@ -61,7 +59,12 @@ export default class SearchItemStore {
 
     this.scrollPosition = scrolled;
     let query = Router.router.query;
-
+    // console.log(
+    //   'this.scrollPosition',
+    //   this.scrollPosition,
+    //   this.infinityStauts,
+    //   this.dealsPage
+    // );
     if (
       this.scrollPosition > 0.7 &&
       this.infinityStauts === true &&
@@ -84,6 +87,11 @@ export default class SearchItemStore {
         query.keyword
       );
     }
+  };
+
+  @action
+  initDealspage = () => {
+    this.dealsPage = 0;
   };
 
   @action
@@ -185,6 +193,9 @@ export default class SearchItemStore {
           break;
         case '키즈':
           titleEnglish = 'Kids';
+          break;
+        default:
+          titleEnglish = 'Women';
           break;
       }
       firstLocationFilter.push({ id: locationFilter.id, title: titleEnglish });
@@ -322,16 +333,16 @@ export default class SearchItemStore {
               }
 
               if (hierarchyCheck === true) {
-                this.setExpandedKeys(getTreeData.children[0].key);
+                // this.setExpandedKeys(getTreeData.children[0].key);
                 this.locationHierarchy = getTreeData.children[0];
                 this.LocationGuide('hierarchyCheck');
               } else {
-                this.setExpandedKeys(getTreeData.key);
+                // this.setExpandedKeys(getTreeData.key);
                 this.locationHierarchy = getTreeData;
                 this.LocationGuide();
               }
             } else {
-              this.setExpandedKeys(getTreeData.key);
+              // this.setExpandedKeys(getTreeData.key);
               this.locationHierarchy = getTreeData;
               this.LocationGuide();
             }
@@ -362,16 +373,25 @@ export default class SearchItemStore {
                * mobile 작업
                */
               this.infinityStauts = true;
+              this.scrollPosition = 0;
               if (categoryIds) this.setHeaderCategory(categoryIds);
 
               this.endPage = Math.floor(data.data.countOfDeals / 20) + 1;
-              ////////////////////////////////////
 
-              // console.log(hierarchy, "hierarchy");
-              if (categoryIds)
+              /**
+               * 카테고리 기준 title 값
+               */
+              console.log('subcategory', subcategory);
+              if (subcategory.length !== 0)
+                this.setTitle(
+                  getCategoryTitle(data.data.categories, subcategory)
+                );
+              else if (categoryIds)
                 this.setTitle(
                   getCategoryTitle(data.data.categories, categoryIds)
                 );
+
+              ////////////////////////////////////
 
               if (enter === 'all') {
                 // this.toGetBrandFilter(categoryList);
@@ -386,7 +406,7 @@ export default class SearchItemStore {
                 });
 
                 this.setKeyArray(keyArray);
-                this.setCategoryTreeData();
+                // this.setCategoryTreeData();
               } else if (enter === 'brand' || enter === 'keyword') {
                 // 브랜드에서 category 목록이 없을 경우
                 if (categoryList[0] === '') {
@@ -394,7 +414,7 @@ export default class SearchItemStore {
                   // this.root.brands.brandsByCategoryFilter = data.data.brands;
                   // this.root.brands.setGroupBrandList(data.data.brands);
                   this.treeDataForFilter = data.data.categories;
-                  this.setCategoryTreeData('brand');
+                  // this.setCategoryTreeData('brand');
                   if (enter === 'keyword') {
                     this.setTitle(keyword);
                   } else {
@@ -416,7 +436,7 @@ export default class SearchItemStore {
                   // this.root.brands.brandsByCategoryFilter = data.data.brands;
                   // this.root.brands.setGroupBrandList(data.data.brands);
                   this.treeDataForFilter = data.data.categories;
-                  this.setCategoryTreeData('brand');
+                  // this.setCategoryTreeData('brand');
                   if (enter === 'keyword') {
                     this.setTitle(keyword);
                   } else {
@@ -440,7 +460,7 @@ export default class SearchItemStore {
                   this.setKeyArray(
                     getCategoryKeyArray(this.treeDataForFilter, hierarchy[1])
                   );
-                  this.setCategoryTreeData('brand');
+                  // this.setCategoryTreeData('brand');
 
                   if (enter === 'keyword') {
                     this.setTitle(keyword);
@@ -479,7 +499,7 @@ export default class SearchItemStore {
                     );
                   }
                 }
-                this.setCategoryTreeData();
+                // this.setCategoryTreeData();
               }
               // else if (enter === "keyword") {
               //   this.treeDataForFilter = data.data.categories;
@@ -492,7 +512,7 @@ export default class SearchItemStore {
               //     );
               // }
 
-              this.pageNavigator(data.data.countOfDeals, unitPerPage);
+              // this.pageNavigator(data.data.countOfDeals, unitPerPage);
 
               this.filterData = data.data.filters;
               filterList.map(value => {
@@ -544,17 +564,17 @@ export default class SearchItemStore {
   @observable unitPerPage = 20;
   @observable pageList = [];
 
-  @action
-  pageNavigator = (itemCountOfDeals, unitPerPage) => {
-    this.itemCountOfDeals = itemCountOfDeals;
-    this.unitPerPage = unitPerPage;
-    let listCount = parseInt(this.itemCountOfDeals / this.unitPerPage) + 1;
-    this.pageList = [];
+  // @action
+  // pageNavigator = (itemCountOfDeals, unitPerPage) => {
+  //   this.itemCountOfDeals = itemCountOfDeals;
+  //   this.unitPerPage = unitPerPage;
+  //   let listCount = parseInt(this.itemCountOfDeals / this.unitPerPage) + 1;
+  //   this.pageList = [];
 
-    for (let i = 0; i < listCount; i++) {
-      this.pageList.push(i + 1);
-    }
-  };
+  //   for (let i = 0; i < listCount; i++) {
+  //     this.pageList.push(i + 1);
+  //   }
+  // };
 
   @observable countOfDeals;
 
@@ -601,105 +621,132 @@ export default class SearchItemStore {
   @action
   setHeaderCategory = key => {
     let filterCategory = this.treeDataForFilter;
-    this.headerCategory = toJS(getCategory(filterCategory, key)).children;
-  };
+    let category = toJS(getCategory(filterCategory, key)).children;
+    let hierarchies = category[0].hierarchies;
+    let duplicated = false;
 
-  @action
-  setCategoryTreeData = key => {
-    // console.log(toJS(this.keyArray));
-    // console.log(toJS(this.treeDataForFilter));
-
-    if (key === 'brand') {
-      let keyArray = ['0', '1', '2'];
-      let filterCategory = this.treeDataForFilter;
-      let data = [];
-
-      // console.log(toJS(filterCategory));
-      filterCategory.map((filterList, i) => {
-        data.push([]);
-        // console.log(filterList);
-
-        filterList.children.map(filter => {
-          data[i].push({
-            id: i,
-            title: filter.title,
-            disabled: true,
-            categoryTitle: filterList.title,
-          });
-          data[i].push({
-            id: filter.id,
-            title: '전체',
-            key: filter.key,
-            hierarchy: filter.hierarchy,
-          });
-
-          filter.children.map(filterCategory => {
-            data[i].push(toJS(filterCategory));
-          });
-        });
-      });
-
-      this.categoryTreeData = data;
-
-      this.filterCategoryList = [];
-      for (let i = 0; i < toJS(this.categoryTreeData).length; i++) {
-        if (this.categoryTreeData[i][0].categoryTitle === '여성') {
-          this.filterCategoryList.push({ id: i, title: 'WOMEN' });
-        } else if (this.categoryTreeData[i][0].categoryTitle === '남성') {
-          this.filterCategoryList.push({ id: i, title: 'MEN' });
-        } else if (this.categoryTreeData[i][0].categoryTitle === '키즈') {
-          this.filterCategoryList.push({ id: i, title: 'KIDS' });
-        }
+    function checkDuplicated(element, index, array) {
+      let count = 0;
+      for (let x = 0; x < array.length; x++) {
+        if (array[x] === element) count++;
       }
-    } else if (this.keyArray === undefined) {
-    } else if (this.keyArray.length === 2) {
-      let filterCategory = this.treeDataForFilter[this.keyArray[1]];
-      let data = [];
-      filterCategory.children.map(filter => {
-        data.push({
-          title: filter.title,
-          disabled: true,
-        });
-        data.push({
-          id: filter.id,
-          title: '전체',
-          key: filter.key,
-          hierarchy: filter.hierarchy,
-        });
 
-        filter.children.map(filterCategory => {
-          data.push(filterCategory);
-        });
-      });
+      if (count > 1) duplicated = true;
+    }
 
-      this.filterCategoryTitle = this.treeDataForFilter[this.keyArray[1]].title;
-      this.categoryTreeData = data;
-      // console.log(data);
+    hierarchies.find(checkDuplicated);
+
+    // 가방이나 슈즈 같은 중복으로 들어가 있는 부분 판별을 위해서 검사
+    if (duplicated === true) {
+      let hierarchies = category[0].children[0].hierarchies;
+      let parentIndex = hierarchies[hierarchies.length - 2];
+
+      category[0].children.splice(0, 0, { title: '전체', id: parentIndex });
+
+      this.headerCategory = category[0].children;
     } else {
-      let filterCategory = this.treeDataForFilter[this.keyArray[1]].children[
-        this.keyArray[2]
-      ];
-      let data = [];
-      console.log('filterCategory', filterCategory);
-      data.push({
-        title: filterCategory.title,
-        disabled: true,
-      });
-      data.push({
-        id: filterCategory.id,
-        title: '전체',
-        key: filterCategory.key,
-        hierarchy: filterCategory.hierarchy,
-      });
+      let hierarchies = category[0].hierarchies;
+      let parentIndex = hierarchies[hierarchies.length - 2];
 
-      filterCategory.children.map(filter => {
-        data.push(filter);
-      });
-      console.log('categoryFilterArray', data);
-      this.filterCategoryTitle = this.treeDataForFilter[this.keyArray[1]].title;
-      this.categoryTreeData = data;
+      category.splice(0, 0, { title: '전체', id: parentIndex });
+      this.headerCategory = category;
     }
   };
+
+  // @action
+  // setCategoryTreeData = key => {
+
+  //   if (key === 'brand') {
+  //     let keyArray = ['0', '1', '2'];
+  //     let filterCategory = this.treeDataForFilter;
+  //     let data = [];
+
+  //     // console.log(toJS(filterCategory));
+  //     filterCategory.map((filterList, i) => {
+  //       data.push([]);
+  //       // console.log(filterList);
+
+  //       filterList.children.map(filter => {
+  //         data[i].push({
+  //           id: i,
+  //           title: filter.title,
+  //           disabled: true,
+  //           categoryTitle: filterList.title,
+  //         });
+  //         data[i].push({
+  //           id: filter.id,
+  //           title: '전체',
+  //           key: filter.key,
+  //           hierarchy: filter.hierarchy,
+  //         });
+
+  //         filter.children.map(filterCategory => {
+  //           data[i].push(toJS(filterCategory));
+  //         });
+  //       });
+  //     });
+
+  //     this.categoryTreeData = data;
+
+  //     this.filterCategoryList = [];
+  //     for (let i = 0; i < toJS(this.categoryTreeData).length; i++) {
+  //       if (this.categoryTreeData[i][0].categoryTitle === '여성') {
+  //         this.filterCategoryList.push({ id: i, title: 'WOMEN' });
+  //       } else if (this.categoryTreeData[i][0].categoryTitle === '남성') {
+  //         this.filterCategoryList.push({ id: i, title: 'MEN' });
+  //       } else if (this.categoryTreeData[i][0].categoryTitle === '키즈') {
+  //         this.filterCategoryList.push({ id: i, title: 'KIDS' });
+  //       }
+  //     }
+  //   } else if (this.keyArray === undefined) {
+  //   } else if (this.keyArray.length === 2) {
+  //     let filterCategory = this.treeDataForFilter[this.keyArray[1]];
+  //     let data = [];
+  //     filterCategory.children.map(filter => {
+  //       data.push({
+  //         title: filter.title,
+  //         disabled: true,
+  //       });
+  //       data.push({
+  //         id: filter.id,
+  //         title: '전체',
+  //         key: filter.key,
+  //         hierarchy: filter.hierarchy,
+  //       });
+
+  //       filter.children.map(filterCategory => {
+  //         data.push(filterCategory);
+  //       });
+  //     });
+
+  //     this.filterCategoryTitle = this.treeDataForFilter[this.keyArray[1]].title;
+  //     this.categoryTreeData = data;
+  //     // console.log(data);
+  //   } else {
+  //     let filterCategory = this.treeDataForFilter[this.keyArray[1]].children[
+  //       this.keyArray[2]
+  //     ];
+  //     let data = [];
+  //     // console.log('filterCategory', filterCategory);
+  //     data.push({
+  //       title: filterCategory.title,
+  //       disabled: true,
+  //     });
+  //     data.push({
+  //       id: filterCategory.id,
+  //       title: '전체',
+  //       key: filterCategory.key,
+  //       hierarchy: filterCategory.hierarchy,
+  //     });
+
+  //     filterCategory.children.map(filter => {
+  //       data.push(filter);
+  //     });
+  //     // console.log('categoryFilterArray', data);
+  //     this.filterCategoryTitle = this.treeDataForFilter[this.keyArray[1]].title;
+  //     this.categoryTreeData = data;
+  //   }
+  // };
 
   @action
   setCurrentCategory = currentCategory => {
@@ -778,141 +825,6 @@ export default class SearchItemStore {
     }
   };
 
-  @action
-  onSelect = (selectedKeys, info) => {
-    // console.log("onselect");
-    // console.log(info.node.props);
-
-    let hierarchy = JSON.parse('[' + info.node.props.hierarchy + ']');
-    if (selectedKeys.length == 0) selectedKeys = [info.node.props.eventKey];
-
-    if (hierarchy.length === 2 || hierarchy.length === 3) {
-      let query = Router.router.query;
-
-      if (query.enter === 'brand') {
-        this.toSearch(
-          info.node.props.id,
-          '',
-          query.page,
-          query.unitPerPage,
-          query.order,
-          '',
-          '',
-          query.enter,
-          query.keyword
-        );
-      } else {
-        this.toSearch(
-          info.node.props.id,
-          '',
-          query.page,
-          query.unitPerPage,
-          query.order,
-          '',
-          '',
-          query.enter,
-          query.keyword
-        );
-      }
-
-      this.categoryquery = '';
-
-      this.setExpandedKeys(selectedKeys);
-      this.checkedKeys = [];
-      this.checkedKeysId = [];
-    } else {
-      if (this.checkedKeys.length > 0) {
-        let idx = -1;
-        for (let i = 0; i < this.checkedKeys.length; i++) {
-          if (toJS(this.checkedKeys[i]) == selectedKeys[0]) idx = i;
-        }
-
-        if (idx === -1) {
-          this.checkedKeys.push(selectedKeys[0]);
-          this.checkedKeysId.push(info.node.props.id);
-        } else {
-          this.checkedKeys.splice(idx, 1);
-          this.checkedKeysId.splice(idx, 1);
-        }
-
-        let query = Router.router.query;
-        this.categoryquery = this.checkedKeysId.join();
-
-        if (query.enter === 'brand') {
-          this.toSearch(
-            query.category,
-            '',
-            query.page,
-            query.unitPerPage,
-            query.order,
-            '',
-            this.categoryquery,
-            query.enter,
-            query.keyword
-          );
-        } else {
-          this.toSearch(
-            query.category,
-            '',
-            query.page,
-            query.unitPerPage,
-            query.order,
-            '',
-            this.categoryquery,
-            query.enter,
-            query.keyword
-          );
-        }
-      } else {
-        // check 처음 진입했을 떄
-
-        this.checkedKeys.push(selectedKeys[0]);
-        this.checkedKeysId.push(info.node.props.id);
-
-        let query = Router.router.query;
-
-        this.categoryquery = this.checkedKeysId.join();
-        if (query.enter === 'brand') {
-          this.toSearch(
-            query.category,
-            query.brand,
-            query.page,
-            query.unitPerPage,
-            query.order,
-            '',
-            this.categoryquery,
-            query.enter,
-            query.keyword
-          );
-        } else {
-          this.toSearch(
-            query.category,
-            '',
-            query.page,
-            query.unitPerPage,
-            query.order,
-            '',
-            this.categoryquery,
-            query.enter,
-            query.keyword
-          );
-        }
-      }
-    }
-  };
-
-  @action
-  setExpandedKeys = expandedKeys => {
-    // console.log('expandedKeys : ', expandedKeys);
-    if (expandedKeys == null) expandedKeys = '';
-
-    if (Array.isArray(expandedKeys)) {
-      this.expandedKeys = expandedKeys;
-    } else {
-      this.expandedKeys = [expandedKeys];
-    }
-  };
-
   // filter 부분
   // viewType : "TEXT_BUTTON", "RGB_BUTTON", "TEXT"\
   @observable filterData = [];
@@ -939,11 +851,7 @@ export default class SearchItemStore {
         });
       }
     });
-    // console.log(toJS(this.filterData));
     let query = Router.router.query;
-    // console.log("categoryquery", this.categoryquery);
-    // if (this.categoryquery) console.log("true");
-    // else console.log("false");
 
     let filterList = [];
 

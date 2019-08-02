@@ -16,6 +16,7 @@ import KakaoLogin from 'react-kakao-login';
 import NaverLogin from 'components/login/NaverLogin';
 import SaveIdCheckBox from 'components/login/SaveIdCheckBox';
 import Cookies from 'js-cookie';
+import { snsAppKey } from 'constant/sns';
 
 let userId = Cookies.get('userId');
 
@@ -83,7 +84,7 @@ class Login extends React.Component {
               >
                 아이디저장
               </SaveIdCheckBox>
-              <LinkRoute>
+              <LinkRoute href="/login/term">
                 <a className={css.nomember__order}>비회원 주문조회</a>
               </LinkRoute>
             </div>
@@ -107,7 +108,7 @@ class Login extends React.Component {
             <div className={css.socialWrap}>
               <NaverLogin />
               <KakaoLogin
-                jsKey={login.kakaoKey}
+                jsKey={snsAppKey.KAKAO}
                 onSuccess={login.responseKakao}
                 onFailure={login.responseKakao}
                 getProfile={true}
@@ -135,7 +136,7 @@ class Login extends React.Component {
                 )}
               />
               <FacebookLogin
-                appId={login.facebookKey}
+                appId={snsAppKey.FACEBOOK}
                 autoLoad={false}
                 callback={login.responseFacebook}
                 render={renderProps => (
@@ -156,7 +157,7 @@ class Login extends React.Component {
                 )}
               />
               <GoogleLogin
-                clientId={login.googleKey}
+                clientId={snsAppKey.GOOGLE}
                 render={renderProps => (
                   <div className={css.social} onClick={renderProps.onClick}>
                     <div

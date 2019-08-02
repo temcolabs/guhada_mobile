@@ -1,18 +1,36 @@
 @import 'styles/mixins/index';
 
 .wrap {
-  position: relative;
+  position: fixed;
+  top: 0;
   display: flex;
   align-items: center;
-  height: 40px;
+  height: 60px;
+  padding: 0 10px;
+  background-color: #ffffff;
+  width: 100%;
+  z-index: 101;
+
+}
+
+.backButton {
+  width: 30px;
+  height: 30px;
+  background: url('/static/icon/btn-prevpage.png') no-repeat center;
+  background-size: 30px;
+  margin-right: 5px;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .menuButton {
   width: 30px;
   height: 30px;
-  margin-left: 10px;
-  background: url('/static/icon/menu.png') no-repeat center;
+  background: url('/static/icon/Menu.png') no-repeat center;
   background-size: 30px;
+
   &:hover {
     cursor: pointer;
   }
@@ -24,6 +42,19 @@
   margin-left: 10px;
   background: url('/static/Guhada-LOGO.png') no-repeat center;
   background-size: contain;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.homeButton {
+  width: 30px;
+  height: 30px;
+  margin-left: auto;
+  background: url('/static/icon/btn-home.png') no-repeat center;
+  background-size: contain;
+
   &:hover {
     cursor: pointer;
   }
@@ -35,6 +66,12 @@
   margin-left: auto;
   background: url('/static/icon/header-search.png') no-repeat center;
   background-size: contain;
+
+
+  &.leftItemExist {
+    margin-left: 5px;
+  }
+
   &:hover {
     cursor: pointer;
   }
@@ -44,9 +81,9 @@
   width: 30px;
   height: 30px;
   margin-left: 5px;
-  margin-right: 10px;
   background: url('/static/icon/header-shoppinBag.png') no-repeat center;
   background-size: contain;
+
   &:hover {
     cursor: pointer;
   }

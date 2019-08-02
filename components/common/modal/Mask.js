@@ -46,6 +46,7 @@ export default function Mask({ zIndex = 999, isVisible = false }) {
         in={isVisible}
         onEnter={animation.onEnter}
         onExit={animation.onExit}
+        timeout={DURATION}
       >
         {state => {
           return <div className={css.wrap} style={style} />;

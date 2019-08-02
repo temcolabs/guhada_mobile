@@ -336,31 +336,6 @@ export default class ProductDetailStore {
   };
 
   @action
-  setInquiryPageNavigation = data => {
-    this.inquiryLastPage = data.totalPages;
-    this.inquiryLastPageIndex = parseInt(data.totalPages / 10) * 10;
-    this.inquiryNextPageIndex = (parseInt(this.inquiryPage / 10) + 1) * 10;
-    this.inquiryPreviousPageIndex = (parseInt(this.inquiryPage / 10) - 1) * 10;
-
-    this.inquiryNavCount = parseInt(this.inquiryPage / 10);
-
-    if (this.inquiryPage % 10 === 0) {
-      this.inquiryNavCount -= 1;
-      this.inquiryNextPageIndex -= 10;
-      this.inquiryPreviousPageIndex -= 1;
-    }
-
-    if (this.inquiryNextPageIndex > this.inquiryLastPageIndex) {
-      this.inquiryNextPageIndex = this.inquiryLastPage - 1;
-      this.inquiryLastPageIndex = this.inquiryLastPage - 1;
-    }
-
-    if (this.inquiryPreviousPageIndex < 1) {
-      this.inquiryPreviousPageIndex = 0;
-    }
-  };
-
-  @action
   pageNavigator = (itemCountOfDeals, unitPerPage) => {
     this.itemCountOfDeals = itemCountOfDeals;
     this.unitPerPage = unitPerPage;
@@ -464,7 +439,7 @@ export default class ProductDetailStore {
   @action
   getSellerStore = () => {
     API.product
-      .get(`/deals?sellerId=${this.deals.sellerId}&pageIndex=0&unitPerPage=10`)
+      .get(`/deals?sellerId=${this.deals.sellerId}&pageIndex=0&unitPerPage=9`)
       .then(res => {
         let data = res.data;
         if (data.resultCode === 200) {
