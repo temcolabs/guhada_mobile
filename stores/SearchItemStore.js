@@ -65,6 +65,7 @@ export default class SearchItemStore {
     //   this.infinityStauts,
     //   this.dealsPage
     // );
+
     if (
       this.scrollPosition > 0.7 &&
       this.infinityStauts === true &&
@@ -91,7 +92,7 @@ export default class SearchItemStore {
 
   @action
   initDealspage = () => {
-    this.dealsPage = 0;
+    this.dealsPage = 1;
   };
 
   @action
@@ -883,6 +884,7 @@ export default class SearchItemStore {
     window.scrollTo(0, 0);
   };
 
+  @observable preUrl;
   @action
   toSearch = ({
     category = '',
@@ -908,7 +910,7 @@ export default class SearchItemStore {
         keyword: keyword,
       })}`
     );
-    this.deals = [];
+    if (this.preUrl !== Router.asPath) this.deals = [];
   };
 
   @observable thumbnail = 'list4';

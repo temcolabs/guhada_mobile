@@ -63,7 +63,7 @@ export default class CategoryStore {
     this.categoryList = [];
 
     if (this.category.length === 0) {
-      API.cloud.get('/guhada_category.json').then(res => {
+      API.product.get('/categories').then(res => {
         let category = res.data;
         this.categoryList = getCategory(category, id);
       });

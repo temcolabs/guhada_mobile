@@ -1,0 +1,150 @@
+.wrapper {
+  max-width: 100vw;
+  width: 100%;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  z-index: 102;
+
+  & .header {
+    height: 60px;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    border-bottom: solid 1px #eeeeee;
+    position: fixed;
+    top: 0;
+    background-color: white;
+    width: 100%;
+
+    & .back {
+      width: 30px;
+      height: 30px;
+      background: url('/static/icon/btn-prevpage.png') no-repeat;
+      background-size: 30px;
+    }
+
+    & input {
+      width: calc(100% - 100px);
+      float: left;
+      padding-left: 15px;
+
+      &::placeholder {
+        font-size: 14px;
+        font-weight: normal;
+        color: #999999;
+      }
+    }
+
+    & .delete {
+      width: 20px;
+      height: 20px;
+      background: url('/static/icon/icon_keyword_delete.png') no-repeat center;
+      background-size: 20px;
+      display: none;
+      position: absolute;
+      right: 50px;
+    }
+
+    & .search {
+      width: 30px;
+      height: 30px;
+      background: url('/static/icon/header-search.png') no-repeat center;
+      background-size: 30px;
+      position: absolute;
+      right: 10px;
+    }
+  }
+
+  & .borderArea {
+    width: 100%;
+    height: 8px;
+    background-color: #f9f9fa;
+  }
+
+  & .searchHeaderWrap {
+    width: 100%;
+    height: 52px;
+    border-bottom: solid 1px #eeeeee;
+    padding: 0 10px;
+    display: flex;
+
+    & .headerItem {
+      width: 50%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 500;
+      color: #111111;
+
+      &.selected {
+        position: relative;
+        top: 1px;
+        border-bottom: solid 1px #5d2ed1;
+        color: #5d2ed1;
+      }
+    }
+  }
+
+  & .recentWrap {
+    display: none;
+    height: 100vh;
+    background-color: white;
+    padding-top: 60px;
+    z-index: 102;
+  }
+
+  & .autoCompleteTypeWrap {
+    display: none;
+    height: 100vh;
+    background-color: white;
+    padding-top: 60px;
+    z-index: 102;
+  }
+
+  & .searchListWrap {
+    display: none;
+  }
+
+  & .contentsWrap {
+    padding-top: 10px;
+    overflow: scroll;
+  }
+
+  & .popularKeywordWrap {
+    padding-top: 10px;
+  }
+
+  & .autoCompleteWrap {
+    width: 100%;
+    height: 42px;
+    background-color: #f9f9fa;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 500;
+    color: #444444;
+    position: fixed;
+    bottom: 0;
+
+    & .autoCompleteIcon {
+      width: 100px;
+      background: url('/static/icon/toggle_btn_on.png') no-repeat center left 58px;
+      background-size: 37px, 29px;
+
+      &.false {
+        background: url('/static/icon/toggle_btn_off.png') no-repeat center left 58px;
+        background-size: 37px, 29px;
+
+      }
+    }
+
+    & .keywordAllDelete {
+      color: #cccccc;
+    }
+  }
+}

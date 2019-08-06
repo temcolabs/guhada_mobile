@@ -33,6 +33,7 @@ import CountdownStore from './CountdownStore';
 import ToastStore from './ToastStore';
 import RouteHistoryStore from './RouteHistoryStore';
 import MainStore from './MainStore';
+import KeywordStore from './home/KeywordStore';
 
 class RootStore {
   constructor() {
@@ -84,6 +85,7 @@ class RootStore {
     this.toast = new ToastStore(this);
     this.history = new RouteHistoryStore(this);
     this.main = new MainStore(this);
+    this.keyword = new KeywordStore(this);
   }
 }
 

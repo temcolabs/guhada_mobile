@@ -15,12 +15,7 @@ class SearchItem2 extends Component {
     discountPrice: PropTypes.number,
     discountRate: PropTypes.number,
     freeShipping: PropTypes.bool,
-    productImage: {
-      width: PropTypes.number,
-      height: PropTypes.number,
-      name: PropTypes.string,
-      url: PropTypes.string,
-    },
+    productImage: PropTypes.object,
     options: [],
     productId: PropTypes.number,
     productName: PropTypes.string,
@@ -38,10 +33,7 @@ class SearchItem2 extends Component {
       <>
         {deals.map((deal, index) => {
           return (
-            <LinkRoute
-              href={`/product/productdetail?deals=${deal.dealId}`}
-              key={index}
-            >
+            <LinkRoute href={`/productdetail?deals=${deal.dealId}`} key={index}>
               <div className={css.wrap}>
                 <div className={css.imageWrap}>
                   <div className={css.color}>

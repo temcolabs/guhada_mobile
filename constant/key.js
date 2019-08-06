@@ -7,4 +7,6 @@ module.exports = {
   LANGUAGE_CODE: 'language_code',
   PRODUCT_RECENTLY_SEEN: 'product_recently_seen',
   USER_IP_ADDRESS: 'user_ip_address',
+  RECENTLY_KEYWORD_SEARCH: 'recently_keyword_search',
+  AUTO_COMPLETE: 'auto_complete',
 };

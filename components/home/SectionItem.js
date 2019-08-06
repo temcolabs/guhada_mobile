@@ -15,8 +15,7 @@ export default function SectionItem({
     productImage: {
       height: 275,
       name: 'nike_air_max_97_safety_orange.jpeg',
-      url:
-        'https://d3ikprf0m31yc7.cloudfront.net/images/products/thumb/a5e85e5d916e4e1e9d78d0a5e75a7411',
+      url: '',
       width: 183,
     },
     options: [

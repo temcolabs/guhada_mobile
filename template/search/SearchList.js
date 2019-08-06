@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
 import DefaultLayout from 'components/layout/DefaultLayout';
 import { inject, observer } from 'mobx-react';
-import { toJS } from 'mobx';
-import SearchItem4 from 'components/search/SearchItem4';
 import css from './SearchList.module.scss';
-import SearchItemHeader from 'components/search/SearchItemHeader';
-import SearchItem2 from 'components/search/SearchItem2';
-import SearchItem6 from 'components/search/SearchItem6';
 import Router from 'next/router';
-import SearchOrder from 'components/search/SearchOrder';
 import { withRouter } from 'next/router';
-import SearchCategorySlider from 'components/search/SearchCategorySlider';
-import { SearchFilter } from 'components/search/SearchFilter';
+import {
+  SearchItemHeader,
+  SearchItem2,
+  SearchItem4,
+  SearchItem6,
+  SearchOrder,
+  SearchCategorySlider,
+} from 'components/search';
+// import { SearchFilter } from 'components/search/SearchFilter';
+
+// enter : keyword 일때
+import KeywordMenu from 'components/header/keyword/KeywordMenu';
 
 @withRouter
 @inject('searchitem')
@@ -20,6 +24,7 @@ class SearchList extends Component {
   state = {
     isOrderVisible: false,
     isFilterVisible: false,
+    isSearchVisible: false,
   };
 
   setIsOrderVisible = visible => {
@@ -34,6 +39,10 @@ class SearchList extends Component {
     });
   };
 
+  setIsSearchVisible = visible => {
+    this.setState({ isSearchVisible: visible });
+  };
+
   componentDidMount() {
     const { searchitem } = this.props;
     window.addEventListener('scroll', searchitem.listenToScroll);
@@ -45,35 +54,72 @@ class SearchList extends Component {
   }
 
   render() {
-    const { searchitem } = this.props;
+    const { searchitem, keyword } = this.props;
     let isBrand = Router.router.query.enter === 'brand';
+    let isKeyword;
+
+    if (Router.router.query.enter === 'keyword') {
+      isKeyword = true;
+    } else if (keyword === 'keyword') {
+      isKeyword = true;
+    }
 
     return (
       <DefaultLayout
-        topLayout={isBrand ? 'category' : 'search'}
+        topLayout={isBrand ? 'category' : isKeyword ? 'keyword' : 'search'}
         pageTitle={searchitem.title}
-        headerShape={'searchList'}
+        headerShape={isKeyword ? 'keyword' : 'searchList'}
       >
-        {isBrand ? null : (
+        {/* enter가 keyword 인 경우에만 불러오는 메뉴 component */}
+        {isKeyword ? (
+          <KeywordMenu
+            keywordText={Router.router.query.keyword}
+            setIsSearchVisible={this.setIsSearchVisible}
+          />
+        ) : null}
+
+        {isBrand || isKeyword ? null : (
           <SearchCategorySlider
             category={searchitem.headerCategory}
             router={this.props.router}
           />
         )}
-        <SearchItemHeader
-          setIsOrderVisible={this.setIsOrderVisible}
-          setIsFilterVisible={this.setIsFilterVisible}
-          isBrand={isBrand ? true : false}
-        />
-        <div className={css.searchItemWrap}>
-          {searchitem.thumbnail === 'list4' ? (
-            <SearchItem4 deals={searchitem.deals} />
-          ) : searchitem.thumbnail === 'list2' ? (
-            <SearchItem2 deals={searchitem.deals} />
-          ) : (
-            <SearchItem6 deals={searchitem.deals} />
-          )}
-        </div>
+
+        <>
+          <SearchItemHeader
+            setIsOrderVisible={this.setIsOrderVisible}
+            setIsFilterVisible={this.setIsFilterVisible}
+            isBrand={isBrand || isKeyword ? true : false}
+          />
+          <div className={css.searchItemWrap}>
+            {searchitem.thumbnail === 'list4' ? (
+              <SearchItem4 deals={searchitem.deals} />
+            ) : searchitem.thumbnail === 'list2' ? (
+              <SearchItem2 deals={searchitem.deals} />
+            ) : (
+              <SearchItem6 deals={searchitem.deals} />
+            )}
+          </div>
+        </>
+        {/* {this.state.isSearchVisible === false ? (
+          <>
+            <SearchItemHeader
+              setIsOrderVisible={this.setIsOrderVisible}
+              setIsFilterVisible={this.setIsFilterVisible}
+              isBrand={isBrand || isKeyword ? true : false}
+            />
+            <div className={css.searchItemWrap}>
+              {searchitem.thumbnail === 'list4' ? (
+                <SearchItem4 deals={searchitem.deals} />
+              ) : searchitem.thumbnail === 'list2' ? (
+                <SearchItem2 deals={searchitem.deals} />
+              ) : (
+                <SearchItem6 deals={searchitem.deals} />
+              )}
+            </div>
+          </>
+        ) : null} */}
+
         <SearchOrder
           isVisible={this.state.isOrderVisible}
           onClose={() => this.setIsOrderVisible(false)}
@@ -82,11 +128,12 @@ class SearchList extends Component {
           toSearch={searchitem.toSearch}
         />
 
-        <SearchFilter
+        {/* NEXT TODO */}
+        {/* <SearchFilter
           isVisible={this.state.isFilterVisible}
           onClose={() => this.setIsFilterVisible(false)}
           filters={searchitem.filterData}
-        />
+        /> */}
       </DefaultLayout>
     );
   }

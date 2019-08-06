@@ -36,9 +36,13 @@ export default class SearchStore {
 
   @action
   getCategoryData() {
-    API.cloud.get('/guhada_category.json').then(res => {
-      this.setCategoryData(res.data);
+    API.product.get('/categories').then(res => {
+      // console.log('res.date', res.data);
+      this.setCategoryData(res.data.data);
     });
+    // API.cloud.get('/guhada_category.json').then(res => {
+    //   this.setCategoryData(res.data);
+    // });
   }
 
   @action

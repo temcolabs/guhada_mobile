@@ -27,11 +27,16 @@ export default class DefaultLayout extends Component {
       paddingTop = headerSize + categorySize;
     } else if (topLayout === 'search') {
       paddingTop = headerSize + categorySize + searchTabSize;
+    } else if (topLayout === 'keyword') {
+      paddingTop = headerSize + searchTabSize;
     }
 
     return (
       <div className={css.wrap} style={{ paddingTop: `${paddingTop}px` }}>
-        <Header headerShape={headerShape}>{pageTitle}</Header>
+        {topLayout === 'keyword' ? null : (
+          <Header headerShape={headerShape}>{pageTitle}</Header>
+        )}
+
         {this.props.children}
         {toolBar === false ? null : <ToolBar />}
       </div>

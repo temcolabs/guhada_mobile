@@ -1,0 +1,23 @@
+.wrap {
+  padding: 0 20px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  & .name {
+    padding-left: 28px;
+    background: url('/static/icon/icon_history.png') no-repeat left;
+    background-size: 20px;
+    display: flex;
+    align-content: center;
+  }
+
+  & .close {
+    padding-right: 26px;
+    background: url('/static/icon/icon_delete.png') no-repeat right;
+    background-size: 18px;
+    display: flex;
+    align-content: center;
+  }
+}
