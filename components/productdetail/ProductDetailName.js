@@ -2,26 +2,26 @@ import React, { Component } from 'react';
 import css from './ProductDetailName.module.scss';
 import { inject, observer } from 'mobx-react';
 
-@inject('productdetail', 'productDetailLike')
+@inject('productdetail', 'productDetailBookmark')
 @observer
 class ProductDetailName extends Component {
   render() {
-    let { productdetail, productDetailLike } = this.props;
+    let { productdetail, productDetailBookmark } = this.props;
     let { deals } = productdetail;
     return (
       <div className={css.wrap}>
         <div className={css.inner__top}>
           <div className={css.brandName}>
             {deals.brandName}
-            <span className={css.arrow}></span>
+            <span className={css.arrow} />
           </div>
           <div className={css.detail__number}>{deals.modelNumber}</div>
         </div>
 
         <div className={css.inner__middle}>
-          <div
-            className={css.product__name}
-          >{`${deals.season} ${deals.name}`}</div>
+          <div className={css.product__name}>{`${deals.season} ${
+            deals.name
+          }`}</div>
         </div>
 
         <div className={css.inner__bottom}>
@@ -47,13 +47,13 @@ class ProductDetailName extends Component {
             <div
               className={css.like__btn}
               onClick={() => {
-                productDetailLike.saveLike(deals.productId);
+                productDetailBookmark.saveBookmark(deals.productId);
               }}
             >
-              {productDetailLike.currentLikeCheck ? (
-                <img src="/static/icon/m_like_btn_on.png" alt="좋아요버튼" />
+              {productDetailBookmark.currentLikeCheck ? (
+                <img src="/static/icon/m_like_btn_on.png" alt="북마크기능" />
               ) : (
-                <img src="/static/icon/m_like_btn_off.png" alt="좋아요버튼" />
+                <img src="/static/icon/m_like_btn_off.png" alt="북마크기능" />
               )}
             </div>
           </div>

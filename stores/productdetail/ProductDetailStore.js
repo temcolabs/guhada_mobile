@@ -32,7 +32,7 @@ export default class ProductDetailStore {
         this.root.productoption.getShipExpenseType();
         this.root.productoption.getOptions();
         this.getDealsTag();
-
+        this.root.productDetailBookmark.getBookMark(this.deals.productId);
         // console.log(this.deals, '상세페이지 데이터');
 
         while (this.actionAfterUserInfoFetched.length > 0) {
