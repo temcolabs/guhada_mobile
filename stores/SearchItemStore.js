@@ -246,6 +246,8 @@ export default class SearchItemStore {
       keyword = '';
     }
 
+    // order set
+    this.setSearchOrderFilter(order);
     // 일반적인 카테고리 검색을 위해서 전체 카테고리 값을 불러오기 위한 api 콜
 
     API.search.get('/ps/search/all').then(async res => {

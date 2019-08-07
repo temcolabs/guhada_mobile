@@ -39,13 +39,13 @@ class SearchOrder extends Component {
             </div>
             <div
               className={cn(css.item, {
-                [css.selected]: searchOrderFilter === 'PRICE_DESC',
+                [css.selected]: searchOrderFilter === 'SCORE',
               })}
               onClick={() => (
-                setSearchOrderFilter('PRICE_DESC'),
+                setSearchOrderFilter('SCORE'),
                 toSearch(
                   Object.assign({}, query, {
-                    order: 'PRICE_DESC',
+                    order: 'SCORE',
                   })
                 )
               )}

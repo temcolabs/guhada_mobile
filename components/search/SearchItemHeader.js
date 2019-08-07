@@ -25,6 +25,8 @@ class SearchItemHeader extends Component {
             ? '낮은 가격 순'
             : searchitem.searchOrderFilter === 'PRICE_DESC'
             ? '높은 가격 순'
+            : searchitem.searchOrderFilter === 'SCORE'
+            ? '평점 순'
             : '신상품 순'}
         </div>
         <div className={css.thumbnail}>
