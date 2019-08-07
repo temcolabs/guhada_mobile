@@ -121,7 +121,7 @@ export default class KeywordStore {
         .get('/ps/search/autoComplete', { params: { searchQuery: value } })
         .then(res => {
           let data = res.data;
-          this.autoCompleteList = data.data.products;
+          this.autoCompleteList = data.data.name;
         });
     }
   };

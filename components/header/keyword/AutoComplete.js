@@ -8,10 +8,10 @@ export default function AutoComplete({
   index,
   onChangeValue = () => {},
 }) {
-  let parts = autoComplete.name.split(new RegExp(`(${highlight})`, 'gi'));
+  let parts = autoComplete.split(new RegExp(`(${highlight})`, 'gi'));
 
   return (
-    <div className={css.wrap} onClick={() => clickToSearch(autoComplete.name)}>
+    <div className={css.wrap} onClick={() => clickToSearch(autoComplete)}>
       <div className={css.itemWrap}>
         {parts.map((part, i) => (
           <span
