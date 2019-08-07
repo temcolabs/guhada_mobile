@@ -410,30 +410,52 @@ export default class ProductDetailStore {
 
   @action
   getDealsOfSameBrand = () => {
-    API.product
-      .get(`/deals?brandId=${this.deals.brandId}&pageIndex=0&unitPerPage=3`)
+    API.search
+      .post(
+        `/ps/search/seller/related`,
+        { productId: this.deals.productId },
+        { params: { page: 1, unitPerPage: 3 } }
+      )
       .then(res => {
         let data = res.data;
-        if (data.resultCode === 200) {
-          this.dealsOfSameBrand = data.data;
-        }
+        this.dealsOfSameBrand = data.data.deals;
       });
+
+    // API.product
+    //   .get(`/deals?brandId=${this.deals.brandId}&pageIndex=0&unitPerPage=3`)
+    //   .then(res => {
+    //     let data = res.data;
+    //     if (data.resultCode === 200) {
+    //       this.dealsOfSameBrand = data.data;
+    //     }
+    //   });
   };
 
   @action
   getDealsOfRecommend = () => {
-    API.product
-      .get(
-        `/deals?division=RECOMMEND&pageIndex=0&unitPerPage=3&sellerId=${
-          this.deals.sellerId
-        }`
+    API.search
+      .post(
+        `/ps/search/seller/popular`,
+        { productId: this.deals.productId },
+        { params: { page: 1, unitPerPage: 3 } }
       )
       .then(res => {
         let data = res.data;
-        if (data.resultCode === 200) {
-          this.dealsOfRecommend = data.data;
-        }
+        this.dealsOfRecommend = data.data.deals;
       });
+
+    // API.product
+    //   .get(
+    //     `/deals?division=RECOMMEND&pageIndex=0&unitPerPage=3&sellerId=${
+    //       this.deals.sellerId
+    //     }`
+    //   )
+    //   .then(res => {
+    //     let data = res.data;
+    //     if (data.resultCode === 200) {
+    //       this.dealsOfRecommend = data.data;
+    //     }
+    //   });
   };
 
   @action
