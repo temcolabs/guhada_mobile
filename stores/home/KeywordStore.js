@@ -8,11 +8,9 @@ export default class KeywordStore {
   constructor(root) {
     if (isBrowser) {
       this.root = root;
-      this.MAX_ITEM = 10;
-      this.getPopularList();
     }
   }
-
+  @observable MAX_ITEM = 10;
   @observable list = [];
   @observable autoComplete;
   @observable popularList = [];

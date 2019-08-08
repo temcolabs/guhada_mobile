@@ -22,6 +22,7 @@ class KeywordMenu extends Component {
   componentDidMount() {
     let { keyword, keywordText } = this.props;
     keyword.init();
+    keyword.getPopularList();
     let query = Router.router.query;
 
     if (query.enter === 'keyword') {
