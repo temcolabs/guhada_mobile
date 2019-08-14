@@ -30,9 +30,9 @@ class Home extends React.Component {
     ];
     return (
       <DefaultLayout title={null} topLayout={'main'}>
-        {/* todo :: 카테고리 네비게이터 */}
+        {/* TODO :: 카테고리 네비게이터 */}
         <CategorySlider category={mainCategory.item} />
-        {/* 임시로 만들어놓은 슬라이드 배너
+        {/* TODO :: 임시로 만들어놓은 슬라이드 배너
         현재 dot 구현은 되어 있지 않음 */}
         <MainSlideBanner imageFile={imageFile} />
         <MainSectionItem title={'PLUS ITEM'} items={main.plusItem} />
