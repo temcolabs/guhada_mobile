@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './ShippingAddress.module.scss';
 import ShippingMessageSelect from './ShippingMessageSelect';
+import AddressChangeModal from './modal/AddressChangeModal';
 @inject('orderpayment')
 @observer
 class ShippingAddress extends Component {
@@ -12,7 +13,12 @@ class ShippingAddress extends Component {
       <div className={css.wrap}>
         <div className={css.top}>
           <div className={css.title}>배송지</div>
-          <div className={css.changeAddress}>
+          <div
+            className={css.changeAddress}
+            onClick={() => {
+              orderpayment.shippingListModal();
+            }}
+          >
             배송지 변경
             <span className={css.arrow} />
           </div>
@@ -54,6 +60,10 @@ class ShippingAddress extends Component {
             />
           </div>
         ) : null}
+
+        <AddressChangeModal
+          isVisible={orderpayment.status.shppingListModalStatus}
+        />
       </div>
     );
   }

@@ -25,9 +25,9 @@ class PaymentMethod extends Component {
       <div className={css.wrap}>
         <div className={css.title}>결제 수단</div>
         <ul className={css.paymentMethod}>
-          {orderPaymentTotalInfo.paymentsMethod.map(data => {
+          {orderPaymentTotalInfo.paymentsMethod.map((data, index) => {
             return (
-              <li>
+              <li key={index}>
                 <input
                   type="radio"
                   onClick={() => {

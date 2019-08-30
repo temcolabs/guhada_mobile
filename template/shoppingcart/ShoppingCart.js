@@ -7,7 +7,7 @@ import PurchaseButton from 'components/shoppingcart/PurchaseButton';
 import CartEmpty from 'components/shoppingcart/CartEmpty';
 import RealTimePopularityProducts from 'components/shoppingcart/RealTimePopularityProducts';
 import { inject, observer } from 'mobx-react';
-
+import css from './ShoppingCart.module.scss';
 @inject('shoppingcart')
 @observer
 class ShoppingCart extends React.Component {
@@ -38,13 +38,13 @@ class ShoppingCart extends React.Component {
             <PurchaseButton />
           </Fragment>
         ) : (
-          <Fragment>
+          <div className={css.wrap}>
             {/* 장바구니 데이터 없음 */}
             <CartEmpty />
 
             {/* 실시간 인기상품 */}
             <RealTimePopularityProducts />
-          </Fragment>
+          </div>
         )}
       </DefaultLayout>
     );

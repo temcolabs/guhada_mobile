@@ -25,7 +25,9 @@ a:active {
   color: #000;
   background-color: none;
 }
-
+ul li {
+  list-style: none;
+}
 button {
   border: 0;
   outline: 0;

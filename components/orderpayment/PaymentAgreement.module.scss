@@ -3,9 +3,10 @@
   padding: 0 20px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   label {
     display: flex;
-
+    font-weight: 500;
     input[type='checkbox'] {
       display: block;
       width: 20px;

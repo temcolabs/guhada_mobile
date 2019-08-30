@@ -20,6 +20,11 @@
       &:nth-child(-n + 2) {
         margin-bottom: 20px;
       }
+      label {
+        font-weight: 500;
+        color: #444;
+        font-size: 14px;
+      }
       input[type='radio'] {
         display: block;
         width: 20px;

@@ -45,18 +45,23 @@ export default class ShoppingCartStore {
   //--------------------- 장바구니 전체 데이터 가져오기 ---------------------
   @action
   getUserShoppingCartList = () => {
-    API.order.get(`/cart`).then(res => {
-      let data = res.data;
-      if (data.resultCode === 200) {
-        console.log(data, '장바구니 데이터');
-        this.cartList = data.data.cartItemResponseList;
-        this.getOptions();
-        this.setTotalItemCheckbox();
-        this.getTotalResultAmount();
-        console.log(this.cartList, 'cartList');
-        this.status.pageStatus = true;
-      }
-    });
+    API.order
+      .get(`/cart`)
+      .then(res => {
+        let data = res.data;
+        if (data.resultCode === 200) {
+          console.log(data, '장바구니 데이터');
+          this.cartList = data.data.cartItemResponseList;
+          this.getOptions();
+          this.setTotalItemCheckbox();
+          this.getTotalResultAmount();
+          console.log(this.cartList, 'cartList');
+          this.status.pageStatus = true;
+        }
+      })
+      .catch(err => {
+        console.dir(err);
+      });
   };
 
   //--------------------- 장바구니 실시간 인기 상품 가져오기 ---------------------
@@ -156,7 +161,7 @@ export default class ShoppingCartStore {
     }
 
     this.totalAmount.totalPaymentPrice =
-      this.totalAmount.totalProdPrice -
+      this.totalAmount.totalProdPrice +
       this.totalAmount.totalShipPrice -
       this.totalAmount.totalDiscountDiffPrice;
   };

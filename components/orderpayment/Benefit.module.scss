@@ -26,8 +26,27 @@
     }
 
     .couponSelect {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       width: 100%;
       margin-right: 7px;
+      border: 1px solid #ebebeb;
+      padding: 0 15px;
+      cursor: pointer;
+      div {
+        font-size: 13px;
+        color: #777;
+
+        &:last-child {
+          width: 20px;
+          height: 20px;
+          background: url('/static/icon/m_payment-icon-selectbox-open@3x.png')
+            no-repeat;
+          background-size: cover;
+          background-position: center;
+        }
+      }
     }
 
     .couponAutoSelect {
@@ -40,6 +59,7 @@
       border: 1px solid #5d2ed1;
       font-size: 13px;
       font-weight: bold;
+      cursor: pointer;
     }
   }
 

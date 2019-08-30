@@ -1,0 +1,10 @@
+.wrap {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  height: calc(100vh);
+  background: #fff;
+  overflow: scroll;
+  padding: 0 20px 60px;
+}

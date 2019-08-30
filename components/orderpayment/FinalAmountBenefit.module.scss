@@ -26,7 +26,8 @@
     .totalDiscountTitle {
       color: #aa91e6;
       .dropArrowOpacity {
-        background: url('/static/icon/m_drop_arrow.png') no-repeat;
+        background: url('/static/icon/m_payment-btn-discount-open@3x.png')
+          no-repeat;
         width: 14px;
         height: 14px;
         background-size: cover;
@@ -38,7 +39,6 @@
 
     .totalPaymentTitle {
       color: #fff;
-      font-weight: bold;
       font-size: 13px;
     }
   }

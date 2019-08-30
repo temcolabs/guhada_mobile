@@ -5,7 +5,6 @@ import API from 'lib/API';
 import qs from 'qs';
 import { getParameterByName } from '../../utils';
 import Router from 'next/router';
-import { loadScript } from 'lib/dom';
 
 const isServer = typeof window === 'undefined';
 export default class OrderPaymentStore {
@@ -52,6 +51,7 @@ export default class OrderPaymentStore {
     newRecipientName: false,
     newRecipientMobile: false,
     orderProductOnOffStatus: true,
+    addressSelf: false,
   };
   @observable orderTotalQuantity = 0;
   @observable shippingMessageOption = [];
@@ -137,16 +137,28 @@ export default class OrderPaymentStore {
         }
       })
       .catch(err => {
-        this.root.alert.showAlert({
-          content: `${err}`,
-          onConfirm: () => {
-            this.gotoMain();
-          },
-        });
+        if (err.data.result === 'NEED_TO_LOGIN') {
+          this.root.alert.showAlert({
+            content: `${err.data.message}`,
+            onConfirm: () => {
+              this.gotoLogin();
+            },
+          });
+        } else {
+          this.root.alert.showAlert({
+            content: `${err.data.message}`,
+            onConfirm: () => {
+              this.gotoMain();
+            },
+          });
+        }
       });
   };
   gotoMain = () => {
     Router.push('/');
+  };
+  gotoLogin = () => {
+    Router.push('/login');
   };
   //--------------------- 우편번호 검색 ---------------------
   @action
@@ -157,26 +169,25 @@ export default class OrderPaymentStore {
           switch (path) {
             case '주문페이지-신규':
               if (data.userSelectedType === 'J') {
-                console.log(data, '우편데이터');
-                document.getElementById('newAddress').value = `(우:${
-                  data.zonecode
-                }) ${data.jibunAddress}`;
+                document.getElementById('new__zipCode').value = data.zonecode;
+                document.getElementById('newAddress').value = data.jibunAddress;
                 setNewShippingAddress(null, 'address', data);
               } else {
-                document.getElementById('newAddress').value = `(우:${
-                  data.zonecode
-                }) ${data.roadAddress}`;
+                document.getElementById('new__zipCode').value = data.zonecode;
+                document.getElementById('newAddress').value = data.jibunAddress;
                 setNewShippingAddress(null, 'roadAddress', data);
               }
               break;
             case '주문페이지-수정':
               if (data.userSelectedType === 'J') {
+                document.getElementById('edit__zipCode').value = data.zonecode;
                 addressEditing(null, 'address', data);
-                document.getElementById('order__payment__edit__address').value =
+                document.getElementById('edit__address').value =
                   data.jibunAddress;
               } else {
+                document.getElementById('edit__zipCode').value = data.zonecode;
                 addressEditing(null, 'roadAddress', data);
-                document.getElementById('order__payment__edit__address').value =
+                document.getElementById('edit__address').value =
                   data.roadAddress;
               }
               break;
@@ -358,39 +369,60 @@ export default class OrderPaymentStore {
               this.orderShippingList.currentUseAddressId = data.id;
             }
           });
-
           this.status.shppingListModalStatus = true;
         }
+      })
+      .catch(err => {
+        console.log(err);
       });
   };
-  //--------------------- 배송지목록 쳌 박스 변경(로컬) ---------------------
+  //--------------------- 배송지목록 선택 변경(로컬) ---------------------
   @action
   shippingAddressChange = changeValue => {
-    this.orderShippingList.currentUseAddressId = changeValue.target.value;
-    this.shippingAddressEditCancel();
+    this.orderShippingList.currentUseAddressId = changeValue;
+    console.log(
+      this.orderShippingList.currentUseAddressId,
+      'this.orderShippingList.currentUseAddressId'
+    );
+    this.addressEditCancel();
   };
 
   //--------------------- 배송지 적용(Local) ---------------------
   @action
-  shippingAddressChangeConfirm = () => {
+  addressChangeConfirm = () => {
     if (this.orderShippingList.currentEditAddressId) {
       this.root.alert.showAlert({
         content: '수정중인 주소지를 저장해주세요.',
       });
     } else {
       this.orderShippingList.list.map(data => {
-        if (data.id == this.orderShippingList.currentUseAddressId) {
+        if (data.id === this.orderShippingList.currentUseAddressId) {
           this.orderShippingList.defaultAddress = data;
         }
       });
       this.shippingListModalClose();
       this.status.selectedShipStatus = true;
     }
+    console.log(
+      this.orderShippingList.list,
+      this.orderShippingList.currentUseAddressId,
+      't123'
+    );
+  };
+
+  @action
+  addressListShow = () => {
+    this.status.addressSelf = false;
+  };
+
+  @action
+  addressSelfShow = () => {
+    this.status.addressSelf = true;
   };
 
   //--------------------- 배송지 목록 수정 데이터 설정(Local) ---------------------
   @action
-  shippingAddressEdit = id => {
+  addressEdit = id => {
     this.orderShippingList.currentUseAddressId = id;
     this.orderShippingList.currentEditAddressId = id;
 
@@ -440,7 +472,7 @@ export default class OrderPaymentStore {
 
   //--------------------- 배송지 목록 수정 저장(DB) ---------------------
   @action
-  shippingAddressEditSave = id => {
+  addressEditSave = id => {
     this.orderShippingList.currentEditAddressId = 0;
     let targetId = id;
     let data = this.orderShippingList.tempEditAddress;
@@ -471,15 +503,26 @@ export default class OrderPaymentStore {
 
   //--------------------- 배송지 목록 수정 취소(Local) ---------------------
   @action
-  shippingAddressEditCancel = () => {
+  addressEditCancel = () => {
     this.orderShippingList.currentEditAddressId = 0;
   };
 
   //--------------------- 배송지 목록 삭제(DB) ---------------------
   @action
-  shippingAddressDelete = id => {
+  addressDeleteConfirm = id => {
     let targetId = id;
 
+    this.root.alert.showConfirm({
+      content: '배송지 를 삭제하시겠습니까?',
+      confirmText: '확인',
+      cancelText: '취소',
+      onConfirm: () => {
+        this.addressDelete(targetId);
+      },
+    });
+  };
+
+  addressDelete = targetId => {
     API.user
       .delete(
         `/users/${
@@ -487,33 +530,91 @@ export default class OrderPaymentStore {
         }/shipping-addresses?shippingAddressId=${targetId}`
       )
       .then(res => {
-        if (res.data.resultCode === 200) {
-          this.root.alert.showAlert({
-            content: '배송지 삭제완료.',
-          });
-          this.orderShippingList.list.map((data, index) => {
-            if (data.id == targetId) {
-              this.orderShippingList.list.splice(index, 1);
-            }
-            if (this.orderShippingList.list.length > 0) {
-              this.orderShippingList.currentUseAddressId = this.orderShippingList.list[0].id;
-              this.orderShippingList.defaultAddress = this.orderShippingList.list[0];
-            } else {
-              this.status.shppingListModalStatus = !this.status
-                .shppingListModalStatus;
-              this.status.selectedShipStatus = false;
-              this.orderShippingList.currentUseAddressId = 0;
-              this.orderShippingList.defaultAddress = null;
-            }
-          });
-        }
+        this.root.alert.showAlert({
+          content: '배송지 삭제완료.',
+        });
+        this.orderShippingList.list.map((data, index) => {
+          if (data.id === targetId) {
+            this.orderShippingList.list.splice(index, 1);
+          }
+          if (this.orderShippingList.list.length > 0) {
+            this.orderShippingList.currentUseAddressId = this.orderShippingList.list[0].id;
+            this.orderShippingList.defaultAddress = this.orderShippingList.list[0];
+          } else {
+            this.status.shppingListModalStatus = !this.status
+              .shppingListModalStatus;
+            this.status.selectedShipStatus = false;
+            this.orderShippingList.currentUseAddressId = 0;
+            this.orderShippingList.defaultAddress = null;
+          }
+        });
+      })
+      .catch(err => {
+        console.log(err, 'rerererererers');
+        // this.root.alert.showAlert({
+        //   content: err.data.message,
+        // });
       });
   };
 
   @action
   shippingListModalClose = () => {
     this.status.shppingListModalStatus = false;
-    this.shippingAddressEditCancel();
+    this.addressEditCancel();
+  };
+
+  @action
+  selfAddressConfirm = () => {
+    if (!this.orderShippingList.newAddress.shippingName) {
+      this.root.alert.showAlert({
+        content: '배송지이름을 입력해주세요.',
+      });
+      this.status.newShippingName = true;
+      return false;
+    } else if (!this.orderShippingList.newAddress.address) {
+      this.root.alert.showAlert({
+        content: '주소를 입력해주세요.',
+      });
+      this.status.newAddress = true;
+      return false;
+    } else if (!this.orderShippingList.newAddress.detailAddress) {
+      this.root.alert.showAlert({
+        content: '상세주소를 입력해주세요.',
+      });
+      this.status.newDetail = true;
+      return false;
+    } else if (!this.orderShippingList.newAddress.recipientName) {
+      this.root.alert.showAlert({
+        content: '받는분 을 입력해주세요.',
+      });
+      this.status.newRecipientName = true;
+      return false;
+    } else if (!this.orderShippingList.newAddress.recipientMobile) {
+      this.root.alert.showAlert({
+        content: '연락처를 입력해주세요.',
+      });
+      this.status.newRecipientMobile = true;
+      return false;
+    } else if (this.orderShippingList.newAddress.recipientMobile) {
+      let currentPhoneNum = this.orderShippingList.newAddress.recipientMobile;
+      let regPhone = /^((01[1|6|7|8|9])[0-9][0-9]{6,7})|(010[0-9][0-9]{7})$/;
+      if (currentPhoneNum.length < 10 || currentPhoneNum.length > 11) {
+        this.root.alert.showAlert({
+          content: '휴대폰번호는 10자리 이상 11자리 이하입니다.',
+        });
+        this.status.newRecipientMobile = true;
+        return false;
+      } else if (!regPhone.test(currentPhoneNum)) {
+        this.root.alert.showAlert({
+          content: '휴대폰번호 를 정확히 입력해주세요.',
+        });
+        this.status.newRecipientMobile = true;
+        return false;
+      }
+    }
+
+    this.orderShippingList.defaultAddress = this.orderShippingList.newAddress;
+    this.shippingListModalClose();
   };
 
   //--------------------- 결제요청 ---------------------
@@ -620,9 +721,7 @@ export default class OrderPaymentStore {
       couponPayments: {},
       parentMethodCd: this.paymentMethod,
       pointPayments: {},
-      shippingAddress: this.status.selectedShipStatus
-        ? this.orderShippingList.defaultAddress
-        : this.orderShippingList.newAddress,
+      shippingAddress: this.orderShippingList.defaultAddress,
       user: this.orderUserInfo,
       userAgent: getUserAgent(),
       addShippingAddress: this.orderShippingList.isAddShippingAddress,
@@ -778,6 +877,7 @@ export default class OrderPaymentStore {
   /*
     주문 포인트 스토어와 연결됨
   */
+
   @action
   totalPaymentAmount = point => {
     this.orderPaymentTotalInfo.totalPaymentPrice =

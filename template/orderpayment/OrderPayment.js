@@ -17,7 +17,7 @@ class OrderPayment extends React.Component {
   render() {
     let { orderpayment } = this.props;
     return (
-      <DefaultLayout pageTitle={'주문 결제'}>
+      <DefaultLayout pageTitle={'주문 결제'} headerShape={'searchList'}>
         <Controller />
 
         {orderpayment.status.orderProductOnOffStatus ? (
@@ -48,7 +48,7 @@ class OrderPayment extends React.Component {
         {/* 결제 동의 */}
         <PaymentAgreement />
 
-        {/* 결제 동의 */}
+        {/* 결제 버튼 */}
         <PaymentButton />
       </DefaultLayout>
     );

@@ -1,0 +1,29 @@
+.wrap {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  height: calc(100vh - 30%);
+  background: #fff;
+  overflow: scroll;
+  padding: 26px 20px 60px;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .title {
+      font-size: 16px;
+      font-weight: 500;
+      color: #111;
+    }
+    .close {
+      width: 20px;
+      height: 20px;
+      background: url('/static/icon/m_delete.png') no-repeat;
+      background-size: cover;
+      background-position: center;
+      cursor: pointer;
+    }
+  }
+}

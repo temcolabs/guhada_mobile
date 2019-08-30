@@ -29,8 +29,9 @@ function Header({ children, headerShape, history }) {
         <div className={css.wrap} />
       ) : (
         <div className={css.wrap}>
-          {(headerShape === 'productDetail' || headerShape === 'searchList') &&
-          urlHistory !== '' ? (
+          {headerShape === 'productDetail' ||
+          headerShape === 'searchList' ||
+          (headerShape === 'address' && urlHistory !== '') ? (
             <button
               className={css.backButton}
               onClick={() => window.history.back()}

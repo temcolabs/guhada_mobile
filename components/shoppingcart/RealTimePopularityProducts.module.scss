@@ -1,7 +1,6 @@
 .wrap {
   padding: 40px 20px 40px;
   background: #fafafa;
-
   .title {
     font-size: 16px;
     color: #111;
@@ -16,7 +15,8 @@
       list-style: none;
       margin-top: 17px;
       margin-left: 8px;
-      width: 100px;
+      width: calc(100% / 3 - 20px / 3);
+      border: 1px solid red;
       &:first-child {
         margin-left: 0;
       }

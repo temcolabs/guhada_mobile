@@ -1,0 +1,73 @@
+.wrap {
+  padding-top: 30px;
+  padding-bottom: 120px;
+  .section {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+
+    &:first-child {
+      margin-top: 0;
+    }
+    .title {
+      font-size: 14px;
+      color: #111;
+      font-weight: 500;
+      min-width: 80px;
+      white-space: nowrap;
+    }
+    .value {
+      width: 100%;
+      input {
+        width: 100%;
+        border: 1px solid #ebebeb;
+        padding: 10px;
+        height: 45px;
+      }
+    }
+    .zipcode {
+      margin-left: 10px;
+      white-space: nowrap;
+      font-size: 13px;
+      border: 1px solid #ebebeb;
+      min-width: 110px;
+      text-align: center;
+      height: 45px;
+      line-height: 45px;
+    }
+
+    label {
+      display: flex;
+      align-items: center;
+
+      input[type='checkbox'] {
+        display: block;
+        width: 16px;
+        height: 16px;
+        border: none;
+        border-radius: 0px;
+        background-image: url('/static/icon/checkbox_off.png');
+        background-size: 16px 16px;
+        background-position: center;
+        background-repeat: no-repeat;
+        margin-top: 1px;
+      }
+
+      input[type='checkbox']:checked {
+        border: none;
+        background-image: url('/static/icon/checkbox_on.png');
+        background-size: 16px 16px;
+        background-position: center;
+        background-repeat: no-repeat;
+        transition: all 0.5s;
+      }
+
+      div {
+        font-size: 14px;
+        font-weight: 500;
+        color: #444;
+        margin: 0 30px 0 12px;
+      }
+    }
+  }
+}

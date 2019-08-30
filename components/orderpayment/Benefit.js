@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './Benefit.module.scss';
-import CouponSelect from './CouponSelect';
-@inject('orderPaymentPoint')
+import CouponModal from './modal/CouponModal';
+@inject('orderPaymentPoint', 'orderPaymentCoupon')
 @observer
 class Benefit extends Component {
   componentDidMount() {
@@ -11,7 +11,7 @@ class Benefit extends Component {
     this.props.orderPaymentPoint.getDueSavePoint();
   }
   render() {
-    let { orderPaymentPoint } = this.props;
+    let { orderPaymentPoint, orderPaymentCoupon } = this.props;
     return (
       <div className={css.wrap}>
         <div className={css.title}>할인적용</div>
@@ -19,12 +19,20 @@ class Benefit extends Component {
         <div className={css.coupon}>
           <div className={css.couponTitle}>쿠폰</div>
           <div className={css.couponSelectBox}>
-            <div className={css.couponSelect}>
-              <CouponSelect />
+            <div
+              className={css.couponSelect}
+              onClick={() => {
+                orderPaymentCoupon.getCouponList();
+              }}
+            >
+              <div>적용가능한 쿠폰을 선택해주세요.</div>
+              <div />
             </div>
             <div className={css.couponAutoSelect}>자동 적용</div>
           </div>
         </div>
+
+        <CouponModal isVisible={orderPaymentCoupon.status.couponModal} />
 
         <div className={css.point}>
           <div className={css.pointTitle}>포인트</div>

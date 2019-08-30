@@ -1,0 +1,47 @@
+.wrap {
+  .header {
+    padding: 40px;
+    position: relative;
+    margin-bottom: 20px;
+    .back {
+      width: 30px;
+      height: 30px;
+      background: url('/static/icon/btn-prevpage.png') no-repeat center;
+      background-size: 30px;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+    }
+    .title {
+      font-size: 17px;
+      font-weight: 500;
+      color: #111;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+  .tabButton {
+    display: flex;
+
+    div {
+      width: calc(100% / 2);
+      height: 50px;
+      line-height: 50px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 500;
+      color: #111;
+    }
+    .tab_on {
+      border: 1px solid #111;
+      border-bottom: none;
+    }
+    .tab_off {
+      border-bottom: 1px solid #111;
+      background: #f9f9fa;
+    }
+  }
+}

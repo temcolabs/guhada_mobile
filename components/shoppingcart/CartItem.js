@@ -10,7 +10,7 @@ class CartItem extends Component {
     return data.cartValidStatus.status ? (
       <Fragment>
         <div className={css.wrap}>
-          <div className={css.inner__item}>
+          <div className={css.inner}>
             <div className={css.top}>
               <div className={css.item__check}>
                 <input
@@ -27,21 +27,21 @@ class CartItem extends Component {
                   shoppingcart.ShoppingCartItemDelete(data.cartItemId);
                 }}
               >
-                <img src="/static/icon/m_cart_delete.png" alt="삭제버튼" />
+                <img src="/static/icon/m_delete.png" alt="삭제버튼" />
               </div>
             </div>
             <div className={css.cart__item}>
               <div
-                className={css.cart__item__iamge}
+                className={css.cart__item__image}
                 style={{
                   backgroundImage: `url(${data.imageUrl})`,
                 }}
-              ></div>
+              />
               <div className={css.cart__item__info}>
                 <div className={css.brand__name}>{data.brandName}</div>
-                <div
-                  className={css.product__name}
-                >{`${data.season} ${data.dealName}`}</div>
+                <div className={css.product__name}>{`${data.season} ${
+                  data.dealName
+                }`}</div>
                 <div className={css.item__price__wrap}>
                   <div className={css.discount__price}>
                     {`${data.discountPrice.toLocaleString()}원`}
@@ -121,7 +121,7 @@ class CartItem extends Component {
                 shoppingcart.ShoppingCartItemDelete(data.cartItemId);
               }}
             >
-              <img src="/static/icon/m_cart_delete.png" alt="삭제버튼" />
+              <img src="/static/icon/m_delete.png" alt="삭제버튼" />
             </div>
           </div>
           <div className={css.cart__item}>
@@ -130,12 +130,12 @@ class CartItem extends Component {
               style={{
                 backgroundImage: `url(${data.imageUrl})`,
               }}
-            ></div>
+            />
             <div className={css.cart__item__info}>
               <div className={css.brand__name}>{data.brandName}</div>
-              <div
-                className={css.product__name}
-              >{`${data.season} ${data.dealName}`}</div>
+              <div className={css.product__name}>{`${data.season} ${
+                data.dealName
+              }`}</div>
               <div className={css.item__price__wrap}>
                 <div className={css.discount__price}>
                   {`${data.discountPrice.toLocaleString()}원`}

@@ -12,8 +12,8 @@ class OrderCustomer extends Component {
         <div className={css.headerSection}>
           <div className={css.title}>주문자 정보</div>
           <div className={css.identification}>
-            <span>[필수] </span> 본인인증
-            <div className={css.arrow} />
+            {/* <span>[필수] </span> 본인인증
+            <div className={css.arrow} /> */}
           </div>
         </div>
         <div className={css.customerName}>{`${

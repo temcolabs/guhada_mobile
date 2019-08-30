@@ -8,6 +8,7 @@ import SearchItemStore from './SearchItemStore';
 import ProductDetailStore from './productdetail/ProductDetailStore';
 import OrderPaymentStore from './orderpayment/OrderPaymentStore';
 import OrderPaymentPointStore from './orderpayment/OrderPaymentPointStore';
+import OrderPaymentCouponStore from './orderpayment/OrderPaymentCouponStore';
 import OrderPaymentSuccessStore from './OrderPaymentSuccessStore';
 import ShoppingCartStore from './shoppingcart/ShoppingCartStore';
 import ProductReviewStore from './productdetail/ProductReviewStore';
@@ -35,6 +36,7 @@ import ToastStore from './ToastStore';
 import RouteHistoryStore from './RouteHistoryStore';
 import MainStore from './MainStore';
 import KeywordStore from './home/KeywordStore';
+import AddressStore from './address/AddressStore';
 
 class RootStore {
   constructor() {
@@ -48,6 +50,7 @@ class RootStore {
     this.productdetail = new ProductDetailStore(this);
     this.orderpayment = new OrderPaymentStore(this);
     this.orderPaymentPoint = new OrderPaymentPointStore(this);
+    this.orderPaymentCoupon = new OrderPaymentCouponStore(this);
     this.orderpaymentsuccess = new OrderPaymentSuccessStore(this);
     this.cartAndPurchase = new CartAndPurchaseStore(this);
     this.shoppingCartSuccessModal = new ShoppingCartSuccessModalStore(this);
@@ -88,6 +91,10 @@ class RootStore {
     this.history = new RouteHistoryStore(this);
     this.main = new MainStore(this);
     this.keyword = new KeywordStore(this);
+
+    // 배송지
+
+    this.address = new AddressStore(this);
   }
 }
 
