@@ -5,7 +5,6 @@
         justify-content: space-between;
         align-items: baseline;
         border-bottom: solid 1px #eeeeee;
-        margin-bottom: 20px;
     }
 
     & .header {
@@ -42,6 +41,10 @@
     & .ratingWrap {
         padding-bottom: 15px;
         background-color: #ffffff;
+
+        &:first-child {
+            margin-top: 20px;
+        }
 
         &.fold {
             padding-bottom: 10px;

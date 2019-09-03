@@ -36,15 +36,19 @@
 
       ul {
         display: flex;
+        justify-content: space-between;
         li {
           list-style: none;
           margin-top: 17px;
           margin-left: 8px;
-          width: calc(100% / 3 - 16px / 3);
+          width: 100px;
           &:first-child {
             margin-left: 0;
           }
           .associatedItemImage {
+            width: 100px;
+            height: 130px;
+
             img {
               width: 100%;
             }

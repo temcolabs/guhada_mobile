@@ -22,7 +22,7 @@ class Gallery extends Component {
       speed: 1000,
       slidesToShow: 1,
       slidesToScroll: 1,
-      adaptiveHeight: false,
+      adaptiveHeight: true,
       pauseOnFocus: true,
       swipeToSlide: true,
 
@@ -40,7 +40,9 @@ class Gallery extends Component {
           })}
         </Slider>
         <div className={css.index__box}>
-          {`${this.state.activeSlide} / ${productdetail.deals.imageUrls.length} `}
+          {`${this.state.activeSlide} / ${
+            productdetail.deals.imageUrls.length
+          } `}
         </div>
       </div>
     );
