@@ -36,9 +36,10 @@ export default function SellerStoreInfo({
   ],
   followers = { isFollower: '팔로우' },
   seller,
+  tabRefMap,
 }) {
   return (
-    <div className={css.wrap}>
+    <div className={css.wrap} ref={tabRefMap.sellerstoreTab}>
       <div className={css.headerWrap}>
         <div
           className={css.profileImage}

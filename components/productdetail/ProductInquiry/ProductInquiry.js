@@ -23,11 +23,11 @@ class ProductInquiry extends Component {
   };
 
   render() {
-    const { productdetail, login } = this.props;
+    const { productdetail, login, tabRefMap } = this.props;
     const { deals, inquiryList } = productdetail;
 
     return (
-      <div className={css.wrap}>
+      <div className={css.wrap} ref={tabRefMap.inquiryTab}>
         <div className={css.headerWrap}>
           <div className={css.header}>
             상품문의
