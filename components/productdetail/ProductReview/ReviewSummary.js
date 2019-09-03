@@ -5,7 +5,7 @@ import StarItem from '../StarItem';
 
 export default function ReviewSummary({
   reviewSummary = {
-    averageReviewsRating: 1.4,
+    averageReviewsRating: 0,
     satisfactionSummary: {
       colors: [
         {
@@ -29,7 +29,7 @@ export default function ReviewSummary({
         },
       ],
     },
-    totalReviewsCount: 7,
+    totalReviewsCount: 0,
   },
 }) {
   const [fold, setFold] = useState(false);
@@ -64,98 +64,105 @@ export default function ReviewSummary({
             }점`}</div>
           </div>
         </div>
-        <div>
-          {summary.map((summary, index) => {
-            return (
-              <div
-                className={cn(css.ratingWrap, { [css.fold]: !fold })}
-                key={index}
-              >
-                <div className={css.itemWrap}>
-                  <div className={css.itemLabel}>{`${summary.label}`}</div>
-                  <div className={css.valueWrap}>
-                    {reviewSummary.satisfactionSummary[summary.value].map(
-                      (data, dataIndex) => {
-                        return fold ? (
-                          <div
-                            className={cn(css.valueItem, {
-                              [css.max]: summary.max === data.count,
-                            })}
-                            key={`${dataIndex}data`}
-                          >
-                            <div className={css.valueLabel}>
-                              {data.description}
-                            </div>
-                            <div className={css.valueGraph}>
+        {reviewSummary.totalReviewsCount !== 0 && (
+          <>
+            <div>
+              {summary.map((summary, index) => {
+                return (
+                  <div
+                    className={cn(css.ratingWrap, { [css.fold]: !fold })}
+                    key={index}
+                  >
+                    <div className={css.itemWrap}>
+                      <div className={css.itemLabel}>{`${summary.label}`}</div>
+                      <div className={css.valueWrap}>
+                        {reviewSummary.satisfactionSummary[summary.value].map(
+                          (data, dataIndex) => {
+                            return fold ? (
                               <div
-                                className={cn(css.bar, {
-                                  [css.color]: summary.max === data.count,
+                                className={cn(css.valueItem, {
+                                  [css.max]: summary.max === data.count,
                                 })}
-                                style={{
-                                  width: `${(data.count /
-                                    reviewSummary.totalReviewsCount) *
-                                    100}%`,
-                                }}
-                              />
-                            </div>
-                            <div className={css.valueNumber}>
-                              {`${data.count}명`}
-                            </div>
-                          </div>
-                        ) : (
-                          <div
-                            className={cn(
-                              css.valueItem,
-                              {
-                                [css.max]: summary.max === data.count,
-                              },
-                              {
-                                [css.foldItem]: summary.max !== data.count,
-                              }
-                            )}
-                            key={`${dataIndex}data`}
-                          >
-                            <div className={css.valueLabel}>
-                              {data.description}
-                            </div>
-                            <div className={css.valueGraph}>
+                                key={`${dataIndex}data`}
+                              >
+                                <div className={css.valueLabel}>
+                                  {data.description}
+                                </div>
+                                <div className={css.valueGraph}>
+                                  <div
+                                    className={cn(css.bar, {
+                                      [css.color]: summary.max === data.count,
+                                    })}
+                                    style={{
+                                      width: `${(data.count /
+                                        reviewSummary.totalReviewsCount) *
+                                        100}%`,
+                                    }}
+                                  />
+                                </div>
+                                <div className={css.valueNumber}>
+                                  {`${data.count}명`}
+                                </div>
+                              </div>
+                            ) : (
                               <div
-                                className={cn(css.bar, {
-                                  [css.color]: summary.max === data.count,
-                                })}
-                                style={{
-                                  width: `${(data.count /
-                                    reviewSummary.totalReviewsCount) *
-                                    100}%`,
-                                }}
-                              />
-                            </div>
-                            <div className={css.valueNumber}>
-                              {`${data.count}명`}
-                            </div>
-                          </div>
-                        );
-                      }
-                    )}
+                                className={cn(
+                                  css.valueItem,
+                                  {
+                                    [css.max]: summary.max === data.count,
+                                  },
+                                  {
+                                    [css.foldItem]: summary.max !== data.count,
+                                  }
+                                )}
+                                key={`${dataIndex}data`}
+                              >
+                                <div className={css.valueLabel}>
+                                  {data.description}
+                                </div>
+                                <div className={css.valueGraph}>
+                                  <div
+                                    className={cn(css.bar, {
+                                      [css.color]: summary.max === data.count,
+                                    })}
+                                    style={{
+                                      width: `${(data.count /
+                                        reviewSummary.totalReviewsCount) *
+                                        100}%`,
+                                    }}
+                                  />
+                                </div>
+                                <div className={css.valueNumber}>
+                                  {`${data.count}명`}
+                                </div>
+                              </div>
+                            );
+                          }
+                        )}
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-        <div className={cn(css.reviewBtn)} onClick={() => setFold(!fold)}>
-          {fold ? (
-            <>
-              {`열기`}
-              <img src={'/static/icon/benefit_btn_minus.png'} alt={'icon'} />
-            </>
-          ) : (
-            <>
-              {`자세히 보기`}
-              <img src={'/static/icon/benefit_btn_plus.png'} alt={'icon'} />
-            </>
-          )}
-        </div>
+                );
+              })}
+            </div>
+            <div className={cn(css.reviewBtn)} onClick={() => setFold(!fold)}>
+              {fold ? (
+                <>
+                  {`열기`}
+                  <img
+                    src={'/static/icon/benefit_btn_minus.png'}
+                    alt={'icon'}
+                  />
+                </>
+              ) : (
+                <>
+                  {`자세히 보기`}
+                  <img src={'/static/icon/benefit_btn_plus.png'} alt={'icon'} />
+                </>
+              )}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

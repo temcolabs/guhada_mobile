@@ -3,7 +3,7 @@ import css from './ShippingBenefit.module.scss';
 import StarItem from './StarItem';
 class ShippingBenefit extends Component {
   render() {
-    const { deals, satisfaction } = this.props;
+    const { deals, satisfaction, seller } = this.props;
 
     return (
       <div className={css.wrap}>

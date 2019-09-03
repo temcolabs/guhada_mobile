@@ -65,7 +65,11 @@ class ProductDetail extends React.Component {
         <CartAndPurchaseButton />
 
         {/* 배송 정보 및 해택, 셀러 기본정보 */}
-        <ShippingBenefit deals={deals} satisfaction={satisfaction} />
+        <ShippingBenefit
+          deals={deals}
+          satisfaction={satisfaction}
+          seller={seller}
+        />
 
         {/* 상세정보, 상품문의, 셀러스토어 탭 */}
         <ProductTab />

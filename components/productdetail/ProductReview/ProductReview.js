@@ -14,11 +14,12 @@ class ProductReview extends Component {
     let { productreview } = this.props;
     let review = productreview.review;
     let reviewSummary = productreview.reviewSummary;
-
+    console.log('review', reviewSummary);
     return (
       <SectionWrap>
         <ReviewSummary reviewSummary={reviewSummary} />
         <ReviewTab
+          totalElements={review.totalElements}
           setReviewTab={productreview.setReviewTab}
           setOrder={productreview.setOrder}
         />

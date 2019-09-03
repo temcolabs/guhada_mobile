@@ -3,7 +3,13 @@ import css from './ReviewTab.module.scss';
 import cn from 'classnames';
 import ReviewOrder from './ReviewOrder';
 import ReviewRating from './ReviewRating';
-export default function ReviewTab({ setReviewTab = () => {}, setOrder }) {
+import _ from 'lodash';
+
+export default function ReviewTab({
+  setReviewTab = () => {},
+  setOrder,
+  totalElements,
+}) {
   const [reviewTabText, setReviewTabText] = useState('all');
   const [isOrderVisible, setIsOrderVisible] = useState(false);
   const [isRatingVisible, setIsRatingVisible] = useState(false);
@@ -11,7 +17,7 @@ export default function ReviewTab({ setReviewTab = () => {}, setOrder }) {
   return (
     <div className={css.wrap}>
       <div className={css.tabHeader}>
-        <div>{`리뷰 156건`}</div>
+        <div>{`리뷰 ${_.isNil(totalElements) ? 0 : totalElements}건`}</div>
         <div className={css.orderWrap}>
           <div
             className={css.orderItem}
