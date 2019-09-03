@@ -11,7 +11,7 @@ export default class OrderPaymentPointStore {
   @observable usePoint = 0;
   @observable myPoint = 0;
   @observable availablePoint = 0;
-  @observable dueSavePoint = 0;
+  @observable dueSavePointTotal = 0;
 
   @action
   getAvailablePoint = () => {
@@ -91,9 +91,12 @@ export default class OrderPaymentPointStore {
     console.log(bundleData, 'bundleData');
     API.benefit.post(`/process/due-save`, bundleData).then(res => {
       let data = res.data.data;
-      console.log(res, 'due response');
-      if (res.data.resultCode === 200) {
-        this.dueSavePoint = data.totalPoint.toLocaleString();
+      if (res.status === 200) {
+        this.dueSavePointTotal = 0;
+        for (let i = 0; i < data.dueSavePointList.length; i++) {
+          this.dueSavePointTotal += data.dueSavePointList[i].totalPoint;
+        }
+        this.dueSaveList = data.dueSavePointList;
       }
     });
   };
