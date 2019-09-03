@@ -26,7 +26,6 @@ class ShippingBenefit extends Component {
       productoption,
     } = this.props;
     const reviewSummary = productreview.reviewSummary;
-    console.log('reviewSummary', productreview.reviewSummary);
     return (
       <div className={css.wrap}>
         <div className={css.itemWrap}>
