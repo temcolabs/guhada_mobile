@@ -49,6 +49,7 @@ export default function ShippingReturn({
     },
   ],
   seller = [{ claimTelephone: '0212345678' }],
+  shipExpenseType = '',
 }) {
   return (
     <>
@@ -57,7 +58,7 @@ export default function ShippingReturn({
         <tbody>
           <tr>
             <th>배송방법</th>
-            <td>{deals.shipExpenseType}</td>
+            <td>{shipExpenseType}</td>
           </tr>
           <tr>
             <th>묶음배송여부</th>

@@ -21,7 +21,7 @@ import SellerStoreInfo from 'components/productdetail/SellerStoreInfo';
 import ProductInquiry from 'components/productdetail/ProductInquiry/ProductInquiry';
 import ProductReview from 'components/productdetail/ProductReview/ProductReview';
 
-@inject('searchitem')
+@inject('searchitem', 'productoption')
 @observer
 class ProductDetail extends React.Component {
   static propTypes = {};
@@ -43,6 +43,7 @@ class ProductDetail extends React.Component {
       dealsOfSellerStore,
       followers,
       satisfaction,
+      productoption,
     } = this.props;
 
     return (
@@ -69,6 +70,7 @@ class ProductDetail extends React.Component {
           deals={deals}
           satisfaction={satisfaction}
           seller={seller}
+          shipExpenseType={productoption.shipExpenseType}
         />
 
         {/* 상세정보, 상품문의, 셀러스토어 탭 */}
@@ -104,6 +106,7 @@ class ProductDetail extends React.Component {
             claims={claims}
             businessSeller={businessSeller}
             seller={seller}
+            shipExpenseType={productoption.shipExpenseType}
           />
         </FoldedWrapper>
         {SeparateLine}

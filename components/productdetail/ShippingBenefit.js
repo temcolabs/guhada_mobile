@@ -2,17 +2,27 @@ import React, { Component } from 'react';
 import css from './ShippingBenefit.module.scss';
 import StarItem from './StarItem';
 import _ from 'lodash';
+import { inject, observer } from 'mobx-react';
 
+@inject('productreview')
+@observer
 class ShippingBenefit extends Component {
   render() {
-    const { deals, satisfaction, seller } = this.props;
-
+    const {
+      deals,
+      satisfaction,
+      seller,
+      productreview,
+      shipExpenseType,
+    } = this.props;
+    const reviewSummary = productreview.reviewSummary;
+    console.log('reviewSummary', productreview.reviewSummary);
     return (
       <div className={css.wrap}>
         <div className={css.itemWrap}>
           <div className={css.itemTitle}>배송정보</div>
           <div className={css.contentsWrap}>
-            <div>무료배송</div>
+            <div>{shipExpenseType}</div>
           </div>
         </div>
         <div className={css.itemWrap}>
@@ -72,10 +82,16 @@ class ShippingBenefit extends Component {
           <div className={css.itemTitle}>상품리뷰</div>
           <div className={css.contentsWrap}>
             <div className={css.itemContents}>
-              <StarItem /> *0
+              {_.isNil(reviewSummary) === false
+                ? StarItem(reviewSummary.averageReviewsRating, true)
+                : StarItem(0, true)}
             </div>
             <div className={css.itemContents}>
-              *0건
+              {`${
+                _.isNil(reviewSummary) === false
+                  ? reviewSummary.totalReviewsCount
+                  : 0
+              }건`}
               <div className={css.arrowR} />
             </div>
           </div>
