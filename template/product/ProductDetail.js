@@ -129,6 +129,7 @@ class ProductDetail extends React.Component {
             deals={deals}
             dealsOfSellerStore={dealsOfSellerStore}
             followers={followers}
+            seller={seller}
           />
         </SectionWrap>
       </DefaultLayout>

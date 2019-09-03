@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import css from './ShippingBenefit.module.scss';
 import StarItem from './StarItem';
+import _ from 'lodash';
+
 class ShippingBenefit extends Component {
   render() {
     const { deals, satisfaction, seller } = this.props;
@@ -23,7 +25,16 @@ class ShippingBenefit extends Component {
           </div>
         </div>
         <div className={css.sellerWrap}>
-          <div className={css.profile} />
+          <div
+            className={css.profile}
+            style={
+              _.isNil(seller) !== true && seller.user.profileImageUrl !== ''
+                ? {
+                    backgroundImage: `url(${seller.user.profileImageUrl})`,
+                  }
+                : null
+            }
+          />
           <div>
             <div>
               <div className={css.infoTop}>

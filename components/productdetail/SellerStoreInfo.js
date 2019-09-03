@@ -1,6 +1,7 @@
 import React from 'react';
 import css from './SellerStoreInfo.module.scss';
 import cn from 'classnames';
+import _ from 'lodash';
 
 export default function SellerStoreInfo({
   deals,
@@ -34,11 +35,21 @@ export default function SellerStoreInfo({
     },
   ],
   followers = { isFollower: '팔로우' },
+  seller,
 }) {
   return (
     <div className={css.wrap}>
       <div className={css.headerWrap}>
-        <img className={css.profileImage} />
+        <div
+          className={css.profileImage}
+          style={
+            _.isNil(seller) !== true && seller.user.profileImageUrl !== ''
+              ? {
+                  backgroundImage: `url(${seller.user.profileImageUrl})`,
+                }
+              : null
+          }
+        />
         <div className={css.profileWrap}>
           <div className={css.levelAndName}>
             <div className={css.level}>
@@ -81,7 +92,9 @@ export default function SellerStoreInfo({
                   <div className={css.season}>{deal.productSeason}</div>
                 </div>
                 <div className={css.title}>{deal.dealName}</div>
-                <div className={css.price}>{deal.sellPrice}</div>
+                <div className={css.price}>
+                  {deal.sellPrice.toLocaleString()}
+                </div>
               </div>
             </div>
           );
