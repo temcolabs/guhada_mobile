@@ -51,7 +51,13 @@ class FinalAmountBenefit extends Component {
               <div className={css.dropArrow} />
             </div>
             <div className={css.dueSavePoint}>
-              최대 <span>{`${orderPaymentPoint.dueSavePoint}`}</span>p
+              최대{' '}
+              <span>
+                {orderPaymentPoint.dueSavePointTotal
+                  ? `${orderPaymentPoint.dueSavePointTotal.toLocaleString()}`
+                  : 0}
+              </span>
+              p
             </div>
           </div>
 

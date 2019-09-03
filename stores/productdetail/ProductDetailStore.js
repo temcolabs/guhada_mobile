@@ -43,8 +43,6 @@ export default class ProductDetailStore {
           }
         }
 
-        this.dealsStatus = true;
-
         // 다른 서비스 api로 데이터 받아오는 부분
         this.getClaimData();
         this.getBusinessSeller();
@@ -63,6 +61,12 @@ export default class ProductDetailStore {
         // this.dealsStatus = true;
         this.deals.dealsId = id;
         this.getBlockChainData();
+
+        // 혜택정보
+        this.root.productoption.getBenefitData();
+        this.root.productoption.getCouponData();
+
+        this.dealsStatus = true;
       }
     });
   };
@@ -81,7 +85,7 @@ export default class ProductDetailStore {
     let Header = {
       method: 'GET',
       url:
-        'http://ec2-52-79-95-78.ap-northeast-2.compute.amazonaws.com:8080/guhada/blockchain/transact-Data/' +
+        'https://ec2-52-79-95-78.ap-northeast-2.compute.amazonaws.com:8080/guhada/blockchain/transact-Data/' +
         this.deals.productId,
       headers: {
         'Content-Type': 'application/json',

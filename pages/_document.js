@@ -24,7 +24,7 @@ class MyDocument extends Document {
             crossOrigin="anonymous"
           />
 
-          <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false" />
+          <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js" />
         </Head>
         <body>
           <Main />
