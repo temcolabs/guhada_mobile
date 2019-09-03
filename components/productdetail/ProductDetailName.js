@@ -2,11 +2,19 @@ import React, { Component } from 'react';
 import css from './ProductDetailName.module.scss';
 import { inject, observer } from 'mobx-react';
 
-@inject('productdetail', 'productDetailBookmark')
+@inject('productdetail', 'productDetailBookmark', 'productoption')
 @observer
 class ProductDetailName extends Component {
+  getSnapshotBeforeUpdate(prevProps) {
+    return prevProps.productdetail.deals.dealsId;
+  }
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (!snapshot) {
+      this.props.productDetailBookmark.productBookmarkInit();
+    }
+  }
   render() {
-    let { productdetail, productDetailBookmark } = this.props;
+    let { productdetail, productDetailBookmark, productoption } = this.props;
     let { deals } = productdetail;
     return (
       <div className={css.wrap}>
@@ -50,14 +58,50 @@ class ProductDetailName extends Component {
                 productDetailBookmark.saveBookmark(deals.productId);
               }}
             >
-              {productDetailBookmark.currentLikeCheck ? (
-                <img src="/static/icon/m_like_btn_on.png" alt="북마크기능" />
+              {productDetailBookmark.bookMarkImageSrc ? (
+                <img src="/static/icon/m_like_btn_on.png" alt="북마크" />
               ) : (
-                <img src="/static/icon/m_like_btn_off.png" alt="북마크기능" />
+                <img src="/static/icon/m_like_btn_off.png" alt="북마크" />
               )}
             </div>
           </div>
         </div>
+
+        {true ? (
+          <div className={css.coupon__wrap}>
+            <div
+              className={css.coupon__title}
+              style={{ backgroundColor: '#5d2ed1' }}
+            >
+              {productoption.benefitCoupon.length > 0
+                ? ` ${productoption.benefitCoupon[0].couponTitle}`
+                : null}
+            </div>
+            <div
+              className={css.coupon__down}
+              style={{
+                backgroundImage: `url('/static/icon/m_coupon_download_on.png')`,
+              }}
+            />
+          </div>
+        ) : (
+          <div className={css.coupon__wrap}>
+            <div
+              className={css.coupon__title}
+              style={{ backgroundColor: '#ccc' }}
+            >
+              {productoption.benefitCoupon.length > 0
+                ? ` ${productoption.benefitCoupon[0].couponTitle}`
+                : null}
+            </div>
+            <div
+              className={css.coupon__down}
+              style={{
+                backgroundImage: `url('/static/icon/m_coupon_download_off.png')`,
+              }}
+            />
+          </div>
+        )}
       </div>
     );
   }

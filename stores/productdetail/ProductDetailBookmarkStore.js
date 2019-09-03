@@ -8,8 +8,7 @@ export default class ProductDetailLikeStore {
     if (!isServer) this.root = root;
   }
 
-  @observable bookMarkImageSrc = '/static/icon/m_like_btn_off.png';
-  @observable currentLikeCheck = false;
+  @observable bookMarkImageSrc = false;
   @observable userId;
   @action
   getBookMark = targetId => {
@@ -19,9 +18,12 @@ export default class ProductDetailLikeStore {
         `/users/${this.userId}/bookmarks?target=PRODUCT&targetId=${targetId}`
       )
       .then(res => {
-        if (res.data.resultCode === 200) {
-          this.currentLikeCheck = true;
+        if (!res.data.data.empty) {
+          this.bookMarkImageSrc = true;
         }
+      })
+      .catch(err => {
+        console.log(err);
       });
   };
 
@@ -33,7 +35,7 @@ export default class ProductDetailLikeStore {
         targetId: id,
       })
       .then(res => {
-        this.currentLikeCheck = true;
+        this.bookMarkImageSrc = true;
         this.root.alert.showAlert({
           content: '해당상품 을 북마크에 저장 했습니다.',
         });
@@ -43,6 +45,11 @@ export default class ProductDetailLikeStore {
           content: e.data.message,
         });
       });
+  };
+
+  @action
+  productBookmarkInit = () => {
+    this.bookMarkImageSrc = false;
   };
 
   // @action

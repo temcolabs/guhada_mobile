@@ -1,6 +1,7 @@
 import React from 'react';
 import { observable, action } from 'mobx';
 import { isServer } from 'lib/isServer';
+import API from 'lib/API';
 
 export default class ProductOptionStore {
   constructor(root) {
@@ -17,6 +18,8 @@ export default class ProductOptionStore {
   @observable shipExpenseType = '';
 
   @observable benefitToggle = false;
+  @observable benefitPoint = 0;
+  @observable benefitCoupon = [];
   @observable quantityMinusBtn = '/static/icon/quantity_minus_off.png';
   @observable quantityPlusBtn = '/static/icon/quantity_plus_on.png';
 
@@ -281,5 +284,65 @@ export default class ProductOptionStore {
   @action
   benefitClick = () => {
     this.benefitToggle = !this.benefitToggle;
+  };
+
+  @action
+  getBenefitData = () => {
+    let bundleList = {
+      bundleList: [
+        {
+          bundlePrice: this.root.productdetail.deals.shipExpense,
+          orderProdList: [
+            {
+              dcategoryId: this.root.productdetail.deals.dCategoryId,
+              dealId: this.root.productdetail.deals.dealsId,
+              discountPrice: this.root.productdetail.deals.discountPrice,
+              lcategoryId: this.root.productdetail.deals.lCategoryId,
+              mcategoryId: this.root.productdetail.deals.mCategoryId,
+              productPrice: this.root.productdetail.deals.sellPrice,
+              scategoryId: this.root.productdetail.deals.sCategoryId,
+            },
+          ],
+        },
+      ],
+      pointType: 'BUY',
+      serviceType: 'FRONT',
+    };
+    API.benefit
+      .post(`/process/due-save`, bundleList)
+      .then(res => {
+        const { data } = res;
+        if (res.status === 200) {
+          this.benefitPoint = 0;
+          for (let i = 0; i < data.data.dueSavePointList.length; i++) {
+            this.benefitPoint += data.data.dueSavePointList[i].totalPoint;
+          }
+        }
+      })
+      .catch(err => {
+        this.root.alert.showAlert({
+          content: '혜택(포인트) 조회 에러',
+        });
+      });
+  };
+
+  @action
+  getCouponData = () => {
+    API.benefit
+      .get(
+        `/coupons/process/due-save?DCategoryId=${215}&LCategoryId=${1}&MCategoryId=${4}&SCategoryId=${18}&dealId=${7}&paymentPrice=${250000}&sellerId=${251}&saveActionType=BUY&serviceType=FRONT`
+      )
+      .then(res => {
+        const { data } = res;
+        if (res.status === 200) {
+          this.benefitCoupon = data.data;
+          console.log(this.benefitCoupon, 'this.benefitCoupon');
+        }
+      })
+      .catch(err => {
+        this.root.alert.showAlert({
+          content: '혜택(쿠폰) 조회 에러',
+        });
+      });
   };
 }

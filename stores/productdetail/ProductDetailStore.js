@@ -43,8 +43,6 @@ export default class ProductDetailStore {
           }
         }
 
-        this.dealsStatus = true;
-
         // 다른 서비스 api로 데이터 받아오는 부분
         this.getClaimData();
         this.getBusinessSeller();
@@ -63,6 +61,12 @@ export default class ProductDetailStore {
         // this.dealsStatus = true;
         this.deals.dealsId = id;
         this.getBlockChainData();
+
+        // 혜택정보
+        this.root.productoption.getBenefitData();
+        this.root.productoption.getCouponData();
+
+        this.dealsStatus = true;
       }
     });
   };
