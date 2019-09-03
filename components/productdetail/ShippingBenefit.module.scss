@@ -41,6 +41,21 @@
       background-size: 16px;
       background-repeat: no-repeat;
     }
+    & .sellerWrap {
+        height: 96px;
+        border-bottom: solid 1px #eeeeee;
+        width: 100%;
+        padding: 18px 0;
+
+        & .profile {
+            height: 60px;
+            width: 60px;
+            border-radius: 60px;
+            background: url('/static/icon/profile_non_square.png') no-repeat center;
+            background-size: 60px;
+            margin-right: 12px;
+            float: left;
+        }
 
     & .arrowR {
       width: 19px;

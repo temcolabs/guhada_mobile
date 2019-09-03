@@ -263,6 +263,7 @@ export default class ProductOptionStore {
     );
   };
 
+  @action
   getShipExpenseType = () => {
     switch (this.root.productdetail.deals.shipExpenseType) {
       case 'FREE':

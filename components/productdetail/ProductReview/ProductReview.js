@@ -11,10 +11,10 @@ import ProductReviewEmpty from './ProductReviewEmpty';
 @observer
 class ProductReview extends Component {
   render() {
-    let { productreview } = this.props;
-    let review = productreview.review;
-    let reviewSummary = productreview.reviewSummary;
-    console.log('review', reviewSummary);
+    const { productreview } = this.props;
+    const review = productreview.review;
+    const reviewSummary = productreview.reviewSummary;
+
     return (
       <SectionWrap>
         <ReviewSummary reviewSummary={reviewSummary} />

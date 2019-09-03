@@ -80,7 +80,9 @@ export default function RelatedAndRecommend({
                   <div className={css.season}>{deal.productSeason}</div>
                 </div>
                 <div className={css.title}>{deal.dealName}</div>
-                <div className={css.price}>{deal.sellPrice}</div>
+                <div className={css.price}>
+                  {deal.sellPrice.toLocaleString()}
+                </div>
               </div>
             </div>
           );
@@ -102,7 +104,9 @@ export default function RelatedAndRecommend({
                   <div className={css.season}>{deal.productSeason}</div>
                 </div>
                 <div className={css.title}>{deal.dealName}</div>
-                <div className={css.price}>{deal.sellPrice}</div>
+                <div className={css.price}>
+                  {deal.sellPrice.toLocaleString()}
+                </div>
               </div>
             </div>
           );

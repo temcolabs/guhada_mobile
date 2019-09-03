@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import css from './ShippingBenefit.module.scss';
 import StarItem from './StarItem';
 import { inject, observer } from 'mobx-react';
+import _ from 'lodash';
 
-@inject('productoption')
+@inject('productreview', 'productoption')
+@observer
 class ShippingBenefit extends Component {
   state = {
     benefitHandle: false,
@@ -14,13 +16,22 @@ class ShippingBenefit extends Component {
     });
   };
   render() {
-    const { deals, satisfaction, seller, productoption } = this.props;
+    const {
+      deals,
+      satisfaction,
+      seller,
+      productreview,
+      shipExpenseType,
+      productoption,
+    } = this.props;
+    const reviewSummary = productreview.reviewSummary;
+    console.log('reviewSummary', productreview.reviewSummary);
     return (
       <div className={css.wrap}>
         <div className={css.itemWrap}>
           <div className={css.itemTitle}>배송정보</div>
           <div className={css.contentsWrap}>
-            <div>무료배송</div>
+            <div>{shipExpenseType}</div>
           </div>
         </div>
         <div
@@ -72,7 +83,16 @@ class ShippingBenefit extends Component {
           </div>
         ) : null}
         <div className={css.sellerWrap}>
-          <div className={css.profile} />
+          <div
+            className={css.profile}
+            style={
+              _.isNil(seller) !== true && seller.user.profileImageUrl !== ''
+                ? {
+                    backgroundImage: `url(${seller.user.profileImageUrl})`,
+                  }
+                : null
+            }
+          />
           <div>
             <div>
               <div className={css.infoTop}>
@@ -110,10 +130,16 @@ class ShippingBenefit extends Component {
           <div className={css.itemTitle}>상품리뷰</div>
           <div className={css.contentsWrap}>
             <div className={css.itemContents}>
-              <StarItem /> *0
+              {_.isNil(reviewSummary) === false
+                ? StarItem(reviewSummary.averageReviewsRating, true)
+                : StarItem(0, true)}
             </div>
             <div className={css.itemContents}>
-              *0건
+              {`${
+                _.isNil(reviewSummary) === false
+                  ? reviewSummary.totalReviewsCount
+                  : 0
+              }건`}
               <div className={css.arrowR} />
             </div>
           </div>
