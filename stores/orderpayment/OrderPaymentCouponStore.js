@@ -28,7 +28,7 @@ export default class OrderPaymentCouponStore {
   @action
   getCouponList = () => {
     // API.benefit
-    //   .get(`http://dev.benefit.guhada.com/coupons?page=1&unitPerPage=3`)
+    //   .get(`https://dev.benefit.guhada.com/coupons?page=1&unitPerPage=3`)
     //   .then(res => {
     //     let data = res.data.data;
     //     console.log(res, 'res');

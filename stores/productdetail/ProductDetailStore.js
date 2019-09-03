@@ -85,7 +85,7 @@ export default class ProductDetailStore {
     let Header = {
       method: 'GET',
       url:
-        'http://ec2-52-79-95-78.ap-northeast-2.compute.amazonaws.com:8080/guhada/blockchain/transact-Data/' +
+        'https://ec2-52-79-95-78.ap-northeast-2.compute.amazonaws.com:8080/guhada/blockchain/transact-Data/' +
         this.deals.productId,
       headers: {
         'Content-Type': 'application/json',

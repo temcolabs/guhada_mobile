@@ -173,7 +173,7 @@ export default class MypagePointChargeStore {
       web: true,
     };
 
-    let returnUrl = 'http://dev.guhada.com:8080/chargePointResult';
+    let returnUrl = 'https://dev.guhada.com:8080/chargePointResult';
 
     API.order
       .post(`/payment/payment-point-request`, forms)

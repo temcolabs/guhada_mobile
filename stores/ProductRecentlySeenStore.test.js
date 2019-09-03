@@ -39,7 +39,7 @@ describe('ProductRecentlySeenStore (최근 본 상품)', () => {
     sellerId: 2222,
     sellerName: 'seller',
     season: 'FW',
-    imageUrl: 'http://',
+    imageUrl: 'https://',
   };
 
   beforeEach(() => {

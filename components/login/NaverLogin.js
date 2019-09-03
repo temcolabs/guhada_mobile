@@ -19,7 +19,7 @@ class NaverLogin extends React.Component {
   }
 
   loadNaverLogin = () => {
-    loadScript('http://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js', {
+    loadScript('https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js', {
       id: 'naveridlogin_js_sdk',
       onLoad: () => {
         let naverLogin = new naver.LoginWithNaverId({
