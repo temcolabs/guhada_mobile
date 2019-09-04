@@ -5,6 +5,7 @@ import InquiryItem from './InquiryItem';
 import { inject, observer } from 'mobx-react';
 import { toJS } from 'mobx';
 import NewInquiry from './NewInquiry';
+import _ from 'lodash';
 
 @inject('productdetail', 'login')
 @observer
@@ -26,16 +27,15 @@ class ProductInquiry extends Component {
     const { productdetail, login, tabRefMap } = this.props;
     const { deals, inquiryList } = productdetail;
     console.log('inquiryList', inquiryList);
-    console.log('this.state.tab', this.state.tab);
+    console.log('productdetail.inquiryDetail', productdetail.inquiryDetail);
     return (
       <div className={css.wrap} ref={tabRefMap.inquiryTab}>
         <div className={css.headerWrap}>
           <div className={css.header}>
-            상품문의
-            {productdetail.inquiryDetail
-              ? productdetail.inquiryDetail.totalInquiriesCount.toLocaleString() +
-                ''
-              : '0'}
+            상품문의{` `}
+            {_.isNil(inquiryList)
+              ? `0`
+              : String(inquiryList.totalElements).toLocaleString()}
             건
             {login.loginStatus === 'LOGIN_DONE' ? (
               <div className={css.myinquiry}>
