@@ -13,7 +13,7 @@ export default class AuthMobileStore {
   @observable authData;
   @action
   getCertKey = location => {
-    Axios.get('https://13.209.10.68/phoneCertification').then(res => {
+    API.order.get('phoneCertification').then(res => {
       console.log(res.data.data);
       const key = res.data.data;
       this.authKey = key;
