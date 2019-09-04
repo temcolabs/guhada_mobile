@@ -25,7 +25,8 @@ class ProductInquiry extends Component {
   render() {
     const { productdetail, login, tabRefMap } = this.props;
     const { deals, inquiryList } = productdetail;
-
+    console.log('inquiryList', inquiryList);
+    console.log('this.state.tab', this.state.tab);
     return (
       <div className={css.wrap} ref={tabRefMap.inquiryTab}>
         <div className={css.headerWrap}>
@@ -107,7 +108,7 @@ class ProductInquiry extends Component {
             <div className={css.empty}>작성된 상품 문의가 없습니다.</div>
           )}
         </div>
-        {inquiryList.content !== undefined ? (
+        {inquiryList.content !== undefined && inquiryList.last === false ? (
           <div
             className={css.pageButton}
             onClick={() => productdetail.addInquiry(this.state.tab)}

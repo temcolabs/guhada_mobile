@@ -3,7 +3,8 @@ import css from './InquiryItem.module.scss';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 import memoize from 'memoize-one';
-
+import moment from 'moment';
+import { dateFormat } from 'constant/';
 export class InquiryItem extends Component {
   static propTypes = {
     // createdAt: [2019, 7, 4, 7, 3, 56],
@@ -42,13 +43,15 @@ export class InquiryItem extends Component {
   render() {
     const { folded } = this.state;
     const { inquiry } = this.props;
-
+    console.log('inquiry', inquiry);
     return (
       <>
         <div
           className={cn(css.wrap, { [css.open]: folded === false })}
           onClick={() =>
-            inquiry.status === 'COMPLETED' ? this.setFolded() : null
+            inquiry.status === 'COMPLETED' && inquiry.private !== true
+              ? this.setFolded()
+              : null
           }
         >
           <div className={css.itemWrap}>
@@ -62,7 +65,11 @@ export class InquiryItem extends Component {
             <div className={css.info}>
               <div className={css.nickname}>{inquiry.nickname}</div>
               <div className={css.line} />
-              <div className={css.date}>19.03.19</div>
+              <div className={css.date}>
+                {moment(inquiry.createdAt).format(dateFormat.YYYYMMDD_UI)}
+                {` `}
+                {moment(inquiry.createdAt).format(dateFormat.HHMM)}
+              </div>
             </div>
           </div>
           <div
@@ -88,7 +95,11 @@ export class InquiryItem extends Component {
               <div className={css.answerInfo}>
                 판매자
                 <span className={css.line} />
-                <span className={css.date}>101010</span>
+                <span className={css.date}>
+                  {moment(inquiry.replyAt).format(dateFormat.YYYYMMDD_UI)}
+                  {` `}
+                  {moment(inquiry.replyAt).format(dateFormat.HHMM)}
+                </span>
                 <span className={css.report}>신고</span>
               </div>
             </div>

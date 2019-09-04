@@ -6,9 +6,7 @@ export const dateUnit = {
 };
 
 export const dateFormat = {
-  YYYYMMDD: 'YYYY-MM-DD',
-};
-
-export const dateFormatDot = {
-  YYYYMMDD: 'YYYY.MM.DD',
+  YYYYMMDD_UI: 'YYYY.MM.DD', // UI에 일관적으로 표시할 형식
+  YYYYMMDD: 'YYYY-MM-DD', // 일반적인 포맷. ISO8601 표준
+  HHMM: 'hh:mm',
 };
