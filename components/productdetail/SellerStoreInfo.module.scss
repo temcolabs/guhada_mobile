@@ -128,13 +128,15 @@
             }
 
             & .imageWrap {
-                height: 132px;
-                display: flex;
-                align-items: center;
+                position: relative;
+                width: 100%;
+                padding-bottom: 100%;
             }
 
             & .image {
-                width: calc(100%);
+                position: absolute;
+                width: 100%;
+                height: 100%;
             }
 
             & .contentsWrap {

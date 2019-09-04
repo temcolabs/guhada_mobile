@@ -88,7 +88,7 @@ export default function RelatedAndRecommend({
           );
         })}
       </div>
-      <div className={cn(css.header, css.betweenMargin)}>추천상품</div>
+      <div className={cn(css.header)}>추천상품</div>
       <div className={css.slideWrap}>
         {dealsOfRecommend.map(deal => {
           return (
