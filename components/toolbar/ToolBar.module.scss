@@ -6,8 +6,10 @@
     z-index: 103;
     display: flex;
     position: fixed;
-    left: 0;
     bottom: 0;
+    max-width: inherit;
+    left: 50%;
+    transform: translate(-50%, 0);
 
     & .itemWrap {
         width: 20%;

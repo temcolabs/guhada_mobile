@@ -3,7 +3,6 @@
 .wrap {
   position: fixed;
   top: 0;
-  left: 0;
   display: flex;
   align-items: center;
   height: 60px;
@@ -11,6 +10,9 @@
   background-color: #ffffff;
   width: 100%;
   z-index: 101;
+  max-width: inherit;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 
 .backButton {
