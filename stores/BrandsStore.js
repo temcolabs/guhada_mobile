@@ -3,7 +3,7 @@ import { observable, action, computed, toJS, runInAction } from 'mobx';
 import { getBrandTitle } from '../utils';
 import API from 'lib/API';
 import findChoKorean from 'lib/findChoKorean';
-
+import _ from 'lodash';
 const isServer = typeof window === 'undefined';
 
 export default class BrandsStore {
@@ -274,23 +274,26 @@ export default class BrandsStore {
     let koreanBrands = brands;
     // 브랜드 한글 정렬
     koreanBrands.sort(function(a, b) {
-      var x = a.nameKo.toLowerCase();
-      var y = b.nameKo.toLowerCase();
+      var x = a.nameKo;
+      var y = b.nameKo;
       return x < y ? -1 : x > y ? 1 : 0;
     });
 
     koreanBrands.map(brand => {
       let pattern_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
-      let brandKor = brand.nameKo.substring(0, 1).toUpperCase();
+      let brandKor;
+      if (!_.isNil(brand.nameKo)) {
+        brandKor = brand.nameKo.substring(0, 1).toUpperCase();
 
-      if (flags === 'category') {
-        koreanList['ALL'].push(brand);
-      }
+        if (flags === 'category') {
+          koreanList['ALL'].push(brand);
+        }
 
-      if (!pattern_kor.test(brandKor)) {
-        koreanList['숫자'].push(brand);
-      } else {
-        koreanList[findChoKorean(brandKor)].push(brand);
+        if (!pattern_kor.test(brandKor)) {
+          koreanList['숫자'].push(brand);
+        } else {
+          koreanList[findChoKorean(brandKor)].push(brand);
+        }
       }
     });
     if (flags === 'search') {
