@@ -2,6 +2,7 @@ import React from 'react';
 import css from './ProductTable.module.scss';
 import cn from 'classnames';
 import { autoHypenTele } from 'utils';
+import _ from 'lodash';
 
 export default function ShippingReturn({
   deals = [
@@ -75,14 +76,24 @@ export default function ShippingReturn({
       <div className={css.subHeader}>AS안내사항</div>
       <table className={cn(css.wrap, css.noMargin)}>
         <tbody>
-          <tr>
-            <th>AS 안내내용</th>
-            <td>{deals.asInfo}</td>
-          </tr>
-          <tr>
-            <th>As 전화번호</th>
-            <td>{autoHypenTele(deals.asTelephone)}</td>
-          </tr>
+          {_.isNil(deals.asInfo) === false && (
+            <tr>
+              <th>AS 안내내용</th>
+              <td>{deals.asInfo}</td>
+            </tr>
+          )}
+          {_.isNil(deals.asTelephone) === false && (
+            <tr>
+              <th>As 전화번호</th>
+              <td>{autoHypenTele(deals.asTelephone)}</td>
+            </tr>
+          )}
+          {_.isNil(deals.asDesc) === false && (
+            <tr>
+              <th>판매자 특이사항</th>
+              <td>{deals.asDesc}</td>
+            </tr>
+          )}
         </tbody>
       </table>
       <div className={css.subHeader}>교환/반품 안내</div>
@@ -92,10 +103,6 @@ export default function ShippingReturn({
       </div>
       <table className={cn(css.wrap, css.noMargin)}>
         <tbody>
-          <tr>
-            <th>판매자 지정택배사</th>
-            <td>{deals.shipping.claimShipCompanyName}</td>
-          </tr>
           <tr>
             <th>반품배송비</th>
             <td>{`${deals.shipping.returnShipExpense.toLocaleString()} 원`}</td>

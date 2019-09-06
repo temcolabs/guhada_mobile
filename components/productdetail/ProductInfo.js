@@ -18,15 +18,15 @@ export default function ProductInfo({
         <tbody>
           <tr>
             <th>상품상태</th>
-            <td>{deals.productStatus}</td>
+            <td>{deals.productStatusName}</td>
           </tr>
           <tr>
             <th>상품번호</th>
-            <td>{deals.productNumber}</td>
+            <td>{deals.dealId}</td>
           </tr>
           <tr>
             <th>원산지</th>
-            <td>{deals.productOriginType}</td>
+            <td>{deals.originAreaName}</td>
           </tr>
         </tbody>
       </table>
