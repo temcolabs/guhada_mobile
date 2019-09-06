@@ -90,7 +90,7 @@ module.exports = {
   required_without: ':values이(가) 없는 경우 :attribute 필드는 필수입니다.',
   required_without_all:
     ':values이(가) 모두 없는 경우 :attribute 필드는 필수입니다.',
-  same: ':attribute는 일치해야 합니다.',
+  same: ':attribute가 일치하지 않습니다.',
   size: {
     numeric: ':attribute은(는) :size (이)여야 합니다.',
     file: ':attribute은(는) :size킬로바이트여야 합니다.',
