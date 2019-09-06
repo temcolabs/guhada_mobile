@@ -1,11 +1,12 @@
 import validatorjs from 'validatorjs';
-// import validatorjs from '../../js/validatorjs';
 import MobxReactForm from 'mobx-react-form';
 import dvr from 'mobx-react-form/lib/validators/DVR';
+import message from './validatorMessage';
 
 export default class Form extends MobxReactForm {
   plugins() {
     validatorjs.useLang('ko');
+    validatorjs.setMessages('ko', message);
     return {
       dvr: dvr({
         package: validatorjs,
@@ -29,8 +30,7 @@ export default class Form extends MobxReactForm {
                   /^(?=.*?[A-Za-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,15}$/
                 );
               },
-              message:
-                '특수문자, 영문 대소문자 그리고 숫자로 구성되어 있어야 합니다.',
+              message: '8~15자 영문 대 소문자, 숫자, 특수문자를 사용하세요.',
             },
           };
 

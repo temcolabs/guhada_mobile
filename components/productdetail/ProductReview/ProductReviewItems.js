@@ -4,7 +4,9 @@ import { toJS } from 'mobx';
 import _ from 'lodash';
 import url from '@storybook/api/dist/modules/url';
 import StarItem from '../StarItem';
-import { yyyymmddhhmm } from 'utils';
+import moment from 'moment';
+import { dateFormat } from 'constant/';
+
 export default function ProductReviewItems({
   review = {
     bookmarksUserIds: 0,
@@ -93,7 +95,9 @@ export default function ProductReviewItems({
       </div>
       <div className={css.contentWrap}>{review.review.textReview}</div>
       <div className={css.dateWrap}>
-        {yyyymmddhhmm(review.review.createdAt)}
+        {moment(review.review.createdAt).format(dateFormat.YYYYMMDD_UI)}
+        {` `}
+        {moment(review.review.createdAt).format(dateFormat.HHMM)}
       </div>
       <div className={css.imageWrap}>
         {!_.isNil(review.reviewPhotos) ? (

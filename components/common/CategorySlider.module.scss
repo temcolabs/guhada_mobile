@@ -11,12 +11,13 @@
     background-color: #ffffff;
     z-index: 101;
     padding: 0 20px;
+    max-width: inherit;
 
     & .arrowIcon {
         width: 35px;
         height: 43px;
-        position: fixed;
-        top: 60px;
+        position: absolute;
+        top: 0;
         right: 0;
     }
 

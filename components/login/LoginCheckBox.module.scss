@@ -57,7 +57,8 @@
         height: 20px;
         border: 1px solid #a0a0a0;
         margin-right: 7px;
-
+        background-image: none;
+        background-size: 0;
     }
 
     input[type='checkbox']:checked+label span {
@@ -99,7 +100,8 @@
         height: 28px;
         border: 1px solid #a0a0a0;
         margin-right: 11px;
-
+        background-image: none;
+        background-size: 0;
     }
 
     input[type='checkbox']:checked+label span {
@@ -109,4 +111,8 @@
         background-repeat: no-repeat;
         border-color: #ffffff;
     }
+}
+
+input[type='checkbox'] {
+    display: none;
 }

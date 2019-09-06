@@ -11,13 +11,12 @@ import ProductReviewEmpty from './ProductReviewEmpty';
 @observer
 class ProductReview extends Component {
   render() {
-    const { productreview } = this.props;
+    const { productreview, tabRefMap } = this.props;
     const review = productreview.review;
     const reviewSummary = productreview.reviewSummary;
-
     return (
       <SectionWrap>
-        <ReviewSummary reviewSummary={reviewSummary} />
+        <ReviewSummary reviewSummary={reviewSummary} tabRefMap={tabRefMap} />
         <ReviewTab
           totalElements={review.totalElements}
           setReviewTab={productreview.setReviewTab}

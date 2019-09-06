@@ -31,6 +31,7 @@ export default function ReviewSummary({
     },
     totalReviewsCount: 0,
   },
+  tabRefMap,
 }) {
   const [fold, setFold] = useState(false);
   let summary = [
@@ -52,7 +53,7 @@ export default function ReviewSummary({
 
   return (
     <div>
-      <div className={css.wrap}>
+      <div className={css.wrap} ref={tabRefMap.reviewTab}>
         <div className={css.headerWrap}>
           <div className={css.header}>총 리뷰 평점</div>
           <div className={css.starWrap}>

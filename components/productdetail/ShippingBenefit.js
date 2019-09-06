@@ -22,10 +22,10 @@ class ShippingBenefit extends Component {
       seller,
       productreview,
       shipExpenseType,
+      tabRefMap,
       productoption,
     } = this.props;
     const reviewSummary = productreview.reviewSummary;
-    console.log('reviewSummary', productreview.reviewSummary);
     return (
       <div className={css.wrap}>
         <div className={css.itemWrap}>
@@ -140,7 +140,15 @@ class ShippingBenefit extends Component {
                   ? reviewSummary.totalReviewsCount
                   : 0
               }건`}
-              <div className={css.arrowR} />
+              <div
+                className={css.arrowR}
+                onClick={() =>
+                  window.scrollTo(
+                    0,
+                    tabRefMap.reviewTab.current.offsetTop - 100
+                  )
+                }
+              />
             </div>
           </div>
         </div>

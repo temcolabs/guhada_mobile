@@ -1,15 +1,21 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, useEffect } from 'react';
 import css from './MainSectionItem.module.scss';
 import cn from 'classnames';
-import { toJS } from 'mobx';
 
 import { mainSectionCategory } from 'constant/home/mainSectionCategory';
 import SectionItem from './SectionItem';
 import { LinkRoute } from 'lib/router';
 
-export default function MainSectionItem({ title = 'PLUS ITEM', items }) {
-  const [isCategory, setIsCategory] = useState('');
+export default function MainSectionItem({
+  title = 'PLUS ITEM',
+  items,
+  categoryId,
+}) {
+  const [isCategory, setIsCategory] = useState(categoryId);
 
+  useEffect(() => {
+    setIsCategory(categoryId);
+  });
   return (
     <>
       <div className={css.wrap}>

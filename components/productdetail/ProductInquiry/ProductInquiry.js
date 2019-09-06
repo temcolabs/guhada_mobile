@@ -5,6 +5,7 @@ import InquiryItem from './InquiryItem';
 import { inject, observer } from 'mobx-react';
 import { toJS } from 'mobx';
 import NewInquiry from './NewInquiry';
+import _ from 'lodash';
 
 @inject('productdetail', 'login')
 @observer
@@ -23,18 +24,18 @@ class ProductInquiry extends Component {
   };
 
   render() {
-    const { productdetail, login } = this.props;
+    const { productdetail, login, tabRefMap } = this.props;
     const { deals, inquiryList } = productdetail;
-
+    console.log('inquiryList', inquiryList);
+    console.log('productdetail.inquiryDetail', productdetail.inquiryDetail);
     return (
-      <div className={css.wrap}>
+      <div className={css.wrap} ref={tabRefMap.inquiryTab}>
         <div className={css.headerWrap}>
           <div className={css.header}>
-            상품문의
-            {productdetail.inquiryDetail
-              ? productdetail.inquiryDetail.totalInquiriesCount.toLocaleString() +
-                ''
-              : '0'}
+            상품문의{` `}
+            {_.isNil(inquiryList)
+              ? `0`
+              : String(inquiryList.totalElements).toLocaleString()}
             건
             {login.loginStatus === 'LOGIN_DONE' ? (
               <div className={css.myinquiry}>
@@ -107,7 +108,7 @@ class ProductInquiry extends Component {
             <div className={css.empty}>작성된 상품 문의가 없습니다.</div>
           )}
         </div>
-        {inquiryList.content !== undefined ? (
+        {inquiryList.content !== undefined && inquiryList.last === false ? (
           <div
             className={css.pageButton}
             onClick={() => productdetail.addInquiry(this.state.tab)}

@@ -39,10 +39,12 @@ class Signup extends Component {
               <LoginCheckBox
                 field={form.$('agreePurchaseTos')}
                 className={'termOption'}
+                href={`https://stg.guhada.com/terms/purchase`}
               />
               <LoginCheckBox
                 field={form.$('agreeCollectPersonalInfoTos')}
                 className={'termOption'}
+                href={`https://stg.guhada.com/terms/personal`}
               />
             </div>
             <div>
@@ -53,6 +55,7 @@ class Signup extends Component {
               <LoginCheckBox
                 field={form.$('agreeSaleTos')}
                 className={'termOption'}
+                href={`https://stg.guhada.com/terms/sale`}
               />
               <div>
                 <LoginCheckBox

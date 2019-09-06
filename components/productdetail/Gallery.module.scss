@@ -1,13 +1,17 @@
 @import '~slick-carousel/slick/slick.css';
 @import '~slick-carousel/slick/slick-theme.css';
+
 .detail__gallery {
   position: relative;
   width: 100%;
+  overflow-x: hidden;
+
   div {
     img {
       width: 100%;
     }
   }
+
   .index__box {
     position: absolute;
     bottom: 4%;

@@ -3,7 +3,6 @@
 .wrap {
   position: fixed;
   top: 0;
-  left: 0;
   display: flex;
   align-items: center;
   height: 60px;
@@ -11,6 +10,9 @@
   background-color: #ffffff;
   width: 100%;
   z-index: 101;
+  max-width: inherit;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 
 .backButton {
@@ -28,7 +30,7 @@
 .menuButton {
   width: 30px;
   height: 30px;
-  background: url('/static/icon/Menu.png') no-repeat center;
+  background: url('/static/icon/top_btn_menu.png') no-repeat center;
   background-size: 30px;
 
   &:hover {
@@ -41,7 +43,7 @@
   height: 22px;
   margin-left: 10px;
   background: url('/static/Guhada-LOGO.png') no-repeat center;
-  background-size: contain;
+  background-size: 110px 30px;
 
   &:hover {
     cursor: pointer;

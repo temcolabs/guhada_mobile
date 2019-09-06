@@ -11,6 +11,9 @@ class LoginInput extends Component {
       <div className={cn(css.default)} style={style}>
         <input {...field.bind()} maxLength={maxLength} />
         {countDown ? <div className={css.countDown}>{countDown}</div> : null}
+        {field.error !== null ? (
+          <div className={css.error}>{field.error}</div>
+        ) : null}
       </div>
     );
   }

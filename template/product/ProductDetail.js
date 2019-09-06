@@ -29,6 +29,12 @@ class ProductDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.tabRefMap = {
+      detailTab: React.createRef(),
+      inquiryTab: React.createRef(),
+      sellerstoreTab: React.createRef(),
+      reviewTab: React.createRef(),
+    };
   }
 
   render() {
@@ -71,13 +77,14 @@ class ProductDetail extends React.Component {
           satisfaction={satisfaction}
           seller={seller}
           shipExpenseType={productoption.shipExpenseType}
+          tabRefMap={this.tabRefMap}
         />
 
         {/* 상세정보, 상품문의, 셀러스토어 탭 */}
-        <ProductTab />
+        <ProductTab tabRefMap={this.tabRefMap} />
 
         {/* 상품 상세 내용 */}
-        <ProductDetailContents />
+        <ProductDetailContents deals={deals} tabRefMap={this.tabRefMap} />
 
         {/* 상품 태그 */}
         <ItemWrapper header={'태그'}>
@@ -91,11 +98,11 @@ class ProductDetail extends React.Component {
         {SeparateLine}
 
         {/* 상품 리뷰 */}
-        <ProductReview />
+        <ProductReview tabRefMap={this.tabRefMap} />
         {SeparateLine}
         {/* 상품 문의 */}
         <SectionWrap>
-          <ProductInquiry />
+          <ProductInquiry tabRefMap={this.tabRefMap} />
         </SectionWrap>
         {SeparateLine}
 
@@ -133,6 +140,7 @@ class ProductDetail extends React.Component {
             dealsOfSellerStore={dealsOfSellerStore}
             followers={followers}
             seller={seller}
+            tabRefMap={this.tabRefMap}
           />
         </SectionWrap>
       </DefaultLayout>

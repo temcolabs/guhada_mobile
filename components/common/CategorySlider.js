@@ -15,10 +15,12 @@ class CategorySlider extends Component {
     this.setState({
       selected: id,
     });
+    const { setNavDealId } = this.props;
+    setNavDealId(id);
   };
+
   render() {
-    let { category, searchitem, router } = this.props;
-    // let query = router.query;
+    let { category } = this.props;
     let categoryList;
 
     if (category) categoryList = category;
