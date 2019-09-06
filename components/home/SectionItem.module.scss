@@ -52,7 +52,7 @@ $contentsHeight : 117px;
     & .dealName {
         height: 31px;
         font-size: 12px;
-        font-weight: normal;
+        font-weight: 300;
         color: #111111;
         overflow: hidden;
         margin-bottom: 10px;
@@ -75,15 +75,14 @@ $contentsHeight : 117px;
             font-weight: normal;
             color: #777777;
             text-decoration-line: line-through;
-            margin-right: 10px;
+            margin-right: 8px;
         }
 
         & .discountRate {
             font-size: 13px;
             font-weight: bold;
             color: #5d2ed1;
-            position: absolute;
-            right: 0;
+
         }
 
     }
@@ -99,6 +98,7 @@ $contentsHeight : 117px;
             background-color: #ffffff;
             margin-right: 3px;
             font-size: 10px;
+            line-height: 11px;
             float: left;
             text-align: center;
 

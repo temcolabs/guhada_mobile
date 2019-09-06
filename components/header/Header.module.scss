@@ -30,7 +30,7 @@
 .menuButton {
   width: 30px;
   height: 30px;
-  background: url('/static/icon/Menu.png') no-repeat center;
+  background: url('/static/icon/top_btn_menu.png') no-repeat center;
   background-size: 30px;
 
   &:hover {
@@ -43,7 +43,7 @@
   height: 22px;
   margin-left: 10px;
   background: url('/static/Guhada-LOGO.png') no-repeat center;
-  background-size: contain;
+  background-size: 110px 30px;
 
   &:hover {
     cursor: pointer;
