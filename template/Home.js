@@ -31,13 +31,28 @@ class Home extends React.Component {
     return (
       <DefaultLayout title={null} topLayout={'main'}>
         {/* TODO :: 카테고리 네비게이터 */}
-        <CategorySlider category={mainCategory.item} />
+        <CategorySlider
+          category={mainCategory.item}
+          setNavDealId={main.setNavDealId}
+        />
         {/* TODO :: 임시로 만들어놓은 슬라이드 배너
         현재 dot 구현은 되어 있지 않음 */}
         <MainSlideBanner imageFile={imageFile} />
-        <MainSectionItem title={'PLUS ITEM'} items={main.plusItem} />
-        <MainSectionItem title={'NEW ARRIVALS'} items={main.newArrivals} />
-        <MainSectionItem title={'BEST ITEM'} items={main.hits} />
+        <MainSectionItem
+          title={'PLUS ITEM'}
+          items={main.plusItem}
+          categoryId={main.navDealId}
+        />
+        <MainSectionItem
+          title={'NEW ARRIVALS'}
+          items={main.newArrivals}
+          categoryId={main.navDealId}
+        />
+        <MainSectionItem
+          title={'BEST ITEM'}
+          items={main.hits}
+          categoryId={main.navDealId}
+        />
       </DefaultLayout>
     );
   }

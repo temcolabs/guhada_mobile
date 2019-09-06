@@ -2,11 +2,19 @@ import React, { Component } from 'react';
 import css from './LoginCheckBox.module.scss';
 import cn from 'classnames';
 import { observer } from 'mobx-react';
+import { openPopupCenter } from 'lib/dom';
 
 @observer
 class LoginCheckBox extends Component {
+  openTermPopup = url => {
+    const myWidth = document.documentElement.clientWidth;
+    const myHeight = document.documentElement.clientHeight;
+
+    openPopupCenter(url, 'term', myWidth, myHeight);
+  };
+
   render() {
-    const { children, field, id, className, big } = this.props;
+    const { children, field, id, className, big, href } = this.props;
     return (
       <div
         className={cn(
@@ -31,7 +39,12 @@ class LoginCheckBox extends Component {
           <span />
           <div>{children ? children : field.label}</div>
           {className === 'termOption' ? (
-            <div className={css.termText}>보기</div>
+            <a
+              className={css.termText}
+              onClick={() => this.openTermPopup(href)}
+            >
+              보기
+            </a>
           ) : null}
         </label>
       </div>

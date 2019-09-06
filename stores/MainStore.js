@@ -9,12 +9,19 @@ export default class MainStore {
   @observable plusItem = [];
   @observable newArrivals = [];
   @observable hits = [];
+  @observable navDealId = '';
+
   constructor() {
     this.getPlusItem();
     this.getNewArrivals();
     this.getHits();
   }
 
+  @action
+  setNavDealId = id => {
+    this.navDealId = id;
+    console.log('id', toJS(id));
+  };
   @action
   getPlusItem = () => {
     API.product

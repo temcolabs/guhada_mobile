@@ -91,4 +91,14 @@ export default {
         form.$('optionalAgree').set(false);
       }
   },
+
+  onBlur(field) {
+    if (
+      field.path === 'email' ||
+      field.path === 'password' ||
+      field.path === 'passwordConfirm'
+    ) {
+      field.validate({ showErrors: true });
+    }
+  },
 };
