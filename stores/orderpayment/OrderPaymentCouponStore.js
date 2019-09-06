@@ -27,22 +27,26 @@ export default class OrderPaymentCouponStore {
   };
   @action
   getCouponList = () => {
-    // API.benefit
-    //   .get(`https://dev.benefit.guhada.com/coupons?page=1&unitPerPage=3`)
-    //   .then(res => {
-    //     let data = res.data.data;
-    //     console.log(res, 'res');
-    //     if (res.data.resultCode === 200) {
-    //       this.couponList = data.content;
-    //       console.log(this.couponList, 'this.couponList');
-    //     }
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //     this.root.alert.showAlert({
-    //       content: `${err.data.message}`,
-    //     });
-    //   });
-    this.modalShow();
+    API.benefit
+      .get(`https://dev.benefit.guhada.com/coupons?page=1&unitPerPage=3`)
+      .then(res => {
+        let data = res.data.data;
+        console.log(res, 'res');
+        if (res.data.resultCode === 200) {
+          this.couponList = data.content;
+          console.log(this.couponList, 'this.couponList');
+          this.modalShow();
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        this.root.alert.showAlert({
+          content: `ERROR`,
+        });
+        return false;
+        // this.root.alert.showAlert({
+        //   content: `${err.data.message}`,
+        // });
+      });
   };
 }

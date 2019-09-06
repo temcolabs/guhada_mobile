@@ -56,7 +56,7 @@ class ShippingAddress extends Component {
                 orderpayment.selfShippingRequestOption(event, '기본배송');
               }}
               placeholder="50자 내외로 입력해주세요"
-              maxlength="50"
+              maxLength="50"
             />
           </div>
         ) : null}

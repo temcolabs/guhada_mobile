@@ -1,3 +1,4 @@
+@import 'styles/mixins/index';
 .wrap {
   margin-top: 40px;
   .finalTop {
@@ -60,6 +61,11 @@
         font-weight: bold;
         color: #444;
         text-align: center;
+
+        @include break350 {
+          font-size: 12px;
+        }
+
         .shippingType {
           font-size: 12px;
           color: #9a9fa8;
@@ -89,6 +95,9 @@
       font-size: 16px;
       font-weight: bold;
       color: #444;
+      @include break350 {
+        font-size: 12px;
+      }
 
       .equalImage {
         background: url('/static/icon/m_equal_btn.png') no-repeat;
@@ -111,8 +120,17 @@
       font-size: 18px;
       font-weight: bold;
       color: #5d2de1;
+
+      @include break350 {
+        font-size: 12px;
+      }
+
       span {
         font-size: 14px;
+
+        @include break350 {
+          font-size: 12px;
+        }
       }
     }
   }

@@ -1,0 +1,8 @@
+// 미디어 쿼리 브레이크 포인트.
+$break-350: 350px;
+
+@mixin break350 {
+  @media (max-width: #{$break-350}) {
+    @content;
+  }
+}

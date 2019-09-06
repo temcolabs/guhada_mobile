@@ -5,11 +5,24 @@ import CouponModal from './modal/CouponModal';
 @inject('orderPaymentPoint', 'orderPaymentCoupon')
 @observer
 class Benefit extends Component {
+  state = {
+    tr: false,
+  };
   componentDidMount() {
     this.props.orderPaymentPoint.getAvailablePoint();
     this.props.orderPaymentPoint.getMyPoint();
     this.props.orderPaymentPoint.getDueSavePoint();
+
+    this.setState({
+      tr: !this.state.tr,
+    });
   }
+
+  // componentDidUpdate() {
+  //   this.setState({
+  //     tr: true,
+  //   });
+  // }
   render() {
     let { orderPaymentPoint, orderPaymentCoupon } = this.props;
     return (
@@ -28,14 +41,21 @@ class Benefit extends Component {
               <div>적용가능한 쿠폰을 선택해주세요.</div>
               <div />
             </div>
-            <div className={css.couponAutoSelect}>자동 적용</div>
+            {/* <div className={css.couponAutoSelect}>자동 적용</div> */}
           </div>
         </div>
 
         <CouponModal isVisible={orderPaymentCoupon.status.couponModal} />
 
         <div className={css.point}>
-          <div className={css.pointTitle}>포인트</div>
+          <div className={css.pointTitle}>
+            <div>포인트</div>
+            <div>
+              (사용가능{' '}
+              <span>{orderPaymentPoint.availablePoint.toLocaleString()}</span>
+              P)
+            </div>
+          </div>
           <div className={css.pointSelectBox}>
             <div className={css.pointSelect}>
               <input
@@ -46,10 +66,6 @@ class Benefit extends Component {
                 }}
                 maxLength="11"
               />
-              <div className={css.myPoint}>
-                사용가능
-                <span>{` ${orderPaymentPoint.availablePoint.toLocaleString()}P `}</span>
-              </div>
             </div>
             <div
               className={css.pointAutoSelect}

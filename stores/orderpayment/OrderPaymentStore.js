@@ -137,6 +137,7 @@ export default class OrderPaymentStore {
         }
       })
       .catch(err => {
+        console.log(err, 'err');
         if (err.data.result === 'NEED_TO_LOGIN') {
           this.root.alert.showAlert({
             content: `${err.data.message}`,
