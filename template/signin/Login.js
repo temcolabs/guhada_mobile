@@ -138,6 +138,7 @@ class Login extends React.Component {
               <FacebookLogin
                 appId={snsAppKey.FACEBOOK}
                 autoLoad={false}
+                fields="name,email"
                 callback={login.responseFacebook}
                 cookie={true}
                 xfbml={true}
