@@ -2,6 +2,7 @@ import React from 'react';
 import { observable, action } from 'mobx';
 import { isServer } from 'lib/isServer';
 import API from 'lib/API';
+import { devLog } from 'lib/devLog';
 
 export default class ProductOptionStore {
   constructor(root) {
@@ -337,7 +338,7 @@ export default class ProductOptionStore {
         const { data } = res;
         if (res.status === 200) {
           this.benefitCoupon = data.data;
-          console.log(this.benefitCoupon, 'this.benefitCoupon');
+          devLog(this.benefitCoupon, 'this.benefitCoupon');
         }
       })
       .catch(err => {

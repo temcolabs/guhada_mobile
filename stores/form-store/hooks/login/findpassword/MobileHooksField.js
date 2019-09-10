@@ -1,11 +1,8 @@
-import Axios from 'axios';
-import Router from 'next/router';
 import API from 'lib/API';
 import Form from '../../../_.forms';
-import { autoHypenTele, autoHypenPhone } from 'utils';
 import { root } from 'store';
-import { toJS } from 'mobx';
 import autoTelNumber from 'lib/autoTelNumber';
+import { devLog } from 'lib/devLog';
 
 export default {
   onInit() {
@@ -19,8 +16,8 @@ export default {
 
   onSuccess(field) {
     let form = Form.findPasswordMobile;
-    console.log(field);
-    console.log('-> onSubmit HOOK -', field.path, field.value);
+    devLog(field);
+    devLog('-> onSubmit HOOK -', field.path, field.value);
 
     let countdown = root.countdown;
 
@@ -47,12 +44,12 @@ export default {
   },
 
   onError(field) {
-    console.log('Form Values', field.values());
-    console.log('Form Errors', field.errors());
+    devLog('Form Values', field.values());
+    devLog('Form Errors', field.errors());
   },
 
   onSubmit(instance) {
-    console.log(
+    devLog(
       '-> onSubmit HOOK -',
       instance.path || 'form',
       '- isValid?',
@@ -61,12 +58,12 @@ export default {
   },
 
   onChange(field) {
-    console.log('-> onChange HOOK -', field.path, field.value);
+    devLog('-> onChange HOOK -', field.path, field.value);
 
     autoTelNumber(field);
   },
 
   onBlur: field => {
-    console.log('-> onBlur HOOK -', field.path, field.value);
+    devLog('-> onBlur HOOK -', field.path, field.value);
   },
 };

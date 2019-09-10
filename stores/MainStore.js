@@ -20,7 +20,6 @@ export default class MainStore {
   @action
   setNavDealId = id => {
     this.navDealId = id;
-    console.log('id', toJS(id));
   };
   @action
   getPlusItem = () => {

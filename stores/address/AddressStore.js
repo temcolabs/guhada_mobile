@@ -4,6 +4,7 @@ import { autoHypenPhone } from '../../utils';
 import API from 'lib/API';
 import _ from 'lodash';
 import Router from 'next/router';
+import { devLog } from 'lib/devLog';
 
 const isServer = typeof window === 'undefined';
 export default class AddressStore {
@@ -50,12 +51,11 @@ export default class AddressStore {
                 recipientMobile: autoHypenPhone(address.recipientMobile),
               });
             });
-            console.log(this.addressList.list, 'this.addressList.list');
+            devLog(this.addressList.list, 'this.addressList.list');
             this.status.pageStatus = true;
           }
         })
         .catch(err => {
-          // console.log(err);
           this.root.alert.showAlert({
             content: err.data.message,
           });
@@ -89,7 +89,7 @@ export default class AddressStore {
     for (let i = 0; i < this.addressList.list.length; i++) {
       if (this.addressList.list[i].id === id) {
         this.addressList.tempEditAddress = { ...this.addressList.list[i] };
-        console.log(this.addressList.tempEditAddress, '123');
+        devLog(this.addressList.tempEditAddress, '123');
 
         return false;
       }
@@ -159,7 +159,7 @@ export default class AddressStore {
         });
       })
       .catch(res => {
-        console.log(res);
+        devLog(res);
         this.root.alert.showAlert({
           content: res.data.message,
         });
@@ -241,7 +241,7 @@ export default class AddressStore {
         });
       })
       .catch(err => {
-        console.log(err);
+        devLog(err);
         this.root.alert.showAlert({
           content: res.data.message,
         });

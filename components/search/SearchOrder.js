@@ -31,7 +31,6 @@ class SearchOrder extends Component {
               })}
               onClick={() => (
                 setSearchOrderFilter('DATE'),
-                console.log(query),
                 toSearch(Object.assign({}, query, { order: 'DATE' }))
               )}
             >

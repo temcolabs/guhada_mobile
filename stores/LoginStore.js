@@ -10,6 +10,7 @@ import { isBrowser } from 'lib/isServer';
 import { pushRoute } from 'lib/router';
 import { snsType } from 'constant/sns';
 import _ from 'lodash';
+import { devLog } from 'lib/devLog';
 const isServer = typeof window === 'undefined';
 
 export default class LoginStore {
@@ -169,7 +170,7 @@ export default class LoginStore {
 
   @action
   logout = () => {
-    console.log(`LoginStore.logout`);
+    devLog(`LoginStore.logout`);
 
     // API 콜에 사용하는 토큰 제거
     API.removeAccessToken();
@@ -199,7 +200,7 @@ export default class LoginStore {
    */
   @action
   responseFacebook = response => {
-    console.log('facebook', response);
+    devLog('facebook', response);
     let data = response;
 
     // API.user
@@ -210,7 +211,7 @@ export default class LoginStore {
     //   })
     //   .then(function(res) {
     //     let data = res.data;
-    //     console.log(data);
+    //     devLog(data);
     //     if (data.resultCode === 200) {
     //       Cookies.set(key.ACCESS_TOKEN, data.data.accessToken);
     //       Cookies.set(key.REFRESH_TOKEN, data.data.refreshToken);
@@ -223,7 +224,7 @@ export default class LoginStore {
 
   @action
   responseGoogle = response => {
-    console.log('google', response);
+    devLog('google', response);
     let data = response;
     let login = this;
 
@@ -248,7 +249,7 @@ export default class LoginStore {
       })
       .catch(e => {
         console.error(e);
-        console.log('e.status', e.status);
+        devLog('e.status', e.status);
         if (e.status === 200) {
           if (_.get(e, 'data.data.resultCode') === 5004) {
             pushRoute('/login/termagreesns');
@@ -273,7 +274,7 @@ export default class LoginStore {
       })
       .then(function(res) {
         let data = res.data;
-        console.log(data);
+        devLog(data);
 
         if (data.resultCode === 200) {
           Cookies.set(key.ACCESS_TOKEN, data.data.accessToken);
@@ -286,11 +287,11 @@ export default class LoginStore {
           });
           pushRoute('/');
         } else {
-          console.log('data.message', data.message);
+          devLog('data.message', data.message);
         }
       })
       .catch(e => {
-        console.log('e', e);
+        devLog('e', e);
       });
 
     // let data = response || {};
@@ -308,7 +309,7 @@ export default class LoginStore {
     //       'Content-Type': 'application/json',
     //     },
     //   };
-    //   console.log(Header);
+    //   devLog(Header);
     //   API.user
     //     .post('/googleLogin', {
     //       email: data.profileObj.email,
@@ -317,7 +318,7 @@ export default class LoginStore {
     //     })
     //     .then(function(res) {
     //       let data = res.data;
-    //       console.log(data);
+    //       devLog(data);
     //       if (data.resultCode === 200) {
     //         Cookies.set(key.ACCESS_TOKEN, data.data.accessToken);
     //         Cookies.set(key.REFRESH_TOKEN, data.data.refreshToken);
@@ -333,7 +334,7 @@ export default class LoginStore {
   };
   @action
   responseKakao = response => {
-    console.log('kakao', response);
+    devLog('kakao', response);
     let data = response;
     let login = this;
 
@@ -358,7 +359,7 @@ export default class LoginStore {
       })
       .catch(e => {
         console.error(e);
-        console.log('e.status', e.status);
+        devLog('e.status', e.status);
         if (e.status === 200) {
           if (_.get(e, 'data.data.resultCode') === 5004) {
             pushRoute('/login/termagreesns');
@@ -383,7 +384,7 @@ export default class LoginStore {
       })
       .then(function(res) {
         let data = res.data;
-        console.log(data);
+        devLog(data);
 
         if (data.resultCode === 200) {
           Cookies.set(key.ACCESS_TOKEN, data.data.accessToken);
@@ -396,17 +397,17 @@ export default class LoginStore {
           });
           pushRoute('/');
         } else {
-          console.log('data.message', data.message);
+          devLog('data.message', data.message);
         }
       })
       .catch(e => {
-        console.log('e', e);
+        devLog('e', e);
       });
   };
 
   @action
   responseNaver = response => {
-    console.log('naver', response);
+    devLog('naver', response);
     let data = response;
     let login = this;
 
@@ -431,7 +432,7 @@ export default class LoginStore {
       })
       .catch(e => {
         console.error(e);
-        console.log('e.status', e.status);
+        devLog('e.status', e.status);
         if (e.status === 200) {
           if (_.get(e, 'data.data.resultCode') === 5004) {
             pushRoute('/login/termagreesns');
@@ -456,7 +457,7 @@ export default class LoginStore {
       })
       .then(function(res) {
         let data = res.data;
-        console.log(data);
+        devLog(data);
 
         if (data.resultCode === 200) {
           Cookies.set(key.ACCESS_TOKEN, data.data.accessToken);
@@ -469,11 +470,11 @@ export default class LoginStore {
           });
           pushRoute('/');
         } else {
-          console.log('data.message', data.message);
+          devLog('data.message', data.message);
         }
       })
       .catch(e => {
-        console.log('e', e);
+        devLog('e', e);
       });
   };
 }

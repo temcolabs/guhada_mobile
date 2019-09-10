@@ -1,6 +1,7 @@
 import { observable, action, toJS } from 'mobx';
 import API from 'lib/API';
 import Axios from 'axios';
+import { devLog } from 'lib/devLog';
 
 const isServer = typeof window === 'undefined';
 
@@ -84,7 +85,7 @@ export default class ProductReviewStore {
       })
       .then(res => {
         let data = res.data;
-        // console.log('data', data);
+
         if (data.resultCode === 200) {
           this.review = data.data;
         } else if (data.resultCode === 5004) {
@@ -112,7 +113,7 @@ export default class ProductReviewStore {
       })
       .then(res => {
         let data = res.data;
-        console.log('data', data);
+        devLog('data', data);
         if (data.resultCode === 200) {
           let newReview = this.review.content;
           this.review.content = newReview.concat(data.data.content);
@@ -161,7 +162,7 @@ export default class ProductReviewStore {
       })
       .then(res => {
         let data = res.data;
-        console.log('data', data);
+        devLog('data', data);
         if (data.resultCode === 200) {
           this.review = data.data;
         } else if (data.resultCode === 5004) {

@@ -5,6 +5,9 @@ import API from 'lib/API';
 import Router from 'next/router';
 import Form from '../stores/form-store/_.forms';
 import openPopupCenter from 'lib/dom/openPopupCenter';
+import { root } from 'store';
+import { pushRoute } from 'lib/router';
+import { devLog } from 'lib/devLog';
 
 const isServer = typeof window === 'undefined';
 
@@ -14,7 +17,6 @@ export default class AuthMobileStore {
   @action
   getCertKey = location => {
     API.order.get('phoneCertification').then(res => {
-      console.log(res.data.data);
       const key = res.data.data;
       this.authKey = key;
 
@@ -26,9 +28,8 @@ export default class AuthMobileStore {
       document.form_chk.submit();
 
       const onReceiveMessageFromPopup = function(event) {
-        console.log(`event.origin`, event.origin);
-        console.log(`event.data`, event.data);
-        console.log(childWindow);
+        devLog(`event.origin`, event.origin);
+        devLog(`event.data`, event.data);
         window.removeEventListener('message', onReceiveMessageFromPopup);
 
         // 팝업 윈도우 닫기
@@ -36,7 +37,6 @@ export default class AuthMobileStore {
 
         // TODO: 인증완료 다음단계 진행
         // location 파라미터 : findpassword, findid
-        console.log(location);
         this.authData = event.data;
         if (location === 'findpassword') {
           Router.push('/login/findpasswordresult');
@@ -59,10 +59,16 @@ export default class AuthMobileStore {
                 Form.idFind.$('phoneNumber').set(data.data.phoneNumber);
                 Form.idFind.$('authMobile').set(true);
                 Router.push('/login/findidresult');
-              } else {
-                form.$('name').invalidate(' ');
-                form.$('mobile').invalidate(data.data.result);
               }
+            })
+            .catch(e => {
+              root.alert.showConfirm({
+                content: '해당 정보와 일치하는 아이디가 없습니다.',
+                confirmText: '가입하기',
+                onConfirm: () => {
+                  pushRoute('/login/selectsignup');
+                },
+              });
             });
         }
       };

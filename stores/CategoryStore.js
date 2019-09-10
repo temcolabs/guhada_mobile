@@ -24,7 +24,6 @@ export default class CategoryStore {
 
   @action setCategory = category => {
     this.category = category;
-    // console.log('category', category);
   };
 
   @action
@@ -34,10 +33,6 @@ export default class CategoryStore {
     API.product.get('/categories').then(res => {
       this.setCategory(res.data.data);
     });
-    // API.cloud.get('/guhada_category.json').then(res => {
-    //   // console.log(res);
-    //   this.setCategory(res.data);
-    // });
   }
 
   @action
@@ -47,12 +42,10 @@ export default class CategoryStore {
     if (checkTitle && title.length >= 2) {
       this.searchCategoryList = searchCategoryName(this.category, title);
     }
-    console.log(toJS(this.searchCategoryList));
   };
 
   @action
   initSearchCategoryList = () => {
-    console.log('blur');
     this.searchCategoryList = [];
   };
 

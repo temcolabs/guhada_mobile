@@ -33,7 +33,6 @@ export default class ProductDetailStore {
         this.root.productoption.getOptions();
         this.getDealsTag();
         this.root.productDetailBookmark.getBookMark(this.deals.productId);
-        // console.log(this.deals, '상세페이지 데이터');
 
         while (this.actionAfterUserInfoFetched.length > 0) {
           const cb = this.actionAfterUserInfoFetched.pop();
@@ -266,7 +265,7 @@ export default class ProductDetailStore {
       })
       .then(res => {
         let data = res.data;
-        console.log('data', data);
+
         if (data.resultCode === 200) {
           let newInquiry = this.inquiryList.content;
           this.inquiryList.content = newInquiry.concat(data.data.content);
@@ -289,7 +288,6 @@ export default class ProductDetailStore {
       let data = res.data;
       if (data.resultCode === 200) {
         this.seller = data.data;
-        // console.log('data', data);
       }
     });
   };
@@ -407,7 +405,6 @@ export default class ProductDetailStore {
         let data = res.data;
         if (data.resultCode === 200) {
           this.businessSeller = data.data;
-          // console.log('this.businessSeller', this.businessSeller);
         }
       });
   };

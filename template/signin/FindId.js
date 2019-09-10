@@ -29,8 +29,6 @@ class FindId extends Component {
   render() {
     const { form, authmobile } = this.props;
 
-    let value = form.get('value');
-    // console.log('value', value);
     return (
       <LoginLayout pageTitle={'아이디/비밀번호 찾기'}>
         <LoginWrapper>

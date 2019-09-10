@@ -8,6 +8,7 @@ import API from 'lib/API';
 import { key } from 'constant';
 import { snsAppKey } from 'constant/sns';
 import withAuth from 'components/common/hoc/withAuth';
+import { devLog } from 'lib/devLog';
 
 //TODO
 const client_id = snsAppKey.NAVER;
@@ -29,10 +30,8 @@ class callbacknaver extends Component {
           isPopup: false,
         });
         naverLogin.init();
-        console.log(naverLogin);
         window.addEventListener('load', () => {
           naverLogin.getLoginStatus(status => {
-            console.log(status);
             if (status) {
               var email = naverLogin.user.getEmail();
               if (email === undefined || email === null) {
@@ -44,7 +43,7 @@ class callbacknaver extends Component {
 
               login.responseNaver(naverLogin);
             } else {
-              console.log('callback 처리에 실패하였습니다.');
+              devLog('callback 처리에 실패하였습니다.');
             }
           });
         });

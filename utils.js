@@ -121,7 +121,6 @@ export const getParameterByName = function(name, url) {
 export const getCategoryTitle = function(data, id) {
   let title;
   data.forEach(element => {
-    // console.log(element);
     var getItem = searchTreeId(element, id);
     if (getItem) {
       title = getItem.title;
@@ -223,27 +222,6 @@ export const getCategoryChildren = function(element, id) {
       return result;
     }
   }
-  // element.forEach(element => {
-  //   var getItem = searchTreeId(element, id);
-
-  //   if (getItem) {
-  //     result = getItem;
-  //     console.log("catch", result);
-  //     return result;
-  //   }
-  //   // if (element.id == id) {
-  //   //   result = element.children;
-  //   //   console.log("catch", result);
-  //   //   return result;
-  //   // }
-  // });
-
-  // if (result === null) {
-  //   for (var i = 0; result === null && i < element.length; i++) {
-  //     console.log(i);
-  //     result = getCategoryChildren(element[id].children, id);
-  //   }
-  // }
 
   return result;
 };
@@ -265,7 +243,6 @@ export const getCategoryKeyArray = function(data, id) {
   let key;
   let keyArray;
   data.forEach(element => {
-    // console.log(toJS(element), id);
     var getItem = searchTreeKey(element, id);
 
     if (getItem) {
@@ -273,7 +250,7 @@ export const getCategoryKeyArray = function(data, id) {
       keyArray = key.split('-');
     }
   });
-  // console.log(keyArray);
+
   return keyArray;
 };
 

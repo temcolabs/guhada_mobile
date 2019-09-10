@@ -2,12 +2,13 @@ import Form from '../../_.forms';
 import API from 'lib/API';
 import { root } from 'store';
 import { snsType } from 'constant/sns';
+import { devLog } from 'lib/devLog';
 export default {
   onInit() {},
 
   onSuccess(form) {
-    console.log('Success Values', form.values());
-    console.log('api call start', form);
+    devLog('Success Values', form.values());
+    devLog('api call start', form);
     let value = form.values();
     if (value.sns === true) {
       let login = root.login;
@@ -44,12 +45,12 @@ export default {
   },
 
   onError(form) {
-    console.log('Form Values', form.values());
-    console.log('Form Errors', form.errors());
+    devLog('Form Values', form.values());
+    devLog('Form Errors', form.errors());
   },
 
   onSubmit(instance) {
-    console.log(
+    devLog(
       '-> onSubmit HOOK -',
       instance.path || 'form',
       '- isValid?',
@@ -58,15 +59,15 @@ export default {
   },
 
   onClear(instance) {
-    console.log('-> onClear HOOK -', instance.path || 'form');
+    devLog('-> onClear HOOK -', instance.path || 'form');
   },
 
   onReset(instance) {
-    console.log('-> onReset HOOK -', instance.path || 'form');
+    devLog('-> onReset HOOK -', instance.path || 'form');
   },
 
   onChange(field) {
-    console.log('-> onChange HOOK -', field.path, field.value);
+    devLog('-> onChange HOOK -', field.path, field.value);
     let form = Form.termAgree;
 
     function allAgreement(bool) {

@@ -1,30 +1,31 @@
 import Axios from 'axios';
 import API from 'lib/API';
+import { devLog } from 'lib/devLog';
 
 export default {
   onInit() {},
 
   onSuccess(form) {
-    console.log('Success Values', form.values());
-    console.log('api call start', form);
+    devLog('Success Values', form.values());
+    devLog('api call start', form);
 
-    // console.log(signUp);
+    // devLog(signUp);
     // API.user.post("/signUpUser",
     // {
     //   email: loginData.email,
     //   password: loginData.password
     // },).then(function(res) {
-    //   console.log(res);
+    //   devLog(res);
     // });
   },
 
   onError(form) {
-    console.log('Form Values', form.values());
-    console.log('Form Errors', form.errors());
+    devLog('Form Values', form.values());
+    devLog('Form Errors', form.errors());
   },
 
   onSubmit(instance) {
-    console.log(
+    devLog(
       '-> onSubmit HOOK -',
       instance.path || 'form',
       '- isValid?',
@@ -33,23 +34,23 @@ export default {
   },
 
   onClear(instance) {
-    console.log('-> onClear HOOK -', instance.path || 'form');
+    devLog('-> onClear HOOK -', instance.path || 'form');
   },
 
   onReset(instance) {
-    console.log('-> onReset HOOK -', instance.path || 'form');
+    devLog('-> onReset HOOK -', instance.path || 'form');
   },
 
   onChange(field) {
-    console.log('-> onChange HOOK -', field.path, field.value);
+    devLog('-> onChange HOOK -', field.path, field.value);
   },
 
   // onFocus: field => {
-  //   console.log('-> onFocus HOOK -', field.path, field.value);
+  //   devLog('-> onFocus HOOK -', field.path, field.value);
   // },
 
   onBlur: field => {
-    console.log('-> onBlur HOOK -', field.path, field.value);
+    devLog('-> onBlur HOOK -', field.path, field.value);
 
     // 모바일 번호 입력시
     // 숫자만 입력받도록 처리

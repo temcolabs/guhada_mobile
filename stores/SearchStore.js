@@ -37,12 +37,8 @@ export default class SearchStore {
   @action
   getCategoryData() {
     API.product.get('/categories').then(res => {
-      // console.log('res.date', res.data);
       this.setCategoryData(res.data.data);
     });
-    // API.cloud.get('/guhada_category.json').then(res => {
-    //   this.setCategoryData(res.data);
-    // });
   }
 
   @action
@@ -85,13 +81,10 @@ export default class SearchStore {
   @action
   onCheck = (checkedKeys, info) => {
     this.checkedKeys = checkedKeys;
-    console.log(toJS(this.checkedKeys));
   };
 
   @action
   onSelect = (selectedKeys, info) => {
-    console.log(info.node.props.eventKey.slice());
-
     this.setTitle(info.node.props.title);
     this.onCheck(selectedKeys);
 
@@ -103,8 +96,6 @@ export default class SearchStore {
 
   @action
   setExpandedKeys = expandedKeys => {
-    console.log(expandedKeys);
-
     const idx = this.expandedKeys.indexOf(expandedKeys);
 
     if (idx === -1) this.expandedKeys.push(expandedKeys);
@@ -183,12 +174,10 @@ export default class SearchStore {
         this.categoryDataTitle = fullDepthName;
       }
     }
-    // console.log("categoryDataKeyTitle", toJS(this.categoryDataKeyTitle));
   };
 
   @action
   setCategoryDataKey = (hierarchy, fullDepthName) => {
-    // console.log(fullDepthName);
     this.categoryDataTitle = fullDepthName;
     this.categoryDataKey = hierarchy.split(',');
     // this.findCategoryDataTitle();
