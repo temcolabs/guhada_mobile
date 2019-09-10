@@ -19,6 +19,10 @@
         border-color: #ffffff;
     }
 
+    input[type='radio'] {
+        display: none;
+    }
+
     & label {
         font-size: 15px;
         font-weight: 500;

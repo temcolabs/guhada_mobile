@@ -6,11 +6,8 @@ import Router from 'next/router';
 import Form from '../stores/form-store/_.forms';
 import openPopupCenter from 'lib/dom/openPopupCenter';
 import { root } from 'store';
-<<<<<<< HEAD
-=======
 import { pushRoute } from 'lib/router';
 import { devLog } from 'lib/devLog';
->>>>>>> 4ed44a874d5b263717f0d5ac3f9b56c70bd12517
 
 const isServer = typeof window === 'undefined';
 
@@ -19,10 +16,7 @@ export default class AuthMobileStore {
   @action
   getCertKey = location => {
     API.order.get('phoneCertification').then(res => {
-<<<<<<< HEAD
       console.log(res.data.data, 'res.data.data');
-=======
->>>>>>> 4ed44a874d5b263717f0d5ac3f9b56c70bd12517
       const key = res.data.data;
       this.authKey = key;
       let authData;
@@ -62,16 +56,20 @@ export default class AuthMobileStore {
               .then(function(res) {
                 let data = res.data;
 
-                if (data.resultCode === 200) {
-                  Form.idFind.$('email').set(data.data.email);
-                  Form.idFind.$('joinAt').set(data.data.joinAt);
-                  Form.idFind.$('phoneNumber').set(data.data.phoneNumber);
-                  Form.idFind.$('authMobile').set(true);
-                  Router.push('/login/findidresult');
-                } else {
-                  form.$('name').invalidate(' ');
-                  form.$('mobile').invalidate(data.data.result);
-                }
+                Form.idFind.$('email').set(data.data.email);
+                Form.idFind.$('joinAt').set(data.data.joinAt);
+                Form.idFind.$('phoneNumber').set(data.data.phoneNumber);
+                Form.idFind.$('authMobile').set(true);
+                Router.push('/login/findidresult');
+              })
+              .catch(e => {
+                root.alert.showConfirm({
+                  content: '해당 정보와 일치하는 아이디가 없습니다.',
+                  confirmText: '가입하기',
+                  onConfirm: () => {
+                    pushRoute('/login/selectsignup');
+                  },
+                });
               });
           } else if (location === 'order') {
             console.log(authData, 'authData');
