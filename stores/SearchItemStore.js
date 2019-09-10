@@ -35,9 +35,6 @@ export default class SearchItemStore {
 
   constructor(root) {
     if (!isServer) this.root = root;
-
-    // if (this.root) console.log(this.root);
-    // this.getTreeDataForFilter();
   }
 
   @observable scrollPosition;
@@ -59,12 +56,6 @@ export default class SearchItemStore {
 
     this.scrollPosition = scrolled;
     let query = Router.router.query;
-    // console.log(
-    //   'this.scrollPosition',
-    //   this.scrollPosition,
-    //   this.infinityStauts,
-    //   this.dealsPage
-    // );
 
     if (
       this.scrollPosition > 0.7 &&
@@ -121,9 +112,7 @@ export default class SearchItemStore {
   getItem = () => {
     API.product.get('/deals').then(res => {
       let data = res.data;
-      // console.log(res);
       if (data.resultCode === 200) {
-        // console.log("200");
         this.setItem(data.data);
 
         this.itemStatus = true;
@@ -135,7 +124,6 @@ export default class SearchItemStore {
   getsearchitem = query => {
     API.search.get('/ps/search?searchQuery=' + query).then(res => {
       let data = res.data;
-      // console.log(res);
       if (data.resultCode === 200) {
         this.setItem(data.data);
 
@@ -177,8 +165,6 @@ export default class SearchItemStore {
     this.locationKey = [];
     let key = toJS(this.locationHierarchy.key);
     this.locationKey = key.split('-').map(Number);
-    // console.log(toJS(this.locationKey));
-    // console.log(toJS(this.locationFilter));
     this.locationGuide = [];
     let firstLocationFilter = [];
 
@@ -252,7 +238,6 @@ export default class SearchItemStore {
 
     API.search.get('/ps/search/all').then(async res => {
       let data = res.data;
-      // console.log(data);
       if (data.resultCode === 200) {
         this.locationFilter = data.data.categories;
 
@@ -312,7 +297,6 @@ export default class SearchItemStore {
         let hierarchy;
         if (categoryIds) {
           let getTreeData = getCategory(this.treeDataForFilter, categoryIds);
-          // console.log(toJS(getTreeData));
 
           // hierarchy 값 비교해서 같은 값이 2개 이상 나올시에는
           // children[0].key 값을 열어주는 기능
@@ -323,7 +307,7 @@ export default class SearchItemStore {
               let hierarchy = JSON.parse(
                 '[' + getTreeData.children[0].hierarchy + ']'
               );
-              // console.log(hierarchy);
+
               let hierarchyCheck = false;
               let cnt = 0;
               for (let i = 0; i < hierarchy.length; i++) {
@@ -384,7 +368,6 @@ export default class SearchItemStore {
               /**
                * 카테고리 기준 title 값
                */
-              console.log('subcategory', subcategory);
               if (subcategory.length !== 0)
                 this.setTitle(
                   getCategoryTitle(data.data.categories, subcategory)
@@ -434,10 +417,6 @@ export default class SearchItemStore {
                     }
                   }
                 } else if (enter === 'keyword') {
-                  console.log('keyword');
-                  // this.toGetBrandFilter([]);
-                  // this.root.brands.brandsByCategoryFilter = data.data.brands;
-                  // this.root.brands.setGroupBrandList(data.data.brands);
                   this.treeDataForFilter = data.data.categories;
                   // this.setCategoryTreeData('brand');
                   if (enter === 'keyword') {
@@ -492,7 +471,6 @@ export default class SearchItemStore {
                 // hierarchy === false 서버로부터 온 카테고리 데이타가 없음
                 if (hierarchy) {
                   if (hierarchy.length === 1) {
-                    // console.log(toJS(this.treeDataForFilter));
                     this.setKeyArray(
                       getCategoryKeyArray(this.treeDataForFilter, hierarchy[0])
                     );
@@ -656,101 +634,6 @@ export default class SearchItemStore {
     }
   };
 
-  // @action
-  // setCategoryTreeData = key => {
-
-  //   if (key === 'brand') {
-  //     let keyArray = ['0', '1', '2'];
-  //     let filterCategory = this.treeDataForFilter;
-  //     let data = [];
-
-  //     // console.log(toJS(filterCategory));
-  //     filterCategory.map((filterList, i) => {
-  //       data.push([]);
-  //       // console.log(filterList);
-
-  //       filterList.children.map(filter => {
-  //         data[i].push({
-  //           id: i,
-  //           title: filter.title,
-  //           disabled: true,
-  //           categoryTitle: filterList.title,
-  //         });
-  //         data[i].push({
-  //           id: filter.id,
-  //           title: '전체',
-  //           key: filter.key,
-  //           hierarchy: filter.hierarchy,
-  //         });
-
-  //         filter.children.map(filterCategory => {
-  //           data[i].push(toJS(filterCategory));
-  //         });
-  //       });
-  //     });
-
-  //     this.categoryTreeData = data;
-
-  //     this.filterCategoryList = [];
-  //     for (let i = 0; i < toJS(this.categoryTreeData).length; i++) {
-  //       if (this.categoryTreeData[i][0].categoryTitle === '여성') {
-  //         this.filterCategoryList.push({ id: i, title: 'WOMEN' });
-  //       } else if (this.categoryTreeData[i][0].categoryTitle === '남성') {
-  //         this.filterCategoryList.push({ id: i, title: 'MEN' });
-  //       } else if (this.categoryTreeData[i][0].categoryTitle === '키즈') {
-  //         this.filterCategoryList.push({ id: i, title: 'KIDS' });
-  //       }
-  //     }
-  //   } else if (this.keyArray === undefined) {
-  //   } else if (this.keyArray.length === 2) {
-  //     let filterCategory = this.treeDataForFilter[this.keyArray[1]];
-  //     let data = [];
-  //     filterCategory.children.map(filter => {
-  //       data.push({
-  //         title: filter.title,
-  //         disabled: true,
-  //       });
-  //       data.push({
-  //         id: filter.id,
-  //         title: '전체',
-  //         key: filter.key,
-  //         hierarchy: filter.hierarchy,
-  //       });
-
-  //       filter.children.map(filterCategory => {
-  //         data.push(filterCategory);
-  //       });
-  //     });
-
-  //     this.filterCategoryTitle = this.treeDataForFilter[this.keyArray[1]].title;
-  //     this.categoryTreeData = data;
-  //     // console.log(data);
-  //   } else {
-  //     let filterCategory = this.treeDataForFilter[this.keyArray[1]].children[
-  //       this.keyArray[2]
-  //     ];
-  //     let data = [];
-  //     // console.log('filterCategory', filterCategory);
-  //     data.push({
-  //       title: filterCategory.title,
-  //       disabled: true,
-  //     });
-  //     data.push({
-  //       id: filterCategory.id,
-  //       title: '전체',
-  //       key: filterCategory.key,
-  //       hierarchy: filterCategory.hierarchy,
-  //     });
-
-  //     filterCategory.children.map(filter => {
-  //       data.push(filter);
-  //     });
-  //     // console.log('categoryFilterArray', data);
-  //     this.filterCategoryTitle = this.treeDataForFilter[this.keyArray[1]].title;
-  //     this.categoryTreeData = data;
-  //   }
-  // };
-
   @action
   setCurrentCategory = currentCategory => {
     this.currentCategory = currentCategory;
@@ -791,9 +674,6 @@ export default class SearchItemStore {
 
   @action
   onCheck = (checkedKeys, info) => {
-    // console.log(info.node.props.eventKey.slice());
-    // console.log("oncheck");
-    // console.log(info.node.props);
     if (info.node.props.children.length > 0) {
       // 들어올 일 없음
     } else {

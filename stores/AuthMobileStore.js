@@ -6,6 +6,11 @@ import Router from 'next/router';
 import Form from '../stores/form-store/_.forms';
 import openPopupCenter from 'lib/dom/openPopupCenter';
 import { root } from 'store';
+<<<<<<< HEAD
+=======
+import { pushRoute } from 'lib/router';
+import { devLog } from 'lib/devLog';
+>>>>>>> 4ed44a874d5b263717f0d5ac3f9b56c70bd12517
 
 const isServer = typeof window === 'undefined';
 
@@ -14,7 +19,10 @@ export default class AuthMobileStore {
   @action
   getCertKey = location => {
     API.order.get('phoneCertification').then(res => {
+<<<<<<< HEAD
       console.log(res.data.data, 'res.data.data');
+=======
+>>>>>>> 4ed44a874d5b263717f0d5ac3f9b56c70bd12517
       const key = res.data.data;
       this.authKey = key;
       let authData;
@@ -26,9 +34,8 @@ export default class AuthMobileStore {
       document.form_chk.submit();
 
       const onReceiveMessageFromPopup = function(event) {
-        console.log(`event.origin`, event.origin);
-        console.log(`event.data`, event.data);
-        console.log(childWindow);
+        devLog(`event.origin`, event.origin);
+        devLog(`event.data`, event.data);
         window.removeEventListener('message', onReceiveMessageFromPopup);
 
         // 팝업 윈도우 닫기

@@ -33,7 +33,6 @@ export default class OrderDetailStore {
   @computed get orderDate() {
     if (this.firstItemOfOrders) {
       const dateString = dateArrayToString(this.firstItemOfOrders.orderDate);
-      console.log(`dateString`, dateString);
 
       return moment(dateString).format(dateFormat.YYYYMMDD);
     } else {

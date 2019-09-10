@@ -88,7 +88,6 @@ export default class BrandsStore {
     API.product.get('/brands?filters=favorites').then(res => {
       let data = res.data;
       if (data.resultCode === 200) {
-        console.log(data.data);
         this.setBrands(this.brands, data.data.brands);
       } else {
       }
@@ -100,7 +99,6 @@ export default class BrandsStore {
     API.product.get('/brands?sort=popularity').then(res => {
       let data = res.data;
       if (data.resultCode === 200) {
-        // console.log(data);
         this.setBrands(this.brands, data.data.brands);
       } else {
       }
@@ -451,7 +449,6 @@ export default class BrandsStore {
       })
       .join(',');
 
-    console.log('brandkeylist', brandkeylist);
     return brandkeylist;
   }
   @action

@@ -1,15 +1,15 @@
-import Cookies from 'js-cookie';
 import { root } from 'store';
 import API from 'lib/API';
 import qs from 'qs';
 import { pushRoute } from 'lib/router';
+import { devLog } from 'lib/devLog';
 
 export default {
   onInit(form) {},
 
   onSubmit(instance) {
-    console.log(instance);
-    console.log(
+    devLog(instance);
+    devLog(
       '-> onSubmit HOOK -',
       instance.path || 'form',
       '- isValid?',
@@ -19,7 +19,7 @@ export default {
 
   onSuccess(form) {
     let loginData = form.values();
-    console.log('Success Values', form.values());
+    devLog('Success Values', form.values());
 
     API.user
       .post(
@@ -39,7 +39,7 @@ export default {
         const { data } = resData;
 
         console.group(`loginUser success`);
-        console.log('data', data);
+        devLog('data', data);
         console.groupEnd(`loginUser success`);
 
         if (resData.resultCode === 200) {
@@ -72,13 +72,13 @@ export default {
         }
       })
       .catch(function(error) {
-        console.log(error);
+        devLog(error);
       });
   },
 
   onError(form) {
-    console.log('Form Values', form.values());
-    console.log('Form Errors', form.errors());
+    devLog('Form Values', form.values());
+    devLog('Form Errors', form.errors());
     let error = form.errors();
 
     let dir = [error.email, error.password];
@@ -91,10 +91,10 @@ export default {
   },
 
   onClear(instance) {
-    console.log('-> onClear HOOK -', instance.path || 'form');
+    devLog('-> onClear HOOK -', instance.path || 'form');
   },
 
   onReset(instance) {
-    console.log('-> onReset HOOK -', instance.path || 'form');
+    devLog('-> onReset HOOK -', instance.path || 'form');
   },
 };

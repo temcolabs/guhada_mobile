@@ -18,7 +18,6 @@ export class SearchFilter extends Component {
     } = this.props;
 
     const { query } = Router.router;
-    console.log('filters', filters);
     return (
       <SlideIn isVisible={isVisible} direction={slideDirection.BOTTOM}>
         <div className={css.wrap}>

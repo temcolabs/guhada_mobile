@@ -20,10 +20,7 @@ export default class KeywordStore {
     const storageList = this.getListFromStorage();
     this.list = storageList || [];
     const complete = this.getAutocompleteFromStorage();
-    console.log('complete', complete);
-    // this.autoComplete = complete || true;
     this.autoComplete = complete === undefined ? true : complete;
-    console.log('this.autoComplete', toJS(this.autoComplete));
   };
 
   @action

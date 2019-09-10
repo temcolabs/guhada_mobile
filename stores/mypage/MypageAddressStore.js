@@ -3,6 +3,7 @@ import API from 'lib/API';
 const isServer = typeof window === 'undefined';
 import { isBrowser } from 'lib/isServer';
 import { autoHypenPhone } from '../../utils';
+import { devLog } from 'lib/devLog';
 
 export default class MypageAddressStore {
   constructor(root) {
@@ -45,7 +46,7 @@ export default class MypageAddressStore {
           }
         });
 
-        console.log(this.addressList, '배송지목록');
+        devLog(this.addressList, '배송지목록');
       }
     });
   };
@@ -95,7 +96,7 @@ export default class MypageAddressStore {
   newAddressModal = () => {
     this.editAddress = {};
     this.mypageAddressModal = true;
-    console.log(this.mypageAddressModal);
+    devLog(this.mypageAddressModal);
   };
 
   @action
@@ -156,11 +157,11 @@ export default class MypageAddressStore {
         return false;
       }
     }
-    console.log(this.userId , this.newAddress ,'test');
+    devLog(this.userId, this.newAddress, 'test');
     API.user
       .post(`/users/${this.userId}/shipping-addresses`, this.newAddress)
       .then(res => {
-        console.log(res, '배송지저장성공');
+        devLog(res, '배송지저장성공');
         if (res.data.resultCode === 200) {
           this.root.alert.showAlert({
             content: '신규배송지 저장',
@@ -242,7 +243,7 @@ export default class MypageAddressStore {
       let phoneNum = this.editAddress.recepientMobile.replace(/[^0-9]/g, '');
       let currentPhoneNum = phoneNum;
       let regPhone = /^((01[1|6|7|8|9])[0-9][0-9]{6,7})|(010[0-9][0-9]{7})$/;
-      console.log(
+      devLog(
         this.editAddress.recepientMobile,
         currentPhoneNum,
         'currentPhoneNum eidt'
@@ -269,11 +270,11 @@ export default class MypageAddressStore {
       )
       .then(res => {
         if (res.data.resultCode === 200) {
-          this.addressList.map((data,index)=>{
-            if(data.id === this.editAddress.id){
-              this.addressList[index] = this.editAddress
+          this.addressList.map((data, index) => {
+            if (data.id === this.editAddress.id) {
+              this.addressList[index] = this.editAddress;
             }
-          })
+          });
           this.root.alert.showAlert({
             content: '배송지를 수정하였습니다.',
           });
@@ -363,7 +364,7 @@ export default class MypageAddressStore {
           switch (path) {
             case 'new':
               if (data.userSelectedType === 'J') {
-                console.log(data, '우편데이터');
+                devLog(data, '우편데이터');
                 document.getElementById('mypage__newAddress').value = `(우:${
                   data.zonecode
                 }) ${data.jibunAddress}`;

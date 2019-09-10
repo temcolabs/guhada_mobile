@@ -21,7 +21,6 @@ class SearchCategorySlider extends Component {
     } else if (query.category !== '') {
       selected = Number(query.category);
     }
-    console.log('toJS(categoryList)', toJS(category));
 
     return (
       <div className={css.wrap}>

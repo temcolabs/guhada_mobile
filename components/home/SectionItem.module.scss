@@ -52,7 +52,7 @@ $contentsHeight : 117px;
     & .dealName {
         height: 31px;
         font-size: 12px;
-        font-weight: 300;
+        font-weight: 400;
         color: #111111;
         overflow: hidden;
         margin-bottom: 10px;
@@ -89,6 +89,8 @@ $contentsHeight : 117px;
 
     & .sellerWrap {
         margin-top: 8px;
+        display: flex;
+        align-items: center;
 
         & .sellerLevel {
             width: 21px;
@@ -113,6 +115,7 @@ $contentsHeight : 117px;
             color: #333333;
             float: left;
             margin-left: 3px;
+            height: 16px;
         }
     }
 }

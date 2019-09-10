@@ -1,6 +1,5 @@
-import Axios from 'axios';
-import Router from 'next/router';
 import Form from '../../_.forms';
+import { devLog } from 'lib/devLog';
 
 export default {
   onInit() {
@@ -13,17 +12,17 @@ export default {
   },
 
   onSuccess(form) {
-    console.log('Success Values', form.values());
-    console.log('api call start', form);
+    devLog('Success Values', form.values());
+    devLog('api call start', form);
   },
 
   onError(form) {
-    console.log('Form Values', form.values());
-    console.log('Form Errors', form.errors());
+    devLog('Form Values', form.values());
+    devLog('Form Errors', form.errors());
   },
 
   onSubmit(instance) {
-    console.log(
+    devLog(
       '-> onSubmit HOOK -',
       instance.path || 'form',
       '- isValid?',
@@ -32,15 +31,15 @@ export default {
   },
 
   onClear(instance) {
-    console.log('-> onClear HOOK -', instance.path || 'form');
+    devLog('-> onClear HOOK -', instance.path || 'form');
   },
 
   onReset(instance) {
-    console.log('-> onReset HOOK -', instance.path || 'form');
+    devLog('-> onReset HOOK -', instance.path || 'form');
   },
 
   onChange(field) {
-    console.log('-> onChange HOOK -', field.path, field.value);
+    devLog('-> onChange HOOK -', field.path, field.value);
     let form = Form.signUp;
 
     function allAgreement(bool) {

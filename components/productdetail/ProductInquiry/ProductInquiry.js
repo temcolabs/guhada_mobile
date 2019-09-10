@@ -26,8 +26,6 @@ class ProductInquiry extends Component {
   render() {
     const { productdetail, login, tabRefMap } = this.props;
     const { deals, inquiryList } = productdetail;
-    console.log('inquiryList', inquiryList);
-    console.log('productdetail.inquiryDetail', productdetail.inquiryDetail);
     return (
       <div className={css.wrap} ref={tabRefMap.inquiryTab}>
         <div className={css.headerWrap}>

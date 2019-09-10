@@ -43,7 +43,6 @@ export class InquiryItem extends Component {
   render() {
     const { folded } = this.state;
     const { inquiry } = this.props;
-    console.log('inquiry', inquiry);
     return (
       <>
         <div

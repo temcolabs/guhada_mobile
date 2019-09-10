@@ -1,6 +1,5 @@
 import React from 'react';
 import css from './ProductTable.module.scss';
-import { toJS } from 'mobx';
 export default function ProductInfo({
   deals = [
     {
@@ -11,7 +10,6 @@ export default function ProductInfo({
     },
   ],
 }) {
-  // console.log('deals', toJS(deals));
   return (
     <>
       <table className={css.wrap}>

@@ -10,7 +10,6 @@ class Term extends Component {
   render() {
     const { form } = this.props;
     let value = form.get('value');
-    console.log('value', value);
     return (
       <LoginLayout pageTitle={'약관동의'}>
         <LoginWrapper>
