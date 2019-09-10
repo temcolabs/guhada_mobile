@@ -37,7 +37,6 @@ export default class OrderPaymentStore {
   };
   @observable status = {
     pageStatus: false,
-    selectedShipStatus: false,
     shppingRequestSelfStatus: false,
     newShppingRequestSelfStatus: false,
     shppingListModalStatus: false,
@@ -96,9 +95,7 @@ export default class OrderPaymentStore {
               });
             }
           });
-          if (this.orderShippingList.defaultAddress) {
-            this.status.selectedShipStatus = true;
-          }
+
           this.getPhoneWithHypen();
 
           let paymentRemainCheck = JSON.parse(
@@ -138,21 +135,27 @@ export default class OrderPaymentStore {
       })
       .catch(err => {
         console.log(err, 'err');
-        if (err.data.result === 'NEED_TO_LOGIN') {
-          this.root.alert.showAlert({
-            content: `${err.data.message}`,
-            onConfirm: () => {
-              this.gotoLogin();
-            },
-          });
-        } else {
-          this.root.alert.showAlert({
-            content: `${err.data.message}`,
-            onConfirm: () => {
-              this.gotoMain();
-            },
-          });
-        }
+        // if (err.data.result === 'NEED_TO_LOGIN') {
+        //   this.root.alert.showAlert({
+        //     content: `${err.data.message}`,
+        //     onConfirm: () => {
+        //       this.gotoLogin();
+        //     },
+        //   });
+        // } else {
+        //   this.root.alert.showAlert({
+        //     content: `${err.data.message}`,
+        //     onConfirm: () => {
+        //       this.gotoMain();
+        //     },
+        //   });
+        // }
+        this.root.alert.showAlert({
+          content: `ERROR, 메인으로 돌아갑니다`,
+          onConfirm: () => {
+            this.gotoMain();
+          },
+        });
       });
   };
   gotoMain = () => {
@@ -332,7 +335,9 @@ export default class OrderPaymentStore {
 
   //--------------------- 휴대폰번호에 ' - ' 추가 ---------------------
   getPhoneWithHypen = () => {
-    this.orderUserInfo.mobile = autoHypenPhone(this.orderUserInfo.mobile);
+    if (this.orderUserInfo.mobile) {
+      this.orderUserInfo.mobile = autoHypenPhone(this.orderUserInfo.mobile);
+    }
     if (this.orderShippingList.defaultAddress) {
       this.orderShippingList.defaultAddress.hypenRecipientMobile = autoHypenPhone(
         this.orderShippingList.defaultAddress.recipientMobile
@@ -375,6 +380,8 @@ export default class OrderPaymentStore {
       })
       .catch(err => {
         console.log(err);
+        this.status.shppingListModalStatus = true;
+        this.status.addressSelf = true;
       });
   };
   //--------------------- 배송지목록 선택 변경(로컬) ---------------------
@@ -636,6 +643,11 @@ export default class OrderPaymentStore {
     } else if (!this.status.orderPaymentAgreement) {
       this.root.alert.showAlert({
         content: '구매 및 결제대행서비스 이용약관 등에 모두 동의해주세요.',
+      });
+      return false;
+    } else if (!this.orderUserInfo.name && !this.orderUserInfo.mobile) {
+      this.root.alert.showAlert({
+        content: '[필수] 본인인증을 해주세요.',
       });
       return false;
     } else if (!this.orderUserInfo.emailVerify) {

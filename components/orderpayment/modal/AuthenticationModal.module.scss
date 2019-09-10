@@ -1,0 +1,168 @@
+.wrap {
+  padding-bottom: 30px;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  height: calc(100vh);
+  background: #fff;
+  overflow: scroll;
+
+  .header {
+    padding: 40px;
+    position: relative;
+    border-bottom: 1px solid #eee;
+    .back {
+      width: 30px;
+      height: 30px;
+      background: url('/static/icon/btn-prevpage.png') no-repeat center;
+      background-size: 30px;
+      position: absolute;
+      top: 50%;
+      left: 20px;
+      transform: translateY(-50%);
+    }
+    .title {
+      font-size: 17px;
+      font-weight: 500;
+      color: #111;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  .AuthenticationWrap {
+    padding: 20px 20px 0;
+    .wrapTitle {
+      font-size: 15px;
+      color: #333;
+      font-weight: bold;
+
+      span {
+        color: #ce2525;
+
+        &.certified {
+          color: #5d2ed1;
+        }
+      }
+    }
+
+    .content {
+      text-align: center;
+      padding: 20px;
+      font-size: 15px;
+      color: #555;
+      font-weight: bold;
+    }
+
+    .button {
+      width: 100%;
+      height: 50px;
+      background: #5d2ed1;
+      line-height: 50px;
+      text-align: center;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .notifyWrap {
+      padding: 20px 20px;
+      border-bottom: 1px solid #eee;
+      .notifySection {
+        font-size: 12px;
+        font-weight: 500;
+        color: #a0a0a0;
+        text-indent: -15px;
+        line-height: 30px;
+        position: relative;
+        .dot {
+          display: inline-block;
+          width: 5px;
+          height: 5px;
+          border-radius: 50%;
+          background: #b7bec4;
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+
+  .emailWrap {
+    padding: 20px 20px 0;
+    .wrapTitle {
+      font-size: 15px;
+      color: #333;
+      font-weight: bold;
+
+      span {
+        color: #ce2525;
+
+        &.certified {
+          color: #5d2ed1;
+        }
+      }
+    }
+
+    .content {
+      margin: 20px 0 10px 0;
+      position: relative;
+      display: flex;
+
+      div {
+        width: 100%;
+        input {
+          padding: 0 15px;
+          width: 100%;
+          height: 45px;
+          border: 1px solid #eee;
+          background: #f9f9fa;
+          font-size: 13px;
+          color: #111;
+          overflow: auto;
+        }
+      }
+
+      .reRequest {
+        width: 100px;
+        height: 45px;
+        background: #5d2ed1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+      }
+    }
+
+    .verifyNumber {
+      position: relative;
+      margin-bottom: 10px;
+      div {
+        input {
+          width: 100%;
+          height: 45px;
+          border: 1px solid #eee;
+          padding: 0 15px;
+        }
+      }
+      span {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+    .button {
+      width: 100%;
+      height: 50px;
+      background: #5d2ed1;
+      line-height: 50px;
+      text-align: center;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 500;
+    }
+  }
+}

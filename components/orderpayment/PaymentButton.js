@@ -9,7 +9,7 @@ class PaymentButton extends Component {
     return (
       <div
         className={css.wrap}
-        style={{ backgroundColor: '#b7bec4' }}
+        style={{ backgroundColor: '#5d2ed1' }}
         onClick={() => {
           orderpayment.payment();
         }}

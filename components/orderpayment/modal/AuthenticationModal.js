@@ -1,0 +1,173 @@
+import React, { Component, Fragment } from 'react';
+import css from './AuthenticationModal.module.scss';
+import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
+import { inject, observer } from 'mobx-react';
+import CountdownTimer from 'components/common/CountdownTimer';
+@inject('orderpayment', 'authmobile', 'customerauthentication')
+@observer
+class AuthenticationModal extends Component {
+  render() {
+    const {
+      orderpayment,
+      authmobile,
+      modalClose,
+      customerauthentication,
+      isVisible,
+    } = this.props;
+    return (
+      <Fragment>
+        <SlideIn direction={slideDirection.RIGHT} isVisible={isVisible}>
+          <div className={css.wrap}>
+            <div className={css.header}>
+              <div
+                className={css.back}
+                onClick={() => {
+                  modalClose();
+                }}
+              />
+              <div className={css.title}>인증하기</div>
+            </div>
+            <div className={css.AuthenticationWrap}>
+              <div className={css.wrapTitle}>
+                본인인증
+                {orderpayment.orderUserInfo.name &&
+                orderpayment.orderUserInfo.mobile ? (
+                  <span className={css.certified}> [인증완료]</span>
+                ) : (
+                  <span> [미인증]</span>
+                )}
+              </div>
+              <div className={css.content}>
+                <div>본인 명의의 휴대폰으로</div>
+                <div>본인인증을 진행해주세요.</div>
+              </div>
+              <div
+                className={css.button}
+                onClick={() => authmobile.getCertKey('order')}
+              >
+                휴대폰 본인인증 하기
+              </div>
+              <div className={css.notifyWrap}>
+                <div className={css.notifySection}>
+                  <span className={css.dot} />
+                  본인명의의 휴대폰으로 본인여부를 확인합니다.
+                </div>
+                <div className={css.notifySection}>
+                  <span className={css.dot} />
+                  본인인증 서비스는 NICE신용평가정보에서 제공합니다.
+                </div>
+                <div className={css.notifySection}>
+                  <span className={css.dot} />
+                  인증수단의 명의가 다를 경우 고객센터로 문의하시기 바랍니다.
+                </div>
+                <div className={css.notifySection}>
+                  <span className={css.dot} />
+                  본인인증 시 입력한 정보는 본인확인 용도 외에는 사용되거나,
+                  보관되지 않습니다.
+                </div>
+                <div className={css.notifySection}>
+                  <span className={css.dot} />
+                  본인인증비용은 구하다에서 부담합니다.
+                </div>
+              </div>
+            </div>
+
+            <div className={css.emailWrap}>
+              <div className={css.wrapTitle}>
+                이메일 인증
+                {orderpayment.orderUserInfo.emailVerify ? (
+                  <span className={css.certified}> [인증완료]</span>
+                ) : (
+                  <span> [미인증]</span>
+                )}
+              </div>
+              <div className={css.content}>
+                <div>
+                  <input
+                    type="text"
+                    value={
+                      orderpayment.orderUserInfo.email
+                        ? orderpayment.orderUserInfo.email
+                        : null
+                    }
+                    readOnly
+                  />
+                </div>
+                {customerauthentication.sendMailSuccess ? (
+                  <div
+                    className={css.reRequest}
+                    onClick={() =>
+                      customerauthentication.emailAuthenticationSend(
+                        orderpayment.orderUserInfo.email,
+                        orderpayment.orderUserInfo.name
+                      )
+                    }
+                  >
+                    재전송
+                  </div>
+                ) : null}
+              </div>
+              {customerauthentication.sendMailSuccess ? (
+                <div className={css.verifyNumber}>
+                  <div>
+                    <input
+                      type="text"
+                      placeholder="인증번호(6자리 숫자 입력)"
+                      onChange={e => {
+                        customerauthentication.emailAuthenticationCode(e);
+                      }}
+                    />
+                  </div>
+                  <CountdownTimer
+                    isVisible={customerauthentication.sendMailSuccess}
+                    initialTimeLeft={600}
+                    render={({ time }) => {
+                      return <span>{time}</span>;
+                    }}
+                    onTimeOver={() => {
+                      console.log('시간 초과입니다.');
+                    }}
+                  />
+                </div>
+              ) : null}
+
+              {customerauthentication.sendMailSuccess ? (
+                <div
+                  className={css.button}
+                  onClick={() =>
+                    customerauthentication.emailAuthenticationCodeVerify()
+                  }
+                >
+                  인증 확인
+                </div>
+              ) : (
+                <div
+                  className={css.button}
+                  onClick={() =>
+                    customerauthentication.emailAuthenticationSend(
+                      orderpayment.orderUserInfo.email,
+                      orderpayment.orderUserInfo.name
+                    )
+                  }
+                >
+                  인증 메일 요청
+                </div>
+              )}
+            </div>
+
+            <form name="form_chk" method="post" style={{ display: 'none' }}>
+              <input type="hidden" name="m" value="checkplusSerivce" />
+              <input
+                type="hidden"
+                name="EncodeData"
+                value={authmobile.authKey}
+              />
+            </form>
+          </div>
+        </SlideIn>
+      </Fragment>
+    );
+  }
+}
+
+export default AuthenticationModal;

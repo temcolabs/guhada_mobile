@@ -34,9 +34,9 @@ class Benefit extends Component {
           <div className={css.couponSelectBox}>
             <div
               className={css.couponSelect}
-              onClick={() => {
-                orderPaymentCoupon.getCouponList();
-              }}
+              // onClick={() => {
+              //   orderPaymentCoupon.getCouponList();
+              // }}
             >
               <div>적용가능한 쿠폰을 선택해주세요.</div>
               <div />

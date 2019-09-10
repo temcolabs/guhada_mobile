@@ -1,24 +1,71 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './OrderCustomer.module.scss';
-
-@inject('orderpayment')
+import AuthenticationModal from './modal/AuthenticationModal';
+@inject('orderpayment', 'authmobile', 'customerauthentication')
 @observer
 class OrderCustomer extends Component {
+  state = {
+    modalHandle: false,
+  };
+
+  modalShow = () => {
+    this.setState({
+      modalHandle: true,
+    });
+  };
+
+  modalClose = () => {
+    this.setState({
+      modalHandle: false,
+    });
+  };
+
   render() {
     let { orderpayment } = this.props;
+
     return (
       <div className={css.wrap}>
         <div className={css.headerSection}>
           <div className={css.title}>주문자 정보</div>
-          <div className={css.identification}>
-            {/* <span>[필수] </span> 본인인증
-            <div className={css.arrow} /> */}
-          </div>
+          {orderpayment.orderUserInfo.name &&
+          orderpayment.orderUserInfo.mobile ? (
+            orderpayment.orderUserInfo.emailVerify ? null : (
+              <div
+                className={css.identification}
+                onClick={() => {
+                  this.modalShow();
+                }}
+              >
+                <span>[필수] </span> 이메일인증
+                <div className={css.arrow} />
+              </div>
+            )
+          ) : (
+            <div
+              className={css.identification}
+              onClick={() => {
+                this.modalShow();
+              }}
+            >
+              <span>[필수] </span> 본인인증
+              <div className={css.arrow} />
+            </div>
+          )}
         </div>
-        <div className={css.customerName}>{`${
-          orderpayment.orderUserInfo.name
-        } ${orderpayment.orderUserInfo.mobile}`}</div>
+        {orderpayment.orderUserInfo.name ? (
+          <div className={css.customerName}>{`${
+            orderpayment.orderUserInfo.name
+          } ${orderpayment.orderUserInfo.mobile}`}</div>
+        ) : null}
+
+        <AuthenticationModal
+          // isVisible={this.state.modalHandle}
+          isVisible={this.state.modalHandle}
+          modalClose={() => {
+            this.modalClose();
+          }}
+        />
       </div>
     );
   }
