@@ -5,9 +5,10 @@ import { observer } from 'mobx-react';
 import { loadScript } from 'lib/dom';
 import { snsAppKey } from 'constant/sns';
 import { isBrowser } from 'lib/isServer';
+import { HOSTNAME } from 'constant/hostname';
 
 const client_id = snsAppKey.NAVER;
-const redirectURI = encodeURI(`${process.env.HOSTNAME}/callbacknaver`);
+const redirectURI = encodeURI(`${HOSTNAME}/callbacknaver`);
 
 @observer
 class NaverLogin extends React.Component {

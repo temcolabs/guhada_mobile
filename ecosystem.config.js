@@ -43,7 +43,6 @@ module.exports = {
       },
       env_production: {
         NODE_ENV: 'production',
-        HOSTNAME: 'https://stg.m.guhada.com',
       },
     },
   ],
