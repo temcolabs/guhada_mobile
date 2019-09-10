@@ -6,7 +6,6 @@ import { loadScript } from 'lib/dom';
 import { snsAppKey } from 'constant/sns';
 import { isBrowser } from 'lib/isServer';
 
-// web poc
 const client_id = snsAppKey.NAVER;
 const redirectURI = encodeURI(`${process.env.HOSTNAME}/callbacknaver`);
 
@@ -35,7 +34,7 @@ class NaverLogin extends React.Component {
   render() {
     return (
       <Fragment>
-        <div className={css.social}>
+        <div className={css.social} id="naverIdLogin_loginButton">
           <div
             id="naverIdLogin"
             className={css.icon}
@@ -43,7 +42,7 @@ class NaverLogin extends React.Component {
               backgroundImage: "url('/static/icon/social/login_btn_naver.png')",
             }}
           />
-          <div className={css.text} id="naverIdLogin_loginButton">
+          <div className={css.text}>
             네이버
             <br />
             로그인

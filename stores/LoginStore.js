@@ -200,7 +200,6 @@ export default class LoginStore {
    */
   @action
   responseFacebook = response => {
-    console.log('facebook', response);
     let data = response;
     let login = this;
 
