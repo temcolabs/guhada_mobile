@@ -3,6 +3,8 @@ import Router from 'next/router';
 import API from 'lib/API';
 import { autoHypenTele, autoHypenPhone } from 'utils';
 import { devLog } from 'lib/devLog';
+import { root } from 'store';
+import { pushRoute } from 'lib/router';
 
 export default {
   onInit() {
@@ -30,15 +32,20 @@ export default {
         devLog(res);
         let data = res.data;
 
-        if (data.resultCode === 200) {
-          form.$('email').set(data.data.email);
-          form.$('joinAt').set(data.data.joinAt);
-          form.$('phoneNumber').set(data.data.phoneNumber);
-          Router.push('/login/findidresult');
-        } else {
-          form.$('name').invalidate(' ');
-          form.$('mobile').invalidate(data.data.result);
-        }
+        form.$('email').set(data.data.email);
+        form.$('joinAt').set(data.data.joinAt);
+        form.$('phoneNumber').set(data.data.phoneNumber);
+
+        Router.push('/login/findidresult');
+      })
+      .catch(e => {
+        root.alert.showConfirm({
+          content: '해당 정보와 일치하는 아이디가 없습니다.',
+          confirmText: '가입하기',
+          onConfirm: () => {
+            pushRoute('/login/signup');
+          },
+        });
       });
   },
 

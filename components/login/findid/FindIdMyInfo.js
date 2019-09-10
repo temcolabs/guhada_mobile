@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import css from './FindIdMyInfo.module.scss';
 import { LoginInput, LoginButton } from 'components/login';
-export default class FindIdMyInfo extends Component {
+import { observer } from 'mobx-react';
+
+@observer
+class FindIdMyInfo extends Component {
   render() {
     const { form } = this.props;
     let value = form.get('value');
@@ -28,3 +31,4 @@ export default class FindIdMyInfo extends Component {
     );
   }
 }
+export default FindIdMyInfo;

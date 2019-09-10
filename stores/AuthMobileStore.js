@@ -67,7 +67,7 @@ export default class AuthMobileStore {
                   content: '해당 정보와 일치하는 아이디가 없습니다.',
                   confirmText: '가입하기',
                   onConfirm: () => {
-                    pushRoute('/login/selectsignup');
+                    pushRoute('/login/signup');
                   },
                 });
               });
