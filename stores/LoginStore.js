@@ -200,7 +200,7 @@ export default class LoginStore {
    */
   @action
   responseFacebook = response => {
-    devLog('facebook', response);
+    console.log('facebook', response);
     let data = response;
 
     // API.user

@@ -137,8 +137,10 @@ class Login extends React.Component {
               />
               <FacebookLogin
                 appId={snsAppKey.FACEBOOK}
-                autoLoad={false}
+                autoLoad={true}
                 callback={login.responseFacebook}
+                cookie={true}
+                xfbml={true}
                 render={renderProps => (
                   <div className={css.social} onClick={renderProps.onClick}>
                     <div
