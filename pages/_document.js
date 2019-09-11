@@ -25,7 +25,7 @@ class MyDocument extends Document {
           />
           <meta
             name="viewport"
-            content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
           />
           <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js" />
         </Head>
