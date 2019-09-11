@@ -3,7 +3,7 @@ import { observable, action } from 'mobx';
 import { isServer } from 'lib/isServer';
 import API from 'lib/API';
 import { devLog } from 'lib/devLog';
-
+import _ from 'lodash';
 export default class ProductOptionStore {
   constructor(root) {
     if (!isServer) this.root = root;
@@ -314,16 +314,14 @@ export default class ProductOptionStore {
       .post(`/process/due-save`, bundleList)
       .then(res => {
         const { data } = res;
-        if (res.status === 200) {
-          this.benefitPoint = 0;
-          for (let i = 0; i < data.data.dueSavePointList.length; i++) {
-            this.benefitPoint += data.data.dueSavePointList[i].totalPoint;
-          }
+        this.benefitPoint = 0;
+        for (let i = 0; i < data.data.dueSavePointList.length; i++) {
+          this.benefitPoint += data.data.dueSavePointList[i].totalPoint;
         }
       })
       .catch(err => {
         this.root.alert.showAlert({
-          content: '혜택(포인트) 조회 에러',
+          content: `${_.get(err, 'data.message') || 'error'}`,
         });
       });
   };
@@ -343,7 +341,7 @@ export default class ProductOptionStore {
       })
       .catch(err => {
         this.root.alert.showAlert({
-          content: '혜택(쿠폰) 조회 에러',
+          content: `${_.get(err, 'data.message') || 'error'}`,
         });
       });
   };

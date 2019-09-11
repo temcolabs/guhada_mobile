@@ -135,23 +135,8 @@ export default class OrderPaymentStore {
       })
       .catch(err => {
         console.log(err, 'err');
-        // if (err.data.result === 'NEED_TO_LOGIN') {
-        //   this.root.alert.showAlert({
-        //     content: `${err.data.message}`,
-        //     onConfirm: () => {
-        //       this.gotoLogin();
-        //     },
-        //   });
-        // } else {
-        //   this.root.alert.showAlert({
-        //     content: `${err.data.message}`,
-        //     onConfirm: () => {
-        //       this.gotoMain();
-        //     },
-        //   });
-        // }
         this.root.alert.showAlert({
-          content: `ERROR, 메인으로 돌아갑니다`,
+          content: `${_.get(err, 'data.message') || 'ERROR'}`,
           onConfirm: () => {
             this.gotoMain();
           },
@@ -558,10 +543,9 @@ export default class OrderPaymentStore {
         });
       })
       .catch(err => {
-        console.log(err, 'rerererererers');
-        // this.root.alert.showAlert({
-        //   content: err.data.message,
-        // });
+        this.root.alert.showAlert({
+          content: `${_.get(err, 'data.message') || 'error'}`,
+        });
       });
   };
 
@@ -797,20 +781,10 @@ export default class OrderPaymentStore {
           });
         }
       })
-      .catch(error => {
-        if (this.root.login.loginStatus === 'logout') {
-          this.root.alert.showAlert({
-            content: '로그인 을 해주세요.',
-          });
-        } else {
-          this.root.alert.showAlert({
-            content: '서버 에러 ' + error,
-          });
-        }
+      .catch(err => {
         this.root.alert.showAlert({
-          content: '결제에 실패 하였습니다.',
+          content: `${_.get(err, 'data.message') || 'error'}`,
         });
-        console.log(error);
         this.status.paymentProceed = false;
       });
   };
