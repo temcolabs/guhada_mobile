@@ -3,7 +3,7 @@ import css from './SearchItemHeader.module.scss';
 import { inject, observer } from 'mobx-react';
 import cn from 'classnames';
 
-@inject('searchitem')
+@inject('searchitem', 'alert')
 @observer
 class SearchItemHeader extends Component {
   render() {
@@ -12,6 +12,7 @@ class SearchItemHeader extends Component {
       setIsOrderVisible,
       isBrand,
       setIsFilterVisible,
+      alert,
     } = this.props;
     return (
       <div
@@ -49,7 +50,15 @@ class SearchItemHeader extends Component {
             onClick={() => searchitem.setThumbnailStyle('list6')}
           />
         </div>
-        <div className={css.detail} onClick={setIsFilterVisible}>
+        {/* <div className={css.detail} onClick={setIsFilterVisible}>
+          상세검색
+        </div> */}
+        <div
+          className={css.detail}
+          onClick={() =>
+            alert.showAlert('상세검색 기능은 앱이나 데스크탑에서 이용해주세요.')
+          }
+        >
           상세검색
         </div>
       </div>

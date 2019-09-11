@@ -2,6 +2,10 @@
     height: 60px;
     padding: 20px 0;
 
+    input[type='radio'] {
+        display: none;
+    }
+
     input[type='radio']+label span {
         display: inline-block;
         width: 20px;
@@ -17,6 +21,10 @@
         background-position: center;
         background-repeat: no-repeat;
         border-color: #ffffff;
+    }
+
+    input[type='radio'] {
+        display: none;
     }
 
     & label {

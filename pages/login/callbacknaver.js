@@ -9,17 +9,18 @@ import { key } from 'constant';
 import { snsAppKey } from 'constant/sns';
 import withAuth from 'components/common/hoc/withAuth';
 import { devLog } from 'lib/devLog';
+import { HOSTNAME } from 'constant/hostname';
 
 //TODO
 const client_id = snsAppKey.NAVER;
-const redirectURI = encodeURI(`${process.env.HOSTNAME}/callbacknaver`);
+const redirectURI = encodeURI(`${HOSTNAME}/callbacknaver`);
 
 @inject('uistatus', 'login')
 @observer
 class callbacknaver extends Component {
   componentDidMount() {
     const { uistatus, login } = this.props;
-
+    console.log('redirectURI', redirectURI);
     loadScript('https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js', {
       id: 'naveridlogin_js_sdk',
       onLoad: () => {

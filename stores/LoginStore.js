@@ -200,26 +200,74 @@ export default class LoginStore {
    */
   @action
   responseFacebook = response => {
-    devLog('facebook', response);
     let data = response;
+    let login = this;
 
-    // API.user
-    //   .post('/facebookLogin', {
-    //     email: '',
-    //     profileJson: data,
-    //     snsId: data.id,
-    //   })
-    //   .then(function(res) {
-    //     let data = res.data;
-    //     devLog(data);
-    //     if (data.resultCode === 200) {
-    //       Cookies.set(key.ACCESS_TOKEN, data.data.accessToken);
-    //       Cookies.set(key.REFRESH_TOKEN, data.data.refreshToken);
-    //       Router.push('/');
-    //     } else {
-    //       alert(data.message);
-    //     }
-    //   });
+    this.email = data.email;
+    this.profileJson = data;
+    this.snsId = data.id;
+    this.snsType = snsType.FACEBOOK;
+
+    API.user
+      .get('/users/sns', {
+        params: {
+          email: this.email,
+          'sns-type': this.snsType,
+          uid: this.snsId,
+        },
+      })
+      .then(function(res) {
+        let data = res.data;
+        if (data.resultCode === 200) {
+          login.loginFacebook();
+        }
+      })
+      .catch(e => {
+        console.error(e);
+        devLog('e.status', e.status);
+        if (e.status === 200) {
+          if (_.get(e, 'data.resultCode') === 5004) {
+            pushRoute('/login/termagreesns');
+          } else if (_.get(e, 'data.resultCode') === 6001) {
+            this.root.alert.showAlert(_.get(e, 'data.message'));
+          }
+        } else {
+        }
+      });
+  };
+
+  @action
+  loginFacebook = () => {
+    let login = this;
+
+    API.user
+      .post('/sns-users/facebookLogin', {
+        email: this.email,
+        profileJson: this.profileJson,
+        snsId: this.snsId,
+        snsType: this.snsType,
+      })
+      .then(function(res) {
+        let data = res.data;
+        devLog(data);
+
+        if (data.resultCode === 200) {
+          Cookies.set(key.ACCESS_TOKEN, data.data.accessToken);
+          Cookies.set(key.REFRESH_TOKEN, data.data.refreshToken);
+
+          login.handleLoginSuccess({
+            accessToken: data.data.accessToken,
+            refreshToken: data.data.refreshToken,
+            expiresIn: data.data.expiresIn,
+          });
+          pushRoute('/');
+        } else {
+          devLog('data.message', data.message);
+        }
+      })
+      .catch(e => {
+        devLog('e', e);
+      });
   };
 
   @action
@@ -251,9 +299,9 @@ export default class LoginStore {
         console.error(e);
         devLog('e.status', e.status);
         if (e.status === 200) {
-          if (_.get(e, 'data.data.resultCode') === 5004) {
+          if (_.get(e, 'data.resultCode') === 5004) {
             pushRoute('/login/termagreesns');
-          } else if (_.get(e, 'data.data.resultCode') === 6001) {
+          } else if (_.get(e, 'data.resultCode') === 6001) {
             this.root.alert.showAlert(_.get(e, 'data.message'));
           }
         } else {
@@ -293,45 +341,8 @@ export default class LoginStore {
       .catch(e => {
         devLog('e', e);
       });
-
-    // let data = response || {};
-
-    // if (data.profileObj) {
-    //   let Header = {
-    //     method: 'POST',
-    //     url: process.env.API_USER + '/googleLogin',
-    //     data: {
-    //       email: data.profileObj.email,
-    //       profileJson: data.profileObj,
-    //       snsId: data.profileObj.googleId,
-    //     },
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //   };
-    //   devLog(Header);
-    //   API.user
-    //     .post('/googleLogin', {
-    //       email: data.profileObj.email,
-    //       profileJson: data.profileObj,
-    //       snsId: data.profileObj.googleId,
-    //     })
-    //     .then(function(res) {
-    //       let data = res.data;
-    //       devLog(data);
-    //       if (data.resultCode === 200) {
-    //         Cookies.set(key.ACCESS_TOKEN, data.data.accessToken);
-    //         Cookies.set(key.REFRESH_TOKEN, data.data.refreshToken);
-    //         Router.push('/');
-    //       } else {
-    //         alert(data.message);
-    //       }
-    //     })
-    //     .catch(e => {
-    //       alert(_.get(e, 'data.message'));
-    //     });
-    // }
   };
+
   @action
   responseKakao = response => {
     devLog('kakao', response);
@@ -358,12 +369,10 @@ export default class LoginStore {
         }
       })
       .catch(e => {
-        console.error(e);
-        devLog('e.status', e.status);
         if (e.status === 200) {
-          if (_.get(e, 'data.data.resultCode') === 5004) {
+          if (_.get(e, 'data.resultCode') === 5004) {
             pushRoute('/login/termagreesns');
-          } else if (_.get(e, 'data.data.resultCode') === 6001) {
+          } else if (_.get(e, 'data.resultCode') === 6001) {
             this.root.alert.showAlert(_.get(e, 'data.message'));
           }
         } else {
@@ -431,12 +440,10 @@ export default class LoginStore {
         }
       })
       .catch(e => {
-        console.error(e);
-        devLog('e.status', e.status);
         if (e.status === 200) {
-          if (_.get(e, 'data.data.resultCode') === 5004) {
+          if (_.get(e, 'data.resultCode') === 5004) {
             pushRoute('/login/termagreesns');
-          } else if (_.get(e, 'data.data.resultCode') === 6001) {
+          } else if (_.get(e, 'data.resultCode') === 6001) {
             this.root.alert.showAlert(_.get(e, 'data.message'));
           }
         } else {

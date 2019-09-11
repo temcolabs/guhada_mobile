@@ -1,6 +1,6 @@
 @import 'styles/mixins/index';
 
-$MODAL_BODY_WIDTH: 300px;
+$MODAL_BODY_WIDTH: 320px;
 
 .modalBody {
   position: relative;
@@ -8,7 +8,7 @@ $MODAL_BODY_WIDTH: 300px;
   margin-right: auto;
   min-width: $MODAL_BODY_WIDTH;
   max-width: 1024px;
-  padding: 50px 45px;
+  padding: 30px 25px;
   border: none;
   background-color: #fff;
   font-size: 16px;
@@ -27,14 +27,14 @@ $MODAL_BODY_WIDTH: 300px;
   position: relative;
   text-align: center;
   padding: 0;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .alertButtons {
   width: 100%;
   text-align: center;
   bottom: 48px;
-  margin-top: 42px;
+  margin-top: 30px;
 
   button {
     display: inline-block;
@@ -42,7 +42,7 @@ $MODAL_BODY_WIDTH: 300px;
     background-color: #5d2ed1;
     padding: 15px 30px;
     border: none;
-    font-size: 16px;
+    font-size: 14px;
     border-radius: 2px;
 
     &:nth-child(2n) {

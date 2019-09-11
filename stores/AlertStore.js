@@ -34,9 +34,13 @@ export default class AlertStore {
   };
 
   @action
-  showAlert = (props = {}) => {
+  showAlert = (data = {}) => {
+    // data가 문자열이면 메시지만 전달한 것으로 판단함.
+    const props = typeof data === 'string' ? { content: data } : data;
+
     // TODO: 함수는 toJS에 의해 undefined가 됨. 확인 필요
     this.props = Object.assign({}, toJS(this.props), props, {
+      isConfirm: false,
       onConfirm: this.withHide(props.onConfirm),
     });
 

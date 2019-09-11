@@ -1,6 +1,8 @@
-import { observable, action, toJS } from 'mobx';
+import { observable, action } from 'mobx';
 import Axios from 'axios';
 import API from 'lib/API';
+import { pushRoute } from 'lib/router';
+import _ from 'lodash';
 
 const isServer = typeof window === 'undefined';
 export default class ProductDetailStore {
@@ -25,49 +27,63 @@ export default class ProductDetailStore {
   actionAfterUserInfoFetched = [];
   @action
   getDeals = id => {
-    API.product.get(`/deals/${id}`).then(res => {
-      let data = res.data;
-      if (data.resultCode === 200) {
-        this.deals = data.data;
-        this.root.productoption.getShipExpenseType();
-        this.root.productoption.getOptions();
-        this.getDealsTag();
-        this.root.productDetailBookmark.getBookMark(this.deals.productId);
+    API.product
+      .get(`/deals/${id}`)
+      .then(res => {
+        let data = res.data;
+        if (data.resultCode === 200) {
+          this.deals = data.data;
+          this.root.productoption.getShipExpenseType();
+          this.root.productoption.getOptions();
+          this.getDealsTag();
+          this.root.productDetailBookmark.getBookMark(this.deals.productId);
 
-        while (this.actionAfterUserInfoFetched.length > 0) {
-          const cb = this.actionAfterUserInfoFetched.pop();
+          while (this.actionAfterUserInfoFetched.length > 0) {
+            const cb = this.actionAfterUserInfoFetched.pop();
 
-          if (typeof cb === 'function') {
-            cb();
+            if (typeof cb === 'function') {
+              cb();
+            }
+          }
+
+          // 다른 서비스 api로 데이터 받아오는 부분
+          this.getClaimData();
+          this.getBusinessSeller();
+          this.getDealsOfSameBrand();
+          this.getDealsOfRecommend();
+          this.getSellerStore();
+          this.getInquiryDetail();
+          this.getFollowers();
+          this.getSatisfaction();
+          this.getSellerDetail();
+          this.root.productreview.getProductReview();
+          this.root.productreview.getProductReviewSummary();
+          this.getInquiry(0);
+          // 데이터 테이블 형태로 가공해야 하는 attributes
+          this.initTableData();
+          // this.dealsStatus = true;
+          this.deals.dealsId = id;
+          this.getBlockChainData();
+
+          // 혜택정보
+          this.root.productoption.getBenefitData();
+          this.root.productoption.getCouponData();
+
+          this.dealsStatus = true;
+        }
+      })
+      .catch(e => {
+        if (e.status === 200) {
+          if (_.get(e, 'data.resultCode') === 8404) {
+            this.root.alert.showAlert({
+              content: _.get(e, 'data.message'),
+              onConfirm: () => {
+                pushRoute('/');
+              },
+            });
           }
         }
-
-        // 다른 서비스 api로 데이터 받아오는 부분
-        this.getClaimData();
-        this.getBusinessSeller();
-        this.getDealsOfSameBrand();
-        this.getDealsOfRecommend();
-        this.getSellerStore();
-        this.getInquiryDetail();
-        this.getFollowers();
-        this.getSatisfaction();
-        this.getSellerDetail();
-        this.root.productreview.getProductReview();
-        this.root.productreview.getProductReviewSummary();
-        this.getInquiry(0);
-        // 데이터 테이블 형태로 가공해야 하는 attributes
-        this.initTableData();
-        // this.dealsStatus = true;
-        this.deals.dealsId = id;
-        this.getBlockChainData();
-
-        // 혜택정보
-        this.root.productoption.getBenefitData();
-        this.root.productoption.getCouponData();
-
-        this.dealsStatus = true;
-      }
-    });
+      });
   };
 
   @action

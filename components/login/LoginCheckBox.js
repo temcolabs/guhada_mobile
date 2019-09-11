@@ -38,15 +38,12 @@ class LoginCheckBox extends Component {
         <label htmlFor={id ? id : field.id}>
           <span />
           <div>{children ? children : field.label}</div>
-          {className === 'termOption' ? (
-            <a
-              className={css.termText}
-              onClick={() => this.openTermPopup(href)}
-            >
-              보기
-            </a>
-          ) : null}
         </label>
+        {className === 'termOption' ? (
+          <a className={css.termText} onClick={() => this.openTermPopup(href)}>
+            보기
+          </a>
+        ) : null}
       </div>
     );
   }
