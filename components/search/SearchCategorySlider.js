@@ -21,7 +21,6 @@ class SearchCategorySlider extends Component {
     } else if (query.category !== '') {
       selected = Number(query.category);
     }
-
     return (
       <div className={css.wrap}>
         {categoryList.map((item, index) => {
@@ -32,7 +31,7 @@ class SearchCategorySlider extends Component {
               })}
               onClick={() =>
                 item.hierarchies !== undefined
-                  ? item.hierarchies.length !== 4
+                  ? item.children !== undefined
                     ? searchitem.toSearch({ category: item.id })
                     : searchitem.toSearch({
                         category: categoryList[0].id,

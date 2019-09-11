@@ -30,9 +30,18 @@ export default class CategoryStore {
   getCategory() {
     this.category = [];
 
-    API.product.get('/categories').then(res => {
-      this.setCategory(res.data.data);
-    });
+    API.search
+      .get('/ps/search/all')
+      .then(res => {
+        this.setCategory(res.data.data.categories);
+      })
+      .catch(e => {
+        console.error(e);
+      });
+
+    // API.product.get('/categories').then(res => {
+    //   this.setCategory(res.data.data);
+    // });
   }
 
   @action
@@ -56,10 +65,19 @@ export default class CategoryStore {
     this.categoryList = [];
 
     if (this.category.length === 0) {
-      API.product.get('/categories').then(res => {
-        let category = res.data;
-        this.categoryList = getCategory(category, id);
-      });
+      API.search
+        .get('/ps/search/all')
+        .then(res => {
+          this.categoryList = getCategory(res.data.data.categories, id);
+        })
+        .catch(e => {
+          console.error(e);
+        });
+
+      // API.product.get('/categories').then(res => {
+      //   let category = res.data;
+      //   this.categoryList = getCategory(category, id);
+      // });
     } else {
       this.categoryList = getCategory(this.category, id);
     }

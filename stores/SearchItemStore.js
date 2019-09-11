@@ -302,40 +302,40 @@ export default class SearchItemStore {
           // children[0].key 값을 열어주는 기능
 
           // 가방, 슈즈 같은 경우에 필요
-          if (toJS(getTreeData)) {
-            if (getTreeData.children) {
-              let hierarchy = JSON.parse(
-                '[' + getTreeData.children[0].hierarchy + ']'
-              );
+          // if (toJS(getTreeData)) {
+          //   if (getTreeData.children) {
+          //     let hierarchy = JSON.parse(
+          //       '[' + getTreeData.children[0].hierarchy + ']'
+          //     );
 
-              let hierarchyCheck = false;
-              let cnt = 0;
-              for (let i = 0; i < hierarchy.length; i++) {
-                for (let j = 0; j < hierarchy.length; j++) {
-                  if (hierarchy[i] === hierarchy[j]) cnt++;
-                }
-                if (cnt > 1) hierarchyCheck = true;
+          //     let hierarchyCheck = false;
+          //     let cnt = 0;
+          //     for (let i = 0; i < hierarchy.length; i++) {
+          //       for (let j = 0; j < hierarchy.length; j++) {
+          //         if (hierarchy[i] === hierarchy[j]) cnt++;
+          //       }
+          //       if (cnt > 1) hierarchyCheck = true;
 
-                cnt = 0;
-              }
+          //       cnt = 0;
+          //     }
 
-              if (hierarchyCheck === true) {
-                // this.setExpandedKeys(getTreeData.children[0].key);
-                this.locationHierarchy = getTreeData.children[0];
-                this.LocationGuide('hierarchyCheck');
-              } else {
-                // this.setExpandedKeys(getTreeData.key);
-                this.locationHierarchy = getTreeData;
-                this.LocationGuide();
-              }
-            } else {
-              // this.setExpandedKeys(getTreeData.key);
-              this.locationHierarchy = getTreeData;
-              this.LocationGuide();
-            }
+          //     if (hierarchyCheck === true) {
+          //       // this.setExpandedKeys(getTreeData.children[0].key);
+          //       this.locationHierarchy = getTreeData.children[0];
+          //       this.LocationGuide('hierarchyCheck');
+          //     } else {
+          //       // this.setExpandedKeys(getTreeData.key);
+          //       this.locationHierarchy = getTreeData;
+          //       this.LocationGuide();
+          //     }
+          //   } else {
+          //     // this.setExpandedKeys(getTreeData.key);
+          //     this.locationHierarchy = getTreeData;
+          //     this.LocationGuide();
+          //   }
 
-            hierarchy = JSON.parse('[' + getTreeData.hierarchy + ']');
-          }
+          //   hierarchy = JSON.parse('[' + getTreeData.hierarchy + ']');
+          // }
         }
 
         let query = Router.router.query;
