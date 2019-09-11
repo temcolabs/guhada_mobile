@@ -3,7 +3,7 @@ import API from 'lib/API';
 import qs from 'qs';
 import { pushRoute } from 'lib/router';
 import { devLog } from 'lib/devLog';
-
+import _ from 'lodash';
 export default {
   onInit(form) {},
 
@@ -56,23 +56,13 @@ export default {
           const targetUrl = !!query.redirectTo ? query.redirectTo : '/';
 
           pushRoute(targetUrl);
-        } else {
-          switch (data.resultCode) {
-            case 6003:
-              root.toast.getToast(data.result);
-              break;
-
-            case 5004:
-              root.toast.getToast(data.result);
-              break;
-
-            default:
-              break;
-          }
         }
       })
-      .catch(function(error) {
-        devLog(error);
+      .catch(function(e) {
+        devLog(e);
+        if (_.get(e, 'status') === 200) {
+          root.toast.getToast(_.get(e, 'data.message'));
+        }
       });
   },
 

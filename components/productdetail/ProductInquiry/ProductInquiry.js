@@ -26,13 +26,14 @@ class ProductInquiry extends Component {
   render() {
     const { productdetail, login, tabRefMap } = this.props;
     const { deals, inquiryList } = productdetail;
+    console.log('_.isNil(inquiryList)', _.isNil(inquiryList));
     return (
       <div className={css.wrap} ref={tabRefMap.inquiryTab}>
         <div className={css.headerWrap}>
           <div className={css.header}>
             상품문의{` `}
-            {_.isNil(inquiryList)
-              ? `0`
+            {_.isNil(inquiryList.data)
+              ? 0
               : String(inquiryList.totalElements).toLocaleString()}
             건
             {login.loginStatus === 'LOGIN_DONE' ? (

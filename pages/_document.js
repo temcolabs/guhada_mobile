@@ -23,7 +23,10 @@ class MyDocument extends Document {
             integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu"
             crossOrigin="anonymous"
           />
-
+          <meta
+            name="viewport"
+            content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width"
+          />
           <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js" />
         </Head>
         <body>

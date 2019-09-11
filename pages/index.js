@@ -20,7 +20,7 @@ class index extends React.Component {
           />
         </Head>
         <div>
-          <Home></Home>
+          <Home />
         </div>
       </>
     );
