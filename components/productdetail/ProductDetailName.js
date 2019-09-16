@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import css from './ProductDetailName.module.scss';
 import { inject, observer } from 'mobx-react';
-
+import _ from 'lodash';
 @inject('productdetail', 'productDetailBookmark', 'productoption')
 @observer
 class ProductDetailName extends Component {
@@ -27,9 +27,11 @@ class ProductDetailName extends Component {
         </div>
 
         <div className={css.inner__middle}>
-          <div className={css.product__name}>{`${deals.season} ${
-            deals.name
-          }`}</div>
+          <div className={css.product__name}>
+            {`${_.isNil(deals.season) === false ? deals.season : ''} ${
+              deals.name
+            }`}
+          </div>
         </div>
 
         <div className={css.inner__bottom}>

@@ -73,7 +73,7 @@
     }
 
     & .productName {
-        height: 33px;
+        height: 31px;
         font-size: 12px;
         font-weight: normal;
         font-style: normal;
@@ -83,6 +83,14 @@
         text-align: left;
         color: #111111;
         margin-top: 6px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal;
+        word-wrap: break-word;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
     }
 
     & .priceWrap {
