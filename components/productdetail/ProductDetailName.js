@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import css from './ProductDetailName.module.scss';
 import { inject, observer } from 'mobx-react';
 import _ from 'lodash';
-@inject('productdetail', 'productDetailBookmark', 'productoption')
+import copy from 'copy-to-clipboard';
+import Router from 'next/router';
+
+@inject('productdetail', 'productDetailBookmark', 'productoption', 'alert')
 @observer
 class ProductDetailName extends Component {
   getSnapshotBeforeUpdate(prevProps) {
@@ -13,6 +16,16 @@ class ProductDetailName extends Component {
       this.props.productDetailBookmark.productBookmarkInit();
     }
   }
+  copyUrlToClipboard = () => {
+    const productUrl = `${window.location.protocol}//${window.location.host}${
+      Router.router.asPath
+    }`;
+
+    copy(productUrl);
+
+    this.props.alert.showAlert('상품 URL이 클립보드에 복사되었습니다.');
+  };
+
   render() {
     let { productdetail, productDetailBookmark, productoption } = this.props;
     let { deals } = productdetail;
@@ -51,7 +64,7 @@ class ProductDetailName extends Component {
             )}
           </div>
           <div className={css.utility__wrap}>
-            <div className={css.share__btn}>
+            <div className={css.share__btn} onClick={this.copyUrlToClipboard}>
               <img src="/static/icon/m_share_btn.png" alt="공유하기" />
             </div>
             <div
