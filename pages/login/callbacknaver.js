@@ -20,7 +20,6 @@ const redirectURI = encodeURI(`${HOSTNAME}/callbacknaver`);
 class callbacknaver extends Component {
   componentDidMount() {
     const { uistatus, login } = this.props;
-    console.log('redirectURI', redirectURI);
     loadScript('https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js', {
       id: 'naveridlogin_js_sdk',
       onLoad: () => {

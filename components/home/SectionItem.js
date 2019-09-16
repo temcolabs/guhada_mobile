@@ -45,17 +45,25 @@ export default function SectionItem({
           <div className={css.productSeason}>{item.productSeason}</div>
         </div>
         <div className={css.dealName}>{item.dealName}</div>
-        <div className={css.priceWrap}>
-          <span className={css.sellPrice}>
-            {item.discountPrice.toLocaleString()}
-          </span>
-          <span className={css.discountPrice}>
-            {item.sellPrice !== 0 ? item.sellPrice.toLocaleString() : null}
-          </span>
-          <span className={css.discountRate}>
-            {item.discountRate !== 0 ? `${item.discountRate}%` : null}
-          </span>
-        </div>
+        {item.discountRate > 0 ? (
+          <div className={css.priceWrap}>
+            <span className={css.sellPrice}>
+              {item.discountPrice.toLocaleString()}
+            </span>
+            <span className={css.discountPrice}>
+              {item.sellPrice !== 0 ? item.sellPrice.toLocaleString() : null}
+            </span>
+            <span className={css.discountRate}>
+              {item.discountRate !== 0 ? `${item.discountRate}%` : null}
+            </span>
+          </div>
+        ) : (
+          <div className={css.priceWrap}>
+            <span className={css.sellPrice}>
+              {`${item.sellPrice.toLocaleString()}`}
+            </span>
+          </div>
+        )}
         <div className={css.sellerWrap}>
           <div className={css.sellerLevel}>
             <div className={css.level}>{1}</div>
