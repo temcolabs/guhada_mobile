@@ -94,16 +94,30 @@ class SearchItem2 extends Component {
                       })
                     : null}
 
-                  <div className={css.priceWrap}>
-                    <div className={css.discountWrap}>
+                  {deal.discountRate > 0 ? (
+                    <div className={css.priceWrap}>
                       <span className={css.sellPrice}>
-                        {deal.sellPrice.toLocaleString() + '원'}
+                        {deal.discountPrice.toLocaleString()}
+                      </span>
+                      <span className={css.discountPrice}>
+                        {deal.discountRate !== 0
+                          ? deal.sellPrice.toLocaleString()
+                          : null}
+                      </span>
+
+                      <span className={css.discountRate}>
+                        {deal.discountRate !== 0
+                          ? `${deal.discountRate}%`
+                          : null}
                       </span>
                     </div>
-                    <span className={css.discountRate}>
-                      {deal.discountRate !== 0 ? `${deal.discountRate}%` : '5%'}
-                    </span>
-                  </div>
+                  ) : (
+                    <div className={css.priceWrap}>
+                      <span className={css.sellPrice}>
+                        {`${deal.sellPrice.toLocaleString()}`}
+                      </span>
+                    </div>
+                  )}
                 </div>
               </div>
             </LinkRoute>

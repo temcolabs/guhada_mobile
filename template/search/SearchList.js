@@ -101,24 +101,6 @@ class SearchList extends Component {
             )}
           </div>
         </>
-        {/* {this.state.isSearchVisible === false ? (
-          <>
-            <SearchItemHeader
-              setIsOrderVisible={this.setIsOrderVisible}
-              setIsFilterVisible={this.setIsFilterVisible}
-              isBrand={isBrand || isKeyword ? true : false}
-            />
-            <div className={css.searchItemWrap}>
-              {searchitem.thumbnail === 'list4' ? (
-                <SearchItem4 deals={searchitem.deals} />
-              ) : searchitem.thumbnail === 'list2' ? (
-                <SearchItem2 deals={searchitem.deals} />
-              ) : (
-                <SearchItem6 deals={searchitem.deals} />
-              )}
-            </div>
-          </>
-        ) : null} */}
 
         <SearchOrder
           isVisible={this.state.isOrderVisible}

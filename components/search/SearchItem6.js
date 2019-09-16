@@ -69,13 +69,23 @@ class SearchItem6 extends Component {
                 <div className={css.detailWrap}>
                   <div className={css.productSeason}>{deal.productSeason}</div>
                   <div className={css.brandName}>{deal.brandName}</div>
-                  <div className={css.priceWrap}>
-                    <div className={css.discountWrap}>
-                      <span className={css.sellPrice}>
-                        {deal.sellPrice.toLocaleString() + '원'}
-                      </span>
+                  {deal.discountRate > 0 ? (
+                    <div className={css.priceWrap}>
+                      <div className={css.discountWrap}>
+                        <span className={css.sellPrice}>
+                          {deal.discountPrice.toLocaleString() + '원'}
+                        </span>
+                      </div>
                     </div>
-                  </div>
+                  ) : (
+                    <div className={css.priceWrap}>
+                      <div className={css.discountWrap}>
+                        <span className={css.sellPrice}>
+                          {deal.sellPrice.toLocaleString() + '원'}
+                        </span>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </LinkRoute>

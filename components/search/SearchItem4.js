@@ -74,21 +74,31 @@ class SearchItem4 extends Component {
                     </span>
                   </div>
                   <div className={css.productName}>{deal.productName}</div>
-                  <div className={css.priceWrap}>
-                    <div className={css.discountWrap}>
-                      <span className={css.sellPrice}>
-                        {deal.sellPrice.toLocaleString()}
-                      </span>
-                      <span className={css.discountPrice}>
-                        {deal.discountPrice != 0
-                          ? deal.discountPrice.toLocaleString()
-                          : '100000'}
+                  {deal.discountRate > 0 ? (
+                    <div className={css.priceWrap}>
+                      <div className={css.discountWrap}>
+                        <span className={css.sellPrice}>
+                          {deal.discountPrice.toLocaleString()}
+                        </span>
+                        <span className={css.discountPrice}>
+                          {deal.discountRate !== 0
+                            ? deal.sellPrice.toLocaleString()
+                            : null}
+                        </span>
+                      </div>
+                      <span className={css.discountRate}>
+                        {deal.discountRate !== 0
+                          ? `${deal.discountRate}%`
+                          : null}
                       </span>
                     </div>
-                    <span className={css.discountRate}>
-                      {deal.discountRate !== 0 ? `${deal.discountRate}%` : '5%'}
-                    </span>
-                  </div>
+                  ) : (
+                    <div className={css.priceWrap}>
+                      <span className={css.sellPrice}>
+                        {`${deal.sellPrice.toLocaleString()}`}
+                      </span>
+                    </div>
+                  )}
                 </div>
               </div>
             </LinkRoute>
