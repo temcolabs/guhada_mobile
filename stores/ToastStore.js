@@ -1,5 +1,4 @@
 import { observable, action, toJS } from 'mobx';
-const isServer = typeof window === 'undefined';
 import { isBrowser } from 'lib/isServer';
 
 export default class ToastStore {
