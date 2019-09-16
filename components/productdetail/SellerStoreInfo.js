@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import css from './SellerStoreInfo.module.scss';
 import cn from 'classnames';
 import _ from 'lodash';
+import { useObserver } from 'mobx-react-lite';
 
-export default function SellerStoreInfo({
+function SellerStoreInfo({
   deals,
   dealsOfSellerStore = [
     {
@@ -37,8 +38,10 @@ export default function SellerStoreInfo({
   followers = { isFollower: '팔로우' },
   seller,
   tabRefMap,
+  sellerfollow,
+  handleSellerFollows = () => {},
 }) {
-  return (
+  return useObserver(() => (
     <div className={css.wrap} ref={tabRefMap.sellerstoreTab}>
       <div className={css.headerWrap}>
         <div
@@ -66,14 +69,11 @@ export default function SellerStoreInfo({
         </div>
         <div
           className={cn(css.followBtn, {
-            [css.following]: followers.isFollower === '팔로잉',
+            [css.following]: sellerfollow.follows === true,
           })}
+          onClick={() => handleSellerFollows()}
         >
-          {followers
-            ? followers.isFollower === '팔로잉'
-              ? '팔로잉'
-              : '팔로우'
-            : '팔로잉'}
+          {sellerfollow.follows === false ? '팔로우' : '팔로잉'}
         </div>
       </div>
       <div className={css.sellerItemWrap}>
@@ -102,5 +102,6 @@ export default function SellerStoreInfo({
         })}
       </div>
     </div>
-  );
+  ));
 }
+export default SellerStoreInfo;

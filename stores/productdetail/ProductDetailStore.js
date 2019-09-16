@@ -53,7 +53,8 @@ export default class ProductDetailStore {
           this.getDealsOfRecommend();
           this.getSellerStore();
           this.getInquiryDetail();
-          this.getFollowers();
+          // this.getFollowers();
+          this.root.sellerfollow.getSellerFollow(this.deals.sellerId);
           this.getSatisfaction();
           this.getSellerDetail();
           this.root.productreview.getProductReview();

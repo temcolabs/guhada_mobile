@@ -21,7 +21,7 @@ import SellerStoreInfo from 'components/productdetail/SellerStoreInfo';
 import ProductInquiry from 'components/productdetail/ProductInquiry/ProductInquiry';
 import ProductReview from 'components/productdetail/ProductReview/ProductReview';
 
-@inject('searchitem', 'productoption')
+@inject('searchitem', 'productoption', 'sellerfollow', 'productdetail')
 @observer
 class ProductDetail extends React.Component {
   static propTypes = {};
@@ -37,6 +37,18 @@ class ProductDetail extends React.Component {
     };
   }
 
+  handleSellerFollows = () => {
+    console.log('object');
+    const { sellerfollow, productdetail } = this.props;
+    const follows = sellerfollow.follows;
+
+    if (follows === false) {
+      sellerfollow.setSellerFollow(productdetail.deals.sellerId);
+    } else if (follows === true) {
+      sellerfollow.deleteSellerFollow(productdetail.deals.sellerId);
+    }
+  };
+
   render() {
     const {
       deals,
@@ -50,6 +62,7 @@ class ProductDetail extends React.Component {
       followers,
       satisfaction,
       productoption,
+      sellerfollow,
     } = this.props;
 
     return (
@@ -141,6 +154,8 @@ class ProductDetail extends React.Component {
             followers={followers}
             seller={seller}
             tabRefMap={this.tabRefMap}
+            handleSellerFollows={this.handleSellerFollows}
+            sellerfollow={sellerfollow}
           />
         </SectionWrap>
       </DefaultLayout>

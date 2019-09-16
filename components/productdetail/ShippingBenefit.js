@@ -3,8 +3,9 @@ import css from './ShippingBenefit.module.scss';
 import StarItem from './StarItem';
 import { inject, observer } from 'mobx-react';
 import _ from 'lodash';
+import cn from 'classnames';
 
-@inject('productreview', 'productoption')
+@inject('productreview', 'productoption', 'productdetail', 'sellerfollow')
 @observer
 class ShippingBenefit extends Component {
   state = {
@@ -15,6 +16,18 @@ class ShippingBenefit extends Component {
       benefitHandle: !this.state.benefitHandle,
     });
   };
+
+  handleSellerFollows = () => {
+    const { sellerfollow, productdetail } = this.props;
+    const follows = sellerfollow.follows;
+
+    if (follows === false) {
+      sellerfollow.setSellerFollow(productdetail.deals.sellerId);
+    } else if (follows === true) {
+      sellerfollow.deleteSellerFollow(productdetail.deals.sellerId);
+    }
+  };
+
   render() {
     const {
       deals,
@@ -24,6 +37,7 @@ class ShippingBenefit extends Component {
       shipExpenseType,
       tabRefMap,
       productoption,
+      sellerfollow,
     } = this.props;
     const reviewSummary = productreview.reviewSummary;
     return (
@@ -106,7 +120,14 @@ class ShippingBenefit extends Component {
               </div>
               <div className={css.infoWrap}>
                 <div>
-                  <button className={css.colored}>팔로우</button>
+                  <button
+                    className={cn({
+                      [css.colored]: sellerfollow.follows === false,
+                    })}
+                    onClick={this.handleSellerFollows}
+                  >
+                    {sellerfollow.follows === false ? '팔로우' : '팔로잉'}
+                  </button>
                 </div>
                 <div>
                   <button>셀러스토어</button>

@@ -37,6 +37,7 @@
     "mobx": "^4.9.2",
     "mobx-react": "^5.4.3",
     "mobx-react-form": "^2.0.2",
+    "mobx-react-lite": "^1.4.1",
     "moment": "^2.24.0",
     "next": "^8.0.3",
     "node-sass": "^4.11.0",

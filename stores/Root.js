@@ -13,9 +13,13 @@ import OrderPaymentSuccessStore from './OrderPaymentSuccessStore';
 import ShoppingCartStore from './shoppingcart/ShoppingCartStore';
 import ProductReviewStore from './productdetail/ProductReviewStore';
 import ProductOptionStore from './productdetail/ProductOptionStore';
+
+// 상품상세
 import ProductDetailLikeStore from './productdetail/ProductDetailLikeStore';
 import ProductDetailBookmarkStore from './productdetail/ProductDetailBookmarkStore';
 import ProductDetailGalleryStore from './productdetail/ProductDetailGalleryStore';
+import SellerFollowStore from './productdetail/SellerFollowStore';
+
 import CartAndPurchaseStore from './productdetail/CartAndPurchaseStore';
 import ShoppingCartSuccessModalStore from './productdetail/ShoppingCartSuccessModalStore';
 import AlertStore from './AlertStore';
@@ -57,9 +61,12 @@ class RootStore {
     this.shoppingcart = new ShoppingCartStore(this);
     this.productreview = new ProductReviewStore(this);
     this.productoption = new ProductOptionStore(this);
+    // 상품 상세
     this.productDetailLike = new ProductDetailLikeStore(this);
     this.productDetailBookmark = new ProductDetailBookmarkStore(this);
     this.productDetailGallery = new ProductDetailGalleryStore(this);
+    this.sellerfollow = new SellerFollowStore(this);
+
     this.alert = new AlertStore(this);
     this.bookmark = new BookMarkStore(this);
     this.authmobile = new AuthMobileStore(this);
