@@ -25,8 +25,6 @@ class CouponModal extends Component {
             </div>
             <div className={css.couponList}>
               <CouponList seller={true} />
-
-              <CouponList seller={true} />
             </div>
 
             <div className={css.couponResultWrap}>

@@ -5,24 +5,14 @@ import CouponModal from './modal/CouponModal';
 @inject('orderPaymentPoint', 'orderPaymentCoupon')
 @observer
 class Benefit extends Component {
-  state = {
-    tr: false,
-  };
   componentDidMount() {
     this.props.orderPaymentPoint.getAvailablePoint();
     this.props.orderPaymentPoint.getMyPoint();
     this.props.orderPaymentPoint.getDueSavePoint();
 
-    this.setState({
-      tr: !this.state.tr,
-    });
+    this.props.orderPaymentCoupon.modalShow();
   }
 
-  // componentDidUpdate() {
-  //   this.setState({
-  //     tr: true,
-  //   });
-  // }
   render() {
     let { orderPaymentPoint, orderPaymentCoupon } = this.props;
     return (
@@ -34,9 +24,9 @@ class Benefit extends Component {
           <div className={css.couponSelectBox}>
             <div
               className={css.couponSelect}
-              // onClick={() => {
-              //   orderPaymentCoupon.getCouponList();
-              // }}
+              onClick={() => {
+                orderPaymentCoupon.modalShow();
+              }}
             >
               <div>적용가능한 쿠폰을 선택해주세요.</div>
               <div />

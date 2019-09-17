@@ -11,8 +11,8 @@ class CouponList extends Component {
       <div className={css.wrap}>
         <div className={css.title}>더 팩토리 압구정점</div>
         <div className={css.conponItem}>
-          <Coupon />
-          <Coupon />
+          <Product />
+          <CouponItem />
         </div>
       </div>
     );
@@ -21,7 +21,7 @@ class CouponList extends Component {
 
 export default CouponList;
 
-const Coupon = () => {
+const Product = () => {
   return (
     <div className={css.couponWrap}>
       <div className={css.productInfo}>
@@ -38,6 +38,13 @@ const Coupon = () => {
           <div className={css.productOption}>체리 85 1개</div>
         </div>
       </div>
+    </div>
+  );
+};
+
+const CouponItem = () => {
+  return (
+    <div className={css.couponWrap}>
       <div className={css.couponList}>
         <div className={css.couponItem}>
           <label>
