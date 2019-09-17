@@ -4,11 +4,12 @@ import { inject, observer } from 'mobx-react';
 import { toJS } from 'mobx';
 import cn from 'classnames';
 
-@inject('searchitem')
+@inject('searchitem', 'category')
 @observer
 class CategorySlider extends Component {
   state = {
     selected: 0,
+    isVisibleSubCategory: false,
   };
 
   setSelected = id => {
@@ -17,36 +18,63 @@ class CategorySlider extends Component {
     });
     const { setNavDealId } = this.props;
     setNavDealId(id);
+    if (id !== 0) {
+      this.setState({ isVisibleSubCategory: true });
+    } else {
+      this.setState({ isVisibleSubCategory: false });
+    }
+  };
+
+  toSearch = category => {
+    let { searchitem } = this.props;
+    searchitem.toSearch({ category: category, enter: 'category' });
   };
 
   render() {
-    let { category } = this.props;
-    let categoryList;
-
-    if (category) categoryList = category;
-
+    const { categoryList, category } = this.props;
+    const subCategory = toJS(category.category);
     return (
-      <div className={css.wrap}>
-        {categoryList.map((item, index) => {
-          return (
-            <div
-              className={cn(css.title, {
-                [css.selected]: item.id === this.state.selected,
-              })}
-              onClick={() => this.setSelected(item.id)}
-              key={index}
-            >
-              <div className={css.dot} />
-              {item.title}
-            </div>
-          );
-        })}
-        <img
-          src={'/static/icon/btn-arrow2.png'}
-          className={css.arrowIcon}
-          alt=""
-        />
-      </div>
+      <>
+        <div className={css.wrap}>
+          {categoryList.map((item, index) => {
+            return (
+              <div
+                className={cn(css.title, {
+                  [css.selected]: item.id === this.state.selected,
+                })}
+                onClick={() => this.setSelected(item.id)}
+                key={index}
+              >
+                <div className={css.dot} />
+                {item.title}
+              </div>
+            );
+          })}
+          <img
+            src={'/static/icon/btn-arrow2.png'}
+            className={css.arrowIcon}
+            alt=""
+          />
+        </div>
+        <div
+          className={css.subWrap}
+          style={{
+            display:
+              this.state.isVisibleSubCategory === true ? 'block' : 'none',
+          }}
+        >
+          {subCategory.map(category => {
+            if (category.id === this.state.selected)
+              return category.children.map(subCategory => {
+                return (
+                  <div onClick={() => this.toSearch(subCategory.id)}>
+                    {subCategory.title}
+                  </div>
+                );
+              });
+          })}
+        </div>
+      </>
     );
   }
 }

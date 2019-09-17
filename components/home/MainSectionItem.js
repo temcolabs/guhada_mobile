@@ -5,17 +5,19 @@ import cn from 'classnames';
 import { mainSectionCategory } from 'constant/home/mainSectionCategory';
 import SectionItem from './SectionItem';
 import { LinkRoute } from 'lib/router';
+import _ from 'lodash';
 
 export default function MainSectionItem({
   title = 'PLUS ITEM',
   items,
   categoryId,
 }) {
-  const [isCategory, setIsCategory] = useState(categoryId);
-
+  const [isCategory, setIsCategory] = useState('');
   useEffect(() => {
-    setIsCategory(categoryId);
-  });
+    if (categoryId === 0) setIsCategory('');
+    else setIsCategory(categoryId);
+  }, [categoryId]);
+
   return (
     <>
       <div className={css.wrap}>
@@ -40,18 +42,21 @@ export default function MainSectionItem({
           {items['ALL'] !== undefined
             ? mainSectionCategory.map(category => {
                 if (category.id === isCategory)
-                  return items[category.key].map(item => {
-                    return (
-                      <LinkRoute
-                        href={`/productdetail?deals=${item.dealId}`}
-                        key={item.dealId}
-                      >
-                        <a>
-                          <SectionItem item={item} />
-                        </a>
-                      </LinkRoute>
-                    );
-                  });
+                  return (
+                    _.isNil(items[category.key]) === false &&
+                    items[category.key].map(item => {
+                      return (
+                        <LinkRoute
+                          href={`/productdetail?deals=${item.dealId}`}
+                          key={item.dealId}
+                        >
+                          <a>
+                            <SectionItem item={item} />
+                          </a>
+                        </LinkRoute>
+                      );
+                    })
+                  );
               })
             : null}
         </div>

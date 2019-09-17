@@ -32,7 +32,7 @@ class Home extends React.Component {
       <DefaultLayout title={null} topLayout={'main'}>
         {/* TODO :: 카테고리 네비게이터 */}
         <CategorySlider
-          category={mainCategory.item}
+          categoryList={mainCategory.item}
           setNavDealId={main.setNavDealId}
         />
         {/* TODO :: 임시로 만들어놓은 슬라이드 배너
