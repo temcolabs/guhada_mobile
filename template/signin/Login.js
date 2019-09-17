@@ -84,9 +84,9 @@ class Login extends React.Component {
               >
                 아이디저장
               </SaveIdCheckBox>
-              <LinkRoute href="/login/term">
+              {/* <LinkRoute href="/login/term">
                 <a className={css.nomember__order}>비회원 주문조회</a>
-              </LinkRoute>
+              </LinkRoute> */}
             </div>
             <div>
               <LoginButton
