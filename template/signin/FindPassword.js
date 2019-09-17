@@ -49,7 +49,7 @@ export class FindPassword extends Component {
           <div className={css.radioWrap}>
             <LoginRadio
               field={formEmail.$('findPassword')}
-              label={'휴대폰 번호로 재설정하기'}
+              label={'휴대폰으로 재설정하기'}
               value={'findMobile'}
               checked={this.state.radioChecked}
               onChangeRadio={this.onChangeRadio}
