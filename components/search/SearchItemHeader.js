@@ -53,14 +53,7 @@ class SearchItemHeader extends Component {
         {/* <div className={css.detail} onClick={setIsFilterVisible}>
           상세검색
         </div> */}
-        <div
-          className={css.detail}
-          onClick={() =>
-            alert.showAlert('상세검색 기능은 앱이나 데스크탑에서 이용해주세요.')
-          }
-        >
-          상세검색
-        </div>
+        <div className={css.detail} />
       </div>
     );
   }

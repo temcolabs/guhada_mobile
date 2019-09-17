@@ -8,7 +8,7 @@ import AutoComplete from './AutoComplete';
 import Router from 'next/router';
 import { pushRoute } from 'lib/router';
 
-@inject('searchitem', 'keyword')
+@inject('searchitem', 'keyword', 'alert')
 @observer
 class KeywordMenu extends Component {
   state = {
@@ -79,7 +79,14 @@ class KeywordMenu extends Component {
   };
 
   clickToSearch = (value = '') => {
-    const { searchitem, keyword } = this.props;
+    const { searchitem, keyword, alert } = this.props;
+    let keywordValue = value;
+
+    if (keywordValue.replace(/^\s+/, '') === '') {
+      alert.showAlert('검색 키워드를 입력하셔야 합니다.');
+      return;
+    }
+
     keyword.addItem(value);
     searchitem.toSearch({ enter: 'keyword', keyword: value });
     this.setState({ displayContent: '' });
