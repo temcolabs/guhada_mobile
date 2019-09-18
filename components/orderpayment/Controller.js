@@ -10,7 +10,7 @@ class Controller extends Component {
     return (
       <div className={css.wrap}>
         <div className={css.totalOrder}>
-          주문 상품 <span>{orderpayment.orderTotalQuantity}</span>개
+          주문 상품 <span>{orderpayment.orderProductInfo.length}</span>개
         </div>
         <div
           className={css.button}

@@ -81,9 +81,6 @@ class ProductDetail extends React.Component {
         {/* 상세 상품 옵션 */}
         <ProductDetailOption />
 
-        {/* 상품 상세 장바구니 , 구매하기 버튼 */}
-        <CartAndPurchaseButton />
-
         {/* 배송 정보 및 해택, 셀러 기본정보 */}
         <ShippingBenefit
           deals={deals}
@@ -158,6 +155,9 @@ class ProductDetail extends React.Component {
             sellerfollow={sellerfollow}
           />
         </SectionWrap>
+
+        {/* 상품 상세 장바구니 , 구매하기 버튼 */}
+        <CartAndPurchaseButton />
       </DefaultLayout>
     );
   }

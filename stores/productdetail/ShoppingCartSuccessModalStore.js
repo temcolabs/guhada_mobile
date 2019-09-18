@@ -18,7 +18,7 @@ export default class ShoppingCartSuccessModalStore {
     isButtonVisible: true,
     confirmText: '확인',
     cancelText: '취소',
-    zIndex: 2000,
+    zIndex: 9900,
   };
 
   @observable

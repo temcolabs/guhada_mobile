@@ -1,0 +1,201 @@
+.wrap {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  height: calc(100vh);
+  background: #fff;
+  overflow: scroll;
+
+  .header {
+    padding: 26px 20px 0;
+    > div {
+      border-bottom: 2px solid #111;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 15px;
+    }
+    .title {
+      font-size: 16px;
+      font-weight: 500;
+      color: #111;
+    }
+    .close {
+      width: 20px;
+      height: 20px;
+      background: url('/static/icon/m_delete.png') no-repeat;
+      background-size: cover;
+      background-position: center;
+      cursor: pointer;
+    }
+  }
+
+  .couponList {
+    padding: 0 20px;
+
+    .couponItem {
+      margin-top: 30px;
+
+      .couponSeller {
+        width: 100%;
+        height: 40px;
+        background: #f9f9fa;
+        display: flex;
+        align-items: center;
+        padding-left: 15px;
+      }
+
+      .product {
+        border-bottom: 1px solid #eee;
+        display: flex;
+        padding: 20px 0 20px;
+        margin-bottom: 20px;
+        .productImage {
+          width: 80px;
+          height: 80px;
+          overflow: hidden;
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+        }
+
+        .productInfo {
+          margin-left: 20px;
+
+          div {
+            margin-bottom: 1px;
+            font-size: 13px;
+            color: #111;
+          }
+
+          .productName {
+            max-width: 180px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
+
+          .productOption {
+            margin-top: 5px;
+            color: #777;
+          }
+        }
+      }
+
+      .couponDetailList {
+        .couponDetail {
+          label {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            font-weight: normal;
+            &:first-child {
+              margin-top: 0;
+            }
+
+            input[type='radio'] {
+              margin: 0;
+              display: block;
+              width: 20px;
+              height: 20px;
+              border: none;
+              border-radius: 0px;
+              background-image: url('/static/icon/m_radio_btn_off.png');
+              background-size: 20px 20px;
+              background-position: center;
+              background-repeat: no-repeat;
+            }
+
+            input[type='radio']:checked {
+              border: none;
+              background-image: url('/static/icon/m_radio_btn_on.png');
+              background-size: 20px 20px;
+              background-position: center;
+              background-repeat: no-repeat;
+              transition: all 0.5s;
+            }
+
+            div {
+              color: #444;
+              font-size: 13px;
+              margin-left: 10px;
+            }
+
+            .disabled {
+              color: #ccc;
+              pointer-events: none;
+            }
+          }
+        }
+      }
+    }
+  }
+  .couponResultWrap {
+    margin-top: 40px;
+    background: #f9f9fa;
+    padding: 30px 25px;
+
+    .totalSummary {
+      border-bottom: 1px solid #eee;
+      padding-bottom: 20px;
+      .couponTotal {
+        font-size: 14px;
+        font-weight: bold;
+        color: #111;
+      }
+
+      .totalOrderPrice {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+        font-size: 13px;
+        font-weight: 500;
+        color: #777;
+      }
+
+      .totalDiscountPrice {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+        font-size: 13px;
+        font-weight: 500;
+        color: #777;
+      }
+    }
+    .resultPrice {
+      padding: 25px 0 60px;
+      display: flex;
+      justify-content: space-between;
+
+      div {
+        &:first-child {
+          font-size: 14px;
+          color: #111;
+          font-weight: bold;
+        }
+        &:last-child {
+          font-size: 21px;
+          font-weight: bold;
+          color: #5d2ed1;
+
+          span {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+  .confirmButton {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: #5d2ed1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+  }
+}

@@ -19,7 +19,11 @@ class PaymentAgreement extends Component {
           <span>[필수]</span>
           구매 및 결제대행서비스 이용약관 동의
         </label>
-        <div className={css.agreementText}>보기</div>
+        <div className={css.agreementText}>
+          <a href="/terms/purchase" target="_blank">
+            보기
+          </a>
+        </div>
       </div>
     );
   }

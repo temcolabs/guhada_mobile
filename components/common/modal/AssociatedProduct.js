@@ -86,7 +86,7 @@ class AssociatedProduct extends React.Component {
                         </div>
                         <div className={css.brandName}>
                           <span>{data.brandName}</span>
-                          <span>{data.productSeason}</span>
+                          {/* <span>{data.productSeason}</span> */}
                         </div>
                         <div className={css.productName}>
                           {data.productName}
