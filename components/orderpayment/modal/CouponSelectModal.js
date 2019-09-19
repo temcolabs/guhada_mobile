@@ -114,12 +114,12 @@ const Product = props => {
       <div className={css.productInfo}>
         <div className={css.brandName}>{`${product.brandName}`}</div>
         <div className={css.productName}>
-          {` ${product.season} ${product.dealName}`}
+          {` ${product.season ? product.season : ''} ${product.dealName}`}
         </div>
 
         <div className={css.productPrice}>
-          {product.productPrice
-            ? `${product.productPrice.toLocaleString()} 원`
+          {product.sellPrice
+            ? `${product.sellPrice.toLocaleString()} 원`
             : `0 원`}
         </div>
         <div className={css.productOption}>

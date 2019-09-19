@@ -39,9 +39,9 @@ class CartItem extends Component {
               />
               <div className={css.cart__item__info}>
                 <div className={css.brand__name}>{data.brandName}</div>
-                <div className={css.product__name}>{`${data.season} ${
-                  data.dealName
-                }`}</div>
+                <div className={css.product__name}>{`${
+                  data.season ? data.season : ''
+                } ${data.dealName}`}</div>
                 <div className={css.item__price__wrap}>
                   <div className={css.discount__price}>
                     {`${data.discountPrice.toLocaleString()}원`}

@@ -150,7 +150,7 @@ export default class OrderPaymentBenefitStore {
       for (let a = 0; a < this.couponWithProduct[i].coupon.length; a++) {
         if (this.couponWithProduct[i].coupon[a].discountType === 'RATE') {
           this.couponWithProduct[i].coupon[a].discountPrice =
-            this.couponWithProduct[i].product.productPrice *
+            this.couponWithProduct[i].product.sellPrice *
             this.couponWithProduct[i].coupon[a].discountRate;
 
           this.couponWithProduct[i].coupon[a].discountPrice =
@@ -190,7 +190,7 @@ export default class OrderPaymentBenefitStore {
       tempObj = {};
       tempObj.dealId = this.couponWithProduct[i].dealId;
       tempObj.couponNumber = false;
-      tempObj.prodPrice = this.couponWithProduct[i].product.productPrice;
+      tempObj.prodPrice = this.couponWithProduct[i].product.sellPrice;
       tempObj.cartItemId = this.couponWithProduct[i].product.cartItemId;
       tempArr.push(tempObj);
     }
@@ -274,10 +274,6 @@ export default class OrderPaymentBenefitStore {
             tempArr[i].coupon[a].usedId = id;
             this.selectedCouponList[i].discountPrice =
               tempArr[i].coupon[a].discountPrice;
-            this.selectedCouponList[i].discountRate =
-              tempArr[i].coupon[a].discountRate;
-            this.selectedCouponList[i].maximumDiscountPrice =
-              tempArr[i].coupon[a].maximumDiscountPrice;
           }
         }
       }
@@ -294,9 +290,7 @@ export default class OrderPaymentBenefitStore {
       resultProdPrice: 0,
     };
     for (let i = 0; i < this.couponWithProduct.length; i++) {
-      this.totalPrice.prodPrice += this.couponWithProduct[
-        i
-      ].product.productPrice;
+      this.totalPrice.prodPrice += this.couponWithProduct[i].product.sellPrice;
     }
     for (let i = 0; i < this.selectedCouponList.length; i++) {
       if (this.selectedCouponList[i].couponNumber) {
