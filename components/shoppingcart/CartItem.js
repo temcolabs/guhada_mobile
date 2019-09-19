@@ -80,28 +80,30 @@ class CartItem extends Component {
                 {shoppingcart.cartListOptions[index]}
               </div>
             </div>
-            <div
-              className={css.cart__item__option__change__button}
-              onClick={() => {
-                shoppingcart.optionChangeModal(
-                  data.dealId,
-                  data.currentQuantity,
-                  data.cartItemId,
-                  data.selectedCartOption.dealOptionSelectId
-                );
-              }}
-            >
-              변경
-              <span
-                style={
-                  shoppingcart.status.optionChangeModal === data.dealId
-                    ? { transform: 'rotateX(180deg)' }
-                    : { transform: 'rotateX(0deg)' }
-                }
+            {data.selectedCartOption ? (
+              <div
+                className={css.cart__item__option__change__button}
+                onClick={() => {
+                  shoppingcart.optionChangeModal(
+                    data.dealId,
+                    data.currentQuantity,
+                    data.cartItemId,
+                    data.selectedCartOption.dealOptionSelectId
+                  );
+                }}
               >
-                <img src="/static/icon/m_cart_arrow.png" alt="탭 화살표" />
-              </span>
-            </div>
+                변경
+                <span
+                  style={
+                    shoppingcart.status.optionChangeModal === data.dealId
+                      ? { transform: 'rotateX(180deg)' }
+                      : { transform: 'rotateX(0deg)' }
+                  }
+                >
+                  <img src="/static/icon/m_cart_arrow.png" alt="탭 화살표" />
+                </span>
+              </div>
+            ) : null}
           </div>
         </div>
         {shoppingcart.status.optionChangeModal === data.dealId ? (

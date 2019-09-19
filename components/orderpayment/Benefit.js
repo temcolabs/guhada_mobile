@@ -1,48 +1,115 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './Benefit.module.scss';
-import CouponModal from './modal/CouponModal';
-@inject('orderPaymentPoint', 'orderPaymentCoupon')
+import CouponSelectModal from './modal/CouponSelectModal';
+import _ from 'lodash';
+@inject('orderpayment', 'orderPaymentBenefit')
 @observer
 class Benefit extends Component {
+  state = {
+    sellerList: [],
+    couponProductList: [],
+  };
   componentDidMount() {
-    this.props.orderPaymentPoint.getAvailablePoint();
-    this.props.orderPaymentPoint.getMyPoint();
-    this.props.orderPaymentPoint.getDueSavePoint();
+    this.props.orderPaymentBenefit.getAvailablePoint();
+    this.props.orderPaymentBenefit.getMyPoint();
+    this.props.orderPaymentBenefit.getMyCoupon();
+    this.props.orderPaymentBenefit.getDueSavePoint();
 
-    this.props.orderPaymentCoupon.modalShow();
+    this.setCouponList();
   }
+  setCouponList = () => {
+    let orderProduct = this.props.orderpayment.orderProductInfo;
+    let couponWallet = this.props.orderpayment.orderMyCouponWallet;
+    let tempCouponProductList = [];
+    let tempSellerList = [];
+    let tempData = {};
 
+    if (couponWallet.length > 0) {
+      for (let i = 0; i < orderProduct.length; i++) {
+        for (let j = 0; j < couponWallet.length; j++) {
+          tempData = {};
+          if (orderProduct[i].dealId === couponWallet[j].dealId) {
+            tempData.product = orderProduct[i];
+            tempData.coupon = couponWallet[j];
+            // tempData.usedCouponList = [];
+            tempCouponProductList.push(tempData);
+          }
+        }
+      }
+    }
+
+    for (let i = 0; i < tempCouponProductList.length; i++) {
+      tempSellerList.push(tempCouponProductList[i].product.sellerName);
+    }
+    tempSellerList = [...new Set(tempSellerList)];
+
+    this.setState(
+      {
+        sellerList: this.state.sellerList.concat(...tempSellerList),
+        couponProductList: this.state.couponProductList.concat(
+          ...tempCouponProductList
+        ),
+      },
+      () => {
+        this.props.orderPaymentBenefit.setCouponWithProduct(
+          this.state.couponProductList
+        );
+      }
+    );
+  };
   render() {
-    let { orderPaymentPoint, orderPaymentCoupon } = this.props;
+    let { orderpayment, orderPaymentBenefit } = this.props;
     return (
       <div className={css.wrap}>
         <div className={css.title}>할인적용</div>
 
         <div className={css.coupon}>
-          <div className={css.couponTitle}>쿠폰</div>
+          <div className={css.couponTitle}>
+            쿠폰
+            <span> (사용가능 </span>
+            <span className={css.myCoupon}>
+              {orderpayment.orderPaymentTotalInfo.availableCouponCount}
+            </span>
+            <span>{`장 / 보유 ${orderPaymentBenefit.myCoupon} 장)`}</span>
+          </div>
           <div className={css.couponSelectBox}>
+            <div className={css.couponUsed}>
+              <input
+                type="text"
+                placeholder="쿠폰선택"
+                value={
+                  orderPaymentBenefit.applyCoupon.applyDiscount
+                    ? `-${orderPaymentBenefit.applyCoupon.applyDiscount?.toLocaleString()}원 (${
+                        orderPaymentBenefit.applyCoupon.applyCouponAmount
+                      }장)`
+                    : '쿠폰선택'
+                }
+                readOnly={true}
+              />
+            </div>
             <div
               className={css.couponSelect}
               onClick={() => {
-                orderPaymentCoupon.modalShow();
+                orderPaymentBenefit.handleModalShow();
               }}
             >
-              <div>적용가능한 쿠폰을 선택해주세요.</div>
-              <div />
+              쿠폰변경
             </div>
-            {/* <div className={css.couponAutoSelect}>자동 적용</div> */}
           </div>
         </div>
 
-        <CouponModal isVisible={orderPaymentCoupon.status.couponModal} />
+        <CouponSelectModal
+          isVisible={orderPaymentBenefit.isOpen}
+          sellerList={this.state.sellerList}
+        />
 
         <div className={css.point}>
           <div className={css.pointTitle}>
             <div>포인트</div>
             <div>
               (사용가능{' '}
-              <span>{orderPaymentPoint.availablePoint.toLocaleString()}</span>
+              <span>{orderPaymentBenefit.availablePoint.toLocaleString()}</span>
               P)
             </div>
           </div>
@@ -50,9 +117,9 @@ class Benefit extends Component {
             <div className={css.pointSelect}>
               <input
                 type="text"
-                value={orderPaymentPoint.usePoint.toLocaleString()}
+                value={orderpayment.orderPaymentTotalInfo.usePoint}
                 onChange={e => {
-                  orderPaymentPoint.setUsePoint(e);
+                  orderPaymentBenefit.setUsePoint(e);
                 }}
                 maxLength="11"
               />
@@ -60,7 +127,7 @@ class Benefit extends Component {
             <div
               className={css.pointAutoSelect}
               onClick={() => {
-                orderPaymentPoint.pointfullUse();
+                orderPaymentBenefit.pointfullUse();
               }}
             >
               전액 사용

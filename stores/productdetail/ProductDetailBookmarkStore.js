@@ -37,7 +37,7 @@ export default class ProductDetailLikeStore {
       .then(res => {
         this.bookMarkImageSrc = true;
         this.root.alert.showAlert({
-          content: '해당상품 을 북마크에 저장 했습니다.',
+          content: '북마크완료!.',
         });
       })
       .catch(e => {

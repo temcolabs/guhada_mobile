@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './FinalAmountBenefit.module.scss';
 
-@inject('orderpayment', 'orderPaymentPoint')
+@inject('orderpayment', 'orderPaymentBenefit')
 @observer
 class FinalAmountBenefit extends Component {
   render() {
-    let { orderpayment, orderPaymentPoint } = this.props;
+    let { orderpayment, orderPaymentBenefit } = this.props;
     let { orderPaymentTotalInfo } = orderpayment;
     return (
       <div className={css.wrap}>
@@ -31,17 +31,17 @@ class FinalAmountBenefit extends Component {
             <div className={css.minusImage} />
           </div>
           <div className={css.totalDiscountAmount}>
-            {`${orderPaymentTotalInfo.totalDiscountDiffPrice.toLocaleString()}원`}
+            {`${orderPaymentTotalInfo.totalDiscountDiffPrice?.toLocaleString()}원`}
             <div className={css.equalImage} />
           </div>
           <div className={css.totalPaymentAmount}>
-            {`${orderPaymentTotalInfo.totalPaymentPrice.toLocaleString()}`}
+            {`${orderPaymentTotalInfo.totalPaymentPrice?.toLocaleString()}`}
             <span>원</span>
           </div>
         </div>
 
         {orderpayment.totalBenefitDetailStatus ? (
-          <DiscountInfo point={orderPaymentPoint.usePoint} />
+          <DiscountInfo point={orderPaymentBenefit.usePoint} />
         ) : null}
 
         <div className={css.dueSavePointWrap}>
@@ -53,8 +53,8 @@ class FinalAmountBenefit extends Component {
             <div className={css.dueSavePoint}>
               최대{' '}
               <span>
-                {orderPaymentPoint.dueSavePointTotal
-                  ? `${orderPaymentPoint.dueSavePointTotal.toLocaleString()}`
+                {orderPaymentBenefit.dueSavePointTotal
+                  ? `${orderPaymentBenefit.dueSavePointTotal.toLocaleString()}`
                   : 0}
               </span>
               p

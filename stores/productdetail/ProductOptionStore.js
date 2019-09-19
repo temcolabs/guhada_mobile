@@ -20,7 +20,7 @@ export default class ProductOptionStore {
 
   @observable benefitToggle = false;
   @observable benefitPoint = 0;
-  @observable benefitCoupon = [];
+  @observable dueSavebenefitCoupon = [];
   @observable quantityMinusBtn = '/static/icon/quantity_minus_off.png';
   @observable quantityPlusBtn = '/static/icon/quantity_plus_on.png';
 
@@ -328,20 +328,59 @@ export default class ProductOptionStore {
 
   @action
   getCouponData = () => {
+    let deals = this.root.productdetail.deals;
+    let param = {
+      DCategoryId: deals.dCategoryId ? deals.dCategoryId : '',
+      LCategoryId: deals.lCategoryId,
+      MCategoryId: deals.mCategoryId,
+      SCategoryId: deals.sCategoryId,
+      dealId: deals.dealId,
+      paymentPrice: deals.sellPrice,
+      sellerId: deals.sellerId,
+      saveActionType: 'BUY',
+      serviceType: 'FRONT',
+    };
     API.benefit
-      .get(
-        `/coupons/process/due-save?DCategoryId=${215}&LCategoryId=${1}&MCategoryId=${4}&SCategoryId=${18}&dealId=${7}&paymentPrice=${250000}&sellerId=${251}&saveActionType=BUY&serviceType=FRONT`
-      )
+      .get(`/coupons/process/due-save`, { params: param })
       .then(res => {
         const { data } = res;
-        if (res.status === 200) {
-          this.benefitCoupon = data.data;
-          devLog(this.benefitCoupon, 'this.benefitCoupon');
-        }
+        this.dueSavebenefitCoupon = data.data;
+        console.log(this.dueSavebenefitCoupon, 'this.dueSavebenefitCoupon');
       })
       .catch(err => {
         this.root.alert.showAlert({
-          content: `${_.get(err, 'data.message') || 'error'}`,
+          content: `${_.get(err, 'data.message') || 'ERROR'}`,
+        });
+      });
+  };
+
+  @action
+  couponDown = () => {
+    let deals = this.root.productdetail.deals;
+    let coupon = this.dueSavebenefitCoupon[0];
+    let param = {
+      dcategoryId: deals.dCategoryId ? deals.dCategoryId : '',
+      dealId: deals.dealId,
+      lcategoryId: deals.lCategoryId,
+      mcategoryId: deals.mCategoryId,
+      saveActionType: coupon.saveTargetType,
+      scategoryId: deals.sCategoryId,
+      sellerId: deals.sellerId,
+      serviceType: 'FRONT',
+      paymentPrice: deals.sellPrice,
+      userId: coupon.userId,
+    };
+    API.benefit
+      .post(`/coupons/process/save`, param)
+      .then(res => {
+        const { data } = res;
+        this.root.alert.showAlert({
+          content: `쿠폰발급`,
+        });
+      })
+      .catch(err => {
+        this.root.alert.showAlert({
+          content: `${_.get(err, 'data.message') || err.message}`,
         });
       });
   };

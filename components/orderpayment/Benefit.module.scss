@@ -17,6 +17,15 @@
       font-size: 14px;
       color: #111;
       font-weight: 500;
+
+      span {
+        font-size: 12px;
+        color: #999;
+
+        &.myCoupon {
+          color: #111;
+        }
+      }
     }
 
     .couponSelectBox {
@@ -25,31 +34,21 @@
       justify-content: space-between;
     }
 
-    .couponSelect {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    .couponUsed {
+      position: relative;
       width: 100%;
-      border: 1px solid #ebebeb;
-      padding: 0 10px;
-      height: 45px;
-      cursor: pointer;
-      div {
-        font-size: 13px;
-        color: #777;
+      margin-right: 7px;
 
-        &:last-child {
-          width: 20px;
-          height: 20px;
-          background: url('/static/icon/m_payment-icon-selectbox-open@3x.png')
-            no-repeat;
-          background-size: cover;
-          background-position: center;
-        }
+      input {
+        border: 1px solid #ebebeb;
+        width: 100%;
+        height: 45px;
+        padding: 0 15px;
+        background: #f9f9fa;
       }
     }
 
-    .couponAutoSelect {
+    .couponSelect {
       width: 80px;
       height: 45px;
       display: flex;

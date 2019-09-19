@@ -30,14 +30,14 @@ class CartAndPurchaseButton extends Component {
           </div>
         ) : (
           <div className={css.btnGroup}>
-            <div
+            {/* <div
               className={css.reEntry__btn}
               onClick={() => {
                 cartAndPurchase.reEntryNotify();
               }}
             >
               재입고알림
-            </div>
+            </div> */}
             <div className={css.soldout}>품절</div>
           </div>
         )}
