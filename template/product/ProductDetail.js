@@ -20,7 +20,9 @@ import RelatedAndRecommend from 'components/productdetail/RelatedAndRecommend';
 import SellerStoreInfo from 'components/productdetail/SellerStoreInfo';
 import ProductInquiry from 'components/productdetail/ProductInquiry/ProductInquiry';
 import ProductReview from 'components/productdetail/ProductReview/ProductReview';
+import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
 
+@withScrollToTopOnMount
 @inject('searchitem', 'productoption', 'sellerfollow', 'productdetail')
 @observer
 class ProductDetail extends React.Component {
@@ -63,6 +65,7 @@ class ProductDetail extends React.Component {
       satisfaction,
       productoption,
       sellerfollow,
+      productdetail,
     } = this.props;
 
     return (
