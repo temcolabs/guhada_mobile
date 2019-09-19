@@ -35,29 +35,31 @@ class FindId extends Component {
           <div className={css.wrap}>
             <FindLoginInfoHeader select={'FindId'} />
           </div>
-          <div className={css.radioWrap}>
-            <LoginRadio
-              field={form.$('findId')}
-              label={'내 회원정보로 찾기'}
-              value={'findInfo'}
-              checked={this.state.radioChecked}
-              onChangeRadio={this.onChangeRadio}
-            />
-            {this.state.radioChecked === 'findInfo' ? (
-              <FindIdMyInfo form={form} />
-            ) : null}
-          </div>
-          <div className={css.radioWrap}>
-            <LoginRadio
-              field={form.$('findId')}
-              label={'휴대폰 본인인증으로 찾기'}
-              value={'findMobile'}
-              checked={this.state.radioChecked}
-              onChangeRadio={this.onChangeRadio}
-            />
-            {this.state.radioChecked === 'findMobile' ? (
-              <FindMobileAuth authmobile={authmobile} />
-            ) : null}
+          <div>
+            <div className={css.radioWrap}>
+              <LoginRadio
+                field={form.$('findId')}
+                label={'내 회원정보로 찾기'}
+                value={'findInfo'}
+                checked={this.state.radioChecked}
+                onChangeRadio={this.onChangeRadio}
+              />
+              {this.state.radioChecked === 'findInfo' ? (
+                <FindIdMyInfo form={form} />
+              ) : null}
+            </div>
+            <div className={css.radioWrap}>
+              <LoginRadio
+                field={form.$('findId')}
+                label={'휴대폰 본인인증으로 찾기'}
+                value={'findMobile'}
+                checked={this.state.radioChecked}
+                onChangeRadio={this.onChangeRadio}
+              />
+              {this.state.radioChecked === 'findMobile' ? (
+                <FindMobileAuth authmobile={authmobile} />
+              ) : null}
+            </div>
           </div>
           <form name="form_chk" method="post" style={{ display: 'none' }}>
             <input type="hidden" name="m" value="checkplusSerivce" />

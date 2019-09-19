@@ -46,41 +46,43 @@ export class FindPassword extends Component {
           <div className={css.wrap}>
             <FindLoginInfoHeader select={'FindPassword'} />
           </div>
-          <div className={css.radioWrap}>
-            <LoginRadio
-              field={formEmail.$('findPassword')}
-              label={'휴대폰으로 재설정하기'}
-              value={'findMobile'}
-              checked={this.state.radioChecked}
-              onChangeRadio={this.onChangeRadio}
-            />
-            {this.state.radioChecked === 'findMobile' ? (
-              <FindPasswordMobile form={formMobile} />
-            ) : null}
-          </div>
-          <div className={css.radioWrap}>
-            <LoginRadio
-              field={formEmail.$('findPassword')}
-              label={'이메일로 재설정하기'}
-              value={'findEmail'}
-              checked={this.state.radioChecked}
-              onChangeRadio={this.onChangeRadio}
-            />
-            {this.state.radioChecked === 'findEmail' ? (
-              <FindPasswordEmail form={formEmail} />
-            ) : null}
-          </div>
-          <div className={css.radioWrap}>
-            <LoginRadio
-              field={formEmail.$('findPassword')}
-              label={'휴대폰 본인인증으로 재설정하기'}
-              value={'findAuth'}
-              checked={this.state.radioChecked}
-              onChangeRadio={this.onChangeRadio}
-            />
-            {this.state.radioChecked === 'findAuth' ? (
-              <FindMobileAuthPassword authmobile={authmobile} />
-            ) : null}
+          <div>
+            <div className={css.radioWrap}>
+              <LoginRadio
+                field={formEmail.$('findPassword')}
+                label={'휴대폰으로 재설정하기'}
+                value={'findMobile'}
+                checked={this.state.radioChecked}
+                onChangeRadio={this.onChangeRadio}
+              />
+              {this.state.radioChecked === 'findMobile' ? (
+                <FindPasswordMobile form={formMobile} />
+              ) : null}
+            </div>
+            <div className={css.radioWrap}>
+              <LoginRadio
+                field={formEmail.$('findPassword')}
+                label={'이메일로 재설정하기'}
+                value={'findEmail'}
+                checked={this.state.radioChecked}
+                onChangeRadio={this.onChangeRadio}
+              />
+              {this.state.radioChecked === 'findEmail' ? (
+                <FindPasswordEmail form={formEmail} />
+              ) : null}
+            </div>
+            <div className={css.radioWrap}>
+              <LoginRadio
+                field={formEmail.$('findPassword')}
+                label={'휴대폰 본인인증으로 재설정하기'}
+                value={'findAuth'}
+                checked={this.state.radioChecked}
+                onChangeRadio={this.onChangeRadio}
+              />
+              {this.state.radioChecked === 'findAuth' ? (
+                <FindMobileAuthPassword authmobile={authmobile} />
+              ) : null}
+            </div>
           </div>
           <form name="form_chk" method="post" style={{ display: 'none' }}>
             <input type="hidden" name="m" value="checkplusSerivce" />
