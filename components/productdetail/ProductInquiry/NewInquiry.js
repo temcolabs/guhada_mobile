@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import css from './NewInquiry.module.scss';
 import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 import { inject } from 'mobx-react';
 
 function NewInquiry({ isVisible, onClose, productdetail }) {
   const [content, setContent] = useState('');
+
+  useEffect(() => {
+    setContent('');
+  }, [onClose]);
   return (
     <div>
       <SlideIn direction={slideDirection.RIGHT} isVisible={isVisible}>

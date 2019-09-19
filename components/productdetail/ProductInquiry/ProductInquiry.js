@@ -28,6 +28,7 @@ class ProductInquiry extends Component {
     const { productdetail, login, tabRefMap, alert } = this.props;
     const { deals, inquiryList } = productdetail;
     console.log('_.isNil(inquiryList)', _.isNil(inquiryList));
+    console.log('_.isNil(inquiryList)', inquiryList);
     return (
       <div className={css.wrap} ref={tabRefMap.inquiryTab}>
         <div className={css.headerWrap}>
@@ -104,7 +105,7 @@ class ProductInquiry extends Component {
           </div>
         </div>
         <div>
-          {inquiryList.content !== undefined ? (
+          {inquiryList.content ? (
             inquiryList.content.map(inquiry => {
               return <InquiryItem inquiry={inquiry} key={inquiry.id} />;
             })

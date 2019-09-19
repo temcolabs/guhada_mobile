@@ -262,6 +262,9 @@ export default class ProductDetailStore {
           this.inquiryList = [];
           // this.initPageList();
         }
+      })
+      .catch(e => {
+        this.inquiryList = [];
       });
   };
 
