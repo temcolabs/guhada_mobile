@@ -41,7 +41,7 @@ class ProductTab extends Component {
     this.setState({
       selected,
     });
-    window.scrollTo(0, tabRefMap[selected].current.offsetTop - 100);
+    window.scrollTo(0, tabRefMap[selected].current.offsetTop - 140);
   };
 
   render() {
