@@ -7,9 +7,11 @@ import { inject, observer } from 'mobx-react';
 import CategorySlider from 'components/common/CategorySlider';
 import { mainCategory } from 'constant/category';
 import MainSlideBanner from 'components/home/MainSlideBanner';
+import HomeItemDefault from 'components/home/HomeItemDefault';
+import MainHotKeyword from 'components/home/MainHotKeyword';
 
 @withRouter
-@inject('main')
+@inject('main', 'searchitem')
 @observer
 class Home extends React.Component {
   static propTypes = {};
@@ -20,7 +22,7 @@ class Home extends React.Component {
   }
 
   render() {
-    const { main } = this.props;
+    const { main, searchitem } = this.props;
     const imageFile = [
       `${process.env.API_CLOUD}/images/home/dummy_mobile/00_main_0.png`,
       `${process.env.API_CLOUD}/images/home/dummy_mobile/00_main_1.png`,
@@ -53,6 +55,12 @@ class Home extends React.Component {
           items={main.hits}
           categoryId={main.navDealId}
         />
+        <HomeItemDefault header={'HOT KEYWORD'}>
+          <MainHotKeyword
+            hotKeyword={main.hotKeyword}
+            searchitem={searchitem}
+          />
+        </HomeItemDefault>
       </DefaultLayout>
     );
   }
