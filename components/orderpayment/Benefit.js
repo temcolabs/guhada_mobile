@@ -31,7 +31,8 @@ class Benefit extends Component {
           tempData = {};
           if (orderProduct[i].dealId === couponWallet[j].dealId) {
             tempData.product = orderProduct[i];
-            tempData.coupon = couponWallet[j];
+            tempData.coupon = couponWallet[j].couponWalletResponseList;
+            tempData.dealId = couponWallet[j].dealId;
             // tempData.usedCouponList = [];
             tempCouponProductList.push(tempData);
           }

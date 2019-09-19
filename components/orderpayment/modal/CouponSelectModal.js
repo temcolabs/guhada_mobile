@@ -42,6 +42,7 @@ class CouponModal extends Component {
                               <Product product={item.product} />
                               <CouponDetailList
                                 coupon={item.coupon}
+                                dealId={item.dealId}
                                 selectedCoupon={
                                   orderPaymentBenefit.selectedCouponList[idx]
                                 }
@@ -134,25 +135,22 @@ const Product = props => {
 };
 
 const CouponDetailList = props => {
-  let { coupon, selectedCoupon, setSelectCoupon } = props;
+  let { coupon, dealId, selectedCoupon, setSelectCoupon } = props;
+  // console.log(coupon, dealId, 'coupon');
   return (
     <div className={css.couponDetailList}>
       <div className={css.couponDetail}>
-        {coupon.couponWalletResponseList.map((data, index) => {
+        {coupon.map((data, index) => {
           return (
             <label key={index}>
               <input
                 type="radio"
-                name={`${coupon.dealId}`}
+                name={`${dealId}`}
                 onChange={() => {
-                  setSelectCoupon(coupon.dealId, data.couponNumber);
+                  setSelectCoupon(dealId, data.couponNumber);
                 }}
                 disabled={
-                  data.usedId
-                    ? data.usedId === coupon.dealId
-                      ? false
-                      : true
-                    : false
+                  data.usedId ? (data.usedId === dealId ? false : true) : false
                 }
                 checked={
                   selectedCoupon?.couponNumber === data?.couponNumber
@@ -163,16 +161,20 @@ const CouponDetailList = props => {
               <div
                 className={
                   data.usedId
-                    ? data.usedId === coupon.dealId
+                    ? data.usedId === dealId
                       ? null
                       : css.disabled
                     : null
                 }
               >
-                {data.discountPrice
+                {data.discountType === 'PRICE'
                   ? `${data?.discountPrice?.toLocaleString()}`
-                  : `${data?.discountRate}%`}
-                {` 할인 [${data?.couponTitle}]`}
+                  : `${data?.discountRate * 100}%`}
+                {data.discountType === 'RATE'
+                  ? ` 할인 [${
+                      data?.couponTitle
+                    }] (${data?.discountPrice?.toLocaleString()} 할인)`
+                  : ` 할인 [${data?.couponTitle}]`}
               </div>
             </label>
           );
@@ -181,9 +183,9 @@ const CouponDetailList = props => {
           <label>
             <input
               type="radio"
-              name={`${coupon.dealId}`}
+              name={`${dealId}`}
               onChange={() => {
-                setSelectCoupon(coupon.dealId, false);
+                setSelectCoupon(dealId, false);
               }}
             />
             <div>적용안함</div>
@@ -192,9 +194,9 @@ const CouponDetailList = props => {
           <label>
             <input
               type="radio"
-              name={`${coupon.dealId}`}
+              name={`${dealId}`}
               onChange={() => {
-                setSelectCoupon(coupon.dealId, false);
+                setSelectCoupon(dealId, false);
               }}
               defaultChecked={true}
             />

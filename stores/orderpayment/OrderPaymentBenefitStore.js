@@ -145,63 +145,103 @@ export default class OrderPaymentBenefitStore {
   @action
   setCouponWithProduct = list => {
     this.couponWithProduct = list;
+
+    for (let i = 0; i < this.couponWithProduct.length; i++) {
+      for (let a = 0; a < this.couponWithProduct[i].coupon.length; a++) {
+        if (this.couponWithProduct[i].coupon[a].discountType === 'RATE') {
+          this.couponWithProduct[i].coupon[a].discountPrice =
+            this.couponWithProduct[i].product.productPrice *
+            this.couponWithProduct[i].coupon[a].discountRate;
+
+          this.couponWithProduct[i].coupon[a].discountPrice =
+            this.couponWithProduct[i].coupon[a].discountPrice >
+            this.couponWithProduct[i].coupon[a].maximumDiscountPrice
+              ? this.couponWithProduct[i].coupon[a].maximumDiscountPrice
+              : this.couponWithProduct[i].coupon[a].discountPrice;
+        }
+      }
+    }
+
+    for (let i = 0; i < this.couponWithProduct.length; i++) {
+      this.couponWithProduct[i].coupon = this.couponWithProduct[i].coupon.sort(
+        (prev, next) => {
+          if (prev.discountPrice < next.discountPrice) {
+            return 1;
+          }
+          if (prev.discountPrice > next.discountPrice) {
+            return -1;
+          }
+          return 0;
+        }
+      );
+    }
+
     if (this.couponWithProduct.length > 0) {
-      this.setCouponInit();
+      this.setSelectedCouponInit();
     }
     this.totalPriceCheck();
   };
 
   @action
-  setCouponInit = n => {
+  setSelectedCouponInit = n => {
     let tempArr = [];
     let tempObj = {};
-
     for (let i = 0; i < this.couponWithProduct.length; i++) {
       tempObj = {};
-
-      tempObj.dealId = this.couponWithProduct[i].coupon.dealId;
+      tempObj.dealId = this.couponWithProduct[i].dealId;
       tempObj.couponNumber = false;
       tempObj.prodPrice = this.couponWithProduct[i].product.productPrice;
       tempObj.cartItemId = this.couponWithProduct[i].product.cartItemId;
-
       tempArr.push(tempObj);
     }
     this.selectedCouponList = tempArr;
 
+    this.setUsed();
+  };
+
+  setUsed = () => {
+    let tempCouponWithProduct = [...this.couponWithProduct];
     for (let i = 0; i < this.selectedCouponList.length; i++) {
-      if (!this.selectedCouponList[i].couponNumber) {
-        for (
-          let a = 0;
-          a < this.couponWithProduct[i].coupon.couponWalletResponseList.length;
-          a++
-        ) {
-          if (
-            !this.couponWithProduct[i].coupon.couponWalletResponseList[a].usedId
-          ) {
-            this.selectedCouponList[i].couponNumber = this.couponWithProduct[
-              i
-            ].coupon.couponWalletResponseList[a].couponNumber;
+      if (this.couponWithProduct[i].coupon.length > 0) {
+        if (!this.selectedCouponList[i].couponNumber) {
+          for (let a = 0; a < this.couponWithProduct[i].coupon.length; a++) {
+            if (!this.couponWithProduct[i].coupon[a].usedId) {
+              this.selectedCouponList[i].couponNumber = this.couponWithProduct[
+                i
+              ].coupon[a].couponNumber;
 
-            this.selectedCouponList[
-              i
-            ].maximumDiscountPrice = this.couponWithProduct[
-              i
-            ].coupon.couponWalletResponseList[a].maximumDiscountPrice;
-
-            this.selectedCouponList[i].discountPrice = this.couponWithProduct[
-              i
-            ].coupon.couponWalletResponseList[a].discountPrice;
-            this.selectedCouponList[i].discountRate = this.couponWithProduct[
-              i
-            ].coupon.couponWalletResponseList[a].discountRate;
-
-            this.setUsed();
+              this.selectedCouponList[i].discountPrice = this.couponWithProduct[
+                i
+              ].coupon[a].discountPrice;
+              break;
+            }
           }
+          for (let x = 0; x < this.couponWithProduct.length; x++) {
+            if (this.couponWithProduct[x].coupon.length > 0) {
+              for (
+                let t = 0;
+                t < this.couponWithProduct[x].coupon.length;
+                t++
+              ) {
+                if (tempCouponWithProduct[x].coupon[t]) {
+                  if (
+                    tempCouponWithProduct[x].coupon[t].couponNumber ===
+                    this.selectedCouponList[i].couponNumber
+                  ) {
+                    tempCouponWithProduct[x].coupon[
+                      t
+                    ].usedId = this.selectedCouponList[i].dealId;
+                  }
+                }
+              }
+            }
+          }
+          this.couponWithProduct = tempCouponWithProduct;
         }
       }
     }
 
-    // console.log(this.selectedCouponList, 'this.selectedCouponList');
+    this.totalPriceCheck();
   };
 
   @action
@@ -218,42 +258,26 @@ export default class OrderPaymentBenefitStore {
 
     if (!number) {
       for (let i = 0; i < this.couponWithProduct.length; i++) {
-        for (
-          let a = 0;
-          a < this.couponWithProduct[i].coupon.couponWalletResponseList.length;
-          a++
-        ) {
-          if (
-            tempArr[i].coupon.couponWalletResponseList[a].couponNumber ===
-            tempNumber
-          ) {
-            tempArr[i].coupon.couponWalletResponseList[a].usedId = false;
+        for (let a = 0; a < this.couponWithProduct[i].coupon.length; a++) {
+          if (tempArr[i].coupon[a].couponNumber === tempNumber) {
+            tempArr[i].coupon[a].usedId = false;
           }
         }
       }
     } else {
       for (let i = 0; i < this.couponWithProduct.length; i++) {
-        for (
-          let a = 0;
-          a < this.couponWithProduct[i].coupon.couponWalletResponseList.length;
-          a++
-        ) {
-          if (tempArr[i].coupon.couponWalletResponseList[a].usedId === id) {
-            tempArr[i].coupon.couponWalletResponseList[a].usedId = false;
+        for (let a = 0; a < this.couponWithProduct[i].coupon.length; a++) {
+          if (tempArr[i].coupon[a].usedId === id) {
+            tempArr[i].coupon[a].usedId = false;
           }
-          if (
-            tempArr[i].coupon.couponWalletResponseList[a].couponNumber ===
-            number
-          ) {
-            tempArr[i].coupon.couponWalletResponseList[a].usedId = id;
+          if (tempArr[i].coupon[a].couponNumber === number) {
+            tempArr[i].coupon[a].usedId = id;
             this.selectedCouponList[i].discountPrice =
-              tempArr[i].coupon.couponWalletResponseList[a].discountPrice;
+              tempArr[i].coupon[a].discountPrice;
             this.selectedCouponList[i].discountRate =
-              tempArr[i].coupon.couponWalletResponseList[a].discountRate;
+              tempArr[i].coupon[a].discountRate;
             this.selectedCouponList[i].maximumDiscountPrice =
-              tempArr[i].coupon.couponWalletResponseList[
-                a
-              ].maximumDiscountPrice;
+              tempArr[i].coupon[a].maximumDiscountPrice;
           }
         }
       }
@@ -261,34 +285,6 @@ export default class OrderPaymentBenefitStore {
     this.couponWithProduct = tempArr;
 
     this.totalPriceCheck();
-  };
-
-  setUsed = () => {
-    let tempCouponWithProduct = [...this.couponWithProduct];
-    let index = 0;
-    for (let i = 0; i < this.couponWithProduct.length; i++) {
-      for (
-        let a = 0;
-        a < this.couponWithProduct[i].coupon.couponWalletResponseList.length;
-        a++
-      ) {
-        index = this.selectedCouponList.filter(data => {
-          return (
-            data.couponNumber ===
-            this.couponWithProduct[i].coupon.couponWalletResponseList[a]
-              .couponNumber
-          );
-        });
-
-        if (index.length > 0) {
-          tempCouponWithProduct[i].coupon.couponWalletResponseList[
-            a
-          ].usedId = this.selectedCouponList[i].dealId;
-
-          this.couponWithProduct = tempCouponWithProduct;
-        }
-      }
-    }
   };
 
   totalPriceCheck = () => {
@@ -304,26 +300,9 @@ export default class OrderPaymentBenefitStore {
     }
     for (let i = 0; i < this.selectedCouponList.length; i++) {
       if (this.selectedCouponList[i].couponNumber) {
-        if (this.selectedCouponList[i].discountPrice) {
-          this.totalPrice.discountPrice += this.selectedCouponList[
-            i
-          ].discountPrice;
-        } else {
-          if (
-            !this.selectedCouponList[i].maximumDiscountPrice &&
-            this.selectedCouponList[i].prodPrice *
-              this.selectedCouponList[i].discountPrice >
-              this.selectedCouponList[i].maximumDiscountPrice
-          ) {
-            this.totalPrice.discountPrice += this.selectedCouponList[
-              i
-            ].maximumDiscountPrice;
-          } else {
-            this.totalPrice.discountPrice +=
-              this.selectedCouponList[i].prodPrice *
-              this.selectedCouponList[i].discountPrice;
-          }
-        }
+        this.totalPrice.discountPrice += this.selectedCouponList[
+          i
+        ].discountPrice;
       }
     }
 
