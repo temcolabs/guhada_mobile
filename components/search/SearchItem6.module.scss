@@ -1,3 +1,6 @@
+@import 'styles/mixins/index';
+@import 'styles/var';
+
 .wrap {
     width: calc(100% / 3 - 20px / 3);
     float: left;
@@ -48,14 +51,14 @@
     }
 
     & .detailWrap {
-        height: 98px;
+        height: 87px;
         padding: 15px 0 0 10px;
 
     }
 
     & .brandName {
-        font-size: 10px;
-        font-weight: bold;
+        font-size: 13px;
+        font-weight: 500;
         font-style: normal;
         font-stretch: normal;
         line-height: 1.4;
@@ -64,16 +67,24 @@
         color: #111111;
     }
 
-    & .productSeason {
-        height: 19px;
-        font-size: 11px;
+    & .dealName {
+        height: 29px;
+        font-size: 12px;
         font-weight: normal;
         font-style: normal;
         font-stretch: normal;
-        line-height: 1.73;
+        line-height: 1.17;
         letter-spacing: normal;
         text-align: left;
-        color: #777777;
+        color: #111;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal;
+        word-wrap: break-word;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
     }
 
     & .priceWrap {

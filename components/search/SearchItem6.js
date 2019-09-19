@@ -67,8 +67,8 @@ class SearchItem6 extends Component {
                   />
                 </div>
                 <div className={css.detailWrap}>
-                  <div className={css.productSeason}>{deal.productSeason}</div>
                   <div className={css.brandName}>{deal.brandName}</div>
+                  <div className={css.dealName}>{deal.dealName}</div>
                   {deal.discountRate > 0 ? (
                     <div className={css.priceWrap}>
                       <div className={css.discountWrap}>
