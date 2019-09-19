@@ -1,6 +1,6 @@
 .header {
-    padding: 22px 0 20px 0;
-    font-size: 15px;
+    padding: 20px 0 20px 0;
+    font-size: 14px;
     font-weight: bold;
     font-style: normal;
     font-stretch: normal;
@@ -18,7 +18,7 @@
     line-height: 1.5;
     letter-spacing: normal;
     text-align: left;
-    color: #a0a0a0;
+    color: #999999;
 
     &>div {
         margin-top: 5px;
@@ -31,6 +31,7 @@
 
         &:last-child {
             margin-bottom: 20px;
+            text-align: center;
         }
 
         .text {
