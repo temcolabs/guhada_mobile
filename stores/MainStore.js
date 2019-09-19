@@ -10,11 +10,13 @@ export default class MainStore {
   @observable newArrivals = [];
   @observable hits = [];
   @observable navDealId = '';
+  @observable hotKeyword = [];
 
   constructor() {
     this.getPlusItem();
     this.getNewArrivals();
     this.getHits();
+    this.getHotKeyword();
   }
 
   @action
@@ -64,5 +66,12 @@ export default class MainStore {
           this.hits = res.data.data;
         }
       });
+  };
+
+  @action
+  getHotKeyword = () => {
+    API.product.get('/main-home/hot-keyword', {}).then(res => {
+      this.hotKeyword = res.data.data;
+    });
   };
 }

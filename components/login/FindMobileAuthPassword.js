@@ -7,9 +7,7 @@ export default class FindMobileAuthPassword extends Component {
     return (
       <div>
         <div className={css.header}>
-          본인 명의의 휴대폰으로
-          <br />
-          비밀번호를 재설정합니다.
+          본인 명의 휴대폰으로 비밀번호를 재설정합니다.
         </div>
         <LoginButton
           className="isColored"

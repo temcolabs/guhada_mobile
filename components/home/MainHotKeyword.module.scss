@@ -1,0 +1,29 @@
+.wrap {
+  padding-left: 10px;
+  overflow: auto;
+  margin-top: 30px;
+  width: 100%;
+  white-space: nowrap;
+  overflow-x: auto;
+  display: inline-block;
+
+  & .item {
+    margin-right: 6px;
+    display: inline-block;
+  }
+
+  & .image {
+    width: 130px;
+    height: 130px;
+    background: no-repeat center;
+    background-size: 130px;
+  }
+
+  & .keyword {
+    font-size: 12px;
+    font-weight: normal;
+    color: #111111;
+    margin-top: 16px;
+    padding-left: 10px;
+  }
+}
