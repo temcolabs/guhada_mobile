@@ -17,6 +17,7 @@
     background-color: white;
     width: 100%;
     z-index: 103;
+    -webkit-transform: translateZ(0);
 
     & .back {
       width: 30px;
