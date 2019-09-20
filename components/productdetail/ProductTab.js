@@ -41,7 +41,20 @@ class ProductTab extends Component {
     this.setState({
       selected,
     });
-    window.scrollTo(0, tabRefMap[selected].current.offsetTop - 140);
+
+    if (this.state.tabStyle !== null) {
+      if (selected === 'detailTab') {
+        window.scrollTo(0, tabRefMap[selected].current.offsetTop - 68);
+        return;
+      }
+      window.scrollTo(0, tabRefMap[selected].current.offsetTop - 140);
+    } else {
+      if (selected === 'detailTab') {
+        window.scrollTo(0, tabRefMap[selected].current.offsetTop - 120);
+        return;
+      }
+      window.scrollTo(0, tabRefMap[selected].current.offsetTop - 192);
+    }
   };
 
   render() {

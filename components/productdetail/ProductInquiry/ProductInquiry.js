@@ -27,8 +27,6 @@ class ProductInquiry extends Component {
   render() {
     const { productdetail, login, tabRefMap, alert } = this.props;
     const { deals, inquiryList } = productdetail;
-    console.log('_.isNil(inquiryList)', _.isNil(inquiryList));
-    console.log('_.isNil(inquiryList)', inquiryList);
     return (
       <div className={css.wrap} ref={tabRefMap.inquiryTab}>
         <div className={css.headerWrap}>

@@ -51,7 +51,7 @@ function NewInquiry({ isVisible, onClose, productdetail }) {
               className={css.isColored}
               onClick={() => productdetail.setNewInquiry(content, onClose)}
             >
-              등록
+              문의하기
             </button>
           </div>
         </div>
