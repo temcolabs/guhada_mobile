@@ -1,9 +1,12 @@
 import React from 'react';
-import { observable, action } from 'mobx';
+import { observable, action, toJS } from 'mobx';
 import { isServer } from 'lib/isServer';
 import API from 'lib/API';
 import { devLog } from 'lib/devLog';
 import _ from 'lodash';
+import { pushRoute } from 'lib/router';
+import qs from 'qs';
+import moment from 'moment';
 export default class ProductOptionStore {
   constructor(root) {
     if (!isServer) this.root = root;
@@ -24,6 +27,7 @@ export default class ProductOptionStore {
   @observable quantityMinusBtn = '/static/icon/quantity_minus_off.png';
   @observable quantityPlusBtn = '/static/icon/quantity_plus_on.png';
 
+  @observable couponIsOpen = false;
   @action
   getOptions = () => {
     let { options } = this.root.productdetail.deals;
@@ -345,7 +349,19 @@ export default class ProductOptionStore {
       .then(res => {
         const { data } = res;
         this.dueSavebenefitCoupon = data.data;
-        console.log(this.dueSavebenefitCoupon, 'this.dueSavebenefitCoupon');
+        console.log(this.dueSavebenefitCoupon);
+        for (let i = 0; i < this.dueSavebenefitCoupon.length; i++) {
+          let x = new moment(this.dueSavebenefitCoupon[i].startAt);
+          let y = new moment(this.dueSavebenefitCoupon[i].endAt);
+
+          let duration = moment.duration(x.diff(y));
+          this.dueSavebenefitCoupon[i].expireAt = -duration._data.days;
+        }
+
+        console.log(
+          toJS(this.dueSavebenefitCoupon),
+          'this.dueSavebenefitCoupon'
+        );
       })
       .catch(err => {
         this.root.alert.showAlert({
@@ -355,33 +371,90 @@ export default class ProductOptionStore {
   };
 
   @action
+  couponDownModalOpen = () => {
+    this.couponIsOpen = true;
+  };
+
+  @action
+  couponDownModalClose = () => {
+    this.couponIsOpen = false;
+  };
+
+  @action
   couponDown = () => {
     let deals = this.root.productdetail.deals;
-    let coupon = this.dueSavebenefitCoupon[0];
-    let param = {
-      dcategoryId: deals.dCategoryId ? deals.dCategoryId : '',
-      dealId: deals.dealId,
-      lcategoryId: deals.lCategoryId,
-      mcategoryId: deals.mCategoryId,
-      saveActionType: coupon.saveTargetType,
-      scategoryId: deals.sCategoryId,
-      sellerId: deals.sellerId,
-      serviceType: 'FRONT',
-      paymentPrice: deals.sellPrice,
-      userId: coupon.userId,
-    };
-    API.benefit
-      .post(`/coupons/process/save`, param)
+
+    API.user
+      .post(`/users/bookmarks`, {
+        target: 'SELLER',
+        targetId: this.dueSavebenefitCoupon[0].sellerId,
+      })
       .then(res => {
-        const { data } = res;
-        this.root.alert.showAlert({
-          content: `쿠폰발급`,
-        });
+        console.log(res, 'res');
+        for (let i = 0; i < this.dueSavebenefitCoupon.length; i++) {
+          let coupon = this.dueSavebenefitCoupon[i];
+          let param = {
+            dcategoryId: deals.dCategoryId ? deals.dCategoryId : '',
+            dealId: deals.dealId,
+            lcategoryId: deals.lCategoryId,
+            mcategoryId: deals.mCategoryId,
+            saveActionType: coupon.saveActionType,
+            scategoryId: deals.sCategoryId,
+            sellerId: deals.sellerId,
+            serviceType: 'FRONT',
+            paymentPrice: deals.sellPrice,
+            userId: coupon.userId,
+          };
+          API.benefit
+            .post(`/coupons/process/save`, param)
+            .then(res => {
+              const { data } = res;
+              console.log(data, 'data coupon');
+              this.root.alert.showAlert({
+                content: `쿠폰발급완료`,
+              });
+              this.dueSavebenefitCoupon[i].alreadySaved = true;
+              this.couponDownModalClose();
+            })
+            .catch(err => {
+              console.log(err, ' err');
+              this.root.alert.showAlert({
+                content: `${_.get(err, 'data.message') || err.message}`,
+              });
+
+              if (_.get(err, 'data.resultCode') === 6017) {
+                this.couponDownModalClose();
+                pushRoute(
+                  `/login?${qs.stringify({
+                    redirectTo: `/productdetail?deals=${
+                      this.root.productdetail.deals.dealsId
+                    }`,
+                  })}`,
+                  { isReplace: true }
+                );
+                return false;
+              }
+            });
+        }
       })
       .catch(err => {
+        console.log(err, ' err');
         this.root.alert.showAlert({
           content: `${_.get(err, 'data.message') || err.message}`,
         });
+
+        if (_.get(err, 'data.resultCode') === 6017) {
+          this.couponDownModalClose();
+          pushRoute(
+            `/login?${qs.stringify({
+              redirectTo: `/productdetail?deals=${
+                this.root.productdetail.deals.dealsId
+              }`,
+            })}`,
+            { isReplace: true }
+          );
+          return false;
+        }
       });
   };
 }

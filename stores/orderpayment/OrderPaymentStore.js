@@ -109,72 +109,69 @@ export default class OrderPaymentStore {
       .get(`/order/orderForm?cartItemIdList=${this.cartList}`)
       .then(res => {
         let data = res.data.data;
-        if (res.data.resultCode === 200) {
-          this.orderPaymentTotalInfo = data;
-          this.orderProductInfo = data.orderItemList;
-          this.orderUserInfo = data.user;
-          this.orderShippingList.defaultAddress = data.shippingAddress;
-          this.orderPoint = data.availablePointResponse;
-          this.orderPaymentTotalInfo.originPaymentPrice = this.orderPaymentTotalInfo.totalPaymentPrice; //총 결제금액 백업 저장
-          this.orderPaymentTotalInfo.originDiscountDiffPrice = this.orderPaymentTotalInfo.totalDiscountDiffPrice; //총 결제금액 백업 저장
-          this.orderPaymentTotalInfo.couponDiscount = 0;
-          this.orderPaymentTotalInfo.usePoint = 0;
-          this.shippingMessageOption = data.shippingMessage;
-          this.orderMyCouponWallet = data.availableCouponWalletResponses;
-          this.getOptions();
-          this.getTotalQuantity();
-          this.getShippingMessageOption();
-          console.log(res.data, '주문 데이터');
-          this.orderProductInfo.map(data => {
-            if (data.orderValidStatus !== 'VALID') {
-              this.root.alert.showAlert({
-                content:
-                  '구매에 유효하지 않은 상품이 있습니다, 장바구니 로 돌아갑니다.',
-                onConfirm: () => {
-                  Router.push('/shoppingcart');
-                },
-              });
-            }
-          });
-
-          this.getPhoneWithHypen();
-          if (this.orderShippingList.defaultAddress) {
-            this.status.selectedShipStatus = true;
-          }
-          let paymentRemainCheck = JSON.parse(
-            sessionStorage.getItem('paymentInfo')
-          );
-
-          if (paymentRemainCheck) {
-            let resultMsg = getParameterByName('resultMsg');
+        this.orderPaymentTotalInfo = data;
+        this.orderProductInfo = data.orderItemList;
+        this.orderUserInfo = data.user;
+        this.orderShippingList.defaultAddress = data.shippingAddress;
+        this.orderPoint = data.availablePointResponse;
+        this.orderPaymentTotalInfo.originPaymentPrice = this.orderPaymentTotalInfo.totalPaymentPrice; //총 결제금액 백업 저장
+        this.orderPaymentTotalInfo.originDiscountDiffPrice = this.orderPaymentTotalInfo.totalDiscountDiffPrice; //총 결제금액 백업 저장
+        this.orderPaymentTotalInfo.couponDiscount = 0;
+        this.orderPaymentTotalInfo.usePoint = 0;
+        this.shippingMessageOption = data.shippingMessage;
+        this.orderMyCouponWallet = data.availableCouponWalletResponses;
+        this.getOptions();
+        this.getTotalQuantity();
+        this.getShippingMessageOption();
+        console.log(res.data, '주문 데이터');
+        this.orderProductInfo.map(data => {
+          if (data.orderValidStatus !== 'VALID') {
             this.root.alert.showAlert({
-              content: resultMsg || '결제 실패.',
+              content:
+                '구매에 유효하지 않은 상품이 있습니다, 장바구니 로 돌아갑니다.',
+              onConfirm: () => {
+                Router.push('/shoppingcart');
+              },
             });
-            window.scrollTo(0, paymentRemainCheck.wScroll);
-            if (!paymentRemainCheck.shippingType) {
-              this.status.selectedShipStatus = false;
-              this.orderShippingList.newAddress =
-                paymentRemainCheck.shippingAddress;
-
-              this.orderShippingList.newAddress.shippingMessageType === 'SELF'
-                ? (this.status.newShppingRequestSelfStatus = true)
-                : (this.status.newShppingRequestSelfStatus = false);
-
-              this.orderShippingList.isAddShippingAddress =
-                paymentRemainCheck.addShippingAddress;
-
-              this.orderShippingList.newAddress.defaultAddress =
-                paymentRemainCheck.shippingAddress.defaultAddress;
-            }
-
-            this.paymentMethod = paymentRemainCheck.parentMethodCd;
-            this.status.orderPaymentAgreement = !this.status
-              .orderPaymentAgreement;
-
-            sessionStorage.removeItem('paymentInfo');
           }
-          this.status.pageStatus = true;
+        });
+
+        if (this.orderShippingList.defaultAddress) {
+          this.status.selectedShipStatus = true;
         }
+        let paymentRemainCheck = JSON.parse(
+          sessionStorage.getItem('paymentInfo')
+        );
+
+        if (paymentRemainCheck) {
+          let resultMsg = getParameterByName('resultMsg');
+          this.root.alert.showAlert({
+            content: resultMsg || '결제 실패.',
+          });
+          window.scrollTo(0, paymentRemainCheck.wScroll);
+          if (!paymentRemainCheck.shippingType) {
+            this.status.selectedShipStatus = false;
+            this.orderShippingList.newAddress =
+              paymentRemainCheck.shippingAddress;
+
+            this.orderShippingList.newAddress.shippingMessageType === 'SELF'
+              ? (this.status.newShppingRequestSelfStatus = true)
+              : (this.status.newShppingRequestSelfStatus = false);
+
+            this.orderShippingList.isAddShippingAddress =
+              paymentRemainCheck.addShippingAddress;
+
+            this.orderShippingList.newAddress.defaultAddress =
+              paymentRemainCheck.shippingAddress.defaultAddress;
+          }
+
+          this.paymentMethod = paymentRemainCheck.parentMethodCd;
+          this.status.orderPaymentAgreement = !this.status
+            .orderPaymentAgreement;
+
+          sessionStorage.removeItem('paymentInfo');
+        }
+        this.status.pageStatus = true;
       })
       .catch(err => {
         console.log(err, 'err');
@@ -358,18 +355,6 @@ export default class OrderPaymentStore {
       this.root.alert.showAlert({
         content: '기본 배송지가 없습니다.',
       });
-    }
-  };
-
-  //--------------------- 휴대폰번호에 ' - ' 추가 ---------------------
-  getPhoneWithHypen = () => {
-    if (this.orderUserInfo.mobile) {
-      this.orderUserInfo.mobile = autoHypenPhone(this.orderUserInfo.mobile);
-    }
-    if (this.orderShippingList.defaultAddress) {
-      this.orderShippingList.defaultAddress.hypenRecipientMobile = autoHypenPhone(
-        this.orderShippingList.defaultAddress.recipientMobile
-      );
     }
   };
 

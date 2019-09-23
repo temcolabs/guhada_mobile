@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './AddressSelf.module.scss';
-
+import addHyphenToMobile from 'lib/string/addHyphenToMobile';
 @inject('orderpayment')
 @observer
 class AddressSelf extends Component {
@@ -99,7 +99,7 @@ class AddressSelf extends Component {
             <input
               type="text"
               placeholder="연락처"
-              maxLength="11"
+              maxLength="13"
               onChange={e => {
                 orderpayment.setNewShippingAddress(
                   e,
@@ -108,7 +108,9 @@ class AddressSelf extends Component {
                 );
               }}
               value={
-                orderpayment.orderShippingList.newAddress.recipientMobile || ''
+                addHyphenToMobile(
+                  orderpayment.orderShippingList.newAddress.recipientMobile
+                ) || ''
               }
             />
           </div>

@@ -81,56 +81,6 @@ class ProductDetailName extends Component {
             </div>
           </div>
         </div>
-
-        {/* 상품 쿠폰 */}
-        {productoption.dueSavebenefitCoupon.length > 0 &&
-          productoption.dueSavebenefitCoupon
-            .slice(0, 1)
-            .map((coupon = {}, index) => {
-              // TODO: 쿠폰 다운로드 여부 확인
-              const isCouponDownloaded = false;
-
-              return true ? (
-                <div
-                  className={css.coupon__wrap}
-                  onClick={() => {
-                    productoption.couponDown();
-                  }}
-                >
-                  <div
-                    className={css.coupon__title}
-                    style={{ backgroundColor: '#5d2ed1' }}
-                  >
-                    {productoption.dueSavebenefitCoupon.length > 0
-                      ? ` ${productoption.dueSavebenefitCoupon[0].couponTitle}`
-                      : null}
-                  </div>
-                  <div
-                    className={css.coupon__down}
-                    style={{
-                      backgroundImage: `url('/static/icon/m_coupon_download_on.png')`,
-                    }}
-                  />
-                </div>
-              ) : (
-                <div className={css.coupon__wrap}>
-                  <div
-                    className={css.coupon__title}
-                    style={{ backgroundColor: '#ccc' }}
-                  >
-                    {productoption.dueSavebenefitCoupon.length > 0
-                      ? ` ${productoption.dueSavebenefitCoupon[0].couponTitle}`
-                      : null}
-                  </div>
-                  <div
-                    className={css.coupon__down}
-                    style={{
-                      backgroundImage: `url('/static/icon/m_coupon_download_off.png')`,
-                    }}
-                  />
-                </div>
-              );
-            })}
       </div>
     );
   }

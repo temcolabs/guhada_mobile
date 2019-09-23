@@ -8,6 +8,7 @@ export default class OrderPaymentBenefitStore {
     if (!isServer) this.root = root;
   }
 
+  @observable usePoint = 0;
   @observable myPoint = 0;
   @observable availablePoint = 0;
   @observable dueSavePointTotal = 0;
@@ -52,11 +53,13 @@ export default class OrderPaymentBenefitStore {
     let value = e.target.value.replace(/[^0-9]/g, '');
     value = Number(value);
     this.root.orderpayment.orderPaymentTotalInfo.usePoint = value;
+    this.usePoint = value;
     if (value > this.availablePoint) {
       this.root.alert.showAlert({
         content: '최대 사용 가능 포인트 초과 입니다.',
       });
       this.root.orderpayment.orderPaymentTotalInfo.usePoint = this.availablePoint;
+      this.usePoint = this.availablePoint;
     }
     this.root.orderpayment.totalPaymentAmount();
     this.getDueSavePoint();
@@ -66,8 +69,10 @@ export default class OrderPaymentBenefitStore {
   pointfullUse = () => {
     if (this.myPoint >= this.availablePoint) {
       this.root.orderpayment.orderPaymentTotalInfo.usePoint = this.availablePoint;
+      this.usePoint = this.availablePoint;
     } else {
       this.root.orderpayment.orderPaymentTotalInfo.usePoint = this.myPoint;
+      this.usePoint = this.myPoint;
     }
 
     this.root.orderpayment.totalPaymentAmount();
@@ -272,8 +277,15 @@ export default class OrderPaymentBenefitStore {
           }
           if (tempArr[i].coupon[a].couponNumber === number) {
             tempArr[i].coupon[a].usedId = id;
-            this.selectedCouponList[i].discountPrice =
-              tempArr[i].coupon[a].discountPrice;
+          }
+          if (this.selectedCouponList[i].couponNumber) {
+            if (
+              this.selectedCouponList[i].couponNumber ===
+              tempArr[i].coupon[a].couponNumber
+            ) {
+              this.selectedCouponList[i].discountPrice =
+                tempArr[i].coupon[a].discountPrice;
+            }
           }
         }
       }
@@ -325,6 +337,12 @@ export default class OrderPaymentBenefitStore {
 
   @action
   handleModalShow = () => {
+    if (this.couponWithProduct.length === 0) {
+      this.root.alert.showAlert({
+        content: `적용가능한 쿠폰이 없습니다.`,
+      });
+      return false;
+    }
     this.isOpen = true;
   };
 

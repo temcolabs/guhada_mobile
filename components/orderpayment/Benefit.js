@@ -75,19 +75,20 @@ class Benefit extends Component {
             <span>{`장 / 보유 ${orderPaymentBenefit.myCoupon} 장)`}</span>
           </div>
           <div className={css.couponSelectBox}>
-            <div className={css.couponUsed}>
-              <input
-                type="text"
-                placeholder="쿠폰선택"
-                value={
-                  orderPaymentBenefit.applyCoupon.applyDiscount
-                    ? `-${orderPaymentBenefit.applyCoupon.applyDiscount?.toLocaleString()}원 (${
-                        orderPaymentBenefit.applyCoupon.applyCouponAmount
-                      }장)`
-                    : '쿠폰선택'
-                }
-                readOnly={true}
-              />
+            <div className={css.couponInput}>
+              {orderPaymentBenefit.applyCoupon.applyCouponAmount ? (
+                <div
+                  className={css.applyCoupon}
+                >{`${orderPaymentBenefit.applyCoupon.applyDiscount?.toLocaleString()}원 (${
+                  orderPaymentBenefit.applyCoupon.applyCouponAmount
+                }장)`}</div>
+              ) : (
+                <div>
+                  {orderpayment.orderPaymentTotalInfo?.availableCouponCount
+                    ? '쿠폰을 선택해주세요 '
+                    : '적용 가능한 쿠폰이 없습니다.'}
+                </div>
+              )}
             </div>
             <div
               className={css.couponSelect}
@@ -118,11 +119,10 @@ class Benefit extends Component {
             <div className={css.pointSelect}>
               <input
                 type="text"
-                value={orderpayment.orderPaymentTotalInfo.usePoint}
+                value={orderPaymentBenefit.usePoint}
                 onChange={e => {
                   orderPaymentBenefit.setUsePoint(e);
                 }}
-                maxLength="11"
               />
             </div>
             <div

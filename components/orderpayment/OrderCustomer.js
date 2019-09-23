@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './OrderCustomer.module.scss';
 import AuthenticationModal from './modal/AuthenticationModal';
+import addHyphenToMobile from 'lib/string/addHyphenToMobile';
 @inject('orderpayment', 'authmobile', 'customerauthentication')
 @observer
 class OrderCustomer extends Component {
@@ -56,7 +57,8 @@ class OrderCustomer extends Component {
         {orderpayment.orderUserInfo.name ? (
           <div className={css.customerName}>{`${
             orderpayment.orderUserInfo.name
-          } ${orderpayment.orderUserInfo.mobile}`}</div>
+          } ${addHyphenToMobile(orderpayment.orderUserInfo?.mobile) ||
+            ''}`}</div>
         ) : null}
 
         <AuthenticationModal

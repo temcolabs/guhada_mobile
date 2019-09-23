@@ -8,7 +8,7 @@ import openPopupCenter from 'lib/dom/openPopupCenter';
 import { root } from 'store';
 import { pushRoute } from 'lib/router';
 import { devLog } from 'lib/devLog';
-
+import _ from 'lodash';
 const isServer = typeof window === 'undefined';
 
 export default class AuthMobileStore {
@@ -100,6 +100,10 @@ export default class AuthMobileStore {
                 if (err.data.resultCode === 6019) {
                   root.alert.showAlert({
                     content: err.data.message,
+                  });
+                } else {
+                  root.alert.showAlert({
+                    content: `${_.get(err, 'data.message') || err.message}`,
                   });
                 }
               });
