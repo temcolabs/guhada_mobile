@@ -3,6 +3,7 @@ import css from './SellerStoreInfo.module.scss';
 import cn from 'classnames';
 import _ from 'lodash';
 import { useObserver } from 'mobx-react-lite';
+import { pushRoute } from 'lib/router';
 
 function SellerStoreInfo({
   deals,
@@ -79,7 +80,11 @@ function SellerStoreInfo({
       <div className={css.sellerItemWrap}>
         {dealsOfSellerStore.map(deal => {
           return (
-            <div className={css.sellerItem} key={deal.dealId}>
+            <div
+              className={css.sellerItem}
+              key={deal.dealId}
+              onClick={() => pushRoute(`/productdetail?deals=${deal.dealId}`)}
+            >
               <div className={css.imageWrap}>
                 <img
                   className={css.image}

@@ -166,7 +166,7 @@ class ShippingBenefit extends Component {
                 onClick={() =>
                   window.scrollTo(
                     0,
-                    tabRefMap.reviewTab.current.offsetTop - 100
+                    tabRefMap.reviewTab.current.offsetTop - 180
                   )
                 }
               />

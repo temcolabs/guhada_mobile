@@ -1,6 +1,7 @@
 import React from 'react';
 import css from './RelatedAndRecommend.module.scss';
 import cn from 'classnames';
+import { pushRoute } from 'lib/router';
 
 export default function RelatedAndRecommend({
   dealsOfSameBrand = [
@@ -70,7 +71,13 @@ export default function RelatedAndRecommend({
           <div className={css.slideWrap}>
             {dealsOfSameBrand.map(deal => {
               return (
-                <div className={css.itemWrap} key={deal.dealId}>
+                <div
+                  className={css.itemWrap}
+                  key={deal.dealId}
+                  onClick={() =>
+                    pushRoute(`/productdetail?deals=${deal.dealId}`)
+                  }
+                >
                   <img
                     className={css.image}
                     src={deal.productImage.url}
@@ -98,7 +105,13 @@ export default function RelatedAndRecommend({
           <div className={css.slideWrap}>
             {dealsOfRecommend.map(deal => {
               return (
-                <div className={css.itemWrap} key={deal.dealId}>
+                <div
+                  className={css.itemWrap}
+                  key={deal.dealId}
+                  onClick={() =>
+                    pushRoute(`/productdetail?deals=${deal.dealId}`)
+                  }
+                >
                   <img
                     className={css.image}
                     src={deal.productImage.url}

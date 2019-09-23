@@ -6,8 +6,9 @@ import { inject, observer } from 'mobx-react';
 import { toJS } from 'mobx';
 import NewInquiry from './NewInquiry';
 import _ from 'lodash';
+import { loginStatus } from 'constant/';
 
-@inject('productdetail', 'login')
+@inject('productdetail', 'login', 'alert')
 @observer
 class ProductInquiry extends Component {
   state = {
@@ -24,9 +25,8 @@ class ProductInquiry extends Component {
   };
 
   render() {
-    const { productdetail, login, tabRefMap } = this.props;
+    const { productdetail, login, tabRefMap, alert } = this.props;
     const { deals, inquiryList } = productdetail;
-    console.log('_.isNil(inquiryList)', _.isNil(inquiryList));
     return (
       <div className={css.wrap} ref={tabRefMap.inquiryTab}>
         <div className={css.headerWrap}>
@@ -56,7 +56,11 @@ class ProductInquiry extends Component {
           <div>
             <button
               className={css.isColored}
-              onClick={() => this.setIsNewInquiryVisible(true)}
+              onClick={() =>
+                login.loginStatus === loginStatus.LOGIN_DONE
+                  ? this.setIsNewInquiryVisible(true)
+                  : alert.showAlert('로그인이 필요한 서비스입니다.')
+              }
             >
               상품 문의하기
             </button>
@@ -99,7 +103,7 @@ class ProductInquiry extends Component {
           </div>
         </div>
         <div>
-          {inquiryList.content !== undefined ? (
+          {inquiryList.content ? (
             inquiryList.content.map(inquiry => {
               return <InquiryItem inquiry={inquiry} key={inquiry.id} />;
             })

@@ -255,13 +255,10 @@ export default class ProductDetailStore {
         let data = res.data;
         if (data.resultCode === 200) {
           this.inquiryList = data.data;
-          // this.inquiryPage = page + 1;
-          // this.setInquiryPageNavigation(data.data);
-          // this.pageNavigator(data.data.totalElements, 10);
-        } else if (data.resultCode === 5004) {
-          this.inquiryList = [];
-          // this.initPageList();
         }
+      })
+      .catch(e => {
+        this.inquiryList = [];
       });
   };
 

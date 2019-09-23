@@ -12,10 +12,11 @@
     display: flex;
     align-items: center;
     border-bottom: solid 1px #eeeeee;
-    position: fixed;
-    top: 0;
+    // position: fixed;
+    // top: 0;
     background-color: white;
     width: 100%;
+    // z-index: 103;
 
     & .back {
       width: 30px;
@@ -92,7 +93,7 @@
     display: none;
     height: 100vh;
     background-color: white;
-    padding-top: 60px;
+    // padding-top: 60px;
     z-index: 102;
   }
 
@@ -100,7 +101,7 @@
     display: none;
     height: 100vh;
     background-color: white;
-    padding-top: 60px;
+    // padding-top: 60px;
     z-index: 102;
   }
 
