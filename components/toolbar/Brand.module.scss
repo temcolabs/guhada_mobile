@@ -62,12 +62,14 @@ $brandHeader: 70px;
     height: calc(100vh - 200px);
     overflow-y: auto;
 
+    &.fromHeaderMenu {
+        height: calc(100vh - 125px);
+    }
+
     & .brand {
         padding-left: 20px;
         width: calc(100% - 18px - 8px);
     }
-
-
 
     & .languageIndex {
         height: 37px;

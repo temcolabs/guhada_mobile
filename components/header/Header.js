@@ -9,6 +9,7 @@ import sessionStorage from 'lib/sessionStorage';
 import { pushRoute } from 'lib/router';
 import cn from 'classnames';
 import SearchMenu from './SearchMenu';
+import BrandContainer from './item/BrandContainer';
 
 /**
  *
@@ -22,6 +23,7 @@ function Header({ children, headerShape, history }) {
   const [categoryTitle, setCategoryTitle] = useState('');
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   let urlHistory = sessionStorage.get('urlHistory');
+  const [isVisibleBrand, setIsVisibleBrand] = useState(false);
 
   return (
     <>
@@ -70,6 +72,7 @@ function Header({ children, headerShape, history }) {
             setIsCategoryVisible={setIsCategoryVisible}
             setCategoryId={setCategoryId}
             setCategoryTitle={setCategoryTitle}
+            setIsVisibleBrand={setIsVisibleBrand}
           />
 
           <CategoryDepthMenu
@@ -83,6 +86,11 @@ function Header({ children, headerShape, history }) {
             )}
             categoryId={categoryId}
             categoryTitle={categoryTitle}
+          />
+
+          <BrandContainer
+            isVisible={isVisibleBrand}
+            onClose={() => setIsVisibleBrand(false)}
           />
 
           <SearchMenu

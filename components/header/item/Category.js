@@ -21,7 +21,7 @@ class Category extends Component {
   };
 
   render() {
-    const { category } = this.props;
+    const { category, setIsVisibleBrand } = this.props;
     let categoryList = category.category;
 
     return (
@@ -50,11 +50,11 @@ class Category extends Component {
                       <li
                         key={`categoryItem${categoryItem.id}`}
                         className={css.arrow}
-                        onClick={() => (
-                          this.props.setIsCategoryVisible(true),
-                          this.props.setCategoryId(categoryItem.id),
-                          this.props.setCategoryTitle(categoryItem.title)
-                        )}
+                        onClick={() => {
+                          this.props.setIsCategoryVisible(true);
+                          this.props.setCategoryId(categoryItem.id);
+                          this.props.setCategoryTitle(categoryItem.title);
+                        }}
                       >
                         {categoryItem.title}
                       </li>
@@ -65,7 +65,13 @@ class Category extends Component {
             </li>
           );
         })}
-        <label>브랜드</label>
+        <label
+          onClick={() => {
+            setIsVisibleBrand(true);
+          }}
+        >
+          브랜드
+        </label>
       </ul>
     );
   }

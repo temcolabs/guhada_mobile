@@ -44,7 +44,7 @@ class Brand extends Component {
             >
               ABC
             </div>
-            <div className={css.alphabetLine}></div>
+            <div className={css.alphabetLine} />
             <div
               className={cn(css.alphabetItem, {
                 [css.selected]: brands.selectedLanguage === 'korean',
@@ -57,7 +57,12 @@ class Brand extends Component {
             </div>
           </div>
         </div>
-        <div className={css.brandWrap} ref="brandScroll">
+        <div
+          className={cn(css.brandWrap, {
+            [css.fromHeaderMenu]: this.props.fromHeader === true,
+          })}
+          ref="brandScroll"
+        >
           <div className={css.brand}>
             {brands.selectedLanguage === 'english'
               ? brands.enFilter.map((enbind, enIndex) => {
