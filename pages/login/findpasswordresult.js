@@ -1,18 +1,25 @@
 import React, { Component } from 'react';
-import { observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 import Head from 'next/head';
 import Form from '../../stores/form-store/_.forms';
 import FindPasswordResult from 'template/signin/FindPasswordResult';
+import { pushRoute } from 'lib/router';
 
+@inject('authmobile')
 @observer
-export class findpasswordresult extends Component {
+class findpasswordresult extends Component {
   render() {
     let formValue;
+    let { authmobile } = this.props;
 
     if (Form.findPasswordEmail.values().verificationNumber !== '') {
       formValue = Form.findPasswordEmail;
     } else if (Form.findPasswordMobile.values().verificationNumber !== '') {
       formValue = Form.findPasswordMobile;
+    } else if (authmobile.verifyParams.diCode !== '') {
+      formValue = authmobile.verifyParams;
+    } else {
+      pushRoute('/login/findpassword');
     }
 
     return (

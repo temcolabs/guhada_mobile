@@ -25,9 +25,6 @@ function Header({ children, headerShape, history }) {
   const [isBrandVisible, setIsBrandVisible] = useState(false);
 
   let urlHistory = sessionStorage.get('urlHistory');
-  console.log('isMenuVisible', isMenuVisible);
-  console.log('isCategoryVisible', isCategoryVisible);
-  console.log('isBrandVisible', isBrandVisible);
   return (
     <>
       {headerShape === 'keyword' ? (
