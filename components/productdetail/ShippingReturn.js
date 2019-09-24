@@ -105,11 +105,19 @@ export default function ShippingReturn({
         <tbody>
           <tr>
             <th>반품배송비</th>
-            <td>{`${deals.shipping.returnShipExpense.toLocaleString()} 원`}</td>
+            <td>
+              {deals.shipping.returnShipExpense === 0
+                ? `무료`
+                : `${deals.shipping.returnShipExpense.toLocaleString()} 원`}
+            </td>
           </tr>
           <tr>
             <th>교환배송비</th>
-            <td>{`${deals.shipping.exchangeShipExpense.toLocaleString()} 원`}</td>
+            <td>
+              {deals.shipping.exchangeShipExpense === 0
+                ? `무료`
+                : `${deals.shipping.exchangeShipExpense.toLocaleString()} 원`}
+            </td>
           </tr>
           <tr>
             <th>보내실 곳</th>
