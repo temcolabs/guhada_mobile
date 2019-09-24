@@ -45,7 +45,7 @@ class ShippingBenefit extends Component {
         <div className={css.itemWrap}>
           <div className={css.itemTitle}>배송정보</div>
           <div className={css.contentsWrap}>
-            <div>{shipExpenseType}</div>
+            <div>{deals.shippingSummary}</div>
           </div>
         </div>
         <div

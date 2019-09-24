@@ -52,6 +52,12 @@ export default function ShippingReturn({
   seller = [{ claimTelephone: '0212345678' }],
   shipExpenseType = '',
 }) {
+  const asInfo = _.isNil(deals.asInfo);
+  const asTelephone = _.isNil(deals.asTelephone);
+  const asDesc = _.isNil(deals.asDesc);
+  const asValueHandle =
+    asInfo !== false && asTelephone !== false && asDesc !== false;
+
   return (
     <>
       <div className={css.subHeader}>배송정보</div>
@@ -59,43 +65,37 @@ export default function ShippingReturn({
         <tbody>
           <tr>
             <th>배송방법</th>
-            <td>{shipExpenseType}</td>
-          </tr>
-          <tr>
-            <th>묶음배송여부</th>
-            <td>{deals.shipping.isBundleAvailable ? '가능' : '불가능'}</td>
-          </tr>
-          <tr>
-            <th>도서산간배송 여부</th>
-            <td>
-              {deals.shipping.isIsolatedAreaAvailable ? '가능' : '불가능'}
-            </td>
+            <td>{`택배, 등기, 소포`}</td>
           </tr>
         </tbody>
       </table>
-      <div className={css.subHeader}>AS안내사항</div>
-      <table className={cn(css.wrap, css.noMargin)}>
-        <tbody>
-          {_.isNil(deals.asInfo) === false && (
-            <tr>
-              <th>AS 안내내용</th>
-              <td>{deals.asInfo}</td>
-            </tr>
-          )}
-          {_.isNil(deals.asTelephone) === false && (
-            <tr>
-              <th>As 전화번호</th>
-              <td>{autoHypenTele(deals.asTelephone)}</td>
-            </tr>
-          )}
-          {_.isNil(deals.asDesc) === false && (
-            <tr>
-              <th>판매자 특이사항</th>
-              <td>{deals.asDesc}</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+      {asValueHandle === false && (
+        <>
+          <div className={css.subHeader}>AS안내사항</div>
+          <table className={cn(css.wrap, css.noMargin)}>
+            <tbody>
+              {asInfo === false && (
+                <tr>
+                  <th>AS 안내내용</th>
+                  <td>{deals.asInfo}</td>
+                </tr>
+              )}
+              {asTelephone === false && (
+                <tr>
+                  <th>As 전화번호</th>
+                  <td>{autoHypenTele(deals.asTelephone)}</td>
+                </tr>
+              )}
+              {asDesc === false && (
+                <tr>
+                  <th>판매자 특이사항</th>
+                  <td>{deals.asDesc}</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </>
+      )}
       <div className={css.subHeader}>교환/반품 안내</div>
       <div className={css.subText}>
         교환/반품 시 먼저 판매자와 연락하셔서 교환/반품사유, 택배사, 반품 지
