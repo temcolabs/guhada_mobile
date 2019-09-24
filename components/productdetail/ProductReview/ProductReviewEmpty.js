@@ -1,7 +1,7 @@
 import React from 'react';
 import css from './ProductReviewEmpty.module.scss';
 
-export default function ProductReviewEmpty() {
+export default function ProductReviewEmpty({ alert }) {
   return (
     <div className={css.wrap}>
       <img src="/static/icon/icon_review.png" alt="reviewIcon" />
@@ -11,7 +11,13 @@ export default function ProductReviewEmpty() {
         <span className={css.colored}>최대 2,000점의 포인트 혜택</span>을
         누려보세요!
       </div>
-      <button>첫 리뷰 작성하기</button>
+      <button
+        onClick={() =>
+          alert.showAlert({ content: '모바일 버전 준비중입니다.' })
+        }
+      >
+        첫 리뷰 작성하기
+      </button>
     </div>
   );
 }

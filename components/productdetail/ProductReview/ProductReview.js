@@ -7,11 +7,11 @@ import ReviewTab from './ReviewTab';
 import ProductReviewItems from './ProductReviewItems';
 import _ from 'lodash';
 import ProductReviewEmpty from './ProductReviewEmpty';
-@inject('productreview')
+@inject('productreview', 'alert')
 @observer
 class ProductReview extends Component {
   render() {
-    const { productreview, tabRefMap } = this.props;
+    const { productreview, tabRefMap, alert } = this.props;
     const review = productreview.review;
     const reviewSummary = productreview.reviewSummary;
     return (
@@ -39,7 +39,7 @@ class ProductReview extends Component {
             </div>
           </>
         ) : (
-          <ProductReviewEmpty />
+          <ProductReviewEmpty alert={alert} />
         )}
       </SectionWrap>
     );

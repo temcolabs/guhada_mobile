@@ -3,6 +3,7 @@ import Form from '../../../_.forms';
 import { root } from 'store';
 import autoTelNumber from 'lib/autoTelNumber';
 import { devLog } from 'lib/devLog';
+import _ from 'lodash';
 
 export default {
   onInit() {
@@ -37,9 +38,12 @@ export default {
           countdown.seconds = data.data / 1000;
           countdown.startTimer();
         } else if (data.resultCode === 6005) {
-          form.$('email').invalidate(data.data.result);
-          form.$('name').invalidate(' ');
         }
+      })
+      .catch(e => {
+        form.$('email').invalidate(' ');
+        form.$('mobile').invalidate(_.get(e, 'data.message'));
+        form.$('name').invalidate(' ');
       });
   },
 

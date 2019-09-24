@@ -5,7 +5,13 @@ import _ from 'lodash';
 import copy from 'copy-to-clipboard';
 import Router from 'next/router';
 
-@inject('productdetail', 'productDetailBookmark', 'productoption', 'alert')
+@inject(
+  'productdetail',
+  'productDetailBookmark',
+  'productoption',
+  'alert',
+  'searchitem'
+)
 @observer
 class ProductDetailName extends Component {
   getSnapshotBeforeUpdate(prevProps) {
@@ -27,12 +33,20 @@ class ProductDetailName extends Component {
   };
 
   render() {
-    let { productdetail, productDetailBookmark, productoption } = this.props;
+    let {
+      productdetail,
+      productDetailBookmark,
+      productoption,
+      searchitem,
+    } = this.props;
     let { deals } = productdetail;
     return (
       <div className={css.wrap}>
         <div className={css.inner__top}>
-          <div className={css.brandName}>
+          <div
+            className={css.brandName}
+            onClick={() => searchitem.toSearch({ brand: deals.brandId })}
+          >
             {deals.brandName}
             <span className={css.arrow} />
           </div>
