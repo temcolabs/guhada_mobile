@@ -21,7 +21,7 @@ class Category extends Component {
   };
 
   render() {
-    const { category, setIsVisibleBrand } = this.props;
+    const { category, setIsBrandVisible } = this.props;
     let categoryList = category.category;
 
     return (
@@ -67,7 +67,7 @@ class Category extends Component {
         })}
         <label
           onClick={() => {
-            setIsVisibleBrand(true);
+            setIsBrandVisible(true);
           }}
         >
           브랜드

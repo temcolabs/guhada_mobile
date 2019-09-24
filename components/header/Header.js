@@ -22,9 +22,12 @@ function Header({ children, headerShape, history }) {
   const [categoryId, setCategoryId] = useState(0);
   const [categoryTitle, setCategoryTitle] = useState('');
   const [isSearchVisible, setIsSearchVisible] = useState(false);
-  let urlHistory = sessionStorage.get('urlHistory');
-  const [isVisibleBrand, setIsVisibleBrand] = useState(false);
+  const [isBrandVisible, setIsBrandVisible] = useState(false);
 
+  let urlHistory = sessionStorage.get('urlHistory');
+  console.log('isMenuVisible', isMenuVisible);
+  console.log('isCategoryVisible', isCategoryVisible);
+  console.log('isBrandVisible', isBrandVisible);
   return (
     <>
       {headerShape === 'keyword' ? (
@@ -72,25 +75,25 @@ function Header({ children, headerShape, history }) {
             setIsCategoryVisible={setIsCategoryVisible}
             setCategoryId={setCategoryId}
             setCategoryTitle={setCategoryTitle}
-            setIsVisibleBrand={setIsVisibleBrand}
+            setIsBrandVisible={setIsBrandVisible}
           />
 
           <CategoryDepthMenu
             isVisible={isCategoryVisible}
             onBack={() => setIsCategoryVisible(false)}
-            onClose={() => (
-              setIsMenuVisible(false),
+            onClose={() => {
+              setIsMenuVisible(false);
               setTimeout(() => {
                 setIsCategoryVisible(false);
-              }, 400)
-            )}
+              }, 400);
+            }}
             categoryId={categoryId}
             categoryTitle={categoryTitle}
           />
 
           <BrandContainer
-            isVisible={isVisibleBrand}
-            onClose={() => setIsVisibleBrand(false)}
+            isVisible={isBrandVisible}
+            onClose={() => setIsBrandVisible(false)}
           />
 
           <SearchMenu

@@ -6,7 +6,6 @@ import { LinkRoute } from 'lib/router';
 import Router from 'next/router';
 import { inject } from 'mobx-react';
 import { loginStatus } from 'constant';
-import BrandContainer from './item/BrandContainer';
 
 /**
  * 헤더의 햄버거 버튼 클릭시 표시되는 메뉴
@@ -18,14 +17,12 @@ function HeaderMenu({
   setCategoryId,
   setCategoryTitle,
   login,
-  setIsVisibleBrand,
+  setIsBrandVisible,
 }) {
   return (
     <SlideIn isVisible={isVisible} direction={slideDirection.LEFT}>
       <div className={css.wrapper}>
         <div className={css.topWrap}>
-          {/* <LinkRoute href={`/login`}> */}
-
           {login.loginStatus === loginStatus.LOGIN_DONE && login.userInfo ? (
             <a
               className={css.login}
@@ -63,11 +60,11 @@ function HeaderMenu({
           setIsCategoryVisible={setIsCategoryVisible}
           setCategoryId={setCategoryId}
           setCategoryTitle={setCategoryTitle}
-          setIsVisibleBrand={setIsVisibleBrand}
+          setIsBrandVisible={setIsBrandVisible}
         />
 
-        <div className={css.event}>event 영역</div>
-        <div className={css.categoryWrap}>category 영역</div>
+        {/* <div className={css.event}>event 영역</div>
+        <div className={css.categoryWrap}>category 영역</div> */}
       </div>
     </SlideIn>
   );
