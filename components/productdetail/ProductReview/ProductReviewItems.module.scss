@@ -140,6 +140,14 @@
                 background-image: url('/static/icon/icon_thumbsup_off.png');
             }
 
+            & .unLikeIcon {
+                width: 24px;
+                height: 24px;
+                background-size: 24px;
+                background-repeat: no-repeat;
+                background-image: url('/static/icon/icon_thumbsup_on.png');
+            }
+
             &.likeCount {
                 color: #111111;
             }
