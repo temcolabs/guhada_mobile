@@ -8,7 +8,6 @@ export default class OrderPaymentBenefitStore {
     if (!isServer) this.root = root;
   }
 
-  @observable usePoint = 0;
   @observable myPoint = 0;
   @observable availablePoint = 0;
   @observable dueSavePointTotal = 0;
@@ -49,41 +48,10 @@ export default class OrderPaymentBenefitStore {
   };
 
   @action
-  setUsePoint = e => {
-    let value = e.target.value.replace(/[^0-9]/g, '');
-    value = Number(value);
-    this.root.orderpayment.orderPaymentTotalInfo.usePoint = value;
-    this.usePoint = value;
-    if (value > this.availablePoint) {
-      this.root.alert.showAlert({
-        content: '최대 사용 가능 포인트 초과 입니다.',
-      });
-      this.root.orderpayment.orderPaymentTotalInfo.usePoint = this.availablePoint;
-      this.usePoint = this.availablePoint;
-    }
-    this.root.orderpayment.totalPaymentAmount();
-    this.getDueSavePoint();
-  };
-
-  @action
-  pointfullUse = () => {
-    if (this.myPoint >= this.availablePoint) {
-      this.root.orderpayment.orderPaymentTotalInfo.usePoint = this.availablePoint;
-      this.usePoint = this.availablePoint;
-    } else {
-      this.root.orderpayment.orderPaymentTotalInfo.usePoint = this.myPoint;
-      this.usePoint = this.myPoint;
-    }
-
-    this.root.orderpayment.totalPaymentAmount();
-    this.getDueSavePoint();
-  };
-
-  @action
   getDueSavePoint = () => {
     let bundleData = {
       bundleList: [],
-      consumptionPoint: this.usePoint,
+      consumptionPoint: this.root.orderpayment.usePoint,
       consumptionType: 'BUY',
       pointType: 'BUY',
       serviceType: 'FRONT',
@@ -322,11 +290,25 @@ export default class OrderPaymentBenefitStore {
       applyDiscount: 0,
       applyCouponAmount: 0,
     };
+    let originPayment = this.root.orderpayment.orderPaymentTotalInfo
+      .originPaymentPrice;
+    let originDiff = this.root.orderpayment.orderPaymentTotalInfo
+      .originDiscountDiffPrice;
+    let totalPayment =
+      originPayment - originDiff - this.totalPrice.discountPrice;
     this.applyCoupon.applyDiscount = this.totalPrice.discountPrice;
     for (let i = 0; i < this.selectedCouponList.length; i++) {
       if (this.selectedCouponList[i].couponNumber) {
         this.applyCoupon.applyCouponAmount += 1;
       }
+    }
+
+    if (totalPayment < 0) {
+      this.availablePoint = 0;
+    } else if (totalPayment >= 0) {
+      this.availablePoint = totalPayment;
+    } else if (this.totalPrice.discountPrice === 0) {
+      this.getAvailablePoint();
     }
 
     this.root.orderpayment.orderPaymentTotalInfo.couponDiscount = this.applyCoupon.applyDiscount;

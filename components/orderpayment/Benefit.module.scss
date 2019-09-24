@@ -39,11 +39,16 @@
         padding: 0 15px;
         border: 1px solid #eee;
         display: flex;
+        font-size: 14px;
         align-items: center;
         font-weight: normal;
         color: #ccc;
         background: #f9f9fa;
         margin-right: 7px;
+
+        .applyCoupon {
+          color: #111;
+        }
       }
 
       .couponSelect {

@@ -2,13 +2,48 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './Benefit.module.scss';
 import CouponSelectModal from './modal/CouponSelectModal';
-import _ from 'lodash';
-@inject('orderpayment', 'orderPaymentBenefit')
+@inject('orderpayment', 'orderPaymentBenefit', 'alert')
 @observer
 class Benefit extends Component {
   state = {
     sellerList: [],
     couponProductList: [],
+  };
+  pointHandler = e => {
+    let { orderpayment, orderPaymentBenefit, alert } = this.props;
+    let value = e.target.value.replace(/[^0-9]/g, '');
+    value = Number(value);
+    console.log(value, 'value');
+
+    if (value > orderPaymentBenefit.availablePoint) {
+      alert.showAlert({
+        content: '최대 사용 가능 포인트 초과 입니다.',
+      });
+
+      orderpayment.usePoint = orderPaymentBenefit.availablePoint;
+      orderpayment.totalPaymentAmount();
+      orderPaymentBenefit.getDueSavePoint();
+    } else {
+      orderpayment.usePoint = value;
+      orderpayment.totalPaymentAmount();
+      orderPaymentBenefit.getDueSavePoint();
+    }
+  };
+
+  pointfullUse = () => {
+    let { orderpayment, orderPaymentBenefit } = this.props;
+
+    if (orderPaymentBenefit.myPoint >= orderPaymentBenefit.availablePoint) {
+      orderpayment.usePoint = orderPaymentBenefit.availablePoint;
+
+      orderpayment.totalPaymentAmount();
+      orderPaymentBenefit.getDueSavePoint();
+    } else {
+      orderpayment.usePoint = orderPaymentBenefit.myPoint;
+
+      orderpayment.totalPaymentAmount();
+      orderPaymentBenefit.getDueSavePoint();
+    }
   };
   componentDidMount() {
     this.props.orderPaymentBenefit.getAvailablePoint();
@@ -119,16 +154,16 @@ class Benefit extends Component {
             <div className={css.pointSelect}>
               <input
                 type="text"
-                value={orderPaymentBenefit.usePoint}
+                value={orderpayment.usePoint?.toLocaleString()}
                 onChange={e => {
-                  orderPaymentBenefit.setUsePoint(e);
+                  this.pointHandler(e);
                 }}
               />
             </div>
             <div
               className={css.pointAutoSelect}
               onClick={() => {
-                orderPaymentBenefit.pointfullUse();
+                this.pointfullUse();
               }}
             >
               전액 사용
