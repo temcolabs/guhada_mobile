@@ -34,12 +34,11 @@ class ShippingBenefit extends Component {
       satisfaction,
       seller,
       productreview,
-      shipExpenseType,
       tabRefMap,
       productoption,
       sellerfollow,
     } = this.props;
-    const reviewSummary = productreview.reviewSummary;
+    const { reviewSummary } = productreview;
     return (
       <div className={css.wrap}>
         <div className={css.itemWrap}>

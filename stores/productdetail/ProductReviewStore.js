@@ -1,9 +1,8 @@
 import { observable, action, toJS } from 'mobx';
 import API from 'lib/API';
-import Axios from 'axios';
 import { devLog } from 'lib/devLog';
 import bookmarkTarget from 'constant/user/bookmarkTarget';
-
+import _ from 'lodash';
 const isServer = typeof window === 'undefined';
 
 export default class ProductReviewStore {
@@ -226,13 +225,18 @@ export default class ProductReviewStore {
   getProductReviewSummary = () => {
     let productId = this.root.productdetail.deals.productId;
 
-    API.user.get(`/products/${productId}/reviews/summary`).then(res => {
-      let data = res.data;
-      if (data.resultCode === 200) {
-        this.reviewSummary = data.data;
-      } else if (data.resultCode === 5004) {
-        this.review = [];
-      }
-    });
+    API.user
+      .get(`/products/${productId}/reviews/summary`)
+      .then(res => {
+        let data = res.data;
+        if (data.resultCode === 200) {
+          this.reviewSummary = data.data;
+        }
+      })
+      .catch(e => {
+        if (_.get(e, 'data.resultCode') === 5004) {
+          this.reviewSummary = null;
+        }
+      });
   };
 }

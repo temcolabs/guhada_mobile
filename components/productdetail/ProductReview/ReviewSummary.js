@@ -40,16 +40,18 @@ export default function ReviewSummary({
     { value: 'lengths', label: '길이감', max: 0 },
   ];
 
-  if (reviewSummary.satisfactionSummary.sizes.length > 1) {
-    for (let i = 0; i < summary.length; i++) {
-      for (let j = 0; j < summary.length; j++) {
-        summary[i].max = Math.max(
-          summary[i].max,
-          reviewSummary.satisfactionSummary[summary[i].value][j].count
-        );
+  if (_.isNil(reviewSummary) === false)
+    if (reviewSummary.satisfactionSummary.sizes.length > 1) {
+      for (let i = 0; i < summary.length; i++) {
+        for (let j = 0; j < summary.length; j++) {
+          summary[i].max = Math.max(
+            summary[i].max,
+            reviewSummary.satisfactionSummary[summary[i].value][j].count
+          );
+        }
       }
     }
-  }
+  const reviewSummaryNil = _.isNil(reviewSummary);
 
   return (
     <div>
@@ -58,14 +60,18 @@ export default function ReviewSummary({
           <div className={css.header}>총 리뷰 평점</div>
           <div className={css.starWrap}>
             <div className={css.starItem}>
-              {StarItem(reviewSummary.averageReviewsRating, true)}
+              {reviewSummaryNil === false
+                ? StarItem(reviewSummary.averageReviewsRating, true)
+                : StarItem(0, true)}
             </div>
-            <div className={css.averageReviewsRating}>{`${
-              reviewSummary.averageReviewsRating
-            }점`}</div>
+            <div className={css.averageReviewsRating}>
+              {reviewSummaryNil === false
+                ? `${reviewSummary.averageReviewsRating}점`
+                : `0점`}
+            </div>
           </div>
         </div>
-        {reviewSummary.totalReviewsCount !== 0 && (
+        {reviewSummaryNil === false && (
           <>
             <div>
               {summary.map((summary, index) => {
