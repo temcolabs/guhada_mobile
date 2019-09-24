@@ -57,15 +57,17 @@ function SellerStoreInfo({
         />
         <div className={css.profileWrap}>
           <div className={css.levelAndName}>
-            <div className={css.level}>
+            {/* 레벨 제거 추후 추가 */}
+            {/* <div className={css.level}>
               <div className={css.levelText}>4</div>
-            </div>
+            </div> */}
             <div className={css.name}>{deals.sellerName}</div>
           </div>
           <div className={css.satisfiedWrap}>
-            <div className={css.satisfiedLabel}>서비스 만족도</div>
+            {/* 서비스 만족도 제거 추후 추가 */}
+            {/* <div className={css.satisfiedLabel}>서비스 만족도</div>
             <div className={css.line} />
-            <div>*굿서비스</div>
+            <div>*굿서비스</div> */}
           </div>
         </div>
         <div

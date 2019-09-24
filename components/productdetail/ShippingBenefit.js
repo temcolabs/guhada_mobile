@@ -126,10 +126,11 @@ class ShippingBenefit extends Component {
               <div className={css.infoTop}>
                 <div className={css.sellerName}>{deals.sellerName}</div>
                 <div>
-                  <div className={css.levelWrap}>
+                  {/* 회원등급 제거 : 추후 추가 예정 */}
+                  {/* <div className={css.levelWrap}>
                     <div>1</div>
                   </div>
-                  <div className={css.sellerGrade}>*파워셀러</div>
+                  <div className={css.sellerGrade}>*파워셀러</div> */}
                 </div>
               </div>
               <div className={css.infoWrap}>
