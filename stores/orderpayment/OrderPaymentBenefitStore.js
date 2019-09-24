@@ -48,37 +48,10 @@ export default class OrderPaymentBenefitStore {
   };
 
   @action
-  setUsePoint = e => {
-    let value = e.target.value.replace(/[^0-9]/g, '');
-    value = Number(value);
-    this.root.orderpayment.orderPaymentTotalInfo.usePoint = value;
-    if (value > this.availablePoint) {
-      this.root.alert.showAlert({
-        content: '최대 사용 가능 포인트 초과 입니다.',
-      });
-      this.root.orderpayment.orderPaymentTotalInfo.usePoint = this.availablePoint;
-    }
-    this.root.orderpayment.totalPaymentAmount();
-    this.getDueSavePoint();
-  };
-
-  @action
-  pointfullUse = () => {
-    if (this.myPoint >= this.availablePoint) {
-      this.root.orderpayment.orderPaymentTotalInfo.usePoint = this.availablePoint;
-    } else {
-      this.root.orderpayment.orderPaymentTotalInfo.usePoint = this.myPoint;
-    }
-
-    this.root.orderpayment.totalPaymentAmount();
-    this.getDueSavePoint();
-  };
-
-  @action
   getDueSavePoint = () => {
     let bundleData = {
       bundleList: [],
-      consumptionPoint: this.usePoint,
+      consumptionPoint: this.root.orderpayment.usePoint,
       consumptionType: 'BUY',
       pointType: 'BUY',
       serviceType: 'FRONT',
@@ -272,8 +245,15 @@ export default class OrderPaymentBenefitStore {
           }
           if (tempArr[i].coupon[a].couponNumber === number) {
             tempArr[i].coupon[a].usedId = id;
-            this.selectedCouponList[i].discountPrice =
-              tempArr[i].coupon[a].discountPrice;
+          }
+          if (this.selectedCouponList[i].couponNumber) {
+            if (
+              this.selectedCouponList[i].couponNumber ===
+              tempArr[i].coupon[a].couponNumber
+            ) {
+              this.selectedCouponList[i].discountPrice =
+                tempArr[i].coupon[a].discountPrice;
+            }
           }
         }
       }
@@ -310,11 +290,25 @@ export default class OrderPaymentBenefitStore {
       applyDiscount: 0,
       applyCouponAmount: 0,
     };
+    let originPayment = this.root.orderpayment.orderPaymentTotalInfo
+      .originPaymentPrice;
+    let originDiff = this.root.orderpayment.orderPaymentTotalInfo
+      .originDiscountDiffPrice;
+    let totalPayment =
+      originPayment - originDiff - this.totalPrice.discountPrice;
     this.applyCoupon.applyDiscount = this.totalPrice.discountPrice;
     for (let i = 0; i < this.selectedCouponList.length; i++) {
       if (this.selectedCouponList[i].couponNumber) {
         this.applyCoupon.applyCouponAmount += 1;
       }
+    }
+
+    if (totalPayment < 0) {
+      this.availablePoint = 0;
+    } else if (totalPayment >= 0) {
+      this.availablePoint = totalPayment;
+    } else if (this.totalPrice.discountPrice === 0) {
+      this.getAvailablePoint();
     }
 
     this.root.orderpayment.orderPaymentTotalInfo.couponDiscount = this.applyCoupon.applyDiscount;
@@ -325,6 +319,12 @@ export default class OrderPaymentBenefitStore {
 
   @action
   handleModalShow = () => {
+    if (this.couponWithProduct.length === 0) {
+      this.root.alert.showAlert({
+        content: `적용가능한 쿠폰이 없습니다.`,
+      });
+      return false;
+    }
     this.isOpen = true;
   };
 

@@ -2,13 +2,48 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './Benefit.module.scss';
 import CouponSelectModal from './modal/CouponSelectModal';
-import _ from 'lodash';
-@inject('orderpayment', 'orderPaymentBenefit')
+@inject('orderpayment', 'orderPaymentBenefit', 'alert')
 @observer
 class Benefit extends Component {
   state = {
     sellerList: [],
     couponProductList: [],
+  };
+  pointHandler = e => {
+    let { orderpayment, orderPaymentBenefit, alert } = this.props;
+    let value = e.target.value.replace(/[^0-9]/g, '');
+    value = Number(value);
+    console.log(value, 'value');
+
+    if (value > orderPaymentBenefit.availablePoint) {
+      alert.showAlert({
+        content: '최대 사용 가능 포인트 초과 입니다.',
+      });
+
+      orderpayment.usePoint = orderPaymentBenefit.availablePoint;
+      orderpayment.totalPaymentAmount();
+      orderPaymentBenefit.getDueSavePoint();
+    } else {
+      orderpayment.usePoint = value;
+      orderpayment.totalPaymentAmount();
+      orderPaymentBenefit.getDueSavePoint();
+    }
+  };
+
+  pointfullUse = () => {
+    let { orderpayment, orderPaymentBenefit } = this.props;
+
+    if (orderPaymentBenefit.myPoint >= orderPaymentBenefit.availablePoint) {
+      orderpayment.usePoint = orderPaymentBenefit.availablePoint;
+
+      orderpayment.totalPaymentAmount();
+      orderPaymentBenefit.getDueSavePoint();
+    } else {
+      orderpayment.usePoint = orderPaymentBenefit.myPoint;
+
+      orderpayment.totalPaymentAmount();
+      orderPaymentBenefit.getDueSavePoint();
+    }
   };
   componentDidMount() {
     this.props.orderPaymentBenefit.getAvailablePoint();
@@ -75,19 +110,20 @@ class Benefit extends Component {
             <span>{`장 / 보유 ${orderPaymentBenefit.myCoupon} 장)`}</span>
           </div>
           <div className={css.couponSelectBox}>
-            <div className={css.couponUsed}>
-              <input
-                type="text"
-                placeholder="쿠폰선택"
-                value={
-                  orderPaymentBenefit.applyCoupon.applyDiscount
-                    ? `-${orderPaymentBenefit.applyCoupon.applyDiscount?.toLocaleString()}원 (${
-                        orderPaymentBenefit.applyCoupon.applyCouponAmount
-                      }장)`
-                    : '쿠폰선택'
-                }
-                readOnly={true}
-              />
+            <div className={css.couponInput}>
+              {orderPaymentBenefit.applyCoupon.applyCouponAmount ? (
+                <div
+                  className={css.applyCoupon}
+                >{`${orderPaymentBenefit.applyCoupon.applyDiscount?.toLocaleString()}원 (${
+                  orderPaymentBenefit.applyCoupon.applyCouponAmount
+                }장)`}</div>
+              ) : (
+                <div>
+                  {orderpayment.orderPaymentTotalInfo?.availableCouponCount
+                    ? '쿠폰을 선택해주세요 '
+                    : '적용 가능한 쿠폰이 없습니다.'}
+                </div>
+              )}
             </div>
             <div
               className={css.couponSelect}
@@ -118,17 +154,16 @@ class Benefit extends Component {
             <div className={css.pointSelect}>
               <input
                 type="text"
-                value={orderpayment.orderPaymentTotalInfo.usePoint}
+                value={orderpayment.usePoint?.toLocaleString()}
                 onChange={e => {
-                  orderPaymentBenefit.setUsePoint(e);
+                  this.pointHandler(e);
                 }}
-                maxLength="11"
               />
             </div>
             <div
               className={css.pointAutoSelect}
               onClick={() => {
-                orderPaymentBenefit.pointfullUse();
+                this.pointfullUse();
               }}
             >
               전액 사용

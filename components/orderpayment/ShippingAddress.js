@@ -3,6 +3,7 @@ import { inject, observer } from 'mobx-react';
 import css from './ShippingAddress.module.scss';
 import ShippingMessageSelect from './ShippingMessageSelect';
 import AddressChangeModal from './modal/AddressChangeModal';
+import addHyphenToMobile from 'lib/string/addHyphenToMobile';
 @inject('orderpayment')
 @observer
 class ShippingAddress extends Component {
@@ -43,7 +44,7 @@ class ShippingAddress extends Component {
                     {address.recipientName}
                   </div>
                   <div className={css.recipientMobile}>
-                    {address.recipientMobile}
+                    {addHyphenToMobile(address.recipientMobile)}
                   </div>
                 </div>
               </div>

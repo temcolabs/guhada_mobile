@@ -1,0 +1,30 @@
+.wrap {
+  border-bottom: 8px solid #f9f9fa;
+  padding: 0 20px 7.5%;
+  .coupon__wrap {
+    width: 100%;
+    display: flex;
+    margin-top: 20px;
+    cursor: pointer;
+
+    .coupon__title {
+      height: 42px;
+      flex: 1;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      color: #fff;
+      font-size: 13px;
+    }
+
+    .coupon__down {
+      width: 50px;
+      height: 42px;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+  }
+}

@@ -1,0 +1,68 @@
+import React, { Component } from 'react';
+import css from './Coupon.module.scss';
+import { inject, observer } from 'mobx-react';
+import CouponDownModal from './CouponDownModal';
+@inject('productdetail', 'productoption')
+@observer
+class Coupon extends Component {
+  render() {
+    let { productdetail, productoption } = this.props;
+    return (
+      <div className={css.wrap}>
+        {/* 상품 쿠폰 */}
+        {productoption.dueSavebenefitCoupon.length > 0 &&
+          productoption.dueSavebenefitCoupon
+            .slice(0, 1)
+            .map((coupon = {}, index) => {
+              // TODO: 쿠폰 다운로드 여부 확인
+              const isCouponDownloaded = coupon.alreadySaved;
+
+              return isCouponDownloaded ? (
+                <div className={css.coupon__wrap}>
+                  <div
+                    className={css.coupon__title}
+                    style={{ backgroundColor: '#ccc' }}
+                  >
+                    {productoption.dueSavebenefitCoupon.length > 0
+                      ? ` ${productoption.dueSavebenefitCoupon[0].couponTitle}`
+                      : null}
+                  </div>
+                  <div
+                    className={css.coupon__down}
+                    style={{
+                      backgroundImage: `url('/static/icon/m_coupon_download_off.png')`,
+                    }}
+                  />
+                </div>
+              ) : (
+                <div
+                  className={css.coupon__wrap}
+                  onClick={() => {
+                    productoption.couponDownModalOpen();
+                  }}
+                >
+                  <div
+                    className={css.coupon__title}
+                    style={{ backgroundColor: '#5d2ed1' }}
+                  >
+                    {productoption.dueSavebenefitCoupon.length > 0
+                      ? ` ${productoption.dueSavebenefitCoupon[0].couponTitle}`
+                      : null}
+                  </div>
+                  <div
+                    className={css.coupon__down}
+                    style={{
+                      backgroundImage: `url('/static/icon/m_coupon_download_on.png')`,
+                    }}
+                  />
+                </div>
+              );
+            })}
+
+        <CouponDownModal isVisible={productoption.couponIsOpen} />
+      </div>
+    );
+  }
+}
+
+export default Coupon;

@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import { observable, action } from 'mobx';
+import { observable, action, toJS } from 'mobx';
 import { autoHypenPhone, getUserAgent } from '../../utils';
 import API from 'lib/API';
 import qs from 'qs';
@@ -27,6 +27,7 @@ export default class OrderPaymentStore {
     zip: null,
   };
   @observable orderPoint = 0;
+  @observable usePoint = 0;
   @observable orderMyCouponWallet = [];
   @observable orderShippingList = {
     list: [],
@@ -109,77 +110,75 @@ export default class OrderPaymentStore {
       .get(`/order/orderForm?cartItemIdList=${this.cartList}`)
       .then(res => {
         let data = res.data.data;
-        if (res.data.resultCode === 200) {
-          this.orderPaymentTotalInfo = data;
-          this.orderProductInfo = data.orderItemList;
-          this.orderUserInfo = data.user;
-          this.orderShippingList.defaultAddress = data.shippingAddress;
-          this.orderPoint = data.availablePointResponse;
-          this.orderPaymentTotalInfo.originPaymentPrice = this.orderPaymentTotalInfo.totalPaymentPrice; //총 결제금액 백업 저장
-          this.orderPaymentTotalInfo.originDiscountDiffPrice = this.orderPaymentTotalInfo.totalDiscountDiffPrice; //총 결제금액 백업 저장
-          this.orderPaymentTotalInfo.couponDiscount = 0;
-          this.orderPaymentTotalInfo.usePoint = 0;
-          this.shippingMessageOption = data.shippingMessage;
-          this.orderMyCouponWallet = data.availableCouponWalletResponses;
-          this.getOptions();
-          this.getTotalQuantity();
-          this.getShippingMessageOption();
-          console.log(res.data, '주문 데이터');
-          this.orderProductInfo.map(data => {
-            if (data.orderValidStatus !== 'VALID') {
-              this.root.alert.showAlert({
-                content:
-                  '구매에 유효하지 않은 상품이 있습니다, 장바구니 로 돌아갑니다.',
-                onConfirm: () => {
-                  Router.push('/shoppingcart');
-                },
-              });
-            }
-          });
-
-          this.getPhoneWithHypen();
-          if (this.orderShippingList.defaultAddress) {
-            this.status.selectedShipStatus = true;
-          }
-          let paymentRemainCheck = JSON.parse(
-            sessionStorage.getItem('paymentInfo')
-          );
-
-          if (paymentRemainCheck) {
-            let resultMsg = getParameterByName('resultMsg');
+        this.orderPaymentTotalInfo = data;
+        this.orderProductInfo = data.orderItemList;
+        this.orderUserInfo = data.user;
+        this.orderShippingList.defaultAddress = data.shippingAddress;
+        this.orderPoint = data.availablePointResponse;
+        this.orderPaymentTotalInfo.originPaymentPrice = this.orderPaymentTotalInfo.totalPaymentPrice; //총 결제금액 백업 저장
+        this.orderPaymentTotalInfo.originDiscountDiffPrice = this.orderPaymentTotalInfo.totalDiscountDiffPrice; //총 결제금액 백업 저장
+        this.orderPaymentTotalInfo.couponDiscount = 0;
+        this.usePoint = 0;
+        this.shippingMessageOption = data.shippingMessage;
+        this.orderMyCouponWallet = data.availableCouponWalletResponses;
+        this.getOptions();
+        this.getTotalQuantity();
+        this.getShippingMessageOption();
+        console.log(res.data, '주문 데이터');
+        this.orderProductInfo.map(data => {
+          if (data.orderValidStatus !== 'VALID') {
             this.root.alert.showAlert({
-              content: resultMsg || '결제 실패.',
+              content:
+                '구매에 유효하지 않은 상품이 있습니다, 장바구니 로 돌아갑니다.',
+              onConfirm: () => {
+                Router.push('/shoppingcart');
+              },
             });
-            window.scrollTo(0, paymentRemainCheck.wScroll);
-            if (!paymentRemainCheck.shippingType) {
-              this.status.selectedShipStatus = false;
-              this.orderShippingList.newAddress =
-                paymentRemainCheck.shippingAddress;
-
-              this.orderShippingList.newAddress.shippingMessageType === 'SELF'
-                ? (this.status.newShppingRequestSelfStatus = true)
-                : (this.status.newShppingRequestSelfStatus = false);
-
-              this.orderShippingList.isAddShippingAddress =
-                paymentRemainCheck.addShippingAddress;
-
-              this.orderShippingList.newAddress.defaultAddress =
-                paymentRemainCheck.shippingAddress.defaultAddress;
-            }
-
-            this.paymentMethod = paymentRemainCheck.parentMethodCd;
-            this.status.orderPaymentAgreement = !this.status
-              .orderPaymentAgreement;
-
-            sessionStorage.removeItem('paymentInfo');
           }
-          this.status.pageStatus = true;
+        });
+
+        if (this.orderShippingList.defaultAddress.address) {
+          this.status.selectedShipStatus = true;
         }
+
+        let paymentRemainCheck = JSON.parse(
+          sessionStorage.getItem('paymentInfo')
+        );
+
+        if (paymentRemainCheck) {
+          let resultMsg = getParameterByName('resultMsg');
+          this.root.alert.showAlert({
+            content: resultMsg || '결제 실패.',
+          });
+          window.scrollTo(0, paymentRemainCheck.wScroll);
+          if (!paymentRemainCheck.shippingType) {
+            this.status.selectedShipStatus = false;
+            this.orderShippingList.newAddress =
+              paymentRemainCheck.shippingAddress;
+
+            this.orderShippingList.newAddress.shippingMessageType === 'SELF'
+              ? (this.status.newShppingRequestSelfStatus = true)
+              : (this.status.newShppingRequestSelfStatus = false);
+
+            this.orderShippingList.isAddShippingAddress =
+              paymentRemainCheck.addShippingAddress;
+
+            this.orderShippingList.newAddress.defaultAddress =
+              paymentRemainCheck.shippingAddress.defaultAddress;
+          }
+
+          this.paymentMethod = paymentRemainCheck.parentMethodCd;
+          this.status.orderPaymentAgreement = !this.status
+            .orderPaymentAgreement;
+
+          sessionStorage.removeItem('paymentInfo');
+        }
+        this.status.pageStatus = true;
       })
       .catch(err => {
         console.log(err, 'err');
         this.root.alert.showAlert({
-          content: `${_.get(err, 'data.message') || 'ERROR'}`,
+          content: `${_.get(err, 'data.message') || '오류발생'}`,
           onConfirm: () => {
             this.gotoMain();
           },
@@ -361,18 +360,6 @@ export default class OrderPaymentStore {
     }
   };
 
-  //--------------------- 휴대폰번호에 ' - ' 추가 ---------------------
-  getPhoneWithHypen = () => {
-    if (this.orderUserInfo.mobile) {
-      this.orderUserInfo.mobile = autoHypenPhone(this.orderUserInfo.mobile);
-    }
-    if (this.orderShippingList.defaultAddress) {
-      this.orderShippingList.defaultAddress.hypenRecipientMobile = autoHypenPhone(
-        this.orderShippingList.defaultAddress.recipientMobile
-      );
-    }
-  };
-
   //--------------------- 결제방법변경 ---------------------
   @action
   setPaymentMethod = targetMethod => {
@@ -425,25 +412,31 @@ export default class OrderPaymentStore {
 
   //--------------------- 배송지 적용(Local) ---------------------
   @action
-  addressChangeConfirm = () => {
+  shippingAddressChangeConfirm = () => {
     if (this.orderShippingList.currentEditAddressId) {
       this.root.alert.showAlert({
         content: '수정중인 주소지를 저장해주세요.',
       });
     } else {
-      this.orderShippingList.list.map(data => {
+      this.orderShippingList.list.forEach(data => {
         if (data.id === this.orderShippingList.currentUseAddressId) {
-          this.orderShippingList.defaultAddress = data;
+          this.orderShippingList.defaultAddress.address = data.address;
+          this.orderShippingList.defaultAddress.detailAddress =
+            data.detailAddress;
+          this.orderShippingList.defaultAddress.recipientMobile =
+            data.recipientMobile;
+          this.orderShippingList.defaultAddress.recipientName =
+            data.recipientName;
+          this.orderShippingList.defaultAddress.roadAddress = data.roadAddress;
+          this.orderShippingList.defaultAddress.shippingName =
+            data.shippingName;
+          this.orderShippingList.defaultAddress.zip = data.zip;
         }
       });
       this.shippingListModalClose();
       this.status.selectedShipStatus = true;
+      console.log('바뀐 주소', toJS(this.orderShippingList.defaultAddress));
     }
-    console.log(
-      this.orderShippingList.list,
-      this.orderShippingList.currentUseAddressId,
-      't123'
-    );
   };
 
   @action
@@ -683,7 +676,9 @@ export default class OrderPaymentStore {
         content: '구매 및 결제대행서비스 이용약관 등에 모두 동의해주세요.',
       });
       paymentCheck = false;
-    } else if (!this.status.selectedShipStatus) {
+    }
+
+    if (!this.status.selectedShipStatus) {
       if (!this.orderShippingList.newAddress.shippingName) {
         this.root.alert.showAlert({
           content: '배송지이름을 입력해주세요.',
@@ -710,45 +705,64 @@ export default class OrderPaymentStore {
         paymentCheck = false;
       } else if (!this.orderShippingList.newAddress.recipientMobile) {
         this.root.alert.showAlert({
-          content: '수령인 의 연락처를 입력해주세요.',
+          content: '수령인의 연락처를 입력해주세요.',
         });
         this.status.newRecipientMobile = true;
         paymentCheck = false;
       } else if (this.orderShippingList.newAddress.recipientMobile) {
         let currentPhoneNum = this.orderShippingList.newAddress.recipientMobile;
         let regPhone = /^((01[1|6|7|8|9])[0-9][0-9]{6,7})|(010[0-9][0-9]{7})$/;
-        if (currentPhoneNum.length < 10 || currentPhoneNum.length > 11) {
+        let regTel = /^0(2|3[1-3]|4[1-4]|5[1-5]|6[1-4])-?\d{3,4}-?\d{4}$/;
+
+        if (currentPhoneNum.length < 9 || currentPhoneNum.length > 11) {
           this.root.alert.showAlert({
-            content: '휴대폰번호는 10자리 이상 11자리 이하입니다.',
+            content: '연락처를 정확히 입력해주세요.',
           });
           this.status.newRecipientMobile = true;
           paymentCheck = false;
-        } else if (!regPhone.test(currentPhoneNum)) {
+        } else if (
+          !regPhone.test(currentPhoneNum) &&
+          !regTel.test(currentPhoneNum)
+        ) {
           this.root.alert.showAlert({
-            content: '휴대폰 번호를 정확히 입력해주세요.',
+            content: '연락처를 정확히 입력해주세요.',
           });
           this.status.newRecipientMobile = true;
           paymentCheck = false;
         }
       }
       if (
-        !this.orderShippingList.newAddress.shippingMessage ||
         this.orderShippingList.newAddress.shippingMessage ===
-          '배송 메세지를 입력해주세요.'
+        '배송 메세지를 입력해주세요.'
       ) {
         this.root.alert.showAlert({
           content: '배송요청사항을 입력해주세요.',
         });
         paymentCheck = false;
+      } else if (!this.orderShippingList.newAddress.shippingMessage) {
+        this.root.alert.showAlert({
+          content: '배송요청사항을 선택해주세요.',
+        });
+        paymentCheck = false;
       }
-    } else if (this.status.selectedShipStatus) {
+    }
+    if (this.status.selectedShipStatus) {
       if (
         this.orderShippingList.defaultAddress.shippingMessage ===
-          '배송 메세지를 입력해주세요.' ||
-        !this.orderShippingList.defaultAddress.shippingMessage
+        '배송 메세지를 입력해주세요.'
       ) {
         this.root.alert.showAlert({
           content: '배송요청사항을 입력해주세요.',
+        });
+        paymentCheck = false;
+      } else if (!this.orderShippingList.defaultAddress.shippingMessage) {
+        this.root.alert.showAlert({
+          content: '배송요청사항을 선택해주세요.',
+        });
+        paymentCheck = false;
+      } else if (!this.orderShippingList.defaultAddress.recipientMobile) {
+        this.root.alert.showAlert({
+          content: '배송지 연락처를 입력해주세요.',
         });
         paymentCheck = false;
       }
@@ -820,7 +834,7 @@ export default class OrderPaymentStore {
         addShippingAddress: this.orderShippingList.isAddShippingAddress,
         shippingType: this.status.selectedShipStatus,
         wScroll: window.scrollY,
-        consumptionPoint: this.orderPaymentTotalInfo.usePoint,
+        consumptionPoint: this.usePoint,
         cashReceiptUsage: this.cashReceiptUsage,
 
         cashReceiptNo:
@@ -849,7 +863,7 @@ export default class OrderPaymentStore {
         addShippingAddress: this.orderShippingList.isAddShippingAddress,
         shippingType: this.status.selectedShipStatus,
         wScroll: window.scrollY,
-        consumptionPoint: this.orderPaymentTotalInfo.usePoint,
+        consumptionPoint: this.usePoint,
 
         web: true,
       };
@@ -900,17 +914,11 @@ export default class OrderPaymentStore {
             nextUrl: nextUrl,
           };
           sessionStorage.setItem('paymentInfo', JSON.stringify(forms));
-        } else {
-          this.root.alert.showAlert({
-            content: res.data.message
-              ? res.data.message
-              : '결제오류 상품을 다시 확인해주세요.',
-          });
         }
       })
       .catch(err => {
         this.root.alert.showAlert({
-          content: `${_.get(err, 'data.message') || err.message}`,
+          content: `${_.get(err, 'data.message') || '결제 오류'}`,
         });
         this.status.paymentProceed = false;
       });
@@ -1031,7 +1039,16 @@ export default class OrderPaymentStore {
 
     this.orderPaymentTotalInfo.totalPaymentPrice =
       this.orderPaymentTotalInfo.originPaymentPrice -
-      this.root.orderpayment.orderPaymentTotalInfo.usePoint -
+      this.usePoint -
       this.orderPaymentTotalInfo.couponDiscount;
+
+    if (this.orderPaymentTotalInfo.totalPaymentPrice < 0) {
+      this.orderPaymentTotalInfo.totalPaymentPrice = 0;
+      this.usePoint = 0;
+    }
+    console.log(
+      this.orderPaymentTotalInfo.totalPaymentPrice,
+      'this.orderPaymentTotalInfo.totalPaymentPrice'
+    );
   };
 }

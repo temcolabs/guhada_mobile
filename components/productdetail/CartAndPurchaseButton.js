@@ -9,7 +9,7 @@ class CartAndPurchaseButton extends Component {
     let deals = productdetail.deals;
     return (
       <div className={css.wrap}>
-        {deals.totalStock > 0 ? (
+        {deals.purchasable ? (
           <div className={css.btnGroup}>
             <div
               className={css.shoppingCart__btn}
@@ -38,7 +38,7 @@ class CartAndPurchaseButton extends Component {
             >
               재입고알림
             </div> */}
-            <div className={css.soldout}>품절</div>
+            <div className={css.soldout}>{deals.reasonOfUnpurchasable}</div>
           </div>
         )}
       </div>

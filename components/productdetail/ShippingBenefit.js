@@ -57,8 +57,13 @@ class ShippingBenefit extends Component {
           <div className={css.itemTitle}>혜택정보</div>
           <div className={css.contentsWrap}>
             {productoption.benefitPoint > 0 ? <div>포인트 적립</div> : null}
-            <div>무이자 할부</div>
-            <div>카드추가혜택</div>
+
+            {/* 무이자혜택 */}
+            {false ? <div>무이자 할부</div> : null}
+
+            {/* 카드추가혜택 */}
+            {false ? <div>카드추가혜택</div> : null}
+
             <div
               className={css.plusIcon}
               style={
@@ -84,16 +89,25 @@ class ShippingBenefit extends Component {
               </div>
             ) : null}
 
-            <div className={css.benefitDetailSection}>
-              <div className={css.benefitDetaieTitle}>무이자 할부</div>
-              <div className={css.benefitDetailContent}>5만원 이상 무이자</div>
-            </div>
-            <div className={css.benefitDetailSection}>
-              <div className={css.benefitDetaieTitle}>카드추가혜택</div>
-              <div className={css.benefitDetailContent}>
-                제휴카드 결제 시 최대 12% 할인
+            {/* 무이자혜택 */}
+            {false ? (
+              <div className={css.benefitDetailSection}>
+                <div className={css.benefitDetaieTitle}>무이자 할부</div>
+                <div className={css.benefitDetailContent}>
+                  5만원 이상 무이자
+                </div>
               </div>
-            </div>
+            ) : null}
+
+            {/* 제휴카드 혜택 */}
+            {false ? (
+              <div className={css.benefitDetailSection}>
+                <div className={css.benefitDetaieTitle}>카드추가혜택</div>
+                <div className={css.benefitDetailContent}>
+                  제휴카드 결제 시 최대 12% 할인
+                </div>
+              </div>
+            ) : null}
           </div>
         ) : null}
         <div className={css.sellerWrap}>

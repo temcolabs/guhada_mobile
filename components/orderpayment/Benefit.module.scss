@@ -32,33 +32,37 @@
       margin-top: 10px;
       display: flex;
       justify-content: space-between;
-    }
 
-    .couponUsed {
-      position: relative;
-      width: 100%;
-      margin-right: 7px;
-
-      input {
-        border: 1px solid #ebebeb;
+      .couponInput {
+        position: relative;
         width: 100%;
-        height: 45px;
         padding: 0 15px;
+        border: 1px solid #eee;
+        display: flex;
+        font-size: 14px;
+        align-items: center;
+        font-weight: normal;
+        color: #ccc;
         background: #f9f9fa;
-      }
-    }
+        margin-right: 7px;
 
-    .couponSelect {
-      width: 80px;
-      height: 45px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #5d2ed1;
-      border: 1px solid #5d2ed1;
-      font-size: 13px;
-      font-weight: bold;
-      cursor: pointer;
+        .applyCoupon {
+          color: #111;
+        }
+      }
+
+      .couponSelect {
+        width: 80px;
+        height: 45px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #5d2ed1;
+        border: 1px solid #5d2ed1;
+        font-size: 13px;
+        font-weight: bold;
+        cursor: pointer;
+      }
     }
   }
 

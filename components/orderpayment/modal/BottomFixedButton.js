@@ -34,7 +34,7 @@ class BottomFixedButton extends Component {
         </div>
         <div
           className={css.complete}
-          onClick={() => orderpayment.addressChangeConfirm()}
+          onClick={() => orderpayment.shippingAddressChangeConfirm()}
         >
           선택 완료
         </div>

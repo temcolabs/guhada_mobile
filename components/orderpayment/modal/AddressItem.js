@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './AddressItem.module.scss';
-
+import addHyphenToMobile from 'lib/string/addHyphenToMobile';
 @inject('orderpayment')
 @observer
 class AddressItem extends Component {
@@ -116,7 +116,7 @@ class AddressItem extends Component {
                 onChange={e => {
                   orderpayment.addressEditing(e, 'recipientMobile', null);
                 }}
-                value={tempEditAddress.recipientMobile}
+                value={addHyphenToMobile(tempEditAddress.recipientMobile)}
               />
             </div>
           </div>
@@ -170,9 +170,9 @@ class AddressItem extends Component {
               </div>
             </div>
             <div className={css.section}>
-              <div className={css.customer}>{`${data.recipientName} ${
-                data.recipientMobile
-              }`}</div>
+              <div className={css.customer}>{`${
+                data.recipientName
+              } ${addHyphenToMobile(data.recipientMobile)}`}</div>
             </div>
           </div>
         </div>

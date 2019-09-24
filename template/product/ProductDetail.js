@@ -21,6 +21,7 @@ import SellerStoreInfo from 'components/productdetail/SellerStoreInfo';
 import ProductInquiry from 'components/productdetail/ProductInquiry/ProductInquiry';
 import ProductReview from 'components/productdetail/ProductReview/ProductReview';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
+import Coupon from 'components/productdetail/Coupon';
 
 @withScrollToTopOnMount
 @inject('searchitem', 'productoption', 'sellerfollow', 'productdetail')
@@ -80,6 +81,9 @@ class ProductDetail extends React.Component {
 
         {/* 상세 상품 정보 */}
         <ProductDetailName />
+
+        {/* 쿠폰  */}
+        <Coupon />
 
         {/* 상세 상품 옵션 */}
         <ProductDetailOption />

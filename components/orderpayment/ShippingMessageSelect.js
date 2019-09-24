@@ -70,15 +70,6 @@ class ShippingMessageSelect extends Component {
           styles={selectStyles}
           placeholder="배송 메모를 선택해주세요"
           options={orderpayment.shippingMessageOption}
-          defaultValue={orderpayment.shippingMessageOption.map(
-            (data, index) => {
-              return data.value ==
-                orderpayment.orderShippingList.defaultAddress
-                  .shippingMessageType
-                ? orderpayment.shippingMessageOption[index]
-                : null;
-            }
-          )}
           onChange={shippingOption => {
             orderpayment.changeShippingRequestOption(
               shippingOption,
