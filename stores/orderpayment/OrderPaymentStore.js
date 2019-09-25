@@ -1002,6 +1002,8 @@ export default class OrderPaymentStore {
       applyDiscount: 0,
       applyCouponAmount: 0,
     };
+    this.root.customerauthentication.sendMailSuccess = false;
+    this.root.orderPaymentBenefit.myCoupon = 0;
   };
 
   getTotalQuantity = () => {

@@ -26,7 +26,7 @@ module.exports = {
 
     API.order
       .post(
-        `https://dev.order.guhada.com/order/orderApproval`,
+        `/order/orderApproval`,
         {
           resultCode: authData.P_STATUS,
           resultMsg: authData.P_RMESG1,

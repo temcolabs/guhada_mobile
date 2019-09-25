@@ -93,9 +93,9 @@ export default class OrderPaymentBenefitStore {
         this.dueSaveList = data.dueSavePointList;
       })
       .catch(err => {
-        this.root.alert.showAlert({
-          content: `${_.get(err, 'data.message') || 'ERROR'}`,
-        });
+        // this.root.alert.showAlert({
+        //   content: `${_.get(err, 'data.message') || 'ERROR'}`,
+        // });
       });
   };
 
@@ -110,9 +110,9 @@ export default class OrderPaymentBenefitStore {
       })
       .catch(err => {
         console.log(err);
-        this.root.alert.showAlert({
-          content: `${_.get(err, 'data.message') || 'ERROR'}`,
-        });
+        // this.root.alert.showAlert({
+        //   content: `${_.get(err, 'data.message') || 'ERROR'}`,
+        // });
       });
   };
   @action
@@ -292,21 +292,22 @@ export default class OrderPaymentBenefitStore {
     };
     let originPayment = this.root.orderpayment.orderPaymentTotalInfo
       .originPaymentPrice;
-    let originDiff = this.root.orderpayment.orderPaymentTotalInfo
-      .originDiscountDiffPrice;
-    let totalPayment =
-      originPayment - originDiff - this.totalPrice.discountPrice;
+    let totalPayment = originPayment - this.totalPrice.discountPrice;
     this.applyCoupon.applyDiscount = this.totalPrice.discountPrice;
     for (let i = 0; i < this.selectedCouponList.length; i++) {
       if (this.selectedCouponList[i].couponNumber) {
         this.applyCoupon.applyCouponAmount += 1;
       }
     }
-
+    console.log(totalPayment, 'totalPayment');
     if (totalPayment < 0) {
       this.availablePoint = 0;
     } else if (totalPayment >= 0) {
-      this.availablePoint = totalPayment;
+      if (totalPayment > this.availablePoint) {
+        this.getAvailablePoint();
+      } else {
+        this.availablePoint = totalPayment;
+      }
     } else if (this.totalPrice.discountPrice === 0) {
       this.getAvailablePoint();
     }

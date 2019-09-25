@@ -62,8 +62,9 @@ function Header({ children, headerShape, history }) {
             })}
             onClick={() => setIsSearchVisible(true)}
           />
-          <button className={css.cartButton} onClick={() => {}} />
-
+          <Link href="/shoppingcart">
+            <button className={css.cartButton} />
+          </Link>
           <HeaderMenu
             isVisible={isMenuVisible}
             onClose={() => setIsMenuVisible(false)}
