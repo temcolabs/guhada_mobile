@@ -102,8 +102,8 @@ export default class OrderPaymentStore {
       }
 
       tempAttribute = tempAttribute.substr(0, tempAttribute.length - 1);
-      if (tempAttribute == '') {
-        branchArray.push('옵션없는상품');
+      if (tempAttribute === '') {
+        branchArray.push(null);
       } else {
         branchArray.push(tempAttribute);
       }

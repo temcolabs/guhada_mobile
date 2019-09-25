@@ -873,8 +873,8 @@ export default class OrderPaymentStore {
       cartList: cartList,
     });
 
-    let returnUrl = `https://192.168.50.17:8081/privyCertifyResult?` + query;
-    let nextUrl = `https://192.168.50.17:8081/privyCertifyResult`;
+    let returnUrl = `${process.env.HOSTNAME}/privyCertifyResult?` + query;
+    let nextUrl = `${process.env.HOSTNAME}/privyCertifyResult?`;
 
     API.order
       .post(`order/requestOrder`, forms)

@@ -22,9 +22,9 @@ class ProductInfo extends Component {
               />
               <div className={css.productInfo}>
                 <div className={css.brandName}>{data.brandName}</div>
-                <div className={css.productName}>{`${data.season} ${
-                  data.prodName
-                }`}</div>
+                <div className={css.productName}>{`${
+                  data.season ? data.season : ''
+                } ${data.prodName}`}</div>
                 <div className={css.productPrice}>
                   <div className={css.discountPrice}>
                     {`${data.discountPrice.toLocaleString()}원`}
