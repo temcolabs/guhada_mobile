@@ -1,6 +1,4 @@
 import { observable, action } from 'mobx';
-import Axios from 'axios';
-import Cookies from 'js-cookie';
 import API from 'lib/API';
 import Router from 'next/router';
 import Form from '../stores/form-store/_.forms';
@@ -13,15 +11,25 @@ const isServer = typeof window === 'undefined';
 
 export default class AuthMobileStore {
   @observable authKey = '';
+  @observable authData;
+  @observable verifyParams = {
+    birth: '',
+    diCode: '',
+    gender: '',
+    identityVerifyMethod: '',
+    mobile: '',
+    name: '',
+  };
   @action
   getCertKey = location => {
     API.order.get('phoneCertification').then(res => {
       console.log(res.data.data, 'res.data.data');
       const key = res.data.data;
       this.authKey = key;
-      let authData;
+      let verifyParams = this.verifyParams;
+      let authData = this.authData;
       const childWindow = openPopupCenter('', 'popupChk', 500, 550);
-
+      let checkIdentity = this.checkIdentity;
       document.form_chk.action =
         'https://nice.checkplus.co.kr/CheckPlusSafeModel/checkplus.cb';
       document.form_chk.target = 'popupChk';
@@ -30,19 +38,38 @@ export default class AuthMobileStore {
       const onReceiveMessageFromPopup = function(event) {
         devLog(`event.origin`, event.origin);
         devLog(`event.data`, event.data);
+
         window.removeEventListener('message', onReceiveMessageFromPopup);
 
         // 팝업 윈도우 닫기
         childWindow.close();
 
         // TODO: 인증완료 다음단계 진행
-        // location 파라미터 : findpassword, findid
-        console.log(location);
+        // location 파라미터 : findpassword, findid, order
+        devLog(location);
         authData = event.data;
+        devLog('authData', authData);
 
         if (authData.sBirthDate) {
+          verifyParams.birth = authData.sBirthDate.replace(
+            /(\d{4})(\d{2})(\d{2})/g,
+            '$1-$2-$3'
+          );
+          verifyParams.diCode = authData.sDueInfo;
+          verifyParams.gender = authData.sGender === '0' ? 'FEMALE' : 'MALE';
+          verifyParams.identityVerifyMethod = 'MOBILE';
+          verifyParams.mobile = authData.sMobileNo;
+          verifyParams.name = authData.sName;
+
           if (location === 'findpassword') {
-            Router.push('/login/findpasswordresult');
+            checkIdentity(authData, afterResponse, afterException);
+            function afterResponse() {
+              Router.push('/login/findpasswordresult');
+            }
+
+            function afterException(e) {
+              root.alert.showAlert(_.get(e, 'data.message'));
+            }
           } else if (location === 'findid') {
             let data = event.data;
 
@@ -114,5 +141,19 @@ export default class AuthMobileStore {
       // 팝업에서 postMessage로 데이터 받아오는 이벤트 연결
       window.addEventListener('message', onReceiveMessageFromPopup, false);
     });
+  };
+
+  @action
+  checkIdentity = (authData, afterResponse, afterException) => {
+    API.user
+      .post(`/users/identity-verify`, {
+        diCode: authData.sDueInfo,
+      })
+      .then(function(res) {
+        afterResponse();
+      })
+      .catch(e => {
+        afterException(e);
+      });
   };
 }

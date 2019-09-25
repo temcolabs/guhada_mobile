@@ -47,8 +47,8 @@ function ToolBar({ alert }) {
       </div>
       <div
         onClick={() => {
-          setSelectedTool('community'),
-            alert.showAlert({ content: '모바일 버전 준비중입니다.' });
+          setSelectedTool('community');
+          alert.showAlert({ content: '모바일 버전 준비중입니다.' });
         }}
         className={cn(css.itemWrap, css.community, {
           [css.selected]: selectedTool === 'community',
@@ -58,8 +58,8 @@ function ToolBar({ alert }) {
       </div>
       <div
         onClick={() => {
-          setSelectedTool('mypage'),
-            alert.showAlert({ content: '모바일 버전 준비중입니다.' });
+          setSelectedTool('mypage');
+          alert.showAlert({ content: '모바일 버전 준비중입니다.' });
         }}
         className={cn(css.itemWrap, css.mypage, {
           [css.selected]: selectedTool === 'mypage',

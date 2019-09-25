@@ -7,11 +7,11 @@ import ReviewTab from './ReviewTab';
 import ProductReviewItems from './ProductReviewItems';
 import _ from 'lodash';
 import ProductReviewEmpty from './ProductReviewEmpty';
-@inject('productreview')
+@inject('productreview', 'alert', 'login')
 @observer
 class ProductReview extends Component {
   render() {
-    const { productreview, tabRefMap } = this.props;
+    const { productreview, tabRefMap, alert, login } = this.props;
     const review = productreview.review;
     const reviewSummary = productreview.reviewSummary;
     return (
@@ -26,7 +26,15 @@ class ProductReview extends Component {
           <>
             <div className={css.reviewItemWrap}>
               {review.content.map((review, index) => {
-                return <ProductReviewItems review={review} key={index} />;
+                return (
+                  <ProductReviewItems
+                    review={review}
+                    key={index}
+                    productreview={productreview}
+                    alert={alert}
+                    login={login}
+                  />
+                );
               })}
             </div>
             <div className={css.reviewItemWrap}>
@@ -39,7 +47,7 @@ class ProductReview extends Component {
             </div>
           </>
         ) : (
-          <ProductReviewEmpty />
+          <ProductReviewEmpty alert={alert} />
         )}
       </SectionWrap>
     );

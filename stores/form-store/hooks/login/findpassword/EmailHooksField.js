@@ -2,6 +2,7 @@ import API from 'lib/API';
 import { root } from 'store';
 import Form from '../../../_.forms';
 import { devLog } from 'lib/devLog';
+import _ from 'lodash';
 
 export default {
   onInit() {
@@ -34,9 +35,11 @@ export default {
           countdown.seconds = data.data / 1000;
           countdown.startTimer();
         } else {
-          form.$('email').invalidate(data.message);
-          form.$('name').invalidate(' ');
         }
+      })
+      .catch(e => {
+        form.$('email').invalidate(_.get(e, 'data.message'));
+        form.$('name').invalidate(' ');
       });
   },
 

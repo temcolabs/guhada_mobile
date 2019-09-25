@@ -61,13 +61,13 @@ class Login extends React.Component {
             <div className={css.findIdWrap}>
               <span>
                 <LinkRoute href="/login/findid">
-                  <a className={css.findLinkWrap}>아이디찾기</a>
+                  <a className={css.findLinkWrap}>아이디 찾기</a>
                 </LinkRoute>
               </span>
               <span className={css.line} />
               <span>
                 <LinkRoute href="/login/findpassword">
-                  <a className={css.findLinkWrap}>비밀번호찾기</a>
+                  <a className={css.findLinkWrap}>비밀번호 찾기</a>
                 </LinkRoute>
               </span>
             </div>
@@ -82,7 +82,7 @@ class Login extends React.Component {
                 onChange={this.onChangeSaveId}
                 checked={this.state.checkSaveId}
               >
-                아이디저장
+                아이디 저장
               </SaveIdCheckBox>
               {/* <LinkRoute href="/login/term">
                 <a className={css.nomember__order}>비회원 주문조회</a>

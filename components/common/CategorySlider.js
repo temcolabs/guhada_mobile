@@ -60,14 +60,19 @@ class CategorySlider extends Component {
           className={css.subWrap}
           style={{
             display:
-              this.state.isVisibleSubCategory === true ? 'block' : 'none',
+              this.state.isVisibleSubCategory === true
+                ? 'inline-block'
+                : 'none',
           }}
         >
           {subCategory.map(category => {
             if (category.id === this.state.selected)
               return category.children.map(subCategory => {
                 return (
-                  <div onClick={() => this.toSearch(subCategory.id)}>
+                  <div
+                    onClick={() => this.toSearch(subCategory.id)}
+                    key={subCategory.id}
+                  >
                     {subCategory.title}
                   </div>
                 );

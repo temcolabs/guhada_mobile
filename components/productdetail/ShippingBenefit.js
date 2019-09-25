@@ -34,18 +34,17 @@ class ShippingBenefit extends Component {
       satisfaction,
       seller,
       productreview,
-      shipExpenseType,
       tabRefMap,
       productoption,
       sellerfollow,
     } = this.props;
-    const reviewSummary = productreview.reviewSummary;
+    const { reviewSummary } = productreview;
     return (
       <div className={css.wrap}>
         <div className={css.itemWrap}>
           <div className={css.itemTitle}>배송정보</div>
           <div className={css.contentsWrap}>
-            <div>{shipExpenseType}</div>
+            <div>{deals.shippingSummary}</div>
           </div>
         </div>
         <div
@@ -126,10 +125,11 @@ class ShippingBenefit extends Component {
               <div className={css.infoTop}>
                 <div className={css.sellerName}>{deals.sellerName}</div>
                 <div>
-                  <div className={css.levelWrap}>
+                  {/* 회원등급 제거 : 추후 추가 예정 */}
+                  {/* <div className={css.levelWrap}>
                     <div>1</div>
                   </div>
-                  <div className={css.sellerGrade}>*파워셀러</div>
+                  <div className={css.sellerGrade}>*파워셀러</div> */}
                 </div>
               </div>
               <div className={css.infoWrap}>

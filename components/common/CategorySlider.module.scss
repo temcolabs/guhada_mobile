@@ -12,8 +12,6 @@
     padding: 0 20px;
     max-width: inherit;
 
-
-
     & .arrowIcon {
         width: 35px;
         height: 43px;
@@ -75,13 +73,19 @@
     padding: 0 20px;
     position: relative;
     top: 44px;
+    overflow: auto;
+    white-space: nowrap;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    display: inline-block;
+    max-width: inherit;
 
     & div {
+        display: inline-block;
         padding: 10px 10px 0 10px;
         font-size: 14px;
         font-weight: normal;
         color: #111111;
-        float: left;
         cursor: pointer;
     }
 }

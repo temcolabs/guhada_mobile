@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import css from './FindMobileAuth.module.scss';
 import LoginButton from './LoginButton';
-
-export default class FindMobileAuthPassword extends Component {
+import { inject, observer } from 'mobx-react';
+@inject('authmobile')
+@observer
+class FindMobileAuthPassword extends Component {
   render() {
+    const { authmobile } = this.props;
     return (
       <div>
         <div className={css.header}>
@@ -25,3 +28,5 @@ export default class FindMobileAuthPassword extends Component {
     );
   }
 }
+
+export default FindMobileAuthPassword;

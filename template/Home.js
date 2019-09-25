@@ -46,13 +46,13 @@ class Home extends React.Component {
           categoryId={main.navDealId}
         />
         <MainSectionItem
-          title={'NEW ARRIVALS'}
-          items={main.newArrivals}
+          title={'BEST ITEM'}
+          items={main.hits}
           categoryId={main.navDealId}
         />
         <MainSectionItem
-          title={'BEST ITEM'}
-          items={main.hits}
+          title={'NEW ARRIVALS'}
+          items={main.newArrivals}
           categoryId={main.navDealId}
         />
         <HomeItemDefault header={'HOT KEYWORD'}>

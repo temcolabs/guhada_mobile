@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 import css from './HeaderMenu.module.scss';
 import Category from './item/Category';
@@ -17,13 +17,12 @@ function HeaderMenu({
   setCategoryId,
   setCategoryTitle,
   login,
+  setIsBrandVisible,
 }) {
   return (
     <SlideIn isVisible={isVisible} direction={slideDirection.LEFT}>
       <div className={css.wrapper}>
         <div className={css.topWrap}>
-          {/* <LinkRoute href={`/login`}> */}
-
           {login.loginStatus === loginStatus.LOGIN_DONE && login.userInfo ? (
             <a
               className={css.login}
@@ -61,9 +60,11 @@ function HeaderMenu({
           setIsCategoryVisible={setIsCategoryVisible}
           setCategoryId={setCategoryId}
           setCategoryTitle={setCategoryTitle}
+          setIsBrandVisible={setIsBrandVisible}
         />
-        <div className={css.event}>event 영역</div>
-        <div className={css.categoryWrap}>category 영역</div>
+
+        {/* <div className={css.event}>event 영역</div>
+        <div className={css.categoryWrap}>category 영역</div> */}
       </div>
     </SlideIn>
   );

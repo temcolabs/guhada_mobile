@@ -1,8 +1,8 @@
 import { observable, action, toJS } from 'mobx';
 import API from 'lib/API';
-import Axios from 'axios';
 import { devLog } from 'lib/devLog';
-
+import bookmarkTarget from 'constant/user/bookmarkTarget';
+import _ from 'lodash';
 const isServer = typeof window === 'undefined';
 
 export default class ProductReviewStore {
@@ -17,6 +17,7 @@ export default class ProductReviewStore {
   @observable sort = 'created_at';
   @observable initialPage = 1;
   @observable rating = '';
+  @observable reviewBookMarks;
 
   @action
   setReviewTab = (tab, rating = '') => {
@@ -88,13 +89,62 @@ export default class ProductReviewStore {
 
         if (data.resultCode === 200) {
           this.review = data.data;
-        } else if (data.resultCode === 5004) {
-          this.review = [];
-        } else {
-          this.root.alert.showAlert({
-            content: '리뷰 데이터가 더 이상 존재하지 않습니다.',
-          });
         }
+
+        if (this.root.login.loginStatus === 'LOGIN_DONE')
+          this.getProductReviewBookmarks();
+      })
+      .catch(e => {
+        this.review = [];
+      });
+  };
+
+  @action
+  getProductReviewBookmarks = () => {
+    const userId = this.root.user.userInfo.id;
+    API.user
+      .get(`/users/${userId}/bookmarks`, {
+        params: {
+          target: bookmarkTarget.REVIEW,
+        },
+      })
+      .then(res => {
+        this.reviewBookMarks = res.data.data.content;
+      })
+      .catch(e => {
+        console.log('e', e);
+      });
+  };
+
+  @action
+  setProductReviewBookmarks = id => {
+    API.user
+      .post(`/users/bookmarks`, {
+        target: bookmarkTarget.REVIEW,
+        targetId: id,
+      })
+      .then(res => {
+        this.getProductReview();
+      })
+      .catch(e => {
+        console.log('e', e);
+      });
+  };
+
+  @action
+  delProductReviewBookmarks = id => {
+    API.user
+      .delete(`/users/bookmarks`, {
+        params: {
+          target: bookmarkTarget.REVIEW,
+          targetId: id,
+        },
+      })
+      .then(res => {
+        this.getProductReview();
+      })
+      .catch(e => {
+        console.log('e', e);
       });
   };
 
@@ -175,13 +225,18 @@ export default class ProductReviewStore {
   getProductReviewSummary = () => {
     let productId = this.root.productdetail.deals.productId;
 
-    API.user.get(`/products/${productId}/reviews/summary`).then(res => {
-      let data = res.data;
-      if (data.resultCode === 200) {
-        this.reviewSummary = data.data;
-      } else if (data.resultCode === 5004) {
-        this.review = [];
-      }
-    });
+    API.user
+      .get(`/products/${productId}/reviews/summary`)
+      .then(res => {
+        let data = res.data;
+        if (data.resultCode === 200) {
+          this.reviewSummary = data.data;
+        }
+      })
+      .catch(e => {
+        if (_.get(e, 'data.resultCode') === 5004) {
+          this.reviewSummary = null;
+        }
+      });
   };
 }

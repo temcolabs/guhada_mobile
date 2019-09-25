@@ -2,16 +2,61 @@ import React, { Component } from 'react';
 import LoginLayout from 'components/layout/LoginLayout';
 import { LoginWrapper, LoginInput, LoginButton } from 'components/login';
 import css from './FindPasswordResult.module.scss';
-import { LinkRoute } from 'lib/router';
+import { LinkRoute, pushRoute } from 'lib/router';
 import { observer } from 'mobx-react';
+import API from 'lib/API';
+import { devLog } from 'lib/devLog';
+import _ from 'lodash';
 
 @observer
 class FindPasswordResult extends Component {
+  newPassword = () => {
+    const { form, formValue } = this.props;
+    form.validate({ showErrors: true }).then(({ isValid }) => {
+      if (isValid === true) {
+        // 이메일, 핸드폰인증으로 비밀번호 바꾸기
+        if (_.isNil(formValue.diCode) === true) {
+          API.user
+            .post('/verify/change-password', {
+              email: formValue.values().email,
+              newPassword: form.values().passwordConfirm,
+              verificationNumber: formValue.values().verificationNumber,
+            })
+            .then(function(res) {
+              formValue.update({
+                email: [],
+                verificationNumber: [],
+              });
+
+              pushRoute('/login');
+            })
+            .catch(e => {
+              console.error(e);
+            });
+        } else {
+          // 본인인증으로 비밀번호 바꾸기
+          API.user
+            .post('/verify/identity/change-password', {
+              diCode: formValue.diCode,
+              mobile: formValue.mobile,
+              newPassword: form.values().passwordConfirm,
+            })
+            .then(function(res) {
+              pushRoute('/login');
+            })
+            .catch(e => {
+              devLog(e);
+            });
+        }
+      }
+    });
+  };
+
   render() {
     const { form, formValue } = this.props;
-    let value = form.values();
+    let value = form.get('value');
     let valueUser;
-    if (formValue) valueUser = formValue.get('value');
+    if (_.isNil(formValue.diCode) === true) valueUser = formValue.get('value');
 
     return (
       <LoginLayout pageTitle={'아이디/비밀번호 찾기'}>
@@ -19,7 +64,7 @@ class FindPasswordResult extends Component {
           <div className={css.wrap}>
             <div className={css.header}>
               <span className={css.headerText}>
-                {valueUser ? valueUser.email : null}
+                {valueUser ? valueUser.name : formValue.name}
               </span>{' '}
               님,
               <br />
@@ -39,7 +84,7 @@ class FindPasswordResult extends Component {
                   ? 'isGray'
                   : 'isColored'
               }
-              onClick={form.onSubmit}
+              onClick={this.newPassword}
               disabled={!(value.password && value.passwordConfirm)}
             >
               확인
