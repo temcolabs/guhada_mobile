@@ -869,17 +869,18 @@ export default class OrderPaymentStore {
       };
     }
     console.log(forms, 'forms');
+
     const query = qs.stringify({
       cartList: cartList,
     });
 
     let returnUrl = `https://m.guhada.com/privyCertifyResult?` + query;
-    let nextUrl = `https://m.guhada.com/privyCertifyResult?`;
+    let nextUrl = `https://m.guhada.com/privyCertifyResult`;
     // let returnUrl = `${process.env.HOSTNAME}/privyCertifyResult?` + query;
     // let nextUrl = `${process.env.HOSTNAME}/privyCertifyResult?`;
-
+    console.log(returnUrl, 'returnUrl');
     API.order
-      .post(`order/requestOrder`, forms)
+      .post(`/order/requestOrder`, forms)
       .then(res => {
         if (res.data.resultCode === 200) {
           this.status.paymentProceed = true;
@@ -932,7 +933,6 @@ export default class OrderPaymentStore {
     let form = document.getElementById('paymentForm');
     form.P_GOODS.value = encodeURIComponent(form.P_GOODS.value);
     form.P_UNAME.value = encodeURIComponent(form.P_UNAME.value);
-
     form.action = this.paymentForm.jsUrl;
     form.submit();
     // };
