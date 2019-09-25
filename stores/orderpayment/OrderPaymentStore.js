@@ -50,6 +50,7 @@ export default class OrderPaymentStore {
   };
   @observable status = {
     pageStatus: false,
+    selectedShipStatus: true,
     shppingRequestSelfStatus: false,
     newShppingRequestSelfStatus: false,
     shppingListModalStatus: false,
@@ -137,8 +138,8 @@ export default class OrderPaymentStore {
           }
         });
 
-        if (this.orderShippingList.defaultAddress.address) {
-          this.status.selectedShipStatus = true;
+        if (!this.orderShippingList.defaultAddress) {
+          this.status.selectedShipStatus = false;
         }
 
         let paymentRemainCheck = JSON.parse(
@@ -148,11 +149,11 @@ export default class OrderPaymentStore {
         if (paymentRemainCheck) {
           let resultMsg = getParameterByName('resultMsg');
           this.root.alert.showAlert({
-            content: resultMsg || '결제 실패.',
+            content: resultMsg || '결제가 취소되었습니다.',
           });
           window.scrollTo(0, paymentRemainCheck.wScroll);
           if (!paymentRemainCheck.shippingType) {
-            this.status.selectedShipStatus = false;
+            this.status.selectedShipStatus = true;
             this.orderShippingList.newAddress =
               paymentRemainCheck.shippingAddress;
 
@@ -978,7 +979,7 @@ export default class OrderPaymentStore {
     };
     this.status = {
       pageStatus: false,
-      selectedShipStatus: false,
+      selectedShipStatus: true,
       shppingRequestSelfStatus: false,
       newShppingRequestSelfStatus: false,
       shppingListModalStatus: false,
