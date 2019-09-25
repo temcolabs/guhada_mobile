@@ -2,6 +2,9 @@ import React from 'react';
 import { observable, action } from 'mobx';
 import Router from 'next/router';
 import API from 'lib/API';
+import _ from 'lodash';
+import { pushRoute } from 'lib/router';
+import qs from 'qs';
 const isServer = typeof window === 'undefined';
 
 export default class ShoppingCartStore {
@@ -49,18 +52,24 @@ export default class ShoppingCartStore {
       .get(`/cart`)
       .then(res => {
         let data = res.data;
-        if (data.resultCode === 200) {
-          console.log(data, '장바구니 데이터');
-          this.cartList = data.data.cartItemResponseList;
-          this.getOptions();
-          this.setTotalItemCheckbox();
-          this.getTotalResultAmount();
-          console.log(this.cartList, 'cartList');
-          this.status.pageStatus = true;
-        }
+        console.log(data, '장바구니 데이터');
+        this.cartList = data.data.cartItemResponseList;
+        this.getOptions();
+        this.setTotalItemCheckbox();
+        this.getTotalResultAmount();
+        console.log(this.cartList, 'cartList');
+        this.status.pageStatus = true;
       })
       .catch(err => {
-        console.dir(err);
+        console.log(err);
+        if (err.data.resultCode === 6017) {
+          pushRoute(
+            `/login?${qs.stringify({
+              redirectTo: `/shoppingcart`,
+            })}`,
+            { isReplace: true }
+          );
+        }
       });
   };
 
