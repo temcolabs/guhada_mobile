@@ -21,6 +21,54 @@ class ProductReviewItems extends Component {
         });
     }
 
+    // 출시 후 수정 필요
+    let renderUserSize;
+
+    if (_.isNil(item.userSize) === false) {
+      renderUserSize = '';
+      if (
+        _.isNil(item.userSize.height) === false &&
+        _.isNil(item.userSize.weight) === false
+      ) {
+        renderUserSize = (
+          <div className={css.profileSize}>
+            {`키 : ${item.userSize.height}cm / 몸무게 : ${
+              item.userSize.weight
+            }kg`}
+          </div>
+        );
+      } else if (_.isNil(item.userSize.height) === false) {
+        renderUserSize = (
+          <div className={css.profileSize}>
+            {`키 : ${item.userSize.height}cm`}
+          </div>
+        );
+      } else if (_.isNil(item.userSize.weight) === false) {
+        renderUserSize = (
+          <div className={css.profileSize}>
+            {`몸무게 : ${item.userSize.weight}kg`}
+          </div>
+        );
+      }
+    }
+
+    let renderProductoption;
+
+    if (_.isNil(item.productOption) === false) {
+      renderProductoption = '';
+      if (
+        _.isNil(item.productOption.color) === false &&
+        _.isNil(item.productOption.size) === false
+      ) {
+        renderProductoption = `구매옵션 | ${item.productOption.color} / ${
+          item.productOption.size
+        }`;
+      } else if (_.isNil(item.productOption.color) === false) {
+        renderProductoption = `구매옵션 | ${item.productOption.color}`;
+      } else if (_.isNil(item.productOption.size) === false) {
+        renderProductoption = `구매옵션 | ${item.productOption.size}`;
+      }
+    }
     return (
       <div className={css.wrap}>
         <div className={css.profileWrap}>
@@ -38,22 +86,13 @@ class ProductReviewItems extends Component {
                 <div className={css.userNickname}>
                   {item.review.userNickname}
                 </div>
-                {!_.isNil(item.userSize) ? (
-                  <div className={css.profileSize}>
-                    {`평소사이즈 : ${item.userSize.bottom} / 키 : ${
-                      item.userSize.height
-                    }`}
-                  </div>
-                ) : null}
+                {/* 유저 사이즈 */}
+                {renderUserSize}
               </div>
               <div className={css.levelWrap}>
                 <div>{StarItem(item.review.productRating)}</div>
                 {!_.isNil(item.productOption) ? (
-                  <div className={css.profileSize}>
-                    {`구매옵션 : ${item.productOption.color}/${
-                      item.productOption.size
-                    }`}
-                  </div>
+                  <div className={css.profileSize}>{renderProductoption}</div>
                 ) : null}
               </div>
             </div>

@@ -41,7 +41,7 @@ class Home extends React.Component {
         현재 dot 구현은 되어 있지 않음 */}
         <MainSlideBanner imageFile={imageFile} />
         <MainSectionItem
-          title={'PLUS ITEM'}
+          title={'PREMIUM ITEM'}
           items={main.plusItem}
           categoryId={main.navDealId}
         />
