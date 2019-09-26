@@ -134,34 +134,47 @@ class ProductReviewItems extends Component {
           ) : null}
         </div>
         <div className={css.likeCommentWrap}>
-          <div className={css.likeWrap}>
-            <div>도움되었어요</div>
-            {login.loginStatus === 'LOGIN_DONE' ? (
-              _.isNil(checkBookmarks) === true ? (
-                <div
-                  className={css.likeIcon}
-                  onClick={() =>
-                    productreview.setProductReviewBookmarks(item.review.id)
-                  }
-                />
-              ) : (
-                <div
-                  className={css.unLikeIcon}
-                  onClick={() =>
-                    productreview.delProductReviewBookmarks(item.review.id)
-                  }
-                />
-              )
+          {login.loginStatus === 'LOGIN_DONE' ? (
+            _.isNil(checkBookmarks) === true ? (
+              <div
+                className={css.likeWrap}
+                onClick={() =>
+                  productreview.setProductReviewBookmarks(item.review.id)
+                }
+              >
+                <div>도움되었어요</div>
+                <div className={css.likeIcon} />
+                <div className={css.bookmarkCount}>{`${
+                  item.review.bookmarkCount
+                }`}</div>
+              </div>
             ) : (
               <div
-                className={css.likeIcon}
-                onClick={() => alert.showAlert('로그인이 필요한 서비스입니다.')}
-              />
-            )}
-            <div className={css.bookmarkCount}>{`${
-              item.review.bookmarkCount
-            }`}</div>
-          </div>
+                className={css.likeWrap}
+                onClick={() =>
+                  productreview.delProductReviewBookmarks(item.review.id)
+                }
+              >
+                <div>도움되었어요</div>
+                <div className={css.unLikeIcon} />
+                <div className={css.bookmarkCount}>{`${
+                  item.review.bookmarkCount
+                }`}</div>
+              </div>
+            )
+          ) : (
+            <div
+              className={css.likeWrap}
+              onClick={() => alert.showAlert('로그인이 필요한 서비스입니다.')}
+            >
+              <div>도움되었어요</div>
+              <div className={css.likeIcon} />
+              <div className={css.bookmarkCount}>{`${
+                item.review.bookmarkCount
+              }`}</div>
+            </div>
+          )}
+
           <div className={css.commentWrap}>
             {/* <div>{`-댓글 6개`}</div> */}
             {/* <div className={css.line} /> */}
