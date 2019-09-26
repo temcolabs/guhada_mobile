@@ -4,6 +4,7 @@ import StarItem from './StarItem';
 import { inject, observer } from 'mobx-react';
 import _ from 'lodash';
 import cn from 'classnames';
+import { pushRoute } from 'lib/router';
 
 @inject('productreview', 'productoption', 'productdetail', 'sellerfollow')
 @observer
@@ -113,7 +114,9 @@ class ShippingBenefit extends Component {
           <div
             className={css.profile}
             style={
-              _.isNil(seller) !== true && seller.user.profileImageUrl !== ''
+              _.isNil(seller) !== true &&
+              seller.user.profileImageUrl !== '' &&
+              seller.user.profileImageUrl !== null
                 ? {
                     backgroundImage: `url(${seller.user.profileImageUrl})`,
                   }
@@ -144,7 +147,11 @@ class ShippingBenefit extends Component {
                   </button>
                 </div>
                 <div>
-                  <button>셀러스토어</button>
+                  <button
+                    onClick={() => pushRoute(`/sellerstore/${deals.sellerId}`)}
+                  >
+                    셀러스토어
+                  </button>
                 </div>
               </div>
             </div>

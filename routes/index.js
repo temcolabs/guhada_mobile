@@ -244,4 +244,11 @@ module.exports = [
     pagePath: '/orderpaymentsuccess/orderpaymentsuccess',
     asPath: '/orderpaymentsuccess',
   },
+
+  // 셀러스토어 - 셀러스토어
+  {
+    pagePath: `/sellerstore/SellerStorePage`,
+    asPath: `/sellerstore/:sellerId`,
+    name: `셀러스토어`,
+  },
 ];
