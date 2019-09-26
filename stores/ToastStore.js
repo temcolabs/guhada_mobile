@@ -15,7 +15,7 @@ export default class ToastStore {
   getToast = error => {
     this.error = error;
     this.status = true;
-    setTimeout(() => this.setStatus(false), 3000);
+    setTimeout(() => this.setStatus(false), 2000);
   };
 
   @action

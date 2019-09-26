@@ -3,7 +3,7 @@ import termForm from '../../_.forms';
 import API from 'lib/API';
 import { root } from 'store';
 import { devLog } from 'lib/devLog';
-
+import _ from 'lodash';
 export default {
   onInit(form) {
     devLog('-> onInit Form HOOK');
@@ -34,10 +34,14 @@ export default {
 
         if (data.resultCode === 200) {
           Router.push('/?signupsuccess=true&email=' + loginData.email);
-        } else if (data.resultCode === 6001) {
-          root.toast.getToast(data.data.result);
+        }
+      })
+      .catch(e => {
+        let data = _.get(e, 'data');
+        if (data.resultCode === 6001) {
+          root.toast.getToast(data.message);
         } else if (data.resultCode === 6002) {
-          root.toast.getToast(data.data.result);
+          root.toast.getToast(data.message);
         }
       });
   },
