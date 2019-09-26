@@ -13,6 +13,9 @@
       font-size: 14px;
       font-weight: bold;
       color: #111;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
       .arrow {
         width: 20px;
         height: 20px;
@@ -35,6 +38,9 @@
       font-size: 18px;
       font-weight: 500;
       color: #111;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 

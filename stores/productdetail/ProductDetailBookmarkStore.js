@@ -8,66 +8,71 @@ export default class ProductDetailLikeStore {
     if (!isServer) this.root = root;
   }
 
-  @observable bookMarkImageSrc = false;
+  @observable bookMarkStatus = false;
   @observable userId;
   @action
   getBookMark = targetId => {
     this.userId = this.root.user.userInfo.id;
-    API.user
-      .get(
-        `/users/${this.userId}/bookmarks?target=PRODUCT&targetId=${targetId}`
-      )
-      .then(res => {
-        if (!res.data.data.empty) {
-          this.bookMarkImageSrc = true;
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    if (this.userId) {
+      API.user
+        .get(
+          `/users/${this.userId}/bookmarks?target=PRODUCT&targetId=${targetId}`
+        )
+        .then(res => {
+          if (!res.data.data.empty) {
+            this.bookMarkStatus = true;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          // this.root.alert.showAlert({
+          //   content: `${_.get(err, 'data.message') || '오류가 발생했습니다.'}`,
+          // });
+        });
+    }
   };
 
   @action
   saveBookmark = id => {
-    API.user
-      .post(`/users/bookmarks`, {
-        target: 'PRODUCT',
-        targetId: id,
-      })
-      .then(res => {
-        this.bookMarkImageSrc = true;
-        this.root.alert.showAlert({
-          content: '북마크완료!.',
+    if (!this.bookMarkStatus) {
+      API.user
+        .post(`/users/bookmarks`, {
+          target: 'PRODUCT',
+          targetId: id,
+        })
+        .then(res => {
+          this.bookMarkStatus = true;
+          // this.root.alert.showAlert({
+          //   content: '해당상품을 북마크에 저장 했습니다.',
+          // });
+        })
+        .catch(err => {
+          console.log(err);
+          // this.root.alert.showAlert({
+          //   content: `${_.get(err, 'data.message') || '오류 발생'}`,
+          // });
         });
-      })
-      .catch(e => {
-        this.root.alert.showAlert({
-          content: e.data.message,
+    } else {
+      API.user
+        .delete(`/users/bookmarks?target=PRODUCT&targetId=${id}`)
+        .then(res => {
+          // this.root.alert.showAlert({
+          //   content: '해당상품을 북마크 해제 했습니다.',
+          //   confirmText: '확인',
+          // });
+          this.bookMarkStatus = false;
+        })
+        .catch(err => {
+          console.log(err);
+          // this.root.alert.showAlert({
+          //   content: `${_.get(err, 'data.message') || '오류 발생'}`,
+          // });
         });
-      });
+    }
   };
 
   @action
   productBookmarkInit = () => {
     this.bookMarkImageSrc = false;
   };
-
-  // @action
-  // saveLike = id => {
-  //   console.log(id, 'id');
-  //   API.user
-  //     .post(`/users/likes`, {
-  //       target: 'PRODUCT',
-  //       targetId: id,
-  //     })
-  //     .then(res => {
-  //       this.bookMarkImageSrc = '/static/icon/bookmark_btn_on.png';
-  //       this.root.alert.showAlert({
-  //         content: '해당상품 을 찜 했습니다.',
-  //       });
-  //     })
-  //     .catch(e => {
-  //       console.error(e);
-  //     });
-  // };
 }

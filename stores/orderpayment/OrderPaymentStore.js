@@ -732,36 +732,24 @@ export default class OrderPaymentStore {
           paymentCheck = false;
         }
       }
-      if (
-        this.orderShippingList.newAddress.shippingMessage ===
-        '배송 메세지를 입력해주세요.'
-      ) {
-        this.root.alert.showAlert({
-          content: '배송요청사항을 입력해주세요.',
-        });
-        paymentCheck = false;
-      } else if (!this.orderShippingList.newAddress.shippingMessage) {
-        this.root.alert.showAlert({
-          content: '배송요청사항을 선택해주세요.',
-        });
-        paymentCheck = false;
-      }
+      // if (
+      //   this.orderShippingList.newAddress.shippingMessage ===
+      //   '배송 메세지를 입력해주세요.'
+      // ) {
+      //   this.root.alert.showAlert({
+      //     content: '배송요청사항을 입력해주세요.',
+      //   });
+      //   paymentCheck = false;
+      // } else if (!this.orderShippingList.newAddress.shippingMessage) {
+      //   this.root.alert.showAlert({
+      //     content: '배송요청사항을 선택해주세요.',
+      //   });
+      //   paymentCheck = false;
+      // }
     }
+
     if (this.status.selectedShipStatus) {
-      if (
-        this.orderShippingList.defaultAddress.shippingMessage ===
-        '배송 메세지를 입력해주세요.'
-      ) {
-        this.root.alert.showAlert({
-          content: '배송요청사항을 입력해주세요.',
-        });
-        paymentCheck = false;
-      } else if (!this.orderShippingList.defaultAddress.shippingMessage) {
-        this.root.alert.showAlert({
-          content: '배송요청사항을 선택해주세요.',
-        });
-        paymentCheck = false;
-      } else if (!this.orderShippingList.defaultAddress.recipientMobile) {
+      if (!this.orderShippingList.defaultAddress.recipientMobile) {
         this.root.alert.showAlert({
           content: '배송지 연락처를 입력해주세요.',
         });
@@ -875,10 +863,10 @@ export default class OrderPaymentStore {
       cartList: cartList,
     });
 
-    let returnUrl = `https://m.guhada.com/privyCertifyResult?` + query;
-    let nextUrl = `https://m.guhada.com/privyCertifyResult`;
-    // let returnUrl = `${process.env.HOSTNAME}/privyCertifyResult?` + query;
-    // let nextUrl = `${process.env.HOSTNAME}/privyCertifyResult?`;
+    let returnUrl =
+      `${process.env.HOSTNAME_MOBILE}/privyCertifyResult?` + query;
+    let nextUrl = `${process.env.HOSTNAME_MOBILE}/privyCertifyResult`;
+
     console.log(returnUrl, 'returnUrl');
     API.order
       .post(`/order/requestOrder`, forms)

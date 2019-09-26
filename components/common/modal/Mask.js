@@ -36,7 +36,7 @@ const animation = {
  * 팝업이 열릴 때 뒤에 표시할 반투명 마스크
  *
  */
-export default function Mask({ zIndex = 999, isVisible = false }) {
+export default function Mask({ zIndex = 200, isVisible = false }) {
   if (isBrowser) {
     const bodyEl = document.documentElement.getElementsByTagName('body')[0];
     const style = Object.assign({}, { zIndex });

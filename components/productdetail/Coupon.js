@@ -6,7 +6,7 @@ import CouponDownModal from './CouponDownModal';
 @observer
 class Coupon extends Component {
   render() {
-    let { productdetail, productoption } = this.props;
+    let { productoption } = this.props;
     return (
       <div className={css.wrap}>
         {/* 상품 쿠폰 */}
@@ -18,7 +18,7 @@ class Coupon extends Component {
               const isCouponDownloaded = coupon.alreadySaved;
 
               return isCouponDownloaded ? (
-                <div className={css.coupon__wrap}>
+                <div className={css.coupon__wrap} key={index}>
                   <div
                     className={css.coupon__title}
                     style={{ backgroundColor: '#ccc' }}
@@ -40,6 +40,7 @@ class Coupon extends Component {
                   onClick={() => {
                     productoption.couponDownModalOpen();
                   }}
+                  key={index}
                 >
                   <div
                     className={css.coupon__title}

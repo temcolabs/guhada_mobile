@@ -2,11 +2,11 @@ import React, { Component, Fragment } from 'react';
 import css from './CouponDownModal.module.scss';
 import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 import { inject, observer } from 'mobx-react';
-@inject('productdetail', 'productoption')
+@inject('productdetail', 'productoption', 'sellerfollow')
 @observer
 class CouponDownModal extends Component {
   render() {
-    const { productdetail, productoption, isVisible } = this.props;
+    const { productoption, isVisible, sellerfollow } = this.props;
     return (
       <Fragment>
         <SlideIn direction={slideDirection.BOTTOM} isVisible={isVisible}>
@@ -19,11 +19,18 @@ class CouponDownModal extends Component {
                 }}
               />
             </div>
-            <div className={css.title}>
-              <div>셀러를 팔로우하고</div>
-              <div>쿠폰을 받아보세요!</div>
-              <div>팔로우한 셀러는 마이페이지에서 확인할 수 있습니다.</div>
-            </div>
+            {sellerfollow.follows ? (
+              <div className={css.title}>
+                <div>감사 쿠폰을 받아보세요!</div>
+                <div>팔로우한 셀러는 마이페이지에서 확인할 수 있습니다.</div>
+              </div>
+            ) : (
+              <div className={css.title}>
+                <div>셀러를 팔로우하고</div>
+                <div>쿠폰을 받아보세요!</div>
+                <div>팔로우한 셀러는 마이페이지에서 확인할 수 있습니다.</div>
+              </div>
+            )}
             {productoption.dueSavebenefitCoupon.map((data, index) => {
               return (
                 <div className={css.couponWrap} key={index}>
@@ -65,7 +72,7 @@ class CouponDownModal extends Component {
                 productoption.couponDown();
               }}
             >
-              팔로우하고 쿠폰 받기
+              {sellerfollow.follows ? '모든 쿠폰 받기' : '팔로우하고 쿠폰 받기'}
             </div>
           </div>
         </SlideIn>

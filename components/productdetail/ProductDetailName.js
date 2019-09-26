@@ -33,12 +33,7 @@ class ProductDetailName extends Component {
   };
 
   render() {
-    let {
-      productdetail,
-      productDetailBookmark,
-      productoption,
-      searchitem,
-    } = this.props;
+    let { productdetail, productDetailBookmark, searchitem } = this.props;
     let { deals } = productdetail;
     return (
       <div className={css.wrap}>
@@ -87,7 +82,7 @@ class ProductDetailName extends Component {
                 productDetailBookmark.saveBookmark(deals.productId);
               }}
             >
-              {productDetailBookmark.bookMarkImageSrc ? (
+              {productDetailBookmark.bookMarkStatus ? (
                 <img src="/static/icon/m_like_btn_on.png" alt="북마크" />
               ) : (
                 <img src="/static/icon/m_like_btn_off.png" alt="북마크" />

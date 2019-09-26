@@ -18,44 +18,50 @@ class ProductDetailOption extends Component {
 
         {productoption.options.selectedOption ? (
           <div className={css.quantity__wrap}>
-            <div className={css.option__quantity}>
-              <div
-                className={css.minus__btn}
-                onClick={() => {
-                  productoption.quantityMinus();
-                }}
-              >
-                <img src={productoption.quantityMinusBtn} alt="minus button" />
-              </div>
-              <div className={css.quantity}>
-                <input
-                  value={productoption.options.selectedQuantity}
-                  onChange={e => {
-                    productoption.quantityChange(e);
+            <div className={css.quantity__section}>
+              <div className={css.option__quantity}>
+                <div
+                  className={css.minus__btn}
+                  onClick={() => {
+                    productoption.quantityMinus();
                   }}
-                  onBlur={e => {
-                    productoption.quantityChangeOutFocus(e);
+                >
+                  <img
+                    src={productoption.quantityMinusBtn}
+                    alt="minus button"
+                  />
+                </div>
+                <div className={css.quantity}>
+                  <input
+                    value={productoption.options.selectedQuantity}
+                    onChange={e => {
+                      productoption.quantityChange(e);
+                    }}
+                    onBlur={e => {
+                      productoption.quantityChangeOutFocus(e);
+                    }}
+                  />
+                </div>
+                <div
+                  className={css.plus__btn}
+                  onClick={() => {
+                    productoption.quantityPlus();
                   }}
-                />
+                >
+                  <img src={productoption.quantityPlusBtn} alt="plus button" />
+                </div>
               </div>
-              <div
-                className={css.plus__btn}
-                onClick={() => {
-                  productoption.quantityPlus();
-                }}
-              >
-                <img src={productoption.quantityPlusBtn} alt="plus button" />
-              </div>
-            </div>
 
-            {productoption.options.selectedOption.stock > 10 ? null : (
-              <div className={css.option__stock}>
-                {productoption.options.selectedOption
-                  ? productoption.options.selectedOption.stock
-                  : null}{' '}
-                개 남음
-              </div>
-            )}
+              {productoption.options.selectedOption.stock > 10 ? null : (
+                <div className={css.option__stock}>
+                  {productoption.options.selectedOption
+                    ? productoption.options.selectedOption.stock
+                    : null}{' '}
+                  개 남음
+                </div>
+              )}
+            </div>
+            {/* <div className={css.sizeInfo}>사이즈정보</div> */}
           </div>
         ) : null}
 

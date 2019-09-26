@@ -46,20 +46,21 @@ export default class ProductOptionStore {
           }
         }
         for (let x = 0; x < tempArray.length; x++) {
-          tempAttribute += tempArray[x] + ' / ';
+          tempAttribute += tempArray[x] + ' ';
         }
 
-        tempAttribute = tempAttribute.substr(0, tempAttribute.length - 3);
+        tempAttribute = tempAttribute.substr(0, tempAttribute.length);
 
         this.options.tempOptions.push({
           value: tempAttribute,
           label:
-            options[i].price === 0
-              ? tempAttribute + '\u00A0(품절)'
-              : tempAttribute +
-                '\u00A0 (' +
-                options[i].price.toLocaleString() +
-                '원)',
+            options[i].stock === 0
+              ? `${tempAttribute} (품절)`
+              : options[i].price === 0
+              ? tempAttribute
+              : options[i].price > 0
+              ? `${tempAttribute} (+${options[i].price.toLocaleString()}원)`
+              : `${tempAttribute} (-${options[i].price.toLocaleString()}원)`,
           icon: '',
           stock: options[i].stock,
           price: options[i].price,
@@ -88,11 +89,11 @@ export default class ProductOptionStore {
   setProductOptionInit = () => {
     this.options = {
       tempOptions: [
-        {
-          label: '선택안함',
-          value: null,
-          icon: null,
-        },
+        // {
+        //   label: '선택안함',
+        //   value: null,
+        //   icon: null,
+        // },
       ],
       realOptions: [],
       selectedOption: null,
@@ -236,34 +237,34 @@ export default class ProductOptionStore {
   @action
   getLabelColor = ({ icon, color, label }) => {
     return (
-      <div style={{ alignItems: 'center', display: 'flex' }}>
-        {color ? (
-          <span
+      <div style={{ position: 'relative' }}>
+        <div style={{ clear: 'both' }}>
+          {color ? (
+            <div
+              style={{
+                float: 'left',
+                width: 22,
+                height: 22,
+                borderRadius: '50%',
+                backgroundColor: color,
+                border: '1px solid #ddd',
+                marginRight: 8,
+              }}
+            >
+              {icon}
+            </div>
+          ) : null}
+          <div
             style={{
-              width: 26,
-              height: 26,
-              backgroundColor: color,
-              border: '1px solid #ddd',
-              marginRight: 8,
+              float: 'left',
+              fontSize: 14,
+              height: 22,
+              lineHeight: '22px',
             }}
           >
-            {icon}
-          </span>
-        ) : (
-          <span
-            style={{
-              width: 26,
-              height: 26,
-              backgroundColor: color,
-              border: 'none',
-              marginRight: 8,
-            }}
-          >
-            {icon}
-          </span>
-        )}
-
-        <span style={{ fontSize: 14 }}>{label}</span>
+            {label}
+          </div>
+        </div>
       </div>
     );
   };
@@ -324,9 +325,9 @@ export default class ProductOptionStore {
         }
       })
       .catch(err => {
-        this.root.alert.showAlert({
-          content: `${_.get(err, 'data.message') || 'error'}`,
-        });
+        // this.root.alert.showAlert({
+        //   content: `${_.get(err, 'data.message') || 'error'}`,
+        // });
       });
   };
 
@@ -358,21 +359,67 @@ export default class ProductOptionStore {
           this.dueSavebenefitCoupon[i].expireAt = -duration._data.days;
         }
 
-        console.log(
-          toJS(this.dueSavebenefitCoupon),
-          'this.dueSavebenefitCoupon'
-        );
+        devLog(toJS(this.dueSavebenefitCoupon), 'this.dueSavebenefitCoupon');
       })
       .catch(err => {
-        this.root.alert.showAlert({
-          content: `${_.get(err, 'data.message') || 'ERROR'}`,
-        });
+        // this.root.alert.showAlert({
+        //   content: `${_.get(err, 'data.message') || 'ERROR'}`,
+        // });
       });
   };
 
   @action
   couponDownModalOpen = () => {
-    this.couponIsOpen = true;
+    if (this.dueSavebenefitCoupon.length > 1) {
+      this.couponIsOpen = true;
+    } else if (this.dueSavebenefitCoupon.length === 1) {
+      let deals = this.root.productdetail.deals;
+      if (this.root.sellerfollow.follows) {
+        let coupon = this.dueSavebenefitCoupon[0];
+        let param = {
+          dcategoryId: deals.dCategoryId ? deals.dCategoryId : '',
+          dealId: deals.dealId,
+          lcategoryId: deals.lCategoryId,
+          mcategoryId: deals.mCategoryId,
+          saveActionType: coupon.saveActionType,
+          scategoryId: deals.sCategoryId,
+          sellerId: deals.sellerId,
+          serviceType: 'FRONT',
+          paymentPrice: deals.sellPrice,
+          userId: coupon.userId,
+        };
+        API.benefit
+          .post(`/coupons/process/save`, param)
+          .then(res => {
+            const { data } = res;
+            console.log(data, 'data coupon');
+            this.root.alert.showAlert({
+              content: `쿠폰발급완료`,
+            });
+            this.dueSavebenefitCoupon[i].alreadySaved = true;
+            this.couponDownModalClose();
+          })
+          .catch(err => {
+            console.error(err, ' err');
+            // this.root.alert.showAlert({
+            //   content: `${_.get(err, 'data.message') || err.message}`,
+            // });
+
+            if (_.get(err, 'data.resultCode') === 6017) {
+              this.couponDownModalClose();
+              pushRoute(
+                `/login?${qs.stringify({
+                  redirectTo: `/productdetail?deals=${
+                    this.root.productdetail.deals.dealsId
+                  }`,
+                })}`,
+                { isReplace: true }
+              );
+              return false;
+            }
+          });
+      }
+    }
   };
 
   @action
@@ -384,77 +431,127 @@ export default class ProductOptionStore {
   couponDown = () => {
     let deals = this.root.productdetail.deals;
 
-    API.user
-      .post(`/users/bookmarks`, {
-        target: 'SELLER',
-        targetId: this.dueSavebenefitCoupon[0].sellerId,
-      })
-      .then(res => {
-        console.log(res, 'res');
-        for (let i = 0; i < this.dueSavebenefitCoupon.length; i++) {
-          let coupon = this.dueSavebenefitCoupon[i];
-          let param = {
-            dcategoryId: deals.dCategoryId ? deals.dCategoryId : '',
-            dealId: deals.dealId,
-            lcategoryId: deals.lCategoryId,
-            mcategoryId: deals.mCategoryId,
-            saveActionType: coupon.saveActionType,
-            scategoryId: deals.sCategoryId,
-            sellerId: deals.sellerId,
-            serviceType: 'FRONT',
-            paymentPrice: deals.sellPrice,
-            userId: coupon.userId,
-          };
-          API.benefit
-            .post(`/coupons/process/save`, param)
-            .then(res => {
-              const { data } = res;
-              console.log(data, 'data coupon');
-              this.root.alert.showAlert({
-                content: `쿠폰발급완료`,
-              });
-              this.dueSavebenefitCoupon[i].alreadySaved = true;
-              this.couponDownModalClose();
-            })
-            .catch(err => {
-              console.log(err, ' err');
-              this.root.alert.showAlert({
-                content: `${_.get(err, 'data.message') || err.message}`,
-              });
-
-              if (_.get(err, 'data.resultCode') === 6017) {
-                this.couponDownModalClose();
-                pushRoute(
-                  `/login?${qs.stringify({
-                    redirectTo: `/productdetail?deals=${
-                      this.root.productdetail.deals.dealsId
-                    }`,
-                  })}`,
-                  { isReplace: true }
-                );
-                return false;
-              }
+    if (this.root.sellerfollow.follows) {
+      for (let i = 0; i < this.dueSavebenefitCoupon.length; i++) {
+        let coupon = this.dueSavebenefitCoupon[i];
+        let param = {
+          dcategoryId: deals.dCategoryId ? deals.dCategoryId : '',
+          dealId: deals.dealId,
+          lcategoryId: deals.lCategoryId,
+          mcategoryId: deals.mCategoryId,
+          saveActionType: coupon.saveActionType,
+          scategoryId: deals.sCategoryId,
+          sellerId: deals.sellerId,
+          serviceType: 'FRONT',
+          paymentPrice: deals.sellPrice,
+          userId: coupon.userId,
+        };
+        API.benefit
+          .post(`/coupons/process/save`, param)
+          .then(res => {
+            const { data } = res;
+            console.log(data, 'data coupon');
+            this.root.alert.showAlert({
+              content: `쿠폰발급완료`,
             });
-        }
-      })
-      .catch(err => {
-        console.log(err, ' err');
-        this.root.alert.showAlert({
-          content: `${_.get(err, 'data.message') || err.message}`,
-        });
+            this.dueSavebenefitCoupon[i].alreadySaved = true;
+            this.couponDownModalClose();
+          })
+          .catch(err => {
+            console.error(err, ' err');
+            // this.root.alert.showAlert({
+            //   content: `${_.get(err, 'data.message') || err.message}`,
+            // });
 
-        if (_.get(err, 'data.resultCode') === 6017) {
-          this.couponDownModalClose();
-          pushRoute(
-            `/login?${qs.stringify({
-              redirectTo: `/productdetail?deals=${
-                this.root.productdetail.deals.dealsId
-              }`,
-            })}`,
-            { isReplace: true }
-          );
-          return false;
-        }
-      });
+            if (_.get(err, 'data.resultCode') === 6017) {
+              this.couponDownModalClose();
+              pushRoute(
+                `/login?${qs.stringify({
+                  redirectTo: `/productdetail?deals=${
+                    this.root.productdetail.deals.dealsId
+                  }`,
+                })}`,
+                { isReplace: true }
+              );
+              return false;
+            }
+          });
+      }
+    } else {
+      API.user
+        .post(`/users/bookmarks`, {
+          target: 'SELLER',
+          targetId: this.dueSavebenefitCoupon[0].sellerId,
+        })
+        .then(res => {
+          console.log(res, 'res');
+          this.root.sellerfollow.follows = true;
+
+          for (let i = 0; i < this.dueSavebenefitCoupon.length; i++) {
+            let coupon = this.dueSavebenefitCoupon[i];
+            let param = {
+              dcategoryId: deals.dCategoryId ? deals.dCategoryId : '',
+              dealId: deals.dealId,
+              lcategoryId: deals.lCategoryId,
+              mcategoryId: deals.mCategoryId,
+              saveActionType: coupon.saveActionType,
+              scategoryId: deals.sCategoryId,
+              sellerId: deals.sellerId,
+              serviceType: 'FRONT',
+              paymentPrice: deals.sellPrice,
+              userId: coupon.userId,
+            };
+            API.benefit
+              .post(`/coupons/process/save`, param)
+              .then(res => {
+                const { data } = res;
+                console.log(data, 'data coupon');
+                this.root.alert.showAlert({
+                  content: `쿠폰발급완료`,
+                });
+                this.dueSavebenefitCoupon[i].alreadySaved = true;
+                this.couponDownModalClose();
+              })
+              .catch(err => {
+                console.error(err, ' err');
+                // this.root.alert.showAlert({
+                //   content: `${_.get(err, 'data.message') || err.message}`,
+                // });
+
+                if (_.get(err, 'data.resultCode') === 6017) {
+                  this.couponDownModalClose();
+                  pushRoute(
+                    `/login?${qs.stringify({
+                      redirectTo: `/productdetail?deals=${
+                        this.root.productdetail.deals.dealsId
+                      }`,
+                    })}`,
+                    { isReplace: true }
+                  );
+                  return false;
+                }
+              });
+          }
+        })
+        .catch(err => {
+          console.error(err, ' err');
+          // this.root.alert.showAlert({
+          //   content: `${_.get(err, 'data.message') || err.message}`,
+          // });
+
+          if (_.get(err, 'data.resultCode') === 6017) {
+            this.couponDownModalClose();
+            pushRoute(
+              `/login?${qs.stringify({
+                redirectTo: `/productdetail?deals=${
+                  this.root.productdetail.deals.dealsId
+                }`,
+              })}`,
+              { isReplace: true }
+            );
+            return false;
+          }
+        });
+    }
   };
 }

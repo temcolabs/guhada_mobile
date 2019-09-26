@@ -145,7 +145,7 @@ export default function SlideIn({
   isVisible = false,
   direction,
   children,
-  zIndex, // css.wrap 클래스에 선언된 SlideIn의 기본 z-index는 1000.
+  zIndex, // css.wrap 클래스에 선언된 SlideIn의 기본 z-index는 201.
   wrapperStyle = {}, // css.wrap 클래스의 스타일을 덮어씌움
 }) {
   if (isBrowser) {
