@@ -9,6 +9,16 @@ const Loading = () => {
       <div className={css.loader}>
         <div className={css.box} />
         <div className={css.box} />
+        <div className={css.box} />
+        <div className={css.box} />
+        <div className={css.box} />
+        <div className={css.box} />
+        <div className={css.box} />
+        <div className={css.box} />
+        <div className={css.box} />
+        <div className={css.box} />
+        <div className={css.box} />
+        <div className={css.box} />
       </div>
     </div>
   );

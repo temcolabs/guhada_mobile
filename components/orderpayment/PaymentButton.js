@@ -6,7 +6,8 @@ import css from './PaymentButton.module.scss';
 class PaymentButton extends Component {
   render() {
     let { orderpayment } = this.props;
-    return (
+
+    return orderpayment.status.orderPaymentAgreement ? (
       <div
         className={css.wrap}
         style={{ backgroundColor: '#5d2ed1' }}
@@ -14,6 +15,10 @@ class PaymentButton extends Component {
           orderpayment.payment();
         }}
       >
+        결제하기
+      </div>
+    ) : (
+      <div className={css.wrap} style={{ backgroundColor: '#ddd' }}>
         결제하기
       </div>
     );

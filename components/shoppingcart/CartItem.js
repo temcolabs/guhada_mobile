@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './CartItem.module.scss';
 import OptionChange from 'components/shoppingcart/OptionChange';
+import Link from 'next/link';
 @inject('shoppingcart')
 @observer
 class CartItem extends Component {
@@ -12,14 +13,16 @@ class CartItem extends Component {
         <div className={css.wrap}>
           <div className={css.inner}>
             <div className={css.top}>
-              <div className={css.item__check}>
-                <input
-                  type="checkbox"
-                  checked={shoppingcart.selectedCheck[index]}
-                  onChange={() => {
-                    shoppingcart.changeItemCheckbox(index);
-                  }}
-                />
+              <div className={css.topLeft}>
+                <div className={css.item__check}>
+                  <input
+                    type="checkbox"
+                    checked={shoppingcart.selectedCheck[index]}
+                    onChange={() => {
+                      shoppingcart.changeItemCheckbox(index);
+                    }}
+                  />
+                </div>
               </div>
               <div
                 className={css.item__delete}
@@ -80,45 +83,57 @@ class CartItem extends Component {
                 {shoppingcart.cartListOptions[index]}
               </div>
             </div>
-            {data.selectedCartOption ? (
-              <div
-                className={css.cart__item__option__change__button}
-                onClick={() => {
-                  shoppingcart.optionChangeModal(
-                    data.dealId,
-                    data.currentQuantity,
-                    data.cartItemId,
-                    data.selectedCartOption.dealOptionSelectId
-                  );
-                }}
+
+            <div
+              className={css.cart__item__option__change__button}
+              onClick={() => {
+                shoppingcart.optionChangeModal(
+                  data.dealId,
+                  data.currentQuantity,
+                  data.cartItemId,
+                  data.selectedCartOption
+                );
+              }}
+            >
+              변경
+              <span
+                style={
+                  shoppingcart.status.optionChangeModal === data.cartItemId
+                    ? { transform: 'rotateX(180deg)' }
+                    : { transform: 'rotateX(0deg)' }
+                }
               >
-                변경
-                <span
-                  style={
-                    shoppingcart.status.optionChangeModal === data.dealId
-                      ? { transform: 'rotateX(180deg)' }
-                      : { transform: 'rotateX(0deg)' }
-                  }
-                >
-                  <img src="/static/icon/m_cart_arrow.png" alt="탭 화살표" />
-                </span>
-              </div>
-            ) : null}
+                <img src="/static/icon/m_cart_arrow.png" alt="탭 화살표" />
+              </span>
+            </div>
           </div>
         </div>
-        {shoppingcart.status.optionChangeModal === data.dealId ? (
+        {shoppingcart.status.optionChangeModal === data.cartItemId ? (
           <OptionChange data={data} />
         ) : null}
       </Fragment>
     ) : (
       <div className={css.wrap}>
-        <div className={css.inner__item} style={{ opacity: '0.3' }}>
+        <div className={css.inner}>
           <div className={css.top}>
-            <div className={css.item__check}>
-              <input type="checkbox" checked={false} readOnly />
+            <div className={css.topLeft}>
+              <div className={css.item__check}>
+                <input type="checkbox" checked={false} readOnly />
+              </div>
+              {data.totalStock === 0 ? (
+                <div className={css.soldoutMessage}>
+                  <i />
+                  {data.cartValidStatus.cartErrorMessage}
+                </div>
+              ) : (
+                <div className={css.noSaleMessage}>
+                  <i />
+                  {data.cartValidStatus.cartErrorMessage}
+                </div>
+              )}
             </div>
             <div
-              className={css.item__delete}
+              className={[css.item__delete, css.noSale].join(' ')}
               onClick={() => {
                 shoppingcart.ShoppingCartItemDelete(data.cartItemId);
               }}
@@ -134,11 +149,13 @@ class CartItem extends Component {
               }}
             />
             <div className={css.cart__item__info}>
-              <div className={css.brand__name}>{data.brandName}</div>
-              <div className={css.product__name}>{`${
+              <div className={[css.brand__name, css.noSale].join(' ')}>
+                {data.brandName}
+              </div>
+              <div className={[css.product__name, css.noSale].join(' ')}>{`${
                 data.season ? data.season : ''
               } ${data.dealName}`}</div>
-              <div className={css.item__price__wrap}>
+              <div className={[css.item__price__wrap, css.noSale].join(' ')}>
                 <div className={css.discount__price}>
                   {`${data.discountPrice.toLocaleString()}원`}
                 </div>
@@ -152,11 +169,33 @@ class CartItem extends Component {
                   )}%`}
                 </div>
               </div>
+              <Link href={`/productdetail?deals=${data.dealId}`}>
+                <div className={css.goProduct}>상품 보기</div>
+              </Link>
             </div>
           </div>
         </div>
-        <div className={css.nosale}>
-          {data.cartValidStatus.cartErrorMessage}
+        <div className={[css.cart__item__option__wrap, css.noSale].join(' ')}>
+          <div className={css.cart__item__option}>
+            <div className={css.option__title}>구매옵션</div>
+            <div className={css.option__property}>
+              {shoppingcart.cartListOptions[index]}
+            </div>
+          </div>
+          {data.selectedCartOption ? (
+            <div className={css.cart__item__option__change__button}>
+              변경
+              <span
+                style={
+                  shoppingcart.status.optionChangeModal === data.cartItemId
+                    ? { transform: 'rotateX(180deg)' }
+                    : { transform: 'rotateX(0deg)' }
+                }
+              >
+                <img src="/static/icon/m_cart_arrow.png" alt="탭 화살표" />
+              </span>
+            </div>
+          ) : null}
         </div>
       </div>
     );

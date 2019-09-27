@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import css from './DefaultLayout.module.scss';
 import Header from 'components/header/Header';
 import ToolBar from 'components/toolbar/ToolBar';
-
+// import { inject, observer } from 'mobx-react';
 /**
  * DefaultLayout
  * 하단 ToolBar를 없애기 위해서는 toolBar props를 false로
@@ -12,7 +12,9 @@ import ToolBar from 'components/toolbar/ToolBar';
  * @param {String} topLayout 페이지 레이아웃 형태에 따라서 사용된다. main, category, search 3가지 형태를 정의해두었다.
  * @param {String} pageTitle
  */
+
 export default class DefaultLayout extends Component {
+  componentDidMount() {}
   render() {
     const { pageTitle, toolBar, headerShape, topLayout } = this.props;
     const headerSize = 60;

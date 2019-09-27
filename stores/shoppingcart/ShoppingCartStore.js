@@ -16,6 +16,7 @@ export default class ShoppingCartStore {
     pageStatus: false,
     priorityCheck: true,
     optionChangeModal: 0,
+    quantityNotice: false,
   };
   @observable selectedCheck = [];
   @observable selectedCheckNumber = [];
@@ -39,7 +40,7 @@ export default class ShoppingCartStore {
     willChangeCartItemId: 0,
     willChangeQuantity: 1,
     willChangeSelectDealOptionId: 0,
-    currentChangeSelectDealOptionId: 0,
+    currentChangeSelectDealOption: {},
   };
   @observable selectedOptionIndex = 0;
   @observable quantityMinusBtn = '/static/icon/quantity_minus_on.png';
@@ -59,10 +60,13 @@ export default class ShoppingCartStore {
         this.getTotalResultAmount();
         console.log(this.cartList, 'cartList');
         this.status.pageStatus = true;
+        if (this.cartList.length === 0) {
+          this.getRealTimePopularityProducts();
+        }
       })
       .catch(err => {
         console.log(err);
-        if (err.data.resultCode === 6017) {
+        if (err.data) {
           pushRoute(
             `/login?${qs.stringify({
               redirectTo: `/shoppingcart`,
@@ -70,9 +74,36 @@ export default class ShoppingCartStore {
             { isReplace: true }
           );
         }
+        // pushRoute(
+        //   `/login?${qs.stringify({
+        //     redirectTo: `/shoppingcart`,
+        //   })}`,
+        //   { isReplace: true }
+        // );
       });
   };
 
+  @action
+  globalGetUserShoppingCartList = () => {
+    API.order
+      .get(`/cart`)
+      .then(res => {
+        let data = res.data;
+        this.cartList = data.data.cartItemResponseList;
+        this.cartAmount = this.cartList.length;
+        console.log(data, 'data');
+      })
+      .catch(err => {
+        console.error(err);
+        // this.root.alert.showAlert({
+        //   content: `${_.get(err, 'data.message') || err.message}`,
+        //   onConfirm: () => {
+        //     this.gotoMain();
+        //   },
+        // });
+      });
+    return false;
+  };
   //--------------------- 장바구니 실시간 인기 상품 가져오기 ---------------------
   @action
   getRealTimePopularityProducts = () => {
@@ -87,6 +118,9 @@ export default class ShoppingCartStore {
             'this.realTimePopularityProducts'
           );
         }
+      })
+      .catch(err => {
+        console.log(err, 'err');
       });
   };
 
@@ -192,13 +226,13 @@ export default class ShoppingCartStore {
         }
       }
       for (let x = 0; x < tempArray.length; x++) {
-        tempAttribute += tempArray[x] + '/';
+        tempAttribute += tempArray[x] + ' ';
       }
-      tempAttribute = tempAttribute.substr(0, tempAttribute.length - 1);
+      tempAttribute = tempAttribute.substr(0, tempAttribute.length);
       if (tempAttribute === '') {
-        branchArray.push('옵션없는상품/' + data.currentQuantity + '개');
+        branchArray.push(data.currentQuantity + '개');
       } else {
-        branchArray.push(tempAttribute + '/' + data.currentQuantity + '개');
+        branchArray.push(`${tempAttribute} ${data.currentQuantity}개`);
       }
     });
     this.cartListOptions = branchArray;
@@ -232,35 +266,46 @@ export default class ShoppingCartStore {
 
   //--------------------- 장바구니 옵션바꾸기 위한 옵션 목록 호출 ---------------------
   @action
-  optionChangeModal = (id, quantity, cartItemId, selectDealOptionId) => {
+  optionChangeModal = (id, quantity, cartItemId, selectDealOption) => {
     this.cartChangeOptions.willChangeQuantity = quantity;
     this.cartChangeOptions.willChangeCartItemId = cartItemId;
-    this.cartChangeOptions.currentChangeSelectDealOptionId = selectDealOptionId;
+    this.cartChangeOptions.currentChangeSelectDealOption = selectDealOption;
 
     if (
       this.status.optionChangeModal === 0 ||
-      this.status.optionChangeModal !== id
+      this.status.optionChangeModal !== cartItemId
     ) {
       this.status.optionChangeModal = 0;
-      API.product.get(`/order-deals/${id}/options`).then(res => {
-        let data = res.data;
-        if (data.resultCode === 200) {
+
+      if (!this.cartChangeOptions.currentChangeSelectDealOption) {
+        this.status.optionChangeModal = cartItemId;
+        for (let i = 0; i < this.cartList.length; i++) {
+          if (this.cartList[i].cartItemId === cartItemId) {
+            this.selectedOptions.stock = this.cartList[i].totalStock;
+          }
+        }
+      } else {
+        API.product.get(`/order-deals/${id}/options`).then(res => {
+          let data = res.data;
           this.cartItemOptions = data.data;
 
           this.cartItemOptions.map((data, index) => {
-            if (data.dealOptionSelectId === selectDealOptionId) {
+            if (
+              data.dealOptionSelectId === selectDealOption.dealOptionSelectId
+            ) {
               this.selectedOptionIndex = index;
               this.selectedOptions = data;
-              this.cartChangeOptions.willChangeSelectDealOptionId = selectDealOptionId;
+              this.cartChangeOptions.willChangeSelectDealOptionId =
+                selectDealOption.dealOptionSelectId;
             }
           });
 
           this.getChageItemOptionsLabel();
 
-          this.status.optionChangeModal = id;
-        }
-      });
-    } else if (this.status.optionChangeModal === id) {
+          this.status.optionChangeModal = cartItemId;
+        });
+      }
+    } else if (this.status.optionChangeModal === cartItemId) {
       this.status.optionChangeModal = 0;
     }
   };
@@ -268,34 +313,34 @@ export default class ShoppingCartStore {
   @action
   getLabelColor = ({ icon, color, label }) => {
     return (
-      <div style={{ alignItems: 'center', display: 'flex' }}>
-        {color ? (
-          <span
+      <div style={{ position: 'relative' }}>
+        <div style={{ clear: 'both' }}>
+          {color ? (
+            <div
+              style={{
+                float: 'left',
+                width: 22,
+                height: 22,
+                borderRadius: '50%',
+                backgroundColor: color,
+                border: '1px solid #ddd',
+                marginRight: 8,
+              }}
+            >
+              {icon}
+            </div>
+          ) : null}
+          <div
             style={{
-              width: 26,
-              height: 26,
-              backgroundColor: color,
-              border: '1px solid #ddd',
-              marginRight: 8,
+              float: 'left',
+              fontSize: 14,
+              height: 22,
+              lineHeight: '22px',
             }}
           >
-            {icon}
-          </span>
-        ) : (
-          <span
-            style={{
-              width: 26,
-              height: 26,
-              backgroundColor: color,
-              border: 'none',
-              marginRight: 8,
-            }}
-          >
-            {icon}
-          </span>
-        )}
-
-        <span style={{ fontSize: 14 }}>{label}</span>
+            {label}
+          </div>
+        </div>
       </div>
     );
   };
@@ -315,18 +360,24 @@ export default class ShoppingCartStore {
         }
       }
       for (let x = 0; x < tempArray.length; x++) {
-        tempAttribute += tempArray[x] + ' / ';
+        tempAttribute += tempArray[x] + ' ';
       }
 
-      tempAttribute = tempAttribute.substr(0, tempAttribute.length - 3);
+      tempAttribute = tempAttribute.substr(0, tempAttribute.length);
       this.cartChangeOptions.tempOptions.push({
         label:
           this.cartItemOptions[i].stock === 0
-            ? tempAttribute + '\u00A0(품절)'
-            : tempAttribute +
-              '\u00A0 (' +
-              this.cartItemOptions[i].price.toLocaleString() +
-              ' 원)',
+            ? `${tempAttribute} (품절)`
+            : this.cartItemOptions[i].price === 0
+            ? tempAttribute
+            : this.cartItemOptions[i].price > 0
+            ? `${tempAttribute} (+${this.cartItemOptions[
+                i
+              ].price.toLocaleString()}원)`
+            : `${tempAttribute} (-${this.cartItemOptions[
+                i
+              ].price.toLocaleString()}원)`,
+
         icon: '',
         stock: this.cartItemOptions[i].stock,
         price: this.cartItemOptions[i].price,
@@ -367,6 +418,7 @@ export default class ShoppingCartStore {
   quantityMinus = () => {
     if (this.cartChangeOptions.willChangeQuantity <= 1) {
       this.cartChangeOptions.willChangeQuantity = 1;
+      this.status.quantityNotice = true;
       return false;
     }
 
@@ -384,6 +436,7 @@ export default class ShoppingCartStore {
       });
       return false;
     }
+    this.status.quantityNotice = false;
     this.cartChangeOptions.willChangeQuantity =
       this.cartChangeOptions.willChangeQuantity + 1;
   };
@@ -392,7 +445,7 @@ export default class ShoppingCartStore {
   @action
   setChangeItemData = value => {
     let currentDealOptionId = this.cartChangeOptions
-      .currentChangeSelectDealOptionId;
+      .currentChangeSelectDealOption.dealOptionSelectId;
     if (value.id === currentDealOptionId) {
       this.root.alert.showAlert({
         content: '이미 선택된 옵션입니다.',
@@ -409,28 +462,39 @@ export default class ShoppingCartStore {
   //--------------------- 장바구니 옵션 변경 ---------------------
   @action
   optionChange = () => {
-    if (this.cartChangeOptions.willChangeSelectDealOptionId !== 0) {
+    if (!this.cartChangeOptions.currentChangeSelectDealOption) {
       API.order
         .post(
-          `/cart/changeSelectOption?cartItemId=${
+          `/cart/changeQuantity?cartItemId=${
             this.cartChangeOptions.willChangeCartItemId
-          }&quantity=${
-            this.cartChangeOptions.willChangeQuantity
-          }&selectDealOptionId=${
-            this.cartChangeOptions.willChangeSelectDealOptionId
-          }`
+          }&quantity=${this.cartChangeOptions.willChangeQuantity}`
         )
         .then(res => {
-          let data = res.data;
-          if (data.resultCode === 200) {
-            this.getChangeShoppingCartList();
-            this.shoppingCartModalClose();
-          }
+          this.getChangeShoppingCartList();
+          this.shoppingCartModalClose();
         });
     } else {
-      this.root.alert.showAlert({
-        content: '선택된 옵션이 없습니다.',
-      });
+      if (this.cartChangeOptions.willChangeSelectDealOptionId !== 0) {
+        API.order
+          .post(
+            `/cart/changeSelectOption?cartItemId=${
+              this.cartChangeOptions.willChangeCartItemId
+            }&quantity=${
+              this.cartChangeOptions.willChangeQuantity
+            }&selectDealOptionId=${
+              this.cartChangeOptions.willChangeSelectDealOptionId
+            }`
+          )
+          .then(res => {
+            let data = res.data;
+            this.getChangeShoppingCartList();
+            this.shoppingCartModalClose();
+          });
+      } else {
+        this.root.alert.showAlert({
+          content: '선택된 옵션이 없습니다.',
+        });
+      }
     }
   };
   //--------------------- 옵션 변경 모달 닫기 ---------------------
@@ -510,9 +574,7 @@ export default class ShoppingCartStore {
     API.order
       .post(`/cart/removeCartItem?cartItemIdList=${selectIdList}`)
       .then(res => {
-        if (res.data.resultCode === 200) {
-          this.getUserShoppingCartList();
-        }
+        this.getUserShoppingCartList();
       });
   };
   //--------------------- 장바구니 아이템 즉시구매하기 ---------------------
@@ -547,5 +609,12 @@ export default class ShoppingCartStore {
         content: '선택 상품이 없습니다.',
       });
     }
+  };
+
+  @action
+  goLike = () => {
+    this.root.alert.showAlert({
+      content: 'PC/앱 버전에서 사용가능합니다.',
+    });
   };
 }

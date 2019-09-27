@@ -59,7 +59,9 @@ export default class CustomerAuthentication {
       })
       .then(res => {
         API.user
-          .put(`users/email-verify?verificationNumber=${this.emailVerifyCode}`)
+          .put(`users/email-verify`, {
+            verificationNumber: this.emailVerifyCode,
+          })
           .then(res => {
             this.emailAuthentication = true;
             this.root.orderpayment.orderUserInfo.emailVerify = true;

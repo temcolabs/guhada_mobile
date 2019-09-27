@@ -16,14 +16,15 @@ import BrandContainer from './item/BrandContainer';
  * @param {string} headerShape
  * productDetail 일때 layout 변경
  */
-function Header({ children, headerShape, history }) {
+
+function Header({ children, headerShape, history, shoppingcart }) {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isCategoryVisible, setIsCategoryVisible] = useState(false);
   const [categoryId, setCategoryId] = useState(0);
   const [categoryTitle, setCategoryTitle] = useState('');
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [isBrandVisible, setIsBrandVisible] = useState(false);
-
+  // shoppingcart.globalGetUserShoppingCartList();
   let urlHistory = sessionStorage.get('urlHistory');
   return (
     <>
@@ -33,6 +34,8 @@ function Header({ children, headerShape, history }) {
         <div className={css.wrap}>
           {headerShape === 'productDetail' ||
           headerShape === 'searchList' ||
+          headerShape === 'shoppingcart' ||
+          headerShape === 'orderpayment' ||
           (headerShape === 'address' && urlHistory !== '') ? (
             <button
               className={css.backButton}
@@ -53,20 +56,32 @@ function Header({ children, headerShape, history }) {
             </Link>
           )}
 
-          {headerShape === 'productDetail' ? (
+          {headerShape === 'productDetail' || headerShape === 'shoppingcart' ? (
             <Link href="/">
               <button className={css.homeButton} />
             </Link>
           ) : null}
-          <button
-            className={cn(css.searchButton, {
-              [css.leftItemExist]: headerShape === 'productDetail',
-            })}
-            onClick={() => setIsSearchVisible(true)}
-          />
-          <Link href="/shoppingcart">
-            <button className={css.cartButton} />
-          </Link>
+
+          {headerShape === 'shoppingcart' ||
+          headerShape === 'orderpayment' ? null : (
+            <button
+              className={cn(css.searchButton, {
+                [css.leftItemExist]: headerShape === 'productDetail',
+              })}
+              onClick={() => setIsSearchVisible(true)}
+            />
+          )}
+
+          {headerShape === 'shoppingcart' ||
+          headerShape === 'orderpayment' ? null : (
+            <Link href="/shoppingcart">
+              <div className={css.cartButton}>
+                <button />
+                <div>{shoppingcart.cartAmount}</div>
+              </div>
+            </Link>
+          )}
+
           <HeaderMenu
             isVisible={isMenuVisible}
             onClose={() => setIsMenuVisible(false)}
@@ -103,4 +118,4 @@ function Header({ children, headerShape, history }) {
     </>
   );
 }
-export default inject('history')(Header);
+export default inject('history', 'shoppingcart')(Header);
