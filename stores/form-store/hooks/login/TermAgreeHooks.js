@@ -29,13 +29,13 @@ export default {
           let data = res.data;
           if (data.resultCode === 200) {
             if (login.snsType === snsType.KAKAO) {
-              login.loginKakao();
+              login.loginKakao(login.email);
             } else if (login.snsType === snsType.GOOGLE) {
-              login.loginGoogle();
+              login.loginGoogle(login.email);
             } else if (login.snsType === snsType.NAVER) {
-              login.loginNaver();
+              login.loginNaver(login.email);
             } else if (login.snsType === snsType.FACEBOOK) {
-              login.loginFacebook();
+              login.loginFacebook(login.email);
             }
           }
         })
