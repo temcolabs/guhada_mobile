@@ -128,10 +128,6 @@ export default class AuthMobileStore {
                   root.alert.showAlert({
                     content: err.data.message,
                   });
-                } else {
-                  root.alert.showAlert({
-                    content: `${_.get(err, 'data.message') || err.message}`,
-                  });
                 }
               });
           }

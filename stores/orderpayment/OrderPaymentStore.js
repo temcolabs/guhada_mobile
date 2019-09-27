@@ -178,12 +178,12 @@ export default class OrderPaymentStore {
       })
       .catch(err => {
         console.log(err, 'err');
-        this.root.alert.showAlert({
-          content: `${_.get(err, 'data.message') || '오류발생'}`,
-          onConfirm: () => {
-            this.gotoMain();
-          },
-        });
+        // this.root.alert.showAlert({
+        //   content: `${_.get(err, 'data.message') || '오류발생'}`,
+        //   onConfirm: () => {
+        //     this.gotoMain();
+        //   },
+        // });
       });
   };
   gotoMain = () => {
@@ -336,12 +336,12 @@ export default class OrderPaymentStore {
         }
       }
       for (let x = 0; x < tempArray.length; x++) {
-        tempAttribute += tempArray[x] + '/';
+        tempAttribute += tempArray[x] + ' ';
       }
-      tempAttribute = tempAttribute.substr(0, tempAttribute.length - 1);
+      tempAttribute = tempAttribute.substr(0, tempAttribute.length);
 
       if (tempAttribute == '') {
-        branchArray.push('옵션없는상품');
+        branchArray.push(null);
       } else {
         branchArray.push(tempAttribute);
       }
@@ -645,7 +645,69 @@ export default class OrderPaymentStore {
     this.orderShippingList.defaultAddress = this.orderShippingList.newAddress;
     this.shippingListModalClose();
   };
+  @action
+  setCashReceiptHandler = value => {
+    this.status.cashReceiptRequest = value;
+  };
 
+  @action
+  setCashReceiptUsage = value => {
+    this.cashReceiptUsage = value;
+  };
+
+  @action
+  receiptPhone = (e, idx) => {
+    if (idx === 'first') {
+      this.cashReceiptPhone.first = e.value;
+    } else if (idx === 'middle') {
+      let value = e.target.value.replace(/[^0-9]/g, '');
+      this.cashReceiptPhone.middle = value;
+    } else if (idx === 'last') {
+      let value = e.target.value.replace(/[^0-9]/g, '');
+      this.cashReceiptPhone.last = value;
+    }
+  };
+  @action
+  receiptRegister = (e, idx) => {
+    let value = e.target.value.replace(/[^0-9]/g, '');
+
+    if (idx === 'first') {
+      this.registerNumber.first = value;
+    } else if (idx === 'last') {
+      this.registerNumber.last = value;
+    }
+  };
+
+  @action
+  receiptEntrepreneur = (e, idx) => {
+    let value = e.target.value.replace(/[^0-9]/g, '');
+
+    if (idx === 'first') {
+      this.cashReceiptEntrepreneur.first = value;
+    } else if (idx === 'middle') {
+      this.cashReceiptEntrepreneur.middle = value;
+    } else if (idx === 'last') {
+      this.cashReceiptEntrepreneur.last = value;
+    }
+  };
+  receiptDataInit = () => {
+    this.cashReceiptPhone = {
+      first: '010',
+      middle: null,
+      last: null,
+    };
+
+    this.registerNumber = {
+      first: null,
+      last: null,
+    };
+
+    this.cashReceiptEntrepreneur = {
+      first: null,
+      middle: null,
+      last: null,
+    };
+  };
   //--------------------- 결제요청 ---------------------
   @action
   payment = () => {
@@ -670,11 +732,6 @@ export default class OrderPaymentStore {
     } else if (this.paymentMethod === 'TOKEN') {
       this.root.alert.showAlert({
         content: '토큰결제 현재 사용 불가',
-      });
-      paymentCheck = false;
-    } else if (!this.status.orderPaymentAgreement) {
-      this.root.alert.showAlert({
-        content: '구매 및 결제대행서비스 이용약관 등에 모두 동의해주세요.',
       });
       paymentCheck = false;
     }

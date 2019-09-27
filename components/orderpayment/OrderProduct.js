@@ -23,9 +23,13 @@ class OrderProduct extends Component {
           <div className={css.productPrice}>
             {`${data.discountPrice.toLocaleString()}원`}
           </div>
-          <div className={css.productOpiton}>{`${
-            orderpayment.option[index]
-          } / ${data.quantity}개`}</div>
+          {orderpayment.option[index] ? (
+            <div className={css.productOpiton}>{`${
+              orderpayment.option[index]
+            } / ${data.quantity}개`}</div>
+          ) : (
+            <div className={css.productOpiton}>{`${data.quantity}개`}</div>
+          )}
         </div>
       </div>
     );

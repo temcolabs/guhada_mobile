@@ -33,6 +33,13 @@ class AddressSelf extends Component {
               placeholder="우편번호"
               readOnly
               value={orderpayment.orderShippingList.newAddress.zip || ''}
+              onClick={() => {
+                orderpayment.searchZipcode(
+                  '주문페이지-신규',
+                  null,
+                  orderpayment.setNewShippingAddress
+                );
+              }}
             />
           </div>
           <div

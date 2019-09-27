@@ -18,11 +18,8 @@ class RealTimePopularityProducts extends Component {
                   style={{
                     backgroundImage: `url('${data.imageUrl}')`,
                   }}
-                ></div>
-                <div className={css.brandName}>
-                  <div>{data.brandName}</div>
-                  <div>{data.productSeason}</div>
-                </div>
+                />
+                <div className={css.brandName}>{data.brandName}</div>
                 <div className={css.productName}>{data.productName}</div>
               </li>
             );

@@ -20,7 +20,11 @@ class ShoppingCart extends React.Component {
     let { shoppingcart } = this.props;
     let { cartList } = shoppingcart;
     return (
-      <DefaultLayout pageTitle={'장바구니'}>
+      <DefaultLayout
+        headerShape={'shoppingcart'}
+        toolBar={false}
+        pageTitle={'장바구니'}
+      >
         {cartList.length ? (
           <Fragment>
             {/* 체크박스 컨트롤 */}

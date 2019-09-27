@@ -16,7 +16,14 @@ class CartEmpty extends Component {
           <LinkRoute href="/">
             <div className={css.continueShopping}>쇼핑 계속하기</div>
           </LinkRoute>
-          <div className={css.goLike}>찜한 상품 보기</div>
+          <div
+            className={css.goLike}
+            onClick={() => {
+              this.props.shoppingcart.goLike();
+            }}
+          >
+            찜한 상품 보기
+          </div>
         </div>
       </div>
     );
