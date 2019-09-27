@@ -237,7 +237,7 @@ export default class LoginStore {
   };
 
   @action
-  loginFacebook = () => {
+  loginFacebook = (email = '') => {
     let login = this;
 
     API.user
@@ -259,7 +259,11 @@ export default class LoginStore {
           refreshToken: data.data.refreshToken,
           expiresIn: data.data.expiresIn,
         });
-        pushRoute('/');
+        if (email !== '') {
+          Router.push('/?signupsuccess=true&email=' + email);
+        } else {
+          pushRoute('/');
+        }
       })
       .catch(e => {
         devLog('e', e);
@@ -306,7 +310,7 @@ export default class LoginStore {
   };
 
   @action
-  loginGoogle = () => {
+  loginGoogle = (email = '') => {
     let login = this;
 
     API.user
@@ -326,7 +330,11 @@ export default class LoginStore {
           refreshToken: data.data.refreshToken,
           expiresIn: data.data.expiresIn,
         });
-        pushRoute('/');
+        if (email !== '') {
+          Router.push('/?signupsuccess=true&email=' + email);
+        } else {
+          pushRoute('/');
+        }
       })
       .catch(e => {
         devLog('e', e);
@@ -371,7 +379,7 @@ export default class LoginStore {
   };
 
   @action
-  loginKakao = () => {
+  loginKakao = (email = '') => {
     let login = this;
 
     API.user
@@ -391,7 +399,11 @@ export default class LoginStore {
           refreshToken: data.data.refreshToken,
           expiresIn: data.data.expiresIn,
         });
-        pushRoute('/');
+        if (email !== '') {
+          Router.push('/?signupsuccess=true&email=' + email);
+        } else {
+          pushRoute('/');
+        }
       })
       .catch(e => {
         devLog('e', e);
@@ -436,7 +448,7 @@ export default class LoginStore {
   };
 
   @action
-  loginNaver = () => {
+  loginNaver = (email = '') => {
     let login = this;
 
     API.user
@@ -456,7 +468,11 @@ export default class LoginStore {
           refreshToken: data.data.refreshToken,
           expiresIn: data.data.expiresIn,
         });
-        pushRoute('/');
+        if (email !== '') {
+          Router.push('/?signupsuccess=true&email=' + email);
+        } else {
+          pushRoute('/');
+        }
       })
       .catch(e => {
         devLog('e', e);
