@@ -183,7 +183,7 @@ export default class ProductOptionStore {
   quantityPlus = () => {
     if (this.options.selectedQuantity >= this.options.selectedOption.stock) {
       this.root.alert.showAlert({
-        content: '재고수량 ' + this.options.selectedOption.stock + ' 개 초과',
+        content: '재고수량 초과',
       });
       return false;
     }
@@ -208,7 +208,7 @@ export default class ProductOptionStore {
       return false;
     } else if (value > this.options.selectedOption.stock) {
       this.root.alert.showAlert({
-        content: '재고수량 ' + this.options.selectedOption.stock + ' 개 초과',
+        content: '재고수량 초과',
       });
       this.options.selectedQuantity = this.options.selectedOption.stock;
       this.getTotalPrice();

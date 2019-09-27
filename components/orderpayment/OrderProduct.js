@@ -26,7 +26,7 @@ class OrderProduct extends Component {
           {orderpayment.option[index] ? (
             <div className={css.productOpiton}>{`${
               orderpayment.option[index]
-            } / ${data.quantity}개`}</div>
+            } ${data.quantity}개`}</div>
           ) : (
             <div className={css.productOpiton}>{`${data.quantity}개`}</div>
           )}

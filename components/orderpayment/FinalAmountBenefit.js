@@ -5,6 +5,21 @@ import css from './FinalAmountBenefit.module.scss';
 @inject('orderpayment', 'orderPaymentBenefit')
 @observer
 class FinalAmountBenefit extends Component {
+  state = {
+    discountInfoStatus: false,
+    benefitInfoStatus: false,
+  };
+
+  discountInfoHandler = () => {
+    this.setState({
+      discountInfoStatus: !this.state.discountInfoStatus,
+    });
+  };
+  benefitInfoHandler = () => {
+    this.setState({
+      benefitInfoStatus: !this.state.benefitInfoStatus,
+    });
+  };
   render() {
     let { orderpayment, orderPaymentBenefit } = this.props;
     let { orderPaymentTotalInfo } = orderpayment;
@@ -12,9 +27,21 @@ class FinalAmountBenefit extends Component {
       <div className={css.wrap}>
         <div className={css.finalTop}>
           <div className={css.totalOrderTitle}>총 주문금액</div>
-          <div className={css.totalDiscountTitle}>
+          <div
+            className={css.totalDiscountTitle}
+            onClick={() => {
+              this.discountInfoHandler();
+            }}
+          >
             할인금액
-            <div className={css.dropArrowOpacity} />
+            <div
+              className={css.dropArrowOpacity}
+              style={
+                this.state.discountInfoStatus
+                  ? { transform: `rotateX(180deg)` }
+                  : null
+              }
+            />
           </div>
           <div className={css.totalPaymentTitle}>최종 결제금액</div>
         </div>
@@ -40,18 +67,37 @@ class FinalAmountBenefit extends Component {
           </div>
         </div>
 
-        {orderpayment.totalBenefitDetailStatus ? (
-          <DiscountInfo point={orderPaymentBenefit.usePoint} />
+        {this.state.discountInfoStatus ? (
+          <DiscountInfo
+            point={orderpayment.usePoint}
+            coupon={orderPaymentTotalInfo.couponDiscount}
+            product={orderPaymentTotalInfo.originDiscountDiffPrice}
+            couponHandler={() => {
+              orderPaymentBenefit.handleModalShow();
+            }}
+          />
         ) : null}
 
         <div className={css.dueSavePointWrap}>
           <div className={css.dueSavePointSummary}>
-            <div className={css.dueSaveTitle}>
+            <div
+              className={css.dueSaveTitle}
+              onClick={() => {
+                this.benefitInfoHandler();
+              }}
+            >
               적립 예정 내역
-              <div className={css.dropArrow} />
+              <div
+                className={css.dropArrow}
+                style={
+                  this.state.benefitInfoStatus
+                    ? { transform: `rotateX(180deg)` }
+                    : null
+                }
+              />
             </div>
             <div className={css.dueSavePoint}>
-              최대{' '}
+              최대
               <span>
                 {orderPaymentBenefit.dueSavePointTotal
                   ? `${orderPaymentBenefit.dueSavePointTotal.toLocaleString()}`
@@ -61,7 +107,9 @@ class FinalAmountBenefit extends Component {
             </div>
           </div>
 
-          {orderpayment.totalBenefitDetailStatus ? <BenefitInfo /> : null}
+          {this.state.benefitInfoStatus ? (
+            <BenefitInfo dueSaveList={orderPaymentBenefit.dueSaveList} />
+          ) : null}
         </div>
       </div>
     );
@@ -76,16 +124,23 @@ const DiscountInfo = props => {
       <div className={css.discountMenu}>
         <div className={css.sectionTitle}>
           쿠폰 할인
-          <span className={css.couponChange}>
-            <img src="/static/icon/m_coupon_change.png" alt="쿠폰변경" />
-          </span>
+          <div
+            className={css.couponChange}
+            onClick={() => {
+              props.couponHandler();
+            }}
+          />
         </div>
-        <div className={css.sectionValue}>0원</div>
+        <div
+          className={css.sectionValue}
+        >{`${props.coupon.toLocaleString()}원`}</div>
       </div>
 
       <div className={css.discountMenu}>
         <div className={css.sectionTitle}>상품 할인</div>
-        <div className={css.sectionValue}>0원</div>
+        <div
+          className={css.sectionValue}
+        >{`${props.product.toLocaleString()}원`}</div>
       </div>
 
       <div className={css.discountMenu}>
@@ -98,23 +153,33 @@ const DiscountInfo = props => {
   );
 };
 
-const BenefitInfo = () => {
+const BenefitInfo = props => {
   return (
     <div className={css.benefitInfoWrap}>
-      <div className={css.discountMenu}>
-        <div className={css.sectionTitle}>구매 확정</div>
-        <div className={css.sectionValue}>30000원</div>
-      </div>
-
-      <div className={css.discountMenu}>
-        <div className={css.sectionTitle}>텍스트 리뷰</div>
-        <div className={css.sectionValue}>30000원</div>
-      </div>
-
-      <div className={css.discountMenu}>
-        <div className={css.sectionTitle}>포토 리뷰</div>
-        <div className={css.sectionValue}>30000원</div>
-      </div>
+      {props.dueSaveList.map(data => {
+        return data.pointType === 'BUY' ? (
+          <div className={css.discountMenu}>
+            <div className={css.sectionTitle}>구매 확정</div>
+            <div
+              className={css.sectionValue}
+            >{`${data.totalPoint?.toLocaleString()}P`}</div>
+          </div>
+        ) : data.pointType === 'IMG_REVIEW' ? (
+          <div className={css.discountMenu}>
+            <div className={css.sectionTitle}>텍스트 리뷰</div>
+            <div
+              className={css.sectionValue}
+            >{`${data.totalPoint?.toLocaleString()}P`}</div>
+          </div>
+        ) : data.pointType === 'TEXT_REVIEW' ? (
+          <div className={css.discountMenu}>
+            <div className={css.sectionTitle}>포토 리뷰</div>
+            <div
+              className={css.sectionValue}
+            >{`${data.totalPoint?.toLocaleString()}P`}</div>
+          </div>
+        ) : null;
+      })}
     </div>
   );
 };

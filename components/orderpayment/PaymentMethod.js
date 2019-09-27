@@ -26,30 +26,26 @@ class PaymentMethod extends Component {
         <div className={css.title}>결제 수단</div>
         <ul className={css.paymentMethod}>
           {orderPaymentTotalInfo.paymentsMethod.map((data, index) => {
-            if (data.methodName === '토큰결제') {
-              return false;
-            } else {
-              return (
-                <li key={index}>
-                  <input
-                    type="radio"
-                    onClick={() => {
-                      orderpayment.setPaymentMethod(data.methodCode);
-                    }}
-                    id={data.methodCode}
-                    name="paymentMethod"
-                  />
-                  <label
-                    htmlFor={data.methodCode}
-                    onClick={() => {
-                      orderpayment.setPaymentMethod(data.methodCode);
-                    }}
-                  >
-                    {data.methodName}
-                  </label>
-                </li>
-              );
-            }
+            return (
+              <li key={index}>
+                <input
+                  type="radio"
+                  onClick={() => {
+                    orderpayment.setPaymentMethod(data.methodCode);
+                  }}
+                  id={data.methodCode}
+                  name="paymentMethod"
+                />
+                <label
+                  htmlFor={data.methodCode}
+                  onClick={() => {
+                    orderpayment.setPaymentMethod(data.methodCode);
+                  }}
+                >
+                  {data.methodName}
+                </label>
+              </li>
+            );
           })}
         </ul>
 

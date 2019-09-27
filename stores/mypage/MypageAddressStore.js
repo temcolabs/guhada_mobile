@@ -208,6 +208,8 @@ export default class MypageAddressStore {
       case 'defaultCheck':
         this.newAddress.defaultAddress = e.target.checked;
         break;
+      default:
+        break;
     }
   };
 

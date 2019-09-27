@@ -54,7 +54,6 @@ export default class OrderPaymentStore {
     shppingRequestSelfStatus: false,
     newShppingRequestSelfStatus: false,
     shppingListModalStatus: false,
-    totalBenefitDetailStatus: false,
     totalDiscountDetailStatus: false,
     orderPaymentAgreement: false,
     paymentProceed: false,
@@ -365,9 +364,30 @@ export default class OrderPaymentStore {
   @action
   setPaymentMethod = targetMethod => {
     this.paymentMethod = targetMethod;
-    console.log(this.paymentMethod, 'this.paymentMethod');
+    this.methodChange();
   };
+  //--------------------- 결제방법변경 모듈 ---------------------
+  methodChange = () => {
+    this.status.cashReceipt = false;
+    this.status.cashReceiptRequest = false;
 
+    switch (this.paymentMethod) {
+      case 'Card':
+        this.receiptDataInit();
+        break;
+      case 'DirectBank':
+        this.status.cashReceipt = true;
+        break;
+      case 'VBank':
+        this.status.cashReceipt = true;
+        break;
+      case 'TOKEN':
+        this.receiptDataInit();
+        break;
+      default:
+        break;
+    }
+  };
   //--------------------- 주문페이지에 가져올 장바구니 아이템 리스트 아이디 값 설정 ---------------------
   getCartList = () => {
     let tempArray = [];
@@ -627,15 +647,19 @@ export default class OrderPaymentStore {
     } else if (this.orderShippingList.newAddress.recipientMobile) {
       let currentPhoneNum = this.orderShippingList.newAddress.recipientMobile;
       let regPhone = /^((01[1|6|7|8|9])[0-9][0-9]{6,7})|(010[0-9][0-9]{7})$/;
-      if (currentPhoneNum.length < 10 || currentPhoneNum.length > 11) {
+      let regTel = /^0(2|3[1-3]|4[1-4]|5[1-5]|6[1-4])-?\d{3,4}-?\d{4}$/;
+      if (currentPhoneNum.length < 9 || currentPhoneNum.length > 11) {
         this.root.alert.showAlert({
-          content: '휴대폰번호는 10자리 이상 11자리 이하입니다.',
+          content: '배송지 연락처를 정확히 입력해주세요.',
         });
         this.status.newRecipientMobile = true;
         return false;
-      } else if (!regPhone.test(currentPhoneNum)) {
+      } else if (
+        !regPhone.test(currentPhoneNum) &&
+        !regTel.test(currentPhoneNum)
+      ) {
         this.root.alert.showAlert({
-          content: '휴대폰번호 를 정확히 입력해주세요.',
+          content: '배송지 연락처를 정확히 입력해주세요.',
         });
         this.status.newRecipientMobile = true;
         return false;
@@ -689,6 +713,24 @@ export default class OrderPaymentStore {
     } else if (idx === 'last') {
       this.cashReceiptEntrepreneur.last = value;
     }
+  };
+  receiptDataInit = () => {
+    this.cashReceiptPhone = {
+      first: '010',
+      middle: null,
+      last: null,
+    };
+
+    this.registerNumber = {
+      first: null,
+      last: null,
+    };
+
+    this.cashReceiptEntrepreneur = {
+      first: null,
+      middle: null,
+      last: null,
+    };
   };
   receiptDataInit = () => {
     this.cashReceiptPhone = {
@@ -985,11 +1027,6 @@ export default class OrderPaymentStore {
     // const url = this.paymentForm.jsUrl;
     // loadScript(url, { callback: action, async: false, id: 'INIStdPay' });
   };
-  @action
-  totalBenefitDetailActive = () => {
-    this.status.totalBenefitDetailStatus = !this.status
-      .totalBenefitDetailStatus;
-  };
 
   @action
   totalDiscountDetailActive = () => {
@@ -1028,7 +1065,6 @@ export default class OrderPaymentStore {
       shppingRequestSelfStatus: false,
       newShppingRequestSelfStatus: false,
       shppingListModalStatus: false,
-      totalBenefitDetailStatus: false,
       orderPaymentAgreement: false,
       paymentProceed: false,
       newShippingName: false,
@@ -1085,6 +1121,7 @@ export default class OrderPaymentStore {
   totalPaymentAmount = () => {
     this.orderPaymentTotalInfo.totalDiscountDiffPrice =
       this.orderPaymentTotalInfo.originDiscountDiffPrice +
+      this.usePoint +
       this.orderPaymentTotalInfo.couponDiscount;
 
     this.orderPaymentTotalInfo.totalPaymentPrice =

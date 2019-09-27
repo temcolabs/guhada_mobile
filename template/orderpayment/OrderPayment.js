@@ -51,7 +51,7 @@ class OrderPayment extends React.Component {
         <PaymentMethod />
 
         {/* 현금영수증 */}
-        <CashReceipt />
+        {orderpayment.status.cashReceipt ? <CashReceipt /> : null}
 
         {/* 결제 동의 */}
         <PaymentAgreement />

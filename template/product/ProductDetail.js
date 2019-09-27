@@ -72,7 +72,7 @@ class ProductDetail extends React.Component {
     return (
       <DefaultLayout
         topLayout={'main'}
-        pageTitle={null}
+        pageTitle={'상세페이지'}
         toolBar={false}
         headerShape={'productDetail'}
       >

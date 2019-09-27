@@ -102,7 +102,7 @@ export default class ShoppingCartStore {
         //   },
         // });
       });
-    return false;
+    return this.cartAmount;
   };
   //--------------------- 장바구니 실시간 인기 상품 가져오기 ---------------------
   @action
@@ -398,7 +398,7 @@ export default class ShoppingCartStore {
       return false;
     } else if (changeQuantity > this.selectedOptions.stock) {
       this.root.alert.showAlert({
-        content: '재고수량 ' + this.selectedOptions.stock + ' 개 초과',
+        content: '재고수량 초과',
       });
       this.cartChangeOptions.willChangeQuantity = this.selectedOptions.stock;
       return false;
@@ -432,7 +432,7 @@ export default class ShoppingCartStore {
       this.cartChangeOptions.willChangeQuantity >= this.selectedOptions.stock
     ) {
       this.root.alert.showAlert({
-        content: '재고수량 ' + this.selectedOptions.stock + ' 개 초과',
+        content: '재고수량 초과',
       });
       return false;
     }

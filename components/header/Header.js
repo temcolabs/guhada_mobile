@@ -24,7 +24,7 @@ function Header({ children, headerShape, history, shoppingcart }) {
   const [categoryTitle, setCategoryTitle] = useState('');
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [isBrandVisible, setIsBrandVisible] = useState(false);
-  // shoppingcart.globalGetUserShoppingCartList();
+  let cartAmount = shoppingcart.globalGetUserShoppingCartList();
   let urlHistory = sessionStorage.get('urlHistory');
   return (
     <>
@@ -42,10 +42,14 @@ function Header({ children, headerShape, history, shoppingcart }) {
               onClick={() => window.history.back()}
             />
           ) : null}
-          <button
-            className={css.menuButton}
-            onClick={() => setIsMenuVisible(true)}
-          />
+
+          {headerShape === 'shoppingcart' ||
+          headerShape === 'orderpayment' ? null : (
+            <button
+              className={css.menuButton}
+              onClick={() => setIsMenuVisible(true)}
+            />
+          )}
 
           {/* 페이지 타이틀 또는 로고 렌더링 */}
           {children ? (
@@ -56,7 +60,7 @@ function Header({ children, headerShape, history, shoppingcart }) {
             </Link>
           )}
 
-          {headerShape === 'productDetail' || headerShape === 'shoppingcart' ? (
+          {headerShape === 'productDetail' ? (
             <Link href="/">
               <button className={css.homeButton} />
             </Link>
@@ -77,7 +81,7 @@ function Header({ children, headerShape, history, shoppingcart }) {
             <Link href="/shoppingcart">
               <div className={css.cartButton}>
                 <button />
-                <div>{shoppingcart.cartAmount}</div>
+                {cartAmount !== 0 ? <div>{cartAmount}</div> : null}
               </div>
             </Link>
           )}

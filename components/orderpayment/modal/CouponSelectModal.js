@@ -126,8 +126,8 @@ const Product = props => {
           {product.itemOptionResponse
             ? `${product.itemOptionResponse.attribute1 || ''} ${product
                 .itemOptionResponse.attribute2 || ''} ${product
-                .itemOptionResponse.attribute3 || ''}`
-            : ` `}
+                .itemOptionResponse.attribute3 || ''} ${product.quantity}개`
+            : ` ${product.quantity}개`}
         </div>
       </div>
     </div>

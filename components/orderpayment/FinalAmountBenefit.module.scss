@@ -48,7 +48,6 @@
     background: #fafafa;
     height: 100px;
     display: flex;
-    border-bottom: 1px solid #eaeaea;
     .totalOrderAmount {
       position: relative;
       display: flex;
@@ -136,23 +135,28 @@
   }
 
   .discountInfoWrap {
-    padding: 30px 20px 0;
+    padding: 30px 20px;
 
     .discountMenu {
       display: flex;
-      justify-content: space-between;
       color: #777;
       font-weight: 500;
       font-size: 13px;
       height: 35px;
+      align-items: center;
+      justify-content: space-between;
       &:first-child {
         margin-top: 0;
       }
       .sectionTitle {
+        display: flex;
+        align-items: center;
         .couponChange {
-          display: inline-block;
+          background: url('/static/icon/m_coupon_change.png') no-repeat;
+          background-size: cover;
+          background-position: center;
           margin-left: 12px;
-          width: 52px;
+          min-width: 59px;
           height: 25px;
           img {
             width: 100%;
@@ -163,11 +167,14 @@
   }
 
   .dueSavePointWrap {
-    padding: 0 20px;
+    border-top: 1px solid #eee;
     border-bottom: 1px solid #5d2de1;
 
     .dueSavePointSummary {
+      padding: 0 20px;
+
       height: 60px;
+      background: #f9f9fa;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -197,10 +204,11 @@
     }
 
     .benefitInfoWrap {
-      padding: 10px 0;
+      padding: 30px 15px 25px;
 
       .discountMenu {
         display: flex;
+        align-items: center;
         justify-content: space-between;
         color: #777;
         font-weight: 500;
@@ -210,15 +218,7 @@
           margin-top: 0;
         }
         .sectionTitle {
-          .couponChange {
-            display: inline-block;
-            margin-left: 12px;
-            width: 52px;
-            height: 25px;
-            img {
-              width: 100%;
-            }
-          }
+          font-weight: normal;
         }
       }
     }

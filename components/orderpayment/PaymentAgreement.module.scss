@@ -1,6 +1,6 @@
 .wrap {
-  margin-top: 50px;
-  padding: 0 20px;
+  margin-top: 40px;
+  padding: 0 20px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -9,7 +9,7 @@
     font-weight: 500;
     input[type='checkbox'] {
       display: block;
-      width: 20px;
+      min-width: 20px;
       height: 20px;
       border: none;
       border-radius: 0px;
@@ -34,14 +34,16 @@
       font-size: 14px;
       color: #5d2de1;
       white-space: nowrap;
+      margin-right: 5px;
     }
   }
 
   .agreementText {
     font-size: 12px;
-    color: #9a9fa8;
+    color: #999;
     font-weight: 500;
     text-decoration: underline;
     white-space: nowrap;
+    height: 21px;
   }
 }
