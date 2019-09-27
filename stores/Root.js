@@ -40,7 +40,7 @@ import RouteHistoryStore from './RouteHistoryStore';
 import MainStore from './MainStore';
 import KeywordStore from './home/KeywordStore';
 import AddressStore from './address/AddressStore';
-
+import SellerStore from './SellerStore';
 class RootStore {
   constructor() {
     this.user = new UserStore(this);
@@ -65,6 +65,7 @@ class RootStore {
     this.productDetailGallery = new ProductDetailGalleryStore(this);
     this.sellerfollow = new SellerFollowStore(this);
 
+    this.seller = new SellerStore(this);
     this.alert = new AlertStore(this);
     this.bookmark = new BookMarkStore(this);
     this.authmobile = new AuthMobileStore(this);

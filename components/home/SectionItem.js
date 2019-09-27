@@ -32,12 +32,15 @@ export default function SectionItem({
     sellerName: '',
     setDiscount: false,
   },
+  sellerStore = false,
 }) {
   return (
     <div className={css.wrap}>
       <div className={css.imageWrap}>
         <div className={css.freeShipping}>
-          무료<br />배송
+          무료
+          <br />
+          배송
         </div>
         <img src={item.productImage.url} alt={item.productImage.name} />
       </div>
@@ -66,12 +69,14 @@ export default function SectionItem({
             </span>
           </div>
         )}
-        <div className={css.sellerWrap}>
-          <div className={css.sellerLevel}>
+        {sellerStore === false && (
+          <div className={css.sellerWrap}>
+            {/* <div className={css.sellerLevel}>
             <div className={css.level}>{1}</div>
+          </div> */}
+            <span className={css.sellerName}>{item.sellerName}</span>
           </div>
-          <span className={css.sellerName}>{item.sellerName}</span>
-        </div>
+        )}
       </div>
     </div>
   );

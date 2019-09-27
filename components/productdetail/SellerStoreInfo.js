@@ -44,11 +44,16 @@ function SellerStoreInfo({
 }) {
   return useObserver(() => (
     <div className={css.wrap} ref={tabRefMap.sellerstoreTab}>
-      <div className={css.headerWrap}>
+      <div
+        className={css.headerWrap}
+        onClick={() => pushRoute(`/sellerstore/${deals.sellerId}`)}
+      >
         <div
           className={css.profileImage}
           style={
-            _.isNil(seller) !== true && seller.user.profileImageUrl !== ''
+            _.isNil(seller) !== true &&
+            seller.user.profileImageUrl !== '' &&
+            seller.user.profileImageUrl !== null
               ? {
                   backgroundImage: `url(${seller.user.profileImageUrl})`,
                 }
@@ -74,7 +79,10 @@ function SellerStoreInfo({
           className={cn(css.followBtn, {
             [css.following]: sellerfollow.follows === true,
           })}
-          onClick={() => handleSellerFollows()}
+          onClick={e => {
+            handleSellerFollows();
+            e.stopPropagation();
+          }}
         >
           {sellerfollow.follows === false ? '팔로우' : '팔로잉'}
         </div>

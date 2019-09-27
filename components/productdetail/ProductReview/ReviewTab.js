@@ -78,7 +78,7 @@ export default function ReviewTab({
         >
           수치포함
         </div>
-        <div
+        {/* <div
           className={cn(css.tabItem, {
             [css.selected]: reviewTabText === 'reply',
           })}
@@ -88,7 +88,7 @@ export default function ReviewTab({
           }}
         >
           댓글포함
-        </div>
+        </div> */}
       </div>
       <ReviewOrder
         isVisible={isOrderVisible}

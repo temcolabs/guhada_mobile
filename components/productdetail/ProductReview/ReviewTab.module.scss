@@ -43,7 +43,7 @@
         justify-content: space-between;
 
         & .tabItem {
-            width: 25%;
+            width: calc(100% / 3);
             height: 40px;
             background-color: #f9f9fa;
             display: flex;

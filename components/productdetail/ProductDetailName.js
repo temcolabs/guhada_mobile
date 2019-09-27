@@ -40,7 +40,9 @@ class ProductDetailName extends Component {
         <div className={css.inner__top}>
           <div
             className={css.brandName}
-            onClick={() => searchitem.toSearch({ brand: deals.brandId })}
+            onClick={() =>
+              searchitem.toSearch({ brand: deals.brandId, enter: 'brand' })
+            }
           >
             {deals.brandName}
             <span className={css.arrow} />

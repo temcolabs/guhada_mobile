@@ -1,0 +1,22 @@
+.wrap {
+  width: 100%;
+  height: 60px;
+  padding: 0 20px;
+
+  & .item {
+    width: 50%;
+    float: left;
+    border-top: solid 1px #eeeeee;
+    font-size: 15px;
+    font-weight: normal;
+    color: #444444;
+    text-align: center;
+    line-height: 60px;
+    cursor: pointer;
+
+    &.selected {
+      border-top: solid 1px #5d2ed1;
+      color: #5d2ed1;
+    }
+  }
+}

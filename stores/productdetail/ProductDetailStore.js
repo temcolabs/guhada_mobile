@@ -132,6 +132,8 @@ export default class ProductDetailStore {
       tagArray = this.deals.tag.split('/');
 
       this.dealsTag = tagArray;
+    } else {
+      this.dealsTag = [];
     }
   };
 
@@ -435,15 +437,6 @@ export default class ProductDetailStore {
         let data = res.data;
         this.dealsOfSameBrand = data.data.deals;
       });
-
-    // API.product
-    //   .get(`/deals?brandId=${this.deals.brandId}&pageIndex=0&unitPerPage=3`)
-    //   .then(res => {
-    //     let data = res.data;
-    //     if (data.resultCode === 200) {
-    //       this.dealsOfSameBrand = data.data;
-    //     }
-    //   });
   };
 
   @action
@@ -458,19 +451,6 @@ export default class ProductDetailStore {
         let data = res.data;
         this.dealsOfRecommend = data.data.deals;
       });
-
-    // API.product
-    //   .get(
-    //     `/deals?division=RECOMMEND&pageIndex=0&unitPerPage=3&sellerId=${
-    //       this.deals.sellerId
-    //     }`
-    //   )
-    //   .then(res => {
-    //     let data = res.data;
-    //     if (data.resultCode === 200) {
-    //       this.dealsOfRecommend = data.data;
-    //     }
-    //   });
   };
 
   @action
