@@ -3,6 +3,7 @@ import css from './ProductTable.module.scss';
 import cn from 'classnames';
 import { autoHypenTele } from 'utils';
 import _ from 'lodash';
+import checkNullAndEmpty from 'lib/checkNullAndEmpty';
 
 export default function ShippingReturn({
   deals = [
@@ -51,6 +52,24 @@ export default function ShippingReturn({
   ],
   seller = [{ claimTelephone: '0212345678' }],
   shipExpenseType = '',
+  sellerStore = {
+    badSatisfactionCount: 0,
+    businessHours: null,
+    claimTelephone: '',
+    companyRegistrationNumber: '',
+    followed: Boolean,
+    followerCount: 0,
+    goodSatisfactionCount: 0,
+    mailorderRegistrationNumber: '',
+    nickname: '',
+    normalSatisfactionCount: 0,
+    offlineStoreAddress: '',
+    representativeName: '',
+    sellingCount: 0,
+    storeIntroduction: '',
+    storeIntroductionDetail: null,
+    zip: '',
+  },
 }) {
   const asInfo = _.isNil(deals.asInfo);
   const asTelephone = _.isNil(deals.asTelephone);
@@ -188,35 +207,52 @@ export default function ShippingReturn({
       <div className={css.subHeader}>판매자 정보</div>
       <table className={cn(css.wrap, css.noMargin)}>
         <tbody>
-          <tr>
-            <th>상호명</th>
-            <td>{businessSeller.companyName}</td>
-          </tr>
-          <tr>
-            <th>대표자</th>
-            <td>{businessSeller.representativeName}</td>
-          </tr>
-          <tr>
-            <th>사업자등록번호</th>
-            <td>{businessSeller.corporationRegistrationNumber}</td>
-          </tr>
-          <tr>
-            <th>통신판매업번호</th>
-            <td>{businessSeller.mailorderRegistrationNumber}</td>
-          </tr>
-          <tr>
-            <th>사업장소재지</th>
-            <td>
-              {businessSeller.zip ? `(우 : ${businessSeller.zip})` : null}
-              <br />
-              {businessSeller.roadAddress}
-              {businessSeller.detailAddress}
-            </td>
-          </tr>
-          <tr>
-            <th>고객센터</th>
-            <td>{autoHypenTele(seller.claimTelephone)}</td>
-          </tr>
+          {checkNullAndEmpty(businessSeller.companyName) === false && (
+            <tr>
+              <th>상호명</th>
+              <td>{businessSeller.companyName}</td>
+            </tr>
+          )}
+          {checkNullAndEmpty(sellerStore.representativeName) === false && (
+            <tr>
+              <th>대표자</th>
+              <td>{sellerStore.representativeName}</td>
+            </tr>
+          )}
+          {checkNullAndEmpty(sellerStore.companyRegistrationNumber) ===
+            false && (
+            <tr>
+              <th>사업자등록번호</th>
+              <td>{sellerStore.companyRegistrationNumber}</td>
+            </tr>
+          )}
+          {checkNullAndEmpty(sellerStore.mailorderRegistrationNumber) ===
+            false && (
+            <tr>
+              <th>통신판매업번호</th>
+              <td>{sellerStore.mailorderRegistrationNumber}</td>
+            </tr>
+          )}
+          {checkNullAndEmpty(sellerStore.offlineStoreAddress) === false && (
+            <tr>
+              <th>사업장소재지</th>
+              <td>
+                {checkNullAndEmpty(sellerStore.zip) === false && (
+                  <>
+                    {`(우 : ${sellerStore.zip})`}
+                    <br />
+                  </>
+                )}
+                {sellerStore.offlineStoreAddress}
+              </td>
+            </tr>
+          )}
+          {checkNullAndEmpty(sellerStore.claimTelephone) === false && (
+            <tr>
+              <th>고객센터</th>
+              <td>{autoHypenTele(sellerStore.claimTelephone)}</td>
+            </tr>
+          )}
         </tbody>
       </table>
     </>

@@ -131,6 +131,7 @@ class ProductDetail extends React.Component {
             businessSeller={businessSeller}
             seller={seller}
             shipExpenseType={productoption.shipExpenseType}
+            sellerStore={productdetail.sellerStore}
           />
         </FoldedWrapper>
         {SeparateLine}

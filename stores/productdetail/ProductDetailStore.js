@@ -3,6 +3,7 @@ import Axios from 'axios';
 import API from 'lib/API';
 import { pushRoute } from 'lib/router';
 import _ from 'lodash';
+import { devLog } from 'lib/devLog';
 
 const isServer = typeof window === 'undefined';
 export default class ProductDetailStore {
@@ -52,6 +53,7 @@ export default class ProductDetailStore {
           this.getDealsOfSameBrand();
           this.getDealsOfRecommend();
           this.getSellerStore();
+          this.getSellerStoreDeals();
           this.getInquiryDetail();
           // this.getFollowers();
           this.root.sellerfollow.getSellerFollow(this.deals.sellerId);
@@ -452,9 +454,21 @@ export default class ProductDetailStore {
         this.dealsOfRecommend = data.data.deals;
       });
   };
-
+  @observable sellerStore;
   @action
   getSellerStore = () => {
+    API.user
+      .get(`sellers/${this.deals.sellerId}/store`)
+      .then(res => {
+        let data = res.data;
+        this.sellerStore = data.data;
+      })
+      .catch(e => {
+        devLog('getSellerStore', e);
+      });
+  };
+  @action
+  getSellerStoreDeals = () => {
     API.product
       .get(`/deals?sellerId=${this.deals.sellerId}&pageIndex=0&unitPerPage=9`)
       .then(res => {
