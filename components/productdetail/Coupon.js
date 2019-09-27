@@ -23,9 +23,11 @@ class Coupon extends Component {
                     className={css.coupon__title}
                     style={{ backgroundColor: '#ccc' }}
                   >
-                    {productoption.dueSavebenefitCoupon.length > 0
-                      ? ` ${productoption.dueSavebenefitCoupon[0].couponTitle}`
-                      : null}
+                    {`${
+                      coupon.saveTargetType === 'FOLLOW'
+                        ? coupon.couponTitle
+                        : coupon.discountPrice?.toLocaleString() + `원 할인쿠폰`
+                    }`}
                   </div>
                   <div
                     className={css.coupon__down}
@@ -46,9 +48,11 @@ class Coupon extends Component {
                     className={css.coupon__title}
                     style={{ backgroundColor: '#5d2ed1' }}
                   >
-                    {productoption.dueSavebenefitCoupon.length > 0
-                      ? ` ${productoption.dueSavebenefitCoupon[0].couponTitle}`
-                      : null}
+                    {`${
+                      coupon.saveTargetType === 'FOLLOW'
+                        ? coupon.couponTitle
+                        : coupon.discountPrice?.toLocaleString() + `원 할인쿠폰`
+                    }`}
                   </div>
                   <div
                     className={css.coupon__down}
