@@ -1,5 +1,14 @@
 .wrap {
-    // padding: 0 20px;
+    & button {
+        border: solid 1px #cccccc;
+        background-color: #ffffff;
+        width: 100%;
+        height: 46px;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 1.33;
+        color: #000000;
+    }
 }
 
 .itemWrap {
@@ -66,15 +75,4 @@
             color: #5d2ed1;
         }
     }
-}
-
-button {
-    border: solid 1px #cccccc;
-    background-color: #ffffff;
-    width: 100%;
-    height: 46px;
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 1.33;
-    color: #000000;
 }
