@@ -20,7 +20,7 @@ export default function ShippingReturn({
         shipExpenseType: '',
       },
       asInfo: '',
-      asTelephone: '0212345678',
+      asTelephone: '',
     },
   ],
   claims = [
@@ -82,7 +82,7 @@ export default function ShippingReturn({
               )}
               {asTelephone === false && (
                 <tr>
-                  <th>As 전화번호</th>
+                  <th>AS 전화번호</th>
                   <td>{autoHypenTele(deals.asTelephone)}</td>
                 </tr>
               )}

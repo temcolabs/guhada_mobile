@@ -35,6 +35,7 @@ export default {
             } else if (login.snsType === snsType.NAVER) {
               login.loginNaver();
             } else if (login.snsType === snsType.FACEBOOK) {
+              login.loginFacebook();
             }
           }
         })

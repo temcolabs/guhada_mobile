@@ -13,7 +13,7 @@ export default function SellerStoreHeader({
     followerCount: 0,
     goodSatisfactionCount: 0,
     mailorderRegistrationNumber: '',
-    nickname: '압구정날라리',
+    nickname: '',
     normalSatisfactionCount: 0,
     offlineStoreAddress: '',
     representativeName: '',

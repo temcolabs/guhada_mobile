@@ -22,31 +22,17 @@ class search extends Component {
     // let category = JSON.parse('[' + query.category + ']');
     let subcategory = JSON.parse('[' + query.subcategory + ']');
 
-    if (query.enter === 'keyword') {
-      searchitem.getSearchByUri(
-        '',
-        '',
-        1,
-        searchitem.unitPerPage,
-        '',
-        '',
-        '',
-        'keyword',
-        query.keyword
-      );
-    } else if (query.brand || query.category) {
-      searchitem.getSearchByUri(
-        brand,
-        query.category,
-        query.page,
-        query.unitPerPage,
-        query.order,
-        query.filter,
-        subcategory,
-        query.enter,
-        query.keyword
-      );
-    }
+    searchitem.getSearchByUri(
+      brand,
+      query.category,
+      query.page,
+      query.unitPerPage,
+      query.order,
+      query.filter,
+      subcategory,
+      query.enter,
+      query.keyword
+    );
   }
 
   render() {

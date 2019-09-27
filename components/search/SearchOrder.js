@@ -17,7 +17,6 @@ class SearchOrder extends Component {
     } = this.props;
 
     const { query } = Router.router;
-    // setSearchOrderFilter(query.order);
 
     return (
       <SlideIn isVisible={isVisible} direction={slideDirection.BOTTOM}>
@@ -29,10 +28,10 @@ class SearchOrder extends Component {
               className={cn(css.item, {
                 [css.selected]: searchOrderFilter === 'DATE',
               })}
-              onClick={() => (
-                setSearchOrderFilter('DATE'),
-                toSearch(Object.assign({}, query, { order: 'DATE' }))
-              )}
+              onClick={() => {
+                setSearchOrderFilter('DATE');
+                toSearch(Object.assign({}, query, { order: 'DATE' }));
+              }}
             >
               신상품 순
             </div>
@@ -40,14 +39,14 @@ class SearchOrder extends Component {
               className={cn(css.item, {
                 [css.selected]: searchOrderFilter === 'SCORE',
               })}
-              onClick={() => (
-                setSearchOrderFilter('SCORE'),
+              onClick={() => {
+                setSearchOrderFilter('SCORE');
                 toSearch(
                   Object.assign({}, query, {
                     order: 'SCORE',
                   })
-                )
-              )}
+                );
+              }}
             >
               평점 순
             </div>
@@ -55,10 +54,10 @@ class SearchOrder extends Component {
               className={cn(css.item, {
                 [css.selected]: searchOrderFilter === 'PRICE_ASC',
               })}
-              onClick={() => (
-                setSearchOrderFilter('PRICE_ASC'),
-                toSearch(Object.assign({}, query, { order: 'PRICE_ASC' }))
-              )}
+              onClick={() => {
+                setSearchOrderFilter('PRICE_ASC');
+                toSearch(Object.assign({}, query, { order: 'PRICE_ASC' }));
+              }}
             >
               낮은 가격 순
             </div>
@@ -66,10 +65,10 @@ class SearchOrder extends Component {
               className={cn(css.item, {
                 [css.selected]: searchOrderFilter === 'PRICE_DESC',
               })}
-              onClick={() => (
-                setSearchOrderFilter('PRICE_DESC'),
-                toSearch(Object.assign({}, query, { order: 'PRICE_DESC' }))
-              )}
+              onClick={() => {
+                setSearchOrderFilter('PRICE_DESC');
+                toSearch(Object.assign({}, query, { order: 'PRICE_DESC' }));
+              }}
             >
               높은 가격 순
             </div>

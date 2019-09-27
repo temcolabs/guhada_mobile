@@ -74,7 +74,14 @@ class ProductReviewItems extends Component {
         <div className={css.profileWrap}>
           <div
             className={css.profileImage}
-            style={{ backgroundImage: `url(${item.review.profileImageUrl})` }}
+            style={
+              _.isNil(item.review) === false &&
+              _.isNil(item.review.profileImageUrl) === false
+                ? {
+                    backgroundImage: `url(${item.review.profileImageUrl})`,
+                  }
+                : null
+            }
           />
           <div className={css.profileContents}>
             <div>

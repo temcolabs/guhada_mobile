@@ -43,14 +43,14 @@ function HeaderMenu({
           <div className={css.itemWrap}>
             <LinkRoute href={`/`}>
               <a>
-                <div className={css.home} />
+                <div className={css.home} onClick={() => onClose()} />
               </a>
             </LinkRoute>
-            <LinkRoute href={`/`}>
+            {/* <LinkRoute href={`/`}>
               <a>
                 <div className={css.setting} />
               </a>
-            </LinkRoute>
+            </LinkRoute> */}
             <a>
               <div className={css.close} onClick={onClose} />
             </a>
