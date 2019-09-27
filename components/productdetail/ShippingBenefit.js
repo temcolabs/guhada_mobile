@@ -168,38 +168,32 @@ class ShippingBenefit extends Component {
             </div>
           </div>
         </div>
-        <div className={css.itemWrap}>
-          <div className={css.itemTitle}>상품리뷰</div>
-          <div className={css.contentsWrap}>
-            <div className={css.itemContents}>
-              {_.isNil(reviewSummary) === false
-                ? StarItem(reviewSummary.averageReviewsRating, true)
-                : StarItem(0, true)}
-              <div className={css.averageReviewsRating}>
-                {_.isNil(reviewSummary) === false
-                  ? `${reviewSummary.averageReviewsRating}점`
-                  : `0점`}
+        {_.isNil(reviewSummary) === false && (
+          <div className={css.itemWrap}>
+            <div className={css.itemTitle}>상품리뷰</div>
+            <div className={css.contentsWrap}>
+              <div className={css.itemContents}>
+                {StarItem(reviewSummary.averageReviewsRating, true)}
+                <div className={css.averageReviewsRating}>
+                  {`${reviewSummary.averageReviewsRating}`}
+                </div>
+              </div>
+
+              <div className={css.itemContents}>
+                {`${reviewSummary.totalReviewsCount}건`}
+                <div
+                  className={css.arrowR}
+                  onClick={() =>
+                    window.scrollTo(
+                      0,
+                      tabRefMap.reviewTab.current.offsetTop - 180
+                    )
+                  }
+                />
               </div>
             </div>
-
-            <div className={css.itemContents}>
-              {`${
-                _.isNil(reviewSummary) === false
-                  ? reviewSummary.totalReviewsCount
-                  : 0
-              }건`}
-              <div
-                className={css.arrowR}
-                onClick={() =>
-                  window.scrollTo(
-                    0,
-                    tabRefMap.reviewTab.current.offsetTop - 180
-                  )
-                }
-              />
-            </div>
           </div>
-        </div>
+        )}
       </div>
     );
   }
