@@ -7,6 +7,7 @@ import ShippingAddress from 'components/orderpayment/ShippingAddress';
 import Benefit from 'components/orderpayment/Benefit';
 import FinalAmountBenefit from 'components/orderpayment/FinalAmountBenefit';
 import PaymentMethod from 'components/orderpayment/PaymentMethod';
+import CashReceipt from 'components/orderpayment/CashReceipt';
 import PaymentAgreement from 'components/orderpayment/PaymentAgreement';
 import PaymentButton from 'components/orderpayment/PaymentButton';
 import { inject, observer } from 'mobx-react';
@@ -17,7 +18,11 @@ class OrderPayment extends React.Component {
   render() {
     let { orderpayment } = this.props;
     return (
-      <DefaultLayout pageTitle={'주문 결제'} headerShape={'searchList'}>
+      <DefaultLayout
+        pageTitle={'주문 결제'}
+        headerShape={'orderpayment'}
+        toolBar={false}
+      >
         <Controller />
 
         {orderpayment.status.orderProductOnOffStatus ? (
@@ -44,6 +49,9 @@ class OrderPayment extends React.Component {
 
         {/* 결제 수단 */}
         <PaymentMethod />
+
+        {/* 현금영수증 */}
+        <CashReceipt />
 
         {/* 결제 동의 */}
         <PaymentAgreement />

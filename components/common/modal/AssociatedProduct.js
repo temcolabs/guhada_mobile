@@ -81,9 +81,10 @@ class AssociatedProduct extends React.Component {
                           shoppingCartSuccessModal.goProduct(data.dealId);
                         }}
                       >
-                        <div className={css.associatedItemImage}>
-                          <img src={data.imageUrl} alt="연관상품" />
-                        </div>
+                        <div
+                          className={css.associatedItemImage}
+                          style={{ backgroundImage: `url(${data.imageUrl})` }}
+                        />
                         <div className={css.brandName}>
                           <span>{data.brandName}</span>
                           {/* <span>{data.productSeason}</span> */}

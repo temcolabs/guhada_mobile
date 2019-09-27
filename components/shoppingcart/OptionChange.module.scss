@@ -4,35 +4,40 @@
 
   .quantityChangeWrap {
     display: flex;
-    margin-top: 20px;
+    // margin-top: 20px;
     align-items: center;
     .quantityChange {
       display: flex;
-      width: 90px;
+      width: 110px;
       cursor: pointer;
       .minus__btn {
-        border: 1px solid #ddd;
+        width: 32px;
+        height: 32px;
+        border: 1px solid #eee;
+        background: #fff;
       }
 
       .quantity {
-        border-top: 1px solid #ddd;
-        border-bottom: 1px solid #ddd;
+        display: flex;
+        align-items: center;
         input {
           width: 100%;
           text-align: center;
           font-size: 12px;
           font-weight: bold;
           color: #111;
+          background: #f9f9fa;
         }
       }
 
       .plus__btn {
-        border: 1px solid #ddd;
+        border: 1px solid #eee;
+        background: #fff;
       }
 
       img {
-        width: 23px;
-        height: 23px;
+        width: 32px;
+        height: 32px;
       }
     }
 
@@ -53,6 +58,12 @@
     .stock {
       margin-left: 10px;
       color: #5d2ed1;
+      font-size: 12px;
+    }
+
+    .optionNotice {
+      margin-left: 10px;
+      color: #d42d1e;
       font-size: 12px;
     }
   }

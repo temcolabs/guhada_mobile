@@ -1,3 +1,4 @@
+@import 'styles/mixins/index';
 .modal {
   position: relative;
   background-color: #fff;
@@ -49,11 +50,15 @@
           }
           .associatedItemImage {
             width: 100px;
-            height: 130px;
-
+            height: 100px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
             overflow: hidden;
-            img {
-              width: 100%;
+
+            @include break350 {
+              width: 70px;
+              height: 70px;
             }
           }
 
@@ -90,6 +95,12 @@
             color: #111;
             font-weight: normal;
             max-width: calc(100%);
+            height: 36px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
           }
         }
       }
