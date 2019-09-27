@@ -124,10 +124,10 @@ const Product = props => {
         </div>
         <div className={css.productOption}>
           {product.itemOptionResponse
-            ? `${product.itemOptionResponse.attribute1} ${
-                product.itemOptionResponse.attribute2
-              } ${product.itemOptionResponse.attribute3}`
-            : `옵션이없는상품`}
+            ? `${product.itemOptionResponse.attribute1 || ''} ${product
+                .itemOptionResponse.attribute2 || ''} ${product
+                .itemOptionResponse.attribute3 || ''}`
+            : ` `}
         </div>
       </div>
     </div>

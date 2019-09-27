@@ -360,6 +360,10 @@ export default class ProductOptionStore {
         }
 
         devLog(toJS(this.dueSavebenefitCoupon), 'this.dueSavebenefitCoupon');
+        console.log(
+          toJS(this.dueSavebenefitCoupon),
+          'this.dueSavebenefitCoupon'
+        );
       })
       .catch(err => {
         // this.root.alert.showAlert({
@@ -396,7 +400,7 @@ export default class ProductOptionStore {
             this.root.alert.showAlert({
               content: `쿠폰발급완료`,
             });
-            this.dueSavebenefitCoupon[i].alreadySaved = true;
+            this.dueSavebenefitCoupon[0].alreadySaved = true;
             this.couponDownModalClose();
           })
           .catch(err => {

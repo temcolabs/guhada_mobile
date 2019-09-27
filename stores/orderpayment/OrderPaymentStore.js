@@ -340,7 +340,7 @@ export default class OrderPaymentStore {
       }
       tempAttribute = tempAttribute.substr(0, tempAttribute.length);
 
-      if (tempAttribute == '') {
+      if (tempAttribute === '') {
         branchArray.push(null);
       } else {
         branchArray.push(tempAttribute);
