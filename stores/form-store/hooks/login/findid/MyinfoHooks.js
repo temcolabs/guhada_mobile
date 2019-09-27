@@ -22,12 +22,10 @@ export default {
     devLog('api call start', form);
 
     API.user
-      .get(
-        '/findUserId?phoneNumber=' +
-          idFindData.mobile.replace(/-/gi, '') +
-          '&name=' +
-          idFindData.name
-      )
+      .post('/users/findUserId', {
+        mobile: idFindData.mobile.replace(/-/gi, ''),
+        name: idFindData.name,
+      })
       .then(function(res) {
         devLog(res);
         let data = res.data;
@@ -39,13 +37,14 @@ export default {
         Router.push('/login/findidresult');
       })
       .catch(e => {
-        root.alert.showConfirm({
-          content: '해당 정보와 일치하는 아이디가 없습니다.',
-          confirmText: '가입하기',
-          onConfirm: () => {
-            pushRoute('/login/signup');
-          },
-        });
+        if (_.get(e, 'data.resultCode') === 5004)
+          root.alert.showConfirm({
+            content: '해당 정보와 일치하는 아이디가 없습니다.',
+            confirmText: '가입하기',
+            onConfirm: () => {
+              pushRoute('/login/signup');
+            },
+          });
       });
   },
 

@@ -74,12 +74,11 @@ export default class AuthMobileStore {
             let data = event.data;
 
             API.user
-              .get(
-                '/findUserId?phoneNumber=' +
-                  data.sMobileNo +
-                  '&name=' +
-                  data.sName
-              )
+              .post('/users/findUserId', {
+                mobile: data.sMobileNo,
+                name: data.sName,
+                diCode: data.sDueInfo,
+              })
               .then(function(res) {
                 let data = res.data;
 
@@ -90,13 +89,16 @@ export default class AuthMobileStore {
                 Router.push('/login/findidresult');
               })
               .catch(e => {
-                root.alert.showConfirm({
-                  content: '해당 정보와 일치하는 아이디가 없습니다.',
-                  confirmText: '가입하기',
-                  onConfirm: () => {
-                    pushRoute('/login/signup');
-                  },
-                });
+                let resultCode = _.get(e, 'data.resultCode');
+                if (resultCode === 5004)
+                  root.alert.showConfirm({
+                    content: '해당 정보와 일치하는 아이디가 없습니다.',
+                    confirmText: '가입하기',
+                    onConfirm: () => {
+                      pushRoute('/login/signup');
+                    },
+                  });
+                else devLog(e);
               });
           } else if (location === 'order') {
             console.log(authData, 'authData');
