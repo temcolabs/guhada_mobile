@@ -79,7 +79,8 @@
         background-position: center;
         position: absolute;
         right: 0;
-        transform: translateX(50%);
+        top: 50%;
+        transform: translate(50%, -50%);
       }
     }
 
@@ -106,7 +107,8 @@
         background-position: center;
         position: absolute;
         right: 0;
-        transform: translateX(50%);
+        top: 50%;
+        transform: translate(50%, -50%);
       }
     }
 
