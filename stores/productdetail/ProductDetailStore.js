@@ -64,7 +64,7 @@ export default class ProductDetailStore {
           this.initTableData();
           // this.dealsStatus = true;
           this.deals.dealsId = id;
-          this.getBlockChainData();
+          // this.getBlockChainData();
 
           // 혜택정보
           this.root.productoption.getBenefitData();
