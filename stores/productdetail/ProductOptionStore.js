@@ -422,6 +422,8 @@ export default class ProductOptionStore {
               return false;
             }
           });
+      } else {
+        this.couponIsOpen = true;
       }
     }
   };
