@@ -23,6 +23,10 @@ export default function ProductInfo({
             <td>{deals.dealId}</td>
           </tr>
           <tr>
+            <th>제품번호</th>
+            <td>{deals.modelNumber}</td>
+          </tr>
+          <tr>
             <th>원산지</th>
             <td>{deals.originAreaName}</td>
           </tr>
