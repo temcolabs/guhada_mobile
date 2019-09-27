@@ -36,8 +36,8 @@ class ProductInquiry extends Component {
               ? 0
               : String(inquiryList.totalElements).toLocaleString()}
             건
-            {login.loginStatus === 'LOGIN_DONE' ? (
-              <div className={css.myinquiry}>
+            <div className={css.myinquiry}>
+              {login.loginStatus === loginStatus.LOGIN_DONE ? (
                 <input
                   type="checkbox"
                   id="askCheckbox"
@@ -47,11 +47,20 @@ class ProductInquiry extends Component {
                       : productdetail.getInquiry(0, '', false)
                   }
                 />
-                <label htmlFor="askCheckbox">
-                  <span />내 문의만 보기
-                </label>
-              </div>
-            ) : null}
+              ) : (
+                <input
+                  type="checkbox"
+                  id="askCheckbox"
+                  onClick={e => {
+                    e.preventDefault();
+                    alert.showAlert('로그인이 필요한 서비스입니다.');
+                  }}
+                />
+              )}
+              <label htmlFor="askCheckbox">
+                <span />내 문의만 보기
+              </label>
+            </div>
           </div>
           <div>
             <button
