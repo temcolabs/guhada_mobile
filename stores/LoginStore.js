@@ -251,19 +251,15 @@ export default class LoginStore {
         let data = res.data;
         devLog(data);
 
-        if (data.resultCode === 200) {
-          Cookies.set(key.ACCESS_TOKEN, data.data.accessToken);
-          Cookies.set(key.REFRESH_TOKEN, data.data.refreshToken);
+        Cookies.set(key.ACCESS_TOKEN, data.data.accessToken);
+        Cookies.set(key.REFRESH_TOKEN, data.data.refreshToken);
 
-          login.handleLoginSuccess({
-            accessToken: data.data.accessToken,
-            refreshToken: data.data.refreshToken,
-            expiresIn: data.data.expiresIn,
-          });
-          pushRoute('/');
-        } else {
-          devLog('data.message', data.message);
-        }
+        login.handleLoginSuccess({
+          accessToken: data.data.accessToken,
+          refreshToken: data.data.refreshToken,
+          expiresIn: data.data.expiresIn,
+        });
+        pushRoute('/');
       })
       .catch(e => {
         devLog('e', e);
@@ -322,21 +318,15 @@ export default class LoginStore {
       })
       .then(function(res) {
         let data = res.data;
-        devLog(data);
+        Cookies.set(key.ACCESS_TOKEN, data.data.accessToken);
+        Cookies.set(key.REFRESH_TOKEN, data.data.refreshToken);
 
-        if (data.resultCode === 200) {
-          Cookies.set(key.ACCESS_TOKEN, data.data.accessToken);
-          Cookies.set(key.REFRESH_TOKEN, data.data.refreshToken);
-
-          login.handleLoginSuccess({
-            accessToken: data.data.accessToken,
-            refreshToken: data.data.refreshToken,
-            expiresIn: data.data.expiresIn,
-          });
-          pushRoute('/');
-        } else {
-          devLog('data.message', data.message);
-        }
+        login.handleLoginSuccess({
+          accessToken: data.data.accessToken,
+          refreshToken: data.data.refreshToken,
+          expiresIn: data.data.expiresIn,
+        });
+        pushRoute('/');
       })
       .catch(e => {
         devLog('e', e);
@@ -393,21 +383,15 @@ export default class LoginStore {
       })
       .then(function(res) {
         let data = res.data;
-        devLog(data);
+        Cookies.set(key.ACCESS_TOKEN, data.data.accessToken);
+        Cookies.set(key.REFRESH_TOKEN, data.data.refreshToken);
 
-        if (data.resultCode === 200) {
-          Cookies.set(key.ACCESS_TOKEN, data.data.accessToken);
-          Cookies.set(key.REFRESH_TOKEN, data.data.refreshToken);
-
-          login.handleLoginSuccess({
-            accessToken: data.data.accessToken,
-            refreshToken: data.data.refreshToken,
-            expiresIn: data.data.expiresIn,
-          });
-          pushRoute('/');
-        } else {
-          devLog('data.message', data.message);
-        }
+        login.handleLoginSuccess({
+          accessToken: data.data.accessToken,
+          refreshToken: data.data.refreshToken,
+          expiresIn: data.data.expiresIn,
+        });
+        pushRoute('/');
       })
       .catch(e => {
         devLog('e', e);
@@ -464,21 +448,15 @@ export default class LoginStore {
       })
       .then(function(res) {
         let data = res.data;
-        devLog(data);
+        Cookies.set(key.ACCESS_TOKEN, data.data.accessToken);
+        Cookies.set(key.REFRESH_TOKEN, data.data.refreshToken);
 
-        if (data.resultCode === 200) {
-          Cookies.set(key.ACCESS_TOKEN, data.data.accessToken);
-          Cookies.set(key.REFRESH_TOKEN, data.data.refreshToken);
-
-          login.handleLoginSuccess({
-            accessToken: data.data.accessToken,
-            refreshToken: data.data.refreshToken,
-            expiresIn: data.data.expiresIn,
-          });
-          pushRoute('/');
-        } else {
-          devLog('data.message', data.message);
-        }
+        login.handleLoginSuccess({
+          accessToken: data.data.accessToken,
+          refreshToken: data.data.refreshToken,
+          expiresIn: data.data.expiresIn,
+        });
+        pushRoute('/');
       })
       .catch(e => {
         devLog('e', e);
