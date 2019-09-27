@@ -6,15 +6,17 @@ import ProductDetailOptionSelectbox from './ProductDetailOptionSelectbox';
 @observer
 class ProductDetailOption extends Component {
   render() {
-    let { productoption } = this.props;
+    let { productdetail, productoption } = this.props;
     return (
       <div className={css.wrap}>
         <div className={css.title}>옵션선택</div>
-        {productoption.options.noOption ? null : (
-          <div className={css.option__box}>
-            <ProductDetailOptionSelectbox />
-          </div>
-        )}
+        {productdetail.deals.options.length ? (
+          productoption.options.noOption ? null : (
+            <div className={css.option__box}>
+              <ProductDetailOptionSelectbox />
+            </div>
+          )
+        ) : null}
 
         {productoption.options.selectedOption ? (
           <div className={css.quantity__wrap}>

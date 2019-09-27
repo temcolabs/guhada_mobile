@@ -32,7 +32,7 @@ class CouponDownModal extends Component {
               </div>
             )}
             {productoption.dueSavebenefitCoupon.map((data, index) => {
-              return (
+              return data.alreadySaved ? null : (
                 <div className={css.couponWrap} key={index}>
                   <div className={css.coupon}>
                     <div className={css.couponSeller}>
@@ -57,7 +57,10 @@ class CouponDownModal extends Component {
                   </div>
                   <div className={css.couponNotice}>
                     {data.minimumPrice ? (
-                      <div>{` ㆍ ${data.minimumPrice.toLocaleString()} 원 이상 결제시 사용가능`}</div>
+                      <div>{` ㆍ ${data.minimumPrice?.toLocaleString()} 원 이상 결제시 사용가능`}</div>
+                    ) : null}
+                    {data.maximumDiscountPrice ? (
+                      <div>{` ㆍ ${data.maximumDiscountPrice?.toLocaleString()} 원 까지할인`}</div>
                     ) : null}
 
                     <div>ㆍ 발급일부터 {data.expireAt} 일간 유효</div>
