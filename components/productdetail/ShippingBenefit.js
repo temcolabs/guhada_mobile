@@ -136,23 +136,19 @@ class ShippingBenefit extends Component {
                 </div>
               </div>
               <div className={css.infoWrap}>
-                <div>
-                  <button
-                    className={cn({
-                      [css.colored]: sellerfollow.follows === false,
-                    })}
-                    onClick={this.handleSellerFollows}
-                  >
-                    {sellerfollow.follows === false ? '팔로우' : '팔로잉'}
-                  </button>
-                </div>
-                <div>
-                  <button
-                    onClick={() => pushRoute(`/sellerstore/${deals.sellerId}`)}
-                  >
-                    셀러스토어
-                  </button>
-                </div>
+                <button
+                  className={cn({
+                    [css.colored]: sellerfollow.follows === false,
+                  })}
+                  onClick={this.handleSellerFollows}
+                >
+                  {sellerfollow.follows === false ? '팔로우' : '팔로잉'}
+                </button>
+                <button
+                  onClick={() => pushRoute(`/sellerstore/${deals.sellerId}`)}
+                >
+                  셀러스토어
+                </button>
               </div>
             </div>
             <div className={css.satisfaction}>
