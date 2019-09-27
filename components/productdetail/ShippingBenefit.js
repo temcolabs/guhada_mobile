@@ -175,7 +175,13 @@ class ShippingBenefit extends Component {
               {_.isNil(reviewSummary) === false
                 ? StarItem(reviewSummary.averageReviewsRating, true)
                 : StarItem(0, true)}
+              <div className={css.averageReviewsRating}>
+                {_.isNil(reviewSummary) === false
+                  ? `${reviewSummary.averageReviewsRating}점`
+                  : `0점`}
+              </div>
             </div>
+
             <div className={css.itemContents}>
               {`${
                 _.isNil(reviewSummary) === false

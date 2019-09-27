@@ -33,6 +33,12 @@
 
     & .itemContents {
       display: flex;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    & .averageReviewsRating {
+      margin-left: 4px;
     }
 
     & .plusIcon {
@@ -162,11 +168,13 @@
         text-align: center;
         color: #ffffff;
         margin-right: 10px;
+
         @include break350 {
           width: 56px;
           white-space: nowrap;
           font-size: 11px;
         }
+
         &.colored {
           border: solid 1px #444444;
           background-color: #444444;
@@ -181,9 +189,11 @@
       font-weight: normal;
       text-align: left;
       color: #333333;
+
       @include break350 {
         font-size: 10px;
       }
+
       & .good {
         height: 20px;
         background-image: url('/static/icon/grade_good.png');

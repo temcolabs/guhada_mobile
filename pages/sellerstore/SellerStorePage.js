@@ -14,7 +14,8 @@ class SellerStorePage extends Component {
     const { seller, login } = this.props;
     const sellerId = Router.router.query.sellerId;
     if (isBrowser) {
-      seller.getSellerStore(sellerId);
+      seller.sellerId = sellerId;
+      seller.getSellerStore();
       seller.getSellerStoreDeal(sellerId);
 
       if (login.loginStatus === loginStatus.LOGIN_DONE)
@@ -25,7 +26,8 @@ class SellerStorePage extends Component {
     const { seller, login } = this.props;
     const sellerId = Router.router.query.sellerId;
     if (isBrowser) {
-      seller.getSellerStore(sellerId);
+      seller.sellerId = sellerId;
+      seller.getSellerStore();
       seller.getSellerStoreDeal(sellerId);
 
       if (login.loginStatus === loginStatus.LOGIN_DONE)

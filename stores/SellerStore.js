@@ -42,10 +42,11 @@ export default class SellerStore {
   @observable order = 'DATE';
   @observable sellerStoreFollow = [];
   @observable storeFollowBool = false;
+  @observable sellerId;
   @action
-  getSellerStore = sellerId => {
+  getSellerStore = () => {
     API.user
-      .get(`sellers/${sellerId}/store`)
+      .get(`sellers/${this.sellerId}/store`)
       .then(res => {
         let data = res.data;
         this.sellerStore = data.data;
@@ -113,6 +114,7 @@ export default class SellerStore {
       })
       .then(res => {
         this.getFollowSellerStore(id);
+        this.getSellerStore();
       })
       .catch(e => {
         let resultCode = _.get(e, 'data.resultCode');
@@ -132,6 +134,7 @@ export default class SellerStore {
       })
       .then(res => {
         this.getFollowSellerStore(id);
+        this.getSellerStore();
       })
       .catch(e => {
         let resultCode = _.get(e, 'data.resultCode');
