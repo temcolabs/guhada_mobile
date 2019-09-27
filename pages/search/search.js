@@ -31,7 +31,8 @@ class search extends Component {
       query.filter,
       subcategory,
       query.enter,
-      query.keyword
+      query.keyword,
+      query.condition
     );
   }
 

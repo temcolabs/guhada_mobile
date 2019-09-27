@@ -11,6 +11,8 @@ export default function MainSectionItem({
   title = 'PLUS ITEM',
   items,
   categoryId,
+  toSearch = () => {},
+  condition,
 }) {
   const [isCategory, setIsCategory] = useState('');
   useEffect(() => {
@@ -18,6 +20,7 @@ export default function MainSectionItem({
     else setIsCategory(categoryId);
   }, [categoryId]);
 
+  console.log('categoryId', isCategory);
   return (
     <>
       <div className={css.wrap}>
@@ -59,6 +62,18 @@ export default function MainSectionItem({
                   );
               })
             : null}
+        </div>
+        <div
+          className={css.viewMoreBtn}
+          onClick={() =>
+            toSearch({
+              category: isCategory,
+              enter: 'keyword',
+              condition: condition,
+            })
+          }
+        >
+          VIEW MORE
         </div>
       </div>
       <div className={css.marginArea} />
