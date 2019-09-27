@@ -81,7 +81,7 @@ function Header({ children, headerShape, history, shoppingcart }) {
             <Link href="/shoppingcart">
               <div className={css.cartButton}>
                 <button />
-                {cartAmount !== 0 ? <div>{cartAmount}</div> : null}
+                {cartAmount > 0 ? <div>{cartAmount}</div> : null}
               </div>
             </Link>
           )}
