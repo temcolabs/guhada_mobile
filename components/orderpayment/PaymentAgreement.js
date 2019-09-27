@@ -20,7 +20,11 @@ class PaymentAgreement extends Component {
           구매 및 결제대행서비스 이용약관 동의
         </label>
         <div className={css.agreementText}>
-          <a href="https://web.guhada.com/terms/purchase" target="_blank">
+          <a
+            href={`${process.env.HOSTNAME}/terms/purchase`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             보기
           </a>
         </div>
