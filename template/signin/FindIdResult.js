@@ -5,6 +5,7 @@ import { LoginWrapper, LoginButton } from 'components/login';
 import { observer } from 'mobx-react';
 import css from './FindIdResult.module.scss';
 import { LinkRoute } from 'lib/router';
+import copy from 'copy-to-clipboard';
 
 @observer
 class FindIdResult extends Component {
@@ -22,10 +23,19 @@ class FindIdResult extends Component {
               <div className={css.emailWrap}>
                 <div className={css.email}>{value.email}</div>
                 <div className={css.joinDate}>{`(${value.joinAt})`}</div>
+                {form.$('authMobile').value === true && (
+                  <div>
+                    <button onClick={() => copy(form.$('email').value)}>
+                      아이디 복사
+                    </button>
+                  </div>
+                )}
               </div>
-              <div className={css.subText}>
-                개인정보보호를 위해 아이디 뒷자리는 *로 표시됩니다.
-              </div>
+              {form.$('authMobile').value !== true && (
+                <div className={css.subText}>
+                  개인정보보호를 위해 아이디 뒷자리는 *로 표시됩니다.
+                </div>
+              )}
             </div>
             <div className={css.itemWrap}>
               아이디 휴대폰으로 발송하기
@@ -36,11 +46,6 @@ class FindIdResult extends Component {
                 <button>아이디 발송하기</button>
               </div>
             </div>
-            <LinkRoute href="/login/signup">
-              <a>
-                <LoginButton>새로운 계정 만들기</LoginButton>
-              </a>
-            </LinkRoute>
             <LinkRoute href="/login/">
               <a>
                 <LoginButton

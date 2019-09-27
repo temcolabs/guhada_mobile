@@ -13,11 +13,10 @@
 }
 
 .emailWrap {
-    height: 102px;
     background-color: #f2f4f4;
-    margin-top: 6px;
-    padding-top: 34px;
+    margin-top: 12px;
     margin-bottom: 12px;
+    padding: 30px 15px 20px 15px;
 
     & .email {
         font-size: 14px;
@@ -35,6 +34,7 @@
         text-align: center;
         color: #9a9a9a;
         margin-top: 10px;
+        margin-bottom: 15px;
     }
 }
 
@@ -48,11 +48,9 @@
 }
 
 .mobileWrap {
-    height: 120px;
     background-color: #f2f4f4;
-    margin-top: 6px;
-    padding: 0 15px;
-    padding-top: 20px;
+    margin-top: 12px;
+    padding: 30px 15px 20px 15px;
     margin-bottom: 36px;
 
     & .mobileLabel {
@@ -61,22 +59,22 @@
         line-height: 1.15;
         text-align: center;
         color: #000000;
+        margin-bottom: 15px;
 
         & span {
             margin-left: 15px;
             color: #5d2ed1;
         }
     }
+}
 
-    & button {
-        margin-top: 19px;
-        border: solid 1px #cccccc;
-        background-color: #ffffff;
-        width: 100%;
-        height: 46px;
-        font-size: 12px;
-        font-weight: 500;
-        line-height: 1.33;
-        color: #000000;
-    }
+button {
+    border: solid 1px #cccccc;
+    background-color: #ffffff;
+    width: 100%;
+    height: 46px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.33;
+    color: #000000;
 }
