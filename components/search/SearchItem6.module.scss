@@ -65,6 +65,7 @@
         letter-spacing: normal;
         text-align: left;
         color: #111111;
+        @include textEllipsis;
     }
 
     & .dealName {
