@@ -4,14 +4,15 @@
 .detail__gallery {
   position: relative;
   width: 100%;
-  overflow-x: hidden;
+  padding-bottom: 94%;
+  height: 0;
+  overflow: hidden;
 
-  div {
+  .detailImage {
     img {
       width: 100%;
     }
   }
-
   .index__box {
     position: absolute;
     bottom: 4%;

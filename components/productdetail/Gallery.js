@@ -22,10 +22,9 @@ class Gallery extends Component {
       speed: 1000,
       slidesToShow: 1,
       slidesToScroll: 1,
-      adaptiveHeight: true,
       pauseOnFocus: true,
       swipeToSlide: true,
-
+      adaptiveHeight: false,
       beforeChange: (current, next) => this.setState({ activeSlide: next + 1 }),
     };
     return (
@@ -33,7 +32,7 @@ class Gallery extends Component {
         <Slider {...settings}>
           {productdetail.deals.imageUrls.map((data, index) => {
             return (
-              <div key={index}>
+              <div key={index} className={css.detailImage}>
                 <img src={data} alt="상세이미지" />
               </div>
             );

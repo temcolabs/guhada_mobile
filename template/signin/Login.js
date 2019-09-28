@@ -17,6 +17,7 @@ import NaverLogin from 'components/login/NaverLogin';
 import SaveIdCheckBox from 'components/login/SaveIdCheckBox';
 import Cookies from 'js-cookie';
 import { snsAppKey } from 'constant/sns';
+import Router from 'next/router';
 
 let userId = Cookies.get('userId');
 
@@ -34,6 +35,9 @@ class Login extends React.Component {
     let { form } = this.props;
     if (this.state.checkSaveId) {
       form.$('email').set(userId);
+    }
+    if (this.props.login.loginStatus === 'LOGIN_DONE') {
+      Router.push('/');
     }
   }
 

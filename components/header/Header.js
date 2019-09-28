@@ -17,6 +17,8 @@ import BrandContainer from './item/BrandContainer';
  * productDetail 일때 layout 변경
  */
 
+let cartAmount = 0;
+
 function Header({ children, headerShape, history, shoppingcart }) {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isCategoryVisible, setIsCategoryVisible] = useState(false);
@@ -24,7 +26,10 @@ function Header({ children, headerShape, history, shoppingcart }) {
   const [categoryTitle, setCategoryTitle] = useState('');
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [isBrandVisible, setIsBrandVisible] = useState(false);
-  let cartAmount = shoppingcart.globalGetUserShoppingCartList();
+  if (cartAmount === 0) {
+    cartAmount = shoppingcart.globalGetUserShoppingCartList();
+    console.log(cartAmount, 'cartAmount');
+  }
   let urlHistory = sessionStorage.get('urlHistory');
   return (
     <>

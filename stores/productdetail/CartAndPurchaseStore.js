@@ -71,6 +71,7 @@ export default class CartAndPurchaseStore {
                       Router.push('/shoppingcart');
                     },
                   });
+                  this.root.shoppingcart.globalGetUserShoppingCartList();
                 });
             }
           })
@@ -124,14 +125,13 @@ export default class CartAndPurchaseStore {
           )
           .then(res => {
             let data = res.data;
-            if (data.resultCode === 200) {
-              Router.push({
-                pathname: '/orderpayment',
-                query: {
-                  cartList: data.data.cartItemId,
-                },
-              });
-            }
+            Router.push({
+              pathname: '/orderpayment',
+              query: {
+                cartList: data.data.cartItemId,
+              },
+            });
+            this.root.shoppingcart.globalGetUserShoppingCartList();
           })
           .catch(err => {
             if (this.root.login.loginStatus === 'logout') {
