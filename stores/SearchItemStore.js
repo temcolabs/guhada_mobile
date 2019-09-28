@@ -312,7 +312,7 @@ export default class SearchItemStore {
               searchQueries: keyword === '' ? [] : [keyword],
               searchResultOrder:
                 order === null || order === '' ? 'DATE' : order,
-              searchCondition: condition,
+              searchCondition: condition === '' ? null : condition,
             }
           )
           .then(res => {
