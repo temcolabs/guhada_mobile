@@ -16,7 +16,7 @@ class index extends React.Component {
     return (
       <>
         <Head>
-          <title>주문 성공</title>
+          <title>주문 완료</title>
           <link
             rel="shortcut icon"
             type="image/x-icon"

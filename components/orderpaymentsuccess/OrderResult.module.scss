@@ -1,10 +1,9 @@
 .wrap {
-  margin-top: 30px;
+  margin-top: 37px;
   padding: 0 20px;
   background: url('/static/icon/m_result_bg.png');
   background-size: cover;
   width: 100%;
-
   .resultWrap {
     padding: 50px 0 0 0;
 
@@ -86,30 +85,24 @@
 
     .totalPaymentAmount {
       border-bottom: 1px solid #ddd;
-      padding-bottom: 20px;
-      .resultAmountSection {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 20px;
+      height: 65px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
-        &:first-child {
-          margin-top: 20px;
-        }
+      .bigTitle {
+        font-size: 14px;
+        color: #111;
+        font-weight: 500;
+      }
 
-        .bigTitle {
+      .bigAmount {
+        font-size: 21px;
+        color: #5d2ed1;
+        font-weight: bold;
+
+        span {
           font-size: 14px;
-          color: #111;
-          font-weight: 500;
-        }
-
-        .bigAmount {
-          font-size: 21px;
-          color: #5d2ed1;
-          font-weight: bold;
-
-          span {
-            font-size: 14px;
-          }
         }
       }
     }
@@ -130,21 +123,38 @@
           color: #111;
           font-weight: 500;
           display: flex;
-          span {
+          align-items: center;
+          div {
+            background: url('/static/icon/m_dropdown_arrow.png') no-repeat;
+            background-size: cover;
+            background-position: center;
             margin-left: 6px;
             width: 14px;
             height: 14px;
-
-            img {
-              width: 100%;
-            }
           }
         }
 
-        .bigAmount {
+        .dueSavePoint {
           font-size: 14px;
           color: #5d2ed1;
           font-weight: bold;
+          span {
+            font-weight: 500;
+            font-size: 13px;
+          }
+        }
+      }
+      .dueSavePointDetail {
+        margin-top: 25px;
+        .duesave__point__value {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 15px;
+
+          font-size: 13px;
+          font-weight: 500;
+          color: #777;
         }
       }
     }

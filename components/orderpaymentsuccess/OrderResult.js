@@ -4,6 +4,14 @@ import css from './OrderResult.module.scss';
 @inject('orderpaymentsuccess', 'user')
 @observer
 class OrderResult extends Component {
+  state = {
+    dueSavePoint: false,
+  };
+  dueSavePointHandler = () => {
+    this.setState({
+      dueSavePoint: !this.state.dueSavePoint,
+    });
+  };
   render() {
     let { orderpaymentsuccess } = this.props;
     let {
@@ -35,15 +43,19 @@ class OrderResult extends Component {
               <div className={css.bigTitle}>총 할인금액</div>
               <div
                 className={css.bigAmount}
-              >{`${orderSuccessAmount.totalDiscountDiffPrice.toLocaleString()}원`}</div>
+              >{`${orderSuccessAmount.totalDiscountDiffPrice?.toLocaleString()}원`}</div>
             </div>
             <div className={css.resultAmountSection}>
               <div className={css.title}>쿠폰 할인</div>
-              <div className={css.amount}>0원</div>
+              <div
+                className={css.amount}
+              >{`${orderSuccessAmount.couponDiscountPrice?.toLocaleString()}원`}</div>
             </div>
             <div className={css.resultAmountSection}>
               <div className={css.title}>상품 할인</div>
-              <div className={css.amount}>0원</div>
+              <div
+                className={css.amount}
+              >{`${orderSuccessAmount.productDiscountPrice?.toLocaleString()}원`}</div>
             </div>
             <div className={css.resultAmountSection}>
               <div className={css.title}>포인트 사용</div>
@@ -54,25 +66,63 @@ class OrderResult extends Component {
           </div>
 
           <div className={css.totalPaymentAmount}>
-            <div className={css.resultAmountSection}>
-              <div className={css.bigTitle}>최종 결제금액</div>
-              <div className={css.bigAmount}>
-                {`${orderSuccessAmount.totalPaymentPrice.toLocaleString()}`}
-                <span>원</span>
-              </div>
+            <div className={css.bigTitle}>최종 결제금액</div>
+            <div className={css.bigAmount}>
+              {`${orderSuccessAmount.totalPaymentPrice.toLocaleString()}`}
+              <span>원</span>
             </div>
           </div>
 
           <div className={css.savePoint}>
-            <div className={css.resultAmountSection}>
+            <div
+              className={css.resultAmountSection}
+              onClick={() => {
+                this.dueSavePointHandler();
+              }}
+            >
               <div className={css.bigTitle}>
                 적립 예정 내역
-                <span>
-                  <img src="/static/icon/m_dropdown_arrow.png" alt="드랍다운" />
-                </span>
+                <div
+                  style={
+                    this.state.dueSavePoint
+                      ? { transform: 'rotateX(180deg)' }
+                      : { transform: 'rotateX(0deg)' }
+                  }
+                />
               </div>
-              <div className={css.bigAmount}>590,000</div>
+              <div className={css.dueSavePoint}>
+                <span>최대</span>
+                <strong>{` ${orderpaymentsuccess.totalDueSavePoint.toLocaleString()} `}</strong>
+                <span>P</span>
+              </div>
             </div>
+            {this.state.dueSavePoint ? (
+              <div className={css.dueSavePointDetail}>
+                <div className={css.duesave__point__value}>
+                  <div className={css.type}>구매 확정</div>
+                  <div className={css.point}>
+                    {orderpaymentsuccess.dueSavePoint.buy.toLocaleString() || 0}
+                    <span>P</span>
+                  </div>
+                </div>
+                <div className={css.duesave__point__value}>
+                  <div className={css.type}>텍스트 리뷰</div>
+                  <div className={css.point}>
+                    {orderpaymentsuccess.dueSavePoint.text.toLocaleString() ||
+                      0}
+                    <span>P</span>
+                  </div>
+                </div>
+                <div className={css.duesave__point__value}>
+                  <div className={css.type}>포토 리뷰</div>
+                  <div className={css.point}>
+                    {orderpaymentsuccess.dueSavePoint.photo.toLocaleString() ||
+                      0}
+                    <span>P</span>
+                  </div>
+                </div>
+              </div>
+            ) : null}
           </div>
         </div>
       </div>

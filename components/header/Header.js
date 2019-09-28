@@ -49,7 +49,8 @@ function Header({ children, headerShape, history, shoppingcart }) {
           ) : null}
 
           {headerShape === 'shoppingcart' ||
-          headerShape === 'orderpayment' ? null : (
+          headerShape === 'orderpayment' ||
+          headerShape === 'ordersuccess' ? null : (
             <button
               className={css.menuButton}
               onClick={() => setIsMenuVisible(true)}
@@ -72,7 +73,8 @@ function Header({ children, headerShape, history, shoppingcart }) {
           ) : null}
 
           {headerShape === 'shoppingcart' ||
-          headerShape === 'orderpayment' ? null : (
+          headerShape === 'orderpayment' ||
+          headerShape === 'ordersuccess' ? null : (
             <button
               className={cn(css.searchButton, {
                 [css.leftItemExist]: headerShape === 'productDetail',
@@ -82,7 +84,8 @@ function Header({ children, headerShape, history, shoppingcart }) {
           )}
 
           {headerShape === 'shoppingcart' ||
-          headerShape === 'orderpayment' ? null : (
+          headerShape === 'orderpayment' ||
+          headerShape === 'ordersuccess' ? null : (
             <Link href="/shoppingcart">
               <div className={css.cartButton}>
                 <button />

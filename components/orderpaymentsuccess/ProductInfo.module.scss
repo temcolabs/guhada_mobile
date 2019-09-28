@@ -2,16 +2,19 @@
   margin-top: 60px;
   padding: 0 20px;
   .proudct {
-    padding-bottom: 20px;
     border-bottom: 1px solid #ebebeb;
     display: flex;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
 
     &:last-child {
       border: none;
+      padding: none;
+      margin-bottom: 0px;
     }
     .productImage {
-      min-width: 90px;
-      height: 115px;
+      min-width: 100px;
+      height: 100px;
       background-size: cover;
       background-position: center;
     }
@@ -33,7 +36,6 @@
         color: #111;
         font-size: 13px;
         font-weight: 500;
-        border: 1px solid red;
       }
 
       .productPrice {
@@ -41,14 +43,17 @@
         font-size: 14px;
         color: #111;
         font-weight: bold;
-        border: 1px solid red;
+        max-width: 180px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
 
       .productOption {
-        margin-top: 20px;
+        margin-top: 10px;
         color: #777;
         font-size: 13px;
-        font-weight: 500;
+        font-weight: normal;
       }
     }
   }

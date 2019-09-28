@@ -26,12 +26,15 @@ class ProductInfo extends Component {
                   data.season ? data.season : ''
                 } ${data.prodName}`}</div>
                 <div className={css.productPrice}>
-                  <div className={css.discountPrice}>
-                    {`${data.discountPrice.toLocaleString()}원`}
-                  </div>
+                  {`${data.discountPrice?.toLocaleString()}원`}
                 </div>
                 <div className={css.productOption}>
-                  {orderSuccessProductOption[index]}
+                  {`${
+                    orderSuccessProductOption[index]
+                      ? orderSuccessProductOption[index]
+                      : ' '
+                  }`}
+                  {`${data.quantity}개`}
                 </div>
               </div>
             </div>

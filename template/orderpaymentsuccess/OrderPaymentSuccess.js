@@ -2,7 +2,7 @@ import React from 'react';
 import DefaultLayout from 'components/layout/DefaultLayout';
 import Greeting from 'components/orderpaymentsuccess/Greeting';
 import ProductInfo from 'components/orderpaymentsuccess/ProductInfo';
-import ShippingInfo from 'components/orderpaymentsuccess/ShippingInfo';
+import OrderInfo from 'components/orderpaymentsuccess/OrderInfo';
 import OrderResult from 'components/orderpaymentsuccess/OrderResult';
 import BottomFixedButton from 'components/orderpaymentsuccess/BottomFixedButton';
 import { inject, observer } from 'mobx-react';
@@ -13,7 +13,11 @@ class OrderPaymentSuccess extends React.Component {
   render() {
     let { orderpaymentsuccess } = this.props;
     return (
-      <DefaultLayout toolBar={false} pageTitle={'주문 성공'}>
+      <DefaultLayout
+        toolBar={false}
+        headerShape={'ordersuccess'}
+        pageTitle={'주문 완료'}
+      >
         {/* 진입인사말 */}
         <Greeting />
 
@@ -21,7 +25,7 @@ class OrderPaymentSuccess extends React.Component {
         <ProductInfo />
 
         {/* 주문정보 */}
-        <ShippingInfo />
+        <OrderInfo />
 
         {/* 총 주문금액 */}
         <OrderResult />

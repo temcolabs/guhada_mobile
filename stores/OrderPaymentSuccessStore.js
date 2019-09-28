@@ -1,9 +1,8 @@
 import { observable, action, toJS } from 'mobx';
-import { autoHypenPhone } from '../utils';
 import API from 'lib/API';
 import Router from 'next/router';
-import prependZero from '../lib/string/prependZero';
-
+import moment from 'moment';
+import { dateFormat } from 'constant';
 const isServer = typeof window === 'undefined';
 export default class OrderPaymentStore {
   constructor(root) {
@@ -17,7 +16,15 @@ export default class OrderPaymentStore {
   @observable orderSuccessPayment;
   @observable orderSuccessUser;
   @observable vbankExpireAt;
-  @observable completeAt = '';
+  @observable orderAt = null;
+  @observable totalDueSavePoint = 0;
+
+  @observable dueSavePoint = {
+    buy: 0,
+    text: 0,
+    photo: 0,
+  };
+  @observable dueSavePointList = [];
 
   @observable status = {
     pageStatus: false,
@@ -28,6 +35,8 @@ export default class OrderPaymentStore {
     totalShipPrice: 0,
     totalDiscountDiffPrice: 0,
     totalPaymentPrice: 0,
+    couponDiscountPrice: 0,
+    productDiscountPrice: 0,
   };
 
   @action
@@ -37,49 +46,50 @@ export default class OrderPaymentStore {
       .then(res => {
         let data = res.data;
 
-        if (data.resultCode === 200) {
-          this.orderSuccessNumber = data.data.orderNumber;
-          this.orderSuccessShipping = data.data.shippingAddress;
-          this.orderSuccessProduct = data.data.orderList;
-          this.orderSuccessPayment = data.data.payment;
+        this.orderSuccessNumber = data.data.orderNumber;
+        this.orderSuccessShipping = data.data.shippingAddress;
+        this.orderSuccessProduct = data.data.orderList;
+        this.orderSuccessPayment = data.data.payment;
 
-          this.orderSuccessAmount.totalProdPrice = data.data.totalProdPrice;
-          this.orderSuccessAmount.totalShipPrice = data.data.totalShipPrice;
-          this.orderSuccessAmount.totalDiscountDiffPrice =
-            data.data.totalDiscountDiffPrice;
-          this.orderSuccessAmount.totalPaymentPrice =
-            data.data.totalPaymentPrice;
+        this.orderSuccessAmount.totalProdPrice = data.data.totalProdPrice;
+        this.orderSuccessAmount.totalShipPrice = data.data.totalShipPrice;
+        this.orderSuccessAmount.totalDiscountDiffPrice =
+          data.data.totalDiscountDiffPrice;
+        this.orderSuccessAmount.totalPaymentPrice = data.data.totalPaymentPrice;
+        this.orderSuccessAmount.couponDiscountPrice =
+          data.data.couponDiscountPrice;
+        this.orderSuccessAmount.productDiscountPrice =
+          data.data.totalDiscountDiffPrice - data.data.couponDiscountPrice;
 
-          this.getPhoneWithHypen();
-          this.getOptions();
-          this.getCompleteAt();
-
-          console.log(toJS(data), '주문완료 정보');
-          this.status.pageStatus = true;
-
-          sessionStorage.removeItem('paymentInfo');
+        this.getOptions();
+        this.getBenefitData();
+        if (this.orderSuccessPayment.parentMethod === 'VBank') {
+          this.getVBankExpireAt();
+        } else {
+          this.getOrderdate();
         }
+        console.log(toJS(data), '주문완료 정보');
+        this.status.pageStatus = true;
       })
       .catch(err => {
         console.log(err);
-        this.root.alert.showConfirm({
-          content: 'error',
-          confirmText: '메인화면 돌아가기',
-          cancelText: '취소',
-          onConfirm: () => {
-            this.gotoMain();
-          },
-        });
+        // this.root.alert.showConfirm({
+        //   content: 'error',
+        //   confirmText: '메인화면 돌아가기',
+        //   cancelText: '취소',
+        //   onConfirm: () => {
+        //     this.gotoMain();
+        //   },
+        // });
+        Router.push('/');
+        sessionStorage.removeItem('paymentInfo');
+      })
+      .finally(() => {
         sessionStorage.removeItem('paymentInfo');
       });
   };
   gotoMain = () => {
     Router.push('/');
-  };
-  getPhoneWithHypen = () => {
-    this.orderSuccessShipping.phone = autoHypenPhone(
-      this.orderSuccessShipping.phone
-    );
   };
 
   //--------------------- 주문완료상품 옵션 데이터 가져오기 ---------------------
@@ -98,10 +108,10 @@ export default class OrderPaymentStore {
         }
       }
       for (let x = 0; x < tempArray.length; x++) {
-        tempAttribute += tempArray[x] + '/';
+        tempAttribute += tempArray[x] + ' ';
       }
 
-      tempAttribute = tempAttribute.substr(0, tempAttribute.length - 1);
+      tempAttribute = tempAttribute.substr(0, tempAttribute.length);
       if (tempAttribute === '') {
         branchArray.push(null);
       } else {
@@ -131,38 +141,112 @@ export default class OrderPaymentStore {
   paymentInfoModalClose = () => {
     this.status.paymentInfoStatus = !this.status.paymentInfoStatus;
   };
-  getVBankExpireAt = () => {
-    let tempDate = '';
-    // this.orderSuccessPayment.vbankExpireAt.map((data, index) => {
-    //   tempDate += data + '.';
-    // });
-    tempDate = `(${this.orderSuccessPayment.vbankExpireAt[0]}.${
-      this.orderSuccessPayment.vbankExpireAt[1]
-    }.${this.orderSuccessPayment.vbankExpireAt[2]} ${
-      this.orderSuccessPayment.vbankExpireAt[3]
-    }:${this.orderSuccessPayment.vbankExpireAt[4]} 까지)`;
 
-    this.vbankExpireAt = tempDate;
+  getVBankExpireAt = () => {
+    this.vbankExpireAt = moment(
+      this.orderSuccessPayment.vbankExpireTimestamp
+    ).format('YYYY. MM. DD HH:mm');
   };
 
-  getCompleteAt = () => {
-    // this.orderSuccessPayment.vbankExpireAt.map((data, index) => {
-    //   tempDate += data + '.';
-    // });
-
-    this.orderSuccessPayment.completeAt[1] = prependZero(
-      this.orderSuccessPayment.completeAt[1]
+  getOrderdate = () => {
+    this.orderAt = moment(this.orderSuccessProduct[0].orderTimestamp).format(
+      'YYYY. MM. DD HH:mm'
     );
-    this.orderSuccessPayment.completeAt[2] = prependZero(
-      this.orderSuccessPayment.completeAt[2]
-    );
+  };
+  @action
+  getBenefitData = () => {
+    let tmp = [];
 
-    this.completeAt = `${this.orderSuccessPayment.completeAt[0]}.${
-      this.orderSuccessPayment.completeAt[1]
-    }.${this.orderSuccessPayment.completeAt[2]} ${
-      this.orderSuccessPayment.completeAt[3]
-    }:${this.orderSuccessPayment.completeAt[4]}`;
+    for (let i = 0; i < this.orderSuccessProduct.length; i++) {
+      tmp.push({
+        bundlePrice: this.orderSuccessProduct[i].shipPrice,
+        orderProdList: [
+          {
+            dcategoryId: this.orderSuccessProduct[i].dcategoryId,
+            dealId: this.orderSuccessProduct[i].dealId,
+            discountPrice: this.orderSuccessProduct[i].discountPrice,
+            lcategoryId: this.orderSuccessProduct[i].lcategoryId,
+            mcategoryId: this.orderSuccessProduct[i].mcategoryId,
+            productPrice: this.orderSuccessProduct[i].orderPrice,
+            scategoryId: this.orderSuccessProduct[i].scategoryId,
+          },
+        ],
+      });
+    }
+    let bundleList = {
+      bundleList: tmp,
+      pointType: 'BUY',
+      serviceType: 'FRONT',
+    };
+    API.benefit
+      .post(`/process/due-save`, bundleList)
+      .then(res => {
+        // console.log(res, 'res');
+        const { data } = res;
+        let buy,
+          text,
+          photo = 0;
+        this.totalDueSavePoint = 0;
+        for (let i = 0; i < data.data.dueSavePointList.length; i++) {
+          this.totalDueSavePoint += data.data.dueSavePointList[i].totalPoint;
+        }
 
-    console.log(this.completeAt, 'this.completeAt');
+        this.dueSavePointList = data.data.dueSavePointList;
+
+        buy = this.dueSavePointList.findIndex(data => {
+          return data.pointType === 'BUY';
+        });
+
+        text = this.dueSavePointList.findIndex(data => {
+          return data.pointType === 'TEXT_REVIEW';
+        });
+
+        photo = this.dueSavePointList.findIndex(data => {
+          return data.pointType === 'IMG_REVIEW';
+        });
+
+        this.dueSavePoint.buy = this.dueSavePointList[buy].totalPoint;
+        this.dueSavePoint.text = this.dueSavePointList[text].totalPoint;
+        this.dueSavePoint.photo = this.dueSavePointList[photo].totalPoint;
+
+        console.log(this.dueSavePoint, 'duesave data');
+      })
+      .catch(err => {
+        console.error(err.message, 'err');
+        // this.root.alert.showAlert({
+        //   content: `${_.get(err, 'data.message') || 'ERROR'}`,
+        // });
+      });
+  };
+
+  dataInit = () => {
+    this.orderSuccessNumber = null;
+    this.orderSuccessShipping = null;
+    this.orderSuccessProduct = {};
+    this.orderSuccessProductOption = [];
+    this.orderSuccessPayment = null;
+    this.orderSuccessUser = null;
+    this.orderTotalQuantity = 0;
+    this.vbankExpireAt = null;
+    this.orderAt = null;
+    this.totalDueSavePoint = 0;
+    this.dueSavePoint = {
+      buy: 0,
+      text: 0,
+      photo: 0,
+    };
+    this.dueSavePointList = [];
+    this.status = {
+      pageStatus: false,
+      paymentInfoStatus: false,
+    };
+    this.orderSuccessAmount = {
+      totalProdPrice: 0,
+      totalShipPrice: 0,
+      totalDiscountDiffPrice: 0,
+      totalPaymentPrice: 0,
+      couponDiscountPrice: 0,
+      productDiscountPrice: 0,
+    };
   };
 }
