@@ -325,7 +325,7 @@ export default class SearchItemStore {
               this.infinityStauts = true;
               this.scrollPosition = 0;
 
-              if (enter !== 'keyword') {
+              if (enter !== 'keyword' && enter !== 'brand') {
                 if (categoryIds) this.setHeaderCategory(categoryIds);
               }
               this.endPage = Math.floor(data.data.countOfDeals / 20) + 1;
@@ -404,9 +404,9 @@ export default class SearchItemStore {
                   // 전체 브랜드 목록을 보여준다.
                   // this.root.brands.brandsByCategoryFilter = data.data.brands;
                   // this.root.brands.setGroupBrandList(data.data.brands);
-                  this.setKeyArray(
-                    getCategoryKeyArray(this.treeDataForFilter, hierarchy[1])
-                  );
+                  // this.setKeyArray(
+                  //   getCategoryKeyArray(this.treeDataForFilter, hierarchy[1])
+                  // );
                   // this.setCategoryTreeData('brand');
 
                   if (enter === 'keyword') {
@@ -414,7 +414,19 @@ export default class SearchItemStore {
                   } else {
                     let brand = JSON.parse('[' + query.brand + ']');
 
-                    if (brand.length >= 2) {
+                    if (query.condition !== '') {
+                      const condition = [
+                        { label: 'PREMIUM ITEM', value: 'PLUS' },
+                        { label: 'BEST ITEM', value: 'BEST' },
+                        { label: 'NEW ARRIVALS', value: 'NEW' },
+                      ];
+
+                      condition.map(c => {
+                        if (c.value === query.condition) {
+                          return this.setTitle(c.label);
+                        }
+                      });
+                    } else if (brand.length >= 2) {
                       this.setTitle('검색 결과');
                     } else if (brand.length === 0) {
                       this.setTitle('전체 상품');
@@ -423,10 +435,6 @@ export default class SearchItemStore {
                         getBrandTitle(toJS(data.data.brands), query.brand)
                       );
                     }
-
-                    // this.setTitle(
-                    //   getCategoryTitle(data.data.categories, categoryIds)
-                    // );
                   }
                 }
               } else {

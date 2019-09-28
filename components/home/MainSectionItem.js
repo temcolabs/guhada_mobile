@@ -20,7 +20,6 @@ export default function MainSectionItem({
     else setIsCategory(categoryId);
   }, [categoryId]);
 
-  console.log('categoryId', isCategory);
   return (
     <>
       <div className={css.wrap}>
@@ -68,7 +67,7 @@ export default function MainSectionItem({
           onClick={() =>
             toSearch({
               category: isCategory,
-              enter: 'keyword',
+              enter: 'brand',
               condition: condition,
             })
           }
