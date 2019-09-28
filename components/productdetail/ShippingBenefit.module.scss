@@ -172,6 +172,8 @@
 
         &:nth-child(2) {
           margin-right: 0;
+          background-color: #444;
+          border: solid 1px #444;
         }
 
         @include break350 {
