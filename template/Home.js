@@ -44,16 +44,22 @@ class Home extends React.Component {
           title={'PREMIUM ITEM'}
           items={main.plusItem}
           categoryId={main.navDealId}
+          toSearch={searchitem.toSearch}
+          condition={'PLUS'}
         />
         <MainSectionItem
           title={'BEST ITEM'}
           items={main.hits}
           categoryId={main.navDealId}
+          toSearch={searchitem.toSearch}
+          condition={'BEST'}
         />
         <MainSectionItem
           title={'NEW ARRIVALS'}
           items={main.newArrivals}
           categoryId={main.navDealId}
+          toSearch={searchitem.toSearch}
+          condition={'NEW'}
         />
         <HomeItemDefault header={'HOT KEYWORD'}>
           <MainHotKeyword

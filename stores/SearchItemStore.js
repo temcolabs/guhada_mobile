@@ -215,7 +215,8 @@ export default class SearchItemStore {
     filterData,
     subcategory,
     enter,
-    keyword
+    keyword,
+    condition
   ) => {
     // 값이 undefined 일 때 문제 되는 parameter 값 "" 처리
 
@@ -297,45 +298,6 @@ export default class SearchItemStore {
         let hierarchy;
         if (categoryIds) {
           let getTreeData = getCategory(this.treeDataForFilter, categoryIds);
-
-          // hierarchy 값 비교해서 같은 값이 2개 이상 나올시에는
-          // children[0].key 값을 열어주는 기능
-
-          // 가방, 슈즈 같은 경우에 필요
-          // if (toJS(getTreeData)) {
-          //   if (getTreeData.children) {
-          //     let hierarchy = JSON.parse(
-          //       '[' + getTreeData.children[0].hierarchy + ']'
-          //     );
-
-          //     let hierarchyCheck = false;
-          //     let cnt = 0;
-          //     for (let i = 0; i < hierarchy.length; i++) {
-          //       for (let j = 0; j < hierarchy.length; j++) {
-          //         if (hierarchy[i] === hierarchy[j]) cnt++;
-          //       }
-          //       if (cnt > 1) hierarchyCheck = true;
-
-          //       cnt = 0;
-          //     }
-
-          //     if (hierarchyCheck === true) {
-          //       // this.setExpandedKeys(getTreeData.children[0].key);
-          //       this.locationHierarchy = getTreeData.children[0];
-          //       this.LocationGuide('hierarchyCheck');
-          //     } else {
-          //       // this.setExpandedKeys(getTreeData.key);
-          //       this.locationHierarchy = getTreeData;
-          //       this.LocationGuide();
-          //     }
-          //   } else {
-          //     // this.setExpandedKeys(getTreeData.key);
-          //     this.locationHierarchy = getTreeData;
-          //     this.LocationGuide();
-          //   }
-
-          //   hierarchy = JSON.parse('[' + getTreeData.hierarchy + ']');
-          // }
         }
 
         let query = Router.router.query;
@@ -350,6 +312,7 @@ export default class SearchItemStore {
               searchQueries: keyword === '' ? [] : [keyword],
               searchResultOrder:
                 order === null || order === '' ? 'DATE' : order,
+              searchCondition: condition,
             }
           )
           .then(res => {
@@ -361,8 +324,10 @@ export default class SearchItemStore {
                */
               this.infinityStauts = true;
               this.scrollPosition = 0;
-              if (categoryIds) this.setHeaderCategory(categoryIds);
 
+              if (enter !== 'keyword') {
+                if (categoryIds) this.setHeaderCategory(categoryIds);
+              }
               this.endPage = Math.floor(data.data.countOfDeals / 20) + 1;
 
               /**
@@ -778,6 +743,7 @@ export default class SearchItemStore {
     subcategory = '',
     enter = '',
     keyword = '',
+    condition = '',
   }) => {
     pushRoute(
       `/search?${qs.stringify({
@@ -790,6 +756,7 @@ export default class SearchItemStore {
         subcategory: subcategory,
         enter: enter,
         keyword: keyword,
+        condition: condition === '' ? [] : condition,
       })}`
     );
     if (this.preUrl !== Router.asPath) this.deals = [];

@@ -53,6 +53,19 @@
 
 
     }
+
+    .viewMoreBtn {
+        width: 141px;
+        height: 40px;
+        border: solid 1px #dddddd;
+        margin: 0 auto;
+        font-size: 12px;
+        color: #111111;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 40px;
+    }
 }
 
 .marginArea {
