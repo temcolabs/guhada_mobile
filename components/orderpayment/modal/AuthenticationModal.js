@@ -122,6 +122,10 @@ class AuthenticationModal extends Component {
                 >
                   인증 확인
                 </div>
+              ) : orderpayment.orderUserInfo.emailVerify ? (
+                <div className={[css.button, css.alreadySuccess].join(' ')}>
+                  인증 메일 요청
+                </div>
               ) : (
                 <div
                   className={css.button}
