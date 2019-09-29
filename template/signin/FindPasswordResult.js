@@ -11,16 +11,20 @@ import _ from 'lodash';
 @observer
 class FindPasswordResult extends Component {
   newPassword = () => {
-    const { form, formValue } = this.props;
+    const { form, formValue, verificationTargetType } = this.props;
     form.validate({ showErrors: true }).then(({ isValid }) => {
       if (isValid === true) {
         // 이메일, 핸드폰인증으로 비밀번호 바꾸기
         if (_.isNil(formValue.diCode) === true) {
           API.user
             .post('/verify/change-password', {
-              email: formValue.values().email,
               newPassword: form.values().passwordConfirm,
               verificationNumber: formValue.values().verificationNumber,
+              verificationTarget:
+                verificationTargetType === 'MOBILE'
+                  ? formValue.values().mobile.replace(/[^0-9]/g, '')
+                  : formValue.values().email,
+              verificationTargetType: verificationTargetType,
             })
             .then(function(res) {
               formValue.update({
