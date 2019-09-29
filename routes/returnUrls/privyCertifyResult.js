@@ -47,18 +47,8 @@ module.exports = {
       )
       .then(response => {
         let data = response.data.data;
-        // console.log(response, 'response');
-        if (response.data.resultCode === 200) {
-          res.redirect('/orderpaymentsuccess?id=' + data);
-        } else {
-          console.log(data, 'pg 통과후 문제');
-
-          if (req.query.cartList) {
-            res.redirect('/orderpayment?cartList=' + req.query.cartList);
-          } else {
-            res.redirect('/');
-          }
-        }
+        console.log(response, 'response');
+        res.redirect('/orderpaymentsuccess?id=' + data);
       })
       .catch(err => {
         if (err.status === 200) {
