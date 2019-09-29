@@ -21,7 +21,7 @@ class OrderProduct extends Component {
             data.season ? data.season : ''
           } ${data.dealName}`}</div>
           <div className={css.productPrice}>
-            {`${data.discountPrice.toLocaleString()}원`}
+            {`${data.sellPrice?.toLocaleString()}원`}
           </div>
           {orderpayment.option[index] ? (
             <div className={css.productOpiton}>{`${

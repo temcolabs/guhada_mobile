@@ -45,6 +45,14 @@ class AuthenticationModal extends Component {
                 onClick={() => authmobile.getCertKey('order')}
               >
                 본인 명의 휴대폰으로 인증
+                <form name="form_chk" method="post" style={{ display: 'none' }}>
+                  <input type="hidden" name="m" value="checkplusSerivce" />
+                  <input
+                    type="hidden"
+                    name="EncodeData"
+                    value={authmobile.authKey}
+                  />
+                </form>
               </div>
               <div className={css.notifyWrap}>
                 <div className={css.notifySection}>
@@ -140,15 +148,6 @@ class AuthenticationModal extends Component {
                 </div>
               )}
             </div>
-
-            <form name="form_chk" method="post" style={{ display: 'none' }}>
-              <input type="hidden" name="m" value="checkplusSerivce" />
-              <input
-                type="hidden"
-                name="EncodeData"
-                value={authmobile.authKey}
-              />
-            </form>
           </div>
         </SlideIn>
       </Fragment>
