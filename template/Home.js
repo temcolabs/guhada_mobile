@@ -51,7 +51,6 @@ class Home extends React.Component {
       `${process.env.API_CLOUD}/images/home/dummy_mobile/00_main_3.png`,
       `${process.env.API_CLOUD}/images/home/dummy_mobile/00_main_4.png`,
     ];
-    console.log('object', main.navDealId);
     return (
       <DefaultLayout title={null} topLayout={'main'}>
         {/* TODO :: 카테고리 네비게이터 */}
