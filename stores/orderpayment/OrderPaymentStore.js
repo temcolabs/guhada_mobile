@@ -183,7 +183,7 @@ export default class OrderPaymentStore {
         //     this.gotoMain();
         //   },
         // });
-        // Router.push('/');
+        Router.push('/');
       });
   };
   gotoMain = () => {

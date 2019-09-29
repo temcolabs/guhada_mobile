@@ -101,7 +101,7 @@ export default class AuthMobileStore {
                 else devLog(e);
               });
           } else if (location === 'order') {
-            console.log(authData, 'authData');
+            console.log(authData, 'authData ?');
             API.user
               .put('/users/identity-verify', {
                 birth: authData.sBirthDate.replace(

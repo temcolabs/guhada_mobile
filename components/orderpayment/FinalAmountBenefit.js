@@ -26,14 +26,14 @@ class FinalAmountBenefit extends Component {
     return (
       <div className={css.wrap}>
         <div className={css.finalTop}>
-          <div className={css.totalOrderTitle}>총 주문금액</div>
+          <div className={css.totalOrderTitle}>상품금액</div>
           <div
             className={css.totalDiscountTitle}
             onClick={() => {
               this.discountInfoHandler();
             }}
           >
-            할인금액
+            할인∙포인트
             <div
               className={css.dropArrowOpacity}
               style={
