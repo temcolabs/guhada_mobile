@@ -1,17 +1,23 @@
 const API = require('../../lib/API');
+let url = require('url');
 
 module.exports = {
   method: 'post',
-  url: '/privyCertifyResult',
+  url: '/privyCertifyResult2',
 
   handler: function(req, res) {
     const authData = req.body;
+    let para = req.url;
+    let pathname = url.parse(req.url).pathname;
+
     console.log(
-      authData.P_OID,
-      req.query.oid,
+      para,
+      pathname,
+      req.query,
       authData,
-      'authData.P_OID , authData'
+      'authData.P_OID , authData , /privyCertifyResult2'
     );
+
     if (authData.P_STATUS !== '00') {
       console.log(authData, 'authData', authData.P_RMESG1, 'message');
 
@@ -72,27 +78,5 @@ module.exports = {
           // );
         }
       });
-
-    // const data = {
-    //   resultCode: authData.resultCode,
-    //   resultMsg: authData.resultMsg,
-    //   pgMid: authData.mid,
-    //   authToken: authData.authToken,
-    //   authUrl: authData.authUrl,
-    //   netCancel: authData.netCancelUrl,
-    //   checkAckUrl: authData.checkAckUrl,
-    //   pgOid: authData.orderNumber,
-    // };
-
-    // API.order.post(`/order/orderApproval`, data).then(response => {
-    //   let data = response.data.data;
-    //   // console.log(response, 'response');
-    //   if (response.data.resultCode === 200) {
-    //     res.redirect('/orderpaymentsuccess?id=' + data);
-    //   } else {
-    //     console.log(data, 'pg 통과후 문제');
-    //     res.redirect('/orderpayment?cartList=' + req.query.cartList);
-    //   }
-    // });
   },
 };

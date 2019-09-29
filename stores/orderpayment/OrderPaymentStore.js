@@ -981,10 +981,9 @@ export default class OrderPaymentStore {
           `${process.env.HOSTNAME_MOBILE}/privyCertifyResult?` +
           query +
           `&oid=${data.pgOid}`;
-        let nextUrl =
-          `${process.env.HOSTNAME_MOBILE}/privyCertifyResult?` +
-          query +
-          `&oid=${data.pgOid}`;
+        let nextUrl = `${process.env.HOSTNAME_MOBILE}/privyCertifyResult2?${
+          data.pgOid
+        }`;
         console.log(returnUrl, 'returnUrl');
 
         console.log(data, 'requestOrder return data');
@@ -1021,6 +1020,7 @@ export default class OrderPaymentStore {
         sessionStorage.setItem('paymentInfo', JSON.stringify(forms));
       })
       .catch(err => {
+        console.log(err);
         this.root.alert.showAlert({
           content: `${_.get(err, 'data.message') || '결제 오류'}`,
         });
