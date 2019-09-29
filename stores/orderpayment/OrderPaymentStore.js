@@ -941,7 +941,7 @@ export default class OrderPaymentStore {
               String(this.cashReceiptEntrepreneur.last),
         cashReceiptType:
           this.cashReceiptUsage === 'PERSONAL' ? 'MOBILE' : 'BUSINESS',
-        web: true,
+        web: false,
       };
     } else {
       forms = {
@@ -959,7 +959,7 @@ export default class OrderPaymentStore {
         wScroll: window.scrollY,
         consumptionPoint: this.usePoint,
 
-        web: true,
+        web: false,
       };
     }
     console.log(forms, 'forms');
@@ -1025,12 +1025,12 @@ export default class OrderPaymentStore {
   paymentStart = () => {
     // const action = () => {
     let form = document.getElementById('paymentForm');
+
+    // euc-kr 로 form 전달해야함.
     // form.P_GOODS.value = encodeURIComponent(form.P_GOODS.value);
     // form.P_UNAME.value = encodeURIComponent(form.P_UNAME.value);
 
-    // form.P_GOODS.value = decodeURIComponent(form.P_GOODS.value);
-    // form.P_UNAME.value = decodeURIComponent(form.P_UNAME.value);
-
+    console.log(this.paymentForm.jsUrl, 'check this.paymentForm.jsUrl');
     console.log(form.P_GOODS.value, form.P_UNAME.value, 'check encode');
     form.action = this.paymentForm.jsUrl;
     form.submit();
