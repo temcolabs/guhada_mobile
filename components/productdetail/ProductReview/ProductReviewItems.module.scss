@@ -68,7 +68,7 @@
         margin-bottom: 16px;
 
         & .itemWrap {
-            font-size: 11px;
+            font-size: 10px;
             font-weight: normal;
             color: #444444;
             display: flex;
@@ -76,8 +76,8 @@
             border-radius: 11px;
             border: solid 1px #eeeeee;
             background-color: #ffffff;
-            padding: 5px 10px 5px 10px;
-            margin-right: 6px;
+            padding: 5px 8px 5px 8px;
+            margin-right: 5px;
 
             &:last-child {
                 margin-right: 0;
@@ -90,7 +90,7 @@
             & .line {
                 height: 8px;
                 border-right: 1px solid #dddddd;
-                margin: 0 6px;
+                margin: 0 5px;
             }
         }
     }
