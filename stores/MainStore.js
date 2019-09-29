@@ -9,7 +9,7 @@ export default class MainStore {
   @observable plusItem = [];
   @observable newArrivals = [];
   @observable hits = [];
-  @observable navDealId = '';
+  @observable navDealId = 0;
   @observable hotKeyword = [];
 
   constructor() {

@@ -24,7 +24,7 @@ export default function MainSectionItem({
     <>
       <div className={css.wrap}>
         <div className={css.title}>{title}</div>
-        <div className={css.categoryWrap}>
+        {/* <div className={css.categoryWrap}>
           {mainSectionCategory.map((category, index) => {
             return (
               <div
@@ -39,7 +39,7 @@ export default function MainSectionItem({
               </div>
             );
           })}
-        </div>
+        </div> */}
         <div>
           {items['ALL'] !== undefined
             ? mainSectionCategory.map(category => {

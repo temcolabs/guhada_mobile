@@ -2,13 +2,43 @@ import React, { Component } from 'react';
 import FindLoginInfoHeader from 'components/login/FindLoginInfoHeader';
 import LoginLayout from 'components/layout/LoginLayout';
 import { LoginWrapper, LoginButton } from 'components/login';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 import css from './FindIdResult.module.scss';
 import { LinkRoute } from 'lib/router';
 import copy from 'copy-to-clipboard';
-
+import API from 'lib/API';
+@inject('alert')
 @observer
 class FindIdResult extends Component {
+  notificationMobile = () => {
+    const { formValue, alert } = this.props;
+    if (_.isNil(formValue.diCode) === true) {
+      API.user
+        .post(`/notification/mobile/id`, {
+          mobile: formValue.values().mobile.replace(/[^0-9]/g, ''),
+          name: formValue.values().name,
+        })
+        .then(function(res) {
+          alert.showAlert('아이디가 휴대폰으로 발송되었습니다.');
+        })
+        .catch(e => {
+          console.error(e);
+        });
+    } else {
+      API.user
+        .post(`/notification/mobile/id`, {
+          diCode: formValue.diCode,
+          mobile: formValue.mobile.replace(/[^0-9]/g, ''),
+          name: formValue.name,
+        })
+        .then(function(res) {
+          alert.showAlert('아이디가 휴대폰으로 발송되었습니다.');
+        })
+        .catch(e => {
+          console.error(e);
+        });
+    }
+  };
   render() {
     const { form } = this.props;
     let value = form.values();
@@ -43,7 +73,9 @@ class FindIdResult extends Component {
                 <div className={css.mobileLabel}>
                   휴대폰 번호<span>{value.phoneNumber}</span>
                 </div>
-                <button>아이디 발송하기</button>
+                <button onClick={() => this.notificationMobile()}>
+                  아이디 발송하기
+                </button>
               </div>
             </div>
             <LinkRoute href="/login/">

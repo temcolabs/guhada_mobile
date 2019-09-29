@@ -87,5 +87,9 @@
         font-weight: normal;
         color: #111111;
         cursor: pointer;
+
+        &:first-child {
+            padding-left: 0;
+        }
     }
 }

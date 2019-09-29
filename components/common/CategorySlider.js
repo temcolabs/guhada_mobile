@@ -33,6 +33,7 @@ class CategorySlider extends Component {
   render() {
     const { categoryList, category } = this.props;
     const subCategory = toJS(category.category);
+    console.log('subCategory', subCategory);
     return (
       <>
         <div className={css.wrap}>
@@ -66,17 +67,28 @@ class CategorySlider extends Component {
           }}
         >
           {subCategory.map(category => {
-            if (category.id === this.state.selected)
-              return category.children.map(subCategory => {
-                return (
+            if (category.id === this.state.selected) {
+              return (
+                <>
                   <div
-                    onClick={() => this.toSearch(subCategory.id)}
-                    key={subCategory.id}
+                    onClick={() => this.toSearch(category.id)}
+                    key={category.id}
                   >
-                    {subCategory.title}
+                    {`전체보기`}
                   </div>
-                );
-              });
+                  {category.children.map(subCategory => {
+                    return (
+                      <div
+                        onClick={() => this.toSearch(subCategory.id)}
+                        key={subCategory.id}
+                      >
+                        {subCategory.title}
+                      </div>
+                    );
+                  })}
+                </>
+              );
+            }
           })}
         </div>
       </>
@@ -85,3 +97,8 @@ class CategorySlider extends Component {
 }
 
 export default CategorySlider;
+{
+  /* <div onClick={() => this.toSearch(category.id)} key={category.id}>
+  {category.title}
+</div>; */
+}

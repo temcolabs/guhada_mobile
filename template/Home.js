@@ -51,6 +51,7 @@ class Home extends React.Component {
       `${process.env.API_CLOUD}/images/home/dummy_mobile/00_main_3.png`,
       `${process.env.API_CLOUD}/images/home/dummy_mobile/00_main_4.png`,
     ];
+    console.log('object', main.navDealId);
     return (
       <DefaultLayout title={null} topLayout={'main'}>
         {/* TODO :: 카테고리 네비게이터 */}
@@ -61,11 +62,13 @@ class Home extends React.Component {
         {/* TODO :: 임시로 만들어놓은 슬라이드 배너
         현재 dot 구현은 되어 있지 않음 */}
         {/* <MainSlideBanner imageFile={imageFile} /> */}
-        <img
-          className={css.mainPromotionImage}
-          src="/static/main_banner.png"
-          alt="main"
-        />
+        {main.navDealId === 0 && (
+          <img
+            className={css.mainPromotionImage}
+            src="/static/main_banner.png"
+            alt="main"
+          />
+        )}
 
         <SignupSuccessModal
           isOpen={this.state.signupModal}
