@@ -33,7 +33,7 @@ class FinalAmountBenefit extends Component {
               this.discountInfoHandler();
             }}
           >
-            할인∙포인트
+            할인 ∙ 포인트
             <div
               className={css.dropArrowOpacity}
               style={

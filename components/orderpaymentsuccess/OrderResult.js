@@ -24,7 +24,7 @@ class OrderResult extends Component {
         <div className={css.resultWrap}>
           <div className={css.totalOrderAmount}>
             <div className={css.resultAmountSection}>
-              <div className={css.bigTitle}>총 주문금액</div>
+              <div className={css.bigTitle}>상품금액</div>
               <div className={css.bigAmount}>{`${(
                 orderSuccessAmount.totalProdPrice +
                 orderSuccessAmount.totalShipPrice
@@ -40,7 +40,7 @@ class OrderResult extends Component {
 
           <div className={css.totalDiscountAmount}>
             <div className={css.resultAmountSection}>
-              <div className={css.bigTitle}>총 할인금액</div>
+              <div className={css.bigTitle}>할인 ∙ 포인트</div>
               <div
                 className={css.bigAmount}
               >{`${orderSuccessAmount.totalDiscountDiffPrice?.toLocaleString()}원`}</div>

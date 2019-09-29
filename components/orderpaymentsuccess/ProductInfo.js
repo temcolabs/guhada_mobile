@@ -26,7 +26,7 @@ class ProductInfo extends Component {
                   data.season ? data.season : ''
                 } ${data.prodName}`}</div>
                 <div className={css.productPrice}>
-                  {`${data.discountPrice?.toLocaleString()}원`}
+                  {`${data.originalPrice?.toLocaleString()}원`}
                 </div>
                 <div className={css.productOption}>
                   {`${
