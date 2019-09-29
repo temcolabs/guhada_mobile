@@ -4,8 +4,12 @@
   & .detailWrap {
     width: 100%;
     display: inline-block;
-    background-color: #eeeeee;
     margin-bottom: 40px;
+    word-wrap: break-word;
+
+    & img {
+      width: 100% !important;
+    }
   }
 
   & .sellerInfo {

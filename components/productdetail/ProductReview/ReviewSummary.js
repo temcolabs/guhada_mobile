@@ -155,11 +155,8 @@ export default function ReviewSummary({
             <div className={cn(css.reviewBtn)} onClick={() => setFold(!fold)}>
               {fold ? (
                 <>
-                  {`열기`}
-                  <img
-                    src={'/static/icon/benefit_btn_minus.png'}
-                    alt={'icon'}
-                  />
+                  {`닫기`}
+                  <img src={'/static/icon/minors_icon.png'} alt={'icon'} />
                 </>
               ) : (
                 <>

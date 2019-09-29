@@ -9,7 +9,8 @@ import { mainCategory } from 'constant/category';
 import MainSlideBanner from 'components/home/MainSlideBanner';
 import HomeItemDefault from 'components/home/HomeItemDefault';
 import MainHotKeyword from 'components/home/MainHotKeyword';
-
+import Router from 'next/router';
+import SignupSuccessModal from './signin/SignupSuccessModal';
 @withRouter
 @inject('main', 'searchitem')
 @observer
@@ -18,8 +19,28 @@ class Home extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      signupModal: false,
+      email: '',
+    };
   }
+
+  componentDidMount() {
+    let query = Router.router.query;
+
+    if (query.signupsuccess) {
+      this.setState({
+        signupModal: true,
+        email: query.email,
+      });
+    }
+  }
+
+  handleModal = value => {
+    this.setState({
+      signupModal: value,
+    });
+  };
 
   render() {
     const { main, searchitem } = this.props;
@@ -44,6 +65,12 @@ class Home extends React.Component {
           className={css.mainPromotionImage}
           src="/static/main_banner.png"
           alt="main"
+        />
+
+        <SignupSuccessModal
+          isOpen={this.state.signupModal}
+          isHandleModal={this.handleModal}
+          email={this.state.email}
         />
         <MainSectionItem
           title={'PREMIUM ITEM'}
