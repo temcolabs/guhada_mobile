@@ -33,7 +33,7 @@ export default function SellerStoreInfomation({ sellerStore }) {
           <tbody>
             {renderTable.map((item, i) => {
               return (
-                <tr>
+                <tr key={i}>
                   <td className={css.tableHeader}>{item.label}</td>
                   <td className={css.tableValue}>{item.value}</td>
                 </tr>

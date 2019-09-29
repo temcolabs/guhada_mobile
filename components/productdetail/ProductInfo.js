@@ -1,5 +1,6 @@
 import React from 'react';
 import css from './ProductTable.module.scss';
+import checkNullAndEmpty from 'lib/checkNullAndEmpty';
 export default function ProductInfo({
   deals = [
     {
@@ -14,22 +15,30 @@ export default function ProductInfo({
     <>
       <table className={css.wrap}>
         <tbody>
-          <tr>
-            <th>상품상태</th>
-            <td>{deals.productStatusName}</td>
-          </tr>
-          <tr>
-            <th>상품번호</th>
-            <td>{deals.dealId}</td>
-          </tr>
-          <tr>
-            <th>제품번호</th>
-            <td>{deals.modelNumber}</td>
-          </tr>
-          <tr>
-            <th>원산지</th>
-            <td>{deals.originAreaName}</td>
-          </tr>
+          {checkNullAndEmpty(deals.productStatusName) === false && (
+            <tr>
+              <th>상품상태</th>
+              <td>{deals.productStatusName}</td>
+            </tr>
+          )}
+          {checkNullAndEmpty(deals.dealId) === false && (
+            <tr>
+              <th>상품번호</th>
+              <td>{deals.dealId}</td>
+            </tr>
+          )}
+          {checkNullAndEmpty(deals.modelNumber) === false && (
+            <tr>
+              <th>제품번호</th>
+              <td>{deals.modelNumber}</td>
+            </tr>
+          )}
+          {checkNullAndEmpty(deals.originAreaName) === false && (
+            <tr>
+              <th>원산지</th>
+              <td>{deals.originAreaName}</td>
+            </tr>
+          )}
         </tbody>
       </table>
       <table className={css.wrap}>
