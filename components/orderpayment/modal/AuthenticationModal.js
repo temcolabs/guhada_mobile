@@ -7,7 +7,7 @@ import CountdownTimer from 'components/common/CountdownTimer';
 @observer
 class AuthenticationModal extends Component {
   openWindowHandle = e => {
-    e.stoppropagation();
+    e.stopPropagation();
     const childWindow = window.open('', 'popupChk');
     this.props.authmobile.getCertKey('order', childWindow);
   };
@@ -53,7 +53,7 @@ class AuthenticationModal extends Component {
               ) : (
                 <div
                   className={css.button}
-                  onClick={() => this.openWindowHandle(e)}
+                  onClick={e => this.openWindowHandle(e)}
                 >
                   본인 명의 휴대폰으로 인증
                 </div>
