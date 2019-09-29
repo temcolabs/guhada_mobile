@@ -941,7 +941,7 @@ export default class OrderPaymentStore {
               String(this.cashReceiptEntrepreneur.last),
         cashReceiptType:
           this.cashReceiptUsage === 'PERSONAL' ? 'MOBILE' : 'BUSINESS',
-        web: false,
+        web: true,
       };
     } else {
       forms = {
@@ -959,7 +959,7 @@ export default class OrderPaymentStore {
         wScroll: window.scrollY,
         consumptionPoint: this.usePoint,
 
-        web: false,
+        web: true,
       };
     }
     console.log(forms, 'forms');
