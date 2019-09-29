@@ -456,7 +456,7 @@ export default class OrderPaymentStore {
       });
       this.shippingListModalClose();
       this.status.selectedShipStatus = true;
-      console.log('바뀐 주소', toJS(this.orderShippingList.defaultAddress));
+      // console.log('바뀐 주소', toJS(this.orderShippingList.defaultAddress));
     }
   };
 
