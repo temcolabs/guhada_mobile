@@ -33,7 +33,6 @@ class CategorySlider extends Component {
   render() {
     const { categoryList, category } = this.props;
     const subCategory = toJS(category.category);
-    console.log('subCategory', subCategory);
     return (
       <>
         <div className={css.wrap}>
