@@ -47,10 +47,11 @@ export class InquiryItem extends Component {
       <>
         <div
           className={cn(css.wrap, { [css.open]: folded === false })}
-          onClick={() =>
-            inquiry.status === 'COMPLETED' && inquiry.private !== true
-              ? this.setFolded()
-              : null
+          onClick={
+            () => this.setFolded()
+            // inquiry.status === 'COMPLETED' && inquiry.private !== true
+            //   ? this.setFolded()
+            //   : null
           }
         >
           <div className={css.itemWrap}>
@@ -74,35 +75,37 @@ export class InquiryItem extends Component {
           <div
             className={cn(css.contentsWrap, { [css.open]: folded === false })}
           >
-            <div className={cn(css.contents, { [css.open]: folded === false })}>
+            <div
+              className={cn(css.contents, { [css.open]: folded === false })}
+              style={{ paddingBottom: inquiry.status !== 'COMPLETED' && '0px' }}
+            >
               {inquiry.inquiry}
-              {folded === false ? (
+              {/* {folded === false ? (
                 <span className={css.report}>신고</span>
-              ) : null}
+              ) : null} */}
             </div>
-            {inquiry.status === 'COMPLETED' ? (
-              <div
-                className={cn(css.arrow, { [css.up]: folded === false })}
-                // onClick={() => this.setFolded()}
-              />
-            ) : null}
+            <div className={cn(css.arrow, { [css.up]: folded === false })} />
           </div>
-          <div className={cn(css.answerWrap, { [css.open]: folded === false })}>
-            <div className={css.answerIcon}>답변</div>
-            <div className={css.answer}>
-              {inquiry.reply}
-              <div className={css.answerInfo}>
-                판매자
-                <span className={css.line} />
-                <span className={css.date}>
-                  {moment(inquiry.replyAt).format(dateFormat.YYYYMMDD_UI)}
-                  {` `}
-                  {moment(inquiry.replyAt).format(dateFormat.HHMM)}
-                </span>
-                <span className={css.report}>신고</span>
+          {inquiry.status === 'COMPLETED' && (
+            <div
+              className={cn(css.answerWrap, { [css.open]: folded === false })}
+            >
+              <div className={css.answerIcon}>답변</div>
+              <div className={css.answer}>
+                {inquiry.reply}
+                <div className={css.answerInfo}>
+                  판매자
+                  <span className={css.line} />
+                  <span className={css.date}>
+                    {moment(inquiry.replyAt).format(dateFormat.YYYYMMDD_UI)}
+                    {` `}
+                    {moment(inquiry.replyAt).format(dateFormat.HHMM)}
+                  </span>
+                  {/* <span className={css.report}>신고</span> */}
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
         <div className={cn(css.line, { [css.open]: folded === false })} />
       </>
