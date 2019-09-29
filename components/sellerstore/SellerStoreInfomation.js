@@ -24,9 +24,12 @@ export default function SellerStoreInfomation({ sellerStore }) {
   });
   return (
     <div className={css.wrap}>
-      <div className={css.detailWrap}>
-        {sellerStore.storeIntroductionDetail}
-      </div>
+      <div
+        className={css.detailWrap}
+        dangerouslySetInnerHTML={{
+          __html: sellerStore.storeIntroductionDetail,
+        }}
+      />
       <div className={css.sellerInfo}>
         <div className={css.infoHeader}>셀러정보</div>
         <table>

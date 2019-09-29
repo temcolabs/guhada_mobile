@@ -73,7 +73,13 @@ class ProductInquiry extends Component {
             >
               상품 문의하기
             </button>
-            {/* <button>판매자 문의하기</button> */}
+            <button
+              onClick={() =>
+                alert.showAlert({ content: '모바일 버전 준비중입니다.' })
+              }
+            >
+              판매자 문의하기
+            </button>
           </div>
           <div className={css.desc}>
             구매하시려는 상품에 대해 궁금하신 점이 있으신 경우, 문의해주세요.
