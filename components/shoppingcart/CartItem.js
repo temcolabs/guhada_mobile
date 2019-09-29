@@ -15,13 +15,16 @@ class CartItem extends Component {
             <div className={css.top}>
               <div className={css.topLeft}>
                 <div className={css.item__check}>
-                  <input
-                    type="checkbox"
-                    checked={shoppingcart.selectedCheck[index]}
-                    onChange={() => {
-                      shoppingcart.changeItemCheckbox(index);
-                    }}
-                  />
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={shoppingcart.selectedCheck[index]}
+                      onChange={() => {
+                        shoppingcart.changeItemCheckbox(index);
+                      }}
+                    />
+                    <div />
+                  </label>
                 </div>
               </div>
               <div
@@ -118,7 +121,10 @@ class CartItem extends Component {
           <div className={css.top}>
             <div className={css.topLeft}>
               <div className={css.item__check}>
-                <input type="checkbox" checked={false} readOnly />
+                <label>
+                  <input type="checkbox" checked={false} readOnly />
+                  <div />
+                </label>
               </div>
               {data.totalStock === 0 ? (
                 <div className={css.soldoutMessage}>

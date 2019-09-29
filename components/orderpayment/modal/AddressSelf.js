@@ -134,7 +134,8 @@ class AddressSelf extends Component {
                 orderpayment.orderShippingList.isAddShippingAddress
               }
             />
-            <div>주문 완료 시 배송지 목록에 추가</div>
+            <div className={css.checkBox} />
+            <div className={css.labelTxt}>주문 완료 시 배송지 목록에 추가</div>
           </label>
         </div>
 
@@ -149,7 +150,8 @@ class AddressSelf extends Component {
                 orderpayment.orderShippingList.newAddress.defaultAddress
               }
             />
-            <div>기본 배송지로 설정</div>
+            <div className={css.checkBox} />
+            <div className={css.labelTxt}>기본 배송지로 설정</div>
           </label>
         </div>
       </div>

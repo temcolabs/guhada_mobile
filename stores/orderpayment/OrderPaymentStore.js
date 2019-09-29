@@ -183,6 +183,7 @@ export default class OrderPaymentStore {
         //     this.gotoMain();
         //   },
         // });
+        // Router.push('/');
       });
   };
   gotoMain = () => {
@@ -313,8 +314,13 @@ export default class OrderPaymentStore {
     let bool = e.target.checked;
     if (option === 'default') {
       this.orderShippingList.newAddress.defaultAddress = bool;
-    } else {
       this.orderShippingList.isAddShippingAddress = bool;
+    } else {
+      if (this.orderShippingList.newAddress.defaultAddress) {
+        this.orderShippingList.isAddShippingAddress = true;
+      } else {
+        this.orderShippingList.isAddShippingAddress = bool;
+      }
     }
   };
 

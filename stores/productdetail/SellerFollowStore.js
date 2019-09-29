@@ -40,15 +40,16 @@ export default class SellerFollowStore {
         targetId: id,
       })
       .then(res => {
-        this.root.alert.showAlert({
-          content: '스토어 팔로우를 완료 했습니다.',
-        });
+        // this.root.alert.showAlert({
+        //   content: '스토어 팔로우를 완료 했습니다.',
+        // });
         this.follows = true;
       })
       .catch(err => {
-        this.root.alert.showAlert({
-          content: `${_.get(err, 'data.message') || '스토어 팔로우 ERROR'}`,
-        });
+        console.log(err, '스토어 팔로우 ERROR');
+        // this.root.alert.showAlert({
+        //   content: `${_.get(err, 'data.message') || '스토어 팔로우 ERROR'}`,
+        // });
       });
   };
 
@@ -57,15 +58,16 @@ export default class SellerFollowStore {
     API.user
       .delete(`/users/bookmarks?target=SELLER&targetId=${id}`)
       .then(res => {
-        this.root.alert.showAlert({
-          content: '스토어 팔로우를 취소 했습니다.',
-        });
+        // this.root.alert.showAlert({
+        //   content: '스토어 팔로우를 취소 했습니다.',
+        // });
         this.follows = false;
       })
       .catch(err => {
-        this.root.alert.showAlert({
-          content: `${_.get(err, 'data.message') || '스토어 팔로우 ERROR'}`,
-        });
+        console.log(err, '스토어 팔로우 ERROR');
+        // this.root.alert.showAlert({
+        //   content: `${_.get(err, 'data.message') || '스토어 팔로우 ERROR'}`,
+        // });
       });
   };
 }

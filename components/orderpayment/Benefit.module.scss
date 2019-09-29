@@ -63,6 +63,19 @@
         font-weight: bold;
         cursor: pointer;
       }
+
+      .nocouponSelect {
+        width: 80px;
+        height: 45px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #ccc;
+        border: 1px solid #ddd;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+      }
     }
   }
 

@@ -28,21 +28,14 @@ class PaymentMethod extends Component {
           {orderPaymentTotalInfo.paymentsMethod.map((data, index) => {
             return (
               <li key={index}>
-                <input
-                  type="radio"
-                  onClick={() => {
-                    orderpayment.setPaymentMethod(data.methodCode);
-                  }}
-                  id={data.methodCode}
-                  name="paymentMethod"
-                />
                 <label
-                  htmlFor={data.methodCode}
                   onClick={() => {
                     orderpayment.setPaymentMethod(data.methodCode);
                   }}
                 >
-                  {data.methodName}
+                  <input type="radio" name="paymentMethod" />
+                  <div className={css.checkBox} />
+                  <div className={css.methodName}>{data.methodName}</div>
                 </label>
               </li>
             );

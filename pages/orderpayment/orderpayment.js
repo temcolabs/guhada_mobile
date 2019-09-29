@@ -8,6 +8,7 @@ import { getParameterByName } from '../../utils';
 @observer
 class index extends React.Component {
   componentDidMount() {
+    console.log('this page orderpayment');
     let cartList = getParameterByName('cartList');
     this.props.orderpayment.getOrderItems(cartList);
   }

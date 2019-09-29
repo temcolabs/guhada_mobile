@@ -70,7 +70,8 @@ class CashReceipt extends Component {
                   this.receiptHandler(e.target.value);
                 }}
               />
-              <div>신청</div>
+              <div className={css.radioBtn} />
+              <div className={css.radioTxt}>신청</div>
             </label>
             <label>
               <input
@@ -81,7 +82,8 @@ class CashReceipt extends Component {
                   this.receiptHandler();
                 }}
               />
-              <div>미신청</div>
+              <div className={css.radioBtn} />
+              <div className={css.radioTxt}>미신청</div>
             </label>
           </div>
         </div>
@@ -99,7 +101,8 @@ class CashReceipt extends Component {
                       this.receiptTypeHandler(e.target.value);
                     }}
                   />
-                  <div>개인소득공제용</div>
+                  <div className={css.radioBtn} />
+                  <div className={css.radioTxt}>개인소득공제용</div>
                 </label>
               </div>
             </div>
@@ -155,7 +158,10 @@ class CashReceipt extends Component {
                       this.receiptTypeHandler(e.target.value);
                     }}
                   />
-                  <div>사업자증빙용 (세금계산서용)</div>
+                  <div className={css.radioBtn} />
+                  <div className={css.radioTxt}>
+                    사업자증빙용 (세금계산서용)
+                  </div>
                 </label>
               </div>
             </div>
