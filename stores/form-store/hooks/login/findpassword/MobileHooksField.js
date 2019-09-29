@@ -24,7 +24,7 @@ export default {
 
     API.user
       .post('/verify/sendMobile', {
-        email: form.values().email,
+        // email: form.values().email,
         mobile: form.values().mobile.replace(/-/gi, ''),
         name: form.values().name,
       })

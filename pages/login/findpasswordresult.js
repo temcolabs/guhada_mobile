@@ -10,12 +10,15 @@ import { pushRoute } from 'lib/router';
 class findpasswordresult extends Component {
   render() {
     let formValue;
+    let verificationTargetType;
     let { authmobile } = this.props;
 
     if (Form.findPasswordEmail.values().verificationNumber !== '') {
       formValue = Form.findPasswordEmail;
+      verificationTargetType = 'EMAIL';
     } else if (Form.findPasswordMobile.values().verificationNumber !== '') {
       formValue = Form.findPasswordMobile;
+      verificationTargetType = 'MOBILE';
     } else if (authmobile.verifyParams.diCode !== '') {
       formValue = authmobile.verifyParams;
     } else {
@@ -40,6 +43,7 @@ class findpasswordresult extends Component {
           <FindPasswordResult
             form={Form.findPasswordResult}
             formValue={formValue}
+            verificationTargetType={verificationTargetType}
           />
         </div>
       </>
