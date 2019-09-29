@@ -156,23 +156,23 @@ const DiscountInfo = props => {
 const BenefitInfo = props => {
   return (
     <div className={css.benefitInfoWrap}>
-      {props.dueSaveList.map(data => {
+      {props.dueSaveList.map((data, index) => {
         return data.pointType === 'BUY' ? (
-          <div className={css.discountMenu}>
+          <div className={css.discountMenu} key={index}>
             <div className={css.sectionTitle}>구매 확정</div>
             <div
               className={css.sectionValue}
             >{`${data.totalPoint?.toLocaleString()}P`}</div>
           </div>
         ) : data.pointType === 'IMG_REVIEW' ? (
-          <div className={css.discountMenu}>
+          <div className={css.discountMenu} key={index}>
             <div className={css.sectionTitle}>텍스트 리뷰</div>
             <div
               className={css.sectionValue}
             >{`${data.totalPoint?.toLocaleString()}P`}</div>
           </div>
         ) : data.pointType === 'TEXT_REVIEW' ? (
-          <div className={css.discountMenu}>
+          <div className={css.discountMenu} key={index}>
             <div className={css.sectionTitle}>포토 리뷰</div>
             <div
               className={css.sectionValue}

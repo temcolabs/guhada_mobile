@@ -10,16 +10,19 @@ class ShoppingCartController extends Component {
     return (
       <div className={css.wrap}>
         <div className={css.check__priority}>
-          <input
-            type="checkbox"
-            checked={shoppingcart.status.priorityCheck}
-            onChange={() => {
-              shoppingcart.changeTotalItemCheckboxPriority();
-            }}
-          />
-          <div
-            className={css.total__select}
-          >{`${shoppingcart.selectedCheckNumber.length}개 선택`}</div>
+          <label>
+            <input
+              type="checkbox"
+              checked={shoppingcart.status.priorityCheck}
+              onChange={() => {
+                shoppingcart.changeTotalItemCheckboxPriority();
+              }}
+            />
+            <div />
+          </label>
+          <div className={css.total__select}>{`${
+            shoppingcart.selectedCheckNumber.length
+          }개 선택`}</div>
         </div>
         <div
           className={css.selected__delete}

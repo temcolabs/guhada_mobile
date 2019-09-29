@@ -20,40 +20,46 @@
       &:nth-child(-n + 2) {
         margin-bottom: 20px;
       }
-      label {
-        font-weight: 500;
-        color: #444;
-        font-size: 14px;
-      }
-      input[type='radio'] {
-        display: block;
-        width: 20px;
-        height: 20px;
-        border: none;
-        border-radius: 0px;
-        background-image: url('/static/icon/m_radio_btn_off.png');
-        background-size: 20px 20px;
-        background-position: center;
-        background-repeat: no-repeat;
-        margin-top: 1px;
-      }
-
-      input[type='radio']:checked {
-        border: none;
-        background-image: url('/static/icon/m_radio_btn_on.png');
-        background-size: 20px 20px;
-        background-position: center;
-        background-repeat: no-repeat;
-        transition: all 0.5s;
-      }
 
       label {
-        margin-left: 15px;
+        display: flex;
+
+        input[type='radio'] {
+          display: none;
+        }
+
+        .checkBox {
+          font-weight: 500;
+          color: #444;
+          font-size: 14px;
+          width: 20px;
+          height: 20px;
+          border: none;
+          border-radius: 0px;
+          background-image: url('/static/icon/m_radio_btn_off.png');
+          background-size: 20px 20px;
+          background-position: center;
+          background-repeat: no-repeat;
+          margin-top: 1px;
+        }
+
+        input[type='radio']:checked + .checkBox {
+          border: none;
+          background-image: url('/static/icon/m_radio_btn_on.png');
+          background-size: 20px 20px;
+          background-position: center;
+          background-repeat: no-repeat;
+          transition: all 0.5s;
+        }
+
+        .methodName {
+          margin-left: 10px;
+        }
       }
     }
   }
+}
 
-  .paymentForm {
-    display: none;
-  }
+.paymentForm {
+  display: none;
 }

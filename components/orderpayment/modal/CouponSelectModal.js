@@ -158,6 +158,7 @@ const CouponDetailList = props => {
                     : false
                 }
               />
+              <div className={css.radioBtn} />
               <div
                 className={
                   data.usedId
@@ -188,6 +189,7 @@ const CouponDetailList = props => {
                 setSelectCoupon(dealId, false);
               }}
             />
+            <div className={css.radioBtn} />
             <div>적용안함</div>
           </label>
         ) : (
@@ -200,6 +202,7 @@ const CouponDetailList = props => {
               }}
               defaultChecked={true}
             />
+            <div className={css.radioBtn} />
             <div>적용안함</div>
           </label>
         )}

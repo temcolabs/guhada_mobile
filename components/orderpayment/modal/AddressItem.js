@@ -12,17 +12,20 @@ class AddressItem extends Component {
       return orderpayment.orderShippingList.currentEditAddressId === data.id ? (
         <div className={css.wrap} key={index}>
           <div className={css.radioWrap}>
-            <input
-              type="radio"
-              name="address"
-              value={data.id}
-              onChange={() => {
-                orderpayment.shippingAddressChange(data.id);
-              }}
-              checked={
-                orderpayment.orderShippingList.currentUseAddressId === data.id
-              }
-            />
+            <label>
+              <input
+                type="radio"
+                name="address"
+                value={data.id}
+                onChange={() => {
+                  orderpayment.shippingAddressChange(data.id);
+                }}
+                checked={
+                  orderpayment.orderShippingList.currentUseAddressId === data.id
+                }
+              />
+              <div />
+            </label>
           </div>
 
           <div className={css.sectionWrap}>
@@ -124,17 +127,20 @@ class AddressItem extends Component {
       ) : (
         <div className={css.wrap} key={index}>
           <div className={css.radioWrap}>
-            <input
-              type="radio"
-              name="address"
-              value={data.id}
-              onChange={() => {
-                orderpayment.shippingAddressChange(data.id);
-              }}
-              checked={
-                orderpayment.orderShippingList.currentUseAddressId === data.id
-              }
-            />
+            <label>
+              <input
+                type="radio"
+                name="address"
+                value={data.id}
+                onChange={() => {
+                  orderpayment.shippingAddressChange(data.id);
+                }}
+                checked={
+                  orderpayment.orderShippingList.currentUseAddressId === data.id
+                }
+              />
+              <div />
+            </label>
           </div>
 
           <div className={css.sectionWrap}>

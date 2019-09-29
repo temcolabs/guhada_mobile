@@ -29,7 +29,7 @@ class ErrorPage extends React.Component {
       }
     }
 
-    pushRoute(`/`);
+    // pushRoute(`/`);
   }
 
   constructor(props) {

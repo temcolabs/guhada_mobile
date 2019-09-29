@@ -86,17 +86,18 @@
       .couponDetailList {
         .couponDetail {
           label {
-            margin-top: 20px;
+            margin: 20px 0 0 0;
             display: flex;
             align-items: center;
             font-weight: normal;
             &:first-child {
               margin-top: 0;
             }
-
             input[type='radio'] {
+              display: none;
+            }
+            .radioBtn {
               margin: 0;
-              display: block;
               width: 20px;
               height: 20px;
               border: none;
@@ -107,7 +108,7 @@
               background-repeat: no-repeat;
             }
 
-            input[type='radio']:checked {
+            input[type='radio']:checked + .radioBtn {
               border: none;
               background-image: url('/static/icon/m_radio_btn_on.png');
               background-size: 20px 20px;

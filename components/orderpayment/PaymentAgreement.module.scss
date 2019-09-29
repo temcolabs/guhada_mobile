@@ -8,7 +8,9 @@
     display: flex;
     font-weight: 500;
     input[type='checkbox'] {
-      display: block;
+      display: none;
+    }
+    div {
       min-width: 20px;
       height: 20px;
       border: none;
@@ -20,7 +22,7 @@
       margin-top: 1px;
     }
 
-    input[type='checkbox']:checked {
+    input[type='checkbox']:checked + div {
       border: none;
       background-image: url('/static/icon/checkbox_on.png');
       background-size: 20px 20px;

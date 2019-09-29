@@ -16,6 +16,7 @@ class PaymentAgreement extends Component {
             }}
             defaultChecked={orderpayment.status.orderPaymentAgreement}
           />
+          <div />
           <span>[필수] </span>
           구매 및 결제대행서비스 이용약관 동의
         </label>

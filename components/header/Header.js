@@ -60,7 +60,7 @@ function Header({ children, headerShape, history, shoppingcart }) {
           {/* 페이지 타이틀 또는 로고 렌더링 */}
           {children ? (
             <div className={css.pageTitle}>{children}</div>
-          ) : (
+          ) : headerShape === 'productDetail' ? null : (
             <Link href="/">
               <div className={css.headerLogo} />
             </Link>

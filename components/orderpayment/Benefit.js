@@ -125,14 +125,18 @@ class Benefit extends Component {
                 </div>
               )}
             </div>
-            <div
-              className={css.couponSelect}
-              onClick={() => {
-                orderPaymentBenefit.handleModalShow();
-              }}
-            >
-              쿠폰변경
-            </div>
+            {orderpayment.orderPaymentTotalInfo.availableCouponCount ? (
+              <div
+                className={css.couponSelect}
+                onClick={() => {
+                  orderPaymentBenefit.handleModalShow();
+                }}
+              >
+                쿠폰변경
+              </div>
+            ) : (
+              <div className={css.nocouponSelect}>쿠폰변경</div>
+            )}
           </div>
         </div>
 
