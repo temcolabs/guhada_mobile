@@ -15,18 +15,9 @@
     position: relative;
     float: right;
     width: 82px;
-    background: url('/static/icon/drop_arrow.png') no-repeat right top;
+    background-repeat: no-repeat;
+    background-position: right top;
     background-size: 16px;
-
-    &:hover {
-      background: url('/static/icon/down_arrow.png') no-repeat right top;
-      background-size: 16px;
-
-      & .hoverWrap {
-        display: block;
-        background-color: white;
-      }
-    }
 
     & .hoverPadding {
       width: 85px;
@@ -38,7 +29,8 @@
     }
 
     & .hoverWrap {
-      display: none;
+      display: block;
+      background-color: white;
       width: 85px;
       height: 136px;
       position: absolute;

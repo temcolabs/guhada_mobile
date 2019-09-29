@@ -110,7 +110,10 @@ class ShippingBenefit extends Component {
             ) : null}
           </div>
         ) : null}
-        <div className={css.sellerWrap}>
+        <div
+          className={css.sellerWrap}
+          onClick={() => pushRoute(`/sellerstore/${deals.sellerId}`)}
+        >
           <div
             className={css.profile}
             style={
@@ -140,15 +143,14 @@ class ShippingBenefit extends Component {
                   className={cn({
                     [css.colored]: sellerfollow.follows === false,
                   })}
-                  onClick={this.handleSellerFollows}
+                  onClick={e => {
+                    this.handleSellerFollows();
+                    e.stopPropagation();
+                  }}
                 >
                   {sellerfollow.follows === false ? '팔로우' : '팔로잉'}
                 </button>
-                <button
-                  onClick={() => pushRoute(`/sellerstore/${deals.sellerId}`)}
-                >
-                  셀러스토어
-                </button>
+                <button>셀러스토어</button>
               </div>
             </div>
             <div className={css.satisfaction}>

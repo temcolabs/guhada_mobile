@@ -57,6 +57,11 @@ export default class SellerStore {
   };
 
   @action
+  getInitSellerStoreItem = () => {
+    this.page = 1;
+    this.dealsOfSellerStore = [];
+  };
+  @action
   getSellerStoreDeal = sellerId => {
     API.search
       .get(
