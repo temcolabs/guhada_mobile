@@ -7,7 +7,6 @@ import CountdownTimer from 'components/common/CountdownTimer';
 @observer
 class AuthenticationModal extends Component {
   openWindowHandle = e => {
-    e.stopPropagation();
     const childWindow = window.open('', 'popupChk');
     this.props.authmobile.getCertKey('order', childWindow);
   };

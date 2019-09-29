@@ -1025,8 +1025,13 @@ export default class OrderPaymentStore {
   paymentStart = () => {
     // const action = () => {
     let form = document.getElementById('paymentForm');
-    form.P_GOODS.value = encodeURIComponent(form.P_GOODS.value);
-    form.P_UNAME.value = encodeURIComponent(form.P_UNAME.value);
+    // form.P_GOODS.value = encodeURIComponent(form.P_GOODS.value);
+    // form.P_UNAME.value = encodeURIComponent(form.P_UNAME.value);
+
+    // form.P_GOODS.value = decodeURIComponent(form.P_GOODS.value);
+    // form.P_UNAME.value = decodeURIComponent(form.P_UNAME.value);
+
+    console.log(form.P_GOODS.value, form.P_UNAME.value, 'check encode');
     form.action = this.paymentForm.jsUrl;
     form.submit();
     // };
