@@ -967,7 +967,7 @@ export default class OrderPaymentStore {
     const query = qs.stringify({
       cartList: cartList,
     });
-
+    console.log(cartList, 'cartList');
     let nextUrl = `${process.env.HOSTNAME_MOBILE}/privyCertifyResult`;
 
     // let returnUrl = `https://m.guhada.com/privyCertifyResult?` + query;
@@ -981,7 +981,7 @@ export default class OrderPaymentStore {
         let returnUrl =
           `${process.env.HOSTNAME_MOBILE}/privyCertifyResult?` +
           query +
-          `?oid=${data.pgOid}`;
+          `&oid=${data.pgOid}`;
         console.log(returnUrl, 'returnUrl');
 
         console.log(data, 'requestOrder return data');
@@ -1037,8 +1037,8 @@ export default class OrderPaymentStore {
     console.log(form, 'form check');
     console.log(this.paymentForm.jsUrl, 'check this.paymentForm.jsUrl');
     console.log(form.P_GOODS.value, form.P_UNAME.value, 'check encode');
-    // form.action = this.paymentForm.jsUrl;
-    // form.submit();
+    form.action = this.paymentForm.jsUrl;
+    form.submit();
     // };
     // const url = this.paymentForm.jsUrl;
     // loadScript(url, { callback: action, async: false, id: 'INIStdPay' });
