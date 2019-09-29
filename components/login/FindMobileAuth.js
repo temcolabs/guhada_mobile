@@ -12,7 +12,10 @@ export default class FindMobileAuth extends Component {
         </div>
         <LoginButton
           className="isColored"
-          onClick={() => authmobile.getCertKey('findid')}
+          onClick={() => {
+            const childWindow = window.open('', 'popupChk');
+            authmobile.getCertKey('findid', childWindow);
+          }}
         >
           본인 명의 휴대폰으로 인증
         </LoginButton>

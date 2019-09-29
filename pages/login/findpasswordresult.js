@@ -8,6 +8,15 @@ import { pushRoute } from 'lib/router';
 @inject('authmobile')
 @observer
 class findpasswordresult extends Component {
+  componentDidMount() {
+    let { authmobile } = this.props;
+    if (Form.findPasswordEmail.values().verificationNumber !== '') {
+    } else if (Form.findPasswordMobile.values().verificationNumber !== '') {
+    } else if (authmobile.verifyParams.diCode !== '') {
+    } else {
+      pushRoute('/login/findpassword');
+    }
+  }
   render() {
     let formValue;
     let verificationTargetType;
@@ -21,8 +30,6 @@ class findpasswordresult extends Component {
       verificationTargetType = 'MOBILE';
     } else if (authmobile.verifyParams.diCode !== '') {
       formValue = authmobile.verifyParams;
-    } else {
-      pushRoute('/login/findpassword');
     }
 
     return (
