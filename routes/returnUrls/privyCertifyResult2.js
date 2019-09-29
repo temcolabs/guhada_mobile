@@ -1,5 +1,4 @@
 const API = require('../../lib/API');
-let http = require('http');
 let url = require('url');
 
 module.exports = {
@@ -8,7 +7,7 @@ module.exports = {
 
   handler: function(req, res) {
     const authData = req.body;
-    let para = document.location.href.split('?');
+    let para = req.url;
     let pathname = url.parse(req.url).pathname;
 
     console.log(
