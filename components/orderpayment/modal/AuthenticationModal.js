@@ -6,8 +6,7 @@ import CountdownTimer from 'components/common/CountdownTimer';
 @inject('orderpayment', 'authmobile', 'customerauthentication')
 @observer
 class AuthenticationModal extends Component {
-  openWindowHandel = () => {
-    // window.open('_blank', 'popupChk');
+  openWindowHandle = () => {
     this.props.authmobile.getCertKey('order');
   };
   render() {
@@ -44,26 +43,34 @@ class AuthenticationModal extends Component {
               <div className={css.content}>
                 <div>본인 명의 휴대폰으로 본인인증을 진행해주세요.</div>
               </div>
-              <div
-                className={css.button}
-                onClick={() => this.openWindowHandel()}
-              >
-                본인 명의 휴대폰으로 인증
-                <form name="form_chk" method="post" style={{ display: 'none' }}>
-                  <input type="hidden" name="m" value="checkplusSerivce" />
-                  <input
-                    type="hidden"
-                    name="EncodeData"
-                    value={authmobile.authKey}
-                  />
-                </form>
-              </div>
+              {orderpayment.orderUserInfo.name &&
+              orderpayment.orderUserInfo.mobile ? (
+                <div className={[css.button, css.alreadySuccess].join(' ')}>
+                  인증완료
+                </div>
+              ) : (
+                <div
+                  className={css.button}
+                  onClick={() => this.openWindowHandle()}
+                >
+                  본인 명의 휴대폰으로 인증
+                </div>
+              )}
+
               <div className={css.notifyWrap}>
                 <div className={css.notifySection}>
                   <span className={css.dot} />
                   인증비용은 구하다에서 부담합니다.
                 </div>
               </div>
+              <form name="form_chk" method="post" style={{ display: 'none' }}>
+                <input type="hidden" name="m" value="checkplusSerivce" />
+                <input
+                  type="hidden"
+                  name="EncodeData"
+                  value={authmobile.authKey}
+                />
+              </form>
             </div>
 
             <div className={css.emailWrap}>
