@@ -1,4 +1,6 @@
 const API = require('../../lib/API');
+let http = require('http');
+let url = require('url');
 
 module.exports = {
   method: 'post',
@@ -6,8 +8,12 @@ module.exports = {
 
   handler: function(req, res) {
     const authData = req.body;
+    let para = document.location.href.split('?');
+    let pathname = url.parse(req.url).pathname;
+
     console.log(
-      authData.P_OID,
+      para,
+      pathname,
       req.query,
       authData,
       'authData.P_OID , authData , /privyCertifyResult2'
