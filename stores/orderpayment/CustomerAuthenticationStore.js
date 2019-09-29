@@ -24,6 +24,7 @@ export default class CustomerAuthentication {
     }
     this.email = email;
     this.sendMailSuccess = false;
+    console.log(this.email, 'thisemail');
     API.user
       .post(`/verify/sendEmail`, {
         email,

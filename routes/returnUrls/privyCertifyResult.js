@@ -8,7 +8,7 @@ module.exports = {
     const authData = req.body;
     console.log(req, authData, 'authData');
     if (authData.P_STATUS !== '00') {
-      console.log(authData, 'authData123', authData.P_RMESG1, 'message');
+      console.log(authData, 'authData', authData.P_RMESG1, 'message');
 
       if (req.query.cartList && authData.P_RMESG1) {
         res.redirect(

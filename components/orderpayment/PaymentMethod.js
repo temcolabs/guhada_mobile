@@ -48,65 +48,70 @@ class PaymentMethod extends Component {
               readOnly
               type="text"
               name="version"
-              value={paymentForm.version}
+              value={paymentForm.version || ''}
             />
 
-            <input readOnly type="text" name="P_MID" value={paymentForm.mid} />
+            <input
+              readOnly
+              type="text"
+              name="P_MID"
+              value={paymentForm.mid || ''}
+            />
 
             <input
               readOnly
               type="text"
               name="P_GOODS"
-              value={paymentForm.goodname}
+              value={paymentForm.goodname || ''}
             />
 
             <input
               readOnly
               type="text"
               name="P_AMT"
-              value={paymentForm.price}
+              value={paymentForm.price || ''}
             />
 
             <input
               readOnly
               type="text"
               name="P_UNAME"
-              value={paymentForm.buyername}
+              value={paymentForm.buyername || ''}
             />
 
             <input
               readOnly
               type="text"
               name="P_MOBILE"
-              value={paymentForm.buyertel}
+              value={paymentForm.buyertel || ''}
             />
 
             <input
               readOnly
               type="text"
               name="P_EMAIL"
-              value={paymentForm.buyeremail}
+              value={paymentForm.buyeremail || ''}
             />
 
             <input
               readOnly
               type="text"
               name="P_RETURN_URL"
-              value={paymentForm.returnUrl}
+              value={paymentForm.returnUrl || ''}
             />
 
             <input
               readOnly
               type="text"
               name="P_NEXT_URL"
-              value={paymentForm.nextUrl}
+              value={paymentForm.nextUrl || ''}
             />
 
             <input
               readOnly
               type="text"
               name="gopaymethod"
-              value={paymentForm.gopaymethod}
+              value={paymentForm.gopaymethod || ''}
               ref={this.textInput}
             />
 
@@ -114,100 +119,105 @@ class PaymentMethod extends Component {
               readOnly
               type="text"
               name="P_CARD_OPTION"
-              value={paymentForm.ini_cardcode}
+              value={paymentForm.ini_cardcode || ''}
             />
 
-            <input readOnly type="text" name="P_OID" value={paymentForm.oid} />
+            <input
+              readOnly
+              type="text"
+              name="P_OID"
+              value={paymentForm.oid || ''}
+            />
 
             <input
               readOnly
               type="text"
               name="P_TIMESTAMP"
-              value={paymentForm.timestamp}
+              value={paymentForm.timestamp || ''}
             />
 
             <input
               readOnly
               type="text"
               name="currency"
-              value={paymentForm.currency}
+              value={paymentForm.currency || ''}
             />
 
             <input
               readOnly
               type="text"
               name="P_SIGNATURE"
-              value={paymentForm.signature}
+              value={paymentForm.signature || ''}
             />
 
             <input
               readOnly
               type="text"
               name="P_MKEY"
-              value={paymentForm.mKey}
+              value={paymentForm.mKey || ''}
             />
 
             <input
               readOnly
               type="text"
               name="P_OFFER_PERIOD"
-              value={paymentForm.offerPeriod}
+              value={paymentForm.offerPeriod || ''}
             />
 
             <input
               readOnly
               type="text"
               name="P_RESERVED"
-              value={paymentForm.acceptmethod}
+              value={paymentForm.acceptmethod || ''}
             />
 
             <input
               readOnly
               type="text"
               name="languageView"
-              value={paymentForm.languageView}
+              value={paymentForm.languageView || ''}
             />
 
             <input
               readOnly
               type="text"
               name="P_CHARSET"
-              value={paymentForm.charset}
+              value={paymentForm.charset || ''}
             />
 
             <input
               readOnly
               type="text"
               name="P_HPP_METHOD"
-              value={paymentForm.acceptmethod}
+              value={paymentForm.acceptmethod || ''}
             />
 
             <input
               readOnly
               type="text"
               name="payViewType"
-              value={paymentForm.payViewType}
+              value={paymentForm.payViewType || ''}
             />
 
             <input
               readOnly
               type="text"
               name="closeUrl"
-              value={paymentForm.closeUrl}
+              value={paymentForm.closeUrl || ''}
             />
 
             <input
               readOnly
               type="text"
               name="popupUrl"
-              value={paymentForm.popupUrl}
+              value={paymentForm.popupUrl || ''}
             />
 
             <input
               readOnly
               type="text"
               name="ansim_quota"
-              value={paymentForm.quotabase}
+              value={paymentForm.quotabase || ''}
             />
 
             <input type="hidden" name="vbankTypeUse" value="1" />
@@ -217,14 +227,14 @@ class PaymentMethod extends Component {
               readOnly
               type="text"
               name="P_QUOTABASE"
-              value={paymentForm.quotabase}
+              value={paymentForm.quotabase || ''}
             />
             <br />
             <input
               readOnly
               type="text"
               name="ini_onlycardcode"
-              value={paymentForm.ini_onlycardcode}
+              value={paymentForm.ini_onlycardcode || ''}
             />
 
             <br />
@@ -232,7 +242,7 @@ class PaymentMethod extends Component {
               readOnly
               type="text"
               name="lotteJs"
-              value={paymentForm.jsUrl}
+              value={paymentForm.jsUrl || ''}
             />
           </form>
         </div>
