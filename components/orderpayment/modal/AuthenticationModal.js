@@ -42,7 +42,7 @@ class AuthenticationModal extends Component {
               </div>
               <div
                 className={css.button}
-                onClick={() => authmobile.getCertKey('order')}
+                onClick={() => window.open('', '_slef', 'popupChk')}
               >
                 본인 명의 휴대폰으로 인증
                 <form name="form_chk" method="post" style={{ display: 'none' }}>

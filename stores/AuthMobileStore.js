@@ -29,7 +29,8 @@ export default class AuthMobileStore {
       let verifyParams = this.verifyParams;
       let authData = this.authData;
       // const childWindow = openPopupCenter('', 'popupChk', 500, 550);
-      const childWindow = window.open('_self', 'popupChk');
+      // const childWindow = window.open('_self', 'popupChk');
+      // childWindow.location
       let checkIdentity = this.checkIdentity;
       document.form_chk.action =
         'https://nice.checkplus.co.kr/CheckPlusSafeModel/checkplus.cb';
@@ -43,7 +44,7 @@ export default class AuthMobileStore {
         window.removeEventListener('message', onReceiveMessageFromPopup);
 
         // 팝업 윈도우 닫기
-        childWindow.close();
+        // childWindow.close();
 
         // TODO: 인증완료 다음단계 진행
         // location 파라미터 : findpassword, findid, order
