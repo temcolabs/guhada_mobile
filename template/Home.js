@@ -39,27 +39,26 @@ class Home extends React.Component {
         />
         {/* TODO :: 임시로 만들어놓은 슬라이드 배너
         현재 dot 구현은 되어 있지 않음 */}
-        <MainSlideBanner imageFile={imageFile} />
+        {/* <MainSlideBanner imageFile={imageFile} /> */}
+        <img
+          className={css.mainPromotionImage}
+          src="/static/main_banner.png"
+          alt="main"
+        />
         <MainSectionItem
           title={'PREMIUM ITEM'}
           items={main.plusItem}
           categoryId={main.navDealId}
-          toSearch={searchitem.toSearch}
-          condition={'PLUS'}
         />
         <MainSectionItem
           title={'BEST ITEM'}
           items={main.hits}
           categoryId={main.navDealId}
-          toSearch={searchitem.toSearch}
-          condition={'BEST'}
         />
         <MainSectionItem
           title={'NEW ARRIVALS'}
           items={main.newArrivals}
           categoryId={main.navDealId}
-          toSearch={searchitem.toSearch}
-          condition={'NEW'}
         />
         <HomeItemDefault header={'HOT KEYWORD'}>
           <MainHotKeyword
