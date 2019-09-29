@@ -6,7 +6,7 @@ export default {
       name: 'email',
       label: '이메일',
       autoComplete: 'email',
-      placeholder: '아이디',
+      placeholder: '아이디 (이메일)',
       rules: 'required|email|string|between:5,25',
       // hooks,
     },
@@ -23,5 +23,3 @@ export default {
     saveid: {},
   },
 };
-
-
