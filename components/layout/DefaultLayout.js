@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import css from './DefaultLayout.module.scss';
 import Header from 'components/header/Header';
 import ToolBar from 'components/toolbar/ToolBar';
+import Footer from 'components/footer/Footer';
 // import { inject, observer } from 'mobx-react';
 /**
  * DefaultLayout
@@ -38,8 +39,8 @@ export default class DefaultLayout extends Component {
         {topLayout === 'keyword' ? null : (
           <Header headerShape={headerShape}>{pageTitle}</Header>
         )}
-
         {this.props.children}
+        <Footer />
         {toolBar === false ? null : <ToolBar />}
       </div>
     );
