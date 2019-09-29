@@ -43,7 +43,7 @@ class PaymentMethod extends Component {
         </ul>
 
         <div className={css.paymentForm}>
-          <form id="paymentForm" method="POST">
+          <form id="paymentForm" method="POST" acceptCharset="euc-kr">
             <input
               readOnly
               type="text"
