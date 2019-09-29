@@ -32,48 +32,48 @@ export default class ProductDetailStore {
       .get(`/deals/${id}`)
       .then(res => {
         let data = res.data;
-        if (data.resultCode === 200) {
-          this.deals = data.data;
-          this.root.productoption.getShipExpenseType();
-          this.root.productoption.getOptions();
-          this.getDealsTag();
-          this.root.productDetailBookmark.getBookMark(this.deals.productId);
+        this.deals = data.data;
+        this.root.productoption.getShipExpenseType();
+        this.root.productoption.getOptions();
+        this.getDealsTag();
+        this.root.productDetailBookmark.getBookMark(this.deals.productId);
 
-          while (this.actionAfterUserInfoFetched.length > 0) {
-            const cb = this.actionAfterUserInfoFetched.pop();
+        while (this.actionAfterUserInfoFetched.length > 0) {
+          const cb = this.actionAfterUserInfoFetched.pop();
 
-            if (typeof cb === 'function') {
-              cb();
-            }
+          if (typeof cb === 'function') {
+            cb();
           }
-          console.log(this.deals, 'this.deals');
-          // 다른 서비스 api로 데이터 받아오는 부분
-          this.getClaimData();
-          this.getBusinessSeller();
-          this.getDealsOfSameBrand();
-          this.getDealsOfRecommend();
-          this.getSellerStore();
-          this.getSellerStoreDeals();
-          this.getInquiryDetail();
-          // this.getFollowers();
-          this.root.sellerfollow.getSellerFollow(this.deals.sellerId);
-          this.getSatisfaction();
-          this.getSellerDetail();
-          this.root.productreview.getProductReview();
-          this.root.productreview.getProductReviewSummary();
-          this.getInquiry(0);
-          // 데이터 테이블 형태로 가공해야 하는 attributes
-          this.initTableData();
-          // this.dealsStatus = true;
-          this.deals.dealsId = id;
-          // this.getBlockChainData();
-
-          // 혜택정보
-          this.root.productoption.getBenefitData();
-          this.root.productoption.getCouponData();
-
-          this.dealsStatus = true;
         }
+        console.log(this.deals, 'this.deals');
+        // 다른 서비스 api로 데이터 받아오는 부분
+        this.getClaimData();
+        this.getBusinessSeller();
+        this.getDealsOfSameBrand();
+        this.getDealsOfRecommend();
+        this.getSellerStore();
+        this.getSellerStoreDeals();
+        this.getInquiryDetail();
+        // this.getFollowers();
+        this.root.sellerfollow.getSellerFollow(this.deals.sellerId);
+        this.getSatisfaction();
+        this.getSellerDetail();
+        this.root.productreview.getProductReview();
+        this.root.productreview.getProductReviewSummary();
+        this.getInquiry(0);
+        // 데이터 테이블 형태로 가공해야 하는 attributes
+        this.initTableData();
+        // this.dealsStatus = true;
+        this.deals.dealsId = id;
+        // this.getBlockChainData();
+
+        // 혜택정보
+        this.root.productoption.getBenefitData();
+        this.root.productoption.getCouponData();
+
+        sessionStorage.removeItem('paymentInfo');
+
+        this.dealsStatus = true;
       })
       .catch(e => {
         if (e.status === 200) {

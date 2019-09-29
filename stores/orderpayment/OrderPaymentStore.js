@@ -968,12 +968,12 @@ export default class OrderPaymentStore {
       cartList: cartList,
     });
 
-    // let returnUrl =
-    //   `${process.env.HOSTNAME_MOBILE}/privyCertifyResult?` + query;
-    // let nextUrl = `${process.env.HOSTNAME_MOBILE}/privyCertifyResult`;
+    let returnUrl =
+      `${process.env.HOSTNAME_MOBILE}/privyCertifyResult?` + query;
+    let nextUrl = `${process.env.HOSTNAME_MOBILE}/privyCertifyResult`;
 
-    let returnUrl = `https://m.guhada.com/privyCertifyResult?` + query;
-    let nextUrl = `https://m.guhada.com/privyCertifyResult`;
+    // let returnUrl = `https://m.guhada.com/privyCertifyResult?` + query;
+    // let nextUrl = `https://m.guhada.com/privyCertifyResult`;
 
     console.log(returnUrl, 'returnUrl');
     API.order

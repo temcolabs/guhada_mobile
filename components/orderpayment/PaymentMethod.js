@@ -112,7 +112,6 @@ class PaymentMethod extends Component {
               type="text"
               name="gopaymethod"
               value={paymentForm.gopaymethod || ''}
-              ref={this.textInput}
             />
 
             <input
@@ -243,6 +242,7 @@ class PaymentMethod extends Component {
               type="text"
               name="lotteJs"
               value={paymentForm.jsUrl || ''}
+              ref={this.textInput}
             />
           </form>
         </div>
