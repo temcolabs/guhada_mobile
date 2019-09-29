@@ -6,6 +6,10 @@ import CountdownTimer from 'components/common/CountdownTimer';
 @inject('orderpayment', 'authmobile', 'customerauthentication')
 @observer
 class AuthenticationModal extends Component {
+  openWindowHandel = () => {
+    window.open('_blank', 'popupChk');
+    this.props.authmobile.getCertKey('order');
+  };
   render() {
     const {
       orderpayment,
@@ -42,7 +46,7 @@ class AuthenticationModal extends Component {
               </div>
               <div
                 className={css.button}
-                onClick={() => authmobile.getCertKey('order')}
+                onClick={() => this.openWindowHandel()}
               >
                 본인 명의 휴대폰으로 인증
                 <form name="form_chk" method="post" style={{ display: 'none' }}>
