@@ -8,7 +8,7 @@ module.exports = {
     const authData = req.body;
     console.log(
       authData.P_OID,
-      req.query.oid,
+      req.query,
       authData,
       'authData.P_OID , authData , /privyCertifyResult2'
     );
