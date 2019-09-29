@@ -62,7 +62,7 @@ module.exports = {
           if (req.query.cartList) {
             res.redirect('/orderpayment?cartList=' + req.query.cartList);
           } else {
-            res.redirect('/');
+            res.redirect('/orderpayment?oid=' + req.query.oid);
           }
         } else {
           console.error(err);
