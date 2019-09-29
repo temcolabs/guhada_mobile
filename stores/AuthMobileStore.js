@@ -21,7 +21,7 @@ export default class AuthMobileStore {
     name: '',
   };
   @action
-  getCertKey = location => {
+  getCertKey = (location, childWindow) => {
     API.order.get('phoneCertification').then(res => {
       console.log(res.data.data, 'res.data.data');
       const key = res.data.data;
@@ -43,7 +43,7 @@ export default class AuthMobileStore {
         window.removeEventListener('message', onReceiveMessageFromPopup);
 
         // 팝업 윈도우 닫기
-        // childWindow.close();
+        childWindow.close();
 
         // TODO: 인증완료 다음단계 진행
         // location 파라미터 : findpassword, findid, order
