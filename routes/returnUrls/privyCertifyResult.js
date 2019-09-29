@@ -6,7 +6,12 @@ module.exports = {
 
   handler: function(req, res) {
     const authData = req.body;
-    console.log(req, authData, 'authData');
+    console.log(
+      authData.P_OID,
+      req.query.oid,
+      authData,
+      'authData.P_OID , authData'
+    );
     if (authData.P_STATUS !== '00') {
       console.log(authData, 'authData', authData.P_RMESG1, 'message');
 
@@ -35,7 +40,7 @@ module.exports = {
           // authUrl: authData.authUrl,
           // netCancel: authData.netCancelUrl,
           checkAckUrl: authData.P_REQ_URL,
-          pgOid: authData.P_OID,
+          pgOid: req.query.oid,
           pgTidSample: authData.P_TID,
           web: false,
         },

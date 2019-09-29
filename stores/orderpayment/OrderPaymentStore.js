@@ -968,8 +968,6 @@ export default class OrderPaymentStore {
       cartList: cartList,
     });
 
-    let returnUrl =
-      `${process.env.HOSTNAME_MOBILE}/privyCertifyResult?` + query;
     let nextUrl = `${process.env.HOSTNAME_MOBILE}/privyCertifyResult`;
 
     // let returnUrl = `https://m.guhada.com/privyCertifyResult?` + query;
@@ -979,42 +977,44 @@ export default class OrderPaymentStore {
     API.order
       .post(`/order/requestOrder`, forms)
       .then(res => {
-        if (res.data.resultCode === 200) {
-          this.status.paymentProceed = true;
-          let data = res.data.data;
-          console.log(data, 'requestOrder return data');
+        this.status.paymentProceed = true;
+        let data = res.data.data;
+        let returnUrl =
+          `${process.env.HOSTNAME_MOBILE}/privyCertifyResult?` +
+          query +
+          `?oid=${data.pgOid}`;
+        console.log(data, 'requestOrder return data');
 
-          this.paymentForm = {
-            version: data.version,
-            mid: data.pgMid,
-            goodname: data.prodNm,
-            price: data.pgAmount,
-            buyername: data.purchaseNm,
-            buyertel: data.purchasePhone,
-            buyeremail: data.purchaseEmail,
-            gopaymethod: data.parentMethodCd,
-            ini_cardcode: data.methodCd,
-            oid: data.pgOid,
-            timestamp: data.timestamp,
-            currency: data.currency,
-            signature: data.signature,
-            mKey: data.key,
-            offerPeriod: data.offerPeriod,
-            acceptmethod: data.acceptMethod,
-            languageView: data.languageView,
-            charset: data.charset,
-            payViewType: data.payViewType,
-            closeUrl: data.closeUrl,
-            popupUrl: data.popupUrl,
-            ini_onlycardcode: data.methodCd,
-            vbankTypeUse: '1',
-            quotabase: data.cardQuota,
-            returnUrl: returnUrl,
-            jsUrl: data.jsUrl,
-            nextUrl: nextUrl,
-          };
-          sessionStorage.setItem('paymentInfo', JSON.stringify(forms));
-        }
+        this.paymentForm = {
+          version: data.version,
+          mid: data.pgMid,
+          goodname: data.prodNm,
+          price: data.pgAmount,
+          buyername: data.purchaseNm,
+          buyertel: data.purchasePhone,
+          buyeremail: data.purchaseEmail,
+          gopaymethod: data.parentMethodCd,
+          ini_cardcode: data.methodCd,
+          oid: data.pgOid,
+          timestamp: data.timestamp,
+          currency: data.currency,
+          signature: data.signature,
+          mKey: data.key,
+          offerPeriod: data.offerPeriod,
+          acceptmethod: data.acceptMethod,
+          languageView: data.languageView,
+          charset: data.charset,
+          payViewType: data.payViewType,
+          closeUrl: data.closeUrl,
+          popupUrl: data.popupUrl,
+          ini_onlycardcode: data.methodCd,
+          vbankTypeUse: '1',
+          quotabase: data.cardQuota,
+          returnUrl: returnUrl,
+          jsUrl: data.jsUrl,
+          nextUrl: nextUrl,
+        };
+        sessionStorage.setItem('paymentInfo', JSON.stringify(forms));
       })
       .catch(err => {
         this.root.alert.showAlert({

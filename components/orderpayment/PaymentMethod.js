@@ -46,182 +46,182 @@ class PaymentMethod extends Component {
           <form id="paymentForm" method="POST" acceptCharset="euc-kr">
             <input
               readOnly
-              type="text"
+              type="hidden"
               name="version"
               value={paymentForm.version || ''}
             />
 
             <input
               readOnly
-              type="text"
+              type="hidden"
               name="P_MID"
               value={paymentForm.mid || ''}
             />
 
             <input
               readOnly
-              type="text"
+              type="hidden"
               name="P_GOODS"
               value={paymentForm.goodname || ''}
             />
 
             <input
               readOnly
-              type="text"
+              type="hidden"
               name="P_AMT"
               value={paymentForm.price || ''}
             />
 
             <input
               readOnly
-              type="text"
+              type="hidden"
               name="P_UNAME"
               value={paymentForm.buyername || ''}
             />
 
             <input
               readOnly
-              type="text"
+              type="hidden"
               name="P_MOBILE"
               value={paymentForm.buyertel || ''}
             />
 
             <input
               readOnly
-              type="text"
+              type="hidden"
               name="P_EMAIL"
               value={paymentForm.buyeremail || ''}
             />
 
             <input
               readOnly
-              type="text"
+              type="hidden"
               name="P_RETURN_URL"
               value={paymentForm.returnUrl || ''}
             />
 
             <input
               readOnly
-              type="text"
+              type="hidden"
               name="P_NEXT_URL"
               value={paymentForm.nextUrl || ''}
             />
 
             <input
               readOnly
-              type="text"
+              type="hidden"
               name="gopaymethod"
               value={paymentForm.gopaymethod || ''}
             />
 
             <input
               readOnly
-              type="text"
+              type="hidden"
               name="P_CARD_OPTION"
               value={paymentForm.ini_cardcode || ''}
             />
 
             <input
               readOnly
-              type="text"
+              type="hidden"
               name="P_OID"
               value={paymentForm.oid || ''}
             />
 
             <input
               readOnly
-              type="text"
+              type="hidden"
               name="P_TIMESTAMP"
               value={paymentForm.timestamp || ''}
             />
 
             <input
               readOnly
-              type="text"
+              type="hidden"
               name="currency"
               value={paymentForm.currency || ''}
             />
 
             <input
               readOnly
-              type="text"
+              type="hidden"
               name="P_SIGNATURE"
               value={paymentForm.signature || ''}
             />
 
             <input
               readOnly
-              type="text"
+              type="hidden"
               name="P_MKEY"
               value={paymentForm.mKey || ''}
             />
 
             <input
               readOnly
-              type="text"
+              type="hidden"
               name="P_OFFER_PERIOD"
               value={paymentForm.offerPeriod || ''}
             />
 
             <input
               readOnly
-              type="text"
+              type="hidden"
               name="P_RESERVED"
               value={paymentForm.acceptmethod || ''}
             />
 
             <input
               readOnly
-              type="text"
+              type="hidden"
               name="languageView"
               value={paymentForm.languageView || ''}
             />
 
             <input
               readOnly
-              type="text"
+              type="hidden"
               name="P_CHARSET"
               value={paymentForm.charset || ''}
             />
 
             <input
               readOnly
-              type="text"
+              type="hidden"
               name="P_HPP_METHOD"
               value={paymentForm.acceptmethod || ''}
             />
 
             <input
               readOnly
-              type="text"
+              type="hidden"
               name="payViewType"
               value={paymentForm.payViewType || ''}
             />
 
             <input
               readOnly
-              type="text"
+              type="hidden"
               name="closeUrl"
               value={paymentForm.closeUrl || ''}
             />
 
             <input
               readOnly
-              type="text"
+              type="hidden"
               name="popupUrl"
               value={paymentForm.popupUrl || ''}
             />
 
             <input
               readOnly
-              type="text"
+              type="hidden"
               name="ansim_quota"
               value={paymentForm.quotabase || ''}
             />
 
             <input
               readOnly
-              type="text"
+              type="hidden"
               name="vbankTypeUse"
               value={paymentForm.vbankTypeUse || ''}
             />
@@ -229,14 +229,14 @@ class PaymentMethod extends Component {
             <br />
             <input
               readOnly
-              type="text"
+              type="hidden"
               name="P_QUOTABASE"
               value={paymentForm.quotabase || ''}
             />
             <br />
             <input
               readOnly
-              type="text"
+              type="hidden"
               name="ini_onlycardcode"
               value={paymentForm.ini_onlycardcode || ''}
             />
@@ -244,7 +244,7 @@ class PaymentMethod extends Component {
             <br />
             <input
               readOnly
-              type="text"
+              type="hidden"
               name="lotteJs"
               value={paymentForm.jsUrl || ''}
               ref={this.textInput}
