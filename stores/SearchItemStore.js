@@ -361,17 +361,28 @@ export default class SearchItemStore {
               } else if (enter === 'brand' || enter === 'keyword') {
                 // 브랜드에서 category 목록이 없을 경우
                 if (categoryList[0] === '') {
-                  // this.toGetBrandFilter([]);
-                  // this.root.brands.brandsByCategoryFilter = data.data.brands;
-                  // this.root.brands.setGroupBrandList(data.data.brands);
                   this.treeDataForFilter = data.data.categories;
-                  // this.setCategoryTreeData('brand');
                   if (enter === 'keyword') {
                     this.setTitle(keyword);
                   } else {
                     let brand = JSON.parse('[' + query.brand + ']');
 
-                    if (brand.length >= 2) {
+                    if (
+                      _.isNil(query.condition) === false &&
+                      query.condition !== ''
+                    ) {
+                      const condition = [
+                        { label: 'PREMIUM ITEM', value: 'PLUS' },
+                        { label: 'BEST ITEM', value: 'BEST' },
+                        { label: 'NEW ARRIVALS', value: 'NEW' },
+                      ];
+
+                      condition.map(c => {
+                        if (c.value === query.condition) {
+                          return this.setTitle(c.label);
+                        }
+                      });
+                    } else if (brand.length >= 2) {
                       this.setTitle('검색 결과');
                     } else if (brand.length === 0) {
                       this.setTitle('전체 상품');
@@ -383,13 +394,27 @@ export default class SearchItemStore {
                   }
                 } else if (enter === 'keyword') {
                   this.treeDataForFilter = data.data.categories;
-                  // this.setCategoryTreeData('brand');
                   if (enter === 'keyword') {
                     this.setTitle(keyword);
                   } else {
                     let brand = JSON.parse('[' + query.brand + ']');
 
-                    if (brand.length >= 2) {
+                    if (
+                      _.isNil(query.condition) === false &&
+                      query.condition !== ''
+                    ) {
+                      const condition = [
+                        { label: 'PREMIUM ITEM', value: 'PLUS' },
+                        { label: 'BEST ITEM', value: 'BEST' },
+                        { label: 'NEW ARRIVALS', value: 'NEW' },
+                      ];
+
+                      condition.map(c => {
+                        if (c.value === query.condition) {
+                          return this.setTitle(c.label);
+                        }
+                      });
+                    } else if (brand.length >= 2) {
                       this.setTitle('검색 결과');
                     } else if (brand.length === 0) {
                       this.setTitle('전체 상품');
@@ -414,7 +439,10 @@ export default class SearchItemStore {
                   } else {
                     let brand = JSON.parse('[' + query.brand + ']');
 
-                    if (query.condition !== '') {
+                    if (
+                      _.isNil(query.condition) === false &&
+                      query.condition !== ''
+                    ) {
                       const condition = [
                         { label: 'PREMIUM ITEM', value: 'PLUS' },
                         { label: 'BEST ITEM', value: 'BEST' },
@@ -453,20 +481,7 @@ export default class SearchItemStore {
                     );
                   }
                 }
-                // this.setCategoryTreeData();
               }
-              // else if (enter === "keyword") {
-              //   this.treeDataForFilter = data.data.categories;
-              //   this.root.brands.brandsByCategoryFilter = data.data.brands;
-              //   this.setCategoryTreeData("brand");
-
-              //   if (categoryIds)
-              //     this.setTitle(
-              //       getCategoryTitle(data.data.categories, categoryIds)
-              //     );
-              // }
-
-              // this.pageNavigator(data.data.countOfDeals, unitPerPage);
 
               this.filterData = data.data.filters;
               filterList.map(value => {
@@ -517,18 +532,6 @@ export default class SearchItemStore {
   @observable itemCountOfDeals;
   @observable unitPerPage = 20;
   @observable pageList = [];
-
-  // @action
-  // pageNavigator = (itemCountOfDeals, unitPerPage) => {
-  //   this.itemCountOfDeals = itemCountOfDeals;
-  //   this.unitPerPage = unitPerPage;
-  //   let listCount = parseInt(this.itemCountOfDeals / this.unitPerPage) + 1;
-  //   this.pageList = [];
-
-  //   for (let i = 0; i < listCount; i++) {
-  //     this.pageList.push(i + 1);
-  //   }
-  // };
 
   @observable countOfDeals;
 
