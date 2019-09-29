@@ -973,7 +973,6 @@ export default class OrderPaymentStore {
     // let returnUrl = `https://m.guhada.com/privyCertifyResult?` + query;
     // let nextUrl = `https://m.guhada.com/privyCertifyResult`;
 
-    console.log(returnUrl, 'returnUrl');
     API.order
       .post(`/order/requestOrder`, forms)
       .then(res => {
@@ -983,6 +982,8 @@ export default class OrderPaymentStore {
           `${process.env.HOSTNAME_MOBILE}/privyCertifyResult?` +
           query +
           `?oid=${data.pgOid}`;
+        console.log(returnUrl, 'returnUrl');
+
         console.log(data, 'requestOrder return data');
 
         this.paymentForm = {
@@ -1036,8 +1037,8 @@ export default class OrderPaymentStore {
     console.log(form, 'form check');
     console.log(this.paymentForm.jsUrl, 'check this.paymentForm.jsUrl');
     console.log(form.P_GOODS.value, form.P_UNAME.value, 'check encode');
-    form.action = this.paymentForm.jsUrl;
-    form.submit();
+    // form.action = this.paymentForm.jsUrl;
+    // form.submit();
     // };
     // const url = this.paymentForm.jsUrl;
     // loadScript(url, { callback: action, async: false, id: 'INIStdPay' });

@@ -23,7 +23,7 @@ module.exports = {
             authData.P_RMESG1
         );
       } else {
-        res.redirect('/');
+        res.redirect('/orderpayment?cartList=' + req.query.oid);
       }
 
       return false;
