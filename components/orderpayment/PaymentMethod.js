@@ -219,7 +219,7 @@ class PaymentMethod extends Component {
               value={paymentForm.quotabase || ''}
             />
 
-            <input type="hidden" name="vbankTypeUse" value="1" />
+            <input readOnly type="text" name="vbankTypeUse" value="1" />
 
             <br />
             <input
