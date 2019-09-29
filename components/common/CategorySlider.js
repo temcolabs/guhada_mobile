@@ -96,8 +96,3 @@ class CategorySlider extends Component {
 }
 
 export default CategorySlider;
-{
-  /* <div onClick={() => this.toSearch(category.id)} key={category.id}>
-  {category.title}
-</div>; */
-}
