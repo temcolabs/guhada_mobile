@@ -31,6 +31,7 @@ export default class AuthMobileStore {
       // const childWindow = openPopupCenter('', 'popupChk', 500, 550);
       // const childWindow = window.open('_self', 'popupChk');
       // childWindow.location
+      window.open('', '_self', 'popupChk');
       let checkIdentity = this.checkIdentity;
       document.form_chk.action =
         'https://nice.checkplus.co.kr/CheckPlusSafeModel/checkplus.cb';
