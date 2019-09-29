@@ -10,7 +10,7 @@ module.exports = {
       authData.P_OID,
       req.query.oid,
       authData,
-      'authData.P_OID , authData'
+      'authData.P_OID , authData , /privyCertifyResult2'
     );
   },
 };

@@ -66,9 +66,10 @@ module.exports = {
           }
         } else {
           console.error(err);
-          res.redirect(
-            `/orderpayment?cartList=${req.query.cartList}&resultMsg=${err}`
-          );
+          res.redirect('/orderpayment?oid=' + req.query.oid);
+          // res.redirect(
+          //   `/orderpayment?cartList=${req.query.cartList}&resultMsg=${err}`
+          // );
         }
       });
 

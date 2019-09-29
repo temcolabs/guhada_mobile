@@ -981,7 +981,9 @@ export default class OrderPaymentStore {
           `${process.env.HOSTNAME_MOBILE}/privyCertifyResult?` +
           query +
           `&oid=${data.pgOid}`;
-        let nextUrl = `${process.env.HOSTNAME_MOBILE}/privyCertifyResult2`;
+        let nextUrl = `${process.env.HOSTNAME_MOBILE}/privyCertifyResult2?oid=${
+          data.pgOid
+        }`;
         console.log(returnUrl, 'returnUrl');
 
         console.log(data, 'requestOrder return data');
