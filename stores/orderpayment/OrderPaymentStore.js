@@ -964,27 +964,20 @@ export default class OrderPaymentStore {
     }
     console.log(forms, 'forms');
 
-    const query = qs.stringify({
-      cartList: cartList,
-    });
-    console.log(cartList, 'cartList');
-
-    // let returnUrl = `https://m.guhada.com/privyCertifyResult?` + query;
-    // let nextUrl = `https://m.guhada.com/privyCertifyResult`;
+    // const query = qs.stringify({
+    //   cartList: cartList,
+    // });
 
     API.order
       .post(`/order/requestOrder`, forms)
       .then(res => {
         this.status.paymentProceed = true;
         let data = res.data.data;
-        let returnUrl =
-          `${process.env.HOSTNAME_MOBILE}/privyCertifyResult?` +
-          query +
-          `&oid=${data.pgOid}`;
-        let nextUrl = `${process.env.HOSTNAME_MOBILE}/privyCertifyResult2?${
+        let returnUrl = `${process.env.HOSTNAME_MOBILE}/privyCertifyResult`;
+        let nextUrl = `${process.env.HOSTNAME_MOBILE}/privyCertifyResult?${
           data.pgOid
         }`;
-        console.log(returnUrl, 'returnUrl');
+        console.log(nextUrl, 'nextUrl');
 
         console.log(data, 'requestOrder return data');
 
@@ -1021,9 +1014,9 @@ export default class OrderPaymentStore {
       })
       .catch(err => {
         console.log(err);
-        this.root.alert.showAlert({
-          content: `${_.get(err, 'data.message') || '결제 오류'}`,
-        });
+        // this.root.alert.showAlert({
+        //   content: `${_.get(err, 'data.message') || '결제 오류'}`,
+        // });
         this.status.paymentProceed = false;
       });
   };
@@ -1037,9 +1030,9 @@ export default class OrderPaymentStore {
     // form.P_GOODS.value = encodeURIComponent(form.P_GOODS.value);
     // form.P_UNAME.value = encodeURIComponent(form.P_UNAME.value);
 
-    console.log(form, 'form check');
-    console.log(this.paymentForm.jsUrl, 'check this.paymentForm.jsUrl');
-    console.log(form.P_GOODS.value, form.P_UNAME.value, 'check encode');
+    // console.log(form, 'form check');
+    // console.log(this.paymentForm.jsUrl, 'check this.paymentForm.jsUrl');
+    // console.log(form.P_GOODS.value, form.P_UNAME.value, 'check encode');
     form.action = this.paymentForm.jsUrl;
     form.submit();
     // };

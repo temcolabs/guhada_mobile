@@ -6,24 +6,25 @@ module.exports = {
 
   handler: function(req, res) {
     const authData = req.body;
-    console.log(
-      authData.P_OID,
-      req.query.oid,
-      authData,
-      'authData.P_OID , authData'
-    );
+    let para = req.url;
+
+    let oid = para.substring(para.indexOf('?') + 1, para.length);
+    console.log(para, oid, authData, ' oid , /privyCertifyResult');
+
     if (authData.P_STATUS !== '00') {
       console.log(authData, 'authData', authData.P_RMESG1, 'message');
 
       if (req.query.cartList && authData.P_RMESG1) {
-        res.redirect(
-          '/orderpayment?cartList=' +
-            req.query.cartList +
-            '&resultMsg=' +
-            authData.P_RMESG1
-        );
+        // res.redirect(
+        //   '/orderpayment?cartList=' +
+        //     req.query.cartList +
+        //     '&resultMsg=' +
+        //     authData.P_RMESG1
+        // );
+        res.redirect('/');
       } else {
-        res.redirect('/orderpayment?cartList=' + req.query.oid);
+        // res.redirect('/orderpayment?cartList=' + oid);
+        res.redirect('/');
       }
 
       return false;
@@ -40,7 +41,7 @@ module.exports = {
           // authUrl: authData.authUrl,
           // netCancel: authData.netCancelUrl,
           checkAckUrl: authData.P_REQ_URL,
-          pgOid: req.query.oid,
+          pgOid: oid,
           pgTidSample: authData.P_TID,
           web: false,
         },
@@ -60,39 +61,20 @@ module.exports = {
           console.error(`err message ${err}`);
           console.error(`pg 통과후 err ${err.data}`);
           if (req.query.cartList) {
-            res.redirect('/orderpayment?cartList=' + req.query.cartList);
+            // res.redirect('/orderpayment?cartList=' + req.query.cartList);
+            res.redirect('/');
           } else {
-            res.redirect('/orderpayment?oid=' + req.query.oid);
+            // res.redirect('/orderpayment?oid=' + oid);
+            res.redirect('/');
           }
         } else {
           console.error(err);
-          res.redirect('/orderpayment?oid=' + req.query.oid);
+          res.redirect('/');
+          // res.redirect('/orderpayment?oid=' + oid);
           // res.redirect(
           //   `/orderpayment?cartList=${req.query.cartList}&resultMsg=${err}`
           // );
         }
       });
-
-    // const data = {
-    //   resultCode: authData.resultCode,
-    //   resultMsg: authData.resultMsg,
-    //   pgMid: authData.mid,
-    //   authToken: authData.authToken,
-    //   authUrl: authData.authUrl,
-    //   netCancel: authData.netCancelUrl,
-    //   checkAckUrl: authData.checkAckUrl,
-    //   pgOid: authData.orderNumber,
-    // };
-
-    // API.order.post(`/order/orderApproval`, data).then(response => {
-    //   let data = response.data.data;
-    //   // console.log(response, 'response');
-    //   if (response.data.resultCode === 200) {
-    //     res.redirect('/orderpaymentsuccess?id=' + data);
-    //   } else {
-    //     console.log(data, 'pg 통과후 문제');
-    //     res.redirect('/orderpayment?cartList=' + req.query.cartList);
-    //   }
-    // });
   },
 };
