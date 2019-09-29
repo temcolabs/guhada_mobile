@@ -59,6 +59,22 @@ module.exports = {
             res.redirect('/');
           }
         }
+      })
+      .catch(err => {
+        if (err.status === 200) {
+          console.error(`err message ${err}`);
+          console.error(`pg 통과후 err ${err.data}`);
+          if (req.query.cartList) {
+            res.redirect('/orderpayment?cartList=' + req.query.cartList);
+          } else {
+            res.redirect('/');
+          }
+        } else {
+          console.error(err);
+          res.redirect(
+            `/orderpayment?cartList=${req.query.cartList}&resultMsg=${err}`
+          );
+        }
       });
 
     // const data = {
