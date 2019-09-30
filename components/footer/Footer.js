@@ -6,7 +6,9 @@ export default function Footer() {
     <div className={css.wrap}>
       <div className={css.footerWrap}>
         <div className={css.tabSection}>
-          <div className={css.tabItem}>입점/제휴문의</div>
+          <div className={css.tabItem}>
+            <a href="mailto:help@guhada.com">입점/제휴문의</a>
+          </div>
           <div
             className={css.tabItem}
             onClick={() =>
