@@ -68,6 +68,13 @@ class AddressItem extends Component {
                 type="text"
                 value={tempEditAddress.zip}
                 id="edit__zipCode"
+                onClick={() => {
+                  orderpayment.searchZipcode(
+                    '주문페이지-수정',
+                    orderpayment.addressEditing,
+                    null
+                  );
+                }}
                 readOnly
               />
               <button
@@ -146,7 +153,16 @@ class AddressItem extends Component {
           <div className={css.sectionWrap}>
             <div className={css.section}>
               <div className={css.addressTitleWrap}>
-                <div className={css.addressTitle}>{data.shippingName}</div>
+                <div
+                  className={
+                    orderpayment.orderShippingList.currentUseAddressId ===
+                    data.id
+                      ? css.selectedTitle
+                      : css.title
+                  }
+                >
+                  {data.shippingName ? data.shippingName : ''}
+                </div>
                 {data.defaultAddress ? (
                   <div className={css.defaultAddress} />
                 ) : null}

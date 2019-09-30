@@ -408,17 +408,15 @@ export default class OrderPaymentStore {
       .get(`/users/${this.orderUserInfo.id}/shipping-addresses`)
       .then(res => {
         let data = res.data;
-        if (data.resultCode === 200) {
-          this.orderShippingList.list = data.data;
+        this.orderShippingList.list = data.data;
 
-          this.orderShippingList.list.map(data => {
-            data.recipientMobile = autoHypenPhone(data.recipientMobile);
-            if (data.defaultAddress) {
-              this.orderShippingList.currentUseAddressId = data.id;
-            }
-          });
-          this.status.shppingListModalStatus = true;
-        }
+        this.orderShippingList.list.map(data => {
+          data.recipientMobile = autoHypenPhone(data.recipientMobile);
+          if (data.defaultAddress) {
+            this.orderShippingList.currentUseAddressId = data.id;
+          }
+        });
+        this.status.shppingListModalStatus = true;
       })
       .catch(err => {
         console.log(err);

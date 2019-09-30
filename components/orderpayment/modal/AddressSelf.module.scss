@@ -1,28 +1,33 @@
 .wrap {
-  padding-top: 30px;
-  padding-bottom: 120px;
+  padding: 30px 20px 120px;
   .section {
     display: flex;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 10px;
 
     &:first-child {
       margin-top: 0;
     }
-    .title {
-      font-size: 14px;
-      color: #111;
-      font-weight: 500;
-      min-width: 80px;
-      white-space: nowrap;
+
+    &:last-child {
+      margin-top: 15px;
     }
+    // .title {
+    //   font-size: 14px;
+    //   color: #111;
+    //   font-weight: 500;
+    //   min-width: 80px;
+    //   white-space: nowrap;
+    // }
     .value {
       width: 100%;
       input {
         width: 100%;
-        border: 1px solid #ebebeb;
-        padding: 10px;
+        border: 1px solid #eee;
+        padding: 0 15px;
         height: 45px;
+        font-size: 13px;
+        color: #777;
       }
     }
     .zipcode {
@@ -30,7 +35,7 @@
       white-space: nowrap;
       font-size: 13px;
       border: 1px solid #ebebeb;
-      min-width: 110px;
+      min-width: 90px;
       text-align: center;
       height: 45px;
       line-height: 45px;

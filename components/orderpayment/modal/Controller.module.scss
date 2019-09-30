@@ -1,8 +1,9 @@
 .wrap {
+  margin-bottom: 10px;
   .header {
-    padding: 40px;
     position: relative;
-    margin-bottom: 20px;
+    height: 60px;
+    border-bottom: 1px solid #eee;
     .back {
       width: 30px;
       height: 30px;
@@ -10,7 +11,7 @@
       background-size: 30px;
       position: absolute;
       top: 50%;
-      left: 0;
+      left: 10px;
       transform: translateY(-50%);
     }
     .title {
@@ -26,6 +27,8 @@
   .tabButton {
     display: flex;
 
+    padding: 0 20px;
+    margin-top: 20px;
     div {
       width: calc(100% / 2);
       height: 50px;
