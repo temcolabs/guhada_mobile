@@ -26,6 +26,9 @@
 
     & .order {
         margin-left: 20px;
+        padding-right: 16px;
+        background: url('/static/icon/list_select_arrow_open.png') no-repeat right;
+        background-size: 10px 10px;
     }
 
     & .detail {
