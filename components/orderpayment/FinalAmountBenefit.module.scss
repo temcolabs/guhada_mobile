@@ -65,22 +65,30 @@
           font-size: 12px;
         }
 
-        .shippingType {
+        .blankBox {
           font-size: 12px;
+          height: 15px;
           color: #9a9fa8;
         }
       }
 
-      .minusImage {
-        background: url('/static/icon/m_minus_btn.png') no-repeat;
-        width: 15px;
-        height: 15px;
-        background-size: cover;
-        background-position: center;
+      .calcBox {
         position: absolute;
         right: 0;
         top: 50%;
         transform: translate(50%, -50%);
+        .blankBox {
+          font-size: 12px;
+          height: 15px;
+          color: #9a9fa8;
+        }
+        .minusImage {
+          background: url('/static/icon/m_minus_btn.png') no-repeat;
+          width: 15px;
+          height: 15px;
+          background-size: cover;
+          background-position: center;
+        }
       }
     }
 
@@ -99,16 +107,29 @@
         font-size: 12px;
       }
 
-      .equalImage {
-        background: url('/static/icon/m_equal_btn.png') no-repeat;
-        width: 15px;
+      .blankBox {
+        font-size: 12px;
         height: 15px;
-        background-size: cover;
-        background-position: center;
+        color: #9a9fa8;
+      }
+
+      .calcBox {
         position: absolute;
         right: 0;
         top: 50%;
         transform: translate(50%, -50%);
+        .blankBox {
+          font-size: 12px;
+          height: 15px;
+          color: #9a9fa8;
+        }
+        .equalImage {
+          background: url('/static/icon/m_equal_btn.png') no-repeat;
+          width: 15px;
+          height: 15px;
+          background-size: cover;
+          background-position: center;
+        }
       }
     }
 
@@ -124,6 +145,12 @@
 
       @include break350 {
         font-size: 12px;
+      }
+
+      .blankBox {
+        font-size: 12px;
+        height: 15px;
+        color: #9a9fa8;
       }
 
       span {

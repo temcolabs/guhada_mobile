@@ -48,22 +48,34 @@ class FinalAmountBenefit extends Component {
         <div className={css.finalResult}>
           <div className={css.totalOrderAmount}>
             <div className={css.innerContent}>
-              <div className={css.shippingType}>{`${
+              <div className={css.blankBox}>{`${
                 orderPaymentTotalInfo.totalShipPrice === 0
                   ? '무료배송'
                   : `${orderPaymentTotalInfo.totalShipPrice.toLocaleString()}원`
               }`}</div>
               <div>{`${orderPaymentTotalInfo.totalProdPrice.toLocaleString()}원`}</div>
             </div>
-            <div className={css.minusImage} />
+            <div className={css.calcBox}>
+              <div className={css.blankBox} />
+              <div className={css.minusImage} />
+            </div>
           </div>
           <div className={css.totalDiscountAmount}>
-            {`${orderPaymentTotalInfo.totalDiscountDiffPrice?.toLocaleString()}원`}
-            <div className={css.equalImage} />
+            <div className={css.innerContent}>
+              <div className={css.blankBox} />
+              {`${orderPaymentTotalInfo.totalDiscountDiffPrice?.toLocaleString()}원`}
+              <div className={css.calcBox}>
+                <div className={css.blankBox} />
+                <div className={css.equalImage} />
+              </div>
+            </div>
           </div>
           <div className={css.totalPaymentAmount}>
-            {`${orderPaymentTotalInfo.totalPaymentPrice?.toLocaleString()}`}
-            <span>원</span>
+            <div className={css.innerContent}>
+              <div className={css.blankBox} />
+              {`${orderPaymentTotalInfo.totalPaymentPrice?.toLocaleString()}`}
+              <span>원</span>
+            </div>
           </div>
         </div>
 
