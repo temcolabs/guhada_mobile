@@ -51,11 +51,11 @@ class CategorySlider extends Component {
               </div>
             );
           })}
-          <img
+          {/* <img
             src={'/static/icon/btn-arrow2.png'}
             className={css.arrowIcon}
             alt=""
-          />
+          /> */}
         </div>
         <div
           className={cn(css.subWrap)}
