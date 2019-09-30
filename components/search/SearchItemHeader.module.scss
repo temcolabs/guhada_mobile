@@ -11,7 +11,6 @@
     position: absolute;
     top: 60px;
     background-color: #ffffff;
-    border-bottom: 1px solid #eeeeee;
     z-index: 101;
 
     &.scrollUp {
@@ -27,6 +26,9 @@
 
     & .order {
         margin-left: 20px;
+        padding-right: 16px;
+        background: url('/static/icon/list_select_arrow_open.png') no-repeat right;
+        background-size: 10px 10px;
     }
 
     & .detail {
