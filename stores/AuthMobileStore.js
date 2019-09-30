@@ -129,7 +129,7 @@ export default class AuthMobileStore {
               .catch(err => {
                 let resultCode = _.get(err, 'data.resultCode');
                 let message = _.get(err, 'data.message');
-                if (resultCode === 6017) this.root.alert.showAlert(message);
+                if (resultCode === 6019) this.root.alert.showAlert(message);
               });
           }
         }
