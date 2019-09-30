@@ -15,9 +15,6 @@ import css from './OrderPayment.module.scss';
 @inject('orderpayment', 'customerauthentication')
 @observer
 class OrderPayment extends React.Component {
-  componentDidMount() {
-    this.props.orderpayment.shippingListModal();
-  }
   render() {
     let { orderpayment } = this.props;
     return (

@@ -2,7 +2,6 @@ import { observable, action, toJS } from 'mobx';
 import API from 'lib/API';
 import Router from 'next/router';
 import moment from 'moment';
-import { dateFormat } from 'constant';
 const isServer = typeof window === 'undefined';
 export default class OrderPaymentStore {
   constructor(root) {
