@@ -1,8 +1,7 @@
 import React from 'react';
-import css from './AddressEmpty.module.scss';
-
+import DataEmpty from '../../common/DataEmpty';
 const AddressEmpty = () => {
-  return <div className={css.wrap}>배송지 목록이 없습니다.</div>;
+  return <DataEmpty text="배송지 목록이 없습니다" />;
 };
 
 export default AddressEmpty;

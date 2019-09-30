@@ -1,0 +1,19 @@
+.wrap {
+  width: 100%;
+  background-color: #ffffff;
+  text-align: center;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.11;
+  color: #444444;
+  margin-top: 100px;
+}
+
+.infoIcon {
+  width: 60px;
+  height: 60px;
+  background-size: 60px;
+  background-repeat: no-repeat;
+  background-image: url('/static/icon/icon-no-data@3x.png');
+  margin: 0 auto 15px auto;
+}
