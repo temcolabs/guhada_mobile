@@ -38,7 +38,9 @@ class SearchItem4 extends Component {
                 <div className={css.imageWrap}>
                   {deal.freeShipping === true && (
                     <div className={css.freeShipping}>
-                      무료<br />배송
+                      무료
+                      <br />
+                      배송
                     </div>
                   )}
                   <div className={css.color}>
@@ -104,6 +106,7 @@ class SearchItem4 extends Component {
                       </span>
                     </div>
                   )}
+                  <div className={css.sellerName}>{deal.sellerName}</div>
                 </div>
               </div>
             </LinkRoute>

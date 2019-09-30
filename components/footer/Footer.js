@@ -4,81 +4,83 @@ import { openPopupCenter } from 'lib/dom';
 export default function Footer() {
   return (
     <div className={css.wrap}>
-      <div className={css.tabSection}>
-        <div className={css.tabItem}>입점/제휴문의</div>
-        <div
-          className={css.tabItem}
-          onClick={() =>
-            openPopupCenter(
-              `${process.env.HOSTNAME}/terms/privacy`,
-              'privacy',
-              500,
-              550
-            )
-          }
-        >
-          개인정보처리방침
-        </div>
-        <div className={css.tabItem}>셀러오피스</div>
-        <div
-          className={css.tabItem}
-          onClick={() =>
-            openPopupCenter(
-              `${process.env.HOSTNAME}/terms/purchase`,
-              'privacy',
-              500,
-              550
-            )
-          }
-        >
-          이용약관
-        </div>
-        <div className={css.tabItem}>문의하기</div>
-      </div>
-      <div className={css.contentsWrap}>
-        <div className={css.storeItem}>
-          <span style={{ color: '#777777' }}>고객센터 : </span>
-          <span style={{ color: '#5d2ed1' }}>1522-9839</span>
-          <br />
-          상담가능시간 : 오전 10시 ~ 오후6시 토요일 공휴일 휴무
-          <br />
-          E-mail : help@guhada.com
-        </div>
-        <div className={css.guhadaItem}>
-          (주)구하다 <br />
-          대표이사 : 윤재섭, 이근일, 임홍섭 ㅣ 개인정보보호책임자 :{' '}
-          <a href="mailto:daehoon.choi@temco.io">{`최대훈`}</a> <br />
-          사업자등록번호: 876-86-01259 <br />
-          주소 : 서울특별시 강남구 논현로75길 8 비드빌딩 6층 <br />
-          통신판매업자신고 : 2019-서울강남-01814호{' '}
-          <a
-            href="http://ftc.go.kr/bizCommPop.do?wrkr_no=8768601259"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            사업자정보확인
-          </a>{' '}
-          <br />
-        </div>
-        <div style={{ marginBottom: 24 }}>
-          고객님은 안전거래를 위해 결제 시 저희 사이트에서 가입한 구매안전
-          서비스 (채무지급보증)을 이용하실 수 있습니다.{' '}
-          <a
+      <div className={css.footerWrap}>
+        <div className={css.tabSection}>
+          <div className={css.tabItem}>입점/제휴문의</div>
+          <div
+            className={css.tabItem}
             onClick={() =>
               openPopupCenter(
-                `${process.env.HOSTNAME}/terms/guarantee`,
-                'guarantee',
+                `${process.env.HOSTNAME}/terms/privacy`,
+                'privacy',
                 500,
                 550
               )
             }
           >
-            채무 보증확인
-          </a>
+            개인정보처리방침
+          </div>
+          <div className={css.tabItem}>셀러오피스</div>
+          <div
+            className={css.tabItem}
+            onClick={() =>
+              openPopupCenter(
+                `${process.env.HOSTNAME}/terms/purchase`,
+                'privacy',
+                500,
+                550
+              )
+            }
+          >
+            이용약관
+          </div>
+          <div className={css.tabItem}>문의하기</div>
         </div>
-        <div>
-          COPYRIGHT <span style={{ fontFamily: 'sans-serif' }}>Ⓒ</span> 2019
-          GUHADA ALL RIGHTS RESERVED
+        <div className={css.contentsWrap}>
+          <div className={css.storeItem}>
+            <span style={{ color: '#777777' }}>고객센터 : </span>
+            <span style={{ color: '#5d2ed1' }}>1522-9839</span>
+            <br />
+            상담가능시간 : 오전 10시 ~ 오후6시 토요일 공휴일 휴무
+            <br />
+            E-mail : help@guhada.com
+          </div>
+          <div className={css.guhadaItem}>
+            (주)구하다 <br />
+            대표이사 : 윤재섭, 이근일, 임홍섭 ㅣ 개인정보보호책임자 :{' '}
+            <a href="mailto:daehoon.choi@temco.io">{`최대훈`}</a> <br />
+            사업자등록번호: 876-86-01259 <br />
+            주소 : 서울특별시 강남구 논현로75길 8 비드빌딩 6층 <br />
+            통신판매업자신고 : 2019-서울강남-01814호{' '}
+            <a
+              href="http://ftc.go.kr/bizCommPop.do?wrkr_no=8768601259"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              사업자정보확인
+            </a>{' '}
+            <br />
+          </div>
+          <div style={{ marginBottom: 24 }}>
+            고객님은 안전거래를 위해 결제 시 저희 사이트에서 가입한 구매안전
+            서비스 (채무지급보증)을 이용하실 수 있습니다.{' '}
+            <a
+              onClick={() =>
+                openPopupCenter(
+                  `${process.env.HOSTNAME}/terms/guarantee`,
+                  'guarantee',
+                  500,
+                  550
+                )
+              }
+            >
+              채무 보증확인
+            </a>
+          </div>
+          <div>
+            COPYRIGHT <span style={{ fontFamily: 'sans-serif' }}>Ⓒ</span> 2019
+            GUHADA ALL RIGHTS RESERVED
+          </div>
         </div>
       </div>
     </div>
