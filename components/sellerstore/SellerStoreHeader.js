@@ -60,14 +60,14 @@ export default function SellerStoreHeader({
         {login.loginStatus === loginStatus.LOGIN_DONE ? (
           seller.storeFollowBool === true ? (
             <button
-              className={cn(css.colored)}
+              className={cn()}
               onClick={() => seller.delFollowSellerStore(sellerId)}
             >
               팔로잉
             </button>
           ) : (
             <button
-              className={cn()}
+              className={cn(css.colored)}
               onClick={() => seller.setFollowSellerStore(sellerId)}
             >
               팔로우
@@ -75,7 +75,7 @@ export default function SellerStoreHeader({
           )
         ) : (
           <button
-            className={cn()}
+            className={cn(css.colored)}
             onClick={() => seller.setFollowSellerStore(sellerId)}
           >
             팔로우

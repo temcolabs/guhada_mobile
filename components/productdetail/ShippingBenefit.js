@@ -152,7 +152,7 @@ class ShippingBenefit extends Component {
                 {login.loginStatus === loginStatus.LOGIN_DONE ? (
                   <button
                     className={cn({
-                      [css.colored]: sellerfollow.follows === false,
+                      [css.colored]: sellerfollow.follows === true,
                     })}
                     onClick={e => {
                       this.handleSellerFollows();
