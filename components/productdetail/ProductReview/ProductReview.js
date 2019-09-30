@@ -7,6 +7,7 @@ import ReviewTab from './ReviewTab';
 import ProductReviewItems from './ProductReviewItems';
 import _ from 'lodash';
 import ProductReviewEmpty from './ProductReviewEmpty';
+import { toJS } from 'mobx';
 @inject('productreview', 'alert', 'login')
 @observer
 class ProductReview extends Component {
@@ -14,6 +15,9 @@ class ProductReview extends Component {
     const { productreview, tabRefMap, alert, login } = this.props;
     const review = productreview.review;
     const reviewSummary = productreview.reviewSummary;
+
+    let handleReviewIcon =
+      review.totalPages === productreview.reviewPage + 1 ? true : false;
     return (
       <SectionWrap>
         <ReviewSummary reviewSummary={reviewSummary} tabRefMap={tabRefMap} />
@@ -37,14 +41,16 @@ class ProductReview extends Component {
                 );
               })}
             </div>
-            <div className={css.reviewItemWrap}>
-              <div
-                className={css.addReviewButton}
-                onClick={() => productreview.addReview()}
-              >
-                상품 리뷰 더보기 +
+            {_.isNil(review.content) === false && handleReviewIcon === false && (
+              <div className={css.reviewItemWrap}>
+                <div
+                  className={css.addReviewButton}
+                  onClick={() => productreview.addReview()}
+                >
+                  상품 리뷰 더보기 +
+                </div>
               </div>
-            </div>
+            )}
           </>
         ) : (
           <ProductReviewEmpty alert={alert} />

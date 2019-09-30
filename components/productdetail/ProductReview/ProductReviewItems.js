@@ -185,7 +185,7 @@ class ProductReviewItems extends Component {
           <div className={css.commentWrap}>
             {/* <div>{`-댓글 6개`}</div> */}
             {/* <div className={css.line} /> */}
-            <div>신고</div>
+            {/* <div>신고</div> */}
           </div>
         </div>
       </div>
