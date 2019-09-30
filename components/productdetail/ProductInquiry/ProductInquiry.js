@@ -131,7 +131,7 @@ class ProductInquiry extends Component {
             className={css.pageButton}
             onClick={() => productdetail.addInquiry(this.state.tab)}
           >
-            상품 문의 10개 더보기 +
+            상품 문의 더보기 +
           </div>
         ) : null}
 

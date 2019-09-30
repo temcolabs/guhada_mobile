@@ -236,7 +236,7 @@ export default class ProductDetailStore {
   @observable inquiryMy = false;
 
   @observable itemCountOfDeals;
-  @observable unitPerPage = 10;
+  @observable unitPerPage = 5;
   @observable pageList = [];
   @observable inquiryPage = 0;
 
@@ -250,7 +250,7 @@ export default class ProductDetailStore {
       .get('/products/' + this.deals.productId + '/inquiries', {
         params: {
           pageNo: page,
-          size: 10,
+          size: this.unitPerPage,
           status: this.inquiryStatus,
           isMyInquiry: this.inquiryMy,
         },
@@ -276,7 +276,7 @@ export default class ProductDetailStore {
       .get('/products/' + this.deals.productId + '/inquiries', {
         params: {
           pageNo: this.inquiryPage,
-          size: 10,
+          size: this.unitPerPage,
           status: this.inquiryStatus,
           isMyInquiry: this.inquiryMy,
         },
@@ -284,13 +284,15 @@ export default class ProductDetailStore {
       .then(res => {
         let data = res.data;
 
-        if (data.resultCode === 200) {
-          let newInquiry = this.inquiryList.content;
-          this.inquiryList.content = newInquiry.concat(data.data.content);
-        } else
+        let newInquiry = this.inquiryList.content;
+        this.inquiryList.content = newInquiry.concat(data.data.content);
+      })
+      .catch(e => {
+        if (_.get(e, `data.resultCode`) === 5004) {
           this.root.alert.showAlert({
             content: '문의 데이터가 더 이상 존재하지 않습니다.',
           });
+        }
       });
   };
 
