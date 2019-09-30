@@ -37,46 +37,52 @@ class CartItem extends Component {
               </div>
             </div>
             <div className={css.cart__item}>
-              <div
-                className={css.cart__item__image}
-                style={{
-                  backgroundImage: `url(${data.imageUrl})`,
-                }}
-              />
-              <div className={css.cart__item__info}>
-                <div className={css.brand__name}>{data.brandName}</div>
-                <div className={css.product__name}>{`${
-                  data.season ? data.season : ''
-                } ${data.dealName}`}</div>
-                <div className={css.item__price__wrap}>
-                  <div className={css.discount__price}>
-                    {`${data.discountPrice.toLocaleString()}원`}
-                  </div>
-                  {data.discountPrice === data.sellPrice ? null : (
-                    <div className={css.sell__price}>
-                      {`${data.sellPrice.toLocaleString()}원`}
-                    </div>
-                  )}
-
-                  {data.discountPrice === data.sellPrice ? null : (
-                    <div className={css.discount__rate}>
-                      {`${parseInt(
-                        (100 * (data.sellPrice - data.discountPrice)) /
-                          data.sellPrice
-                      )}%`}
-                    </div>
-                  )}
-                </div>
-
+              <Link href={`/productdetail?deals=${data.dealId}`}>
                 <div
-                  className={css.purchase__button}
-                  onClick={() => {
-                    shoppingcart.shoppingCartimmediatePurchase(data.cartItemId);
+                  className={css.cart__item__image}
+                  style={{
+                    backgroundImage: `url(${data.imageUrl})`,
                   }}
-                >
-                  바로 구매
+                />
+              </Link>
+              <Link href={`/productdetail?deals=${data.dealId}`}>
+                <div className={css.cart__item__info}>
+                  <div className={css.brand__name}>{data.brandName}</div>
+                  <div className={css.product__name}>{`${
+                    data.season ? data.season : ''
+                  } ${data.dealName}`}</div>
+                  <div className={css.item__price__wrap}>
+                    <div className={css.discount__price}>
+                      {`${data.discountPrice.toLocaleString()}원`}
+                    </div>
+                    {data.discountPrice === data.sellPrice ? null : (
+                      <div className={css.sell__price}>
+                        {`${data.sellPrice.toLocaleString()}원`}
+                      </div>
+                    )}
+
+                    {data.discountPrice === data.sellPrice ? null : (
+                      <div className={css.discount__rate}>
+                        {`${parseInt(
+                          (100 * (data.sellPrice - data.discountPrice)) /
+                            data.sellPrice
+                        )}%`}
+                      </div>
+                    )}
+                  </div>
+                  <div
+                    className={css.purchase__button}
+                    onClick={e => {
+                      shoppingcart.shoppingCartimmediatePurchase(
+                        e,
+                        data.cartItemId
+                      );
+                    }}
+                  >
+                    바로 구매
+                  </div>
                 </div>
-              </div>
+              </Link>
             </div>
           </div>
           <div className={css.cart__item__option__wrap}>
@@ -148,37 +154,39 @@ class CartItem extends Component {
             </div>
           </div>
           <div className={css.cart__item}>
-            <div
-              className={css.cart__item__image}
-              style={{
-                backgroundImage: `url(${data.imageUrl})`,
-              }}
-            />
-            <div className={css.cart__item__info}>
-              <div className={[css.brand__name, css.noSale].join(' ')}>
-                {data.brandName}
-              </div>
-              <div className={[css.product__name, css.noSale].join(' ')}>{`${
-                data.season ? data.season : ''
-              } ${data.dealName}`}</div>
-              <div className={[css.item__price__wrap, css.noSale].join(' ')}>
-                <div className={css.discount__price}>
-                  {`${data.discountPrice.toLocaleString()}원`}
+            <Link href={`/productdetail?deals=${data.dealId}`}>
+              <div
+                className={css.cart__item__image}
+                style={{
+                  backgroundImage: `url(${data.imageUrl})`,
+                }}
+              />
+            </Link>
+            <Link href={`/productdetail?deals=${data.dealId}`}>
+              <div className={css.cart__item__info}>
+                <div className={[css.brand__name, css.noSale].join(' ')}>
+                  {data.brandName}
                 </div>
-                <div className={css.sell__price}>
-                  {`${data.sellPrice.toLocaleString()}원`}
+                <div className={[css.product__name, css.noSale].join(' ')}>{`${
+                  data.season ? data.season : ''
+                } ${data.dealName}`}</div>
+                <div className={[css.item__price__wrap, css.noSale].join(' ')}>
+                  <div className={css.discount__price}>
+                    {`${data.discountPrice.toLocaleString()}원`}
+                  </div>
+                  <div className={css.sell__price}>
+                    {`${data.sellPrice.toLocaleString()}원`}
+                  </div>
+                  <div className={css.discount__rate}>
+                    {`${parseInt(
+                      (100 * (data.sellPrice - data.discountPrice)) /
+                        data.sellPrice
+                    )}%`}
+                  </div>
                 </div>
-                <div className={css.discount__rate}>
-                  {`${parseInt(
-                    (100 * (data.sellPrice - data.discountPrice)) /
-                      data.sellPrice
-                  )}%`}
-                </div>
-              </div>
-              <Link href={`/productdetail?deals=${data.dealId}`}>
                 <div className={css.goProduct}>상품 보기</div>
-              </Link>
-            </div>
+              </div>
+            </Link>
           </div>
         </div>
         <div className={[css.cart__item__option__wrap, css.noSale].join(' ')}>

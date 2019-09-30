@@ -10,11 +10,11 @@ class ShoppingCartResult extends Component {
     return (
       <div className={css.wrap}>
         <div className={css.inner__top}>
-          <div
-            className={css.total__itemNumber}
-          >{`총 ${shoppingcart.selectedCheckNumber.length}개 상품`}</div>
+          <div className={css.total__itemNumber}>{`총 ${
+            shoppingcart.selectedCheckNumber.length
+          }개 상품`}</div>
           <div className={css.total__orderPrice}>
-            <div className={css.title}>총 상품 금액</div>
+            <div className={css.title}>상품금액</div>
             <div
               className={css.amount}
             >{`${shoppingcart.totalAmount.totalProdPrice.toLocaleString()}원`}</div>
@@ -27,7 +27,7 @@ class ShoppingCartResult extends Component {
           </div>
           <div className={css.total__discountPrice}>
             <div className={css.title}>
-              총 할인금액
+              할인금액
               {/* <span>
                 <img src="/static/icon/m_cart_arrow.png" alt="탭 화살표" />
               </span> */}
@@ -38,7 +38,7 @@ class ShoppingCartResult extends Component {
           </div>
         </div>
         <div className={css.inner__bottom}>
-          <div className={css.totalResult}>최종 결제금액</div>
+          <div className={css.totalResult}>할인 적용금액</div>
           <div className={css.totalResultPrice}>
             {`${shoppingcart.totalAmount.totalPaymentPrice.toLocaleString()}`}
             <span>원</span>

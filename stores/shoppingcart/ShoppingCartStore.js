@@ -579,7 +579,8 @@ export default class ShoppingCartStore {
   };
   //--------------------- 장바구니 아이템 즉시구매하기 ---------------------
   @action
-  shoppingCartimmediatePurchase = id => {
+  shoppingCartimmediatePurchase = (e, id) => {
+    e.stopPropagation();
     Router.push({
       pathname: '/orderpayment',
       query: {
