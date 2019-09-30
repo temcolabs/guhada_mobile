@@ -127,11 +127,9 @@ export default class AuthMobileStore {
                 }
               })
               .catch(err => {
-                if (err.data.resultCode === 6019) {
-                  root.alert.showAlert({
-                    content: err.data.message,
-                  });
-                }
+                let resultCode = _.get(err, 'data.resultCode');
+                let message = _.get(err, 'data.message');
+                if (resultCode === 6019) this.root.alert.showAlert(message);
               });
           }
         }
