@@ -68,17 +68,17 @@ class CouponModal extends Component {
                   orderpayment.orderProductInfo.length
                 }개 상품`}</div>
                 <div className={css.totalOrderPrice}>
-                  <div>총 주문상품금액</div>
+                  <div>상품금액</div>
                   <div>{`${orderPaymentBenefit.totalPrice?.prodPrice?.toLocaleString()}원`}</div>
                 </div>
 
                 <div className={css.totalDiscountPrice}>
-                  <div>총 쿠폰할인금액</div>
+                  <div>쿠폰 할인</div>
                   <div>{`${orderPaymentBenefit.totalPrice?.discountPrice?.toLocaleString()}원`}</div>
                 </div>
               </div>
               <div className={css.resultPrice}>
-                <div>총 상품금액</div>
+                <div>최종 상품금액</div>
                 <div>
                   {`${orderPaymentBenefit.totalPrice?.resultProdPrice?.toLocaleString()}`}
                   <span>원</span>
