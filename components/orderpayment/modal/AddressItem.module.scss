@@ -1,8 +1,7 @@
 .wrap {
   display: flex;
-  padding: 20px 0;
+  padding: 20px;
   border-bottom: 1px solid #ebebeb;
-
   .radioWrap {
     display: flex;
     align-items: center;
@@ -42,21 +41,27 @@
       margin-bottom: 5px;
       &:first-child {
         justify-content: space-between;
-        margin-bottom: 15px;
+        margin-bottom: 10px;
       }
       .addressTitleWrap {
         display: flex;
         align-items: center;
 
-        .addressTitle {
+        .selectedTitle {
           font-size: 14px;
           color: #111;
-          font-weight: bold;
+          font-weight: 500;
+        }
+
+        .title {
+          font-size: 14px;
+          color: #111;
+          font-weight: 400;
         }
 
         .defaultAddress {
           margin-left: 10px;
-          width: 44px;
+          min-width: 44px;
           height: 18px;
           background: url('/static/icon/m_default_address.png') no-repeat;
           background-size: cover;
@@ -69,8 +74,8 @@
         position: relative;
         div {
           font-size: 13px;
-          font-weight: 500;
-          color: #a0a0a0;
+          font-weight: 400;
+          color: #aaa;
           position: relative;
           margin-left: 14px;
           white-space: nowrap;
@@ -81,20 +86,31 @@
             position: absolute;
             top: 50%;
             left: 0;
-            width: 2px;
+            width: 1px;
             height: 10px;
             margin-top: -5px;
-            background-color: #cfcfcf;
+            background-color: #ccc;
             content: '';
             opacity: 0.35;
           }
         }
       }
 
+      .address {
+        font-size: 14px;
+        color: #777;
+        font-weight: normal;
+      }
+      .customer {
+        font-size: 14px;
+        color: #777;
+        font-weight: normal;
+      }
       input {
         width: 100%;
         border: 1px solid #ddd;
-        padding: 5px;
+        font-size: 13px;
+        padding: 5px 15px;
       }
 
       .searchZipcode {

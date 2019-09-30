@@ -10,11 +10,10 @@ class AddressSelf extends Component {
     return (
       <div className={css.wrap}>
         <div className={css.section}>
-          <div className={css.title}>배송지명</div>
           <div className={css.value}>
             <input
               type="text"
-              placeholder="배송지명"
+              placeholder="배송지명을 입력해주세요"
               onChange={e => {
                 orderpayment.setNewShippingAddress(e, 'newShippingName', null);
               }}
@@ -25,7 +24,6 @@ class AddressSelf extends Component {
           </div>
         </div>
         <div className={css.section}>
-          <div className={css.title}>우편번호</div>
           <div className={css.value}>
             <input
               type="text"
@@ -52,11 +50,10 @@ class AddressSelf extends Component {
               );
             }}
           >
-            우편번호검색
+            우편번호찾기
           </div>
         </div>
         <div className={css.section}>
-          <div className={css.title}>주소</div>
           <div className={css.value}>
             <input
               type="text"
@@ -70,11 +67,10 @@ class AddressSelf extends Component {
           </div>
         </div>
         <div className={css.section}>
-          <div className={css.title} />
           <div className={css.value}>
             <input
               type="text"
-              placeholder="상세주소"
+              placeholder="상세주소를 입력해주세요"
               onChange={e => {
                 orderpayment.setNewShippingAddress(e, 'newDetailAddress', null);
               }}
@@ -85,11 +81,10 @@ class AddressSelf extends Component {
           </div>
         </div>
         <div className={css.section}>
-          <div className={css.title}>받는분</div>
           <div className={css.value}>
             <input
               type="text"
-              placeholder="받는분"
+              placeholder="수령인을 입력해주세요"
               onChange={e => {
                 orderpayment.setNewShippingAddress(e, 'newRecipientName', null);
               }}
@@ -101,11 +96,10 @@ class AddressSelf extends Component {
         </div>
 
         <div className={css.section}>
-          <div className={css.title}>연락처</div>
           <div className={css.value}>
             <input
               type="text"
-              placeholder="연락처"
+              placeholder="연락처를 입력해주세요"
               maxLength="13"
               onChange={e => {
                 orderpayment.setNewShippingAddress(
