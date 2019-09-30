@@ -22,8 +22,10 @@ export default class SellerFollowStore {
         )
         .then(res => {
           const { data } = res.data;
-          if (!data.empty) {
+          if (data.empty === false) {
             this.follows = true;
+          } else {
+            this.follows = false;
           }
         })
         .catch(err => {

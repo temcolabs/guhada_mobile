@@ -5,8 +5,16 @@ import { inject, observer } from 'mobx-react';
 import _ from 'lodash';
 import cn from 'classnames';
 import { pushRoute } from 'lib/router';
+import { loginStatus } from 'constant/';
 
-@inject('productreview', 'productoption', 'productdetail', 'sellerfollow')
+@inject(
+  'productreview',
+  'productoption',
+  'productdetail',
+  'sellerfollow',
+  'login',
+  'alert'
+)
 @observer
 class ShippingBenefit extends Component {
   state = {
@@ -38,6 +46,8 @@ class ShippingBenefit extends Component {
       tabRefMap,
       productoption,
       sellerfollow,
+      login,
+      alert,
     } = this.props;
     const { reviewSummary } = productreview;
     return (
@@ -139,17 +149,29 @@ class ShippingBenefit extends Component {
                 </div>
               </div>
               <div className={css.infoWrap}>
-                <button
-                  className={cn({
-                    [css.colored]: sellerfollow.follows === false,
-                  })}
-                  onClick={e => {
-                    this.handleSellerFollows();
-                    e.stopPropagation();
-                  }}
-                >
-                  {sellerfollow.follows === false ? '팔로우' : '팔로잉'}
-                </button>
+                {login.loginStatus === loginStatus.LOGIN_DONE ? (
+                  <button
+                    className={cn({
+                      [css.colored]: sellerfollow.follows === false,
+                    })}
+                    onClick={e => {
+                      this.handleSellerFollows();
+                      e.stopPropagation();
+                    }}
+                  >
+                    {sellerfollow.follows === false ? '팔로우' : '팔로잉'}
+                  </button>
+                ) : (
+                  <button
+                    className={cn()}
+                    onClick={e => {
+                      alert.showAlert('로그인이 필요한 서비스입니다.');
+                      e.stopPropagation();
+                    }}
+                  >
+                    {'팔로우'}
+                  </button>
+                )}
                 <button>셀러스토어</button>
               </div>
             </div>

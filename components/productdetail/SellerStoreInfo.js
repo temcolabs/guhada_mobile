@@ -4,6 +4,7 @@ import cn from 'classnames';
 import _ from 'lodash';
 import { useObserver } from 'mobx-react-lite';
 import { pushRoute } from 'lib/router';
+import { loginStatus } from 'constant/';
 
 function SellerStoreInfo({
   deals,
@@ -41,6 +42,8 @@ function SellerStoreInfo({
   tabRefMap,
   sellerfollow,
   handleSellerFollows = () => {},
+  alert,
+  login,
 }) {
   return useObserver(() => (
     <div className={css.wrap} ref={tabRefMap.sellerstoreTab}>
@@ -75,17 +78,29 @@ function SellerStoreInfo({
             <div>*굿서비스</div> */}
           </div>
         </div>
-        <div
-          className={cn(css.followBtn, {
-            [css.following]: sellerfollow.follows === true,
-          })}
-          onClick={e => {
-            handleSellerFollows();
-            e.stopPropagation();
-          }}
-        >
-          {sellerfollow.follows === false ? '팔로우' : '팔로잉'}
-        </div>
+        {login.loginStatus === loginStatus.LOGIN_DONE ? (
+          <div
+            className={cn(css.followBtn, {
+              [css.following]: sellerfollow.follows === true,
+            })}
+            onClick={e => {
+              handleSellerFollows();
+              e.stopPropagation();
+            }}
+          >
+            {sellerfollow.follows === false ? '팔로우' : '팔로잉'}
+          </div>
+        ) : (
+          <button
+            className={cn(css.followBtn)}
+            onClick={e => {
+              alert.showAlert('로그인이 필요한 서비스입니다.');
+              e.stopPropagation();
+            }}
+          >
+            {'팔로우'}
+          </button>
+        )}
       </div>
       <div className={css.sellerItemWrap}>
         {dealsOfSellerStore.map(deal => {
