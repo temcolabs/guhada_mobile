@@ -32,9 +32,9 @@ class ProductInquiry extends Component {
         <div className={css.headerWrap}>
           <div className={css.header}>
             상품문의{` `}
-            {_.isNil(inquiryList.data)
-              ? 0
-              : String(inquiryList.totalElements).toLocaleString()}
+            {_.isNil(inquiryList) === false
+              ? String(inquiryList.totalElements).toLocaleString()
+              : 0}
             건
             <div className={css.myinquiry}>
               {login.loginStatus === loginStatus.LOGIN_DONE ? (
