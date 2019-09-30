@@ -22,7 +22,7 @@ class SearchCategorySlider extends Component {
       selected = Number(query.category);
     }
     return (
-      <div className={css.wrap}>
+      <div className={css.wrap} style={{ borderBottom: '1px solid #eee' }}>
         {categoryList.map((item, index) => {
           return (
             <div

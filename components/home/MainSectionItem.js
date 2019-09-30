@@ -22,7 +22,10 @@ export default function MainSectionItem({
 
   return (
     <>
-      <div className={css.wrap}>
+      <div
+        className={css.wrap}
+        style={categoryId !== 0 ? { paddingTop: `104px` } : null}
+      >
         <div className={css.title}>{title}</div>
         {/* <div className={css.categoryWrap}>
           {mainSectionCategory.map((category, index) => {

@@ -1,6 +1,9 @@
+$guhadaMainHeaderHeight : 60px;
+$CategorySliderWrapHeight : 44px;
+
 .wrap {
     width: 100%;
-    height: 44px;
+    height: $CategorySliderWrapHeight;
     white-space: nowrap;
     overflow-x: auto;
     display: inline-block;
@@ -11,7 +14,7 @@
     z-index: 102;
     padding: 0 20px;
     max-width: inherit;
-    border-bottom: 1px solid #eeeeee;
+
 
     & .arrowIcon {
         width: 35px;
@@ -72,14 +75,17 @@
     height: 44px;
     background-color: #ffffff;
     padding: 0 20px;
-    position: relative;
-    top: 44px;
+    position: fixed;
+    top: $CategorySliderWrapHeight + $guhadaMainHeaderHeight;
     overflow: auto;
     white-space: nowrap;
     overflow-x: scroll;
     overflow-y: hidden;
     display: inline-block;
     max-width: inherit;
+    border-bottom: 1px solid #eeeeee;
+    z-index: 101;
+
 
     & div {
         display: inline-block;

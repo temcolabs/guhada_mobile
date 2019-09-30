@@ -11,7 +11,10 @@ import SellerStoreInfomation from 'components/sellerstore/SellerStoreInfomation'
 import DefaultLayout from 'components/layout/DefaultLayout';
 import _ from 'lodash';
 
-const enhancer = compose(withRouter);
+const enhancer = compose(
+  withScrollToTopOnMount,
+  withRouter
+);
 
 /**
  * 셀러스토어

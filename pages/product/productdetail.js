@@ -7,20 +7,21 @@ import Loading from '../../components/common/loading/Loading';
 import { withRouter } from 'next/router';
 
 @withRouter
-@inject('productdetail', 'productDetailLike')
+@inject('productdetail', 'productDetailLike', 'productDetailBookmark')
 @observer
 class index extends React.Component {
   componentDidMount() {
-    let { productdetail, productDetailLike } = this.props;
+    let { productdetail, productDetailBookmark } = this.props;
     let dealsId = getParameterByName('deals');
     productdetail.getDeals(dealsId);
-    productDetailLike.getUserLike();
+
     // window.addEventListener('scroll', this.props.productdetail.tabInfoFixed);
   }
 
   componentDidUpdate(prevProps) {
-    let { productdetail } = this.props;
+    let { productdetail, productDetailBookmark } = this.props;
 
+    productDetailBookmark.getBookMark(productdetail.deals.productId);
     if (prevProps.router.query.deals !== this.props.router.query.deals) {
       let dealsId = getParameterByName('deals');
       productdetail.getDeals(dealsId);
