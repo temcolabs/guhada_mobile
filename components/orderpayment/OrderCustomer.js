@@ -21,9 +21,7 @@ class OrderCustomer extends Component {
       modalHandle: false,
     });
   };
-  componentDidMount() {
-    this.modalShow();
-  }
+
   render() {
     let { orderpayment } = this.props;
 
