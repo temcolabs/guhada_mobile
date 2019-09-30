@@ -42,7 +42,8 @@ class AuthenticationModal extends Component {
                 )}
               </div>
               <div className={css.content}>
-                <div>본인 명의 휴대폰으로 본인인증을 진행해주세요.</div>
+                <div>본인 명의 휴대폰으로 </div>
+                <div>본인인증을 진행해주세요.</div>
               </div>
               {orderpayment.orderUserInfo.name &&
               orderpayment.orderUserInfo.mobile ? (
@@ -60,8 +61,7 @@ class AuthenticationModal extends Component {
 
               <div className={css.notifyWrap}>
                 <div className={css.notifySection}>
-                  <span className={css.dot} />
-                  인증비용은 구하다에서 부담합니다.
+                  ※ 인증비용은 구하다에서 부담합니다.
                 </div>
               </div>
               <form name="form_chk" method="post" style={{ display: 'none' }}>

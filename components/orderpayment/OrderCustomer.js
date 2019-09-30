@@ -21,7 +21,9 @@ class OrderCustomer extends Component {
       modalHandle: false,
     });
   };
-
+  componentDidMount() {
+    this.modalShow();
+  }
   render() {
     let { orderpayment } = this.props;
 
@@ -62,7 +64,6 @@ class OrderCustomer extends Component {
         ) : null}
 
         <AuthenticationModal
-          // isVisible={this.state.modalHandle}
           isVisible={this.state.modalHandle}
           modalClose={() => {
             this.modalClose();
