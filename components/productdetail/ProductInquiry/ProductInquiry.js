@@ -32,7 +32,7 @@ class ProductInquiry extends Component {
         <div className={css.headerWrap}>
           <div className={css.header}>
             상품문의{` `}
-            {_.isNil(inquiryList) === false
+            {_.isNil(inquiryList.content) === false
               ? String(inquiryList.totalElements).toLocaleString()
               : 0}
             건
@@ -131,7 +131,7 @@ class ProductInquiry extends Component {
             className={css.pageButton}
             onClick={() => productdetail.addInquiry(this.state.tab)}
           >
-            상품 문의 10개 더보기 +
+            상품 문의 더보기 +
           </div>
         ) : null}
 

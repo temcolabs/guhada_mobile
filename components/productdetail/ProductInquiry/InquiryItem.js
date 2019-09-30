@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import memoize from 'memoize-one';
 import moment from 'moment';
 import { dateFormat } from 'constant/';
+import _ from 'lodash';
 export class InquiryItem extends Component {
   static propTypes = {
     // createdAt: [2019, 7, 4, 7, 3, 56],
@@ -77,7 +78,9 @@ export class InquiryItem extends Component {
           >
             <div
               className={cn(css.contents, { [css.open]: folded === false })}
-              style={{ paddingBottom: inquiry.status !== 'COMPLETED' && '0px' }}
+              style={{
+                paddingBottom: _.isNil(inquiry.reply) !== false && '0px',
+              }}
             >
               {inquiry.inquiry}
               {/* {folded === false ? (
@@ -86,7 +89,7 @@ export class InquiryItem extends Component {
             </div>
             <div className={cn(css.arrow, { [css.up]: folded === false })} />
           </div>
-          {inquiry.status === 'COMPLETED' && (
+          {inquiry.status === 'COMPLETED' && _.isNil(inquiry.reply) === false && (
             <div
               className={cn(css.answerWrap, { [css.open]: folded === false })}
             >
