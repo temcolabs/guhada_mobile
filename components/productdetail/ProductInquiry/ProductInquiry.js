@@ -26,7 +26,10 @@ class ProductInquiry extends Component {
 
   render() {
     const { productdetail, login, tabRefMap, alert } = this.props;
-    const { deals, inquiryList } = productdetail;
+    const { deals, inquiryList, inquiryPage } = productdetail;
+    let handleInquiryIcon =
+      inquiryList.totalPages === inquiryPage + 1 ? true : false;
+
     return (
       <div className={css.wrap} ref={tabRefMap.inquiryTab}>
         <div className={css.headerWrap}>
@@ -126,14 +129,24 @@ class ProductInquiry extends Component {
             <div className={css.empty}>작성된 상품 문의가 없습니다.</div>
           )}
         </div>
-        {inquiryList.content !== undefined && inquiryList.last === false ? (
+        {/* {_.isNil(inquiryList.content) === false ?
+        (inquiryList.last === false || inquiryList.first === true) && (
           <div
             className={css.pageButton}
             onClick={() => productdetail.addInquiry(this.state.tab)}
           >
             상품 문의 더보기 +
           </div>
-        ) : null}
+        ) : null} */}
+
+        {_.isNil(inquiryList.content) === false && handleInquiryIcon === false && (
+          <div
+            className={css.pageButton}
+            onClick={() => productdetail.addInquiry(this.state.tab)}
+          >
+            상품 문의 더보기 +
+          </div>
+        )}
 
         <NewInquiry
           isVisible={this.state.isNewInquiryVisible}
