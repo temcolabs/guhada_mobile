@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import css from './CategorySlider.module.scss';
 import { inject, observer } from 'mobx-react';
 import { toJS } from 'mobx';
@@ -31,7 +31,8 @@ class CategorySlider extends Component {
   };
 
   render() {
-    const { categoryList, category } = this.props;
+    const { categoryList, category, searchitem } = this.props;
+    const { scrollDirection } = searchitem;
     const subCategory = toJS(category.category);
     return (
       <>
@@ -57,7 +58,7 @@ class CategorySlider extends Component {
           />
         </div>
         <div
-          className={css.subWrap}
+          className={cn(css.subWrap)}
           style={{
             display:
               this.state.isVisibleSubCategory === true
@@ -65,27 +66,24 @@ class CategorySlider extends Component {
                 : 'none',
           }}
         >
-          {subCategory.map(category => {
+          {subCategory.map((category, index) => {
             if (category.id === this.state.selected) {
               return (
-                <>
-                  <div
-                    onClick={() => this.toSearch(category.id)}
-                    key={category.id}
-                  >
+                <Fragment key={index}>
+                  <div onClick={() => this.toSearch(category.id)}>
                     {`전체보기`}
                   </div>
-                  {category.children.map(subCategory => {
+                  {category.children.map((subCategory, subIndex) => {
                     return (
                       <div
                         onClick={() => this.toSearch(subCategory.id)}
-                        key={subCategory.id}
+                        key={subIndex}
                       >
                         {subCategory.title}
                       </div>
                     );
                   })}
-                </>
+                </Fragment>
               );
             }
           })}
