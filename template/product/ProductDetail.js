@@ -24,7 +24,14 @@ import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount
 import Coupon from 'components/productdetail/Coupon';
 
 @withScrollToTopOnMount
-@inject('searchitem', 'productoption', 'sellerfollow', 'productdetail')
+@inject(
+  'searchitem',
+  'productoption',
+  'sellerfollow',
+  'productdetail',
+  'login',
+  'alert'
+)
 @observer
 class ProductDetail extends React.Component {
   static propTypes = {};
@@ -41,7 +48,6 @@ class ProductDetail extends React.Component {
   }
 
   handleSellerFollows = () => {
-    console.log('object');
     const { sellerfollow, productdetail } = this.props;
     const follows = sellerfollow.follows;
 
@@ -67,6 +73,8 @@ class ProductDetail extends React.Component {
       productoption,
       sellerfollow,
       productdetail,
+      login,
+      alert,
     } = this.props;
 
     return (
@@ -161,6 +169,8 @@ class ProductDetail extends React.Component {
             tabRefMap={this.tabRefMap}
             handleSellerFollows={this.handleSellerFollows}
             sellerfollow={sellerfollow}
+            login={login}
+            alert={alert}
           />
         </SectionWrap>
 

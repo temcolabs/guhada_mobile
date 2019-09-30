@@ -7,7 +7,7 @@ import Loading from '../../components/common/loading/Loading';
 import { withRouter } from 'next/router';
 
 @withRouter
-@inject('productdetail', 'productDetailLike', 'sellerfollow')
+@inject('productdetail', 'productDetailLike')
 @observer
 class index extends React.Component {
   componentDidMount() {
@@ -18,9 +18,7 @@ class index extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    let { productdetail, sellerfollow } = this.props;
-
-    // sellerfollow.getSellerFollow(productdetail.deals.sellerId);
+    let { productdetail } = this.props;
 
     if (prevProps.router.query.deals !== this.props.router.query.deals) {
       let dealsId = getParameterByName('deals');
