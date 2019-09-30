@@ -8,10 +8,21 @@
     line-height: 1.25;
     color: #333333;
     width: 100%;
-    position: fixed;
+    position: absolute;
     top: 60px;
     background-color: #ffffff;
     z-index: 101;
+
+    &.scrollUp {
+        position: fixed;
+        animation: headerDown 0.5s;
+    }
+
+    @keyframes headerUp {
+        to {
+            top: 0;
+        }
+    }
 
     & .order {
         margin-left: 20px;
