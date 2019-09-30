@@ -22,7 +22,7 @@ class ShoppingCart extends React.Component {
     return (
       <DefaultLayout
         headerShape={'shoppingcart'}
-        toolBar={false}
+        toolBar={cartList.length > 0 ? false : true}
         pageTitle={'장바구니'}
       >
         {cartList.length ? (
