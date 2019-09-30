@@ -270,7 +270,9 @@ export default class OrderPaymentBenefitStore {
       resultProdPrice: 0,
     };
     for (let i = 0; i < this.couponWithProduct.length; i++) {
-      this.totalPrice.prodPrice += this.couponWithProduct[i].product.sellPrice;
+      this.totalPrice.prodPrice += this.couponWithProduct[
+        i
+      ].product.discountPrice;
     }
     for (let i = 0; i < this.selectedCouponList.length; i++) {
       if (this.selectedCouponList[i].couponNumber) {

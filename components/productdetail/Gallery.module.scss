@@ -9,8 +9,13 @@
   overflow: hidden;
 
   .detailImage {
-    img {
+    div {
+      display: block;
       width: 100%;
+      height: 360px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
     }
   }
   .index__box {

@@ -33,7 +33,7 @@ class Gallery extends Component {
           {productdetail.deals.imageUrls.map((data, index) => {
             return (
               <div key={index} className={css.detailImage}>
-                <img src={data} alt="상세이미지" />
+                <div style={{ backgroundImage: `url(${data})` }} />
               </div>
             );
           })}
