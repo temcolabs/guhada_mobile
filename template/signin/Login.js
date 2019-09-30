@@ -146,6 +146,8 @@ class Login extends React.Component {
                 callback={login.responseFacebook}
                 cookie={true}
                 xfbml={true}
+                isMobile={true}
+                disableMobileRedirect={true}
                 render={renderProps => (
                   <div className={css.social} onClick={renderProps.onClick}>
                     <div
