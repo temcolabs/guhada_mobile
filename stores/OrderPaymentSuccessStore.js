@@ -32,10 +32,19 @@ export default class OrderPaymentStore {
   @observable orderSuccessAmount = {
     totalProdPrice: 0,
     totalShipPrice: 0,
-    totalDiscountDiffPrice: 0,
-    totalPaymentPrice: 0,
+    // 포인트 + 쿠폰 + 상품할인
+    couponPointProdDiscountPrice: 0,
+
+    // 쿠폰
     couponDiscountPrice: 0,
-    productDiscountPrice: 0,
+
+    //상품할인
+    totalDiscountDiffPrice: 0,
+
+    //포인트
+    totalPointPayment: 0,
+    // 최종결제금액
+    totalAmount: 0,
   };
 
   @action
@@ -48,18 +57,29 @@ export default class OrderPaymentStore {
         this.orderSuccessNumber = data.data.orderNumber;
         this.orderSuccessShipping = data.data.shippingAddress;
         this.orderSuccessProduct = data.data.orderList;
+
         this.orderSuccessPayment = data.data.payment;
 
         this.orderSuccessAmount.totalProdPrice = data.data.totalProdPrice;
         this.orderSuccessAmount.totalShipPrice = data.data.totalShipPrice;
-        this.orderSuccessAmount.totalDiscountDiffPrice =
-          data.data.totalDiscountDiffPrice;
-        this.orderSuccessAmount.totalPaymentPrice = data.data.totalPaymentPrice;
+
+        // 상품할인 + 포인트 + 쿠폰
+        this.orderSuccessAmount.couponPointProdDiscountPrice =
+          data.data.couponPointProdDiscountPrice;
+
+        // 쿠폰 할인금액
         this.orderSuccessAmount.couponDiscountPrice =
           data.data.couponDiscountPrice;
-        this.orderSuccessAmount.productDiscountPrice =
-          data.data.totalDiscountDiffPrice - data.data.couponDiscountPrice;
 
+        // 포인트 할인 금액
+        this.orderSuccessAmount.totalPointPayment = data.data.totalPointPayment;
+
+        //상품할인
+        this.orderSuccessAmount.totalDiscountDiffPrice =
+          data.data.totalDiscountDiffPrice;
+
+        //최종 결제금액
+        this.orderSuccessAmount.totalAmount = data.data.totalAmount;
         this.getOptions();
         this.getBenefitData();
         if (this.orderSuccessPayment.parentMethod === 'VBank') {

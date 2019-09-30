@@ -43,7 +43,7 @@ class OrderResult extends Component {
               <div className={css.bigTitle}>할인 ∙ 포인트</div>
               <div
                 className={css.bigAmount}
-              >{`${orderSuccessAmount.totalDiscountDiffPrice?.toLocaleString()}원`}</div>
+              >{`${orderSuccessAmount.couponPointProdDiscountPrice?.toLocaleString()}원`}</div>
             </div>
             <div className={css.resultAmountSection}>
               <div className={css.title}>쿠폰 할인</div>
@@ -55,20 +55,20 @@ class OrderResult extends Component {
               <div className={css.title}>상품 할인</div>
               <div
                 className={css.amount}
-              >{`${orderSuccessAmount.productDiscountPrice?.toLocaleString()}원`}</div>
+              >{`${orderSuccessAmount.totalDiscountDiffPrice?.toLocaleString()}원`}</div>
             </div>
             <div className={css.resultAmountSection}>
               <div className={css.title}>포인트 사용</div>
               <div
                 className={css.amount}
-              >{`${orderSuccessPayment.pointPayment.toLocaleString()}원`}</div>
+              >{`${orderSuccessAmount.totalPointPayment.toLocaleString()}원`}</div>
             </div>
           </div>
 
           <div className={css.totalPaymentAmount}>
             <div className={css.bigTitle}>최종 결제금액</div>
             <div className={css.bigAmount}>
-              {`${orderSuccessAmount.totalPaymentPrice.toLocaleString()}`}
+              {`${orderSuccessAmount.totalAmount.toLocaleString()}`}
               <span>원</span>
             </div>
           </div>
