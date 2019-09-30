@@ -16,9 +16,7 @@ export default {
       label: '비밀번호',
       autoComplete: 'password',
       placeholder: '비밀번호',
-      rules: 'required|password',
-      // rules:
-      //   'required|string|regex:/^(?=.*?[A-Za-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,15}$/',
+      // rules: 'required|password',
     },
     saveid: {},
   },

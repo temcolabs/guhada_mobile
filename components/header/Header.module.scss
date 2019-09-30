@@ -9,7 +9,7 @@
   padding: 0 10px;
   background-color: #ffffff;
   width: 100%;
-  z-index: 101;
+  z-index: 102;
   max-width: inherit;
   left: 50%;
   transform: translate(-50%, 0);
@@ -81,6 +81,7 @@
   position: relative;
   display: flex;
   align-items: center;
+
   button {
     width: 30px;
     height: 30px;

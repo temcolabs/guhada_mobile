@@ -110,7 +110,8 @@ class Login extends React.Component {
             </div>
             <div className={css.socialHeader}>간편 로그인</div>
             <div className={css.socialWrap}>
-              <NaverLogin />
+              {/* 이번 버젼에서 제거 */}
+              {/* <NaverLogin /> */}
               <KakaoLogin
                 jsKey={snsAppKey.KAKAO}
                 onSuccess={login.responseKakao}
@@ -146,6 +147,8 @@ class Login extends React.Component {
                 callback={login.responseFacebook}
                 cookie={true}
                 xfbml={true}
+                isMobile={true}
+                disableMobileRedirect={true}
                 render={renderProps => (
                   <div className={css.social} onClick={renderProps.onClick}>
                     <div

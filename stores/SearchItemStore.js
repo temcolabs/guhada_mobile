@@ -42,7 +42,7 @@ export default class SearchItemStore {
 
   @observable infinityStauts = true;
   @observable endPage;
-
+  @observable scrollDirection;
   @action
   listenToScroll = () => {
     const winScroll =
@@ -53,6 +53,12 @@ export default class SearchItemStore {
       document.documentElement.clientHeight;
 
     const scrolled = winScroll / height;
+    // 스트롤의 방향을 확인
+    if (this.scrollPosition > scrolled) {
+      this.scrollDirection = 'up';
+    } else {
+      this.scrollDirection = 'down';
+    }
 
     this.scrollPosition = scrolled;
     let query = Router.router.query;

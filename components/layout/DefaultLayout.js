@@ -40,7 +40,7 @@ export default class DefaultLayout extends Component {
           <Header headerShape={headerShape}>{pageTitle}</Header>
         )}
         {this.props.children}
-        <Footer />
+
         {toolBar === false ? null : <ToolBar />}
       </div>
     );

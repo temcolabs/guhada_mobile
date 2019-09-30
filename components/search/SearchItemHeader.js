@@ -13,10 +13,11 @@ class SearchItemHeader extends Component {
       isBrand,
       setIsFilterVisible,
       alert,
+      scrollDirection,
     } = this.props;
     return (
       <div
-        className={css.wrap}
+        className={cn(css.wrap, { [css.scrollUp]: scrollDirection === 'up' })}
         style={{ top: `${isBrand === true ? 60 : 104}px` }}
       >
         <div className={css.order} onClick={setIsOrderVisible}>

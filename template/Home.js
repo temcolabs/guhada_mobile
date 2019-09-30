@@ -11,6 +11,7 @@ import HomeItemDefault from 'components/home/HomeItemDefault';
 import MainHotKeyword from 'components/home/MainHotKeyword';
 import Router from 'next/router';
 import SignupSuccessModal from './signin/SignupSuccessModal';
+import Footer from 'components/footer/Footer';
 @withRouter
 @inject('main', 'searchitem')
 @observer
@@ -101,6 +102,7 @@ class Home extends React.Component {
             searchitem={searchitem}
           />
         </HomeItemDefault>
+        <Footer />
       </DefaultLayout>
     );
   }

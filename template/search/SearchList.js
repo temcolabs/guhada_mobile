@@ -90,6 +90,7 @@ class SearchList extends Component {
             setIsOrderVisible={this.setIsOrderVisible}
             setIsFilterVisible={this.setIsFilterVisible}
             isBrand={isBrand || isKeyword ? true : false}
+            scrollDirection={searchitem.scrollDirection}
           />
           <div className={css.searchItemWrap}>
             {searchitem.thumbnail === 'list4' ? (

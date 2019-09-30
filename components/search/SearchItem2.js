@@ -121,6 +121,7 @@ class SearchItem2 extends Component {
                       </span>
                     </div>
                   )}
+                  <div className={css.sellerName}>{deal.sellerName}</div>
                 </div>
               </div>
             </LinkRoute>

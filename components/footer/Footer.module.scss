@@ -1,6 +1,9 @@
 .wrap {
   width: 100%;
-  background-color: #f9f9fa;
+
+  & .footerWrap {
+    background-color: #f9f9fa;
+  }
 
   & .tabSection {
     padding: 37px 0 25px 0;

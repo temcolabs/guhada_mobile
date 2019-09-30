@@ -66,7 +66,7 @@
     }
 
     & .detailWrap {
-        height: 98px;
+        height: auto;
         padding: 15px 0 0 10px;
 
     }
@@ -114,7 +114,6 @@
     & .priceWrap {
         margin-top: 10px;
         display: flex;
-        // justify-content: space-between;
         align-items: center;
         line-height: 1;
 
@@ -159,5 +158,12 @@
             color: #5d2ed1;
 
         }
+    }
+
+    & .sellerName {
+        font-size: 10px;
+        font-weight: normal;
+        color: #444444;
+        margin-top: 8px;
     }
 }
