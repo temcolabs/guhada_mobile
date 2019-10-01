@@ -5,7 +5,7 @@ import API from 'lib/API';
 import qs from 'qs';
 import { getParameterByName } from '../../utils';
 import Router from 'next/router';
-
+import { HOSTNAME } from 'constant/hostname';
 const isServer = typeof window === 'undefined';
 export default class OrderPaymentStore {
   constructor(root) {
@@ -971,10 +971,9 @@ export default class OrderPaymentStore {
       .then(res => {
         this.status.paymentProceed = true;
         let data = res.data.data;
-        let returnUrl = `${process.env.HOSTNAME_MOBILE}/privyCertifyResult`;
-        let nextUrl = `${process.env.HOSTNAME_MOBILE}/privyCertifyResult?${
-          data.pgOid
-        }`;
+        let returnUrl = `${HOSTNAME}/privyCertifyResult`;
+        let nextUrl = `${HOSTNAME}/privyCertifyResult?${data.pgOid}`;
+
         console.log(nextUrl, 'nextUrl');
 
         console.log(data, 'requestOrder return data');

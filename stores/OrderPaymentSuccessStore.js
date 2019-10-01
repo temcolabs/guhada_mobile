@@ -80,6 +80,7 @@ export default class OrderPaymentStore {
 
         //최종 결제금액
         this.orderSuccessAmount.totalAmount = data.data.totalAmount;
+
         this.getOptions();
         this.getBenefitData();
         if (this.orderSuccessPayment.parentMethod === 'VBank') {
@@ -262,10 +263,19 @@ export default class OrderPaymentStore {
     this.orderSuccessAmount = {
       totalProdPrice: 0,
       totalShipPrice: 0,
-      totalDiscountDiffPrice: 0,
-      totalPaymentPrice: 0,
+      // 포인트 + 쿠폰 + 상품할인
+      couponPointProdDiscountPrice: 0,
+
+      // 쿠폰
       couponDiscountPrice: 0,
-      productDiscountPrice: 0,
+
+      //상품할인
+      totalDiscountDiffPrice: 0,
+
+      //포인트
+      totalPointPayment: 0,
+      // 최종결제금액
+      totalAmount: 0,
     };
   };
 }
