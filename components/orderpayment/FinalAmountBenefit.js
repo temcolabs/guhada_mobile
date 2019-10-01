@@ -22,7 +22,7 @@ class FinalAmountBenefit extends Component {
   };
   render() {
     let { orderpayment, orderPaymentBenefit } = this.props;
-    let { orderPaymentTotalInfo } = orderpayment;
+    let { orderPaymentTotalInfo, orderSidetabTotalInfo } = orderpayment;
     return (
       <div className={css.wrap}>
         <div className={css.finalTop}>
@@ -55,7 +55,7 @@ class FinalAmountBenefit extends Component {
                   : `${orderPaymentTotalInfo.totalShipPrice.toLocaleString()}원`
               }`}
               </div> */}
-              <div>{`${orderPaymentTotalInfo.totalProdPrice.toLocaleString()}원`}</div>
+              <div>{`${orderSidetabTotalInfo.totalProductPrice?.toLocaleString()}원`}</div>
             </div>
             <div className={css.calcBox}>
               {/* <div className={css.blankBox} /> */}
@@ -65,7 +65,7 @@ class FinalAmountBenefit extends Component {
           <div className={css.totalDiscountAmount}>
             <div className={css.innerContent}>
               {/* <div className={css.blankBox} /> */}
-              {`${orderPaymentTotalInfo.totalDiscountDiffPrice?.toLocaleString()}원`}
+              {`${orderSidetabTotalInfo.totalDiscountPointPrice?.toLocaleString()}원`}
               <div className={css.calcBox}>
                 {/* <div className={css.blankBox} /> */}
                 <div className={css.equalImage} />
@@ -75,7 +75,7 @@ class FinalAmountBenefit extends Component {
           <div className={css.totalPaymentAmount}>
             <div className={css.innerContent}>
               {/* <div className={css.blankBox} /> */}
-              {`${orderPaymentTotalInfo.totalPaymentPrice?.toLocaleString()}`}
+              {`${orderSidetabTotalInfo.totalPaymentPrice?.toLocaleString()}`}
               <span>원</span>
             </div>
           </div>
@@ -83,9 +83,7 @@ class FinalAmountBenefit extends Component {
 
         {this.state.discountInfoStatus ? (
           <DiscountInfo
-            point={orderpayment.usePoint}
-            coupon={orderPaymentTotalInfo.couponDiscount}
-            product={orderPaymentTotalInfo.originDiscountDiffPrice}
+            data={orderSidetabTotalInfo}
             couponHandler={() => {
               orderPaymentBenefit.handleModalShow();
             }}
@@ -113,8 +111,8 @@ class FinalAmountBenefit extends Component {
             <div className={css.dueSavePoint}>
               최대
               <span>
-                {orderPaymentBenefit.dueSavePointTotal
-                  ? `${orderPaymentBenefit.dueSavePointTotal.toLocaleString()}`
+                {orderSidetabTotalInfo.totalDueSavePoint
+                  ? `${orderSidetabTotalInfo.totalDueSavePoint?.toLocaleString()}`
                   : 0}
               </span>
               p
@@ -122,7 +120,7 @@ class FinalAmountBenefit extends Component {
           </div>
 
           {this.state.benefitInfoStatus ? (
-            <BenefitInfo dueSaveList={orderPaymentBenefit.dueSaveList} />
+            <BenefitInfo data={orderSidetabTotalInfo} />
           ) : null}
         </div>
       </div>
@@ -135,34 +133,40 @@ export default FinalAmountBenefit;
 const DiscountInfo = props => {
   return (
     <div className={css.discountInfoWrap}>
-      <div className={css.discountMenu}>
-        <div className={css.sectionTitle}>
-          쿠폰 할인
+      {props.data.discountInfoResponseList.map((data, index) => {
+        return data.discountType === 'PRODUCT_DISCOUNT' ? (
+          <div className={css.discountMenu}>
+            <div className={css.sectionTitle}>상품 할인</div>
+            <div
+              className={css.sectionValue}
+            >{`${data.discountPrice?.toLocaleString()}원`}</div>
+          </div>
+        ) : (
+          <div className={css.discountMenu}>
+            <div className={css.sectionTitle}>
+              쿠폰 할인
+              <div
+                className={css.couponChange}
+                onClick={() => {
+                  props.couponHandler();
+                }}
+              />
+            </div>
+            <div
+              className={css.sectionValue}
+            >{`${data.discountPrice.toLocaleString()}원`}</div>
+          </div>
+        );
+      })}
+
+      {props.data.totalPointPrice ? (
+        <div className={css.discountMenu}>
+          <div className={css.sectionTitle}>포인트 사용</div>
           <div
-            className={css.couponChange}
-            onClick={() => {
-              props.couponHandler();
-            }}
-          />
+            className={css.sectionValue}
+          >{`${props.data.totalPointPrice?.toLocaleString()}P`}</div>
         </div>
-        <div
-          className={css.sectionValue}
-        >{`${props.coupon.toLocaleString()}원`}</div>
-      </div>
-
-      <div className={css.discountMenu}>
-        <div className={css.sectionTitle}>상품 할인</div>
-        <div
-          className={css.sectionValue}
-        >{`${props.product.toLocaleString()}원`}</div>
-      </div>
-
-      <div className={css.discountMenu}>
-        <div className={css.sectionTitle}>포인트 사용</div>
-        <div
-          className={css.sectionValue}
-        >{`${props.point.toLocaleString()}P`}</div>
-      </div>
+      ) : null}
     </div>
   );
 };
@@ -170,24 +174,17 @@ const DiscountInfo = props => {
 const BenefitInfo = props => {
   return (
     <div className={css.benefitInfoWrap}>
-      {props.dueSaveList.map((data, index) => {
-        return data.pointType === 'BUY' ? (
+      {props.data.totalDueSavePointResponseList.map((data, index) => {
+        return data.dueSaveType === 'BUY' ? (
           <div className={css.discountMenu} key={index}>
             <div className={css.sectionTitle}>구매 확정</div>
             <div
               className={css.sectionValue}
             >{`${data.totalPoint?.toLocaleString()}P`}</div>
           </div>
-        ) : data.pointType === 'IMG_REVIEW' ? (
+        ) : data.dueSaveType === 'REVIEW' ? (
           <div className={css.discountMenu} key={index}>
-            <div className={css.sectionTitle}>텍스트 리뷰</div>
-            <div
-              className={css.sectionValue}
-            >{`${data.totalPoint?.toLocaleString()}P`}</div>
-          </div>
-        ) : data.pointType === 'TEXT_REVIEW' ? (
-          <div className={css.discountMenu} key={index}>
-            <div className={css.sectionTitle}>포토 리뷰</div>
+            <div className={css.sectionTitle}>리뷰 작성</div>
             <div
               className={css.sectionValue}
             >{`${data.totalPoint?.toLocaleString()}P`}</div>

@@ -23,7 +23,7 @@ class OrderProduct extends Component {
           <div className={css.productPrice}>
             {`${data.sellPrice?.toLocaleString()}원`}
           </div>
-          {Object.keys(data.itemOptionResponse).length === 0 ? (
+          {!data.itemOptionResponse ? (
             <div className={css.productOpiton}>{`${data.quantity}개`}</div>
           ) : (
             <div className={css.productOpiton}>

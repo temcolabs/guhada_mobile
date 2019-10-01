@@ -13,6 +13,7 @@ export default class OrderPaymentStore {
   }
   @observable cartList;
   @observable orderPaymentTotalInfo = {};
+  @observable orderSidetabTotalInfo = {};
   @observable orderProductInfo;
   @observable orderUserInfo = {
     address: null,
@@ -119,6 +120,8 @@ export default class OrderPaymentStore {
         this.shippingMessageOption = data.shippingMessage;
         this.orderMyCouponWallet = data.availableCouponWalletResponses;
 
+        this.getPaymentInfo();
+        this.emailCheck(data.user.email);
         this.getTotalQuantity();
         this.getShippingMessageOption();
         console.log(res.data, '주문 데이터');
@@ -181,6 +184,30 @@ export default class OrderPaymentStore {
         //   },
         // });
         Router.push('/');
+      });
+  };
+
+  @action
+  getPaymentInfo = () => {
+    let cartItemPayments = [];
+    for (let i = 0; i < this.orderProductInfo.length; i++) {
+      cartItemPayments.push({
+        cartItemId: this.orderProductInfo[i].cartItemId,
+        couponNumber: '',
+      });
+    }
+    API.order
+      .post(`/order/calculate-payment-info?`, {
+        cartItemPayments,
+        consumptionPoint: this.usePoint,
+      })
+      .then(res => {
+        let data = res;
+        this.orderSidetabTotalInfo = data.data.data;
+        console.log(toJS(this.orderSidetabTotalInfo), '결제정보창');
+      })
+      .catch(err => {
+        console.log(err, 'err');
       });
   };
   gotoMain = () => {
@@ -1113,5 +1140,16 @@ export default class OrderPaymentStore {
       this.orderPaymentTotalInfo.totalPaymentPrice,
       'this.orderPaymentTotalInfo.totalPaymentPrice'
     );
+  };
+
+  @action
+  emailCheck = email => {
+    let emailValid = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+    if (emailValid.test(email) === false) {
+      this.root.customerauthentication.emailValid = false;
+    } else {
+      this.root.customerauthentication.emailValid = true;
+      this.root.customerauthentication.email = email;
+    }
   };
 }

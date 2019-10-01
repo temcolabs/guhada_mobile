@@ -21,12 +21,10 @@ class Benefit extends Component {
       });
 
       orderpayment.usePoint = orderPaymentBenefit.availablePoint;
-      orderpayment.totalPaymentAmount();
-      orderPaymentBenefit.getDueSavePoint();
+      orderpayment.getPaymentInfo();
     } else {
       orderpayment.usePoint = value;
-      orderpayment.totalPaymentAmount();
-      orderPaymentBenefit.getDueSavePoint();
+      orderpayment.getPaymentInfo();
     }
   };
 
@@ -36,13 +34,11 @@ class Benefit extends Component {
     if (orderPaymentBenefit.myPoint >= orderPaymentBenefit.availablePoint) {
       orderpayment.usePoint = orderPaymentBenefit.availablePoint;
 
-      orderpayment.totalPaymentAmount();
-      orderPaymentBenefit.getDueSavePoint();
+      orderpayment.getPaymentInfo();
     } else {
       orderpayment.usePoint = orderPaymentBenefit.myPoint;
 
-      orderpayment.totalPaymentAmount();
-      orderPaymentBenefit.getDueSavePoint();
+      orderpayment.getPaymentInfo();
     }
   };
   componentDidMount() {
@@ -107,7 +103,9 @@ class Benefit extends Component {
             <span className={css.myCoupon}>
               {orderpayment.orderPaymentTotalInfo.availableCouponCount}
             </span>
-            <span>{`장 / 보유 ${orderPaymentBenefit.myCoupon} 장)`}</span>
+            <span>{`장 / 보유 ${
+              orderpayment.orderPaymentTotalInfo.totalCouponCount
+            } 장)`}</span>
           </div>
           <div className={css.couponSelectBox}>
             <div className={css.couponInput}>
@@ -150,7 +148,9 @@ class Benefit extends Component {
             <div>포인트</div>
             <div>
               (사용가능{' '}
-              <span>{orderPaymentBenefit.availablePoint.toLocaleString()}</span>
+              <span>
+                {orderpayment.orderPaymentTotalInfo.availablePointResponse.availableTotalPoint?.toLocaleString()}
+              </span>
               P)
             </div>
           </div>
