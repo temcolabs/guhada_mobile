@@ -35,6 +35,7 @@ export default function SellerStoreHeader({
           checkNullAndEmpty(sellerStore.offlineStoreImageUrl) === false
             ? {
                 backgroundImage: `url(${sellerStore.offlineStoreImageUrl})`,
+                boxShadow: `inset 0 0 0 180px rgba(17,17,17,0.3)`,
               }
             : null
         }
