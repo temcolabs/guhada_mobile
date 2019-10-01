@@ -30,6 +30,9 @@ class CategorySlider extends Component {
     searchitem.toSearch({ category: category, enter: 'category' });
   };
 
+  toScrollTop = () => {
+    window.scrollTo(0, 0);
+  };
   render() {
     const { categoryList, category, searchitem } = this.props;
     const { scrollDirection } = searchitem;
@@ -43,7 +46,10 @@ class CategorySlider extends Component {
                 className={cn(css.title, {
                   [css.selected]: item.id === this.state.selected,
                 })}
-                onClick={() => this.setSelected(item.id)}
+                onClick={() => {
+                  this.setSelected(item.id);
+                  this.toScrollTop();
+                }}
                 key={index}
               >
                 <div className={css.dot} />

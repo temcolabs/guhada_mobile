@@ -27,22 +27,24 @@ export default function MainSectionItem({
         style={categoryId !== 0 ? { paddingTop: `104px` } : null}
       >
         <div className={css.title}>{title}</div>
-        {/* <div className={css.categoryWrap}>
-          {mainSectionCategory.map((category, index) => {
-            return (
-              <div
-                className={cn(css.item, {
-                  [css.selected]: category.id === isCategory,
-                })}
-                onClick={() => setIsCategory(category.id)}
-                key={index}
-              >
-                <div className={css.dot} />
-                {category.label}
-              </div>
-            );
-          })}
-        </div> */}
+        {categoryId === 0 && (
+          <div className={css.categoryWrap}>
+            {mainSectionCategory.map((category, index) => {
+              return (
+                <div
+                  className={cn(css.item, {
+                    [css.selected]: category.id === isCategory,
+                  })}
+                  onClick={() => setIsCategory(category.id)}
+                  key={index}
+                >
+                  <div className={css.dot} />
+                  {category.label}
+                </div>
+              );
+            })}
+          </div>
+        )}
         <div>
           {items['ALL'] !== undefined
             ? mainSectionCategory.map(category => {

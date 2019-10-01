@@ -12,6 +12,9 @@ import MainHotKeyword from 'components/home/MainHotKeyword';
 import Router from 'next/router';
 import SignupSuccessModal from './signin/SignupSuccessModal';
 import Footer from 'components/footer/Footer';
+import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
+
+@withScrollToTopOnMount
 @withRouter
 @inject('main', 'searchitem')
 @observer
@@ -28,7 +31,9 @@ class Home extends React.Component {
 
   componentDidMount() {
     let query = Router.router.query;
+    const { main } = this.props;
 
+    main.setNavDealId(0);
     if (query.signupsuccess) {
       this.setState({
         signupModal: true,
