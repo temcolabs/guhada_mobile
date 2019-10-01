@@ -43,7 +43,7 @@ $contentsHeight : 117px;
     & .contentWrap {
         width: 100%;
         height: $contentsHeight;
-        padding: 13px 16px 0 10px;
+        padding: 15px 0 0 5px;
 
         & .brandWrap {
             display: flex;
@@ -82,14 +82,14 @@ $contentsHeight : 117px;
         position: relative;
 
         & .sellPrice {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: bold;
             color: #111111;
-            margin-right: 6px;
+            margin-right: 5px;
         }
 
         & .discountPrice {
-            font-size: 11px;
+            font-size: 10px;
             font-weight: normal;
             color: #777777;
             text-decoration-line: line-through;
@@ -97,7 +97,7 @@ $contentsHeight : 117px;
         }
 
         & .discountRate {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: bold;
             color: #5d2ed1;
 
