@@ -12,6 +12,9 @@ export class FindPasswordEmail extends Component {
     let value = form.get('value');
     return (
       <div>
+        <div className={css.subHeader}>
+          본인인증한 회원의 이메일로 비밀번호를 재설정합니다.
+        </div>
         <div className={css.findPasswordWrap}>
           <LoginInput field={form.$('name')} />
 

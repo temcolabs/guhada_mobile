@@ -22,8 +22,7 @@ export class FindPasswordMobile extends Component {
     return (
       <div>
         <div className={css.subHeader}>
-          전화번호 인증을 통해서 비밀번호를 재설정할 수 있습니다. 아래정보를
-          입력해주세요.
+          본인인증한 휴대폰 번호로 비밀번호를 재설정합니다.
         </div>
         <div className={css.findPasswordWrap}>
           <LoginInput field={form.$('name')} />
