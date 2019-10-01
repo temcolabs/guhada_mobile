@@ -23,12 +23,24 @@ class OrderProduct extends Component {
           <div className={css.productPrice}>
             {`${data.sellPrice?.toLocaleString()}원`}
           </div>
-          {orderpayment.option[index] ? (
-            <div className={css.productOpiton}>{`${
-              orderpayment.option[index]
-            } ${data.quantity}개`}</div>
-          ) : (
+          {Object.keys(data.itemOptionResponse).length === 0 ? (
             <div className={css.productOpiton}>{`${data.quantity}개`}</div>
+          ) : (
+            <div className={css.productOpiton}>
+              {`${
+                data.itemOptionResponse.attribute1
+                  ? data.itemOptionResponse.attribute1
+                  : ''
+              } ${
+                data.itemOptionResponse.attribute2
+                  ? data.itemOptionResponse.attribute2
+                  : ''
+              } ${
+                data.itemOptionResponse.attribute3
+                  ? data.itemOptionResponse.attribute3
+                  : ''
+              } ${data.quantity}개`}
+            </div>
           )}
         </div>
       </div>

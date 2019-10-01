@@ -115,13 +115,10 @@ export default class OrderPaymentStore {
         this.orderUserInfo = data.user;
         this.orderShippingList.defaultAddress = data.shippingAddress;
         this.orderPoint = data.availablePointResponse;
-        this.orderPaymentTotalInfo.originPaymentPrice = this.orderPaymentTotalInfo.totalPaymentPrice; //총 결제금액 백업 저장
-        this.orderPaymentTotalInfo.originDiscountDiffPrice = this.orderPaymentTotalInfo.totalDiscountDiffPrice; //총 결제금액 백업 저장
-        this.orderPaymentTotalInfo.couponDiscount = 0;
         this.usePoint = 0;
         this.shippingMessageOption = data.shippingMessage;
         this.orderMyCouponWallet = data.availableCouponWalletResponses;
-        this.getOptions();
+
         this.getTotalQuantity();
         this.getShippingMessageOption();
         console.log(res.data, '주문 데이터');
@@ -322,36 +319,6 @@ export default class OrderPaymentStore {
         this.orderShippingList.isAddShippingAddress = bool;
       }
     }
-  };
-
-  //--------------------- 주문상품 옵션 데이터 가져오기 ---------------------
-  getOptions = () => {
-    let tempAttribute = '';
-    let tempArray = [];
-    let branchArray = [];
-
-    this.orderProductInfo.map((data, index) => {
-      tempAttribute = '';
-      tempArray = [];
-      for (let key in data.itemOptionResponse) {
-        if (key.indexOf('attribute') !== -1) {
-          if (data.itemOptionResponse[key] !== null) {
-            tempArray.push(data.itemOptionResponse[key]);
-          }
-        }
-      }
-      for (let x = 0; x < tempArray.length; x++) {
-        tempAttribute += tempArray[x] + ' ';
-      }
-      tempAttribute = tempAttribute.substr(0, tempAttribute.length);
-
-      if (tempAttribute === '') {
-        branchArray.push(null);
-      } else {
-        branchArray.push(tempAttribute);
-      }
-    });
-    this.option = branchArray;
   };
 
   //--------------------- 배송지 옵션 변경 ---------------------
