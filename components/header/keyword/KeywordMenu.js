@@ -163,7 +163,7 @@ class KeywordMenu extends Component {
             {keywordTab === 'recent' ? (
               <>
                 <div className={css.contentsWrap}>
-                  {recentKeywordList.length > 0 &&
+                  {recentKeywordList.length > 0 ? (
                     recentKeywordList.map(recentKeyword => {
                       return (
                         <div key={recentKeyword.name}>
@@ -174,7 +174,15 @@ class KeywordMenu extends Component {
                           />
                         </div>
                       );
-                    })}
+                    })
+                  ) : (
+                    <>
+                      <div className={css.contentsNoData} />
+                      <div className={css.contentsNoDataText}>
+                        최근에 검색한 내역이 없습니다.
+                      </div>
+                    </>
+                  )}
                 </div>
 
                 <div className={css.autoCompleteWrap}>

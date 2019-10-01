@@ -30,6 +30,7 @@ const SellerStore = enhancer(({ router, seller, sellerId, login }) => {
             ? seller.sellerStore.nickname
             : ''
         }
+        headerShape={'sellerStore'}
       >
         <SellerStoreHeader
           sellerStore={seller.sellerStore}
