@@ -112,6 +112,25 @@
   & .contentsWrap {
     padding-top: 10px;
     overflow: scroll;
+
+    & .contentsNoData {
+      padding-top: calc(50px + 60px);
+      width: 100%;
+      height: auto;
+      background: url('/static/icon/icon_no_data.png') no-repeat bottom center;
+      background-size: 60px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 500;
+      color: #111111;
+
+
+    }
+
+    & .contentsNoDataText {
+      padding-top: 15px;
+      text-align: center;
+    }
   }
 
   & .popularKeywordWrap {

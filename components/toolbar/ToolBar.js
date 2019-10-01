@@ -37,7 +37,7 @@ function ToolBar({ alert }) {
       <div
         onClick={() => {
           setSelectedTool('home');
-          Router.push('/');
+          Router.push('/?home=0');
         }}
         className={cn(css.itemWrap, css.home, {
           [css.selected]: selectedTool === 'home',

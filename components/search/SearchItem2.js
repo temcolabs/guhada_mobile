@@ -78,25 +78,6 @@ class SearchItem2 extends Component {
                   </div>
                   <div className={css.productName}>{deal.productName}</div>
 
-                  {deal.options
-                    ? deal.options.map(option => {
-                        if (option.type === 'text') {
-                          return (
-                            <div className={css.textOption}>
-                              {option.attributes.map((size, sizeIndex) => {
-                                return (
-                                  <div className={css.sizeItem} key={sizeIndex}>
-                                    {size}
-                                  </div>
-                                );
-                              })}
-                            </div>
-                          );
-                        }
-                        return null;
-                      })
-                    : null}
-
                   {deal.discountRate > 0 ? (
                     <div className={css.priceWrap}>
                       <span className={css.sellPrice}>

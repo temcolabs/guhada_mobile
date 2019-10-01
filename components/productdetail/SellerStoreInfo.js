@@ -111,10 +111,11 @@ function SellerStoreInfo({
               onClick={() => pushRoute(`/productdetail?deals=${deal.dealId}`)}
             >
               <div className={css.imageWrap}>
-                <img
+                <div
                   className={css.image}
-                  src={deal.productImage.url}
-                  alt={deal.productImage.name}
+                  style={{
+                    backgroundImage: `url(${deal.productImage.url})`,
+                  }}
                 />
               </div>
               <div className={css.contentsWrap}>

@@ -41,6 +41,7 @@ function Header({ children, headerShape, history, shoppingcart }) {
           headerShape === 'searchList' ||
           headerShape === 'shoppingcart' ||
           headerShape === 'orderpayment' ||
+          headerShape === 'sellerStore' ||
           (headerShape === 'address' && urlHistory !== '') ? (
             <button
               className={css.backButton}

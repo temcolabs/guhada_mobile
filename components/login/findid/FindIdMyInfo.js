@@ -12,9 +12,7 @@ class FindIdMyInfo extends Component {
     return (
       <div>
         <div className={css.subHeader}>
-          인증 받은 전화번호를 통해서 아이디를 찾을 수 있습니다.
-          <br />
-          아래정보를 입력해주세요.
+          본인인증한 휴대폰 번호로 아이디를 찾습니다.
         </div>
         <div className={css.findIdWrap}>
           <LoginInput field={form.$('name')} />
