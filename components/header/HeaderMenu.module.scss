@@ -14,19 +14,16 @@
         padding: 0 20px;
 
         & .login {
-            width: 120px;
             font-size: 15px;
             font-weight: normal;
-            font-style: normal;
-            font-stretch: normal;
-            line-height: 1.47;
-            letter-spacing: normal;
-            text-align: left;
+            line-height: 21px;
             color: #666666;
+            padding-right: 20px;
             background-image: url('/static/icon/btn-arrow.png');
             background-size: 20px;
             background-repeat: no-repeat;
             background-position-x: right;
+            background-position-y: center;
         }
 
         & .itemWrap {

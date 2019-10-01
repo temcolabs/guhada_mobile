@@ -183,8 +183,11 @@
         }
 
         &.colored {
-          border: solid 1px #444444;
-          background-color: #444444;
+          // border: solid 1px #444444;
+          // background-color: #444444;
+          color: #5d2ed1;
+          border: solid 1px #5d2ed1;
+          background-color: #ffffff;
         }
       }
     }

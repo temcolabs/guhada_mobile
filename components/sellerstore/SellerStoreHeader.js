@@ -3,6 +3,7 @@ import css from './SellerStoreHeader.module.scss';
 import cn from 'classnames';
 import { loginStatus } from 'constant';
 import { useObserver } from 'mobx-react-lite';
+import checkNullAndEmpty from 'lib/checkNullAndEmpty';
 export default function SellerStoreHeader({
   sellerStore = {
     badSatisfactionCount: 0,
@@ -28,8 +29,24 @@ export default function SellerStoreHeader({
 }) {
   return useObserver(() => (
     <div className={css.wrap}>
-      <div className={css.backImage}>
-        <div className={css.profileImage} />
+      <div
+        className={css.backImage}
+        style={
+          checkNullAndEmpty(sellerStore.offlineStoreImageUrl) === false
+            ? {
+                backgroundImage: `url(${sellerStore.offlineStoreImageUrl})`,
+              }
+            : null
+        }
+      >
+        <div
+          className={css.profileImage}
+          style={
+            checkNullAndEmpty(sellerStore.profileImageUrl) === false
+              ? { backgroundImage: `url(${sellerStore.profileImageUrl})` }
+              : null
+          }
+        />
       </div>
       <div className={css.contentsWrap}>
         <div className={css.nickname}>{sellerStore.nickname}</div>
@@ -60,14 +77,14 @@ export default function SellerStoreHeader({
         {login.loginStatus === loginStatus.LOGIN_DONE ? (
           seller.storeFollowBool === true ? (
             <button
-              className={cn(css.colored)}
+              className={cn()}
               onClick={() => seller.delFollowSellerStore(sellerId)}
             >
               팔로잉
             </button>
           ) : (
             <button
-              className={cn()}
+              className={cn(css.colored)}
               onClick={() => seller.setFollowSellerStore(sellerId)}
             >
               팔로우
@@ -75,7 +92,7 @@ export default function SellerStoreHeader({
           )
         ) : (
           <button
-            className={cn()}
+            className={cn(css.colored)}
             onClick={() => seller.setFollowSellerStore(sellerId)}
           >
             팔로우
