@@ -13,6 +13,7 @@ import Router from 'next/router';
 import SignupSuccessModal from './signin/SignupSuccessModal';
 import Footer from 'components/footer/Footer';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
+import { pushRoute } from 'lib/router';
 
 @withScrollToTopOnMount
 @withRouter
@@ -34,6 +35,9 @@ class Home extends React.Component {
     const { main } = this.props;
 
     main.setNavDealId(0);
+    if (query.home) {
+      pushRoute('/');
+    }
     if (query.signupsuccess) {
       this.setState({
         signupModal: true,
