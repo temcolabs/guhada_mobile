@@ -3,6 +3,7 @@ import css from './SellerStoreHeader.module.scss';
 import cn from 'classnames';
 import { loginStatus } from 'constant';
 import { useObserver } from 'mobx-react-lite';
+import checkNullAndEmpty from 'lib/checkNullAndEmpty';
 export default function SellerStoreHeader({
   sellerStore = {
     badSatisfactionCount: 0,
@@ -28,8 +29,24 @@ export default function SellerStoreHeader({
 }) {
   return useObserver(() => (
     <div className={css.wrap}>
-      <div className={css.backImage}>
-        <div className={css.profileImage} />
+      <div
+        className={css.backImage}
+        style={
+          checkNullAndEmpty(sellerStore.offlineStoreImageUrl) === false
+            ? {
+                backgroundImage: `url(${sellerStore.offlineStoreImageUrl})`,
+              }
+            : null
+        }
+      >
+        <div
+          className={css.profileImage}
+          style={
+            checkNullAndEmpty(sellerStore.profileImageUrl) === false
+              ? { backgroundImage: `url(${sellerStore.profileImageUrl})` }
+              : null
+          }
+        />
       </div>
       <div className={css.contentsWrap}>
         <div className={css.nickname}>{sellerStore.nickname}</div>

@@ -3,7 +3,7 @@
     width: 100%;
     height: 120px;
     background: url('/static/member_bg_none.png') no-repeat center;
-    background-size: 100% 180px;
+    background-size: cover;
     position: relative;
   }
 
@@ -18,7 +18,7 @@
     border-radius: 60px;
     background-color: antiquewhite;
     background: url('/static/icon/profile_non_square.png') no-repeat center;
-    background-size: 80px;
+    background-size: cover;
   }
 
   & .contentsWrap {
