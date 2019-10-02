@@ -48,19 +48,20 @@
 }
 
 .socialWrap {
-    display: flex;
-    justify-content: space-between;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
 }
 
 .social {
     width: 50px;
-    float: left;
-    // margin-right: 25px;
+    display: inline-block;
+    margin-right: 25px;
     cursor: pointer;
 
-    // &:last-child {
-    //     margin-right: 0;
-    // }
+    &:last-child {
+        margin-right: 0;
+    }
 
     .icon {
         width: 50px;
