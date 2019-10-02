@@ -88,14 +88,16 @@ export default class CustomerAuthentication {
           });
       })
       .catch(err => {
-        devLog(err.data);
+        devLog(_.get(err, 'data.message'), 'err message');
         if (_.get(err, 'data.resultCode') === 6004) {
-          this.root.alert.showAlert('유효시간 경과, 다시 발급받으세요');
+          this.root.alert.showAlert({
+            content: _.get(err, 'data.message'),
+          });
         } else if (_.get(err, 'data.resultCode') === 5409) {
           this.root.alert.showAlert('이미 존재하는 email 입니다.');
         } else {
           this.root.alert.showAlert({
-            content: _.get(err, 'data.resultMessage'),
+            content: _.get(err, 'data.message'),
           });
         }
       });
