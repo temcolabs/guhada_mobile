@@ -75,6 +75,15 @@ export default class CustomerAuthentication {
             this.emailValid = true;
             this.root.alert.showAlert('이메일 인증성공');
             this.sendMailSuccess = false;
+          })
+          .catch(err => {
+            if (_.get(err, 'data.data.resultCode') === 5409) {
+              this.root.alert.showAlert('이미 존재하는 email 입니다.');
+            } else {
+              this.root.alert.showAlert({
+                content: _.get(err, 'data.data.resultMessage'),
+              });
+            }
           });
       })
       .catch(err => {
