@@ -97,7 +97,7 @@ export class InquiryItem extends Component {
               <div className={css.answer}>
                 {inquiry.reply}
                 <div className={css.answerInfo}>
-                  판매자
+                  {inquiry.sellerNickname}
                   <span className={css.line} />
                   <span className={css.date}>
                     {moment(inquiry.replyAt).format(dateFormat.YYYYMMDD_UI)}
