@@ -83,7 +83,9 @@ export default class CustomerAuthentication {
         } else if (_.get(err, 'data.data.resultCode') === 5409) {
           this.root.alert.showAlert('이미 존재하는 email 입니다.');
         } else {
-          this.root.alert.showAlert('유효하지 않은 코드입니다.');
+          this.root.alert.showAlert({
+            content: _.get(err, 'data.data.resultMessage'),
+          });
         }
       });
   };
