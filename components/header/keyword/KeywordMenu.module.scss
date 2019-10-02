@@ -29,12 +29,14 @@
       width: calc(100% - 100px);
       float: left;
       padding-left: 15px;
+      font-size: 15px;
+      font-weight: normal;
 
       &::placeholder {
-        font-size: 14px;
-        font-weight: normal;
+
         color: #999999;
       }
+
     }
 
     & .delete {
