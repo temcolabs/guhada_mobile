@@ -1,6 +1,7 @@
 import { observable, action, toJS } from 'mobx';
 import API from 'lib/API';
 import _ from 'lodash';
+import { devLog } from 'lib/devLog';
 
 const isServer = typeof window === 'undefined';
 
@@ -21,7 +22,6 @@ export default class ProductDetailLikeStore {
         let { data } = res;
         if (data.resultCode === 200) {
           this.likeList = data.data.content;
-          // console.log(toJS(this.likeList), 'this.likeList');
         } else {
           console.error(data.message);
         }
@@ -56,7 +56,7 @@ export default class ProductDetailLikeStore {
 
   @action
   saveLike = id => {
-    console.log(id, 'id');
+    devLog(id, 'id');
     if (this.currentLikeCheck) {
       API.user
         .delete(`/users/likes?target=PRODUCT&targetId=${id}`)

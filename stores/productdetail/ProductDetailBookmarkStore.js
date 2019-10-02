@@ -1,5 +1,6 @@
 import { observable, action } from 'mobx';
 import API from 'lib/API';
+import { devLog } from 'lib/devLog';
 
 const isServer = typeof window === 'undefined';
 
@@ -24,7 +25,7 @@ export default class ProductDetailLikeStore {
           }
         })
         .catch(err => {
-          console.log(err);
+          devLog(err);
           // this.root.alert.showAlert({
           //   content: `${_.get(err, 'data.message') || '오류가 발생했습니다.'}`,
           // });
@@ -47,7 +48,7 @@ export default class ProductDetailLikeStore {
           // });
         })
         .catch(err => {
-          console.log(err);
+          devLog(err);
           // this.root.alert.showAlert({
           //   content: `${_.get(err, 'data.message') || '오류 발생'}`,
           // });
@@ -63,7 +64,7 @@ export default class ProductDetailLikeStore {
           this.bookMarkStatus = false;
         })
         .catch(err => {
-          console.log(err);
+          devLog(err);
           // this.root.alert.showAlert({
           //   content: `${_.get(err, 'data.message') || '오류 발생'}`,
           // });

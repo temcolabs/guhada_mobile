@@ -23,7 +23,6 @@ export default class AuthMobileStore {
   @action
   getCertKey = (location, childWindow) => {
     API.order.get('/mobile/phoneCertification').then(res => {
-      console.log(res.data.data, 'res.data.data');
       const key = res.data.data;
       this.authKey = key;
       let verifyParams = this.verifyParams;
@@ -102,7 +101,7 @@ export default class AuthMobileStore {
                 else devLog(e);
               });
           } else if (location === 'order') {
-            console.log(authData, 'authData ?');
+            devLog(authData, 'authData ?');
             API.user
               .put('/users/identity-verify', {
                 birth: authData.sBirthDate.replace(
@@ -117,7 +116,6 @@ export default class AuthMobileStore {
               })
               .then(function(res) {
                 let data = res.data;
-                console.log(data);
                 if (data.resultCode === 200) {
                   root.orderpayment.orderUserInfo.name = authData.sName;
                   root.orderpayment.orderUserInfo.mobile = authData.sMobileNo;
@@ -129,7 +127,7 @@ export default class AuthMobileStore {
               .catch(err => {
                 let resultCode = _.get(err, 'data.resultCode');
                 let message = _.get(err, 'data.message');
-                console.log(resultCode, message, 'message', 'resultCode');
+                devLog(resultCode, message, 'message', 'resultCode');
                 if (resultCode === 6019) root.alert.showAlert(message);
               });
           }

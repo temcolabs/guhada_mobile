@@ -48,7 +48,7 @@ export default class SellerFollowStore {
         this.follows = true;
       })
       .catch(err => {
-        console.log(err, '스토어 팔로우 ERROR');
+        console.error(err, '스토어 팔로우 ERROR');
         // this.root.alert.showAlert({
         //   content: `${_.get(err, 'data.message') || '스토어 팔로우 ERROR'}`,
         // });
@@ -66,7 +66,7 @@ export default class SellerFollowStore {
         this.follows = false;
       })
       .catch(err => {
-        console.log(err, '스토어 팔로우 ERROR');
+        console.error(err, '스토어 팔로우 ERROR');
         // this.root.alert.showAlert({
         //   content: `${_.get(err, 'data.message') || '스토어 팔로우 ERROR'}`,
         // });

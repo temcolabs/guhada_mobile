@@ -3,6 +3,7 @@ import css from './AuthenticationModal.module.scss';
 import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 import { inject, observer } from 'mobx-react';
 import CountdownTimer from 'components/common/CountdownTimer';
+import { devLog } from 'lib/devLog';
 @inject('orderpayment', 'authmobile', 'customerauthentication')
 @observer
 class AuthenticationModal extends Component {
@@ -145,7 +146,7 @@ class AuthenticationModal extends Component {
                       return <span>{time}</span>;
                     }}
                     onTimeOver={() => {
-                      console.log('시간 초과입니다.');
+                      devLog('시간 초과입니다.');
                     }}
                   />
                 </div>

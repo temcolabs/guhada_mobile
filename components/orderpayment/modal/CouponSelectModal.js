@@ -136,7 +136,6 @@ const Product = props => {
 
 const CouponDetailList = props => {
   let { coupon, dealId, selectedCoupon, setSelectCoupon } = props;
-  // console.log(coupon, dealId, 'coupon');
   return (
     <div className={css.couponDetailList}>
       <div className={css.couponDetail}>

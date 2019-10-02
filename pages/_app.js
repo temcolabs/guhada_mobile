@@ -10,13 +10,14 @@ import AssociatedProduct from 'components/common/modal/AssociatedProduct';
 import 'react-dates/initialize';
 import qs from 'qs';
 import { isBrowser } from 'lib/isServer';
+import { devLog } from 'lib/devLog';
 
 moment.locale('ko');
 
 class MarketPlatform extends App {
   static async getInitialProps(appContext) {
     if (process.env.NODE_ENV === 'development' && isBrowser) {
-      console.log(`[_app] getInitialProps: appContext`, appContext);
+      devLog(`[_app] getInitialProps: appContext`, appContext);
     }
 
     // Get or Create the store with `undefined` as initialState

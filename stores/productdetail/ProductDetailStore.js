@@ -45,7 +45,6 @@ export default class ProductDetailStore {
             cb();
           }
         }
-        console.log(this.deals, 'this.deals');
         // 다른 서비스 api로 데이터 받아오는 부분
         this.getClaimData();
         this.getBusinessSeller();

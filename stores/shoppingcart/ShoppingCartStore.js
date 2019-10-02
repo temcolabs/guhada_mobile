@@ -5,6 +5,7 @@ import API from 'lib/API';
 import _ from 'lodash';
 import { pushRoute } from 'lib/router';
 import qs from 'qs';
+import { devLog } from 'lib/devLog';
 const isServer = typeof window === 'undefined';
 
 export default class ShoppingCartStore {
@@ -53,19 +54,19 @@ export default class ShoppingCartStore {
       .get(`/cart`)
       .then(res => {
         let data = res.data;
-        console.log(data, '장바구니 데이터');
+        devLog(data, '장바구니 데이터');
         this.cartList = data.data.cartItemResponseList;
         this.getOptions();
         this.setTotalItemCheckbox();
         this.getTotalResultAmount();
-        console.log(this.cartList, 'cartList');
+        devLog(this.cartList, 'cartList');
         this.status.pageStatus = true;
         if (this.cartList.length === 0) {
           this.getRealTimePopularityProducts();
         }
       })
       .catch(err => {
-        console.log(err);
+        devLog(err);
         if (err.data) {
           pushRoute(
             `/login?${qs.stringify({
@@ -91,7 +92,7 @@ export default class ShoppingCartStore {
         let data = res.data;
         this.cartList = data.data.cartItemResponseList;
         this.cartAmount = this.cartList.length;
-        console.log(data, 'data');
+        devLog(data, 'data');
       })
       .catch(err => {
         console.error(err);
@@ -113,14 +114,14 @@ export default class ShoppingCartStore {
         let data = res.data;
         if (data.resultCode === 200) {
           this.realTimePopularityProducts = data.data;
-          console.log(
+          devLog(
             this.realTimePopularityProducts,
             'this.realTimePopularityProducts'
           );
         }
       })
       .catch(err => {
-        console.log(err, 'err');
+        devLog(err, 'err');
       });
   };
 
@@ -506,7 +507,7 @@ export default class ShoppingCartStore {
   //--------------------- 장바구니 아이템 삭제하기 ---------------------
   @action
   ShoppingCartItemDelete = id => {
-    console.log(id);
+    devLog(id);
     this.root.alert.showConfirm({
       content: '해당 상품을 삭제하시겠습니까?',
       confirmText: '확인',

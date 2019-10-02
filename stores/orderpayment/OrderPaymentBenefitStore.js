@@ -1,6 +1,7 @@
 import { observable, action } from 'mobx';
 import API from 'lib/API';
 import _ from 'lodash';
+import { devLog } from 'lib/devLog';
 const isServer = typeof window === 'undefined';
 
 export default class OrderPaymentBenefitStore {
@@ -80,12 +81,12 @@ export default class OrderPaymentBenefitStore {
       }
     });
 
-    console.log(bundleData, 'bundleData');
+    devLog(bundleData, 'bundleData');
     API.benefit
       .post(`/process/due-save`, bundleData)
       .then(res => {
         let data = res.data.data;
-        // console.log(res, 'due response');
+        // devLog(res, 'due response');
         this.dueSavePointTotal = 0;
         for (let i = 0; i < data.dueSavePointList.length; i++) {
           this.dueSavePointTotal += data.dueSavePointList[i].totalPoint;
@@ -104,12 +105,12 @@ export default class OrderPaymentBenefitStore {
     API.benefit
       .get(`/benefits/summary`)
       .then(res => {
-        console.log(res, 'coupon res');
+        devLog(res, 'coupon res');
         let { data } = res.data;
         this.myCoupon = data.totalAvailCoupon;
       })
       .catch(err => {
-        console.log(err);
+        devLog(err);
         // this.root.alert.showAlert({
         //   content: `${_.get(err, 'data.message') || 'ERROR'}`,
         // });
@@ -300,7 +301,7 @@ export default class OrderPaymentBenefitStore {
         this.applyCoupon.applyCouponAmount += 1;
       }
     }
-    console.log(totalPayment, 'totalPayment');
+    devLog(totalPayment, 'totalPayment');
     if (totalPayment < 0) {
       this.availablePoint = 0;
     } else if (totalPayment >= 0) {

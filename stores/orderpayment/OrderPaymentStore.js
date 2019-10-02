@@ -6,6 +6,7 @@ import qs from 'qs';
 import { getParameterByName } from '../../utils';
 import Router from 'next/router';
 import { HOSTNAME } from 'constant/hostname';
+import { devLog } from 'lib/devLog';
 const isServer = typeof window === 'undefined';
 export default class OrderPaymentStore {
   constructor(root) {
@@ -123,7 +124,7 @@ export default class OrderPaymentStore {
         this.emailCheck(data.user.email);
         this.getTotalQuantity();
         this.getShippingMessageOption();
-        console.log(this.orderInfo, '주문 데이터');
+        devLog(this.orderInfo, '주문 데이터');
         this.orderProductInfo.map(data => {
           if (data.orderValidStatus !== 'VALID') {
             this.root.alert.showAlert({
@@ -175,7 +176,7 @@ export default class OrderPaymentStore {
         this.status.pageStatus = true;
       })
       .catch(err => {
-        console.log(err, 'err');
+        devLog(err, 'err');
         // this.root.alert.showAlert({
         //   content: `${_.get(err, 'data.message') || '오류발생'}`,
         //   onConfirm: () => {
@@ -203,10 +204,10 @@ export default class OrderPaymentStore {
       .then(res => {
         let data = res;
         this.orderSidetabTotalInfo = data.data.data;
-        console.log(toJS(this.orderSidetabTotalInfo), '결제정보창');
+        devLog(toJS(this.orderSidetabTotalInfo), '결제정보창');
       })
       .catch(err => {
-        console.log(err, 'err');
+        devLog(err, 'err');
       });
   };
   gotoMain = () => {
@@ -316,11 +317,6 @@ export default class OrderPaymentStore {
         ? (this.status.newShppingRequestSelfStatus = true)
         : (this.status.newShppingRequestSelfStatus = false);
     }
-
-    // console.log(
-    //   this.orderShippingList.defaultAddress,
-    //   this.orderShippingList.newAddress
-    // );
   };
 
   @action
@@ -412,7 +408,7 @@ export default class OrderPaymentStore {
         this.status.shppingListModalStatus = true;
       })
       .catch(err => {
-        console.log(err);
+        devLog(err);
         this.status.shppingListModalStatus = true;
         this.status.addressSelf = true;
       });
@@ -421,7 +417,7 @@ export default class OrderPaymentStore {
   @action
   shippingAddressChange = changeValue => {
     this.orderShippingList.currentUseAddressId = changeValue;
-    console.log(
+    devLog(
       this.orderShippingList.currentUseAddressId,
       'this.orderShippingList.currentUseAddressId'
     );
@@ -453,7 +449,7 @@ export default class OrderPaymentStore {
       });
       this.shippingListModalClose();
       this.status.selectedShipStatus = true;
-      // console.log('바뀐 주소', toJS(this.orderShippingList.defaultAddress));
+      // devLog('바뀐 주소', toJS(this.orderShippingList.defaultAddress));
     }
   };
 
@@ -953,7 +949,7 @@ export default class OrderPaymentStore {
         web: true,
       };
     }
-    console.log(forms, 'forms');
+    devLog(forms, 'forms');
 
     // const query = qs.stringify({
     //   cartList: cartList,
@@ -967,9 +963,9 @@ export default class OrderPaymentStore {
         let returnUrl = `${HOSTNAME}/privyCertifyResult`;
         let nextUrl = `${HOSTNAME}/privyCertifyResult?${data.pgOid}`;
 
-        console.log(nextUrl, 'nextUrl');
+        devLog(nextUrl, 'nextUrl');
 
-        console.log(data, 'requestOrder return data');
+        devLog(data, 'requestOrder return data');
 
         this.paymentForm = {
           version: data.version,
@@ -1003,7 +999,7 @@ export default class OrderPaymentStore {
         sessionStorage.setItem('paymentInfo', JSON.stringify(forms));
       })
       .catch(err => {
-        console.log(err);
+        devLog(err);
         // this.root.alert.showAlert({
         //   content: `${_.get(err, 'data.message') || '결제 오류'}`,
         // });
@@ -1020,9 +1016,9 @@ export default class OrderPaymentStore {
     // form.P_GOODS.value = encodeURIComponent(form.P_GOODS.value);
     // form.P_UNAME.value = encodeURIComponent(form.P_UNAME.value);
 
-    // console.log(form, 'form check');
-    // console.log(this.paymentForm.jsUrl, 'check this.paymentForm.jsUrl');
-    // console.log(form.P_GOODS.value, form.P_UNAME.value, 'check encode');
+    // devLog(form, 'form check');
+    // devLog(this.paymentForm.jsUrl, 'check this.paymentForm.jsUrl');
+    // devLog(form.P_GOODS.value, form.P_UNAME.value, 'check encode');
     form.action = this.paymentForm.jsUrl;
     form.submit();
     // };
@@ -1134,7 +1130,7 @@ export default class OrderPaymentStore {
       this.orderInfo.totalPaymentPrice = 0;
       this.usePoint = 0;
     }
-    console.log(
+    devLog(
       this.orderInfo.totalPaymentPrice,
       'this.orderInfo.totalPaymentPrice'
     );

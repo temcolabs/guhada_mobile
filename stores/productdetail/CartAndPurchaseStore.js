@@ -4,6 +4,7 @@ import API from 'lib/API';
 import Router from 'next/router';
 import { pushRoute } from 'lib/router';
 import qs from 'qs';
+import { devLog } from 'lib/devLog';
 
 const isServer = typeof window === 'undefined';
 
@@ -144,7 +145,7 @@ export default class CartAndPurchaseStore {
                 { isReplace: true }
               );
             } else {
-              console.log(err, 'add cart err');
+              devLog(err, 'add cart err');
               // this.root.alert.showAlert({
               //   content: '서버 에러 ' + err,
               // });

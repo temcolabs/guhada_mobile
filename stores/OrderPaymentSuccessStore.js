@@ -2,6 +2,7 @@ import { observable, action, toJS } from 'mobx';
 import API from 'lib/API';
 import Router from 'next/router';
 import moment from 'moment';
+import { devLog } from 'lib/devLog';
 const isServer = typeof window === 'undefined';
 export default class OrderPaymentStore {
   constructor(root) {
@@ -39,11 +40,11 @@ export default class OrderPaymentStore {
         } else {
           this.getOrderdate();
         }
-        console.log(toJS(this.successInfo), '주문완료 정보');
+        devLog(toJS(this.successInfo), '주문완료 정보');
         this.status.pageStatus = true;
       })
       .catch(err => {
-        console.log(err);
+        devLog(err);
         // this.root.alert.showConfirm({
         //   content: 'error',
         //   confirmText: '메인화면 돌아가기',
@@ -64,13 +65,13 @@ export default class OrderPaymentStore {
   };
 
   decodeLoginData = accessToken => {
-    console.log(accessToken);
+    devLog(accessToken);
     let loginInfoKey;
     if (accessToken) {
       loginInfoKey = accessToken.split('.');
     }
     this.loginInfo = JSON.parse(window.atob(loginInfoKey[1]));
-    console.log(this.loginInfo);
+    devLog(this.loginInfo);
   };
 
   @action

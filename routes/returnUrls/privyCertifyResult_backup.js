@@ -1,6 +1,6 @@
 const API = require('../../lib/API');
 let url = require('url');
-
+const devLog = require('../../lib/devLog');
 module.exports = {
   method: 'post',
   url: '/privyCertifyResult2',
@@ -10,10 +10,10 @@ module.exports = {
     let para = req.url;
 
     let oid = para.substring(para.indexOf('?') + 1, para.length);
-    console.log(para, oid, authData, ' oid , /privyCertifyResult2');
+    devLog(para, oid, authData, ' oid , /privyCertifyResult2');
 
     if (authData.P_STATUS !== '00') {
-      console.log(authData, 'authData', authData.P_RMESG1, 'message');
+      devLog(authData, 'authData', authData.P_RMESG1, 'message');
 
       if (req.query.cartList && authData.P_RMESG1) {
         res.redirect(
@@ -52,7 +52,7 @@ module.exports = {
       )
       .then(response => {
         let data = response.data.data;
-        console.log(response, 'response');
+        devLog(response, 'response');
         res.redirect('/orderpaymentsuccess?id=' + data);
       })
       .catch(err => {
