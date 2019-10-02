@@ -126,7 +126,9 @@ class ProductInquiry extends Component {
               return <InquiryItem inquiry={inquiry} key={inquiry.id} />;
             })
           ) : (
-            <div className={css.empty}>작성된 상품 문의가 없습니다.</div>
+            <div className={css.empty}>
+              <div className={css.emptyText}>작성된 상품 문의가 없습니다.</div>
+            </div>
           )}
         </div>
         {/* {_.isNil(inquiryList.content) === false ?

@@ -429,13 +429,14 @@ export default class ProductDetailStore {
       });
   };
 
+  @observable brandAndRecommendUnitPerPage = 6;
   @action
   getDealsOfSameBrand = () => {
     API.search
       .post(
         `/ps/search/seller/related`,
         { productId: this.deals.productId },
-        { params: { page: 1, unitPerPage: 3 } }
+        { params: { page: 1, unitPerPage: this.brandAndRecommendUnitPerPage } }
       )
       .then(res => {
         let data = res.data;
@@ -449,7 +450,7 @@ export default class ProductDetailStore {
       .post(
         `/ps/search/seller/popular`,
         { productId: this.deals.productId },
-        { params: { page: 1, unitPerPage: 3 } }
+        { params: { page: 1, unitPerPage: this.brandAndRecommendUnitPerPage } }
       )
       .then(res => {
         let data = res.data;
