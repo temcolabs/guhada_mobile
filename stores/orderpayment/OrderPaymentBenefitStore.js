@@ -29,7 +29,7 @@ export default class OrderPaymentBenefitStore {
   @observable isOpen = false;
   @action
   getAvailablePoint = () => {
-    this.availablePoint = this.root.orderpayment.orderPoint.availableTotalPoint;
+    this.availablePoint = this.root.orderpayment.orderInfo.availableTotalPoint;
   };
 
   @action
@@ -292,8 +292,7 @@ export default class OrderPaymentBenefitStore {
       applyDiscount: 0,
       applyCouponAmount: 0,
     };
-    let originPayment = this.root.orderpayment.orderPaymentTotalInfo
-      .originPaymentPrice;
+    let originPayment = this.root.orderpayment.orderInfo.originPaymentPrice;
     let totalPayment = originPayment - this.totalPrice.discountPrice;
     this.applyCoupon.applyDiscount = this.totalPrice.discountPrice;
     for (let i = 0; i < this.selectedCouponList.length; i++) {
@@ -314,7 +313,7 @@ export default class OrderPaymentBenefitStore {
       this.getAvailablePoint();
     }
 
-    this.root.orderpayment.orderPaymentTotalInfo.couponDiscount = this.applyCoupon.applyDiscount;
+    this.root.orderpayment.orderInfo.couponDiscount = this.applyCoupon.applyDiscount;
     this.root.orderpayment.totalPaymentAmount();
     this.root.orderpayment.applySelectedCoupon = [...this.selectedCouponList];
     this.handleModalClose();

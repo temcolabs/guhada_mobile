@@ -10,17 +10,20 @@ class Benefit extends Component {
     couponProductList: [],
   };
   pointHandler = e => {
-    let { orderpayment, orderPaymentBenefit, alert } = this.props;
+    let { orderpayment, alert } = this.props;
     let value = e.target.value.replace(/[^0-9]/g, '');
     value = Number(value);
     console.log(value, 'value');
 
-    if (value > orderPaymentBenefit.availablePoint) {
+    if (
+      value > orderpayment.orderInfo.availablePointResponse.availableTotalPoint
+    ) {
       alert.showAlert({
         content: '최대 사용 가능 포인트 초과 입니다.',
       });
 
-      orderpayment.usePoint = orderPaymentBenefit.availablePoint;
+      orderpayment.usePoint =
+        orderpayment.orderInfo.availablePointResponse.availableTotalPoint;
       orderpayment.getPaymentInfo();
     } else {
       orderpayment.usePoint = value;
@@ -29,23 +32,21 @@ class Benefit extends Component {
   };
 
   pointfullUse = () => {
-    let { orderpayment, orderPaymentBenefit } = this.props;
-
-    if (orderPaymentBenefit.myPoint >= orderPaymentBenefit.availablePoint) {
-      orderpayment.usePoint = orderPaymentBenefit.availablePoint;
-
+    let { orderpayment } = this.props;
+    let myPoint = orderpayment.orderInfo.totalPoint;
+    let availablePoint =
+      orderpayment.orderInfo.availablePointResponse.availableTotalPoint;
+    if (myPoint >= availablePoint) {
+      orderpayment.usePoint = availablePoint;
       orderpayment.getPaymentInfo();
     } else {
-      orderpayment.usePoint = orderPaymentBenefit.myPoint;
+      orderpayment.usePoint = myPoint;
 
       orderpayment.getPaymentInfo();
     }
   };
   componentDidMount() {
     this.props.orderPaymentBenefit.getAvailablePoint();
-    this.props.orderPaymentBenefit.getMyPoint();
-    this.props.orderPaymentBenefit.getMyCoupon();
-    this.props.orderPaymentBenefit.getDueSavePoint();
 
     this.setCouponList();
   }
@@ -101,10 +102,14 @@ class Benefit extends Component {
             쿠폰
             <span> (사용가능 </span>
             <span className={css.myCoupon}>
-              {orderpayment.orderPaymentTotalInfo.availableCouponCount}
+              {orderpayment.orderInfo.availableCouponCount
+                ? orderpayment.orderInfo.availableCouponCount
+                : ''}
             </span>
             <span>{`장 / 보유 ${
-              orderpayment.orderPaymentTotalInfo.totalCouponCount
+              orderpayment.orderInfo.totalCouponCount
+                ? orderpayment.orderInfo.totalCouponCount
+                : 0
             } 장)`}</span>
           </div>
           <div className={css.couponSelectBox}>
@@ -117,18 +122,18 @@ class Benefit extends Component {
                 }장)`}</div>
               ) : (
                 <div>
-                  {orderpayment.orderPaymentTotalInfo?.availableCouponCount
+                  {orderpayment.orderInfo?.availableCouponCount
                     ? '쿠폰을 선택해주세요 '
                     : '적용 가능한 쿠폰이 없습니다.'}
                 </div>
               )}
             </div>
-            {orderpayment.orderPaymentTotalInfo.availableCouponCount ? (
+            {orderpayment.orderInfo.availableCouponCount ? (
               <div
                 className={css.couponSelect}
-                onClick={() => {
-                  orderPaymentBenefit.handleModalShow();
-                }}
+                // onClick={() => {
+                //   orderPaymentBenefit.handleModalShow();
+                // }}
               >
                 쿠폰변경
               </div>
@@ -149,7 +154,7 @@ class Benefit extends Component {
             <div>
               (사용가능{' '}
               <span>
-                {orderpayment.orderPaymentTotalInfo.availablePointResponse.availableTotalPoint?.toLocaleString()}
+                {orderpayment.orderInfo.availablePointResponse.availableTotalPoint?.toLocaleString()}
               </span>
               P)
             </div>

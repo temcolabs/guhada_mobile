@@ -5,10 +5,7 @@ import css from './ProductInfo.module.scss';
 @observer
 class ProductInfo extends Component {
   render() {
-    let {
-      orderSuccessProduct,
-      orderSuccessProductOption,
-    } = this.props.orderpaymentsuccess;
+    let { orderSuccessProduct } = this.props.orderpaymentsuccess;
     return (
       <div className={css.wrap}>
         {orderSuccessProduct.map((data, index) => {
@@ -29,12 +26,13 @@ class ProductInfo extends Component {
                   {`${data.originalPrice?.toLocaleString()}원`}
                 </div>
                 <div className={css.productOption}>
-                  {`${
-                    orderSuccessProductOption[index]
-                      ? orderSuccessProductOption[index]
-                      : ' '
-                  }`}
-                  {`${data.quantity}개`}
+                  {data.optionAttribute1
+                    ? `
+                  ${data.optionAttribute1 || ''}
+                  ${data.optionAttribute2 || ''}
+                  ${data.optionAttribute3 || ''}
+                  ${data.quantity}개`
+                    : `${data.quantity}개`}
                 </div>
               </div>
             </div>

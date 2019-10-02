@@ -7,7 +7,7 @@ import addHyphenToMobile from 'lib/string/addHyphenToMobile';
 class OrderInfo extends Component {
   render() {
     let { orderpaymentsuccess } = this.props;
-    let { orderSuccessShipping, orderSuccessPayment } = orderpaymentsuccess;
+    let { orderSuccessShipping, successInfo } = orderpaymentsuccess;
     return (
       <div className={css.wrap}>
         <div className={css.orderInfoSection}>
@@ -42,40 +42,41 @@ class OrderInfo extends Component {
         <div className={css.orderInfoSection}>
           <div>결제방법</div>
 
-          {orderSuccessPayment.parentMethod === 'Card' ? (
+          {successInfo.payment.parentMethod === 'Card' ? (
             <div>
               <div className={css.paymentMethod}>신용/체크카드</div>
               <div className={css.paymentInfo}>
-                {orderSuccessPayment.method}
-                {orderSuccessPayment.cardQuota === '00' ? ` 일시불` : ` `}
+                {successInfo.payment.method}
+                {/* {successInfo.payment.cardQuota === '00' ? ` 일시불` : ` `} */}
               </div>
               <div className={css.paymentDate}>
                 {orderpaymentsuccess.orderAt}
               </div>
             </div>
-          ) : orderSuccessPayment.parentMethod === 'VBank' ? (
+          ) : successInfo.payment.parentMethod === 'VBank' ? (
             <div>
               <div className={css.paymentMethod}>무통장입금</div>
               <div className={css.paymentInfo}>
-                {`${orderSuccessPayment.vbankBankName} ${
-                  orderSuccessPayment.vbankNo
+                {`${successInfo.payment.vbankBankName} ${
+                  successInfo.payment.vbankNo
                 }`}
               </div>
+              <div className={css.paymentInfo}>예금주 : (주)구하다</div>
               <div className={css.paymentDate}>
                 {`${orderpaymentsuccess.vbankExpireAt} 까지`}
               </div>
             </div>
-          ) : orderSuccessPayment.parentMethod === 'DirectBank' ? (
+          ) : successInfo.payment.parentMethod === 'DirectBank' ? (
             <div>
               <div className={css.paymentMethod}>실시간 계좌이체</div>
               <div className={css.paymentInfo}>
-                {orderSuccessPayment.method}
+                {successInfo.payment.method}
               </div>
               <div className={css.paymentDate}>
                 {orderpaymentsuccess.orderAt}
               </div>
             </div>
-          ) : orderSuccessPayment.parentMethod === 'TOKEN' ? (
+          ) : successInfo.payment.parentMethod === 'TOKEN' ? (
             <div className={css.paymentMethod}>토큰결제</div>
           ) : null}
         </div>
