@@ -112,10 +112,10 @@ class FinalAmountBenefit extends Component {
               최대
               <span>
                 {orderSidetabTotalInfo.totalDueSavePoint
-                  ? `${orderSidetabTotalInfo.totalDueSavePoint?.toLocaleString()}`
+                  ? ` ${orderSidetabTotalInfo.totalDueSavePoint?.toLocaleString()}`
                   : 0}
               </span>
-              p
+              P
             </div>
           </div>
 

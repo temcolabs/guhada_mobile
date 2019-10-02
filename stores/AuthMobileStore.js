@@ -22,7 +22,7 @@ export default class AuthMobileStore {
   };
   @action
   getCertKey = (location, childWindow) => {
-    API.order.get('phoneCertification').then(res => {
+    API.order.get('/mobile/phoneCertification').then(res => {
       console.log(res.data.data, 'res.data.data');
       const key = res.data.data;
       this.authKey = key;
