@@ -11,8 +11,8 @@ export default class CustomerAuthentication {
   @observable emailAuthentication = false;
   @observable sendMailSuccess = false;
   @observable emailVerifyCode;
-  @observable email;
-
+  @observable email = '';
+  @observable emailValid = true;
   @action
   emailAuthenticationSend = (email, name) => {
     if (
@@ -24,24 +24,29 @@ export default class CustomerAuthentication {
     }
     this.email = email;
     this.sendMailSuccess = false;
-    console.log(this.email, 'thisemail');
-    API.user
-      .post(`/verify/sendEmail`, {
-        email,
-        name,
-      })
-      .then(res => {
-        this.root.alert.showAlert({
-          content: '인증메일발송성공',
-        });
-        this.sendMailSuccess = true;
-      })
-      .catch(err => {
-        // this.root.alert.showAlert({
-        //   content: '이메일발송에러',
-        // });
-        // this.sendMailSuccess = false;
+    console.log(name, email, 'thisemail');
+    let emailValid = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+
+    if (emailValid.test(email) === false) {
+      this.root.alert.showAlert({
+        content: '올바르지 않은 이메일형식 입니다.',
       });
+    } else {
+      API.user
+        .post(`/verify/sendEmail`, {
+          email,
+          name,
+        })
+        .then(res => {
+          this.root.alert.showAlert('인증메일을 발송하였습니다.');
+          this.sendMailSuccess = true;
+        })
+        .catch(err => {
+          // this.root.alert.showAlert({
+          //   content: `${_.get(err, 'data.message') || 'ERROR'}`,
+          // });
+        });
+    }
   };
 
   @action
@@ -61,11 +66,13 @@ export default class CustomerAuthentication {
       .then(res => {
         API.user
           .put(`users/email-verify`, {
+            email: this.email,
             verificationNumber: this.emailVerifyCode,
           })
           .then(res => {
             this.emailAuthentication = true;
             this.root.orderpayment.orderUserInfo.emailVerify = true;
+            this.emailValid = true;
             this.root.alert.showAlert('이메일 인증성공');
             this.sendMailSuccess = false;
           });
@@ -73,9 +80,21 @@ export default class CustomerAuthentication {
       .catch(err => {
         if (_.get(err, 'data.data.resultCode') === 6004) {
           this.root.alert.showAlert('유효시간 경과, 다시 발급받으세요');
+        } else if (_.get(err, 'data.data.resultCode') === 5409) {
+          this.root.alert.showAlert('이미 존재하는 email 입니다.');
         } else {
           this.root.alert.showAlert('유효하지 않은 코드입니다.');
         }
       });
+  };
+
+  @action
+  emailValidCheck = e => {
+    this.email = e.target.value;
+  };
+
+  @action
+  dataInit = () => {
+    this.email = '';
   };
 }

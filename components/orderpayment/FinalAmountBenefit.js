@@ -22,7 +22,7 @@ class FinalAmountBenefit extends Component {
   };
   render() {
     let { orderpayment, orderPaymentBenefit } = this.props;
-    let { orderPaymentTotalInfo, orderSidetabTotalInfo } = orderpayment;
+    let { orderInfo, orderSidetabTotalInfo } = orderpayment;
     return (
       <div className={css.wrap}>
         <div className={css.finalTop}>
@@ -50,9 +50,9 @@ class FinalAmountBenefit extends Component {
             <div className={css.innerContent}>
               {/* <div className={css.blankBox}>
                 {`${
-                orderPaymentTotalInfo.totalShipPrice === 0
+                orderInfo.totalShipPrice === 0
                   ? '무료배송'
-                  : `${orderPaymentTotalInfo.totalShipPrice.toLocaleString()}원`
+                  : `${orderInfo.totalShipPrice.toLocaleString()}원`
               }`}
               </div> */}
               <div>{`${orderSidetabTotalInfo.totalProductPrice?.toLocaleString()}원`}</div>
@@ -135,14 +135,14 @@ const DiscountInfo = props => {
     <div className={css.discountInfoWrap}>
       {props.data.discountInfoResponseList.map((data, index) => {
         return data.discountType === 'PRODUCT_DISCOUNT' ? (
-          <div className={css.discountMenu}>
+          <div className={css.discountMenu} key={index}>
             <div className={css.sectionTitle}>상품 할인</div>
             <div
               className={css.sectionValue}
             >{`${data.discountPrice?.toLocaleString()}원`}</div>
           </div>
         ) : (
-          <div className={css.discountMenu}>
+          <div className={css.discountMenu} key={index}>
             <div className={css.sectionTitle}>
               쿠폰 할인
               <div

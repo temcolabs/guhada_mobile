@@ -12,7 +12,7 @@ export default class OrderPaymentStore {
     if (!isServer) this.root = root;
   }
   @observable cartList;
-  @observable orderPaymentTotalInfo = {};
+  @observable orderInfo = {};
   @observable orderSidetabTotalInfo = {};
   @observable orderProductInfo;
   @observable orderUserInfo = {
@@ -27,7 +27,6 @@ export default class OrderPaymentStore {
     roadAddress: null,
     zip: null,
   };
-  @observable orderPoint = 0;
   @observable usePoint = 0;
   @observable orderMyCouponWallet = [];
   @observable orderShippingList = {
@@ -111,20 +110,20 @@ export default class OrderPaymentStore {
       .get(`/order/orderForm?cartItemIdList=${this.cartList}`)
       .then(res => {
         let data = res.data.data;
-        this.orderPaymentTotalInfo = data;
+        this.orderInfo = data;
         this.orderProductInfo = data.orderItemList;
         this.orderUserInfo = data.user;
         this.orderShippingList.defaultAddress = data.shippingAddress;
-        this.orderPoint = data.availablePointResponse;
-        this.usePoint = 0;
         this.shippingMessageOption = data.shippingMessage;
         this.orderMyCouponWallet = data.availableCouponWalletResponses;
+
+        this.usePoint = 0;
 
         this.getPaymentInfo();
         this.emailCheck(data.user.email);
         this.getTotalQuantity();
         this.getShippingMessageOption();
-        console.log(res.data, '주문 데이터');
+        console.log(this.orderInfo, '주문 데이터');
         this.orderProductInfo.map(data => {
           if (data.orderValidStatus !== 'VALID') {
             this.root.alert.showAlert({
@@ -1080,8 +1079,7 @@ export default class OrderPaymentStore {
     };
     this.paymentMethod = null;
 
-    this.orderPoint = 0;
-    this.orderPaymentTotalInfo = {};
+    this.orderInfo = {};
     this.shippingListModalClose();
     this.root.orderPaymentBenefit.handleModalClose();
     this.applySelectedCoupon = [];
@@ -1122,23 +1120,23 @@ export default class OrderPaymentStore {
   */
   @action
   totalPaymentAmount = () => {
-    this.orderPaymentTotalInfo.totalDiscountDiffPrice =
-      this.orderPaymentTotalInfo.originDiscountDiffPrice +
+    this.orderInfo.totalDiscountDiffPrice =
+      this.orderInfo.originDiscountDiffPrice +
       this.usePoint +
-      this.orderPaymentTotalInfo.couponDiscount;
+      this.orderInfo.couponDiscount;
 
-    this.orderPaymentTotalInfo.totalPaymentPrice =
-      this.orderPaymentTotalInfo.originPaymentPrice -
+    this.orderInfo.totalPaymentPrice =
+      this.orderInfo.originPaymentPrice -
       this.usePoint -
-      this.orderPaymentTotalInfo.couponDiscount;
+      this.orderInfo.couponDiscount;
 
-    if (this.orderPaymentTotalInfo.totalPaymentPrice < 0) {
-      this.orderPaymentTotalInfo.totalPaymentPrice = 0;
+    if (this.orderInfo.totalPaymentPrice < 0) {
+      this.orderInfo.totalPaymentPrice = 0;
       this.usePoint = 0;
     }
     console.log(
-      this.orderPaymentTotalInfo.totalPaymentPrice,
-      'this.orderPaymentTotalInfo.totalPaymentPrice'
+      this.orderInfo.totalPaymentPrice,
+      'this.orderInfo.totalPaymentPrice'
     );
   };
 

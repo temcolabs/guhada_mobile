@@ -120,7 +120,19 @@
           overflow: auto;
         }
       }
-
+      .unVaildEmailBox {
+        width: 100%;
+        input {
+          padding: 0 15px;
+          width: 100%;
+          height: 45px;
+          border: 1px solid #eee;
+          background: #fff;
+          font-size: 13px;
+          color: #111;
+          overflow: auto;
+        }
+      }
       .reRequest {
         width: 100px;
         height: 45px;

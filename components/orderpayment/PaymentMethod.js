@@ -19,13 +19,13 @@ class PaymentMethod extends Component {
 
   render() {
     let { orderpayment } = this.props;
-    let { paymentForm, orderPaymentTotalInfo } = orderpayment;
+    let { paymentForm, orderInfo } = orderpayment;
 
     return (
       <div className={css.wrap}>
         <div className={css.title}>결제 수단</div>
         <ul className={css.paymentMethod}>
-          {orderPaymentTotalInfo.paymentsMethod.map((data, index) => {
+          {orderInfo.paymentsMethod.map((data, index) => {
             return (
               <li key={index}>
                 <label

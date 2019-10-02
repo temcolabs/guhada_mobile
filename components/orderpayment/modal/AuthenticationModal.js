@@ -84,23 +84,41 @@ class AuthenticationModal extends Component {
                 )}
               </div>
               <div className={css.content}>
-                <div>
-                  <input
-                    type="text"
-                    value={
-                      orderpayment.orderUserInfo.email
-                        ? orderpayment.orderUserInfo.email
-                        : null
-                    }
-                    readOnly
-                  />
-                </div>
+                {customerauthentication.emailValid ? (
+                  <div>
+                    <input
+                      type="text"
+                      value={
+                        customerauthentication.email
+                          ? customerauthentication.email
+                          : null
+                      }
+                      readOnly
+                    />
+                  </div>
+                ) : (
+                  <div className={css.unVaildEmailBox}>
+                    <input
+                      type="text"
+                      placeholder="이메일을 입력해주세요"
+                      value={
+                        customerauthentication.email
+                          ? customerauthentication.email
+                          : null
+                      }
+                      onChange={e => {
+                        customerauthentication.emailValidCheck(e);
+                      }}
+                    />
+                  </div>
+                )}
+
                 {customerauthentication.sendMailSuccess ? (
                   <div
                     className={css.reRequest}
                     onClick={() =>
                       customerauthentication.emailAuthenticationSend(
-                        orderpayment.orderUserInfo.email,
+                        customerauthentication.email,
                         orderpayment.orderUserInfo.name
                       )
                     }
@@ -151,7 +169,7 @@ class AuthenticationModal extends Component {
                   className={css.button}
                   onClick={() =>
                     customerauthentication.emailAuthenticationSend(
-                      orderpayment.orderUserInfo.email,
+                      customerauthentication.email,
                       orderpayment.orderUserInfo.name
                     )
                   }
