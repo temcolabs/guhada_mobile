@@ -187,7 +187,7 @@ const BenefitInfo = props => {
             <div className={css.sectionTitle}>리뷰 작성</div>
             <div
               className={css.sectionValue}
-            >{`${data.totalPoint?.toLocaleString()}P`}</div>
+            >{`최대 ${data.totalPoint?.toLocaleString()}P`}</div>
           </div>
         ) : null;
       })}
