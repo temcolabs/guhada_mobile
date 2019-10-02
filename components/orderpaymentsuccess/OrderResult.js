@@ -107,7 +107,10 @@ class OrderResult extends Component {
                       <div className={css.duesave__point__value} key={index}>
                         <div className={css.type}>리뷰 작성</div>
                         <div className={css.point}>
-                          {data.totalPoint.toLocaleString() || 0}
+                          {data.totalPoint
+                            ? `최대 ${data.totalPoint.toLocaleString() || 0}`
+                            : 0}
+
                           <span>P</span>
                         </div>
                       </div>
