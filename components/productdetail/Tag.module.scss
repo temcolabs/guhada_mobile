@@ -1,5 +1,9 @@
 .wrap {
-    margin-bottom: 30px;
+    width: 100%;
+    white-space: nowrap;
+    display: inline-block;
+    height: 26px;
+    overflow-x: scroll;
 
     & .tag {
         height: 26px;
