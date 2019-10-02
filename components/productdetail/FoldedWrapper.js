@@ -7,7 +7,7 @@ import cn from 'classnames';
  */
 class FoldedWrapper extends Component {
   state = {
-    folded: false,
+    folded: true,
   };
 
   setFoleded = () => {
