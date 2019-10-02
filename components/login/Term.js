@@ -34,12 +34,12 @@ class Term extends Component {
               <LoginCheckBox
                 field={form.$('agreePurchaseTos')}
                 className={'termOption'}
-                href={`https://stg.guhada.com/terms/purchase`}
+                href={`${process.env.HOSTNAME}/terms/purchase`}
               />
               <LoginCheckBox
                 field={form.$('agreeCollectPersonalInfoTos')}
                 className={'termOption'}
-                href={`https://stg.guhada.com/terms/personal`}
+                href={`${process.env.HOSTNAME}/terms/personal`}
               />
             </div>
             <div className={css.contentsWrap}>
@@ -50,7 +50,7 @@ class Term extends Component {
               <LoginCheckBox
                 field={form.$('agreeSaleTos')}
                 className={'termOption'}
-                href={`https://stg.guhada.com/terms/sale`}
+                href={`${process.env.HOSTNAME}/terms/sale`}
               />
               <div>
                 <LoginCheckBox
