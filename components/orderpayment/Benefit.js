@@ -104,7 +104,7 @@ class Benefit extends Component {
             <span className={css.myCoupon}>
               {orderpayment.orderInfo.availableCouponCount
                 ? orderpayment.orderInfo.availableCouponCount
-                : ''}
+                : '0'}
             </span>
             <span>{`장 / 보유 ${
               orderpayment.orderInfo.totalCouponCount
