@@ -38,7 +38,9 @@ class OrderInfo extends Component {
         <div className={css.orderInfoSection}>
           <div>배송메모</div>
           <div>
-            {orderSuccessShipping.message ? orderSuccessShipping.message : '-'}
+            {orderSuccessShipping?.message
+              ? orderSuccessShipping?.message
+              : '-'}
           </div>
         </div>
         <div className={css.orderInfoSection}>

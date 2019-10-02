@@ -11,7 +11,7 @@ export default class OrderPaymentStore {
 
   @observable successInfo = {};
   @observable orderSuccessNumber;
-  @observable orderSuccessShipping;
+  @observable orderSuccessShipping = {};
   @observable orderSuccessProduct = {};
   @observable orderSuccessProductOption = [];
   @observable orderSuccessUser;
@@ -100,7 +100,7 @@ export default class OrderPaymentStore {
   dataInit = () => {
     this.successInfo = {};
     this.orderSuccessNumber = null;
-    this.orderSuccessShipping = null;
+    this.orderSuccessShipping = {};
     this.orderSuccessProduct = {};
     this.orderSuccessProductOption = [];
     this.orderSuccessUser = null;
