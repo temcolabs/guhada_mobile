@@ -350,7 +350,7 @@ export default class ProductOptionStore {
       .then(res => {
         const { data } = res;
         this.dueSavebenefitCoupon = data.data;
-        console.log(this.dueSavebenefitCoupon);
+        devLog(this.dueSavebenefitCoupon);
         for (let i = 0; i < this.dueSavebenefitCoupon.length; i++) {
           let x = new moment(this.dueSavebenefitCoupon[i].startAt);
           let y = new moment(this.dueSavebenefitCoupon[i].endAt);
@@ -360,10 +360,7 @@ export default class ProductOptionStore {
         }
 
         devLog(toJS(this.dueSavebenefitCoupon), 'this.dueSavebenefitCoupon');
-        console.log(
-          toJS(this.dueSavebenefitCoupon),
-          'this.dueSavebenefitCoupon'
-        );
+        devLog(toJS(this.dueSavebenefitCoupon), 'this.dueSavebenefitCoupon');
       })
       .catch(err => {
         // this.root.alert.showAlert({
@@ -399,7 +396,7 @@ export default class ProductOptionStore {
           .post(`/coupons/process/save`, param)
           .then(res => {
             const { data } = res;
-            console.log(data, 'data coupon');
+            devLog(data, 'data coupon');
             this.root.alert.showAlert({
               content: `쿠폰발급완료`,
             });
@@ -460,7 +457,7 @@ export default class ProductOptionStore {
             .post(`/coupons/process/save`, param)
             .then(res => {
               const { data } = res;
-              console.log(data, 'data coupon');
+              devLog(data, 'data coupon');
               this.root.alert.showAlert({
                 content: `쿠폰발급완료`,
               });
@@ -495,7 +492,7 @@ export default class ProductOptionStore {
           targetId: this.dueSavebenefitCoupon[0].sellerId,
         })
         .then(res => {
-          console.log(res, 'res');
+          devLog(res, 'res');
 
           for (let i = 0; i < this.dueSavebenefitCoupon.length; i++) {
             if (!this.dueSavebenefitCoupon[i].alreadySaved) {
@@ -516,7 +513,7 @@ export default class ProductOptionStore {
                 .post(`/coupons/process/save`, param)
                 .then(res => {
                   const { data } = res;
-                  console.log(data, 'data coupon');
+                  devLog(data, 'data coupon');
                   this.root.alert.showAlert({
                     content: `쿠폰발급완료`,
                   });

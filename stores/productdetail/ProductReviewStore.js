@@ -112,7 +112,7 @@ export default class ProductReviewStore {
         this.reviewBookMarks = res.data.data.content;
       })
       .catch(e => {
-        console.log('e', e);
+        console.error('e', e);
       });
   };
 
@@ -127,7 +127,7 @@ export default class ProductReviewStore {
         this.getProductReview();
       })
       .catch(e => {
-        console.log('e', e);
+        console.error('e', e);
       });
   };
 
@@ -144,7 +144,7 @@ export default class ProductReviewStore {
         this.getProductReview();
       })
       .catch(e => {
-        console.log('e', e);
+        console.error('e', e);
       });
   };
 

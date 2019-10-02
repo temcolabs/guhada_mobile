@@ -3,10 +3,6 @@ import Head from 'next/head';
 import { HOSTNAME } from 'constant/hostname';
 
 class test extends React.Component {
-  componentDidMount() {
-    console.log('componentDidMount');
-  }
-
   render() {
     return (
       <Fragment>

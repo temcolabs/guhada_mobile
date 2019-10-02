@@ -2,6 +2,7 @@ import { observable, action, toJS } from 'mobx';
 import API from 'lib/API';
 const isServer = typeof window === 'undefined';
 import { isBrowser } from 'lib/isServer';
+import { devLog } from 'lib/devLog';
 
 export default class MypageLikeStore {
   constructor(root) {
@@ -26,21 +27,21 @@ export default class MypageLikeStore {
     API.user.get(`/users/${this.userId}/likes`).then(res => {
       this.likeList = [];
       if (res.data.resultCode === 200) {
-        console.log(res, 'res');
+        devLog(res, 'res');
         this.totalItemsCount = res.data.data.totalElements;
         this.itemsCountPerPage = res.data.data.size;
 
         res.data.data.content.map(data => {
           this.likeList.push(data);
         });
-        console.log(this.likeList);
+        devLog(this.likeList);
 
         if (this.likeList.length > 0) {
           this.getLikeProductList();
         }
       } else {
         this.likeList = false;
-        console.log(this.likeList);
+        devLog(this.likeList);
       }
     });
   };
@@ -81,7 +82,7 @@ export default class MypageLikeStore {
         }
       })
       .catch(err => {
-        console.log(err, 'delete err');
+        devLog(err, 'delete err');
       });
   };
 
@@ -159,21 +160,21 @@ export default class MypageLikeStore {
       .then(res => {
         this.likeList = [];
         if (res.data.resultCode === 200) {
-          console.log(res, 'res');
+          devLog(res, 'res');
           this.totalItemsCount = res.data.data.totalElements;
           this.itemsCountPerPage = res.data.data.size;
 
           res.data.data.content.map(data => {
             this.likeList.push(data);
           });
-          console.log(this.likeList);
+          devLog(this.likeList);
 
           if (this.likeList.length > 0) {
             this.getLikeProductList();
           }
         } else {
           this.likeList = false;
-          console.log(this.likeList);
+          devLog(this.likeList);
         }
       });
   };

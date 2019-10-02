@@ -4,11 +4,12 @@ import OrderPayment from '../../template/orderpayment/OrderPayment';
 import { inject, observer } from 'mobx-react';
 import Loading from '../../components/common/loading/Loading';
 import { getParameterByName } from '../../utils';
+import { devLog } from 'lib/devLog';
 @inject('orderpayment')
 @observer
 class index extends React.Component {
   componentDidMount() {
-    console.log('this page orderpayment');
+    devLog('this page orderpayment');
     let cartList = getParameterByName('cartList');
     this.props.orderpayment.getOrderItems(cartList);
   }

@@ -28,7 +28,6 @@ function Header({ children, headerShape, history, shoppingcart }) {
   const [isBrandVisible, setIsBrandVisible] = useState(false);
   // if (cartAmount === 0) {
   //   cartAmount = shoppingcart.globalGetUserShoppingCartList();
-  //   console.log(cartAmount, 'cartAmount');
   // }
   let urlHistory = sessionStorage.get('urlHistory');
   return (

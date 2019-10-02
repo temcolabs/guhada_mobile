@@ -51,11 +51,6 @@ class callbacknaver extends Component {
     });
   }
 
-  // static async getInitialProps({ pathname }) {
-  //   console.log(pathname);
-  //   return { pathname };
-  // }
-
   render() {
     return null;
   }

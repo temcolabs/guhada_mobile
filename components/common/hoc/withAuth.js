@@ -5,6 +5,7 @@ import { loginStatus } from 'constant';
 import { isBrowser } from 'lib/isServer';
 import Loading from '../loading/Loading';
 import qs from 'qs';
+import { devLog } from 'lib/devLog';
 
 /**
  * isAuthRequired 옵션에 따라 현재 페이지에서 redirectTo로 지정된 페이지로 이동시킴
@@ -33,7 +34,7 @@ function withAuth({ isAuthRequired = true, redirectTo = '/' } = {}) {
           });
           const targetUrl = !!query.redirectTo ? query.redirectTo : redirectTo;
 
-          console.log('[withAuth] redirect to', targetUrl);
+          devLog('[withAuth] redirect to', targetUrl);
 
           pushRoute(targetUrl);
         }

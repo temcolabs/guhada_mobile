@@ -1,6 +1,7 @@
 import { observable, action } from 'mobx';
 import API from 'lib/API';
 import _ from 'lodash';
+import { devLog } from 'lib/devLog';
 const isServer = typeof window === 'undefined';
 
 export default class CustomerAuthentication {
@@ -24,7 +25,7 @@ export default class CustomerAuthentication {
     }
     this.email = email;
     this.sendMailSuccess = false;
-    console.log(name, email, 'thisemail');
+    devLog(name, email, 'thisemail');
     let emailValid = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 
     if (emailValid.test(email) === false) {
@@ -52,7 +53,6 @@ export default class CustomerAuthentication {
   @action
   emailAuthenticationCode = e => {
     this.emailVerifyCode = e.target.value;
-    // console.log(this.emailVerifyCode);
   };
 
   @action
@@ -77,7 +77,7 @@ export default class CustomerAuthentication {
             this.sendMailSuccess = false;
           })
           .catch(err => {
-            console.log(err.data);
+            devLog(err.data);
             if (_.get(err, 'data.resultCode') === 5409) {
               this.root.alert.showAlert('이미 존재하는 email 입니다.');
             } else {
@@ -88,7 +88,7 @@ export default class CustomerAuthentication {
           });
       })
       .catch(err => {
-        console.log(err.data);
+        devLog(err.data);
         if (_.get(err, 'data.resultCode') === 6004) {
           this.root.alert.showAlert('유효시간 경과, 다시 발급받으세요');
         } else if (_.get(err, 'data.resultCode') === 5409) {

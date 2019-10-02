@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './CashReceipt.module.scss';
 import Select from 'react-select';
+import { devLog } from 'lib/devLog';
 
 @inject('orderpayment')
 @observer
@@ -51,7 +52,7 @@ class CashReceipt extends Component {
   };
 
   receiphoneHandler = value => {
-    console.log(value, 'value');
+    devLog(value, 'value');
     this.props.orderpayment.receiptPhone(value, 'first');
   };
   render() {

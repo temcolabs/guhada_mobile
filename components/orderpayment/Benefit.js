@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './Benefit.module.scss';
 import CouponSelectModal from './modal/CouponSelectModal';
+import { devLog } from 'lib/devLog';
 @inject('orderpayment', 'orderPaymentBenefit', 'alert')
 @observer
 class Benefit extends Component {
@@ -13,7 +14,7 @@ class Benefit extends Component {
     let { orderpayment, alert } = this.props;
     let value = e.target.value.replace(/[^0-9]/g, '');
     value = Number(value);
-    console.log(value, 'value');
+    devLog(value, 'value');
 
     if (
       value > orderpayment.orderInfo.availablePointResponse.availableTotalPoint

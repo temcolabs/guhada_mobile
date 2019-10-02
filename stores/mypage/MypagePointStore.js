@@ -4,6 +4,8 @@ const isServer = typeof window === 'undefined';
 import { isBrowser } from 'lib/isServer';
 import { dateFormat } from 'constant/date';
 import moment from 'moment';
+import { devLog } from 'lib/devLog';
+import { getParameterByName } from 'utils';
 
 export default class MypagePointStore {
   constructor(root) {
@@ -52,7 +54,7 @@ export default class MypagePointStore {
           this.pointHistory = res.data.data;
           this.totalItemsCount = res.data.data.totalElements;
           this.page = pageNo;
-          console.log(res.data, '포인트 히스토리');
+          devLog(res.data, '포인트 히스토리');
         }
       });
 

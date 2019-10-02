@@ -4,6 +4,7 @@ import { isBrowser } from 'lib/isServer';
 import { getUserAgent } from '../../utils';
 import { dateFormat } from 'constant/date';
 import moment from 'moment';
+import { devLog } from 'lib/devLog';
 
 export default class MypagePointChargeStore {
   constructor(root) {
@@ -61,7 +62,7 @@ export default class MypagePointChargeStore {
     endDate = this.period.endDate,
     pageNo = 1,
   }) => {
-    console.log(startDate, endDate, pageNo, 'pointcharge');
+    devLog(startDate, endDate, pageNo, 'pointcharge');
     this.pointChargeHistory = [];
   };
 
@@ -71,7 +72,7 @@ export default class MypagePointChargeStore {
       this.chargePoint = 0;
     }
     let currentPoint = parseInt(this.chargePoint);
-    console.log(currentPoint, 'currentPoint');
+    devLog(currentPoint, 'currentPoint');
     this.chargePoint = currentPoint + point;
     this.additionPoint = parseInt(this.chargePoint / 10);
   };
@@ -143,7 +144,7 @@ export default class MypagePointChargeStore {
   @action
   setNotifyCheck = () => {
     this.priorityAgreement = false;
-    console.log(this.priorityAgreement, 'this.priorityAgreement');
+    devLog(this.priorityAgreement, 'this.priorityAgreement');
     this.notifyAgreement = !this.notifyAgreement;
   };
 
@@ -181,7 +182,7 @@ export default class MypagePointChargeStore {
         if (res.data.resultCode === 200) {
           this.paymentProceed = true;
           let data = res.data.data;
-          console.log(data, 'requestOrder return data');
+          devLog(data, 'requestOrder return data');
 
           this.paymentForm = {
             acceptMethod: data.acceptMethod,
@@ -244,7 +245,7 @@ export default class MypagePointChargeStore {
         this.root.alert.showAlert({
           content: '결제에 실패 하였습니다.',
         });
-        console.log(error);
+        devLog(error);
         this.paymentProceed = false;
       });
   };

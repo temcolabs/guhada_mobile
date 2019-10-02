@@ -1,5 +1,4 @@
 const API = require('../../lib/API');
-
 module.exports = {
   method: 'post',
   url: '/chargePointResult',
