@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 export default function SellerStoreInfomation({ sellerStore }) {
   const sellerInfo = [
-    { label: '상호명', key: 'nickname' },
+    { label: '상호명', key: 'companyName' },
     { label: '대표자', key: 'representativeName' },
     { label: '사업자등록번호', key: 'companyRegistrationNumber' },
     { label: '통신판매업번호', key: 'mailorderRegistrationNumber' },
