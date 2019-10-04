@@ -14,12 +14,16 @@ $brandHeader: 70px;
     input[type='text'] {
         width: 205px;
         height: 33px;
+        font-size: 13px;
         border-bottom: 1px solid #111111;
         background-image: url('/static/icon/zoom-icon.png');
         background-size: 16px;
         background-repeat: no-repeat;
         background-position: right center;
 
+        &::placeholder {
+            color: #aaaaaa;
+        }
     }
 
     & .headerAlphabet {
@@ -38,12 +42,12 @@ $brandHeader: 70px;
             font-style: normal;
             font-stretch: normal;
             line-height: 1.15;
-            letter-spacing: normal;
             text-align: left;
-            color: #d9dde0;
-
+            color: #cccccc;
+            letter-spacing: 1px;
 
             &.selected {
+                letter-spacing: 3px;
                 color: #333333;
             }
         }
@@ -58,7 +62,7 @@ $brandHeader: 70px;
 .brandWrap {
     display: inline-block;
     position: relative;
-    width: calc(100% - 32px);
+    width: calc(100% - 33px);
     height: calc(100vh - 200px);
     overflow-y: auto;
 
@@ -72,7 +76,7 @@ $brandHeader: 70px;
     }
 
     & .languageIndex {
-        height: 37px;
+        height: 36px;
         padding-top: 5px;
         font-size: 18px;
         font-weight: 500;
@@ -81,6 +85,7 @@ $brandHeader: 70px;
         line-height: 1.17;
         letter-spacing: normal;
         text-align: left;
+        border-bottom: 1px dashed #eee;
         color: #5d2ed1;
     }
 
@@ -96,7 +101,7 @@ $brandHeader: 70px;
         letter-spacing: normal;
         text-align: left;
         color: #333333;
-        padding-left: 30px;
+        padding-left: 10px;
     }
 }
 
@@ -109,7 +114,7 @@ $brandHeader: 70px;
     overflow-y: auto;
 
     & .item {
-        width: 18px;
+        width: 19px;
         height: 18px;
         font-size: 10px;
         font-weight: 500;
@@ -118,7 +123,7 @@ $brandHeader: 70px;
         line-height: 1.9;
         letter-spacing: normal;
         text-align: center;
-        color: #d9dde0;
+        color: #dddddd;
         display: flex;
         align-items: center;
         justify-content: center;
