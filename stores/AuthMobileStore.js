@@ -101,7 +101,7 @@ export default class AuthMobileStore {
                 else devLog(e);
               });
           } else if (location === 'order') {
-            devLog(authData, 'authData ?');
+            devLog(authData, 'authData');
             API.user
               .put('/users/identity-verify', {
                 birth: authData.sBirthDate.replace(
@@ -116,19 +116,22 @@ export default class AuthMobileStore {
               })
               .then(function(res) {
                 let data = res.data;
-                if (data.resultCode === 200) {
-                  root.orderpayment.orderUserInfo.name = authData.sName;
-                  root.orderpayment.orderUserInfo.mobile = authData.sMobileNo;
-                  root.alert.showAlert({
-                    content: '본인인증 완료',
-                  });
-                }
+                devLog('data', data);
+                root.orderpayment.orderUserInfo.name = authData.sName;
+                root.orderpayment.orderUserInfo.mobile = authData.sMobileNo;
+                root.alert.showAlert({
+                  content: '본인인증 완료',
+                });
               })
               .catch(err => {
                 let resultCode = _.get(err, 'data.resultCode');
                 let message = _.get(err, 'data.message');
-                devLog(resultCode, message, 'message', 'resultCode');
-                if (resultCode === 6019) root.alert.showAlert(message);
+                console.log(resultCode, message, 'message', 'resultCode');
+                if (resultCode) {
+                  this.root.alert.showAlert({
+                    content: message,
+                  });
+                }
               });
           }
         }

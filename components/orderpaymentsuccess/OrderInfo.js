@@ -44,7 +44,7 @@ class OrderInfo extends Component {
           </div>
         </div>
         <div className={css.orderInfoSection}>
-          <div>결제방법</div>
+          <div>결제수단</div>
 
           {successInfo.payment.parentMethod === 'Card' ? (
             <div>
