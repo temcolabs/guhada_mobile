@@ -5,7 +5,9 @@ import { inject, observer } from 'mobx-react';
 import { getParameterByName } from '../../utils';
 import Loading from '../../components/common/loading/Loading';
 import { withRouter } from 'next/router';
+import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
 
+@withScrollToTopOnMount
 @withRouter
 @inject('productdetail', 'productDetailLike')
 @observer

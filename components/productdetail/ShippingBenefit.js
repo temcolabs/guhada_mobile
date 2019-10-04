@@ -165,7 +165,7 @@ class ShippingBenefit extends Component {
                   <button
                     className={cn()}
                     onClick={e => {
-                      alert.showAlert('로그인이 필요한 서비스입니다.');
+                      pushRoute(`/login`);
                       e.stopPropagation();
                     }}
                   >
