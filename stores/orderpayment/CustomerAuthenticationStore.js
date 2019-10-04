@@ -77,25 +77,19 @@ export default class CustomerAuthentication {
             this.sendMailSuccess = false;
           })
           .catch(err => {
-            devLog(err.data);
-            if (_.get(err, 'data.resultCode') === 5409) {
-              this.root.alert.showAlert('이미 존재하는 email 입니다.');
-            } else {
+            let resultCode = _.get(err, 'data.resultCode');
+            devLog(resultCode, 'resultCode');
+            if (resultCode) {
               this.root.alert.showAlert({
-                content: _.get(err, 'data.resultMessage'),
+                content: _.get(err, 'data.message'),
               });
             }
           });
       })
       .catch(err => {
-        devLog(_.get(err, 'data.message'), 'err message');
-        if (_.get(err, 'data.resultCode') === 6004) {
-          this.root.alert.showAlert({
-            content: _.get(err, 'data.message'),
-          });
-        } else if (_.get(err, 'data.resultCode') === 5409) {
-          this.root.alert.showAlert('이미 존재하는 email 입니다.');
-        } else {
+        let resultCode = _.get(err, 'data.resultCode');
+        devLog(resultCode, 'resultCode');
+        if (resultCode) {
           this.root.alert.showAlert({
             content: _.get(err, 'data.message'),
           });
