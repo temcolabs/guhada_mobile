@@ -115,6 +115,7 @@ function Header({ children, headerShape, history, shoppingcart }) {
                 setIsCategoryVisible(false);
               }, 400);
             }}
+            onCloseMenu={() => setIsMenuVisible(false)}
             categoryId={categoryId}
             categoryTitle={categoryTitle}
           />

@@ -13,6 +13,7 @@ export default function CategoryDepthMenu({
   onClose,
   categoryId,
   categoryTitle,
+  onCloseMenu,
 }) {
   return (
     <SlideIn isVisible={isVisible} direction={slideDirection.RIGHT}>
@@ -22,7 +23,11 @@ export default function CategoryDepthMenu({
           onClose={onClose}
           categoryTitle={categoryTitle}
         />
-        <CategoryDepth categoryId={categoryId} />
+        <CategoryDepth
+          categoryId={categoryId}
+          onClose={onClose}
+          onCloseMenu={onCloseMenu}
+        />
       </div>
     </SlideIn>
   );

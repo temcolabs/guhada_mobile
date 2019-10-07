@@ -27,8 +27,9 @@ class Category extends Component {
   }
 
   toSearch = category => {
-    let { searchitem } = this.props;
+    let { searchitem, onClose } = this.props;
     searchitem.toSearch({ category: category, enter: 'category' });
+    onClose();
   };
 
   render() {
