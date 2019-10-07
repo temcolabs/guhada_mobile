@@ -122,7 +122,7 @@ class ShippingBenefit extends Component {
         ) : null}
         <div
           className={css.sellerWrap}
-          onClick={() => pushRoute(`/seller/${deals.sellerId}`)}
+          onClick={() => pushRoute(`/store/${deals.sellerId}`)}
         >
           <div
             className={css.profile}
