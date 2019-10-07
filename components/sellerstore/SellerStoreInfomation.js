@@ -22,14 +22,18 @@ export default function SellerStoreInfomation({ sellerStore }) {
     }
     return renderTable;
   });
+
   return (
     <div className={css.wrap}>
-      <div
-        className={css.detailWrap}
-        dangerouslySetInnerHTML={{
-          __html: sellerStore.storeIntroductionDetail,
-        }}
-      />
+      {_.isNil(sellerStore.storeIntroductionDetail) === false && (
+        <div
+          className={css.detailWrap}
+          dangerouslySetInnerHTML={{
+            __html: sellerStore.storeIntroductionDetail,
+          }}
+        />
+      )}
+
       <div className={css.sellerInfo}>
         <div className={css.infoHeader}>셀러정보</div>
         <table>

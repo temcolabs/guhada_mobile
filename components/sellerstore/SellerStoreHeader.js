@@ -26,6 +26,7 @@ export default function SellerStoreHeader({
   seller,
   login,
   sellerId,
+  setTab,
 }) {
   return useObserver(() => (
     <div className={css.wrap}>
@@ -123,8 +124,17 @@ export default function SellerStoreHeader({
           </div>
         </div>
         <div className={css.offlineStoreHeader}>오프라인 스토어</div>
-        <div className={css.offlineStoreAddress}>
+        <div
+          className={css.offlineStoreAddress}
+          onClick={() => {
+            setTab('info');
+            setTimeout(() => {
+              window.scrollTo(0, document.body.scrollHeight);
+            }, 100);
+          }}
+        >
           {sellerStore.offlineStoreAddress}
+          <div className={css.offlineStoreAddressIcon} />
         </div>
       </div>
     </div>
