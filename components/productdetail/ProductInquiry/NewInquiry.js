@@ -40,7 +40,7 @@ function NewInquiry({ isVisible, onClose, productdetail }) {
               </label>
             </div>
             <div className={css.subContent}>
-              문의하신 내용에 대한 답변은 해당 상품의 상세페이지 또는
+              {`문의하신 내용에 대한 답변은 해당 상품의 상세페이지 또는 `}
               <span className={css.colored}>마이페이지 > 상품문의</span>에서
               확인하실 수 있습니다.
             </div>
