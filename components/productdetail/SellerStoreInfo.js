@@ -49,7 +49,7 @@ function SellerStoreInfo({
     <div className={css.wrap} ref={tabRefMap.sellerstoreTab}>
       <div
         className={css.headerWrap}
-        onClick={() => pushRoute(`/sellerstore/${deals.sellerId}`)}
+        onClick={() => pushRoute(`/seller/${deals.sellerId}`)}
       >
         <div
           className={css.profileImage}
