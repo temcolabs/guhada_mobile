@@ -15,14 +15,11 @@ $toolbarHeader:55px;
         height: $toolbarHeader;
         padding: 18px 0 0 20px;
         font-size: 18px;
-        font-weight: bold;
-        font-style: normal;
-        font-stretch: normal;
+        font-weight: 500;
         line-height: 1.22;
-        letter-spacing: normal;
         text-align: left;
         color: #111111;
-        border-bottom: 1px solid #ebedef;
+        border-bottom: 1px solid #eeeeee;
     }
 
     & .close {
@@ -33,7 +30,7 @@ $toolbarHeader:55px;
         background-image: url('/static/icon/tool_btn_close.png');
         background-size: 35px;
         background-repeat: no-repeat;
-        background-position: right 12px bottom;
+        background-position: right 10px top 10px;
     }
 
     & .itemWrap {
@@ -45,10 +42,11 @@ $toolbarHeader:55px;
             height: 50px;
             padding-left: 30px;
             font-size: 16px;
-            font-weight: 500;
+            font-weight: 400;
             line-height: 50px;
             text-align: left;
             color: #111111;
+            margin-top: 10px;
 
             &.selected {
                 color: #5d2ed1;
