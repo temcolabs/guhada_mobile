@@ -1,7 +1,7 @@
 @import 'styles/mixins/index';
 
 .wrap {
-  margin-top: 20px;
+
   font-size: 13px;
   font-weight: 500;
   font-style: normal;
@@ -13,11 +13,12 @@
   margin-bottom: 25px;
 
   & .itemWrap {
-    padding: 0 20px;
+    margin: 0 20px;
     height: 50px;
     border-bottom: solid 1px #eeeeee;
     display: flex;
     align-items: center;
+    font-weight: 400;
 
     & .itemTitle {
       color: #111111;
@@ -29,6 +30,7 @@
       align-items: center;
       justify-content: space-between;
       width: calc(100% - 48px - 30px);
+      color: #444444;
     }
 
     & .itemContents {
@@ -61,7 +63,7 @@
 
   .benefitDetailWrap {
     position: relative;
-    background: #eeeeee;
+    background: #f9f9fa;
 
     .benefitDetailSection {
       display: flex;
@@ -70,6 +72,7 @@
       border-bottom: 1px solid #fff;
       height: 50px;
       padding: 0 20px;
+      font-weight: 400;
 
       &:first-child {
         margin-top: 0;
@@ -90,8 +93,8 @@
   & .sellerWrap {
     height: 96px;
     border-bottom: solid 1px #eeeeee;
-    width: 100%;
-    padding: 18px 20px;
+    padding: 18px 0;
+    margin: 0 20px;
 
     & .profile {
       height: 60px;
@@ -164,11 +167,11 @@
         border: solid 1px #5d2ed1;
         background-color: #5d2ed1;
         font-size: 13px;
-        font-weight: 500;
+        font-weight: 400;
         line-height: 1.2;
         text-align: center;
         color: #ffffff;
-        margin-right: 10px;
+        margin-right: 6px;
 
         &:nth-child(2) {
           margin-right: 0;

@@ -1,21 +1,23 @@
 .wrap {
   margin-top: 7%;
-  padding: 0 20px;
+  padding: 0 28px;
 
   .inner__top {
     display: flex;
     align-items: center;
     justify-content: space-between;
     overflow: hidden;
+
     .brandName {
       display: flex;
       align-items: center;
       font-size: 14px;
-      font-weight: bold;
+      font-weight: 500;
       color: #111;
       max-width: 100%;
       overflow: hidden;
       text-overflow: ellipsis;
+
       .arrow {
         width: 20px;
         height: 20px;
@@ -33,10 +35,11 @@
   }
 
   .inner__middle {
-    margin-top: 12px;
+    margin-top: 10px;
+
     .product__name {
       font-size: 18px;
-      font-weight: 500;
+      font-weight: 400;
       color: #111;
       max-width: 100%;
       overflow: hidden;
@@ -48,13 +51,15 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 15px;
+    margin-top: 12px;
+
     .product__price__wrap {
       display: flex;
       align-items: center;
+
       .product__discount__price {
         font-size: 22px;
-        font-weight: bold;
+        font-weight: 500;
         color: #111;
       }
 
@@ -78,11 +83,13 @@
 
       .share__btn {
         margin-right: 12px;
+
         img {
           width: 30px;
           height: 30px;
         }
       }
+
       .like__btn {
         img {
           width: 30px;

@@ -36,7 +36,8 @@ function Header({ children, headerShape, history, shoppingcart }) {
       ) : (
         <div
           className={cn(css.wrap, {
-            [css.borderBottom]: headerShape === 'sellerStore',
+            [css.borderBottom]:
+              headerShape === 'sellerStore' || headerShape === 'productDetail',
           })}
         >
           {headerShape === 'productDetail' ||
