@@ -8,14 +8,14 @@
 
     & .profileWrap {
         display: flex;
-        margin-bottom: 12px;
+        margin-bottom: 14px;
 
         & .profileImage {
             width: 40px;
             height: 40px;
             border-radius: 40px;
             background: url("/static/icon/profile_non_square.png") no-repeat center;
-            background-size: 40px;
+            background-size: cover;
             margin-right: 8px;
         }
 
@@ -56,7 +56,8 @@
                 font-size: 12px;
                 font-weight: normal;
                 color: #777777;
-                margin-left: 9px;
+                margin-left: 10px;
+                padding-top: 3px;
             }
         }
     }
