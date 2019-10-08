@@ -122,7 +122,7 @@ class ShippingBenefit extends Component {
         ) : null}
         <div
           className={css.sellerWrap}
-          onClick={() => pushRoute(`/sellerstore/${deals.sellerId}`)}
+          onClick={() => pushRoute(`/store/${deals.sellerId}`)}
         >
           <div
             className={css.profile}
@@ -165,7 +165,7 @@ class ShippingBenefit extends Component {
                   <button
                     className={cn()}
                     onClick={e => {
-                      alert.showAlert('로그인이 필요한 서비스입니다.');
+                      pushRoute(`/login`);
                       e.stopPropagation();
                     }}
                   >

@@ -11,7 +11,7 @@ export default function ToolbarCategory({ isVisible, onClose }) {
           <button className={css.close} onClick={onClose} />
           <div className={css.header}>카테고리</div>
           <div className={css.itemWrap}>
-            <Category />
+            <Category onClose={onClose} />
           </div>
         </div>
       </SlideIn>

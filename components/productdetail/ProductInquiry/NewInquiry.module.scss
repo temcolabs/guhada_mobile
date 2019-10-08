@@ -1,5 +1,5 @@
 $buttonHeight : 60px;
-$headerHeight : 40px;
+$headerHeight : 60px;
 
 .wrap {
     position: absolute;
@@ -36,8 +36,24 @@ $headerHeight : 40px;
     }
 
     & .contentsWrap {
-        height: calc(100vh - #{$headerHeight} - #{$buttonHeight * 2} - 20px);
-        padding: 10px 20px 0 20px;
+        height: calc(100vh - #{$headerHeight} - #{$buttonHeight});
+
+        & .withOutContents {
+            padding: 0 20px 0 20px;
+        }
+
+        & .textCountWrap {
+            font-size: 13px;
+            font-weight: normal;
+            color: #777777;
+            position: absolute;
+            right: 20px;
+            bottom: 190px;
+
+            & span {
+                color: #5d2ed1;
+            }
+        }
 
         & .inquiryText {
             width: 100%;
@@ -45,6 +61,9 @@ $headerHeight : 40px;
             margin-bottom: 15px;
             font-size: 16px;
             padding: 20px 15px;
+            border: 0;
+            border-top: 1px solid #eeeeee;
+            border-bottom: 1px solid #eeeeee;
         }
 
         & .subContent {
@@ -101,6 +120,11 @@ $headerHeight : 40px;
 
         & input[type='checkbox'] {
             display: none;
+        }
+
+        & input[type='checkbox']+label {
+            font-weight: 500;
+            color: #777777;
         }
 
         & input[type='checkbox']+label span {

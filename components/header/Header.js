@@ -10,7 +10,6 @@ import { pushRoute } from 'lib/router';
 import cn from 'classnames';
 import SearchMenu from './SearchMenu';
 import BrandContainer from './item/BrandContainer';
-
 /**
  *
  * @param {string} headerShape
@@ -35,7 +34,12 @@ function Header({ children, headerShape, history, shoppingcart }) {
       {headerShape === 'keyword' ? (
         <div className={css.wrap} />
       ) : (
-        <div className={css.wrap}>
+        <div
+          className={cn(css.wrap, {
+            [css.borderBottom]:
+              headerShape === 'sellerStore' || headerShape === 'productDetail',
+          })}
+        >
           {headerShape === 'productDetail' ||
           headerShape === 'searchList' ||
           headerShape === 'shoppingcart' ||
@@ -112,6 +116,7 @@ function Header({ children, headerShape, history, shoppingcart }) {
                 setIsCategoryVisible(false);
               }, 400);
             }}
+            onCloseMenu={() => setIsMenuVisible(false)}
             categoryId={categoryId}
             categoryTitle={categoryTitle}
           />

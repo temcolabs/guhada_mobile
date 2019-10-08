@@ -5,10 +5,21 @@ import { inject } from 'mobx-react';
 
 function NewInquiry({ isVisible, onClose, productdetail }) {
   const [content, setContent] = useState('');
-
+  const [count, setCount] = useState(0);
   useEffect(() => {
     setContent('');
   }, [onClose]);
+
+  useEffect(() => {
+    setCount(content.length);
+  }, [content]);
+
+  function setContentText(e) {
+    content.length <= 1000
+      ? setContent(e.target.value)
+      : setContent(content.substring(0, 1000));
+  }
+
   return (
     <div>
       <SlideIn direction={slideDirection.RIGHT} isVisible={isVisible}>
@@ -22,27 +33,34 @@ function NewInquiry({ isVisible, onClose, productdetail }) {
               className={css.inquiryText}
               placeholder="문의하실 내용을 입력하세요"
               value={content}
-              onChange={e => setContent(e.target.value)}
+              onChange={e => {
+                setContentText(e);
+              }}
             />
-            <div className={css.checkboxWrap}>
-              <input
-                type="checkbox"
-                id="privateInquiry"
-                onChange={e =>
-                  e.target.checked === true
-                    ? productdetail.setSecretInquiry(true)
-                    : productdetail.setSecretInquiry(false)
-                }
-              />
-              <label htmlFor="privateInquiry">
-                <span />
-                {`비공개글 설정`}
-              </label>
+            <div className={css.textCountWrap}>
+              <span>{count}</span>/1000
             </div>
-            <div className={css.subContent}>
-              문의하신 내용에 대한 답변은 해당 상품의 상세페이지 또는
-              <span className={css.colored}>마이페이지 > 상품문의</span>에서
-              확인하실 수 있습니다.
+            <div className={css.withOutContents}>
+              <div className={css.checkboxWrap}>
+                <input
+                  type="checkbox"
+                  id="privateInquiry"
+                  onChange={e =>
+                    e.target.checked === true
+                      ? productdetail.setSecretInquiry(true)
+                      : productdetail.setSecretInquiry(false)
+                  }
+                />
+                <label htmlFor="privateInquiry">
+                  <span />
+                  {`비공개글 설정`}
+                </label>
+              </div>
+              <div className={css.subContent}>
+                {`문의하신 내용에 대한 답변은 해당 상품의 상세페이지 또는 `}
+                <span className={css.colored}>마이페이지 > 상품문의</span>에서
+                확인하실 수 있습니다.
+              </div>
             </div>
           </div>
           <div className={css.buttonWrap}>

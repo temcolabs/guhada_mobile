@@ -5,6 +5,7 @@ import StarItem from '../StarItem';
 import moment from 'moment';
 import { dateFormat } from 'constant/';
 import { inject, observer } from 'mobx-react';
+import { pushRoute } from 'lib/router';
 
 @inject('productreview', 'login', 'alert')
 @observer
@@ -170,10 +171,7 @@ class ProductReviewItems extends Component {
               </div>
             )
           ) : (
-            <div
-              className={css.likeWrap}
-              onClick={() => alert.showAlert('로그인이 필요한 서비스입니다.')}
-            >
+            <div className={css.likeWrap} onClick={() => pushRoute(`/login`)}>
               <div>도움되었어요</div>
               <div className={css.likeIcon} />
               <div className={css.bookmarkCount}>{`${

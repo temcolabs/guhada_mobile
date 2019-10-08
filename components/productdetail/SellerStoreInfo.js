@@ -49,7 +49,7 @@ function SellerStoreInfo({
     <div className={css.wrap} ref={tabRefMap.sellerstoreTab}>
       <div
         className={css.headerWrap}
-        onClick={() => pushRoute(`/sellerstore/${deals.sellerId}`)}
+        onClick={() => pushRoute(`/store/${deals.sellerId}`)}
       >
         <div
           className={css.profileImage}
@@ -94,7 +94,7 @@ function SellerStoreInfo({
           <button
             className={cn(css.followBtn)}
             onClick={e => {
-              alert.showAlert('로그인이 필요한 서비스입니다.');
+              pushRoute(`/login`);
               e.stopPropagation();
             }}
           >

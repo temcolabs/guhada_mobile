@@ -29,15 +29,24 @@ class CategoryDepth extends Component {
     }
   }
 
+  toSearch = (category, subcategory) => {
+    const { searchitem, onClose, onCloseMenu } = this.props;
+    searchitem.toSearch({
+      category: category,
+      subcategory: subcategory,
+    });
+    onCloseMenu();
+    onClose();
+  };
+
   render() {
     const { category, searchitem } = this.props;
     const { categoryId } = this.state;
     let categoryList = category.categoryList;
+
     return (
       <ul className={css.tree}>
-        <label onClick={() => searchitem.toSearch({ category: categoryId })}>
-          전체보기
-        </label>
+        <label onClick={() => this.toSearch(categoryId)}>전체보기</label>
         {categoryList !== undefined && categoryList.children
           ? categoryList.children.map(categoryMain => {
               return (
@@ -53,10 +62,7 @@ class CategoryDepth extends Component {
                     onClick={() =>
                       categoryMain.children
                         ? this.grow(categoryMain.key)
-                        : searchitem.toSearch({
-                            category: categoryId,
-                            subcategory: categoryMain.id,
-                          })
+                        : this.toSearch(categoryId, categoryMain.id)
                     }
                   >
                     {categoryMain.title}
@@ -64,11 +70,7 @@ class CategoryDepth extends Component {
                   {categoryMain.children ? (
                     <ul id={`${categoryMain.key}`}>
                       <div className={`measuringWrapper${categoryMain.key}`}>
-                        <li
-                          onClick={() =>
-                            searchitem.toSearch({ category: categoryMain.id })
-                          }
-                        >
+                        <li onClick={() => this.toSearch(categoryMain.id)}>
                           전체보기
                         </li>
                         {categoryMain.children.map(categoryItem => {
@@ -77,10 +79,7 @@ class CategoryDepth extends Component {
                               key={categoryItem.id}
                               className={css.arrow}
                               onClick={() =>
-                                searchitem.toSearch({
-                                  category: categoryMain.id,
-                                  subcategory: categoryItem.id,
-                                })
+                                this.toSearch(categoryMain.id, categoryItem.id)
                               }
                             >
                               {categoryItem.title}

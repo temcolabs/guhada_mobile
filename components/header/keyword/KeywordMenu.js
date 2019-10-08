@@ -133,7 +133,11 @@ class KeywordMenu extends Component {
           />
           <div
             className={css.search}
-            onClick={() => this.clickToSearch(this.state.inputValue)}
+            onClick={() =>
+              displayContent !== ''
+                ? this.clickToSearch(this.state.inputValue)
+                : this.onFocus()
+            }
           />
         </div>
         <div

@@ -4,7 +4,9 @@ import { inject, observer } from 'mobx-react';
 import Head from 'next/head';
 import Login from 'template/signin/Login';
 import Form from '../../stores/form-store/_.forms';
+import withAuth from 'components/common/hoc/withAuth';
 
+@withAuth({ isAuthRequired: false })
 @observer
 class index extends React.Component {
   componentDidMount() {}

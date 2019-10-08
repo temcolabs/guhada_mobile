@@ -17,25 +17,29 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     .quantity__section {
       display: flex;
       align-items: center;
+
       .option__quantity {
         display: flex;
 
         .minus__btn {
           border: 1px solid #ddd;
+
           img {
-            width: 34px;
-            height: 34px;
+            width: 32px;
+            height: 32px;
           }
         }
 
         .plus__btn {
           border: 1px solid #ddd;
+
           img {
-            width: 34px;
-            height: 34px;
+            width: 32px;
+            height: 32px;
           }
         }
 
@@ -43,6 +47,7 @@
           display: flex;
           align-items: center;
           justify-content: center;
+
           input {
             width: 54px;
             text-align: center;
@@ -69,10 +74,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 1px solid #eeeeee;
+    padding-bottom: 24px;
 
     .total__price__text {
       font-size: 14px;
-      font-weight: bold;
+      font-weight: 600;
       color: #111;
     }
 

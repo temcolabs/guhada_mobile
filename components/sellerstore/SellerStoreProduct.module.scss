@@ -14,10 +14,13 @@
   & .orderWrap {
     position: relative;
     float: right;
-    width: 82px;
+    background-image: url('/static/icon/list_select_arrow_open.png');
     background-repeat: no-repeat;
-    background-position: right top;
-    background-size: 16px;
+    background-position: right center;
+    background-size: 10px;
+    padding-right: 16px;
+    font-size: 13px;
+    color: #333;
 
     & .hoverPadding {
       width: 85px;

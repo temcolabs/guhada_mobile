@@ -61,6 +61,7 @@ function HeaderMenu({
           setCategoryId={setCategoryId}
           setCategoryTitle={setCategoryTitle}
           setIsBrandVisible={setIsBrandVisible}
+          onClose={onClose}
         />
 
         {/* <div className={css.event}>event 영역</div>

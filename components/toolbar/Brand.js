@@ -6,16 +6,29 @@ import cn from 'classnames';
 @inject('brands', 'searchitem')
 @observer
 class Brand extends Component {
-  toScroll = en => {
-    const target = document.getElementById('brand' + en); // 요소의 id 값이 target이라 가정
+  state = {
+    brandLabel: 'A',
+  };
+
+  toScroll = label => {
+    const target = document.getElementById('brand' + label); // 요소의 id 값이 target이라 가정
     const clientRect = target.getBoundingClientRect(); // DomRect 구하기 (각종 좌표값이 들어있는 객체)
     const relativeTop = clientRect.top; // Viewport의 시작지점을 기준으로한 상대좌표 Y 값.
     const scrolledTopLength = this.refs.brandScroll.scrollTop; // 스크롤된 길이
 
     const absoluteTop = relativeTop + scrolledTopLength; // 절대좌표
     this.refs.brandScroll.scrollTo(0, absoluteTop - 185);
+
+    this.setState({ brandLabel: label });
   };
 
+  handleFilterLabel = filter => {
+    if (filter === 'en') {
+      this.setState({ brandLabel: 'A' });
+    } else {
+      this.setState({ brandLabel: 'ㄱ' });
+    }
+  };
   toSearch = id => {
     let { searchitem } = this.props;
     searchitem.toSearch({ brand: id, enter: 'brand' });
@@ -38,9 +51,11 @@ class Brand extends Component {
               className={cn(css.alphabetItem, {
                 [css.selected]: brands.selectedLanguage === 'english',
               })}
-              onClick={() => (
-                brands.setSelectedLanguage('english'), window.scrollTo(0, 0)
-              )}
+              onClick={() => {
+                brands.setSelectedLanguage('english');
+                this.refs.brandScroll.scrollTo(0, 0);
+                this.handleFilterLabel('en');
+              }}
             >
               ABC
             </div>
@@ -49,9 +64,11 @@ class Brand extends Component {
               className={cn(css.alphabetItem, {
                 [css.selected]: brands.selectedLanguage === 'korean',
               })}
-              onClick={() => (
-                brands.setSelectedLanguage('korean'), window.scrollTo(0, 0)
-              )}
+              onClick={() => {
+                brands.setSelectedLanguage('korean');
+                this.refs.brandScroll.scrollTo(0, 0);
+                this.handleFilterLabel('ko');
+              }}
             >
               ㄱㄴㄷ
             </div>
@@ -116,7 +133,9 @@ class Brand extends Component {
             ? brands.enFilter.map((en, enIndex) => {
                 return (
                   <div
-                    className={css.item}
+                    className={cn(css.item, {
+                      [css.selected]: this.state.brandLabel === en,
+                    })}
                     key={enIndex}
                     onClick={() => this.toScroll(en)}
                   >
@@ -127,7 +146,9 @@ class Brand extends Component {
             : brands.koFilter.map((ko, koIndex) => {
                 return (
                   <div
-                    className={css.item}
+                    className={cn(css.item, {
+                      [css.selected]: this.state.brandLabel === ko,
+                    })}
                     key={koIndex}
                     onClick={() => this.toScroll(ko)}
                   >
