@@ -126,9 +126,11 @@ class ProductReviewItems extends Component {
         </div>
         <div className={css.contentWrap}>{item.review.textReview}</div>
         <div className={css.dateWrap}>
-          {moment(item.review.createdAt).format(dateFormat.YYYYMMDD_UI)}
+          {moment(item.review.createdAtTimestamp).format(
+            dateFormat.YYYYMMDD_UI
+          )}
           {` `}
-          {moment(item.review.createdAt).format(dateFormat.HHMM)}
+          {moment(item.review.createdAtTimestamp).format(dateFormat.HHMM)}
         </div>
         <div className={css.imageWrap}>
           {!_.isNil(item.reviewPhotos) ? (
