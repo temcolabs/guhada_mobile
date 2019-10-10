@@ -30,6 +30,10 @@ export default function SellerStoreProduct({ seller, items, countOfDeals }) {
     seller.getSellerStoreDeal(seller.sellerId);
     setSellerStoreFilter(order);
   }
+  const handleMoreItemBtn =
+    seller.countOfDeals / (seller.unitPerPage * seller.page) <= 1
+      ? false
+      : true;
 
   return useObserver(() => (
     <>
@@ -57,16 +61,18 @@ export default function SellerStoreProduct({ seller, items, countOfDeals }) {
             );
           })}
       </div>
-      <div
-        className={css.moreItemButton}
-        onClick={() => {
-          seller.page += 1;
-          seller.getSellerStoreDeal(seller.sellerId);
-        }}
-      >
-        더 보기
-        <div className={css.moreIcon} />
-      </div>
+      {handleMoreItemBtn === true && (
+        <div
+          className={css.moreItemButton}
+          onClick={() => {
+            seller.page += 1;
+            seller.getSellerStoreDeal(seller.sellerId);
+          }}
+        >
+          더 보기
+          <div className={css.moreIcon} />
+        </div>
+      )}
     </>
   ));
 }
