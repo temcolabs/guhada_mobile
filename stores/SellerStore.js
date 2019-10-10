@@ -93,7 +93,6 @@ export default class SellerStore {
       )
       .then(res => {
         let data = res.data;
-        // this.dealsOfSellerStore = data.data.deals;
         this.setSellerStoreItem(data.data.deals);
         this.countOfDeals = data.data.countOfDeals;
       });
@@ -102,7 +101,6 @@ export default class SellerStore {
   @action
   setSellerStoreItem = item => {
     let newDeals = this.dealsOfSellerStore;
-
     this.dealsOfSellerStore = newDeals.concat(item);
   };
 
