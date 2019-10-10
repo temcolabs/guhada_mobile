@@ -88,12 +88,12 @@ export default class OrderPaymentStore {
   getVBankExpireAt = () => {
     this.vbankExpireAt = moment(
       this.successInfo.payment.vbankExpireTimestamp
-    ).format('YYYY. MM. DD HH:mm');
+    ).format('YYYY.MM.DD HH:mm');
   };
 
   getOrderdate = () => {
     this.orderAt = moment(this.orderSuccessProduct[0].orderTimestamp).format(
-      'YYYY. MM. DD HH:mm'
+      'YYYY.MM.DD HH:mm'
     );
   };
 
