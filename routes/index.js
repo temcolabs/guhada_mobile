@@ -248,7 +248,7 @@ module.exports = [
   // 셀러스토어 - 셀러스토어
   {
     pagePath: `/sellerstore/SellerStorePage`,
-    asPath: `/store/:sellerId`,
+    asPath: `/store/:nickname`,
     name: `셀러스토어`,
   },
 ];

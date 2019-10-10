@@ -5,33 +5,24 @@ import SellerStore from 'template/sellerstore/SellerStore';
 import { isBrowser } from 'lib/isServer';
 import { inject, observer } from 'mobx-react';
 import Router from 'next/router';
-import { loginStatus } from 'constant';
 
 @inject('seller', 'login')
 @observer
 class SellerStorePage extends Component {
   componentDidMount() {
-    const { seller, login } = this.props;
-    const sellerId = Router.router.query.sellerId;
+    const { seller } = this.props;
+    const nickname = Router.router.query.nickname;
     if (isBrowser) {
-      seller.sellerId = sellerId;
-      seller.getSellerStore();
-      seller.getSellerStoreDeal(sellerId);
-
-      if (login.loginStatus === loginStatus.LOGIN_DONE)
-        seller.getFollowSellerStore(sellerId);
+      seller.nickname = nickname;
+      seller.getSellerId();
     }
   }
   componentDidUpdate() {
-    const { seller, login } = this.props;
-    const sellerId = Router.router.query.sellerId;
+    const { seller } = this.props;
+    const nickname = Router.router.query.nickname;
     if (isBrowser) {
-      seller.sellerId = sellerId;
-      seller.getSellerStore();
-      seller.getSellerStoreDeal(sellerId);
-
-      if (login.loginStatus === loginStatus.LOGIN_DONE)
-        seller.getFollowSellerStore(sellerId);
+      seller.nickname = nickname;
+      seller.getSellerId();
     }
   }
   render() {

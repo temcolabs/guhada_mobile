@@ -48,6 +48,7 @@ class ShippingBenefit extends Component {
       sellerfollow,
       login,
       alert,
+      sellerStore,
     } = this.props;
     const { reviewSummary } = productreview;
     return (
@@ -122,7 +123,7 @@ class ShippingBenefit extends Component {
         ) : null}
         <div
           className={css.sellerWrap}
-          onClick={() => pushRoute(`/store/${deals.sellerId}`)}
+          onClick={() => pushRoute(`/store/${sellerStore.nickname}`)}
         >
           <div
             className={css.profile}

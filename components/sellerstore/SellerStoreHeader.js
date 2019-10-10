@@ -25,7 +25,6 @@ export default function SellerStoreHeader({
   },
   seller,
   login,
-  sellerId,
   setTab,
 }) {
   return useObserver(() => (
@@ -80,14 +79,14 @@ export default function SellerStoreHeader({
           seller.storeFollowBool === true ? (
             <button
               className={cn()}
-              onClick={() => seller.delFollowSellerStore(sellerId)}
+              onClick={() => seller.delFollowSellerStore(seller.sellerId)}
             >
               팔로잉
             </button>
           ) : (
             <button
               className={cn(css.colored)}
-              onClick={() => seller.setFollowSellerStore(sellerId)}
+              onClick={() => seller.setFollowSellerStore(seller.sellerId)}
             >
               팔로우
             </button>
@@ -95,7 +94,7 @@ export default function SellerStoreHeader({
         ) : (
           <button
             className={cn(css.colored)}
-            onClick={() => seller.setFollowSellerStore(sellerId)}
+            onClick={() => seller.setFollowSellerStore(seller.sellerId)}
           >
             팔로우
           </button>

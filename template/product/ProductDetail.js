@@ -103,6 +103,7 @@ class ProductDetail extends React.Component {
           seller={seller}
           shipExpenseType={productoption.shipExpenseType}
           tabRefMap={this.tabRefMap}
+          sellerStore={productdetail.sellerStore}
         />
 
         {/* 상세정보, 상품문의, 셀러스토어 탭 */}
@@ -171,6 +172,7 @@ class ProductDetail extends React.Component {
             sellerfollow={sellerfollow}
             login={login}
             alert={alert}
+            sellerStore={productdetail.sellerStore}
           />
         </SectionWrap>
 
