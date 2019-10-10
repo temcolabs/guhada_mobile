@@ -52,6 +52,10 @@ class MyDocument extends Document {
             crossOrigin="anonymous"
           />
           <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js" />
+          <meta
+            name="google-site-verification"
+            content="pNZ8iQTxAxE_4Le0CrNz7CKZYbK77vs-AUr_gTHFjKA"
+          />
         </Head>
         <body>
           <Main />
