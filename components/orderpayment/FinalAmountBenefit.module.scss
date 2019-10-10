@@ -180,6 +180,7 @@
       .sectionTitle {
         display: flex;
         align-items: center;
+        font-weight: 400;
         .couponChange {
           background: url('/static/icon/m_coupon_change.png') no-repeat;
           background-size: cover;
@@ -227,13 +228,22 @@
       .dueSavePoint {
         color: #5d2de1;
         span {
-          font-weight: bold;
+          &:nth-child(1) {
+            font-size: 12px;
+          }
+          &:nth-child(2) {
+            font-size: 14px;
+            font-weight: bold;
+          }
+          &:nth-child(3) {
+            font-size: 11px;
+          }
         }
       }
     }
 
     .benefitInfoWrap {
-      padding: 30px 15px 25px;
+      padding: 30px 20px 25px;
 
       .discountMenu {
         display: flex;
