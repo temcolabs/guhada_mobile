@@ -1,1 +1,1 @@
-ssh -i ~/.ssh/guhada.pem ec2-user@13.125.197.112
+ssh -i ~/.ssh/guhada.pem ec2-user@52.78.149.242
