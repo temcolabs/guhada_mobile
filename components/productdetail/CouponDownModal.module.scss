@@ -10,7 +10,9 @@
   padding: 20px;
   .couponLayout {
     background: #fff;
+    height: calc(100vh);
     padding: 20px;
+
     .close {
       width: 100%;
       position: relative;
@@ -37,90 +39,99 @@
 
         &:last-child {
           font-size: 13px;
-          color: #444;
+          color: #111;
           font-weight: normal;
           margin-top: 10px;
         }
       }
     }
-    .couponWrap {
-      .coupon {
-        width: 300px;
-        height: 165px;
-        background: url('/static/icon/seller-coupon-img@3x.png') no-repeat;
-        background-size: cover;
-        background-position: center;
-        margin-top: 35px;
-        position: relative;
-        color: #fff;
+    .couponContainer {
+      height: calc(100vh - 238px);
+      overflow-y: auto;
 
-        @include break350 {
-          width: 100%;
-          height: 0;
-          padding-bottom: 55%;
-        }
-
-        .couponSeller {
-          position: absolute;
-          font-size: 15px;
-          top: 30px;
-          left: 30px;
-          font-weight: normal;
-
-          @include break350 {
-            top: 13%;
-          }
-        }
-
-        .couponAmount {
-          position: absolute;
-          top: 57px;
-          left: 30px;
-          font-size: 33px;
-          font-weight: bold;
-
-          span {
-            font-size: 20px;
-            font-weight: 500;
-          }
-
-          @include break350 {
-            top: 30%;
-            font-size: 31px;
-          }
-        }
-
-        .couponTitle {
-          font-size: 16px;
-          font-weight: 500;
-          color: #fff;
-          position: absolute;
-          top: 110px;
-          left: 30px;
-
-          @include break350 {
-            top: 70%;
-          }
-        }
+      @include break350 {
+        height: calc(100vh - 283px);
       }
+      .couponWrap {
+        .coupon {
+          width: 300px;
+          height: 165px;
+          background: url('/static/icon/seller-coupon-img@3x.png') no-repeat;
+          background-size: cover;
+          background-position: center;
+          margin-top: 35px;
+          position: relative;
+          color: #fff;
 
-      .couponNotice {
-        font-size: 13px;
-        color: #777;
-        font-weight: normal;
-        margin-top: 11px;
+          @include break350 {
+            width: 100%;
+            height: 0;
+            padding-bottom: 55%;
+          }
 
-        div {
-          margin-top: 5px;
+          .couponSeller {
+            position: absolute;
+            font-size: 13px;
+            top: 30px;
+            left: 25px;
+            font-weight: 300;
+
+            @include break350 {
+              top: 13%;
+            }
+          }
+
+          .couponAmount {
+            position: absolute;
+            top: 57px;
+            left: 25px;
+            font-size: 32px;
+            font-weight: 500;
+
+            span {
+              font-size: 20px;
+              font-weight: 400;
+            }
+
+            @include break350 {
+              top: 30%;
+              font-size: 31px;
+            }
+          }
+
+          .couponTitle {
+            font-size: 13px;
+            font-weight: 400;
+            color: #fff;
+            position: absolute;
+            top: 110px;
+            left: 25px;
+
+            @include break350 {
+              top: 70%;
+            }
+          }
+        }
+
+        .couponNotice {
+          font-size: 13px;
+          color: #999;
+          font-weight: normal;
+          margin-top: 11px;
+
+          div {
+            margin-top: 5px;
+          }
         }
       }
     }
+
     .confirmButton {
       width: 100%;
       height: 60px;
       background: #444;
       line-height: 60px;
-      margin-top: 40px;
+      margin-top: 20px;
       color: #fff;
       text-align: center;
       cursor: pointer;
