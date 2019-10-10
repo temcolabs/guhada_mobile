@@ -9,9 +9,11 @@ class Category extends Component {
     var growDiv = document.getElementById(params);
     if (growDiv.clientHeight) {
       growDiv.style.height = 0;
+      growDiv.style.borderTop = 0;
     } else {
       var wrapper = document.querySelector(`.measuringWrapper${params}`);
       growDiv.style.height = wrapper.clientHeight + 'px';
+      growDiv.style.borderTop = `1px dashed #eeeeee`;
     }
   }
 
@@ -29,7 +31,7 @@ class Category extends Component {
       <ul className={css.tree}>
         {categoryList.map(categoryMain => {
           return (
-            <li key={`categoryMain${categoryMain.id}`}>
+            <li key={`categoryMain${categoryMain.id}`} className={css.treeLi}>
               <input
                 type="checkbox"
                 id={`${categoryMain.title}${categoryMain.key}category`}
