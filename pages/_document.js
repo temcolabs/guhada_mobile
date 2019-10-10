@@ -29,6 +29,21 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
+          {/* Global site tag (gtag.js) - Google Analytics */}
+          <script
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=G-9SXJBX8EXX`}
+          />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'G-9SXJBX8EXX');`,
+            }}
+          />
           {/* bootstrap 스타일시트는 summernote의 dependency */}
           <link
             rel="stylesheet"

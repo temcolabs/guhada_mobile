@@ -7,7 +7,7 @@ export default {
       label: '이메일',
       autoComplete: 'email',
       placeholder: '아이디 (이메일)',
-      rules: 'required|email|string|between:5,25',
+      rules: 'required|email|string',
       // hooks,
     },
     password: {
