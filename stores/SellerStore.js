@@ -4,6 +4,7 @@ import { devLog } from 'lib/devLog';
 import bookmarkTarget from 'constant/user/bookmarkTarget';
 import { isBrowser } from 'lib/isServer';
 import _ from 'lodash';
+import { loginStatus } from 'constant/';
 
 export default class SellerStore {
   constructor(root) {
@@ -42,7 +43,28 @@ export default class SellerStore {
   @observable order = 'DATE';
   @observable sellerStoreFollow = [];
   @observable storeFollowBool = false;
+  @observable nickname;
   @observable sellerId;
+
+  @action
+  getSellerId = () => {
+    API.user
+      .get(`users/nickname/${this.nickname}`)
+      .then(res => {
+        let data = res.data;
+        this.sellerId = data.data.id;
+
+        this.getSellerStore();
+        this.getSellerStoreDeal(this.sellerId);
+
+        if (this.root.login.loginStatus === loginStatus.LOGIN_DONE)
+          this.getFollowSellerStore(this.sellerId);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+
   @action
   getSellerStore = () => {
     API.user
@@ -97,7 +119,7 @@ export default class SellerStore {
         this.sellerStoreFollow = res.data.data.content;
 
         let checkFollow = this.sellerStoreFollow.findIndex(
-          i => i.targetId.toString() === id
+          i => i.targetId.toString() === id.toString()
         );
         if (checkFollow === -1) {
           this.storeFollowBool = false;

@@ -6,12 +6,7 @@ import { LinkRoute } from 'lib/router';
 import { useObserver } from 'mobx-react-lite';
 import SellerStoreOrder from './SellerStroeOrder';
 
-export default function SellerStoreProduct({
-  seller,
-  items,
-  countOfDeals,
-  sellerId,
-}) {
+export default function SellerStoreProduct({ seller, items, countOfDeals }) {
   const [orderHover, setOrderHover] = useState(false);
   const [sellerStoreFilter, setSellerStoreFilter] = useState('DATE');
   const orderList = [
@@ -32,7 +27,7 @@ export default function SellerStoreProduct({
     setOrderHover(false);
     seller.order = order;
     seller.getInitSellerStoreItem();
-    seller.getSellerStoreDeal(sellerId);
+    seller.getSellerStoreDeal(seller.sellerId);
     setSellerStoreFilter(order);
   }
 
@@ -66,7 +61,7 @@ export default function SellerStoreProduct({
         className={css.moreItemButton}
         onClick={() => {
           seller.page += 1;
-          seller.getSellerStoreDeal(sellerId);
+          seller.getSellerStoreDeal(seller.sellerId);
         }}
       >
         더 보기

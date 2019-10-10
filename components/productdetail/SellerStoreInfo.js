@@ -44,12 +44,13 @@ function SellerStoreInfo({
   handleSellerFollows = () => {},
   alert,
   login,
+  sellerStore,
 }) {
   return useObserver(() => (
     <div className={css.wrap} ref={tabRefMap.sellerstoreTab}>
       <div
         className={css.headerWrap}
-        onClick={() => pushRoute(`/store/${deals.sellerId}`)}
+        onClick={() => pushRoute(`/store/${sellerStore.nickname}`)}
       >
         <div
           className={css.profileImage}

@@ -36,7 +36,6 @@ const SellerStore = enhancer(({ router, seller, sellerId, login }) => {
           sellerStore={seller.sellerStore}
           seller={seller}
           login={login}
-          sellerId={router.query.sellerId}
           setTab={setTab}
         />
         <SellerStoreTab tab={tab} setTab={setTab} />
@@ -46,7 +45,6 @@ const SellerStore = enhancer(({ router, seller, sellerId, login }) => {
             seller={seller}
             items={seller.dealsOfSellerStore}
             countOfDeals={seller.countOfDeals}
-            sellerId={router.query.sellerId}
           />
         ) : (
           <SellerStoreInfomation sellerStore={seller.sellerStore} />
