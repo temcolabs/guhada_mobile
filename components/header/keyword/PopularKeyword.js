@@ -30,7 +30,7 @@ export default function PopularKeyword({
         >
           {rank + 1}
         </div>
-        <div>{list.keyword}</div>
+        <div className={css.keyword}>{list.keyword}</div>
       </div>
       <div
         className={cn(

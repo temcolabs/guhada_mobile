@@ -1,3 +1,5 @@
+@import 'styles/mixins/index';
+
 .wrap {
   padding: 0 20px;
   height: 50px;
@@ -9,8 +11,9 @@
     padding-left: 28px;
     background: url('/static/icon/icon_history.png') no-repeat left;
     background-size: 20px;
-    display: flex;
-    align-content: center;
+    background-position-y: 1px;
+    color: #444444;
+    @include textEllipsis;
   }
 
   & .close {
@@ -19,5 +22,8 @@
     background-size: 18px;
     display: flex;
     align-content: center;
+    font-size: 13px;
+    font-weight: 400;
+    color: #999999;
   }
 }

@@ -10,7 +10,10 @@ export default function RecentItem({
       <div className={css.name}>{item.name}</div>
       <div
         className={css.close}
-        onClick={e => (e.stopPropagation(), removeItem(item.name))}
+        onClick={e => {
+          e.stopPropagation();
+          removeItem(item.name);
+        }}
       >
         {item.date}
       </div>

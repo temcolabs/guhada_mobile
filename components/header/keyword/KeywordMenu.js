@@ -15,7 +15,7 @@ class KeywordMenu extends Component {
     displayContent: 'keyword',
     keywordTab: 'recent',
     highlight: '',
-    delete: false,
+    delete: true,
     inputValue: '',
   };
 
