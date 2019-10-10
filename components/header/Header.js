@@ -37,7 +37,9 @@ function Header({ children, headerShape, history, shoppingcart }) {
         <div
           className={cn(css.wrap, {
             [css.borderBottom]:
-              headerShape === 'sellerStore' || headerShape === 'productDetail',
+              headerShape === 'sellerStore' ||
+              headerShape === 'productDetail' ||
+              headerShape === 'ordersuccess',
           })}
         >
           {headerShape === 'productDetail' ||
@@ -70,7 +72,7 @@ function Header({ children, headerShape, history, shoppingcart }) {
             </Link>
           )}
 
-          {headerShape === 'productDetail' ? (
+          {headerShape === 'productDetail' || headerShape === 'ordersuccess' ? (
             <Link href="/">
               <button className={css.homeButton} />
             </Link>

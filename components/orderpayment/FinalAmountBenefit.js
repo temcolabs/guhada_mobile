@@ -109,13 +109,13 @@ class FinalAmountBenefit extends Component {
               />
             </div>
             <div className={css.dueSavePoint}>
-              최대
+              <span>최대</span>
               <span>
                 {orderSidetabTotalInfo.totalDueSavePoint
                   ? ` ${orderSidetabTotalInfo.totalDueSavePoint?.toLocaleString()}`
                   : 0}
               </span>
-              P
+              <span>P</span>
             </div>
           </div>
 
