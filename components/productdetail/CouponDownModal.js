@@ -35,7 +35,7 @@ class CouponDownModal extends Component {
 
               <div className={css.couponContainer}>
                 {productoption.dueSavebenefitCoupon.map((data, index) => {
-                  return data.alreadySaved ? null : (
+                  return !data.alreadySaved ? null : (
                     <div className={css.couponWrap} key={index}>
                       <div className={css.coupon}>
                         <div className={css.couponSeller}>
