@@ -5,6 +5,7 @@ import _ from 'lodash';
 import { LinkRoute } from 'lib/router';
 import { useObserver } from 'mobx-react-lite';
 import SellerStoreOrder from './SellerStroeOrder';
+import { isBrowser } from 'lib/isServer';
 
 export default function SellerStoreProduct({ seller, items, countOfDeals }) {
   const [orderHover, setOrderHover] = useState(false);
@@ -24,11 +25,15 @@ export default function SellerStoreProduct({ seller, items, countOfDeals }) {
 
   function getOrderDeal(order, e) {
     e.stopPropagation();
+    let scrollY = window.scrollY;
     setOrderHover(false);
     seller.order = order;
     seller.getInitSellerStoreItem();
     seller.getSellerStoreDeal(seller.sellerId);
     setSellerStoreFilter(order);
+    setTimeout(() => {
+      window.scrollTo(0, scrollY);
+    }, 100);
   }
   const handleMoreItemBtn =
     seller.countOfDeals / (seller.unitPerPage * seller.page) <= 1

@@ -1,1 +1,3 @@
-ssh -i ~/.ssh/guhada.pem ec2-user@52.78.149.242
+HOST=52.78.149.242
+USER=ec2-user
+ssh -i ~/.ssh/guhada.pem $USER@$HOST
