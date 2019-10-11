@@ -1,19 +1,23 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './Category.module.scss';
+import cn from 'classnames';
 
 @inject('category', 'searchitem')
 @observer
 class Category extends Component {
   grow(params) {
-    var growDiv = document.getElementById(params);
+    let growDiv = document.getElementById(params);
+    let categoryLabel = document.querySelector(`.category${params}`);
     if (growDiv.clientHeight) {
       growDiv.style.height = 0;
       growDiv.style.borderTop = 0;
+      categoryLabel.style.color = `#111111`;
     } else {
-      var wrapper = document.querySelector(`.measuringWrapper${params}`);
+      let wrapper = document.querySelector(`.measuringWrapper${params}`);
       growDiv.style.height = wrapper.clientHeight + 'px';
       growDiv.style.borderTop = `1px dashed #eeeeee`;
+      categoryLabel.style.color = `#5d2ed1`;
     }
   }
 
@@ -38,6 +42,7 @@ class Category extends Component {
                 defaultChecked={false}
               />
               <label
+                className={`category${categoryMain.key}`}
                 htmlFor={`${categoryMain.key}category`}
                 onClick={() => this.grow(categoryMain.key)}
               >

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './CategoryDepth.module.scss';
-import Router from 'next/router';
 import cn from 'classnames';
 
 @inject('category', 'searchitem')
@@ -23,9 +22,20 @@ class CategoryDepth extends Component {
     var growDiv = document.getElementById(params);
     if (growDiv.clientHeight) {
       growDiv.style.height = 0;
+      growDiv.style.borderTop = `0`;
+      growDiv.style.borderBottom = `0`;
+      setTimeout(() => {
+        growDiv.style.padding = 0;
+        growDiv.style.margin = 0;
+      }, 400);
     } else {
       var wrapper = document.querySelector(`.measuringWrapper${params}`);
-      growDiv.style.height = wrapper.clientHeight + 'px';
+      const growDivPaddingSize = 20;
+      growDiv.style.height = wrapper.clientHeight + growDivPaddingSize + 'px';
+      growDiv.style.borderTop = `1px dashed #5d2ed1`;
+      growDiv.style.borderBottom = `1px dashed #5d2ed1`;
+      growDiv.style.padding = `10px 0`;
+      growDiv.style.margin = `0 20px 10px 20px`;
     }
   }
 
@@ -40,7 +50,7 @@ class CategoryDepth extends Component {
   };
 
   render() {
-    const { category, searchitem } = this.props;
+    const { category } = this.props;
     const { categoryId } = this.state;
     let categoryList = category.categoryList;
 

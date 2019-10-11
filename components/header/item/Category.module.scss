@@ -1,6 +1,13 @@
+$burgerHeader: 50px;
+
 .tree {
     color: #393939;
     padding: 20px 0;
+    position: relative;
+    overflow-y: auto;
+    display: inline-block;
+    width: 100%;
+    height: calc(100vh - #{$burgerHeader});
 
     & .treeLi {
         margin-bottom: 10px;

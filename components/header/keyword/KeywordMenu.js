@@ -15,7 +15,6 @@ class KeywordMenu extends Component {
     displayContent: 'keyword',
     keywordTab: 'recent',
     highlight: '',
-    delete: true,
     inputValue: '',
   };
 
@@ -38,9 +37,9 @@ class KeywordMenu extends Component {
     }
     keyword.getAutoComplete(event.target.value);
     if (keyword.autoComplete === false) {
-      this.setState({ displayContent: 'keyword', delete: false });
+      this.setState({ displayContent: 'keyword' });
     } else if (event.target.value === '') {
-      this.setState({ displayContent: 'keyword', delete: false });
+      this.setState({ displayContent: 'keyword' });
     } else {
       if (this.state.highlight !== event.target.value) {
         this.setState({
@@ -49,7 +48,6 @@ class KeywordMenu extends Component {
           autoCompleteListIndex: -1,
         });
       }
-      this.setState({ delete: true });
     }
   };
 
@@ -58,7 +56,7 @@ class KeywordMenu extends Component {
   };
 
   clearInputValue = () => {
-    this.setState({ inputValue: '', displayContent: 'keyword', delete: false });
+    this.setState({ inputValue: '', displayContent: 'keyword' });
   };
 
   onFocus = () => {
@@ -89,7 +87,7 @@ class KeywordMenu extends Component {
 
     keyword.addItem(value);
     searchitem.toSearch({ enter: 'keyword', keyword: value });
-    this.setState({ displayContent: '' });
+    this.setState({ displayContent: '', inputValue: value });
   };
 
   render() {
@@ -124,10 +122,7 @@ class KeywordMenu extends Component {
           <div
             className={css.delete}
             style={{
-              display:
-                this.state.delete === true && this.state.displayContent !== ''
-                  ? 'block'
-                  : 'none',
+              display: this.state.inputValue !== '' ? 'block' : 'none',
             }}
             onClick={() => this.clearInputValue()}
           />
