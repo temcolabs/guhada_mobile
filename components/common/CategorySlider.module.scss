@@ -14,7 +14,11 @@ $CategorySliderWrapHeight : 44px;
     z-index: 102;
     padding: 0 20px;
     max-width: inherit;
+    border-bottom: 1px solid #eeeeee;
 
+    &.borderNone {
+        border-bottom: 0;
+    }
 
     & .arrowIcon {
         width: 35px;
