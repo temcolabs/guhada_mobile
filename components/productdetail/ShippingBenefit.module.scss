@@ -1,7 +1,6 @@
 @import 'styles/mixins/index';
 
 .wrap {
-
   font-size: 13px;
   font-weight: 500;
   font-style: normal;
@@ -31,6 +30,10 @@
       justify-content: space-between;
       width: calc(100% - 48px - 30px);
       color: #444444;
+
+      @include break350 {
+        font-size: 11px;
+      }
     }
 
     & .itemContents {

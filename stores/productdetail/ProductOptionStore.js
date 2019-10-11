@@ -295,40 +295,47 @@ export default class ProductOptionStore {
 
   @action
   getBenefitData = () => {
-    let bundleList = {
-      bundleList: [
-        {
-          bundlePrice: this.root.productdetail.deals.shipExpense,
-          orderProdList: [
-            {
-              dcategoryId: this.root.productdetail.deals.dCategoryId,
-              dealId: this.root.productdetail.deals.dealsId,
-              discountPrice: this.root.productdetail.deals.discountPrice,
-              lcategoryId: this.root.productdetail.deals.lCategoryId,
-              mcategoryId: this.root.productdetail.deals.mCategoryId,
-              productPrice: this.root.productdetail.deals.sellPrice,
-              scategoryId: this.root.productdetail.deals.sCategoryId,
-            },
-          ],
-        },
-      ],
-      pointType: 'BUY',
-      serviceType: 'FRONT',
-    };
-    API.benefit
-      .post(`/process/due-save`, bundleList)
-      .then(res => {
-        const { data } = res;
-        this.benefitPoint = 0;
-        for (let i = 0; i < data.data.dueSavePointList.length; i++) {
-          this.benefitPoint += data.data.dueSavePointList[i].totalPoint;
-        }
-      })
-      .catch(err => {
-        // this.root.alert.showAlert({
-        //   content: `${_.get(err, 'data.message') || 'error'}`,
-        // });
-      });
+    if (this.root.login.loginStatus === 'LOGIN_DONE') {
+      let userId = this.root.login.loginInfo.userId;
+      let bundleList = {
+        bundleList: [
+          {
+            bundlePrice: this.root.productdetail.deals.shipExpense,
+            orderProdList: [
+              {
+                dealId: this.root.productdetail.deals.dealsId,
+                discountPrice: this.root.productdetail.deals.discountPrice,
+                productPrice: this.root.productdetail.deals.sellPrice,
+                dcategoryId: this.root.productdetail.deals.dCategoryId,
+                lcategoryId: this.root.productdetail.deals.lCategoryId,
+                mcategoryId: this.root.productdetail.deals.mCategoryId,
+                scategoryId: this.root.productdetail.deals.sCategoryId,
+              },
+            ],
+          },
+        ],
+        pointType: 'BUY',
+        consumptionType: 'BUY',
+        serviceType: 'FRONT',
+      };
+      API.benefit
+        .post(`/process/total-due-save/${userId}`, bundleList)
+        .then(res => {
+          const { data } = res;
+          console.log(data, 'data');
+          this.benefitPoint = 0;
+          for (let i = 0; i < data.data.dueSavePointList.length; i++) {
+            this.benefitPoint += data.data.dueSavePointList[i].totalPoint;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          this.benefitPoint = 0;
+          // this.root.alert.showAlert({
+          //   content: `${_.get(err, 'data.message') || err.message}`,
+          // });
+        });
+    }
   };
 
   @action

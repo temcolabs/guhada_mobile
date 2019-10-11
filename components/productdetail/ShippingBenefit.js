@@ -59,43 +59,46 @@ class ShippingBenefit extends Component {
             <div>{deals.shippingSummary}</div>
           </div>
         </div>
-        <div
-          className={css.itemWrap}
-          onClick={() => {
-            this.benefitHandler();
-          }}
-        >
-          <div className={css.itemTitle}>혜택정보</div>
-          <div className={css.contentsWrap}>
-            {productoption.benefitPoint > 0 ? <div>포인트 적립</div> : null}
+        {productoption.benefitPoint || false || false ? (
+          <div
+            className={css.itemWrap}
+            onClick={() => {
+              this.benefitHandler();
+            }}
+          >
+            <div className={css.itemTitle}>혜택정보</div>
+            <div className={css.contentsWrap}>
+              {productoption.benefitPoint > 0 ? <div>포인트 적립</div> : null}
 
-            {/* 무이자혜택 */}
-            {false ? <div>무이자 할부</div> : null}
+              {/* 무이자혜택 */}
+              {false ? <div>무이자 할부</div> : null}
 
-            {/* 카드추가혜택 */}
-            {false ? <div>카드추가혜택</div> : null}
+              {/* 카드추가혜택 */}
+              {false ? <div>카드추가혜택</div> : null}
 
-            <div
-              className={css.plusIcon}
-              style={
-                this.state.benefitHandle
-                  ? {
-                      backgroundImage: 'url("/static/icon/minus_icon_m.png")',
-                    }
-                  : {
-                      backgroundImage: 'url("/static/icon/plus_icon_m.png")',
-                    }
-              }
-            />
+              <div
+                className={css.plusIcon}
+                style={
+                  this.state.benefitHandle
+                    ? {
+                        backgroundImage: 'url("/static/icon/minus_icon_m.png")',
+                      }
+                    : {
+                        backgroundImage: 'url("/static/icon/plus_icon_m.png")',
+                      }
+                }
+              />
+            </div>
           </div>
-        </div>
+        ) : null}
+
         {this.state.benefitHandle ? (
           <div className={css.benefitDetailWrap}>
             {productoption.benefitPoint > 0 ? (
               <div className={css.benefitDetailSection}>
                 <div className={css.benefitDetaieTitle}>포인트 적립</div>
                 <div className={css.benefitDetailContent}>
-                  {`추가 적립 포인트 ${productoption.benefitPoint.toLocaleString()}P`}
+                  {`추가 적립 포인트 최대${productoption.benefitPoint.toLocaleString()}P`}
                 </div>
               </div>
             ) : null}
