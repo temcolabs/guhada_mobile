@@ -68,7 +68,7 @@ class SearchList extends Component {
       <DefaultLayout
         topLayout={isBrand ? 'category' : isKeyword ? 'keyword' : 'search'}
         pageTitle={searchitem.title}
-        headerShape={isKeyword ? 'keyword' : 'searchList'}
+        headerShape={isKeyword ? 'keyword' : isBrand ? 'brand' : 'searchList'}
       >
         {/* enter가 keyword 인 경우에만 불러오는 메뉴 component */}
         {isKeyword ? (

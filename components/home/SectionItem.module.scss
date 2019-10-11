@@ -3,7 +3,7 @@ $contentsHeight : 117px;
 
 .wrap {
     width: calc(50% - 3px);
-    margin-top: 30px;
+    margin-top: 40px;
     display: inline-block;
 
 
@@ -48,7 +48,7 @@ $contentsHeight : 117px;
         & .brandWrap {
             display: flex;
             align-items: baseline;
-            margin-bottom: 5px;
+            margin-bottom: 11px;
 
             & .brandName {
                 font-size: 13px;
@@ -132,7 +132,6 @@ $contentsHeight : 117px;
             font-weight: normal;
             color: #333333;
             float: left;
-            margin-left: 3px;
             height: 16px;
         }
     }

@@ -604,14 +604,14 @@ export default class SearchItemStore {
       let hierarchies = category[0].children[0].hierarchies;
       let parentIndex = hierarchies[hierarchies.length - 2];
 
-      category[0].children.splice(0, 0, { title: '전체', id: parentIndex });
+      category[0].children.splice(0, 0, { title: '전체보기', id: parentIndex });
 
       this.headerCategory = category[0].children;
     } else {
       let hierarchies = category[0].hierarchies;
       let parentIndex = hierarchies[hierarchies.length - 2];
 
-      category.splice(0, 0, { title: '전체', id: parentIndex });
+      category.splice(0, 0, { title: '전체보기', id: parentIndex });
       this.headerCategory = category;
     }
   };

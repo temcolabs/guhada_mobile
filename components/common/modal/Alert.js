@@ -17,7 +17,7 @@ const ConfirmBtns = ({
   cancelText,
 }) => {
   return (
-    <div className={css.alertButtons}>
+    <div className={css.confirmButtons}>
       <button
         type="button"
         onClick={onCancel}

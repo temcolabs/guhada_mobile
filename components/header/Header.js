@@ -34,20 +34,24 @@ function Header({ children, headerShape, history, shoppingcart }) {
       {headerShape === 'keyword' ? (
         <div className={css.wrap} />
       ) : (
+        // 헤더의 보더
         <div
           className={cn(css.wrap, {
             [css.borderBottom]:
               headerShape === 'sellerStore' ||
               headerShape === 'productDetail' ||
               headerShape === 'ordersuccess' ||
-              headerShape === 'orderpayment',
+              headerShape === 'orderpayment' ||
+              headerShape === 'brand',
           })}
         >
+          {/* 백버튼 */}
           {headerShape === 'productDetail' ||
           headerShape === 'searchList' ||
           headerShape === 'shoppingcart' ||
           headerShape === 'orderpayment' ||
           headerShape === 'sellerStore' ||
+          headerShape === 'brand' ||
           (headerShape === 'address' && urlHistory !== '') ? (
             <button
               className={css.backButton}

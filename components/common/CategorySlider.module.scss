@@ -14,7 +14,11 @@ $CategorySliderWrapHeight : 44px;
     z-index: 102;
     padding: 0 20px;
     max-width: inherit;
+    border-bottom: 1px solid #eeeeee;
 
+    &.borderNone {
+        border-bottom: 0;
+    }
 
     & .arrowIcon {
         width: 35px;
@@ -31,7 +35,7 @@ $CategorySliderWrapHeight : 44px;
     & .title {
         display: inline-block;
         font-size: 15px;
-        font-weight: 500;
+        font-weight: 400;
         font-style: normal;
         font-stretch: normal;
         line-height: 1.2;
@@ -52,6 +56,7 @@ $CategorySliderWrapHeight : 44px;
 
         &.selected {
             color: #5d2ed1;
+            font-weight: 500;
 
             & .dot {
                 border: solid 1px rgba(0, 0, 0, 0);

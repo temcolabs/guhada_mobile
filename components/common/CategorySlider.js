@@ -39,7 +39,11 @@ class CategorySlider extends Component {
     const subCategory = toJS(category.category);
     return (
       <>
-        <div className={css.wrap}>
+        <div
+          className={cn(css.wrap, {
+            [css.borderNone]: this.state.isVisibleSubCategory === true,
+          })}
+        >
           {categoryList.map((item, index) => {
             return (
               <div

@@ -20,10 +20,7 @@ export default class FindMobileAuth extends Component {
           본인 명의 휴대폰으로 인증
         </LoginButton>
         <div className={css.subTextWrap}>
-          <div>
-            <div className={css.dot} />
-            인증비용은 구하다에서 부담합니다.
-          </div>
+          <div>※ 인증비용은 구하다에서 부담합니다.</div>
         </div>
       </div>
     );

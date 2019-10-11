@@ -73,7 +73,7 @@ class SearchItem6 extends Component {
                     <div className={css.priceWrap}>
                       <div className={css.discountWrap}>
                         <span className={css.sellPrice}>
-                          {deal.discountPrice.toLocaleString() + '원'}
+                          {deal.discountPrice.toLocaleString()}
                         </span>
                       </div>
                     </div>
@@ -81,7 +81,7 @@ class SearchItem6 extends Component {
                     <div className={css.priceWrap}>
                       <div className={css.discountWrap}>
                         <span className={css.sellPrice}>
-                          {deal.sellPrice.toLocaleString() + '원'}
+                          {deal.sellPrice.toLocaleString()}
                         </span>
                       </div>
                     </div>

@@ -4,7 +4,7 @@
     position: relative;
     font-size: 14px;
     font-weight: 500;
-    color: #000000;
+    color: #111111;
     margin-top: 9px;
 
     & .item {
@@ -15,6 +15,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        color: #111111;
     }
 
     & .itemRight {
@@ -28,6 +29,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        color: #111111;
     }
 
     & .select {
