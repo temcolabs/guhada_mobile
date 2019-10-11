@@ -32,8 +32,8 @@ class CategoryDepth extends Component {
       var wrapper = document.querySelector(`.measuringWrapper${params}`);
       const growDivPaddingSize = 20;
       growDiv.style.height = wrapper.clientHeight + growDivPaddingSize + 'px';
-      growDiv.style.borderTop = `1px dashed #5d2ed1`;
-      growDiv.style.borderBottom = `1px dashed #5d2ed1`;
+      growDiv.style.borderTop = `1px dashed #eeeeee`;
+      growDiv.style.borderBottom = `1px dashed #eeeeee`;
       growDiv.style.padding = `10px 0`;
       growDiv.style.margin = `0 20px 10px 20px`;
     }
