@@ -54,9 +54,9 @@
       }
       .couponWrap {
         .coupon {
-          width: 300px;
-          height: 165px;
-          background: url('/static/icon/seller-coupon-img@3x.png') no-repeat;
+          width: 280px;
+          height: 136px;
+          background: url('/static/icon/coupon_bg@3x.png') no-repeat;
           background-size: cover;
           background-position: center;
           margin-top: 35px;
@@ -66,13 +66,13 @@
           @include break350 {
             width: 100%;
             height: 0;
-            padding-bottom: 55%;
+            padding-bottom: 48%;
           }
 
           .couponSeller {
             position: absolute;
             font-size: 13px;
-            top: 30px;
+            top: 25px;
             left: 25px;
             font-weight: 300;
 
@@ -83,18 +83,18 @@
 
           .couponAmount {
             position: absolute;
-            top: 57px;
+            top: 50px;
             left: 25px;
             font-size: 32px;
             font-weight: 500;
-
+            line-height: 23px;
             span {
               font-size: 20px;
               font-weight: 400;
             }
 
             @include break350 {
-              top: 30%;
+              top: 34%;
               font-size: 31px;
             }
           }
@@ -104,7 +104,7 @@
             font-weight: 400;
             color: #fff;
             position: absolute;
-            top: 110px;
+            top: 95px;
             left: 25px;
 
             @include break350 {
