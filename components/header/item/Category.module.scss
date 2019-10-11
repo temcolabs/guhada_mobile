@@ -2,6 +2,10 @@
     color: #393939;
     padding: 20px 0;
 
+    & .treeLi {
+        margin-bottom: 10px;
+    }
+
     & ul {
         list-style: none;
         -moz-transition: height .5s;
@@ -11,6 +15,7 @@
         transition: height .5s;
         height: 0;
         overflow: hidden;
+        margin: 0 20px 0 20px;
 
         & li {
             font-size: 14px;
@@ -21,14 +26,13 @@
             letter-spacing: 0.42px;
             text-align: left;
             color: #111111;
-            padding: 9px 0 8px 40px;
-
+            padding: 9px 0 8px 20px;
 
             &.arrow {
                 background-image: url('/static/icon/arrow_icon.png');
                 background-size: 19px;
                 background-repeat: no-repeat;
-                background-position: right 30px center;
+                background-position: right center;
             }
         }
     }
@@ -43,9 +47,10 @@
         text-align: left;
         color: #111111;
         cursor: pointer;
-        padding: 16px 0 15px 30px;
+        padding: 13px 0 13px 30px;
         margin-bottom: 0;
         width: 100%;
+        height: 50px;
     }
 
     & input[type="checkbox"] {
