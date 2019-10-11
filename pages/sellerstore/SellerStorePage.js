@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Head from 'next/head';
-import withAuth from 'components/common/hoc/withAuth';
 import SellerStore from 'template/sellerstore/SellerStore';
 import { isBrowser } from 'lib/isServer';
 import { inject, observer } from 'mobx-react';
