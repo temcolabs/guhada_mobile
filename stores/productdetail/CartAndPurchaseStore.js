@@ -77,7 +77,7 @@ export default class CartAndPurchaseStore {
             }
           })
           .catch(err => {
-            if (this.root.login.loginStatus === 'logout') {
+            if (this.root.login.loginStatus === loginStatus.LOGOUT) {
               pushRoute(
                 `/login?${qs.stringify({
                   redirectTo: `/productdetail?deals=${
@@ -135,7 +135,7 @@ export default class CartAndPurchaseStore {
             this.root.shoppingcart.globalGetUserShoppingCartList();
           })
           .catch(err => {
-            if (this.root.login.loginStatus === 'logout') {
+            if (this.root.login.loginStatus === loginStatus.LOGOUT) {
               pushRoute(
                 `/login?${qs.stringify({
                   redirectTo: `/productdetail?deals=${
@@ -144,11 +144,6 @@ export default class CartAndPurchaseStore {
                 })}`,
                 { isReplace: true }
               );
-            } else {
-              devLog(err, 'add cart err');
-              // this.root.alert.showAlert({
-              //   content: '서버 에러 ' + err,
-              // });
             }
           });
       } else {

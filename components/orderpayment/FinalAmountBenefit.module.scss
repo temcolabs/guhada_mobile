@@ -1,6 +1,6 @@
 @import 'styles/mixins/index';
 .wrap {
-  margin-top: 40px;
+  margin-top: 30px;
   .finalTop {
     display: flex;
     width: 100%;
@@ -13,7 +13,8 @@
       align-items: center;
       height: 50px;
       border-right: 1px solid #6a3ed4;
-
+      font-size: 13px;
+      font-weight: 500;
       &:last-child {
         border-right: none;
       }
@@ -54,7 +55,7 @@
       justify-content: center;
       align-items: center;
       width: 33%;
-      border-right: 1px solid #eaeaea;
+      border-right: 1px solid #f3f3f3;
       .innerContent {
         font-size: 16px;
         font-weight: bold;
@@ -212,7 +213,7 @@
       .dueSaveTitle {
         font-size: 14px;
         color: #111;
-        font-weight: 500;
+        font-weight: 400;
         display: flex;
         align-items: center;
         .dropArrow {

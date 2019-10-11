@@ -39,7 +39,8 @@ function Header({ children, headerShape, history, shoppingcart }) {
             [css.borderBottom]:
               headerShape === 'sellerStore' ||
               headerShape === 'productDetail' ||
-              headerShape === 'ordersuccess',
+              headerShape === 'ordersuccess' ||
+              headerShape === 'orderpayment',
           })}
         >
           {headerShape === 'productDetail' ||

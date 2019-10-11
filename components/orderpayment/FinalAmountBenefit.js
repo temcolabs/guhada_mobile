@@ -55,7 +55,8 @@ class FinalAmountBenefit extends Component {
                   : `${orderInfo.totalShipPrice.toLocaleString()}원`
               }`}
               </div> */}
-              <div>{`${orderSidetabTotalInfo.totalProductPrice?.toLocaleString()}원`}</div>
+              <div>{`${orderSidetabTotalInfo.totalProductPrice?.toLocaleString() ||
+                0}원`}</div>
             </div>
             <div className={css.calcBox}>
               {/* <div className={css.blankBox} /> */}
@@ -65,7 +66,8 @@ class FinalAmountBenefit extends Component {
           <div className={css.totalDiscountAmount}>
             <div className={css.innerContent}>
               {/* <div className={css.blankBox} /> */}
-              {`${orderSidetabTotalInfo.totalDiscountPointPrice?.toLocaleString()}원`}
+              {`${orderSidetabTotalInfo.totalDiscountPointPrice?.toLocaleString() ||
+                0}원`}
               <div className={css.calcBox}>
                 {/* <div className={css.blankBox} /> */}
                 <div className={css.equalImage} />
@@ -75,7 +77,8 @@ class FinalAmountBenefit extends Component {
           <div className={css.totalPaymentAmount}>
             <div className={css.innerContent}>
               {/* <div className={css.blankBox} /> */}
-              {`${orderSidetabTotalInfo.totalPaymentPrice?.toLocaleString()}`}
+              {`${orderSidetabTotalInfo.totalPaymentPrice?.toLocaleString() ||
+                0}`}
               <span>원</span>
             </div>
           </div>
@@ -139,7 +142,7 @@ const DiscountInfo = props => {
             <div className={css.sectionTitle}>상품 할인</div>
             <div
               className={css.sectionValue}
-            >{`${data.discountPrice?.toLocaleString()}원`}</div>
+            >{`${data.discountPrice?.toLocaleString() || 0}원`}</div>
           </div>
         ) : (
           <div className={css.discountMenu} key={index}>
@@ -154,7 +157,7 @@ const DiscountInfo = props => {
             </div>
             <div
               className={css.sectionValue}
-            >{`${data.discountPrice.toLocaleString()}원`}</div>
+            >{`${data.discountPrice.toLocaleString() || 0}원`}</div>
           </div>
         );
       })}
@@ -164,7 +167,7 @@ const DiscountInfo = props => {
           <div className={css.sectionTitle}>포인트 사용</div>
           <div
             className={css.sectionValue}
-          >{`${props.data.totalPointPrice?.toLocaleString()}P`}</div>
+          >{`${props.data.totalPointPrice?.toLocaleString() || 0}P`}</div>
         </div>
       ) : null}
     </div>
@@ -180,14 +183,14 @@ const BenefitInfo = props => {
             <div className={css.sectionTitle}>구매 확정</div>
             <div
               className={css.sectionValue}
-            >{`${data.totalPoint?.toLocaleString()}P`}</div>
+            >{`${data.totalPoint?.toLocaleString() || 0}P`}</div>
           </div>
         ) : data.dueSaveType === 'REVIEW' ? (
           <div className={css.discountMenu} key={index}>
             <div className={css.sectionTitle}>리뷰 작성</div>
             <div
               className={css.sectionValue}
-            >{`최대 ${data.totalPoint?.toLocaleString()}P`}</div>
+            >{`최대 ${data.totalPoint?.toLocaleString() || 0}P`}</div>
           </div>
         ) : null;
       })}

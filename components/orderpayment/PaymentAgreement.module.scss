@@ -6,7 +6,7 @@
   align-items: center;
   label {
     display: flex;
-    font-weight: 500;
+    font-weight: 400;
     input[type='checkbox'] {
       display: none;
     }
@@ -46,6 +46,6 @@
     font-weight: 400;
     text-decoration: underline;
     white-space: nowrap;
-    height: 21px;
+    height: 22px;
   }
 }

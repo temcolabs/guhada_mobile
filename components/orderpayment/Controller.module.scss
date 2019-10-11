@@ -9,15 +9,12 @@
     font-size: 15px;
     color: #111;
     font-weight: bold;
-
-    span {
-      color: #5d2ed1;
-    }
   }
   .button {
-    img {
-      width: 19px;
-      height: 19px;
-    }
+    width: 19px;
+    height: 19px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 }

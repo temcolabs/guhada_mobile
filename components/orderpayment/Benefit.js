@@ -111,7 +111,7 @@ class Benefit extends Component {
               orderpayment.orderInfo.totalCouponCount
                 ? orderpayment.orderInfo.totalCouponCount
                 : 0
-            } 장)`}</span>
+            }장)`}</span>
           </div>
           <div className={css.couponSelectBox}>
             <div className={css.couponInput}>
@@ -136,10 +136,10 @@ class Benefit extends Component {
                 //   orderPaymentBenefit.handleModalShow();
                 // }}
               >
-                쿠폰변경
+                쿠폰 변경
               </div>
             ) : (
-              <div className={css.nocouponSelect}>쿠폰변경</div>
+              <div className={css.nocouponSelect}>쿠폰 변경</div>
             )}
           </div>
         </div>
