@@ -3,7 +3,7 @@
     float: left;
     overflow: hidden;
     padding: 0 0 0 10px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 
     &:nth-child(2n) {
         margin-right: 0;
@@ -71,8 +71,8 @@
     }
 
     & .brandWrap {
-        font-size: 14px;
-        font-weight: bold;
+        font-size: 13px;
+        font-weight: 500;
         line-height: 1.37;
         text-align: left;
         color: #111111;
@@ -121,7 +121,7 @@
 
         & .sellPrice {
             font-size: 16px;
-            font-weight: bold;
+            font-weight: 500;
             font-style: normal;
             font-stretch: normal;
             line-height: 1;
