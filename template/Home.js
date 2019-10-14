@@ -99,7 +99,7 @@ class Home extends React.Component {
           condition={'BEST'}
         />
         <MainSectionItem
-          title={'NEW ARRIVALS'}
+          title={'NEW IN'}
           items={main.newArrivals}
           categoryId={main.navDealId}
           toSearch={searchitem.toSearch}

@@ -14,4 +14,12 @@
     font-size: 14px;
     font-weight: 500;
     color: #111111;
+
+    & .plusIcon {
+        width: 16px;
+        height: 16px;
+        background: url('/static/icon/detail_btn_more_open.png') no-repeat center;
+        background-size: 16px;
+        margin-left: 4px;
+    }
 }
