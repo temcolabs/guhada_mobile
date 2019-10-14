@@ -46,7 +46,7 @@ export default class ShoppingCartStore {
   @observable selectedOptionIndex = 0;
   @observable quantityMinusBtn = '/static/icon/quantity_minus_on.png';
   @observable quantityPlusBtn = '/static/icon/quantity_plus_on.png';
-
+  @observable cartAmount = 0;
   //--------------------- 장바구니 전체 데이터 가져오기 ---------------------
   @action
   getUserShoppingCartList = () => {
@@ -75,12 +75,6 @@ export default class ShoppingCartStore {
             { isReplace: true }
           );
         }
-        // pushRoute(
-        //   `/login?${qs.stringify({
-        //     redirectTo: `/shoppingcart`,
-        //   })}`,
-        //   { isReplace: true }
-        // );
       });
   };
 
@@ -96,14 +90,8 @@ export default class ShoppingCartStore {
       })
       .catch(err => {
         console.error(err);
-        // this.root.alert.showAlert({
-        //   content: `${_.get(err, 'data.message') || err.message}`,
-        //   onConfirm: () => {
-        //     this.gotoMain();
-        //   },
-        // });
+        this.cartAmount = 0;
       });
-    return this.cartAmount;
   };
   //--------------------- 장바구니 실시간 인기 상품 가져오기 ---------------------
   @action
@@ -576,6 +564,7 @@ export default class ShoppingCartStore {
       .post(`/cart/removeCartItem?cartItemIdList=${selectIdList}`)
       .then(res => {
         this.getUserShoppingCartList();
+        this.globalGetUserShoppingCartList();
       });
   };
   //--------------------- 장바구니 아이템 즉시구매하기 ---------------------

@@ -10,25 +10,26 @@ import { pushRoute } from 'lib/router';
 import cn from 'classnames';
 import SearchMenu from './SearchMenu';
 import BrandContainer from './item/BrandContainer';
+import { observer } from 'mobx-react-lite';
+import { devLog } from 'lib/devLog';
+
 /**
  *
  * @param {string} headerShape
  * productDetail 일때 layout 변경
  */
-
-let cartAmount = 0;
-
-function Header({ children, headerShape, history, shoppingcart }) {
+function Header({ children, headerShape, history, cartAmount }) {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isCategoryVisible, setIsCategoryVisible] = useState(false);
   const [categoryId, setCategoryId] = useState(0);
   const [categoryTitle, setCategoryTitle] = useState('');
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [isBrandVisible, setIsBrandVisible] = useState(false);
-  // if (cartAmount === 0) {
-  //   cartAmount = shoppingcart.globalGetUserShoppingCartList();
-  // }
+
   let urlHistory = sessionStorage.get('urlHistory');
+
+  devLog('cartAmount', cartAmount);
+
   return (
     <>
       {headerShape === 'keyword' ? (
@@ -42,6 +43,7 @@ function Header({ children, headerShape, history, shoppingcart }) {
               headerShape === 'productDetail' ||
               headerShape === 'ordersuccess' ||
               headerShape === 'orderpayment' ||
+              headerShape === 'shoppingcart' ||
               headerShape === 'brand',
           })}
         >
@@ -53,10 +55,7 @@ function Header({ children, headerShape, history, shoppingcart }) {
           headerShape === 'sellerStore' ||
           headerShape === 'brand' ||
           (headerShape === 'address' && urlHistory !== '') ? (
-            <button
-              className={css.backButton}
-              onClick={() => window.history.back()}
-            />
+            <button className={css.backButton} onClick={() => Router.back()} />
           ) : null}
 
           {headerShape === 'shoppingcart' ||
@@ -77,7 +76,10 @@ function Header({ children, headerShape, history, shoppingcart }) {
             </Link>
           )}
 
-          {headerShape === 'productDetail' || headerShape === 'ordersuccess' ? (
+          {headerShape === 'productDetail' ||
+          headerShape === 'ordersuccess' ||
+          headerShape === 'shoppingcart' ||
+          headerShape === 'orderpayment' ? (
             <Link href="/">
               <button className={css.homeButton} />
             </Link>
@@ -142,4 +144,5 @@ function Header({ children, headerShape, history, shoppingcart }) {
     </>
   );
 }
-export default inject('history', 'shoppingcart')(Header);
+
+export default inject('history')(observer(Header));
