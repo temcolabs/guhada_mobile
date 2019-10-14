@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { observer, inject } from 'mobx-react';
+import { observer } from 'mobx-react';
 import LoginLayout from 'components/layout/LoginLayout';
 import css from './Signup.module.scss';
 import {
@@ -8,9 +8,18 @@ import {
   LoginCheckBox,
   LoginWrapper,
 } from 'components/login/';
+import cn from 'classnames';
 
 @observer
 class Signup extends Component {
+  state = {
+    optionalAgree: false,
+  };
+
+  handleOptionalAgree = () => {
+    this.setState({ optionalAgree: true });
+  };
+
   render() {
     const { form } = this.props;
     let value = form.get('value');
@@ -47,25 +56,38 @@ class Signup extends Component {
                 href={`${process.env.HOSTNAME}/terms/personal`}
               />
             </div>
-            <div>
+            <div
+              className={cn(css.optionalAgree, {
+                [css.openOptional]: this.state.optionalAgree === true,
+              })}
+              onClick={() => this.handleOptionalAgree()}
+            >
               <LoginCheckBox
                 field={form.$('optionalAgree')}
                 className={'wrap'}
               />
-              <LoginCheckBox
-                field={form.$('agreeSaleTos')}
-                className={'termOption'}
-                href={`${process.env.HOSTNAME}/terms/sale`}
-              />
-              <div>
+              <div
+                style={
+                  this.state.optionalAgree === false
+                    ? { display: 'none' }
+                    : { display: 'block' }
+                }
+              >
                 <LoginCheckBox
-                  field={form.$('agreeEmailReception')}
-                  className={'emailsms'}
+                  field={form.$('agreeSaleTos')}
+                  className={'termOption'}
+                  href={`${process.env.HOSTNAME}/terms/sale`}
                 />
-                <LoginCheckBox
-                  field={form.$('agreeSmsReception')}
-                  className={'emailsms'}
-                />
+                <div>
+                  <LoginCheckBox
+                    field={form.$('agreeEmailReception')}
+                    className={'emailsms'}
+                  />
+                  <LoginCheckBox
+                    field={form.$('agreeSmsReception')}
+                    className={'emailsms'}
+                  />
+                </div>
               </div>
             </div>
             <div style={{ marginTop: '7px' }}>

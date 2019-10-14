@@ -56,6 +56,10 @@ class MyDocument extends Document {
             name="google-site-verification"
             content="pNZ8iQTxAxE_4Le0CrNz7CKZYbK77vs-AUr_gTHFjKA"
           />
+          <meta
+            name="naver-site-verification"
+            content="1afd6b85b3b1b6b0030bc86e1c392cd057b33b4c"
+          />
         </Head>
         <body>
           <Main />
