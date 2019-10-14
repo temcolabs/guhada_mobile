@@ -46,18 +46,19 @@
 
     & label {
         font-size: 14px;
-        font-weight: 500;
+        font-weight: 400;
         display: flex;
         align-items: center;
         margin-bottom: 0;
         float: left;
+        color: #777777;
     }
 
     input[type='checkbox']+label span {
         display: inline-block;
         width: 20px;
         height: 20px;
-        border: 1px solid #a0a0a0;
+        border: 1px solid #dddddd;
         margin-right: 7px;
         background-image: none;
         background-size: 0;
