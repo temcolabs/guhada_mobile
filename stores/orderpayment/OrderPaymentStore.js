@@ -174,6 +174,11 @@ export default class OrderPaymentStore {
           sessionStorage.removeItem('paymentInfo');
         }
         this.status.pageStatus = true;
+        history.replaceState(
+          {},
+          null,
+          `orderpayment?cartList=${this.cartList}`
+        );
       })
       .catch(err => {
         devLog(err, 'err');

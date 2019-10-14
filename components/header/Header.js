@@ -41,6 +41,7 @@ function Header({ children, headerShape, history, shoppingcart }) {
               headerShape === 'sellerStore' ||
               headerShape === 'productDetail' ||
               headerShape === 'ordersuccess' ||
+              headerShape === 'orderpayment' ||
               headerShape === 'brand',
           })}
         >

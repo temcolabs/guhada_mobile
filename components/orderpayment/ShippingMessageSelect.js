@@ -20,17 +20,16 @@ class ShippingMessageSelect extends Component {
       control: provided => ({
         ...provided,
         height: 45,
-        border: 'solid 1px #dfe3e9',
+        border: 'solid 1px #eee',
         borderRadius: 'none',
         boxShadow: 0,
         padding: '0 15px 0 15px',
       }),
       placeholder: provided => ({
         ...provided,
-        color: '#354052',
+        color: '#777',
         fontSize: 13,
         fontWeight: 'normal',
-        fontFamily: 'NotoSansCJKkr',
       }),
       option: (provided, state) => ({
         ...provided,
@@ -45,7 +44,6 @@ class ShippingMessageSelect extends Component {
         paddingLeft: 20,
         fontSize: 13,
         color: state.isDisabled ? '#ddd' : '#111',
-        fontFamily: 'NotoSansCJKkr',
         borderRadius: 'none',
       }),
       menu: (provided, state) => ({
