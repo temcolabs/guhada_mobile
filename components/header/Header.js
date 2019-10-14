@@ -39,6 +39,7 @@ function Header({ children, headerShape, history, cartAmount }) {
               headerShape === 'productDetail' ||
               headerShape === 'ordersuccess' ||
               headerShape === 'orderpayment' ||
+              headerShape === 'shoppingcart' ||
               headerShape === 'brand',
           })}
         >
@@ -74,7 +75,10 @@ function Header({ children, headerShape, history, cartAmount }) {
             </Link>
           )}
 
-          {headerShape === 'productDetail' || headerShape === 'ordersuccess' ? (
+          {headerShape === 'productDetail' ||
+          headerShape === 'ordersuccess' ||
+          headerShape === 'shoppingcart' ||
+          headerShape === 'orderpayment' ? (
             <Link href="/">
               <button className={css.homeButton} />
             </Link>
