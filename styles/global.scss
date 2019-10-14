@@ -25,9 +25,11 @@ a:active {
   color: #000;
   background-color: none;
 }
+
 ul li {
   list-style: none;
 }
+
 button {
   border: 0;
   outline: 0;
@@ -49,7 +51,7 @@ input {
 }
 
 input[type='password'] {
-  font-family: 'sans-serif';
+  font-family: 'Noto Sans KR', 'sans-serif';
 }
 
 input[type='password']::placeholder {
