@@ -90,8 +90,8 @@ export default class ShoppingCartStore {
       })
       .catch(err => {
         console.error(err);
+        this.cartAmount = 0;
       });
-    return this.cartAmount;
   };
   //--------------------- 장바구니 실시간 인기 상품 가져오기 ---------------------
   @action

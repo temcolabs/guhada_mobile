@@ -22,6 +22,11 @@ class DefaultLayout extends Component {
       this.props.shoppingcart.globalGetUserShoppingCartList();
     }
   }
+  componentWillUnmount() {
+    if (this.props.login.loginStatus === 'LOGIN_DONE') {
+      this.props.shoppingcart.globalGetUserShoppingCartList();
+    }
+  }
   render() {
     const {
       pageTitle,
