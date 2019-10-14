@@ -39,7 +39,7 @@ class DefaultLayout extends Component {
     const categorySize = 44;
     const searchTabSize = 56;
 
-    let cartAmount = shoppingcart.cartAmount;
+    const { cartAmount } = shoppingcart;
 
     let paddingTop;
     if (topLayout === 'main') {
