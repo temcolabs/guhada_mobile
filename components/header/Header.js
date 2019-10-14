@@ -16,19 +16,16 @@ import BrandContainer from './item/BrandContainer';
  * productDetail 일때 layout 변경
  */
 
-let cartAmount = 0;
-
-function Header({ children, headerShape, history, shoppingcart }) {
+function Header({ children, headerShape, history, cartAmount }) {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isCategoryVisible, setIsCategoryVisible] = useState(false);
   const [categoryId, setCategoryId] = useState(0);
   const [categoryTitle, setCategoryTitle] = useState('');
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [isBrandVisible, setIsBrandVisible] = useState(false);
-  // if (cartAmount === 0) {
-  //   cartAmount = shoppingcart.globalGetUserShoppingCartList();
-  // }
+
   let urlHistory = sessionStorage.get('urlHistory');
+
   return (
     <>
       {headerShape === 'keyword' ? (
@@ -142,4 +139,5 @@ function Header({ children, headerShape, history, shoppingcart }) {
     </>
   );
 }
-export default inject('history', 'shoppingcart')(Header);
+
+export default inject('history')(Header);

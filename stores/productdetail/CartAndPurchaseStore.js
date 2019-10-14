@@ -35,46 +35,44 @@ export default class CartAndPurchaseStore {
           )
           .then(res => {
             let data = res.data;
-            if (data.resultCode === 200) {
-              API.product
-                .get(
-                  `/deals`,
-                  qs.stringify({
-                    brandId: this.root.productdetail.deals.brandId,
-                    pageIndex: 0,
-                    unitPerPage: 3,
-                  }),
-                  {
-                    headers: {
-                      'content-type': 'application/x-www-form-urlencoded',
-                    },
-                  }
-                )
-                .then(res => {
-                  let data = res.data;
-                  this.associatedProduct = data.data;
-                  this.root.shoppingCartSuccessModal.showModal({
-                    confirmText: '장바구니로 이동',
-                    contentStyle: {
-                      position: 'fixed',
-                      width: '100%',
-                      bottom: '0%',
-                      top: 'none',
-                      left: '50%',
-                      right: 'initial',
-                      transform: 'translate(-50%, 0%)',
-                      background: 'transparent',
-                      padding: 0,
-                      overflow: 'hidden',
-                      borderRadius: 0,
-                    },
-                    onConfirm: () => {
-                      Router.push('/shoppingcart');
-                    },
-                  });
-                  this.root.shoppingcart.globalGetUserShoppingCartList();
+            API.product
+              .get(
+                `/deals`,
+                qs.stringify({
+                  brandId: this.root.productdetail.deals.brandId,
+                  pageIndex: 0,
+                  unitPerPage: 3,
+                }),
+                {
+                  headers: {
+                    'content-type': 'application/x-www-form-urlencoded',
+                  },
+                }
+              )
+              .then(res => {
+                let data = res.data;
+                this.associatedProduct = data.data;
+                this.root.shoppingCartSuccessModal.showModal({
+                  confirmText: '장바구니로 이동',
+                  contentStyle: {
+                    position: 'fixed',
+                    width: '100%',
+                    bottom: '0%',
+                    top: 'none',
+                    left: '50%',
+                    right: 'initial',
+                    transform: 'translate(-50%, 0%)',
+                    background: 'transparent',
+                    padding: 0,
+                    overflow: 'hidden',
+                    borderRadius: 0,
+                  },
+                  onConfirm: () => {
+                    Router.push('/shoppingcart');
+                  },
                 });
-            }
+              });
+            this.root.shoppingcart.globalGetUserShoppingCartList();
           })
           .catch(err => {
             if (this.root.login.loginStatus === loginStatus.LOGOUT) {
