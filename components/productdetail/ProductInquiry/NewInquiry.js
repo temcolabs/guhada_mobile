@@ -29,16 +29,18 @@ function NewInquiry({ isVisible, onClose, productdetail }) {
             <div className={css.headerText}>상품 문의하기</div>
           </div>
           <div className={css.contentsWrap}>
-            <textarea
-              className={css.inquiryText}
-              placeholder="문의하실 내용을 입력하세요"
-              value={content}
-              onChange={e => {
-                setContentText(e);
-              }}
-            />
-            <div className={css.textCountWrap}>
-              <span>{count}</span>/1000
+            <div className={css.textareaWrap}>
+              <textarea
+                className={css.inquiryText}
+                placeholder="문의하실 내용을 입력하세요"
+                value={content}
+                onChange={e => {
+                  setContentText(e);
+                }}
+              />
+              <div className={css.textCountWrap}>
+                <span>{count}</span>/1000
+              </div>
             </div>
             <div className={css.withOutContents}>
               <div className={css.checkboxWrap}>
@@ -53,13 +55,16 @@ function NewInquiry({ isVisible, onClose, productdetail }) {
                 />
                 <label htmlFor="privateInquiry">
                   <span />
-                  {`비공개글 설정`}
+                  <div>{`비공개글 설정`}</div>
                 </label>
               </div>
               <div className={css.subContent}>
                 {`문의하신 내용에 대한 답변은 해당 상품의 상세페이지 또는 `}
-                <span className={css.colored}>마이페이지 > 상품문의</span>에서
-                확인하실 수 있습니다.
+                <span className={css.colored}>
+                  <br />
+                  마이페이지 > 상품문의
+                </span>
+                에서 확인하실 수 있습니다.
               </div>
             </div>
           </div>
