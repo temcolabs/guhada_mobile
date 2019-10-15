@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-import Router from 'next/router';
+import Router, { withRouter } from 'next/router';
 import css from './Header.module.scss';
 import HeaderMenu from './HeaderMenu';
 import CategoryDepthMenu from './CategoryDepthMenu';
@@ -69,14 +69,7 @@ function Header({ children, headerShape, history }) {
           headerShape === 'sellerStore' ||
           headerShape === 'brand' ||
           (headerShape === 'address' && urlHistory !== '') ? (
-            <button
-              className={css.backButton}
-              onClick={() =>
-                Router.back({
-                  ignoreCache: true,
-                })
-              }
-            />
+            <button className={css.backButton} onClick={() => Router.back()} />
           ) : null}
 
           {headerShape === 'shoppingcart' ||
@@ -166,4 +159,6 @@ function Header({ children, headerShape, history }) {
   );
 }
 
-export default inject('history', 'shoppingcart', 'user')(observer(Header));
+export default withRouter(
+  inject('history', 'shoppingcart', 'user')(observer(Header))
+);
