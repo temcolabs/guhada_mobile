@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import css from './DefaultLayout.module.scss';
 import Header from 'components/header/Header';
 import ToolBar from 'components/toolbar/ToolBar';
+import Router from 'next/router';
 import Footer from 'components/footer/Footer';
 /**
  * DefaultLayout
@@ -15,7 +16,10 @@ import Footer from 'components/footer/Footer';
 
 class DefaultLayout extends Component {
   componentDidMount() {
-    console.log('default layout mount');
+    Router.beforePopState(({ as }) => {
+      window.location.href = as;
+      window.location.reload();
+    });
   }
   render() {
     const { pageTitle, toolBar, headerShape, topLayout } = this.props;
