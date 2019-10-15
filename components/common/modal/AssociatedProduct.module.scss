@@ -3,9 +3,8 @@
   position: relative;
   background-color: #fff;
   font-size: 16px;
-  border-radius: 2px;
   .modal__inner {
-    padding: 40px 20px 0;
+    padding: 30px 20px 0;
     .modal__top {
       display: flex;
       justify-content: space-between;
@@ -20,25 +19,27 @@
       }
 
       .wrapTitle {
-        font-size: 26px;
-        font-weight: normal;
+        font-size: 22px;
+        line-height: 30px;
+        font-weight: 300;
         color: #111;
       }
     }
 
     .associatedProduct {
       margin-top: 40px;
-      padding: 0 0 35px;
+      padding-bottom: 40px;
 
       .associatedProductTitle {
         font-size: 16px;
         color: #111;
-        font-weight: bold;
+        font-weight: 500;
       }
 
       ul {
         display: flex;
         justify-content: space-between;
+        margin: 0;
         li {
           list-style: none;
           margin-top: 17px;

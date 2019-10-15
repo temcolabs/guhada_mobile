@@ -5,13 +5,15 @@ import ShippingMessageSelect from './ShippingMessageSelect';
 import AddressChangeModal from './modal/AddressChangeModal';
 import addHyphenToMobile from 'lib/string/addHyphenToMobile';
 import { devLog } from 'lib/devLog';
+import _ from 'lodash';
 @inject('orderpayment')
 @observer
 class ShippingAddress extends Component {
   render() {
     let { orderpayment } = this.props;
-    let address = orderpayment.orderShippingList.defaultAddress;
+    let address = orderpayment.orderShippingList?.defaultAddress;
     devLog('address', address);
+    devLog('_.isEmpty(address) ', _.isEmpty(address));
     return (
       <div className={css.wrap}>
         <div className={css.top}>
@@ -26,7 +28,9 @@ class ShippingAddress extends Component {
             <span className={css.arrow} />
           </div>
         </div>
-        {address ? (
+        {_.isEmpty(address) ? (
+          <div>배송지가 없습니다.</div>
+        ) : (
           <Fragment>
             <div className={css.shippingAddressWrap}>
               <div className={css.shippingAddressItem}>
@@ -67,8 +71,6 @@ class ShippingAddress extends Component {
               </div>
             ) : null}
           </Fragment>
-        ) : (
-          <div>배송지가 없습니다.</div>
         )}
 
         <AddressChangeModal

@@ -32,9 +32,7 @@ class CartItem extends Component {
                 onClick={() => {
                   shoppingcart.ShoppingCartItemDelete(data.cartItemId);
                 }}
-              >
-                <img src="/static/icon/m_delete.png" alt="삭제버튼" />
-              </div>
+              />
             </div>
             <div className={css.cart__item}>
               <Link href={`/productdetail?deals=${data.dealId}`}>
@@ -126,12 +124,10 @@ class CartItem extends Component {
         <div className={css.inner}>
           <div className={css.top}>
             <div className={css.topLeft}>
-              <div className={css.item__check}>
-                <label>
-                  <input type="checkbox" checked={false} readOnly />
-                  <div />
-                </label>
-              </div>
+              <label>
+                <input type="checkbox" checked={false} readOnly />
+                <div />
+              </label>
               {data.totalStock === 0 ? (
                 <div className={css.soldoutMessage}>
                   <i />
@@ -145,13 +141,11 @@ class CartItem extends Component {
               )}
             </div>
             <div
-              className={[css.item__delete, css.noSale].join(' ')}
+              className={css.item__delete}
               onClick={() => {
                 shoppingcart.ShoppingCartItemDelete(data.cartItemId);
               }}
-            >
-              <img src="/static/icon/m_delete.png" alt="삭제버튼" />
-            </div>
+            />
           </div>
           <div className={css.cart__item}>
             <Link href={`/productdetail?deals=${data.dealId}`}>

@@ -1,6 +1,6 @@
 .wrap {
-  padding: 0 20px 30px;
-  background: #fafafa;
+  padding: 22px 20px 30px;
+  background: #f9f9fa;
 
   .quantityChangeWrap {
     display: flex;
@@ -72,13 +72,12 @@
     margin-top: 20px;
     display: flex;
     justify-content: space-between;
-
     div {
       display: flex;
       justify-content: center;
       align-items: center;
       color: #fff;
-      min-width: 50%;
+      min-width: 49%;
       height: 42px;
     }
     .optionChangeCancle {
@@ -87,7 +86,6 @@
 
     .optionChangeConfirm {
       background: #5d2ed1;
-      margin-left: 8px;
     }
   }
 }
