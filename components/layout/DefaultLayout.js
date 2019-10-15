@@ -14,6 +14,9 @@ import Footer from 'components/footer/Footer';
  */
 
 class DefaultLayout extends Component {
+  componentDidMount() {
+    console.log('default layout mount');
+  }
   render() {
     const { pageTitle, toolBar, headerShape, topLayout } = this.props;
     const headerSize = 60;

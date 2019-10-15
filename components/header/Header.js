@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-import Router, { withRouter } from 'next/router';
+import Router from 'next/router';
 import css from './Header.module.scss';
 import HeaderMenu from './HeaderMenu';
 import CategoryDepthMenu from './CategoryDepthMenu';
@@ -159,6 +159,4 @@ function Header({ children, headerShape, history }) {
   );
 }
 
-export default withRouter(
-  inject('history', 'shoppingcart', 'user')(observer(Header))
-);
+export default inject('history', 'shoppingcart', 'user')(observer(Header));
