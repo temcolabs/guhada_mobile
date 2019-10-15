@@ -3,7 +3,6 @@ import css from './DefaultLayout.module.scss';
 import Header from 'components/header/Header';
 import ToolBar from 'components/toolbar/ToolBar';
 import Footer from 'components/footer/Footer';
-import { inject, observer } from 'mobx-react';
 /**
  * DefaultLayout
  * 하단 ToolBar를 없애기 위해서는 toolBar props를 false로
@@ -14,32 +13,12 @@ import { inject, observer } from 'mobx-react';
  * @param {String} pageTitle
  */
 
-@inject('shoppingcart', 'login')
-@observer
 class DefaultLayout extends Component {
-  componentDidMount() {
-    if (this.props.login.loginStatus === 'LOGIN_DONE') {
-      this.props.shoppingcart.globalGetUserShoppingCartList();
-    }
-  }
-  componentWillUnmount() {
-    if (this.props.login.loginStatus === 'LOGIN_DONE') {
-      this.props.shoppingcart.globalGetUserShoppingCartList();
-    }
-  }
   render() {
-    const {
-      pageTitle,
-      toolBar,
-      headerShape,
-      topLayout,
-      shoppingcart,
-    } = this.props;
+    const { pageTitle, toolBar, headerShape, topLayout } = this.props;
     const headerSize = 60;
     const categorySize = 44;
     const searchTabSize = 56;
-
-    const { cartAmount } = shoppingcart;
 
     let paddingTop;
     if (topLayout === 'main') {
@@ -55,9 +34,7 @@ class DefaultLayout extends Component {
     return (
       <div className={css.wrap} style={{ paddingTop: `${paddingTop}px` }}>
         {topLayout === 'keyword' ? null : (
-          <Header headerShape={headerShape} cartAmount={cartAmount}>
-            {pageTitle}
-          </Header>
+          <Header headerShape={headerShape}>{pageTitle}</Header>
         )}
         {this.props.children}
 

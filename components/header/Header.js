@@ -12,21 +12,35 @@ import SearchMenu from './SearchMenu';
 import BrandContainer from './item/BrandContainer';
 import { observer } from 'mobx-react-lite';
 import { devLog } from 'lib/devLog';
-
+import useStores from 'stores/useStores';
+import _ from 'lodash';
 /**
  *
  * @param {string} headerShape
  * productDetail 일때 layout 변경
  */
-function Header({ children, headerShape, history, cartAmount }) {
+function Header({ children, headerShape, history }) {
+  const { user, shoppingcart } = useStores();
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isCategoryVisible, setIsCategoryVisible] = useState(false);
   const [categoryId, setCategoryId] = useState(0);
   const [categoryTitle, setCategoryTitle] = useState('');
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [isBrandVisible, setIsBrandVisible] = useState(false);
-
   let urlHistory = sessionStorage.get('urlHistory');
+
+  // shoppingcart.globalGetUserShoppingCartList();
+  const job = () => {
+    shoppingcart.globalGetUserShoppingCartList();
+  };
+  if (_.isNil(_.get(user, 'userInfo.id'))) {
+    // 유저 정보가 없으면, 유저 정보를 가져온 후 실행할 액션에 추가해준다.
+    user.pushJobForUserInfo(job);
+  } else {
+    job();
+  }
+
+  let cartAmount = shoppingcart.cartAmount;
 
   devLog('cartAmount', cartAmount);
 
@@ -145,4 +159,4 @@ function Header({ children, headerShape, history, cartAmount }) {
   );
 }
 
-export default inject('history')(observer(Header));
+export default inject('history', 'shoppingcart', 'user')(observer(Header));
