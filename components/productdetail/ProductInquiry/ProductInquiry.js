@@ -96,7 +96,7 @@ class ProductInquiry extends Component {
               })}
               onClick={() => (this.setTab(''), productdetail.getInquiry(0, ''))}
             >
-              전체문의
+              <div className={css.betweenTab}>전체문의</div>
             </div>
             <div
               className={cn(css.tabItem, {
@@ -107,7 +107,7 @@ class ProductInquiry extends Component {
                 productdetail.getInquiry(0, 'COMPLETED')
               )}
             >
-              답변완료
+              <div className={css.betweenTab}>답변완료</div>
             </div>
             <div
               className={cn(css.tabItem, {
@@ -117,7 +117,7 @@ class ProductInquiry extends Component {
                 this.setTab('PENDING'), productdetail.getInquiry(0, 'PENDING')
               )}
             >
-              미답변
+              <div className={css.betweenTab}>미답변</div>
             </div>
           </div>
         </div>
@@ -132,22 +132,12 @@ class ProductInquiry extends Component {
             </div>
           )}
         </div>
-        {/* {_.isNil(inquiryList.content) === false ?
-        (inquiryList.last === false || inquiryList.first === true) && (
-          <div
-            className={css.pageButton}
-            onClick={() => productdetail.addInquiry(this.state.tab)}
-          >
-            상품 문의 더보기 +
-          </div>
-        ) : null} */}
-
         {_.isNil(inquiryList.content) === false && handleInquiryIcon === false && (
           <div
             className={css.pageButton}
             onClick={() => productdetail.addInquiry(this.state.tab)}
           >
-            상품 문의 더보기 +
+            상품 문의 더보기<div className={css.plusIcon} />
           </div>
         )}
 

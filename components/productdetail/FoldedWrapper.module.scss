@@ -1,7 +1,6 @@
 .wrap {
     width: 100%;
-    padding: 30px 20px 0 20px;
-    margin-bottom: 30px;
+    padding: 0 20px 0 20px;
 
     & .header {
         font-size: 16px;
@@ -17,7 +16,9 @@
         background-image: url('/static/icon/minors_icon.png');
         background-size: 16px;
         background-repeat: no-repeat;
-        background-position: right top;
+        background-position: right center;
+        height: 60px;
+        padding-top: 20px;
 
         &.noline {
             border-bottom: 0;
@@ -31,6 +32,7 @@
 
     & .children {
         display: block;
+        margin-bottom: 30px;
 
         &.folded {
             display: none;

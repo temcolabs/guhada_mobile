@@ -54,7 +54,7 @@ export default function ReviewTab({
             setReviewTab('all');
           }}
         >
-          전체리뷰
+          <div className={css.betweenTab}>전체리뷰</div>
         </div>
         <div
           className={cn(css.tabItem, {
@@ -65,7 +65,7 @@ export default function ReviewTab({
             setReviewTab('photo');
           }}
         >
-          포토리뷰
+          <div className={css.betweenTab}>포토리뷰</div>
         </div>
         <div
           className={cn(css.tabItem, {
@@ -76,7 +76,7 @@ export default function ReviewTab({
             setReviewTab('personal');
           }}
         >
-          수치포함
+          <div className={css.betweenTab}>수치포함</div>
         </div>
         {/* <div
           className={cn(css.tabItem, {

@@ -161,7 +161,10 @@ export default function ReviewSummary({
               ) : (
                 <>
                   {`자세히 보기`}
-                  <img src={'/static/icon/benefit_btn_plus.png'} alt={'icon'} />
+                  <img
+                    src={'/static/icon/detail_btn_more_open.png'}
+                    alt={'icon'}
+                  />
                 </>
               )}
             </div>

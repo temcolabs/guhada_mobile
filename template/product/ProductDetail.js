@@ -153,15 +153,13 @@ class ProductDetail extends React.Component {
 
         {SeparateLine}
         {/* 판매자의 연관상품, 추천상품 */}
-        <SectionWrap>
-          <RelatedAndRecommend
-            dealsOfSameBrand={dealsOfSameBrand}
-            dealsOfRecommend={dealsOfRecommend}
-          />
-        </SectionWrap>
+        <RelatedAndRecommend
+          dealsOfSameBrand={dealsOfSameBrand}
+          dealsOfRecommend={dealsOfRecommend}
+        />
         {SeparateLine}
         {/* 셀러스토어 */}
-        <SectionWrap>
+        <SectionWrap style={{ paddingBottom: '60px' }}>
           <SellerStoreInfo
             deals={deals}
             dealsOfSellerStore={dealsOfSellerStore}
