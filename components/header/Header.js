@@ -10,17 +10,16 @@ import { pushRoute } from 'lib/router';
 import cn from 'classnames';
 import SearchMenu from './SearchMenu';
 import BrandContainer from './item/BrandContainer';
-import { observer } from 'mobx-react-lite';
+// import { observer } from 'mobx-react-lite';
 import { devLog } from 'lib/devLog';
-import useStores from 'stores/useStores';
+// import useStores from 'stores/useStores';
 import _ from 'lodash';
 /**
  *
  * @param {string} headerShape
  * productDetail 일때 layout 변경
  */
-function Header({ children, headerShape, history }) {
-  const { user, shoppingcart } = useStores();
+function Header({ children, headerShape, history, cartAmount }) {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isCategoryVisible, setIsCategoryVisible] = useState(false);
   const [categoryId, setCategoryId] = useState(0);
@@ -29,21 +28,7 @@ function Header({ children, headerShape, history }) {
   const [isBrandVisible, setIsBrandVisible] = useState(false);
   let urlHistory = sessionStorage.get('urlHistory');
 
-  // shoppingcart.globalGetUserShoppingCartList();
-  const job = () => {
-    shoppingcart.globalGetUserShoppingCartList();
-  };
-  if (_.isNil(_.get(user, 'userInfo.id'))) {
-    // 유저 정보가 없으면, 유저 정보를 가져온 후 실행할 액션에 추가해준다.
-    user.pushJobForUserInfo(job);
-  } else {
-    job();
-  }
-
-  let cartAmount = shoppingcart.cartAmount;
-
   devLog('cartAmount', cartAmount);
-  console.log('cartAmount', cartAmount);
   return (
     <>
       {headerShape === 'keyword' ? (
@@ -159,4 +144,4 @@ function Header({ children, headerShape, history }) {
   );
 }
 
-export default inject('history', 'shoppingcart', 'user')(observer(Header));
+export default inject('history')(Header);
