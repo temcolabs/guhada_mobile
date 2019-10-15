@@ -69,7 +69,14 @@ function Header({ children, headerShape, history }) {
           headerShape === 'sellerStore' ||
           headerShape === 'brand' ||
           (headerShape === 'address' && urlHistory !== '') ? (
-            <button className={css.backButton} onClick={() => Router.back()} />
+            <button
+              className={css.backButton}
+              onClick={() =>
+                Router.back({
+                  ignoreCache: true,
+                })
+              }
+            />
           ) : null}
 
           {headerShape === 'shoppingcart' ||
