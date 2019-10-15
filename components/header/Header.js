@@ -43,7 +43,7 @@ function Header({ children, headerShape, history }) {
   let cartAmount = shoppingcart.cartAmount;
 
   devLog('cartAmount', cartAmount);
-
+  console.log('cartAmount', cartAmount);
   return (
     <>
       {headerShape === 'keyword' ? (

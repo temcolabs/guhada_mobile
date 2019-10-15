@@ -88,6 +88,7 @@ export default class ShoppingCartStore {
         this.cartList = data.data.cartItemResponseList;
         this.cartAmount = this.cartList.length;
         devLog(data, 'global shoppingcart length');
+        console.log(data, 'global shoppingcart length');
       })
       .catch(err => {
         console.error(err);
