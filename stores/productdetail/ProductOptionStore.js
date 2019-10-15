@@ -322,7 +322,6 @@ export default class ProductOptionStore {
         .post(`/process/total-due-save/${userId}`, bundleList)
         .then(res => {
           const { data } = res;
-          console.log(data, 'data');
           this.benefitPoint = 0;
           for (let i = 0; i < data.data.dueSavePointList.length; i++) {
             this.benefitPoint += data.data.dueSavePointList[i].totalPoint;
@@ -357,7 +356,6 @@ export default class ProductOptionStore {
       .then(res => {
         const { data } = res;
         this.dueSavebenefitCoupon = data.data;
-        devLog(this.dueSavebenefitCoupon);
         for (let i = 0; i < this.dueSavebenefitCoupon.length; i++) {
           let x = new moment(this.dueSavebenefitCoupon[i].startAt);
           let y = new moment(this.dueSavebenefitCoupon[i].endAt);
@@ -365,9 +363,6 @@ export default class ProductOptionStore {
           let duration = moment.duration(x.diff(y));
           this.dueSavebenefitCoupon[i].expireAt = -duration._data.days;
         }
-
-        devLog(toJS(this.dueSavebenefitCoupon), 'this.dueSavebenefitCoupon');
-        devLog(toJS(this.dueSavebenefitCoupon), 'this.dueSavebenefitCoupon');
       })
       .catch(err => {
         // this.root.alert.showAlert({

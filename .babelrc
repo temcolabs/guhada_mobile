@@ -1,5 +1,15 @@
 {
-  "presets": ["next/babel"],
+  "presets": [
+    [
+      "next/babel",
+      {
+        "preset-env": {
+          "useBuiltIns": "entry",
+          "targets": "> 0.25%, IE >= 10"
+        }
+      }
+    ]
+  ],
   "plugins": [
     [
       "inline-dotenv",
