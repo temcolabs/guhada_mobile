@@ -75,10 +75,7 @@ function Header({ children, headerShape, history, cartAmount }) {
             </Link>
           )}
 
-          {headerShape === 'productDetail' ||
-          headerShape === 'ordersuccess' ||
-          headerShape === 'shoppingcart' ||
-          headerShape === 'orderpayment' ? (
+          {headerShape === 'productDetail' ? (
             <Link href="/">
               <button className={css.homeButton} />
             </Link>
