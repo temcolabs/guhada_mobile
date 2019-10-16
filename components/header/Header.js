@@ -10,12 +10,14 @@ import { pushRoute } from 'lib/router';
 import cn from 'classnames';
 import SearchMenu from './SearchMenu';
 import BrandContainer from './item/BrandContainer';
+import { observer } from 'mobx-react-lite';
+import { devLog } from 'lib/devLog';
+
 /**
  *
  * @param {string} headerShape
  * productDetail 일때 layout 변경
  */
-
 function Header({ children, headerShape, history, cartAmount }) {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isCategoryVisible, setIsCategoryVisible] = useState(false);
@@ -25,6 +27,8 @@ function Header({ children, headerShape, history, cartAmount }) {
   const [isBrandVisible, setIsBrandVisible] = useState(false);
 
   let urlHistory = sessionStorage.get('urlHistory');
+
+  devLog('cartAmount', cartAmount);
 
   return (
     <>
@@ -51,10 +55,7 @@ function Header({ children, headerShape, history, cartAmount }) {
           headerShape === 'sellerStore' ||
           headerShape === 'brand' ||
           (headerShape === 'address' && urlHistory !== '') ? (
-            <button
-              className={css.backButton}
-              onClick={() => window.history.back()}
-            />
+            <button className={css.backButton} onClick={() => Router.back()} />
           ) : null}
 
           {headerShape === 'shoppingcart' ||
@@ -141,4 +142,4 @@ function Header({ children, headerShape, history, cartAmount }) {
   );
 }
 
-export default inject('history')(Header);
+export default inject('history')(observer(Header));

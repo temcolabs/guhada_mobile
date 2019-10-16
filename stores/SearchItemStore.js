@@ -380,7 +380,7 @@ export default class SearchItemStore {
                       const condition = [
                         { label: 'PREMIUM ITEM', value: 'PLUS' },
                         { label: 'BEST ITEM', value: 'BEST' },
-                        { label: 'NEW ARRIVALS', value: 'NEW' },
+                        { label: 'NEW IN', value: 'NEW' },
                       ];
 
                       condition.map(c => {
@@ -412,7 +412,7 @@ export default class SearchItemStore {
                       const condition = [
                         { label: 'PREMIUM ITEM', value: 'PLUS' },
                         { label: 'BEST ITEM', value: 'BEST' },
-                        { label: 'NEW ARRIVALS', value: 'NEW' },
+                        { label: 'NEW IN', value: 'NEW' },
                       ];
 
                       condition.map(c => {
@@ -452,7 +452,7 @@ export default class SearchItemStore {
                       const condition = [
                         { label: 'PREMIUM ITEM', value: 'PLUS' },
                         { label: 'BEST ITEM', value: 'BEST' },
-                        { label: 'NEW ARRIVALS', value: 'NEW' },
+                        { label: 'NEW IN', value: 'NEW' },
                       ];
 
                       condition.map(c => {

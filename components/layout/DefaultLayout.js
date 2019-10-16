@@ -22,6 +22,11 @@ class DefaultLayout extends Component {
       this.props.shoppingcart.globalGetUserShoppingCartList();
     }
   }
+  componentWillUnmount() {
+    if (this.props.login.loginStatus === 'LOGIN_DONE') {
+      this.props.shoppingcart.globalGetUserShoppingCartList();
+    }
+  }
   render() {
     const {
       pageTitle,
@@ -34,7 +39,7 @@ class DefaultLayout extends Component {
     const categorySize = 44;
     const searchTabSize = 56;
 
-    let cartAmount = shoppingcart.cartAmount;
+    const { cartAmount } = shoppingcart;
 
     let paddingTop;
     if (topLayout === 'main') {

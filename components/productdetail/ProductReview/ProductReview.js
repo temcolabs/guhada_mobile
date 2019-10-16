@@ -47,7 +47,8 @@ class ProductReview extends Component {
                   className={css.addReviewButton}
                   onClick={() => productreview.addReview()}
                 >
-                  상품 리뷰 더보기 +
+                  상품 리뷰 더보기
+                  <div className={css.plusIcon} />
                 </div>
               </div>
             )}

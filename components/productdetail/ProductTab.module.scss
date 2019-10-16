@@ -20,10 +20,22 @@
     color: #111111;
     display: inline-block;
     cursor: pointer;
+    position: relative;
 
     &.selected {
       color: #5d2ed1;
       border-bottom: 3px solid #5d2ed1;
+    }
+
+    & .dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background-color: #ce2525;
+      position: absolute;
+      top: -5px;
+      left: 50%;
+      margin-left: 35px;
     }
   }
 }

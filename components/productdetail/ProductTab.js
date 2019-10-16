@@ -91,6 +91,7 @@ class ProductTab extends Component {
             onClick={() => this.selectTab('sellerstoreTab')}
           >
             셀러스토어
+            <div className={css.dot} />
           </div>
         </div>
       </>

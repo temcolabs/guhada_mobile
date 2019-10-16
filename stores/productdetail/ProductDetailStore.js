@@ -71,8 +71,6 @@ export default class ProductDetailStore {
         this.root.productoption.getCouponData();
 
         sessionStorage.removeItem('paymentInfo');
-
-        this.dealsStatus = true;
       })
       .catch(e => {
         if (e.status === 200) {
@@ -85,6 +83,9 @@ export default class ProductDetailStore {
             });
           }
         }
+      })
+      .finally(() => {
+        this.dealsStatus = true;
       });
   };
 

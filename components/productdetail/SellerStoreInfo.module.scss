@@ -93,11 +93,8 @@
             background-color: #5d2ed1;
             float: right;
             font-size: 14px;
-            font-weight: 500;
-            font-style: normal;
-            font-stretch: normal;
+            font-weight: 400;
             line-height: 1.11;
-            letter-spacing: normal;
             text-align: center;
             color: #ffffff;
             display: flex;
@@ -116,11 +113,12 @@
     & .sellerItemWrap {
         width: 100%;
         display: inline-block;
+        margin-top: -10px;
 
         & .sellerItem {
             float: left;
             width: calc((100% - 20px) / 3);
-            margin-top: 20px;
+            margin-top: 30px;
             margin-right: 10px;
 
             &:nth-child(3n) {
@@ -146,7 +144,7 @@
 
                 & .brandWrap {
                     width: 100%;
-                    font-size: 14px;
+                    font-size: 13px;
                     font-weight: 500;
                     font-style: normal;
                     font-stretch: normal;
@@ -165,7 +163,7 @@
                     }
 
                     & .season {
-                        font-size: 11px;
+                        font-size: 12px;
                         display: inline-block;
                         font-weight: normal;
                         color: #777777;
@@ -186,12 +184,12 @@
                     height: 29px;
                     overflow: hidden;
                     white-space: normal;
-                    margin-bottom: 11px;
+                    margin-bottom: 12px;
                 }
 
                 & .price {
                     font-size: 16px;
-                    font-weight: bold;
+                    font-weight: 500;
                     font-style: normal;
                     font-stretch: normal;
                     line-height: 0.94;

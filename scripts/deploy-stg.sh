@@ -14,4 +14,4 @@ echo "\n[upload files with rsync]"
 rsync -arv -progress --delete -e "ssh -i ~/pem/guhada_stg.pem" --exclude-from './.rsyncignore' ./ $USER@$HOST:$DEST_APP
 
 echo "\n[install npm modules and restart pm2 instance at server side]"
-ssh -i ~/pem/guhada_stg.pem $USER@$HOST "cd $DEST_APP && npm install && pm2 reload ecosystem.config.js --only $APP_NAME --env production"
+ssh -i ~/pem/guhada_stg.pem $USER@$HOST "cd $DEST_APP && npm install && pm2 reload ecosystem.config.js --only $APP_NAME --env production" && ./scripts/delete-old-builds.sh
