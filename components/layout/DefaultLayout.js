@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import css from './DefaultLayout.module.scss';
 import Header from 'components/header/Header';
 import ToolBar from 'components/toolbar/ToolBar';
+import Router from 'next/router';
 import Footer from 'components/footer/Footer';
 import { inject, observer } from 'mobx-react';
+import _ from 'lodash';
 /**
  * DefaultLayout
  * 하단 ToolBar를 없애기 위해서는 toolBar props를 false로
@@ -14,34 +16,35 @@ import { inject, observer } from 'mobx-react';
  * @param {String} pageTitle
  */
 
-@inject('shoppingcart', 'login')
+@inject('shoppingcart', 'user')
 @observer
 class DefaultLayout extends Component {
   componentDidMount() {
-    if (this.props.login.loginStatus === 'LOGIN_DONE') {
-      this.props.shoppingcart.globalGetUserShoppingCartList();
-    }
+    this.shoppingCartAmountCheck();
+    Router.beforePopState(() => {
+      this.shoppingCartAmountCheck();
+    });
   }
-  componentWillUnmount() {
-    if (this.props.login.loginStatus === 'LOGIN_DONE') {
+  shoppingCartAmountCheck = () => {
+    const job = () => {
       this.props.shoppingcart.globalGetUserShoppingCartList();
+    };
+    if (_.isNil(_.get(this.props.user, 'userInfo.id'))) {
+      // 유저 정보가 없으면, 유저 정보를 가져온 후 실행할 액션에 추가해준다.
+      this.props.user.pushJobForUserInfo(job);
+    } else {
+      job();
     }
-  }
+  };
   render() {
-    const {
-      pageTitle,
-      toolBar,
-      headerShape,
-      topLayout,
-      shoppingcart,
-    } = this.props;
+    const { pageTitle, toolBar, headerShape, topLayout } = this.props;
     const headerSize = 60;
     const categorySize = 44;
     const searchTabSize = 56;
 
-    const { cartAmount } = shoppingcart;
-
     let paddingTop;
+
+    let cartAmount = this.props.shoppingcart.cartAmount;
     if (topLayout === 'main') {
       paddingTop = headerSize;
     } else if (topLayout === 'category') {

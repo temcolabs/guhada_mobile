@@ -15,6 +15,10 @@ import css from './OrderPayment.module.scss';
 @inject('orderpayment', 'customerauthentication')
 @observer
 class OrderPayment extends React.Component {
+  componentWillUnmount() {
+    sessionStorage.removeItem('paymentInfo'); //임시
+    this.props.orderpayment.orderpaymentInit();
+  }
   render() {
     let { orderpayment } = this.props;
     return (

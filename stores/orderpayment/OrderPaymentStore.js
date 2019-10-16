@@ -141,40 +141,40 @@ export default class OrderPaymentStore {
           this.status.selectedShipStatus = false;
         }
 
-        let paymentRemainCheck = JSON.parse(
-          sessionStorage.getItem('paymentInfo')
-        );
+        // let paymentRemainCheck = JSON.parse(
+        //   sessionStorage.getItem('paymentInfo')
+        // );
 
-        if (paymentRemainCheck) {
-          let resultMsg = getParameterByName('resultMsg');
-          this.root.alert.showAlert({
-            content: resultMsg || '결제가 취소되었습니다.',
-          });
-          window.scrollTo(0, paymentRemainCheck.wScroll);
-          if (!paymentRemainCheck.shippingType) {
-            this.status.selectedShipStatus = true;
-            this.orderShippingList.newAddress =
-              paymentRemainCheck.shippingAddress;
+        // if (paymentRemainCheck) {
+        //   let resultMsg = getParameterByName('resultMsg');
+        //   this.root.alert.showAlert({
+        //     content: resultMsg || '결제가 취소되었습니다.',
+        //   });
+        //   window.scrollTo(0, paymentRemainCheck.wScroll);
+        //   if (!paymentRemainCheck.shippingType) {
+        //     this.status.selectedShipStatus = true;
+        //     this.orderShippingList.newAddress =
+        //       paymentRemainCheck.shippingAddress;
 
-            this.orderShippingList.newAddress.shippingMessageType === 'SELF'
-              ? (this.status.newShppingRequestSelfStatus = true)
-              : (this.status.newShppingRequestSelfStatus = false);
+        //     this.orderShippingList.newAddress.shippingMessageType === 'SELF'
+        //       ? (this.status.newShppingRequestSelfStatus = true)
+        //       : (this.status.newShppingRequestSelfStatus = false);
 
-            this.orderShippingList.isAddShippingAddress =
-              paymentRemainCheck.addShippingAddress;
+        //     this.orderShippingList.isAddShippingAddress =
+        //       paymentRemainCheck.addShippingAddress;
 
-            this.orderShippingList.newAddress.defaultAddress =
-              paymentRemainCheck.shippingAddress.defaultAddress;
-          }
+        //     this.orderShippingList.newAddress.defaultAddress =
+        //       paymentRemainCheck.shippingAddress.defaultAddress;
+        //   }
 
-          this.paymentMethod = paymentRemainCheck.parentMethodCd;
-          this.status.orderPaymentAgreement = !this.status
-            .orderPaymentAgreement;
+        //   this.paymentMethod = paymentRemainCheck.parentMethodCd;
+        //   this.status.orderPaymentAgreement = !this.status
+        //     .orderPaymentAgreement;
 
-          sessionStorage.removeItem('paymentInfo');
-        }
+        //   sessionStorage.removeItem('paymentInfo');
+        // }
         this.status.pageStatus = true;
-        history.replaceState(
+        window.history.replaceState(
           {},
           null,
           `orderpayment?cartList=${this.cartList}`
@@ -1061,6 +1061,18 @@ export default class OrderPaymentStore {
         defaultAddress: false,
       },
       isAddShippingAddress: false,
+    };
+    this.orderUserInfo = {
+      address: null,
+      detailAddress: null,
+      email: null,
+      emailVerify: false,
+      id: null,
+      mobile: null,
+      name: null,
+      nickname: null,
+      roadAddress: null,
+      zip: null,
     };
     this.status = {
       pageStatus: false,

@@ -26,6 +26,7 @@
         border: 1px solid #eee;
         padding: 0 15px;
         height: 45px;
+        line-height: 45px;
         font-size: 13px;
         color: #777;
       }
@@ -65,7 +66,6 @@
         background-size: 16px 16px;
         background-position: center;
         background-repeat: no-repeat;
-        transition: all 0.5s;
       }
 
       .labelTxt {

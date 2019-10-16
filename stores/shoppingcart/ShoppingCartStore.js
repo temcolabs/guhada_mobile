@@ -59,6 +59,7 @@ export default class ShoppingCartStore {
         this.getOptions();
         this.setTotalItemCheckbox();
         this.getTotalResultAmount();
+        this.cartAmount = this.cartList.length;
         devLog(this.cartList, 'cartList');
         this.status.pageStatus = true;
         if (this.cartList.length === 0) {
@@ -86,7 +87,8 @@ export default class ShoppingCartStore {
         let data = res.data;
         this.cartList = data.data.cartItemResponseList;
         this.cartAmount = this.cartList.length;
-        devLog(data, 'data');
+        devLog(data, 'global shoppingcart length');
+        console.log(data, 'global shoppingcart length');
       })
       .catch(err => {
         console.error(err);

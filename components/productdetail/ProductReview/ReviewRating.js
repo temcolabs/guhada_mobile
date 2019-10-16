@@ -32,6 +32,7 @@ class ReviewRating extends Component {
                     productreview.setReviewTab('all', item.value);
                     setRatingLabel(item.label);
                   }}
+                  key={index}
                 >
                   {item.label}
                 </div>

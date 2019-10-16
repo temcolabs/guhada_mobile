@@ -10,9 +10,10 @@ import { pushRoute } from 'lib/router';
 import cn from 'classnames';
 import SearchMenu from './SearchMenu';
 import BrandContainer from './item/BrandContainer';
-import { observer } from 'mobx-react-lite';
+// import { observer } from 'mobx-react-lite';
 import { devLog } from 'lib/devLog';
-
+// import useStores from 'stores/useStores';
+import _ from 'lodash';
 /**
  *
  * @param {string} headerShape
@@ -25,11 +26,9 @@ function Header({ children, headerShape, history, cartAmount }) {
   const [categoryTitle, setCategoryTitle] = useState('');
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [isBrandVisible, setIsBrandVisible] = useState(false);
-
   let urlHistory = sessionStorage.get('urlHistory');
 
   devLog('cartAmount', cartAmount);
-
   return (
     <>
       {headerShape === 'keyword' ? (
@@ -142,4 +141,4 @@ function Header({ children, headerShape, history, cartAmount }) {
   );
 }
 
-export default inject('history')(observer(Header));
+export default inject('history')(Header);
