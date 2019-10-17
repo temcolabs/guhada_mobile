@@ -82,6 +82,7 @@ export default class SellerStore {
   getInitSellerStoreItem = () => {
     this.page = 1;
     this.dealsOfSellerStore = [];
+    // this.dealsOfSellerStore = new Array(10);
   };
   @action
   getSellerStoreDeal = sellerId => {
