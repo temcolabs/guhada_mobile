@@ -66,7 +66,9 @@
     }
 
     & .tabWrap {
-        height: 41px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
 
         & .tabItem {
             width: calc(100% / 3);
