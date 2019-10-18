@@ -53,22 +53,32 @@ class ShippingBenefit extends Component {
     const { reviewSummary } = productreview;
     return (
       <div className={css.wrap}>
-        <div className={css.itemWrap}>
+        <div
+          className={css.itemWrap}
+          style={{ borderBottom: '1px solid #eee' }}
+        >
           <div className={css.itemTitle}>배송정보</div>
           <div className={css.contentsWrap}>
             <div>{deals.shippingSummary}</div>
           </div>
         </div>
-        {productoption.benefitPoint || false || false ? (
+        {productoption.duesavePointList?.length > 0 || false || false ? (
           <div
             className={css.itemWrap}
             onClick={() => {
               this.benefitHandler();
             }}
+            style={
+              this.state.benefitHandle
+                ? { borderBottom: 'none' }
+                : { borderBottom: '1px solid #eee' }
+            }
           >
             <div className={css.itemTitle}>혜택정보</div>
             <div className={css.contentsWrap}>
-              {productoption.benefitPoint > 0 ? <div>포인트 적립</div> : null}
+              {productoption.duesavePointList?.length > 0 ? (
+                <div>포인트 적립</div>
+              ) : null}
 
               {/* 무이자혜택 */}
               {false ? <div>무이자 할부</div> : null}
@@ -94,11 +104,21 @@ class ShippingBenefit extends Component {
 
         {this.state.benefitHandle ? (
           <div className={css.benefitDetailWrap}>
-            {productoption.benefitPoint > 0 ? (
+            {productoption.duesavePointList?.length > 0 ? (
               <div className={css.benefitDetailSection}>
-                <div className={css.benefitDetaieTitle}>포인트 적립</div>
-                <div className={css.benefitDetailContent}>
-                  {`추가 적립 포인트 최대${productoption.benefitPoint.toLocaleString()}P`}
+                <div className={css.benefitPointSection}>
+                  <div className={css.benefitDetaieTitle}>포인트 적립</div>
+                  <div className={css.benefitDetailContent}>
+                    {productoption.duesavePointList.map((data, index) => {
+                      return (
+                        <div key={index}>
+                          {data.dueSaveType === 'BUY'
+                            ? `구매확정 시 ${data.totalPoint?.toLocaleString()}P 적립`
+                            : `리뷰 작성 시 최대 ${data.totalPoint?.toLocaleString()}P 적립`}
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
             ) : null}

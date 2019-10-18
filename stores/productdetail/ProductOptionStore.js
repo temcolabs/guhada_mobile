@@ -22,7 +22,7 @@ export default class ProductOptionStore {
   @observable shipExpenseType = '';
 
   @observable benefitToggle = false;
-  @observable benefitPoint = 0;
+  @observable duesavePointList = [];
   @observable dueSavebenefitCoupon = [];
   @observable quantityMinusBtn = '/static/icon/quantity_minus_off.png';
   @observable quantityPlusBtn = '/static/icon/quantity_plus_on.png';
@@ -322,14 +322,12 @@ export default class ProductOptionStore {
         .post(`/process/total-due-save/${userId}`, bundleList)
         .then(res => {
           const { data } = res;
-          this.benefitPoint = 0;
-          for (let i = 0; i < data.data.dueSavePointList.length; i++) {
-            this.benefitPoint += data.data.dueSavePointList[i].totalPoint;
-          }
+          this.duesavePointList = data.data.dueSavePointList;
+          console.log(this.duesavePointList, 'duesave point');
         })
         .catch(err => {
           console.log(err);
-          this.benefitPoint = 0;
+          this.duesavePointList = [];
           // this.root.alert.showAlert({
           //   content: `${_.get(err, 'data.message') || err.message}`,
           // });

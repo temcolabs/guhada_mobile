@@ -66,9 +66,11 @@ class ProductOptionSelectbox extends Component {
         styles={selectStyles}
         options={productoption.options.realOptions}
         formatOptionLabel={productoption.getLabelColor}
-        placeholder={`${productdetail.deals.options[0].label1 ||
-          ''} ${productdetail.deals.options[0].label2 || ''} ${productdetail
-          .deals.options[0].label3 || ''}  `}
+        placeholder={`${productdetail.deals.options[0].label1 || ''} ${
+          productdetail.deals.options[0].label2 ? ',' : ''
+        } ${productdetail.deals.options[0].label2 || ''} ${
+          productdetail.deals.options[0].label3 ? ',' : ''
+        }  ${productdetail.deals.options[0].label3 || ''}  `}
         onChange={value => {
           productoption.selectOption(value);
         }}

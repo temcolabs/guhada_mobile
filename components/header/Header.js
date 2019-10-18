@@ -28,7 +28,6 @@ function Header({ children, headerShape, history, cartAmount }) {
   const [isBrandVisible, setIsBrandVisible] = useState(false);
   let urlHistory = sessionStorage.get('urlHistory');
 
-  devLog('cartAmount', cartAmount);
   return (
     <>
       {headerShape === 'keyword' ? (
