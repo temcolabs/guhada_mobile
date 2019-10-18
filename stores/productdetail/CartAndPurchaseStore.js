@@ -5,7 +5,7 @@ import Router from 'next/router';
 import { pushRoute } from 'lib/router';
 import qs from 'qs';
 import { devLog } from 'lib/devLog';
-
+import daumTrakers from 'lib/tracking/daum/daumTrakers';
 const isServer = typeof window === 'undefined';
 
 export default class CartAndPurchaseStore {
@@ -15,7 +15,7 @@ export default class CartAndPurchaseStore {
   @observable associatedProduct = [];
 
   @action
-  setShoppingCart = () => {
+  addShoppingCart = () => {
     let options = this.root.productoption.options;
     if (this.root.login.loginStatus === loginStatus.LOGIN_DONE) {
       if (options.selectedOption) {
@@ -34,7 +34,9 @@ export default class CartAndPurchaseStore {
             }
           )
           .then(res => {
+            // daumTrakers.shoppingCart();
             let data = res.data;
+
             API.product
               .get(
                 `/deals`,
@@ -123,6 +125,7 @@ export default class CartAndPurchaseStore {
             }
           )
           .then(res => {
+            // daumTrakers.shoppingCart();
             let data = res.data;
             Router.push({
               pathname: '/orderpayment',

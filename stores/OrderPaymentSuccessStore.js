@@ -3,6 +3,8 @@ import API from 'lib/API';
 import Router from 'next/router';
 import moment from 'moment';
 import { devLog } from 'lib/devLog';
+import daumTrakers from 'lib/tracking/daum/daumTrakers';
+
 const isServer = typeof window === 'undefined';
 export default class OrderPaymentStore {
   constructor(root) {
@@ -41,6 +43,9 @@ export default class OrderPaymentStore {
           this.getOrderdate();
         }
         devLog(toJS(this.successInfo), '주문완료 정보');
+
+        // daumTrakers.purchaseComplete({orderID : id , amount : this.successInfo.totalOrderPrice })
+
         this.status.pageStatus = true;
       })
       .catch(err => {

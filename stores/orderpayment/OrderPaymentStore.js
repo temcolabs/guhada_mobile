@@ -124,6 +124,7 @@ export default class OrderPaymentStore {
         this.emailCheck(data.user.email);
         this.getTotalQuantity();
         this.getShippingMessageOption();
+        this.userVaildCheck();
         devLog(this.orderInfo, '주문 데이터');
         this.orderProductInfo.map(data => {
           if (data.orderValidStatus !== 'VALID') {
@@ -1162,5 +1163,18 @@ export default class OrderPaymentStore {
       this.root.customerauthentication.emailValid = true;
       this.root.customerauthentication.email = email;
     }
+  };
+
+  @action
+  userVaildCheck = () => {
+    API.user
+      .get(`/users/${this.orderUserInfo.id}`)
+      .then(res => {
+        this.root.customerauthentication.userVerify =
+          res.data.data.userDetail.diCode;
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 }

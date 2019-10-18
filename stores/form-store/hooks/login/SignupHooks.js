@@ -4,6 +4,7 @@ import API from 'lib/API';
 import { root } from 'store';
 import { devLog } from 'lib/devLog';
 import _ from 'lodash';
+import daumTrakers from 'lib/tracking/daum/daumTrakers';
 export default {
   onInit(form) {
     devLog('-> onInit Form HOOK');
@@ -32,6 +33,7 @@ export default {
         devLog(res.data);
         let data = res.data;
 
+        // daumTrakers.signup();
         if (data.resultCode === 200) {
           Router.push('/?signupsuccess=true&email=' + loginData.email);
         }

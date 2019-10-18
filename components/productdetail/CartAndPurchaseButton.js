@@ -14,7 +14,7 @@ class CartAndPurchaseButton extends Component {
             <div
               className={css.shoppingCart__btn}
               onClick={() => {
-                cartAndPurchase.setShoppingCart();
+                cartAndPurchase.addShoppingCart();
               }}
             >
               장바구니
