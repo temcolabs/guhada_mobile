@@ -11,15 +11,13 @@ export default class CustomerAuthentication {
 
   @observable emailAuthentication = false;
   @observable sendMailSuccess = false;
+  @observable userVerify = null;
   @observable emailVerifyCode;
   @observable email = '';
   @observable emailValid = true;
   @action
   emailAuthenticationSend = (email, name) => {
-    if (
-      !this.root.orderpayment.orderUserInfo.name ||
-      !this.root.orderpayment.orderUserInfo.mobile
-    ) {
+    if (!this.userVerify) {
       this.root.alert.showAlert('본인인증을 먼저 진행해주세요.');
       return false;
     }

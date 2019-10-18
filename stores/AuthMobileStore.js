@@ -118,6 +118,7 @@ export default class AuthMobileStore {
                 devLog('data', data);
                 root.orderpayment.orderUserInfo.name = authData.sName;
                 root.orderpayment.orderUserInfo.mobile = authData.sMobileNo;
+                root.customerauthentication.userVerify = authData.sDueInfo;
                 root.alert.showAlert({
                   content: '본인인증 완료',
                 });
