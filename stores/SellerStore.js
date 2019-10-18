@@ -81,8 +81,8 @@ export default class SellerStore {
   @action
   getInitSellerStoreItem = () => {
     this.page = 1;
-    this.dealsOfSellerStore = [];
   };
+
   @action
   getSellerStoreDeal = sellerId => {
     API.search
@@ -93,7 +93,12 @@ export default class SellerStore {
       )
       .then(res => {
         let data = res.data;
-        this.setSellerStoreItem(data.data.deals);
+        if (this.page === 1) {
+          this.dealsOfSellerStore = data.data.deals;
+        } else {
+          this.setSellerStoreItem(data.data.deals);
+        }
+
         this.countOfDeals = data.data.countOfDeals;
       });
   };

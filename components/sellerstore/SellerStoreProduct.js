@@ -30,6 +30,11 @@ export default function SellerStoreProduct({ seller, items, countOfDeals }) {
     seller.getInitSellerStoreItem();
     seller.getSellerStoreDeal(seller.sellerId);
     setSellerStoreFilter(order);
+    // let scrollY = window.scrollY;
+    // console.log('scrollY', scrollY);
+    // setTimeout(function() {
+    //   window.scrollTo(0, scrollY + 100);
+    // }, 1000);
   }
   const handleMoreItemBtn =
     seller.countOfDeals / (seller.unitPerPage * seller.page) <= 1

@@ -26,6 +26,10 @@
             letter-spacing: normal;
             text-align: left;
             color: #444444;
+
+            & label {
+                font-weight: 400;
+            }
         }
     }
 
@@ -134,7 +138,7 @@
 
     & input[type='checkbox']:checked+label span {
         border-color: #ffffff;
-        background-image: url('/static/icon/checkbox_on.png');
+        background-image: url('/static/icon/checkbox_checked_15.png');
         background-size: 16px 16px;
         background-position: center;
         background-repeat: no-repeat;
