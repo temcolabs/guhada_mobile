@@ -54,7 +54,7 @@ module.exports = {
       .then(response => {
         let data = response.data.data;
         console.log(response, 'response');
-        res.redirect('/');
+        res.redirect('/orderpaymentsuccess?id=' + data);
       })
       .catch(err => {
         if (err.status === 200) {
