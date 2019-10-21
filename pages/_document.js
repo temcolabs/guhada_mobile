@@ -60,6 +60,17 @@ class MyDocument extends Document {
             name="naver-site-verification"
             content="1afd6b85b3b1b6b0030bc86e1c392cd057b33b4c"
           />
+          <script type="text/javascript" src="//wcs.naver.net/wcslog.js" />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+              if (!wcs_add) var wcs_add={};
+              wcs_add["wa"] = "s_57744e5ca3ee";
+              if (!_nasa) var _nasa={};
+              wcs.inflow();
+              wcs_do(_nasa);`,
+            }}
+          />
         </Head>
         <body>
           <Main />
