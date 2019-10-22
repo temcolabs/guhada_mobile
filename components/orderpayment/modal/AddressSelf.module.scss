@@ -1,5 +1,6 @@
 .wrap {
   padding: 30px 20px 120px;
+
   .section {
     display: flex;
     align-items: center;
@@ -12,6 +13,7 @@
     &:last-child {
       margin-top: 15px;
     }
+
     // .title {
     //   font-size: 14px;
     //   color: #111;
@@ -21,6 +23,7 @@
     // }
     .value {
       width: 100%;
+
       input {
         width: 100%;
         border: 1px solid #eee;
@@ -31,6 +34,7 @@
         color: #777;
       }
     }
+
     .zipcode {
       margin-left: 10px;
       white-space: nowrap;
@@ -45,22 +49,20 @@
     label {
       display: flex;
       align-items: center;
+
       input[type='checkbox'] {
         display: none;
       }
+
       .checkBox {
         width: 16px;
         height: 16px;
-        border: none;
+        border: 1px solid #dddddd;
         border-radius: 0px;
-        background-image: url('/static/icon/checkbox_off.png');
-        background-size: 16px 16px;
-        background-position: center;
-        background-repeat: no-repeat;
         margin-top: 1px;
       }
 
-      input[type='checkbox']:checked + .checkBox {
+      input[type='checkbox']:checked+.checkBox {
         border: none;
         background-image: url('/static/icon/checkbox_checked_20.png');
         background-size: 16px 16px;
