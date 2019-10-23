@@ -1,0 +1,13 @@
+.wrap {
+  width: 100%;
+  background-color: #7339c9;
+  height: 100%;
+  margin-top: 44px;
+
+  & .bg {
+    background: url('/static/time_deal_bg.png') no-repeat;
+    background-size: contain;
+    height: 100%;
+    padding-top: 89%;
+  }
+}
