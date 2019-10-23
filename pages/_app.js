@@ -14,41 +14,12 @@ import { devLog } from 'lib/devLog';
 
 moment.locale('ko');
 
-const useragent = require('express-useragent');
-const parse = require('url-parse');
-
-// 데스크탑 웹에서 접근했다면, 구하다 데스크탑 웹사이트로 이동시킨다
-
-const redirectToMobileByUA = ctx => {
-  const { req, res } = ctx;
-  let desktop = 'win16|win32|win64|mac|macintel';
-  let clientUA;
-  if (!req && navigator.platform) {
-    if (desktop.indexOf(navigator.platform.toLowerCase()) < 0) {
-      clientUA = true;
-    } else {
-      clientUA = false;
-    }
-  }
-
-  const ua = req ? useragent.parse(req.headers['user-agent']) : clientUA;
-  const isDesktop = req ? ua.isDesktop : clientUA;
-  if (isDesktop) {
-    const parsedUrl = req ? parse(req.url) : document.URL;
-    const targetDesktopUrl = `${process.env.HOSTNAME}${parsedUrl.href}`;
-    res
-      ? res.redirect(targetDesktopUrl)
-      : window.location.replace(targetDesktopUrl);
-  }
-};
-
 class MarketPlatform extends App {
   static async getInitialProps(appContext) {
     const { Component, ctx } = appContext;
 
     if (isBrowser) {
       devLog(`[_app] getInitialProps: appContext`, appContext);
-      redirectToMobileByUA(ctx);
     }
 
     // Get or Create the store with `undefined` as initialState
@@ -86,7 +57,28 @@ class MarketPlatform extends App {
 
   componentDidMount() {
     // this.loadPaymentScript();
+    this.redirectToDesktopByUA();
   }
+
+  // 데스크탑 웹에서 접근했다면, 구하다 데스크탑 웹사이트로 이동시킨다
+
+  redirectToDesktopByUA = () => {
+    let desktop = 'win16|win32|win64|mac|macintel';
+    let clientUA;
+    if (desktop.indexOf(navigator.platform.toLowerCase()) < 0) {
+      clientUA = false;
+    } else {
+      clientUA = true;
+    }
+
+    const isDesktop = clientUA;
+    if (isDesktop) {
+      const parsedUrl = window.location.pathname;
+      const targetDesktopUrl = `${process.env.HOSTNAME}${parsedUrl}`;
+
+      window.location.replace(targetDesktopUrl);
+    }
+  };
 
   /**
    * 결제 모듈 로드. 리소스가 사용 가능한지 확인하고 불러온다.
