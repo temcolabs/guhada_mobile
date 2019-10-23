@@ -60,7 +60,7 @@ class SearchItem6 extends Component {
                   </div>
                   <img
                     className={css.imageUrl}
-                    src={deal.productImage.url}
+                    src={deal.productImage.url || ''}
                     width={165}
                     height={206}
                     alt={deal.productImage.name}

@@ -80,7 +80,7 @@ export default function RelatedAndRecommend({
                 >
                   <img
                     className={css.image}
-                    src={deal.productImage.url}
+                    src={deal.productImage.url || ''}
                     alt={deal.productImage.name}
                   />
                   <div className={css.contentsWrap}>
@@ -114,7 +114,7 @@ export default function RelatedAndRecommend({
                 >
                   <img
                     className={css.image}
-                    src={deal.productImage.url}
+                    src={deal.productImage.url || ''}
                     alt={deal.productImage.name}
                   />
                   <div className={css.contentsWrap}>
