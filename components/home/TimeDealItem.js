@@ -2,7 +2,43 @@ import React from 'react';
 import css from './TimeDealItem.module.scss';
 import cn from 'classnames';
 
-export default function TimeDealItem() {
+export default function TimeDealItem({
+  deal = {
+    brandId: 13,
+    brandName: 'Aquazzura',
+    dealId: 128,
+    dealName: '<타임딜> 템코 후드티',
+    discountPrice: 100000,
+    discountRate: 0,
+    freeShipping: false,
+    imageName: 'nike_air_max_97_black_white.jpeg',
+    imageUrl:
+      'https://dolh13ote4loq.cloudfront.net/images/products/thumb/32d8bbd243954442aaaeccb34bce2826',
+    isBoldName: false,
+    options: [],
+    productId: 132,
+    productImage: {
+      height: 225,
+      name: 'nike_air_max_97_black_white.jpeg',
+      url:
+        'https://dolh13ote4loq.cloudfront.net/images/products/thumb/32d8bbd243954442aaaeccb34bce2826',
+      width: 225,
+    },
+    productName: '템코 후드티',
+    productSeason: '19FW',
+    sellPrice: 100000,
+    sellerId: 251,
+    shipExpenseType: 'PAID',
+    timeDealInfo: {
+      now: 1571821053,
+      remainedTimeForEnd: -46720653,
+      remainedTimeForStart: -49312653,
+      statusCode: 'NORMAL',
+      statusText: '정상',
+    },
+    totalStock: 292,
+  },
+}) {
   return (
     <div className={css.wrap}>
       <div className={css.item}>
@@ -11,33 +47,49 @@ export default function TimeDealItem() {
           <div className={css.timeWrap}>10.17 10AM</div>
         </div>
         <div className={css.soldoutImgWrap}>
-          <div className={css.soldoutBack} />
-          <div className={css.soldoutImg} />
+          <div
+            className={cn({
+              [css.soldoutBack]:
+                deal.timeDealInfo.statusCode === 'OUT_OF_STOCK',
+            })}
+          />
+          <div
+            className={cn({
+              [css.soldoutImg]: deal.timeDealInfo.statusCode === 'OUT_OF_STOCK',
+            })}
+          />
           <div
             className={css.image}
             style={{
-              backgroundImage:
-                'url(https://d3ikprf0m31yc7.cloudfront.net/images/products/thumb/2cb01338ffd64fee9fb5fe83c8f14c88)',
+              backgroundImage: `url(${deal.productImage.url})`,
             }}
           />
         </div>
         <div className={css.detailWrap}>
           <div className={css.brandWrap}>
-            <div className={css.brand}>BURBERRY</div>
-            <div className={css.season}>19SS</div>
+            <div className={css.brand}>{deal.brandName}</div>
+            <div className={css.season}>{deal.productSeason}</div>
           </div>
-          <div className={css.title}>
-            버버리 모노그램 프린팅 실크 셔츠 버버리 모노그램
-          </div>
+          <div className={css.title}>{deal.dealName}</div>
           <div className={css.priceItemWrap}>
             <div className={css.priceItem}>
-              <div className={css.discountPercent}>80%</div>
+              <div className={css.discountPercent}>
+                {`${deal.discountRate}`}
+                <div>%</div>
+              </div>
               <div className={css.priceWrap}>
-                <div className={css.originalPrice}>2,300,000</div>
-                <div className={css.discountPricc}>1,259,000원</div>
+                <div className={css.originalPrice}>
+                  {deal.sellPrice.toLocaleString()}
+                </div>
+                <div className={css.discountPrice}>
+                  {`${deal.discountPrice.toLocaleString()}`}
+                  <div>원</div>
+                </div>
               </div>
             </div>
-            <div className={css.soldout}>품절임박</div>
+            {deal.timeDealInfo.statusCode === 'OUT_OF_STOCK_IMMINENT' && (
+              <div className={css.soldout}>품절임박</div>
+            )}
           </div>
         </div>
       </div>

@@ -23,10 +23,13 @@ class TimeDeal extends Component {
         />
         <div className={css.wrap}>
           <div className={css.bg}>
-            <TimeDealItem />
-            <TimeDealItem />
-            <TimeDealItem />
-            <TimeDealItem />
+            {main.timeDeal.map((deal, index) => {
+              return (
+                <div key={index}>
+                  <TimeDealItem deal={deal} />
+                </div>
+              );
+            })}
           </div>
         </div>
       </DefaultLayout>
