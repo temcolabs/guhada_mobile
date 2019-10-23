@@ -5,22 +5,22 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import React from 'react';
 
-const useragent = require('express-useragent');
-const parse = require('url-parse');
+// const useragent = require('express-useragent');
+// const parse = require('url-parse');
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
     const initialProps = await Document.getInitialProps(ctx);
-    const { req, res } = ctx;
+    // const { req, res } = ctx;
 
     // 데스크탑 웹에서 접근했다면, 구하다 데스크탑 웹사이트로 이동시킨다
-    const ua = useragent.parse(req.headers['user-agent']);
+    // const ua = useragent.parse(req.headers['user-agent']);
 
-    if (!ua.isMobile) {
-      const parsedUrl = parse(req.url);
-      const targetDesktopUrl = `${process.env.HOSTNAME}${parsedUrl.href}`;
-      res.redirect(targetDesktopUrl);
-    }
+    // if (!ua.isMobile) {
+    //   const parsedUrl = parse(req.url);
+    //   const targetDesktopUrl = `${process.env.HOSTNAME}${parsedUrl.href}`;
+    //   res.redirect(targetDesktopUrl);
+    // }
 
     return { ...initialProps };
   }
