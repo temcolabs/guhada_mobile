@@ -14,10 +14,41 @@ import { devLog } from 'lib/devLog';
 
 moment.locale('ko');
 
+const useragent = require('express-useragent');
+const parse = require('url-parse');
+
+// 데스크탑 웹에서 접근했다면, 구하다 데스크탑 웹사이트로 이동시킨다
+
+const redirectToMobileByUA = ctx => {
+  const { req, res } = ctx;
+  let desktop = 'win16|win32|win64|mac|macintel';
+  let clientUA;
+  if (!req && navigator.platform) {
+    if (desktop.indexOf(navigator.platform.toLowerCase()) < 0) {
+      clientUA = true;
+    } else {
+      clientUA = false;
+    }
+  }
+
+  const ua = req ? useragent.parse(req.headers['user-agent']) : clientUA;
+  const isDesktop = req ? ua.isDesktop : clientUA;
+  if (isDesktop) {
+    const parsedUrl = req ? parse(req.url) : document.URL;
+    const targetDesktopUrl = `${process.env.HOSTNAME}${parsedUrl.href}`;
+    res
+      ? res.redirect(targetDesktopUrl)
+      : window.location.replace(targetDesktopUrl);
+  }
+};
+
 class MarketPlatform extends App {
   static async getInitialProps(appContext) {
-    if (process.env.NODE_ENV === 'development' && isBrowser) {
+    const { Component, ctx } = appContext;
+
+    if (isBrowser) {
       devLog(`[_app] getInitialProps: appContext`, appContext);
+      redirectToMobileByUA(ctx);
     }
 
     // Get or Create the store with `undefined` as initialState
@@ -26,8 +57,6 @@ class MarketPlatform extends App {
 
     // Provide the store to getInitialProps of pages
     appContext.ctx.mobxStore = mobxStore;
-
-    const { Component, ctx } = appContext;
 
     let initialProps = {};
 
