@@ -5,6 +5,7 @@ import { root } from 'store';
 import { devLog } from 'lib/devLog';
 import _ from 'lodash';
 import daumTrakers from 'lib/tracking/daum/daumTrakers';
+import naverShoppingTrakers from 'lib/tracking/navershopping/naverShoppingTrakers';
 export default {
   onInit(form) {
     devLog('-> onInit Form HOOK');
@@ -32,7 +33,7 @@ export default {
       .then(function(res) {
         devLog(res.data);
         let data = res.data;
-
+        // naverShoppingTrakers.signup();
         // daumTrakers.signup();
         if (data.resultCode === 200) {
           Router.push('/?signupsuccess=true&email=' + loginData.email);

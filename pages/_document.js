@@ -61,6 +61,10 @@ class MyDocument extends Document {
             content="1afd6b85b3b1b6b0030bc86e1c392cd057b33b4c"
           />
           <script type="text/javascript" src="//wcs.naver.net/wcslog.js" />
+        </Head>
+        <body>
+          <Main />
+          <NextScript />
           <script
             dangerouslySetInnerHTML={{
               __html: `
@@ -71,10 +75,6 @@ class MyDocument extends Document {
               wcs_do(_nasa);`,
             }}
           />
-        </Head>
-        <body>
-          <Main />
-          <NextScript />
         </body>
       </Html>
     );
