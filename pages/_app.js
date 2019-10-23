@@ -63,18 +63,24 @@ class MarketPlatform extends App {
   // 데스크탑 웹에서 접근했다면, 구하다 데스크탑 웹사이트로 이동시킨다
 
   redirectToDesktopByUA = () => {
-    let desktop = 'win16|win32|win64|mac|macintel';
-    let clientUA;
-    if (desktop.indexOf(navigator.platform.toLowerCase()) < 0) {
-      clientUA = false;
+    let userAgent;
+    if (
+      !navigator.userAgent.match(
+        /Mobile|iP(hone|od)|BlackBerry|IEMobile|Kindle|NetFront|Silk-Accelerated|(hpw|web)OS|Fennec|Minimo|Opera M(obi|ini)|Blazer|Dolfin|Dolphin|Skyfire|Zune/
+      )
+    ) {
+      userAgent = true;
     } else {
-      clientUA = true;
+      userAgent = false;
     }
+    const isDesktop = userAgent;
 
-    const isDesktop = clientUA;
     if (isDesktop) {
       const parsedUrl = window.location.pathname;
-      const targetDesktopUrl = `${process.env.HOSTNAME}${parsedUrl}`;
+      const queryName = window.location.search;
+      const targetDesktopUrl = `${
+        process.env.HOSTNAME
+      }${parsedUrl}${queryName}`;
 
       window.location.replace(targetDesktopUrl);
     }
