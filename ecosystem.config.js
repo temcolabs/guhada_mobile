@@ -46,7 +46,7 @@ module.exports = {
       },
     },
     {
-      name: 'guhada-mobile-prod-8081',
+      name: 'guhada-mobile-prod',
       script: 'server.js',
       instances: 0,
       exec_mode: 'cluster', // NOTE: CPU 수만큼 인스턴스를 만들고 클러스터 모드로 프로세스 실행
