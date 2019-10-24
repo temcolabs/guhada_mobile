@@ -69,7 +69,7 @@ class MyDocument extends Document {
             dangerouslySetInnerHTML={{
               __html: `
               if (!wcs_add) var wcs_add={};
-              wcs_add["wa"] = "s_57744e5ca3ee";
+              wcs_add["wa"] = "s_256ea496e0f6";
               if (!_nasa) var _nasa={};
               wcs.inflow();
               wcs_do(_nasa);`,
