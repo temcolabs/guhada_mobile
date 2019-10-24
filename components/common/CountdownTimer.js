@@ -8,7 +8,8 @@ export default function CountdownTimer({
   render = ({ time }) => {},
   isOn = false,
   initialTimeLeft = 0,
-  onTimeOver = () => {}, // 시간 초과했을 때 콜백
+  onTimeOver = () => {}, // 시간 초과했을 때 콜백,
+  hhmmss = false,
 }) {
   const [timeLeft, setTimeLeft] = useState(initialTimeLeft);
   const timerId = useRef(null);
@@ -49,16 +50,30 @@ export default function CountdownTimer({
     };
   }, [initialTimeLeft, isOn, startTimer]);
 
-  const formatTime = time => {
-    if (!!time) {
-      const minutes = parseInt(time / 60);
-      const seconds = time % 60;
+  const formatTime = (time, hhmmss) => {
+    if (!!hhmmss) {
+      if (!!time) {
+        const hours = parseInt(time / 3600);
+        const minutes = parseInt((time % 3600) / 60);
+        const seconds = time % 60;
 
-      return `${prependZero(minutes)}:${prependZero(seconds)}`;
+        return `${prependZero(hours)}:${prependZero(minutes)}:${prependZero(
+          seconds
+        )}`;
+      } else {
+        return '00:00';
+      }
     } else {
-      return '00:00';
+      if (!!time) {
+        const minutes = parseInt(time / 60);
+        const seconds = time % 60;
+
+        return `${prependZero(minutes)}:${prependZero(seconds)}`;
+      } else {
+        return '00:00';
+      }
     }
   };
 
-  return <div>{render({ time: formatTime(timeLeft) })}</div>;
+  return <div>{render({ time: formatTime(timeLeft, hhmmss) })}</div>;
 }

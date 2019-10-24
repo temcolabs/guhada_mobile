@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import css from './TimeDealItem.module.scss';
 import cn from 'classnames';
 import moment from 'moment';
 import timeDeal from 'constant/home/timeDeal';
 import { dateFormat } from 'constant/';
+import CountdownTimer from 'components/common/CountdownTimer';
+import { pushRoute } from 'lib/router';
+
 export default function TimeDealItem({
   deal = {
     brandId: 13,
@@ -46,45 +49,20 @@ export default function TimeDealItem({
   let deadlineRender;
   let now = moment();
   let deadline = now.clone().second(deal.timeDealInfo.remainedTimeForEnd);
-  console.log(
-    deal.timeDealInfo.remainedTimeForEnd,
-    deadline.diff(now, 'days') +
-      ' days, ' +
-      deadline.diff(now, 'hours') +
-      ' hrs, ' +
-      (deadline.diff(now, 'minutes') % 60) +
-      ' mins'
-  );
 
   if (deadline.diff(now, 'hours') > 24) {
     timeDealStatus = timeDeal.DEADLINE;
     deadlineRender = deadline.diff(now, 'days');
-  } else if (deadline.diff(now, 'hours') > 24) {
+  } else if (deadline.diff(now, 'hours') < 24) {
     timeDealStatus = timeDeal.DEADLINE_TODAY;
   }
-  console.log(
-    'deal.timeDealInfo.discountStartAt',
-    deal.timeDealInfo.discountStartAt,
-    moment(deal.timeDealInfo.discountStartAt).format(dateFormat.MMDDHA)
-  );
-  // var eventTime = 1366549200; // Timestamp - Sun, 21 Apr 2013 13:00:00 GMT
-  // var currentTime = 1366547400; // Timestamp - Sun, 21 Apr 2013 12:30:00 GMT
-  let diffTime = deal.timeDealInfo.remainedTimeForEnd;
-  let duration = moment.duration(diffTime * 1000, 'milliseconds');
-  let interval = 1000;
-
-  // setInterval(function() {
-  //   duration = moment.duration(duration - interval, 'milliseconds');
-  //   console.log(
-  //     'time',
-  //     duration.format('hh:mm:ss'),
-  //     duration.hours() + ':' + duration.minutes() + ':' + duration.seconds()
-  //   );
-  // }, interval);
 
   return (
     <div className={css.wrap}>
-      <div className={css.item}>
+      <div
+        className={css.item}
+        onClick={() => pushRoute(`/productdetail?deals=${deal.dealId}`)}
+      >
         {deal.timeDealInfo.statusCode === 'READY' ? (
           <div className={css.statusWrap}>
             <div className={cn(css.deadLineBtn, css.readyBtn)}>판매예정</div>
@@ -104,14 +82,19 @@ export default function TimeDealItem({
           timeDealStatus === timeDeal.DEADLINE_TODAY && (
             <div className={css.statusWrap}>
               <div className={cn(css.deadLineBtn)}>오늘마감</div>
-              <div className={css.timeWrap}>{`11:22:33`}</div>
+              <div className={css.timeWrap}>
+                <CountdownTimer
+                  initialTimeLeft={deal.timeDealInfo.remainedTimeForEnd}
+                  render={({ time }) => {
+                    return <span>{time}</span>;
+                  }}
+                  hhmmss={true}
+                  onTimeOver={() => {}}
+                />
+              </div>
             </div>
           )
         )}
-        {/* <div className={css.statusWrap}>
-          <div className={cn(css.deadLineBtn, css.readyBtn)}>오늘마감</div>
-          <div className={css.timeWrap}>10.17 10AM</div>
-          </div> */}
         <div className={css.soldoutImgWrap}>
           <div
             className={cn({
