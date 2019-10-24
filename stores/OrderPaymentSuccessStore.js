@@ -3,6 +3,7 @@ import API from 'lib/API';
 import Router from 'next/router';
 import moment from 'moment';
 import { devLog } from 'lib/devLog';
+import naverShoppingTrakers from 'lib/tracking/navershopping/naverShoppingTrakers';
 import daumTrakers from 'lib/tracking/daum/daumTrakers';
 
 const isServer = typeof window === 'undefined';
@@ -44,6 +45,9 @@ export default class OrderPaymentStore {
         }
         devLog(toJS(this.successInfo), '주문완료 정보');
 
+        naverShoppingTrakers.purchaseComplete({
+          price: this.successInfo.totalOrderPrice,
+        });
         // daumTrakers.purchaseComplete({orderID : id , amount : this.successInfo.totalOrderPrice })
 
         this.status.pageStatus = true;

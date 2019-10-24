@@ -5,6 +5,7 @@ import Router from 'next/router';
 import { pushRoute } from 'lib/router';
 import qs from 'qs';
 import { devLog } from 'lib/devLog';
+import naverShoppingTrakers from 'lib/tracking/navershopping/naverShoppingTrakers';
 import daumTrakers from 'lib/tracking/daum/daumTrakers';
 const isServer = typeof window === 'undefined';
 
@@ -34,6 +35,7 @@ export default class CartAndPurchaseStore {
             }
           )
           .then(res => {
+            naverShoppingTrakers.shoppingCart();
             // daumTrakers.shoppingCart();
             let data = res.data;
 
