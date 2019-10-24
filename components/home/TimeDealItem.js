@@ -1,7 +1,9 @@
 import React from 'react';
 import css from './TimeDealItem.module.scss';
 import cn from 'classnames';
-
+import moment from 'moment';
+import timeDeal from 'constant/home/timeDeal';
+import { dateFormat } from 'constant/';
 export default function TimeDealItem({
   deal = {
     brandId: 13,
@@ -30,22 +32,86 @@ export default function TimeDealItem({
     sellerId: 251,
     shipExpenseType: 'PAID',
     timeDealInfo: {
-      now: 1571821053,
-      remainedTimeForEnd: -46720653,
-      remainedTimeForStart: -49312653,
-      statusCode: 'NORMAL',
-      statusText: '정상',
+      now: 1571898691,
+      discountStartAt: 1572155528000,
+      remainedTimeForEnd: 861636,
+      statusCode: 'READY',
+      statusText: '판매예정',
     },
     totalStock: 292,
   },
 }) {
+  moment.locale('en');
+  let timeDealStatus;
+  let deadlineRender;
+  let now = moment();
+  let deadline = now.clone().second(deal.timeDealInfo.remainedTimeForEnd);
+  console.log(
+    deal.timeDealInfo.remainedTimeForEnd,
+    deadline.diff(now, 'days') +
+      ' days, ' +
+      deadline.diff(now, 'hours') +
+      ' hrs, ' +
+      (deadline.diff(now, 'minutes') % 60) +
+      ' mins'
+  );
+
+  if (deadline.diff(now, 'hours') > 24) {
+    timeDealStatus = timeDeal.DEADLINE;
+    deadlineRender = deadline.diff(now, 'days');
+  } else if (deadline.diff(now, 'hours') > 24) {
+    timeDealStatus = timeDeal.DEADLINE_TODAY;
+  }
+  console.log(
+    'deal.timeDealInfo.discountStartAt',
+    deal.timeDealInfo.discountStartAt,
+    moment(deal.timeDealInfo.discountStartAt).format(dateFormat.MMDDHA)
+  );
+  // var eventTime = 1366549200; // Timestamp - Sun, 21 Apr 2013 13:00:00 GMT
+  // var currentTime = 1366547400; // Timestamp - Sun, 21 Apr 2013 12:30:00 GMT
+  let diffTime = deal.timeDealInfo.remainedTimeForEnd;
+  let duration = moment.duration(diffTime * 1000, 'milliseconds');
+  let interval = 1000;
+
+  // setInterval(function() {
+  //   duration = moment.duration(duration - interval, 'milliseconds');
+  //   console.log(
+  //     'time',
+  //     duration.format('hh:mm:ss'),
+  //     duration.hours() + ':' + duration.minutes() + ':' + duration.seconds()
+  //   );
+  // }, interval);
+
   return (
     <div className={css.wrap}>
       <div className={css.item}>
-        <div className={css.statusWrap}>
+        {deal.timeDealInfo.statusCode === 'READY' ? (
+          <div className={css.statusWrap}>
+            <div className={cn(css.deadLineBtn, css.readyBtn)}>판매예정</div>
+            <div className={css.timeWrap}>
+              {moment(deal.timeDealInfo.discountStartAt).format(
+                dateFormat.MMDDHA
+              )}
+            </div>
+          </div>
+        ) : timeDealStatus === timeDeal.DEADLINE ? (
+          <div className={cn(css.statusWrap, css.noBorder)}>
+            <div
+              className={cn(css.deadLineBtn, css.deadLineAloneBtn)}
+            >{`${deadlineRender}일 남음`}</div>
+          </div>
+        ) : (
+          timeDealStatus === timeDeal.DEADLINE_TODAY && (
+            <div className={css.statusWrap}>
+              <div className={cn(css.deadLineBtn)}>오늘마감</div>
+              <div className={css.timeWrap}>{`11:22:33`}</div>
+            </div>
+          )
+        )}
+        {/* <div className={css.statusWrap}>
           <div className={cn(css.deadLineBtn, css.readyBtn)}>오늘마감</div>
           <div className={css.timeWrap}>10.17 10AM</div>
-        </div>
+          </div> */}
         <div className={css.soldoutImgWrap}>
           <div
             className={cn({

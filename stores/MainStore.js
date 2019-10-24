@@ -79,7 +79,7 @@ export default class MainStore {
 
   @action
   getTimeDeal = () => {
-    API.product.get(`/time-deals?pageIndex=0&unitPerPage=20`).then(res => {
+    API.product.get(`/time-deals`).then(res => {
       this.timeDeal = res.data.data;
     });
   };

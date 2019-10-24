@@ -18,6 +18,9 @@
       margin-bottom: 30px;
       position: relative;
 
+      &.noBorder {
+        border-color: transparent;
+      }
     }
 
     & .deadLineBtn {
@@ -35,6 +38,11 @@
       left: -1px;
       top: -1px;
       float: left;
+
+      &.deadLineAloneBtn {
+        float: none;
+        margin: 0 auto;
+      }
 
       &.readyBtn {
         background-color: #444444;
