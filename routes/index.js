@@ -32,7 +32,7 @@ module.exports = [
   {
     // 타임딜
     pagePath: '/home/timedeal',
-    asPath: '/home/timedeal',
+    asPath: '/event/timedeal',
   },
 
   // 리턴 URL
