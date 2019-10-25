@@ -21,9 +21,14 @@ import _ from 'lodash';
 class DefaultLayout extends Component {
   componentDidMount() {
     this.shoppingCartAmountCheck();
-    Router.beforePopState(() => {
+    Router.events.on('routeChangeComplete', () => {
       this.shoppingCartAmountCheck();
     });
+    // Router.beforePopState(({ url }) => {
+    //   console.log(url, 'url');
+    //   window.location.replace(url);
+
+    // });
   }
   shoppingCartAmountCheck = () => {
     const job = () => {
