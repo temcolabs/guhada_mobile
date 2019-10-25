@@ -74,7 +74,6 @@ class MarketPlatform extends App {
       userAgent = false;
     }
     const isDesktop = userAgent;
-
     if (isDesktop) {
       const parsedUrl = window.location.pathname;
       const queryName = window.location.search;
