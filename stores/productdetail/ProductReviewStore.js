@@ -18,6 +18,9 @@ export default class ProductReviewStore {
   @observable initialPage = 1;
   @observable rating = '';
   @observable reviewBookMarks;
+  @observable photoPoint = 0;
+  @observable textPoint = 0;
+  @observable maximumPoint = 0;
 
   @action
   setReviewTab = (tab, rating = '') => {
@@ -237,6 +240,36 @@ export default class ProductReviewStore {
         if (_.get(e, 'data.resultCode') === 5004) {
           this.reviewSummary = null;
         }
+      });
+  };
+
+  @action
+  getProductReviewPoint = () => {
+    API.benefit
+      .post(`/process/due-save`, {
+        pointType: 'REVIEW',
+        serviceType: 'REVIEW',
+      })
+      .then(res => {
+        let data = res.data.data;
+        this.reviewPoint = data.dueSavePointList;
+        let pointTemp = data.dueSavePointList.find(
+          o => o.pointType === 'IMG_REVIEW'
+        );
+        this.photoPoint = pointTemp.totalPoint;
+
+        pointTemp = data.dueSavePointList.find(
+          o => o.pointType === 'TEXT_REVIEW'
+        );
+
+        this.textPoint = pointTemp.totalPoint;
+
+        this.maximumPoint = Math.max.apply(
+          Math,
+          data.dueSavePointList.map(function(o) {
+            return o.totalPoint;
+          })
+        );
       });
   };
 }

@@ -54,7 +54,7 @@ class ProductReview extends Component {
             )}
           </>
         ) : (
-          <ProductReviewEmpty alert={alert} />
+          <ProductReviewEmpty alert={alert} productreview={productreview} />
         )}
       </SectionWrap>
     );

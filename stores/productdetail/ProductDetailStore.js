@@ -33,6 +33,7 @@ export default class ProductDetailStore {
       .then(res => {
         let data = res.data;
         this.deals = data.data;
+        this.root.productreview.getProductReviewPoint();
         this.root.productoption.getShipExpenseType();
         this.root.productoption.getOptions();
         this.getDealsTag();
