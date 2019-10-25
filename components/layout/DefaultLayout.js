@@ -21,11 +21,11 @@ import _ from 'lodash';
 class DefaultLayout extends Component {
   componentDidMount() {
     this.shoppingCartAmountCheck();
-    // Router.events.on('routeChangeComplete', () => {
-    //   this.shoppingCartAmountCheck();
-    //   window.scrollTo(0, 0);
-    //   // console.log('routeChangeComplete');
-    // });
+    Router.events.on('routeChangeComplete', () => {
+      this.shoppingCartAmountCheck();
+      window.scrollTo(0, 0);
+      // console.log('routeChangeComplete');
+    });
     // Router.beforePopState(({ url }) => {
     //   console.log(url, 'url');
     //   window.location.replace(url);
