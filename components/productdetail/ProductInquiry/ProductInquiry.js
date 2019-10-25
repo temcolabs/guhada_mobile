@@ -7,7 +7,7 @@ import { toJS } from 'mobx';
 import NewInquiry from './NewInquiry';
 import _ from 'lodash';
 import { loginStatus } from 'constant/';
-import { pushRoute } from 'lib/router';
+import { pushRoute, sendBackToLogin } from 'lib/router';
 
 @inject('productdetail', 'login', 'alert')
 @observer
@@ -57,7 +57,7 @@ class ProductInquiry extends Component {
                   id="askCheckbox"
                   onClick={e => {
                     e.preventDefault();
-                    pushRoute('/login');
+                    sendBackToLogin();
                   }}
                 />
               )}
@@ -72,7 +72,7 @@ class ProductInquiry extends Component {
               onClick={() =>
                 login.loginStatus === loginStatus.LOGIN_DONE
                   ? this.setIsNewInquiryVisible(true)
-                  : pushRoute('/login')
+                  : sendBackToLogin()
               }
             >
               상품 문의하기
@@ -137,7 +137,8 @@ class ProductInquiry extends Component {
             className={css.pageButton}
             onClick={() => productdetail.addInquiry(this.state.tab)}
           >
-            상품 문의 더보기<div className={css.plusIcon} />
+            상품 문의 더보기
+            <div className={css.plusIcon} />
           </div>
         )}
 

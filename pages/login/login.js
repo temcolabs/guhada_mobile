@@ -1,6 +1,5 @@
 import React from 'react';
-import Home from 'template/Home';
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 import Head from 'next/head';
 import Login from 'template/signin/Login';
 import Form from '../../stores/form-store/_.forms';
@@ -36,4 +35,4 @@ class index extends React.Component {
   }
 }
 
-export default index;
+export default withAuth({ isAuthRequired: false })(index);

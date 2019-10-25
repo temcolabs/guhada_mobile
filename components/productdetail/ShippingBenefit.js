@@ -4,7 +4,7 @@ import StarItem from './StarItem';
 import { inject, observer } from 'mobx-react';
 import _ from 'lodash';
 import cn from 'classnames';
-import { pushRoute } from 'lib/router';
+import { pushRoute, sendBackToLogin } from 'lib/router';
 import { loginStatus } from 'constant/';
 
 @inject(
@@ -189,7 +189,7 @@ class ShippingBenefit extends Component {
                   <button
                     className={cn()}
                     onClick={e => {
-                      pushRoute(`/login`);
+                      sendBackToLogin();
                       e.stopPropagation();
                     }}
                   >
