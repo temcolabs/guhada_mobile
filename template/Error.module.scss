@@ -1,6 +1,10 @@
+@import 'styles/mixins/index';
+
 .wrap {
-  padding: 108px 20px 0 20px;
+  width: 100%;
   text-align: center;
+  padding: 0 20px;
+  @include centeredFixed();
 
   & .errorImg {
     width: 100%;
