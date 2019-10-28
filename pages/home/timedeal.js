@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Head from 'next/head';
-import TimeDeal from 'template/home/timedeal';
+import TimeDeal from 'template/home/TimeDeal';
 export class timedeal extends Component {
   render() {
     return (
