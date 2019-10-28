@@ -3,6 +3,10 @@ import css from './CategorySlider.module.scss';
 import { inject, observer } from 'mobx-react';
 import { toJS } from 'mobx';
 import cn from 'classnames';
+import Router from 'next/router';
+import { mainCategory } from 'constant/category';
+import { pushRoute } from 'lib/router';
+import _ from 'lodash';
 
 @inject('searchitem', 'category')
 @observer
@@ -12,17 +16,39 @@ class CategorySlider extends Component {
     isVisibleSubCategory: false,
   };
 
+  componentDidMount() {
+    let asPath = Router.router.asPath;
+    const category = mainCategory.item.find(item => {
+      return item.href === asPath;
+    });
+    if (_.isNil(category) === false) {
+      this.setSelected(category.id);
+    } else {
+      this.setSelected(0);
+    }
+  }
+
   setSelected = id => {
     this.setState({
       selected: id,
     });
     const { setNavDealId } = this.props;
     setNavDealId(id);
-    if (id !== 0) {
+    if (id === 1 || id === 2 || id === 3) {
       this.setState({ isVisibleSubCategory: true });
     } else {
       this.setState({ isVisibleSubCategory: false });
     }
+    this.toScrollTop();
+  };
+
+  pushHref = id => {
+    const category = mainCategory.item.find(item => {
+      return item.id === id;
+    });
+
+    pushRoute(category.href);
+    this.setSelected(category.id);
   };
 
   toSearch = category => {
@@ -33,6 +59,7 @@ class CategorySlider extends Component {
   toScrollTop = () => {
     window.scrollTo(0, 0);
   };
+
   render() {
     const { categoryList, category, searchitem } = this.props;
     const { scrollDirection } = searchitem;
@@ -51,8 +78,8 @@ class CategorySlider extends Component {
                   [css.selected]: item.id === this.state.selected,
                 })}
                 onClick={() => {
-                  this.setSelected(item.id);
-                  this.toScrollTop();
+                  // this.setSelected(item.id);
+                  this.pushHref(item.id);
                 }}
                 key={index}
               >

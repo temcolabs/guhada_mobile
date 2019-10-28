@@ -14,6 +14,7 @@ import SignupSuccessModal from './signin/SignupSuccessModal';
 import Footer from 'components/footer/Footer';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
 import { pushRoute } from 'lib/router';
+import _ from 'lodash';
 
 @withScrollToTopOnMount
 @withRouter
@@ -34,7 +35,17 @@ class Home extends React.Component {
     let query = Router.router.query;
     const { main } = this.props;
 
-    main.setNavDealId(0);
+    let asPath = Router.router.asPath;
+    const category = mainCategory.item.find(item => {
+      return item.href === asPath;
+    });
+
+    if (_.isNil(category) === false) {
+      main.setNavDealId(category.id);
+    } else {
+      main.setNavDealId(0);
+    }
+
     if (query.home) {
       pushRoute('/');
     }

@@ -11,6 +11,30 @@ module.exports = [
     asPath: '/',
   },
 
+  {
+    // 홈 여성
+    pagePath: '/index',
+    asPath: '/home/women',
+  },
+
+  {
+    // 홈 남성
+    pagePath: '/index',
+    asPath: '/home/men',
+  },
+
+  {
+    // 홈 키즈
+    pagePath: '/index',
+    asPath: '/home/kids',
+  },
+
+  {
+    // 타임딜
+    pagePath: '/home/timedeal',
+    asPath: '/event/timedeal',
+  },
+
   // 리턴 URL
   {
     // 나이스 본인인증 성공
