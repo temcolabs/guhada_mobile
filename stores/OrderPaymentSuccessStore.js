@@ -48,7 +48,10 @@ export default class OrderPaymentStore {
         naverShoppingTrakers.purchaseComplete({
           price: this.successInfo.totalOrderPrice,
         });
-        // daumTrakers.purchaseComplete({orderID : id , amount : this.successInfo.totalOrderPrice })
+        daumTrakers.purchaseComplete({
+          orderID: id,
+          amount: this.successInfo.totalOrderPrice,
+        });
 
         this.status.pageStatus = true;
       })

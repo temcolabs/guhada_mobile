@@ -36,7 +36,7 @@ export default class CartAndPurchaseStore {
           )
           .then(res => {
             naverShoppingTrakers.shoppingCart();
-            // daumTrakers.shoppingCart();
+            daumTrakers.shoppingCart();
             let data = res.data;
 
             API.product

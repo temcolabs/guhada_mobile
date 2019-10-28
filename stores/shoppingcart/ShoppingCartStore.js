@@ -496,7 +496,6 @@ export default class ShoppingCartStore {
   //--------------------- 장바구니 아이템 삭제하기 ---------------------
   @action
   ShoppingCartItemDelete = id => {
-    devLog(id);
     this.root.alert.showConfirm({
       content: '해당 상품을 삭제하시겠습니까?',
       confirmText: '확인',

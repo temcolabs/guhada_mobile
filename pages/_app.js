@@ -58,6 +58,7 @@ class MarketPlatform extends App {
   componentDidMount() {
     // this.loadPaymentScript();
     this.redirectToDesktopByUA();
+    this.initDaumTracker();
   }
 
   // 데스크탑 웹에서 접근했다면, 구하다 데스크탑 웹사이트로 이동시킨다
@@ -82,6 +83,17 @@ class MarketPlatform extends App {
       }${parsedUrl}${queryName}`;
 
       window.location.replace(targetDesktopUrl);
+    }
+  };
+
+  initDaumTracker = () => {
+    // 트래킹 아이디 설정
+    if (
+      window.DaumConversionDctSv === undefined &&
+      window.DaumConversionAccountID === undefined
+    ) {
+      window.DaumConversionDctSv = '';
+      window.DaumConversionAccountID = 'PRV6.WiKKpak6Ml_rjmD1Q00';
     }
   };
 

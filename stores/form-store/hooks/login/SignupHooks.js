@@ -34,7 +34,7 @@ export default {
         devLog(res.data);
         let data = res.data;
         naverShoppingTrakers.signup();
-        // daumTrakers.signup();
+        daumTrakers.signup();
         if (data.resultCode === 200) {
           Router.push('/?signupsuccess=true&email=' + loginData.email);
         }

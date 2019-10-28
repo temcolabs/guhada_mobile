@@ -3,6 +3,7 @@ import API from 'lib/API';
 import { root } from 'store';
 import { snsType } from 'constant/sns';
 import { devLog } from 'lib/devLog';
+import daumTrakers from 'lib/tracking/daum/daumTrakers';
 import naverShoppingTrakers from 'lib/tracking/navershopping/naverShoppingTrakers';
 export default {
   onInit() {},
@@ -29,6 +30,7 @@ export default {
         .then(function(res) {
           let data = res.data;
           naverShoppingTrakers.signup();
+          daumTrakers.signup();
           if (data.resultCode === 200) {
             if (login.snsType === snsType.KAKAO) {
               login.loginKakao(login.email);
