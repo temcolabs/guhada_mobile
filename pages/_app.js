@@ -11,6 +11,7 @@ import 'react-dates/initialize';
 import qs from 'qs';
 import { isBrowser } from 'lib/isServer';
 import { devLog } from 'lib/devLog';
+import { isServer } from 'lib/isServer';
 
 moment.locale('ko');
 
@@ -62,27 +63,35 @@ class MarketPlatform extends App {
   }
 
   // 데스크탑 웹에서 접근했다면, 구하다 데스크탑 웹사이트로 이동시킨다
-
   redirectToDesktopByUA = () => {
-    let userAgent;
-    if (
-      !navigator.userAgent.match(
-        /Mobile|iP(hone|od)|BlackBerry|IEMobile|Kindle|NetFront|Silk-Accelerated|(hpw|web)OS|Fennec|Minimo|Opera M(obi|ini)|Blazer|Dolfin|Dolphin|Skyfire|Zune/
-      )
-    ) {
-      userAgent = true;
-    } else {
-      userAgent = false;
+    if (isServer) {
+      return;
     }
-    const isDesktop = userAgent;
-    if (isDesktop) {
-      const parsedUrl = window.location.pathname;
-      const queryName = window.location.search;
-      const targetDesktopUrl = `${
-        process.env.HOSTNAME
-      }${parsedUrl}${queryName}`;
 
-      window.location.replace(targetDesktopUrl);
+    const isMobile = /Mobile|iP(hone|od)|BlackBerry|IEMobile|Kindle|NetFront|Silk-Accelerated|(hpw|web)OS|Fennec|Minimo|Opera M(obi|ini)|Blazer|Dolfin|Dolphin|Skyfire|Zune/.test(
+      window.navigator.userAgent
+    )
+      ? true
+      : false;
+
+    const isRedirectRequired = !isMobile;
+
+    if (isRedirectRequired) {
+      // HOSTNAME이 local로 시작하는 케이스에 대응
+      const desktopHost = process.env.HOSTNAME.replace(
+        /(https?:\/\/)(.+)/,
+        '$2'
+      );
+
+      const { pathname, search } = window.location;
+
+      const targetHref = `${
+        window.location.protocol
+      }//${desktopHost}${pathname}${search}`;
+
+      devLog(`targetHref to redirect from mobile to desktop ...`, targetHref);
+
+      window.location.href = targetHref;
     }
   };
 
