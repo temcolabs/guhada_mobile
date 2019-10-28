@@ -312,14 +312,14 @@ export default class OrderPaymentStore {
         shippingOption.label;
 
       this.orderShippingList.defaultAddress.shippingMessage ===
-      '배송 메세지를 입력해주세요.'
+      '배송 메시지를 입력해주세요.'
         ? (this.status.shppingRequestSelfStatus = true)
         : (this.status.shppingRequestSelfStatus = false);
     } else {
       this.orderShippingList.newAddress.shippingMessage = shippingOption.label;
 
       this.orderShippingList.newAddress.shippingMessage ===
-      '배송 메세지를 입력해주세요.'
+      '배송 메시지를 입력해주세요.'
         ? (this.status.newShppingRequestSelfStatus = true)
         : (this.status.newShppingRequestSelfStatus = false);
     }
