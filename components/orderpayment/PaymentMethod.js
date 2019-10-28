@@ -33,7 +33,11 @@ class PaymentMethod extends Component {
                     orderpayment.setPaymentMethod(data.methodCode);
                   }}
                 >
-                  <input type="radio" name="paymentMethod" />
+                  <input
+                    type="radio"
+                    name="paymentMethod"
+                    defaultChecked={index === 0 ? true : false}
+                  />
                   <div className={css.checkBox} />
                   <div className={css.methodName}>{data.methodName}</div>
                 </label>

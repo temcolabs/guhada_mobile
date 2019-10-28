@@ -92,7 +92,7 @@ export default class OrderPaymentStore {
   @observable orderTotalQuantity = 0;
   @observable shippingMessageOption = [];
   @observable option = [];
-  @observable paymentMethod;
+  @observable paymentMethod = 'Card';
 
   @observable paymentForm = {};
 
@@ -1091,7 +1091,7 @@ export default class OrderPaymentStore {
       cashReceipt: false,
       cashReceiptRequest: false,
     };
-    this.paymentMethod = null;
+    this.paymentMethod = 'Card';
 
     this.orderInfo = {};
     this.shippingListModalClose();
