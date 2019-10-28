@@ -25,11 +25,14 @@ class ErrorPage extends React.Component {
               페이지를 찾을 수 없습니다. <br /> 데스크탑에서 확인해주세요.
             </p>
           ),
+          onConfirm: () => {
+            pushRoute('/');
+          },
         });
+      } else {
+        pushRoute('/');
       }
     }
-
-    // pushRoute(`/`);
   }
 
   constructor(props) {
