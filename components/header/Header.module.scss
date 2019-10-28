@@ -114,3 +114,12 @@
   @include centered();
   font-size: 16px;
 }
+
+.closeButton {
+  background: url('/static/icon/burger-top-close@3x.png') no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 30px;
+  height: 30px;
+  margin-left: auto;
+}

@@ -101,6 +101,12 @@ function Header({ children, headerShape, history, cartAmount }) {
               </div>
             </Link>
           )}
+          {/* 닫기버튼 */}
+          {headerShape === 'ordersuccess' ? (
+            <Link href="/">
+              <div className={css.closeButton} />
+            </Link>
+          ) : null}
 
           <HeaderMenu
             isVisible={isMenuVisible}
