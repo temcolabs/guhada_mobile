@@ -128,8 +128,12 @@ export default class AuthMobileStore {
                 let message = _.get(err, 'data.message');
                 console.log(resultCode, message, 'message', 'resultCode');
                 if (resultCode) {
-                  this.root.alert.showAlert({
+                  root.alert.showAlert({
                     content: message,
+                  });
+                } else {
+                  root.alert.showAlert({
+                    content: '본인인증실패',
                   });
                 }
               });
