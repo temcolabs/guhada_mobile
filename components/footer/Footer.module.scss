@@ -23,7 +23,7 @@
         width: calc(100% - 160px);
       }
 
-      &:nth-child(5) {
+      &:nth-child(n+2) {
         margin-bottom: 0;
       }
     }

@@ -22,7 +22,7 @@ export default function Footer() {
           >
             개인정보처리방침
           </div>
-          <div className={css.tabItem}>셀러오피스</div>
+          <div className={css.tabItem}>문의하기</div>
           <div
             className={css.tabItem}
             onClick={() =>
@@ -36,7 +36,6 @@ export default function Footer() {
           >
             이용약관
           </div>
-          <div className={css.tabItem}>문의하기</div>
         </div>
         <div className={css.contentsWrap}>
           <div className={css.storeItem}>
