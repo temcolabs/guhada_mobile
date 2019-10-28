@@ -23,14 +23,13 @@ class OrderCustomer extends Component {
   };
 
   render() {
-    let { orderpayment } = this.props;
+    let { orderpayment, customerauthentication } = this.props;
 
     return (
       <div className={css.wrap}>
         <div className={css.headerSection}>
           <div className={css.title}>주문자 정보</div>
-          {orderpayment.orderUserInfo.name &&
-          orderpayment.orderUserInfo.mobile ? (
+          {customerauthentication.userVerify ? (
             orderpayment.orderUserInfo.emailVerify ? null : (
               <div
                 className={css.identification}
@@ -54,7 +53,7 @@ class OrderCustomer extends Component {
             </div>
           )}
         </div>
-        {orderpayment.orderUserInfo.name ? (
+        {orderpayment?.orderUserInfo?.name ? (
           <div className={css.customerName}>{`${
             orderpayment.orderUserInfo.name
           } ${addHyphenToMobile(orderpayment.orderUserInfo?.mobile) ||
