@@ -95,27 +95,29 @@ class Home extends React.Component {
           isHandleModal={this.handleModal}
           email={this.state.email}
         />
-        <MainSectionItem
-          title={'PREMIUM ITEM'}
-          items={main.plusItem}
-          categoryId={main.navDealId}
-          toSearch={searchitem.toSearch}
-          condition={'PLUS'}
-        />
-        <MainSectionItem
-          title={'BEST ITEM'}
-          items={main.hits}
-          categoryId={main.navDealId}
-          toSearch={searchitem.toSearch}
-          condition={'BEST'}
-        />
-        <MainSectionItem
-          title={'NEW IN'}
-          items={main.newArrivals}
-          categoryId={main.navDealId}
-          toSearch={searchitem.toSearch}
-          condition={'NEW'}
-        />
+        <div>
+          <MainSectionItem
+            title={'PREMIUM ITEM'}
+            items={main.plusItem}
+            categoryId={main.navDealId}
+            toSearch={searchitem.toSearch}
+            condition={'PLUS'}
+          />
+          <MainSectionItem
+            title={'BEST ITEM'}
+            items={main.hits}
+            categoryId={main.navDealId}
+            toSearch={searchitem.toSearch}
+            condition={'BEST'}
+          />
+          <MainSectionItem
+            title={'NEW IN'}
+            items={main.newArrivals}
+            categoryId={main.navDealId}
+            toSearch={searchitem.toSearch}
+            condition={'NEW'}
+          />
+        </div>
         <HomeItemDefault header={'HOT KEYWORD'}>
           <MainHotKeyword
             hotKeyword={main.hotKeyword}
