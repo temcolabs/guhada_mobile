@@ -27,8 +27,8 @@ export default class MainStore {
   };
   @action
   getPlusItem = () => {
-    API.product
-      .get('/main-home/deals/plus-item', {
+    API.search
+      .get('/ps/main-home/deals/plus-item', {
         params: {
           unitPerPage: this.unitPerPage,
         },
@@ -42,8 +42,8 @@ export default class MainStore {
 
   @action
   getNewArrivals = () => {
-    API.product
-      .get('/main-home/deals/new-arrivals', {
+    API.search
+      .get('/ps/main-home/deals/new-arrivals', {
         params: {
           unitPerPage: this.unitPerPage,
         },
