@@ -110,7 +110,7 @@ export default class KeywordStore {
 
   @action
   getAutoComplete = value => {
-    let reg = /^[가-힣|a-z|A-Z|0-9|\*]+$/;
+    let reg = /^[가-힣|a-z|A-Z|0-9|" "|\*]+$/;
     if (reg.test(value)) {
       API.search
         .get('/ps/search/autoComplete', { params: { searchQuery: value } })

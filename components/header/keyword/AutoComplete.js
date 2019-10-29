@@ -9,7 +9,6 @@ export default function AutoComplete({
   onChangeValue = () => {},
 }) {
   let parts = autoComplete.split(new RegExp(`(${highlight})`, 'gi'));
-
   return (
     <div className={css.wrap} onClick={() => clickToSearch(autoComplete)}>
       <div className={css.itemWrap}>
