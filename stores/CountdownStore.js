@@ -7,6 +7,8 @@ export default class CountdownStore {
   @observable time;
   @observable seconds;
   @observable timer = 0;
+  @observable duplicatedSendCheckerTimer = 0;
+  @observable duplicatedSendChecker = false;
 
   @action
   secondsToTime = secs => {
@@ -34,6 +36,22 @@ export default class CountdownStore {
     if (this.timer == 0 && this.seconds > 0) {
       this.timer = setInterval(this.countDown, 1000);
     }
+  };
+
+  @action
+  startDuplicatedSendChecker = () => {
+    this.duplicatedSendChecker = true;
+
+    this.duplicatedSendCheckerTimer = setTimeout(
+      this.setDuplicatedSendChecker,
+      1000 * 60
+    );
+  };
+
+  @action
+  setDuplicatedSendChecker = () => {
+    this.duplicatedSendChecker = false;
+    clearTimeout(this.duplicatedSendCheckerTimer);
   };
 
   @action

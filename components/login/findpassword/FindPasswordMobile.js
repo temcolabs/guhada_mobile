@@ -6,7 +6,7 @@ import LoginInputButton from '../LoginInputButton';
 
 @inject('countdown')
 @observer
-export class FindPasswordMobile extends Component {
+class FindPasswordMobile extends Component {
   componentDidMount() {
     let { countdown } = this.props;
     countdown.setTime(0);

@@ -22,29 +22,34 @@ export default {
 
     let countdown = root.countdown;
 
-    API.user
-      .post('/verify/sendMobile', {
-        // email: form.values().email,
-        mobile: form.values().mobile.replace(/-/gi, ''),
-        name: form.values().name,
-      })
-      .then(res => {
-        let data = res.data;
+    if (countdown.duplicatedSendChecker === false) {
+      API.user
+        .post('/verify/sendMobile', {
+          // email: form.values().email,
+          mobile: form.values().mobile.replace(/-/gi, ''),
+          name: form.values().name,
+        })
+        .then(res => {
+          let data = res.data;
 
-        if (data.resultCode === 200) {
-          form.$('email').validate();
-          form.$('name').validate();
-          form.$('resendButton').set(true);
-          countdown.seconds = data.data / 1000;
-          countdown.startTimer();
-        } else if (data.resultCode === 6005) {
-        }
-      })
-      .catch(e => {
-        form.$('email').invalidate(' ');
-        form.$('mobile').invalidate(_.get(e, 'data.message'));
-        form.$('name').invalidate(' ');
-      });
+          if (data.resultCode === 200) {
+            form.$('email').validate();
+            form.$('name').validate();
+            form.$('resendButton').set(true);
+            countdown.seconds = data.data / 1000;
+            countdown.startTimer();
+            countdown.startDuplicatedSendChecker();
+          } else if (data.resultCode === 6005) {
+          }
+        })
+        .catch(e => {
+          form.$('email').invalidate(' ');
+          form.$('mobile').invalidate(_.get(e, 'data.message'));
+          form.$('name').invalidate(' ');
+        });
+    } else {
+      root.alert.showAlert('인증번호 재발송은 발송 1분후에 가능합니다.');
+    }
   },
 
   onError(field) {
