@@ -71,11 +71,6 @@ class KeywordMenu extends Component {
   };
 
   onFocus = () => {
-    // let { setIsSearchVisible } = this.props;
-    // if (setIsSearchVisible) {
-    //   setIsSearchVisible(true);
-    // }
-
     this.setState({ displayContent: 'keyword' });
   };
 

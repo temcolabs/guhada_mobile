@@ -75,6 +75,7 @@ class ProductDetail extends React.Component {
       productdetail,
       login,
       alert,
+      searchitem,
     } = this.props;
 
     return (
@@ -114,7 +115,7 @@ class ProductDetail extends React.Component {
 
         {/* 상품 태그 */}
         <ItemWrapper header={'태그'}>
-          <Tag tags={tags} />
+          <Tag tags={tags} toSearch={searchitem.toSearch} />
         </ItemWrapper>
 
         {/* 상품 정보, 소재 */}
