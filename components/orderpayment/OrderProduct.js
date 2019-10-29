@@ -29,15 +29,15 @@ class OrderProduct extends Component {
             <div className={css.productOpiton}>
               {`${
                 data.itemOptionResponse.attribute1
-                  ? data.itemOptionResponse.attribute1
+                  ? `${data.itemOptionResponse.attribute1},`
                   : ''
               } ${
                 data.itemOptionResponse.attribute2
-                  ? data.itemOptionResponse.attribute2
+                  ? `${data.itemOptionResponse.attribute2},`
                   : ''
               } ${
                 data.itemOptionResponse.attribute3
-                  ? data.itemOptionResponse.attribute3
+                  ? `${data.itemOptionResponse.attribute3},`
                   : ''
               } ${data.quantity}개`}
             </div>
