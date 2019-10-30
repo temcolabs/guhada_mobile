@@ -32,7 +32,7 @@ module.exports = {
 
     API.order
       .post(
-        `/order/orderApproval`,
+        '/order/orderApproval',
         {
           resultCode: authData.P_STATUS,
           resultMsg: authData.P_RMESG1,
