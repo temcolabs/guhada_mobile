@@ -248,7 +248,7 @@ export default class ProductReviewStore {
     API.benefit
       .post(`/process/due-save`, {
         pointType: 'REVIEW',
-        serviceType: 'REVIEW',
+        serviceType: 'FRONT',
       })
       .then(res => {
         let data = res.data.data;
