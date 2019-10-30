@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import Head from 'next/head';
 import TimeDeal from 'template/home/TimeDeal';
-export class timedeal extends Component {
+import LoadingPortal from 'components/common/loading/Loading';
+import { observer, inject } from 'mobx-react';
+
+@inject('main')
+@observer
+class timedeal extends Component {
   render() {
+    const { main } = this.props;
     return (
       <>
         <Head>
@@ -17,9 +23,7 @@ export class timedeal extends Component {
             content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
           />
         </Head>
-        <div>
-          <TimeDeal />
-        </div>
+        <div>{main.timeDealStatus ? <TimeDeal /> : <LoadingPortal />}</div>
       </>
     );
   }
