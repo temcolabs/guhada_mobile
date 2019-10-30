@@ -582,12 +582,13 @@ export default class ShoppingCartStore {
   //--------------------- 장바구니 선택아이템 구매하기 ---------------------
   @action
   selectedItemOrder = () => {
-    let selectIdList = ' ';
+    let selectIdList = '';
     this.selectedCheck.map((data, index) => {
       if (data) {
         selectIdList += this.cartList[index].cartItemId + ',';
       }
     });
+
     if (selectIdList !== ' ') {
       Router.push({
         pathname: '/orderpayment',
