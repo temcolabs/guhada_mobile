@@ -10,8 +10,7 @@ DEST_APP=/home/ec2-user/guhada_mobile
 echo "[git pull && build app]"
 cd $DEST_REPO && git checkout $BRANCH && git clean --f && git reset --hard origin/$BRANCH && git pull && npm install && npm run build
 
-echo "\n[upload files with rsync]"
-rsync -arv -progress --delete -e "ssh -i ~/pem/guhada_prod.pem" --exclude-from './.rsyncignore' ./ $USER@$HOST:$DEST_APP
+HOST=$HOST ./scripts/deploy-prod-upload.sh
 
-echo "\n[install npm modules and restart pm2 instance at server side]"
-ssh -i ~/pem/guhada_prod.pem $USER@$HOST "cd $DEST_APP && npm install && pm2 reload ecosystem.config.js --only $APP_NAME --env production" && ./scripts/delete-old-builds.sh
+# 로드 밸런싱을 사용한다면 동시 배포
+# HOST=$HOST1 ./scripts/deploy-prod-upload.sh & HOST=$HOST2 ./scripts/deploy-prod-upload.sh
