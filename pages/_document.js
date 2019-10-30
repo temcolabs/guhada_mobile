@@ -29,6 +29,14 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
+          <meta
+            name="Description"
+            content="명품 특가 타임딜! 정품 100% 보장! 전 상품 무료 배송! 명품쇼핑의 즐거움을 구하다"
+          />
+          <meta
+            property="og:description"
+            content="명품 특가 타임딜! 정품 100% 보장! 전 상품 무료 배송! 명품쇼핑의 즐거움을 구하다"
+          />
           {/* Global site tag (gtag.js) - Google Analytics */}
           <script
             async
