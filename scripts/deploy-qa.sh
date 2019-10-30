@@ -7,4 +7,4 @@ BRANCH=release
 DEST_REPO=/home/ec2-user/guhada_mobile
 
 # 서버 접속 후 테스트 앱 시작
-ssh -i ~/.ssh/guhada.pem $USER@$HOST "cd $DEST_REPO && git checkout $BRANCH && git reset --hard $BRANCH && git pull && npm install && npm run build && pm2 flush && pm2 reload ecosystem.config.js --only $APP_NAME --env production && ./scripts/delete-old-builds.sh"
+ssh -i ~/.ssh/guhada.pem $USER@$HOST "cd $DEST_REPO && git checkout $BRANCH && git reset --hard origin/$BRANCH && git pull && npm install && npm run build && pm2 flush && pm2 reload ecosystem.config.js --only $APP_NAME --env production && ./scripts/delete-old-builds.sh"
