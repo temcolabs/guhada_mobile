@@ -12,6 +12,7 @@ export default class MainStore {
   @observable navDealId = 0;
   @observable hotKeyword = [];
   @observable timeDeal = [];
+  @observable timeDealStatus = false;
 
   constructor() {
     this.getPlusItem();
@@ -79,8 +80,10 @@ export default class MainStore {
 
   @action
   getTimeDeal = () => {
+    this.timeDealStatus = false;
     API.product.get(`/time-deals`).then(res => {
       this.timeDeal = res.data.data;
+      this.timeDealStatus = true;
     });
   };
 }
