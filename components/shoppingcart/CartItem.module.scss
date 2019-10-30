@@ -144,12 +144,11 @@
       .item__price__wrap {
         display: flex;
         align-items: center;
-
+        margin-top: 4px;
         .discount__price {
           font-size: 14px;
           color: #111;
           font-weight: bold;
-          margin-top: 4px;
 
           @include break350 {
             font-size: 12px;
