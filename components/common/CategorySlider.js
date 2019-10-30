@@ -46,9 +46,8 @@ class CategorySlider extends Component {
     const category = mainCategory.item.find(item => {
       return item.id === id;
     });
-
-    pushRoute(category.href);
     this.setSelected(category.id);
+    pushRoute(category.href);
   };
 
   toSearch = category => {
