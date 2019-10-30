@@ -57,7 +57,7 @@ module.exports = {
         res.redirect('/orderpaymentsuccess?id=' + data);
       })
       .catch(err => {
-        console.error(`err ${err}`);
+        console.error(`privyCertifyResult err ${err}`);
         res.redirect('/');
       });
   },
