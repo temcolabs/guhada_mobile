@@ -323,10 +323,9 @@ export default class ProductOptionStore {
         .then(res => {
           const { data } = res;
           this.duesavePointList = data.data.dueSavePointList;
-          console.log(this.duesavePointList, 'duesave point');
         })
         .catch(err => {
-          console.log(err);
+          devLog(err);
           this.duesavePointList = [];
           // this.root.alert.showAlert({
           //   content: `${_.get(err, 'data.message') || err.message}`,
