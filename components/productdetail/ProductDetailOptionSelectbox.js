@@ -12,6 +12,7 @@ class ProductOptionSelectbox extends Component {
         position: 'relative',
         width: '100%',
         border: '1px solid #eee',
+        zIndex: '3',
       }),
       valueContainer: () => ({
         padding: '0',

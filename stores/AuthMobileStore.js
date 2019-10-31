@@ -126,7 +126,7 @@ export default class AuthMobileStore {
               .catch(err => {
                 let resultCode = _.get(err, 'data.resultCode');
                 let message = _.get(err, 'data.message');
-                console.log(resultCode, message, 'message', 'resultCode');
+                devLog(resultCode, message, 'message', 'resultCode');
                 if (resultCode) {
                   root.alert.showAlert({
                     content: message,

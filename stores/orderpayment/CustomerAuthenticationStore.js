@@ -41,6 +41,7 @@ export default class CustomerAuthentication {
           this.sendMailSuccess = true;
         })
         .catch(err => {
+          devLog(`/verify/sendEmail err ${err}`);
           // this.root.alert.showAlert({
           //   content: `${_.get(err, 'data.message') || 'ERROR'}`,
           // });
@@ -76,7 +77,7 @@ export default class CustomerAuthentication {
           })
           .catch(err => {
             let resultCode = _.get(err, 'data.resultCode');
-            devLog(resultCode, 'resultCode');
+            devLog(err, 'users/email-verify err');
             if (resultCode) {
               this.root.alert.showAlert({
                 content: _.get(err, 'data.message'),
@@ -86,7 +87,7 @@ export default class CustomerAuthentication {
       })
       .catch(err => {
         let resultCode = _.get(err, 'data.resultCode');
-        devLog(resultCode, 'resultCode');
+        devLog(err, 'verify err');
         if (resultCode) {
           this.root.alert.showAlert({
             content: _.get(err, 'data.message'),
