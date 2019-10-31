@@ -33,9 +33,10 @@ export default {
           form.$('name').validate();
           form.$('verificationNumber').validate();
           Router.push('/login/findpasswordresult');
-        } else {
-          root.toast.getToast(data.data.result);
         }
+      })
+      .catch(function(e) {
+        root.toast.getToast(_.get(e, 'data.message'));
       });
   },
 
