@@ -1,11 +1,14 @@
 {
   "name": "guhada_web_mobile",
+  "version": "v1.3.0",
   "scripts": {
     "dev": "node server.js",
     "build": "npm run clean && next build",
     "start": "next start -p $PORT",
     "start-server": "NODE_ENV=production node server.js",
     "start-pc": "set NODE_ENV=production && node server.js",
+    "start-pm2": "pm2 start ecosystem.config.js --only $APP_NAME --env production",
+    "reload-pm2": "pm2 reload ecosystem.config.js --only $APP_NAME --env production",
     "storybook": "start-storybook -s ./ -p 7007",
     "build-storybook": "build-storybook",
     "analyze": "npm run analyze:browser",
