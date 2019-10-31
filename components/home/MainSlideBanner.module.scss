@@ -7,13 +7,13 @@
 
     & .counter {
         position: absolute;
-        bottom: 45px;
         color: #ffffff;
-        font-size: 16px;
-        font-weight: normal;
-        letter-spacing: 0.8px;
-        left: 50%;
-        transform: translateX(calc(-50% + 255px));
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.6px;
+        bottom: 14px;
+        // right: 20px;
+        transform: translateX(calc(-50% + 327px));
     }
 
 }
