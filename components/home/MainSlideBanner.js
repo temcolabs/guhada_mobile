@@ -5,6 +5,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.scss';
 import 'slick-carousel/slick/slick-theme.scss';
 import cn from 'classnames';
+import { pushRoute } from 'lib/router';
 
 function NextArrow(props) {
   const { style, onClick } = props;
@@ -31,8 +32,7 @@ export class MainSlideBanner extends Component {
 
   render() {
     const settings = {
-      // dots: true,
-      dots: false,
+      dots: true,
       infinite: true,
       speed: 500,
       slidesToShow: 1,
@@ -40,10 +40,10 @@ export class MainSlideBanner extends Component {
       autoplay: true,
       autoplaySpeed: 3000,
       cssEase: 'linear',
-      // dotsClass: 'slickDots',
+      dotsClass: 'slickDots',
       // nextArrow: <NextArrow />,
       // prevArrow: <PrevArrow />,
-      // beforeChange: this.onBeforeChange,
+      beforeChange: this.onBeforeChange,
     };
     const { imageFile } = this.props;
 
@@ -52,13 +52,21 @@ export class MainSlideBanner extends Component {
         <Slider {...settings}>
           {imageFile.map((image, index) => {
             return (
-              <img className={css.dummyImage} src={image} key={index} alt="" />
+              <img
+                className={css.dummyImage}
+                src={image.src}
+                onClick={() => {
+                  pushRoute(image.href);
+                }}
+                key={index}
+                alt={`banner${index}`}
+              />
             );
           })}
         </Slider>
-        <div className={css.counter}>{`${this.state.index + 1}/${
+        {/* <div className={css.counter}>{`${this.state.index + 1}/${
           imageFile.length
-        }`}</div>
+        }`}</div> */}
       </div>
     );
   }
