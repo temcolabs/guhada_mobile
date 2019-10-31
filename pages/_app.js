@@ -12,6 +12,8 @@ import qs from 'qs';
 import { isBrowser } from 'lib/isServer';
 import { devLog } from 'lib/devLog';
 import { isServer } from 'lib/isServer';
+import { WhiteMask } from 'components/common/modal/Mask';
+import LoadingPortal from 'components/common/loading/Loading';
 
 moment.locale('ko');
 
@@ -54,6 +56,10 @@ class MarketPlatform extends App {
     if (typeof window !== 'undefined') {
       ReactModal.setAppElement('body');
     }
+
+    this.state = {
+      isAppReady: false,
+    };
   }
 
   componentDidMount() {
@@ -92,6 +98,9 @@ class MarketPlatform extends App {
       devLog(`targetHref to redirect from mobile to desktop ...`, targetHref);
 
       window.location.href = targetHref;
+      this.setState({ isAppReady: true });
+    } else {
+      this.setState({ isAppReady: true });
     }
   };
 
@@ -140,7 +149,15 @@ class MarketPlatform extends App {
       <Container>
         <Provider {...this.mobxStore}>
           <>
-            <Component key={this.componentKey} {...initialProps} />
+            {this.state.isAppReady ? (
+              <Component {...initialProps} />
+            ) : (
+              // 앱이 준비되기 전에는 마스크로 가린다
+              <div>
+                <WhiteMask isOpen />
+                <LoadingPortal />
+              </div>
+            )}
 
             <AlertConductor />
 
