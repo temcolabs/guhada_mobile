@@ -155,10 +155,10 @@ class Benefit extends Component {
             <div>
               (사용가능{' '}
               <span>
-                {orderpayment.orderInfo.availablePointResponse.availableTotalPoint?.toLocaleString()}
+                {orderpayment?.orderInfo?.availablePointResponse?.availableTotalPoint?.toLocaleString()}
               </span>
-              P)
             </div>
+            <div>{`P / 보유 ${orderpayment?.orderInfo?.totalPoint?.toLocaleString()}P)`}</div>
           </div>
           <div className={css.pointSelectBox}>
             <div className={css.pointSelect}>
