@@ -26,7 +26,11 @@ const Loading = () => {
 
 const LoadingPortal = () => {
   return isBrowser
-    ? ReactDOM.createPortal(<Loading />, document.getElementById('__next'))
+    ? ReactDOM.createPortal(
+        <Loading />,
+        document.getElementById('__next') ||
+          document.getElementsByTagName('body')[0]
+      )
     : null;
 };
 

@@ -175,7 +175,7 @@ export default function SlideIn({
             );
           }}
         </Transition>
-        <Mask isVisible={isVisible} />
+        <Mask isOpen={isVisible} />
       </>,
       bodyEl
     );
