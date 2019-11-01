@@ -19,20 +19,15 @@ import _ from 'lodash';
 @inject('shoppingcart', 'user')
 @observer
 class DefaultLayout extends Component {
+  constructor(props) {
+    super(props);
+    Router.onRouteChangeComplete = () => {
+      this.shoppingCartAmountCheck();
+    };
+  }
   componentDidMount() {
     this.shoppingCartAmountCheck();
-    Router.events.on('routeChangeComplete', this.shoppingCartAmountCheck());
-    // Router.beforePopState(({ url }) => {
-    //   console.log(url, 'url');
-    //   window.location.replace(url);
-
-    // });
   }
-
-  componentWillUnmount() {
-    Router.events.off('routeChangeComplete', this.shoppingCartAmountCheck());
-  }
-
   shoppingCartAmountCheck = () => {
     const job = () => {
       this.props.shoppingcart.globalGetUserShoppingCartList();
