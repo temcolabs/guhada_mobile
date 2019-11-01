@@ -103,7 +103,7 @@ class ModalWrapper extends React.Component {
         style={{
           overlay: {
             backgroundColor: 'rgba(0,0,0,0.5)',
-            zIndex: zIndex || 10000,
+            zIndex: zIndex || 2000,
             ...this.overlayStyle,
           },
           content: {

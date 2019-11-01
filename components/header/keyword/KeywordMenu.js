@@ -29,6 +29,17 @@ class KeywordMenu extends Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.isSearchVisible) {
+      if (prevProps.isSearchVisible !== this.props.isSearchVisible) {
+        this.onFocus();
+        this.setState({ inputValue: this.props.keywordText });
+      } else if (this.props.isSearchVisible !== false) {
+        this.props.setIsSearchVisible(false);
+      }
+    }
+  }
+
   onChange = event => {
     const { keyword } = this.props;
 
@@ -60,11 +71,6 @@ class KeywordMenu extends Component {
   };
 
   onFocus = () => {
-    let { setIsSearchVisible } = this.props;
-    if (setIsSearchVisible) {
-      setIsSearchVisible(true);
-    }
-
     this.setState({ displayContent: 'keyword' });
   };
 
@@ -91,7 +97,7 @@ class KeywordMenu extends Component {
   };
 
   render() {
-    const { keyword, onClose } = this.props;
+    const { keyword, onClose, isSearchVisible } = this.props;
     const { displayContent, keywordTab } = this.state;
     let recentKeywordList = keyword.list;
     let query = Router.router.query;

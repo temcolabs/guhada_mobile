@@ -10,6 +10,8 @@ import Router from 'next/router';
 import API from 'lib/API.js';
 import { pushRoute } from 'lib/router/index.js';
 import qs from 'qs';
+import _ from 'lodash';
+
 const isServer = typeof window === 'undefined';
 
 export default class SearchItemStore {
@@ -348,12 +350,7 @@ export default class SearchItemStore {
                   getCategoryTitle(data.data.categories, categoryIds)
                 );
 
-              ////////////////////////////////////
-
               if (enter === 'all') {
-                // this.toGetBrandFilter(categoryList);
-                // this.root.brands.brandsByCategoryFilter = data.data.brands;
-                // this.root.brands.setGroupBrandList(data.data.brands);
                 let keyArray;
 
                 this.treeDataForFilter.map(treeData => {
@@ -431,15 +428,6 @@ export default class SearchItemStore {
                     }
                   }
                 } else {
-                  // 브랜드에서 category 목록이 있을 경우
-                  // 전체 브랜드 목록을 보여준다.
-                  // this.root.brands.brandsByCategoryFilter = data.data.brands;
-                  // this.root.brands.setGroupBrandList(data.data.brands);
-                  // this.setKeyArray(
-                  //   getCategoryKeyArray(this.treeDataForFilter, hierarchy[1])
-                  // );
-                  // this.setCategoryTreeData('brand');
-
                   if (enter === 'keyword') {
                     this.setTitle(keyword);
                   } else {
@@ -472,9 +460,6 @@ export default class SearchItemStore {
                   }
                 }
               } else {
-                // this.toGetBrandFilter(categoryList);
-                // this.root.brands.brandsByCategoryFilter = data.data.brands;
-                // this.root.brands.setGroupBrandList(data.data.brands);
                 // hierarchy === false 서버로부터 온 카테고리 데이타가 없음
                 if (hierarchy) {
                   if (hierarchy.length === 1) {

@@ -1,0 +1,38 @@
+@import 'styles/mixins/index';
+
+.wrap {
+  width: 100%;
+  text-align: center;
+  @include centeredFixed;
+
+  & .searchResult {
+    font-size: 20px;
+    font-weight: normal;
+    color: #5d2ed1;
+    margin-bottom: 5px;
+  }
+
+  & .label {
+    font-size: 20px;
+    font-weight: normal;
+    color: #333333;
+    margin-bottom: 20px;
+  }
+
+  & .subLabel {
+    font-size: 13px;
+    font-weight: 500;
+    color: #666666;
+    margin-bottom: 30px;
+  }
+
+  & button {
+    width: 156px;
+    height: 45px;
+    border: solid 1px #444444;
+    background-color: #444444;
+    font-size: 13px;
+    font-weight: 500;
+    color: white;
+  }
+}

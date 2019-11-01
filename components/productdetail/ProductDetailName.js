@@ -15,7 +15,9 @@ import Router from 'next/router';
 @observer
 class ProductDetailName extends Component {
   getSnapshotBeforeUpdate(prevProps) {
-    return prevProps.productdetail.deals.dealsId;
+    return prevProps.productdetail.deals.dealsId
+      ? prevProps.productdetail.deals.dealsId
+      : null;
   }
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (!snapshot) {

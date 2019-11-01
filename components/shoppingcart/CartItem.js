@@ -51,22 +51,19 @@ class CartItem extends Component {
                   } ${data.dealName}`}</div>
                   <div className={css.item__price__wrap}>
                     <div className={css.discount__price}>
-                      {`${data.discountPrice.toLocaleString()}원`}
+                      {`${data?.discountPrice?.toLocaleString()}원`}
                     </div>
                     {data.discountPrice === data.sellPrice ? null : (
                       <div className={css.sell__price}>
-                        {`${data.sellPrice.toLocaleString()}원`}
+                        {`${data?.sellPrice?.toLocaleString()}원`}
                       </div>
                     )}
 
-                    {data.discountPrice === data.sellPrice ? null : (
+                    {data.discountRate > 0 ? (
                       <div className={css.discount__rate}>
-                        {`${parseInt(
-                          (100 * (data.sellPrice - data.discountPrice)) /
-                            data.sellPrice
-                        )}%`}
+                        {`${data?.discountRate}%`}
                       </div>
-                    )}
+                    ) : null}
                   </div>
                   <div
                     className={css.purchase__button}
@@ -166,18 +163,21 @@ class CartItem extends Component {
                 } ${data.dealName}`}</div>
                 <div className={[css.item__price__wrap, css.noSale].join(' ')}>
                   <div className={css.discount__price}>
-                    {`${data.discountPrice.toLocaleString()}원`}
+                    {`${data?.discountPrice?.toLocaleString()}원`}
                   </div>
-                  <div className={css.sell__price}>
-                    {`${data.sellPrice.toLocaleString()}원`}
-                  </div>
-                  <div className={css.discount__rate}>
-                    {`${parseInt(
-                      (100 * (data.sellPrice - data.discountPrice)) /
-                        data.sellPrice
-                    )}%`}
-                  </div>
+                  {data.discountPrice === data.sellPrice ? null : (
+                    <div className={css.sell__price}>
+                      {`${data?.sellPrice?.toLocaleString()}원`}
+                    </div>
+                  )}
+
+                  {data.discountRate > 0 ? (
+                    <div className={css.discount__rate}>
+                      {`${data?.discountRate}%`}
+                    </div>
+                  ) : null}
                 </div>
+
                 <div className={css.goProduct}>상품 보기</div>
               </div>
             </Link>

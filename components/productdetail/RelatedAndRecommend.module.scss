@@ -1,111 +1,109 @@
 .wrap {
-    padding: 18px 20px 10px 20px;
+  padding: 18px 20px 10px 20px;
 
-    & .header {
-        font-size: 16px;
-        font-weight: bold;
-        line-height: 1.2;
-        color: #111111;
-        height: 44px;
-        display: flex;
-        align-items: center;
+  & .header {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.2;
+    color: #111111;
+    height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  & .betweenMargin {
+    margin-top: 40px;
+  }
+
+  & .slideWrap {
+    width: 100%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    display: flex;
+
+    &::-webkit-scrollbar {
+      display: none;
     }
 
-    & .betweenMargin {
-        margin-top: 40px;
-    }
+    & .itemWrap {
+      display: inline-block;
+      width: 130px;
+      margin-right: 9.7px;
+      margin-bottom: 30px;
 
-    & .slideWrap {
-        width: 100%;
-        overflow-x: scroll;
-        overflow-y: hidden;
-        white-space: nowrap;
-        display: flex;
+      &:last-child {
+        margin-right: 20px;
+      }
 
-        &::-webkit-scrollbar {
-            display: none;
-        }
+      & .image {
+        width: 130px;
+        height: 130px;
+        background-repeat: no-repeat;
+        background-color: #eeeeee;
+        background-size: contain;
+      }
 
-        & .itemWrap {
+      & .contentsWrap {
+        padding-top: 12px;
+        padding-left: 4px;
+
+        & .brandWrap {
+          width: 100%;
+          font-size: 13px;
+          font-weight: 500;
+          font-style: normal;
+          font-stretch: normal;
+          line-height: 1.37;
+          letter-spacing: normal;
+          text-align: left;
+          color: #111111;
+          margin-bottom: 7px;
+
+          & .brand {
+            max-width: calc(100% - 30px);
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            float: left;
+          }
+
+          & .season {
+            font-size: 12px;
             display: inline-block;
-            width: 130px;
-            margin-right: 9.7px;
-            margin-bottom: 30px;
-
-            &:last-child {
-                margin-right: 20px;
-            }
-
-            & .image {
-                width: 130px;
-                height: 130px;
-                background-color: #eeeeee;
-                background-size: 130px 130px;
-                background-repeat: no-repeat;
-            }
-
-            & .contentsWrap {
-                padding-top: 12px;
-                padding-left: 4px;
-
-
-
-                & .brandWrap {
-                    width: 100%;
-                    font-size: 13px;
-                    font-weight: 500;
-                    font-style: normal;
-                    font-stretch: normal;
-                    line-height: 1.37;
-                    letter-spacing: normal;
-                    text-align: left;
-                    color: #111111;
-                    margin-bottom: 7px;
-
-                    & .brand {
-                        max-width: calc(100% - 30px);
-                        text-overflow: ellipsis;
-                        white-space: nowrap;
-                        overflow: hidden;
-                        float: left;
-                    }
-
-                    & .season {
-                        font-size: 12px;
-                        display: inline-block;
-                        font-weight: normal;
-                        color: #777777;
-                        margin-left: 4px;
-                    }
-                }
-
-                & .title {
-                    font-size: 12px;
-                    font-weight: normal;
-                    font-style: normal;
-                    font-stretch: normal;
-                    line-height: 1.17;
-                    letter-spacing: normal;
-                    text-align: left;
-                    color: #111111;
-                    width: 113px;
-                    height: 29px;
-                    overflow: hidden;
-                    white-space: normal;
-                    margin-bottom: 11px;
-                }
-
-                & .price {
-                    font-size: 16px;
-                    font-weight: bold;
-                    font-style: normal;
-                    font-stretch: normal;
-                    line-height: 0.94;
-                    letter-spacing: normal;
-                    text-align: left;
-                    color: #111111;
-                }
-            }
+            font-weight: normal;
+            color: #777777;
+            margin-left: 4px;
+          }
         }
+
+        & .title {
+          font-size: 12px;
+          font-weight: normal;
+          font-style: normal;
+          font-stretch: normal;
+          line-height: 1.17;
+          letter-spacing: normal;
+          text-align: left;
+          color: #111111;
+          width: 113px;
+          height: 29px;
+          overflow: hidden;
+          white-space: normal;
+          margin-bottom: 11px;
+        }
+
+        & .price {
+          font-size: 16px;
+          font-weight: bold;
+          font-style: normal;
+          font-stretch: normal;
+          line-height: 0.94;
+          letter-spacing: normal;
+          text-align: left;
+          color: #111111;
+        }
+      }
     }
+  }
 }

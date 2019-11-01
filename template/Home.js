@@ -65,12 +65,32 @@ class Home extends React.Component {
 
   render() {
     const { main, searchitem } = this.props;
-    const imageFile = [
-      `${process.env.API_CLOUD}/images/home/dummy_mobile/00_main_0.png`,
-      `${process.env.API_CLOUD}/images/home/dummy_mobile/00_main_1.png`,
-      `${process.env.API_CLOUD}/images/home/dummy_mobile/00_main_2.png`,
-      `${process.env.API_CLOUD}/images/home/dummy_mobile/00_main_3.png`,
-      `${process.env.API_CLOUD}/images/home/dummy_mobile/00_main_4.png`,
+
+    const slideImages = [
+      {
+        src: `${
+          process.env.API_CLOUD
+        }/images/banner/timedeal/timedeal_main_m_360.png`,
+        href: `/event/timedeal`,
+      },
+      {
+        src: `${
+          process.env.API_CLOUD
+        }/images/banner/signup5000/join_main_m_360.png`,
+        href: `/`,
+      },
+      {
+        src: `${
+          process.env.API_CLOUD
+        }/images/banner/2perdiscount/2per_main_m_360.png`,
+        href: `/`,
+      },
+      {
+        src: `${
+          process.env.API_CLOUD
+        }/images/banner/opening/open_main_m_360.png`,
+        href: `/`,
+      },
     ];
     return (
       <DefaultLayout title={null} topLayout={'main'}>
@@ -81,41 +101,37 @@ class Home extends React.Component {
         />
         {/* TODO :: 임시로 만들어놓은 슬라이드 배너
         현재 dot 구현은 되어 있지 않음 */}
-        {/* <MainSlideBanner imageFile={imageFile} /> */}
-        {main.navDealId === 0 && (
-          <img
-            className={css.mainPromotionImage}
-            src="/static/main_banner.png"
-            alt="main"
-          />
-        )}
+
+        {main.navDealId === 0 && <MainSlideBanner imageFile={slideImages} />}
 
         <SignupSuccessModal
           isOpen={this.state.signupModal}
           isHandleModal={this.handleModal}
           email={this.state.email}
         />
-        <MainSectionItem
-          title={'PREMIUM ITEM'}
-          items={main.plusItem}
-          categoryId={main.navDealId}
-          toSearch={searchitem.toSearch}
-          condition={'PLUS'}
-        />
-        <MainSectionItem
-          title={'BEST ITEM'}
-          items={main.hits}
-          categoryId={main.navDealId}
-          toSearch={searchitem.toSearch}
-          condition={'BEST'}
-        />
-        <MainSectionItem
-          title={'NEW IN'}
-          items={main.newArrivals}
-          categoryId={main.navDealId}
-          toSearch={searchitem.toSearch}
-          condition={'NEW'}
-        />
+        <div>
+          <MainSectionItem
+            title={'PREMIUM ITEM'}
+            items={main.plusItem}
+            categoryId={main.navDealId}
+            toSearch={searchitem.toSearch}
+            condition={'PLUS'}
+          />
+          <MainSectionItem
+            title={'BEST ITEM'}
+            items={main.hits}
+            categoryId={main.navDealId}
+            toSearch={searchitem.toSearch}
+            condition={'BEST'}
+          />
+          <MainSectionItem
+            title={'NEW IN'}
+            items={main.newArrivals}
+            categoryId={main.navDealId}
+            toSearch={searchitem.toSearch}
+            condition={'NEW'}
+          />
+        </div>
         <HomeItemDefault header={'HOT KEYWORD'}>
           <MainHotKeyword
             hotKeyword={main.hotKeyword}

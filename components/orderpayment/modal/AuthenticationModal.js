@@ -35,8 +35,7 @@ class AuthenticationModal extends Component {
             <div className={css.AuthenticationWrap}>
               <div className={css.wrapTitle}>
                 본인인증
-                {orderpayment.orderUserInfo.name &&
-                orderpayment.orderUserInfo.mobile ? (
+                {customerauthentication.userVerify ? (
                   <span className={css.certified}> [인증완료]</span>
                 ) : (
                   <span> [미인증]</span>
@@ -46,8 +45,7 @@ class AuthenticationModal extends Component {
                 <div>본인 명의 휴대폰으로 </div>
                 <div>본인인증을 진행해주세요.</div>
               </div>
-              {orderpayment.orderUserInfo.name &&
-              orderpayment.orderUserInfo.mobile ? (
+              {customerauthentication.userVerify ? (
                 <div className={[css.button, css.alreadySuccess].join(' ')}>
                   인증완료
                 </div>

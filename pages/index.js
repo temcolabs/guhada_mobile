@@ -12,7 +12,7 @@ class index extends React.Component {
     return (
       <>
         <Head>
-          <title>구하다 웹</title>
+          <title>구하다(GUHADA)</title>
           <link
             rel="shortcut icon"
             type="image/x-icon"

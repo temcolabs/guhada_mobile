@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const API = require('../../lib/API');
 
 module.exports = {
@@ -5,6 +7,8 @@ module.exports = {
   url: '/privyCertifyResult',
 
   handler: function(req, res) {
+    console.log(`process.env.API_ORDER`, process.env.API_ORDER);
+
     const authData = req.body;
     let para = req.url;
 
@@ -31,33 +35,34 @@ module.exports = {
     }
 
     API.order
-      .post(
-        `/order/orderApproval`,
-        {
-          resultCode: authData.P_STATUS,
-          resultMsg: authData.P_RMESG1,
-          // pgMid: authData.P_TID,
-          // authToken: authData.authToken,
-          // authUrl: authData.authUrl,
-          // netCancel: authData.netCancelUrl,
-          checkAckUrl: authData.P_REQ_URL,
-          pgOid: oid,
-          pgTidSample: authData.P_TID,
-          web: false,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      )
+      .post('/order/orderApproval', {
+        resultCode: authData.P_STATUS,
+        resultMsg: authData.P_RMESG1,
+        // pgMid: authData.P_TID,
+        // authToken: authData.authToken,
+        // authUrl: authData.authUrl,
+        // netCancel: authData.netCancelUrl,
+        checkAckUrl: authData.P_REQ_URL,
+        pgOid: oid,
+        pgTidSample: authData.P_TID,
+        web: false,
+      })
+      // axios
+      //   .post('http://qa.order.guhada.com/order/orderApproval', {
+      //     resultCode: authData.P_STATUS,
+      //     resultMsg: authData.P_RMESG1,
+      //     checkAckUrl: authData.P_REQ_URL,
+      //     pgOid: oid,
+      //     pgTidSample: authData.P_TID,
+      //     web: false,
+      //   })
       .then(response => {
         let data = response.data.data;
-        console.log(response, 'response');
+        console.log('POST order/orderApproval response.data.data:', response);
         res.redirect('/orderpaymentsuccess?id=' + data);
       })
       .catch(err => {
-        console.error(`err ${err}`);
+        console.error(`privyCertifyResult err ${err}`);
         res.redirect('/');
       });
   },

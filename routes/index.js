@@ -9,30 +9,35 @@ module.exports = [
     // 홈 화면
     pagePath: '/index',
     asPath: '/',
+    name: '구하다 홈',
   },
 
   {
     // 홈 여성
     pagePath: '/index',
     asPath: '/home/women',
+    name: '홈 여성',
   },
 
   {
     // 홈 남성
     pagePath: '/index',
     asPath: '/home/men',
+    name: '홈 남성',
   },
 
   {
     // 홈 키즈
     pagePath: '/index',
     asPath: '/home/kids',
+    name: '홈 키즈',
   },
 
   {
     // 타임딜
     pagePath: '/home/timedeal',
     asPath: '/event/timedeal',
+    name: '타임딜',
   },
 
   // 리턴 URL

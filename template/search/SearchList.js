@@ -12,10 +12,13 @@ import {
   SearchOrder,
   SearchCategorySlider,
 } from 'components/search';
+import _ from 'lodash';
+
 // import { SearchFilter } from 'components/search/SearchFilter';
 
 // enter : keyword 일때
 import KeywordMenu from 'components/header/keyword/KeywordMenu';
+import SearchResultEmpty from 'components/search/SearchResultEmpty';
 
 @withRouter
 @inject('searchitem')
@@ -25,6 +28,7 @@ class SearchList extends Component {
     isOrderVisible: false,
     isFilterVisible: false,
     isSearchVisible: false,
+    keywordText: Router.router.query.keyword,
   };
 
   setIsOrderVisible = visible => {
@@ -41,6 +45,10 @@ class SearchList extends Component {
 
   setIsSearchVisible = visible => {
     this.setState({ isSearchVisible: visible });
+  };
+
+  setKeywordText = text => {
+    this.setState({ keywordText: text });
   };
 
   componentDidMount() {
@@ -73,8 +81,10 @@ class SearchList extends Component {
         {/* enter가 keyword 인 경우에만 불러오는 메뉴 component */}
         {isKeyword ? (
           <KeywordMenu
-            keywordText={Router.router.query.keyword}
+            // keywordText={Router.router.query.keyword}
+            keywordText={this.state.keywordText}
             setIsSearchVisible={this.setIsSearchVisible}
+            isSearchVisible={this.state.isSearchVisible}
           />
         ) : null}
 
@@ -85,23 +95,31 @@ class SearchList extends Component {
           />
         )}
 
-        <>
-          <SearchItemHeader
-            setIsOrderVisible={this.setIsOrderVisible}
-            setIsFilterVisible={this.setIsFilterVisible}
-            isBrand={isBrand || isKeyword ? true : false}
-            scrollDirection={searchitem.scrollDirection}
+        {isKeyword && _.size(searchitem.deals) === 0 ? (
+          <SearchResultEmpty
+            title={Router.router.query.keyword}
+            setIsSearchVisible={this.setIsSearchVisible}
+            setKeywordText={this.setKeywordText}
           />
-          <div className={css.searchItemWrap}>
-            {searchitem.thumbnail === 'list4' ? (
-              <SearchItem4 deals={searchitem.deals} />
-            ) : searchitem.thumbnail === 'list2' ? (
-              <SearchItem2 deals={searchitem.deals} />
-            ) : (
-              <SearchItem6 deals={searchitem.deals} />
-            )}
-          </div>
-        </>
+        ) : (
+          <>
+            <SearchItemHeader
+              setIsOrderVisible={this.setIsOrderVisible}
+              setIsFilterVisible={this.setIsFilterVisible}
+              isBrand={isBrand || isKeyword ? true : false}
+              scrollDirection={searchitem.scrollDirection}
+            />
+            <div className={css.searchItemWrap}>
+              {searchitem.thumbnail === 'list4' ? (
+                <SearchItem4 deals={searchitem.deals} />
+              ) : searchitem.thumbnail === 'list2' ? (
+                <SearchItem2 deals={searchitem.deals} />
+              ) : (
+                <SearchItem6 deals={searchitem.deals} />
+              )}
+            </div>
+          </>
+        )}
 
         <SearchOrder
           isVisible={this.state.isOrderVisible}

@@ -1,6 +1,14 @@
 .wrap {
     padding: 60px 10px;
 
+    &.wrapNotHome {
+        margin-top: 0;
+
+        &:nth-child(1) {
+            margin-top: 88px;
+        }
+    }
+
     & .title {
         font-size: 20px;
         font-family: 'NanumSquare';
@@ -8,6 +16,10 @@
         text-align: center;
         color: #111111;
         margin-bottom: 20px;
+
+        &.titleNotHome {
+            margin-bottom: -10px;
+        }
     }
 
     & .categoryWrap {
