@@ -83,17 +83,8 @@ class MarketPlatform extends App {
     const isRedirectRequired = !isMobile;
 
     if (isRedirectRequired) {
-      // HOSTNAME이 local로 시작하는 케이스에 대응
-      const desktopHost = process.env.HOSTNAME.replace(
-        /(https?:\/\/)(.+)/,
-        '$2'
-      );
-
       const { pathname, search } = window.location;
-
-      const targetHref = `${
-        window.location.protocol
-      }//${desktopHost}${pathname}${search}`;
+      const targetHref = `${process.env.HOSTNAME}${pathname}${search}`;
 
       devLog(`targetHref to redirect from mobile to desktop ...`, targetHref);
 
