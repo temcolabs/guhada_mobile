@@ -113,7 +113,7 @@ class ShippingBenefit extends Component {
                       return (
                         <div key={index}>
                           {data.dueSaveType === 'BUY'
-                            ? `구매확정 시 ${data.totalPoint?.toLocaleString()}P 적립`
+                            ? `구매 확정 시 ${data.totalPoint?.toLocaleString()}P 적립`
                             : `리뷰 작성 시 최대 ${data.totalPoint?.toLocaleString()}P 적립`}
                         </div>
                       );
