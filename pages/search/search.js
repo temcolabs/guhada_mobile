@@ -19,7 +19,6 @@ class search extends Component {
     searchitem.initDealspage();
 
     let brand = JSON.parse('[' + query.brand + ']');
-    // let category = JSON.parse('[' + query.category + ']');
     let subcategory = JSON.parse('[' + query.subcategory + ']');
 
     searchitem.getSearchByUri(
@@ -36,6 +35,32 @@ class search extends Component {
     );
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { searchitem } = this.props;
+    const query = Router.router.query;
+
+    if (prevProps.router.query !== query) {
+      searchitem.deals = [];
+      searchitem.preUrl = Router.asPath;
+      searchitem.initDealspage();
+
+      let brand = JSON.parse('[' + query.brand + ']');
+      let subcategory = JSON.parse('[' + query.subcategory + ']');
+
+      searchitem.getSearchByUri(
+        brand,
+        query.category,
+        query.page,
+        query.unitPerPage,
+        query.order,
+        query.filter,
+        subcategory,
+        query.enter,
+        query.keyword,
+        query.condition
+      );
+    }
+  }
   render() {
     const { searchitem } = this.props;
 
