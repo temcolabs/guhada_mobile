@@ -1,0 +1,129 @@
+.wrap {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  height: 100vh;
+  overflow: auto;
+  background: #fff;
+
+  .header {
+    height: 60px;
+    display: flex;
+    align-items: center;
+
+    .backIcon {
+      width: 30px;
+      height: 30px;
+      position: absolute;
+      left: 10px;
+      background-size: 30px;
+      background-image: url('/static/icon/btn-prevpage.png');
+      background-repeat: no-repeat;
+    }
+
+    .headerText {
+      font-size: 17px;
+      font-weight: 500;
+      font-style: normal;
+      text-align: center;
+      color: #111111;
+      margin: 0 auto;
+    }
+  }
+
+  .contentsWrap {
+    position: relative;
+    margin-bottom: 60px;
+    .dealOptions {
+      border-top: 1px solid #eee;
+    }
+
+    .claimType {
+      border-top: 1px solid #eee;
+    }
+
+    .textArea {
+      border-top: 1px solid #eee;
+      padding: 17px 20px 0;
+      width: 100%;
+
+      textarea {
+        width: 100%;
+        min-height: 190px;
+
+        &::placeholder {
+          color: #ccc;
+          font-size: 15px;
+          font-weight: 500;
+        }
+      }
+    }
+
+    .textNumberChecker {
+      padding: 0 20px;
+      text-align: right;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      span {
+        color: #5d2ed1;
+      }
+    }
+
+    .attachmentFile {
+      border-top: 1px solid #eee;
+      display: flex;
+      align-items: center;
+      height: 50px;
+      padding: 0 16px;
+
+      font-size: 13px;
+      font-weight: 500;
+      color: #111;
+      i {
+        display: block;
+        width: 30px;
+        height: 30px;
+        background-size: 30px;
+        background-position: center;
+        background-image: url('/static/icon/com-btn-photo@3x.png');
+        margin-right: 5px;
+      }
+    }
+
+    .notify {
+      border-top: 1px solid #eee;
+      padding: 20px 20px 30px;
+      font-size: 12px;
+      font-weight: normal;
+      color: #444;
+      span {
+        font-weight: 500;
+        color: #5d2ed1;
+      }
+    }
+  }
+
+  .buttonGroup {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+
+    div {
+      width: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 60px;
+      color: #fff;
+    }
+
+    .cancelBtn {
+      background: #444;
+    }
+    .inquiryBtn {
+      background: #5d2ed1;
+    }
+  }
+}

@@ -5,16 +5,18 @@ import InquiryItem from './InquiryItem';
 import { inject, observer } from 'mobx-react';
 import { toJS } from 'mobx';
 import NewInquiry from './NewInquiry';
+import SellerClaimModal from 'components/claim/sellerclaim/SellerClaimModal';
 import _ from 'lodash';
 import { loginStatus } from 'constant/';
 import { pushRoute, sendBackToLogin } from 'lib/router';
 
-@inject('productdetail', 'login', 'alert')
+@inject('productdetail', 'login', 'alert', 'sellerClaim')
 @observer
 class ProductInquiry extends Component {
   state = {
     tab: '',
     isNewInquiryVisible: false,
+    isSellerClaimVisible: false,
   };
 
   setTab = tab => {
@@ -25,8 +27,20 @@ class ProductInquiry extends Component {
     this.setState({ isNewInquiryVisible: isNewInquiryVisible });
   };
 
+  // componentDidMount() {
+  //   this.setIsSellerClaimVisible(true);
+  // }
+
+  getIsSellerClaimVisible = sellerId => {
+    const productInquiryOpen = this.setIsNewInquiryVisible(true);
+    this.props.sellerClaim.checkIsSellerClaimPossible(
+      sellerId,
+      productInquiryOpen
+    );
+  };
+
   render() {
-    const { productdetail, login, tabRefMap, alert } = this.props;
+    const { productdetail, login, tabRefMap, alert, sellerClaim } = this.props;
     const { deals, inquiryList, inquiryPage } = productdetail;
     let handleInquiryIcon =
       inquiryList.totalPages === inquiryPage + 1 ? true : false;
@@ -79,7 +93,9 @@ class ProductInquiry extends Component {
             </button>
             <button
               onClick={() =>
-                alert.showAlert({ content: '모바일 버전 준비중입니다.' })
+                login.loginStatus === loginStatus.LOGIN_DONE
+                  ? this.getIsSellerClaimVisible(deals.sellerId)
+                  : sendBackToLogin()
               }
             >
               판매자 문의하기
@@ -145,6 +161,12 @@ class ProductInquiry extends Component {
         <NewInquiry
           isVisible={this.state.isNewInquiryVisible}
           onClose={() => this.setIsNewInquiryVisible(false)}
+        />
+
+        <SellerClaimModal
+          sellerId={deals?.sellerId}
+          isVisible={sellerClaim.isPossible}
+          onClose={() => sellerClaim.closeClaim()}
         />
       </div>
     );
