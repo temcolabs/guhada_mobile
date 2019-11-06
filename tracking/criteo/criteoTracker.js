@@ -2,6 +2,7 @@ import { loadScript } from 'lib/dom';
 import { scriptIds } from 'lib/dom/loadScript';
 import detectDevice from 'lib/detectDevice';
 import { devLog } from 'lib/devLog';
+import isEmailString from 'lib/isEmailString';
 
 // 트래커 주소
 const CRITEO_TRACKER_URL = '//static.criteo.net/js/ld/ld.js';
@@ -14,16 +15,41 @@ const getDeviceType = () => {
   return deviceType;
 };
 
-// 계정 아이디
+// 크리테오 계정 아이디
 const CRITEO_ACCOUNT_ID = 65280;
 
 /**
+ * 제품 아이디는 문자열이어야 한다.
+ * @param {*} id
+ */
+const formatProductId = id => {
+  return !!id ? String(id) : '';
+};
+
+/**
+ * 가격은 소수점 둘째자리까지
+ * @param {*} price
+ */
+const formatPrice = price => {
+  return typeof price === 'number' ? price.toFixed(2) : price;
+};
+
+/**
+ * SNS 가입 사용자는 이메일 필드에 다른 데이터가 들어있을 수 있다.
+ */
+const formatEmail = email => {
+  return isEmailString(email) ? email : '';
+};
+
+/**
+ *
+ * * 가격은 소수점 둘째자리까지 변환. 문자열
+ * * 제품 아이디는 문자열
+ * * 사이트 타입: 모바일용의 m, 테블릿용의 t, 데스크탑용의 d
  * ! email이 필요한 트래킹은 로그인한 상태에서만 실행한다.
  *
  * 태그 설정 Criteo OneTag는 설정하기 쉽습니다. 대부분의 사이트에서 절차는 20분에서 2시간 정도 걸립니다.
  * https://integrate.criteo.com/home/tags/implement?advertiserId=59668&partnerId=65280
- *
- * 사이트 타입: 모바일용의 m, 테블릿용의 t, 데스크탑용의 d
  *
  */
 export default {
@@ -43,7 +69,7 @@ export default {
         window.criteo_q = window.criteo_q || [];
         window.criteo_q.push(
           { event: 'setAccount', account: CRITEO_ACCOUNT_ID }, // account 고유값 고정
-          { event: 'setEmail', email: email || '' },
+          { event: 'setEmail', email: formatEmail(email) },
           { event: 'setSiteType', type: getDeviceType() },
           { event: 'viewHome' }
         );
@@ -65,12 +91,14 @@ export default {
       id: scriptIds.CRITEO_TRACKER,
       async: true,
       onLoad: () => {
-        const dealIdsWithStringId = dealIds.map(dealId => String(dealId || ''));
+        const dealIdsWithStringId = dealIds.map(dealId =>
+          formatProductId(dealId)
+        );
 
         window.criteo_q = window.criteo_q || [];
         window.criteo_q.push(
           { event: 'setAccount', account: CRITEO_ACCOUNT_ID },
-          { event: 'setEmail', email: email || '' },
+          { event: 'setEmail', email: formatEmail(email) },
           { event: 'setSiteType', type: getDeviceType() },
           {
             event: 'viewList',
@@ -101,15 +129,15 @@ export default {
         window.criteo_q = window.criteo_q || [];
         window.criteo_q.push(
           { event: 'setAccount', account: CRITEO_ACCOUNT_ID },
-          { event: 'setEmail', email: email || '' },
+          { event: 'setEmail', email: formatEmail(email) },
           { event: 'setSiteType', type: getDeviceType() },
-          { event: 'viewItem', item: String(dealId || '') }
+          { event: 'viewItem', item: formatProductId(dealId) }
         );
 
         console.log(
           `[CRITEO_TRACKER] viewItem: email, dealId`,
           email,
-          String(dealId || '')
+          formatProductId(dealId)
         );
       },
     });
@@ -135,26 +163,27 @@ export default {
       id: scriptIds.CRITEO_TRACKER,
       async: true,
       onLoad: () => {
-        const itemsWithStringId = items.map(item => ({
+        const itemsConverted = items.map(item => ({
           ...item,
-          id: String(item.id || ''), // * 아이디는 문자열로 변환되어야 한다
+          price: formatPrice(item.price),
+          id: formatProductId(item.id), // * 아이디는 문자열로 변환되어야 한다
         }));
 
         window.criteo_q = window.criteo_q || [];
         window.criteo_q.push(
           { event: 'setAccount', account: CRITEO_ACCOUNT_ID },
-          { event: 'setEmail', email: email || '' },
+          { event: 'setEmail', email: formatEmail(email) },
           { event: 'setSiteType', type: getDeviceType() },
           {
             event: 'viewBasket',
-            item: itemsWithStringId,
+            item: itemsConverted,
           }
         );
 
         console.log(
           `[CRITEO_TRACKER] viewBasket: email, items`,
           email,
-          itemsWithStringId
+          itemsConverted
         );
       },
     });
@@ -170,8 +199,8 @@ export default {
     transaction_id,
     items = [
       {
-        id: null,
-        price: 0,
+        id: null, // dealId
+        price: 0, // 할인 가격. discountPrice. salePrice
         quantity: 0,
         /* 사용자의 바스켓에 각 항목에 대한 라인을 추가합니다 */
       },
@@ -181,28 +210,28 @@ export default {
       id: scriptIds.CRITEO_TRACKER,
       async: true,
       onLoad: () => {
-        const itemsWithStringId = items.map(item => ({
+        const itemsConverted = items.map(item => ({
           ...item,
-          id: String(item.id || ''), // * 아이디는 문자열로 변환되어야 한다
+          price: formatPrice(item.price),
+          id: formatProductId(item.id), // * 아이디는 문자열로 변환되어야 한다
         }));
 
         window.criteo_q = window.criteo_q || [];
         window.criteo_q.push(
           { event: 'setAccount', account: CRITEO_ACCOUNT_ID },
-
-          { event: 'setEmail', email: email || '' },
+          { event: 'setEmail', email: formatEmail(email) },
           { event: 'setSiteType', type: 'm' },
           {
             event: 'trackTransaction',
             id: transaction_id,
-            item: itemsWithStringId,
+            item: itemsConverted,
           }
         );
 
         console.log(
           `[CRITEO_TRACKER] trackTransaction: transaction_id, items`,
           transaction_id,
-          itemsWithStringId
+          itemsConverted
         );
       },
     });
