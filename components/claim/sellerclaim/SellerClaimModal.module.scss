@@ -77,20 +77,49 @@
       height: 50px;
       padding: 0 16px;
 
-      font-size: 13px;
-      font-weight: 500;
-      color: #111;
-      i {
-        display: block;
-        width: 30px;
+      .fileAttachment__photoButton {
+        display: inline-block;
+        width: 200px;
         height: 30px;
-        background-size: 30px;
-        background-position: center;
-        background-image: url('/static/icon/com-btn-photo@3x.png');
-        margin-right: 5px;
+        padding-left: 32px;
+        background: url('/static/icon/com-btn-photo@3x.png') no-repeat left
+          center;
+        background-size: 30px 30px;
+
+        text-align: left;
+        font-size: 13px;
+        font-weight: 500;
+        color: #111;
       }
     }
 
+    .attachImageWrap {
+      padding-left: 20px;
+      display: flex;
+      overflow-x: auto;
+      margin-bottom: 20px;
+      .attachImage {
+        position: relative;
+
+        min-width: 90px;
+        height: 90px;
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        margin-right: 5px;
+
+        .attachImageDelete {
+          width: 25px;
+          height: 25px;
+          background: url('/static/icon/like_item_delete.png') no-repeat;
+          background-size: cover;
+          background-position: center;
+          position: absolute;
+          top: 0;
+          right: 0;
+        }
+      }
+    }
     .notify {
       border-top: 1px solid #eee;
       padding: 20px 20px 30px;
@@ -101,6 +130,13 @@
         font-weight: 500;
         color: #5d2ed1;
       }
+    }
+
+    .errorMessage {
+      color: #c72121;
+      font-size: 12px;
+      padding: 5px 20px 20px;
+      border-top: 1px solid #eee;
     }
   }
 
@@ -124,6 +160,77 @@
     }
     .inquiryBtn {
       background: #5d2ed1;
+    }
+  }
+}
+
+// 커스텀 상품 옵션
+.dealsOption {
+  padding: 0 20px;
+
+  .dealsOption__inner {
+    padding: 20px 0;
+    border-bottom: 1px solid #eee;
+    display: flex;
+
+    .dealsOption__image {
+      min-width: 70px;
+      height: 70px;
+      background-position: center;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+    .dealOptionDesc {
+      margin-left: 15px;
+
+      .dealOptionDesc__title {
+        font-size: 13px;
+        font-weight: normal;
+        color: #111;
+        max-width: 190px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        span {
+          font-weight: bold;
+          margin-right: 5px;
+        }
+      }
+
+      .dealOptionDesc__option {
+        font-size: 13px;
+        color: #777;
+        font-weight: normal;
+        margin-top: 2px;
+        & > span {
+          &:not(:empty) {
+            &:not(:last-child) {
+              &::after {
+                content: ',';
+                margin-right: 3px;
+              }
+            }
+          }
+        }
+      }
+
+      .dealOptionDesc__date {
+        color: #777;
+        font-weight: 500;
+        font-size: 13px;
+        margin-top: 10px;
+
+        span {
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+
+  &:last-child {
+    .dealsOption__inner {
+      border-bottom: none;
     }
   }
 }

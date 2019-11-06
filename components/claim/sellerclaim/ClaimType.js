@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
-
-class DealOptions extends Component {
+import { inject, observer } from 'mobx-react';
+@inject('sellerClaim')
+@observer
+class ClaimType extends Component {
   render() {
+    let { sellerClaim } = this.props;
     let selectStyles = {
       container: () => ({
         position: 'relative',
@@ -57,8 +60,15 @@ class DealOptions extends Component {
       }),
     };
 
-    return <Select styles={selectStyles} placeholder={'문의 유형 선택'} />;
+    return (
+      <Select
+        styles={selectStyles}
+        placeholder={'문의 유형 선택'}
+        options={sellerClaim.sellerClaimTypeOptions}
+        isSearchable={false}
+      />
+    );
   }
 }
 
-export default DealOptions;
+export default ClaimType;

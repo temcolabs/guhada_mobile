@@ -27,16 +27,15 @@ class ProductInquiry extends Component {
     this.setState({ isNewInquiryVisible: isNewInquiryVisible });
   };
 
-  // componentDidMount() {
-  //   this.setIsSellerClaimVisible(true);
-  // }
+  componentDidMount() {
+    this.getIsSellerClaimVisible(this.props.productdetail?.deals?.sellerId);
+  }
 
   getIsSellerClaimVisible = sellerId => {
-    const productInquiryOpen = this.setIsNewInquiryVisible(true);
-    this.props.sellerClaim.checkIsSellerClaimPossible(
-      sellerId,
-      productInquiryOpen
-    );
+    const inquiryHandle = () => {
+      this.setState({ isNewInquiryVisible: true });
+    };
+    this.props.sellerClaim.checkIsSellerClaimPossible(sellerId, inquiryHandle);
   };
 
   render() {
@@ -92,11 +91,7 @@ class ProductInquiry extends Component {
               상품 문의하기
             </button>
             <button
-              onClick={() =>
-                login.loginStatus === loginStatus.LOGIN_DONE
-                  ? this.getIsSellerClaimVisible(deals.sellerId)
-                  : sendBackToLogin()
-              }
+              onClick={() => this.getIsSellerClaimVisible(deals.sellerId)}
             >
               판매자 문의하기
             </button>

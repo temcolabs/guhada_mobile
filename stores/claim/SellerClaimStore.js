@@ -1,6 +1,10 @@
-import { observable, action } from 'mobx';
+import { observable, action, computed } from 'mobx';
 import { isBrowser } from 'lib/isServer';
 import API from 'lib/API';
+import { sendBackToLogin } from 'lib/router';
+import { isImageFile } from 'lib/isImageFile';
+import uploadImageFile from 'lib/uploadImageFile';
+import { devLog } from 'lib/devLog';
 /**
  * 판매자 문의하기 관련
  */
@@ -14,9 +18,16 @@ export default class SellerClaimStore {
   // 셀러에게 주문한 상품들
   @observable myDealsOrdered = [];
   @observable isPossible = false;
-
+  @observable sellerClaimTypes = [];
+  @observable attachImageUrls = [];
+  @observable orderProdGroupId = 0;
   @action
-  checkIsSellerClaimPossible = (sellerId, productInquiryOpen) => {
+  checkIsSellerClaimPossible = (sellerId, inquiryHandle) => {
+    // 판매자 문의는 로그인 상태에서만 가능하다.
+    if (!this.root.login.isLoggedIn) {
+      sendBackToLogin();
+    }
+
     API.order
       .get(`/order-review/seller-inquire-order`, {
         params: {
@@ -24,10 +35,22 @@ export default class SellerClaimStore {
         },
       })
       .then(res => {
-        console.log(res, 'res');
+        devLog(res, 'res /order-review/seller-inquire-order');
         if (res.data.data.length > 0) {
           this.isPossible = true;
           this.myDealsOrdered = res.data.data;
+
+          if (!this.sellerClaimTypes?.length > 0) {
+            API.claim
+              .get(`/users/seller-claims/types`)
+              .then(res => {
+                devLog(res, 'types res');
+                this.sellerClaimTypes = res.data.data;
+              })
+              .catch(err => {
+                console.log(err, 'sellerClaimTypes err');
+              });
+          }
         } else {
           this.root.alert.showConfirm({
             content:
@@ -35,7 +58,7 @@ export default class SellerClaimStore {
             cancelText: '취소',
             confirmText: '상품 문의하기',
             onConfirm: () => {
-              productInquiryOpen();
+              inquiryHandle();
             },
           });
         }
@@ -48,5 +71,96 @@ export default class SellerClaimStore {
   @action
   closeClaim = () => {
     this.isPossible = false;
+  };
+
+  @action
+  setOrderGroupId = value => {
+    this.orderProdGroupId = value.value.orderProdGroupId;
+    console.log(this.orderProdGroupId, 'this.orderProdGroupId ');
+  };
+
+  // 모달의 select 컴포넌트에서 사용할 옵션
+  @computed
+  get myDealsOptions() {
+    return this.myDealsOrdered?.map((order = {}) => ({
+      label: order.productName,
+      value: {
+        // 셀렉트 옵션에서 사용할 데이터
+        orderProdGroupId: order.orderProdGroupId,
+        imageUrl: order.imageUrl,
+        productName: order.productName,
+        brandName: order.brandName,
+        quantity: order.quantity,
+        optionAttribute1: order.optionAttribute1,
+        optionAttribute2: order.optionAttribute2,
+        optionAttribute3: order.optionAttribute3,
+        orderTimestamp: order.orderTimestamp,
+        purchaseStatusText: order.statusText,
+      },
+    }));
+  }
+
+  @computed
+  get sellerClaimTypeOptions() {
+    return this.sellerClaimTypes?.map(claimType => ({
+      label: claimType.description,
+      value: claimType.name,
+    }));
+  }
+
+  @action
+  uploadImage = (e, setAttachImageArray) => {
+    let files = e.target.files;
+    if (files && isImageFile(files[0])) {
+      uploadImageFile({
+        file: files[0],
+        uploadPath: ['USER_SELLER_CLAIM'],
+      })
+        .then(res => {
+          setAttachImageArray(res.url);
+          devLog(res.url, 'upload image url ');
+        })
+        .catch(e => {
+          console.error(e);
+        });
+    }
+  };
+
+  @action
+  deleteImage = url => {
+    API.gateway
+      .delete(`/upload/image`, {
+        params: {
+          imgUrl: url,
+        },
+      })
+      .then(res => {
+        devLog(res, ' delete image');
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  @action
+  createSellerClaim = (claim, attachImage, sellerId) => {
+    let userId = this.root.user.userId;
+    let body = {
+      contents: claim,
+      imageUrls: attachImage,
+      orderProdGroupId: this.orderProdGroupId,
+      sellerId: sellerId,
+      title: '',
+      type: '',
+    };
+
+    API.claim
+      .post(`/users/${userId}/seller-claims`, body)
+      .then(res => {
+        devLog(res, 'create res');
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 }
