@@ -71,7 +71,6 @@ export default class SellerClaimStore {
   @action
   closeClaim = () => {
     this.isPossible = false;
-    this.initData();
   };
 
   @action
