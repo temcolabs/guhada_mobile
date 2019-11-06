@@ -1,7 +1,7 @@
 import loadScript, { scriptIds } from 'childs/lib/dom/loadScript';
-import detectDevice from 'lib/detectDevice';
+import detectDevice from 'childs/lib/detectDevice';
 import { devLog } from 'lib/devLog';
-import isEmailString from 'lib/isEmailString';
+import isEmailString from 'childs/lib/isEmailString';
 
 // 트래커 주소
 const CRITEO_TRACKER_URL = '//static.criteo.net/js/ld/ld.js';

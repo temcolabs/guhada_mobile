@@ -2,11 +2,19 @@ import React from 'react';
 import Home from 'template/Home';
 import Head from 'next/head';
 import { inject, observer } from 'mobx-react';
+import criteoTracker from 'childs/lib/tracking/criteo/criteoTracker';
 
-@inject('login')
+@inject('login', 'user')
 @observer
 class index extends React.Component {
-  componentDidMount() {}
+  componentDidMount() {
+    const { user: userStore } = this.props;
+    userStore.pushJobForUserInfo(() => {
+      criteoTracker.homepage({
+        email: userStore.userInfo.email,
+      });
+    });
+  }
 
   render() {
     return (
