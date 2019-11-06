@@ -1,5 +1,4 @@
-import { loadScript } from 'lib/dom';
-import { scriptIds } from 'lib/dom/loadScript';
+import loadScript, { scriptIds } from 'childs/lib/dom/loadScript';
 import detectDevice from 'lib/detectDevice';
 import { devLog } from 'lib/devLog';
 import isEmailString from 'lib/isEmailString';

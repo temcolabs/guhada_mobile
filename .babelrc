@@ -26,6 +26,7 @@
       {
         "root": ["./"],
         "alias": {
+          "childs": "./childs",
           "components": "./components",
           "constant": "./constant",
           "js": "./js",
