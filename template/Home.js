@@ -15,6 +15,7 @@ import Footer from 'components/footer/Footer';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
 import { pushRoute } from 'lib/router';
 import _ from 'lodash';
+import scrollDirection from 'lib/scrollDirection';
 
 @withScrollToTopOnMount
 @withRouter
@@ -55,6 +56,12 @@ class Home extends React.Component {
         email: query.email,
       });
     }
+
+    window.addEventListener('scroll', scrollDirection);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', scrollDirection);
   }
 
   handleModal = value => {
