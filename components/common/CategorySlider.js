@@ -60,15 +60,19 @@ class CategorySlider extends Component {
   };
 
   render() {
-    const { categoryList, category, searchitem } = this.props;
-    const { scrollDirection } = searchitem;
+    const { categoryList, category, scrollDirection } = this.props;
+    // const { scrollDirection } = searchitem;
     const subCategory = toJS(category.category);
     return (
       <>
         <div
-          className={cn(css.wrap, {
-            [css.borderNone]: this.state.isVisibleSubCategory === true,
-          })}
+          className={cn(
+            css.wrap,
+            {
+              [css.borderNone]: this.state.isVisibleSubCategory === true,
+            },
+            { [css.scrollDown]: scrollDirection === 'down' }
+          )}
         >
           {categoryList.map((item, index) => {
             return (
@@ -94,7 +98,9 @@ class CategorySlider extends Component {
           /> */}
         </div>
         <div
-          className={cn(css.subWrap)}
+          className={cn(css.subWrap, {
+            [css.scrollDown]: scrollDirection === 'down',
+          })}
           style={{
             display:
               this.state.isVisibleSubCategory === true

@@ -19,7 +19,13 @@ import _ from 'lodash';
  * @param {string} headerShape
  * productDetail 일때 layout 변경
  */
-function Header({ children, headerShape, history, cartAmount }) {
+function Header({
+  children,
+  headerShape,
+  history,
+  cartAmount,
+  scrollDirection,
+}) {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isCategoryVisible, setIsCategoryVisible] = useState(false);
   const [categoryId, setCategoryId] = useState(0);
@@ -35,15 +41,20 @@ function Header({ children, headerShape, history, cartAmount }) {
       ) : (
         // 헤더의 보더
         <div
-          className={cn(css.wrap, {
-            [css.borderBottom]:
-              headerShape === 'sellerStore' ||
-              headerShape === 'productDetail' ||
-              headerShape === 'ordersuccess' ||
-              headerShape === 'orderpayment' ||
-              headerShape === 'shoppingcart' ||
-              headerShape === 'brand',
-          })}
+          className={cn(
+            css.wrap,
+            {
+              [css.borderBottom]:
+                headerShape === 'sellerStore' ||
+                headerShape === 'productDetail' ||
+                headerShape === 'ordersuccess' ||
+                headerShape === 'orderpayment' ||
+                headerShape === 'shoppingcart' ||
+                headerShape === 'brand',
+            },
+            { [css.scrollDown]: scrollDirection === 'down' }
+          )}
+          // style={scrollDirection === 'down' ? { display: 'none' } : null}
         >
           {/* 백버튼 */}
           {headerShape === 'productDetail' ||
