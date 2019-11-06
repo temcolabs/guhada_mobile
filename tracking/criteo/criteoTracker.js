@@ -10,9 +10,12 @@ const getDeviceType = () => {
   const { isTablet, isMobile } = detectDevice();
   const deviceType = isTablet ? 't' : isMobile ? 'm' : 'd';
 
-  devLog('deviceType for criteo tracker', deviceType);
+  devLog('> deviceType for criteo tracker:', deviceType);
   return deviceType;
 };
+
+// 계정 아이디
+const CRITEO_ACCOUNT_ID = 65280;
 
 /**
  * ! email이 필요한 트래킹은 로그인한 상태에서만 실행한다.
@@ -32,20 +35,20 @@ export default {
     @param userId 사용자 아이디
     @param type 타입. 데스크탑 d, 모바일 m, 태블릿 t
    */
-  homepage: ({ userId, email = '' }) => {
+  homepage: ({ email = '' }) => {
     loadScript(CRITEO_TRACKER_URL, {
       id: scriptIds.CRITEO_TRACKER,
       async: true,
       onLoad: () => {
         window.criteo_q = window.criteo_q || [];
         window.criteo_q.push(
-          { event: 'setAccount', account: 65280 }, // account 고유값 고정
+          { event: 'setAccount', account: CRITEO_ACCOUNT_ID }, // account 고유값 고정
           { event: 'setEmail', email: email || '' },
           { event: 'setSiteType', type: getDeviceType() },
           { event: 'viewHome' }
         );
 
-        console.log(`[CRITEO_TRACKER] viewHome: user, email`, userId, email);
+        console.log(`[CRITEO_TRACKER] viewHome: email`, email);
       },
     });
   },
@@ -62,21 +65,23 @@ export default {
       id: scriptIds.CRITEO_TRACKER,
       async: true,
       onLoad: () => {
+        const dealIdsWithStringId = dealIds.map(dealId => String(dealId || ''));
+
         window.criteo_q = window.criteo_q || [];
         window.criteo_q.push(
-          { event: 'setAccount', account: 65280 },
+          { event: 'setAccount', account: CRITEO_ACCOUNT_ID },
           { event: 'setEmail', email: email || '' },
           { event: 'setSiteType', type: getDeviceType() },
           {
             event: 'viewList',
-            item: dealIds,
+            item: dealIdsWithStringId,
           }
         );
 
         console.log(
-          `[CRITEO_TRACKER] viewList: dealIds, email`,
-          dealIds,
-          email
+          `[CRITEO_TRACKER] viewList: email, dealIds`,
+          email,
+          dealIdsWithStringId
         );
       },
     });
@@ -95,13 +100,17 @@ export default {
       onLoad: () => {
         window.criteo_q = window.criteo_q || [];
         window.criteo_q.push(
-          { event: 'setAccount', account: 65280 },
+          { event: 'setAccount', account: CRITEO_ACCOUNT_ID },
           { event: 'setEmail', email: email || '' },
           { event: 'setSiteType', type: getDeviceType() },
-          { event: 'viewItem', item: dealId }
+          { event: 'viewItem', item: String(dealId || '') }
         );
 
-        console.log(`[CRITEO_TRACKER] viewItem: email, dealId`, email, dealId);
+        console.log(
+          `[CRITEO_TRACKER] viewItem: email, dealId`,
+          email,
+          String(dealId || '')
+        );
       },
     });
   },
@@ -126,18 +135,27 @@ export default {
       id: scriptIds.CRITEO_TRACKER,
       async: true,
       onLoad: () => {
+        const itemsWithStringId = items.map(item => ({
+          ...item,
+          id: String(item.id || ''), // * 아이디는 문자열로 변환되어야 한다
+        }));
+
         window.criteo_q = window.criteo_q || [];
         window.criteo_q.push(
-          { event: 'setAccount', account: 65280 },
+          { event: 'setAccount', account: CRITEO_ACCOUNT_ID },
           { event: 'setEmail', email: email || '' },
           { event: 'setSiteType', type: getDeviceType() },
           {
             event: 'viewBasket',
-            item: items,
+            item: itemsWithStringId,
           }
         );
 
-        console.log(`[CRITEO_TRACKER] viewBasket: email, items`, email, items);
+        console.log(
+          `[CRITEO_TRACKER] viewBasket: email, items`,
+          email,
+          itemsWithStringId
+        );
       },
     });
   },
@@ -163,23 +181,28 @@ export default {
       id: scriptIds.CRITEO_TRACKER,
       async: true,
       onLoad: () => {
+        const itemsWithStringId = items.map(item => ({
+          ...item,
+          id: String(item.id || ''), // * 아이디는 문자열로 변환되어야 한다
+        }));
+
         window.criteo_q = window.criteo_q || [];
         window.criteo_q.push(
-          { event: 'setAccount', account: 65280 },
+          { event: 'setAccount', account: CRITEO_ACCOUNT_ID },
 
           { event: 'setEmail', email: email || '' },
           { event: 'setSiteType', type: 'm' },
           {
             event: 'trackTransaction',
             id: transaction_id,
-            item: items,
+            item: itemsWithStringId,
           }
         );
 
         console.log(
           `[CRITEO_TRACKER] trackTransaction: transaction_id, items`,
           transaction_id,
-          items
+          itemsWithStringId
         );
       },
     });
