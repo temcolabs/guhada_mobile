@@ -31,3 +31,5 @@ git subtree push --prefix childs/lib remote-lib master
 ```bash
 git subtree pull --prefix childs/lib remote-lib master
 ```
+
+push.sh, pull.sh 스크립트를 사용하면 된다.
