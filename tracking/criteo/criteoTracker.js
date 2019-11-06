@@ -40,7 +40,7 @@ export default {
         window.criteo_q = window.criteo_q || [];
         window.criteo_q.push(
           { event: 'setAccount', account: 65280 }, // account 고유값 고정
-          { event: 'setEmail', email: email },
+          { event: 'setEmail', email: email || '' },
           { event: 'setSiteType', type: getDeviceType() },
           { event: 'viewHome' }
         );
@@ -65,7 +65,7 @@ export default {
         window.criteo_q = window.criteo_q || [];
         window.criteo_q.push(
           { event: 'setAccount', account: 65280 },
-          { event: 'setEmail', email: email },
+          { event: 'setEmail', email: email || '' },
           { event: 'setSiteType', type: getDeviceType() },
           {
             event: 'viewList',
@@ -96,7 +96,7 @@ export default {
         window.criteo_q = window.criteo_q || [];
         window.criteo_q.push(
           { event: 'setAccount', account: 65280 },
-          { event: 'setEmail', email: email },
+          { event: 'setEmail', email: email || '' },
           { event: 'setSiteType', type: getDeviceType() },
           { event: 'viewItem', item: dealId }
         );
@@ -129,7 +129,7 @@ export default {
         window.criteo_q = window.criteo_q || [];
         window.criteo_q.push(
           { event: 'setAccount', account: 65280 },
-          { event: 'setEmail', email: email },
+          { event: 'setEmail', email: email || '' },
           { event: 'setSiteType', type: getDeviceType() },
           {
             event: 'viewBasket',
@@ -167,7 +167,7 @@ export default {
         window.criteo_q.push(
           { event: 'setAccount', account: 65280 },
 
-          { event: 'setEmail', email: email },
+          { event: 'setEmail', email: email || '' },
           { event: 'setSiteType', type: 'm' },
           {
             event: 'trackTransaction',
