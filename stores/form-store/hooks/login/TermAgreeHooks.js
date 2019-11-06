@@ -123,7 +123,5 @@ export default {
         form.$('optionalAgree').set(false);
       }
     }
-
-    console.log('form.get()', form.get('value'));
   },
 };

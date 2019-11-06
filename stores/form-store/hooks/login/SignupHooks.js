@@ -14,8 +14,6 @@ export default {
   onSuccess(form) {
     let loginData = form.values();
     let termData = termForm.termAgree.values();
-    console.log('termForm', termForm);
-    console.log('termData', termData);
 
     API.user
       .post('/signUpUser', {
