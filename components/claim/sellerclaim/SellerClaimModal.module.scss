@@ -43,6 +43,22 @@
       border-top: 1px solid #eee;
     }
 
+    .title {
+      height: 50px;
+      border-top: 1px solid #eee;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+
+      input {
+        width: 100%;
+        &::placeholder {
+          color: #ccc;
+          font-size: 15px;
+          font-weight: 500;
+        }
+      }
+    }
     .textArea {
       border-top: 1px solid #eee;
       padding: 17px 20px 0;

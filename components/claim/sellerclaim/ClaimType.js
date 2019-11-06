@@ -66,6 +66,9 @@ class ClaimType extends Component {
         placeholder={'문의 유형 선택'}
         options={sellerClaim.sellerClaimTypeOptions}
         isSearchable={false}
+        onChange={value => {
+          sellerClaim.setClaimType(value);
+        }}
       />
     );
   }

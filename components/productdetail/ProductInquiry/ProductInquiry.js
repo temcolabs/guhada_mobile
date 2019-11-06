@@ -27,10 +27,6 @@ class ProductInquiry extends Component {
     this.setState({ isNewInquiryVisible: isNewInquiryVisible });
   };
 
-  componentDidMount() {
-    this.getIsSellerClaimVisible(this.props.productdetail?.deals?.sellerId);
-  }
-
   getIsSellerClaimVisible = sellerId => {
     const inquiryHandle = () => {
       this.setState({ isNewInquiryVisible: true });
