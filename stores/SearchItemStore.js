@@ -11,10 +11,17 @@ import API from 'lib/API.js';
 import { pushRoute } from 'lib/router/index.js';
 import qs from 'qs';
 import _ from 'lodash';
+import criteoTracker from 'childs/lib/tracking/criteo/criteoTracker';
 
 const isServer = typeof window === 'undefined';
 
 export default class SearchItemStore {
+  constructor(root) {
+    if (!isServer) {
+      this.root = root;
+    }
+  }
+
   @observable treeData = [];
   @observable item = [];
   @observable itemStatus = false;
@@ -34,10 +41,6 @@ export default class SearchItemStore {
   leaveHover = () => {
     this.hover = [false, false, false];
   };
-
-  constructor(root) {
-    if (!isServer) this.root = root;
-  }
 
   @observable scrollPosition;
   @observable dealsPage = 0;
@@ -303,7 +306,7 @@ export default class SearchItemStore {
         }
 
         // category uri 값을 통해서 tree의 기본 key 값을 찾아
-        // 열어주는 기능
+        // 열어주3는 기능
 
         let hierarchy;
         if (categoryIds) {
@@ -327,7 +330,18 @@ export default class SearchItemStore {
           )
           .then(res => {
             let data = res.data;
+
             if (data.resultCode === 200) {
+              // * 목록 검색 성공 후 크리테오 트래커 실행
+              this.root.user.pushJobForUserInfo(() => {
+                const { deals } = data.data;
+
+                criteoTracker.searchResults({
+                  email: this.root.user.userInfo.email,
+                  dealIds: deals?.slice(0, 3).map(deal => deal.dealId),
+                });
+              });
+
               this.setItem(data.data);
               /**
                * mobile 작업
