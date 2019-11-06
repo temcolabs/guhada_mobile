@@ -21,7 +21,7 @@ export default class SellerClaimStore {
   @observable sellerClaimTypes = [];
   @observable attachImageUrls = [];
   @observable orderProdGroupId = 0;
-  @observable claimType = '';
+  @observable claimType = null;
   @action
   checkIsSellerClaimPossible = (sellerId, inquiryHandle) => {
     // 판매자 문의는 로그인 상태에서만 가능하다.
@@ -45,7 +45,6 @@ export default class SellerClaimStore {
             API.claim
               .get(`/users/seller-claims/types`)
               .then(res => {
-                devLog(res, 'types res');
                 this.sellerClaimTypes = res.data.data;
               })
               .catch(err => {
@@ -72,18 +71,17 @@ export default class SellerClaimStore {
   @action
   closeClaim = () => {
     this.isPossible = false;
+    this.initData();
   };
 
   @action
   setOrderGroupId = value => {
     this.orderProdGroupId = value.value.orderProdGroupId;
-    devLog(this.orderProdGroupId, 'this.orderProdGroupId ');
   };
 
   @action
   setClaimType = value => {
     this.claimType = value.value;
-    devLog(this.claimType, 'value');
   };
 
   // 모달의 select 컴포넌트에서 사용할 옵션
@@ -125,7 +123,6 @@ export default class SellerClaimStore {
       })
         .then(res => {
           setAttachImageArray(res.url);
-          devLog(res.url, 'upload image url ');
         })
         .catch(e => {
           console.error(e);
@@ -164,7 +161,6 @@ export default class SellerClaimStore {
     API.claim
       .post(`/users/${userId}/seller-claims`, body)
       .then(res => {
-        devLog(res, 'create res');
         this.root.alert.showAlert('판매자 문의가 등록되었습니다.');
         this.closeClaim();
       })

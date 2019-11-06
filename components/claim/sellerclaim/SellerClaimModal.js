@@ -6,25 +6,40 @@ import ClaimType from './ClaimType';
 import { inject } from 'mobx-react';
 
 function SellerClaimModal({ isVisible, sellerId, sellerClaim, onClose }) {
+  const [myDeal, setMyDeal] = useState('INIT');
+  const [claimType, setClaimType] = useState('INIT');
   const [claim, setClaim] = useState('');
+  const [claimCheck, setClaimCheck] = useState(true);
   const [title, setTitle] = useState('');
+  const [titleCheck, setTitleCheck] = useState(true);
   const [attachImage, setAttachImage] = useState([]);
 
   const attachFileInputRef = useRef();
 
+  function setMyDealHandler(value) {
+    setMyDeal(value);
+    sellerClaim.setOrderGroupId(value);
+  }
+
+  function setClaimTypeHandler(value) {
+    setClaimType(value);
+    sellerClaim.setClaimType(value);
+  }
+
   function setTitleHandler(e) {
     setTitle(e.target.value);
   }
-  function setClaimText(e) {
+
+  function setClaimHandler(e) {
     claim.length <= 1000
       ? setClaim(e.target.value)
       : setClaim(claim.substring(0, 1000));
   }
 
   function setAttachImageArray(data) {
-    let arr = [...attachImage];
+    let arr = attachImage;
     arr.push(data);
-    setAttachImage([arr]);
+    setAttachImage([...arr]);
   }
 
   function deleteAttachImageArray(url, index) {
@@ -34,9 +49,40 @@ function SellerClaimModal({ isVisible, sellerId, sellerClaim, onClose }) {
     sellerClaim.deleteImage(url);
   }
 
+  function createSellerClaimHandler(title, claim, attachImage, sellerId) {
+    if (myDeal === 'INIT') {
+      setMyDeal(false);
+      return false;
+    } else if (claimType === 'INIT') {
+      setClaimType(false);
+      return false;
+    } else if (title === '') {
+      setTitleCheck(false);
+      return false;
+    } else if (claim === '') {
+      setClaimCheck(false);
+      return false;
+    }
+
+    if (myDeal && claimType && title && claim) {
+      sellerClaim.createSellerClaim(title, claim, attachImage, sellerId);
+    }
+  }
+
   useEffect(() => {
-    console.log(attachImage, 'attachImageattachImage');
-  }, [attachImage]);
+    setClaim('');
+    setMyDeal('INIT');
+    setClaimType('INIT');
+    setTitle('');
+    setAttachImage([]);
+    setClaimCheck(true);
+    setTitleCheck(true);
+  }, [sellerClaim.isPossible]);
+
+  useEffect(() => {
+    setClaimCheck(true);
+    setTitleCheck(true);
+  }, [claim, title]);
 
   return (
     <div>
@@ -48,15 +94,24 @@ function SellerClaimModal({ isVisible, sellerId, sellerClaim, onClose }) {
           </div>
           <div className={css.contentsWrap}>
             <div className={css.dealOptions}>
-              <MyDealSelect />
+              <MyDealSelect
+                setMyDealHandler={setMyDealHandler}
+                value={myDeal}
+              />
             </div>
-            {true ? null : (
+            {myDeal ? null : (
               <div className={css.errorMessage}>이 값은 필수 입니다.</div>
             )}
 
             <div className={css.claimType}>
-              <ClaimType />
+              <ClaimType
+                setClaimTypeHandler={setClaimTypeHandler}
+                value={claimType}
+              />
             </div>
+            {claimType ? null : (
+              <div className={css.errorMessage}>이 값은 필수 입니다.</div>
+            )}
 
             <div className={css.title}>
               <input
@@ -68,20 +123,26 @@ function SellerClaimModal({ isVisible, sellerId, sellerClaim, onClose }) {
                 placeholder="제목을 입력하세요."
               />
             </div>
+            {titleCheck ? null : (
+              <div className={css.errorMessage}>이 값은 필수 입니다.</div>
+            )}
 
             <div className={css.textArea}>
               <textarea
                 placeholder="문의하실 내용을 입력하세요"
                 onChange={e => {
-                  setClaimText(e);
+                  setClaimHandler(e);
                 }}
                 onBlur={e => {
-                  setClaimText(e);
+                  setClaimHandler(e);
                 }}
                 value={claim}
                 maxLength="1000"
               />
             </div>
+            {claimCheck ? null : (
+              <div className={css.errorMessage}>이 값은 필수 입니다.</div>
+            )}
             <div className={css.textNumberChecker}>
               <span>{claim.length}</span>
               /1000
@@ -113,7 +174,7 @@ function SellerClaimModal({ isVisible, sellerId, sellerClaim, onClose }) {
                   return (
                     <div
                       className={css.attachImage}
-                      style={{ backgroundImage: `url(${data.url})` }}
+                      style={{ backgroundImage: `url(${data})` }}
                       key={index}
                     >
                       <div
@@ -136,16 +197,13 @@ function SellerClaimModal({ isVisible, sellerId, sellerClaim, onClose }) {
           </div>
 
           <div className={css.buttonGroup}>
-            <div className={css.cancelBtn}>취소</div>
+            <div className={css.cancelBtn} onClick={onClose}>
+              취소
+            </div>
             <div
               className={css.inquiryBtn}
               onClick={() => {
-                sellerClaim.createSellerClaim(
-                  title,
-                  claim,
-                  attachImage,
-                  sellerId
-                );
+                createSellerClaimHandler(title, claim, attachImage, sellerId);
               }}
             >
               문의하기

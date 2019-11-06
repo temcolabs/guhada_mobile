@@ -5,7 +5,7 @@ import { inject, observer } from 'mobx-react';
 @observer
 class ClaimType extends Component {
   render() {
-    let { sellerClaim } = this.props;
+    let { sellerClaim, setClaimTypeHandler, value } = this.props;
     let selectStyles = {
       container: () => ({
         position: 'relative',
@@ -67,8 +67,9 @@ class ClaimType extends Component {
         options={sellerClaim.sellerClaimTypeOptions}
         isSearchable={false}
         onChange={value => {
-          sellerClaim.setClaimType(value);
+          setClaimTypeHandler(value);
         }}
+        value={value}
       />
     );
   }

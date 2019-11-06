@@ -6,7 +6,7 @@ import { inject, observer } from 'mobx-react';
 @observer
 class MyDealSelect extends Component {
   render() {
-    let { sellerClaim, setOrderGroupId } = this.props;
+    let { sellerClaim, setMyDealHandler, value } = this.props;
 
     let selectStyles = {
       container: () => ({
@@ -68,8 +68,9 @@ class MyDealSelect extends Component {
         }}
         isSearchable={false}
         onChange={value => {
-          sellerClaim.setOrderGroupId(value);
+          setMyDealHandler(value);
         }}
+        value={value}
       />
     );
   }
