@@ -10,14 +10,13 @@
 ### 원격 브랜치 추가
 
 ```bash
-git remote add lib git@github.com:temcolabs/guhada_web_lib.git
+git remote add remote-lib git@github.com:temcolabs/guhada_web_lib.git
 ```
 
 ### subtree로 추가
 
-
 ```bash
-git subtree add --prefix childs/web_lib web_lib master
+git subtree add --prefix childs/lib remote-lib master
 ```
 
 ### Parent 저장소에서 변경사항 push
@@ -32,4 +31,3 @@ git subtree push --prefix childs/lib remote-lib master
 ```bash
 git subtree pull --prefix childs/lib remote-lib master
 ```
-

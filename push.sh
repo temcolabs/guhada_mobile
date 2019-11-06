@@ -1,1 +1,1 @@
-git subtree pull --prefix childs/lib remote-lib master
+git subtree push --prefix childs/lib remote-lib master
