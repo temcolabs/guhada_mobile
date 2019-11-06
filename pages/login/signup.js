@@ -8,6 +8,7 @@ import Signup from 'template/signin/Signup';
 export class signup extends Component {
   render() {
     Form.signUp.clear();
+    Form.termAgree.clear();
     return (
       <>
         <Head>
@@ -23,7 +24,7 @@ export class signup extends Component {
           />
         </Head>
         <div>
-          <Signup form={Form.signUp} />
+          <Signup form={Form.signUp} termAgree={Form.termAgree} />
         </div>
       </>
     );
