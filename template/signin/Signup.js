@@ -21,9 +21,9 @@ class Signup extends Component {
   };
 
   render() {
-    const { form } = this.props;
+    const { form, termAgree } = this.props;
     let value = form.get('value');
-
+    let termAgreeValue = termAgree.get('value');
     return (
       <LoginLayout pageTitle={'회원가입'}>
         <LoginWrapper>
@@ -35,23 +35,23 @@ class Signup extends Component {
             </div>
             <div className={css.bigCheckboxWrap}>
               <LoginCheckBox
-                field={form.$('allagree_term')}
+                field={termAgree.$('allagree_term')}
                 big={true}
                 className={'wrap'}
               />
             </div>
             <div className={css.borderBottom}>
               <LoginCheckBox
-                field={form.$('requireAgree')}
+                field={termAgree.$('requireAgree')}
                 className={'wrap'}
               />
               <LoginCheckBox
-                field={form.$('agreePurchaseTos')}
+                field={termAgree.$('agreePurchaseTos')}
                 className={'termOption'}
                 href={`${process.env.HOSTNAME}/terms/purchase`}
               />
               <LoginCheckBox
-                field={form.$('agreeCollectPersonalInfoTos')}
+                field={termAgree.$('agreeCollectPersonalInfoTos')}
                 className={'termOption'}
                 href={`${process.env.HOSTNAME}/terms/personal`}
               />
@@ -63,7 +63,7 @@ class Signup extends Component {
               onClick={() => this.handleOptionalAgree()}
             >
               <LoginCheckBox
-                field={form.$('optionalAgree')}
+                field={termAgree.$('optionalAgree')}
                 className={'wrap'}
               />
               <div
@@ -74,17 +74,17 @@ class Signup extends Component {
                 }
               >
                 <LoginCheckBox
-                  field={form.$('agreeSaleTos')}
+                  field={termAgree.$('agreeSaleTos')}
                   className={'termOption'}
                   href={`${process.env.HOSTNAME}/terms/sale`}
                 />
                 <div>
                   <LoginCheckBox
-                    field={form.$('agreeEmailReception')}
+                    field={termAgree.$('agreeEmailReception')}
                     className={'emailsms'}
                   />
                   <LoginCheckBox
-                    field={form.$('agreeSmsReception')}
+                    field={termAgree.$('agreeSmsReception')}
                     className={'emailsms'}
                   />
                 </div>
@@ -97,8 +97,8 @@ class Signup extends Component {
                     value.email &&
                     value.password &&
                     value.passwordConfirm &&
-                    value.agreePurchaseTos &&
-                    value.agreeCollectPersonalInfoTos
+                    termAgreeValue.agreePurchaseTos &&
+                    termAgreeValue.agreeCollectPersonalInfoTos
                   )
                     ? 'isGray'
                     : 'isColored'
@@ -109,8 +109,8 @@ class Signup extends Component {
                     value.email &&
                     value.password &&
                     value.passwordConfirm &&
-                    value.agreePurchaseTos &&
-                    value.agreeCollectPersonalInfoTos
+                    termAgreeValue.agreePurchaseTos &&
+                    termAgreeValue.agreeCollectPersonalInfoTos
                   )
                 }
               >
