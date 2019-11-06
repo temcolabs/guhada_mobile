@@ -1001,6 +1001,7 @@ export default class OrderPaymentStore {
           returnUrl: returnUrl,
           jsUrl: data.jsUrl,
           nextUrl: nextUrl,
+          vbankdt: data.expireDate,
         };
         sessionStorage.setItem('paymentInfo', JSON.stringify(forms));
       })

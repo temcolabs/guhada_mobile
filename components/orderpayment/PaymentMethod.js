@@ -253,6 +253,14 @@ class PaymentMethod extends Component {
               value={paymentForm.jsUrl || ''}
               ref={this.textInput}
             />
+
+            <br />
+            <input
+              readOnly
+              type="hidden"
+              name="P_VBANK_DT"
+              value={paymentForm.vbankdt || ''}
+            />
           </form>
         </div>
       </div>
