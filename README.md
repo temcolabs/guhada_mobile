@@ -19,6 +19,10 @@ git remote add remote-lib git@github.com:temcolabs/guhada_web_lib.git
 git subtree add --prefix childs/lib remote-lib master
 ```
 
+## subtree로 추가된 저장소에서 직접 push, pull 하기
+
+이 저장소를 subtree로 추가한 저장소(desktop web, mobile web 저장소. Parent로 지칭)에서 이 저장소에 있는 소스 파일을 수정한 후 원격에 반영할 수 있다. 그러기 위해서는 Parent에서 변경 사항을 커밋 후 Parent의 원격에 푸시가 완료된 상태여야 한다.
+
 ### Parent 저장소에서 변경사항 push
 
 ```bash
