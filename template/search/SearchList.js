@@ -95,7 +95,9 @@ class SearchList extends Component {
           />
         )}
 
-        {isKeyword && _.size(searchitem.deals) === 0 ? (
+        {isKeyword &&
+        !!searchitem.itemStatus &&
+        searchitem.itemEmpty === true ? (
           <SearchResultEmpty
             title={Router.router.query.keyword}
             setIsSearchVisible={this.setIsSearchVisible}

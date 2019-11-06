@@ -18,7 +18,7 @@ export default class SearchItemStore {
   @observable treeData = [];
   @observable item = [];
   @observable itemStatus = false;
-
+  @observable itemEmpty = false;
   @observable hover = [false, false, false];
   @observable deals = [];
 
@@ -226,6 +226,8 @@ export default class SearchItemStore {
     keyword,
     condition
   ) => {
+    this.itemEmpty = false;
+
     // 값이 undefined 일 때 문제 되는 parameter 값 "" 처리
 
     if (brandIds === undefined) {
@@ -498,6 +500,12 @@ export default class SearchItemStore {
                   });
                 });
               });
+
+              if (_.size(this.deals) === 0) {
+                this.itemEmpty = true;
+              } else {
+                this.itemEmpty = false;
+              }
 
               this.itemStatus = true;
             }
