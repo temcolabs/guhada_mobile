@@ -22,7 +22,14 @@ class TimeDeal extends Component {
           setNavDealId={main.setNavDealId}
         />
         <div className={css.wrap}>
-          <div className={css.bg}>
+          <div
+            className={css.bg}
+            style={{
+              backgroundImage: `url(${
+                process.env.API_CLOUD
+              }/images/background/timedeal/time_deal_bg_mobile.png)`,
+            }}
+          >
             {main.timeDeal.map((deal, index) => {
               return (
                 <div key={index}>
