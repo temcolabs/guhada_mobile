@@ -1,4 +1,4 @@
-import { observable, action, toJS } from 'mobx';
+import { observable, action, toJS, computed } from 'mobx';
 import isServer, { isBrowser } from 'lib/isServer';
 import sessionStorage from 'lib/sessionStorage';
 import key from 'constant/key';
@@ -68,6 +68,11 @@ export default class UserStore {
       console.groupEnd(`getUserInfo`);
     }
   };
+
+  @computed
+  get userId() {
+    return _.get(this.userInfo, 'id');
+  }
 
   @action
   addFetched = fn => {
