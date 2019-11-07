@@ -18,6 +18,21 @@ const getDeviceType = () => {
 const CRITEO_ACCOUNT_ID = 65280;
 
 /**
+ * 운영 사이트인지 확인
+ * 데스크탑과 모바일의 호스트네임이 다름
+ */
+const getIsProdSite = () => {
+  const { isMobile, isTablet } = detectDevice();
+  const prodHostname = isMobile || isTablet ? 'm.guhada.com' : 'www.guhada.com';
+
+  devLog('[getIsProdSite] prodHostname', prodHostname);
+
+  return (
+    typeof window === 'object' && window.location.hostname === prodHostname
+  );
+};
+
+/**
  * 제품 아이디는 문자열이어야 한다.
  * @param {*} id
  */
@@ -74,8 +89,10 @@ export default {
 
         console.log(`[CRITEO_TRACKER] viewHome`, ...params);
 
-        window.criteo_q = window.criteo_q || [];
-        window.criteo_q.push(...params);
+        if (getIsProdSite()) {
+          window.criteo_q = window.criteo_q || [];
+          window.criteo_q.push(...params);
+        }
       },
     });
   },
@@ -104,8 +121,10 @@ export default {
 
         console.log(`[CRITEO_TRACKER] viewList`, ...params);
 
-        window.criteo_q = window.criteo_q || [];
-        window.criteo_q.push(...params);
+        if (getIsProdSite()) {
+          window.criteo_q = window.criteo_q || [];
+          window.criteo_q.push(...params);
+        }
       },
     });
   },
@@ -130,8 +149,10 @@ export default {
 
         console.log(`[CRITEO_TRACKER] viewItem`, ...params);
 
-        window.criteo_q = window.criteo_q || [];
-        window.criteo_q.push(...params);
+        if (getIsProdSite()) {
+          window.criteo_q = window.criteo_q || [];
+          window.criteo_q.push(...params);
+        }
       },
     });
   },
@@ -172,8 +193,10 @@ export default {
 
         console.log(`[CRITEO_TRACKER] viewBasket`, ...params);
 
-        window.criteo_q = window.criteo_q || [];
-        window.criteo_q.push(...params);
+        if (getIsProdSite()) {
+          window.criteo_q = window.criteo_q || [];
+          window.criteo_q.push(...params);
+        }
       },
     });
   },
@@ -216,9 +239,10 @@ export default {
 
         console.log(`[CRITEO_TRACKER] trackTransaction`, ...params);
 
-        console.log(params[1].email);
-        window.criteo_q = window.criteo_q || [];
-        window.criteo_q.push(...params);
+        if (getIsProdSite()) {
+          window.criteo_q = window.criteo_q || [];
+          window.criteo_q.push(...params);
+        }
       },
     });
   },
