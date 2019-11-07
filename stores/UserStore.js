@@ -1,4 +1,4 @@
-import { observable, action, toJS } from 'mobx';
+import { observable, action, computed, toJS } from 'mobx';
 import isServer, { isBrowser } from 'lib/isServer';
 import sessionStorage from 'lib/sessionStorage';
 import key from 'constant/key';
@@ -40,6 +40,11 @@ export default class UserStore {
   // 회원정보 수정을 위해 비밀번호를 한번 더 입력했는지 확인
   @observable isPasswordDoubledChecked = false;
 
+  @computed
+  get userId() {
+    return _.get(this.userInfo, 'id');
+  }
+
   /**
    * 유효한 accessToken을 가지고 있는 상태에서 유저 정보를 가져온다.
    */
@@ -54,13 +59,7 @@ export default class UserStore {
         this.userInfo = data.data;
         localStorage.set(key.GUHADA_USERINFO, toJS(this.userInfo), 60);
 
-        while (this.jobForUseInfo.length > 0) {
-          const cb = this.jobForUseInfo.pop();
-
-          if (typeof cb === 'function') {
-            cb();
-          }
-        }
+        this.runJobsForUserInfo(data.data);
       }
     } catch (e) {
       console.error(e);
@@ -112,6 +111,16 @@ export default class UserStore {
       }
     } else {
       console.error('[pushJobForUserInfo] job is not function');
+    }
+  };
+
+  @action
+  runJobsForUserInfo = (userInfo = {}) => {
+    while (this.jobForUseInfo.length > 0) {
+      const cb = this.jobForUseInfo.pop();
+      if (typeof cb === 'function') {
+        cb();
+      }
     }
   };
 }

@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 // import css from './NaverLogin.module.scss';
 import css from '../../template/signin/Login.module.scss';
 import { observer } from 'mobx-react';
-import { loadScript } from 'lib/dom';
+import loadScript from 'childs/lib/dom/loadScript';
 import { snsAppKey } from 'constant/sns';
 import { isBrowser } from 'lib/isServer';
 import { HOSTNAME } from 'constant/hostname';

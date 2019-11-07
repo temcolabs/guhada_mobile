@@ -6,17 +6,29 @@ import { getParameterByName } from '../../utils';
 import Loading from '../../components/common/loading/Loading';
 import { withRouter } from 'next/router';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
+import criteoTracker from 'childs/lib/tracking/criteo/criteoTracker';
 
 @withScrollToTopOnMount
 @withRouter
-@inject('productdetail', 'productDetailLike')
+@inject('productdetail', 'productDetailLike', 'user')
 @observer
 class index extends React.Component {
   componentDidMount() {
-    let { productdetail, productDetailLike } = this.props;
-    let dealsId = getParameterByName('deals');
-    productdetail.getDeals(dealsId);
+    let { productdetail, productDetailLike, user } = this.props;
+    let dealId = getParameterByName('deals');
+    productdetail.getDeals(dealId);
     productDetailLike.getUserLike();
+
+    // 상품 정보 가져오기
+    productdetail.getDeals(dealId);
+
+    // 크리테오 트래커
+    user.pushJobForUserInfo(() => {
+      criteoTracker.productDetail({
+        email: user.userInfo.email,
+        dealId: dealId,
+      });
+    });
   }
 
   componentDidUpdate(prevProps) {

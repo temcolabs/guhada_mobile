@@ -6,12 +6,41 @@ import OrderInfo from 'components/orderpaymentsuccess/OrderInfo';
 import OrderResult from 'components/orderpaymentsuccess/OrderResult';
 import BottomFixedButton from 'components/orderpaymentsuccess/BottomFixedButton';
 import { inject, observer } from 'mobx-react';
-import css from './OrderPaymentSuccess.module.scss';
-@inject('orderpaymentsuccess')
+import daumTrakers from 'lib/tracking/daum/daumTrakers';
+import naverShoppingTrakers from 'lib/tracking/navershopping/naverShoppingTrakers';
+import criteoTracker from 'childs/lib/tracking/criteo/criteoTracker';
+
+@inject('orderpaymentsuccess', 'user')
 @observer
 class OrderPaymentSuccess extends React.Component {
+  componentDidMount() {
+    // 네이버쇼핑 트래커
+    naverShoppingTrakers.purchaseComplete({
+      price: this.props.orderpaymentsuccess.successInfo.totalOrderPrice,
+    });
+    // 다음 트래커
+    daumTrakers.purchaseComplete({
+      orderID: this.props.orderpaymentsuccess.successInfo.orderNumber,
+      amount: this.props.orderpaymentsuccess.successInfo.totalOrderPrice,
+    });
+
+    this.props.user.pushJobForUserInfo(() => {
+      // 크리테오 트래커
+      criteoTracker.purchaseComplete({
+        email: this.props.user.userInfo.email,
+        transaction_id: this.props.orderpaymentsuccess.successInfo.orderNumber,
+        items: this.props.orderpaymentsuccess.orderSuccessProduct?.map(
+          orderItem => ({
+            id: orderItem.dealId,
+            price: orderItem.discountPrice,
+            quantity: orderItem.quantity,
+          })
+        ),
+      });
+    });
+  }
+
   render() {
-    let { orderpaymentsuccess } = this.props;
     return (
       <DefaultLayout
         toolBar={false}

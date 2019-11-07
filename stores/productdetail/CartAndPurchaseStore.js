@@ -7,6 +7,9 @@ import qs from 'qs';
 import { devLog } from 'lib/devLog';
 import naverShoppingTrakers from 'lib/tracking/navershopping/naverShoppingTrakers';
 import daumTrakers from 'lib/tracking/daum/daumTrakers';
+import criteoTracker from 'childs/lib/tracking/criteo/criteoTracker';
+import _ from 'lodash';
+
 const isServer = typeof window === 'undefined';
 
 export default class CartAndPurchaseStore {
@@ -35,10 +38,6 @@ export default class CartAndPurchaseStore {
             }
           )
           .then(res => {
-            naverShoppingTrakers.shoppingCart();
-            daumTrakers.shoppingCart();
-            let data = res.data;
-
             API.product
               .get(
                 `/deals`,
@@ -76,7 +75,26 @@ export default class CartAndPurchaseStore {
                   },
                 });
               });
+
             this.root.shoppingcart.globalGetUserShoppingCartList();
+
+            // 카트에 추가된 상품.
+            const dealAddedToCart = _.get(res, 'data.data');
+            const { discountPrice, sellPrice } = dealAddedToCart;
+
+            // 트래커 연결
+            naverShoppingTrakers.shoppingCart();
+            daumTrakers.shoppingCart();
+            criteoTracker.addDealToCart({
+              email: this.root.user?.userInfo?.email || '',
+              items: [
+                {
+                  id: this.root.productdetail.deals.dealsId,
+                  price: discountPrice || sellPrice,
+                  quantity: options.selectedQuantity,
+                },
+              ],
+            });
           })
           .catch(err => {
             if (this.root.login.loginStatus === loginStatus.LOGOUT) {
@@ -127,14 +145,15 @@ export default class CartAndPurchaseStore {
             }
           )
           .then(res => {
-            // daumTrakers.shoppingCart();
             let data = res.data;
+
             Router.push({
               pathname: '/orderpayment',
               query: {
                 cartList: data.data.cartItemId,
               },
             });
+
             this.root.shoppingcart.globalGetUserShoppingCartList();
           })
           .catch(err => {

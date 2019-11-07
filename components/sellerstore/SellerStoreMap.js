@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
-import { loadScript } from 'lib/dom';
+import loadScript from 'childs/lib/dom/loadScript';
 
 export class SellerStoreMap extends Component {
   componentDidMount() {
