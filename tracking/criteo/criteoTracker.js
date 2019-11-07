@@ -1,8 +1,7 @@
-import { loadScript } from 'lib/dom';
-import { scriptIds } from 'lib/dom/loadScript';
-import detectDevice from 'lib/detectDevice';
 import { devLog } from 'lib/devLog';
-import isEmailString from 'lib/isEmailString';
+import isEmailString from '../../string/isEmailString';
+import detectDevice from '../../webapi/detectDevice';
+import loadScript, { scriptIds } from '../../dom/loadScript';
 
 // 트래커 주소
 const CRITEO_TRACKER_URL = '//static.criteo.net/js/ld/ld.js';
@@ -217,7 +216,6 @@ export default {
 
         console.log(`[CRITEO_TRACKER] trackTransaction`, ...params);
 
-        console.log(params[1].email);
         window.criteo_q = window.criteo_q || [];
         window.criteo_q.push(...params);
       },
