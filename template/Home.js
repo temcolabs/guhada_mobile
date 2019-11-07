@@ -15,6 +15,7 @@ import Footer from 'components/footer/Footer';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
 import { pushRoute } from 'lib/router';
 import _ from 'lodash';
+import scrollDirection from 'lib/scrollDirection';
 
 @withScrollToTopOnMount
 @withRouter
@@ -28,6 +29,8 @@ class Home extends React.Component {
     this.state = {
       signupModal: false,
       email: '',
+      scrollDirection: 'up',
+      lastScrollTop: 0,
     };
   }
 
@@ -55,7 +58,22 @@ class Home extends React.Component {
         email: query.email,
       });
     }
+    window.addEventListener('scroll', this.scrollDirection);
   }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.scrollDirection);
+  }
+
+  scrollDirection = _.debounce(e => {
+    var st = window.pageYOffset || document.documentElement.scrollTop;
+    if (st > this.state.lastScrollTop) {
+      this.setState({ scrollDirection: 'down' });
+    } else {
+      this.setState({ scrollDirection: 'up' });
+    }
+    this.setState({ lastScrollTop: st <= 0 ? 0 : st });
+  }, 10);
 
   handleModal = value => {
     this.setState({
@@ -93,11 +111,16 @@ class Home extends React.Component {
       },
     ];
     return (
-      <DefaultLayout title={null} topLayout={'main'}>
+      <DefaultLayout
+        title={null}
+        topLayout={'main'}
+        scrollDirection={this.state.scrollDirection}
+      >
         {/* TODO :: 카테고리 네비게이터 */}
         <CategorySlider
           categoryList={mainCategory.item}
           setNavDealId={main.setNavDealId}
+          scrollDirection={this.state.scrollDirection}
         />
         {/* TODO :: 임시로 만들어놓은 슬라이드 배너
         현재 dot 구현은 되어 있지 않음 */}

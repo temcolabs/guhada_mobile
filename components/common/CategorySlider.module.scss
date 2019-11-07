@@ -15,6 +15,12 @@ $CategorySliderWrapHeight : 44px;
     padding: 0 20px;
     max-width: inherit;
     border-bottom: 1px solid #eeeeee;
+    transition: top 0.1s linear;
+
+    &.scrollDown {
+        position: fixed;
+        top: 0;
+    }
 
     &.borderNone {
         border-bottom: 0;
@@ -90,7 +96,12 @@ $CategorySliderWrapHeight : 44px;
     max-width: inherit;
     border-bottom: 1px solid #eeeeee;
     z-index: 101;
+    transition: top 0.1s linear;
 
+    &.scrollDown {
+        position: fixed;
+        top: $CategorySliderWrapHeight;
+    }
 
     & div {
         display: inline-block;
