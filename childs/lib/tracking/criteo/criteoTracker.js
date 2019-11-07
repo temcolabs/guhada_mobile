@@ -2,6 +2,7 @@ import { devLog } from 'lib/devLog';
 import isEmailString from '../../string/isEmailString';
 import detectDevice from '../../webapi/detectDevice';
 import loadScript, { scriptIds } from '../../dom/loadScript';
+import { isBrowser } from '../../webapi/isServer';
 
 // 트래커 주소
 const CRITEO_TRACKER_URL = '//static.criteo.net/js/ld/ld.js';
@@ -16,6 +17,19 @@ const getDeviceType = () => {
 
 // 크리테오 계정 아이디
 const CRITEO_ACCOUNT_ID = 65280;
+
+const getIsProdHost = () => {
+  if (isBrowser) {
+    const { isTablet, isMobile } = detectDevice();
+    const hostname = window.location.hostname;
+
+    return isTablet || isMobile
+      ? hostname === 'm.guhada.com'
+      : hostname === 'www.guhada.com';
+  } else {
+    return false;
+  }
+};
 
 /**
  * 제품 아이디는 문자열이어야 한다.
@@ -74,8 +88,10 @@ export default {
 
         console.log(`[CRITEO_TRACKER] viewHome`, ...params);
 
-        window.criteo_q = window.criteo_q || [];
-        window.criteo_q.push(...params);
+        if (getIsProdHost()) {
+          window.criteo_q = window.criteo_q || [];
+          window.criteo_q.push(...params);
+        }
       },
     });
   },
@@ -104,8 +120,10 @@ export default {
 
         console.log(`[CRITEO_TRACKER] viewList`, ...params);
 
-        window.criteo_q = window.criteo_q || [];
-        window.criteo_q.push(...params);
+        if (getIsProdHost()) {
+          window.criteo_q = window.criteo_q || [];
+          window.criteo_q.push(...params);
+        }
       },
     });
   },
@@ -130,8 +148,10 @@ export default {
 
         console.log(`[CRITEO_TRACKER] viewItem`, ...params);
 
-        window.criteo_q = window.criteo_q || [];
-        window.criteo_q.push(...params);
+        if (getIsProdHost()) {
+          window.criteo_q = window.criteo_q || [];
+          window.criteo_q.push(...params);
+        }
       },
     });
   },
@@ -172,8 +192,10 @@ export default {
 
         console.log(`[CRITEO_TRACKER] viewBasket`, ...params);
 
-        window.criteo_q = window.criteo_q || [];
-        window.criteo_q.push(...params);
+        if (getIsProdHost()) {
+          window.criteo_q = window.criteo_q || [];
+          window.criteo_q.push(...params);
+        }
       },
     });
   },
@@ -216,8 +238,10 @@ export default {
 
         console.log(`[CRITEO_TRACKER] trackTransaction`, ...params);
 
-        window.criteo_q = window.criteo_q || [];
-        window.criteo_q.push(...params);
+        if (getIsProdHost()) {
+          window.criteo_q = window.criteo_q || [];
+          window.criteo_q.push(...params);
+        }
       },
     });
   },
