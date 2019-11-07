@@ -16,7 +16,7 @@ export class SellerStoreMap extends Component {
             let el = document.getElementById('storeMap');
             let map = new kakao.maps.Map(el, {
               center: new kakao.maps.LatLng(33.450701, 126.570667),
-              level: 3,
+              level: 5,
             });
 
             let getcoder = new kakao.maps.services.Geocoder();
