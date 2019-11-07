@@ -3,7 +3,7 @@ import Axios from 'axios';
 import { observer, inject } from 'mobx-react';
 import Cookies from 'js-cookie';
 import Router from 'next/router';
-import { loadScript } from 'lib/dom';
+import loadScript from 'childs/lib/dom/loadScript';
 import API from 'lib/API';
 import { key } from 'constant';
 import { snsAppKey } from 'constant/sns';
