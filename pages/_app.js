@@ -14,6 +14,7 @@ import { devLog } from 'lib/devLog';
 import { isServer } from 'lib/isServer';
 import { WhiteMask } from 'components/common/modal/Mask';
 import LoadingPortal from 'components/common/loading/Loading';
+import _ from 'lodash';
 
 moment.locale('ko');
 
@@ -23,6 +24,8 @@ class MarketPlatform extends App {
 
     if (isBrowser) {
       devLog(`[_app] getInitialProps: appContext`, appContext);
+      MarketPlatform.naverShoppingTracker();
+      MarketPlatform.aceCouterTracker(ctx.asPath);
     }
 
     // Get or Create the store with `undefined` as initialState
@@ -124,6 +127,20 @@ class MarketPlatform extends App {
   //       console.error('[INIStdPay_dev.js 불러오기 실패]', e);
   //     });
   // };
+
+  static naverShoppingTracker = () => {
+    if (!wcs_add) var wcs_add = {};
+    wcs_add['wa'] = 's_57744e5ca3ee';
+    if (!_nasa) var _nasa = {};
+    wcs.inflow();
+    wcs_do(_nasa);
+  };
+
+  static aceCouterTracker = asPath => {
+    if (typeof window.AM_PL !== 'undefined') {
+      window.AM_PL(asPath);
+    }
+  };
 
   /**
    * next.router의 쿼리만 변경되었을 때는 Component를 다시 렌더링하지 않는다.
