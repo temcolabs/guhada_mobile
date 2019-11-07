@@ -336,10 +336,13 @@ export default class SearchItemStore {
               this.root.user.pushJobForUserInfo(() => {
                 const { deals } = data.data;
 
-                criteoTracker.searchResults({
-                  email: this.root.user.userInfo.email,
-                  dealIds: deals?.slice(0, 3).map(deal => deal.dealId),
-                });
+
+                if (deals.length >= 3) {
+                  criteoTracker.searchResults({
+                    email: this.root.user.userInfo.email,
+                    dealIds: deals?.slice(0, 3).map(deal => deal.dealId),
+                  });
+                }
               });
 
               this.setItem(data.data);
