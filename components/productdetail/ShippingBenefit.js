@@ -19,7 +19,7 @@ import CardInterestModal from 'components/common/modal/CardInterestModal';
 @observer
 class ShippingBenefit extends Component {
   state = {
-    benefitHandle: false,
+    benefitHandle: true,
   };
   benefitHandler = () => {
     this.setState({
@@ -64,44 +64,42 @@ class ShippingBenefit extends Component {
             <div>{deals.shippingSummary}</div>
           </div>
         </div>
-        {productoption.duesavePointList?.length > 0 || false || false ? (
+        <div
+          className={css.itemWrap}
+          onClick={() => {
+            this.benefitHandler();
+          }}
+          style={
+            this.state.benefitHandle
+              ? { borderBottom: 'none' }
+              : { borderBottom: '1px solid #eee' }
+          }
+        >
+          <div className={css.itemTitle}>혜택정보</div>
+          <div className={css.contentsWrap}>
+            {productoption.duesavePointList?.length > 0 ? (
+              <div>포인트 적립</div>
+            ) : null}
+
+            {/* 무이자혜택 */}
+            <div>무이자 할부</div>
+
+            {/* 카드추가혜택 */}
+            {false ? <div>카드추가혜택</div> : null}
+          </div>
           <div
-            className={css.itemWrap}
-            onClick={() => {
-              this.benefitHandler();
-            }}
+            className={css.plusIcon}
             style={
               this.state.benefitHandle
-                ? { borderBottom: 'none' }
-                : { borderBottom: '1px solid #eee' }
+                ? {
+                    backgroundImage: 'url("/static/icon/minus_icon_m.png")',
+                  }
+                : {
+                    backgroundImage: 'url("/static/icon/plus_icon_m.png")',
+                  }
             }
-          >
-            <div className={css.itemTitle}>혜택정보</div>
-            <div className={css.contentsWrap}>
-              {productoption.duesavePointList?.length > 0 ? (
-                <div>포인트 적립</div>
-              ) : null}
-
-              {/* 무이자혜택 */}
-              <div>무이자 할부</div>
-
-              {/* 카드추가혜택 */}
-              {false ? <div>카드추가혜택</div> : null}
-            </div>
-            <div
-              className={css.plusIcon}
-              style={
-                this.state.benefitHandle
-                  ? {
-                      backgroundImage: 'url("/static/icon/minus_icon_m.png")',
-                    }
-                  : {
-                      backgroundImage: 'url("/static/icon/plus_icon_m.png")',
-                    }
-              }
-            />
-          </div>
-        ) : null}
+          />
+        </div>
 
         {this.state.benefitHandle ? (
           <div className={css.benefitDetailWrap}>
