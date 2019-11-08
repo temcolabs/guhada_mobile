@@ -26,6 +26,7 @@ export default class ProductOptionStore {
   @observable dueSavebenefitCoupon = [];
   @observable quantityMinusBtn = '/static/icon/quantity_minus_off.png';
   @observable quantityPlusBtn = '/static/icon/quantity_plus_on.png';
+  @observable couponIsOpen = false;
 
   @action
   getOptions = () => {

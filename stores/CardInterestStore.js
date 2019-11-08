@@ -2,7 +2,6 @@ import { observable, action, toJS } from 'mobx';
 import API from 'lib/API';
 import { devLog } from 'lib/devLog';
 export default class CardInterestStore {
-  @observable couponIsOpen = false;
   @observable cardInterestIsOpen = false;
   @observable cardInterest = [];
 

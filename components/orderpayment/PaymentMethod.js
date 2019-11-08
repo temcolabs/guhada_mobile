@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './PaymentMethod.module.scss';
-import CardInterestModal from 'components/cardinterest/CardInterestModal';
+import CardInterestModal from 'components/common/modal/CardInterestModal';
 @inject('orderpayment', 'cardinterest')
 @observer
 class PaymentMethod extends Component {
