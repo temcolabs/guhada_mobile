@@ -18,7 +18,10 @@ export default class CustomerAuthentication {
   @action
   emailAuthenticationSend = (email, name) => {
     if (!this.userVerify) {
-      this.root.alert.showAlert('본인인증을 먼저 진행해주세요.');
+      this.root.alert.showAlert({
+        content: '본인인증을 먼저 진행해주세요.',
+      });
+
       return false;
     }
     this.email = email;
@@ -37,7 +40,9 @@ export default class CustomerAuthentication {
           name,
         })
         .then(res => {
-          this.root.alert.showAlert('인증메일을 발송하였습니다.');
+          this.root.alert.showAlert({
+            content: '인증메일을 발송했습니다.',
+          });
           this.sendMailSuccess = true;
         })
         .catch(err => {
@@ -72,7 +77,9 @@ export default class CustomerAuthentication {
             this.emailAuthentication = true;
             this.root.orderpayment.orderUserInfo.emailVerify = true;
             this.emailValid = true;
-            this.root.alert.showAlert('이메일 인증성공');
+            this.root.alert.showAlert({
+              content: '이메일 인증 완료',
+            });
             this.sendMailSuccess = false;
           })
           .catch(err => {

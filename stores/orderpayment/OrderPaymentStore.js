@@ -308,21 +308,23 @@ export default class OrderPaymentStore {
   @action
   changeShippingRequestOption = (shippingOption, target) => {
     if (target === '기본배송') {
-      this.orderShippingList.defaultAddress.shippingMessage =
-        shippingOption.label;
+      this.orderShippingList.defaultAddress.shippingMessage = shippingOption.value
+        ? ''
+        : shippingOption.label;
 
-      this.orderShippingList.defaultAddress.shippingMessage ===
-      '배송 메시지를 입력해주세요.'
+      shippingOption.value
         ? (this.status.shppingRequestSelfStatus = true)
         : (this.status.shppingRequestSelfStatus = false);
     } else {
-      this.orderShippingList.newAddress.shippingMessage = shippingOption.label;
+      this.orderShippingList.newAddress.shippingMessage = shippingOption.value
+        ? ''
+        : shippingOption.label;
 
-      this.orderShippingList.newAddress.shippingMessage ===
-      '배송 메시지를 입력해주세요.'
+      shippingOption.value
         ? (this.status.newShppingRequestSelfStatus = true)
         : (this.status.newShppingRequestSelfStatus = false);
     }
+    console.log(toJS(shippingOption), 'shippingOption');
   };
 
   @action
@@ -1123,7 +1125,7 @@ export default class OrderPaymentStore {
     this.shippingMessageOption = this.shippingMessageOption
       .map(data => {
         return {
-          value: data.message === '배송 메세지를 입력해주세요.' ? true : false,
+          value: data.message === '배송 메시지를 입력해주세요.' ? true : false,
           label: data.message,
         };
       })
