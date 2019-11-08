@@ -37,7 +37,11 @@ class OrderPayment extends React.Component {
                 })
               : null}
           </div>
-        ) : null}
+        ) : (
+          <div className={css.orderProduct}>
+            <OrderProduct data={orderpayment.orderProductInfo[0]} key={1} />
+          </div>
+        )}
 
         {/* 주문자정보 */}
         <OrderCustomer />
