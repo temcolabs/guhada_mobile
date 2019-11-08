@@ -6,7 +6,7 @@ import _ from 'lodash';
 import cn from 'classnames';
 import { pushRoute, sendBackToLogin } from 'lib/router';
 import { loginStatus } from 'constant/';
-
+import CardInterestModal from './CardInterestModal';
 @inject(
   'productreview',
   'productoption',
@@ -81,24 +81,23 @@ class ShippingBenefit extends Component {
               ) : null}
 
               {/* 무이자혜택 */}
-              {false ? <div>무이자 할부</div> : null}
+              <div>무이자 할부</div>
 
               {/* 카드추가혜택 */}
               {false ? <div>카드추가혜택</div> : null}
-
-              <div
-                className={css.plusIcon}
-                style={
-                  this.state.benefitHandle
-                    ? {
-                        backgroundImage: 'url("/static/icon/minus_icon_m.png")',
-                      }
-                    : {
-                        backgroundImage: 'url("/static/icon/plus_icon_m.png")',
-                      }
-                }
-              />
             </div>
+            <div
+              className={css.plusIcon}
+              style={
+                this.state.benefitHandle
+                  ? {
+                      backgroundImage: 'url("/static/icon/minus_icon_m.png")',
+                    }
+                  : {
+                      backgroundImage: 'url("/static/icon/plus_icon_m.png")',
+                    }
+              }
+            />
           </div>
         ) : null}
 
@@ -106,32 +105,35 @@ class ShippingBenefit extends Component {
           <div className={css.benefitDetailWrap}>
             {productoption.duesavePointList?.length > 0 ? (
               <div className={css.benefitDetailSection}>
-                <div className={css.benefitPointSection}>
-                  <div className={css.benefitDetaieTitle}>포인트 적립</div>
-                  <div className={css.benefitDetailContent}>
-                    {productoption.duesavePointList.map((data, index) => {
-                      return (
-                        <div key={index}>
-                          {data.dueSaveType === 'BUY'
-                            ? `구매 확정 시 ${data.totalPoint?.toLocaleString()}P 적립`
-                            : `리뷰 작성 시 최대 ${data.totalPoint?.toLocaleString()}P 적립`}
-                        </div>
-                      );
-                    })}
-                  </div>
+                <div className={css.benefitDetaieTitle}>포인트 적립</div>
+                <div className={css.benefitDetailContent}>
+                  {productoption.duesavePointList.map((data, index) => {
+                    return (
+                      <div key={index}>
+                        {data.dueSaveType === 'BUY'
+                          ? `구매 확정 시 ${data.totalPoint?.toLocaleString()}P 적립`
+                          : `리뷰 작성 시 최대 ${data.totalPoint?.toLocaleString()}P 적립`}
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             ) : null}
 
             {/* 무이자혜택 */}
-            {false ? (
-              <div className={css.benefitDetailSection}>
-                <div className={css.benefitDetaieTitle}>무이자 할부</div>
-                <div className={css.benefitDetailContent}>
-                  5만원 이상 무이자
-                </div>
+
+            <div className={css.benefitDetailSection}>
+              <div className={css.benefitDetaieTitle}>무이자 할부</div>
+              <div className={css.benefitDetailContent}>5만원 이상 무이자</div>
+              <div
+                className={css.interestDetailButton}
+                onClick={() => {
+                  productoption.getCardInterest();
+                }}
+              >
+                자세히보기
               </div>
-            ) : null}
+            </div>
 
             {/* 제휴카드 혜택 */}
             {false ? (
@@ -238,6 +240,7 @@ class ShippingBenefit extends Component {
             </div>
           </div>
         )}
+        <CardInterestModal isVisible={productoption.cardInterestIsOpen} />
       </div>
     );
   }

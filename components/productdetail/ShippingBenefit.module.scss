@@ -21,14 +21,21 @@
     & .itemTitle {
       color: #111111;
       margin-right: 30px;
+      min-width: 50px;
     }
 
     & .contentsWrap {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      width: calc(100% - 48px - 30px);
       color: #444444;
+
+      div {
+        margin-right: 12px;
+        white-space: nowrap;
+        @include break350 {
+          margin-right: 4px;
+        }
+      }
 
       @include break350 {
         font-size: 11px;
@@ -46,10 +53,11 @@
     }
 
     & .plusIcon {
-      width: 16px;
+      min-width: 16px;
       height: 16px;
       background-size: 16px;
       background-repeat: no-repeat;
+      margin-left: auto;
     }
 
     & .arrowR {
@@ -69,36 +77,39 @@
 
     .benefitDetailSection {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
       border-bottom: 1px solid #fff;
-      height: 50px;
-      padding: 0 20px;
+      padding: 15px 20px;
       font-weight: 400;
 
       &:first-child {
         margin-top: 0;
       }
 
-      .benefitPointSection {
-        width: 100%;
-        display: flex;
-        align-items: top;
-        justify-content: space-between;
-      }
       .benefitDetaieTitle {
         color: #777;
         font-size: 12px;
+        font-weight: normal;
+        min-width: 80px;
       }
 
       .benefitDetailContent {
         font-size: 12px;
         color: #444;
+        font-weight: normal;
 
-        > div {
-          margin-bottom: 3px;
-          text-align: right;
+        div {
+          &:last-child {
+            line-height: 1.5;
+          }
         }
+      }
+
+      .interestDetailButton {
+        color: #777;
+        font-size: 12px;
+        font-weight: normal;
+        text-decoration: underline;
+        margin-left: auto;
       }
     }
   }

@@ -1,0 +1,95 @@
+@import 'styles/mixins/index';
+.wrap {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  height: 100vh;
+  overflow: auto;
+  background: #fff;
+
+  .header {
+    position: relative;
+    width: 100%;
+    height: 60px;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+    line-height: 60px;
+
+    .headerTitle {
+      font-size: 17px;
+      color: #111;
+      font-weight: 500;
+    }
+
+    .headerClose {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: url('/static/icon/burger-top-close@3x.png') no-repeat;
+      width: 30px;
+      height: 30px;
+      background-size: 30px;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+  }
+
+  .interestInfo {
+    margin-top: 30px;
+    padding: 0 20px;
+    .contentTitle {
+      font-size: 16px;
+      font-weight: bold;
+      color: #444;
+    }
+
+    .interestList {
+      margin-top: 12px;
+      .interestItem {
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #eee;
+        padding: 12px 15px;
+
+        &:first-child {
+          border-top: 1px solid #eee;
+        }
+        .cardImage {
+          min-width: 80px;
+          height: 30px;
+          background: #111;
+          background-size: cover;
+          background-repeat: no-repeat;
+          background-position: center;
+        }
+
+        .cardInfo {
+          margin-left: 20px;
+
+          .interestDate {
+            font-size: 12px;
+            font-weight: normal;
+            color: #444;
+            line-height: 1.3;
+          }
+
+          .interestNote {
+            font-size: 12px;
+            font-weight: normal;
+            color: #444;
+            line-height: 1.3;
+          }
+          .interestEtc {
+            margin-top: 2px;
+            font-size: 12px;
+            font-weight: normal;
+            color: #777;
+            line-height: 1.3;
+          }
+        }
+      }
+    }
+  }
+}

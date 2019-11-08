@@ -68,11 +68,6 @@ export default class UserStore {
     }
   };
 
-  @computed
-  get userId() {
-    return _.get(this.userInfo, 'id');
-  }
-
   @action
   addFetched = fn => {
     this.jobForUseInfo = this.jobForUseInfo.concat(fn);
