@@ -27,9 +27,6 @@ export default class ProductOptionStore {
   @observable quantityMinusBtn = '/static/icon/quantity_minus_off.png';
   @observable quantityPlusBtn = '/static/icon/quantity_plus_on.png';
 
-  @observable couponIsOpen = false;
-  @observable cardInterestIsOpen = false;
-  @observable cardInterest = [];
   @action
   getOptions = () => {
     let { options } = this.root.productdetail.deals;
@@ -565,19 +562,5 @@ export default class ProductOptionStore {
           }
         });
     }
-  };
-
-  @action
-  getCardInterest = () => {
-    API.settle.get(`/payment/cardInterest`).then(res => {
-      console.log(res, 'card interest res');
-      this.cardInterest = res.data.data;
-      this.cardInterestIsOpen = true;
-    });
-  };
-
-  @action
-  closeCardInterest = () => {
-    this.cardInterestIsOpen = false;
   };
 }

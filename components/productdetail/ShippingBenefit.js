@@ -6,14 +6,15 @@ import _ from 'lodash';
 import cn from 'classnames';
 import { pushRoute, sendBackToLogin } from 'lib/router';
 import { loginStatus } from 'constant/';
-import CardInterestModal from './CardInterestModal';
+import CardInterestModal from 'components/cardinterest/CardInterestModal';
 @inject(
   'productreview',
   'productoption',
   'productdetail',
   'sellerfollow',
   'login',
-  'alert'
+  'alert',
+  'cardinterest'
 )
 @observer
 class ShippingBenefit extends Component {
@@ -49,6 +50,7 @@ class ShippingBenefit extends Component {
       login,
       alert,
       sellerStore,
+      cardinterest,
     } = this.props;
     const { reviewSummary } = productreview;
     return (
@@ -128,7 +130,7 @@ class ShippingBenefit extends Component {
               <div
                 className={css.interestDetailButton}
                 onClick={() => {
-                  productoption.getCardInterest();
+                  cardinterest.getCardInterest();
                 }}
               >
                 자세히보기
@@ -240,7 +242,7 @@ class ShippingBenefit extends Component {
             </div>
           </div>
         )}
-        <CardInterestModal isVisible={productoption.cardInterestIsOpen} />
+        <CardInterestModal isVisible={cardinterest.cardInterestIsOpen} />
       </div>
     );
   }

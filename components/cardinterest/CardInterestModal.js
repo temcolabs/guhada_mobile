@@ -4,7 +4,7 @@ import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 
 import { inject } from 'mobx-react';
 
-function CardInterestModal({ isVisible, productoption }) {
+function CardInterestModal({ isVisible, cardinterest }) {
   return (
     <div>
       <SlideIn direction={slideDirection.RIGHT} isVisible={isVisible}>
@@ -14,7 +14,7 @@ function CardInterestModal({ isVisible, productoption }) {
             <div
               className={css.headerClose}
               onClick={() => {
-                productoption.closeCardInterest();
+                cardinterest.closeCardInterest();
               }}
             />
           </div>
@@ -23,7 +23,7 @@ function CardInterestModal({ isVisible, productoption }) {
               무이자 할부정보 (2019년 11월)
             </div>
             <div className={css.interestList}>
-              {productoption?.cardInterest?.map((data, index) => {
+              {cardinterest?.cardInterest?.map((data, index) => {
                 return (
                   <div className={css.interestItem} key={index}>
                     <div className={css.cardImage} />
@@ -80,4 +80,4 @@ function CardInterestModal({ isVisible, productoption }) {
     </div>
   );
 }
-export default inject('productoption')(CardInterestModal);
+export default inject('cardinterest')(CardInterestModal);

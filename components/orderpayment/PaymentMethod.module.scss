@@ -3,9 +3,24 @@
   padding: 0 20px;
 
   .title {
-    color: #111;
-    font-size: 15px;
-    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    div {
+      &:first-child {
+        color: #111;
+        font-size: 15px;
+        font-weight: bold;
+      }
+
+      &:last-child {
+        color: #777;
+        font-size: 12px;
+        font-weight: normal;
+        text-decoration: underline;
+      }
+    }
   }
 
   .paymentMethod {
