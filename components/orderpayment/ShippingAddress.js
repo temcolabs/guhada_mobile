@@ -12,8 +12,6 @@ class ShippingAddress extends Component {
   render() {
     let { orderpayment } = this.props;
     let address = orderpayment.orderShippingList?.defaultAddress;
-    devLog('address', address);
-    devLog('_.isEmpty(address) ', _.isEmpty(address));
     return (
       <div className={css.wrap}>
         <div className={css.top}>
@@ -67,6 +65,10 @@ class ShippingAddress extends Component {
                   }}
                   placeholder="50자 내외로 입력해주세요"
                   maxLength="50"
+                  value={
+                    orderpayment?.orderShippingList?.defaultAddress
+                      ?.shippingMessage || ''
+                  }
                 />
               </div>
             ) : null}
