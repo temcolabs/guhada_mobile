@@ -14,17 +14,20 @@ function CardInterestModal({ isVisible, cardinterest }) {
 
   return (
     <div>
-      <SlideIn direction={slideDirection.RIGHT} isVisible={isVisible}>
+      <SlideIn direction={slideDirection.TOP} isVisible={isVisible}>
         <div className={css.wrap}>
-          <div className={css.header}>
-            <div className={css.headerTitle}>무이자 할부 안내</div>
-            <div
-              className={css.headerClose}
-              onClick={() => {
-                cardinterest.closeCardInterest();
-              }}
-            />
+          <div className={css.headerWrap}>
+            <div className={css.header}>
+              <div className={css.headerTitle}>무이자 할부 안내</div>
+              <div
+                className={css.headerClose}
+                onClick={() => {
+                  cardinterest.closeCardInterest();
+                }}
+              />
+            </div>
           </div>
+
           <div className={css.interestInfo}>
             {year && month ? (
               <div
