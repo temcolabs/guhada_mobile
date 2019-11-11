@@ -59,7 +59,9 @@
         .cardImage {
           min-width: 80px;
           height: 30px;
-          background: #111;
+          // background: #111;
+          line-height: 30px;
+          text-align: center;
           background-size: cover;
           background-repeat: no-repeat;
           background-position: center;
