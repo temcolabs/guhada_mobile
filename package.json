@@ -105,7 +105,7 @@
     "jest": "^24.8.0",
     "jest-config": "^24.8.0",
     "loader-utils": "^1.2.3",
-    "pm2": "^3.5.0",
+    "pm2": "^3.5.1",
     "prettier": "^1.17.0",
     "webpack-filter-warnings-plugin": "^1.2.1"
   }
