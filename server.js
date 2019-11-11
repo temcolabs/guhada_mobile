@@ -44,7 +44,7 @@ app
     });
 
     /**
-     * 데스크탑에서 접속하면 모바일 웹으로 보낸다
+     * 데스크탑에서 접속하면 데스크탑 웹으로 보낸다
      */
     server.use(function(req, res, next) {
       const ua = useragent.parse(req.headers['user-agent']);

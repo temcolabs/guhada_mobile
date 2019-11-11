@@ -58,7 +58,6 @@ class MarketPlatform extends App {
   }
 
   componentDidMount() {
-    // this.loadPaymentScript();
     this.initDaumTracker();
   }
 
@@ -72,25 +71,6 @@ class MarketPlatform extends App {
       window.DaumConversionAccountID = 'PRV6.WiKKpak6Ml_rjmD1Q00';
     }
   };
-
-  /**
-   * 결제 모듈 로드. 리소스가 사용 가능한지 확인하고 불러온다.
-   */
-  // loadPaymentScript = () => {
-  //   const url = 'https://devstdpay.lpay.com:420/stdjs/INIStdPay_dev.js';
-
-  //   Axios.request({
-  //     method: 'GET',
-  //     url: 'https://devstdpay.lpay.com:420/stdjs/INIStdPay_dev.js',
-  //     timeout: 1000,
-  //   })
-  //     .then(res => {
-  //       loadScript(url);
-  //     })
-  //     .catch(e => {
-  //       console.error('[INIStdPay_dev.js 불러오기 실패]', e);
-  //     });
-  // };
 
   static naverShoppingTracker = () => {
     if (!wcs_add) var wcs_add = {};
