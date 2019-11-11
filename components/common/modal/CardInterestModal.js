@@ -1,27 +1,39 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import css from './CardInterestModal.module.scss';
 import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 
 import { inject } from 'mobx-react';
-
+import moment from 'moment';
 function CardInterestModal({ isVisible, cardinterest }) {
+  const [year, setYear] = useState('0');
+  const [month, setMonth] = useState('0');
+  useEffect(() => {
+    setYear(moment(cardinterest?.cardInterest?.eventMonth).format('YYYY'));
+    setMonth(moment(cardinterest?.cardInterest?.eventMonth).format('MM'));
+  }, [cardinterest]);
+
   return (
     <div>
-      <SlideIn direction={slideDirection.RIGHT} isVisible={isVisible}>
+      <SlideIn direction={slideDirection.TOP} isVisible={isVisible}>
         <div className={css.wrap}>
-          <div className={css.header}>
-            <div className={css.headerTitle}>무이자 할부 안내</div>
-            <div
-              className={css.headerClose}
-              onClick={() => {
-                cardinterest.closeCardInterest();
-              }}
-            />
-          </div>
-          <div className={css.interestInfo}>
-            <div className={css.contentTitle}>
-              무이자 할부정보 (2019년 11월)
+          <div className={css.headerWrap}>
+            <div className={css.header}>
+              <div className={css.headerTitle}>무이자 할부 안내</div>
+              <div
+                className={css.headerClose}
+                onClick={() => {
+                  cardinterest.closeCardInterest();
+                }}
+              />
             </div>
+          </div>
+
+          <div className={css.interestInfo}>
+            {year && month ? (
+              <div
+                className={css.contentTitle}
+              >{`무이자 할부정보 (${year}년 ${month}월)`}</div>
+            ) : null}
             <div className={css.interestList}>
               {cardinterest?.cardInterest?.map((data, index) => {
                 return (

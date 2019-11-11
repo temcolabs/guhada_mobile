@@ -8,36 +8,44 @@
   overflow: auto;
   background: #fff;
 
-  .header {
-    position: relative;
-    width: 100%;
+  .headerWrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #fff;
     height: 60px;
+    width: 100%;
     border-bottom: 1px solid #eee;
-    text-align: center;
-    line-height: 60px;
 
-    .headerTitle {
-      font-size: 17px;
-      color: #111;
-      font-weight: 500;
-    }
+    .header {
+      position: relative;
 
-    .headerClose {
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: url('/static/icon/burger-top-close@3x.png') no-repeat;
-      width: 30px;
-      height: 30px;
-      background-size: 30px;
-      background-position: center;
-      background-repeat: no-repeat;
+      text-align: center;
+      line-height: 60px;
+
+      .headerTitle {
+        font-size: 17px;
+        color: #111;
+        font-weight: 500;
+      }
+
+      .headerClose {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: url('/static/icon/burger-top-close@3x.png') no-repeat;
+        width: 30px;
+        height: 30px;
+        background-size: 30px;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
     }
   }
 
   .interestInfo {
-    margin-top: 30px;
+    margin-top: 80px;
     padding: 0 20px;
     .contentTitle {
       font-size: 16px;
