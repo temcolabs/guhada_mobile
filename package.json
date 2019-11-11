@@ -2,7 +2,7 @@
   "name": "guhada_web_mobile",
   "version": "v1.5.0",
   "scripts": {
-    "dev": "node server.js",
+    "dev": "nodemon server.js",
     "build": "npm run clean && next build",
     "start": "next start -p $PORT",
     "start-server": "NODE_ENV=production node server.js",
@@ -17,7 +17,7 @@
     "test": "jest --watch"
   },
   "engines": {
-    "node": "8.16.0",
+    "node": "10.16.0",
     "npm": "6.9.0"
   },
   "dependencies": {
@@ -105,6 +105,7 @@
     "jest": "^24.8.0",
     "jest-config": "^24.8.0",
     "loader-utils": "^1.2.3",
+    "nodemon": "^1.19.4",
     "pm2": "^3.5.1",
     "prettier": "^1.17.0",
     "webpack-filter-warnings-plugin": "^1.2.1"

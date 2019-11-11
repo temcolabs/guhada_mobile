@@ -49,8 +49,17 @@ app
     server.use(function(req, res, next) {
       const ua = useragent.parse(req.headers['user-agent']);
 
-      if (ua.isDesktop) {
-        res.redirect(process.env.HOSTNAME);
+      // 리다이렉트 하지 않을 경로
+      const pathToIgnore = [
+        /^\/_next/, // 리소스
+        /^\/static/, // 리소스
+      ];
+
+      const isRedirectRequired =
+        ua.isDesktop && pathToIgnore.findIndex(r => r.test(req.path)) < 0;
+
+      if (isRedirectRequired) {
+        res.redirect(`${process.env.HOSTNAME}${req.originalUrl}`);
       } else {
         next();
       }
