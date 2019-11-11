@@ -26,7 +26,10 @@ function CardInterestModal({ isVisible, cardinterest }) {
               {cardinterest?.cardInterest?.map((data, index) => {
                 return (
                   <div className={css.interestItem} key={index}>
-                    <div className={css.cardImage}>{data.cardCompany}</div>
+                    <div
+                      className={css.cardImage}
+                      style={{ backgroundImage: `url(${data.imgUrl})` }}
+                    />
                     <div className={css.cardInfo}>
                       <div className={css.interestDate}>{`${
                         data.startEventDate
