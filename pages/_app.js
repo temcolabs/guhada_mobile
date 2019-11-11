@@ -11,10 +11,6 @@ import 'react-dates/initialize';
 import qs from 'qs';
 import { isBrowser } from 'lib/isServer';
 import { devLog } from 'lib/devLog';
-import { isServer } from 'lib/isServer';
-import { WhiteMask } from 'components/common/modal/Mask';
-import LoadingPortal from 'components/common/loading/Loading';
-import _ from 'lodash';
 
 moment.locale('ko');
 
@@ -59,44 +55,12 @@ class MarketPlatform extends App {
     if (typeof window !== 'undefined') {
       ReactModal.setAppElement('body');
     }
-
-    this.state = {
-      isAppReady: false,
-    };
   }
 
   componentDidMount() {
     // this.loadPaymentScript();
-    this.redirectToDesktopByUA();
     this.initDaumTracker();
   }
-
-  // 데스크탑 웹에서 접근했다면, 구하다 데스크탑 웹사이트로 이동시킨다
-  redirectToDesktopByUA = () => {
-    if (isServer) {
-      return;
-    }
-
-    const isMobile = /Mobile|iP(hone|od)|BlackBerry|IEMobile|Kindle|NetFront|Silk-Accelerated|(hpw|web)OS|Fennec|Minimo|Opera M(obi|ini)|Blazer|Dolfin|Dolphin|Skyfire|Zune/.test(
-      window.navigator.userAgent
-    )
-      ? true
-      : false;
-
-    const isRedirectRequired = !isMobile;
-
-    if (isRedirectRequired) {
-      const { pathname, search } = window.location;
-      const targetHref = `${process.env.HOSTNAME}${pathname}${search}`;
-
-      devLog(`targetHref to redirect from mobile to desktop ...`, targetHref);
-
-      window.location.href = targetHref;
-      this.setState({ isAppReady: true });
-    } else {
-      this.setState({ isAppReady: true });
-    }
-  };
 
   initDaumTracker = () => {
     // 트래킹 아이디 설정
@@ -157,15 +121,7 @@ class MarketPlatform extends App {
       <Container>
         <Provider {...this.mobxStore}>
           <>
-            {this.state.isAppReady ? (
-              <Component {...initialProps} />
-            ) : (
-              // 앱이 준비되기 전에는 마스크로 가린다
-              <div>
-                <WhiteMask isOpen />
-                <LoadingPortal />
-              </div>
-            )}
+            <Component {...initialProps} />
 
             <AlertConductor />
 
