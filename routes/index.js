@@ -40,6 +40,13 @@ module.exports = [
     name: '타임딜',
   },
 
+  // 이벤트 - 메인
+  {
+    pagePath: `/event/eventmain`,
+    asPath: `/event`,
+    name: `이벤트`,
+  },
+
   // 리턴 URL
   {
     // 나이스 본인인증 성공

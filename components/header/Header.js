@@ -50,7 +50,8 @@ function Header({
                 headerShape === 'ordersuccess' ||
                 headerShape === 'orderpayment' ||
                 headerShape === 'shoppingcart' ||
-                headerShape === 'brand',
+                headerShape === 'brand' ||
+                headerShape === 'eventmain',
             },
             { [css.scrollDown]: scrollDirection === 'down' }
           )}
@@ -63,6 +64,7 @@ function Header({
           headerShape === 'orderpayment' ||
           headerShape === 'sellerStore' ||
           headerShape === 'brand' ||
+          headerShape === 'eventmain' ||
           (headerShape === 'address' && urlHistory !== '') ? (
             <button className={css.backButton} onClick={() => Router.back()} />
           ) : null}
