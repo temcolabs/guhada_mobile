@@ -1,5 +1,5 @@
 /**
- * 0보다 같거나 ₩큰 한자리 숫자 앞에 0을 붙여준다
+ * 0보다 같거나 큰 한자리 숫자 앞에 0을 붙여준다
  */
 export default (num = 0) => {
   const targetNum = Number(num);

@@ -5,11 +5,10 @@ describe('padZeroToSingleDigit', () => {
     expect(padZeroToSingleDigit(5)).toBe('05');
     expect(padZeroToSingleDigit(1)).toBe('01');
     expect(padZeroToSingleDigit(0)).toBe('00');
-
-    expect(padZeroToSingleDigit(99)).toBe(99);
   });
 
-  it('음수는 처리하지 않는다', () => {
+  it('0~9 외의 숫자는 그대로 리턴한다', () => {
+    expect(padZeroToSingleDigit(99)).toBe(99);
     expect(padZeroToSingleDigit(-5)).toBe(-5);
   });
 
