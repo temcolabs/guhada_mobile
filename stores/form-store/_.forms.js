@@ -24,7 +24,9 @@ import findpasswordresult from './setup/login/findpassword/result';
 import termagree from './setup/login/termagree';
 
 import search from './setup/search';
-
+import signinluckydraw from './setup/luckydraw/signin';
+import signupluckydraw from './setup/luckydraw/signup';
+import modifyluckydraw from './setup/luckydraw/modify';
 export default {
   search: new Form({ ...search }, { hooks: SearchHooks, name: 'Search' }),
   signUp: new Form({ ...signUp }, { hooks: SignupHooks, name: 'SignUp' }),
@@ -53,5 +55,17 @@ export default {
   findPasswordResult: new Form(
     { ...findpasswordresult },
     { hooks: FindPasswordResultHooks, name: 'findPasswordResult' }
+  ),
+  signinLuckydraw: new Form(
+    { ...signinluckydraw },
+    { name: 'signinLuckydraw' }
+  ),
+  signupLuckydraw: new Form(
+    { ...signupluckydraw },
+    { name: 'signupLuckydraw' }
+  ),
+  modifyLuckydraw: new Form(
+    { ...modifyluckydraw },
+    { name: 'modifyLuckydraw' }
   ),
 };
