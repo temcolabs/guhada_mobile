@@ -1,5 +1,14 @@
 import API from '../../API';
 
+export const luckdrawStatus = {
+  NORMAL: 'NORMAL',
+  REDAY: 'REDAY',
+  START: 'START',
+  REQUESTED: 'REQUESTED',
+  OUT_OF_TIME: 'OUT_OF_TIME',
+  WINNER_ANNOUNCEMENT: 'WINNER_ANNOUNCEMENT',
+};
+
 /**
  * 럭키드로우
  * http://dev.product.guhada.com/swagger-ui.html#/lucky-draw-controller
