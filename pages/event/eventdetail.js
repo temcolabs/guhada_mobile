@@ -8,7 +8,9 @@ import { observer, inject } from 'mobx-react';
 @observer
 class eventdetail extends Component {
   componentDidMount() {
-    this.props.eventmain.getEventList();
+    const url = document.location.href;
+    const id = url.substr(url.lastIndexOf('/') + 1);
+    this.props.eventmain.getEventDetail(id);
   }
   render() {
     const { eventmain } = this.props;
@@ -16,7 +18,7 @@ class eventdetail extends Component {
     return (
       <>
         <Head>
-          <title>이벤트</title>
+          <title>구하다 - 이벤트</title>
           <link
             rel="shortcut icon"
             type="image/x-icon"
@@ -27,7 +29,9 @@ class eventdetail extends Component {
             content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
           />
         </Head>
-        <div>{eventmain.status.page ? <EventDetail /> : <LoadingPortal />}</div>
+        <div>
+          {eventmain.status.detailPage ? <EventDetail /> : <LoadingPortal />}
+        </div>
       </>
     );
   }

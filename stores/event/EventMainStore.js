@@ -10,8 +10,10 @@ export default class EventMainStore {
     }
   }
   @observable eventList = [];
+  @observable eventDetail = {};
   @observable status = {
     page: false,
+    detailPage: false,
   };
 
   @action
@@ -28,5 +30,32 @@ export default class EventMainStore {
         console.log(err, 'event list get error');
         this.eventList = [];
       });
+  };
+
+  @action
+  getEventDetail = id => {
+    API.settle
+      .get(`/event/list/detail`, {
+        params: {
+          eventId: id,
+        },
+      })
+      .then(res => {
+        this.eventDetail = res.data.data;
+        devLog(this.eventDetail, 'event detail');
+        this.getUrl();
+        this.status.detailPage = true;
+      })
+      .catch(err => {
+        console.log(err, 'event detail get error');
+        this.eventDetail = {};
+      });
+  };
+
+  getUrl = () => {
+    let url = this.eventDetail.detailPageLink;
+    let start = url.indexOf('com');
+    let query = url.substr(start + 3);
+    this.eventDetail.detailPageLink = query;
   };
 }
