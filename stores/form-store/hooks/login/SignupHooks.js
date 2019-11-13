@@ -1,5 +1,5 @@
 import Router from 'next/router';
-import termForm from '../../_.forms';
+import termForm from 'stores/form-store/_.forms';
 import API from 'lib/API';
 import { root } from 'store';
 import { devLog } from 'lib/devLog';
@@ -14,11 +14,6 @@ export default {
   onSuccess(form) {
     let loginData = form.values();
     let termData = termForm.termAgree.values();
-
-    if (loginData.password !== loginData.passwordConfirm) {
-      form.$('passwordConfirm').invalidate('비밀 번호가 동일하지 않습니다.');
-      return false;
-    }
 
     API.user
       .post('/signUpUser', {

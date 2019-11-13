@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-import { inject, observer } from 'mobx-react';
 import css from './OrderProduct.module.scss';
 
-@inject('orderpayment')
-@observer
 class OrderProduct extends Component {
   render() {
-    let { orderpayment, data, index } = this.props;
+    let { data } = this.props;
     return (
       <div className={css.wrap}>
         <div

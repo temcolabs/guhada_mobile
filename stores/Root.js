@@ -41,6 +41,8 @@ import MainStore from './MainStore';
 import KeywordStore from './home/KeywordStore';
 import AddressStore from './address/AddressStore';
 import SellerStore from './SellerStore';
+import SellerClaimStore from './claim/SellerClaimStore';
+import CardInterestStore from './CardInterestStore';
 class RootStore {
   constructor() {
     this.user = new UserStore(this);
@@ -101,6 +103,12 @@ class RootStore {
     // 배송지
 
     this.address = new AddressStore(this);
+
+    //판매자 문의하기
+    this.sellerClaim = new SellerClaimStore(this);
+
+    //무이자정보
+    this.cardinterest = new CardInterestStore(this);
   }
 }
 

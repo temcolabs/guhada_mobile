@@ -190,20 +190,6 @@ class CartItem extends Component {
               {shoppingcart.cartListOptions[index]}
             </div>
           </div>
-          {data.selectedCartOption ? (
-            <div className={css.cart__item__option__change__button}>
-              변경
-              <span
-                style={
-                  shoppingcart.status.optionChangeModal === data.cartItemId
-                    ? { transform: 'rotateX(180deg)' }
-                    : { transform: 'rotateX(0deg)' }
-                }
-              >
-                <img src="/static/icon/m_cart_arrow.png" alt="탭 화살표" />
-              </span>
-            </div>
-          ) : null}
         </div>
       </div>
     );

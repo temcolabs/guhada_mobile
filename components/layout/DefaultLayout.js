@@ -40,7 +40,13 @@ class DefaultLayout extends Component {
     }
   };
   render() {
-    const { pageTitle, toolBar, headerShape, topLayout } = this.props;
+    const {
+      pageTitle,
+      toolBar,
+      headerShape,
+      topLayout,
+      scrollDirection,
+    } = this.props;
     const headerSize = 60;
     const categorySize = 44;
     const searchTabSize = 56;
@@ -59,9 +65,21 @@ class DefaultLayout extends Component {
     }
 
     return (
-      <div className={css.wrap} style={{ paddingTop: `${paddingTop}px` }}>
+      <div
+        className={css.wrap}
+        style={
+          scrollDirection === 'down'
+            ? // ? { paddingTop: `0px` }
+              { paddingTop: `${paddingTop}px` }
+            : { paddingTop: `${paddingTop}px` }
+        }
+      >
         {topLayout === 'keyword' ? null : (
-          <Header headerShape={headerShape} cartAmount={cartAmount}>
+          <Header
+            headerShape={headerShape}
+            cartAmount={cartAmount}
+            scrollDirection={scrollDirection}
+          >
             {pageTitle}
           </Header>
         )}

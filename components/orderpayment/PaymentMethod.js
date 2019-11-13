@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './PaymentMethod.module.scss';
-
-@inject('orderpayment')
+import CardInterestModal from 'components/common/modal/CardInterestModal';
+@inject('orderpayment', 'cardinterest')
 @observer
 class PaymentMethod extends Component {
   constructor(props) {
@@ -18,12 +18,21 @@ class PaymentMethod extends Component {
   }
 
   render() {
-    let { orderpayment } = this.props;
+    let { orderpayment, cardinterest } = this.props;
     let { paymentForm, orderInfo } = orderpayment;
 
     return (
       <div className={css.wrap}>
-        <div className={css.title}>결제 수단</div>
+        <div className={css.title}>
+          <div>결제수단</div>
+          <div
+            onClick={() => {
+              cardinterest.getCardInterest();
+            }}
+          >
+            무이자 할부 안내
+          </div>
+        </div>
         <ul className={css.paymentMethod}>
           {orderInfo.paymentsMethod.map((data, index) => {
             return (
@@ -263,6 +272,7 @@ class PaymentMethod extends Component {
             />
           </form>
         </div>
+        <CardInterestModal isVisible={cardinterest.cardInterestIsOpen} />
       </div>
     );
   }

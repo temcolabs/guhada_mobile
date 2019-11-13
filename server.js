@@ -8,6 +8,7 @@ const handle = app.getRequestHandler();
 const routes = require('./routes');
 const PORT = dev ? 8081 : process.env.PORT || 3000;
 const returnUrls = require('./routes/returnUrls');
+const useragent = require('express-useragent');
 
 mobxReact.useStaticRendering(true);
 
@@ -28,6 +29,7 @@ app
     server.use(compression());
     server.use(express.urlencoded({ extended: false }));
     server.use(express.json());
+    server.use(useragent.express());
     server.enable('trust proxy', 'loopback');
 
     let isAppGoingToBeClosed = false; // PM@의 SIGINT 시그널을 받았는지 여부. 앱이 곧 종료될 것임을 의미한다.
@@ -39,6 +41,28 @@ app
       }
 
       next();
+    });
+
+    /**
+     * 데스크탑에서 접속하면 데스크탑 웹으로 보낸다
+     */
+    server.use(function(req, res, next) {
+      const ua = useragent.parse(req.headers['user-agent']);
+
+      // 리다이렉트 하지 않을 경로
+      const pathToIgnore = [
+        /^\/_next/, // 리소스
+        /^\/static/, // 리소스
+      ];
+
+      const isRedirectRequired =
+        ua.isDesktop && pathToIgnore.findIndex(r => r.test(req.path)) < 0;
+
+      if (isRedirectRequired) {
+        res.redirect(`${process.env.HOSTNAME}${req.originalUrl}`);
+      } else {
+        next();
+      }
     });
 
     // return urls

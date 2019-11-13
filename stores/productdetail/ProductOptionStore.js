@@ -26,8 +26,8 @@ export default class ProductOptionStore {
   @observable dueSavebenefitCoupon = [];
   @observable quantityMinusBtn = '/static/icon/quantity_minus_off.png';
   @observable quantityPlusBtn = '/static/icon/quantity_plus_on.png';
-
   @observable couponIsOpen = false;
+
   @action
   getOptions = () => {
     let { options } = this.root.productdetail.deals;
@@ -295,43 +295,37 @@ export default class ProductOptionStore {
 
   @action
   getBenefitData = () => {
-    if (this.root.login.loginStatus === 'LOGIN_DONE') {
-      let userId = this.root.login.loginInfo.userId;
-      let bundleList = {
-        bundleList: [
-          {
-            bundlePrice: this.root.productdetail.deals.shipExpense,
-            orderProdList: [
-              {
-                dealId: this.root.productdetail.deals.dealsId,
-                discountPrice: this.root.productdetail.deals.discountPrice,
-                productPrice: this.root.productdetail.deals.sellPrice,
-                dcategoryId: this.root.productdetail.deals.dCategoryId,
-                lcategoryId: this.root.productdetail.deals.lCategoryId,
-                mcategoryId: this.root.productdetail.deals.mCategoryId,
-                scategoryId: this.root.productdetail.deals.sCategoryId,
-              },
-            ],
-          },
-        ],
-        pointType: 'BUY',
-        consumptionType: 'BUY',
-        serviceType: 'FRONT',
-      };
-      API.benefit
-        .post(`/process/total-due-save/${userId}`, bundleList)
-        .then(res => {
-          const { data } = res;
-          this.duesavePointList = data.data.dueSavePointList;
-        })
-        .catch(err => {
-          devLog(err);
-          this.duesavePointList = [];
-          // this.root.alert.showAlert({
-          //   content: `${_.get(err, 'data.message') || err.message}`,
-          // });
-        });
-    }
+    let bundleList = {
+      bundleList: [
+        {
+          bundlePrice: this.root.productdetail.deals.shipExpense,
+          orderProdList: [
+            {
+              dealId: this.root.productdetail.deals.dealsId,
+              discountPrice: this.root.productdetail.deals.discountPrice,
+              productPrice: this.root.productdetail.deals.sellPrice,
+              dcategoryId: this.root.productdetail.deals.dCategoryId,
+              lcategoryId: this.root.productdetail.deals.lCategoryId,
+              mcategoryId: this.root.productdetail.deals.mCategoryId,
+              scategoryId: this.root.productdetail.deals.sCategoryId,
+            },
+          ],
+        },
+      ],
+      pointType: 'BUY',
+      consumptionType: 'BUY',
+      serviceType: 'FRONT',
+    };
+    API.benefit
+      .post(`/process/total-due-save`, bundleList)
+      .then(res => {
+        const { data } = res;
+        this.duesavePointList = data.data.dueSavePointList;
+      })
+      .catch(err => {
+        devLog(err);
+        this.duesavePointList = [];
+      });
   };
 
   @action
