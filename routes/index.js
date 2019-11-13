@@ -287,4 +287,11 @@ module.exports = [
     asPath: `/store/:nickname`,
     name: `셀러스토어`,
   },
+
+  //이벤트 - 상세페이지
+  {
+    pagePath: `/event/eventdetail`,
+    asPath: `/event/detail/:id`,
+    name: `이벤트 - 상세페이지`,
+  },
 ];

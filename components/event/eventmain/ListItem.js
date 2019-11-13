@@ -14,20 +14,20 @@ function ListItem({ data }) {
   return (
     <div className={css.eventItem}>
       {data.detailPage === true ? (
-        // <Link href="/">
-        <div className={css.detailTrue}>
-          <div
-            className={css.bannerImage}
-            style={{
-              backgroundImage: `url(${data.imgUrlM})`,
-            }}
-          />
+        <Link href={`/event/detail/${data.id}`}>
+          <div className={css.detailTrue}>
+            <div
+              className={css.bannerImage}
+              style={{
+                backgroundImage: `url(${data.imgUrlM})`,
+              }}
+            />
 
-          <div className={css.eventTitle}>{data.eventTitle}</div>
-          <div className={css.eventDate}>{`${startDate} ~ ${endDate}`}</div>
-        </div>
+            <div className={css.eventTitle}>{data.eventTitle}</div>
+            <div className={css.eventDate}>{`${startDate} ~ ${endDate}`}</div>
+          </div>
+        </Link>
       ) : (
-        // </Link>
         <Fragment>
           <div
             className={css.bannerImage}

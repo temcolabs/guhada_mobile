@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import Head from 'next/head';
-import EventMain from 'template/event/EventMain';
+import EventDetail from 'template/event/EventDetail';
 import LoadingPortal from 'components/common/loading/Loading';
 import { observer, inject } from 'mobx-react';
 
 @inject('eventmain')
 @observer
-class eventmain extends Component {
+class eventdetail extends Component {
   componentDidMount() {
     this.props.eventmain.getEventList();
   }
@@ -27,10 +27,10 @@ class eventmain extends Component {
             content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
           />
         </Head>
-        <div>{eventmain.status.page ? <EventMain /> : <LoadingPortal />}</div>
+        <div>{eventmain.status.page ? <EventDetail /> : <LoadingPortal />}</div>
       </>
     );
   }
 }
 
-export default eventmain;
+export default eventdetail;

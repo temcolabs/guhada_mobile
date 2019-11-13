@@ -24,7 +24,7 @@ function EventMain({ eventmain }) {
           })}
         </div>
 
-        {false ? null : (
+        {true ? null : (
           <div className={css.moreButton}>
             더 보기
             <i />
