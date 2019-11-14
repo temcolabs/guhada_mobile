@@ -26,19 +26,8 @@ class LuckydrawSignup extends Component {
         ? Form.signUpSNSLuckydraw
         : Form.signUpLuckydraw;
 
-    // sns 로그인 포지션에 따른 분기문 처리
-    // if (login.loginPosition === 'luckydrawSNS') {
-    //   form = Form.signUpSNSLuckydraw;
-    // } else {
-    //   form = Form.signUpLuckydraw;
-    // }
     let value = form.get('value');
     const { isOpen, closeModal } = this.props;
-    const termAgree = Form.termAgree;
-    let termAgreeValue = Form.termAgree.get('value');
-
-    // const { login } = this.props;
-    // const form = Form.signUpLuckydraw;
 
     return (
       <ModalWrapper

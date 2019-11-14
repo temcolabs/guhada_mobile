@@ -104,7 +104,7 @@ class LuckydrawLogin extends Component {
               </div>
               <div className={css.socialHeader}>간편 로그인</div>
               <div className={css.socialWrap}>
-                <NaverLogin />
+                <NaverLogin luckydrawSNS={true} />
                 <KakaoLogin
                   jsKey={snsAppKey.KAKAO}
                   onSuccess={login.responseKakao}
