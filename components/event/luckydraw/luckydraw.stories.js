@@ -53,8 +53,9 @@ stories.add('LuckyDrawMainSlider', () => {
 
 stories.add('LuckyDrawItem', () => {
   return (
-    <div style={{ marginTop: '50px', marginBottom: '200px' }}>
+    <div style={{ width: '420px', margin: '50px auto 100px' }}>
       <LuckyDrawItem
+        isFirst={boolean('isFisrt', true)}
         data={object('data', {
           dealId: 23880,
           title: '[변경금지] 럭키드로우 테스트 상품2',

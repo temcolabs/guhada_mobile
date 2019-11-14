@@ -257,7 +257,7 @@ class SelectReceiptType extends Component {
         backgroundColor: state.isFocused ? '#f7f7f8' : '#fff',
         fontSize: 13,
         color: '#777',
-        fontFamily: 'NotoSansCJKkr',
+        fontFamily: 'Noto Sans KR',
       }),
       menu: (provided, state) => ({
         ...provided,

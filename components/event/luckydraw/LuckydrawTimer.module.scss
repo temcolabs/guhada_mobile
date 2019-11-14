@@ -1,7 +1,10 @@
 @import 'styles/mixins/index';
 
+$digitWidth: 36.875px;
+$digitHeight: 65px;
+
 .wrap {
-  width: 406px;
+  width: 275px;
   margin: 0 auto;
 
   @include clearfix;
@@ -14,8 +17,8 @@
 // 시계 배경 digit
 .numberBase {
   position: relative;
-  width: 59px;
-  height: 104px;
+  width: $digitWidth;
+  height: $digitHeight;
   background-size: contain;
   background-repeat: no-repeat;
   background-image: url('/static/icon/event/digits/number-bg@2x.png');
@@ -26,8 +29,8 @@
   top: 0;
   left: 0;
   z-index: 1;
-  width: 59px;
-  height: 104px;
+  width: $digitWidth;
+  height: $digitHeight;
   background-size: contain;
   background-repeat: no-repeat;
 
@@ -64,7 +67,7 @@
 }
 
 .colon {
-  height: 104px;
+  height: $digitHeight;
   width: 26px;
   background-image: url('/static/icon/event/digits/time-dot@3x.png');
   background-size: 6px 20px;

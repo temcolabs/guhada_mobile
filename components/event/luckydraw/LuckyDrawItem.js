@@ -73,7 +73,6 @@ export default function LuckyDrawItem({
         luckyDrawStore.checkWinnerLuckyDraws({
           dealId: data?.dealId,
         });
-
         break;
 
       default:
@@ -83,21 +82,20 @@ export default function LuckyDrawItem({
 
   return (
     <div className={css.wrap}>
-      {isFirst && (
+      {isFirst ? (
         <div className={css.startDateHeader}>
           <span className={css.startDateHeader__text}>
             {moment(data?.requestFromAt).format('M월 D일')}
           </span>
         </div>
-      )}
-
+      ) : null}
       <div className={css.productImageBackground}>
         <div
           className={css.productImage}
           style={{
             backgroundImage: `url('${data?.imageUrl}')`,
           }}
-        ></div>
+        />
       </div>
 
       <div className={css.productInfo}>
@@ -109,7 +107,8 @@ export default function LuckyDrawItem({
               {addCommaToNum(data?.sellPrice)}
             </div>
             <div className={css.productInfo__discountedPrice}>
-              {addCommaToNum(data?.discountPrice)}원
+              <span>{addCommaToNum(data?.discountPrice)}</span>
+              <span>원</span>
             </div>
           </div>
 
@@ -169,35 +168,30 @@ export default function LuckyDrawItem({
         >
           {state => (
             <div className={cn(css.requestGuide__collapsingArea)}>
-              <table className={css.requestGuide__table}>
-                <tbody>
-                  <tr>
-                    <td>당첨자 응모기간</td>
-                    <td>
-                      {moment(data?.requestFromAt).format('M월 D일 (dd) HH:mm')}{' '}
-                      - {moment(data?.requestToAt).format('M월 D일 (dd) HH:mm')}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>당첨자 발표일</td>
-                    <td>
-                      {moment(data?.winnerAnnouncementAt).format(
-                        'M월 D일 (dd) HH:mm'
-                      )}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>당첨자 구매기간</td>
-                    <td>
-                      {moment(data?.winnerBuyFromAt).format(
-                        'M월 D일 (dd) HH:mm'
-                      )}{' '}
-                      -{' '}
-                      {moment(data?.winnerBuyToAt).format('M월 D일 (dd) HH:mm')}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <div className={css.requestGuide__table}>
+                <div className={css.requestGuide__field}>
+                  <div className={css.requestGuide__label}>당첨자 응모기간</div>
+                  <div className={css.requestGuide__value}>
+                    {moment(data?.requestFromAt).format('M월 D일 (dd) HH:mm')} -{' '}
+                    {moment(data?.requestToAt).format('M월 D일 (dd) HH:mm')}
+                  </div>
+                </div>
+                <div className={css.requestGuide__field}>
+                  <div className={css.requestGuide__label}> 당첨자 발표일</div>
+                  <div className={css.requestGuide__value}>
+                    {moment(data?.winnerAnnouncementAt).format(
+                      'M월 D일 (dd) HH:mm'
+                    )}
+                  </div>
+                </div>
+                <div className={css.requestGuide__field}>
+                  <div className={css.requestGuide__label}>당첨자 구매기간</div>
+                  <div className={css.requestGuide__value}>
+                    {moment(data?.winnerBuyFromAt).format('M월 D일 (dd) HH:mm')}{' '}
+                    - {moment(data?.winnerBuyToAt).format('M월 D일 (dd) HH:mm')}
+                  </div>
+                </div>
+              </div>
             </div>
           )}
         </Transition>

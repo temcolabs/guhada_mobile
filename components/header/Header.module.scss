@@ -1,11 +1,12 @@
 @import 'styles/mixins/index';
+@import 'styles/var';
 
 .wrap {
   position: fixed;
   top: 0;
   display: flex;
   align-items: center;
-  height: 60px;
+  height: $headerHeight;
   padding: 0 10px;
   background-color: #ffffff;
   width: 100%;

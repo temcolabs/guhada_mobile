@@ -31,8 +31,6 @@ export default function LuckyDrawMainSlider({ imageList = [] }) {
     };
   }, [imageList]);
 
-  console.log(`isInTransition`, isInTransition);
-
   return (
     <div className={css.wrap}>
       <div className={css.contentsCircle}>
@@ -50,7 +48,7 @@ export default function LuckyDrawMainSlider({ imageList = [] }) {
                     easing: EASING,
                     opacity: 1,
                     duration: DURATION,
-                    left: '90px',
+                    left: '40px',
                     begin: anim => {
                       node.style.left = '240px';
                       setIsInTransition(true);
@@ -63,7 +61,7 @@ export default function LuckyDrawMainSlider({ imageList = [] }) {
                     easing: EASING,
                     duration: DURATION,
                     opacity: 0,
-                    left: '240px',
+                    left: '150px',
                     complete: anim => {
                       // 딜레이 후에 전환이 가능하도록 설정
                       setTimeout(() => {
