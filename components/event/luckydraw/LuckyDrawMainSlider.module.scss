@@ -1,0 +1,133 @@
+@import 'styles/mixins/index';
+@import 'styles/var';
+
+.wrap {
+  width: $luckyDrawContentsWidth;
+  margin: 0 auto;
+}
+
+.contentsCircle {
+  position: relative;
+  width: 520px;
+  height: 520px;
+  margin: 100px auto;
+  border-radius: 50%;
+  background-color: #ffe84b;
+}
+
+
+.transitionEl {
+  opacity: 0;
+
+  &.entered {
+    opacity: 1;
+  }
+
+  &.exited {
+    opacity: 0;
+  }
+}
+
+// :global {
+//   html.flexbox {
+//     .startDate {
+//       display: flex;
+//       align-items: center;
+//       justify-content: center;
+//     }
+//   }
+// }
+
+.startDate {
+  @include centeredX;
+  width: $luckyDrawContentsWidth;
+  bottom: 151px;
+  text-align: center;
+  color: $guhada-black;
+  height: 37px;
+
+  &.exited {
+    left: 70%;
+    opacity: 0;
+  }
+
+  .dateText {
+    @include centerWithHeight(37px);
+    font-size: 26px;
+    letter-spacing: -1.3px;
+    font-weight: bold;
+    display: inline-block;
+  }
+
+  .openMarker {
+    @include centerWithHeight(37px);
+    display: inline-block;
+    padding: 1px 9px;
+    margin-left: 12px;
+    font-size: 22px;
+    font-weight: 500;
+    color: $white;
+    letter-spacing: normal;
+    background: #454a5e;
+  }
+}
+
+.title {
+  position: absolute;
+  transform: translateX(-50%);
+  left: 50%;
+  bottom: 110px;
+  width: $luckyDrawContentsWidth;
+  font-family: NotoSansCJKkr;
+  font-size: 24px;
+  letter-spacing: -0.96px;
+  text-align: center;
+  color: $guhada-black;
+
+
+  &.exited {
+    left: 70%;
+  }
+}
+
+.indexDotWrap {
+  @include centeredX;
+  @include clearfix;
+  bottom: 40px;
+  padding: 10px;
+  &:hover {
+    cursor: pointer;
+  }
+
+
+  & > * {
+    float: left;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #e6cc1b;
+    transition: background 0.2s linear;
+
+    &.isCurrent {
+      background: #10152b;
+    }
+
+    &:not(:first-child) {
+      margin-left: 5px;
+    }
+  }
+}
+
+.productImage {
+  position: absolute;
+  bottom: 180px;
+  left: 90px;
+  width: 500px;
+  height: 500px;
+  background-size: contain;
+  background-position: center;
+
+  &.exited {
+    left: 240px;
+  }
+}

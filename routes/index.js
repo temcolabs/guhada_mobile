@@ -294,4 +294,10 @@ module.exports = [
     asPath: `/event/detail/:id`,
     name: `이벤트 - 상세페이지`,
   },
+
+  {
+    pagePath: `/event/luckydraw`,
+    asPath: `/event/luckydraw`,
+    name: `럭키드로우`,
+  },
 ];

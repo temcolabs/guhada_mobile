@@ -1,0 +1,73 @@
+@import 'styles/mixins/index';
+
+.wrap {
+  width: 406px;
+  margin: 0 auto;
+
+  @include clearfix;
+
+  & > * {
+    float: left;
+  }
+}
+
+// 시계 배경 digit
+.numberBase {
+  position: relative;
+  width: 59px;
+  height: 104px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url('/static/icon/event/digits/number-bg@2x.png');
+}
+
+.number {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 59px;
+  height: 104px;
+  background-size: contain;
+  background-repeat: no-repeat;
+
+  &[data-digit='0'] {
+    background-image: url('/static/icon/event/digits/number-0@2x.png');
+  }
+  &[data-digit='1'] {
+    background-image: url('/static/icon/event/digits/number-1@2x.png');
+  }
+  &[data-digit='2'] {
+    background-image: url('/static/icon/event/digits/number-2@2x.png');
+  }
+  &[data-digit='3'] {
+    background-image: url('/static/icon/event/digits/number-3@2x.png');
+  }
+  &[data-digit='4'] {
+    background-image: url('/static/icon/event/digits/number-4@2x.png');
+  }
+  &[data-digit='5'] {
+    background-image: url('/static/icon/event/digits/number-5@2x.png');
+  }
+  &[data-digit='6'] {
+    background-image: url('/static/icon/event/digits/number-6@2x.png');
+  }
+  &[data-digit='7'] {
+    background-image: url('/static/icon/event/digits/number-7@2x.png');
+  }
+  &[data-digit='8'] {
+    background-image: url('/static/icon/event/digits/number-8@2x.png');
+  }
+  &[data-digit='9'] {
+    background-image: url('/static/icon/event/digits/number-9@2x.png');
+  }
+}
+
+.colon {
+  height: 104px;
+  width: 26px;
+  background-image: url('/static/icon/event/digits/time-dot@3x.png');
+  background-size: 6px 20px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
