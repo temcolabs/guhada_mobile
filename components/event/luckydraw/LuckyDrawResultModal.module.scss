@@ -1,0 +1,76 @@
+.wrap {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  height: 100vh;
+  overflow: auto;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .contentWrap {
+    position: relative;
+    width: 320px;
+    height: 200px;
+    background: url('/static/icon/45@3x.png') no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding-top: 30px;
+    .close {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background: url('/static/icon/close-btn@3x.png') no-repeat;
+      background-size: cover;
+      background-position: center;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+    }
+
+    .content {
+      position: relative;
+
+      .complete {
+        font-size: 26px;
+        font-weight: bold;
+        color: #fff;
+        text-align: center;
+        span {
+          &:first-child {
+            color: #ffe84b;
+          }
+        }
+      }
+      .title {
+        text-align: center;
+        font-size: 16px;
+        font-weight: normal;
+        color: #fff;
+        max-width: 400px;
+        margin: 0 auto;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .winner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 220px;
+        height: 44px;
+        background: #fff;
+        margin: 30px auto 0;
+        font-size: 15px;
+        font-weight: 500;
+        color: #111;
+        padding: 0 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+}

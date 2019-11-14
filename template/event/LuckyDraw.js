@@ -4,6 +4,8 @@ import css from './LuckyDraw.module.scss';
 import LuckydrawTimer from 'components/event/luckydraw/LuckydrawTimer';
 import LuckyDrawMainSlider from 'components/event/luckydraw/LuckyDrawMainSlider';
 import LuckyDrawItem from 'components/event/luckydraw/LuckyDrawItem';
+import LuckyDrawApplyModal from 'components/event/luckydraw/LuckyDrawApplyModal';
+import LuckyDrawResultModal from 'components/event/luckydraw/LuckyDrawResultModal';
 import { compose } from 'lodash/fp';
 import { withRouter } from 'next/router';
 import { useObserver } from 'mobx-react-lite';
@@ -90,6 +92,15 @@ function LuckyDraw({ router }) {
             </button>
           </div>
         </main>
+
+        <LuckyDrawApplyModal
+          isOpen={luckyDrawStore.isRequestModal}
+          data={luckyDrawStore.requestedData}
+        />
+        <LuckyDrawResultModal
+          isOpen={luckyDrawStore.isResultModal}
+          data={luckyDrawStore.resultData}
+        />
       </div>
     </DefaultLayout>
   ));

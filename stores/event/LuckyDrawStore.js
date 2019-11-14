@@ -41,6 +41,29 @@ export default class LukcyDrawStore {
     //   },
     // ],
   };
+  @observable isRequestModal = false;
+  @observable requestedData = {
+    // dealId: 24837
+    // discountPrice: 50000
+    // discountRate: 50
+    // imageUrl: "https://d3ikprf0m31yc7.cloudfront.net/images/deals/luckydraw/0a34c34bc5c24c8fac9888c03e4a412c.png"
+    // now: 1573708426
+    // remainedTimeForEnd: 2773
+    // remainedTimeForStart: -83626
+    // remainedTimeForWinnerAnnouncement: 6373
+    // requestFromAt: 1573624800000
+    // requestToAt: 1573711200000
+    // sellPrice: 100000
+    // statusCode: "REQUESTED"
+    // statusText: "응모완료"
+    // title: "[변경금지] 럭키드로우 테스트 상품4"
+    // winnerAnnouncementAt: 1573714800000
+    // winnerBuyFromAt: 1573714800000
+    // winnerBuyToAt: 1573801200000
+  };
+
+  @observable isResultModal = false;
+  @observable resultData = {};
 
   @action
   getLuckyDrawList = async () => {
@@ -58,10 +81,12 @@ export default class LukcyDrawStore {
    */
   requestLuckyDraws = async ({ dealId }) => {
     try {
-      await luckyDrawService.requestLuckyDraws({ dealId });
+      const { data } = await luckyDrawService.requestLuckyDraws({ dealId });
 
       // TODO: 신청 모달 연결
-      this.root.alert.showAlert('럭키드로우 신청되었습니다.');
+      devLog(data, '응모 완료');
+      this.requestedData = data.data;
+      this.isRequestModal = true;
 
       // 럭키드로우 목록 새로고침.
       // 로그인한 상태라면 본인의 응모 완료 여부가 업데이트된다.
@@ -81,10 +106,21 @@ export default class LukcyDrawStore {
       const { data } = await luckyDrawService.checkWinnerLuckyDraws({ dealId });
 
       // TODO: 확인 모달 연결
-      this.root.alert.showAlert(JSON.stringify(data.data));
+      this.isResultModal = true;
+      this.resultData = data.data;
     } catch (e) {
       this.root.alert.showAlert(e.data?.message || '오류가 발생했습니다.');
       console.error(e);
     }
+  };
+
+  /**
+   * 모달 닫기
+   */
+  @action
+  closeModal = () => {
+    this.isRequestModal
+      ? (this.isRequestModal = false)
+      : (this.isResultModal = false);
   };
 }
