@@ -64,9 +64,6 @@ export default function LuckyDrawItem({
         break;
 
       case luckyDrawStatus.REQUESTED:
-        luckyDrawStore.requestLuckyDraws({
-          dealId: data?.dealId,
-        });
         break;
 
       case luckyDrawStatus.OUT_OF_TIME:
