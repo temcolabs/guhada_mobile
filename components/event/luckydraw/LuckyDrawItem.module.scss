@@ -1,0 +1,277 @@
+@import 'styles/mixins/index';
+@import 'styles/var';
+
+$wrapperHoriPad: 20px;
+
+.wrap {
+  position: relative;
+  width: 100%;
+  padding: 50px $wrapperHoriPad 0;
+  margin: 0 auto;
+  background: #fff;
+
+  &:not(:first-child) {
+    margin-top: 30px;
+  }
+}
+
+// 상단 시작날짜 영역
+.startDateHeader {
+  @include centeredX;
+  top: -20px;
+  background: url('/static/icon/event/today-ribbon@2x.png') no-repeat center;
+  background-size: contain;
+  width: 177px;
+  height: 47px;
+}
+
+.startDateHeader__text {
+  @include centered;
+  width: 80px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+  color: #fff;
+  line-height: 1;
+  padding-bottom: 6px;
+}
+
+.productImage {
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.productImageBackground {
+  z-index: 1;
+  position: relative;
+  width: calc(100% + #{$wrapperHoriPad} * 2);
+  height: 240px;
+  margin: 0 calc(-1 * #{$wrapperHoriPad});
+  background: url('/static/icon/event/luckdraw-item-bg.png') no-repeat center;
+  background-size: contain;
+}
+
+.productInfo {
+  margin-top: 70px;
+}
+
+.productInfo__title {
+  font-size: 17px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: $guhada-black;
+}
+
+.productInfo__priceWrapper {
+  @include clearfix;
+  margin-top: 20px;
+  min-height: 56px;
+}
+
+.productInfo__price {
+  float: left;
+  text-align: left;
+}
+
+.productInfo__originalPrice {
+  font-size: 16px;
+  color: #777777;
+  font-weight: normal;
+  text-decoration: line-through;
+}
+
+.productInfo__discountedPrice {
+  font-size: 26px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: -1px;
+  text-align: left;
+  color: #000000;
+  margin-top: 5px;
+
+  & > * {
+    &:nth-child(2) {
+      font-size: 17px;
+    }
+  }
+}
+
+.productInfo__discountRate {
+  float: right;
+  font-size: 46px;
+  font-weight: bold;
+  letter-spacing: -1.5px;
+  color: #f43143;
+  line-height: 1;
+  margin-top: 3px;
+
+  & > * {
+    display: inline-block;
+    &:nth-child(1) {
+      margin-right: -6px;
+    }
+
+    &:nth-child(2) {
+      font-size: 25px;
+    }
+  }
+}
+
+$requestButtonHeight: 55px;
+// 응모하기 버튼
+.requestButton {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 55px;
+  border-radius: calc(#{$requestButtonHeight} / 2);
+  margin-top: 26px;
+
+  .statusText {
+    @include centered;
+    width: 100%;
+    font-size: 21px;
+    font-weight: 500;
+  }
+
+  &[class*='NORMAL'] {
+    &:hover {
+      cursor: initial;
+    }
+
+    border: solid 4px #f43143;
+    .statusText {
+      color: #f43143;
+    }
+  }
+
+  &[class*='READY'] {
+    &:hover {
+      cursor: initial;
+    }
+
+    border: solid 4px #f43143;
+    .statusText {
+      color: #f43143;
+    }
+  }
+
+  &[class*='START'] {
+    background-color: #f43143;
+    .statusText {
+      color: #fff;
+    }
+  }
+
+  &[class*='REQUESTED'] {
+    &:hover {
+      cursor: initial;
+    }
+
+    background-color: #c9c9c9;
+    .statusText {
+      color: #ffffff;
+    }
+  }
+
+  &[class*='OUT_OF_TIME'] {
+    &:hover {
+      cursor: initial;
+    }
+
+    background-color: #c9c9c9;
+    .statusText {
+      color: #ffffff;
+    }
+  }
+
+  &[class*='WINNER_ANNOUNCEMENT'] {
+    background-color: #13182e;
+    .statusText {
+      color: #ffffff;
+    }
+  }
+}
+
+.requestGuide {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 61px;
+  color: #444;
+}
+
+.requestGuide__button {
+  @include centeredX;
+  top: 22px;
+  width: 74px;
+  height: 19px;
+  padding-right: 18px;
+  font-size: 15px;
+  color: #777777;
+  text-align: left;
+
+  &::after {
+    content: ' ';
+    @include centeredY;
+    right: 0;
+    width: 18px;
+    height: 18px;
+    background: url('/static/icon/event/arrow-r-line@2x.png') no-repeat center;
+    background-size: contain;
+    transform: translateY(-50%) rotate(0);
+  }
+
+  &.isRequestGuideVisible {
+    &::after {
+      transform: translateY(-50%) rotate(180deg);
+    }
+  }
+}
+
+.requestGuide__collapsingArea {
+  display: none;
+  padding: 60px 0 40px;
+  opacity: 0;
+}
+
+.requestGuide__table {
+  border-top: 1px solid $very-light-pink;
+  overflow: hidden;
+
+  td {
+    text-align: left;
+    border: none;
+    padding: 2.5px 0;
+    font-size: 14px;
+    line-height: 1.1;
+    color: #444444;
+  }
+
+  .requestGuide__field {
+    &:first-child {
+      margin-top: 31px;
+    }
+
+    &:not(:first-child) {
+      margin-top: 20px;
+    }
+  }
+
+  .requestGuide__label {
+    font-weight: bold;
+  }
+  .requestGuide__value {
+    margin-top: 5px;
+    font-weight: normal;
+  }
+}

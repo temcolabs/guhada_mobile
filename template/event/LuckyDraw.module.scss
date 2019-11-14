@@ -1,0 +1,89 @@
+@import 'styles/var';
+@import 'styles/mixins/index';
+
+$mainHoriPad: 20px;
+
+.wrap {
+  width: 100%;
+  min-height: 224px;
+  margin: $headerHeight auto 0;
+  color: #fff;
+  background-color: #13182e;
+  background-image: url('/static/icon/event/luckdraw-background.png');
+  background-size: contain;
+  background-position: center top;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.main {
+  width: 100%;
+  margin: 0 auto;
+  padding-top: 224px;
+  padding-left: $mainHoriPad;
+  padding-right: $mainHoriPad;
+  color: #fff;
+}
+
+.timerWrap {
+  margin-top: 30px;
+}
+
+.listWrap {
+  margin-top: 40px;
+}
+
+.sharingButton {
+  width: 100%;
+  position: relative;
+  height: 100px;
+  margin-top: 80px;
+  border: solid 1px rgba(255, 255, 255, 0.7);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sharingButton__text {
+  @include centered;
+  padding-right: 40px;
+  background: url('/static/icon/event/sharing-arrow-r-line@2x.png') no-repeat
+    right center;
+  background-size: 30px;
+  font-size: 30px;
+  color: #fff;
+}
+
+.notificationBox {
+  width: 100%;
+  margin: 100px auto 0;
+
+  & > img {
+    display: block;
+    width: 100%;
+  }
+}
+
+.loginArea {
+  @include clearfix;
+  width: calc(100% + #{$mainHoriPad} * 2);
+  margin: 86px calc(-1 * #{$mainHoriPad}) 0;
+}
+
+.loginArea__button {
+  width: 50%;
+  float: left;
+  padding: 21px 10px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  height: 60px;
+
+  &:nth-child(1) {
+    background: #444444;
+    color: #fff;
+  }
+
+  &:nth-child(2) {
+    background: $blue-purple;
+    color: #fff;
+  }
+}

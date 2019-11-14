@@ -1,79 +1,92 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
-import prependZero from 'lib/string/prependZero';
+import React, {
+  useCallback,
+  useReducer,
+  useState,
+  useEffect,
+  useRef,
+} from 'react';
+import padZeroToSingleDigit from 'childs/lib/string/padZeroToSingleDigit';
+
+const hourInSec = 60 * 60;
+const minuteInSec = 60;
 
 /**
  * 카운트다운 타이머, renderProps 패턴을 사용한다
  */
 export default function CountdownTimer({
   render = ({ time }) => {},
-  isOn = false,
   initialTimeLeft = 0,
-  onTimeOver = () => {}, // 시간 초과했을 때 콜백,
+  onTimeOver = () => {}, // 시간 초과했을 때 콜백
   hhmmss = false,
+  isVisible = true,
 }) {
   const [timeLeft, setTimeLeft] = useState(initialTimeLeft);
   const timerId = useRef(null);
 
-  /**
-   * 타이머 시작
-   * @param {number} time 남은 시간
-   */
-  const startTimer = useCallback(
-    time => {
-      clearInterval(timerId.current);
-
-      if (time > 0) {
-        let nextTimeLeft = time;
-
-        timerId.current = setInterval(() => {
-          nextTimeLeft -= 1;
-          if (nextTimeLeft >= 0) {
-            setTimeLeft(nextTimeLeft);
-          } else {
-            clearInterval(timerId.current);
-            onTimeOver();
-          }
-        }, 1000);
-      }
-    },
-    [onTimeOver]
-  );
-
-  // 타이머 온 여부가 변경되면 타이머를 재시작한다
+  // 초기값 설정
   useEffect(() => {
-    clearInterval(timerId.current);
+    setTimeLeft(initialTimeLeft);
 
-    startTimer(initialTimeLeft);
+    timerId.current = setInterval(() => {
+      setTimeLeft(current => {
+        return --current;
+      });
+    }, 1000);
 
     return () => {
       clearInterval(timerId.current);
+      setTimeLeft(0);
     };
-  }, [initialTimeLeft, isOn, startTimer]);
+  }, [initialTimeLeft]);
 
-  const formatTime = (time, hhmmss) => {
-    if (!!hhmmss) {
-      if (!!time) {
-        const hours = parseInt(time / 3600);
-        const minutes = parseInt((time % 3600) / 60);
-        const seconds = time % 60;
+  useEffect(() => {
+    const hour = Math.floor(timeLeft / hourInSec);
+    const minute = Math.floor((timeLeft % hourInSec) / minuteInSec);
+    const second = timeLeft % minuteInSec;
 
-        return `${prependZero(hours)}:${prependZero(minutes)}:${prependZero(
-          seconds
-        )}`;
+    dispatch({
+      type: 'UPDATE',
+      payload: {
+        hour: padZeroToSingleDigit(hour),
+        minute: padZeroToSingleDigit(minute),
+        second: padZeroToSingleDigit(second),
+      },
+    });
+
+    return () => {};
+  }, [initialTimeLeft, timeLeft]);
+
+  const [currentTimer, dispatch] = useReducer(
+    (state, action) => {
+      if (action.type === 'UPDATE') {
+        return action.payload;
       } else {
-        return '00:00';
+        return state;
       }
-    } else {
-      if (!!time) {
-        const minutes = parseInt(time / 60);
-        const seconds = time % 60;
-
-        return `${prependZero(minutes)}:${prependZero(seconds)}`;
-      } else {
-        return '00:00';
-      }
+    },
+    {
+      hour: '00',
+      minute: '00',
+      second: '00',
     }
-  };
+  );
 
-  return <div>{render({ time: formatTime(timeLeft, hhmmss) })}</div>;
+  const { hour, minute, second } = currentTimer;
+
+  const formatTime = useCallback(
+    (time, hhmmss) => {
+      if (!!hhmmss) {
+        return `${hour} : ${minute} : ${second}`;
+      } else {
+        return `${minute}:${second}`;
+      }
+    },
+    [hour, minute, second]
+  );
+
+  return (
+    <div>
+      {render({ time: formatTime(timeLeft, hhmmss), hour, minute, second })}
+    </div>
+  );
 }

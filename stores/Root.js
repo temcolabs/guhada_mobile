@@ -44,6 +44,7 @@ import SellerStore from './SellerStore';
 import SellerClaimStore from './claim/SellerClaimStore';
 import CardInterestStore from './CardInterestStore';
 
+import EventMainStore from './event/EventMainStore';
 import LuckyDrawStore from './event/LuckyDrawStore';
 
 class RootStore {
@@ -113,10 +114,9 @@ class RootStore {
     //무이자정보
     this.cardinterest = new CardInterestStore(this);
 
-    /**
-     * 이벤트
-     */
-    this.luckydraw = new LuckyDrawStore(this);
+    // 이벤트 메인
+    this.eventmain = new EventMainStore(this);
+    this.luckyDraw = new LuckyDrawStore(this);
   }
 }
 

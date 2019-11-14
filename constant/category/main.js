@@ -5,7 +5,7 @@ export default {
     { id: 2, title: '남성', href: '/home/men' },
     { id: 3, title: '키즈', href: '/home/kids' },
     { id: 4, title: '타임딜', href: '/event/timedeal' },
-    // { id: 5, title: '파워딜', href: '' },
+    { id: 5, title: '이벤트', href: '/event' },
     // { id: 6, title: '한정특가', href: '' },
     // { id: 7, title: 'Sale', href: '' },
   ],

@@ -24,8 +24,12 @@ const getIsProdHost = () => {
     const hostname = window.location.hostname;
 
     return isTablet || isMobile
-      ? hostname === 'm.guhada.com'
-      : hostname === 'www.guhada.com';
+      ? // 모바일 prod 호스트 확인
+        hostname === 'm.guhada.com'
+      : // 데스크탑 prod 호스트
+        hostname === 'www.guhada.com' ||
+          hostname === 'web.guhada.com' ||
+          hostname === 'guhada.com';
   } else {
     return false;
   }
