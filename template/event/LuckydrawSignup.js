@@ -24,7 +24,7 @@ class LuckydrawSignup extends Component {
     let form =
       login.loginPosition === 'luckydrawSNS'
         ? Form.signUpSNSLuckydraw
-        : Form.signupLuckydraw;
+        : Form.signUpLuckydraw;
 
     // sns 로그인 포지션에 따른 분기문 처리
     // if (login.loginPosition === 'luckydrawSNS') {

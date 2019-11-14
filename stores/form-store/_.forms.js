@@ -62,13 +62,17 @@ export default {
     { ...findpasswordresult },
     { hooks: FindPasswordResultHooks, name: 'findPasswordResult' }
   ),
-  signinLuckydraw: new Form(
+  signInLuckydraw: new Form(
     { ...signinluckydraw },
-    { hooks: LuckySigninHooks, name: 'signinLuckydraw' }
+    { hooks: LuckySigninHooks, name: 'signInLuckydraw' }
   ),
-  signupLuckydraw: new Form(
+  signUpLuckydraw: new Form(
     { ...signupluckydraw },
-    { hooks: LuckySignupHooks, name: 'signupLuckydraw' }
+    { hooks: LuckySignupHooks, name: 'signUpLuckydraw' }
+  ),
+  signUpSNSLuckydraw: new Form(
+    { ...signupsnsluckydraw },
+    { hooks: LuckySignupSNSHooks, name: 'signUpSNSLuckydraw' }
   ),
   modifyLuckydraw: new Form(
     { ...modifyluckydraw },

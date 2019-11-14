@@ -62,7 +62,7 @@ export default {
               expiresIn: data.expiresIn,
             });
 
-            root.luckydraw.setLuckydrawSignupModal(false);
+            root.luckyDraw.setLuckydrawSignupModal(false);
             root.alert.showAlert('럭키드로우 시도');
           })
           .catch(e => {

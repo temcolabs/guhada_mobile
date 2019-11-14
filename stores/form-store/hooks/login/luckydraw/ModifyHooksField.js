@@ -88,7 +88,8 @@ export default {
     //     });
     // }
     else if (field.path === 'authMobileButton') {
-      root.authmobile.getCertKey('luckydrawModify');
+      const childWindow = window.open('', 'popupChk');
+      root.authmobile.getCertKey('luckydrawModify', childWindow);
     }
   },
 

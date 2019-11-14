@@ -11,7 +11,7 @@ import LuckydrawModify from 'template/event/LuckydrawModify';
 import { loginStatus } from 'constant/';
 import { useObserver } from 'mobx-react-lite';
 
-function ToolBar({ alert, luckydraw, login }) {
+function ToolBar({ alert, luckyDraw, login }) {
   const [isCategoryVisible, setIsCategoryVisible] = useState(false);
   const [isBrandVisible, setIsBrandVisible] = useState(false);
   const [selectedTool, setSelectedTool] = useState('');
@@ -68,8 +68,8 @@ function ToolBar({ alert, luckydraw, login }) {
           setSelectedTool('mypage');
           // alert.showAlert({ content: '모바일 버전 준비중입니다.' });
           login.loginStatus === loginStatus.LOGIN_DONE
-            ? luckydraw.getEventUser()
-            : luckydraw.setLuckydrawLoginModal(true);
+            ? luckyDraw.getEventUser()
+            : luckyDraw.setLuckydrawLoginModal(true);
         }}
         className={cn(css.itemWrap, css.mypage, {
           [css.selected]: selectedTool === 'mypage',
@@ -91,20 +91,20 @@ function ToolBar({ alert, luckydraw, login }) {
       />
 
       <LuckydrawLogin
-        isOpen={luckydraw.luckydrawLoginModal}
-        closeModal={() => luckydraw.setLuckydrawLoginModal(false)}
+        isOpen={luckyDraw.luckydrawLoginModal}
+        closeModal={() => luckyDraw.setLuckydrawLoginModal(false)}
       />
 
       <LuckydrawSignup
-        isOpen={luckydraw.luckydrawSignupModal}
-        closeModal={() => luckydraw.setLuckydrawSignupModal(false)}
+        isOpen={luckyDraw.luckydrawSignupModal}
+        closeModal={() => luckyDraw.setLuckydrawSignupModal(false)}
       />
 
       <LuckydrawModify
-        isOpen={luckydraw.luckydrawModifyModal}
-        closeModal={() => luckydraw.setLuckydrawModifyModal(false)}
+        isOpen={luckyDraw.luckydrawModifyModal}
+        closeModal={() => luckyDraw.setLuckydrawModifyModal(false)}
       />
     </div>
   ));
 }
-export default inject('alert', 'luckydraw', 'login')(ToolBar);
+export default inject('alert', 'luckyDraw', 'login')(ToolBar);

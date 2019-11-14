@@ -94,7 +94,8 @@ export default {
     //     });
     // }
     else if (field.path === 'authMobileButton') {
-      root.authmobile.getCertKey('luckydrawSignup');
+      const childWindow = window.open('', 'popupChk');
+      root.authmobile.getCertKey('luckydrawSignup', childWindow);
     }
   },
 
@@ -130,14 +131,17 @@ export default {
 
   onChange(field) {
     devLog('-> onChange HOOK -', field.path, field.value);
-    let form;
+    let form =
+      root.login.loginPosition === 'luckydrawSNS'
+        ? Form.signUpSNSLuckydraw
+        : Form.signUpLuckydraw;
 
     // sns 로그인 포지션에 따른 분기문 처리
-    if (root.login.loginPosition === 'luckydrawSNS') {
-      form = Form.signUpSNSLuckydraw;
-    } else {
-      form = Form.signUpLuckydraw;
-    }
+    // if (root.login.loginPosition === 'luckydrawSNS') {
+    //   form =
+    // } else {
+    //   form =
+    // }
 
     if (field.path === 'email') {
       form.$('emailCheck').set('label', '중복확인');

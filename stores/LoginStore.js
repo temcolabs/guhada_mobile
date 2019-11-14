@@ -229,7 +229,7 @@ export default class LoginStore {
         if (e.status === 200) {
           if (_.get(e, 'data.resultCode') === 5004) {
             if (login.loginPosition === 'luckydrawSNS') {
-              login.root.luckydraw.setLuckydrawSignupModal(true);
+              login.root.luckyDraw.setLuckydrawSignupModal(true);
             } else {
               pushRoute('/login/termagreesns');
             }
@@ -265,9 +265,9 @@ export default class LoginStore {
           expiresIn: data.data.expiresIn,
         });
         if (login.loginPosition === 'luckydrawSNS') {
-          login.root.luckydraw.getEventUser();
-          login.root.luckydraw.setLuckydrawLoginModal(false);
-          login.root.luckydraw.setLuckydrawSignupModal(false);
+          login.root.luckyDraw.getEventUser();
+          login.root.luckyDraw.setLuckydrawLoginModal(false);
+          login.root.luckyDraw.setLuckydrawSignupModal(false);
         } else if (email !== '') {
           Router.push('/?signupsuccess=true&email=' + email);
         } else {
@@ -310,7 +310,7 @@ export default class LoginStore {
         if (e.status === 200) {
           if (_.get(e, 'data.resultCode') === 5004) {
             if (login.loginPosition === 'luckydrawSNS') {
-              login.root.luckydraw.setLuckydrawSignupModal(true);
+              login.root.luckyDraw.setLuckydrawSignupModal(true);
             } else {
               pushRoute('/login/termagreesns');
             }
@@ -344,9 +344,9 @@ export default class LoginStore {
           expiresIn: data.data.expiresIn,
         });
         if (login.loginPosition === 'luckydrawSNS') {
-          login.root.luckydraw.getEventUser();
-          login.root.luckydraw.setLuckydrawLoginModal(false);
-          login.root.luckydraw.setLuckydrawSignupModal(false);
+          login.root.luckyDraw.getEventUser();
+          login.root.luckyDraw.setLuckydrawLoginModal(false);
+          login.root.luckyDraw.setLuckydrawSignupModal(false);
         } else if (email !== '') {
           Router.push('/?signupsuccess=true&email=' + email);
         } else {
@@ -387,7 +387,7 @@ export default class LoginStore {
         if (e.status === 200) {
           if (_.get(e, 'data.resultCode') === 5004) {
             if (login.loginPosition === 'luckydrawSNS') {
-              login.root.luckydraw.setLuckydrawSignupModal(true);
+              login.root.luckyDraw.setLuckydrawSignupModal(true);
             } else {
               pushRoute('/login/termagreesns');
             }
@@ -421,9 +421,9 @@ export default class LoginStore {
           expiresIn: data.data.expiresIn,
         });
         if (login.loginPosition === 'luckydrawSNS') {
-          login.root.luckydraw.getEventUser();
-          login.root.luckydraw.setLuckydrawLoginModal(false);
-          login.root.luckydraw.setLuckydrawSignupModal(false);
+          login.root.luckyDraw.getEventUser();
+          login.root.luckyDraw.setLuckydrawLoginModal(false);
+          login.root.luckyDraw.setLuckydrawSignupModal(false);
         } else if (email !== '') {
           Router.push('/?signupsuccess=true&email=' + email);
         } else {
@@ -464,7 +464,7 @@ export default class LoginStore {
         if (e.status === 200) {
           if (_.get(e, 'data.resultCode') === 5004) {
             if (login.loginPosition === 'luckydrawSNS') {
-              login.root.luckydraw.setLuckydrawSignupModal(true);
+              login.root.luckyDraw.setLuckydrawSignupModal(true);
             } else {
               pushRoute('/login/termagreesns');
             }
@@ -498,9 +498,9 @@ export default class LoginStore {
           expiresIn: data.data.expiresIn,
         });
         if (login.loginPosition === 'luckydrawSNS') {
-          login.root.luckydraw.getEventUser();
-          login.root.luckydraw.setLuckydrawLoginModal(false);
-          login.root.luckydraw.setLuckydrawSignupModal(false);
+          login.root.luckyDraw.getEventUser();
+          login.root.luckyDraw.setLuckydrawLoginModal(false);
+          login.root.luckyDraw.setLuckydrawSignupModal(false);
         } else if (email !== '') {
           Router.push('/?signupsuccess=true&email=' + email);
         } else {

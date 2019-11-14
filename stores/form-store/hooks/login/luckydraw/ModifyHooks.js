@@ -42,7 +42,7 @@ export default {
     API.user
       .put(`/event/users`, body)
       .then(res => {
-        root.luckydraw.luckydrawModifyModal = false;
+        root.luckyDraw.luckydrawModifyModal = false;
         root.alert.showAlert('럭키드로우 시도');
       })
       .catch(err => {

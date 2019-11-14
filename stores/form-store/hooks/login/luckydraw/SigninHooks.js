@@ -40,8 +40,8 @@ export default {
           expiresIn: data.expiresIn,
         });
 
-        root.luckydraw.setLuckydrawLoginModal(false);
-        root.luckydraw.getEventUser(Form.modifyLuckydraw);
+        root.luckyDraw.setLuckydrawLoginModal(false);
+        root.luckyDraw.getEventUser();
       })
       .catch(e => {
         const data = _.get(e, 'data') || {};

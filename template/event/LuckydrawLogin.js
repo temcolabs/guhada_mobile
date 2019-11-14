@@ -15,7 +15,7 @@ import NaverLogin from 'components/login/NaverLogin';
 
 let userId = Cookies.get('userId');
 
-@inject('login', 'luckydraw')
+@inject('login', 'luckyDraw')
 @observer
 class LuckydrawLogin extends Component {
   constructor(props) {
@@ -28,9 +28,6 @@ class LuckydrawLogin extends Component {
     if (this.state.checkSaveId) {
       form.$('email').set(userId);
     }
-    if (this.props.login.loginStatus === 'LOGIN_DONE') {
-      pushRoute('/');
-    }
   }
 
   onChangeSaveId = e => {
@@ -40,9 +37,9 @@ class LuckydrawLogin extends Component {
   };
 
   render() {
-    const form = Form.signinLuckydraw;
+    const form = Form.signInLuckydraw;
     let value = form.get('value');
-    const { isOpen, closeModal, luckydraw, login } = this.props;
+    const { isOpen, closeModal, luckyDraw, login } = this.props;
     return (
       <ModalWrapper
         isOpen={isOpen}
@@ -99,7 +96,7 @@ class LuckydrawLogin extends Component {
                 <LoginButton
                   onClick={() => {
                     closeModal();
-                    luckydraw.setLuckydrawSignupModal(true);
+                    luckyDraw.setLuckydrawSignupModal(true);
                   }}
                 >
                   회원가입
@@ -110,8 +107,8 @@ class LuckydrawLogin extends Component {
                 <NaverLogin />
                 <KakaoLogin
                   jsKey={snsAppKey.KAKAO}
-                  // onSuccess={login.responseKakao}
-                  // onFailure={login.responseKakao}
+                  onSuccess={login.responseKakao}
+                  onFailure={login.responseKakao}
                   getProfile={true}
                   render={props => (
                     <div
@@ -119,6 +116,7 @@ class LuckydrawLogin extends Component {
                       onClick={e => {
                         e.preventDefault();
                         props.onClick();
+                        login.loginPosition = 'luckydrawSNS';
                       }}
                     >
                       <div
@@ -140,13 +138,19 @@ class LuckydrawLogin extends Component {
                   appId={snsAppKey.FACEBOOK}
                   autoLoad={false}
                   fields="name,email"
-                  // callback={login.responseFacebook}
+                  callback={login.responseFacebook}
                   cookie={true}
                   xfbml={true}
                   isMobile={true}
                   disableMobileRedirect={true}
                   render={renderProps => (
-                    <div className={css.social} onClick={renderProps.onClick}>
+                    <div
+                      className={css.social}
+                      onClick={() => {
+                        renderProps.onClick();
+                        login.loginPosition = 'luckydrawSNS';
+                      }}
+                    >
                       <div
                         className={css.icon}
                         style={{
@@ -165,7 +169,13 @@ class LuckydrawLogin extends Component {
                 <GoogleLogin
                   clientId={snsAppKey.GOOGLE}
                   render={renderProps => (
-                    <div className={css.social} onClick={renderProps.onClick}>
+                    <div
+                      className={css.social}
+                      onClick={() => {
+                        renderProps.onClick();
+                        login.loginPosition = 'luckydrawSNS';
+                      }}
+                    >
                       <div
                         className={css.icon}
                         style={{
@@ -181,8 +191,8 @@ class LuckydrawLogin extends Component {
                     </div>
                   )}
                   buttonText="Login"
-                  // onSuccess={login.responseGoogle}
-                  // onFailure={login.responseGoogle}
+                  onSuccess={login.responseGoogle}
+                  onFailure={login.responseGoogle}
                 />
               </div>
             </div>
