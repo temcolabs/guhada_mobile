@@ -5,7 +5,7 @@ import React, {
   useEffect,
   useRef,
 } from 'react';
-import padZeroToSingleDigit from 'childs/lib/string/padZeroToSingleDigit';
+import padZeroToSingleDigit from '../string/padZeroToSingleDigit';
 
 const hourInSec = 60 * 60;
 const minuteInSec = 60;
@@ -25,13 +25,23 @@ export default function CountdownTimer({
 
   // 초기값 설정
   useEffect(() => {
-    setTimeLeft(initialTimeLeft);
+    if (initialTimeLeft >= 0) {
+      setTimeLeft(initialTimeLeft);
 
-    timerId.current = setInterval(() => {
-      setTimeLeft(current => {
-        return --current;
-      });
-    }, 1000);
+      timerId.current = setInterval(() => {
+        setTimeLeft(current => {
+          const next = --current;
+
+          // 타이머를 멈추는 로직
+          if (next <= 0) {
+            clearInterval(timerId.current);
+            return 0;
+          } else {
+            return next;
+          }
+        });
+      }, 1000);
+    }
 
     return () => {
       clearInterval(timerId.current);
