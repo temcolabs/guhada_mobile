@@ -1,0 +1,119 @@
+@import 'styles/mixins/index';
+@import 'styles/var';
+
+.wrap {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.contentsCircle {
+  position: relative;
+  width: 280px;
+  height: 280px;
+  margin: 10px auto 0;
+  border-radius: 50%;
+  background-color: #ffe84b;
+}
+
+.productImage {
+  position: absolute;
+  bottom: 100px;
+  left: 40px;
+  width: 270px;
+  height: 270px;
+  background-size: contain;
+  background-position: center;
+
+  &.exited {
+    left: 240px;
+  }
+}
+
+.transitionEl {
+  opacity: 0;
+
+  &.entered {
+    opacity: 1;
+  }
+
+  &.exited {
+    opacity: 0;
+  }
+}
+
+.startDate {
+  @include centeredX;
+  width: 100%;
+  bottom: 85px;
+  text-align: center;
+  color: $guhada-black;
+
+  &.exited {
+    left: 70%;
+    opacity: 0;
+  }
+
+  .dateText {
+    @include centerWithHeight(22px);
+    font-size: 16px;
+    letter-spacing: -1.3px;
+    font-weight: bold;
+    display: inline-block;
+  }
+
+  .openMarker {
+    @include centerWithHeight(22px);
+    display: inline-block;
+    padding: 1px 6px;
+    margin-left: 5px;
+    font-size: 15.5px;
+    font-weight: 500;
+    color: $white;
+    letter-spacing: normal;
+    background: #454a5e;
+  }
+}
+
+.title {
+  position: absolute;
+  transform: translateX(-50%);
+  left: 50%;
+  bottom: 60px;
+  width: 100%;
+  font-size: 16px;
+  letter-spacing: -0.96px;
+  text-align: center;
+  color: $guhada-black;
+
+  &.exited {
+    left: 70%;
+  }
+}
+
+.indexDotWrap {
+  @include centeredX;
+  @include clearfix;
+  bottom: 25px;
+  padding: 10px;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  & > * {
+    float: left;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #e6cc1b;
+    transition: background 0.2s linear;
+
+    &.isCurrent {
+      background: #10152b;
+    }
+
+    &:not(:first-child) {
+      margin-left: 5px;
+    }
+  }
+}
