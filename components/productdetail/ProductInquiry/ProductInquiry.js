@@ -34,6 +34,9 @@ class ProductInquiry extends Component {
     this.props.sellerClaim.checkIsSellerClaimPossible(sellerId, inquiryHandle);
   };
 
+  componentWillUnmount() {
+    this.props.sellerClaim.closeClaim();
+  }
   render() {
     const { productdetail, login, tabRefMap, alert, sellerClaim } = this.props;
     const { deals, inquiryList, inquiryPage } = productdetail;
