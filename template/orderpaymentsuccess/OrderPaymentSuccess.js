@@ -27,7 +27,7 @@ class OrderPaymentSuccess extends React.Component {
     this.props.user.pushJobForUserInfo(() => {
       // 크리테오 트래커
       criteoTracker.purchaseComplete({
-        email: this.props.user.userInfo.email,
+        email: this.props.user.userInfo?.email,
         transaction_id: this.props.orderpaymentsuccess.successInfo.orderNumber,
         items: this.props.orderpaymentsuccess.orderSuccessProduct?.map(
           orderItem => ({
