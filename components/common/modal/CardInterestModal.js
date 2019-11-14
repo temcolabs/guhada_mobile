@@ -14,7 +14,7 @@ function CardInterestModal({ isVisible, cardinterest }) {
 
   return (
     <div>
-      <SlideIn direction={slideDirection.TOP} isVisible={isVisible}>
+      <SlideIn direction={slideDirection.RIGHT} isVisible={isVisible}>
         <div className={css.wrap}>
           <div className={css.headerWrap}>
             <div className={css.header}>

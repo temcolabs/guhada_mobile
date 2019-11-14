@@ -58,11 +58,13 @@
       }
 
       .winner {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        // display: flex;
+        // align-items: center;
+        // justify-content: center;
         width: 220px;
         height: 44px;
+        text-align: center;
+        line-height: 44px;
         background: #fff;
         margin: 30px auto 0;
         font-size: 15px;
