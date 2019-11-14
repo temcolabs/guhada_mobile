@@ -1,15 +1,16 @@
 @import 'styles/var';
 @import 'styles/mixins/index';
 
+$mainHoriPad: 20px;
+
 .wrap {
   width: 100%;
+  min-height: 224px;
   margin: $headerHeight auto 0;
-  padding-bottom: 100px;
   color: #fff;
   background-color: #13182e;
   background-image: url('/static/icon/event/luckdraw-background.png');
   background-size: contain;
-  min-height: 224px;
   background-position: center top;
   background-repeat: no-repeat;
   overflow: hidden;
@@ -19,8 +20,8 @@
   width: 100%;
   margin: 0 auto;
   padding-top: 224px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: $mainHoriPad;
+  padding-right: $mainHoriPad;
   color: #fff;
 }
 
@@ -29,7 +30,7 @@
 }
 
 .listWrap {
-  margin-top: 60px;
+  margin-top: 40px;
 }
 
 .sharingButton {
@@ -59,5 +60,30 @@
   & > img {
     display: block;
     width: 100%;
+  }
+}
+
+.loginArea {
+  @include clearfix;
+  width: calc(100% + #{$mainHoriPad} * 2);
+  margin: 86px calc(-1 * #{$mainHoriPad}) 0;
+}
+
+.loginArea__button {
+  width: 50%;
+  float: left;
+  padding: 21px 10px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  height: 60px;
+
+  &:nth-child(1) {
+    background: #444444;
+    color: #fff;
+  }
+
+  &:nth-child(2) {
+    background: $blue-purple;
+    color: #fff;
   }
 }

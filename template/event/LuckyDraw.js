@@ -10,6 +10,7 @@ import { useObserver } from 'mobx-react-lite';
 import useStores from 'stores/useStores';
 import copy from 'copy-to-clipboard';
 import { devLog } from 'childs/lib/common/devLog';
+import { pushRoute } from 'lib/router';
 
 const enhancer = compose(withRouter);
 
@@ -67,18 +68,26 @@ function LuckyDraw({ router }) {
             })}
           </div>
 
-          <button
-            className={css.sharingButton}
-            onClick={handleClickShareButton}
-          >
-            <div className={css.sharingButton__text}>이벤트 공유하기</div>
-          </button>
-
           <div className={css.notificationBox}>
             <img
               src="/static/icon/event/luckydraw-notification.png"
               alt="공지사항"
             />
+          </div>
+
+          <div className={css.loginArea}>
+            <button
+              className={css.loginArea__button}
+              onClick={handleClickShareButton}
+            >
+              이벤트 공유하기
+            </button>
+            <button
+              className={css.loginArea__button}
+              onClick={() => pushRoute('/login')}
+            >
+              회원가입 · 로그인
+            </button>
           </div>
         </main>
       </div>
