@@ -1,12 +1,16 @@
 const Cookies = require('js-cookie');
 const omit = require('lodash/omit');
 const moment = require('moment');
-const key = require('../../constant/key');
 const axios = require('axios');
 const merge = require('lodash/merge');
 const _ = require('lodash');
-const getGuhadaCustomHeaders = require('../getGuhadaCustomHeaders');
+const getGuhadaCustomHeaders = require('../common/getGuhadaCustomHeaders');
 const isBrowser = typeof window === 'object';
+
+const key = {
+  ACCESS_TOKEN: `access_token`,
+  REFRESH_TOKEN: `refresh_token`,
+};
 
 /**
  * 마이크로 서비스에 사용할 수 있는 커스텀 인스턴스.
