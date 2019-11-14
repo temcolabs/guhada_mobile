@@ -43,6 +43,9 @@ import AddressStore from './address/AddressStore';
 import SellerStore from './SellerStore';
 import SellerClaimStore from './claim/SellerClaimStore';
 import CardInterestStore from './CardInterestStore';
+
+import LuckyDrawStore from './event/LuckyDrawStore';
+
 class RootStore {
   constructor() {
     this.user = new UserStore(this);
@@ -109,7 +112,14 @@ class RootStore {
 
     //무이자정보
     this.cardinterest = new CardInterestStore(this);
+
+    /**
+     * 이벤트
+     */
+    this.luckydraw = new LuckyDrawStore(this);
   }
 }
+
+export { root } from '../store';
 
 export default RootStore;

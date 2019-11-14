@@ -1,7 +1,8 @@
-import hooks from 'stores/form-store/hooks/login/luckydraw/SignupHooks';
+import hooks from 'stores/form-store/hooks/login/luckydraw/ModifyHooksField';
 
 export default {
   fields: {
+    emailOriginal: {},
     email: {
       name: 'email',
       label: '이메일',
@@ -9,7 +10,15 @@ export default {
       rules: 'required|email|string',
       hooks,
     },
-    emailCheck: {},
+    emailCheck: {
+      value: '',
+      label: '중복확인',
+      hooks,
+    },
+    emailAuth: {
+      label: '인증받기',
+      hooks,
+    },
     name: {
       type: 'text',
       name: 'name',
@@ -26,6 +35,10 @@ export default {
       value: '',
       hooks,
     },
+    gender: {},
+    diCode: {},
+    diCodeOriginal: {},
+    birth: {},
     mobileButton: {
       label: '본인인증',
     },
@@ -37,7 +50,7 @@ export default {
       value: '',
       hooks,
     },
-    authMobileButton: { label: '본인인증' },
+    authMobileButton: { label: '본인인증', hooks },
     optionalAgree: {
       type: 'checkbox',
       id: 'optionalAgree',
@@ -65,5 +78,8 @@ export default {
       label: '문자수신',
       hooks,
     },
+    emailVerified: {},
+    verifiedIdentityUpdated: {},
+    validEmail: {},
   },
 };

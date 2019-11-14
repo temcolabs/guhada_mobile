@@ -1,4 +1,4 @@
-import hooks from 'stores/form-store/hooks/login/luckydraw/SignupHooks';
+import hooks from 'stores/form-store/hooks/login/luckydraw/SignupHooksField';
 
 export default {
   fields: {
@@ -9,20 +9,13 @@ export default {
       rules: 'required|email|string',
       hooks,
     },
-    emailCheck: {},
-    password: {
-      name: 'password',
-      label: '비밀번호',
-      placeholder: '비밀번호',
-      rules: 'required|password',
+    emailCheck: {
+      value: '',
+      label: '중복확인',
       hooks,
     },
-    passwordConfirm: {
-      name: 'passwordConfirm',
-      label: '비밀번호',
-      placeholder: '비밀번호 확인',
-      autoComplete: 'passwordConfirm',
-      rules: 'required|same:password',
+    emailAuth: {
+      label: '인증받기',
       hooks,
     },
     name: {
@@ -41,6 +34,9 @@ export default {
       value: '',
       hooks,
     },
+    gender: {},
+    diCode: {},
+    birth: {},
     mobileButton: {
       label: '본인인증',
     },
@@ -52,7 +48,8 @@ export default {
       value: '',
       hooks,
     },
-    authMobileButton: { label: '본인인증' },
+    verificationNumber: { placeholder: '인증번호 입력 (6자리 숫자 입력)' },
+    authMobileButton: { label: '본인인증', hooks },
     allagree_term: {
       type: 'checkbox',
       id: 'allagree_term',

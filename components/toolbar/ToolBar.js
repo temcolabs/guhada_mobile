@@ -8,16 +8,15 @@ import { inject } from 'mobx-react';
 import LuckydrawLogin from 'template/event/LuckydrawLogin';
 import LuckydrawSignup from 'template/event/LuckydrawSignup';
 import LuckydrawModify from 'template/event/LuckydrawModify';
-function ToolBar({ alert }) {
+import { loginStatus } from 'constant/';
+import { useObserver } from 'mobx-react-lite';
+
+function ToolBar({ alert, luckydraw, login }) {
   const [isCategoryVisible, setIsCategoryVisible] = useState(false);
   const [isBrandVisible, setIsBrandVisible] = useState(false);
   const [selectedTool, setSelectedTool] = useState('');
 
-  const [luckydrawLoginModal, setLuckydrawLoginModal] = useState(false);
-  const [luckydrawSignupModal, setLuckydrawSignupModal] = useState(false);
-  const [luckydrawModifyModal, setLuckydrawModifyModal] = useState(false);
-
-  return (
+  return useObserver(() => (
     <div className={css.wrap}>
       <div className={css.btnTop} onClick={() => window.scrollTo(0, 0)} />
       <div
@@ -56,8 +55,7 @@ function ToolBar({ alert }) {
       <div
         onClick={() => {
           setSelectedTool('community');
-          // alert.showAlert({ content: '모바일 버전 준비중입니다.' });
-          setLuckydrawLoginModal(true);
+          alert.showAlert({ content: '모바일 버전 준비중입니다.' });
         }}
         className={cn(css.itemWrap, css.community, {
           [css.selected]: selectedTool === 'community',
@@ -69,7 +67,9 @@ function ToolBar({ alert }) {
         onClick={() => {
           setSelectedTool('mypage');
           // alert.showAlert({ content: '모바일 버전 준비중입니다.' });
-          setLuckydrawModifyModal(true);
+          login.loginStatus === loginStatus.LOGIN_DONE
+            ? luckydraw.getEventUser()
+            : luckydraw.setLuckydrawLoginModal(true);
         }}
         className={cn(css.itemWrap, css.mypage, {
           [css.selected]: selectedTool === 'mypage',
@@ -91,21 +91,20 @@ function ToolBar({ alert }) {
       />
 
       <LuckydrawLogin
-        isOpen={luckydrawLoginModal}
-        openSignupModal={() => setLuckydrawSignupModal(true)}
-        onClose={() => setLuckydrawLoginModal(false)}
+        isOpen={luckydraw.luckydrawLoginModal}
+        closeModal={() => luckydraw.setLuckydrawLoginModal(false)}
       />
 
       <LuckydrawSignup
-        isOpen={luckydrawSignupModal}
-        onClose={() => setLuckydrawSignupModal(false)}
+        isOpen={luckydraw.luckydrawSignupModal}
+        closeModal={() => luckydraw.setLuckydrawSignupModal(false)}
       />
 
       <LuckydrawModify
-        isOpen={luckydrawModifyModal}
-        onClose={() => setLuckydrawModifyModal(false)}
+        isOpen={luckydraw.luckydrawModifyModal}
+        closeModal={() => luckydraw.setLuckydrawModifyModal(false)}
       />
     </div>
-  );
+  ));
 }
-export default inject('alert')(ToolBar);
+export default inject('alert', 'luckydraw', 'login')(ToolBar);

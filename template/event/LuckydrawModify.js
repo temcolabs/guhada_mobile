@@ -4,25 +4,22 @@ import Form from 'stores/form-store/_.forms';
 import css from './LuckydrawModify.module.scss';
 import { LoginInput, LoginCheckBox, LoginButton } from 'components/login';
 import cn from 'classnames';
+import SignupInputButtonChange from 'components/login/SignupInputButtonChange';
+import { observer, inject } from 'mobx-react';
 
-export class LuckydrawModify extends Component {
-  state = {
-    optionalAgree: false,
-  };
-
-  handleOptionalAgree = () => {
-    this.setState({ optionalAgree: true });
-  };
-
+// @inject('luckydraw', 'countdown', 'authmobile')
+@inject('countdown', 'authmobile')
+@observer
+class LuckydrawModify extends Component {
   render() {
     const form = Form.modifyLuckydraw;
     let value = form.get('value');
-    const { isOpen, onClose } = this.props;
+    const { isOpen, closeModal } = this.props;
 
     return (
       <ModalWrapper
         isOpen={isOpen}
-        onClose={onClose}
+        onRequestClose={closeModal}
         contentLabel={'LuckydrawSignup'}
         zIndex={1000}
       >
@@ -30,14 +27,30 @@ export class LuckydrawModify extends Component {
           <div className={css.headerWrap}>
             <div className={css.emptyButton} />
             회원정보수정
-            <div className={css.closeButton} onClick={() => onClose()} />
+            <div className={css.closeButton} onClick={() => closeModal()} />
           </div>
           <div className={css.wrap}>
             <div>
-              <LoginInput field={form.$('email')} />
-              <div>
-                <LoginInput field={form.$('name')} disabled />
-                <LoginInput field={form.$('name')} />
+              <SignupInputButtonChange
+                field={form.$('email')}
+                button={form.$('emailCheck')}
+              />
+              {value.emailCheck === 'resend' && (
+                <SignupInputButtonChange
+                  field={form.$('verificationNumber')}
+                  button={form.$('emailAuth')}
+                  countDown={this.props.countdown.time}
+                  maxLength={6}
+                />
+              )}
+              <div onClick={form.$('authMobileButton').onSubmit}>
+                <LoginInput field={form.$('name')} disabled={true} />
+                <SignupInputButtonChange
+                  field={form.$('mobile')}
+                  button={form.$('authMobileButton')}
+                  maxLength={13}
+                  disabled={true}
+                />
               </div>
             </div>
             <div className={css.bigCheckboxWrap}>
@@ -83,12 +96,11 @@ export class LuckydrawModify extends Component {
               <LoginButton
                 className={
                   !(
-                    value.email &&
-                    value.password &&
-                    value.passwordConfirm &&
-                    value.agreeSaleTos &&
-                    value.agreeEmailReception &&
-                    value.agreeSmsReception
+                    value.agreeSaleTos === true &&
+                    value.agreeEmailReception === true &&
+                    value.agreeSmsReception === true &&
+                    value.emailCheck === 'complete' &&
+                    value.authMobileButton === 'complete'
                   )
                     ? 'isGray'
                     : 'isColored'
@@ -96,18 +108,26 @@ export class LuckydrawModify extends Component {
                 onClick={form.onSubmit}
                 disabled={
                   !(
-                    value.email &&
-                    value.password &&
-                    value.passwordConfirm &&
-                    value.agreeSaleTos &&
-                    value.agreeEmailReception &&
-                    value.agreeSmsReception
+                    value.agreeSaleTos === true &&
+                    value.agreeEmailReception === true &&
+                    value.agreeSmsReception === true &&
+                    value.emailCheck === 'complete' &&
+                    value.authMobileButton === 'complete'
                   )
                 }
               >
                 동의하고 가입하기
               </LoginButton>
             </div>
+            {/* 모바일 본인인증 팝업 오픈을 위한 숨겨진 폼 */}
+            <form name="form_chk" method="post" style={{ display: 'none' }}>
+              <input type="hidden" name="m" value="checkplusSerivce" />
+              <input
+                type="hidden"
+                name="EncodeData"
+                value={this.props.authmobile.authKey}
+              />
+            </form>
           </div>
         </div>
       </ModalWrapper>

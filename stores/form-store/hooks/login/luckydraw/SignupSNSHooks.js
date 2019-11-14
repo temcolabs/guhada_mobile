@@ -6,6 +6,7 @@ import { devLog, devGroup, devGroupEnd } from 'lib/devLog';
 import naverShoppingTrakers from 'lib/tracking/navershopping/naverShoppingTrakers';
 import daumTrakers from 'lib/tracking/daum/daumTrakers';
 import { root } from 'store';
+import { snsTypes } from 'constant/sns';
 
 export default {
   onInit(form) {},
@@ -14,6 +15,7 @@ export default {
     devLog('Form Values', form.values());
     devLog('Form Errors', form.errors());
     let value = form.values();
+    let login = root.login;
     let body = {
       identityVerify: {
         birth: value.birth,
@@ -23,71 +25,30 @@ export default {
         mobile: value.mobile,
         name: value.name,
       },
-      userSignUp: {
+      snsSignUp: {
         agreeCollectPersonalInfoTos: value.agreeCollectPersonalInfoTos,
         agreeEmailReception: value.agreeEmailReception,
         agreePurchaseTos: value.agreePurchaseTos,
         agreeSaleTos: value.agreeSaleTos,
         agreeSmsReception: value.agreeSmsReception,
         email: value.email,
-        password: value.password,
+        profileJson: login.profileJson,
+        snsId: login.snsId,
+        snsType: login.snsType,
       },
     };
     API.user
-      .post(`/event/users`, body)
+      .post(`/event/sns-users`, body)
       .then(res => {
-        API.user
-          .post(
-            `/loginUser`,
-            {
-              email: value.email,
-              password: value.password,
-            },
-            {
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            }
-          )
-          .then(function(res) {
-            const { data: resData } = res;
-            const { data } = resData;
-
-            devGroup(`loginUser success`);
-            devGroupEnd(`loginUser success`);
-
-            root.login.handleLoginSuccess({
-              accessToken: data.accessToken,
-              refreshToken: data.refreshToken,
-              expiresIn: data.expiresIn,
-            });
-
-            root.luckydraw.setLuckydrawSignupModal(false);
-            root.alert.showAlert('럭키드로우 시도');
-          })
-          .catch(e => {
-            const data = _.get(e, 'data') || {};
-
-            switch (data?.resultCode) {
-              case 6003:
-                form.$('password').invalidate(data.message);
-                break;
-
-              case 5004:
-                form.$('email').invalidate(data.message);
-                break;
-
-              case 6016:
-                root.alert.showAlert(data.message);
-                break;
-
-              case 6500:
-                root.alert.showAlert(data.message);
-                break;
-
-              default:
-            }
-          });
+        if (login.snsType === snsTypes.KAKAO) {
+          login.loginKakao(login.email);
+        } else if (login.snsType === snsTypes.GOOGLE) {
+          login.loginGoogle(login.email);
+        } else if (login.snsType === snsTypes.NAVER) {
+          login.loginNaver(login.email);
+        } else if (login.snsType === snsTypes.FACEBOOK) {
+          login.loginFacebook(login.email);
+        }
       })
       .catch(err => {
         let resultCode = _.get(err, 'data.resultCode');

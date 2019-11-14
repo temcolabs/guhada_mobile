@@ -4,8 +4,13 @@ import Form from 'stores/form-store/_.forms';
 import css from './LuckydrawSignup.module.scss';
 import { LoginInput, LoginCheckBox, LoginButton } from 'components/login';
 import cn from 'classnames';
+import { inject } from 'mobx-react';
+import { observer } from 'mobx-react';
+import SignupInputButtonChange from 'components/login/SignupInputButtonChange';
 
-export class LuckydrawSignup extends Component {
+@inject('login', 'authmobile')
+@observer
+class LuckydrawSignup extends Component {
   state = {
     optionalAgree: false,
   };
@@ -15,15 +20,30 @@ export class LuckydrawSignup extends Component {
   };
 
   render() {
-    const form = Form.signupLuckydraw;
+    const { login } = this.props;
+    let form =
+      login.loginPosition === 'luckydrawSNS'
+        ? Form.signUpSNSLuckydraw
+        : Form.signupLuckydraw;
+
+    // sns 로그인 포지션에 따른 분기문 처리
+    // if (login.loginPosition === 'luckydrawSNS') {
+    //   form = Form.signUpSNSLuckydraw;
+    // } else {
+    //   form = Form.signUpLuckydraw;
+    // }
     let value = form.get('value');
-    const { isOpen, onClose } = this.props;
+    const { isOpen, closeModal } = this.props;
     const termAgree = Form.termAgree;
     let termAgreeValue = Form.termAgree.get('value');
+
+    // const { login } = this.props;
+    // const form = Form.signUpLuckydraw;
+
     return (
       <ModalWrapper
         isOpen={isOpen}
-        onClose={onClose}
+        onRequestClose={closeModal}
         contentLabel={'LuckydrawSignup'}
         zIndex={1000}
       >
@@ -31,38 +51,58 @@ export class LuckydrawSignup extends Component {
           <div className={css.headerWrap}>
             <div className={css.emptyButton} />
             회원가입
-            <div className={css.closeButton} onClick={() => onClose()} />
+            <div
+              className={css.closeButton}
+              onClick={() => {
+                closeModal();
+                form.clear();
+                form.$('emailCheck').set('label', '중복확인');
+                form.$('authMobileButton').set('label', '본인인증');
+              }}
+            />
           </div>
           <div className={css.wrap}>
             <div>
-              <LoginInput field={form.$('email')} />
-              <LoginInput field={form.$('password')} />
-              <LoginInput field={form.$('passwordConfirm')} />
-              <div>
-                <LoginInput field={form.$('name')} disabled />
-                <LoginInput field={form.$('name')} />
+              <SignupInputButtonChange
+                field={form.$('email')}
+                button={form.$('emailCheck')}
+              />
+              {login.loginPosition !== 'luckydrawSNS' && (
+                <>
+                  <LoginInput field={form.$('password')} />
+                  <LoginInput field={form.$('passwordConfirm')} />
+                </>
+              )}
+              <div onClick={form.$('authMobileButton').onSubmit}>
+                <LoginInput field={form.$('name')} disabled={true} />
+                <SignupInputButtonChange
+                  field={form.$('mobile')}
+                  button={form.$('authMobileButton')}
+                  maxLength={13}
+                  disabled={true}
+                />
               </div>
             </div>
 
             <div className={css.bigCheckboxWrap}>
               <LoginCheckBox
-                field={termAgree.$('allagree_term')}
+                field={form.$('allagree_term')}
                 big={true}
                 className={'wrap'}
               />
             </div>
             <div className={css.borderBottom}>
               <LoginCheckBox
-                field={termAgree.$('requireAgree')}
+                field={form.$('requireAgree')}
                 className={'wrap'}
               />
               <LoginCheckBox
-                field={termAgree.$('agreePurchaseTos')}
+                field={form.$('agreePurchaseTos')}
                 className={'termOption'}
                 href={`${process.env.HOSTNAME}/terms/purchase`}
               />
               <LoginCheckBox
-                field={termAgree.$('agreeCollectPersonalInfoTos')}
+                field={form.$('agreeCollectPersonalInfoTos')}
                 className={'termOption'}
                 href={`${process.env.HOSTNAME}/terms/personal`}
               />
@@ -74,7 +114,7 @@ export class LuckydrawSignup extends Component {
               onClick={() => this.handleOptionalAgree()}
             >
               <LoginCheckBox
-                field={termAgree.$('optionalAgree')}
+                field={form.$('optionalAgree')}
                 className={'wrap'}
               />
               <div
@@ -85,17 +125,17 @@ export class LuckydrawSignup extends Component {
                 }
               >
                 <LoginCheckBox
-                  field={termAgree.$('agreeSaleTos')}
+                  field={form.$('agreeSaleTos')}
                   className={'termOption'}
                   href={`${process.env.HOSTNAME}/terms/sale`}
                 />
                 <div>
                   <LoginCheckBox
-                    field={termAgree.$('agreeEmailReception')}
+                    field={form.$('agreeEmailReception')}
                     className={'emailsms'}
                   />
                   <LoginCheckBox
-                    field={termAgree.$('agreeSmsReception')}
+                    field={form.$('agreeSmsReception')}
                     className={'emailsms'}
                   />
                 </div>
@@ -118,11 +158,13 @@ export class LuckydrawSignup extends Component {
               <LoginButton
                 className={
                   !(
-                    value.email &&
-                    value.password &&
-                    value.passwordConfirm &&
-                    termAgreeValue.agreePurchaseTos &&
-                    termAgreeValue.agreeCollectPersonalInfoTos
+                    value.agreePurchaseTos &&
+                    value.agreeCollectPersonalInfoTos &&
+                    value.agreeSaleTos === true &&
+                    value.agreeEmailReception === true &&
+                    value.agreeSmsReception === true &&
+                    value.emailCheck === 'complete' &&
+                    value.authMobileButton === 'complete'
                   )
                     ? 'isGray'
                     : 'isColored'
@@ -130,11 +172,13 @@ export class LuckydrawSignup extends Component {
                 onClick={form.onSubmit}
                 disabled={
                   !(
-                    value.email &&
-                    value.password &&
-                    value.passwordConfirm &&
-                    termAgreeValue.agreePurchaseTos &&
-                    termAgreeValue.agreeCollectPersonalInfoTos
+                    value.agreePurchaseTos &&
+                    value.agreeCollectPersonalInfoTos &&
+                    value.agreeSaleTos === true &&
+                    value.agreeEmailReception === true &&
+                    value.agreeSmsReception === true &&
+                    value.emailCheck === 'complete' &&
+                    value.authMobileButton === 'complete'
                   )
                 }
               >
@@ -143,6 +187,15 @@ export class LuckydrawSignup extends Component {
             </div>
           </div>
         </div>
+        {/* 모바일 본인인증 팝업 오픈을 위한 숨겨진 폼 */}
+        <form name="form_chk" method="post" style={{ display: 'none' }}>
+          <input type="hidden" name="m" value="checkplusSerivce" />
+          <input
+            type="hidden"
+            name="EncodeData"
+            value={this.props.authmobile.authKey}
+          />
+        </form>
       </ModalWrapper>
     );
   }

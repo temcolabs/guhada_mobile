@@ -8,7 +8,7 @@ import { loginStatus } from 'constant';
 import key from 'constant/key';
 import { isBrowser } from 'lib/isServer';
 import { pushRoute } from 'lib/router';
-import { snsType } from 'constant/sns';
+import { snsTypes } from 'constant/sns';
 import _ from 'lodash';
 import { devLog } from 'lib/devLog';
 const isServer = typeof window === 'undefined';
@@ -194,6 +194,7 @@ export default class LoginStore {
   @observable profileJson;
   @observable snsId;
   @observable snsType;
+  @observable loginPosition;
 
   /**
    * TODO : https 적용 후 테스트 가능 facebook
@@ -206,7 +207,7 @@ export default class LoginStore {
     this.email = data.email;
     this.profileJson = data;
     this.snsId = data.id;
-    this.snsType = snsType.FACEBOOK;
+    this.snsType = snsTypes.FACEBOOK;
 
     API.user
       .get('/users/sns', {
@@ -227,7 +228,11 @@ export default class LoginStore {
         devLog('e.status', e.status);
         if (e.status === 200) {
           if (_.get(e, 'data.resultCode') === 5004) {
-            pushRoute('/login/termagreesns');
+            if (login.loginPosition === 'luckydrawSNS') {
+              login.root.luckydraw.setLuckydrawSignupModal(true);
+            } else {
+              pushRoute('/login/termagreesns');
+            }
           } else if (_.get(e, 'data.resultCode') === 6001) {
             this.root.alert.showAlert(_.get(e, 'data.message'));
           }
@@ -259,7 +264,11 @@ export default class LoginStore {
           refreshToken: data.data.refreshToken,
           expiresIn: data.data.expiresIn,
         });
-        if (email !== '') {
+        if (login.loginPosition === 'luckydrawSNS') {
+          login.root.luckydraw.getEventUser();
+          login.root.luckydraw.setLuckydrawLoginModal(false);
+          login.root.luckydraw.setLuckydrawSignupModal(false);
+        } else if (email !== '') {
           Router.push('/?signupsuccess=true&email=' + email);
         } else {
           pushRoute('/');
@@ -279,7 +288,7 @@ export default class LoginStore {
     this.email = data.profileObj.email;
     this.profileJson = data.profileObj;
     this.snsId = data.profileObj.googleId;
-    this.snsType = snsType.GOOGLE;
+    this.snsType = snsTypes.GOOGLE;
 
     API.user
       .get('/users/sns', {
@@ -300,7 +309,11 @@ export default class LoginStore {
         devLog('e.status', e.status);
         if (e.status === 200) {
           if (_.get(e, 'data.resultCode') === 5004) {
-            pushRoute('/login/termagreesns');
+            if (login.loginPosition === 'luckydrawSNS') {
+              login.root.luckydraw.setLuckydrawSignupModal(true);
+            } else {
+              pushRoute('/login/termagreesns');
+            }
           } else if (_.get(e, 'data.resultCode') === 6001) {
             this.root.alert.showAlert(_.get(e, 'data.message'));
           }
@@ -330,7 +343,11 @@ export default class LoginStore {
           refreshToken: data.data.refreshToken,
           expiresIn: data.data.expiresIn,
         });
-        if (email !== '') {
+        if (login.loginPosition === 'luckydrawSNS') {
+          login.root.luckydraw.getEventUser();
+          login.root.luckydraw.setLuckydrawLoginModal(false);
+          login.root.luckydraw.setLuckydrawSignupModal(false);
+        } else if (email !== '') {
           Router.push('/?signupsuccess=true&email=' + email);
         } else {
           pushRoute('/');
@@ -350,13 +367,13 @@ export default class LoginStore {
     this.email = data.profile.kakao_account.email;
     this.profileJson = data.profile.properties;
     this.snsId = data.profile.id;
-    this.snsType = snsType.KAKAO;
+    this.snsType = snsTypes.KAKAO;
 
     API.user
       .get('/users/sns', {
         params: {
           email: data.profile.kakao_account.email,
-          'sns-type': snsType.KAKAO,
+          'sns-type': snsTypes.KAKAO,
           uid: data.profile.id,
         },
       })
@@ -369,7 +386,11 @@ export default class LoginStore {
       .catch(e => {
         if (e.status === 200) {
           if (_.get(e, 'data.resultCode') === 5004) {
-            pushRoute('/login/termagreesns');
+            if (login.loginPosition === 'luckydrawSNS') {
+              login.root.luckydraw.setLuckydrawSignupModal(true);
+            } else {
+              pushRoute('/login/termagreesns');
+            }
           } else if (_.get(e, 'data.resultCode') === 6001) {
             this.root.alert.showAlert(_.get(e, 'data.message'));
           }
@@ -399,7 +420,11 @@ export default class LoginStore {
           refreshToken: data.data.refreshToken,
           expiresIn: data.data.expiresIn,
         });
-        if (email !== '') {
+        if (login.loginPosition === 'luckydrawSNS') {
+          login.root.luckydraw.getEventUser();
+          login.root.luckydraw.setLuckydrawLoginModal(false);
+          login.root.luckydraw.setLuckydrawSignupModal(false);
+        } else if (email !== '') {
           Router.push('/?signupsuccess=true&email=' + email);
         } else {
           pushRoute('/');
@@ -419,7 +444,7 @@ export default class LoginStore {
     this.email = data.user.email;
     this.profileJson = data.user;
     this.snsId = data.user.id;
-    this.snsType = snsType.NAVER;
+    this.snsType = snsTypes.NAVER;
 
     API.user
       .get('/users/sns', {
@@ -438,7 +463,11 @@ export default class LoginStore {
       .catch(e => {
         if (e.status === 200) {
           if (_.get(e, 'data.resultCode') === 5004) {
-            pushRoute('/login/termagreesns');
+            if (login.loginPosition === 'luckydrawSNS') {
+              login.root.luckydraw.setLuckydrawSignupModal(true);
+            } else {
+              pushRoute('/login/termagreesns');
+            }
           } else if (_.get(e, 'data.resultCode') === 6001) {
             this.root.alert.showAlert(_.get(e, 'data.message'));
           }
@@ -468,7 +497,11 @@ export default class LoginStore {
           refreshToken: data.data.refreshToken,
           expiresIn: data.data.expiresIn,
         });
-        if (email !== '') {
+        if (login.loginPosition === 'luckydrawSNS') {
+          login.root.luckydraw.getEventUser();
+          login.root.luckydraw.setLuckydrawLoginModal(false);
+          login.root.luckydraw.setLuckydrawSignupModal(false);
+        } else if (email !== '') {
           Router.push('/?signupsuccess=true&email=' + email);
         } else {
           pushRoute('/');

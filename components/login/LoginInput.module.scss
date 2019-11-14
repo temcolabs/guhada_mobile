@@ -19,6 +19,10 @@
             border: solid 1px #5d2ed1;
         }
 
+        &:disabled {
+            background-color: #f9f9fa;
+        }
+
         &::placeholder {
             color: #777777;
         }

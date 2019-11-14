@@ -8,7 +8,7 @@ import daumTrakers from 'lib/tracking/daum/daumTrakers';
 import naverShoppingTrakers from 'lib/tracking/navershopping/naverShoppingTrakers';
 export default {
   onInit(form) {
-    devLog('-> onInit Form HOOK');
+    // devLog('-> onInit Form HOOK');
   },
 
   onSuccess(form) {

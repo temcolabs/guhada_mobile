@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ModalWrapper from 'components/common/modal/ModalWrapper';
-import LoginLayout from 'components/layout/LoginLayout';
 import { LoginWrapper, LoginInput, LoginButton } from 'components/login';
 import css from './LuckydrawLogin.module.scss';
 import { LinkRoute, pushRoute } from 'lib/router';
@@ -12,10 +11,11 @@ import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 import Cookies from 'js-cookie';
 import { observer, inject } from 'mobx-react';
+import NaverLogin from 'components/login/NaverLogin';
 
 let userId = Cookies.get('userId');
 
-@inject('login')
+@inject('login', 'luckydraw')
 @observer
 class LuckydrawLogin extends Component {
   constructor(props) {
@@ -42,11 +42,11 @@ class LuckydrawLogin extends Component {
   render() {
     const form = Form.signinLuckydraw;
     let value = form.get('value');
-    const { isOpen, onClose, openSignupModal } = this.props;
+    const { isOpen, closeModal, luckydraw, login } = this.props;
     return (
       <ModalWrapper
         isOpen={isOpen}
-        onClose={onClose}
+        onRequestClose={closeModal}
         contentLabel={'LuckydrawLogin'}
         zIndex={1000}
       >
@@ -54,7 +54,7 @@ class LuckydrawLogin extends Component {
           <div className={css.headerWrap}>
             <div className={css.emptyButton} />
             로그인
-            <div className={css.closeButton} onClick={() => onClose()} />
+            <div className={css.closeButton} onClick={() => closeModal()} />
           </div>
 
           <LoginWrapper>
@@ -96,14 +96,18 @@ class LuckydrawLogin extends Component {
                   로그인
                 </LoginButton>
 
-                <LoginButton onClick={() => openSignupModal()}>
+                <LoginButton
+                  onClick={() => {
+                    closeModal();
+                    luckydraw.setLuckydrawSignupModal(true);
+                  }}
+                >
                   회원가입
                 </LoginButton>
               </div>
               <div className={css.socialHeader}>간편 로그인</div>
               <div className={css.socialWrap}>
-                {/* 이번 버젼에서 제거 */}
-                {/* <NaverLogin /> */}
+                <NaverLogin />
                 <KakaoLogin
                   jsKey={snsAppKey.KAKAO}
                   // onSuccess={login.responseKakao}

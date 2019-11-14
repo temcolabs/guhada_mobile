@@ -11,6 +11,10 @@ import FindPasswordEmailHooks from './hooks/login/findpassword/EmailHooks';
 import FindPasswordResultHooks from './hooks/login/findpassword/ResultHooks';
 import TermAgreeHooks from './hooks/login/TermAgreeHooks';
 import SearchHooks from './hooks/Search';
+import ModifyHooks from 'stores/form-store/hooks/login/luckydraw/ModifyHooks';
+import LuckySignupHooks from 'stores/form-store/hooks/login/luckydraw/SignupHooks';
+import LuckySigninHooks from 'stores/form-store/hooks/login/luckydraw/SigninHooks';
+import LuckySignupSNSHooks from 'stores/form-store/hooks/login/luckydraw/SignupSNSHooks';
 
 // forms
 import signUp from './setup/login/signup';
@@ -24,9 +28,11 @@ import findpasswordresult from './setup/login/findpassword/result';
 import termagree from './setup/login/termagree';
 
 import search from './setup/search';
-import signinluckydraw from './setup/luckydraw/signin';
-import signupluckydraw from './setup/luckydraw/signup';
-import modifyluckydraw from './setup/luckydraw/modify';
+import signinluckydraw from './setup/login/luckydraw/signin';
+import signupluckydraw from './setup/login/luckydraw/signup';
+import modifyluckydraw from './setup/login/luckydraw/modify';
+import signupsnsluckydraw from './setup/login/luckydraw/signupsns';
+
 export default {
   search: new Form({ ...search }, { hooks: SearchHooks, name: 'Search' }),
   signUp: new Form({ ...signUp }, { hooks: SignupHooks, name: 'SignUp' }),
@@ -58,14 +64,14 @@ export default {
   ),
   signinLuckydraw: new Form(
     { ...signinluckydraw },
-    { name: 'signinLuckydraw' }
+    { hooks: LuckySigninHooks, name: 'signinLuckydraw' }
   ),
   signupLuckydraw: new Form(
     { ...signupluckydraw },
-    { name: 'signupLuckydraw' }
+    { hooks: LuckySignupHooks, name: 'signupLuckydraw' }
   ),
   modifyLuckydraw: new Form(
     { ...modifyluckydraw },
-    { name: 'modifyLuckydraw' }
+    { hooks: ModifyHooks, name: 'modifyLuckydraw' }
   ),
 };
