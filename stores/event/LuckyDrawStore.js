@@ -1,7 +1,7 @@
 import { observable, action } from 'mobx';
 import { isBrowser } from 'lib/isServer';
 import { devLog } from 'lib/devLog';
-import luckyDrawService from 'childs/lib/API/product/luckyDrawService';
+import luckyDrawService from 'lib/API/product/luckyDrawService';
 
 export default class LukcyDrawStore {
   constructor(root) {
