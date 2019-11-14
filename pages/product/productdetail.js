@@ -23,11 +23,9 @@ class index extends React.Component {
     productdetail.getDeals(dealId);
 
     // 크리테오 트래커
-    user.pushJobForUserInfo(() => {
-      criteoTracker.productDetail({
-        email: user.userInfo.email,
-        dealId: dealId,
-      });
+    criteoTracker.productDetail({
+      email: user.userInfo?.email,
+      dealId: dealId,
     });
   }
 

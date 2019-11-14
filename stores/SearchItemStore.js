@@ -333,17 +333,14 @@ export default class SearchItemStore {
 
             if (data.resultCode === 200) {
               // * 목록 검색 성공 후 크리테오 트래커 실행
-              this.root.user.pushJobForUserInfo(() => {
-                const { deals } = data.data;
+              const { deals } = data.data;
 
-
-                if (deals.length >= 3) {
-                  criteoTracker.searchResults({
-                    email: this.root.user.userInfo.email,
-                    dealIds: deals?.slice(0, 3).map(deal => deal.dealId),
-                  });
-                }
-              });
+              if (deals.length >= 3) {
+                criteoTracker.searchResults({
+                  email: this.root.user.userInfo?.email,
+                  dealIds: deals?.slice(0, 3).map(deal => deal.dealId),
+                });
+              }
 
               this.setItem(data.data);
               /**

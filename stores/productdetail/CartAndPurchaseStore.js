@@ -86,7 +86,7 @@ export default class CartAndPurchaseStore {
             naverShoppingTrakers.shoppingCart();
             daumTrakers.shoppingCart();
             criteoTracker.addDealToCart({
-              email: this.root.user?.userInfo?.email || '',
+              email: this.root.user?.userInfo?.email,
               items: [
                 {
                   id: this.root.productdetail.deals.dealsId,
