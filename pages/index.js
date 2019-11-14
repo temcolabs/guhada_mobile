@@ -9,10 +9,8 @@ import criteoTracker from 'childs/lib/tracking/criteo/criteoTracker';
 class index extends React.Component {
   componentDidMount() {
     const { user: userStore } = this.props;
-    userStore.pushJobForUserInfo(() => {
-      criteoTracker.homepage({
-        email: userStore.userInfo.email,
-      });
+    criteoTracker.homepage({
+      email: userStore.userInfo?.email,
     });
   }
 
