@@ -26,6 +26,7 @@
       background-position: center;
       width: 50px;
       height: 50px;
+      z-index: 2;
       cursor: pointer;
     }
 
@@ -53,6 +54,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        padding: 0 20px;
       }
 
       .winner {
