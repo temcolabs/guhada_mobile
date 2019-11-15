@@ -175,7 +175,7 @@ export default function LuckyDrawItem({
             <div className={cn(css.requestGuide__collapsingArea)}>
               <div className={css.requestGuide__table}>
                 <div className={css.requestGuide__field}>
-                  <div className={css.requestGuide__label}>당첨자 응모기간</div>
+                  <div className={css.requestGuide__label}>이벤트 응모기간</div>
                   <div className={css.requestGuide__value}>
                     {moment(data?.requestFromAt).format('M월 D일 (dd) HH:mm')} -{' '}
                     {moment(data?.requestToAt).format('M월 D일 (dd) HH:mm')}
