@@ -1,6 +1,6 @@
 import Router from 'next/router';
 import Form from 'stores/form-store/_.forms';
-import API from 'lib/API';
+import API from 'childs/lib/API';
 import _ from 'lodash';
 import { devLog, devGroup, devGroupEnd } from 'lib/devLog';
 import naverShoppingTrakers from 'lib/tracking/navershopping/naverShoppingTrakers';
@@ -63,7 +63,8 @@ export default {
             });
 
             root.luckyDraw.setLuckydrawSignupModal(false);
-            root.alert.showAlert('럭키드로우 시도');
+            // root.alert.showAlert('럭키드로우 시도');
+            root.luckyDraw.getEventUser();
           })
           .catch(e => {
             const data = _.get(e, 'data') || {};

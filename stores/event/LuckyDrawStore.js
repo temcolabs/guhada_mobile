@@ -1,6 +1,6 @@
 import { observable, action, computed, toJS } from 'mobx';
 import _ from 'lodash';
-import API from 'lib/API';
+import API from 'childs/lib/API';
 import { isBrowser } from 'lib/isServer';
 import { devLog } from 'lib/devLog';
 import Form from 'stores/form-store/_.forms';
@@ -18,7 +18,7 @@ export default class LukcyDrawStore {
   @observable luckydrawLoginModal = false;
   @observable luckydrawSignupModal = false;
   @observable luckydrawModifyModal = false;
-
+  @observable luckydrawDealId;
   @action
   setLuckydrawLoginModal = bool => {
     if (bool === true) {
@@ -73,10 +73,10 @@ export default class LukcyDrawStore {
       ) {
         handleModify = true;
       }
-
+      console.log('handleModify', handleModify);
       // API 호출을 통한 회원 정보 수정 로직 진입
       if (!!handleModify) {
-        this.root.alert.showAlert('럭키드로우 시도');
+        this.requestLuckyDraws({ dealId: this.luckydrawDealId });
       } else {
         this.luckydrawModifyModal = true;
         // 로직을 위한 기본 사항 바인딩
@@ -101,11 +101,6 @@ export default class LukcyDrawStore {
 
         // 이메일 인증 바인딩
         if (!!emailVerified) {
-          let email = this.user.email;
-
-          form.$('emailCheck').set('label', '인증완료');
-          form.$('emailCheck').set('value', 'complete');
-          form.$('email').set('value', email);
           form.$('email').set('disabled', true);
         }
 

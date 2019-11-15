@@ -66,10 +66,10 @@ function ToolBar({ alert, luckyDraw, login }) {
       <div
         onClick={() => {
           setSelectedTool('mypage');
-          // alert.showAlert({ content: '모바일 버전 준비중입니다.' });
-          login.loginStatus === loginStatus.LOGIN_DONE
-            ? luckyDraw.getEventUser()
-            : luckyDraw.setLuckydrawLoginModal(true);
+          alert.showAlert({ content: '모바일 버전 준비중입니다.' });
+          // login.loginStatus === loginStatus.LOGIN_DONE
+          //   ? luckyDraw.getEventUser()
+          //   : luckyDraw.setLuckydrawLoginModal(true);
         }}
         className={cn(css.itemWrap, css.mypage, {
           [css.selected]: selectedTool === 'mypage',
@@ -88,21 +88,6 @@ function ToolBar({ alert, luckyDraw, login }) {
       <ToolbarBrand
         isVisible={isBrandVisible}
         onClose={() => setIsBrandVisible(false)}
-      />
-
-      <LuckydrawLogin
-        isOpen={luckyDraw.luckydrawLoginModal}
-        closeModal={() => luckyDraw.setLuckydrawLoginModal(false)}
-      />
-
-      <LuckydrawSignup
-        isOpen={luckyDraw.luckydrawSignupModal}
-        closeModal={() => luckyDraw.setLuckydrawSignupModal(false)}
-      />
-
-      <LuckydrawModify
-        isOpen={luckyDraw.luckydrawModifyModal}
-        closeModal={() => luckyDraw.setLuckydrawModifyModal(false)}
       />
     </div>
   ));

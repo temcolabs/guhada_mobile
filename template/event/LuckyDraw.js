@@ -13,6 +13,9 @@ import useStores from 'stores/useStores';
 import copy from 'copy-to-clipboard';
 import { devLog } from 'childs/lib/common/devLog';
 import { pushRoute } from 'lib/router';
+import LuckydrawLogin from './LuckydrawLogin';
+import LuckydrawSignup from './LuckydrawSignup';
+import LuckydrawModify from './LuckydrawModify';
 
 const enhancer = compose(withRouter);
 
@@ -100,6 +103,21 @@ function LuckyDraw({ router }) {
         <LuckyDrawResultModal
           isOpen={luckyDrawStore.isResultModal}
           data={luckyDrawStore.resultData}
+        />
+
+        <LuckydrawLogin
+          isOpen={luckyDrawStore.luckydrawLoginModal}
+          closeModal={() => luckyDrawStore.setLuckydrawLoginModal(false)}
+        />
+
+        <LuckydrawSignup
+          isOpen={luckyDrawStore.luckydrawSignupModal}
+          closeModal={() => luckyDrawStore.setLuckydrawSignupModal(false)}
+        />
+
+        <LuckydrawModify
+          isOpen={luckyDrawStore.luckydrawModifyModal}
+          closeModal={() => luckyDrawStore.setLuckydrawModifyModal(false)}
         />
       </div>
     </DefaultLayout>

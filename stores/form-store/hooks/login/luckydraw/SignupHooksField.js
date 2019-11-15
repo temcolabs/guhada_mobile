@@ -1,6 +1,6 @@
 import Form from '../../../_.forms';
 import _ from 'lodash';
-import API from 'lib/API';
+import API from 'childs/lib/API';
 import { root } from 'store';
 import { devLog } from 'lib/devLog';
 import userService from 'lib/API/user/userService';

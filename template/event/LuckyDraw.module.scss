@@ -46,8 +46,7 @@ $mainHoriPad: 20px;
 .sharingButton__text {
   @include centered;
   padding-right: 40px;
-  background: url('/static/icon/event/sharing-arrow-r-line@2x.png') no-repeat
-    right center;
+  background: url('/static/icon/event/sharing-arrow-r-line@2x.png') no-repeat right center;
   background-size: 30px;
   font-size: 30px;
   color: #fff;
@@ -57,7 +56,7 @@ $mainHoriPad: 20px;
   width: 100%;
   margin: 100px auto 0;
 
-  & > img {
+  &>img {
     display: block;
     width: 100%;
   }

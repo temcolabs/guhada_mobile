@@ -7,6 +7,7 @@ import useStores from 'stores/useStores';
 import anime from 'animejs';
 import addCommaToNum from 'childs/lib/common/addCommaToNum';
 import { luckyDrawStatus } from 'lib/API/product/luckyDrawService';
+import { loginStatus } from 'constant/';
 
 /**
   * 데이터 바인딩 가이드는 zeplin 참조
@@ -42,13 +43,14 @@ export default function LuckyDrawItem({
     winnerBuyToAt: 0,
   },
 }) {
-  const { luckyDraw: luckyDrawStore } = useStores();
+  const { luckyDraw: luckyDrawStore, login: loginStore } = useStores();
   const [isRequestGuideVisible, setIsRequestGuideVisible] = useState(false);
 
   const { statusCode } = data;
 
   const handleClickRequestButton = useCallback(() => {
     console.log(`statusCode`, statusCode);
+    luckyDrawStore.luckydrawDealId = data?.dealId;
 
     switch (statusCode) {
       case luckyDrawStatus.NORMAL:
@@ -58,9 +60,12 @@ export default function LuckyDrawItem({
         break;
 
       case luckyDrawStatus.START:
-        luckyDrawStore.requestLuckyDraws({
-          dealId: data?.dealId,
-        });
+        loginStore.loginStatus === loginStatus.LOGIN_DONE
+          ? luckyDrawStore.getEventUser()
+          : luckyDrawStore.setLuckydrawLoginModal(true);
+        // luckyDrawStore.requestLuckyDraws({
+        //   dealId: data?.dealId,
+        // });
         break;
 
       case luckyDrawStatus.REQUESTED:
@@ -78,7 +83,7 @@ export default function LuckyDrawItem({
       default:
         break;
     }
-  }, [data, luckyDrawStore, statusCode]);
+  }, [data, luckyDrawStore, statusCode, loginStore]);
 
   return (
     <div className={css.wrap}>

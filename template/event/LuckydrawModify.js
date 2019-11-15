@@ -105,7 +105,10 @@ class LuckydrawModify extends Component {
                     ? 'isGray'
                     : 'isColored'
                 }
-                onClick={form.onSubmit}
+                onClick={e => {
+                  form.$('email').set('disabled', false);
+                  form.onSubmit(e);
+                }}
                 disabled={
                   !(
                     value.agreeSaleTos === true &&
