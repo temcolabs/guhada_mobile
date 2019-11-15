@@ -20,16 +20,9 @@ const EASING = 'easeInOutQuad';
 const DELAY_ENTER = 500;
 const DURATION = 400;
 
-const AUTO_SLIDE_INTERVAL = 3000;
-
 export default function LuckyDrawMainSlider({ imageList = [] }) {
   const [currentIndex, setIndex] = useState(0);
   const [isInTransition, setIsInTransition] = useState(false);
-  const slideIntervalRef = useRef(null);
-
-  const stopAutoSlide = useCallback(() => {
-    clearInterval(slideIntervalRef.current);
-  }, []);
 
   const showNextSlide = useCallback(
     index => {
@@ -42,29 +35,12 @@ export default function LuckyDrawMainSlider({ imageList = [] }) {
     [currentIndex, imageList.length, isInTransition]
   );
 
-  /**
-   * showNextSlide 콜백이 isInTransition 상태가 변경되면 업데이트된다.
-   * showNextSlide를 dependencey로 가진 initAutoSlide도 isInTransition이 바뀌면 함께 업데이트 된다.
-   * useEffect에서 initAutoSlide가 계속 호출됨.
-   */
-  const initAutoSlide = useCallback(() => {
-    stopAutoSlide();
-    slideIntervalRef.current = setInterval(() => {
-      showNextSlide();
-    }, AUTO_SLIDE_INTERVAL);
-  }, [showNextSlide, stopAutoSlide]);
-
   const handleClickSlideIndex = useCallback(
     index => {
       showNextSlide(index);
     },
     [showNextSlide]
   );
-
-  // 자동 슬라이드 초기화
-  useEffect(() => {
-    initAutoSlide();
-  }, [initAutoSlide]);
 
   useEffect(() => {
     setIndex(0);
