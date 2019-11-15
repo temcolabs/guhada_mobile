@@ -88,6 +88,12 @@ class Home extends React.Component {
       {
         src: `${
           process.env.API_CLOUD
+        }/images/banner/luckydraw/lucky_main_m_360.png`,
+        href: `/event/luckydraw`,
+      },
+      {
+        src: `${
+          process.env.API_CLOUD
         }/images/banner/timedeal/timedeal_main_m_360.png`,
         href: `/event/timedeal`,
       },
@@ -103,12 +109,12 @@ class Home extends React.Component {
         }/images/banner/2perdiscount/2per_main_m_360.png`,
         href: `/`,
       },
-      {
-        src: `${
-          process.env.API_CLOUD
-        }/images/banner/opening/open_main_m_360.png`,
-        href: `/`,
-      },
+      // {
+      //   src: `${
+      //     process.env.API_CLOUD
+      //   }/images/banner/opening/open_main_m_360.png`,
+      //   href: `/`,
+      // },
     ];
     return (
       <DefaultLayout
