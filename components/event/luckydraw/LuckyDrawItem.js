@@ -145,7 +145,7 @@ export default function LuckyDrawItem({
 
         <Transition
           in={isRequestGuideVisible}
-          duration={400}
+          timeout={400}
           onEnter={node => {
             anime({
               targets: node,

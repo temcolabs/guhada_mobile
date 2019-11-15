@@ -7,7 +7,7 @@ import {
   getBrandTitle,
 } from '../utils.js';
 import Router from 'next/router';
-import API from 'lib/API.js';
+import API from 'childs/lib/API';
 import { pushRoute } from 'lib/router/index.js';
 import qs from 'qs';
 import _ from 'lodash';
