@@ -14,7 +14,7 @@ class LuckyDrawPage extends Component {
     return (
       <Fragment>
         <Head>
-          <title>구하다 - 타임딜</title>
+          <title>구하다 - 럭키드로우</title>
           <link
             rel="shortcut icon"
             type="image/x-icon"

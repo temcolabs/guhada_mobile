@@ -237,5 +237,7 @@ export default class LukcyDrawStore {
     this.isRequestModal
       ? (this.isRequestModal = false)
       : (this.isResultModal = false);
+
+    console.log(this.isRequestModal, this.isResultModal, 'this.isResultModal ');
   };
 }

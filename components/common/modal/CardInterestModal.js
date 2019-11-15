@@ -4,7 +4,7 @@ import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 
 import { inject } from 'mobx-react';
 import moment from 'moment';
-function CardInterestModal({ isVisible, cardinterest }) {
+function CardInterestModal({ isVisible, onClose, cardinterest }) {
   const [year, setYear] = useState('0');
   const [month, setMonth] = useState('0');
   useEffect(() => {
@@ -14,17 +14,12 @@ function CardInterestModal({ isVisible, cardinterest }) {
 
   return (
     <div>
-      <SlideIn direction={slideDirection.TOP} isVisible={isVisible}>
+      <SlideIn direction={slideDirection.RIGHT} isVisible={isVisible}>
         <div className={css.wrap}>
           <div className={css.headerWrap}>
             <div className={css.header}>
               <div className={css.headerTitle}>무이자 할부 안내</div>
-              <div
-                className={css.headerClose}
-                onClick={() => {
-                  cardinterest.closeCardInterest();
-                }}
-              />
+              <div className={css.headerClose} onClick={onClose} />
             </div>
           </div>
 
