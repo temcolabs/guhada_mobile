@@ -37,7 +37,8 @@ stories.add('LuckyDrawMainSlider', () => {
             titleImageUrl:
               'https://d3ikprf0m31yc7.cloudfront.net/deals/luckydraw/13726240b865439b9bbe6d24c9f1efa5.png',
             requestFromAt: 1573538400000,
-            title: '[변경금지] 럭키드로우 테스트 상품2',
+            title:
+              '럭키드로우 테스트 상품인데 이름이 겁나게 길어서 문제가 될거라고 생각하지 못하였느냐???? 럭키드로우 테스트 상품인데 이름이 겁나게 길어서 문제가 될거라고 생각하지 못하였느냐????',
           },
           {
             titleImageUrl:
