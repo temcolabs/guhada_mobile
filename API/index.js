@@ -352,6 +352,10 @@ class ApiFactory {
     return this.getApiInstance(process.env.API_SHIP);
   }
 
+  get settle() {
+    return this.getApiInstance(process.env.API_SETTLE);
+  }
+
   getApiInstance(baseURL) {
     if (this.baseURL !== baseURL) {
       // baseURL이 다르면 인스턴스를 새로 만든다.
