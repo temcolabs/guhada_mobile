@@ -87,15 +87,16 @@ class LuckydrawModify extends Component {
 
             <div className={css.eventTextWarp}>
               <div className={css.eventText}>
-                ※ 할인, 이벤트 등 다양한 정보를 받아보실 수 있습니다.
+                ※ 이벤트 참여는 본인인증 및 선택약관 전체동의 시 이용
+                가능합니다.
               </div>
               <div className={css.eventText}>
-                ※ 결제/교환/환불 등 관련된 내용은 거래안 을 위하여 수신동의
-                여부와 관계없이 발송됩니다. 선택 항목에 동의하지 않으셔도 구하다
-                서비스 이용 가능합니다.
+                ※ 선택약관 전체동의 시 이벤트 참여 및 할인 정보 등 마케팅 정보에
+                사용됩니다.
               </div>
               <div className={css.eventText}>
-                ※ 14세 이상만 가입 가능합니다.
+                ※ 결제/교환/환불 등과 관련된 내용은 거래 안전 을 위하여 수신동의
+                여부와 관계없이 발송됩니다.
               </div>
             </div>
             <div>
@@ -125,7 +126,7 @@ class LuckydrawModify extends Component {
                   )
                 }
               >
-                동의하고 가입하기
+                동의하고 수정하기
               </LoginButton>
             </div>
             {/* 모바일 본인인증 팝업 오픈을 위한 숨겨진 폼 */}
