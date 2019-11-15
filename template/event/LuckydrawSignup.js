@@ -34,6 +34,7 @@ class LuckydrawSignup extends Component {
         isOpen={isOpen}
         onRequestClose={closeModal}
         contentLabel={'LuckydrawSignup'}
+        isBigModal={true}
         zIndex={1000}
       >
         <div className={css.loginWrap}>
