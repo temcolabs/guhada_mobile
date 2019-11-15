@@ -98,7 +98,7 @@ $wrapperHoriPad: 20px;
   color: #000000;
   margin-top: 5px;
 
-  & > * {
+  &>* {
     &:nth-child(2) {
       font-size: 17px;
     }
@@ -114,8 +114,9 @@ $wrapperHoriPad: 20px;
   line-height: 1;
   margin-top: 3px;
 
-  & > * {
+  &>* {
     display: inline-block;
+
     &:nth-child(1) {
       margin-right: -6px;
     }
@@ -127,6 +128,7 @@ $wrapperHoriPad: 20px;
 }
 
 $requestButtonHeight: 55px;
+
 // 응모하기 버튼
 .requestButton {
   display: block;
@@ -149,6 +151,7 @@ $requestButtonHeight: 55px;
     }
 
     border: solid 4px #f43143;
+
     .statusText {
       color: #f43143;
     }
@@ -160,6 +163,7 @@ $requestButtonHeight: 55px;
     }
 
     border: solid 4px #f43143;
+
     .statusText {
       color: #f43143;
     }
@@ -167,6 +171,7 @@ $requestButtonHeight: 55px;
 
   &[class*='START'] {
     background-color: #f43143;
+
     .statusText {
       color: #fff;
     }
@@ -178,6 +183,7 @@ $requestButtonHeight: 55px;
     }
 
     background-color: #c9c9c9;
+
     .statusText {
       color: #ffffff;
     }
@@ -189,6 +195,7 @@ $requestButtonHeight: 55px;
     }
 
     background-color: #c9c9c9;
+
     .statusText {
       color: #ffffff;
     }
@@ -196,6 +203,7 @@ $requestButtonHeight: 55px;
 
   &[class*='WINNER_ANNOUNCEMENT'] {
     background-color: #13182e;
+
     .statusText {
       color: #ffffff;
     }
@@ -228,12 +236,12 @@ $requestButtonHeight: 55px;
     height: 18px;
     background: url('/static/icon/event/arrow-r-line@2x.png') no-repeat center;
     background-size: contain;
-    transform: translateY(-50%) rotate(0);
+    transform: translateY(-50%) rotate(180deg);
   }
 
   &.isRequestGuideVisible {
     &::after {
-      transform: translateY(-50%) rotate(180deg);
+      transform: translateY(-50%) rotate(0);
     }
   }
 }
@@ -270,6 +278,7 @@ $requestButtonHeight: 55px;
   .requestGuide__label {
     font-weight: bold;
   }
+
   .requestGuide__value {
     margin-top: 5px;
     font-weight: normal;
