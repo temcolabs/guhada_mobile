@@ -21,6 +21,12 @@ class LuckydrawModify extends Component {
         isOpen={isOpen}
         onRequestClose={closeModal}
         contentLabel={'LuckydrawSignup'}
+        contentStyle={{
+          position: 'fixed',
+          top: '0px',
+          left: '0px',
+          transform: 'none',
+        }}
         zIndex={1000}
       >
         <div className={css.loginWrap}>
