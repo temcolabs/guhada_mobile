@@ -65,12 +65,13 @@ $mainHoriPad: 20px;
 
 .loginArea {
   @include clearfix;
-  width: calc(100% + #{$mainHoriPad} * 2);
-  margin: 86px calc(-1 * #{$mainHoriPad}) 0;
-
+  // width: calc(100% + #{$mainHoriPad} * 2);
+  // margin: 86px calc(-1 * #{$mainHoriPad}) 0;
+  width: 100%;
   position: fixed;
   bottom: 0;
   left: 0;
+
   z-index: 2;
 }
 
