@@ -73,7 +73,7 @@ export default class LukcyDrawStore {
       ) {
         handleModify = true;
       }
-      console.log('handleModify', handleModify);
+
       // API 호출을 통한 회원 정보 수정 로직 진입
       if (!!handleModify) {
         this.requestLuckyDraws({ dealId: this.luckydrawDealId });
@@ -101,6 +101,7 @@ export default class LukcyDrawStore {
 
         // 이메일 인증 바인딩
         if (!!emailVerified) {
+          console.log('disabled');
           form.$('email').set('disabled', true);
         }
 

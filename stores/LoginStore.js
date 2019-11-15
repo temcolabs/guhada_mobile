@@ -1,6 +1,6 @@
 import { computed, observable, action } from 'mobx';
 import Cookies from 'js-cookie';
-import API from 'lib/API';
+import API from 'childs/lib/API';
 import localStorage from 'lib/localStorage';
 import sessionStorage from 'lib/sessionStorage';
 import Router from 'next/router';

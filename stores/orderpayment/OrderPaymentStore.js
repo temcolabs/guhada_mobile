@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import { observable, action, toJS } from 'mobx';
 import { autoHypenPhone, getUserAgent } from '../../utils';
-import API from 'lib/API';
+import API from 'childs/lib/API';
 import qs from 'qs';
 import { getParameterByName } from '../../utils';
 import Router from 'next/router';

@@ -1,7 +1,7 @@
 import Axios from 'axios';
 import { observable, action, computed, runInAction, toJS } from 'mobx';
 import { searchCategoryName, searchTreeId, getCategory } from '../utils';
-import API from 'lib/API';
+import API from 'childs/lib/API';
 
 export default class CategoryStore {
   @observable category = [];

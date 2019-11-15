@@ -1,6 +1,6 @@
 import Router from 'next/router';
 import termForm from 'stores/form-store/_.forms';
-import API from 'lib/API';
+import API from 'childs/lib/API';
 import { root } from 'store';
 import { devLog } from 'lib/devLog';
 import _ from 'lodash';

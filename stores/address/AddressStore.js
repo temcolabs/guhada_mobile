@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import { observable, action } from 'mobx';
 import { autoHypenPhone } from '../../utils';
-import API from 'lib/API';
+import API from 'childs/lib/API';
 import _ from 'lodash';
 import Router from 'next/router';
 import { devLog } from 'lib/devLog';

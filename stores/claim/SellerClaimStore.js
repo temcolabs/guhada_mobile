@@ -1,6 +1,6 @@
 import { observable, action, computed } from 'mobx';
 import { isBrowser } from 'lib/isServer';
-import API from 'lib/API';
+import API from 'childs/lib/API';
 import { sendBackToLogin } from 'lib/router';
 import { isImageFile } from 'lib/isImageFile';
 import uploadImageFile from 'lib/uploadImageFile';

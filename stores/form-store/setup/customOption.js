@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import { observable } from 'mobx';
-import API from 'lib/API';
+import API from 'childs/lib/API';
 
 let customOption = observable({
   country: [

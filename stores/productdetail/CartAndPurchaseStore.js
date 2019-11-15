@@ -1,6 +1,6 @@
 import { observable, action, toJS } from 'mobx';
 import { loginStatus } from 'constant';
-import API from 'lib/API';
+import API from 'childs/lib/API';
 import Router from 'next/router';
 import { pushRoute } from 'lib/router';
 import qs from 'qs';

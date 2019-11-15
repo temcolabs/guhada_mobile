@@ -1,5 +1,5 @@
 import { observable, action, toJS } from 'mobx';
-import API from 'lib/API';
+import API from 'childs/lib/API';
 import _ from 'lodash';
 import { devLog } from 'lib/devLog';
 

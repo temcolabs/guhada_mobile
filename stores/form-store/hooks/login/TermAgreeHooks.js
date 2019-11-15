@@ -1,5 +1,5 @@
 import Form from '../../_.forms';
-import API from 'lib/API';
+import API from 'childs/lib/API';
 import { root } from 'store';
 import { snsTypes } from 'constant/sns';
 import { devLog } from 'lib/devLog';

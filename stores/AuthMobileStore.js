@@ -1,5 +1,5 @@
 import { observable, action } from 'mobx';
-import API from 'lib/API';
+import API from 'childs/lib/API';
 import Router from 'next/router';
 import Form from '../stores/form-store/_.forms';
 import openPopupCenter from 'lib/dom/openPopupCenter';
@@ -173,8 +173,7 @@ export default class AuthMobileStore {
                 form.$('authMobileButton').set('label', '인증완료');
                 form.$('authMobileButton').set('value', 'complete');
 
-                if (value.diCodeOriginal !== value.diCode)
-                  form.$('verifiedIdentityUpdated').set('value', true);
+                form.$('verifiedIdentityUpdated').set('value', true);
               }
             }
           } else if (location === 'luckydrawSignup') {

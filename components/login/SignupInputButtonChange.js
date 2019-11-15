@@ -20,7 +20,7 @@ class SignupInputButtonChange extends Component {
             { [css.success]: button.value === 'success' }
           )}
           {...field.bind()}
-          disabled={disabled}
+          disabled={disabled === true ? true : field.disabled}
           maxLength={this.props.maxLength}
         />
         <button

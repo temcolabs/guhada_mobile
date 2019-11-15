@@ -1,6 +1,6 @@
 import Router from 'next/router';
 import Form from 'stores/form-store/_.forms';
-import API from 'lib/API';
+import API from 'childs/lib/API';
 import _ from 'lodash';
 import { devLog, devGroup, devGroupEnd } from 'lib/devLog';
 import naverShoppingTrakers from 'lib/tracking/navershopping/naverShoppingTrakers';
