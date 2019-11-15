@@ -13,6 +13,9 @@ import useStores from 'stores/useStores';
 import copy from 'copy-to-clipboard';
 import { devLog } from 'childs/lib/common/devLog';
 import { pushRoute } from 'lib/router';
+import LuckydrawLogin from './LuckydrawLogin';
+import LuckydrawSignup from './LuckydrawSignup';
+import LuckydrawModify from './LuckydrawModify';
 
 const enhancer = compose(withRouter);
 
@@ -87,7 +90,7 @@ function LuckyDraw({ router }) {
                 className={css.loginArea__button__full}
                 onClick={handleClickShareButton}
               >
-                이벤트 공유하기
+                공유하기
               </button>
             </div>
           ) : (
@@ -96,13 +99,7 @@ function LuckyDraw({ router }) {
                 className={css.loginArea__button}
                 onClick={handleClickShareButton}
               >
-                이벤트 공유하기
-              </button>
-              <button
-                className={css.loginArea__button}
-                onClick={() => pushRoute('/login')}
-              >
-                회원가입 · 로그인
+                공유하기
               </button>
             </div>
           )}
@@ -115,6 +112,21 @@ function LuckyDraw({ router }) {
         <LuckyDrawResultModal
           isOpen={luckyDrawStore.isResultModal}
           data={luckyDrawStore.resultData}
+        />
+
+        <LuckydrawLogin
+          isOpen={luckyDrawStore.luckydrawLoginModal}
+          closeModal={() => luckyDrawStore.setLuckydrawLoginModal(false)}
+        />
+
+        <LuckydrawSignup
+          isOpen={luckyDrawStore.luckydrawSignupModal}
+          closeModal={() => luckyDrawStore.setLuckydrawSignupModal(false)}
+        />
+
+        <LuckydrawModify
+          isOpen={luckyDrawStore.luckydrawModifyModal}
+          closeModal={() => luckyDrawStore.setLuckydrawModifyModal(false)}
         />
       </div>
     </DefaultLayout>

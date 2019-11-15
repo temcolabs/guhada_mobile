@@ -1,5 +1,5 @@
 import { observable, action, computed, toJS } from 'mobx';
-import API from 'lib/API';
+import API from 'childs/lib/API';
 import { devLog } from 'lib/devLog';
 import bookmarkTarget from 'constant/user/bookmarkTarget';
 import { isBrowser } from 'lib/isServer';

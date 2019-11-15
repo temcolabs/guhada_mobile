@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import Router from 'next/router';
-import API from 'lib/API';
+import API from 'childs/lib/API';
 import { autoHypenTele, autoHypenPhone } from 'utils';
 import { devLog } from 'lib/devLog';
 import { root } from 'store';

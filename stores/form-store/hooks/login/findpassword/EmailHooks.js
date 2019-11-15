@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import API from 'lib/API';
+import API from 'childs/lib/API';
 import { root } from 'store';
 import Router from 'next/router';
 import { devLog } from 'lib/devLog';

@@ -1,5 +1,5 @@
 import Router from 'next/router';
-import API from 'lib/API';
+import API from 'childs/lib/API';
 import { devLog } from 'lib/devLog';
 
 export default {

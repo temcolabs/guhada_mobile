@@ -1,5 +1,5 @@
 // sns 계정 타입
-export const snsType = {
+export const snsTypes = {
   NAVER: 'NAVER',
   KAKAO: 'KAKAO',
   FACEBOOK: 'FACEBOOK',

@@ -1,7 +1,7 @@
 import Axios from 'axios';
 import { observable, action, computed, toJS, runInAction } from 'mobx';
 import { getBrandTitle } from '../utils';
-import API from 'lib/API';
+import API from 'childs/lib/API';
 import findChoKorean from 'lib/findChoKorean';
 import _ from 'lodash';
 const isServer = typeof window === 'undefined';

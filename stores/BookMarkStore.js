@@ -1,7 +1,7 @@
 import { observable, action, toJS } from 'mobx';
 import Cookies from 'js-cookie';
 import Router from 'next/router';
-import API from 'lib/API';
+import API from 'childs/lib/API';
 
 const isServer = typeof window === 'undefined';
 

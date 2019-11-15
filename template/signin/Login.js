@@ -110,7 +110,6 @@ class Login extends React.Component {
             </div>
             <div className={css.socialHeader}>간편 로그인</div>
             <div className={css.socialWrap}>
-              {/* 이번 버젼에서 제거 */}
               <NaverLogin />
               <KakaoLogin
                 jsKey={snsAppKey.KAKAO}

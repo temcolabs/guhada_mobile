@@ -4,7 +4,7 @@ import { LoginWrapper, LoginInput, LoginButton } from 'components/login';
 import css from './FindPasswordResult.module.scss';
 import { LinkRoute, pushRoute } from 'lib/router';
 import { observer } from 'mobx-react';
-import API from 'lib/API';
+import API from 'childs/lib/API';
 import { devLog } from 'lib/devLog';
 import _ from 'lodash';
 

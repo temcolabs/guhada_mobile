@@ -1,7 +1,7 @@
 import React from 'react';
 import { observable, action, toJS } from 'mobx';
 import { isServer } from 'lib/isServer';
-import API from 'lib/API';
+import API from 'childs/lib/API';
 import { devLog } from 'lib/devLog';
 import _ from 'lodash';
 import { pushRoute } from 'lib/router';

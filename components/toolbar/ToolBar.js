@@ -5,12 +5,18 @@ import ToolbarCategory from './ToolbarCategory';
 import ToolbarBrand from './ToolbarBrand';
 import Router from 'next/router';
 import { inject } from 'mobx-react';
-function ToolBar({ alert }) {
+import LuckydrawLogin from 'template/event/LuckydrawLogin';
+import LuckydrawSignup from 'template/event/LuckydrawSignup';
+import LuckydrawModify from 'template/event/LuckydrawModify';
+import { loginStatus } from 'constant/';
+import { useObserver } from 'mobx-react-lite';
+
+function ToolBar({ alert, luckyDraw, login }) {
   const [isCategoryVisible, setIsCategoryVisible] = useState(false);
   const [isBrandVisible, setIsBrandVisible] = useState(false);
   const [selectedTool, setSelectedTool] = useState('');
 
-  return (
+  return useObserver(() => (
     <div className={css.wrap}>
       <div className={css.btnTop} onClick={() => window.scrollTo(0, 0)} />
       <div
@@ -61,6 +67,9 @@ function ToolBar({ alert }) {
         onClick={() => {
           setSelectedTool('mypage');
           alert.showAlert({ content: '모바일 버전 준비중입니다.' });
+          // login.loginStatus === loginStatus.LOGIN_DONE
+          //   ? luckyDraw.getEventUser()
+          //   : luckyDraw.setLuckydrawLoginModal(true);
         }}
         className={cn(css.itemWrap, css.mypage, {
           [css.selected]: selectedTool === 'mypage',
@@ -81,6 +90,6 @@ function ToolBar({ alert }) {
         onClose={() => setIsBrandVisible(false)}
       />
     </div>
-  );
+  ));
 }
-export default inject('alert')(ToolBar);
+export default inject('alert', 'luckyDraw', 'login')(ToolBar);

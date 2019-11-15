@@ -43,6 +43,7 @@ import AddressStore from './address/AddressStore';
 import SellerStore from './SellerStore';
 import SellerClaimStore from './claim/SellerClaimStore';
 import CardInterestStore from './CardInterestStore';
+
 import EventMainStore from './event/EventMainStore';
 import LuckyDrawStore from './event/LuckyDrawStore';
 
@@ -118,5 +119,7 @@ class RootStore {
     this.luckyDraw = new LuckyDrawStore(this);
   }
 }
+
+export { root } from '../store';
 
 export default RootStore;

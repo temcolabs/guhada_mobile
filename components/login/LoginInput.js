@@ -18,6 +18,7 @@ class LoginInput extends Component {
           className={cn({ [css.errorBox]: field.error !== null })}
           {...field.bind()}
           maxLength={maxLength}
+          disabled={this.props.disabled}
         />
         {field.error !== null && (
           <div className={css.errorBtn} onClick={() => this.clearError()} />

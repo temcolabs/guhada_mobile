@@ -1,5 +1,5 @@
 import { observable, action } from 'mobx';
-import API from 'lib/API';
+import API from 'childs/lib/API';
 import Router from 'next/router';
 import Form from '../stores/form-store/_.forms';
 import openPopupCenter from 'lib/dom/openPopupCenter';
@@ -137,6 +137,87 @@ export default class AuthMobileStore {
                   });
                 }
               });
+          } else if (location === 'luckydrawModify') {
+            checkIdentity(authData, afterResponse, afterException);
+
+            function afterResponse() {
+              root.alert.showConfirm({
+                content: '이미 본인 인증이 된 아이디가 존재합니다.',
+              });
+            }
+
+            function afterException(e) {
+              let resultCode = _.get(e, 'data.resultCode');
+              if (resultCode === 5004) {
+                let form = Form.modifyLuckydraw;
+                let value = form.values();
+
+                let body = {
+                  birth: authData.sBirthDate.replace(
+                    /(\d{4})(\d{2})(\d{2})/g,
+                    '$1-$2-$3'
+                  ),
+                  diCode: authData.sDueInfo,
+                  gender: authData.sGender === '0' ? 'FEMALE' : 'MALE',
+                  identityVerifyMethod: 'MOBILE',
+                  mobile: authData.sMobileNo,
+                  name: authData.sName,
+                };
+
+                form.$('diCode').set('value', body.diCode);
+                form.$('gender').set('value', body.gender);
+                form.$('mobile').set('value', body.mobile);
+                form.$('name').set('value', body.name);
+                form.$('birth').set('value', body.birth);
+
+                form.$('authMobileButton').set('label', '인증완료');
+                form.$('authMobileButton').set('value', 'complete');
+
+                form.$('verifiedIdentityUpdated').set('value', true);
+              }
+            }
+          } else if (location === 'luckydrawSignup') {
+            checkIdentity(authData, afterResponse, afterException);
+
+            function afterResponse() {
+              root.alert.showConfirm({
+                content: '이미 본인 인증이 된 아이디가 존재합니다.',
+              });
+            }
+
+            function afterException(e) {
+              let resultCode = _.get(e, 'data.resultCode');
+              if (resultCode === 5004) {
+                let form;
+
+                // sns 로그인 포지션에 따른 분기문 처리
+                if (root.login.loginPosition === 'luckydrawSNS') {
+                  form = Form.signUpSNSLuckydraw;
+                } else {
+                  form = Form.signUpLuckydraw;
+                }
+
+                let body = {
+                  birth: authData.sBirthDate.replace(
+                    /(\d{4})(\d{2})(\d{2})/g,
+                    '$1-$2-$3'
+                  ),
+                  diCode: authData.sDueInfo,
+                  gender: authData.sGender === '0' ? 'FEMALE' : 'MALE',
+                  identityVerifyMethod: 'MOBILE',
+                  mobile: authData.sMobileNo,
+                  name: authData.sName,
+                };
+
+                form.$('diCode').set('value', body.diCode);
+                form.$('gender').set('value', body.gender);
+                form.$('mobile').set('value', body.mobile);
+                form.$('name').set('value', body.name);
+                form.$('birth').set('value', body.birth);
+                form.$('authMobileButton').set('label', '인증완료');
+                form.$('authMobileButton').set('value', 'complete');
+              }
+            }
           }
         }
       };
