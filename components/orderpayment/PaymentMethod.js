@@ -17,6 +17,10 @@ class PaymentMethod extends Component {
     }
   }
 
+  componentWillUnmount() {
+    this.props.cardinterest.closeCardInterest();
+  }
+
   render() {
     let { orderpayment, cardinterest } = this.props;
     let { paymentForm, orderInfo } = orderpayment;
@@ -272,7 +276,12 @@ class PaymentMethod extends Component {
             />
           </form>
         </div>
-        <CardInterestModal isVisible={cardinterest.cardInterestIsOpen} />
+        <CardInterestModal
+          isVisible={cardinterest.cardInterestIsOpen}
+          onClose={() => {
+            cardinterest.closeCardInterest();
+          }}
+        />
       </div>
     );
   }

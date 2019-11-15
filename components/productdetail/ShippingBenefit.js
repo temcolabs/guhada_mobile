@@ -37,7 +37,9 @@ class ShippingBenefit extends Component {
       sellerfollow.deleteSellerFollow(productdetail.deals.sellerId);
     }
   };
-
+  componentWillUnmount() {
+    this.props.cardinterest.closeCardInterest();
+  }
   render() {
     const {
       deals,
@@ -240,7 +242,12 @@ class ShippingBenefit extends Component {
             </div>
           </div>
         )}
-        <CardInterestModal isVisible={cardinterest.cardInterestIsOpen} />
+        <CardInterestModal
+          isVisible={cardinterest.cardInterestIsOpen}
+          onClose={() => {
+            cardinterest.closeCardInterest();
+          }}
+        />
       </div>
     );
   }
