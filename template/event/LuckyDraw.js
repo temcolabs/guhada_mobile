@@ -20,7 +20,11 @@ import LuckydrawModify from './LuckydrawModify';
 const enhancer = compose(withRouter);
 
 function LuckyDraw({ router }) {
-  const { luckyDraw: luckyDrawStore, alert: alertStore } = useStores();
+  const {
+    luckyDraw: luckyDrawStore,
+    alert: alertStore,
+    user: UserStore,
+  } = useStores();
 
   useEffect(() => {
     luckyDrawStore.getLuckyDrawList();
@@ -50,6 +54,7 @@ function LuckyDraw({ router }) {
       pageStyle={{
         backgroundColor: '#13182e',
       }}
+      toolBar={false}
     >
       <div className={css.wrap}>
         <main className={css.main}>
@@ -79,21 +84,25 @@ function LuckyDraw({ router }) {
               alt="공지사항"
             />
           </div>
-
-          <div className={css.loginArea}>
-            <button
-              className={css.loginArea__button}
-              onClick={handleClickShareButton}
-            >
-              이벤트 공유하기
-            </button>
-            <button
-              className={css.loginArea__button}
-              onClick={() => pushRoute('/login')}
-            >
-              회원가입 · 로그인
-            </button>
-          </div>
+          {UserStore?.userId ? (
+            <div className={css.loginArea}>
+              <button
+                className={css.loginArea__button__full}
+                onClick={handleClickShareButton}
+              >
+                공유하기
+              </button>
+            </div>
+          ) : (
+            <div className={css.loginArea}>
+              <button
+                className={css.loginArea__button}
+                onClick={handleClickShareButton}
+              >
+                공유하기
+              </button>
+            </div>
+          )}
         </main>
 
         <LuckyDrawApplyModal

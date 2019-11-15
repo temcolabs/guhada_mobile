@@ -59,12 +59,16 @@ class Filter extends Component {
         options={[
           {
             label: '진행중 이벤트',
-            value: 'valid',
+            value: 'ing',
+          },
+          {
+            label: '종료 이벤트',
+            value: 'close',
           },
         ]}
-        // onChange={value => {
-        //   mypageLike.selectOption(value);
-        // }}
+        onChange={value => {
+          this.props.onChange(value);
+        }}
         isSearchable={false}
       />
     );

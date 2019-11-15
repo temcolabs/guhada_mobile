@@ -54,7 +54,7 @@ $mainHoriPad: 20px;
 
 .notificationBox {
   width: 100%;
-  margin: 100px auto 0;
+  margin: 100px auto 66px;
 
   &>img {
     display: block;
@@ -66,10 +66,15 @@ $mainHoriPad: 20px;
   @include clearfix;
   width: calc(100% + #{$mainHoriPad} * 2);
   margin: 86px calc(-1 * #{$mainHoriPad}) 0;
+
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
 }
 
 .loginArea__button {
-  width: 50%;
+  width: 100%;
   float: left;
   padding: 21px 10px 20px;
   font-size: 16px;
@@ -85,4 +90,15 @@ $mainHoriPad: 20px;
     background: $blue-purple;
     color: #fff;
   }
+}
+
+.loginArea__button__full {
+  width: 100%;
+  float: left;
+  padding: 21px 10px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  height: 60px;
+  background: #444444;
+  color: #fff;
 }
