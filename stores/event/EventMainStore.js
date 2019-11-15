@@ -17,19 +17,21 @@ export default class EventMainStore {
   };
 
   @action
-  getEventList = () => {
-    API.settle
-      .get(`/event/list`)
-      .then(res => {
-        devLog(res, 'event list');
+  getEventList = value => {
+    if (!value) {
+      API.settle
+        .get(`/event/list?eventProgress=`)
+        .then(res => {
+          devLog(res, 'event list');
 
-        this.eventList = res.data.data;
-        this.status.page = true;
-      })
-      .catch(err => {
-        console.log(err, 'event list get error');
-        this.eventList = [];
-      });
+          this.eventList = res.data.data;
+          this.status.page = true;
+        })
+        .catch(err => {
+          console.log(err, 'event list get error');
+          this.eventList = [];
+        });
+    }
   };
 
   @action

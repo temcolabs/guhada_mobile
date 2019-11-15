@@ -15,7 +15,13 @@ function EventMain({ eventmain }) {
       <div className={css.wrap}>
         <div className={css.dashBoard}>
           <div className={css.totalCount}>총 {list.length}개</div>
-          <div className={css.filter}>{/* <Filter /> */}</div>
+          <div className={css.filter}>
+            <Filter
+              onChange={value => {
+                eventmain.getEventList(value);
+              }}
+            />
+          </div>
         </div>
 
         <div className={css.eventListWrap}>
