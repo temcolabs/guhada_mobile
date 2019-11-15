@@ -126,7 +126,7 @@ class LuckydrawModify extends Component {
                   )
                 }
               >
-                동의하고 수정하기
+                동의하고 진행하기
               </LoginButton>
             </div>
             {/* 모바일 본인인증 팝업 오픈을 위한 숨겨진 폼 */}
