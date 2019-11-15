@@ -4,7 +4,7 @@ import { observer, inject } from 'mobx-react';
 import Cookies from 'js-cookie';
 import Router from 'next/router';
 import loadScript from 'childs/lib/dom/loadScript';
-import API from 'lib/API';
+import API from 'childs/lib/API';
 import { key } from 'constant';
 import { snsAppKey } from 'constant/sns';
 import withAuth from 'components/common/hoc/withAuth';

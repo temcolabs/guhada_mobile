@@ -40,6 +40,13 @@ module.exports = [
     name: '타임딜',
   },
 
+  // 이벤트 - 메인
+  {
+    pagePath: `/event/eventmain`,
+    asPath: `/event`,
+    name: `이벤트`,
+  },
+
   // 리턴 URL
   {
     // 나이스 본인인증 성공
@@ -279,5 +286,18 @@ module.exports = [
     pagePath: `/sellerstore/SellerStorePage`,
     asPath: `/store/:nickname`,
     name: `셀러스토어`,
+  },
+
+  //이벤트 - 상세페이지
+  {
+    pagePath: `/event/eventdetail`,
+    asPath: `/event/detail/:id`,
+    name: `이벤트 - 상세페이지`,
+  },
+
+  {
+    pagePath: `/event/luckydraw`,
+    asPath: `/event/luckydraw`,
+    name: `럭키드로우`,
   },
 ];

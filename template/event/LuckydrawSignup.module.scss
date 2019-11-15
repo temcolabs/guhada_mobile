@@ -1,0 +1,89 @@
+.loginWrap {
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
+  max-width: 1024px;
+  margin: 0 auto;
+  position: relative;
+  display: block;
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  & .headerWrap {
+    width: 100%;
+    height: 60px;
+    padding: 0 10px;
+    font-size: 16px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.19;
+    letter-spacing: normal;
+    text-align: center;
+    color: #333333;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  & .emptyButton {
+    width: 30px;
+    height: 30px;
+  }
+
+  & .closeButton {
+    width: 30px;
+    height: 30px;
+    background-size: 30px;
+    background-repeat: no-repeat;
+    background-image: url('/static/icon/close_btn.png');
+  }
+}
+
+.wrap {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.14;
+  color: #898989;
+  padding-top: 24px;
+  padding: 24px 20px 70px 20px;
+
+  & .optionalAgree {
+    height: 40px;
+    background: url('/static/icon/benefit_btn_plus.png') no-repeat right;
+    background-position-y: 12px;
+    background-size: 16px;
+
+    &.openOptional {
+      height: 124px;
+      background: none;
+    }
+
+  }
+
+  & .eventTextWarp {
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.64;
+    color: #aaaaaa;
+    padding: 20px 0 20px 0;
+
+    & .eventText {
+      margin-bottom: 10px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+.bigCheckboxWrap {
+  margin-top: 20px;
+  border-bottom: solid 1px #eeeeee;
+  height: 50px;
+}
+
+.borderBottom {
+  border-bottom: solid 1px #eeeeee;
+}

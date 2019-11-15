@@ -1,0 +1,123 @@
+.wrap {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  height: 100vh;
+  overflow: auto;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .innerContent {
+    background: #fff;
+    .contentWrap {
+      position: relative;
+      width: 320px;
+      height: 374px;
+      background: url('/static/icon/35@3x.png') no-repeat;
+      background-position: center;
+      background-size: cover;
+      padding-top: 30px;
+      .close {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background: url('/static/icon/close-btn@3x.png') no-repeat;
+        background-size: cover;
+        background-position: center;
+        width: 50px;
+        height: 50px;
+        z-index: 2;
+        cursor: pointer;
+      }
+
+      .content {
+        position: relative;
+        .title {
+          text-align: center;
+          font-size: 16px;
+          font-weight: normal;
+          color: #fff;
+          max-width: 400px;
+          margin: 0 auto;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          padding: 0 20px;
+        }
+
+        .complete {
+          font-size: 26px;
+          font-weight: bold;
+          color: #fff;
+          text-align: center;
+          span {
+            &:last-child {
+              color: #ffe84b;
+            }
+          }
+        }
+
+        .itemImage {
+          width: 165px;
+          height: 165px;
+          background-repeat: no-repeat;
+          background-size: contain;
+          background-position: center;
+          margin: 20px auto 0;
+        }
+
+        .confirmButton {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 200px;
+          height: 44px;
+          border: 1px solid #fff;
+          border-radius: 45px;
+          margin: 30px auto 0;
+
+          font-size: 16px;
+          font-weight: normal;
+          color: #fff;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .noticeWrap {
+      width: 320px;
+      padding: 15px 20px;
+      .noticeDateSection {
+        &:last-child {
+          margin-top: 7px;
+        }
+        .dateType {
+          display: inline-block;
+          font-size: 12px;
+          font-weight: bold;
+          color: #444;
+          min-width: 86px;
+        }
+
+        .date {
+          font-size: 12px;
+          color: #444;
+          font-weight: normal;
+          letter-spacing: normal;
+        }
+      }
+
+      .notify {
+        margin-top: 20px;
+        color: #777;
+        font-size: 11px;
+        font-weight: normal;
+        line-height: 1.45;
+        white-space: nowrap;
+      }
+    }
+  }
+}

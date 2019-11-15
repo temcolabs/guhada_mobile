@@ -1,5 +1,5 @@
 import { observable, action, toJS } from 'mobx';
-import API from 'lib/API';
+import API from 'childs/lib/API';
 import Router from 'next/router';
 import moment from 'moment';
 import { devLog } from 'lib/devLog';

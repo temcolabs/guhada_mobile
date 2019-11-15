@@ -8,6 +8,7 @@
         "systemVar": "all"
       }
     ],
+    "@babel/plugin-proposal-optional-chaining",
     ["@babel/plugin-proposal-decorators", { "legacy": true }],
     ["@babel/plugin-proposal-class-properties", { "loose": true }],
     [
@@ -23,7 +24,8 @@
           "stores": "./stores",
           "styles": "./styles",
           "template": "./template",
-          ".storybook": "./.storybook"
+          ".storybook": "./.storybook",
+          "routes": "./routes"
         }
       }
     ]

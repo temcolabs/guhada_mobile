@@ -1,6 +1,6 @@
 import { observable, action } from 'mobx';
 import Axios from 'axios';
-import API from 'lib/API';
+import API from 'childs/lib/API';
 import { pushRoute } from 'lib/router';
 import _ from 'lodash';
 import { devLog } from 'lib/devLog';

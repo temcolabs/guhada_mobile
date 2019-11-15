@@ -2,7 +2,7 @@ import { observable, action, toJS } from 'mobx';
 import { isBrowser } from 'lib/isServer';
 import localStorage from 'lib/localStorage';
 import key from 'constant/key';
-import API from 'lib/API';
+import API from 'childs/lib/API';
 
 export default class KeywordStore {
   constructor(root) {

@@ -1,7 +1,7 @@
 import Form from '../../_.forms';
-import API from 'lib/API';
+import API from 'childs/lib/API';
 import { root } from 'store';
-import { snsType } from 'constant/sns';
+import { snsTypes } from 'constant/sns';
 import { devLog } from 'lib/devLog';
 import daumTrakers from 'lib/tracking/daum/daumTrakers';
 import naverShoppingTrakers from 'lib/tracking/navershopping/naverShoppingTrakers';
@@ -32,13 +32,13 @@ export default {
           naverShoppingTrakers.signup();
           daumTrakers.signup();
           if (data.resultCode === 200) {
-            if (login.snsType === snsType.KAKAO) {
+            if (login.snsType === snsTypes.KAKAO) {
               login.loginKakao(login.email);
-            } else if (login.snsType === snsType.GOOGLE) {
+            } else if (login.snsType === snsTypes.GOOGLE) {
               login.loginGoogle(login.email);
-            } else if (login.snsType === snsType.NAVER) {
+            } else if (login.snsType === snsTypes.NAVER) {
               login.loginNaver(login.email);
-            } else if (login.snsType === snsType.FACEBOOK) {
+            } else if (login.snsType === snsTypes.FACEBOOK) {
               login.loginFacebook(login.email);
             }
           }

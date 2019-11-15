@@ -1,5 +1,5 @@
 import { root } from 'store';
-import API from 'lib/API';
+import API from 'childs/lib/API';
 import qs from 'qs';
 import { pushRoute } from 'lib/router';
 import { devLog } from 'lib/devLog';

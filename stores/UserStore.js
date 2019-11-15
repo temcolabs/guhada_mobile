@@ -2,7 +2,7 @@ import { observable, action, computed, toJS } from 'mobx';
 import isServer, { isBrowser } from 'lib/isServer';
 import sessionStorage from 'lib/sessionStorage';
 import key from 'constant/key';
-import API from 'lib/API';
+import API from 'childs/lib/API';
 import localStorage from 'lib/localStorage';
 import _ from 'lodash';
 import isFunction from 'lib/isFunction';

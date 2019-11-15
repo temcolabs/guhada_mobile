@@ -1,5 +1,5 @@
 import { observable, action, computed, toJS } from 'mobx';
-import API from 'lib/API';
+import API from 'childs/lib/API';
 import { isBrowser } from 'lib/isServer';
 import moment from 'moment';
 import { dateFormat } from 'constant/date';

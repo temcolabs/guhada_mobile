@@ -1,5 +1,5 @@
 import { observable, action } from 'mobx';
-import API from 'lib/API';
+import API from 'childs/lib/API';
 import _ from 'lodash';
 import { devLog } from 'lib/devLog';
 const isServer = typeof window === 'undefined';

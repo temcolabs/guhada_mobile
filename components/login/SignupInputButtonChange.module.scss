@@ -1,0 +1,49 @@
+.wrap {
+  margin-bottom: 10px;
+  position: relative;
+
+  & input {
+    width: calc(100% - 10px - 85px);
+    height: 45px;
+    border: 1px solid #eeeeee;
+    font-size: 13px;
+    color: #111111;
+    margin-right: 10px;
+    padding-left: 15px;
+
+    &::placeholder {
+      color: #777777;
+    }
+
+    &:disabled {
+      background-color: #f9f9fa;
+    }
+
+    &.error {
+      border: 1px solid #ce2525;
+      background: url('/static/icon/mypage/input-error-icon.png') no-repeat right 9px center;
+      background-size: 17px;
+    }
+
+    &.success {
+      border: 1px solid #5d2ed1;
+      background: url('/static/icon/mypage/input-ok-icon.png') no-repeat right 9px center;
+      background-size: 17px;
+    }
+  }
+
+  & button {
+    width: 85px;
+    height: 45px;
+    border: solid 1px #dddddd;
+    font-size: 13px;
+    font-weight: 500;
+    color: #111111;
+  }
+
+  & .inputError {
+    margin-top: 7px;
+    color: #ce2525;
+    font-size: 12px;
+  }
+}

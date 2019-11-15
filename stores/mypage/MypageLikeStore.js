@@ -1,5 +1,5 @@
 import { observable, action, toJS } from 'mobx';
-import API from 'lib/API';
+import API from 'childs/lib/API';
 const isServer = typeof window === 'undefined';
 import { isBrowser } from 'lib/isServer';
 import { devLog } from 'lib/devLog';

@@ -32,7 +32,7 @@
           "js": "./js",
           "lib": "./lib",
           "static": "./static",
-          "store": "./store",
+          "stores": "./stores",
           "styles": "./styles",
           "template": "./template",
           ".storybook": "./.storybook"

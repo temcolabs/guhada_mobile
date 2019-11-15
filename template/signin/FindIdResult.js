@@ -6,7 +6,7 @@ import { observer, inject } from 'mobx-react';
 import css from './FindIdResult.module.scss';
 import { LinkRoute } from 'lib/router';
 import copy from 'copy-to-clipboard';
-import API from 'lib/API';
+import API from 'childs/lib/API';
 @inject('alert')
 @observer
 class FindIdResult extends Component {

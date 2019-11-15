@@ -7,7 +7,7 @@ import {
   getCategory,
 } from '../utils.js';
 import Router from 'next/router';
-import API from 'lib/API.js';
+import API from 'childs/lib/API';
 
 export default class SearchStore {
   @observable category = '';

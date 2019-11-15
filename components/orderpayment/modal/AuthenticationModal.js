@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import css from './AuthenticationModal.module.scss';
 import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 import { inject, observer } from 'mobx-react';
-import CountdownTimer from 'components/common/CountdownTimer';
+import CountdownTimer from 'childs/lib/components/CountdownTimer';
 import { devLog } from 'lib/devLog';
 @inject('orderpayment', 'authmobile', 'customerauthentication')
 @observer

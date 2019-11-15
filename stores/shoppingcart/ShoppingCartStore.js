@@ -1,7 +1,7 @@
 import React from 'react';
 import { observable, action } from 'mobx';
 import Router from 'next/router';
-import API from 'lib/API';
+import API from 'childs/lib/API';
 import _ from 'lodash';
 import { pushRoute } from 'lib/router';
 import qs from 'qs';
