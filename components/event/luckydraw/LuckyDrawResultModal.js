@@ -6,7 +6,7 @@ import { inject } from 'mobx-react';
 function LuckyDrawResultModal({ luckyDraw, isOpen, data }) {
   return (
     <div>
-      <SlideIn direction={slideDirection.RIGHT} isVisible={isOpen}>
+      <SlideIn direction={slideDirection.BOTTOM} isVisible={isOpen}>
         <div className={css.wrap}>
           <div className={css.contentWrap}>
             <div

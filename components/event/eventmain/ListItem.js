@@ -8,8 +8,13 @@ function ListItem({ data }) {
   const [endDate, setEndDate] = useState('');
 
   useEffect(() => {
-    setStartDate(moment(data.eventStartDate).format('YYYY. MM. DD'));
-    setEndDate(moment(data.eventEndDate).format('YYYY. MM. DD'));
+    data.eventStartDate
+      ? setStartDate(moment(data.eventStartDate).format('YYYY. MM. DD'))
+      : setStartDate(null);
+
+    data.eventEndDate
+      ? setEndDate(moment(data.eventEndDate).format('YYYY. MM. DD'))
+      : setEndDate(null);
   }, [data]);
   return (
     <div className={css.eventItem}>
@@ -24,7 +29,9 @@ function ListItem({ data }) {
             />
 
             <div className={css.eventTitle}>{data.eventTitle}</div>
-            <div className={css.eventDate}>{`${startDate} ~ ${endDate}`}</div>
+            <div className={css.eventDate}>{`${startDate ? startDate : ''} ~ ${
+              endDate ? endDate : ''
+            }`}</div>
           </div>
         </Link>
       ) : (
@@ -34,7 +41,9 @@ function ListItem({ data }) {
             style={{ backgroundImage: `url(${data.imgUrl})` }}
           />
           <div className={css.eventTitle}>{data.eventTitle}</div>
-          <div className={css.eventDate}>{`${startDate} ~ ${endDate}`}</div>
+          <div className={css.eventDate}>{`${startDate ? startDate : ''} ~ ${
+            endDate ? endDate : ''
+          }`}</div>
         </Fragment>
       )}
     </div>
