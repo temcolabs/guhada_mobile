@@ -30,12 +30,9 @@ class Filter extends Component {
         ...provided,
         minHeight: 30,
         backgroundColor: state.isFocused ? '#f7f7f8' : '#fff',
-        backgroundColor: state.isDisabled ? '#fff' : null,
         paddingLeft: 14,
         fontSize: 12,
         color: state.isSelected ? '#111' : '#111',
-        color: state.isFocused ? '#111' : '#111',
-        color: state.isDisabled ? '#ddd' : '#111',
       }),
       menu: (provided, state) => ({
         ...provided,
@@ -59,11 +56,11 @@ class Filter extends Component {
         options={[
           {
             label: '진행중 이벤트',
-            value: 'ing',
+            value: 'PROGRESS',
           },
           {
             label: '종료 이벤트',
-            value: 'close',
+            value: 'END',
           },
         ]}
         onChange={value => {

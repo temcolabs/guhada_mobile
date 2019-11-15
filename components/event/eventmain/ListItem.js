@@ -14,7 +14,7 @@ function ListItem({ data }) {
   return (
     <div className={css.eventItem}>
       {data.detailPage === true ? (
-        <Link href={`/event/detail/${data.id}`}>
+        <Link href={data.detailPageUrl}>
           <div className={css.detailTrue}>
             <div
               className={css.bannerImage}
