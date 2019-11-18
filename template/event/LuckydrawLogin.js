@@ -51,7 +51,7 @@ class LuckydrawLogin extends Component {
           left: '0px',
           transform: 'none',
         }}
-        zIndex={1000}
+        zIndex={999}
       >
         <div className={css.loginWrap}>
           <div className={css.headerWrap}>

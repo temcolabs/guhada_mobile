@@ -3,7 +3,6 @@ APP_NAME=guhada-mobile-prod
 USER=ec2-user
 REPOSITORY=git@github.com:temcolabs/guhada_mobile.git
 BRANCH=master
-DEST_REPO=/home/guhada/web/guhada_mobile
 DEST_APP=/home/ec2-user/guhada_mobile
 
 echo "\n[$HOST: upload files]"
