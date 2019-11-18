@@ -114,8 +114,8 @@ export default function LuckyDrawMainSlider({ imageList = [] }) {
                       }}
                       onTouchEnd={e => {
                         const currentX = e.changedTouches[0]?.pageX;
-                        const isRight = currentX > touchStartX;
-                        const isLeft = currentX <= touchStartX;
+                        const isRight = currentX < touchStartX;
+                        const isLeft = currentX >= touchStartX;
 
                         if (isRight) {
                           showNextSlide();
