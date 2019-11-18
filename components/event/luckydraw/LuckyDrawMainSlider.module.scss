@@ -98,14 +98,11 @@
   @include centeredX;
   @include clearfix;
   bottom: 17px;
-  padding: 10px;
-
-  &:hover {
-    cursor: pointer;
-  }
+  width: 160px;
+  text-align: center;
 
   & > * {
-    float: left;
+    display: inline-block;
     width: 6px;
     height: 6px;
     border-radius: 50%;
@@ -118,6 +115,10 @@
 
     &:not(:first-child) {
       margin-left: 5px;
+    }
+
+    &:hover {
+      cursor: pointer;
     }
   }
 }
