@@ -5,7 +5,7 @@
       "inline-dotenv",
       {
         "path": "./.env",
-        "systemVar": "all"
+        "systemVar": "disable"
       }
     ],
     "@babel/plugin-proposal-optional-chaining",
