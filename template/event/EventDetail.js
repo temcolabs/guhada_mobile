@@ -15,7 +15,13 @@ function EventDetail({ eventmain }) {
         {detail.detailPage ? (
           <Link href={detail.detailPageLink}>
             <div className={css.detailContent}>
-              <img src={detail.imgDetailUrlM} alt="상세이미지" />
+              <img
+                src={detail.imgDetailUrlM}
+                onClick={() => {
+                  eventmain.sendNative('join', '');
+                }}
+                alt="상세이미지"
+              />
             </div>
           </Link>
         ) : (
