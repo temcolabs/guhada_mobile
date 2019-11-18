@@ -55,9 +55,9 @@ function LuckyDrawApplyModal({ luckyDraw, isOpen, data }) {
                 <div className={css.noticeDateSection}>
                   <span className={css.dateType}>당첨자 구매기간</span>
                   <span className={css.date}>
-                    {`${moment(data?.requestFromAt).format(
+                    {`${moment(data?.winnerBuyFromAt).format(
                       'M월 D일 (dd) HH:mm'
-                    )} - ${moment(data?.requestToAt).format(
+                    )} - ${moment(data?.winnerBuyToAt).format(
                       'M월 D일 (dd) HH:mm'
                     )}`}
                   </span>
