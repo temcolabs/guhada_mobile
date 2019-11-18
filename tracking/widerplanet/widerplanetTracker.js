@@ -86,7 +86,9 @@ export default {
    * 아이템 상세 (쇼핑몰)
     상품 상세페이지 하단에 삽입하신 후 '상품 ID', '상품명' 변수를 'i', 't'에 대입합니다.
    */
-  productDetail: ({ dealId, userId, items = [] } = {}) => {
+  productDetail: ({ userId, items = [] } = {}) => {
+    devLog(`[widerplanet tracker] userId, items`, userId, items);
+
     if (isBrowser) {
       loadScript(null, {
         id: scriptIds.WIDERPLANET_TRACKER + '_producdetail_conversion',
@@ -97,11 +99,11 @@ export default {
             (function() {
               return {
                 /* 고객넘버 등 Unique ID (ex. 로그인  ID, 고객넘버 등 )를 암호화하여 대입. *주의 : 로그인 하지 않은 사용자는 어떠한 값도 대입하지 않습니다.*/
-                wp_hcuid: ${userId || ''},
+                wp_hcuid: ${userId},
                 ti: ${ACCOUNT_ID},
                 ty: "Item",
                 device: "${getDeviceType()}",
-                items: ${items},
+                items: ${JSON.stringify(items)},
                 // items:[{i:"상품 ID",	t:"상품명 "}] /* i:<상품 식별번호  (Feed로 제공되는 상품코드와 일치하여야 합니다 .) t:상품명  */
               };
             }));
@@ -130,12 +132,12 @@ export default {
             wptg_tagscript_vars.push(
             (function() {
               return {
-                wp_hcuid: ${userId || ''},
+                wp_hcuid: ${userId},
                 /*고객넘버 등 Unique ID (ex. 로그인  ID, 고객넘버 등 )를 암호화하여 대입. *주의 : 로그인 하지 않은 사용자는 어떠한 값도 대입하지 않습니다.*/
                 ti:${ACCOUNT_ID},
                 ty:"Cart",
                 device:"${getDeviceType()}",
-                items: ${items},
+                items: ${JSON.stringify(items)},
                 // items:[
                 //   {i:"상품 ID",	t:"상품명 "} /* 첫번째 상품  - i:상품 식별번호  (Feed로 제공되는 식별번호와 일치 ) t:상품명 */
                 //  ,{i:"상품 ID",	t:"상품명 "} /* 두번째 상품  - i:상품 식별번호  (Feed로 제공되는 식별번호와 일치 ) t:상품명  */
@@ -167,12 +169,12 @@ export default {
             wptg_tagscript_vars.push(
             (function() {
               return {
-                wp_hcuid: ${userId || ''},
+                wp_hcuid: ${userId},
                 /*고객넘버 등 Unique ID (ex. 로그인  ID, 고객넘버 등 )를 암호화하여 대입. *주의 : 로그인 하지 않은 사용자는 어떠한 값도 대입하지 않습니다.*/
                 ti:${ACCOUNT_ID},
                 ty:"PurchaseComplete",
                 device:"${getDeviceType()}",
-                items: ${items},
+                items: ${JSON.stringify(items)},
                 // items:[
                 //   {i:"상품 ID", t:"상품명 ", p:"단가 ", q:"수량 "} /* 첫번째 상품  - i:상품 식별번호 (Feed로 제공되는 식별번호와 일치 ) t:상품명  p:단가  q:수량  */
                 //   ,{i:"상품 ID", t:"상품명 ", p:"단가 ", q:"수량 "} /* 첫번째 상품  - i:상품 식별번호 (Feed로 제공되는 식별번호와 일치 ) t:상품명  p:단가  q:수량  */
