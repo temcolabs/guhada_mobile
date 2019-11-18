@@ -13,7 +13,7 @@ export default {
   },
 
   /**
-   * 신청
+   * 신청 확인
    */
   requestLuckyDraws: ({ dealId }) => {
     return API.product.post(`/lucky-draws/request`, {
