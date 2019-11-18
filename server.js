@@ -9,6 +9,7 @@ const routes = require('./routes');
 const PORT = dev ? 8081 : process.env.PORT || 3000;
 const returnUrls = require('./routes/returnUrls');
 const useragent = require('express-useragent');
+const shell = require('shelljs');
 
 mobxReact.useStaticRendering(true);
 
@@ -91,6 +92,17 @@ app
       if (process.send) {
         process.send('ready');
         console.log('sent ready signal to PM2 at', new Date());
+
+        /**
+         * NOTE: prod에서는 1대의 머신에서 2개 이상의 프로세스가 순차적으로 재시작되므로
+         * 1개 프로세스가 ready 상태가 되었다고 해서 오래된 빌드 파일을 즉시 삭제해서는 안된다.
+         * 10분의 딜레이를 준다.
+         */
+        setTimeout(() => {
+          // 오래된 빌드 파일을 지운다
+          console.log('> delete old build files from web server');
+          shell.exec('./scripts/delete-old-builds.sh');
+        }, 600000);
       }
     });
 
