@@ -1,4 +1,4 @@
-import API from "../../API";
+import API from '../../API';
 
 /**
  * 럭키드로우
@@ -17,7 +17,7 @@ export default {
    */
   requestLuckyDraws: ({ dealId }) => {
     return API.product.post(`/lucky-draws/request`, {
-      dealId
+      dealId,
     });
   },
 
@@ -27,8 +27,8 @@ export default {
   requestLuckyDraws: ({ dealId }) => {
     return API.product.post(`/lucky-draws/winner-check/`, {
       params: {
-        dealId
-      }
+        dealId,
+      },
     });
-  }
+  },
 };
