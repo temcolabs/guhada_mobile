@@ -16,4 +16,5 @@ HOST=$HOST ./scripts/deploy-prod-upload.sh
 
 echo "> delete old build files from build server"
 exit
-sh $DEST_REPO/scripts/delete-old-builds.sh
+cd $DEST_REPO
+./scripts/delete-old-builds.sh
