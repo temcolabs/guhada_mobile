@@ -7,16 +7,32 @@
  * @param {*} option.async 비동기 로드
  */
 const loadScript = (
-  src = '',
-  { onLoad = () => {}, id, async = false } = {}
+  src,
+  {
+    type = 'text/javascript',
+    innerText,
+    onLoad = () => {},
+    id,
+    async = false,
+  } = {}
 ) => {
   const didNotLoaded = !document.getElementById(id);
 
   if (didNotLoaded) {
     let script = document.createElement('script');
-    script.src = src;
-    script.id = id || `script_${+new Date()}`;
+
+    script.type = type;
+
+    if (src) {
+      script.src = src;
+    }
+
+    script.id = !!id ? encodeURIComponent(id) : encodeURIComponent(src);
     script.async = async;
+
+    if (innerText) {
+      script.innerText = innerText;
+    }
 
     script.onload = function() {
       if (typeof onLoad === 'function') {
@@ -45,4 +61,5 @@ export const scriptIds = {
   CRITEO_TRACKER: 'CRITEO_TRACKER',
   DAUM_TRACKER: 'DAUM_TRACKER',
   NAVER_SHOPPING: 'NAVER_SHOPPING',
+  WIDERPLANET_TRACKER: 'WIDERPLANET_TRACKER',
 };

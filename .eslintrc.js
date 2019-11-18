@@ -12,6 +12,7 @@ module.exports = {
     naver: true,
     DaumConversionDctSv: true,
     DaumConversionAccountID: true,
+    wptg_tagscript_vars: true,
   },
   rules: {
     'jsx-a11y/anchor-is-valid': 'off', // Link 컴포넌트(https://github.com/zeit/next.js#with-link)

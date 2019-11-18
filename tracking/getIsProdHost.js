@@ -1,3 +1,6 @@
+import { detectDevice } from '../common/detectDevice';
+import { isBrowser } from '../common/isServer';
+
 const getIsProdHost = () => {
   if (isBrowser) {
     const { isTablet, isMobile } = detectDevice();
@@ -5,11 +8,11 @@ const getIsProdHost = () => {
 
     return isTablet || isMobile
       ? // 모바일 prod 호스트 확인
-        hostname === "m.guhada.com"
+        hostname === 'm.guhada.com'
       : // 데스크탑 prod 호스트
-        hostname === "www.guhada.com" ||
-          hostname === "web.guhada.com" ||
-          hostname === "guhada.com";
+        hostname === 'www.guhada.com' ||
+          hostname === 'web.guhada.com' ||
+          hostname === 'guhada.com';
   } else {
     return false;
   }
