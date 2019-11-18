@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './Brand.module.scss';
 import cn from 'classnames';
+import _ from 'lodash';
 
 @inject('brands', 'searchitem')
 @observer
@@ -11,14 +12,23 @@ class Brand extends Component {
   };
 
   toScroll = label => {
-    const target = document.getElementById('brand' + label); // 요소의 id 값이 target이라 가정
-    const clientRect = target.getBoundingClientRect(); // DomRect 구하기 (각종 좌표값이 들어있는 객체)
-    const relativeTop = clientRect.top; // Viewport의 시작지점을 기준으로한 상대좌표 Y 값.
-    const scrolledTopLength = this.refs.brandScroll.scrollTop; // 스크롤된 길이
+    const target =
+      this.props.fromHeader === true
+        ? document.getElementById(`brand${label}fromHeader`)
+        : document.getElementById(`brand${label}`); // 요소의 id 값이 target이라 가정
 
-    const absoluteTop = relativeTop + scrolledTopLength; // 절대좌표
-    this.refs.brandScroll.scrollTo(0, absoluteTop - 185);
+    const headerHeight = 60;
+    const brandHeader = 70;
+    const fromHeader = this.props.fromHeader === true ? 0 : 60;
 
+    if (_.isNil(target) === false) {
+      const clientRect = target.getBoundingClientRect(); // DomRect 구하기 (각종 좌표값이 들어있는 객체)
+      const relativeTop = clientRect.top; // Viewport의 시작지점을 기준으로한 상대좌표 Y 값.
+      const scrolledTopLength = this.refs.brandScroll.scrollTop; // 스크롤된 길이
+      const absoluteTop = relativeTop + scrolledTopLength; // 절대좌표
+      let marginHeight = headerHeight + brandHeader + fromHeader;
+      this.refs.brandScroll.scrollTo(0, absoluteTop - marginHeight);
+    }
     this.setState({ brandLabel: label });
   };
 
@@ -29,13 +39,14 @@ class Brand extends Component {
       this.setState({ brandLabel: 'ㄱ' });
     }
   };
+
   toSearch = id => {
     let { searchitem } = this.props;
     searchitem.toSearch({ brand: id, enter: 'brand' });
   };
 
   render() {
-    let { brands } = this.props;
+    let { brands, fromHeader } = this.props;
     return (
       <>
         <div className={css.headerWrap}>
@@ -44,6 +55,7 @@ class Brand extends Component {
               type="text"
               placeholder="브랜드명을 검색해주세요."
               onChange={e => brands.searchBrand(e.target.value)}
+              value={brands.searchBrandText}
             />
           </div>
           <div className={css.headerAlphabet}>
@@ -83,48 +95,68 @@ class Brand extends Component {
           <div className={css.brand}>
             {brands.selectedLanguage === 'english'
               ? brands.enFilter.map((enbind, enIndex) => {
-                  return (
-                    <Fragment key={enIndex}>
-                      <div id={'brand' + enbind} className={css.languageIndex}>
-                        {enbind}
-                      </div>
-                      {brands.enList[enbind] !== undefined
-                        ? brands.enList[enbind].map((brand, i) => {
-                            return (
-                              <div
-                                key={i}
-                                className={css.languageItem}
-                                onClick={() => this.toSearch(brand.id)}
-                              >
-                                {brand.nameEn}
-                              </div>
-                            );
-                          })
-                        : null}
-                    </Fragment>
-                  );
+                  if (
+                    _.isNil(brands.enList[enbind]) === false &&
+                    brands.enList[enbind].length > 0
+                  )
+                    return (
+                      <Fragment key={enIndex}>
+                        <div
+                          id={`brand${enbind}${
+                            fromHeader === true ? 'fromHeader' : ''
+                          }`}
+                          className={css.languageIndex}
+                        >
+                          {enbind}
+                        </div>
+                        {brands.enList[enbind] !== undefined
+                          ? brands.enList[enbind].map((brand, i) => {
+                              return (
+                                <div
+                                  key={i}
+                                  className={css.languageItem}
+                                  onClick={() => this.toSearch(brand.id)}
+                                >
+                                  {brand.nameEn}
+                                </div>
+                              );
+                            })
+                          : null}
+                      </Fragment>
+                    );
+                  else return null;
                 })
               : brands.koFilter.map((kobind, koIndex) => {
-                  return (
-                    <Fragment key={koIndex}>
-                      <div id={'brand' + kobind} className={css.languageIndex}>
-                        {kobind}
-                      </div>
-                      {brands.koList[kobind] !== undefined
-                        ? brands.koList[kobind].map((brand, i) => {
-                            return (
-                              <div
-                                key={i}
-                                className={css.languageItem}
-                                onClick={() => this.toSearch(brand.id)}
-                              >
-                                {brand.nameKo}
-                              </div>
-                            );
-                          })
-                        : null}
-                    </Fragment>
-                  );
+                  if (
+                    _.isNil(brands.koList[kobind]) === false &&
+                    brands.koList[kobind].length > 0
+                  )
+                    return (
+                      <Fragment key={koIndex}>
+                        <div
+                          id={`brand${kobind}${
+                            fromHeader === true ? 'fromHeader' : ''
+                          }`}
+                          className={css.languageIndex}
+                        >
+                          {kobind}
+                        </div>
+                        {brands.koList[kobind] !== undefined
+                          ? brands.koList[kobind].map((brand, i) => {
+                              return (
+                                <div
+                                  key={i}
+                                  className={css.languageItem}
+                                  onClick={() => this.toSearch(brand.id)}
+                                >
+                                  {brand.nameKo}
+                                </div>
+                              );
+                            })
+                          : null}
+                      </Fragment>
+                    );
+                  else return null;
                 })}
           </div>
         </div>
@@ -137,7 +169,7 @@ class Brand extends Component {
                       [css.selected]: this.state.brandLabel === en,
                     })}
                     key={enIndex}
-                    onClick={() => this.toScroll(en)}
+                    onClick={() => this.toScroll(`${en}`)}
                   >
                     {en}
                   </div>
@@ -150,7 +182,7 @@ class Brand extends Component {
                       [css.selected]: this.state.brandLabel === ko,
                     })}
                     key={koIndex}
-                    onClick={() => this.toScroll(ko)}
+                    onClick={() => this.toScroll(`${ko}`)}
                   >
                     {ko}
                   </div>

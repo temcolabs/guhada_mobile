@@ -132,6 +132,7 @@ export default class BrandsStore {
     this.setBrands(this.brands, selectedBrands);
   };
 
+  @observable searchBrandText = '';
   /**
    * 모바일 브랜드 검색을 위한 function
    */
@@ -140,7 +141,7 @@ export default class BrandsStore {
     let selectedBrands = {};
     let searchText = search;
     var regKorean = /^[\가-\힣+]*$/;
-
+    this.searchBrandText = search;
     function is_hangul_char(ch) {
       let c = ch.charCodeAt(0);
       if (0x1100 <= c && c <= 0x11ff) return true;
