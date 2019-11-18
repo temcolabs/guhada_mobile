@@ -5,7 +5,6 @@ USER=ec2-user
 REPOSITORY=git@github.com:temcolabs/guhada_mobile.git
 BRANCH=master
 DEST_REPO=/home/guhada/web/guhada_mobile
-DEST_APP=/home/ec2-user/guhada_mobile
 
 echo "> git pull && build app"
 cd $DEST_REPO && git remote update --prune && git checkout $BRANCH && git reset --hard $BRANCH && git pull && rm -rf .next && npm install && npm run build
@@ -17,4 +16,4 @@ HOST=$HOST ./scripts/deploy-prod-upload.sh
 
 echo "> delete old build files from build server"
 exit # deploy-prod-upload.sh 스크립트에서 다른 서버에 접속한 상태.
-sh $DEST_APP/scripts/delete-old-builds.sh
+sh $DEST_REPO/scripts/delete-old-builds.sh
