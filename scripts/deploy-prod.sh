@@ -15,6 +15,6 @@ HOST=$HOST ./scripts/deploy-prod-upload.sh
 # 로드 밸런싱을 사용한다면 동시 배포
 # HOST=$HOST1 ./scripts/deploy-prod-upload.sh & HOST=$HOST2 ./scripts/deploy-prod-upload.sh
 
-echo "> git pull && build app"
+echo "> delete old build files from build server"
 exit # deploy-prod-upload.sh 스크립트에서 다른 서버에 접속한 상태.
 sh $DEST_APP/scripts/delete-old-builds.sh
