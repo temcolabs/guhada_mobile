@@ -11,6 +11,7 @@ const loadScript = (
   {
     type = 'text/javascript',
     innerText,
+    innerHTML,
     onLoad = () => {},
     id,
     async = false,
@@ -32,6 +33,10 @@ const loadScript = (
 
     if (innerText) {
       script.innerText = innerText;
+    }
+
+    if (innerHTML) {
+      script.innerHTML = innerHTML;
     }
 
     script.onload = function() {

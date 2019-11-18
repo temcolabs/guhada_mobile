@@ -1,4 +1,4 @@
-import { devLog } from 'lib/devLog';
+import { devLog } from '../../common/devLog';
 import isEmailString from '../../string/isEmailString';
 import detectDevice from '../../common/detectDevice';
 import loadScript, { scriptIds } from '../../common/loadScript';
@@ -18,23 +18,6 @@ const getDeviceType = () => {
 
 // 크리테오 계정 아이디
 const CRITEO_ACCOUNT_ID = 65280;
-
-const getIsProdHost = () => {
-  if (isBrowser) {
-    const { isTablet, isMobile } = detectDevice();
-    const hostname = window.location.hostname;
-
-    return isTablet || isMobile
-      ? // 모바일 prod 호스트 확인
-        hostname === 'm.guhada.com'
-      : // 데스크탑 prod 호스트
-        hostname === 'www.guhada.com' ||
-          hostname === 'web.guhada.com' ||
-          hostname === 'guhada.com';
-  } else {
-    return false;
-  }
-};
 
 /**
  * 제품 아이디는 문자열이어야 한다.

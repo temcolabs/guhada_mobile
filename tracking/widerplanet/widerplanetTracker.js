@@ -1,9 +1,7 @@
-import { devLog } from 'lib/devLog';
-import isEmailString from '../../string/isEmailString';
+import { devLog } from '../../common/devLog';
 import detectDevice from '../../common/detectDevice';
 import { isBrowser } from '../../common/isServer';
 import loadScript, { scriptIds } from '../../common/loadScript';
-import getIsProdHost from '../getIsProdHost';
 
 /**
  * http://tg.widerplanet.com/track/manual.php
@@ -57,18 +55,20 @@ export default {
 * 공통 태그는 타 태그(아이템, 장바구니, 구매완료, 전환 완료)보다 하단에 위치하여야 합니다.
    */
   common: ({ userId } = {}) => {
+    console.log(`userId`, userId);
+
     if (isBrowser) {
       loadScript(null, {
         id: scriptIds.WIDERPLANET_TRACKER + '_common_conversion',
         async: false,
-        innerText: `
+        innerHTML: `
             var wptg_tagscript_vars = wptg_tagscript_vars || [];
             wptg_tagscript_vars.push(function() {
               return {
                 /*고객넘버 등 Unique ID (ex. 로그인  ID, 고객넘버 등 )를 암호화하여 대입. *주의 : 로그인 하지 않은 사용자는 어떠한 값도 대입하지 않습니다.*/
-                wp_hcuid: ${userId || ''},
+                wp_hcuid: ${userId},
                 ti: ${ACCOUNT_ID} /*광고주 코드 */,
-                ty: 'Home' /*트래킹태그 타입 */,
+                ty: "Home" /*트래킹태그 타입 */,
                 device: "${getDeviceType()}" /*디바이스 종류  (web 또는  mobile)*/,
               };
             });
@@ -91,7 +91,7 @@ export default {
       loadScript(null, {
         id: scriptIds.WIDERPLANET_TRACKER + '_producdetail_conversion',
         async: false,
-        innerText: `
+        innerHTML: `
             var wptg_tagscript_vars = wptg_tagscript_vars || [];
             wptg_tagscript_vars.push(
             (function() {
@@ -125,7 +125,7 @@ export default {
       loadScript(null, {
         id: scriptIds.WIDERPLANET_TRACKER + '_cart_conversion',
         async: false,
-        innerText: `
+        innerHTML: `
             var wptg_tagscript_vars = wptg_tagscript_vars || [];
             wptg_tagscript_vars.push(
             (function() {
@@ -162,7 +162,7 @@ export default {
       loadScript(null, {
         id: scriptIds.WIDERPLANET_TRACKER + '_purchase_complete_conversion',
         async: false,
-        innerText: `
+        innerHTML: `
             var wptg_tagscript_vars = wptg_tagscript_vars || [];
             wptg_tagscript_vars.push(
             (function() {

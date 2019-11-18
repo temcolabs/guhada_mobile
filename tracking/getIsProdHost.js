@@ -1,4 +1,4 @@
-import { detectDevice } from '../common/detectDevice';
+import detectDevice from '../common/detectDevice';
 import { isBrowser } from '../common/isServer';
 
 const getIsProdHost = () => {
