@@ -1,0 +1,6 @@
+.next
+.vscode
+.DS_Store
+static
+build
+node_modules
