@@ -55,7 +55,7 @@ export default {
 * 공통 태그는 타 태그(아이템, 장바구니, 구매완료, 전환 완료)보다 하단에 위치하여야 합니다.
    */
   common: ({ userId } = {}) => {
-    console.log(`userId`, userId);
+    devLog(`[widerplanet tracker] userId`, userId);
 
     if (isBrowser) {
       loadScript(null, {
