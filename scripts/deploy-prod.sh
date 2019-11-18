@@ -7,10 +7,14 @@ BRANCH=master
 DEST_REPO=/home/guhada/web/guhada_mobile
 DEST_APP=/home/ec2-user/guhada_mobile
 
-echo "[git pull && build app]"
+echo "> git pull && build app"
 cd $DEST_REPO && git remote update --prune && git checkout $BRANCH && git reset --hard $BRANCH && git pull && rm -rf .next && npm install && npm run build
 
 HOST=$HOST ./scripts/deploy-prod-upload.sh
 
 # 로드 밸런싱을 사용한다면 동시 배포
 # HOST=$HOST1 ./scripts/deploy-prod-upload.sh & HOST=$HOST2 ./scripts/deploy-prod-upload.sh
+
+echo "> git pull && build app"
+exit # deploy-prod-upload.sh 스크립트에서 다른 서버에 접속한 상태.
+sh $DEST_APP/scripts/delete-old-builds.sh
