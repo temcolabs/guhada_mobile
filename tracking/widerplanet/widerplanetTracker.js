@@ -47,6 +47,14 @@ const getDeviceType = () => {
   return deviceType;
 };
 
+const convertUserIdForTracker = userId => {
+  return !!userId ? `"${userId}"` : `""`;
+};
+
+/**
+ * 아래의 엘레멘트가 스크립트 태그 위에 있어야 한다.
+ * <div id="wp_tg_cts" style={{ display: 'none' }}></div>
+ */
 export default {
   /**
    * 공통 (쇼핑몰, 일반 사이트)
@@ -55,19 +63,19 @@ export default {
 * 공통 태그는 타 태그(아이템, 장바구니, 구매완료, 전환 완료)보다 하단에 위치하여야 합니다.
    */
   common: ({ userId } = {}) => {
-    devLog(`[widerplanet tracker] userId`, userId);
+    devLog(`[widerplanet - common] userId`, userId);
 
     if (isBrowser) {
       loadScript(null, {
-        id: scriptIds.WIDERPLANET_TRACKER + '_common_conversion',
+        id: scriptIds.WIDERPLANET_TRACKER + `COMMON_CONVERSION_${+new Date()}`,
         async: false,
         innerHTML: `
             var wptg_tagscript_vars = wptg_tagscript_vars || [];
             wptg_tagscript_vars.push(function() {
               return {
                 /*고객넘버 등 Unique ID (ex. 로그인  ID, 고객넘버 등 )를 암호화하여 대입. *주의 : 로그인 하지 않은 사용자는 어떠한 값도 대입하지 않습니다.*/
-                wp_hcuid: ${userId},
-                ti: ${ACCOUNT_ID} /*광고주 코드 */,
+                wp_hcuid: ${convertUserIdForTracker(userId)},
+                ti: "${ACCOUNT_ID}" /*광고주 코드 */,
                 ty: "Home" /*트래킹태그 타입 */,
                 device: "${getDeviceType()}" /*디바이스 종류  (web 또는  mobile)*/,
               };
@@ -87,20 +95,23 @@ export default {
     상품 상세페이지 하단에 삽입하신 후 '상품 ID', '상품명' 변수를 'i', 't'에 대입합니다.
    */
   productDetail: ({ userId, items = [] } = {}) => {
-    devLog(`[widerplanet tracker] userId, items`, userId, items);
+    devLog(`[widerplanet - productDetail] userId, items`, userId, items);
 
     if (isBrowser) {
       loadScript(null, {
-        id: scriptIds.WIDERPLANET_TRACKER + '_producdetail_conversion',
+        id:
+          scriptIds.WIDERPLANET_TRACKER +
+          `PRODUCDETAIL_CONVERSION_${+new Date()}`,
         async: false,
+        replaceExitsing: true,
         innerHTML: `
             var wptg_tagscript_vars = wptg_tagscript_vars || [];
             wptg_tagscript_vars.push(
             (function() {
               return {
                 /* 고객넘버 등 Unique ID (ex. 로그인  ID, 고객넘버 등 )를 암호화하여 대입. *주의 : 로그인 하지 않은 사용자는 어떠한 값도 대입하지 않습니다.*/
-                wp_hcuid: ${userId},
-                ti: ${ACCOUNT_ID},
+                wp_hcuid: ${convertUserIdForTracker(userId)},
+                ti: "${ACCOUNT_ID}" /*광고주 코드 */,
                 ty: "Item",
                 device: "${getDeviceType()}",
                 items: ${JSON.stringify(items)},
@@ -113,16 +124,17 @@ export default {
       loadScript(WIDER_PLANET_TRACKER_URL, {
         async: true,
         id: scriptIds.WIDERPLANET_TRACKER,
+        replaceExitsing: true,
       });
     }
   },
 
   /**
    * 장바구니 (쇼핑몰)
-상품 리스트가 나오는 장바구니 페이지에 삽입합니다.
-
+    상품 리스트가 나오는 장바구니 페이지에 삽입합니다.
    */
   cart: ({ userId, items = [] } = {}) => {
+    devLog(`[widerplanet - cart] userId, items`, userId, items);
     if (isBrowser) {
       loadScript(null, {
         id: scriptIds.WIDERPLANET_TRACKER + '_cart_conversion',
@@ -132,9 +144,9 @@ export default {
             wptg_tagscript_vars.push(
             (function() {
               return {
-                wp_hcuid: ${userId},
+                wp_hcuid: ${convertUserIdForTracker(userId)},
                 /*고객넘버 등 Unique ID (ex. 로그인  ID, 고객넘버 등 )를 암호화하여 대입. *주의 : 로그인 하지 않은 사용자는 어떠한 값도 대입하지 않습니다.*/
-                ti:${ACCOUNT_ID},
+                ti: "${ACCOUNT_ID}" /*광고주 코드 */,
                 ty:"Cart",
                 device:"${getDeviceType()}",
                 items: ${JSON.stringify(items)},
@@ -160,6 +172,13 @@ export default {
 (구매 완료 페이지가 존재하지 않고 완료 메시지 창을 띄운 후 다른 페이지로 이동해버리는 경우 전환 완료 트래킹 태그를 설치하여야 합니다.)
    */
   purchaseComplete: ({ userId, dealId, items } = {}) => {
+    devLog(
+      `[widerplanet - purchaseComplete] userId, dealId, items`,
+      userId,
+      dealId,
+      items
+    );
+
     if (isBrowser) {
       loadScript(null, {
         id: scriptIds.WIDERPLANET_TRACKER + '_purchase_complete_conversion',
@@ -169,9 +188,9 @@ export default {
             wptg_tagscript_vars.push(
             (function() {
               return {
-                wp_hcuid: ${userId},
+                wp_hcuid: ${convertUserIdForTracker(userId)},
                 /*고객넘버 등 Unique ID (ex. 로그인  ID, 고객넘버 등 )를 암호화하여 대입. *주의 : 로그인 하지 않은 사용자는 어떠한 값도 대입하지 않습니다.*/
-                ti:${ACCOUNT_ID},
+                ti: "${ACCOUNT_ID}" /*광고주 코드 */,
                 ty:"PurchaseComplete",
                 device:"${getDeviceType()}",
                 items: ${JSON.stringify(items)},
