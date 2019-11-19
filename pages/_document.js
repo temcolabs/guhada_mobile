@@ -97,6 +97,9 @@ class MyDocument extends Document {
             }}
           />
           {/* AceCounter Mobile Gathering Script End */}
+
+          {/* widerplanet */}
+          <div id="wp_tg_cts" style={{ display: 'none' }} />
         </body>
       </Html>
     );
