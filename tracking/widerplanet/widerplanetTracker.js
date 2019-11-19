@@ -101,7 +101,7 @@ export default {
       loadScript(null, {
         id:
           scriptIds.WIDERPLANET_TRACKER +
-          `PRODUCDETAIL_CONVERSION_${+new Date()}`,
+          `_PRODUCDETAIL_CONVERSION_${+new Date()}`,
         async: false,
         replaceExitsing: true,
         innerHTML: `
@@ -137,7 +137,7 @@ export default {
     devLog(`[widerplanet - cart] userId, items`, userId, items);
     if (isBrowser) {
       loadScript(null, {
-        id: scriptIds.WIDERPLANET_TRACKER + '_cart_conversion',
+        id: scriptIds.WIDERPLANET_TRACKER + `_CART_CONVERSION_${+new Date()}`,
         async: false,
         innerHTML: `
             var wptg_tagscript_vars = wptg_tagscript_vars || [];
@@ -162,26 +162,28 @@ export default {
       loadScript(WIDER_PLANET_TRACKER_URL, {
         async: true,
         id: scriptIds.WIDERPLANET_TRACKER,
+        replaceExitsing: true,
       });
     }
   },
 
   /**
    * 구매완료 (쇼핑몰)
-구매한 상품 개수만큼 ',{i:"상품ID", t:"상품명", p:"단가", q:"수량"}' 을 동적으로 생성해주셔야 하며, i, t, p, q 각각의 값에 해당 변수를 대입합니다.
-(구매 완료 페이지가 존재하지 않고 완료 메시지 창을 띄운 후 다른 페이지로 이동해버리는 경우 전환 완료 트래킹 태그를 설치하여야 합니다.)
+    구매한 상품 개수만큼 ',{i:"상품ID", t:"상품명", p:"단가", q:"수량"}' 을 동적으로 생성해주셔야 하며, i, t, p, q 각각의 값에 해당 변수를 대입합니다.
+    (구매 완료 페이지가 존재하지 않고 완료 메시지 창을 띄운 후 다른 페이지로 이동해버리는 경우 전환 완료 트래킹 태그를 설치하여야 합니다.)
    */
-  purchaseComplete: ({ userId, dealId, items } = {}) => {
+  purchaseComplete: ({ userId, items } = {}) => {
     devLog(
       `[widerplanet - purchaseComplete] userId, dealId, items`,
       userId,
-      dealId,
       items
     );
 
     if (isBrowser) {
       loadScript(null, {
-        id: scriptIds.WIDERPLANET_TRACKER + '_purchase_complete_conversion',
+        id:
+          scriptIds.WIDERPLANET_TRACKER +
+          `_PURCHASE_COMPLETE_CONVERSION+${+new Date()}`,
         async: false,
         innerHTML: `
             var wptg_tagscript_vars = wptg_tagscript_vars || [];
@@ -206,6 +208,7 @@ export default {
       loadScript(WIDER_PLANET_TRACKER_URL, {
         async: true,
         id: scriptIds.WIDERPLANET_TRACKER,
+        replaceExitsing: true,
       });
     }
   },
