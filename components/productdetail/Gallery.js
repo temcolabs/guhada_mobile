@@ -4,7 +4,7 @@ import css from './Gallery.module.scss';
 
 import Slider from 'react-slick';
 
-@inject('productdetail', 'productDetailGallery')
+@inject('productdetail', 'productDetailGallery', 'productDetailBookmark')
 @observer
 class Gallery extends Component {
   state = {
@@ -15,7 +15,7 @@ class Gallery extends Component {
   }
 
   render() {
-    let { productdetail } = this.props;
+    let { productdetail, productDetailBookmark } = this.props;
     let settings = {
       dots: false,
       infinite: true,
@@ -43,6 +43,28 @@ class Gallery extends Component {
             productdetail.deals.imageUrls.length
           } `}
         </div>
+
+        {productDetailBookmark.bookMarkAdd === 'on' ? (
+          <div className={css.bookmark}>
+            <i
+              style={{
+                backgroundImage: `url('/static/icon/bookmark-w-btn-on@3x.png')`,
+              }}
+            />
+            <p className={css.text}>북마크 완료</p>
+          </div>
+        ) : null}
+
+        {productDetailBookmark.bookMarkAdd === 'off' ? (
+          <div className={css.bookmark}>
+            <i
+              style={{
+                backgroundImage: `url('/static/icon/bookmark-w-btn-off@3x.png')`,
+              }}
+            />
+            <p className={css.text}>북마크 해제</p>
+          </div>
+        ) : null}
       </div>
     );
   }

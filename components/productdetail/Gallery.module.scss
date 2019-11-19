@@ -30,4 +30,46 @@
     font-weight: 500;
     letter-spacing: 1px;
   }
+
+  .bookmark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 110px;
+    height: 110px;
+    background-color: rgba(92, 35, 209, 0.8);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation-name: bookmark;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-delay: 0s;
+
+    i {
+      display: block;
+      width: 36px;
+      height: 36px;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      margin: 22px 0 0 37px;
+    }
+
+    .text {
+      text-align: center;
+      margin-top: 10px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
+}
+@keyframes bookmark {
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
