@@ -67,7 +67,7 @@ export default {
 
     if (isBrowser) {
       loadScript(null, {
-        id: scriptIds.WIDERPLANET_TRACKER + `COMMON_CONVERSION_${+new Date()}`,
+        id: scriptIds.WIDERPLANET_TRACKER + `COMMON_CONVERSION`,
         async: false,
         innerHTML: `
             var wptg_tagscript_vars = wptg_tagscript_vars || [];
@@ -80,12 +80,16 @@ export default {
                 device: "${getDeviceType()}" /*디바이스 종류  (web 또는  mobile)*/,
               };
             });
+            wptg_tagscript_exec_auto = false;
           `,
       });
 
       loadScript(WIDER_PLANET_TRACKER_URL, {
         async: true,
         id: scriptIds.WIDERPLANET_TRACKER,
+        onLoad: () => {
+          wptg_tagscript.exec();
+        },
       });
     }
   },
@@ -99,9 +103,7 @@ export default {
 
     if (isBrowser) {
       loadScript(null, {
-        id:
-          scriptIds.WIDERPLANET_TRACKER +
-          `_PRODUCDETAIL_CONVERSION_${+new Date()}`,
+        id: scriptIds.WIDERPLANET_TRACKER + `_PRODUCDETAIL_CONVERSION`,
         async: false,
         replaceExitsing: true,
         innerHTML: `
@@ -118,13 +120,16 @@ export default {
                 // items:[{i:"상품 ID",	t:"상품명 "}] /* i:<상품 식별번호  (Feed로 제공되는 상품코드와 일치하여야 합니다 .) t:상품명  */
               };
             }));
+            wptg_tagscript_exec_auto = false;
           `,
       });
 
       loadScript(WIDER_PLANET_TRACKER_URL, {
         async: true,
         id: scriptIds.WIDERPLANET_TRACKER,
-        replaceExitsing: true,
+        onLoad: () => {
+          wptg_tagscript.exec();
+        },
       });
     }
   },
@@ -137,8 +142,9 @@ export default {
     devLog(`[widerplanet - cart] userId, items`, userId, items);
     if (isBrowser) {
       loadScript(null, {
-        id: scriptIds.WIDERPLANET_TRACKER + `_CART_CONVERSION_${+new Date()}`,
+        id: scriptIds.WIDERPLANET_TRACKER + `_CART_CONVERSION`,
         async: false,
+        replaceExitsing: true,
         innerHTML: `
             var wptg_tagscript_vars = wptg_tagscript_vars || [];
             wptg_tagscript_vars.push(
@@ -156,13 +162,16 @@ export default {
                 // ]
               };
             }));
+            wptg_tagscript_exec_auto = false;
           `,
       });
 
       loadScript(WIDER_PLANET_TRACKER_URL, {
         async: true,
         id: scriptIds.WIDERPLANET_TRACKER,
-        replaceExitsing: true,
+        onLoad: () => {
+          wptg_tagscript.exec();
+        },
       });
     }
   },
@@ -181,10 +190,9 @@ export default {
 
     if (isBrowser) {
       loadScript(null, {
-        id:
-          scriptIds.WIDERPLANET_TRACKER +
-          `_PURCHASE_COMPLETE_CONVERSION+${+new Date()}`,
+        id: scriptIds.WIDERPLANET_TRACKER + `_PURCHASE_COMPLETE_CONVERSION`,
         async: false,
+        replaceExitsing: true,
         innerHTML: `
             var wptg_tagscript_vars = wptg_tagscript_vars || [];
             wptg_tagscript_vars.push(
@@ -202,13 +210,16 @@ export default {
                 // ]
               };
             }));
+            wptg_tagscript_exec_auto = false;
           `,
       });
 
       loadScript(WIDER_PLANET_TRACKER_URL, {
         async: true,
         id: scriptIds.WIDERPLANET_TRACKER,
-        replaceExitsing: true,
+        onLoad: () => {
+          wptg_tagscript.exec();
+        },
       });
     }
   },
