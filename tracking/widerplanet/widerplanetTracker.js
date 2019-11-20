@@ -1,7 +1,7 @@
 import { devLog } from '../../common/devLog';
 import detectDevice from '../../common/detectDevice';
 import { isBrowser } from '../../common/isServer';
-import loadScript, { scriptIds } from '../../common/loadScript';
+import loadScript, { scriptIds } from '../../dom/loadScript';
 
 /**
  * http://tg.widerplanet.com/track/manual.php
@@ -62,6 +62,48 @@ export default {
 (footer 또는 bottom 과 같은 이름의 파일이며, index 파일 또는 main 파일에서 include 되는 파일입니다.)
 * 공통 태그는 타 태그(아이템, 장바구니, 구매완료, 전환 완료)보다 하단에 위치하여야 합니다.
    */
+  signUp: ({ userId } = {}) => {
+    devLog(`[widerplanet - Join] userId, items`, userId);
+
+    if (isBrowser) {
+      loadScript(null, {
+        id: scriptIds.WIDERPLANET_TRACKER + `_JOIN_COMPLETE_CONVERSION`,
+        async: false,
+        replaceExitsing: true,
+        innerHTML: `
+            var wptg_tagscript_vars = wptg_tagscript_vars || [];
+            wptg_tagscript_vars.push(
+            (function() {
+                return {
+                    wp_hcuid: ${convertUserIdForTracker(
+                      userId
+                    )},  /*고객넘버 등 Unique ID (ex. 로그인  ID, 고객넘버 등 )를 암호화하여 대입.
+                                *주의 : 로그인 하지 않은 사용자는 어떠한 값도 대입하지 않습니다.*/
+                    ti: "${ACCOUNT_ID}" /*광고주 코드 */,
+                    ty:"Join",                        /*트래킹태그 타입 */
+                    device: "${getDeviceType()}" /*디바이스 종류  (web 또는  mobile)*/,
+                    items:[{
+                        i:"회원 가입",          /*전환 식별 코드  (한글 , 영어 , 번호 , 공백 허용 )*/
+                        t:"회원 가입",          /*전환명  (한글 , 영어 , 번호 , 공백 허용 )*/
+                        p:"1",                   /*전환가격  (전환 가격이 없을 경우 1로 설정 )*/
+                        q:"1"                   /*전환수량  (전환 수량이 고정적으로 1개 이하일 경우 1로 설정 )*/
+                    }]
+                };
+            }));
+            wptg_tagscript_exec_auto = false;
+          `,
+      });
+
+      loadScript(WIDER_PLANET_TRACKER_URL, {
+        async: true,
+        id: scriptIds.WIDERPLANET_TRACKER,
+        onLoad: () => {
+          wptg_tagscript.exec();
+        },
+      });
+    }
+  },
+
   common: ({ userId } = {}) => {
     devLog(`[widerplanet - common] userId`, userId);
 
