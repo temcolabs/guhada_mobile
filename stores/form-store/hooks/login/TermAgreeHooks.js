@@ -4,7 +4,7 @@ import { root } from 'store';
 import { snsTypes } from 'constant/sns';
 import { devLog } from 'childs/lib/common/devLog';
 import daumTrakers from 'childs/lib/tracking/daum/daumTrakers';
-import naverShoppingTrakers from 'lib/tracking/navershopping/naverShoppingTrakers';
+import naverShoppingTrakers from 'childs/lib/tracking/navershopping/naverShoppingTrakers';
 export default {
   onInit() {},
 

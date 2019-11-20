@@ -10,7 +10,7 @@ import key from 'childs/lib/constant/key';
 import { isBrowser } from 'childs/lib/common/isServer';
 import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
 import daumTrakers from 'childs/lib/tracking/daum/daumTrakers';
-import naverShoppingTrakers from 'lib/tracking/navershopping/naverShoppingTrakers';
+import naverShoppingTrakers from 'childs/lib/tracking/navershopping/naverShoppingTrakers';
 
 @inject('orderpaymentsuccess', 'user')
 @observer
