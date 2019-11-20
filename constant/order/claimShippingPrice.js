@@ -1,4 +1,4 @@
-import { arrayToEnum } from 'lib/arrayToObject';
+import { arrayToEnum } from 'childs/lib/common/arrayToObject';
 
 // 교환반품 배송비 옵션
 const claimShippingPrice = {
