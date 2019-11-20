@@ -99,7 +99,13 @@ class MarketPlatform extends App {
         if (Cookies.get(key.ACCESS_TOKEN)) {
           // 회원정보 가져와서 실행
           this.mobxStore.user.pushJobForUserInfo(userInfo => {
+            // 공통
             widerplanetTracker.common({
+              userId: userInfo?.id,
+            });
+
+            // 로그인
+            widerplanetTracker.signIn({
               userId: userInfo?.id,
             });
           });
