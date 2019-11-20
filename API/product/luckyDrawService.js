@@ -20,15 +20,4 @@ export default {
       dealId,
     });
   },
-
-  /**
-   * 당첨자 확인
-   */
-  requestLuckyDraws: ({ dealId }) => {
-    return API.product.post(`/lucky-draws/winner-check/`, {
-      params: {
-        dealId,
-      },
-    });
-  },
 };
