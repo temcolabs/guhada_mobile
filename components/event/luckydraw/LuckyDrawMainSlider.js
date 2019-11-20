@@ -46,28 +46,27 @@ export default function LuckyDrawMainSlider({ imageList = [] }) {
     [currentIndex, imageList.length, isInTransition]
   );
 
-  const handleClickSlideIndex = useCallback(
-    index => {
-      showNextSlide(index);
-    },
-    [showNextSlide]
-  );
+  const handleClickSlideIndex = useCallback(index => {
+    setIndex(index);
+  }, []);
 
-  const handleDragStart = useCallback(e => {
+  const handleTouchStartSlideImage = useCallback(e => {
     setTouchStartX(e.touches[0]?.pageX);
   }, []);
 
-  const handleDragEnd = useCallback(e => {
-    const currentX = e.changedTouches[0]?.pageX;
-    const isRight = currentX < touchStartX;
-    const isLeft = currentX >= touchStartX;
+  const handleTouchEndSlideImage = useCallback(
+    e => {
+      const currentX = e.changedTouches[0]?.pageX;
+      const isSwipeLeft = currentX <= touchStartX;
 
-    if (isRight) {
-      showNextSlide();
-    } else if (isLeft) {
-      showPrevSlide();
-    }
-  }, []);
+      if (isSwipeLeft) {
+        showNextSlide();
+      } else {
+        showPrevSlide();
+      }
+    },
+    [showNextSlide, showPrevSlide, touchStartX]
+  );
 
   useEffect(() => {
     setIndex(0);
@@ -125,8 +124,8 @@ export default function LuckyDrawMainSlider({ imageList = [] }) {
                       style={{
                         backgroundImage: `url(${imageData.titleImageUrl})`,
                       }}
-                      onTouchStart={handleDragStart}
-                      onTouchEnd={handleDragEnd}
+                      onTouchStart={handleTouchStartSlideImage}
+                      onTouchEnd={handleTouchEndSlideImage}
                     />
                   );
                 }}

@@ -29,25 +29,32 @@ stories.add('LuckydrawTimer', () => {
 });
 
 stories.add('LuckyDrawMainSlider', () => {
+  const dateLong = 1577764800000; // 2019-12-31 13:00
+  const oneDay = 60 * 60 * 24;
+  const data = Array(11)
+    .fill('')
+    .map((_, index) => {
+      if (index % 2 === 0) {
+        return {
+          titleImageUrl:
+            'https://d3ikprf0m31yc7.cloudfront.net/deals/luckydraw/13726240b865439b9bbe6d24c9f1efa5.png',
+          requestFromAt: dateLong,
+          title:
+            '[변경금지] 럭키드로우 테스트 상품2 [변경금지] 럭키드로우 테스트 상품2[변경금지] 럭키드로우 테스트 상품2[변경금지] 럭키드로우 테스트 상품2',
+        };
+      } else {
+        return {
+          titleImageUrl:
+            'https://d3ikprf0m31yc7.cloudfront.net/deals/luckydraw/1be64799a7f9467d9907f78ced68bae9.png',
+          requestFromAt: dateLong + oneDay,
+          title: '럭키드로우 테스트 상품3',
+        };
+      }
+    });
+
   return (
     <div style={{ marginTop: '150px' }}>
-      <LuckyDrawMainSlider
-        imageList={[
-          {
-            titleImageUrl:
-              'https://d3ikprf0m31yc7.cloudfront.net/deals/luckydraw/13726240b865439b9bbe6d24c9f1efa5.png',
-            requestFromAt: 1573538400000,
-            title:
-              '럭키드로우 테스트 상품인데 이름이 겁나게 길어서 문제가 될거라고 생각하지 못하였느냐???? 럭키드로우 테스트 상품인데 이름이 겁나게 길어서 문제가 될거라고 생각하지 못하였느냐????',
-          },
-          {
-            titleImageUrl:
-              'https://d3ikprf0m31yc7.cloudfront.net/deals/luckydraw/1be64799a7f9467d9907f78ced68bae9.png',
-            requestFromAt: 1573797600000,
-            title: '[변경금지] 럭키드로우 테스트 상품3',
-          },
-        ]}
-      />
+      <LuckyDrawMainSlider imageList={data} />
     </div>
   );
 });
