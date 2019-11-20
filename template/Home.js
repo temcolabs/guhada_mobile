@@ -15,6 +15,7 @@ import Footer from 'components/footer/Footer';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
 import { pushRoute } from 'lib/router';
 import _ from 'lodash';
+import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
 
 @withScrollToTopOnMount
 @withRouter
@@ -51,11 +52,16 @@ class Home extends React.Component {
     if (query.home) {
       pushRoute('/');
     }
+
+    // 회원가입 성공 모달 표시
     if (query.signupsuccess) {
       this.setState({
         signupModal: true,
         email: query.email,
       });
+
+      // 회원가입 전환. 로그인한 상태가 아니어서 유저 아이디를 전달할 수 없다.
+      widerplanetTracker.signUp({});
     }
     window.addEventListener('scroll', this.scrollDirection);
   }
