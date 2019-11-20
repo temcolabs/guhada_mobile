@@ -2,7 +2,7 @@ import Form from '../../../_.forms';
 import _ from 'lodash';
 import API from 'childs/lib/API';
 import { root } from 'store';
-import { devLog } from 'lib/devLog';
+import { devLog } from 'childs/lib/common/devLog';
 import userService from 'lib/API/user/userService';
 import notificationService from 'lib/API/user/notificationService';
 import verifyService from 'lib/API/user/verifyService';

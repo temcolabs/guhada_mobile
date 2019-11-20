@@ -1,10 +1,10 @@
 import { observable, action, toJS } from 'mobx';
 import API from 'childs/lib/API';
-import { isBrowser } from 'lib/isServer';
+import { isBrowser } from 'childs/lib/common/isServer';
 import { getUserAgent } from '../../utils';
 import { dateFormat } from 'constant/date';
 import moment from 'moment';
-import { devLog } from 'lib/devLog';
+import { devLog } from 'childs/lib/common/devLog';
 
 export default class MypagePointChargeStore {
   constructor(root) {

@@ -3,7 +3,7 @@ import Axios from 'axios';
 import API from 'childs/lib/API';
 import { pushRoute } from 'lib/router';
 import _ from 'lodash';
-import { devLog } from 'lib/devLog';
+import { devLog } from 'childs/lib/common/devLog';
 import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
 import Cookies from 'js-cookie';
 import key from 'childs/lib/constant/key';

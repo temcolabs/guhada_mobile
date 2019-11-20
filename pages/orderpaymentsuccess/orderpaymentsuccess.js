@@ -9,7 +9,7 @@ import Cookies from 'js-cookie';
 import key from 'childs/lib/constant/key';
 import { isBrowser } from 'childs/lib/common/isServer';
 import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
-import daumTrakers from 'lib/tracking/daum/daumTrakers';
+import daumTrakers from 'childs/lib/tracking/daum/daumTrakers';
 import naverShoppingTrakers from 'lib/tracking/navershopping/naverShoppingTrakers';
 
 @inject('orderpaymentsuccess', 'user')

@@ -1,6 +1,6 @@
 import { observable, action } from 'mobx';
 import Router from 'next/router';
-import sessionStorage from 'lib/sessionStorage';
+import sessionStorage from 'childs/lib/common/sessionStorage';
 
 export default class RouteHistoryStore {
   @observable urls = [];

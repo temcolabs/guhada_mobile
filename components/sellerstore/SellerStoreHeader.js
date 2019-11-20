@@ -3,7 +3,7 @@ import css from './SellerStoreHeader.module.scss';
 import cn from 'classnames';
 import { loginStatus } from 'constant';
 import { useObserver } from 'mobx-react-lite';
-import checkNullAndEmpty from 'lib/checkNullAndEmpty';
+import checkNullAndEmpty from 'childs/lib/common/checkNullAndEmpty';
 export default function SellerStoreHeader({
   sellerStore = {
     badSatisfactionCount: 0,

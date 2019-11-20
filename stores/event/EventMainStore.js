@@ -1,8 +1,8 @@
 import { observable, action, toJS } from 'mobx';
-import { isBrowser } from 'lib/isServer';
+import { isBrowser } from 'childs/lib/common/isServer';
 import API from 'childs/lib/API';
-import { devLog } from 'lib/devLog';
-import { isIOS, isAndroid } from 'lib/detectMobileEnv';
+import { devLog } from 'childs/lib/common/devLog';
+import { isIOS, isAndroid } from 'childs/lib/common/detectMobileEnv';
 export default class EventMainStore {
   constructor(root) {
     if (isBrowser) {

@@ -8,7 +8,7 @@ module.exports = debouncePromise(() => {
       method: 'get',
       timeout: 1000,
     })
-    .then(res => {
+  .then(res => {
       const { data } = res;
       const countryCode = data.countryCode;
       return countryCode;

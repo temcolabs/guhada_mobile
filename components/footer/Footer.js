@@ -1,6 +1,7 @@
 import React from 'react';
 import css from './Footer.module.scss';
-import { openPopupCenter } from 'lib/dom';
+import openPopupCenter from 'childs/lib/common/openPopupCenter';
+
 export default function Footer() {
   return (
     <div className={css.wrap}>

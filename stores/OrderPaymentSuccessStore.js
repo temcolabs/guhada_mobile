@@ -2,7 +2,7 @@ import { observable, action, toJS } from 'mobx';
 import API from 'childs/lib/API';
 import Router from 'next/router';
 import moment from 'moment';
-import { devLog } from 'lib/devLog';
+import { devLog } from 'childs/lib/common/devLog';
 
 const isServer = typeof window === 'undefined';
 export default class OrderPaymentStore {

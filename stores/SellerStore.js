@@ -1,8 +1,8 @@
 import { observable, action, computed, toJS } from 'mobx';
 import API from 'childs/lib/API';
-import { devLog } from 'lib/devLog';
+import { devLog } from 'childs/lib/common/devLog';
 import bookmarkTarget from 'constant/user/bookmarkTarget';
-import { isBrowser } from 'lib/isServer';
+import { isBrowser } from 'childs/lib/common/isServer';
 import _ from 'lodash';
 import { loginStatus } from 'constant/';
 

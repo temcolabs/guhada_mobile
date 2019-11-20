@@ -1,7 +1,7 @@
 import Form from 'stores/form-store/_.forms';
 import API from 'childs/lib/API';
 import _ from 'lodash';
-import { devLog } from 'lib/devLog';
+import { devLog } from 'childs/lib/common/devLog';
 import { root } from 'store';
 
 export default {

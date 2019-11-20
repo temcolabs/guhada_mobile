@@ -4,9 +4,9 @@ import API from 'childs/lib/API';
 import Router from 'next/router';
 import { sendBackToLogin } from 'lib/router';
 import qs from 'qs';
-import { devLog } from 'lib/devLog';
+import { devLog } from 'childs/lib/common/devLog';
 import naverShoppingTrakers from 'lib/tracking/navershopping/naverShoppingTrakers';
-import daumTrakers from 'lib/tracking/daum/daumTrakers';
+import daumTrakers from 'childs/lib/tracking/daum/daumTrakers';
 import criteoTracker from 'childs/lib/tracking/criteo/criteoTracker';
 import _ from 'lodash';
 

@@ -15,7 +15,6 @@ import Footer from 'components/footer/Footer';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
 import { pushRoute } from 'lib/router';
 import _ from 'lodash';
-import scrollDirection from 'lib/scrollDirection';
 
 @withScrollToTopOnMount
 @withRouter

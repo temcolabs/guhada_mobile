@@ -1,10 +1,10 @@
 import { observable, action, toJS } from 'mobx';
 import API from 'childs/lib/API';
 const isServer = typeof window === 'undefined';
-import { isBrowser } from 'lib/isServer';
+import { isBrowser } from 'childs/lib/common/isServer';
 import { dateFormat } from 'constant/date';
 import moment from 'moment';
-import { devLog } from 'lib/devLog';
+import { devLog } from 'childs/lib/common/devLog';
 import { getParameterByName } from 'utils';
 
 export default class MypagePointStore {

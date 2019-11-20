@@ -6,7 +6,7 @@ import qs from 'qs';
 import { getParameterByName } from '../../utils';
 import Router from 'next/router';
 import { HOSTNAME } from 'constant/hostname';
-import { devLog } from 'lib/devLog';
+import { devLog } from 'childs/lib/common/devLog';
 const isServer = typeof window === 'undefined';
 export default class OrderPaymentStore {
   constructor(root) {

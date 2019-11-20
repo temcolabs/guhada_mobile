@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import css from './LoginCheckBox.module.scss';
 import cn from 'classnames';
 import { observer } from 'mobx-react';
-import { openPopupCenter } from 'lib/dom';
+import openPopupCenter from 'childs/lib/common/openPopupCenter';
 
 @observer
 class LoginCheckBox extends Component {

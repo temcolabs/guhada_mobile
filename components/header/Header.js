@@ -5,15 +5,11 @@ import css from './Header.module.scss';
 import HeaderMenu from './HeaderMenu';
 import CategoryDepthMenu from './CategoryDepthMenu';
 import { inject } from 'mobx-react';
-import sessionStorage from 'lib/sessionStorage';
-import { pushRoute } from 'lib/router';
+import sessionStorage from 'childs/lib/common/sessionStorage';
 import cn from 'classnames';
 import SearchMenu from './SearchMenu';
 import BrandContainer from './item/BrandContainer';
-// import { observer } from 'mobx-react-lite';
-import { devLog } from 'lib/devLog';
-// import useStores from 'stores/useStores';
-import _ from 'lodash';
+
 /**
  *
  * @param {string} headerShape

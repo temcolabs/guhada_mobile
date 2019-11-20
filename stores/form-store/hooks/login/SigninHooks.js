@@ -2,7 +2,7 @@ import { root } from 'store';
 import API from 'childs/lib/API';
 import qs from 'qs';
 import { pushRoute } from 'lib/router';
-import { devLog } from 'lib/devLog';
+import { devLog } from 'childs/lib/common/devLog';
 import _ from 'lodash';
 export default {
   onInit(form) {},

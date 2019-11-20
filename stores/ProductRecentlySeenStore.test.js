@@ -1,6 +1,6 @@
 import ProductRecentlySeenStore from './ProductRecentlySeenStore';
 import key from 'constant/key';
-import localStorage from 'lib/localStorage';
+import localStorage from 'childs/lib/common/localStorage';
 
 /**
  * mock storage

@@ -1,5 +1,5 @@
 import Form from '../../_.forms';
-import { devLog } from 'lib/devLog';
+import { devLog } from 'childs/lib/common/devLog';
 
 export default {
   onInit() {

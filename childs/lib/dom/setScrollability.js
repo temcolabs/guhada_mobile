@@ -1,4 +1,4 @@
-const canUseDOM = () => typeof window !== 'undefined';
+import canUseDOM from './canUseDOM';
 
 const checkIsMobile = () =>
   canUseDOM() && /mobile/i.test(window.navigator.userAgent);

@@ -8,7 +8,7 @@ import API from 'childs/lib/API';
 import { key } from 'constant';
 import { snsAppKey } from 'constant/sns';
 import withAuth from 'components/common/hoc/withAuth';
-import { devLog } from 'lib/devLog';
+import { devLog } from 'childs/lib/common/devLog';
 import { HOSTNAME } from 'constant/hostname';
 
 //TODO

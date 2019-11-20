@@ -3,7 +3,7 @@ import css from './ProductTable.module.scss';
 import cn from 'classnames';
 import { autoHypenTele } from 'utils';
 import _ from 'lodash';
-import checkNullAndEmpty from 'lib/checkNullAndEmpty';
+import checkNullAndEmpty from 'childs/lib/common/checkNullAndEmpty';
 
 export default function ShippingReturn({
   deals = [

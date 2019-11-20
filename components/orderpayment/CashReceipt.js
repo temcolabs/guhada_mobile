@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './CashReceipt.module.scss';
 import Select from 'react-select';
-import { devLog } from 'lib/devLog';
+import { devLog } from 'childs/lib/common/devLog';
 
 @inject('orderpayment')
 @observer

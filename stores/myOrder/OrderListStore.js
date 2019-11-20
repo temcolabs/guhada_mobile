@@ -1,6 +1,6 @@
 import { observable, action, computed, toJS } from 'mobx';
 import API from 'childs/lib/API';
-import { isBrowser } from 'lib/isServer';
+import { isBrowser } from 'childs/lib/common/isServer';
 import moment from 'moment';
 import { dateFormat } from 'constant/date';
 import purchaseStatus from 'constant/purchaseStatus';
