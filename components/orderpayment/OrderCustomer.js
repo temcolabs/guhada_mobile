@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './OrderCustomer.module.scss';
 import AuthenticationModal from './modal/AuthenticationModal';
-import addHyphenToMobile from 'lib/string/addHyphenToMobile';
+import addHyphenToMobile from 'childs/lib/string/addHyphenToMobile';
 @inject('orderpayment', 'authmobile', 'customerauthentication')
 @observer
 class OrderCustomer extends Component {

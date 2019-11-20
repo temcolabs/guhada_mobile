@@ -59,7 +59,7 @@ class index extends React.Component {
       userId: userInfo?.id,
       items: successInfo.orderList?.map(orderItem => ({
         i: orderItem.dealId,
-        t: orderItem.dealName,
+        t: orderItem.prodName,
         p: orderItem.discountPrice,
         q: orderItem.quantity,
       })),

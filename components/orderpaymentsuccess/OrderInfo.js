@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './OrderInfo.module.scss';
-import addHyphenToMobile from 'lib/string/addHyphenToMobile';
+import addHyphenToMobile from 'childs/lib/string/addHyphenToMobile';
 @inject('orderpaymentsuccess', 'user')
 @observer
 class OrderInfo extends Component {
