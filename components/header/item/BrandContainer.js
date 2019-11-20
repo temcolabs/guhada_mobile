@@ -18,7 +18,7 @@ function BrandContainer({ isVisible, onClose, brands }) {
         />
         <div className={css.header}>브랜드</div>
         <div className={css.itemWrap}>
-          <Brand fromHeader={true} />
+          <Brand fromHeader={true} onClose={onClose} />
         </div>
       </div>
     </SlideIn>
