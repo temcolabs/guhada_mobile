@@ -182,11 +182,7 @@ export default {
     (구매 완료 페이지가 존재하지 않고 완료 메시지 창을 띄운 후 다른 페이지로 이동해버리는 경우 전환 완료 트래킹 태그를 설치하여야 합니다.)
    */
   purchaseComplete: ({ userId, items } = {}) => {
-    devLog(
-      `[widerplanet - purchaseComplete] userId, dealId, items`,
-      userId,
-      items
-    );
+    devLog(`[widerplanet - purchaseComplete] userId, items`, userId, items);
 
     if (isBrowser) {
       loadScript(null, {
