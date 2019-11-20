@@ -26,39 +26,30 @@ export default class OrderPaymentStore {
 
   @action
   getOrderPaymentSuccessInfo = id => {
-    API.order
+    return API.order
       .get(`/order/order-complete/${id}`)
-      .then(res => {
-        let data = res.data;
+      .then(({ data }) => {
+        const successInfo = data.data;
+        devLog('주문완료 정보', successInfo);
 
-        this.successInfo = data.data;
+        this.successInfo = successInfo;
         this.orderSuccessNumber = data.data.orderNumber;
         this.orderSuccessShipping = data.data.shippingAddress;
         this.orderSuccessProduct = data.data.orderList;
 
-        if (this.successInfo.payment.parentMethod === 'VBank') {
+        if (successInfo.payment.parentMethod === 'VBank') {
           this.getVBankExpireAt();
         } else {
           this.getOrderdate();
         }
-        devLog(toJS(this.successInfo), '주문완료 정보');
-
-
 
         this.status.pageStatus = true;
+
+        return successInfo;
       })
       .catch(err => {
-        devLog(err);
-        // this.root.alert.showConfirm({
-        //   content: 'error',
-        //   confirmText: '메인화면 돌아가기',
-        //   cancelText: '취소',
-        //   onConfirm: () => {
-        //     this.gotoMain();
-        //   },
-        // });
-        // Router.push('/');
-        sessionStorage.removeItem('paymentInfo');
+        console.error(err, 'err');
+        Router.push('/');
       })
       .finally(() => {
         sessionStorage.removeItem('paymentInfo');

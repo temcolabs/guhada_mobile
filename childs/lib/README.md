@@ -36,18 +36,10 @@ Git subtree로 추가하면 상위 저장소에서 subtree 소스의 변경 사�
 
 subtree로 추가한 소스는 상위 저장소의 랜치가 바뀔때 거기에 맞춰 바뀌게 할 수 없다. 결국 subtree로 추가한 소스는 npm 모듈을 사용하듯이 외부 라이브러리라고 생각하고 사용해야 한다.
 
-master가 아닌 브랜치에서 push를 못하게 하기 위해서는 쉘 스크립트에 조건문을 추가하면 된다.
 
-```bash
-BRANCH=$(git rev-parse --abbrev-ref HEAD)
+### pull, push를 할 브랜치
 
-if [ "$BRANCH" != "master" ]; then
-  echo 'master 브랜치에서만 푸시 가능합니다.';
-  exit 1;
-fi
-
-git subtree push --prefix childs/lib remote-lib master
-```
+push는 모든 브랜치에서 자유롭게, 대신 pull은 master 브랜치를 제외한 모든 브랜치에서 가능하다. develop 브랜치에서 push한 커밋을 master에서 pull 하면 문제가 생길 수 있기 때문이다. master에 병합되는 모든 변경 사항은 release 브랜치를 거쳐 테스트가 진행된 상태야야 한다.
 
 ### 상위 저장소에서 변경사항 pull
 

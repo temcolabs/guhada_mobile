@@ -50,21 +50,24 @@ export default class ShoppingCartStore {
   //--------------------- 장바구니 전체 데이터 가져오기 ---------------------
   @action
   getUserShoppingCartList = () => {
-    API.order
+    return API.order
       .get(`/cart`)
-      .then(res => {
-        let data = res.data;
+      .then(({ data }) => {
+        const cartData = data.data;
         devLog(data, '장바구니 데이터');
-        this.cartList = data.data.cartItemResponseList;
+        this.cartList = cartData.cartItemResponseList;
         this.getOptions();
         this.setTotalItemCheckbox();
         this.getTotalResultAmount();
         this.cartAmount = this.cartList.length;
         devLog(this.cartList, 'cartList');
         this.status.pageStatus = true;
+
         if (this.cartList.length === 0) {
           this.getRealTimePopularityProducts();
         }
+
+        return cartData;
       })
       .catch(err => {
         devLog(err);

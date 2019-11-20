@@ -97,24 +97,28 @@
 .indexDotWrap {
   @include centeredX;
   @include clearfix;
-  bottom: 23px;
-  width: 160px;
+  bottom: 24px;
+  width: 100%;
   text-align: center;
 
   & > * {
     display: inline-block;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #e6cc1b;
+    width: 11px;
+    height: 11px;
+    position: relative;
     transition: background 0.2s linear;
 
-    &.isCurrent {
-      background: #10152b;
+    &::after {
+      @include centered;
+      content: ' ';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #e6cc1b;
     }
 
-    &:not(:first-child) {
-      margin-left: 5px;
+    &.isCurrent::after {
+      background: #10152b;
     }
 
     &:hover {
