@@ -7,6 +7,11 @@ module.exports = {
 
     DaumConversionDctSv: true,
     DaumConversionAccountID: true,
+    wptg_tagscript: true,
+    wcs_add: true,
+    wcs_do: true,
+    wcs: true,
+    _nasa: true,
   },
   rules: {
     'jsx-a11y/anchor-is-valid': 'off', // Link 컴포넌트(https://github.com/zeit/next.js#with-link)

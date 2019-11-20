@@ -119,7 +119,7 @@ export default class UserStore {
     while (this.jobForUseInfo.length > 0) {
       const cb = this.jobForUseInfo.pop();
       if (typeof cb === 'function') {
-        cb();
+        cb(userInfo);
       }
     }
   };

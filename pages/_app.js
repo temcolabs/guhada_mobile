@@ -78,10 +78,10 @@ class MarketPlatform extends App {
 
   /**
    * 와이퍼플래닛 트래커 실행.
-   * 상품 상세, 카트, 트래커 페이지에서는 실행하면 안된다.
+   * 상품 상세, 카트, 트래커 페이지는 전환이 발생하는 곳이므로 공통 전환을 실행하지 않는다.
    */
   execWiderPlanetTracker = () => {
-    const locationToIgnore = [
+    const locationHasConversion = [
       /^\/productdetail.*/, // 상품 상세
       /^\/shoppingcart.*/, // 카트
       /^\/orderpaymentsuccess.*/, // 구매 완료
@@ -89,7 +89,7 @@ class MarketPlatform extends App {
 
     if (isBrowser) {
       const isLocationHasConversion =
-        locationToIgnore
+        locationHasConversion
           .map(regex => regex.test(window.location.pathname))
           .findIndex(result => result === true) > -1;
 
@@ -98,9 +98,9 @@ class MarketPlatform extends App {
       } else {
         if (Cookies.get(key.ACCESS_TOKEN)) {
           // 회원정보 가져와서 실행
-          this.mobxStore.user.pushJobForUserInfo(() => {
+          this.mobxStore.user.pushJobForUserInfo(userInfo => {
             widerplanetTracker.common({
-              userId: this.mobxStore?.user.userId,
+              userId: userInfo?.id,
             });
           });
         } else {
