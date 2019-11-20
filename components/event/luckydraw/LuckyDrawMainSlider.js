@@ -53,6 +53,22 @@ export default function LuckyDrawMainSlider({ imageList = [] }) {
     [showNextSlide]
   );
 
+  const handleDragStart = useCallback(e => {
+    setTouchStartX(e.touches[0]?.pageX);
+  }, []);
+
+  const handleDragEnd = useCallback(e => {
+    const currentX = e.changedTouches[0]?.pageX;
+    const isRight = currentX < touchStartX;
+    const isLeft = currentX >= touchStartX;
+
+    if (isRight) {
+      showNextSlide();
+    } else if (isLeft) {
+      showPrevSlide();
+    }
+  }, []);
+
   useEffect(() => {
     setIndex(0);
     return () => {
@@ -109,20 +125,8 @@ export default function LuckyDrawMainSlider({ imageList = [] }) {
                       style={{
                         backgroundImage: `url(${imageData.titleImageUrl})`,
                       }}
-                      onTouchStart={e => {
-                        setTouchStartX(e.touches[0]?.pageX);
-                      }}
-                      onTouchEnd={e => {
-                        const currentX = e.changedTouches[0]?.pageX;
-                        const isRight = currentX < touchStartX;
-                        const isLeft = currentX >= touchStartX;
-
-                        if (isRight) {
-                          showNextSlide();
-                        } else if (isLeft) {
-                          showPrevSlide();
-                        }
-                      }}
+                      onTouchStart={handleDragStart}
+                      onTouchEnd={handleDragEnd}
                     />
                   );
                 }}
