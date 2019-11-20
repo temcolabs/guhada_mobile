@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import css from './LuckyDrawItem.module.scss';
 import moment from 'moment';
 import cn from 'classnames';
@@ -63,9 +63,6 @@ export default function LuckyDrawItem({
         loginStore.loginStatus === loginStatus.LOGIN_DONE
           ? luckyDrawStore.getEventUser()
           : luckyDrawStore.setLuckydrawLoginModal(true);
-        // luckyDrawStore.requestLuckyDraws({
-        //   dealId: data?.dealId,
-        // });
         break;
 
       case luckyDrawStatus.REQUESTED:
