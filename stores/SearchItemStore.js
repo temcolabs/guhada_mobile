@@ -762,7 +762,7 @@ export default class SearchItemStore {
     brand = '',
     page = 1,
     unitPerPage = 20,
-    order = 'DATE',
+    order = this.searchOrderFilter,
     filter = '',
     subcategory = '',
     enter = '',

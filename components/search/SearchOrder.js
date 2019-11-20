@@ -31,6 +31,7 @@ class SearchOrder extends Component {
               onClick={() => {
                 setSearchOrderFilter('DATE');
                 toSearch(Object.assign({}, query, { order: 'DATE' }));
+                onClose();
               }}
             >
               신상품 순
@@ -46,6 +47,7 @@ class SearchOrder extends Component {
                     order: 'SCORE',
                   })
                 );
+                onClose();
               }}
             >
               평점 순
@@ -57,6 +59,7 @@ class SearchOrder extends Component {
               onClick={() => {
                 setSearchOrderFilter('PRICE_ASC');
                 toSearch(Object.assign({}, query, { order: 'PRICE_ASC' }));
+                onClose();
               }}
             >
               낮은 가격 순
@@ -68,6 +71,7 @@ class SearchOrder extends Component {
               onClick={() => {
                 setSearchOrderFilter('PRICE_DESC');
                 toSearch(Object.assign({}, query, { order: 'PRICE_DESC' }));
+                onClose();
               }}
             >
               높은 가격 순
