@@ -2,7 +2,7 @@ import { observable, action, toJS } from 'mobx';
 import { loginStatus } from 'constant';
 import API from 'childs/lib/API';
 import Router from 'next/router';
-import { pushRoute } from 'lib/router';
+import { sendBackToLogin } from 'lib/router';
 import qs from 'qs';
 import { devLog } from 'lib/devLog';
 import naverShoppingTrakers from 'lib/tracking/navershopping/naverShoppingTrakers';
@@ -98,14 +98,7 @@ export default class CartAndPurchaseStore {
           })
           .catch(err => {
             if (this.root.login.loginStatus === loginStatus.LOGOUT) {
-              pushRoute(
-                `/login?${qs.stringify({
-                  redirectTo: `/productdetail?deals=${
-                    this.root.productdetail.deals.dealsId
-                  }`,
-                })}`,
-                { isReplace: true }
-              );
+              sendBackToLogin();
             }
           });
       } else {
@@ -114,14 +107,7 @@ export default class CartAndPurchaseStore {
         });
       }
     } else {
-      pushRoute(
-        `/login?${qs.stringify({
-          redirectTo: `/productdetail?deals=${
-            this.root.productdetail.deals.dealsId
-          }`,
-        })}`,
-        { isReplace: true }
-      );
+      sendBackToLogin();
     }
   };
 
@@ -158,14 +144,7 @@ export default class CartAndPurchaseStore {
           })
           .catch(err => {
             if (this.root.login.loginStatus === loginStatus.LOGOUT) {
-              pushRoute(
-                `/login?${qs.stringify({
-                  redirectTo: `/productdetail?deals=${
-                    this.root.productdetail.deals.dealsId
-                  }`,
-                })}`,
-                { isReplace: true }
-              );
+              sendBackToLogin();
             }
           });
       } else {
@@ -174,14 +153,7 @@ export default class CartAndPurchaseStore {
         });
       }
     } else {
-      pushRoute(
-        `/login?${qs.stringify({
-          redirectTo: `/productdetail?deals=${
-            this.root.productdetail.deals.dealsId
-          }`,
-        })}`,
-        { isReplace: true }
-      );
+      sendBackToLogin();
     }
   };
   @action
