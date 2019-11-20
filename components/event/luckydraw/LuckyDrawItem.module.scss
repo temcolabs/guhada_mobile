@@ -98,7 +98,7 @@ $wrapperHoriPad: 20px;
   color: #000000;
   margin-top: 5px;
 
-  &>* {
+  & > * {
     &:nth-child(2) {
       font-size: 17px;
     }
@@ -114,7 +114,7 @@ $wrapperHoriPad: 20px;
   line-height: 1;
   margin-top: 3px;
 
-  &>* {
+  & > * {
     display: inline-block;
 
     &:nth-child(1) {
@@ -141,7 +141,8 @@ $requestButtonHeight: 55px;
   .statusText {
     @include centered;
     width: 100%;
-    font-size: 21px;
+    font-family: Roboto;
+    font-size: 18px;
     font-weight: 500;
   }
 
