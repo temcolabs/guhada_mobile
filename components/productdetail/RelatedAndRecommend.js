@@ -78,10 +78,11 @@ export default function RelatedAndRecommend({
                     pushRoute(`/productdetail?deals=${deal.dealId}`)
                   }
                 >
-                  <img
+                  <div
                     className={css.image}
-                    src={deal.productImage.url || ''}
-                    alt={deal.productImage.name}
+                    style={{
+                      backgroundImage: `url('${deal.productImage.url}')` || '',
+                    }}
                   />
                   <div className={css.contentsWrap}>
                     <div className={css.brandWrap}>
@@ -112,10 +113,11 @@ export default function RelatedAndRecommend({
                     pushRoute(`/productdetail?deals=${deal.dealId}`)
                   }
                 >
-                  <img
+                  <div
                     className={css.image}
-                    src={deal.productImage.url || ''}
-                    alt={deal.productImage.name}
+                    style={{
+                      backgroundImage: `url('${deal.productImage.url}')` || '',
+                    }}
                   />
                   <div className={css.contentsWrap}>
                     <div className={css.brandWrap}>

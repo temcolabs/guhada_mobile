@@ -2,7 +2,7 @@ import { observable, action, toJS } from 'mobx';
 import { isBrowser } from 'lib/isServer';
 import API from 'childs/lib/API';
 import { devLog } from 'lib/devLog';
-
+import { isIOS, isAndroid } from 'lib/detectMobileEnv';
 export default class EventMainStore {
   constructor(root) {
     if (isBrowser) {
@@ -69,5 +69,21 @@ export default class EventMainStore {
     let start = url.indexOf('com');
     let query = url.substr(start + 3);
     this.eventDetail.detailPageLink = query;
+  };
+
+  @action
+  sendNative = (arg1, arg2) => {
+    if (this.eventDetail.detailPageLink.indexOf('signup')) {
+      devLog('sign up to native ', arg1, arg2);
+      if (isAndroid()) {
+        if (window.Android) {
+          window.Android.processData(arg1, arg2);
+        }
+      } else if (isIOS()) {
+        devLog('ios');
+      } else {
+        devLog('data', arg1);
+      }
+    }
   };
 }
