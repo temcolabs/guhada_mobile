@@ -1,8 +1,7 @@
 import { devLog } from '../../common/devLog';
 import isEmailString from '../../string/isEmailString';
 import detectDevice from '../../common/detectDevice';
-import loadScript, { scriptIds } from '../../common/loadScript';
-import { isBrowser } from '../../common/isServer';
+import loadScript, { scriptIds } from '../../dom/loadScript';
 import getIsProdHost from '../getIsProdHost';
 
 // 트래커 주소
