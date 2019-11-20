@@ -7,7 +7,7 @@ BRANCH=master
 DEST_REPO=/home/guhada/web/guhada_mobile
 
 echo "> git pull && build app"
-cd $DEST_REPO && git remote update --prune && git checkout $BRANCH && git reset --hard $BRANCH && git pull && rm -rf .next && npm install && npm run build
+cd $DEST_REPO && git reset --hard && git remote update --prune && git checkout $BRANCH && git pull && rm -rf .next && npm install && npm run build
 
 HOST=$HOST ./scripts/deploy-prod-upload.sh
 
