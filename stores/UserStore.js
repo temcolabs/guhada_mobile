@@ -19,22 +19,59 @@ export default class UserStore {
   jobForUseInfo = []; // 사용자 정보 가져오기 완료되었을 때 실행할 함수
 
   @observable userInfo = {
-    address: '',
-    birth: '',
-    createdAt: '',
-    detailAddress: '',
-    email: '',
-    emailVerify: false,
-    gender: '',
-    id: null,
-    mobile: '',
-    name: '',
-    nickname: '',
-    roadAddress: '',
-    roles: [],
-    userStatus: '',
-    userType: '',
-    withdrawalAt: '',
+    id: undefined, // number;
+    email: undefined, // string;
+    name: undefined, // any;
+    userType: undefined, // string;
+    emailVerify: undefined, // boolean;
+    nickname: undefined, // string;
+    mobile: undefined, // any;
+    profileImageUrl: undefined, // any;
+    zip: undefined, // any;
+    address: undefined, // any;
+    roadAddress: undefined, // any;
+    detailAddress: undefined, // any;
+    birth: undefined, // any;
+    gender: undefined, // any;
+    userStatus: undefined, // string;
+    withdrawalAt: undefined, // any;
+    createdAt: undefined, // number;
+    updatedAt: undefined, // any;
+    roles: [], // * Role[]; 서비스 사용 권한
+    userDetail: {
+      id: undefined, // number;
+      verifiedIdentity: undefined, // boolean;
+      verifiedName: undefined, // any;
+      identityVerifyMethod: undefined, // string;
+      identityVerifiedAt: undefined, // any;
+      adult: undefined, // boolean;
+      adultCertificationAt: undefined, // any;
+      adultCertificationExpireAt: undefined, // any;
+      agreeCollectPersonalInfoTos: undefined, // boolean;
+      agreeCollectPersonalInfoTosAt: undefined, // number;
+      agreePurchaseTos: undefined, // boolean;
+      agreePurchaseTosAt: undefined, // number;
+      agreeSaleTos: undefined, // boolean;
+      agreeSaleTosAt: undefined, // number;
+      agreeSmsReception: undefined, // boolean;
+      smsAgreementUpdatedAt: undefined, // number;
+      agreeEmailReception: undefined, // boolean;
+      emailAgreementUpdatedAt: undefined, // number;
+      interestLocation1: undefined, // any;
+      interestLocation2: undefined, // any;
+      interestLocation3: undefined, // any;
+      agreeSavingAccount: undefined, // boolean;
+      bankCode: undefined, // any;
+      bankName: undefined, // any;
+      accountHolder: undefined, // any;
+      accountNumber: undefined, // any;
+      adultProductOpen: undefined, // boolean;
+      ciCode: undefined, // any;
+      diCode: undefined, // any;
+      createdAt: undefined, // number;
+      updatedAt: undefined, // any;
+      updatedBy: undefined, // any;
+    },
   };
 
   // 회원정보 수정을 위해 비밀번호를 한번 더 입력했는지 확인
@@ -107,7 +144,7 @@ export default class UserStore {
       if (_.isNil(this.userId)) {
         this.jobForUseInfo.push(job);
       } else {
-        job();
+        job(this.userInfo);
       }
     } else {
       console.error('[pushJobForUserInfo] job is not function');

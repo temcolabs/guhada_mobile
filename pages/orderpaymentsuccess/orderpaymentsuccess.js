@@ -4,13 +4,68 @@ import OrderPaymentSuccess from '../../template/orderpaymentsuccess/OrderPayment
 import { inject, observer } from 'mobx-react';
 import Loading from '../../components/common/loading/Loading';
 import { getParameterByName } from '../../utils';
-@inject('orderpaymentsuccess')
+import criteoTracker from 'childs/lib/tracking/criteo/criteoTracker';
+import Cookies from 'js-cookie';
+import key from 'childs/lib/constant/key';
+import { isBrowser } from 'childs/lib/common/isServer';
+import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
+import daumTrakers from 'lib/tracking/daum/daumTrakers';
+import naverShoppingTrakers from 'lib/tracking/navershopping/naverShoppingTrakers';
+
+@inject('orderpaymentsuccess', 'user')
 @observer
 class index extends React.Component {
   componentDidMount() {
     let id = getParameterByName('id');
-    this.props.orderpaymentsuccess.getOrderPaymentSuccessInfo(id);
+    this.props.orderpaymentsuccess
+      .getOrderPaymentSuccessInfo(id)
+      .then(successInfo => {
+        // 로그인 상태라면 화원정보를 가져온 후에 트래커 실행. 아니면 그냥 실행
+        if (isBrowser && Cookies.get(key.ACCESS_TOKEN)) {
+          this.props.user.pushJobForUserInfo(userInfo => {
+            this.executeTracker({ userInfo, successInfo });
+          });
+        } else {
+          debugger;
+          this.executeTracker({ successInfo });
+        }
+      });
   }
+
+  executeTracker = ({ userInfo = {}, successInfo = {} }) => {
+    // 네이버쇼핑 트래커
+    naverShoppingTrakers.purchaseComplete({
+      price: successInfo.totalOrderPrice,
+    });
+
+    // 다음 트래커
+    daumTrakers.purchaseComplete({
+      orderID: successInfo.orderNumber,
+      amount: successInfo.totalOrderPrice,
+    });
+
+    // 크리테오 트래커
+    criteoTracker.purchaseComplete({
+      email: userInfo?.email,
+      transaction_id: successInfo.orderNumber,
+      items: successInfo.orderList?.map(orderItem => ({
+        id: orderItem.dealId,
+        price: orderItem.discountPrice,
+        quantity: orderItem.quantity,
+      })),
+    });
+
+    widerplanetTracker.purchaseComplete({
+      userId: userInfo?.id,
+      items: successInfo.orderList?.map(orderItem => ({
+        i: orderItem.dealId,
+        t: orderItem.dealName,
+        p: orderItem.discountPrice,
+        q: orderItem.quantity,
+      })),
+    });
+  };
+
   render() {
     let { orderpaymentsuccess } = this.props;
     return (
