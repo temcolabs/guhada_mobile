@@ -6,14 +6,21 @@ import { LoginInput, LoginCheckBox, LoginButton } from 'components/login';
 import cn from 'classnames';
 import SignupInputButtonChange from 'components/login/SignupInputButtonChange';
 import { observer, inject } from 'mobx-react';
-
+import _ from 'lodash';
 // @inject('luckydraw', 'countdown', 'authmobile')
 @inject('countdown', 'authmobile')
 @observer
 class LuckydrawModify extends Component {
   render() {
     const form = Form.modifyLuckydraw;
-    let value = form.get('value');
+    let value;
+
+    if (_.isNil(form)) {
+      return null;
+    } else {
+      value = form.get('value');
+    }
+
     const { isOpen, closeModal } = this.props;
 
     return (
