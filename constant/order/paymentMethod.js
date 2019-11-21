@@ -1,4 +1,4 @@
-import { arrayToEnum } from 'lib/arrayToObject';
+import { arrayToEnum } from 'childs/lib/common/arrayToObject';
 
 // 결제 수단
 const paymentMethod = {
