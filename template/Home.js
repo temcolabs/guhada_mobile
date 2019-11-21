@@ -114,12 +114,12 @@ class Home extends React.Component {
         }/images/banner/2perdiscount/2per_main_m_360.png`,
         href: `/`,
       },
-      // {
-      //   src: `${
-      //     process.env.API_CLOUD
-      //   }/images/banner/opening/open_main_m_360.png`,
-      //   href: `/`,
-      // },
+      {
+        src: `${
+          process.env.API_CLOUD
+        }/images/banner/genuine/genuine_main_m_360.png`,
+        href: `/`,
+      },
     ];
     return (
       <DefaultLayout
