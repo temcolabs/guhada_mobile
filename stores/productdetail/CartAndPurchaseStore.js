@@ -2,11 +2,10 @@ import { observable, action, toJS } from 'mobx';
 import { loginStatus } from 'constant';
 import API from 'childs/lib/API';
 import Router from 'next/router';
-import { sendBackToLogin } from 'lib/router';
+import { sendBackToLogin, pushRoute } from 'lib/router';
 import qs from 'qs';
-import { devLog } from 'childs/lib/common/devLog';
-import naverShoppingTrakers from 'childs/lib/tracking/navershopping/naverShoppingTrakers';
-import daumTrakers from 'childs/lib/tracking/daum/daumTrakers';
+import naverShoppingTrakers from 'lib/tracking/navershopping/naverShoppingTrakers';
+import daumTrakers from 'lib/tracking/daum/daumTrakers';
 import criteoTracker from 'childs/lib/tracking/criteo/criteoTracker';
 import _ from 'lodash';
 
@@ -71,7 +70,7 @@ export default class CartAndPurchaseStore {
                     borderRadius: 0,
                   },
                   onConfirm: () => {
-                    Router.push('/shoppingcart');
+                    pushRoute('/shoppingcart');
                   },
                 });
               });

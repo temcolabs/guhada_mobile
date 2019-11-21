@@ -8,7 +8,7 @@ export default function ProductNotifie({
   return (
     <table className={cn(css.wrap)}>
       <tbody>
-        {productNotifies.map((notify, index) => {
+        {productNotifies?.map((notify, index) => {
           return (
             <tr key={index}>
               <th>{notify.label}</th>

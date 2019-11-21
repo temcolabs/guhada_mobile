@@ -26,7 +26,6 @@ class index extends React.Component {
             this.executeTracker({ userInfo, successInfo });
           });
         } else {
-          debugger;
           this.executeTracker({ successInfo });
         }
       });
