@@ -1,6 +1,7 @@
 # 배포 스크립트
 APP_NAME=guhada-mobile-dev
-HOST=13.125.71.189
+# HOST=13.125.71.189
+HOST=52.79.247.89
 USER=ec2-user
 REPOSITORY=git@github.com:temcolabs/guhada_mobile.git
 BRANCH=develop
