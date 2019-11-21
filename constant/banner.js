@@ -43,12 +43,5 @@ export const bannerInfo = [
     href: `/`,
     bgColor: '#540093',
   },
-  // {
-  //   lg: `${process.env.API_CLOUD}/images/banner/opening/open_main_pc_1920.png`,
-  //   mg: `${process.env.API_CLOUD}/images/banner/opening/open_main_pc_1280.png`,
-  //   com: `${process.env.API_CLOUD}/images/banner/opening/open_com_pc_1920.png`,
-  //   href: `/`,
-  //   bgColor: '#dcb3ab',
-  // },
 ];
 export default bannerInfo;
