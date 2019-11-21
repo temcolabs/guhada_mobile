@@ -1,163 +1,163 @@
-$buttonHeight : 60px;
-$headerHeight : 60px;
+$buttonHeight: 60px;
+$guhadaMainHeaderHeight: 60px;
 
 .wrap {
-    position: absolute;
-    width: 100%;
-    bottom: 0;
-    left: 0;
-    height: 100vh;
-    background: #fff;
-    // overflow: scroll;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  height: 100vh;
+  background: #fff;
+  // overflow: scroll;
 
-    & .header {
-        height: $headerHeight;
-        display: flex;
-        align-items: center;
+  & .header {
+    height: $guhadaMainHeaderHeight;
+    display: flex;
+    align-items: center;
 
-        & .backIcon {
-            width: 30px;
-            height: 30px;
-            position: absolute;
-            left: 10px;
-            background-size: 30px;
-            background-image: url('/static/icon/btn-prevpage.png')
-        }
-
-        & .headerText {
-            font-size: 16px;
-            font-weight: 500;
-            font-style: normal;
-            letter-spacing: 0.48px;
-            text-align: center;
-            color: #111111;
-            margin: 0 auto;
-        }
+    & .backIcon {
+      width: 30px;
+      height: 30px;
+      position: absolute;
+      left: 10px;
+      background-size: 30px;
+      background-image: url('/static/icon/btn-prevpage.png');
     }
 
-    & .contentsWrap {
-        height: calc(100vh - #{$headerHeight} - #{$buttonHeight});
+    & .headerText {
+      font-size: 16px;
+      font-weight: 500;
+      font-style: normal;
+      letter-spacing: 0.48px;
+      text-align: center;
+      color: #111111;
+      margin: 0 auto;
+    }
+  }
 
-        & .withOutContents {
-            padding: 20px 20px 0 20px;
-        }
+  & .contentsWrap {
+    height: calc(100vh - #{$guhadaMainHeaderHeight} - #{$buttonHeight});
 
-        & .textCountWrap {
-            font-size: 13px;
-            font-weight: normal;
-            color: #777777;
-            position: absolute;
-            right: 20px;
-            bottom: 20px;
-
-            & span {
-                color: #5d2ed1;
-            }
-        }
-
-        & .textareaWrap {
-            display: inline-block;
-            width: 100%;
-            padding: 15px 20px 45px 20px;
-            border-top: 1px solid #eeeeee;
-            border-bottom: 1px solid #eeeeee;
-            position: relative;
-
-            & .inquiryText {
-                width: 100%;
-                height: 315px;
-                font-size: 16px;
-                font-weight: 400;
-                border: 0;
-                color: #111111;
-                outline: none;
-                -webkit-box-shadow: none;
-                -moz-box-shadow: none;
-                box-shadow: none;
-                resize: none;
-
-                &::placeholder {
-                    color: #ccc;
-                }
-            }
-        }
-
-        & .subContent {
-            font-size: 12px;
-            font-weight: normal;
-            line-height: 1.5;
-            text-align: left;
-            color: #444444;
-            margin-top: 10px;
-
-            & .colored {
-                color: #5d2ed1;
-            }
-        }
+    & .withOutContents {
+      padding: 20px 20px 0 20px;
     }
 
-    & .buttonWrap {
-        height: $buttonHeight;
+    & .textCountWrap {
+      font-size: 13px;
+      font-weight: normal;
+      color: #777777;
+      position: absolute;
+      right: 20px;
+      bottom: 20px;
+
+      & span {
+        color: #5d2ed1;
+      }
+    }
+
+    & .textareaWrap {
+      display: inline-block;
+      width: 100%;
+      padding: 15px 20px 45px 20px;
+      border-top: 1px solid #eeeeee;
+      border-bottom: 1px solid #eeeeee;
+      position: relative;
+
+      & .inquiryText {
         width: 100%;
-        position: fixed;
-        bottom: 0;
+        height: 315px;
+        font-size: 16px;
+        font-weight: 400;
+        border: 0;
+        color: #111111;
+        outline: none;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        resize: none;
 
-        & button {
-            width: 50%;
-            height: 100%;
-            font-size: 18px;
-            font-weight: 500;
-            font-style: normal;
-            font-stretch: normal;
-            line-height: 1.07;
-            letter-spacing: normal;
-            text-align: center;
-            color: #ffffff;
-            border: solid 1px #444444;
-            background-color: #444444;
-
-            &.isColored {
-                border: solid 1px #5d2ed1;
-                background-color: #5d2ed1;
-            }
+        &::placeholder {
+          color: #ccc;
         }
+      }
     }
 
-    & .checkboxWrap {
-        font-size: 12px;
-        text-align: left;
-        color: #444444;
-        height: 20px;
+    & .subContent {
+      font-size: 12px;
+      font-weight: normal;
+      line-height: 1.5;
+      text-align: left;
+      color: #444444;
+      margin-top: 10px;
 
-        & input[type='checkbox'] {
-            display: none;
-        }
-
-        & input[type='checkbox']+label {
-            font-weight: 400;
-            color: #777777;
-            margin-bottom: 0;
-            line-height: 20px;
-        }
-
-        & input[type='checkbox']+label span {
-            width: 20px;
-            height: 20px;
-            border: 1px solid #ddd;
-            margin-right: 10px;
-            float: left;
-        }
-
-        & input[type='checkbox']+label div {
-            float: left;
-        }
-
-        & input[type='checkbox']:checked+label span {
-            border-color: #ffffff;
-            background-image: url('/static/icon/checkbox_checked_20.png');
-            background-size: 20px;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
+      & .colored {
+        color: #5d2ed1;
+      }
     }
+  }
+
+  & .buttonWrap {
+    height: $buttonHeight;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+
+    & button {
+      width: 50%;
+      height: 100%;
+      font-size: 18px;
+      font-weight: 500;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.07;
+      letter-spacing: normal;
+      text-align: center;
+      color: #ffffff;
+      border: solid 1px #444444;
+      background-color: #444444;
+
+      &.isColored {
+        border: solid 1px #5d2ed1;
+        background-color: #5d2ed1;
+      }
+    }
+  }
+
+  & .checkboxWrap {
+    font-size: 12px;
+    text-align: left;
+    color: #444444;
+    height: 20px;
+
+    & input[type='checkbox'] {
+      display: none;
+    }
+
+    & input[type='checkbox'] + label {
+      font-weight: 400;
+      color: #777777;
+      margin-bottom: 0;
+      line-height: 20px;
+    }
+
+    & input[type='checkbox'] + label span {
+      width: 20px;
+      height: 20px;
+      border: 1px solid #ddd;
+      margin-right: 10px;
+      float: left;
+    }
+
+    & input[type='checkbox'] + label div {
+      float: left;
+    }
+
+    & input[type='checkbox']:checked + label span {
+      border-color: #ffffff;
+      background-image: url('/static/icon/checkbox_checked_20.png');
+      background-size: 20px;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+  }
 }
