@@ -133,8 +133,8 @@ module.exports = [
 
   // 마이페이지 - 나의 주문
   {
-    pagePath: '/mypage/OrderListInProgress',
-    asPath: '/mypage/orders/inprogress',
+    pagePath: `/mypage/OrderCompleteList`,
+    asPath: `/mypage/orders/complete/list`,
     name: '주문배송',
   },
 
