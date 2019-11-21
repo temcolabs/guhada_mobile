@@ -176,7 +176,7 @@ export default {
         async: true,
         id: scriptIds.WIDERPLANET_TRACKER,
         onLoad: () => {
-          window.wptg_tagscript.exec();
+          wptg_tagscript.exec();
         },
       });
     }
@@ -216,7 +216,7 @@ export default {
         async: true,
         id: scriptIds.WIDERPLANET_TRACKER,
         onLoad: () => {
-          window.wptg_tagscript.exec();
+          wptg_tagscript.exec();
         },
       });
     }
@@ -258,7 +258,7 @@ export default {
         async: true,
         id: scriptIds.WIDERPLANET_TRACKER,
         onLoad: () => {
-          window.wptg_tagscript.exec();
+          wptg_tagscript.exec();
         },
       });
     }
@@ -302,7 +302,7 @@ export default {
         async: true,
         id: scriptIds.WIDERPLANET_TRACKER,
         onLoad: () => {
-          window.wptg_tagscript.exec();
+          wptg_tagscript.exec();
         },
       });
     }
