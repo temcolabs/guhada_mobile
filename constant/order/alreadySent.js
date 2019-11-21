@@ -1,4 +1,4 @@
-import { arrayToEnum } from 'lib/arrayToObject';
+import { arrayToEnum } from 'childs/lib/common/arrayToObject';
 
 export const alreadySent = {
   YES: {

@@ -1,7 +1,7 @@
 import { devLog } from '../../common/devLog';
 import detectDevice from '../../common/detectDevice';
 import { isBrowser } from '../../common/isServer';
-import loadScript, { scriptIds } from '../../common/loadScript';
+import loadScript, { scriptIds } from '../../dom/loadScript';
 
 /**
  * http://tg.widerplanet.com/track/manual.php
@@ -57,6 +57,94 @@ const convertUserIdForTracker = userId => {
  */
 export default {
   /**
+   * 회원 가입 (쇼핑몰, 일반 사이트)
+    회원 가입 페이지의 전환을 체크할 때 삽입합니다.
+   */
+  signUp: ({ userId } = {}) => {
+    devLog(`[widerplanet - Join] userId`, userId);
+
+    if (isBrowser) {
+      loadScript(null, {
+        id: scriptIds.WIDERPLANET_TRACKER + `_JOIN_COMPLETE_CONVERSION`,
+        async: false,
+        replaceExitsing: true,
+        innerHTML: `
+            var wptg_tagscript_vars = wptg_tagscript_vars || [];
+            wptg_tagscript_vars.push(
+            (function() {
+                return {
+                    /*고객넘버 등 Unique ID (ex. 로그인  ID, 고객넘버 등 )를 암호화하여 대입. *주의 : 로그인 하지 않은 사용자는 어떠한 값도 대입하지 않습니다.*/
+                    wp_hcuid: ${convertUserIdForTracker(userId)},
+                    ti: "${ACCOUNT_ID}" /*광고주 코드 */,
+                    ty:"Join",                        /*트래킹태그 타입 */
+                    device: "${getDeviceType()}" /*디바이스 종류  (web 또는  mobile)*/,
+                    items:[{
+                        i:"회원 가입",          /*전환 식별 코드  (한글 , 영어 , 번호 , 공백 허용 )*/
+                        t:"회원 가입",          /*전환명  (한글 , 영어 , 번호 , 공백 허용 )*/
+                        p:"1",                   /*전환가격  (전환 가격이 없을 경우 1로 설정 )*/
+                        q:"1"                   /*전환수량  (전환 수량이 고정적으로 1개 이하일 경우 1로 설정 )*/
+                    }]
+                };
+            }));
+            wptg_tagscript_exec_auto = false;
+          `,
+      });
+
+      loadScript(WIDER_PLANET_TRACKER_URL, {
+        async: true,
+        id: scriptIds.WIDERPLANET_TRACKER,
+        onLoad: () => {
+          window.wptg_tagscript.exec();
+        },
+      });
+    }
+  },
+
+  /**
+   * 로그인 (쇼핑몰, 일반 사이트)
+    로그인 등으로 전환을 체크할 때 삽입합니다.
+   */
+  signIn: ({ userId } = {}) => {
+    devLog(`[widerplanet - signIn] userId`, userId);
+
+    if (isBrowser) {
+      loadScript(null, {
+        id: scriptIds.WIDERPLANET_TRACKER + `_SIGNIN_COMPLETE_CONVERSION`,
+        async: false,
+        replaceExitsing: true,
+        innerHTML: `
+            var wptg_tagscript_vars = wptg_tagscript_vars || [];
+            wptg_tagscript_vars.push(
+            (function() {
+                return {
+                    /*고객넘버 등 Unique ID (ex. 로그인  ID, 고객넘버 등 )를 암호화하여 대입. *주의 : 로그인 하지 않은 사용자는 어떠한 값도 대입하지 않습니다.*/
+                    wp_hcuid: ${convertUserIdForTracker(userId)},
+                    ti: "${ACCOUNT_ID}" /*광고주 코드 */,
+                    ty:"Login",                        /*트래킹태그 타입 */
+                    device: "${getDeviceType()}" /*디바이스 종류  (web 또는  mobile)*/,
+                    items:[{
+                        i:"로그인",          /*전환 식별 코드  (한글 , 영어 , 번호 , 공백 허용 )*/
+                        t:"로그인",          /*전환명  (한글 , 영어 , 번호 , 공백 허용 )*/
+                        p:"1",                   /*전환가격  (전환 가격이 없을 경우 1로 설정 )*/
+                        q:"1"                   /*전환수량  (전환 수량이 고정적으로 1개 이하일 경우 1로 설정 )*/
+                    }]
+                };
+            }));
+            wptg_tagscript_exec_auto = false;
+          `,
+      });
+
+      loadScript(WIDER_PLANET_TRACKER_URL, {
+        async: true,
+        id: scriptIds.WIDERPLANET_TRACKER,
+        onLoad: () => {
+          window.wptg_tagscript.exec();
+        },
+      });
+    }
+  },
+
+  /**
    * 공통 (쇼핑몰, 일반 사이트)
 사이트 모든 영역에서 공통적으로 사용되는 파일 하단에 설치합니다. (수정없이 그대로 복사&붙여넣기 해주세요)
 (footer 또는 bottom 과 같은 이름의 파일이며, index 파일 또는 main 파일에서 include 되는 파일입니다.)
@@ -88,7 +176,7 @@ export default {
         async: true,
         id: scriptIds.WIDERPLANET_TRACKER,
         onLoad: () => {
-          wptg_tagscript.exec();
+          window.wptg_tagscript.exec();
         },
       });
     }
@@ -117,7 +205,7 @@ export default {
                 ty: "Item",
                 device: "${getDeviceType()}",
                 items: ${JSON.stringify(items)},
-                // items:[{i:"상품 ID",	t:"상품명 "}] /* i:<상품 식별번호  (Feed로 제공되는 상품코드와 일치하여야 합니다 .) t:상품명  */
+                // items:[{i:"상품 ID", t:"상품명 "}] /* i:<상품 식별번호  (Feed로 제공되는 상품코드와 일치하여야 합니다 .) t:상품명  */
               };
             }));
             wptg_tagscript_exec_auto = false;
@@ -128,7 +216,7 @@ export default {
         async: true,
         id: scriptIds.WIDERPLANET_TRACKER,
         onLoad: () => {
-          wptg_tagscript.exec();
+          window.wptg_tagscript.exec();
         },
       });
     }
@@ -157,8 +245,8 @@ export default {
                 device:"${getDeviceType()}",
                 items: ${JSON.stringify(items)},
                 // items:[
-                //   {i:"상품 ID",	t:"상품명 "} /* 첫번째 상품  - i:상품 식별번호  (Feed로 제공되는 식별번호와 일치 ) t:상품명 */
-                //  ,{i:"상품 ID",	t:"상품명 "} /* 두번째 상품  - i:상품 식별번호  (Feed로 제공되는 식별번호와 일치 ) t:상품명  */
+                //   {i:"상품 ID",  t:"상품명 "} /* 첫번째 상품  - i:상품 식별번호  (Feed로 제공되는 식별번호와 일치 ) t:상품명 */
+                //  ,{i:"상품 ID",  t:"상품명 "} /* 두번째 상품  - i:상품 식별번호  (Feed로 제공되는 식별번호와 일치 ) t:상품명  */
                 // ]
               };
             }));
@@ -170,7 +258,7 @@ export default {
         async: true,
         id: scriptIds.WIDERPLANET_TRACKER,
         onLoad: () => {
-          wptg_tagscript.exec();
+          window.wptg_tagscript.exec();
         },
       });
     }
@@ -214,7 +302,7 @@ export default {
         async: true,
         id: scriptIds.WIDERPLANET_TRACKER,
         onLoad: () => {
-          wptg_tagscript.exec();
+          window.wptg_tagscript.exec();
         },
       });
     }
