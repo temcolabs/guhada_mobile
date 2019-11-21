@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './Category.module.scss';
 import cn from 'classnames';
-
+import { toJS } from 'mobx';
 @inject('category', 'searchitem')
 @observer
 class Category extends Component {
   grow(params) {
+    const { category } = this.props;
+    let categoryList = toJS(category.category);
     let growDiv = document.getElementById(params);
     let categoryLabel = document.querySelector(`.category${params}`);
     if (growDiv.clientHeight) {
@@ -19,6 +21,21 @@ class Category extends Component {
       growDiv.style.borderTop = `1px dashed #eeeeee`;
       categoryLabel.style.color = `#5d2ed1`;
     }
+
+    categoryList.map(categoryMain => {
+      let growDiv = document.getElementById(categoryMain.key);
+      let categoryLabel = document.querySelector(
+        `.category${categoryMain.key}`
+      );
+
+      if (categoryMain.key !== params) {
+        if (growDiv.clientHeight) {
+          growDiv.style.height = 0;
+          growDiv.style.borderTop = 0;
+          categoryLabel.style.color = `#111111`;
+        }
+      }
+    });
   }
 
   toSearch = category => {
