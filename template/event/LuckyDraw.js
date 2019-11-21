@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import DefaultLayout, { MainContents } from 'components/layout/DefaultLayout';
+import React, { useEffect, useMemo, useCallback } from 'react';
+import DefaultLayout from 'components/layout/DefaultLayout';
 import css from './LuckyDraw.module.scss';
 import LuckydrawTimer from 'components/event/luckydraw/LuckydrawTimer';
 import LuckyDrawMainSlider from 'components/event/luckydraw/LuckyDrawMainSlider';
@@ -12,10 +12,11 @@ import { useObserver } from 'mobx-react-lite';
 import useStores from 'stores/useStores';
 import copy from 'copy-to-clipboard';
 import { devLog } from 'childs/lib/common/devLog';
-import { pushRoute } from 'lib/router';
 import LuckydrawLogin from './LuckydrawLogin';
 import LuckydrawSignup from './LuckydrawSignup';
 import LuckydrawModify from './LuckydrawModify';
+import CategorySlider from 'components/common/CategorySlider';
+import { mainCategory } from 'constant/category';
 
 const enhancer = compose(withRouter);
 
@@ -24,6 +25,7 @@ function LuckyDraw({ router }) {
     luckyDraw: luckyDrawStore,
     alert: alertStore,
     user: UserStore,
+    main,
   } = useStores();
 
   useEffect(() => {
@@ -57,6 +59,11 @@ function LuckyDraw({ router }) {
       toolBar={false}
     >
       <div className={css.wrap}>
+        <CategorySlider
+          categoryList={mainCategory.item}
+          setNavDealId={main.setNavDealId}
+        />
+
         <main className={css.main}>
           <div className={css.slideWrap}>
             <LuckyDrawMainSlider
