@@ -7,6 +7,7 @@ import { getParameterByName } from '../../utils';
 import Router from 'next/router';
 import { HOSTNAME } from 'constant/hostname';
 import { devLog } from 'lib/devLog';
+import { pushRoute } from 'lib/router';
 const isServer = typeof window === 'undefined';
 export default class OrderPaymentStore {
   constructor(root) {
@@ -132,7 +133,7 @@ export default class OrderPaymentStore {
               content:
                 '구매에 유효하지 않은 상품이 있습니다, 장바구니 로 돌아갑니다.',
               onConfirm: () => {
-                Router.push('/shoppingcart');
+                pushRoute('/shoppingcart');
               },
             });
           }
