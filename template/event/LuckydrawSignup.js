@@ -7,7 +7,7 @@ import cn from 'classnames';
 import { inject } from 'mobx-react';
 import { observer } from 'mobx-react';
 import SignupInputButtonChange from 'components/login/SignupInputButtonChange';
-
+import _ from 'lodash';
 @inject('login', 'authmobile')
 @observer
 class LuckydrawSignup extends Component {
@@ -26,7 +26,14 @@ class LuckydrawSignup extends Component {
         ? Form.signUpSNSLuckydraw
         : Form.signUpLuckydraw;
 
-    let value = form.get('value');
+    let value;
+
+    if (_.isNil(form)) {
+      return null;
+    } else {
+      value = form.get('value');
+    }
+
     const { isOpen, closeModal } = this.props;
 
     return (

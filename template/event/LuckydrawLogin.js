@@ -12,6 +12,7 @@ import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props
 import Cookies from 'js-cookie';
 import { observer, inject } from 'mobx-react';
 import NaverLogin from 'components/login/NaverLogin';
+import _ from 'lodash';
 
 let userId = Cookies.get('userId');
 
@@ -38,7 +39,15 @@ class LuckydrawLogin extends Component {
 
   render() {
     const form = Form.signInLuckydraw;
-    let value = form.get('value');
+
+    let value;
+
+    if (_.isNil(form)) {
+      return null;
+    } else {
+      value = form.get('value');
+    }
+
     const { isOpen, closeModal, luckyDraw, login } = this.props;
     return (
       <ModalWrapper
