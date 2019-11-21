@@ -86,14 +86,16 @@ export default {
                     }]
                 };
             }));
-            // wptg_tagscript_exec_auto = false;
+            wptg_tagscript_exec_auto = false;
           `,
       });
 
       loadScript(WIDER_PLANET_TRACKER_URL, {
         async: true,
         id: scriptIds.WIDERPLANET_TRACKER,
-        onLoad: () => {},
+        onLoad: () => {
+          window.wptg_tagscript.exec();
+        },
       });
     }
   },
@@ -128,13 +130,16 @@ export default {
                     }]
                 };
             }));
+            wptg_tagscript_exec_auto = false;
           `,
       });
 
       loadScript(WIDER_PLANET_TRACKER_URL, {
         async: true,
         id: scriptIds.WIDERPLANET_TRACKER,
-        onLoad: () => {},
+        onLoad: () => {
+          window.wptg_tagscript.exec();
+        },
       });
     }
   },
@@ -163,13 +168,16 @@ export default {
                 device: "${getDeviceType()}" /*디바이스 종류  (web 또는  mobile)*/,
               };
             });
+            wptg_tagscript_exec_auto = false;
           `,
       });
 
       loadScript(WIDER_PLANET_TRACKER_URL, {
         async: true,
         id: scriptIds.WIDERPLANET_TRACKER,
-        onLoad: () => {},
+        onLoad: () => {
+          window.wptg_tagscript.exec();
+        },
       });
     }
   },
@@ -200,13 +208,16 @@ export default {
                 // items:[{i:"상품 ID", t:"상품명 "}] /* i:<상품 식별번호  (Feed로 제공되는 상품코드와 일치하여야 합니다 .) t:상품명  */
               };
             }));
+            wptg_tagscript_exec_auto = false;
           `,
       });
 
       loadScript(WIDER_PLANET_TRACKER_URL, {
         async: true,
         id: scriptIds.WIDERPLANET_TRACKER,
-        onLoad: () => {},
+        onLoad: () => {
+          window.wptg_tagscript.exec();
+        },
       });
     }
   },
@@ -239,13 +250,16 @@ export default {
                 // ]
               };
             }));
+            wptg_tagscript_exec_auto = false;
           `,
       });
 
       loadScript(WIDER_PLANET_TRACKER_URL, {
         async: true,
         id: scriptIds.WIDERPLANET_TRACKER,
-        onLoad: () => {},
+        onLoad: () => {
+          window.wptg_tagscript.exec();
+        },
       });
     }
   },
@@ -280,13 +294,16 @@ export default {
                 // ]
               };
             }));
+            wptg_tagscript_exec_auto = false;
           `,
       });
 
       loadScript(WIDER_PLANET_TRACKER_URL, {
         async: true,
         id: scriptIds.WIDERPLANET_TRACKER,
-        onLoad: () => {},
+        onLoad: () => {
+          window.wptg_tagscript.exec();
+        },
       });
     }
   },

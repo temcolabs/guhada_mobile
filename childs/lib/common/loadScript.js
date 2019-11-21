@@ -1,4 +1,7 @@
 /**
+ * !deprecated
+ * lib/dom/loadScript 모듈을 대신 사용하도록 한다.
+ *
  * script 태그로 외부 js 파일 불러오기
  *
  * @param {*} src 스크립트 URL
