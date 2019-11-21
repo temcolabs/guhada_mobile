@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import Link from 'next/link';
 import Router from 'next/router';
 import css from './Header.module.scss';
 import HeaderMenu from './HeaderMenu';
 import CategoryDepthMenu from './CategoryDepthMenu';
 import { inject } from 'mobx-react';
 import sessionStorage from 'childs/lib/common/sessionStorage';
+import { pushRoute, LinkRoute } from 'lib/router';
 import cn from 'classnames';
 import SearchMenu from './SearchMenu';
 import BrandContainer from './item/BrandContainer';
@@ -78,15 +78,15 @@ function Header({
           {children ? (
             <div className={css.pageTitle}>{children}</div>
           ) : headerShape === 'productDetail' ? null : (
-            <Link href="/">
+            <LinkRoute href="/">
               <div className={css.headerLogo} />
-            </Link>
+            </LinkRoute>
           )}
 
           {headerShape === 'productDetail' ? (
-            <Link href="/">
+            <LinkRoute href="/">
               <button className={css.homeButton} />
-            </Link>
+            </LinkRoute>
           ) : null}
 
           {headerShape === 'shoppingcart' ||
@@ -103,18 +103,18 @@ function Header({
           {headerShape === 'shoppingcart' ||
           headerShape === 'orderpayment' ||
           headerShape === 'ordersuccess' ? null : (
-            <Link href="/shoppingcart">
+            <LinkRoute href="/shoppingcart">
               <div className={css.cartButton}>
                 <button />
                 {cartAmount > 0 ? <div>{cartAmount}</div> : null}
               </div>
-            </Link>
+            </LinkRoute>
           )}
           {/* 닫기버튼 */}
           {headerShape === 'ordersuccess' ? (
-            <Link href="/">
+            <LinkRoute href="/">
               <div className={css.closeButton} />
-            </Link>
+            </LinkRoute>
           ) : null}
 
           <HeaderMenu

@@ -5,7 +5,7 @@ import key from 'constant/key';
 import API from 'childs/lib/API';
 import localStorage from 'childs/lib/common/localStorage';
 import _ from 'lodash';
-import isFunction from 'lib/isFunction';
+import isFunction from 'childs/lib/common/isFunction';
 import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
 /**
  * 회원정보 관리
