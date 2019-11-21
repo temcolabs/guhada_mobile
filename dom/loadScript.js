@@ -59,24 +59,13 @@ const loadScript = (
     document.body.appendChild(script);
   };
 
-  /**
-   * 1. script 없음. 교체함 => 추가
-     2. script 없음. 교헤안함 => 추가
-     3. script 있음. 교체함 => 삭제 후 추가
-     4. script 있음. 교체안함
-   */
-  // 태그가 있고 교체가 아니라면 onload 바로 실행
-  if (existingTag && !replaceExitsing) {
-    if (typeof onLoad === 'function') {
-      onLoad();
-    }
-  } else {
-    if (existingTag && replaceExitsing) {
-      existingTag.remove();
-    }
-
-    addScript();
+  // 기존의 태그 제거
+  if (existingTag && replaceExitsing) {
+    existingTag.remove();
   }
+
+  // 스크립트 추가
+  addScript();
 };
 
 export default loadScript;
