@@ -1,11 +1,10 @@
-import { observable, action, computed, toJS } from 'mobx';
-import _ from 'lodash';
+import { observable, action, toJS } from 'mobx';
 import API from 'childs/lib/API';
 import { isBrowser } from 'childs/lib/common/isServer';
 import { devLog } from 'childs/lib/common/devLog';
 import Form from 'stores/form-store/_.forms';
-import { root } from 'store';
 import luckyDrawService from 'lib/API/product/luckyDrawService';
+import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
 
 export default class LukcyDrawStore {
   constructor(root) {
@@ -187,6 +186,9 @@ export default class LukcyDrawStore {
     }
   };
 
+  // 로딩스피너 표시를 위한 플래그
+  @observable isOnRequest = false;
+
   /**
    * 응모하기 버튼 클릭
    */
@@ -194,7 +196,6 @@ export default class LukcyDrawStore {
     try {
       const { data } = await luckyDrawService.requestLuckyDraws({ dealId });
 
-      // TODO: 신청 모달 연결
       devLog(data, '응모 완료');
       this.requestedData = data.data;
       this.isRequestModal = true;
@@ -202,6 +203,21 @@ export default class LukcyDrawStore {
       // 럭키드로우 목록 새로고침.
       // 로그인한 상태라면 본인의 응모 완료 여부가 업데이트된다.
       await this.getLuckyDrawList();
+
+      // 와이더플래닛 트래커
+      widerplanetTracker.purchaseComplete({
+        userId: this.root.user.userId,
+        items: [
+          {
+            i:
+              '응모하기 ' /*전환 식별 코드  (한글 , 영어 , 번호 , 공백 허용 )*/,
+            t: '응모하기 ' /*전환명  (한글 , 영어 , 번호 , 공백 허용 )*/,
+            p: '1' /*전환가격  (전환 가격이 없을경우 1로 설정 )*/,
+            q:
+              '1' /*전환수량  (전환 수량이 고정적으로 1개 이하일 경우 1로 설정 )*/,
+          },
+        ],
+      });
     } catch (e) {
       // TODO: 에러 케이스에 따라 프로세스 진행
       this.root.alert.showAlert(e.data?.message || '오류가 발생했습니다.');

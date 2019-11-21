@@ -17,6 +17,7 @@ import LuckydrawSignup from './LuckydrawSignup';
 import LuckydrawModify from './LuckydrawModify';
 import CategorySlider from 'components/common/CategorySlider';
 import { mainCategory } from 'constant/category';
+import LoadingPortal from 'components/common/loading/Loading';
 
 const enhancer = compose(withRouter);
 
@@ -135,6 +136,8 @@ function LuckyDraw({ router }) {
           isOpen={luckyDrawStore.luckydrawModifyModal}
           closeModal={() => luckyDrawStore.setLuckydrawModifyModal(false)}
         />
+
+        {luckyDrawStore.isOnRequest && <LoadingPortal />}
       </div>
     </DefaultLayout>
   ));
