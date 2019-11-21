@@ -25,8 +25,16 @@ const HeadForSEO = ({
       <meta itemProp="description" content={description} />
       <meta itemProp="image" content={image} />
 
-      {/* TODO: 네이버 웹마스터도구에서 발급 */}
-      {/* <meta name="naver-site-verification" content="" /> */}
+      {/* google search console */}
+      <meta
+        name="google-site-verification"
+        content={seo.GOOGLE_SITE_VERIFICATION}
+      />
+      {/* naver 웹마스터 도구 */}
+      <meta
+        name="naver-site-verification"
+        content={seo.NAVER_SITE_VERIFICATION}
+      />
 
       {/* 페이스북 앱 아이디 */}
       {!!seo.FB_APP_ID && <meta property="fb:app_id" content={seo.FB_APP_ID} />}
