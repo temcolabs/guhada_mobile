@@ -63,9 +63,6 @@ export default function LuckyDrawItem({
         loginStore.loginStatus === loginStatus.LOGIN_DONE
           ? luckyDrawStore.getEventUser()
           : luckyDrawStore.setLuckydrawLoginModal(true);
-        // luckyDrawStore.requestLuckyDraws({
-        //   dealId: data?.dealId,
-        // });
         break;
 
       case luckyDrawStatus.REQUESTED:

@@ -16,6 +16,7 @@ import { pushRoute } from 'lib/router';
 import LuckydrawLogin from './LuckydrawLogin';
 import LuckydrawSignup from './LuckydrawSignup';
 import LuckydrawModify from './LuckydrawModify';
+import LoadingPortal from 'components/common/loading/Loading';
 
 const enhancer = compose(withRouter);
 
@@ -128,6 +129,8 @@ function LuckyDraw({ router }) {
           isOpen={luckyDrawStore.luckydrawModifyModal}
           closeModal={() => luckyDrawStore.setLuckydrawModifyModal(false)}
         />
+
+        {luckyDrawStore.isOnRequest && <LoadingPortal />}
       </div>
     </DefaultLayout>
   ));
