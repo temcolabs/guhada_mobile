@@ -2,6 +2,7 @@ import Router from 'next/router';
 import API from 'childs/lib/API';
 import { root } from 'store';
 import { devLog } from 'childs/lib/common/devLog';
+import _ from 'lodash';
 
 export default {
   onInit() {

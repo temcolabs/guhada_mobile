@@ -5,6 +5,7 @@ module.exports = {
   globals: {
     define: 0,
 
+    daum: true,
     DaumConversionDctSv: true,
     DaumConversionAccountID: true,
     wptg_tagscript: true,

@@ -1,4 +1,4 @@
-import Axios from 'axios';
+import _ from 'lodash';
 import Router from 'next/router';
 import API from 'childs/lib/API';
 import { autoHypenTele, autoHypenPhone } from 'utils';
