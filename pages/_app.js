@@ -78,10 +78,11 @@ class MarketPlatform extends App {
 
   /**
    * 와이퍼플래닛 트래커 실행.
-   * 상품 상세, 카트, 트래커 페이지는 전환이 발생하는 곳이므로 공통 전환을 실행하지 않는다.
+   * 로그인, 상품 상세, 카트, 트래커 페이지는 전환이 발생하는 곳이므로 공통 전환을 실행하지 않는다.
    */
   execWiderPlanetTracker = () => {
     const locationHasConversion = [
+      /^\/login.*/, // 로그인
       /^\/productdetail.*/, // 상품 상세
       /^\/shoppingcart.*/, // 카트
       /^\/orderpaymentsuccess.*/, // 구매 완료
@@ -101,11 +102,6 @@ class MarketPlatform extends App {
           this.mobxStore.user.pushJobForUserInfo(userInfo => {
             // 공통
             widerplanetTracker.common({
-              userId: userInfo?.id,
-            });
-
-            // 로그인
-            widerplanetTracker.signIn({
               userId: userInfo?.id,
             });
           });

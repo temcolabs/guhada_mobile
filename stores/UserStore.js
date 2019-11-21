@@ -6,6 +6,7 @@ import API from 'childs/lib/API';
 import localStorage from 'lib/localStorage';
 import _ from 'lodash';
 import isFunction from 'lib/isFunction';
+import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
 /**
  * 회원정보 관리
  */
@@ -97,6 +98,12 @@ export default class UserStore {
         localStorage.set(key.GUHADA_USERINFO, toJS(this.userInfo), 60);
 
         this.runJobsForUserInfo(data.data);
+
+        /**
+         * 와이더플래닛 로그인 전환 트래커
+         * 회원정보 가져왔음 = 로그인 되었음을 의미.
+         */
+        widerplanetTracker.signIn({ userId });
       }
     } catch (e) {
       console.error(e);

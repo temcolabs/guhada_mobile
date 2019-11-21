@@ -4,7 +4,6 @@ import API from 'childs/lib/API';
 import Router from 'next/router';
 import { pushRoute } from 'lib/router';
 import qs from 'qs';
-import { devLog } from 'lib/devLog';
 import naverShoppingTrakers from 'lib/tracking/navershopping/naverShoppingTrakers';
 import daumTrakers from 'lib/tracking/daum/daumTrakers';
 import criteoTracker from 'childs/lib/tracking/criteo/criteoTracker';
@@ -71,7 +70,7 @@ export default class CartAndPurchaseStore {
                     borderRadius: 0,
                   },
                   onConfirm: () => {
-                    Router.push('/shoppingcart');
+                    pushRoute('/shoppingcart');
                   },
                 });
               });
