@@ -86,7 +86,12 @@ class CategorySlider extends Component {
                 }}
                 key={index}
               >
-                <div className={css.dot} />
+                <div
+                  className={cn(css.dot, {
+                    [css.redDot]: item.flag === 'event',
+                  })}
+                />
+
                 {item.title}
               </div>
             );
