@@ -50,8 +50,6 @@ function LuckyDraw({ router }) {
     );
   }, [firstItem]);
 
-  devLog(`firstItem`, firstItem);
-
   return useObserver(() => (
     <DefaultLayout
       pageStyle={{

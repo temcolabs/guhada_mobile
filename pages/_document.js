@@ -4,25 +4,32 @@
 // ./pages/_document.js
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import React from 'react';
+import CommonHead from 'childs/lib/components/CommonHead';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
     const initialProps = await Document.getInitialProps(ctx);
-    return { ...initialProps };
+    const { asPath, req } = ctx;
+
+    // 현재 페이지의 URI
+    const fullUrl = `${req.protocol}://${req.headers.host}${asPath}`;
+
+    return { ...initialProps, fullUrl };
   }
 
   render() {
+    const { fullUrl } = this.props;
+
     return (
       <Html>
         <Head>
-          <meta
-            name="Description"
-            content="명품 특가 타임딜! 정품 100% 보장! 전 상품 무료 배송! 명품쇼핑의 즐거움을 구하다"
-          />
-          <meta
-            property="og:description"
-            content="명품 특가 타임딜! 정품 100% 보장! 전 상품 무료 배송! 명품쇼핑의 즐거움을 구하다"
-          />
+          <CommonHead />
+
+          {/* headers for SEO */}
+          {/* ============================================================ */}
+          {fullUrl && <link key="canonical" rel="canonical" href={fullUrl} />}
+          {fullUrl && <meta key="og:url" property="og:url" content={fullUrl} />}
+
           {/* Global site tag (gtag.js) - Google Analytics */}
           <script
             async
@@ -38,23 +45,18 @@ class MyDocument extends Document {
               gtag('config', 'G-9SXJBX8EXX');`,
             }}
           />
-          {/* bootstrap 스타일시트는 summernote의 dependency */}
+          {/* bootstrap 스타일시트(summernote의 dependency)*/}
           <link
             rel="stylesheet"
             href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
             integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu"
             crossOrigin="anonymous"
           />
+          {/* 다음 우편번호 검색 */}
           <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js" />
-          <meta
-            name="google-site-verification"
-            content="pNZ8iQTxAxE_4Le0CrNz7CKZYbK77vs-AUr_gTHFjKA"
-          />
-          <meta
-            name="naver-site-verification"
-            content="1afd6b85b3b1b6b0030bc86e1c392cd057b33b4c"
-          />
+          {/* 네이버 쇼핑 트래커 */}
           <script type="text/javascript" src="//wcs.naver.net/wcslog.js" />
+          {/* 코차바 */}
           <script
             dangerouslySetInnerHTML={{
               __html: `

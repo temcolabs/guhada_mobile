@@ -48,75 +48,87 @@ import EventMainStore from './event/EventMainStore';
 import LuckyDrawStore from './event/LuckyDrawStore';
 
 class RootStore {
-  constructor() {
-    this.user = new UserStore(this);
-    this.uistatus = new UiStatus(this);
-    this.login = new LoginStore(this);
-    this.brands = new BrandsStore(this);
-    this.category = new CategoryStore(this);
-    this.search = new SearchStore(this);
-    this.searchitem = new SearchItemStore(this);
-    this.productdetail = new ProductDetailStore(this);
-    this.orderpayment = new OrderPaymentStore(this);
-    this.orderPaymentBenefit = new OrderPaymentBenefitStore(this);
-    this.orderpaymentsuccess = new OrderPaymentSuccessStore(this);
-    this.cartAndPurchase = new CartAndPurchaseStore(this);
-    this.shoppingCartSuccessModal = new ShoppingCartSuccessModalStore(this);
-    this.shoppingcart = new ShoppingCartStore(this);
-    this.productreview = new ProductReviewStore(this);
-    this.productoption = new ProductOptionStore(this);
+  constructor(isServer, initialState) {
+    this.user = new UserStore(this, initialState);
+    this.uistatus = new UiStatus(this, initialState);
+    this.login = new LoginStore(this, initialState);
+    this.brands = new BrandsStore(this, initialState);
+    this.category = new CategoryStore(this, initialState);
+    this.search = new SearchStore(this, initialState);
+    this.searchitem = new SearchItemStore(this, initialState);
+    this.productdetail = new ProductDetailStore(this, initialState);
+    this.orderpayment = new OrderPaymentStore(this, initialState);
+    this.orderPaymentBenefit = new OrderPaymentBenefitStore(this, initialState);
+    this.orderpaymentsuccess = new OrderPaymentSuccessStore(this, initialState);
+    this.cartAndPurchase = new CartAndPurchaseStore(this, initialState);
+    this.shoppingCartSuccessModal = new ShoppingCartSuccessModalStore(
+      this,
+      initialState
+    );
+    this.shoppingcart = new ShoppingCartStore(this, initialState);
+    this.productreview = new ProductReviewStore(this, initialState);
+    this.productoption = new ProductOptionStore(this, initialState);
     // 상품 상세
-    this.productDetailLike = new ProductDetailLikeStore(this);
-    this.productDetailBookmark = new ProductDetailBookmarkStore(this);
-    this.productDetailGallery = new ProductDetailGalleryStore(this);
-    this.sellerfollow = new SellerFollowStore(this);
+    this.productDetailLike = new ProductDetailLikeStore(this, initialState);
+    this.productDetailBookmark = new ProductDetailBookmarkStore(
+      this,
+      initialState
+    );
+    this.productDetailGallery = new ProductDetailGalleryStore(
+      this,
+      initialState
+    );
+    this.sellerfollow = new SellerFollowStore(this, initialState);
 
-    this.seller = new SellerStore(this);
-    this.alert = new AlertStore(this);
-    this.bookmark = new BookMarkStore(this);
-    this.authmobile = new AuthMobileStore(this);
-    this.customerauthentication = new CustomerAuthenticationStore(this);
-    this.countdown = new CountdownStore(this);
+    this.seller = new SellerStore(this, initialState);
+    this.alert = new AlertStore(this, initialState);
+    this.bookmark = new BookMarkStore(this, initialState);
+    this.authmobile = new AuthMobileStore(this, initialState);
+    this.customerauthentication = new CustomerAuthenticationStore(
+      this,
+      initialState
+    );
+    this.countdown = new CountdownStore(this, initialState);
 
     // order payment - 사이드 탭
-    this.productRecentlySeen = new ProductRecentlySeenStore(this);
+    this.productRecentlySeen = new ProductRecentlySeenStore(this, initialState);
 
     // 나의 주문
     // mypage - 나의주문
-    this.myOrderList = new MyOrderListStore(this);
+    this.myOrderList = new MyOrderListStore(this, initialState);
     // mypage - 상품상세
-    this.myOrderDetail = new MyOrderDetailStore(this);
+    this.myOrderDetail = new MyOrderDetailStore(this, initialState);
     // mypage - 포인트
-    this.mypagePoint = new MypagePointStore(this);
+    this.mypagePoint = new MypagePointStore(this, initialState);
     // mypage - 충전
-    this.mypagePointCharge = new MypagePointChargeStore(this);
+    this.mypagePointCharge = new MypagePointChargeStore(this, initialState);
     // mypage - 리뷰
-    this.mypagereview = new MypageReviewStore(this);
+    this.mypagereview = new MypageReviewStore(this, initialState);
     // mypage - 쿠폰
-    this.mypageCoupon = new MypageCouponStore(this);
+    this.mypageCoupon = new MypageCouponStore(this, initialState);
     // mypage - 배송지관리
-    this.mypageAddress = new MypageAddressStore(this);
+    this.mypageAddress = new MypageAddressStore(this, initialState);
     // mypage - 찜한상품
-    this.mypageLike = new MypageLikeStore(this);
+    this.mypageLike = new MypageLikeStore(this, initialState);
 
-    this.toast = new ToastStore(this);
-    this.history = new RouteHistoryStore(this);
-    this.main = new MainStore(this);
-    this.keyword = new KeywordStore(this);
+    this.toast = new ToastStore(this, initialState);
+    this.history = new RouteHistoryStore(this, initialState);
+    this.main = new MainStore(this, initialState);
+    this.keyword = new KeywordStore(this, initialState);
 
     // 배송지
 
-    this.address = new AddressStore(this);
+    this.address = new AddressStore(this, initialState);
 
     //판매자 문의하기
-    this.sellerClaim = new SellerClaimStore(this);
+    this.sellerClaim = new SellerClaimStore(this, initialState);
 
     //무이자정보
-    this.cardinterest = new CardInterestStore(this);
+    this.cardinterest = new CardInterestStore(this, initialState);
 
     // 이벤트 메인
-    this.eventmain = new EventMainStore(this);
-    this.luckyDraw = new LuckyDrawStore(this);
+    this.eventmain = new EventMainStore(this, initialState);
+    this.luckyDraw = new LuckyDrawStore(this, initialState);
   }
 }
 

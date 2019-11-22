@@ -1,10 +1,11 @@
 import React from 'react';
-import Head from 'next/head';
 import OrderPayment from '../../template/orderpayment/OrderPayment';
 import { inject, observer } from 'mobx-react';
 import Loading from '../../components/common/loading/Loading';
 import { getParameterByName } from '../../utils';
 import { devLog } from 'childs/lib/common/devLog';
+import HeadForSEO from 'childs/lib/components/HeadForSEO';
+
 @inject('orderpayment')
 @observer
 class index extends React.Component {
@@ -17,18 +18,8 @@ class index extends React.Component {
     let { orderpayment } = this.props;
     return (
       <>
-        <Head>
-          <title>주문 결제</title>
-          <link
-            rel="shortcut icon"
-            type="image/x-icon"
-            href="/static/guhada.ico"
-          />
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
-          />
-        </Head>
+        <HeadForSEO pageName="주문 결제" />
+
         <div>
           {orderpayment.status.pageStatus ? <OrderPayment /> : <Loading />}
         </div>
