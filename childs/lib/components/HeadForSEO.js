@@ -24,11 +24,7 @@ const HeadForSEO = ({
       <title>{titleText}</title>
       <meta key="description" name="description" content={description} />
       <meta key="author" name="author" content={seo.AUTHOR} />
-<<<<<<< HEAD
       <meta key="title" name="title" content={titleText} />
-=======
-      <meta key="title" name="title" content={titleText}>
->>>>>>> refs/remotes/origin/develop
 
       <meta itemProp="name" content={titleText} />
       <meta itemProp="description" content={description} />
@@ -65,11 +61,7 @@ const HeadForSEO = ({
       <meta key="og:locale" property="og:locale" content="ko_KR" />
 
       {/* Twitter Meta Tags */}
-<<<<<<< HEAD
       <meta name="twitter:card" content={image} />
-=======
-      <meta name="twitter:card" content="summary_large_image" />
->>>>>>> refs/remotes/origin/develop
       <meta name="twitter:title" content={titleText} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image} />
