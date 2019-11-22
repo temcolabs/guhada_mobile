@@ -5,15 +5,6 @@ class test extends React.Component {
   render() {
     return (
       <Fragment>
-        <Head>
-          <title>구하다 envrionments</title>
-          <link
-            rel="shortcut icon"
-            type="image/x-icon"
-            href="/static/guhada.ico"
-          />
-        </Head>
-
         <div>
           <p>HOSTNAME: {process.env.HOSTNAME}</p>
           <p>HOSTNAME_MOBILE: {process.env.HOSTNAME_MOBILE}</p>

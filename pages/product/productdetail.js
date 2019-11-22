@@ -81,6 +81,8 @@ class index extends React.Component {
   render() {
     let { productdetail, headData } = this.props;
 
+    console.log(`headData`, headData);
+
     return (
       <>
         <HeadForSEO

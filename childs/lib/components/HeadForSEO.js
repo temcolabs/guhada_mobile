@@ -10,26 +10,28 @@ import seo from '../constant/seo';
  * @param {*} param0
  */
 const HeadForSEO = ({
-  pageName, // * 페이지 이름. 뒤에 "- 구하다" 를 붙여준다
+  pageName, // * 페이지 이름. 뒤에 ":: 구하다" 를 붙여준다
   title = seo.TITLE, // pageName이 없을 때 사용할 페이지 타이틀
   description = seo.DESCRIPTION, // * 페이지 설명
   image = seo.MAIN_IMAGE, // * 페이지 대표 이미지
   fullUrl, // widnow.location.pathname + window.location.search.
   children, // 별도로 추가 태그
 }) => {
+  const titleText = pageName ? `${pageName} :: 구하다` : title;
+
   return (
     <Head>
+      <title>{titleText}</title>
       <meta key="description" name="description" content={description} />
       <meta key="author" name="author" content={seo.AUTHOR} />
-      <title key="title">{pageName ? `${pageName} :: 구하다` : title}</title>
+      <meta key="title" name="title" content={titleText}>
+
+      <meta itemProp="name" content={titleText} />
+      <meta itemProp="description" content={description} />
+      <meta itemProp="image" content={image} />
 
       {/* 쿼리스트링에 따라 다른 페이지가 표시되므로 현재 페이지의 full URL을 넣어준다 */}
       {fullUrl && <link key="canonical" rel="canonical" href={fullUrl} />}
-
-      {/* Google / Search Engine Tags */}
-      <meta itemProp="name" content={title} />
-      <meta itemProp="description" content={description} />
-      <meta itemProp="image" content={image} />
 
       {/* google search console */}
       <meta
@@ -48,7 +50,7 @@ const HeadForSEO = ({
       {/* opengraph Meta Tags */}
       {fullUrl && <meta key="og:url" property="og:url" content={fullUrl} />}
       <meta key="og:type" property="og:type" content="website" />
-      <meta key="og:title" property="og:title" content={title} />
+      <meta key="og:title" property="og:title" content={titleText} />
       <meta key="og:image" property="og:image" content={image} />
       <meta
         key="og:description"
@@ -60,7 +62,7 @@ const HeadForSEO = ({
 
       {/* Twitter Meta Tags */}
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={title} />
+      <meta name="twitter:title" content={titleText} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image} />
 
