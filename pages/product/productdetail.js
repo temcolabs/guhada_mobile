@@ -19,28 +19,31 @@ class index extends React.Component {
   static async getInitialProps({ req }) {
     try {
       const dealsId = isServer ? req.query.deals : Router.query.deals;
+      if (dealsId) {
+        const { data } = await API.product.get(`/deals/${dealsId}`);
+        const deals = data.data;
 
-      const { data } = await API.product.get(`/deals/${dealsId}`);
-      const deals = data.data;
+        const headData = {
+          pageName: `${_.isNil(deals.season) === false ? deals.season : ''} ${
+            deals.name
+          }`,
+          description: `${deals.brandName} - ${deals.name} - ${
+            deals.discountPrice
+          }원`,
+          image: _.get(deals, 'imageUrls.0'),
+        };
 
-      const headData = {
-        pageName: `${_.isNil(deals.season) === false ? deals.season : ''} ${
-          deals.name
-        }`,
-        description: `${deals.brandName} - ${deals.name} - ${
-          deals.discountPrice
-        }원`,
-        image: _.get(deals, 'imageUrls.0'),
-      };
-
-      return {
-        initialState: {
-          productdetail: {
-            deals,
+        return {
+          initialState: {
+            productdetail: {
+              deals,
+            },
           },
-        },
-        headData,
-      };
+          headData,
+        };
+      } else {
+        return {};
+      }
     } catch (e) {
       return {};
     }
