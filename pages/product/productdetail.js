@@ -32,6 +32,11 @@ class index extends React.Component {
     };
 
     return {
+      initialState: {
+        productdetail: {
+          deals,
+        },
+      },
       headData,
     };
   }

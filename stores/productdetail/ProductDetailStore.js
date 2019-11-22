@@ -11,8 +11,15 @@ import { isBrowser } from 'childs/lib/common/isServer';
 
 const isServer = typeof window === 'undefined';
 export default class ProductDetailStore {
-  constructor(root) {
-    if (!isServer) this.root = root;
+  constructor(root, initialState) {
+    if (!isServer) {
+      this.root = root;
+    }
+
+    // 상품 상세 데이터
+    if (initialState.productdetail?.deals) {
+      this.deals = initialState.productdetail?.deals;
+    }
   }
   @observable deals;
   @observable dealsStatus = false;
