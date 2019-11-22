@@ -1,4 +1,5 @@
 import React from 'react';
+import seo from 'childs/lib/constant/seo';
 
 export default function CommonHead() {
   return (
@@ -45,6 +46,26 @@ export default function CommonHead() {
         rel="apple-touch-icon-precomposed"
         href="/static/appicon/guhada-icon-57.png"
       />
+
+      {/* ios 앱 */}
+      {seo.IOS_APPSTORE_ID && (
+        <meta property="al:ios:app_store_id" content={seo.IOS_APPSTORE_ID} />
+      )}
+      {seo.IOS_APP_NAME && (
+        <meta property="al:ios:app_name" content={seo.IOS_APP_NAME} />
+      )}
+      {/* 커스텀 앱 스키마 */}
+      {/* <meta property="al:ios:url" content={seo.IOS_APP_LINK} /> */}
+
+      {/* 안드로이드 앱 */}
+      {seo.ANDROID_APP_NAME && (
+        <meta property="al:android:app_name" content={seo.ANDROID_APP_NAME} />
+      )}
+      {seo.ANDROID_PACKAGE_ID && (
+        <meta property="al:android:package" content={seo.ANDROID_PACKAGE_ID} />
+      )}
+      {/* 커스텀 앱 스키마 */}
+      {/* <meta property="al:android:url" content={seo.ANDROID_APP_LINK} /> */}
     </>
   );
 }
