@@ -10,12 +10,12 @@ import seo from '../constant/seo';
  * @param {*} param0
  */
 const HeadForSEO = ({
-  pageName, // 페이지 이름. 뒤에 "- 구하다" 를 붙여준다
-  title = seo.TITLE,
-  description = seo.DESCRIPTION,
-  fullUrl, // widnow.location.pathname + window.location.search
-  image = seo.MAIN_IMAGE, // 페이지 대표 이미지
-  children,
+  pageName, // * 페이지 이름. 뒤에 "- 구하다" 를 붙여준다
+  title = seo.TITLE, // pageName이 없을 때 사용할 페이지 타이틀
+  description = seo.DESCRIPTION, // * 페이지 설명
+  image = seo.MAIN_IMAGE, // * 페이지 대표 이미지
+  fullUrl, // widnow.location.pathname + window.location.search.
+  children, // 별도로 추가 태그
 }) => {
   return (
     <Head>
