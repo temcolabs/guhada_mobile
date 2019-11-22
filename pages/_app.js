@@ -38,7 +38,10 @@ class MarketPlatform extends App {
 
     // 컴포넌트에 getInitialProps 메소드가 선언되어 있으면 실행시킨다.
     if (Component.getInitialProps) {
-      initialProps = await Component.getInitialProps(ctx);
+      initialProps = {
+        ...initialProps,
+        ...(await Component.getInitialProps(ctx)),
+      };
     }
 
     return {

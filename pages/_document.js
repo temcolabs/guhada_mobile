@@ -9,14 +9,25 @@ import CommonHead from 'childs/lib/components/CommonHead';
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
     const initialProps = await Document.getInitialProps(ctx);
-    return { ...initialProps };
+    const { asPath, req } = ctx;
+    const fullUrl = `${req.protocol}://${req.headers.host}${asPath}`;
+
+    return { ...initialProps, fullUrl };
   }
 
   render() {
+    const { fullUrl } = this.props;
+
     return (
       <Html>
         <Head>
           <CommonHead />
+
+          {/* headers for SEO */}
+          {/* ============================================================ */}
+          {fullUrl && <link key="canonical" rel="canonical" href={fullUrl} />}
+          {fullUrl && <meta key="og:url" property="og:url" content={fullUrl} />}
+
           {/* Global site tag (gtag.js) - Google Analytics */}
           <script
             async
@@ -32,7 +43,6 @@ class MyDocument extends Document {
               gtag('config', 'G-9SXJBX8EXX');`,
             }}
           />
-
           {/* bootstrap 스타일시트(summernote의 dependency)*/}
           <link
             rel="stylesheet"
@@ -40,13 +50,10 @@ class MyDocument extends Document {
             integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu"
             crossOrigin="anonymous"
           />
-
           {/* 다음 우편번호 검색 */}
           <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js" />
-
           {/* 네이버 쇼핑 트래커 */}
           <script type="text/javascript" src="//wcs.naver.net/wcslog.js" />
-
           {/* 코차바 */}
           <script
             dangerouslySetInnerHTML={{

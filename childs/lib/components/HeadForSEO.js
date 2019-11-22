@@ -1,24 +1,30 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import Head from 'next/head';
 import seo from '../constant/seo';
 
+/**
+ * 검색엔진 최적화를 위한 헤더
+ * page 폴더에 있는 컴포넌트에 모두 추가해줘야 한다.
+ *
+ * * full url은 req 객체에서 가져오기 때문에 document.js에서 일괄적으로 추가하고 있다.
+ * @param {*} param0
+ */
 const HeadForSEO = ({
+  pageName, // 페이지 이름. 뒤에 "- 구하다" 를 붙여준다
   title = seo.TITLE,
   description = seo.DESCRIPTION,
-  asPath = '/', // widnow.location.pathname + window.location.search
+  fullUrl, // widnow.location.pathname + window.location.search
   image = seo.MAIN_IMAGE, // 페이지 대표 이미지
   children,
-} = {}) => {
-  const url = useMemo(() => `${seo.BASE_URL}${asPath}`, [asPath]);
-
+}) => {
   return (
     <Head>
       <meta key="description" name="description" content={description} />
       <meta key="author" name="author" content={seo.AUTHOR} />
-      <title key="title">{title}</title>
+      <title key="title">{pageName ? `구하다 - ${pageName}` : title}</title>
 
       {/* 쿼리스트링에 따라 다른 페이지가 표시되므로 현재 페이지의 full URL을 넣어준다 */}
-      <link key="canonical" rel="canonical" href={url} />
+      {fullUrl && <link key="canonical" rel="canonical" href={fullUrl} />}
 
       {/* Google / Search Engine Tags */}
       <meta itemProp="name" content={title} />
@@ -40,7 +46,7 @@ const HeadForSEO = ({
       {!!seo.FB_APP_ID && <meta property="fb:app_id" content={seo.FB_APP_ID} />}
 
       {/* opengraph Meta Tags */}
-      <meta key="og:url" property="og:url" content={url} />
+      {fullUrl && <meta key="og:url" property="og:url" content={fullUrl} />}
       <meta key="og:type" property="og:type" content="website" />
       <meta key="og:title" property="og:title" content={title} />
       <meta key="og:image" property="og:image" content={image} />
