@@ -4,6 +4,7 @@ import Head from 'next/head';
 import Form from '../../stores/form-store/_.forms';
 import FindIdResult from 'template/signin/FindIdResult';
 import { pushRoute } from 'lib/router';
+import HeadForSEO from 'childs/lib/components/HeadForSEO';
 
 @inject('authmobile')
 @observer
@@ -26,18 +27,8 @@ class findidresult extends Component {
     }
     return (
       <>
-        <Head>
-          <title>아이디 찾기 결과</title>
-          <link
-            rel="shortcut icon"
-            type="image/x-icon"
-            href="/static/guhada.ico"
-          />
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
-          />
-        </Head>
+        <HeadForSEO pageName="아이디 찾기 결과" />
+
         <div>
           <FindIdResult form={Form.idFind} formValue={formValue} />
         </div>

@@ -7,6 +7,7 @@ import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTrack
 import Cookies from 'js-cookie';
 import key from 'childs/lib/constant/key';
 import { isBrowser } from 'childs/lib/common/isServer';
+import HeadForSEO from 'childs/lib/components/HeadForSEO';
 
 @inject('shoppingcart', 'user')
 @observer
@@ -43,18 +44,8 @@ class shoppingcart extends React.Component {
     let { shoppingcart } = this.props;
     return (
       <>
-        <Head>
-          <title>장바구니</title>
-          <link
-            rel="shortcut icon"
-            type="image/x-icon"
-            href="/static/guhada.ico"
-          />
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-          />
-        </Head>
+        <HeadForSEO pageName="장바구니" />
+
         <div>
           {shoppingcart.status.pageStatus ? <ShoppingCart /> : <Loading />}
         </div>

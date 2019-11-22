@@ -1,5 +1,4 @@
 import React from 'react';
-import Head from 'next/head';
 import ProductDetail from '../../template/product/ProductDetail';
 import { inject, observer } from 'mobx-react';
 import { getParameterByName } from '../../utils';
@@ -7,6 +6,7 @@ import Loading from '../../components/common/loading/Loading';
 import { withRouter } from 'next/router';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
 import criteoTracker from 'childs/lib/tracking/criteo/criteoTracker';
+import HeadForSEO from 'childs/lib/components/HeadForSEO';
 
 @withScrollToTopOnMount
 @withRouter
@@ -46,18 +46,8 @@ class index extends React.Component {
 
     return (
       <>
-        <Head>
-          <title>상품-상세페이지</title>
-          <link
-            rel="shortcut icon"
-            type="image/x-icon"
-            href="/static/guhada.ico"
-          />
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-          />
-        </Head>
+        <HeadForSEO pageName="상품-상세페이지" />
+
         <div>
           {productdetail.dealsStatus ? (
             <ProductDetail

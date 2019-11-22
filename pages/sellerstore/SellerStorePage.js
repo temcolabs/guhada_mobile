@@ -4,6 +4,7 @@ import SellerStore from 'template/sellerstore/SellerStore';
 import { isBrowser } from 'childs/lib/common/isServer';
 import { inject, observer } from 'mobx-react';
 import Router from 'next/router';
+import HeadForSEO from 'childs/lib/components/HeadForSEO';
 
 @inject('seller', 'login')
 @observer
@@ -28,9 +29,8 @@ class SellerStorePage extends Component {
     const { seller, login } = this.props;
     return (
       <>
-        <Head>
-          <title>셀러스토어</title>
-        </Head>
+        <HeadForSEO pageName="셀러스토어" />
+
         <SellerStore seller={seller} login={login} />
       </>
     );
