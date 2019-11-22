@@ -7,13 +7,13 @@ useStaticRendering(isServer);
 
 export let root = null;
 
-export function initializeStore(initialData) {
+export function initializeStore(initialState) {
   // Always make a new store if server, otherwise state is shared between requests
   if (isServer) {
-    return new Root(isServer, initialData);
+    return new Root(isServer, initialState);
   }
   if (root === null) {
-    root = new Root(isServer, initialData);
+    root = new Root(isServer, initialState);
   }
   return root;
 }

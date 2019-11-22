@@ -21,24 +21,29 @@ class eventdetail extends Component {
           eventId,
         },
       });
-      const eventData = data.data;
+      const eventDetail = data.data;
 
       const headData = {
-        pageName: eventData.eventTitle,
-        description: `구하다 이벤트 "${eventData.eventTitle}". ${moment(
-          eventData.eventStartDate
+        pageName: eventDetail.eventTitle,
+        description: `구하다 이벤트 "${eventDetail.eventTitle}". ${moment(
+          eventDetail.eventStartDate
         ).format(`${dateFormat.YYYYMMDD_UI} 부터`)} ${
-          !!eventData.eventEndDate
-            ? moment(eventData.eventEndDate).format(
+          !!eventDetail.eventEndDate
+            ? moment(eventDetail.eventEndDate).format(
                 `${dateFormat.YYYYMMDD_UI} 까지`
               )
             : ''
         }`,
-        image: _.get(eventData, 'imgUrlM'),
+        image: _.get(eventDetail, 'imgUrlM'),
       };
 
       return {
         headData,
+        initialState: {
+          eventmain: {
+            eventDetail,
+          },
+        },
       };
     } catch (error) {
       return {};

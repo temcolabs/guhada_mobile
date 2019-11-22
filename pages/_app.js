@@ -15,6 +15,7 @@ import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTrack
 import Cookies from 'js-cookie';
 import key from 'childs/lib/constant/key';
 import getIpAddrress from 'childs/lib/common/getIpAddrress';
+import _ from 'lodash';
 
 moment.locale('ko');
 
@@ -28,19 +29,6 @@ class GuhadaMobileWeb extends App {
       GuhadaMobileWeb.aceCouterTracker(ctx.asPath);
     }
 
-    // Get or Create the store with `undefined` as initialState
-    // This allows you to set a custom default initialState
-    const initialMobxState = GuhadaMobileWeb.makeInitialMobxState({
-      req: ctx.req,
-    });
-
-    // Get or Create the store with `undefined` as initialState
-    // This allows you to set a custom default initialState
-    const mobxStore = initializeStore(initialMobxState);
-
-    // Provide the store to getInitialProps of pages
-    appContext.ctx.mobxStore = mobxStore;
-
     let initialProps = {};
 
     // 컴포넌트에 getInitialProps 메소드가 선언되어 있으면 실행시킨다.
@@ -48,9 +36,31 @@ class GuhadaMobileWeb extends App {
       initialProps = await Component.getInitialProps(ctx);
     }
 
+    // Get or Create the store with `undefined` as initialState
+    // This allows you to set a custom default initialState
+    const commonMobxState = GuhadaMobileWeb.makeCommonMobxState({
+      req: ctx.req,
+    });
+
+    let initialState = {
+      ...commonMobxState,
+    };
+
+    // page 컴포넌트의 getInitialProps에서 리턴한 객체에 initialState가 있다면 병합
+    if (initialProps.initialState) {
+      initialState = _.merge(initialState, initialProps.initialState);
+    }
+
+    // Get or Create the store with `undefined` as initialState
+    // This allows you to set a custom default initialState
+    const mobxStore = initializeStore(initialState);
+
+    // Provide the store to getInitialProps of pages
+    appContext.ctx.mobxStore = mobxStore;
+
     return {
       mobxStore, // 서버에서 최초 생성된 mobxStore
-      initialMobxState, // 브라우저에 전달할 initialState
+      initialState,
       initialProps, // 컴포넌트 intialProps
     };
   }
@@ -58,7 +68,7 @@ class GuhadaMobileWeb extends App {
   /**
    * mobx store의 초기값 생성
    */
-  static makeInitialMobxState({ req }) {
+  static makeCommonMobxState({ req }) {
     // 사용자 ip 주소 가져오기
     let userIp = null;
     if (isServer) {
@@ -76,13 +86,12 @@ class GuhadaMobileWeb extends App {
 
   constructor(props) {
     super(props);
-    const isServer = typeof window === 'undefined';
 
     this.mobxStore = isServer
-      ? props.mobxStore
-      : initializeStore(props.initialMobxState);
+      ? props.mobxStore // getInitialProps에서 만든 store
+      : initializeStore(props.initialState); // 브라우저에서는 initialState로 만든다
 
-    if (typeof window !== 'undefined') {
+    if (!isServer) {
       ReactModal.setAppElement('body');
     }
   }
