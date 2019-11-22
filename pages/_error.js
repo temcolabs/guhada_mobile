@@ -3,7 +3,7 @@ import { pushRoute } from 'lib/router';
 import qs from 'qs';
 import { observer, inject } from 'mobx-react';
 import Error from 'template/Error';
-import Head from 'next/head';
+import HeadForSEO from 'childs/lib/components/HeadForSEO';
 
 @inject('alert')
 @observer
@@ -46,18 +46,7 @@ class ErrorPage extends React.Component {
   render() {
     return (
       <>
-        <Head>
-          <title>오류페이지</title>
-          <link
-            rel="shortcut icon"
-            type="image/x-icon"
-            href="/static/guhada.ico"
-          />
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
-          />
-        </Head>
+        <HeadForSEO pageName="오류 페이지" />
         <Error />
       </>
     );
