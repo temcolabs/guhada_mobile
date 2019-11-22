@@ -4,6 +4,7 @@
 // ./pages/_document.js
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import React from 'react';
+import urlConstant from 'childs/lib/constant/url';
 import CommonHead from 'childs/lib/components/CommonHead';
 
 class MyDocument extends Document {
@@ -52,10 +53,16 @@ class MyDocument extends Document {
             integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu"
             crossOrigin="anonymous"
           />
-          {/* 다음 우편번호 검색 */}
-          <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js" />
+
+          {/* 다음 주소검색 */}
+          <script
+            id="daumPostcode"
+            src={`${urlConstant.daumPostCode}?autoload=false`}
+          />
+
           {/* 네이버 쇼핑 트래커 */}
           <script type="text/javascript" src="//wcs.naver.net/wcslog.js" />
+
           {/* 코차바 */}
           <script
             dangerouslySetInnerHTML={{

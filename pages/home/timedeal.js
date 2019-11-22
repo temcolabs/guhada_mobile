@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Head from 'next/head';
 import TimeDeal from 'template/home/TimeDeal';
 import LoadingPortal from 'components/common/loading/Loading';
 import { observer, inject } from 'mobx-react';

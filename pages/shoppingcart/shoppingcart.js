@@ -1,5 +1,4 @@
 import React from 'react';
-import Head from 'next/head';
 import ShoppingCart from '../../template/shoppingcart/ShoppingCart';
 import { inject, observer } from 'mobx-react';
 import Loading from '../../components/common/loading/Loading';
