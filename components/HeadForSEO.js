@@ -21,7 +21,7 @@ const HeadForSEO = ({
     <Head>
       <meta key="description" name="description" content={description} />
       <meta key="author" name="author" content={seo.AUTHOR} />
-      <title key="title">{pageName ? `구하다 - ${pageName}` : title}</title>
+      <title key="title">{pageName ? `${pageName} :: 구하다` : title}</title>
 
       {/* 쿼리스트링에 따라 다른 페이지가 표시되므로 현재 페이지의 full URL을 넣어준다 */}
       {fullUrl && <link key="canonical" rel="canonical" href={fullUrl} />}
