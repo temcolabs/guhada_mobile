@@ -66,15 +66,6 @@ const HeadForSEO = ({
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image} />
 
-      {/* 앱 다운로드 링크 */}
-      {/* <meta property="al:ios:url" content={iosApplink} />
-      <meta property="al:ios:app_store_id" content={seo.APPSTORE_ID} />
-      <meta property="al:ios:app_name" content={seo.APP_NAME} />
-      <meta property="al:android:url" content={androidAppLink} />
-      <meta property="al:android:app_name" content={seo.APP_NAME} />
-      <meta property="al:android:package" content={seo.ANDROID_PACKAGE_ID} />
-      <meta property="al:web:url" content={seo.QUIZ_BUZZ_HOME_URL} /> */}
-
       {/* 페이지에서 사용할 헤더 추가 */}
       {children}
     </Head>

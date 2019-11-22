@@ -25,6 +25,10 @@ module.exports = {
   FB_APP_ID: sns.snsAppKey.FACEBOOK,
   APP_NAME: '구하다',
 
-  APPSTORE_ID: undefined, // TODO: iOS 앱
-  ANDROID_PACKAGE_ID: undefined, // TODO: 안드로이드 앱 패키지 아이디
+  // TODO: iOS 앱 정보
+  IOS_APPSTORE_ID: 'id1478120259',
+  IOS_APP_NAME: '구하다',
+  // TODO: 안드로이드 앱  정보
+  ANDROID_APP_NAME: undefined,
+  ANDROID_PACKAGE_ID: undefined,
 };
