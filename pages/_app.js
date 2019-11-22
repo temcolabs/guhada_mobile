@@ -9,27 +9,34 @@ import AlertConductor from 'components/common/modal/AlertConductor';
 import AssociatedProduct from 'components/common/modal/AssociatedProduct';
 import 'react-dates/initialize';
 import qs from 'qs';
-import { isBrowser } from 'childs/lib/common/isServer';
+import { isBrowser, isServer } from 'childs/lib/common/isServer';
 import { devLog } from 'childs/lib/common/devLog';
 import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
 import Cookies from 'js-cookie';
 import key from 'childs/lib/constant/key';
+import getIpAddrress from 'childs/lib/common/getIpAddrress';
 
 moment.locale('ko');
 
-class MarketPlatform extends App {
+class GuhadaMobileWeb extends App {
   static async getInitialProps(appContext) {
     const { Component, ctx } = appContext;
 
     if (isBrowser) {
       devLog(`[_app] getInitialProps: appContext`, appContext);
-      MarketPlatform.naverShoppingTracker();
-      MarketPlatform.aceCouterTracker(ctx.asPath);
+      GuhadaMobileWeb.naverShoppingTracker();
+      GuhadaMobileWeb.aceCouterTracker(ctx.asPath);
     }
 
     // Get or Create the store with `undefined` as initialState
     // This allows you to set a custom default initialState
-    const mobxStore = initializeStore();
+    const initialMobxState = GuhadaMobileWeb.makeInitialMobxState({
+      req: ctx.req,
+    });
+
+    // Get or Create the store with `undefined` as initialState
+    // This allows you to set a custom default initialState
+    const mobxStore = initializeStore(initialMobxState);
 
     // Provide the store to getInitialProps of pages
     appContext.ctx.mobxStore = mobxStore;
@@ -38,15 +45,32 @@ class MarketPlatform extends App {
 
     // 컴포넌트에 getInitialProps 메소드가 선언되어 있으면 실행시킨다.
     if (Component.getInitialProps) {
-      initialProps = {
-        ...initialProps,
-        ...(await Component.getInitialProps(ctx)),
-      };
+      initialProps = await Component.getInitialProps(ctx);
     }
 
     return {
-      initialMobxState: mobxStore,
-      initialProps,
+      mobxStore, // 서버에서 최초 생성된 mobxStore
+      initialMobxState, // 브라우저에 전달할 initialState
+      initialProps, // 컴포넌트 intialProps
+    };
+  }
+
+  /**
+   * mobx store의 초기값 생성
+   */
+  static makeInitialMobxState({ req }) {
+    // 사용자 ip 주소 가져오기
+    let userIp = null;
+    if (isServer) {
+      userIp = getIpAddrress(req);
+    }
+
+    return {
+      bbs: {
+        article: {
+          userIp,
+        },
+      },
     };
   }
 
@@ -55,7 +79,7 @@ class MarketPlatform extends App {
     const isServer = typeof window === 'undefined';
 
     this.mobxStore = isServer
-      ? props.initialMobxState
+      ? props.mobxStore
       : initializeStore(props.initialMobxState);
 
     if (typeof window !== 'undefined') {
@@ -161,4 +185,4 @@ class MarketPlatform extends App {
     );
   }
 }
-export default MarketPlatform;
+export default GuhadaMobileWeb;

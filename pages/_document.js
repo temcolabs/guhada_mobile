@@ -10,6 +10,8 @@ class MyDocument extends Document {
   static async getInitialProps(ctx) {
     const initialProps = await Document.getInitialProps(ctx);
     const { asPath, req } = ctx;
+
+    // 현재 페이지의 URI
     const fullUrl = `${req.protocol}://${req.headers.host}${asPath}`;
 
     return { ...initialProps, fullUrl };

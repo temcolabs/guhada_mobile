@@ -7,9 +7,14 @@ import { observer, inject } from 'mobx-react';
 @inject('eventmain')
 @observer
 class eventmain extends Component {
+  static async getInitialProps({ req }) {
+    return {};
+  }
+
   componentDidMount() {
     this.props.eventmain.getEventList();
   }
+
   render() {
     const { eventmain } = this.props;
 
