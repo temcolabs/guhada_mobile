@@ -9,7 +9,7 @@ export default function CommonHead() {
       />
 
       {/* ============================================================ */}
-      {/* favicon */}
+      {/* favicon and app icons*/}
       {/* ============================================================ */}
       <link rel="icon" type="image/png" href="/static/guhada.ico" />
       {/* IE */}

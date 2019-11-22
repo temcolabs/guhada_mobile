@@ -17,7 +17,7 @@ module.exports = {
   AUTHOR: '구하다',
 
   // 기본 메인 이미지
-  MAIN_IMAGE: `/static/Guhada-LOGO.png`,
+  MAIN_IMAGE: `/static/appicon/guhada-icon-512.png`,
 
   GOOGLE_SITE_VERIFICATION: 'pNZ8iQTxAxE_4Le0CrNz7CKZYbK77vs-AUr_gTHFjKA',
   NAVER_SITE_VERIFICATION: '1afd6b85b3b1b6b0030bc86e1c392cd057b33b4c',
