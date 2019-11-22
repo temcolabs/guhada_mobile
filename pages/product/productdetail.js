@@ -17,28 +17,33 @@ import isServer from 'childs/lib/common/isServer';
 @observer
 class index extends React.Component {
   static async getInitialProps({ req }) {
-    const dealsId = isServer ? req.query.deals : Router.query.deals;
-    const { data } = await API.product.get(`/deals/${dealsId}`);
-    const deals = data.data;
+    try {
+      const dealsId = isServer ? req.query.deals : Router.query.deals;
 
-    const headData = {
-      pageName: `${_.isNil(deals.season) === false ? deals.season : ''} ${
-        deals.name
-      }`,
-      description: `${deals.brandName} - ${deals.name} - ${
-        deals.discountPrice
-      }원`,
-      image: _.get(deals, 'imageUrls.0'),
-    };
+      const { data } = await API.product.get(`/deals/${dealsId}`);
+      const deals = data.data;
 
-    return {
-      initialState: {
-        productdetail: {
-          deals,
+      const headData = {
+        pageName: `${_.isNil(deals.season) === false ? deals.season : ''} ${
+          deals.name
+        }`,
+        description: `${deals.brandName} - ${deals.name} - ${
+          deals.discountPrice
+        }원`,
+        image: _.get(deals, 'imageUrls.0'),
+      };
+
+      return {
+        initialState: {
+          productdetail: {
+            deals,
+          },
         },
-      },
-      headData,
-    };
+        headData,
+      };
+    } catch (e) {
+      return {};
+    }
   }
 
   componentDidMount() {
