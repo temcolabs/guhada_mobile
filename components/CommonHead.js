@@ -1,7 +1,9 @@
 import React from 'react';
 import seo from 'childs/lib/constant/seo';
 
-export default function CommonHead() {
+export default function CommonHead({
+  isRobotAllowed = true, // 검색 엔진에게 인덱싱을 허용할 것인지
+}) {
   return (
     <>
       <meta charSet="utf-8" />
@@ -10,7 +12,11 @@ export default function CommonHead() {
         name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
       />
-      <meta name="robots" content="index,follow" />
+      <meta
+        name="robots"
+        content={isRobotAllowed ? 'index,follow' : 'noindex,nofollow'}
+      />
+
       {/* <link rel="manifest" href="/static/manifest.json" /> */}
 
       {/* ============================================================ */}
