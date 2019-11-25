@@ -143,6 +143,7 @@ function Header({
           <BrandContainer
             isVisible={isBrandVisible}
             onClose={() => setIsBrandVisible(false)}
+            onCloseMenu={() => setIsMenuVisible(false)}
           />
 
           <SearchMenu
