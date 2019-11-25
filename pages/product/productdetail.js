@@ -9,29 +9,20 @@ import criteoTracker from 'childs/lib/tracking/criteo/criteoTracker';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
 import API from 'childs/lib/API';
 import _ from 'lodash';
-import isServer from 'childs/lib/common/isServer';
+import isServer, { isBrowser } from 'childs/lib/common/isServer';
 
 @withScrollToTopOnMount
 @withRouter
 @inject('productdetail', 'productDetailLike', 'user')
 @observer
-class index extends React.Component {
+class ProductDetailPage extends React.Component {
   static async getInitialProps({ req }) {
     try {
       const dealsId = isServer ? req.query.deals : Router.query.deals;
       if (dealsId) {
         const { data } = await API.product.get(`/deals/${dealsId}`);
         const deals = data.data;
-
-        const headData = {
-          pageName: `${
-            _.isNil(deals.season) === false ? `${deals.season} ` : ''
-          }${deals.name}`,
-          description: `${deals.brandName} - ${deals.name} - ${
-            deals.discountPrice
-          }원`,
-          image: _.get(deals, 'imageUrls.0'),
-        };
+        const headData = ProductDetailPage.makeMetaFromDeals(deals);
 
         return {
           initialState: {
@@ -39,7 +30,7 @@ class index extends React.Component {
               deals,
             },
           },
-          headData,
+          initialHeadData: headData,
         };
       } else {
         return {};
@@ -48,6 +39,18 @@ class index extends React.Component {
       return {};
     }
   }
+
+  static makeMetaFromDeals = (deals = {}) => {
+    return {
+      pageName: `${_.isNil(deals.season) === false ? `${deals.season} ` : ''}${
+        deals.name
+      }`,
+      description: `${deals.brandName} - ${deals.name} - ${
+        deals.discountPrice
+      }원`,
+      image: _.get(deals, 'imageUrls.0'),
+    };
+  };
 
   componentDidMount() {
     let { productdetail, productDetailLike, user } = this.props;
@@ -76,7 +79,12 @@ class index extends React.Component {
   }
 
   render() {
-    let { productdetail, headData } = this.props;
+    let { productdetail, initialHeadData } = this.props;
+
+    // 쿼리스트링만 변경되면서 동적으로 라우트가 변경될 때 getinitialprops가 아닌 store 데이터 사용
+    const headData = !!productdetail.deals
+      ? ProductDetailPage.makeMetaFromDeals(productdetail.deals)
+      : initialHeadData;
 
     return (
       <>
@@ -84,6 +92,8 @@ class index extends React.Component {
           pageName={headData?.pageName}
           description={headData?.description}
           image={headData?.image}
+          // 쿼리스트링만 변경되면서 동적으로 라우트가 변경될 때 브라우저의 경로를 넣어준다
+          fullUrl={isBrowser ? `${window.location.href}` : undefined}
         />
 
         <div>
@@ -109,4 +119,4 @@ class index extends React.Component {
   }
 }
 
-export default index;
+export default ProductDetailPage;

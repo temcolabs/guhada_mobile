@@ -7,15 +7,11 @@ import React from 'react';
 import urlConstant from 'childs/lib/constant/url';
 
 class MyDocument extends Document {
-  static async getInitialProps(ctx) {
-    const initialProps = await Document.getInitialProps(ctx);
-    return { ...initialProps };
-  }
-
   render() {
     return (
       <Html>
         <Head>
+          <title key="title">구하다</title>
           {/* Global site tag (gtag.js) - Google Analytics */}
           <script
             async

@@ -200,12 +200,16 @@ class GuhadaMobileWeb extends App {
             <CommonHead isRobotAllowed={isProdHost}>
               <>
                 {/* canonical url of current page */}
-                {fullUrl && <link rel="canonical" href={fullUrl} />}
-                {fullUrl && <meta property="og:url" content={fullUrl} />}
+                {fullUrl && (
+                  <link key="canonical" rel="canonical" href={fullUrl} />
+                )}
+                {fullUrl && (
+                  <meta key="og:url" property="og:url" content={fullUrl} />
+                )}
               </>
             </CommonHead>
 
-            <Component {...initialProps} />
+            <Component key={this.componentKey} {...initialProps} />
 
             <AlertConductor />
 
