@@ -8,6 +8,7 @@ $burgerHeader: 50px;
     display: inline-block;
     width: 100%;
     height: calc(100vh - #{$burgerHeader});
+    padding-bottom: 70px;
 
     & li {
         list-style: none;
