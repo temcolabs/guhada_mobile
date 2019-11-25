@@ -1,4 +1,5 @@
 $burgerHeader: 50px;
+$browserTool: 70px;
 
 .tree {
     color: #393939;
@@ -7,8 +8,8 @@ $burgerHeader: 50px;
     overflow-y: auto;
     display: inline-block;
     width: 100%;
-    height: calc(100vh - #{$burgerHeader});
-    padding-bottom: 70px;
+    height: calc(100vh - #{$burgerHeader} - #{$browserTool});
+    padding-bottom: $browserTool;
 
     & li {
         list-style: none;
