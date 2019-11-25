@@ -9,4 +9,4 @@ echo "\n[$HOST: upload files]"
 rsync -arv -progress -e "ssh -i ~/pem/guhada_prod.pem" --exclude-from './.rsyncignore' ./ $USER@$HOST:$DEST_APP
 
 echo "\n[$HOST: install npm modules and restart pm2]"
-ssh -i ~/pem/guhada_prod.pem $USER@$HOST "cd $DEST_APP && npm install && pm2 flush && pm2 reload ecosystem.config.js --only $APP_NAME --env production"
+ssh -i ~/pem/guhada_prod.pem $USER@$HOST "cd $DEST_APP && npm install && pm2 flush && pm2 reload ecosystem.config.js --only $APP_NAME --env production && ./scripts/etc/createRobotsAllowed.sh"
