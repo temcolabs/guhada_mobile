@@ -1,11 +1,14 @@
 import React from 'react';
 import seo from 'childs/lib/constant/seo';
+import Head from 'next/head';
 
 export default function CommonHead({
   isRobotAllowed = true, // 검색 엔진에게 인덱싱을 허용할 것인지
+  fullUrl,
+  children,
 }) {
   return (
-    <>
+    <Head>
       <meta charSet="utf-8" />
       <meta httpEquiv="x-ua-compatible" content="ie=edge" />
       <meta
@@ -72,6 +75,8 @@ export default function CommonHead({
       )}
       {/* 커스텀 앱 스키마 */}
       {/* <meta property="al:android:url" content={seo.ANDROID_APP_LINK} /> */}
-    </>
+
+      {children}
+    </Head>
   );
 }

@@ -22,16 +22,16 @@ const HeadForSEO = ({
   return (
     <Head>
       <title>{titleText}</title>
-      <meta key="description" name="description" content={description} />
-      <meta key="author" name="author" content={seo.AUTHOR} />
-      <meta key="title" name="title" content={titleText} />
+      <meta name="description" content={description} />
+      <meta name="author" content={seo.AUTHOR} />
+      <meta name="title" content={titleText} />
 
       <meta itemProp="name" content={titleText} />
       <meta itemProp="description" content={description} />
       <meta itemProp="image" content={image} />
 
       {/* 쿼리스트링에 따라 다른 페이지가 표시되므로 현재 페이지의 full URL을 넣어준다 */}
-      {fullUrl && <link key="canonical" rel="canonical" href={fullUrl} />}
+      {/* {fullUrl && <link key="canonical" rel="canonical" href={fullUrl} />} */}
 
       {/* google search console */}
       <meta
