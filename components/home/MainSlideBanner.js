@@ -4,22 +4,7 @@ import './MainSlideBanner.scss';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.scss';
 import 'slick-carousel/slick/slick-theme.scss';
-import cn from 'classnames';
 import { pushRoute } from 'lib/router';
-
-function NextArrow(props) {
-  const { style, onClick } = props;
-  return (
-    <div className={cn(css.nextArrow)} style={{ ...style }} onClick={onClick} />
-  );
-}
-
-function PrevArrow(props) {
-  const { style, onClick } = props;
-  return (
-    <div className={cn(css.prevArrow)} style={{ ...style }} onClick={onClick} />
-  );
-}
 
 export class MainSlideBanner extends Component {
   state = {
@@ -41,8 +26,6 @@ export class MainSlideBanner extends Component {
       autoplaySpeed: 3000,
       cssEase: 'linear',
       dotsClass: 'slickDots',
-      // nextArrow: <NextArrow />,
-      // prevArrow: <PrevArrow />,
       beforeChange: this.onBeforeChange,
     };
     const { imageFile } = this.props;
@@ -54,9 +37,9 @@ export class MainSlideBanner extends Component {
             return (
               <img
                 className={css.dummyImage}
-                src={image.src}
+                src={image.mobileImageUrl}
                 onClick={() => {
-                  pushRoute(image.href);
+                  pushRoute(image.link);
                 }}
                 key={index}
                 alt={`banner${index}`}

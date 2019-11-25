@@ -1,8 +1,5 @@
 import { computed, observable, action, toJS } from 'mobx';
 import API from 'childs/lib/API';
-import { isBrowser } from 'childs/lib/common/isServer';
-
-const isServer = typeof window === 'undefined';
 
 export default class MainStore {
   @observable unitPerPage = 6;
@@ -13,6 +10,7 @@ export default class MainStore {
   @observable hotKeyword = [];
   @observable timeDeal = [];
   @observable timeDealStatus = false;
+  @observable bannerInfo = [];
 
   constructor() {
     this.getPlusItem();
@@ -20,6 +18,7 @@ export default class MainStore {
     this.getHits();
     this.getHotKeyword();
     this.getTimeDeal();
+    this.getMainBannner();
   }
 
   @action
@@ -84,6 +83,13 @@ export default class MainStore {
     API.product.get(`/time-deals`).then(res => {
       this.timeDeal = res.data.data;
       this.timeDealStatus = true;
+    });
+  };
+
+  @action
+  getMainBannner = () => {
+    API.settle.get(`selectMainBanner`).then(res => {
+      this.bannerInfo = res.data;
     });
   };
 }
