@@ -14,21 +14,25 @@ const HeadForSEO = ({
   title = seo.TITLE, // pageName이 없을 때 사용할 페이지 타이틀
   description = seo.DESCRIPTION, // * 페이지 설명
   image = seo.MAIN_IMAGE, // * 페이지 대표 이미지
-  fullUrl, // widnow.location.pathname + window.location.search.
+  fullUrl, // window.location.href
   children, // 별도로 추가 태그
 }) => {
   const titleText = pageName ? `${pageName} :: 구하다` : title;
 
   return (
     <Head>
-      <title>{titleText}</title>
-      <meta key="description" name="description" content={description} />
-      <meta key="author" name="author" content={seo.AUTHOR} />
-      <meta key="title" name="title" content={titleText} />
+      <title key="title">{titleText}</title>
+      <meta key="meta-description" name="description" content={description} />
+      <meta key="meta-author" name="author" content={seo.AUTHOR} />
+      <meta key="meta-title" name="title" content={titleText} />
 
-      <meta itemProp="name" content={titleText} />
-      <meta itemProp="description" content={description} />
-      <meta itemProp="image" content={image} />
+      <meta key="itemprop-name" itemProp="name" content={titleText} />
+      <meta
+        key="itemprop-description"
+        itemProp="description"
+        content={description}
+      />
+      <meta key="itemprop-image" itemProp="image" content={image} />
 
       {/* 쿼리스트링에 따라 다른 페이지가 표시되므로 현재 페이지의 full URL을 넣어준다 */}
       {fullUrl && <link key="canonical" rel="canonical" href={fullUrl} />}
@@ -61,10 +65,14 @@ const HeadForSEO = ({
       <meta key="og:locale" property="og:locale" content="ko_KR" />
 
       {/* Twitter Meta Tags */}
-      <meta name="twitter:card" content={image} />
-      <meta name="twitter:title" content={titleText} />
-      <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={image} />
+      <meta key="twitter:card" name="twitter:card" content={image} />
+      <meta key="twitter:title" name="twitter:title" content={titleText} />
+      <meta
+        key="twitter:description"
+        name="twitter:description"
+        content={description}
+      />
+      <meta key="twitter:image" name="twitter:image" content={image} />
 
       {/* 페이지에서 사용할 헤더 추가 */}
       {children}
