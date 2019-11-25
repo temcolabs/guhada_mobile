@@ -66,7 +66,6 @@ $browserTool: 50px;
     width: calc(100% - 33px);
     height: calc(100vh - #{$topPosition} - #{$toolbarHeader} - #{$brandHeader});
     overflow-y: auto;
-    padding-bottom: $browserTool;
 
     &.fromHeaderMenu {
         height: calc(100vh - 125px);
@@ -104,6 +103,10 @@ $browserTool: 50px;
         text-align: left;
         color: #333333;
         padding-left: 10px;
+
+        &:last-child {
+            height: calc(37px + #{$browserTool});
+        }
     }
 }
 
@@ -129,6 +132,10 @@ $browserTool: 50px;
         display: flex;
         align-items: center;
         justify-content: center;
+
+        &:last-child {
+            height: calc(18px + #{$browserTool});
+        }
 
         &.selected {
             color: #5d2ed1;
