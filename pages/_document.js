@@ -6,6 +6,8 @@ import Document, { Html, Head, Main, NextScript } from 'next/document';
 import React from 'react';
 import urlConstant from 'childs/lib/constant/url';
 import CommonHead from 'childs/lib/components/CommonHead';
+import getIsProdHost from 'childs/lib/tracking/getIsProdHost';
+import isServer from 'childs/lib/common/isServer';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -15,16 +17,19 @@ class MyDocument extends Document {
     // 현재 페이지의 URI
     const fullUrl = `${req.protocol}://${req.headers.host}${asPath}`;
 
-    return { ...initialProps, fullUrl };
+    const hostname = isServer ? req.headers.host : window.location.hostname;
+    const isProdHost = getIsProdHost(hostname);
+
+    return { ...initialProps, fullUrl, isProdHost };
   }
 
   render() {
-    const { fullUrl } = this.props;
+    const { fullUrl, isProdHost } = this.props;
 
     return (
       <Html>
         <Head>
-          <CommonHead />
+          <CommonHead isRobotAllowed={isProdHost} />
 
           {/* headers for SEO */}
           {/* ============================================================ */}
