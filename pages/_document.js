@@ -5,37 +5,17 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import React from 'react';
 import urlConstant from 'childs/lib/constant/url';
-import CommonHead from 'childs/lib/components/CommonHead';
-import getIsProdHost from 'childs/lib/tracking/getIsProdHost';
-import isServer from 'childs/lib/common/isServer';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
     const initialProps = await Document.getInitialProps(ctx);
-    const { asPath, req } = ctx;
-
-    // 현재 페이지의 URI
-    const fullUrl = `${req.protocol}://${req.headers.host}${asPath}`;
-
-    const hostname = isServer ? req.headers.host : window.location.hostname;
-    const isProdHost = getIsProdHost(hostname);
-
-    return { ...initialProps, fullUrl, isProdHost };
+    return { ...initialProps };
   }
 
   render() {
-    const { fullUrl, isProdHost } = this.props;
-
     return (
       <Html>
         <Head>
-          <CommonHead isRobotAllowed={isProdHost} />
-
-          {/* headers for SEO */}
-          {/* ============================================================ */}
-          {fullUrl && <link key="canonical" rel="canonical" href={fullUrl} />}
-          {fullUrl && <meta key="og:url" property="og:url" content={fullUrl} />}
-
           {/* Global site tag (gtag.js) - Google Analytics */}
           <script
             async

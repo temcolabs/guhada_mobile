@@ -1,5 +1,7 @@
 import App, { Container } from 'next/app';
+import Head from 'next/head';
 import React from 'react';
+import Router from 'next/router';
 import { initializeStore } from '../store';
 import { Provider } from 'mobx-react';
 import '../style.scss';
@@ -16,12 +18,15 @@ import Cookies from 'js-cookie';
 import key from 'childs/lib/constant/key';
 import getIpAddrress from 'childs/lib/common/getIpAddrress';
 import _ from 'lodash';
+import getIsProdHost from 'childs/lib/tracking/getIsProdHost';
+import CommonHead from 'childs/lib/components/CommonHead';
 
 moment.locale('ko');
 
 class GuhadaMobileWeb extends App {
   static async getInitialProps(appContext) {
     const { Component, ctx } = appContext;
+    const { req, asPath } = ctx;
 
     if (isBrowser) {
       devLog(`[_app] getInitialProps: appContext`, appContext);
@@ -58,10 +63,19 @@ class GuhadaMobileWeb extends App {
     // Provide the store to getInitialProps of pages
     appContext.ctx.mobxStore = mobxStore;
 
+    // 현재 페이지의 URI
+    const hostname = isServer ? req.headers.host : window.location.hostname;
+    const fullUrl = isServer
+      ? `${req.protocol}://${req.headers.host}${asPath}`
+      : `${window.location.origin}${Router.asPath}`;
+    const isProdHost = getIsProdHost(hostname);
+
     return {
       mobxStore, // 서버에서 최초 생성된 mobxStore
       initialState,
       initialProps, // 컴포넌트 intialProps
+      fullUrl,
+      isProdHost,
     };
   }
 
@@ -177,12 +191,20 @@ class GuhadaMobileWeb extends App {
   }
 
   render() {
-    const { Component, initialProps } = this.props;
+    const { Component, initialProps, fullUrl, isProdHost } = this.props;
 
     return (
       <Container>
         <Provider {...this.mobxStore}>
           <>
+            <CommonHead isRobotAllowed={isProdHost}>
+              <>
+                {/* canonical url of current page */}
+                {fullUrl && <link rel="canonical" href={fullUrl} />}
+                {fullUrl && <meta property="og:url" content={fullUrl} />}
+              </>
+            </CommonHead>
+
             <Component {...initialProps} />
 
             <AlertConductor />
