@@ -11,7 +11,6 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <title key="title">구하다</title>
           {/* Global site tag (gtag.js) - Google Analytics */}
           <script
             async
