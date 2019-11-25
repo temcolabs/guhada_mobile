@@ -105,7 +105,7 @@ $browserTool: 50px;
         padding-left: 10px;
 
         &:last-child {
-            height: calc(37px + #{$browserTool});
+            margin-bottom: $browserTool;
         }
     }
 }
@@ -134,7 +134,7 @@ $browserTool: 50px;
         justify-content: center;
 
         &:last-child {
-            height: calc(18px + #{$browserTool});
+            margin-bottom: $browserTool;
         }
 
         &.selected {
