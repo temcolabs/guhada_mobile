@@ -66,11 +66,6 @@ const HeadForSEO = ({
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image} />
 
-      {/* viewport 1 고정 */}
-      <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
-      />
       {/* 페이지에서 사용할 헤더 추가 */}
       {children}
     </Head>
