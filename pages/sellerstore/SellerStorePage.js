@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Head from 'next/head';
 import SellerStore from 'template/sellerstore/SellerStore';
 import { isBrowser } from 'childs/lib/common/isServer';
 import { inject, observer } from 'mobx-react';

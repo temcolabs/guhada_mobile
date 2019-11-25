@@ -1,6 +1,5 @@
 import React from 'react';
 import Home from 'template/Home';
-import Head from 'next/head';
 import { inject, observer } from 'mobx-react';
 import criteoTracker from 'childs/lib/tracking/criteo/criteoTracker';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';

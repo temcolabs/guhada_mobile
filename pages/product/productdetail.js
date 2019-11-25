@@ -24,9 +24,9 @@ class index extends React.Component {
         const deals = data.data;
 
         const headData = {
-          pageName: `${_.isNil(deals.season) === false ? deals.season : ''} ${
-            deals.name
-          }`,
+          pageName: `${
+            _.isNil(deals.season) === false ? `${deals.season} ` : ''
+          }${deals.name}`,
           description: `${deals.brandName} - ${deals.name} - ${
             deals.discountPrice
           }원`,
@@ -75,9 +75,6 @@ class index extends React.Component {
     }
   }
 
-  componentWillUnmount() {
-    // window.removeEventListener('scroll', this.props.productdetail.tabInfoFixed);
-  }
   render() {
     let { productdetail, headData } = this.props;
 

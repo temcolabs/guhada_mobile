@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import Head from 'next/head';
 import Form from '../../stores/form-store/_.forms';
 import FindIdResult from 'template/signin/FindIdResult';
 import { pushRoute } from 'lib/router';
