@@ -11,6 +11,7 @@ import { isBrowser } from 'childs/lib/common/isServer';
 import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
 import daumTrakers from 'childs/lib/tracking/daum/daumTrakers';
 import naverShoppingTrakers from 'childs/lib/tracking/navershopping/naverShoppingTrakers';
+import kochavaTracker from 'childs/lib/tracking/kochava/kochavaTracker';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
 
 @inject('orderpaymentsuccess', 'user')
@@ -64,6 +65,8 @@ class index extends React.Component {
         q: orderItem.quantity,
       })),
     });
+
+    kochavaTracker.purchaseComplete({ successInfo });
   };
 
   render() {
