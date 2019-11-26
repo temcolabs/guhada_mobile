@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'next/router';
 import DefaultLayout from 'components/layout/DefaultLayout';
 
-import MyPageLayout from 'components/mypage/MyPageLayout';
+import MypageLayout from 'components/mypage/MypageLayout';
 /**
  * 마이페이지 - 주문 배송 (주문 완료 목록)
  */
@@ -16,9 +16,9 @@ class OrderCompleteList extends Component {
         toolBar={false}
         headerShape={'mypage'}
       >
-        <MyPageLayout>
+        <MypageLayout>
           <div>주문배송</div>
-        </MyPageLayout>
+        </MypageLayout>
       </DefaultLayout>
     );
   }

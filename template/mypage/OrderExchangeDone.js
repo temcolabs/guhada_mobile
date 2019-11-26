@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'next/router';
 import DefaultLayout from 'components/layout/DefaultLayout';
 import { compose } from 'lodash/fp';
-import MyPageLayout from 'components/mypage/MyPageLayout';
+import MypageLayout from 'components/mypage/MypageLayout';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
 
 const enhancer = compose(
@@ -20,9 +20,9 @@ function OrderExchangeDone({ router }) {
       toolBar={false}
       headerShape={'mypage'}
     >
-      <MyPageLayout>
+      <MypageLayout>
         <div>OrderExchangeDone</div>
-      </MyPageLayout>
+      </MypageLayout>
     </DefaultLayout>
   );
 }

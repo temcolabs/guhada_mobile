@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'next/router';
 import DefaultLayout from 'components/layout/DefaultLayout';
 
-import MyPageLayout from 'components/mypage/MyPageLayout';
+import MypageLayout from 'components/mypage/MypageLayout';
 import { inject, observer } from 'mobx-react';
 @inject('mypageAddress')
 @observer
@@ -15,9 +15,9 @@ class AddressManagement extends Component {
         toolBar={false}
         headerShape={'mypage'}
       >
-        <MyPageLayout>
+        <MypageLayout>
           <div>배송지 관리</div>
-        </MyPageLayout>
+        </MypageLayout>
       </DefaultLayout>
     );
   }

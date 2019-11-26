@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'next/router';
 import DefaultLayout from 'components/layout/DefaultLayout';
 
-import MyPageLayout from 'components/mypage/MyPageLayout';
+import MypageLayout from 'components/mypage/MypageLayout';
 
 class MyReviewList extends Component {
   render() {
@@ -13,9 +13,9 @@ class MyReviewList extends Component {
         toolBar={false}
         headerShape={'mypage'}
       >
-        <MyPageLayout>
+        <MypageLayout>
           <div>MyReviewList</div>
-        </MyPageLayout>
+        </MypageLayout>
       </DefaultLayout>
     );
   }

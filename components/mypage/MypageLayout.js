@@ -1,12 +1,12 @@
 import React from 'react';
-import css from './MyPageLayout.module.scss';
+import css from './MypageLayout.module.scss';
 import MypageMenubar from 'components/mypage/MypageMenubar';
 import { withRouter } from 'next/router';
 import { inject, observer } from 'mobx-react';
 
 @inject('user')
 @observer
-class MyPageLayout extends React.Component {
+class MypageLayout extends React.Component {
   static defaultProps = {
     router: {},
   };
@@ -22,4 +22,4 @@ class MyPageLayout extends React.Component {
   }
 }
 
-export default withRouter(MyPageLayout);
+export default withRouter(MypageLayout);

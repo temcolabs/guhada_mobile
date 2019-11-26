@@ -1,0 +1,42 @@
+@import 'styles/mixins/index';
+.wrap {
+  @include clearfix;
+
+  > div {
+    &:first-child {
+      border-right: 1px solid #111;
+    }
+  }
+}
+
+.active__box {
+  width: 50%;
+  border-top: 1px solid #111;
+  height: 50px;
+  position: relative;
+  float: left;
+  cursor: pointer;
+}
+.inactive__box {
+  width: 50%;
+  // border: 1px solid transparent;
+  border-bottom: 1px solid #111;
+  height: 50px;
+  position: relative;
+  float: left;
+  background: #f9f9fa;
+  cursor: pointer;
+}
+.couponCount {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 13px;
+  color: #444;
+  font-weight: 500;
+  span {
+    color: #5d2ed1;
+    margin-left: 4px;
+  }
+}

@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'next/router';
 import DefaultLayout from 'components/layout/DefaultLayout';
-
-import MyPageLayout from 'components/mypage/MyPageLayout';
-
+import MypageLayout from 'components/mypage/MypageLayout';
+import MypageCouponTab from 'components/mypage/coupon/MypageCouponTab';
 /**
  * 마이페이지 - 쿠폰
  */
@@ -17,9 +16,11 @@ class CouponList extends React.Component {
         toolBar={false}
         headerShape={'mypage'}
       >
-        <MyPageLayout>
-          <div>쿠폰 리스트</div>
-        </MyPageLayout>
+        <MypageLayout>
+          <div>
+            <MypageCouponTab />
+          </div>
+        </MypageLayout>
       </DefaultLayout>
     );
   }

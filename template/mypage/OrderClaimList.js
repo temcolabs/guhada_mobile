@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'next/router';
 import DefaultLayout from 'components/layout/DefaultLayout';
 
-import MyPageLayout from 'components/mypage/MyPageLayout';
+import MypageLayout from 'components/mypage/MypageLayout';
 
 /**
  * 마이페이지 - 주문 배송 (주문 취소 ・ 교환 ・ 반품 목록)
@@ -17,9 +17,9 @@ class OrderClaimList extends Component {
         toolBar={false}
         headerShape={'mypage'}
       >
-        <MyPageLayout>
+        <MypageLayout>
           <div>주문 배송 (주문 취소 ・ 교환 ・ 반품 목록)</div>
-        </MyPageLayout>
+        </MypageLayout>
       </DefaultLayout>
     );
   }

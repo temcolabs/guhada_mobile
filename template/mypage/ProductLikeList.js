@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'next/router';
 import DefaultLayout from 'components/layout/DefaultLayout';
 
-import MyPageLayout from 'components/mypage/MyPageLayout';
+import MypageLayout from 'components/mypage/MypageLayout';
 
 @withRouter
 class ProductLikeList extends React.Component {
@@ -14,9 +14,9 @@ class ProductLikeList extends React.Component {
         toolBar={false}
         headerShape={'mypage'}
       >
-        <MyPageLayout>
+        <MypageLayout>
           <div>상품 찜한 상품</div>
-        </MyPageLayout>
+        </MypageLayout>
       </DefaultLayout>
     );
   }

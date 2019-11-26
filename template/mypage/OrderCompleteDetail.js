@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'next/router';
 import DefaultLayout from 'components/layout/DefaultLayout';
 
-import MyPageLayout from 'components/mypage/MyPageLayout';
+import MypageLayout from 'components/mypage/MypageLayout';
 
 @withRouter
 class OrderCompleteDetail extends Component {
@@ -14,9 +14,9 @@ class OrderCompleteDetail extends Component {
         toolBar={false}
         headerShape={'mypage'}
       >
-        <MyPageLayout>
+        <MypageLayout>
           <div>주문내역 상세</div>
-        </MyPageLayout>
+        </MypageLayout>
       </DefaultLayout>
     );
   }

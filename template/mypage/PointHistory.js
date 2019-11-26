@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'next/router';
 import DefaultLayout from 'components/layout/DefaultLayout';
 import css from './PointHistory.module.scss';
-import MyPageLayout from 'components/mypage/MyPageLayout';
+import MypageLayout from 'components/mypage/MypageLayout';
 import PointDashboard from 'components/mypage/point/PointDashboard';
 import PeriodSelector from 'components/mypage/PeriodSelector';
 import { dateUnit } from 'childs/lib/constant/date';
@@ -46,7 +46,7 @@ class PointHistory extends React.Component {
         toolBar={false}
         headerShape={'mypage'}
       >
-        <MyPageLayout>
+        <MypageLayout>
           <div className={css.wrap}>
             <PointDashboard props={mypagePoint.pointSummary} />
 
@@ -99,7 +99,7 @@ class PointHistory extends React.Component {
               </div>
             ) : null}
           </div>
-        </MyPageLayout>
+        </MypageLayout>
       </DefaultLayout>
     );
   }

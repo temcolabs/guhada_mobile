@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'next/router';
 import DefaultLayout from 'components/layout/DefaultLayout';
 
-import MyPageLayout from 'components/mypage/MyPageLayout';
+import MypageLayout from 'components/mypage/MypageLayout';
 
 /**
  * 주문 반품 신청 및 수정 페이지.
@@ -20,9 +20,9 @@ class OrderReturnForm extends Component {
         toolBar={false}
         headerShape={'mypage'}
       >
-        <MyPageLayout>
+        <MypageLayout>
           <div>주문 반품 신청 및 수정 페이지.</div>
-        </MyPageLayout>
+        </MypageLayout>
       </DefaultLayout>
     );
   }

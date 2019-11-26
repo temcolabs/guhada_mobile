@@ -17,4 +17,4 @@ class CouponListPage extends Component {
   }
 }
 
-export default withAuth({ isAuthRequired: false })(CouponListPage);
+export default withAuth({ isAuthRequired: true })(CouponListPage);

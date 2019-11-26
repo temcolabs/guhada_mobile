@@ -1,7 +1,7 @@
 import React from 'react';
 import DefaultLayout from 'components/layout/DefaultLayout';
 
-import MyPageLayout from 'components/mypage/MyPageLayout';
+import MypageLayout from 'components/mypage/MypageLayout';
 
 /**
  * 마이페이지 문의하기
@@ -15,9 +15,9 @@ export default function ClaimList() {
       toolBar={false}
       headerShape={'mypage'}
     >
-      <MyPageLayout>
+      <MypageLayout>
         <div>OrderExchangeDone</div>
-      </MyPageLayout>
+      </MypageLayout>
     </DefaultLayout>
   );
 }

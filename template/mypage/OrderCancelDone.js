@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'next/router';
 import DefaultLayout from 'components/layout/DefaultLayout';
 import { compose } from 'lodash/fp';
-import MyPageLayout from 'components/mypage/MyPageLayout';
+import MypageLayout from 'components/mypage/MypageLayout';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
 import { observer } from 'mobx-react';
 
@@ -22,9 +22,9 @@ function OrderCancelDone({ router }) {
       toolBar={false}
       headerShape={'mypage'}
     >
-      <MyPageLayout>
+      <MypageLayout>
         <div>주문 취소 완료</div>
-      </MyPageLayout>
+      </MypageLayout>
     </DefaultLayout>
   );
 }
