@@ -4,7 +4,7 @@ import API from 'childs/lib/API';
 import { root } from 'store';
 import { devLog } from 'childs/lib/common/devLog';
 import _ from 'lodash';
-import daumTrakers from 'childs/lib/tracking/daum/daumTrakers';
+import daumTracker from 'childs/lib/tracking/daum/daumTracker';
 import naverShoppingTrakers from 'childs/lib/tracking/navershopping/naverShoppingTrakers';
 export default {
   onInit(form) {
@@ -29,7 +29,7 @@ export default {
         devLog(res.data);
         let data = res.data;
         naverShoppingTrakers.signup();
-        daumTrakers.signup();
+        daumTracker.signup();
         if (data.resultCode === 200) {
           Router.push('/?signupsuccess=true&email=' + loginData.email);
         }
