@@ -125,7 +125,7 @@ class CartItem extends Component {
                 <input type="checkbox" checked={false} readOnly />
                 <div />
               </label>
-              {data.totalStock === 0 ? (
+              {data.cartValidStatus.cartErrorMessage.match(/종료|중지/) ? (
                 <div className={css.soldoutMessage}>
                   <i />
                   {data.cartValidStatus.cartErrorMessage}
