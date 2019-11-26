@@ -26,9 +26,9 @@ export default {
         dealId: successInfo.orderList[i].dealId,
         season: successInfo.orderList[i].season,
         name: successInfo.orderList[i].prodName,
-        sellPrice: successInfo.orderList[i].orderPrice,
+        originalPrice: successInfo.orderList[i].originalPrice,
         discountPrice: successInfo.orderList[i].discountPrice,
-        brandId: successInfo.orderList[i].brandName,
+        brandName: successInfo.orderList[i].brandName,
         sellerId: successInfo.orderList[i].sellerId,
       });
     }
