@@ -17,4 +17,4 @@ class PointHistoryPage extends Component {
   }
 }
 
-export default withAuth({ isAuthRequired: true })(PointHistoryPage);
+export default withAuth({ isAuthRequired: false })(PointHistoryPage);

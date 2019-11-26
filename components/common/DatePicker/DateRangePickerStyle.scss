@@ -720,11 +720,16 @@
 .DateInput {
   margin: 0;
   padding: 0;
-  width: 150px;
+  width: 33vw;
+  max-width: 440px;
   background: #fff;
   position: relative;
   display: inline-block;
   vertical-align: middle;
+
+  @include break350 {
+    width: 30vw;
+  }
 }
 
 .DateInput__small {
@@ -751,6 +756,10 @@
   background: url('/static/icon/mypage/icon-reveiw-calendar.png') no-repeat;
   background-size: 28px;
   background-position: right center;
+
+  @include break350 {
+    font-size: 11px;
+  }
 }
 
 .DateInput_input__small {

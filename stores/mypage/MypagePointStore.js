@@ -27,6 +27,7 @@ export default class MypagePointStore {
   @observable pointChargeModal = false;
   @observable totalItemsCount = 0;
   @observable itemsCountPerPage = 10;
+  @observable totalItemsPage = 0;
   @observable page = 1;
 
   @action
@@ -54,7 +55,9 @@ export default class MypagePointStore {
         this.period.startDate = startDate;
         this.period.endDate = endDate;
         this.pointHistory = res.data.data;
+        this.pointHistory = res.data.data.content;
         this.totalItemsCount = res.data.data.totalElements;
+        this.totalItemsPage = res.data.data.totalPages;
         this.page = pageNo;
         devLog(res.data, '포인트 히스토리');
       })
@@ -86,6 +89,29 @@ export default class MypagePointStore {
     // }
   };
 
+  @action
+  getMorePointHistory = () => {
+    API.benefit
+      .get(
+        `/histories?fromAt=${this.period.startDate}&toAt=${
+          this.period.endDate
+        }&page=${this.page + 1}`
+      )
+      .then(res => {
+        this.pointHistory = this.pointHistory.concat(res.data.data.content);
+        this.totalItemsCount = res.data.data.totalElements;
+        this.totalItemsPage = res.data.data.totalPages;
+        this.page = this.page + 1;
+        devLog(res.data, '포인트 히스토리');
+      })
+      .catch(err => {
+        console.log(err);
+        // this.root.alert.showAlert({
+        //   content: `${_.get(err, 'data.message') || 'ERROR'}`,
+        // });
+      });
+  };
+
   //   @action
   //   pointChargeModalOpen = () => {
   //     this.pointChargeModal = true;
@@ -109,13 +135,13 @@ export default class MypagePointStore {
                 content: '포인트가 삭제 되었습니다.',
               });
 
-              for (let i = 0; i < this.pointHistory.content.length; i++) {
-                if (this.pointHistory.content[i].id === id) {
-                  this.pointHistory.content.splice(i, 1);
+              for (let i = 0; i < this.pointHistory.length; i++) {
+                if (this.pointHistory[i].id === id) {
+                  this.pointHistory.splice(i, 1);
                 }
               }
 
-              devLog(this.pointHistory.content, 'this.pointHistory');
+              devLog(this.pointHistory, 'this.pointHistory');
             }
           })
           .catch(err => {

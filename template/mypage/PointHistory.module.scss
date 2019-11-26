@@ -1,0 +1,31 @@
+.pointHistoryNodata {
+  padding: 80px 0 120px;
+  text-align: center;
+  color: #444;
+  font-size: 14px;
+  div {
+    margin-bottom: 20px;
+
+    img {
+      width: 50px;
+      height: 50px;
+    }
+  }
+}
+
+.more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  border-top: 1px solid #ebebeb;
+  margin-top: 40px;
+  .detailBtn {
+    margin-left: 4px;
+    background: url('/static/icon/detail_btn_more_open.png') no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 16px;
+    height: 16px;
+  }
+}
