@@ -24,7 +24,9 @@ export default {
     for (let i = 0; i < successInfo.orderList.length; i++) {
       kochava.activity('Buy_Product', {
         dealId: successInfo.orderList[i].dealId,
-        season: successInfo.orderList[i].season,
+        season: successInfo.orderList[i].season
+          ? successInfo.orderList[i].season
+          : null,
         name: successInfo.orderList[i].prodName,
         originalPrice: successInfo.orderList[i].originalPrice,
         discountPrice: successInfo.orderList[i].discountPrice,
