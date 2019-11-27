@@ -13,7 +13,7 @@ export default class CustomerAuthentication {
   @observable sendMailSuccess = false;
   @observable userVerify = null;
   @observable emailVerifyCode;
-  @observable email = '';
+  @observable email = null;
   @observable emailValid = true;
   @action
   emailAuthenticationSend = (email, name) => {
@@ -104,12 +104,22 @@ export default class CustomerAuthentication {
   };
 
   @action
-  emailValidCheck = e => {
+  emailInput = e => {
     this.email = e.target.value;
+  };
+  @action
+  emailValidCheck = () => {
+    let emailValid = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    if (emailValid.test(this.email) === false) {
+      this.email = null;
+      this.root.alert.showAlert({
+        content: '올바르지 않은 이메일형식 입니다.',
+      });
+    }
   };
 
   @action
   dataInit = () => {
-    this.email = '';
+    this.email = null;
   };
 }

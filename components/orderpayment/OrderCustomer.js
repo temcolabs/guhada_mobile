@@ -30,17 +30,16 @@ class OrderCustomer extends Component {
         <div className={css.headerSection}>
           <div className={css.title}>주문자 정보</div>
           {customerauthentication.userVerify ? (
-            orderpayment.orderUserInfo.emailVerify ? null : (
-              <div
-                className={css.identification}
-                onClick={() => {
-                  this.modalShow();
-                }}
-              >
-                <span>[필수] </span> 이메일인증
-                <div className={css.arrow} />
-              </div>
-            )
+            orderpayment.orderUserInfo
+              .emailVerify ? null : //   className={css.identification} // <div // 이메일 인증 기능 제거(19.11.27)
+            //   onClick={() => {
+            //     this.modalShow();
+            //   }}
+            // >
+            //   <span>[필수] </span> 이메일인증
+            //   <div className={css.arrow} />
+            // </div>
+            null
           ) : (
             <div
               className={css.identification}
@@ -53,7 +52,7 @@ class OrderCustomer extends Component {
             </div>
           )}
         </div>
-        {orderpayment?.orderUserInfo?.name ? (
+        {customerauthentication.userVerify ? (
           <div className={css.customerName}>{`${
             orderpayment.orderUserInfo.name
           } ${addHyphenToMobile(orderpayment.orderUserInfo?.mobile) ||

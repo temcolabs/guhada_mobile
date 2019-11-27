@@ -75,12 +75,13 @@ class AuthenticationModal extends Component {
 
             <div className={css.emailWrap}>
               <div className={css.wrapTitle}>
-                이메일 인증
-                {orderpayment.orderUserInfo.emailVerify ? (
+                {/* 이메일 인증 */}
+                이메일
+                {/* {orderpayment.orderUserInfo.emailVerify ? (
                   <span className={css.certified}> [인증완료]</span>
                 ) : (
                   <span> [미인증]</span>
-                )}
+                )} */}
               </div>
               <div className={css.content}>
                 {customerauthentication.emailValid ? (
@@ -100,19 +101,18 @@ class AuthenticationModal extends Component {
                     <input
                       type="text"
                       placeholder="이메일을 입력해주세요"
-                      value={
-                        customerauthentication.email
-                          ? customerauthentication.email
-                          : null
-                      }
+                      value={customerauthentication.email || ''}
                       onChange={e => {
-                        customerauthentication.emailValidCheck(e);
+                        customerauthentication.emailInput(e);
+                      }}
+                      onBlur={() => {
+                        customerauthentication.emailValidCheck();
                       }}
                     />
                   </div>
                 )}
 
-                {customerauthentication.sendMailSuccess ? (
+                {/* {customerauthentication.sendMailSuccess ? (
                   <div
                     className={css.reRequest}
                     onClick={() =>
@@ -124,9 +124,9 @@ class AuthenticationModal extends Component {
                   >
                     재전송
                   </div>
-                ) : null}
+                ) : null} */}
               </div>
-              {customerauthentication.sendMailSuccess ? (
+              {/* {customerauthentication.sendMailSuccess ? (
                 <div className={css.verifyNumber}>
                   <div>
                     <input
@@ -148,9 +148,9 @@ class AuthenticationModal extends Component {
                     }}
                   />
                 </div>
-              ) : null}
+              ) : null} */}
 
-              {customerauthentication.sendMailSuccess ? (
+              {/* {customerauthentication.sendMailSuccess ? (
                 <div
                   className={css.button}
                   onClick={() =>
@@ -175,7 +175,7 @@ class AuthenticationModal extends Component {
                 >
                   인증 메일 요청
                 </div>
-              )}
+              )} */}
             </div>
           </div>
         </SlideIn>
