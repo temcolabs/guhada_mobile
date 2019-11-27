@@ -20,3 +20,6 @@ yarn-debug.log*
 yarn-error.log*W
 
 .vscode
+
+# 쉘스크립트로 배포 환경마다 크롤링 설정을 다르게 함.
+robots.txt

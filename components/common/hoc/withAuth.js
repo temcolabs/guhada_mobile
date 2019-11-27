@@ -2,10 +2,10 @@ import React from 'react';
 import { pushRoute } from 'lib/router';
 import { inject, observer } from 'mobx-react';
 import { loginStatus } from 'constant';
-import { isBrowser } from 'lib/isServer';
+import { isBrowser } from 'childs/lib/common/isServer';
 import Loading from '../loading/Loading';
 import qs from 'qs';
-import { devLog } from 'lib/devLog';
+import { devLog } from 'childs/lib/common/devLog';
 import _ from 'lodash';
 /**
  * isAuthRequired 옵션에 따라 현재 페이지에서 redirectTo로 지정된 페이지로 이동시킴

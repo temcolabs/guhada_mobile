@@ -1,4 +1,4 @@
-import { loadScript } from 'lib/dom';
+import loadScript from '../../dom/loadScript';
 export default {
   signup: function() {
     DaumConversionDctSv = 'type=M,orderID=,amount=';

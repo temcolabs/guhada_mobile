@@ -1,7 +1,7 @@
 import API from 'childs/lib/API';
 import { root } from 'store';
 import Form from '../../../_.forms';
-import { devLog } from 'lib/devLog';
+import { devLog } from 'childs/lib/common/devLog';
 import _ from 'lodash';
 
 export default {

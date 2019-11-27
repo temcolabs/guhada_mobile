@@ -1,5 +1,5 @@
 import { observable, action, toJS } from 'mobx';
-import { isBrowser } from 'lib/isServer';
+import { isBrowser } from 'childs/lib/common/isServer';
 
 export default class ToastStore {
   constructor(root) {

@@ -58,6 +58,8 @@ class DefaultLayout extends Component {
       paddingTop = headerSize;
     } else if (topLayout === 'category') {
       paddingTop = headerSize + categorySize;
+    } else if (topLayout === 'brand') {
+      paddingTop = headerSize + searchTabSize;
     } else if (topLayout === 'search') {
       paddingTop = headerSize + categorySize + searchTabSize;
     } else if (topLayout === 'keyword') {

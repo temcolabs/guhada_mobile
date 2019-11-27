@@ -2,9 +2,9 @@ import Form from '../../_.forms';
 import API from 'childs/lib/API';
 import { root } from 'store';
 import { snsTypes } from 'constant/sns';
-import { devLog } from 'lib/devLog';
-import daumTrakers from 'lib/tracking/daum/daumTrakers';
-import naverShoppingTrakers from 'lib/tracking/navershopping/naverShoppingTrakers';
+import { devLog } from 'childs/lib/common/devLog';
+import daumTrakers from 'childs/lib/tracking/daum/daumTrakers';
+import naverShoppingTrakers from 'childs/lib/tracking/navershopping/naverShoppingTrakers';
 export default {
   onInit() {},
 

@@ -5,7 +5,6 @@ import _ from 'lodash';
 import { LinkRoute } from 'lib/router';
 import { useObserver } from 'mobx-react-lite';
 import SellerStoreOrder from './SellerStroeOrder';
-import { isBrowser } from 'lib/isServer';
 
 export default function SellerStoreProduct({ seller, items, countOfDeals }) {
   const [orderHover, setOrderHover] = useState(false);
@@ -18,9 +17,7 @@ export default function SellerStoreProduct({ seller, items, countOfDeals }) {
   ];
 
   const orderLabel = orderList.map(order => {
-    if (order.value === seller.order) {
-      return order.label;
-    }
+    return order.value === seller.order ? order.label : '';
   });
 
   function getOrderDeal(order, e) {

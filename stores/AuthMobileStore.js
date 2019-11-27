@@ -2,12 +2,10 @@ import { observable, action } from 'mobx';
 import API from 'childs/lib/API';
 import Router from 'next/router';
 import Form from '../stores/form-store/_.forms';
-import openPopupCenter from 'lib/dom/openPopupCenter';
 import { root } from 'store';
 import { pushRoute } from 'lib/router';
-import { devLog } from 'lib/devLog';
+import { devLog } from 'childs/lib/common/devLog';
 import _ from 'lodash';
-const isServer = typeof window === 'undefined';
 
 export default class AuthMobileStore {
   @observable authKey = '';
@@ -27,7 +25,6 @@ export default class AuthMobileStore {
       this.authKey = key;
       let verifyParams = this.verifyParams;
       let authData = this.authData;
-      // const childWindow = openPopupCenter('', 'popupChk', 500, 550);
       let checkIdentity = this.checkIdentity;
       document.form_chk.action =
         'https://nice.checkplus.co.kr/CheckPlusSafeModel/checkplus.cb';

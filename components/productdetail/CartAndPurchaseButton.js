@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import css from './CartAndPurchaseButton.module.scss';
 import { inject, observer } from 'mobx-react';
+
 @inject('productdetail', 'cartAndPurchase')
 @observer
 class CartAndPurchaseButton extends Component {

@@ -4,7 +4,7 @@ import css from '../../template/signin/Login.module.scss';
 import { observer, inject } from 'mobx-react';
 import loadScript from 'childs/lib/dom/loadScript';
 import { snsAppKey } from 'constant/sns';
-import { isBrowser } from 'lib/isServer';
+import { isBrowser } from 'childs/lib/common/isServer';
 import { HOSTNAME } from 'constant/hostname';
 
 const client_id = snsAppKey.NAVER;

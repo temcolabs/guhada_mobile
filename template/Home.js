@@ -16,6 +16,7 @@ import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount
 import { pushRoute } from 'lib/router';
 import _ from 'lodash';
 import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
+import isTruthy from 'childs/lib/common/isTruthy';
 
 @withScrollToTopOnMount
 @withRouter
@@ -89,38 +90,6 @@ class Home extends React.Component {
   render() {
     const { main, searchitem } = this.props;
 
-    const slideImages = [
-      {
-        src: `${
-          process.env.API_CLOUD
-        }/images/banner/luckydraw/lucky_main_m_360.png`,
-        href: `/event/luckydraw`,
-      },
-      {
-        src: `${
-          process.env.API_CLOUD
-        }/images/banner/timedeal/timedeal_main_m_360.png`,
-        href: `/event/timedeal`,
-      },
-      {
-        src: `${
-          process.env.API_CLOUD
-        }/images/banner/signup5000/join_main_m_360.png`,
-        href: `/`,
-      },
-      {
-        src: `${
-          process.env.API_CLOUD
-        }/images/banner/2perdiscount/2per_main_m_360.png`,
-        href: `/`,
-      },
-      // {
-      //   src: `${
-      //     process.env.API_CLOUD
-      //   }/images/banner/opening/open_main_m_360.png`,
-      //   href: `/`,
-      // },
-    ];
     return (
       <DefaultLayout
         title={null}
@@ -133,10 +102,10 @@ class Home extends React.Component {
           setNavDealId={main.setNavDealId}
           scrollDirection={this.state.scrollDirection}
         />
-        {/* TODO :: 임시로 만들어놓은 슬라이드 배너
-        현재 dot 구현은 되어 있지 않음 */}
 
-        {main.navDealId === 0 && <MainSlideBanner imageFile={slideImages} />}
+        {main.navDealId === 0 && !!isTruthy(main.bannerInfo) && (
+          <MainSlideBanner imageFile={main.bannerInfo} />
+        )}
 
         <SignupSuccessModal
           isOpen={this.state.signupModal}

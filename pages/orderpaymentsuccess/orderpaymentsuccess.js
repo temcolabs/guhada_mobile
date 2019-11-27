@@ -9,8 +9,10 @@ import Cookies from 'js-cookie';
 import key from 'childs/lib/constant/key';
 import { isBrowser } from 'childs/lib/common/isServer';
 import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
-import daumTrakers from 'lib/tracking/daum/daumTrakers';
-import naverShoppingTrakers from 'lib/tracking/navershopping/naverShoppingTrakers';
+import daumTrakers from 'childs/lib/tracking/daum/daumTrakers';
+import naverShoppingTrakers from 'childs/lib/tracking/navershopping/naverShoppingTrakers';
+import kochavaTracker from 'childs/lib/tracking/kochava/kochavaTracker';
+import HeadForSEO from 'childs/lib/components/HeadForSEO';
 
 @inject('orderpaymentsuccess', 'user')
 @observer
@@ -63,24 +65,16 @@ class index extends React.Component {
         q: orderItem.quantity,
       })),
     });
+
+    kochavaTracker.purchaseComplete({ successInfo });
   };
 
   render() {
     let { orderpaymentsuccess } = this.props;
     return (
       <>
-        <Head>
-          <title>주문 완료</title>
-          <link
-            rel="shortcut icon"
-            type="image/x-icon"
-            href="/static/guhada.ico"
-          />
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
-          />
-        </Head>
+        <HeadForSEO pageName="주문 완료" />
+
         <div>
           {orderpaymentsuccess.status.pageStatus ? (
             <OrderPaymentSuccess />

@@ -3,7 +3,7 @@ import Axios from 'axios';
 import API from 'childs/lib/API';
 import { pushRoute } from 'lib/router';
 import _ from 'lodash';
-import { devLog } from 'lib/devLog';
+import { devLog } from 'childs/lib/common/devLog';
 import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
 import Cookies from 'js-cookie';
 import key from 'childs/lib/constant/key';
@@ -11,8 +11,15 @@ import { isBrowser } from 'childs/lib/common/isServer';
 
 const isServer = typeof window === 'undefined';
 export default class ProductDetailStore {
-  constructor(root) {
-    if (!isServer) this.root = root;
+  constructor(root, initialState) {
+    if (!isServer) {
+      this.root = root;
+    }
+
+    // 상품 상세 데이터
+    if (initialState.productdetail?.deals) {
+      this.deals = initialState.productdetail?.deals;
+    }
   }
   @observable deals;
   @observable dealsStatus = false;

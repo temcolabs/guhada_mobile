@@ -2,9 +2,9 @@ import Router from 'next/router';
 import Form from 'stores/form-store/_.forms';
 import API from 'childs/lib/API';
 import _ from 'lodash';
-import { devLog, devGroup, devGroupEnd } from 'lib/devLog';
-import naverShoppingTrakers from 'lib/tracking/navershopping/naverShoppingTrakers';
-import daumTrakers from 'lib/tracking/daum/daumTrakers';
+import { devLog, devGroup, devGroupEnd } from 'childs/lib/common/devLog';
+import naverShoppingTrakers from 'childs/lib/tracking/navershopping/naverShoppingTrakers';
+import daumTrakers from 'childs/lib/tracking/daum/daumTrakers';
 import { root } from 'store';
 import { snsTypes } from 'constant/sns';
 

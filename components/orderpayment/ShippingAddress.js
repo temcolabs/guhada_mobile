@@ -3,8 +3,8 @@ import { inject, observer } from 'mobx-react';
 import css from './ShippingAddress.module.scss';
 import ShippingMessageSelect from './ShippingMessageSelect';
 import AddressChangeModal from './modal/AddressChangeModal';
-import addHyphenToMobile from 'lib/string/addHyphenToMobile';
-import { devLog } from 'lib/devLog';
+import addHyphenToMobile from 'childs/lib/string/addHyphenToMobile';
+import { devLog } from 'childs/lib/common/devLog';
 import _ from 'lodash';
 @inject('orderpayment')
 @observer

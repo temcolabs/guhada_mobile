@@ -64,7 +64,15 @@ class SearchList extends Component {
   render() {
     const { searchitem, keyword } = this.props;
     let isBrand = Router.router.query.enter === 'brand';
+    let isCategory = Router.router.query.enter === 'category';
     let isKeyword;
+    let topLayout = isCategory
+      ? 'category'
+      : isBrand
+      ? 'brand'
+      : isKeyword
+      ? 'keyword'
+      : 'search';
 
     if (Router.router.query.enter === 'keyword') {
       isKeyword = true;
@@ -74,7 +82,7 @@ class SearchList extends Component {
 
     return (
       <DefaultLayout
-        topLayout={isBrand ? 'category' : isKeyword ? 'keyword' : 'search'}
+        topLayout={topLayout}
         pageTitle={searchitem.title}
         headerShape={isKeyword ? 'keyword' : isBrand ? 'brand' : 'searchList'}
       >
@@ -95,13 +103,11 @@ class SearchList extends Component {
           />
         )}
 
-        {isKeyword &&
-        !!searchitem.itemStatus &&
-        searchitem.itemEmpty === true ? (
+        {!!searchitem.itemStatus && searchitem.itemEmpty === true ? (
           <SearchResultEmpty
-            title={Router.router.query.keyword}
-            setIsSearchVisible={this.setIsSearchVisible}
-            setKeywordText={this.setKeywordText}
+            title={isKeyword && Router.router.query.keyword}
+            setIsSearchVisible={isKeyword && this.setIsSearchVisible}
+            setKeywordText={isKeyword && this.setKeywordText}
           />
         ) : (
           <>

@@ -1,5 +1,7 @@
 import App, { Container } from 'next/app';
+import Head from 'next/head';
 import React from 'react';
+import Router from 'next/router';
 import { initializeStore } from '../store';
 import { Provider } from 'mobx-react';
 import '../style.scss';
@@ -9,30 +11,28 @@ import AlertConductor from 'components/common/modal/AlertConductor';
 import AssociatedProduct from 'components/common/modal/AssociatedProduct';
 import 'react-dates/initialize';
 import qs from 'qs';
-import { isBrowser } from 'lib/isServer';
-import { devLog } from 'lib/devLog';
+import { isBrowser, isServer } from 'childs/lib/common/isServer';
+import { devLog } from 'childs/lib/common/devLog';
 import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
 import Cookies from 'js-cookie';
 import key from 'childs/lib/constant/key';
+import getIpAddrress from 'childs/lib/common/getIpAddrress';
+import _ from 'lodash';
+import getIsProdHost from 'childs/lib/tracking/getIsProdHost';
+import CommonHead from 'childs/lib/components/CommonHead';
 
 moment.locale('ko');
 
-class MarketPlatform extends App {
+class GuhadaMobileWeb extends App {
   static async getInitialProps(appContext) {
     const { Component, ctx } = appContext;
+    const { req, asPath } = ctx;
 
     if (isBrowser) {
       devLog(`[_app] getInitialProps: appContext`, appContext);
-      MarketPlatform.naverShoppingTracker();
-      MarketPlatform.aceCouterTracker(ctx.asPath);
+      GuhadaMobileWeb.naverShoppingTracker();
+      GuhadaMobileWeb.aceCouterTracker(ctx.asPath);
     }
-
-    // Get or Create the store with `undefined` as initialState
-    // This allows you to set a custom default initialState
-    const mobxStore = initializeStore();
-
-    // Provide the store to getInitialProps of pages
-    appContext.ctx.mobxStore = mobxStore;
 
     let initialProps = {};
 
@@ -41,21 +41,71 @@ class MarketPlatform extends App {
       initialProps = await Component.getInitialProps(ctx);
     }
 
+    // Get or Create the store with `undefined` as initialState
+    // This allows you to set a custom default initialState
+    const commonMobxState = GuhadaMobileWeb.makeCommonMobxState({
+      req: ctx.req,
+    });
+
+    let initialState = {
+      ...commonMobxState,
+    };
+
+    // page 컴포넌트의 getInitialProps에서 리턴한 객체에 initialState가 있다면 병합
+    if (initialProps.initialState) {
+      initialState = _.merge(initialState, initialProps.initialState);
+    }
+
+    // Get or Create the store with `undefined` as initialState
+    // This allows you to set a custom default initialState
+    const mobxStore = initializeStore(initialState);
+
+    // Provide the store to getInitialProps of pages
+    appContext.ctx.mobxStore = mobxStore;
+
+    // 현재 페이지의 URI
+    const hostname = isServer ? req.headers.host : window.location.hostname;
+    const fullUrl = isServer
+      ? `${req.protocol}://${req.headers.host}${asPath}`
+      : `${window.location.origin}${Router.asPath}`;
+    const isProdHost = getIsProdHost(hostname);
+
     return {
-      initialMobxState: mobxStore,
-      initialProps,
+      mobxStore, // 서버에서 최초 생성된 mobxStore
+      initialState,
+      initialProps, // 컴포넌트 intialProps
+      fullUrl,
+      isProdHost,
+    };
+  }
+
+  /**
+   * mobx store의 초기값 생성
+   */
+  static makeCommonMobxState({ req }) {
+    // 사용자 ip 주소 가져오기
+    let userIp = null;
+    if (isServer) {
+      userIp = getIpAddrress(req);
+    }
+
+    return {
+      bbs: {
+        article: {
+          userIp,
+        },
+      },
     };
   }
 
   constructor(props) {
     super(props);
-    const isServer = typeof window === 'undefined';
 
     this.mobxStore = isServer
-      ? props.initialMobxState
-      : initializeStore(props.initialMobxState);
+      ? props.mobxStore // getInitialProps에서 만든 store
+      : initializeStore(props.initialState); // 브라우저에서는 initialState로 만든다
 
-    if (typeof window !== 'undefined') {
+    if (!isServer) {
       ReactModal.setAppElement('body');
     }
   }
@@ -104,6 +154,11 @@ class MarketPlatform extends App {
             widerplanetTracker.common({
               userId: userInfo?.id,
             });
+
+            // 로그인
+            widerplanetTracker.signIn({
+              userId: userInfo?.id,
+            });
           });
         } else {
           // 그대로 실행
@@ -136,13 +191,25 @@ class MarketPlatform extends App {
   }
 
   render() {
-    const { Component, initialProps } = this.props;
+    const { Component, initialProps, fullUrl, isProdHost } = this.props;
 
     return (
       <Container>
         <Provider {...this.mobxStore}>
           <>
-            <Component {...initialProps} />
+            <CommonHead isRobotAllowed={isProdHost}>
+              <>
+                {/* canonical url of current page */}
+                {fullUrl && (
+                  <link key="canonical" rel="canonical" href={fullUrl} />
+                )}
+                {fullUrl && (
+                  <meta key="og:url" property="og:url" content={fullUrl} />
+                )}
+              </>
+            </CommonHead>
+
+            <Component key={this.componentKey} {...initialProps} />
 
             <AlertConductor />
 
@@ -153,4 +220,4 @@ class MarketPlatform extends App {
     );
   }
 }
-export default MarketPlatform;
+export default GuhadaMobileWeb;

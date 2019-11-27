@@ -1,6 +1,6 @@
 import { observable, action, toJS } from 'mobx';
-import { isBrowser } from 'lib/isServer';
-import localStorage from 'lib/localStorage';
+import { isBrowser } from 'childs/lib/common/isServer';
+import localStorage from 'childs/lib/common/localStorage';
 import key from 'constant/key';
 import _ from 'lodash';
 

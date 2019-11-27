@@ -3,7 +3,7 @@ import ReactDom from 'react-dom';
 import css from './SlideIn.module.scss';
 import { Transition } from 'react-transition-group';
 import anime from 'animejs';
-import { isBrowser } from 'lib/isServer';
+import { isBrowser } from 'childs/lib/common/isServer';
 import Mask from '../modal/Mask';
 
 /**

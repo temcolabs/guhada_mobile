@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './Benefit.module.scss';
 import CouponSelectModal from './modal/CouponSelectModal';
-import { devLog } from 'lib/devLog';
+import { devLog } from 'childs/lib/common/devLog';
 @inject('orderpayment', 'orderPaymentBenefit', 'alert')
 @observer
 class Benefit extends Component {

@@ -1,8 +1,7 @@
 import { observable, action, toJS } from 'mobx';
 import API from 'childs/lib/API';
-const isServer = typeof window === 'undefined';
-import { isBrowser } from 'lib/isServer';
-import { devLog } from 'lib/devLog';
+import { isBrowser } from 'childs/lib/common/isServer';
+import { devLog } from 'childs/lib/common/devLog';
 
 export default class MypageLikeStore {
   constructor(root) {

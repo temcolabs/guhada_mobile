@@ -1,8 +1,8 @@
 import API from 'childs/lib/API';
 import Form from '../../../_.forms';
 import { root } from 'store';
-import autoTelNumber from 'lib/autoTelNumber';
-import { devLog } from 'lib/devLog';
+import autoTelNumber from 'childs/lib/common/autoTelNumber';
+import { devLog } from 'childs/lib/common/devLog';
 import _ from 'lodash';
 
 export default {

@@ -1,7 +1,7 @@
 import { observable, action, toJS } from 'mobx';
 import API from 'childs/lib/API';
-import { isBrowser } from 'lib/isServer';
-import { devLog } from 'lib/devLog';
+import { isBrowser } from 'childs/lib/common/isServer';
+import { devLog } from 'childs/lib/common/devLog';
 import Form from 'stores/form-store/_.forms';
 import luckyDrawService from 'lib/API/product/luckyDrawService';
 import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';

@@ -4,7 +4,7 @@ import css from './Header.module.scss';
 import HeaderMenu from './HeaderMenu';
 import CategoryDepthMenu from './CategoryDepthMenu';
 import { inject } from 'mobx-react';
-import sessionStorage from 'lib/sessionStorage';
+import sessionStorage from 'childs/lib/common/sessionStorage';
 import { pushRoute, LinkRoute } from 'lib/router';
 import cn from 'classnames';
 import SearchMenu from './SearchMenu';
@@ -143,6 +143,7 @@ function Header({
           <BrandContainer
             isVisible={isBrandVisible}
             onClose={() => setIsBrandVisible(false)}
+            onCloseMenu={() => setIsMenuVisible(false)}
           />
 
           <SearchMenu

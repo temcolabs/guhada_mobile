@@ -2,11 +2,9 @@
 import { observable, action, toJS } from 'mobx';
 import { autoHypenPhone, getUserAgent } from '../../utils';
 import API from 'childs/lib/API';
-import qs from 'qs';
-import { getParameterByName } from '../../utils';
 import Router from 'next/router';
 import { HOSTNAME } from 'constant/hostname';
-import { devLog } from 'lib/devLog';
+import { devLog } from 'childs/lib/common/devLog';
 import { pushRoute } from 'lib/router';
 const isServer = typeof window === 'undefined';
 export default class OrderPaymentStore {

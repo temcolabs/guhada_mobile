@@ -41,7 +41,10 @@ class Brand extends Component {
   };
 
   toSearch = id => {
-    let { searchitem } = this.props;
+    let { searchitem, onClose, fromHeader, onCloseMenu } = this.props;
+    onClose();
+    if (!!fromHeader) onCloseMenu();
+
     searchitem.toSearch({ brand: id, enter: 'brand' });
   };
 

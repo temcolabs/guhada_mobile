@@ -2,11 +2,12 @@ import { observable, action, toJS } from 'mobx';
 import { loginStatus } from 'constant';
 import API from 'childs/lib/API';
 import Router from 'next/router';
-import { pushRoute } from 'lib/router';
+import { sendBackToLogin, pushRoute } from 'lib/router';
 import qs from 'qs';
-import naverShoppingTrakers from 'lib/tracking/navershopping/naverShoppingTrakers';
-import daumTrakers from 'lib/tracking/daum/daumTrakers';
+import naverShoppingTrakers from 'childs/lib/tracking/navershopping/naverShoppingTrakers';
+import daumTrakers from 'childs/lib/tracking/daum/daumTrakers';
 import criteoTracker from 'childs/lib/tracking/criteo/criteoTracker';
+import kochavaTracker from 'childs/lib/tracking/kochava/kochavaTracker';
 import _ from 'lodash';
 
 const isServer = typeof window === 'undefined';
@@ -94,17 +95,21 @@ export default class CartAndPurchaseStore {
                 },
               ],
             });
+
+            kochavaTracker.shoppingCart({
+              dealId: this.root.productdetail.deals.dealsId,
+              productId: this.root.productdetail.deals.productId,
+              brandId: this.root.productdetail.deals.brandId,
+              sellerId: this.root.productdetail.deals.sellerId,
+              season: this.root.productdetail.deals.season,
+              name: this.root.productdetail.deals.name,
+              sellPrice: this.root.productdetail.deals.sellPrice,
+              discountPrice: this.root.productdetail.deals.discountPrice,
+            });
           })
           .catch(err => {
             if (this.root.login.loginStatus === loginStatus.LOGOUT) {
-              pushRoute(
-                `/login?${qs.stringify({
-                  redirectTo: `/productdetail?deals=${
-                    this.root.productdetail.deals.dealsId
-                  }`,
-                })}`,
-                { isReplace: true }
-              );
+              sendBackToLogin();
             }
           });
       } else {
@@ -113,14 +118,7 @@ export default class CartAndPurchaseStore {
         });
       }
     } else {
-      pushRoute(
-        `/login?${qs.stringify({
-          redirectTo: `/productdetail?deals=${
-            this.root.productdetail.deals.dealsId
-          }`,
-        })}`,
-        { isReplace: true }
-      );
+      sendBackToLogin();
     }
   };
 
@@ -157,14 +155,7 @@ export default class CartAndPurchaseStore {
           })
           .catch(err => {
             if (this.root.login.loginStatus === loginStatus.LOGOUT) {
-              pushRoute(
-                `/login?${qs.stringify({
-                  redirectTo: `/productdetail?deals=${
-                    this.root.productdetail.deals.dealsId
-                  }`,
-                })}`,
-                { isReplace: true }
-              );
+              sendBackToLogin();
             }
           });
       } else {
@@ -173,14 +164,7 @@ export default class CartAndPurchaseStore {
         });
       }
     } else {
-      pushRoute(
-        `/login?${qs.stringify({
-          redirectTo: `/productdetail?deals=${
-            this.root.productdetail.deals.dealsId
-          }`,
-        })}`,
-        { isReplace: true }
-      );
+      sendBackToLogin();
     }
   };
   @action

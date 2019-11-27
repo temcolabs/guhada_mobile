@@ -11,8 +11,13 @@ PACKAGE_VERSION=$(cat package.json \
   | sed 's/[",]//g')
 
 RELEASE_VERSION=$(echo "release/${PACKAGE_VERSION}" | tr -d ' ')
+WINDOW_RELEASE_VERSION="release/v1.7.0"
+if [ $RELEASE_VERSION = "release/" ]
+then
+  RELEASE_VERSION=${WINDOW_RELEASE_VERSION}
+fi
 
 echo $RELEASE_VERSION
 
 # 서버 접속 후 테스트 앱 시작
-ssh -i ~/.ssh/guhada.pem $USER@$HOST "cd $DEST_REPO && git remote update --prune && git reset --hard && git checkout $RELEASE_VERSION && git pull && npm install && npm run build && pm2 flush && APP_NAME=$APP_NAME npm run reload-pm2 && ./scripts/delete-old-builds.sh"
+ssh -i ~/.ssh/guhada.pem $USER@$HOST "cd $DEST_REPO && git reset --hard && git remote update --prune && git checkout $RELEASE_VERSION && git pull && npm install && npm run build && pm2 flush && APP_NAME=$APP_NAME npm run reload-pm2 && ./scripts/delete-old-builds.sh && ./scripts/etc/createRobotsDisallowed.sh"

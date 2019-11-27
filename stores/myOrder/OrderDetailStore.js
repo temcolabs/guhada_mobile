@@ -1,9 +1,9 @@
 import { observable, action, computed } from 'mobx';
 import API from 'childs/lib/API';
-import { isBrowser } from 'lib/isServer';
+import { isBrowser } from 'childs/lib/common/isServer';
 import moment from 'moment';
 import { dateFormat } from 'constant/date';
-import dateArrayToString from 'lib/array/dateArrayToString';
+import dateArrayToString from 'childs/lib/common/dateArrayToString';
 
 /**
  * 내 주문 목록

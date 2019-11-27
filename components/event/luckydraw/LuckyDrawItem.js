@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import css from './LuckyDrawItem.module.scss';
 import moment from 'moment';
 import cn from 'classnames';

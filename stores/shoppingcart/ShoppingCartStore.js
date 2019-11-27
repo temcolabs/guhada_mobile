@@ -5,7 +5,7 @@ import API from 'childs/lib/API';
 import _ from 'lodash';
 import { pushRoute } from 'lib/router';
 import qs from 'qs';
-import { devLog } from 'lib/devLog';
+import { devLog } from 'childs/lib/common/devLog';
 const isServer = typeof window === 'undefined';
 
 export default class ShoppingCartStore {
