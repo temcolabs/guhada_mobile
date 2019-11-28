@@ -356,6 +356,10 @@ class ApiFactory {
     return this.getApiInstance(process.env.API_SETTLE);
   }
 
+  get blockchain() {
+    return this.getApiInstance(process.env.API_BLOCKCHAIN);
+  }
+
   getApiInstance(baseURL) {
     if (this.baseURL !== baseURL) {
       // baseURL이 다르면 인스턴스를 새로 만든다.
