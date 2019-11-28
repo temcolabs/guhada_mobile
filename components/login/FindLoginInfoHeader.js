@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import css from './FindLoginInfoHeader.module.scss';
 import cn from 'classnames';
-import { LinkRoute } from 'lib/router';
+import { LinkRoute } from 'childs/lib/router';
 
 export class FindLoginInfoHeader extends Component {
   render() {

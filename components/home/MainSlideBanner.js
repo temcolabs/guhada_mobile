@@ -4,7 +4,7 @@ import './MainSlideBanner.scss';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.scss';
 import 'slick-carousel/slick/slick-theme.scss';
-import { pushRoute } from 'lib/router';
+import { pushRoute } from 'childs/lib/router';
 
 export class MainSlideBanner extends Component {
   state = {

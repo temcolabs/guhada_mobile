@@ -8,7 +8,7 @@ import {
 } from '../utils.js';
 import Router from 'next/router';
 import API from 'childs/lib/API';
-import { pushRoute } from 'lib/router/index.js';
+import { pushRoute } from 'childs/lib/router/index.js';
 import qs from 'qs';
 import _ from 'lodash';
 import criteoTracker from 'childs/lib/tracking/criteo/criteoTracker';

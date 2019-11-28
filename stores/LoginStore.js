@@ -7,7 +7,7 @@ import Router from 'next/router';
 import { loginStatus } from 'constant';
 import key from 'constant/key';
 import { isBrowser } from 'childs/lib/common/isServer';
-import { pushRoute } from 'lib/router';
+import { pushRoute } from 'childs/lib/router';
 import { snsTypes } from 'constant/sns';
 import _ from 'lodash';
 import { devLog } from 'childs/lib/common/devLog';

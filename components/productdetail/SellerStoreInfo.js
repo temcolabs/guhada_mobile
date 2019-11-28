@@ -3,7 +3,7 @@ import css from './SellerStoreInfo.module.scss';
 import cn from 'classnames';
 import _ from 'lodash';
 import { useObserver } from 'mobx-react-lite';
-import { pushRoute } from 'lib/router';
+import { pushRoute } from 'childs/lib/router';
 import { loginStatus } from 'constant/';
 import isTruthy from 'childs/lib/common/isTruthy';
 

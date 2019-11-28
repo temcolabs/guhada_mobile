@@ -1,5 +1,5 @@
 import React from 'react';
-import { pushRoute } from 'lib/router';
+import { pushRoute } from 'childs/lib/router';
 
 /**
  * /mypage 라우트

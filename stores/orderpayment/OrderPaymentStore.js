@@ -5,7 +5,7 @@ import API from 'childs/lib/API';
 import Router from 'next/router';
 import { HOSTNAME } from 'constant/hostname';
 import { devLog } from 'childs/lib/common/devLog';
-import { pushRoute } from 'lib/router';
+import { pushRoute } from 'childs/lib/router';
 const isServer = typeof window === 'undefined';
 export default class OrderPaymentStore {
   constructor(root) {

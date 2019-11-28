@@ -1,5 +1,5 @@
 import React from 'react';
-import { pushRoute } from 'lib/router';
+import { pushRoute } from 'childs/lib/router';
 import { inject, observer } from 'mobx-react';
 import { loginStatus } from 'constant';
 import { isBrowser } from 'childs/lib/common/isServer';

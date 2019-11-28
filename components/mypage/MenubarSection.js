@@ -1,6 +1,6 @@
 import React from 'react';
 import css from './MenubarSection.module.scss';
-import { LinkRoute } from 'lib/router';
+import { LinkRoute } from 'childs/lib/router';
 
 export default function MenubarSection({
   links: menuLinks = [

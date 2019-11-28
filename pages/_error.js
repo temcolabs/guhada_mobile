@@ -1,5 +1,5 @@
 import React from 'react';
-import { pushRoute } from 'lib/router';
+import { pushRoute } from 'childs/lib/router';
 import qs from 'qs';
 import { observer, inject } from 'mobx-react';
 import Error from 'template/Error';

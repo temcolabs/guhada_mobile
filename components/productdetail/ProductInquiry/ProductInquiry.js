@@ -8,7 +8,7 @@ import NewInquiry from './NewInquiry';
 import SellerClaimModal from 'components/claim/sellerclaim/SellerClaimModal';
 import _ from 'lodash';
 import { loginStatus } from 'constant/';
-import { pushRoute, sendBackToLogin } from 'lib/router';
+import { pushRoute, sendBackToLogin } from 'childs/lib/router';
 
 @inject('productdetail', 'login', 'alert', 'sellerClaim')
 @observer
