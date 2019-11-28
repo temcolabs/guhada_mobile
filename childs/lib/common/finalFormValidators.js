@@ -1,8 +1,8 @@
 import _ from 'lodash';
-import isEmailString from './isEmailString';
+import isEmailString from '../string/isEmailString';
 import isTruthy, { isFalsey } from './isTruthy';
-import isValidPasswordStr from './string/isValidPasswordStr';
-import isValidMobileStr from './string/isValidMobileStr';
+import isValidPasswordStr from '../string/isValidPasswordStr';
+import isValidMobileStr from '../string/isValidMobileStr';
 
 /**
  * validator 조합
