@@ -9,7 +9,7 @@ import Cookies from 'js-cookie';
 import key from 'childs/lib/constant/key';
 import { isBrowser } from 'childs/lib/common/isServer';
 import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
-import daumTrakers from 'childs/lib/tracking/daum/daumTrakers';
+import daumTracker from 'childs/lib/tracking/daum/daumTracker';
 import naverShoppingTrakers from 'childs/lib/tracking/navershopping/naverShoppingTrakers';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
 
@@ -39,7 +39,7 @@ class index extends React.Component {
     });
 
     // 다음 트래커
-    daumTrakers.purchaseComplete({
+    daumTracker.purchaseComplete({
       orderID: successInfo.orderNumber,
       amount: successInfo.totalOrderPrice,
     });

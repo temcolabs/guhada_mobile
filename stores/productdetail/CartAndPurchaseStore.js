@@ -5,7 +5,7 @@ import Router from 'next/router';
 import { sendBackToLogin, pushRoute } from 'lib/router';
 import qs from 'qs';
 import naverShoppingTrakers from 'childs/lib/tracking/navershopping/naverShoppingTrakers';
-import daumTrakers from 'childs/lib/tracking/daum/daumTrakers';
+import daumTracker from 'childs/lib/tracking/daum/daumTracker';
 import criteoTracker from 'childs/lib/tracking/criteo/criteoTracker';
 import _ from 'lodash';
 
@@ -83,7 +83,7 @@ export default class CartAndPurchaseStore {
 
             // 트래커 연결
             naverShoppingTrakers.shoppingCart();
-            daumTrakers.shoppingCart();
+            daumTracker.shoppingCart();
             criteoTracker.addDealToCart({
               email: this.root.user?.userInfo?.email,
               items: [

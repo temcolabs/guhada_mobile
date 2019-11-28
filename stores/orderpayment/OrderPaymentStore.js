@@ -55,7 +55,7 @@ export default class OrderPaymentStore {
     newShppingRequestSelfStatus: false,
     shppingListModalStatus: false,
     totalDiscountDetailStatus: false,
-    orderPaymentAgreement: false,
+    // orderPaymentAgreement: false,
     paymentProceed: false,
     newShippingName: false,
     newAddress: false,
@@ -1039,10 +1039,10 @@ export default class OrderPaymentStore {
     this.status.totalDiscountDetailStatus = !this.status
       .totalDiscountDetailStatus;
   };
-  @action
-  orderPaymentAgreement = () => {
-    this.status.orderPaymentAgreement = !this.status.orderPaymentAgreement;
-  };
+  // @action
+  // orderPaymentAgreement = () => {
+  //   this.status.orderPaymentAgreement = !this.status.orderPaymentAgreement;
+  // };
 
   @action
   orderpaymentInit = () => {
@@ -1083,7 +1083,7 @@ export default class OrderPaymentStore {
       shppingRequestSelfStatus: false,
       newShppingRequestSelfStatus: false,
       shppingListModalStatus: false,
-      orderPaymentAgreement: false,
+      // orderPaymentAgreement: false,
       paymentProceed: false,
       newShippingName: false,
       newAddress: false,

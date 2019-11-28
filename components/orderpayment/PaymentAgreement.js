@@ -8,7 +8,7 @@ class PaymentAgreement extends Component {
     let { orderpayment } = this.props;
     return (
       <div className={css.wrap}>
-        <label>
+        {/* <label>
           <input
             type="checkbox"
             onChange={() => {
@@ -19,8 +19,11 @@ class PaymentAgreement extends Component {
           <div />
           <span>[필수] </span>
           구매 및 결제대행서비스 이용약관 동의
-        </label>
-        <div className={css.agreementText}>
+        </label> */}
+        <div className={css.termsNotify}>
+          위 주문 내용을 확인 하였으며, 회원 본인 결제에 동의 합니다.
+        </div>
+        <div className={css.terms}>
           <a
             href={`${process.env.HOSTNAME}/terms/purchase`}
             target="_blank"
