@@ -55,7 +55,7 @@ export default class OrderPaymentStore {
     newShppingRequestSelfStatus: false,
     shppingListModalStatus: false,
     totalDiscountDetailStatus: false,
-    orderPaymentAgreement: false,
+    // orderPaymentAgreement: false,
     paymentProceed: false,
     newShippingName: false,
     newAddress: false,
@@ -756,9 +756,14 @@ export default class OrderPaymentStore {
     let cartList = this.getCartList();
     let paymentCheck = true;
 
-    if (!this.root.customerauthentication.userVerify) {
+    if (!this.orderUserInfo.name && !this.orderUserInfo.mobile) {
       this.root.alert.showAlert({
         content: '[필수] 본인인증을 해주세요.',
+      });
+      paymentCheck = false;
+    } else if (!this.orderUserInfo.emailVerify) {
+      this.root.alert.showAlert({
+        content: '이메일을 인증해주세요.',
       });
       paymentCheck = false;
     } else if (!this.paymentMethod) {
@@ -772,12 +777,6 @@ export default class OrderPaymentStore {
       });
       paymentCheck = false;
     }
-    // else if (!this.orderUserInfo.emailVerify) {
-    //   this.root.alert.showAlert({
-    //     content: '이메일을 인증해주세요.',
-    //   });
-    //   paymentCheck = false;
-    // }
 
     if (!this.status.selectedShipStatus) {
       if (!this.orderShippingList.newAddress.shippingName) {
@@ -1040,10 +1039,10 @@ export default class OrderPaymentStore {
     this.status.totalDiscountDetailStatus = !this.status
       .totalDiscountDetailStatus;
   };
-  @action
-  orderPaymentAgreement = () => {
-    this.status.orderPaymentAgreement = !this.status.orderPaymentAgreement;
-  };
+  // @action
+  // orderPaymentAgreement = () => {
+  //   this.status.orderPaymentAgreement = !this.status.orderPaymentAgreement;
+  // };
 
   @action
   orderpaymentInit = () => {
@@ -1084,7 +1083,7 @@ export default class OrderPaymentStore {
       shppingRequestSelfStatus: false,
       newShppingRequestSelfStatus: false,
       shppingListModalStatus: false,
-      orderPaymentAgreement: false,
+      // orderPaymentAgreement: false,
       paymentProceed: false,
       newShippingName: false,
       newAddress: false,
