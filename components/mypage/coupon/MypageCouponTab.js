@@ -33,7 +33,7 @@ class MypageCouponTab extends React.Component {
         >
           <div className={css.couponCount}>
             사용완료 ・ 기간만료 쿠폰
-            <span>{`${mypageCoupon.invalidTotalItem}장`}</span>
+            {/* <span>{`${mypageCoupon.invalidTotalItem}장`}</span> */}
           </div>
         </div>
       </div>

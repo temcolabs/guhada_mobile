@@ -3,6 +3,9 @@
   @include clearfix;
 
   > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     &:first-child {
       border-right: 1px solid #111;
     }
@@ -28,12 +31,8 @@
   cursor: pointer;
 }
 .couponCount {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   font-size: 13px;
-  color: #444;
+  color: #111;
   font-weight: 500;
   span {
     color: #5d2ed1;
