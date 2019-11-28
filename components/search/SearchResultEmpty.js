@@ -11,7 +11,7 @@ export default function SearchResultEmpty({
       <div className={css.searchResult}>{title}</div>
       <div className={css.label}>검색결과가 없습니다.</div>
       <div className={css.subLabel}>
-        검색 옵션을 변경하여 다시 검색해 보세요.
+        띄어쓰기를 변경하거나 다른 검색어로 검색해보세요.
       </div>
       <button
         onClick={() => {

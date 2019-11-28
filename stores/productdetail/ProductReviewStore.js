@@ -14,7 +14,7 @@ export default class ProductReviewStore {
   @observable reviewSummary;
   @observable reviewTab = 'all';
   @observable order = '';
-  @observable sort = 'created_at';
+  @observable sort = 'created_at,desc';
   @observable initialPage = 1;
   @observable rating = '';
   @observable reviewBookMarks;

@@ -5,6 +5,7 @@ import _ from 'lodash';
 import { useObserver } from 'mobx-react-lite';
 import { pushRoute } from 'lib/router';
 import { loginStatus } from 'constant/';
+import isTruthy from 'childs/lib/common/isTruthy';
 
 function SellerStoreInfo({
   deals,
@@ -126,7 +127,9 @@ function SellerStoreInfo({
                 </div>
                 <div className={css.title}>{deal.dealName}</div>
                 <div className={css.price}>
-                  {deal.sellPrice.toLocaleString()}
+                  {isTruthy(deal.discountPrice)
+                    ? deal.discountPrice.toLocaleString()
+                    : deal.sellPrice.toLocaleString()}
                 </div>
               </div>
             </div>
