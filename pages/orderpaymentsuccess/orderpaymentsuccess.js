@@ -12,7 +12,6 @@ import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTrack
 import daumTracker from 'childs/lib/tracking/daum/daumTracker';
 import kochavaTracker from 'childs/lib/tracking/kochava/kochavaTracker';
 import naverShoppingTrakers from 'childs/lib/tracking/navershopping/naverShoppingTrakers';
-import kochavaTracker from 'childs/lib/tracking/kochava/kochavaTracker';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
 
 @inject('orderpaymentsuccess', 'user')
