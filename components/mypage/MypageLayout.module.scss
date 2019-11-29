@@ -2,6 +2,9 @@
 @import 'styles/var';
 
 .wrap {
+  &.isMenuVisible {
+    padding-top: $mypageMenuSliderHeight;
+  }
 }
 
 .mypageContentsWrap {
