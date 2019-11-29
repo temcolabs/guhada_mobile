@@ -4,13 +4,29 @@ import DefaultLayout from 'components/layout/DefaultLayout';
 import MypageLayout from 'components/mypage/MypageLayout';
 import PeriodSelector from 'components/mypage/PeriodSelector';
 import { dateUnit } from 'childs/lib/constant';
+import OrderDashboard from 'components/mypage/order/OrderDashboard';
+import { inject, observer } from 'mobx-react';
 
 /**
  * 마이페이지 - 주문 배송 (주문 완료 목록)
  */
 @withRouter
+@inject(
+  'orderCompleteList'
+  // 'mypageAddress',
+  // 'mypagereview',
+  // 'myDelivery',
+  // 'mypagePoint'
+)
+@observer
 class OrderCompleteList extends Component {
   render() {
+    const {
+      orderCompleteList: orderCompleteListStore,
+      // mypagereview,
+      // mypagePoint: mypagePointStore,
+    } = this.props;
+
     return (
       <DefaultLayout
         topLayout={'main'}
@@ -29,7 +45,8 @@ class OrderCompleteList extends Component {
             monthlyTabRange={0}
             onChangePeriod={this.handleChangePeriod}
           />
-          <div>주문배송</div>
+
+          <OrderDashboard data={orderCompleteListStore.myOrderStatus} />
         </MypageLayout>
       </DefaultLayout>
     );
