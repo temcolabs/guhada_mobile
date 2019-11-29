@@ -7,7 +7,7 @@ import useStores from 'stores/useStores';
 import anime from 'animejs';
 import addCommaToNum from 'childs/lib/common/addCommaToNum';
 import { luckyDrawStatus } from 'childs/lib/API/product/luckyDrawService';
-import { loginStatus } from 'constant/';
+import { loginStatus } from 'childs/lib/constant';
 
 /**
   * 데이터 바인딩 가이드는 zeplin 참조

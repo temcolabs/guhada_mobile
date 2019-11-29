@@ -16,7 +16,7 @@ import LuckydrawLogin from './LuckydrawLogin';
 import LuckydrawSignup from './LuckydrawSignup';
 import LuckydrawModify from './LuckydrawModify';
 import CategorySlider from 'components/common/CategorySlider';
-import { mainCategory } from 'constant/category';
+import { mainCategory } from 'childs/lib/constant/category';
 import LoadingPortal from 'components/common/loading/Loading';
 
 const enhancer = compose(withRouter);

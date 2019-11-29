@@ -1,7 +1,7 @@
 import Form from '../../_.forms';
 import API from 'childs/lib/API';
 import { root } from 'store';
-import { snsTypes } from 'constant/sns';
+import { snsTypes } from 'childs/lib/constant/sns';
 import { devLog } from 'childs/lib/common/devLog';
 import daumTracker from 'childs/lib/tracking/daum/daumTracker';
 import naverShoppingTrakers from 'childs/lib/tracking/navershopping/naverShoppingTrakers';

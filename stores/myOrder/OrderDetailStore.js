@@ -2,7 +2,7 @@ import { observable, action, computed } from 'mobx';
 import API from 'childs/lib/API';
 import { isBrowser } from 'childs/lib/common/isServer';
 import moment from 'moment';
-import { dateFormat } from 'constant/date';
+import { dateFormat } from 'childs/lib/constant/date';
 import dateArrayToString from 'childs/lib/common/dateArrayToString';
 
 /**

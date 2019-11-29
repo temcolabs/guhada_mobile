@@ -5,7 +5,7 @@ import css from './Home.module.scss';
 import MainSectionItem from 'components/home/MainSectionItem';
 import { inject, observer } from 'mobx-react';
 import CategorySlider from 'components/common/CategorySlider';
-import { mainCategory } from 'constant/category';
+import { mainCategory } from 'childs/lib/constant/category';
 import MainSlideBanner from 'components/home/MainSlideBanner';
 import HomeItemDefault from 'components/home/HomeItemDefault';
 import MainHotKeyword from 'components/home/MainHotKeyword';
