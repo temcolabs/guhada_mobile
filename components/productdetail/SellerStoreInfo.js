@@ -4,7 +4,7 @@ import cn from 'classnames';
 import _ from 'lodash';
 import { useObserver } from 'mobx-react-lite';
 import { pushRoute } from 'childs/lib/router';
-import { loginStatus } from 'constant/';
+import { loginStatus } from 'childs/lib/constant';
 import isTruthy from 'childs/lib/common/isTruthy';
 
 function SellerStoreInfo({

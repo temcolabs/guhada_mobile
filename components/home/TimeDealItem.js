@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import css from './TimeDealItem.module.scss';
 import cn from 'classnames';
 import moment from 'moment';
-import timeDeal from 'constant/home/timeDeal';
-import { dateFormat } from 'constant/';
+import timeDeal from 'childs/lib/constant/home/timeDeal';
+import { dateFormat } from 'childs/lib/constant';
 import CountdownTimer from 'childs/lib/components/CountdownTimer';
 import { pushRoute } from 'childs/lib/router';
 

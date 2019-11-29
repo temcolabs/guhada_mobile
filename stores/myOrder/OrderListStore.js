@@ -2,8 +2,7 @@ import { observable, action, computed, toJS } from 'mobx';
 import API from 'childs/lib/API';
 import { isBrowser } from 'childs/lib/common/isServer';
 import moment from 'moment';
-import { dateFormat } from 'constant/date';
-import purchaseStatus from 'constant/purchaseStatus';
+import { dateFormat } from 'childs/lib/constant/date';
 
 /**
  * 내 주문 목록

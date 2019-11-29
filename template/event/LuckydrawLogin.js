@@ -5,7 +5,7 @@ import css from './LuckydrawLogin.module.scss';
 import { LinkRoute, pushRoute } from 'childs/lib/router';
 import SaveIdCheckBox from 'components/login/SaveIdCheckBox';
 import Form from 'stores/form-store/_.forms';
-import { snsAppKey } from 'constant/sns';
+import { snsAppKey } from 'childs/lib/constant/sns';
 import KakaoLogin from 'react-kakao-login';
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';

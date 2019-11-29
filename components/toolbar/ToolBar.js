@@ -8,7 +8,7 @@ import { inject } from 'mobx-react';
 import LuckydrawLogin from 'template/event/LuckydrawLogin';
 import LuckydrawSignup from 'template/event/LuckydrawSignup';
 import LuckydrawModify from 'template/event/LuckydrawModify';
-import { loginStatus } from 'constant/';
+import { loginStatus } from 'childs/lib/constant';
 import { useObserver } from 'mobx-react-lite';
 
 function ToolBar({ alert, luckyDraw, login }) {
