@@ -1,7 +1,7 @@
 import React from 'react';
 import css from './SellerStoreHeader.module.scss';
 import cn from 'classnames';
-import { loginStatus } from 'constant';
+import { loginStatus } from 'childs/lib/constant';
 import { useObserver } from 'mobx-react-lite';
 import checkNullAndEmpty from 'childs/lib/common/checkNullAndEmpty';
 export default function SellerStoreHeader({

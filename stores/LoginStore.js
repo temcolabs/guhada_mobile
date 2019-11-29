@@ -4,7 +4,7 @@ import API from 'childs/lib/API';
 import localStorage from 'childs/lib/common/localStorage';
 import sessionStorage from 'childs/lib/common/sessionStorage';
 import Router from 'next/router';
-import { loginStatus } from 'constant';
+import { loginStatus } from 'childs/lib/constant';
 import key from 'childs/lib/constant/key';
 import { isBrowser } from 'childs/lib/common/isServer';
 import { pushRoute } from 'childs/lib/router';
