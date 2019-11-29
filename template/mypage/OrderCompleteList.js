@@ -15,6 +15,8 @@ import { scrollToTarget } from 'childs/lib/common/scroll';
 import moment from 'moment';
 import { pushRoute } from 'childs/lib/router';
 import _ from 'lodash';
+import LoadingPortal from 'components/common/loading/Loading';
+import EmptyListNoti from 'components/mypage/EmptyListNoti';
 
 /**
  * 마이페이지 - 주문 배송 (주문 완료 목록)
@@ -227,6 +229,10 @@ class OrderCompleteList extends Component {
           <MypageContentsWrap wrapperStyle={{ paddingTop: '10px' }}>
             <OrderDashboard data={orderCompleteListStore.myOrderStatus} />
           </MypageContentsWrap>
+
+          {orderCompleteListStore.isLoadingList && <LoadingPortal />}
+
+          <EmptyListNoti message={this.emtpyListMessage} />
         </MypageLayout>
       </DefaultLayout>
     );
