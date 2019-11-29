@@ -52,7 +52,7 @@ function ToolBar({ alert, luckyDraw, login }) {
       >
         홈
       </div>
-      <div
+      {/* <div
         onClick={() => {
           setSelectedTool('community');
           alert.showAlert({ content: '모바일 버전 준비중입니다.' });
@@ -62,7 +62,7 @@ function ToolBar({ alert, luckyDraw, login }) {
         })}
       >
         커뮤니티
-      </div>
+      </div> */}
       <div
         onClick={() => {
           setSelectedTool('mypage');
