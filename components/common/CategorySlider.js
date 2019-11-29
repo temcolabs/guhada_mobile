@@ -5,7 +5,7 @@ import { toJS } from 'mobx';
 import cn from 'classnames';
 import Router from 'next/router';
 import { mainCategory } from 'constant/category';
-import { pushRoute } from 'lib/router';
+import { pushRoute } from 'childs/lib/router';
 import _ from 'lodash';
 
 @inject('searchitem', 'category')

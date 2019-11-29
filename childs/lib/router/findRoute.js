@@ -1,6 +1,7 @@
-import routes from '../../routes';
+import routes from '../../../routes';
 import pathMatch from 'path-match';
 import qs from 'qs';
+import _ from 'lodash';
 
 const pathToRegexp = require('path-to-regexp');
 const match = pathMatch();
@@ -18,6 +19,7 @@ export const routesWithRegexp = routes.map(route => {
 
 export const findRoute = url => {
   const pathname = url.split('?')[0];
+
   return routesWithRegexp.find(route => {
     return route.regexp.exec(pathname) !== null;
   });
@@ -41,19 +43,27 @@ export const getSearchString = ({
 
 /**
  * href에 stringified된 쿼리 객체를 추가한다.
- * href에 붙어 있던 쿼리는 덮어씌운다.
+ * href에 붙어 있던 쿼리는 옵션을 통해 대체 또는 병합하도록 결정할 수 있다.
  *
- * @param {string} href 이동시킬 라우트
- * @param {object} query 쿼리 객체
+ * @param {href}  이동시킬 라우트
+ * @param {query} query 쿼리 객체
+ * @param {option.mergeQuery} 쿼리를 덮어씌울 것인지 기본값 false
  */
-export const addQueryToHref = (href = '/', query) => {
+export const addQueryToHref = (
+  href = '/',
+  query,
+  { mergeQuery = false } = {}
+) => {
   let hrefWithQuery = href;
 
-  if (query) {
+  if (!!query) {
     const [path, queryString] = href.split('?');
-    hrefWithQuery = `${path}?${qs.stringify(
-      Object.assign({}, qs.parse(queryString), query)
-    )}`;
+
+    const newQuery = !mergeQuery
+      ? qs.stringify(query)
+      : qs.stringify(_.merge(qs.parse(queryString), query));
+
+    hrefWithQuery = `${path}?${newQuery}`;
   }
 
   return hrefWithQuery;

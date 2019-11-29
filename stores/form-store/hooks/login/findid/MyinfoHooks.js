@@ -4,7 +4,7 @@ import API from 'childs/lib/API';
 import { autoHypenTele, autoHypenPhone } from 'utils';
 import { devLog } from 'childs/lib/common/devLog';
 import { root } from 'store';
-import { pushRoute } from 'lib/router';
+import { pushRoute } from 'childs/lib/router';
 
 export default {
   onInit() {

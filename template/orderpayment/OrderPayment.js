@@ -52,7 +52,7 @@ class OrderPayment extends React.Component {
         {/* 베네핏 */}
         <Benefit />
 
-        {/* 최종 결제 금액 */}
+        {/* 최종 결제 금액 및 적립내역 */}
         <FinalAmountBenefit />
 
         {/* 결제 수단 */}

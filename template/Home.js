@@ -13,7 +13,7 @@ import Router from 'next/router';
 import SignupSuccessModal from './signin/SignupSuccessModal';
 import Footer from 'components/footer/Footer';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
-import { pushRoute } from 'lib/router';
+import { pushRoute } from 'childs/lib/router';
 import _ from 'lodash';
 import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
 import isTruthy from 'childs/lib/common/isTruthy';

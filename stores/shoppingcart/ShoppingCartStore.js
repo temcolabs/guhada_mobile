@@ -3,7 +3,7 @@ import { observable, action } from 'mobx';
 import Router from 'next/router';
 import API from 'childs/lib/API';
 import _ from 'lodash';
-import { pushRoute } from 'lib/router';
+import { pushRoute } from 'childs/lib/router';
 import qs from 'qs';
 import { devLog } from 'childs/lib/common/devLog';
 const isServer = typeof window === 'undefined';

@@ -1,4 +1,4 @@
-import { pushRoute } from 'lib/router';
+import { pushRoute } from 'childs/lib/router';
 import Router from 'next/router';
 
 /**

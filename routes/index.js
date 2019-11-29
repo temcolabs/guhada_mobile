@@ -121,140 +121,158 @@ module.exports = [
     name: '검색 결과',
   },
 
+  // ============================================================
   // 마이페이지
+  // ============================================================
+  // 마이페이지 - 메인
   {
-    pagePath: '/mypage/MyPageMain',
-    asPath: '/mypage',
-    name: '마이페이지',
+    pagePath: `/mypage/OrderCompleteList`,
+    asPath: `/mypage/orders/complete/list`,
+    name: `마이페이지`,
   },
 
   // 마이페이지 - 나의 주문
   {
-    pagePath: '/mypage/OrderListInProgress',
-    asPath: '/mypage/orders/inprogress',
+    pagePath: `/mypage/OrderCompleteList`,
+    asPath: `/mypage/orders/complete/list`,
     name: '주문배송',
   },
 
   {
-    pagePath: '/mypage/OrderDetail',
-    asPath: '/mypage/orders/detail/:purchaseId',
-    name: '주문내역',
+    pagePath: `/mypage/OrderCompleteDetail`,
+    asPath: `/mypage/orders/complete/detail/:purchaseId`,
+    name: `주문내역 상세`,
   },
 
+  // *클레임 관련 라우트
   {
-    pagePath: '/mypage/OrderListCanceled',
-    asPath: '/mypage/orders/cancel-exchange-return',
-    name: '취소, 교환, 반품',
-  },
-
-  {
-    pagePath: '/mypage/OrderCancelForm',
-    asPath: '/mypage/orders/cancel/form/:purchaseId',
-    name: '취소 신청',
+    pagePath: `/mypage/OrderClaimList`,
+    asPath: `/mypage/orders/claim/list`,
+    name: `취소 ・ 교환 ・ 반품`,
   },
   {
-    pagePath: '/mypage/OrderCancelDone',
-    asPath: '/mypage/orders/cancel/done/:purchaseId',
-    name: '취소 신청 완료',
-  },
-
-  {
-    pagePath: '/mypage/OrderExchangeForm',
-    asPath: '/mypage/orders/exchange/form/:purchaseId',
-    name: '교환 신청',
+    pagePath: `/mypage/OrderClaimDetail`,
+    asPath: `/mypage/orders/claim/detail`,
+    name: `취소 ・ 교환 ・ 반품 상세`,
   },
   {
-    pagePath: '/mypage/OrderExchangeDone',
-    asPath: '/mypage/orders/exchange/done/:purchaseId',
-    name: '교환 신청 완료',
+    pagePath: `/mypage/OrderCancelForm`,
+    asPath: `/mypage/orders/claim/cancel/form`,
+    name: `취소 신청`,
   },
   {
-    pagePath: '/mypage/OrderReturnForm',
-    asPath: '/mypage/orders/return/form/:purchaseId',
-    name: '반품 신청',
+    pagePath: `/mypage/OrderCancelDone`,
+    asPath: `/mypage/orders/claim/cancel/done`,
+    name: `취소 신청 완료`,
   },
   {
-    pagePath: '/mypage/OrderReturnDone',
-    asPath: '/mypage/orders/return/done/:purchaseId',
-    name: '반품 신청 완료',
+    pagePath: `/mypage/OrderExchangeForm`,
+    asPath: `/mypage/orders/claim/exchange/form`,
+    name: `교환 신청`,
+  },
+  {
+    pagePath: `/mypage/OrderExchangeForm`,
+    asPath: `/mypage/orders/claim/exchange-edit/form`,
+    name: `교환 신청 수정`,
+  },
+  {
+    pagePath: `/mypage/OrderExchangeDone`,
+    asPath: `/mypage/orders/claim/exchange/done`,
+    name: `교환 신청 완료`,
+  },
+  {
+    pagePath: `/mypage/OrderReturnForm`,
+    asPath: `/mypage/orders/claim/return/form`,
+    name: `반품 신청`,
+  },
+  {
+    pagePath: `/mypage/OrderReturnForm`,
+    asPath: `/mypage/orders/claim/return-edit/form`,
+    name: `반품 신청 수정`,
+  },
+  {
+    pagePath: `/mypage/OrderReturnDone`,
+    asPath: `/mypage/orders/claim/return/done`,
+    name: `반품 신청 완료`,
   },
 
   // 마이페이지 - 나의 혜택
   {
-    pagePath: '/mypage/PointHistory',
-    asPath: '/mypage/point',
-    name: '포인트',
+    pagePath: `/mypage/PointHistory`,
+    asPath: `/mypage/point`,
+    name: `포인트`,
   },
   {
-    pagePath: '/mypage/PointChargeHistory',
-    asPath: '/mypage/point/charge',
-    name: '포인트 충전',
+    pagePath: `/mypage/PointChargeHistory`,
+    asPath: `/mypage/point/charge`,
+    name: `포인트 충전`,
   },
   {
-    pagePath: '/mypage/CouponList',
-    asPath: '/mypage/coupon',
-    name: '쿠폰',
+    pagePath: `/mypage/CouponList`,
+    asPath: `/mypage/coupon`,
+    name: `쿠폰`,
   },
   {
-    pagePath: '/mypage/CouponEvents',
-    asPath: '/mypage/coupon/event',
-    name: '쿠폰 - 이벤트',
+    pagePath: `/mypage/CouponEvents`,
+    asPath: `/mypage/coupon/event`,
+    name: `쿠폰 - 이벤트`,
   },
   {
-    pagePath: '/mypage/Token',
-    asPath: '/mypage/token',
-    name: '토큰',
+    pagePath: `/mypage/Token`,
+    asPath: `/mypage/token`,
+    name: `토큰`,
   },
 
   // 나의 활동
   {
-    pagePath: '/mypage/ProductLikeList',
-    asPath: '/mypage/likes',
-    name: '찜한 상품',
+    pagePath: `/mypage/ProductLikeList`,
+    asPath: `/mypage/likes`,
+    name: `찜한 상품`,
   },
   {
-    pagePath: '/mypage/FollowingStoreList',
-    asPath: '/mypage/followings',
-    name: '팔로우한 스토어',
+    pagePath: `/mypage/FollowStore`,
+    asPath: `/mypage/follows`,
+    name: `팔로우한 스토어`,
   },
   {
-    pagePath: '/mypage/RecenltySeenProductList',
-    asPath: '/mypage/recents',
-    name: '최근 본 상품',
+    pagePath: `/mypage/RecentlySeenList`,
+    asPath: `/mypage/recents`,
+    name: `최근 본 상품`,
   },
 
   // 마이페이지 - 나의 글
   {
-    pagePath: '/mypage/ProductReview',
-    asPath: '/mypage/review',
-    name: '상품 리뷰',
+    pagePath: `/mypage/ProductReview`,
+    asPath: `/mypage/review`,
+    name: `리뷰`,
   },
   {
-    pagePath: '/mypage/ClaimPageMain',
-    asPath: '/mypage/claim',
-    name: '상품 문의',
+    pagePath: `/mypage/ClaimPageMain`,
+    asPath: `/mypage/claim`,
+    name: `문의`,
   },
   {
-    pagePath: '/mypage/Chatting',
-    asPath: '/mypage/chatting',
-    name: '채팅',
+    pagePath: `/mypage/Chatting`,
+    asPath: `/mypage/chatting`,
+    name: `채팅`,
   },
 
   // 마이페이지 - 회원 정보
   {
-    pagePath: '/mypage/AddressManagement',
-    asPath: '/mypage/address',
-    name: '배송지 관리',
+    pagePath: `/mypage/AddressManagement`,
+    asPath: `/mypage/address`,
+    name: `배송지 관리`,
   },
+  // {
+  //   pagePath: `/mypage/Membership`,
+  //   asPath: `/mypage/membership`,
+  //   name: `회원 등급`,
+  // },
+  // TODO: 회원정보 수정은 API가 완료되면 작업 진행
   {
-    pagePath: '/mypage/Membership',
-    asPath: '/mypage/membership',
-    name: '회원 등급',
-  },
-  {
-    pagePath: '/mypage/UserInfomation',
-    asPath: '/mypage/me',
-    name: '회원정보 수정',
+    pagePath: `/mypage/UserInfomation`,
+    asPath: `/mypage/me`,
+    name: `회원정보 수정`,
   },
 
   // 상품 - 상세페이지

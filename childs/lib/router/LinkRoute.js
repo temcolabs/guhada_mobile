@@ -26,8 +26,6 @@ export default function LinkRoute({ href = '/', query, children, ...rest }) {
       </Link>
     );
   } else {
-    console.warn(`[pushRoute] no matching route`, href);
-
     return (
       <Link href={href} {...rest}>
         {children}

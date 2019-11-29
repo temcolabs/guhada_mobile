@@ -4,7 +4,7 @@ import LoginLayout from 'components/layout/LoginLayout';
 import { LoginWrapper, LoginButton } from 'components/login';
 import { observer, inject } from 'mobx-react';
 import css from './FindIdResult.module.scss';
-import { LinkRoute } from 'lib/router';
+import { LinkRoute } from 'childs/lib/router';
 import copy from 'copy-to-clipboard';
 import API from 'childs/lib/API';
 @inject('alert')

@@ -4,7 +4,7 @@ import { isServer } from 'childs/lib/common/isServer';
 import API from 'childs/lib/API';
 import { devLog } from 'childs/lib/common/devLog';
 import _ from 'lodash';
-import { pushRoute } from 'lib/router';
+import { pushRoute } from 'childs/lib/router';
 import qs from 'qs';
 import moment from 'moment';
 export default class ProductOptionStore {

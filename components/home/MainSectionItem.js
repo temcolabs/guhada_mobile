@@ -4,7 +4,7 @@ import cn from 'classnames';
 
 import { mainSectionCategory } from 'constant/home/mainSectionCategory';
 import SectionItem from './SectionItem';
-import { LinkRoute } from 'lib/router';
+import { LinkRoute } from 'childs/lib/router';
 import _ from 'lodash';
 
 export default function MainSectionItem({

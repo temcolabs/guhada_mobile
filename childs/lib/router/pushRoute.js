@@ -1,6 +1,7 @@
 import Router from 'next/router';
 import findRoute, { getSearchString, addQueryToHref } from './findRoute';
 import _ from 'lodash';
+import { devWarn } from 'childs/lib/common/devLog';
 
 /**
  * 커스텀 라우트에서 pagePath와 asPath(=href)가 다를 때 사용해야 하는 push 메소드.
@@ -32,7 +33,7 @@ function pushRoute(
 
       pushMethod(`${routeMatched.pagePath}?${search}`, href, option);
     } else {
-      console.warn(`[pushRoute] no matching custom route`, href);
+      devWarn(`[pushRoute] no matching custom route`, href);
       pushMethod(href.replace(/\/{0,}(.+)/, '/$1'));
     }
   }

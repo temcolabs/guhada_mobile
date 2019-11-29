@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ModalWrapper from 'components/common/modal/ModalWrapper';
 import { LoginWrapper, LoginInput, LoginButton } from 'components/login';
 import css from './LuckydrawLogin.module.scss';
-import { LinkRoute, pushRoute } from 'lib/router';
+import { LinkRoute, pushRoute } from 'childs/lib/router';
 import SaveIdCheckBox from 'components/login/SaveIdCheckBox';
 import Form from 'stores/form-store/_.forms';
 import { snsAppKey } from 'constant/sns';
