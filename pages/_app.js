@@ -1,5 +1,4 @@
 import App, { Container } from 'next/app';
-import Head from 'next/head';
 import React from 'react';
 import Router from 'next/router';
 import { initializeStore } from '../store';
@@ -9,7 +8,7 @@ import ReactModal from 'react-modal';
 import moment from 'moment';
 import AlertConductor from 'components/common/modal/AlertConductor';
 import AssociatedProduct from 'components/common/modal/AssociatedProduct';
-import 'react-dates/initialize';
+import 'react-dates/initialize'; // react-dates
 import qs from 'qs';
 import { isBrowser, isServer } from 'childs/lib/common/isServer';
 import { devLog } from 'childs/lib/common/devLog';

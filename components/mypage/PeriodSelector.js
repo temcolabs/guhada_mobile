@@ -320,11 +320,15 @@ export default function PeriodSelector({
           onClick={() => setTabInUse(TAB_DATEPICKER)}
         >
           <SingleDatePickerWrapper
+            id="PeriodSelector"
             initialDate={period.startDate}
             onSelect={handleSelectCalendar(calendarField.START_DATE)}
           />
+
           <span className={css.applyArea__tilde}>~</span>
+
           <SingleDatePickerWrapper
+            id="PeriodSelector"
             initialDate={period.endDate}
             onSelect={handleSelectCalendar(calendarField.END_DATE)}
           />
