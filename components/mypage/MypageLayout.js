@@ -22,4 +22,15 @@ class MypageLayout extends React.Component {
   }
 }
 
+/**
+ * 좌우 패딩을 준 컨텐츠 박스
+ */
+export const MypageContentsWrap = ({ children, wrapperStyle = {} }) => {
+  return (
+    <div className={css.mypageContentsWrap} style={wrapperStyle}>
+      {children}
+    </div>
+  );
+};
+
 export default withRouter(MypageLayout);
