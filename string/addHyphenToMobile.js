@@ -1,4 +1,5 @@
-export const removeDash = (str = '') => str.replace(/-/g, '');
+export const removeDash = (str = '') =>
+  typeof str === 'string' ? str.replace(/-/g, '') : str;
 
 export const isMobileNum = (num = '') => {
   const trimmed = removeDash(num);
