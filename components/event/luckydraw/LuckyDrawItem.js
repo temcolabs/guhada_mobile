@@ -6,7 +6,7 @@ import { Transition } from 'react-transition-group';
 import useStores from 'stores/useStores';
 import anime from 'animejs';
 import addCommaToNum from 'childs/lib/common/addCommaToNum';
-import { luckyDrawStatus } from 'lib/API/product/luckyDrawService';
+import { luckyDrawStatus } from 'childs/lib/API/product/luckyDrawService';
 import { loginStatus } from 'constant/';
 
 /**
