@@ -1,25 +1,28 @@
 @import 'styles/mixins/index';
 
 .wrap {
-  position: relative;
-  width: 80px;
-  height: 140px;
-  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  margin-top: 12px;
 }
 
 .orderActionButton {
-  @include centerWithHeight(27px);
-  display: block;
-  width: 80px;
-  text-align: center;
-  font-size: 12px;
-  border: solid 1px #cccccc;
-  margin-left: auto;
-  margin-right: auto;
+  display: inline-flex;
+  justify-content: center;
 
-  &:not(:first-child) {
-    margin-top: 6px;
+  width: calc((100% - 8px) / 2);
+  height: 40px;
+  margin-top: 8px;
+  margin-right: 0;
+  &:nth-child(2n) {
+    margin-left: 8px;
   }
+  padding: 12px;
+  line-height: 1.2;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+  border: solid 1px #cccccc;
 
   // 색이 들어간 버튼
   &.isColored {
@@ -32,19 +35,4 @@
   &:hover {
     cursor: pointer;
   }
-}
-
-.contentWrapper {
-  @include centeredY;
-  right: 0;
-  width: 100%;
-}
-
-.purchaseStatusText {
-  text-align: center;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.2;
-  color: #5d2ed1;
-  margin-bottom: 12px;
 }

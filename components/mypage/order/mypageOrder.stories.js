@@ -2,7 +2,6 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import withMobxDeco from '.storybook/decorators/withMobxDeco';
-import withMobile from '.storybook/decorators/withMobile';
 import {
   withKnobs,
   object,
@@ -47,7 +46,7 @@ const SAMPLE_ORDER_DATA = {
   orderPrice: 2000,
   shipPrice: 0,
   sellerId: 20,
-  sellerName: null,
+  sellerName: '푸라푸치노',
   statusMessage: null,
   expireDate: [2019, 6, 21],
   orderProdGroupId: 13890,
@@ -58,7 +57,6 @@ const stories = storiesOf('mypage/order', module);
 
 stories.addDecorator(withKnobs);
 stories.addDecorator(withMobxDeco({}));
-stories.addDecorator(withMobile);
 
 // stories.add('OrderDashboard', () => {
 //   return (

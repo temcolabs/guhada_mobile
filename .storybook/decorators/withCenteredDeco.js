@@ -7,7 +7,7 @@ export default function withCenteredDeco(fn) {
         width: '100%',
         maxWidth: '740px',
         margin: '0 auto',
-        padding: '30px',
+        padding: '0 20px',
       }}
     >
       {fn()}

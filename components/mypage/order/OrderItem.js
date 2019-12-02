@@ -75,23 +75,19 @@ class OrderItem extends React.Component {
               isPurchaseStatusVisible
             />
           </div>
-
-          <div className={css.actionBox}>
-            <OrderActionButtonConductor
-              wrapperStyle={{
-                width: '80px',
-                height: '150px',
-              }}
-              order={order}
-              isClaim={isClaim}
-            />
-          </div>
+        </div>
+        <div className={css.actionBox}>
+          <OrderActionButtonConductor
+            wrapperStyle={{}}
+            order={order}
+            isClaim={isClaim}
+          />
         </div>
 
         <div className={css.sellerInfo}>
-          <span>{order.sellerName || '셀러'}</span>
-          <span className={css.sellerInfo__divider} />
-          <button onClick={() => onClickInquire(order)}>문의하기</button>
+          <button onClick={() => onClickInquire(order)}>
+            {order.sellerName || '셀러'}에 문의하기
+          </button>
         </div>
       </div>
     );

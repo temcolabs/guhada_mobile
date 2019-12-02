@@ -67,7 +67,7 @@ function OrderActionButtonConductor({
   isTest = false, // 무조건 모든 버튼 표시. 테스트용
 }) {
   const { orderCompleteList, orderClaimList, myDelivery } = useStores();
-  const { purchaseConfirm, purchaseStatusText, reviewId } = order;
+  const { purchaseConfirm, reviewId } = order;
   const purchaseStatus = !isClaim ? order?.purchaseStatus : order?.claimStatus;
   const isReviewUploaded = isTruthy(reviewId);
 
@@ -447,18 +447,9 @@ function OrderActionButtonConductor({
 
   return useObserver(() => (
     <div className={css.wrap} style={wrapperStyle}>
-      <div className={css.contentWrapper}>
-        {/* 주문 상태 텍스트 */}
-        {isPurchaseStatusVisible && purchaseStatusText && (
-          <div className={css.purchaseStatusText}>
-            {purchaseStatusText || '-'}
-          </div>
-        )}
-
-        {buttons.map((ActionButton, index) => {
-          return <ActionButton key={index} order={order} />;
-        })}
-      </div>
+      {buttons.map((ActionButton, index) => {
+        return <ActionButton key={index} order={order} />;
+      })}
     </div>
   ));
 }

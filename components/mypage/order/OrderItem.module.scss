@@ -3,7 +3,7 @@
 
 .wrap {
   @include clearfix;
-  padding: 40px 30px 40px;
+  padding: 30px;
   border-top: solid 1px #eeeeee;
 
   &:last-child {
@@ -47,17 +47,24 @@
 }
 
 .sellerInfo {
-  float: right;
-  color: #444;
-  font-size: 13px;
-}
+  display: block;
+  width: 100%;
+  margin-top: 10px;
 
-.sellerInfo__divider {
-  display: inline-block;
-  margin: 1px 8px;
-  width: 1px;
-  height: 8px;
-  background-color: #444;
+  & > button {
+    display: flex;
+    width: 100%;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    color: #111;
+    background-color: #f9f9fa;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: normal;
+    text-align: center;
+  }
 }
 
 .productInfoWrapper {
@@ -137,5 +144,4 @@
 }
 
 .actionBox {
-  float: right;
 }
