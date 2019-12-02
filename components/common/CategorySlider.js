@@ -4,7 +4,7 @@ import { inject, observer } from 'mobx-react';
 import { toJS } from 'mobx';
 import cn from 'classnames';
 import Router from 'next/router';
-import { mainCategory } from 'constant/category';
+import { mainCategory } from 'childs/lib/constant/category';
 import { pushRoute } from 'childs/lib/router';
 import _ from 'lodash';
 

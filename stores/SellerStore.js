@@ -1,10 +1,10 @@
 import { observable, action, computed, toJS } from 'mobx';
 import API from 'childs/lib/API';
 import { devLog } from 'childs/lib/common/devLog';
-import bookmarkTarget from 'constant/user/bookmarkTarget';
+import bookmarkTarget from 'childs/lib/constant/user/bookmarkTarget';
 import { isBrowser } from 'childs/lib/common/isServer';
 import _ from 'lodash';
-import { loginStatus } from 'constant/';
+import { loginStatus } from 'childs/lib/constant';
 
 export default class SellerStore {
   constructor(root) {

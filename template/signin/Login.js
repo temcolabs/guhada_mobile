@@ -16,7 +16,7 @@ import KakaoLogin from 'react-kakao-login';
 import NaverLogin from 'components/login/NaverLogin';
 import SaveIdCheckBox from 'components/login/SaveIdCheckBox';
 import Cookies from 'js-cookie';
-import { snsAppKey } from 'constant/sns';
+import { snsAppKey } from 'childs/lib/constant/sns';
 import Router from 'next/router';
 
 let userId = Cookies.get('userId');

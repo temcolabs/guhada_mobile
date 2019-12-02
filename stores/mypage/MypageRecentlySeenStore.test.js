@@ -1,4 +1,4 @@
-import ProductRecentlySeenStore from './ProductRecentlySeenStore';
+import MypageRecentlySeenStore from './MypageRecentlySeenStore';
 import key from 'childs/lib/constant/key';
 import localStorage from 'childs/lib/common/localStorage';
 
@@ -28,7 +28,7 @@ function storageMock() {
   };
 }
 
-describe('ProductRecentlySeenStore (최근 본 상품)', () => {
+describe('MypageRecentlySeenStore (최근 본 상품)', () => {
   let store;
   const SAMPLE_ITEM = {
     // 제품 정보
@@ -47,7 +47,7 @@ describe('ProductRecentlySeenStore (최근 본 상품)', () => {
     global.window = global;
     localStorage.remove(key.PRODUCT_RECENTLY_SEEN);
 
-    store = new ProductRecentlySeenStore({});
+    store = new MypageRecentlySeenStore({});
   });
 
   it('아이템 추가 테스트', () => {

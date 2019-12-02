@@ -2,7 +2,7 @@
  * https://github.com/airbnb/react-dates/blob/master/examples/SingleDatePickerWrapper.jsx
  */
 import React from 'react';
-import { bool, any, func } from 'prop-types';
+import { string, bool, any, func } from 'prop-types';
 import moment from 'moment';
 import omit from 'lodash/omit';
 import { SingleDatePicker, SingleDatePickerPhrases } from 'react-dates';
@@ -11,6 +11,7 @@ import './DateRangePickerStyle.scss';
 import memoize from 'memoize-one';
 
 const propTypes = {
+  id: string,
   autoFocus: bool,
   onSelect: func,
   initialDate: any, // moment object.
@@ -71,6 +72,8 @@ const defaultProps = {
 };
 
 export class SingleDatePickerWrapper extends React.Component {
+  static defaultProps = defaultProps;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -106,7 +109,6 @@ export class SingleDatePickerWrapper extends React.Component {
     return (
       <SingleDatePicker
         {...props}
-        id="date_input"
         date={date} // moment object
         focused={focused}
         onDateChange={this.onDateChange}

@@ -2,6 +2,7 @@ import React from 'react';
 import css from './MypageMenubar.module.scss';
 import mypageRouteObj from 'routes/mypageRouteObj';
 import MenubarSection from './MenubarSection';
+
 const MENUBAR_SECTIONS = [
   {
     links: [
