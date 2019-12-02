@@ -36,3 +36,7 @@ class MypageLayout extends React.Component {
 }
 
 export default MypageLayout;
+
+export function MypageContentsWrap({ children }) {
+  return <div className={css.mypageContentsWrap}>{children}</div>;
+}
