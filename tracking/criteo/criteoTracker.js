@@ -73,7 +73,7 @@ export default {
           { event: 'viewHome' },
         ];
 
-        console.log(`[CRITEO_TRACKER] viewHome`, ...params);
+        devLog(`[CRITEO_TRACKER] viewHome`, ...params);
 
         if (getIsProdHost()) {
           window.criteo_q = window.criteo_q || [];
@@ -105,7 +105,7 @@ export default {
           },
         ];
 
-        console.log(`[CRITEO_TRACKER] viewList`, ...params);
+        devLog(`[CRITEO_TRACKER] viewList`, ...params);
 
         if (getIsProdHost()) {
           window.criteo_q = window.criteo_q || [];
@@ -133,7 +133,7 @@ export default {
           { event: 'viewItem', item: formatProductId(dealId) },
         ];
 
-        console.log(`[CRITEO_TRACKER] viewItem`, ...params);
+        devLog(`[CRITEO_TRACKER] viewItem`, ...params);
 
         if (getIsProdHost()) {
           window.criteo_q = window.criteo_q || [];
@@ -177,7 +177,7 @@ export default {
           },
         ];
 
-        console.log(`[CRITEO_TRACKER] viewBasket`, ...params);
+        devLog(`[CRITEO_TRACKER] viewBasket`, ...params);
 
         if (getIsProdHost()) {
           window.criteo_q = window.criteo_q || [];
@@ -223,7 +223,7 @@ export default {
           },
         ];
 
-        console.log(`[CRITEO_TRACKER] trackTransaction`, ...params);
+        devLog(`[CRITEO_TRACKER] trackTransaction`, ...params);
 
         if (getIsProdHost()) {
           window.criteo_q = window.criteo_q || [];
