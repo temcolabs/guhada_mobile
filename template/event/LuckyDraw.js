@@ -64,11 +64,13 @@ function LuckyDraw({ router }) {
         />
 
         <main className={css.main}>
-          <div className={css.slideWrap}>
-            <LuckyDrawMainSlider
-              imageList={luckyDrawStore.luckyDrawData?.titleList}
-            />
-          </div>
+          {luckyDrawStore.luckyDrawData?.titleList?.length > 0 && (
+            <div className={css.slideWrap}>
+              <LuckyDrawMainSlider
+                imageList={luckyDrawStore.luckyDrawData?.titleList}
+              />
+            </div>
+          )}
 
           {isCountdownVisible && (
             <div className={css.timerWrap}>
