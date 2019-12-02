@@ -2,73 +2,75 @@ $burgerHeader: 50px;
 $browserTool: 50px;
 
 .tree {
-    color: #393939;
-    margin-top: 20px;
-    position: relative;
-    overflow-y: auto;
-    display: inline-block;
-    width: 100%;
-    height: calc(100vh - #{$burgerHeader} - #{$browserTool});
-    padding-bottom: $browserTool;
+  color: #393939;
+  margin-top: 20px;
+  position: fixed;
+  top: 50px;
+  bottom: 0;
+  overflow-y: auto;
+  display: inline-block;
+  width: 100%;
+  height: calc(100vh - #{$burgerHeader});
+  padding-bottom: $browserTool;
+
+  & li {
+    list-style: none;
+  }
+
+  & ul {
+    list-style: none;
+    -moz-transition: height 0.5s;
+    -ms-transition: height 0.5s;
+    -o-transition: height 0.5s;
+    -webkit-transition: height 0.5s;
+    transition: height 0.5s;
+    height: 0;
+    overflow: hidden;
 
     & li {
-        list-style: none;
+      list-style: none;
+      font-size: 14px;
+      font-weight: normal;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.71;
+      letter-spacing: 0.42px;
+      text-align: left;
+      color: #111111;
+      padding: 9px 0 8px 20px;
+    }
+  }
+
+  & label {
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 40px;
+    letter-spacing: 0.42px;
+    color: #111111;
+    cursor: pointer;
+    padding: 0 0 0 30px;
+    margin-bottom: 0;
+    width: 100%;
+    height: 40px;
+
+    &.selected {
+      color: #5d2ed1;
     }
 
-    & ul {
-        list-style: none;
-        -moz-transition: height .5s;
-        -ms-transition: height .5s;
-        -o-transition: height .5s;
-        -webkit-transition: height .5s;
-        transition: height .5s;
-        height: 0;
-        overflow: hidden;
-
-        & li {
-            list-style: none;
-            font-size: 14px;
-            font-weight: normal;
-            font-style: normal;
-            font-stretch: normal;
-            line-height: 1.71;
-            letter-spacing: 0.42px;
-            text-align: left;
-            color: #111111;
-            padding: 9px 0 8px 20px;
-        }
+    &.plus {
+      background-image: url('/static/icon/plus_icon.png');
+      background-size: 19px;
+      background-repeat: no-repeat;
+      background-position: right 20px center;
     }
+  }
 
-    & label {
-        font-size: 14px;
-        font-weight: normal;
-        line-height: 40px;
-        letter-spacing: 0.42px;
-        color: #111111;
-        cursor: pointer;
-        padding: 0 0 0 30px;
-        margin-bottom: 0;
-        width: 100%;
-        height: 40px;
+  & input[type='checkbox'] {
+    display: none;
+  }
 
-        &.selected {
-            color: #5d2ed1;
-        }
-
-        &.plus {
-            background-image: url('/static/icon/plus_icon.png');
-            background-size: 19px;
-            background-repeat: no-repeat;
-            background-position: right 20px center;
-        }
-    }
-
-    & input[type="checkbox"] {
-        display: none;
-    }
-
-    & input[type="checkbox"]:checked~label {
-        color: #5d2ed1;
-        background-image: url('/static/icon/minus_icon.png');
-    }
+  & input[type='checkbox']:checked ~ label {
+    color: #5d2ed1;
+    background-image: url('/static/icon/minus_icon.png');
+  }
 }
