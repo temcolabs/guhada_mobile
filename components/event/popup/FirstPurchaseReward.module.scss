@@ -1,0 +1,33 @@
+.wrap {
+  position: relative;
+  .content {
+    width: 340px;
+    height: 350px;
+    background: url('/static/icon/ad-popup-pay-buy@3x.png') no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .buttonGroup {
+    display: flex;
+    height: 50px;
+    background: #111;
+    width: 300px;
+    margin: 0 auto;
+    div {
+      width: 100%;
+      height: 50px;
+      background: #f9f9fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 14px;
+      font-weight: normal;
+      color: #444;
+
+      &:first-child {
+        border-right: 1px solid #eee;
+      }
+    }
+  }
+}
