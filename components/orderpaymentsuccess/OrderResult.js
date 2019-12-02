@@ -114,7 +114,6 @@ class OrderResult extends Component {
                             : data.dueSaveType === 'FIRST_ORDER'
                             ? `${data.totalPoint.toLocaleString() || 0}`
                             : null}
-
                           <span>P</span>
                         </div>
                       </div>
