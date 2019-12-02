@@ -1,0 +1,25 @@
+@import 'styles/mixins/index';
+@import 'styles/var';
+
+.wrap {
+  position: relative;
+  display: block;
+  font-size: 13px;
+}
+
+.row {
+  @include clearfix;
+  &:not(:first-child) {
+    margin-top: 10px;
+  }
+}
+
+.label {
+  float: left;
+  color: #777777;
+}
+
+.value {
+  float: right;
+  color: #444;
+}

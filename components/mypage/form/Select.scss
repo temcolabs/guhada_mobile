@@ -1,0 +1,6 @@
+// 메뉴가 열렸을 때
+.mypageForm-select__control--menu-is-open {
+  .mypageForm-select__dropdown-indicator {
+    transform: rotate(180deg);
+  }
+}

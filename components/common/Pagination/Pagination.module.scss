@@ -1,0 +1,92 @@
+@mixin navButtonStyle {
+  width: 30px;
+  height: 30px;
+  background-size: 30px 30px;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  &:hover {
+    cursor: pointer;
+    background-color: transparent;
+  }
+}
+
+.wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  li {
+    list-style-type: none;
+  }
+}
+
+.item {
+  margin-right: 6px;
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #7c7c7c;
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: #5d2ed1;
+    border-radius: 4px;
+
+    a {
+      color: #fff;
+    }
+  }
+
+  &.isSelected {
+    color: #5d2ed1;
+    font-weight: bold;
+  }
+
+  &.toFirst {
+    @include navButtonStyle;
+    background-image: url('/static/icon/prev2_n_icon.png');
+    margin-right: 6px;
+
+    &:hover {
+      background-image: url('/static/icon/prev2_h_icon.png');
+    }
+  }
+
+  &.toPrev {
+    @include navButtonStyle;
+    background-image: url('/static/icon/prev_n_icon.png');
+    margin-right: 12px;
+
+    &:hover {
+      background-image: url('/static/icon/prev_h_icon.png');
+    }
+  }
+
+  &.toNext {
+    @include navButtonStyle;
+    background-image: url('/static/icon/next_n_icon.png');
+    margin: 0 6px;
+
+    &:hover {
+      background-image: url('/static/icon/next_h_icon.png');
+    }
+  }
+
+  &.toLast {
+    @include navButtonStyle;
+    background-image: url('/static/icon/next2_n_icon.png');
+
+    &:hover {
+      background-image: url('/static/icon/next2_h_icon.png');
+    }
+  }
+}

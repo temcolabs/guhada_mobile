@@ -1,3 +1,6 @@
+@import 'styles/mixins/index';
+$modalTitleHeight: 60px;
+
 :global {
   // react-modal 컴포넌트의 스타일링
   // https://github.com/reactjs/react-modal/blob/master/docs/styles/transitions.md
@@ -17,4 +20,33 @@
   .ReactModal__Body--open {
     // overflow: hidden; /* 모달 열렸을 때 스크롤 방지 */
   }
+}
+
+.childrenWrap {
+  background: #fff;
+  &.withTitle {
+    padding-top: $modalTitleHeight;
+  }
+}
+
+.modalTitle {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  height: $modalTitleHeight;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.modalTitle__closeButton {
+  @include centeredY;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  background: url('/static/icon/burger-top-close@3x.png') no-repeat center;
+  background-size: contain;
 }

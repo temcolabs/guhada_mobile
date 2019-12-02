@@ -1,6 +1,4 @@
 import React from 'react';
-import DefaultLayout from 'components/layout/DefaultLayout';
-
 import MypageLayout from 'components/mypage/MypageLayout';
 
 /**
@@ -9,15 +7,12 @@ import MypageLayout from 'components/mypage/MypageLayout';
  */
 export default function ClaimList() {
   return (
-    <DefaultLayout
+    <MypageLayout
       topLayout={'main'}
       pageTitle={'마이페이지'}
-      toolBar={false}
       headerShape={'mypage'}
     >
-      <MypageLayout>
-        <div>OrderExchangeDone</div>
-      </MypageLayout>
-    </DefaultLayout>
+      <div>OrderExchangeDone</div>
+    </MypageLayout>
   );
 }

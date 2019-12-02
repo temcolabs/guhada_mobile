@@ -1,3 +1,5 @@
+@import 'styles/mixins/index';
+
 $size: 30px;
 $purple_light: #5a2dc1;
 $purple: #4724a0;
@@ -5,11 +7,13 @@ $purple_dark: #310d8e;
 $duration: 3s;
 
 .wrap {
+  @include centered;
   position: fixed;
   z-index: 3000;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+
+  &.isAbsolute {
+    position: absolute;
+  }
 
   @mixin psuedo {
     display: block;

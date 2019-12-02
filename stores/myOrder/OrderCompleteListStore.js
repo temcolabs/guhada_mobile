@@ -6,7 +6,6 @@ import { isBrowser } from 'childs/lib/common/isServer';
 import moment from 'moment';
 import { pushRoute } from 'childs/lib/router';
 import qs from 'qs';
-// import { reviewModalType } from 'components/mypage/review/ReviewWriteModal';
 import isFunction from 'childs/lib/common/isFunction';
 import orderService from 'childs/lib/API/order/orderService';
 import { devLog } from 'childs/lib/common/devLog';
