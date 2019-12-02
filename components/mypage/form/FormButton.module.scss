@@ -1,7 +1,7 @@
 @import 'styles/mixins/index';
 
 .button {
-  @include centerWithHeight(36px);
+  @include centerWithHeight(45px);
   display: inline-block;
   min-width: 90px;
   text-align: center;

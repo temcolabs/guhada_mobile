@@ -11,7 +11,6 @@ import {
 import Input from 'components/mypage/form/Input';
 import Checkbox from '../form/Checkbox';
 import openDaumAddressSearch from 'childs/lib/common/openDaumAddressSearch';
-import { devLog } from 'childs/lib/common/devLog';
 import { useObserver } from 'mobx-react-lite';
 import FormButton from '../form/FormButton';
 
@@ -92,7 +91,16 @@ function OrderAddressEditModal({
   };
 
   return useObserver(() => (
-    <ModalWrapper isOpen={isOpen} onClose={onClose} zIndex={1000}>
+    <ModalWrapper
+      modalTitle="주문 배송지 수정"
+      isOpen={isOpen}
+      onClose={onClose}
+      zIndex={1000}
+      contentStyle={{
+        width: '100vw',
+        height: '100vh',
+      }}
+    >
       <Form
         onSubmit={handleSubmit}
         initialValues={initialValues}
@@ -102,17 +110,10 @@ function OrderAddressEditModal({
           return (
             <form onSubmit={handleSubmit}>
               <div className={css.modal}>
-                <div className={css.modal__top}>
-                  <div className={css.modal__title}>주문 배송지 수정</div>
-                  <div className={css.modal__close} onClick={onClose}>
-                    <img src="/static/icon/modal_close.png" alt="닫기" />
-                  </div>
-                </div>
                 <div className={css.modal__body}>
                   <table className={css.modal_body__table}>
                     <tbody>
                       <tr>
-                        <td>배송지명</td>
                         <td>
                           <Field
                             name={fields.shippingName}
@@ -125,6 +126,7 @@ function OrderAddressEditModal({
                               <div className={css.inputWrapper}>
                                 <Input
                                   type="text"
+                                  placeholder="배송지명"
                                   onChange={props.input.onChange}
                                   initialValue={
                                     initialValues[fields.shippingName]
@@ -141,7 +143,6 @@ function OrderAddressEditModal({
                         </td>
                       </tr>
                       <tr>
-                        <td>주소</td>
                         <td className={css.addressField}>
                           {/* 우편번호 찾기를 통해 우편번호, 도로명, 지번 주소를 동시에 설정  */}
                           {/* 3개의 필드를 검사해야 하지만, 우편번호를 검색했음을 보장하는 zip 필드만 체크한다 */}
@@ -160,7 +161,7 @@ function OrderAddressEditModal({
                                       values.address}`
                                   }
                                   disabled
-                                  placeholder="우편번호찾기를 통해 입력해주세요."
+                                  placeholder="우편번호찾기를 통해 입력"
                                 />
                                 {props.meta.submitFailed && (
                                   <div className={css.errorMessage}>
@@ -184,7 +185,6 @@ function OrderAddressEditModal({
                         </td>
                       </tr>
                       <tr>
-                        <td />
                         <td>
                           <Field
                             name={fields.detailAddress}
@@ -201,7 +201,7 @@ function OrderAddressEditModal({
                                   initialValue={
                                     initialValues[fields.detailAddress]
                                   }
-                                  placeholder="상세 주소를 입력해주세요."
+                                  placeholder="상세 주소"
                                 />
                                 {props.meta.submitFailed && (
                                   <div className={css.errorMessage}>
@@ -214,7 +214,6 @@ function OrderAddressEditModal({
                         </td>
                       </tr>
                       <tr>
-                        <td>받는분</td>
                         <td>
                           <Field
                             name={fields.recipientName}
@@ -231,6 +230,7 @@ function OrderAddressEditModal({
                                   initialValue={
                                     initialValues[fields.recipientName]
                                   }
+                                  placeholder="받는분"
                                 />
                                 {props.meta.submitFailed && (
                                   <div className={css.errorMessage}>
@@ -243,7 +243,6 @@ function OrderAddressEditModal({
                         </td>
                       </tr>
                       <tr>
-                        <td>연락처</td>
                         <td>
                           <Field
                             name={fields.recipientMobile}
@@ -272,13 +271,13 @@ function OrderAddressEditModal({
                         </td>
                       </tr>
                       <tr>
-                        <td>배송 메시지</td>
                         <td>
                           <Field name={fields.shippingMessage}>
                             {props => (
                               <div className={css.inputWrapper}>
                                 <Input
                                   type="text"
+                                  placeholder="배송 메시지"
                                   onChange={props.input.onChange}
                                   initialValue={
                                     initialValues[fields.shippingMessage]
@@ -290,7 +289,6 @@ function OrderAddressEditModal({
                         </td>
                       </tr>
                       <tr>
-                        <td />
                         <td>
                           {/* 기본 배송지 설정 */}
                           <Field
@@ -325,12 +323,9 @@ function OrderAddressEditModal({
                       </tr>
                     </tbody>
                   </table>
-                  <div className={css.modal__bottom}>
-                    <button type="button" onClick={onClose}>
-                      취소
-                    </button>
-                    <button type="submit">수정</button>
-                  </div>
+                </div>
+                <div className={css.modal__bottom}>
+                  <button type="submit">수정</button>
                 </div>
               </div>
             </form>

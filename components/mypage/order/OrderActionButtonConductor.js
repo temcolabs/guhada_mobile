@@ -247,7 +247,6 @@ function OrderActionButtonConductor({
   let buttons = []; // 액션 버튼
 
   if (isTest) {
-    // FIXME: 테스트라면 가능한 버튼 모두 표시
     buttons = [
       ShowOrderButton(),
       ShowOrderButton(actionButtonText.CANCEL_INFO),
