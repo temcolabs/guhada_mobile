@@ -228,42 +228,42 @@ class OrderCompleteList extends Component {
 
           <MypageContentsWrap wrapperStyle={{ paddingTop: '10px' }}>
             <OrderDashboard data={orderCompleteListStore.myOrderStatus} />
+
+            <div className={css.listWrap}>
+              {orderCompleteListStore.isLoadingList && (
+                <LoadingSpinner isAbsolute />
+              )}
+
+              {orderCompleteListStore.isNoResults ? (
+                <EmptyListNoti message={this.emtpyListMessage} />
+              ) : (
+                orderCompleteListStore.list.map((order, index) => {
+                  return (
+                    <OrderItem
+                      key={index}
+                      order={order}
+                      onClickInquire={this.handleOpenSellerClaimModal}
+                      isClaim={false}
+                      redirectToDetail={() =>
+                        orderCompleteListStore.redirectToOrderCompleteDetail({
+                          purchaseId: order.purchaseId,
+                        })
+                      }
+                    />
+                  );
+                })
+              )}
+            </div>
+
+            <div className={css.paginationWrap}>
+              <Pagination
+                initialPage={parseInt(orderCompleteListStore.page, 10)}
+                onChangePage={this.handleChangePage}
+                itemsCountPerPage={orderCompleteListStore.itemsCountPerPage}
+                totalItemsCount={orderCompleteListStore.count}
+              />
+            </div>
           </MypageContentsWrap>
-
-          <div className={css.listWrap}>
-            {orderCompleteListStore.isLoadingList && (
-              <LoadingSpinner isAbsolute />
-            )}
-
-            {orderCompleteListStore.isNoResults ? (
-              <EmptyListNoti message={this.emtpyListMessage} />
-            ) : (
-              orderCompleteListStore.list.map((order, index) => {
-                return (
-                  <OrderItem
-                    key={index}
-                    order={order}
-                    onClickInquire={this.handleOpenSellerClaimModal}
-                    isClaim={false}
-                    redirectToDetail={() =>
-                      orderCompleteListStore.redirectToOrderCompleteDetail({
-                        purchaseId: order.purchaseId,
-                      })
-                    }
-                  />
-                );
-              })
-            )}
-          </div>
-
-          <div className={css.paginationWrap}>
-            <Pagination
-              initialPage={parseInt(orderCompleteListStore.page, 10)}
-              onChangePage={this.handleChangePage}
-              itemsCountPerPage={orderCompleteListStore.itemsCountPerPage}
-              totalItemsCount={orderCompleteListStore.count}
-            />
-          </div>
         </MypageLayout>
       </DefaultLayout>
     );

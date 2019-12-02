@@ -2,11 +2,11 @@
 
 .wrap {
   width: 100%;
-  height: 80px;
+  padding-top: 26px;
+  padding-bottom: 26px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 1px solid #eee;
 }
 
 .orderState {
@@ -15,8 +15,6 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-bottom: 19px;
-  margin-top: auto;
 }
 
 .orderState__value {
