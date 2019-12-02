@@ -3,6 +3,7 @@ import { isBrowser } from 'childs/lib/common/isServer';
 import API from 'childs/lib/API';
 import { devLog } from 'childs/lib/common/devLog';
 import { isIOS, isAndroid } from 'childs/lib/common/detectMobileEnv';
+import moment from 'moment';
 export default class EventMainStore {
   constructor(root, initialState) {
     if (isBrowser) {
@@ -19,6 +20,9 @@ export default class EventMainStore {
   @observable status = {
     page: false,
     detailPage: false,
+    appDownPopupIsOpen: false,
+    firstPurchasePopupIsOpen: false,
+    firstPurchaseRewardPopupIsOpen: false,
   };
 
   @action
@@ -90,5 +94,39 @@ export default class EventMainStore {
         devLog('data', arg1);
       }
     }
+  };
+
+  @action
+  appDownPopupOpen = () => {
+    // let getCookie = document.cookie;
+    // console.log(getCookie, 'getCookie');
+    this.status.appDownPopupIsOpen = true;
+  };
+
+  @action
+  appDownPopupClose = stop => {
+    if (stop) {
+      this.setPopupCookie('appDownPopupStop');
+    }
+    this.status.appDownPopupIsOpen = false;
+  };
+
+  @action
+  firstPurchasePopupOpen = () => {
+    this.status.firstPurchasePopupIsOpen = true;
+  };
+
+  @action
+  firstPurchasePopupClose = stop => {
+    if (stop) {
+      this.setPopupCookie('firstPurchasePopupStop');
+    }
+    this.status.firstPurchasePopupIsOpen = false;
+  };
+
+  setPopupCookie = name => {
+    let now = new Date();
+    now.setDate(now.getDate() + 1); // 현재시간 부터 1일 뒤 계산
+    document.cookie = name + '=true;expires=' + now.toUTCString();
   };
 }
