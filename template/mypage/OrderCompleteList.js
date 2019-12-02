@@ -58,8 +58,9 @@ class OrderCompleteList extends Component {
 
   defaultPeriodTabItems = [
     { value: 1, unit: dateUnit.WEEK },
-    { value: 15, unit: dateUnit.DAY },
-    { value: 30, unit: dateUnit.DAY },
+    { value: 1, unit: dateUnit.MONTH },
+    { value: 3, unit: dateUnit.MONTH },
+    { value: 1, unit: dateUnit.YEAR },
   ];
 
   // 대쉬보드 id. 스크롤에 사용한다
@@ -216,12 +217,8 @@ class OrderCompleteList extends Component {
       >
         <MypageLayout>
           <PeriodSelector
-            defaultTabItems={[
-              { value: 1, unit: dateUnit.WEEK },
-              { value: 1, unit: dateUnit.MONTH },
-              { value: 3, unit: dateUnit.MONTH },
-              { value: 1, unit: dateUnit.YEAR },
-            ]}
+            initialData={this.state.initialPeriodData}
+            defaultTabItems={this.defaultPeriodTabItems}
             monthlyTabRange={0}
             onChangePeriod={this.handleChangePeriod}
           />
