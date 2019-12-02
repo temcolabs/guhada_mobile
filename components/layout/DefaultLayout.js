@@ -5,6 +5,14 @@ import ToolBar from 'components/toolbar/ToolBar';
 import Router from 'next/router';
 import { inject, observer } from 'mobx-react';
 
+const topLayouts = {
+  main: 'main',
+  category: 'category',
+  brand: 'brand',
+  search: 'search',
+  keyword: 'keyword',
+};
+
 /**
  * DefaultLayout
  * 하단 ToolBar를 없애기 위해서는 toolBar props를 false로
@@ -23,15 +31,40 @@ class DefaultLayout extends Component {
       this.shoppingCartAmountCheck();
     };
   }
+
+  static defaultProps = {
+    wrapperStyle: {},
+  };
+
+  /**
+   * 페이지에 따라서 상단 패딩의 높이가 다르다.
+   * topLayout props 값을 기준으로 계산한다
+   */
+  get paddingTopMap() {
+    const headerHeight = 60;
+    const categorySize = 44;
+    const searchTabSize = 56;
+
+    return {
+      [topLayouts.main]: headerHeight,
+      [topLayouts.category]: headerHeight + categorySize,
+      [topLayouts.brand]: headerHeight + searchTabSize,
+      [topLayouts.search]: headerHeight + categorySize + searchTabSize,
+      [topLayouts.keyword]: headerHeight + searchTabSize,
+    };
+  }
+
   componentDidMount() {
     this.shoppingCartAmountCheck();
   }
+
   shoppingCartAmountCheck = () => {
     const job = () => {
       this.props.shoppingcart.globalGetUserShoppingCartList();
     };
     this.props.user.pushJobForUserInfo(job);
   };
+
   render() {
     const {
       pageTitle,
@@ -39,35 +72,18 @@ class DefaultLayout extends Component {
       headerShape,
       topLayout,
       scrollDirection,
+      wrapperStyle,
     } = this.props;
-    const headerSize = 60;
-    const categorySize = 44;
-    const searchTabSize = 56;
-
-    let paddingTop;
 
     let cartAmount = this.props.shoppingcart.cartAmount;
-    if (topLayout === 'main') {
-      paddingTop = headerSize;
-    } else if (topLayout === 'category') {
-      paddingTop = headerSize + categorySize;
-    } else if (topLayout === 'brand') {
-      paddingTop = headerSize + searchTabSize;
-    } else if (topLayout === 'search') {
-      paddingTop = headerSize + categorySize + searchTabSize;
-    } else if (topLayout === 'keyword') {
-      paddingTop = headerSize + searchTabSize;
-    }
 
     return (
       <div
         className={css.wrap}
-        style={
-          scrollDirection === 'down'
-            ? // ? { paddingTop: `0px` }
-              { paddingTop: `${paddingTop}px` }
-            : { paddingTop: `${paddingTop}px` }
-        }
+        style={{
+          ...wrapperStyle,
+          paddingTop: `${this.paddingTopMap[topLayout]}px`,
+        }}
       >
         {topLayout === 'keyword' ? null : (
           <Header

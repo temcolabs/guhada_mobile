@@ -227,7 +227,6 @@ class OrderCompleteList extends Component {
       <MypageLayout
         topLayout={'main'}
         pageTitle={'마이페이지'}
-        toolBar={true}
         headerShape={'mypage'}
       >
         <PeriodSelector
