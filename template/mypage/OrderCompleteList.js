@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'next/router';
 import css from './OrderCompleteList.module.scss';
-import DefaultLayout from 'components/layout/DefaultLayout';
 import MypageLayout, {
   MypageContentsWrap,
 } from 'components/mypage/MypageLayout';
@@ -225,64 +224,63 @@ class OrderCompleteList extends Component {
     } = this.props;
 
     return (
-      <DefaultLayout
+      <MypageLayout
         topLayout={'main'}
         pageTitle={'마이페이지'}
-        toolBar={false}
+        toolBar={true}
         headerShape={'mypage'}
       >
-        <MypageLayout>
-          <PeriodSelector
-            initialData={this.state.initialPeriodData}
-            defaultTabItems={this.defaultPeriodTabItems}
-            monthlyTabRange={0}
-            onChangePeriod={this.handleChangePeriod}
-          />
+        <PeriodSelector
+          initialData={this.state.initialPeriodData}
+          defaultTabItems={this.defaultPeriodTabItems}
+          monthlyTabRange={0}
+          onChangePeriod={this.handleChangePeriod}
+        />
 
-          <MypageContentsWrap wrapperStyle={{ paddingTop: '10px' }}>
-            <OrderDashboard data={orderCompleteListStore.myOrderStatus} />
+        <MypageContentsWrap wrapperStyle={{ paddingTop: '10px' }}>
+          <OrderDashboard data={orderCompleteListStore.myOrderStatus} />
 
-            <div className={css.listWrap}>
-              {orderCompleteListStore.isLoadingList && (
-                <LoadingSpinner isAbsolute />
-              )}
+          <div className={css.listWrap}>
+            {orderCompleteListStore.isLoadingList && (
+              <LoadingSpinner isAbsolute />
+            )}
 
-              {orderCompleteListStore.isNoResults ? (
-                <EmptyListNoti message={this.emtpyListMessage} />
-              ) : (
-                orderCompleteListStore.list.map((order, index) => {
-                  return (
-                    <OrderItem
-                      key={index}
-                      order={order}
-                      onClickInquire={this.handleOpenSellerClaimModal}
-                      isClaim={false}
-                      redirectToDetail={() =>
-                        orderCompleteListStore.redirectToOrderCompleteDetail({
-                          purchaseId: order.purchaseId,
-                        })
-                      }
-                    />
-                  );
-                })
-              )}
-            </div>
+            {orderCompleteListStore.isNoResults ? (
+              <EmptyListNoti message={this.emtpyListMessage} />
+            ) : (
+              orderCompleteListStore.list.map((order, index) => {
+                return (
+                  <OrderItem
+                    key={index}
+                    order={order}
+                    onClickInquire={this.handleOpenSellerClaimModal}
+                    isClaim={false}
+                    redirectToDetail={() =>
+                      orderCompleteListStore.redirectToOrderCompleteDetail({
+                        purchaseId: order.purchaseId,
+                      })
+                    }
+                  />
+                );
+              })
+            )}
+          </div>
 
-            <div className={css.paginationWrap}>
-              <Pagination
-                initialPage={parseInt(orderCompleteListStore.page, 10)}
-                onChangePage={this.handleChangePage}
-                itemsCountPerPage={orderCompleteListStore.itemsCountPerPage}
-                totalItemsCount={orderCompleteListStore.count}
-              />
-            </div>
-          </MypageContentsWrap>
+          <div className={css.paginationWrap}>
+            <Pagination
+              initialPage={parseInt(orderCompleteListStore.page, 10)}
+              onChangePage={this.handleChangePage}
+              itemsCountPerPage={orderCompleteListStore.itemsCountPerPage}
+              totalItemsCount={orderCompleteListStore.count}
+            />
+          </div>
+        </MypageContentsWrap>
 
-          {/* 주소 수정 모달 */}
-          {/* <MypageAddressModal /> */}
+        {/* 주소 수정 모달 */}
+        {/* <MypageAddressModal /> */}
 
-          {/* 리뷰 작성 모달 */}
-          {/* <ReviewWriteModal
+        {/* 리뷰 작성 모달 */}
+        {/* <ReviewWriteModal
             isOpen={mypagereview.isReviewWriteModalOpen}
             handleModalClose={mypagereview.closeReviewModal}
             modalData={mypagereview.orderProdGroup} // 선택한 주문 데이터
@@ -293,8 +291,8 @@ class OrderCompleteList extends Component {
             }}
           /> */}
 
-          {/* 리뷰 수정 모달 */}
-          {/* <ReviewWriteModal
+        {/* 리뷰 수정 모달 */}
+        {/* <ReviewWriteModal
             isOpen={mypagereview.isReviewModifyModalOpen}
             handleModalClose={mypagereview.closeReviewModal}
             modalData={mypagereview.orderProdGroup} // 선택한 주문 데이터
@@ -306,37 +304,37 @@ class OrderCompleteList extends Component {
             }}
           /> */}
 
-          {/* 배송 조회 모달. 컨트롤은 store에서 */}
-          {/* <DeliveryTrackingModal /> */}
+        {/* 배송 조회 모달. 컨트롤은 store에서 */}
+        {/* <DeliveryTrackingModal /> */}
 
-          {/* 주문 배송지 수정 모달 */}
-          <OrderAddressEditModal
-            isOpen={orderCompleteListStore.isOrderAddressEditModalOpen}
-            onClose={orderCompleteListStore.closeOrderAddressEditModal}
-            initialAddressValues={
-              orderCompleteListStore.orderAddressEditModalInitialValue
-            }
-            purchaseId={orderCompleteListStore.orderAddressEditModalPurchaseId}
-            updateShippingAddress={orderCompleteListStore.updateShippingAddress}
-          />
+        {/* 주문 배송지 수정 모달 */}
+        <OrderAddressEditModal
+          isOpen={orderCompleteListStore.isOrderAddressEditModalOpen}
+          onClose={orderCompleteListStore.closeOrderAddressEditModal}
+          initialAddressValues={
+            orderCompleteListStore.orderAddressEditModalInitialValue
+          }
+          purchaseId={orderCompleteListStore.orderAddressEditModalPurchaseId}
+          updateShippingAddress={orderCompleteListStore.updateShippingAddress}
+        />
 
-          {/* 판매자 문의하기 모달 */}
-          {/* <SellerClaimModal
+        {/* 판매자 문의하기 모달 */}
+        {/* <SellerClaimModal
             sellerId={this.state.sellerClaimModal.sellerId}
             orderProdGroupId={this.state.sellerClaimModal.orderProdGroupId}
             isOpen={this.state.sellerClaimModal.isOpen}
             onClose={this.handleCloseSellerClaimModal}
           /> */}
 
-          {/* 구매확정시 포인트 지급 모달  */}
-          {/* <PointSavingModal
+        {/* 구매확정시 포인트 지급 모달  */}
+        {/* <PointSavingModal
             pointSavingType={pointSavingTypes.CONFIRM_PURCHASE}
             isOpen={mypagePointStore.isPointSavingModalOpen}
             onClose={mypagePointStore.closePointSavingModalOpen}
             savedPointResponse={mypagePointStore.savedPointResponse}
           /> */}
 
-          {/* <OrderConfirmModal
+        {/* <OrderConfirmModal
             isOpen={orderCompleteListStore.isOrderConfirmModalOpen}
             order={orderConfirmModalData?.order}
             onConfirm={orderConfirmModalData?.onConfirm}
@@ -344,8 +342,7 @@ class OrderCompleteList extends Component {
             dueSavePointOnConfirm={orderConfirmModalData.dueSavePointOnConfirm}
             dueSavePointOnReview={orderConfirmModalData.dueSavePointOnReview}
           /> */}
-        </MypageLayout>
-      </DefaultLayout>
+      </MypageLayout>
     );
   }
 }
