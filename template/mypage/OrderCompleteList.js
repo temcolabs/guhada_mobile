@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'next/router';
+import css from './OrderCompleteList.module.scss';
 import DefaultLayout from 'components/layout/DefaultLayout';
 import MypageLayout, {
   MypageContentsWrap,
@@ -15,8 +16,10 @@ import { scrollToTarget } from 'childs/lib/common/scroll';
 import moment from 'moment';
 import { pushRoute } from 'childs/lib/router';
 import _ from 'lodash';
-import LoadingPortal from 'components/common/loading/Loading';
+import { LoadingSpinner } from 'components/common/loading/Loading';
 import EmptyListNoti from 'components/mypage/EmptyListNoti';
+import OrderItem from 'components/mypage/order/OrderItem';
+import Pagination from 'components/common/Pagination';
 
 /**
  * 마이페이지 - 주문 배송 (주문 완료 목록)
@@ -227,9 +230,40 @@ class OrderCompleteList extends Component {
             <OrderDashboard data={orderCompleteListStore.myOrderStatus} />
           </MypageContentsWrap>
 
-          {orderCompleteListStore.isLoadingList && <LoadingPortal />}
+          <div className={css.listWrap}>
+            {orderCompleteListStore.isLoadingList && (
+              <LoadingSpinner isAbsolute />
+            )}
 
-          <EmptyListNoti message={this.emtpyListMessage} />
+            {orderCompleteListStore.isNoResults ? (
+              <EmptyListNoti message={this.emtpyListMessage} />
+            ) : (
+              orderCompleteListStore.list.map((order, index) => {
+                return (
+                  <OrderItem
+                    key={index}
+                    order={order}
+                    onClickInquire={this.handleOpenSellerClaimModal}
+                    isClaim={false}
+                    redirectToDetail={() =>
+                      orderCompleteListStore.redirectToOrderCompleteDetail({
+                        purchaseId: order.purchaseId,
+                      })
+                    }
+                  />
+                );
+              })
+            )}
+          </div>
+
+          <div className={css.paginationWrap}>
+            <Pagination
+              initialPage={parseInt(orderCompleteListStore.page, 10)}
+              onChangePage={this.handleChangePage}
+              itemsCountPerPage={orderCompleteListStore.itemsCountPerPage}
+              totalItemsCount={orderCompleteListStore.count}
+            />
+          </div>
         </MypageLayout>
       </DefaultLayout>
     );
