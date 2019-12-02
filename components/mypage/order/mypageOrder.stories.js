@@ -38,8 +38,8 @@ const SAMPLE_ORDER_DATA = {
   imageName: 'prada_shoulder_bag.jpg',
   imageUrl:
     'https://d3ikprf0m31yc7.cloudfront.net/images/products/thumb/0c7b63e4f8104742ae57ed35a21ab6d7',
-  optionAttribute1: null,
-  optionAttribute2: null,
+  optionAttribute1: '옵션1',
+  optionAttribute2: '옵션2',
   optionAttribute3: null,
   quantity: 1,
   discountPrice: 2000,

@@ -53,11 +53,7 @@ class OrderItem extends React.Component {
           {/* 주문정보 + 판매자 정보 */}
           <div className={css.orderInfo} onClick={redirectToDetail}>
             <div className={css.orderInfo__date}>
-              <span>주문일</span>
-              <span>&nbsp;</span>
-              <span>
-                {moment(order.orderTimestamp).format(dateFormat.YYYYMMDD_UI)}
-              </span>
+              {moment(order.orderTimestamp).format(dateFormat.YYYYMMDD_UI)}
             </div>
 
             {/* 주문 상세로 이동 */}
@@ -66,11 +62,6 @@ class OrderItem extends React.Component {
               <span>&nbsp;</span>
               <span className={css.orderInfo__idValue}>{order.purchaseId}</span>
             </div>
-          </div>
-          <div className={css.sellerInfo}>
-            <span>{order.sellerName || '셀러'}</span>
-            <span className={css.sellerInfo__divider} />
-            <button onClick={() => onClickInquire(order)}>문의하기</button>
           </div>
         </div>
 
@@ -95,6 +86,12 @@ class OrderItem extends React.Component {
               isClaim={isClaim}
             />
           </div>
+        </div>
+
+        <div className={css.sellerInfo}>
+          <span>{order.sellerName || '셀러'}</span>
+          <span className={css.sellerInfo__divider} />
+          <button onClick={() => onClickInquire(order)}>문의하기</button>
         </div>
       </div>
     );

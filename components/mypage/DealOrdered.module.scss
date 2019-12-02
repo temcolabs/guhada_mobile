@@ -1,21 +1,14 @@
 @import 'styles/mixins/index';
 
-$imageWidth: 140px;
-$productInfoPadLeft: 40px;
-
-$imageWidthSmall: 100px;
-$productInfoPadLeftSmall: 30px;
+$imageWidth: 100px;
+$productInfoPadLeft: 24px;
 
 .wrapper {
   @include clearfix;
   text-align: left;
-}
-
-html[class*='flexbox'] {
-  .wrapper {
-    display: flex;
-    align-items: center;
-  }
+  font-size: 13px;
+  display: flex;
+  align-items: center;
 }
 
 .productImageBox {
@@ -30,16 +23,6 @@ html[class*='flexbox'] {
   &:hover {
     cursor: pointer;
   }
-
-  &.isSmall {
-    width: $imageWidthSmall;
-    height: $imageWidthSmall;
-
-    & + .productInfo {
-      padding-left: $productInfoPadLeftSmall;
-      padding-right: $productInfoPadLeftSmall;
-    }
-  }
 }
 
 .productInfo {
@@ -49,24 +32,21 @@ html[class*='flexbox'] {
   flex-direction: column;
   justify-content: space-between;
   padding-left: $productInfoPadLeft;
-  padding-right: $productInfoPadLeft;
-  max-width: 670px;
-  line-height: 1.57;
+  line-height: 1.3;
   overflow: hidden;
+
+  .brandName {
+    font-weight: bold;
+  }
 
   .productName {
     @include textEllipsis;
-    font-size: 14px;
     color: #444;
   }
 
   .option {
-    font-size: 13px;
-    line-height: 1.2;
-    min-height: 16px;
     color: #777;
-    margin-top: 9px;
-    margin-bottom: 9px;
+    margin-top: 3px;
 
     & .hasDivider {
       @include withDivider(8px, 17px);
@@ -88,7 +68,7 @@ html[class*='flexbox'] {
 
   // 가격 영역
   .priceWrapper {
-    margin-top: 8px;
+    margin-top: 3px;
   }
 
   // 할인 전 원래 가격.
@@ -104,25 +84,22 @@ html[class*='flexbox'] {
   // 할인 받은 가격
   .finalPrice {
     font-size: 14px;
-    font-weight: bold;
-    color: #444444;
+    font-weight: 500;
+    color: #111;
   }
 
   .discountRate {
   }
 
   .statusWrapper {
-    margin-top: 20px;
+    margin-top: 10px;
   }
 
   .status {
-    font-size: 14px;
     font-weight: 500;
-    line-height: 1.2;
     color: #5d2ed1;
   }
   .statusMessage {
-    font-size: 12px;
     color: #777777;
     margin-left: 10px;
   }

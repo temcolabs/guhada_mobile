@@ -16,8 +16,6 @@ import { ORDER_LIST_ITEM_SAMPLE } from 'childs/lib/constant/order/orderModel';
 export default function DealOrdered({
   order = ORDER_LIST_ITEM_SAMPLE, // 주문 데이터
   isClaim = false, // 클레임 여부. 주문상태 텍스트를 사용하는 필드가 다르다
-  isSmallImage = false, // 작은 사이즈의 상품 이미지
-  isBrandAndProductInSameLine = false, // 브랜드, 상품명이 한 줄에 있는지
   hasOptionQuantity = true, // 옵션이 수량을 포함하는지
   isPurchaseStatusVisible = true, // 주문 상태 텍스트표시 여부
   isPriceVisible = true, // 가격이 표시되는지
@@ -33,7 +31,7 @@ export default function DealOrdered({
     <div className={css.wrapper} style={wrapperStyle}>
       {/* 상품 이미지 */}
       <div
-        className={cn(css.productImageBox, { [css.isSmall]: isSmallImage })}
+        className={cn(css.productImageBox)}
         style={{
           backgroundImage: `url(${order?.imageUrl})`,
         }}
@@ -44,15 +42,11 @@ export default function DealOrdered({
       <div className={css.productInfo}>
         <div className={css.productInfo__inner}>
           <div className={css.productInfo__upperArea}>
-            <div className={css.productName}>
-              <b>[{order?.brandName}]</b>
-              {isBrandAndProductInSameLine ? <span>&nbsp;</span> : <br />}
-              <span>{order?.prodName}</span>
-            </div>
+            <div className={css.brandName}>[{order?.brandName}]</div>
+            <div className={css.productName}>{order?.prodName}</div>
 
             {isOptionVisible && (
               <div className={css.option}>
-                <span className={cn(css.hasDivider)}>구매 옵션</span>
                 <span>
                   {order?.optionAttribute1 && (
                     <span className={css.optionItem}>

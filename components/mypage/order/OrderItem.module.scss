@@ -18,35 +18,29 @@
 // 상단 주문정보
 .orderInfo {
   @include clearfix;
-  float: left;
-  padding-right: 30px;
-
-  &:hover {
-    cursor: pointer;
-  }
+  font-size: 12px;
+  color: #777;
 }
 
 .orderInfo__date {
+  @include withDivider(9px, 17px, #ddd, 1px);
   float: left;
-  font-size: 13px;
 }
+
 .orderInfo__id {
-  font-size: 13px;
   float: left;
-  margin-left: 38px;
 }
 
 .orderInfo__idValue {
   position: relative;
-  color: #444;
 
   &::after {
     display: block;
     content: ' ';
     @include centeredY;
-    right: -20px;
-    width: 20px;
-    height: 20px;
+    right: -14px;
+    width: 14px;
+    height: 14px;
     background: url('/static/icon/mypage/mypage-arrow@2x.png') no-repeat center;
     background-size: contain;
   }
@@ -68,13 +62,13 @@
 
 .productInfoWrapper {
   @include clearfix;
-  margin-top: 31px;
+  margin-top: 20px;
 }
 
 .productImageBox {
   float: left;
-  width: 140px;
-  height: 140px;
+  width: 100px;
+  height: 100px;
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
