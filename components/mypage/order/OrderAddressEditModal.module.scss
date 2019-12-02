@@ -1,0 +1,134 @@
+@import 'styles/mixins/index';
+
+.modal {
+  width: 600px;
+  height: auto;
+  padding: 30px;
+  box-sizing: border-box;
+  background: #fff;
+
+  .modal__top {
+    @include clearfix;
+    border-bottom: 2px solid #111;
+    padding-bottom: 20px;
+
+    .modal__title {
+      float: left;
+      font-size: 20px;
+      font-weight: bold;
+      color: #111;
+    }
+
+    .modal__close {
+      float: right;
+      cursor: pointer;
+
+      img {
+        width: 29px;
+        height: 29px;
+      }
+    }
+  }
+
+  .modal__body {
+    .modal__body__title {
+      font-size: 12px;
+      font-weight: 500;
+      color: #444;
+
+      span {
+        color: #5d2ed1;
+      }
+    }
+
+    & > table {
+      margin-top: 22px;
+      border: none;
+
+      & > tbody {
+        & > tr {
+          height: 50px;
+          border: none;
+
+          td {
+            @include clearfix;
+            border: none;
+            font-size: 13px;
+            color: #444;
+            text-align: left;
+
+            &:first-child {
+              font-weight: bold;
+              border: none;
+              width: 110px;
+              text-align: left;
+              vertical-align: top;
+              padding-top: 16px;
+            }
+
+            &:nth-child(2) {
+              padding-top: 8px;
+              padding-bottom: 7px;
+            }
+
+            .zipcode {
+              border: 1px solid #ccc;
+              width: 96px;
+              padding: 3px 0;
+              text-align: center;
+              margin-right: 11px;
+              font-weight: 400;
+              font-size: 12px;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .modal__bottom {
+    @include clearfix;
+    margin-top: 80px;
+
+    button {
+      width: 265px;
+      height: 60px;
+      padding: 18px 0;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 500;
+      color: #fff;
+      float: left;
+      cursor: pointer;
+
+      // 취소
+      &:first-child {
+        background: #444;
+      }
+
+      // 수정
+      &:last-child {
+        margin-left: 10px;
+        background: #5d2ed1;
+      }
+    }
+  }
+}
+
+.addressField {
+  @include clearfix;
+  & > * {
+    float: left;
+  }
+}
+
+.inputWrapper {
+  width: 300px;
+  margin-right: 10px;
+}
+
+.errorMessage {
+  margin-top: 3px;
+  color: #c72121;
+}

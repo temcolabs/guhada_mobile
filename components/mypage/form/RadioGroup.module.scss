@@ -1,0 +1,48 @@
+@import 'styles/mixins/index';
+
+.wrap {
+  @include clearfix;
+
+  & > div {
+    float: left;
+  }
+
+  padding: 8px 0 9px;
+  font-size: 13px;
+}
+
+.radioSet {
+  &:not(:last-child) {
+    margin-right: 25px;
+  }
+
+  & > input + label {
+    float: left;
+    display: inline-block;
+    position: relative;
+    padding-left: 30px;
+    font-weight: normal;
+    margin-bottom: 0;
+
+    &:before {
+      @include centeredY();
+      left: 0;
+      display: block;
+      width: 20px;
+      height: 20px;
+      content: ' ';
+      background: url('/static/icon/radio_btn_off.png') no-repeat center;
+      background-size: contain;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  & > input:checked + label {
+    &:before {
+      background-image: url('/static/icon/radio_btn_on.png');
+    }
+  }
+}

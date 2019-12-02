@@ -1,0 +1,95 @@
+@import 'styles/mixins/index';
+@import 'styles/var';
+
+.orderItemTable {
+  border: none;
+
+  td,
+  th {
+    border: none;
+    font-size: 14px;
+
+    &[data-name='deal'] {
+      min-width: 552px;
+
+      @include mediaMD {
+        min-width: 520px;
+      }
+    }
+
+    &[data-name='quantity'] {
+      min-width: 160px;
+      color: #444444;
+
+      @include mediaMD {
+        min-width: 135px;
+      }
+    }
+
+    &[data-name='seller'] {
+      min-width: 160px;
+      color: #444444;
+
+      @include mediaMD {
+        min-width: 150px;
+      }
+    }
+  }
+
+  thead {
+    tr {
+      border-bottom: 1px solid #eeeeee;
+    }
+
+    td,
+    th {
+      color: #444444;
+      padding: 16px 16px 15px;
+      font-weight: 500;
+    }
+  }
+
+  tbody {
+    border-bottom: 1px solid #eee;
+
+    tr {
+      border-bottom: 1px dashed #eee;
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+}
+
+.orderItemTable--done {
+  @extend .orderItemTable;
+
+  td,
+  th {
+    border: none;
+    font-size: 14px;
+
+    &[data-name='deal'] {
+      max-width: 562px;
+
+      @include mediaMD {
+        max-width: 520px;
+      }
+    }
+
+    &[data-name='quantity'] {
+      min-width: 102px;
+    }
+
+    &[data-name='delivery'] {
+      min-width: 102px;
+    }
+
+    &[data-name='price'] {
+      min-width: 124px;
+      color: #444444;
+      font-weight: bold;
+    }
+  }
+}

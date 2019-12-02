@@ -1,0 +1,126 @@
+@import 'styles/mixins/index';
+@import 'styles/var';
+
+.wrap {
+  width: 600px;
+  padding: 30px 30px 40px;
+}
+
+.title {
+  font-size: 28px;
+  text-align: center;
+  font-weight: bold;
+  min-height: 41px;
+  margin-top: 10px;
+}
+
+.confirmGuide {
+  font-size: 13px;
+  line-height: 1.54;
+  text-align: center;
+  font-weight: 400;
+  margin-top: 10px;
+  color: #444444;
+}
+
+.product {
+  @include clearfix;
+  padding: 30px 0;
+}
+
+.productImage {
+  float: left;
+  width: 100px;
+  height: 100px;
+  background-size: contain;
+  background-position: center;
+  background-color: #fff;
+  background-repeat: no-repeat;
+}
+
+.productInfo {
+  float: left;
+  width: calc(100% - 100px);
+  padding-left: 30px;
+
+  .brandName {
+    margin-top: 2px;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.57;
+    text-align: left;
+    color: #444444;
+  }
+
+  .prodName {
+    font-size: 14px;
+    line-height: 1.57;
+    text-align: left;
+    color: #444444;
+  }
+}
+
+// 적립 포인트 안내
+.pointGuide {
+  margin-top: 15px;
+  font-size: 13px;
+
+  .pointGuide__item {
+    display: block;
+  }
+
+  .pointGuide__condition {
+    @include withDivider(8px, 17px, #ccc);
+    display: inline-block;
+    text-align: left;
+    color: #777777;
+  }
+
+  .pointGuide__result {
+    display: inline-block;
+    text-align: left;
+    color: $blue-purple;
+  }
+}
+
+.pointCaution {
+  @include clearfix;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+
+  & > * {
+    float: left;
+  }
+
+  color: #444;
+}
+
+.pointCaution_list {
+  margin-top: 5px;
+  font-size: 13px;
+  line-height: 1.46;
+  text-align: left;
+  color: #777777;
+  padding-left: 18px;
+  list-style-type: none;
+
+  li {
+    position: relative;
+
+    &::before {
+      top: 7px;
+      left: -11px;
+      content: ' ';
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: url('/static/icon/icon-dot-3@3x.png') no-repeat center;
+      background-size: contain;
+    }
+
+    &:not(:first-child) {
+      margin-top: 10px;
+    }
+  }
+}
