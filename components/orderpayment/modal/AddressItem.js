@@ -94,7 +94,18 @@ class AddressItem extends Component {
             <div className={css.section}>
               <input
                 type="text"
-                value={tempEditAddress.roadAddress || tempEditAddress.address}
+                value={
+                  orderpayment.addressType === 'R'
+                    ? tempEditAddress.roadAddress || tempEditAddress.address
+                    : tempEditAddress.address || tempEditAddress.roadAddress
+                }
+                onClick={() => {
+                  orderpayment.searchZipcode(
+                    '주문페이지-수정',
+                    orderpayment.addressEditing,
+                    null
+                  );
+                }}
                 id="edit__address"
                 readOnly
               />

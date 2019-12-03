@@ -54,7 +54,6 @@ export default class MypagePointStore {
       .then(res => {
         this.period.startDate = startDate;
         this.period.endDate = endDate;
-        this.pointHistory = res.data.data;
         this.pointHistory = res.data.data.content;
         this.totalItemsCount = res.data.data.totalElements;
         this.totalItemsPage = res.data.data.totalPages;

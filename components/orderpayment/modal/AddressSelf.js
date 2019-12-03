@@ -27,7 +27,6 @@ class AddressSelf extends Component {
           <div className={css.value}>
             <input
               type="text"
-              id="new__zipCode"
               placeholder="우편번호"
               readOnly
               value={orderpayment.orderShippingList.newAddress.zip || ''}
@@ -61,7 +60,11 @@ class AddressSelf extends Component {
               placeholder="주소"
               readOnly
               value={
-                orderpayment.orderShippingList.newAddress.roadAddress || ''
+                orderpayment.addressType === 'R'
+                  ? orderpayment.orderShippingList.newAddress.roadAddress ||
+                    orderpayment.orderShippingList.newAddress.address
+                  : orderpayment.orderShippingList.newAddress.address ||
+                    orderpayment.orderShippingList.newAddress.roadAddress
               }
             />
           </div>
@@ -141,7 +144,7 @@ class AddressSelf extends Component {
               checked={orderpayment.orderShippingList.newAddress.defaultAddress}
             />
             <div className={css.checkBox} />
-            <div className={css.labelTxt}>기본 배송지로 설정</div>
+            <div className={css.labelTxt}>기본배송지 설정</div>
           </label>
         </div>
       </div>

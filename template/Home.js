@@ -71,13 +71,13 @@ class Home extends React.Component {
 
     // let cookie = Cookies.get(key.ACCESS_TOKEN);
     let checkAppDownCookie = Cookies.get('appDownPopupStop');
-    let checkFirstPurchaseCookie = Cookies.get('firstPurchasePopupStop');
+    // let checkFirstPurchaseCookie = Cookies.get('firstPurchasePopupStop');
     if (!checkAppDownCookie) {
       this.props.eventmain.appDownPopupOpen();
     }
-    if (!checkFirstPurchaseCookie) {
-      this.props.eventmain.firstPurchasePopupOpen();
-    }
+    // if (!checkFirstPurchaseCookie) {
+    //   this.props.eventmain.firstPurchasePopupOpen();
+    // }
     window.addEventListener('scroll', this.scrollDirection);
   }
 
@@ -157,10 +157,10 @@ class Home extends React.Component {
         </HomeItemDefault>
 
         <AppDownload isOpen={eventmain.status.appDownPopupIsOpen} />
-        <FirstPurchase isOpen={eventmain.status.firstPurchasePopupIsOpen} />
+        {/* <FirstPurchase isOpen={eventmain.status.firstPurchasePopupIsOpen} />
         <FirstPurchaseReward
           isOpen={eventmain.status.firstPurchaseRewardPopupIsOpen}
-        />
+        /> */}
         <Footer />
       </DefaultLayout>
     );
