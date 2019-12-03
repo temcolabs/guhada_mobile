@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { toJS } from 'mobx';
 import { inject, observer } from 'mobx-react';
 import Head from 'next/head';
 import SearchList from 'template/search/SearchList';
@@ -15,25 +16,32 @@ class search extends Component {
     const { searchitem } = this.props;
     const query = Router.router.query;
 
-    searchitem.deals = [];
-    searchitem.preUrl = Router.asPath;
-    searchitem.initDealspage();
+    if (
+      searchitem.deals?.length === 0 ||
+      Router.asPath !== toJS(searchitem.preUrl)
+    ) {
+      searchitem.deals = [];
+      searchitem.preUrl = Router.asPath;
+      searchitem.initDealspage();
 
-    let brand = JSON.parse('[' + query.brand + ']');
-    let subcategory = JSON.parse('[' + query.subcategory + ']');
+      let brand = JSON.parse('[' + query.brand + ']');
+      let subcategory = JSON.parse('[' + query.subcategory + ']');
 
-    searchitem.getSearchByUri(
-      brand,
-      query.category,
-      query.page,
-      query.unitPerPage,
-      query.order,
-      query.filter,
-      subcategory,
-      query.enter,
-      query.keyword,
-      query.condition
-    );
+      searchitem.getSearchByUri(
+        brand,
+        query.category,
+        query.page,
+        query.unitPerPage,
+        query.order,
+        query.filter,
+        subcategory,
+        query.enter,
+        query.keyword,
+        query.condition
+      );
+    } else {
+      searchitem.preUrl = Router.asPath;
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
