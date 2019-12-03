@@ -3,7 +3,7 @@ import css from './PaymentInfo.module.scss';
 import cn from 'classnames';
 import addCommaToNum from 'childs/lib/common/addCommaToNum';
 import { ORDER_COMPLETE_SAMPLE } from 'childs/lib/constant/order/orderModel';
-import { paymentMethodOptions } from 'childs/lib/constant/order/paymentMethod';
+import { paymentMethodOption } from 'childs/lib/constant/order/paymentMethod';
 import PaymentAccountInfo from './PaymentAccountInfo';
 
 /**
@@ -11,18 +11,8 @@ import PaymentAccountInfo from './PaymentAccountInfo';
  * @param {*} param0
  */
 export default function PaymentInfo({ order = ORDER_COMPLETE_SAMPLE }) {
-  const wrapperRef = React.useRef();
-
-  const paymentMethodText =
-    paymentMethodOptions.find(o => o.value === order.payment?.parentMethod)
-      ?.label || '결제';
-
-  const getWrapperHeight = () => {
-    return wrapperRef.current?.getBoundingClientRect()?.height;
-  };
-
   return (
-    <div className={css.wrap} ref={wrapperRef}>
+    <div className={css.wrap}>
       <div className={cn(css.row, css.totalPayments)}>
         {/* 총 주문금액 */}
         <div
@@ -32,7 +22,6 @@ export default function PaymentInfo({ order = ORDER_COMPLETE_SAMPLE }) {
             css.withMinus,
             css.withBorderRight
           )}
-          style={{ height: getWrapperHeight() }}
         >
           <div className={cn(css.totalPrice)}>
             <span className={css.label}>주문금액</span>
@@ -64,7 +53,6 @@ export default function PaymentInfo({ order = ORDER_COMPLETE_SAMPLE }) {
             css.withEqual,
             css.withBorderRight
           )}
-          style={{ height: getWrapperHeight() }}
         >
           <div className={cn(css.totalPrice)}>
             <span className={css.label}>할인 · 포인트</span>
@@ -102,10 +90,7 @@ export default function PaymentInfo({ order = ORDER_COMPLETE_SAMPLE }) {
         </div>
 
         {/* 총 결제금액 */}
-        <div
-          className={cn(css.column, css.column_1_3)}
-          style={{ height: getWrapperHeight() }}
-        >
+        <div className={cn(css.column, css.column_1_3)}>
           <div className={cn(css.totalPrice)}>
             <span className={css.label}>총 결제금액</span>
             <span className={css.value}>

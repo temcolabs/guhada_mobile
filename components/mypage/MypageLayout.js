@@ -7,7 +7,6 @@ import { inject, observer } from 'mobx-react';
 import { string, bool, object } from 'prop-types';
 import Footer from 'components/footer/Footer';
 import DefaultLayout from 'components/layout/DefaultLayout';
-import memoize from 'memoize-one';
 
 @withRouter
 @inject('user')
@@ -28,13 +27,6 @@ class MypageLayout extends React.Component {
     isMenuVisibile: true,
   };
 
-  getDefaultLayoutStyle = memoize(style => {
-    return {
-      paddingBottom: 0, // NOTE: 마이페이지에서 하단 패딩은 없음.
-      ...style,
-    };
-  });
-
   render() {
     const {
       isMenuVisibile,
@@ -44,11 +36,7 @@ class MypageLayout extends React.Component {
     } = this.props;
 
     return (
-      <DefaultLayout
-        toolbar
-        wrapperStyle={this.getDefaultLayoutStyle(defaultLayoutStyle)}
-        {...rest}
-      >
+      <DefaultLayout toolbar wrapperStyle={defaultLayoutStyle} {...rest}>
         <div
           className={cn(css.wrap, {
             [css.isMenuVisible]: isMenuVisibile,

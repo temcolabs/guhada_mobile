@@ -115,7 +115,8 @@ class OrderCompleteDetail extends Component {
                     <td>{addHyphenToMobile(shippingAddress.phone)}</td>
                   </tr>
                   <tr>
-                    <td>배송 메모</td>ㅈ<td>{shippingAddress.message}</td>
+                    <td>배송 메모</td>
+                    <td>{shippingAddress.message}</td>
                   </tr>
                 </tbody>
               </table>

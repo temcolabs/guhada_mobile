@@ -4,6 +4,7 @@ import Header from 'components/header/Header';
 import ToolBar from 'components/toolbar/ToolBar';
 import Router from 'next/router';
 import { inject, observer } from 'mobx-react';
+import memoize from 'memoize-one';
 
 const topLayouts = {
   main: 'main',
@@ -54,6 +55,14 @@ class DefaultLayout extends Component {
     };
   }
 
+  getWrapperStyle = memoize((style, toolBar, topLayout) => {
+    return {
+      paddingTop: `${this.paddingTopMap[topLayout]}px`,
+      paddingBottom: toolBar ? '57px' : 0, // 하단 툴바가 있으면 툴바 높이만큼 간격을 추가해준다.
+      ...style,
+    };
+  });
+
   componentDidMount() {
     this.shoppingCartAmountCheck();
   }
@@ -81,8 +90,7 @@ class DefaultLayout extends Component {
       <div
         className={css.wrap}
         style={{
-          ...wrapperStyle,
-          paddingTop: `${this.paddingTopMap[topLayout]}px`,
+          ...this.getWrapperStyle(wrapperStyle, toolBar, topLayout),
         }}
       >
         {topLayout === 'keyword' ? null : (
