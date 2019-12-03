@@ -89,7 +89,10 @@ export default class AddressStore {
     for (let i = 0; i < this.addressList.list.length; i++) {
       if (this.addressList.list[i].id === id) {
         this.addressList.tempEditAddress = { ...this.addressList.list[i] };
-        devLog(this.addressList.tempEditAddress, '123');
+        devLog(
+          this.addressList.tempEditAddress,
+          'this.addressList.tempEditAddress'
+        );
 
         return false;
       }

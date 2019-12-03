@@ -1,7 +1,6 @@
 import React from 'react';
 import css from './PointDashboard.module.scss';
 const PointDashboard = ({ props }) => {
-  console.log(props, 'propstaprops');
   return (
     <div className={css.wrap}>
       <div className={css.top}>
