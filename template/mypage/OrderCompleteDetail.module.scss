@@ -1,0 +1,47 @@
+@import 'styles/mixins/index';
+
+.wrap {
+  background: #f9f9fa;
+}
+
+.orderInfo {
+  padding: 30px 20px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #444444;
+}
+
+.orderInfo__orderId {
+}
+
+.orderInfo__field {
+  &:not(:first-child) {
+    margin-top: 9px;
+  }
+}
+
+.orderInfo__label {
+  display: inline-block;
+  min-width: 48px;
+  @include withDivider(
+    $height: 9px,
+    $distance: 17px,
+    $color: #dddddd,
+    $width: 1px
+  );
+}
+
+.orderInfo__value {
+  display: inline-block;
+  font-family: Roboto;
+}
+
+.orderInfo__receiptButton {
+  width: 92px;
+  height: 30px;
+  border: solid 1px #dddddd;
+  background: #fff;
+  font-weight: 500;
+}
