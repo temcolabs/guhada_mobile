@@ -19,7 +19,7 @@ import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTrack
 import isTruthy from 'childs/lib/common/isTruthy';
 import AppDownload from 'components/event/popup/AppDownload';
 import FirstPurchase from 'components/event/popup/FirstPurchase';
-import FirstPurchaseReward from 'components/event/popup/FirstPurchaseReward';
+// import FirstPurchaseReward from 'components/event/popup/FirstPurchaseReward';
 import Cookies from 'js-cookie';
 
 @withScrollToTopOnMount
@@ -68,17 +68,17 @@ class Home extends React.Component {
       // 회원가입 전환. 로그인한 상태가 아니어서 유저 아이디를 전달할 수 없다.
       widerplanetTracker.signUp({});
     }
-
+    window.addEventListener('scroll', this.scrollDirection);
     // let cookie = Cookies.get(key.ACCESS_TOKEN);
+
     let checkAppDownCookie = Cookies.get('appDownPopupStop');
-    // let checkFirstPurchaseCookie = Cookies.get('firstPurchasePopupStop');
-    if (!checkAppDownCookie) {
-      this.props.eventmain.appDownPopupOpen();
-    }
+    let checkFirstPurchaseCookie = Cookies.get('firstPurchasePopupStop');
+    // if (!checkAppDownCookie) {
+    //   this.props.eventmain.appDownPopupOpen();
+    // }
     // if (!checkFirstPurchaseCookie) {
     //   this.props.eventmain.firstPurchasePopupOpen();
     // }
-    window.addEventListener('scroll', this.scrollDirection);
   }
 
   componentWillUnmount() {
@@ -157,10 +157,11 @@ class Home extends React.Component {
         </HomeItemDefault>
 
         <AppDownload isOpen={eventmain.status.appDownPopupIsOpen} />
-        {/* <FirstPurchase isOpen={eventmain.status.firstPurchasePopupIsOpen} />
-        <FirstPurchaseReward
+        <FirstPurchase isOpen={eventmain.status.firstPurchasePopupIsOpen} />
+        {/* <FirstPurchaseReward
           isOpen={eventmain.status.firstPurchaseRewardPopupIsOpen}
         /> */}
+
         <Footer />
       </DefaultLayout>
     );

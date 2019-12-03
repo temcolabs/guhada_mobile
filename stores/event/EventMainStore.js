@@ -111,18 +111,18 @@ export default class EventMainStore {
     this.status.appDownPopupIsOpen = false;
   };
 
-  // @action
-  // firstPurchasePopupOpen = () => {
-  //   this.status.firstPurchasePopupIsOpen = true;
-  // };
+  @action
+  firstPurchasePopupOpen = () => {
+    this.status.firstPurchasePopupIsOpen = true;
+  };
 
-  // @action
-  // firstPurchasePopupClose = stop => {
-  //   if (stop) {
-  //     this.setPopupCookie('firstPurchasePopupStop');
-  //   }
-  //   this.status.firstPurchasePopupIsOpen = false;
-  // };
+  @action
+  firstPurchasePopupClose = stop => {
+    if (stop) {
+      this.setPopupCookie('firstPurchasePopupStop');
+    }
+    this.status.firstPurchasePopupIsOpen = false;
+  };
 
   setPopupCookie = name => {
     let now = new Date();
