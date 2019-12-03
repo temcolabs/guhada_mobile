@@ -189,9 +189,15 @@ const BenefitInfo = props => {
                 ? '리뷰 작성'
                 : null}
             </div>
-            <div
-              className={css.sectionValue}
-            >{`${data.totalPoint?.toLocaleString() || 0}P`}</div>
+            <div className={css.sectionValue}>
+              {data.dueSaveType === 'BUY'
+                ? `${data.totalPoint?.toLocaleString() || 0}P`
+                : data.dueSaveType === 'FIRST_ORDER'
+                ? `${data.totalPoint?.toLocaleString() || 0}P`
+                : data.dueSaveType === 'REVIEW'
+                ? `최대 ${data.totalPoint?.toLocaleString() || 0}P`
+                : null}
+            </div>
           </div>
         );
       })}
