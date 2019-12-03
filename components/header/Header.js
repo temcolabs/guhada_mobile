@@ -76,7 +76,7 @@ function Header({
 
           {/* 페이지 타이틀 또는 로고 렌더링 */}
           {children ? (
-            <div className={css.pageTitle}>{children}</div>
+            <h1 className={css.pageTitle}>{children}</h1>
           ) : headerShape === 'productDetail' ? null : (
             <LinkRoute href="/">
               <div className={css.headerLogo} />

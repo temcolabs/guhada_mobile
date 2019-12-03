@@ -199,7 +199,7 @@ function MypageMenubar({ userInfo = {}, pathname = '/', router = {} }) {
   const menubarSections = MENUBAR_SECTIONS.slice();
 
   return (
-    <div className={css.wrap}>
+    <nav className={css.wrap}>
       {menubarSections.map((section, index) => {
         return (
           <MenubarSection
@@ -214,7 +214,7 @@ function MypageMenubar({ userInfo = {}, pathname = '/', router = {} }) {
           />
         );
       })}
-    </div>
+    </nav>
   );
 }
 
