@@ -341,6 +341,9 @@ class OrderCompleteList extends Component {
             onClose={orderConfirmModalData?.onClose}
             dueSavePointOnConfirm={orderConfirmModalData.dueSavePointOnConfirm}
             dueSavePointOnReview={orderConfirmModalData.dueSavePointOnReview}
+            dueSavePointOnFirstPurchase={
+              orderConfirmModalData.dueSavePointOnFirstPurchase
+            }
           /> */}
       </MypageLayout>
     );

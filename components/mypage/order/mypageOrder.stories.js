@@ -248,6 +248,7 @@ stories.add('OrderItem', () => {
 //       }}
 //       dueSavePointOnConfirm={2000}
 //       dueSavePointOnReview={5000}
+//       dueSavePointOnFirstPurchase={10000}
 //     />
 //   );
 // });

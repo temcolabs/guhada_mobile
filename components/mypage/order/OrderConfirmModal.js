@@ -23,6 +23,7 @@ export default function OrderConfirmModal({
   },
   dueSavePointOnConfirm = 0,
   dueSavePointOnReview = 0,
+  dueSavePointOnFirstPurchase = 0,
 }) {
   return (
     <ModalWrapper
@@ -58,7 +59,7 @@ export default function OrderConfirmModal({
 
             <div className={css.pointGuide}>
               <div className={css.pointGuide__item}>
-                <div className={css.pointGuide__condition}>구매확정 시</div>
+                <div className={css.pointGuide__condition}>구매 확정 시</div>
                 <div className={css.pointGuide__result}>
                   {/* TODO: */}
                   포인트 {addCommaToNum(dueSavePointOnConfirm)}원
@@ -69,6 +70,13 @@ export default function OrderConfirmModal({
                 <div className={css.pointGuide__result}>
                   {/* TODO: */}
                   포인트 최대 {addCommaToNum(dueSavePointOnReview)}원
+                </div>
+              </div>
+              <div className={css.pointGuide__item}>
+                <div className={css.pointGuide__condition}>첫 구매 시</div>
+                <div className={css.pointGuide__result}>
+                  {/* TODO: */}
+                  포인트 {addCommaToNum(dueSavePointOnFirstPurchase)}원
                 </div>
               </div>
             </div>
