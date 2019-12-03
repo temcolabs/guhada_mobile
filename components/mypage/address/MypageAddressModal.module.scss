@@ -77,6 +77,10 @@
             line-height: 45px;
             font-size: 13px;
             color: #777;
+
+            &:read-only {
+              background-color: #f9f9fa;
+            }
           }
         }
 

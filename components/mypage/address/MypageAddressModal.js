@@ -127,7 +127,7 @@ class MypageAddressModal extends Component {
                   checked={mypageAddress.defaultAddress}
                 />
                 <div className={css.checkBox} />
-                <div className={css.labelTxt}>기본 배송지로 설정</div>
+                <div className={css.labelTxt}>기본배송지 설정</div>
               </label>
             </div>
           </div>
@@ -270,7 +270,7 @@ class MypageAddressModal extends Component {
                   checked={mypageAddress.defaultAddress}
                 />
                 <div className={css.checkBox} />
-                <div className={css.labelTxt}>기본 배송지로 설정</div>
+                <div className={css.labelTxt}>기본배송지 설정</div>
               </label>
             </div>
           </div>

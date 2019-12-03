@@ -32,6 +32,10 @@
         line-height: 45px;
         font-size: 13px;
         color: #777;
+
+        &:read-only {
+          background: #f9f9fa;
+        }
       }
     }
 
@@ -62,7 +66,7 @@
         margin-top: 1px;
       }
 
-      input[type='checkbox']:checked+.checkBox {
+      input[type='checkbox']:checked + .checkBox {
         border: none;
         background-image: url('/static/icon/checkbox_checked_20.png');
         background-size: 16px 16px;

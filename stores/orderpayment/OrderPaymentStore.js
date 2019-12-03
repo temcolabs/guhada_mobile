@@ -48,6 +48,7 @@ export default class OrderPaymentStore {
     },
     isAddShippingAddress: false,
   };
+  @observable addressType = 'R';
   @observable status = {
     pageStatus: false,
     selectedShipStatus: true,
@@ -120,10 +121,10 @@ export default class OrderPaymentStore {
         this.usePoint = 0;
 
         this.getPaymentInfo();
-        this.emailCheck(data.user.email);
+        this.emailValidCheck(data.user.email);
         this.getTotalQuantity();
         this.getShippingMessageOption();
-        this.userVaildCheck();
+        this.userAuthenticationCheck();
         devLog(this.orderInfo, '주문 데이터');
         this.orderProductInfo.map(data => {
           if (data.orderValidStatus !== 'VALID') {
@@ -230,26 +231,16 @@ export default class OrderPaymentStore {
           switch (path) {
             case '주문페이지-신규':
               if (data.userSelectedType === 'J') {
-                document.getElementById('new__zipCode').value = data.zonecode;
-                document.getElementById('newAddress').value = data.jibunAddress;
                 setNewShippingAddress(null, 'address', data);
               } else {
-                document.getElementById('new__zipCode').value = data.zonecode;
-                document.getElementById('newAddress').value = data.jibunAddress;
                 setNewShippingAddress(null, 'roadAddress', data);
               }
               break;
             case '주문페이지-수정':
               if (data.userSelectedType === 'J') {
-                document.getElementById('edit__zipCode').value = data.zonecode;
                 addressEditing(null, 'address', data);
-                document.getElementById('edit__address').value =
-                  data.jibunAddress;
               } else {
-                document.getElementById('edit__zipCode').value = data.zonecode;
                 addressEditing(null, 'roadAddress', data);
-                document.getElementById('edit__address').value =
-                  data.roadAddress;
               }
               break;
             default:
@@ -282,12 +273,14 @@ export default class OrderPaymentStore {
       case 'roadAddress':
         this.orderShippingList.newAddress.roadAddress = address.roadAddress;
         this.orderShippingList.newAddress.zip = address.zonecode;
-        this.orderShippingList.newAddress.address = address.address;
+        this.orderShippingList.newAddress.address = address.jibunAddress;
+        this.addressType = 'R';
         break;
       case 'address':
-        this.orderShippingList.newAddress.address = address.address;
+        this.orderShippingList.newAddress.address = address.jibunAddress;
         this.orderShippingList.newAddress.zip = address.zonecode;
         this.orderShippingList.newAddress.roadAddress = address.roadAddress;
+        this.addressType = 'J';
         break;
       default:
         break;
@@ -507,13 +500,15 @@ export default class OrderPaymentStore {
         this.orderShippingList.tempEditAddress.roadAddress =
           address.roadAddress;
         this.orderShippingList.tempEditAddress.zip = address.zonecode;
-        this.orderShippingList.tempEditAddress.address = address.address;
+        this.orderShippingList.tempEditAddress.address = address.jibunAddress;
+        this.addressType = 'R';
         break;
       case 'address':
-        this.orderShippingList.tempEditAddress.address = address.address;
+        this.orderShippingList.tempEditAddress.address = address.jibunAddress;
         this.orderShippingList.tempEditAddress.zip = address.zonecode;
         this.orderShippingList.tempEditAddress.roadAddress =
           address.roadAddress;
+        this.addressType = 'J';
         break;
       default:
         break;
@@ -756,14 +751,9 @@ export default class OrderPaymentStore {
     let cartList = this.getCartList();
     let paymentCheck = true;
 
-    if (!this.orderUserInfo.name && !this.orderUserInfo.mobile) {
+    if (!this.root.customerauthentication.userVerify) {
       this.root.alert.showAlert({
         content: '[필수] 본인인증을 해주세요.',
-      });
-      paymentCheck = false;
-    } else if (!this.orderUserInfo.emailVerify) {
-      this.root.alert.showAlert({
-        content: '이메일을 인증해주세요.',
       });
       paymentCheck = false;
     } else if (!this.paymentMethod) {
@@ -777,7 +767,12 @@ export default class OrderPaymentStore {
       });
       paymentCheck = false;
     }
-
+    // else if (!this.orderUserInfo.emailVerify) {
+    //   this.root.alert.showAlert({
+    //     content: '이메일을 인증해주세요.',
+    //   });
+    //   paymentCheck = false;
+    // }
     if (!this.status.selectedShipStatus) {
       if (!this.orderShippingList.newAddress.shippingName) {
         this.root.alert.showAlert({
@@ -1157,7 +1152,7 @@ export default class OrderPaymentStore {
   };
 
   @action
-  emailCheck = email => {
+  emailValidCheck = email => {
     let emailValid = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
     if (emailValid.test(email) === false) {
       this.root.customerauthentication.emailValid = false;
@@ -1168,7 +1163,7 @@ export default class OrderPaymentStore {
   };
 
   @action
-  userVaildCheck = () => {
+  userAuthenticationCheck = () => {
     API.user
       .get(`/users/${this.orderUserInfo.id}`)
       .then(res => {
