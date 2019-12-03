@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import LoginLayout from 'components/layout/LoginLayout';
 import { LoginWrapper, LoginInput, LoginButton } from 'components/login';
 import css from './FindPasswordResult.module.scss';
-import { LinkRoute, pushRoute } from 'lib/router';
+import { LinkRoute, pushRoute } from 'childs/lib/router';
 import { observer } from 'mobx-react';
 import API from 'childs/lib/API';
 import { devLog } from 'childs/lib/common/devLog';

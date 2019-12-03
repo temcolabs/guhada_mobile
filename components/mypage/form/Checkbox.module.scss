@@ -1,0 +1,134 @@
+@import 'styles/var';
+@import 'styles/mixins/index';
+
+.wrap {
+  padding: 8px 0 9px;
+
+  & > input {
+    display: none;
+  }
+
+  & > input + label {
+    display: inline-block;
+    position: relative;
+    padding-left: 28px;
+    font-size: 13px;
+    min-height: 16px;
+    color: #444444;
+    margin-bottom: 0;
+    font-weight: normal;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &:before {
+      @include centeredY();
+      left: 0;
+      display: block;
+      width: 16px;
+      height: 16px;
+      content: ' ';
+      background-image: url('/static/icon/checkbox_off.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+    }
+  }
+
+  & > input:checked + label {
+    color: #444444;
+    &:before {
+      background-image: url('/static/icon/checkbox_on.png');
+    }
+  }
+
+  & > input:disabled {
+    & + label {
+      color: #ccc;
+      &:hover {
+        cursor: initial;
+      }
+    }
+  }
+
+  &.fixed {
+    & > label {
+      &:hover {
+        cursor: initial;
+      }
+    }
+  }
+
+  // 네이버 아이콘 체크박스
+  &.naver {
+    & > input + label {
+      padding-left: 32px;
+      &:before {
+        width: 24px;
+        height: 24px;
+        background-image: url('/static/icon/mypage/login-btn-naver-off@3x.png');
+      }
+    }
+
+    & > input:checked + label {
+      &:before {
+        background-image: url('/static/icon/mypage/login-btn-naver-on@3x.png');
+      }
+    }
+  }
+
+  // 카카오 아이콘 체크박스
+  &.kakao {
+    & > input + label {
+      padding-left: 32px;
+      &:before {
+        width: 24px;
+        height: 24px;
+        background-image: url('/static/icon/mypage/login-btn-kakao-off@3x.png');
+      }
+    }
+
+    & > input:checked + label {
+      &:before {
+        background-image: url('/static/icon/mypage/login-btn-kakao-on@3x.png');
+      }
+    }
+  }
+
+  // 페이스북 아이콘 체크박스
+  &.facebook {
+    & > input + label {
+      padding-left: 32px;
+      &:before {
+        width: 24px;
+        height: 24px;
+        background-image: url('/static/icon/mypage/login-btn-facebook-off@3x.png');
+      }
+    }
+
+    & > input:checked + label {
+      &:before {
+        background-image: url('/static/icon/mypage/login-btn-facebook-on@3x.png');
+      }
+    }
+  }
+
+  // 구글 아이콘 체크박스
+  &.google {
+    & > input + label {
+      padding-left: 32px;
+      &:before {
+        width: 24px;
+        height: 24px;
+        background-image: url('/static/icon/mypage/login-btn-google-off@3x.png');
+      }
+    }
+
+    & > input:checked + label {
+      &:before {
+        background-image: url('/static/icon/mypage/login-btn-google-on@3x.png');
+      }
+    }
+  }
+}

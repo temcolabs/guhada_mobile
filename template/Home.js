@@ -5,7 +5,7 @@ import css from './Home.module.scss';
 import MainSectionItem from 'components/home/MainSectionItem';
 import { inject, observer } from 'mobx-react';
 import CategorySlider from 'components/common/CategorySlider';
-import { mainCategory } from 'constant/category';
+import { mainCategory } from 'childs/lib/constant/category';
 import MainSlideBanner from 'components/home/MainSlideBanner';
 import HomeItemDefault from 'components/home/HomeItemDefault';
 import MainHotKeyword from 'components/home/MainHotKeyword';
@@ -13,14 +13,18 @@ import Router from 'next/router';
 import SignupSuccessModal from './signin/SignupSuccessModal';
 import Footer from 'components/footer/Footer';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
-import { pushRoute } from 'lib/router';
+import { pushRoute } from 'childs/lib/router';
 import _ from 'lodash';
 import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
 import isTruthy from 'childs/lib/common/isTruthy';
+import AppDownload from 'components/event/popup/AppDownload';
+import FirstPurchase from 'components/event/popup/FirstPurchase';
+import FirstPurchaseReward from 'components/event/popup/FirstPurchaseReward';
+import Cookies from 'js-cookie';
 
 @withScrollToTopOnMount
 @withRouter
-@inject('main', 'searchitem')
+@inject('main', 'searchitem', 'eventmain')
 @observer
 class Home extends React.Component {
   static propTypes = {};
@@ -64,6 +68,16 @@ class Home extends React.Component {
       // 회원가입 전환. 로그인한 상태가 아니어서 유저 아이디를 전달할 수 없다.
       widerplanetTracker.signUp({});
     }
+
+    // let cookie = Cookies.get(key.ACCESS_TOKEN);
+    let checkAppDownCookie = Cookies.get('appDownPopupStop');
+    // let checkFirstPurchaseCookie = Cookies.get('firstPurchasePopupStop');
+    if (!checkAppDownCookie) {
+      this.props.eventmain.appDownPopupOpen();
+    }
+    // if (!checkFirstPurchaseCookie) {
+    //   this.props.eventmain.firstPurchasePopupOpen();
+    // }
     window.addEventListener('scroll', this.scrollDirection);
   }
 
@@ -88,7 +102,7 @@ class Home extends React.Component {
   };
 
   render() {
-    const { main, searchitem } = this.props;
+    const { main, searchitem, eventmain } = this.props;
 
     return (
       <DefaultLayout
@@ -141,6 +155,12 @@ class Home extends React.Component {
             searchitem={searchitem}
           />
         </HomeItemDefault>
+
+        <AppDownload isOpen={eventmain.status.appDownPopupIsOpen} />
+        {/* <FirstPurchase isOpen={eventmain.status.firstPurchasePopupIsOpen} />
+        <FirstPurchaseReward
+          isOpen={eventmain.status.firstPurchaseRewardPopupIsOpen}
+        /> */}
         <Footer />
       </DefaultLayout>
     );

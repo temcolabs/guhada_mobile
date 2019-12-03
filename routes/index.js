@@ -126,11 +126,10 @@ module.exports = [
   // ============================================================
   // 마이페이지 - 메인
   {
-    pagePath: `/mypage/OrderCompleteList`,
-    asPath: `/mypage/orders/complete/list`,
+    pagePath: `/mypage`,
+    asPath: `/mypage`,
     name: `마이페이지`,
   },
-
   // 마이페이지 - 나의 주문
   {
     pagePath: `/mypage/OrderCompleteList`,

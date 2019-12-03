@@ -3,9 +3,9 @@ import css from './ProductReviewItems.module.scss';
 import _ from 'lodash';
 import StarItem from '../StarItem';
 import moment from 'moment';
-import { dateFormat } from 'constant/';
+import { dateFormat } from 'childs/lib/constant';
 import { inject, observer } from 'mobx-react';
-import { pushRoute } from 'lib/router';
+import { pushRoute } from 'childs/lib/router';
 
 @inject('productreview', 'login', 'alert')
 @observer

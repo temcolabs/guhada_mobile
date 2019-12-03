@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './CartEmpty.module.scss';
-import { LinkRoute } from 'lib/router';
+import { LinkRoute } from 'childs/lib/router';
 @inject('shoppingcart')
 @observer
 class CartEmpty extends Component {

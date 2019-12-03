@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import css from './LoginLayout.module.scss';
-import { LinkRoute } from 'lib/router';
+import { LinkRoute } from 'childs/lib/router';
 
 export class LoginLayout extends Component {
   render() {

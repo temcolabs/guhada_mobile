@@ -2,7 +2,7 @@ import { observable, action, toJS } from 'mobx';
 import API from 'childs/lib/API';
 import { isBrowser } from 'childs/lib/common/isServer';
 import { getUserAgent } from '../../utils';
-import { dateFormat } from 'constant/date';
+import { dateFormat } from 'childs/lib/constant/date';
 import moment from 'moment';
 import { devLog } from 'childs/lib/common/devLog';
 

@@ -1,7 +1,7 @@
 import { observable, action, toJS } from 'mobx';
 import { isBrowser } from 'childs/lib/common/isServer';
 import localStorage from 'childs/lib/common/localStorage';
-import key from 'constant/key';
+import key from 'childs/lib/constant/key';
 import _ from 'lodash';
 
 export default class ProductRecentlySeenStore {

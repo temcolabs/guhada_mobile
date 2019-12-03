@@ -2,10 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import css from './Loading.module.scss';
 import { isBrowser } from 'childs/lib/common/isServer';
+import cn from 'classnames';
 
-const Loading = () => {
+export const LoadingSpinner = ({ isAbsolute = false }) => {
   return (
-    <div className={css.wrap}>
+    <div className={cn(css.wrap, { [css.isAbsolute]: isAbsolute })}>
       <div className={css.loader}>
         <div className={css.box} />
         <div className={css.box} />
@@ -27,7 +28,7 @@ const Loading = () => {
 const LoadingPortal = () => {
   return isBrowser
     ? ReactDOM.createPortal(
-        <Loading />,
+        <LoadingSpinner />,
         document.getElementById('__next') ||
           document.getElementsByTagName('body')[0]
       )

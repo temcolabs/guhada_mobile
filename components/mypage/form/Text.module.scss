@@ -1,0 +1,22 @@
+@import 'styles/var';
+@import 'styles/mixins/index';
+
+.wrap {
+  min-height: 36px;
+  padding: 8px 0 9px;
+  font-size: 13px;
+  font-weight: 400;
+  color: #444444;
+
+  &.hasBorder {
+    border: 1px solid #eeeeee;
+    border-radius: 4px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  &.disabled {
+    background-color: #f9f9fa;
+    color: #777777;
+  }
+}

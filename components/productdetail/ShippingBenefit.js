@@ -4,8 +4,8 @@ import StarItem from './StarItem';
 import { inject, observer } from 'mobx-react';
 import _ from 'lodash';
 import cn from 'classnames';
-import { pushRoute, sendBackToLogin } from 'lib/router';
-import { loginStatus } from 'constant/';
+import { pushRoute, sendBackToLogin } from 'childs/lib/router';
+import { loginStatus } from 'childs/lib/constant';
 import CardInterestModal from 'components/common/modal/CardInterestModal';
 @inject(
   'productreview',

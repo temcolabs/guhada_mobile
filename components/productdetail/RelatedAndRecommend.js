@@ -1,7 +1,7 @@
 import React from 'react';
 import css from './RelatedAndRecommend.module.scss';
 import cn from 'classnames';
-import { pushRoute } from 'lib/router';
+import { pushRoute } from 'childs/lib/router';
 
 export default function RelatedAndRecommend({
   dealsOfSameBrand = [

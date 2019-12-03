@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import css from './MainSectionItem.module.scss';
 import cn from 'classnames';
 
-import { mainSectionCategory } from 'constant/home/mainSectionCategory';
+import { mainSectionCategory } from 'childs/lib/constant/home/mainSectionCategory';
 import SectionItem from './SectionItem';
-import { LinkRoute } from 'lib/router';
+import { LinkRoute } from 'childs/lib/router';
 import _ from 'lodash';
 
 export default function MainSectionItem({

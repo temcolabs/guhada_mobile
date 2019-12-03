@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import css from './SellerStoreProduct.module.scss';
 import SectionItem from 'components/home/SectionItem';
 import _ from 'lodash';
-import { LinkRoute } from 'lib/router';
+import { LinkRoute } from 'childs/lib/router';
 import { useObserver } from 'mobx-react-lite';
 import SellerStoreOrder from './SellerStroeOrder';
 

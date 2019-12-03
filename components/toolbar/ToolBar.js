@@ -1,20 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import css from './ToolBar.module.scss';
 import cn from 'classnames';
 import ToolbarCategory from './ToolbarCategory';
 import ToolbarBrand from './ToolbarBrand';
-import Router from 'next/router';
-import { inject } from 'mobx-react';
-import LuckydrawLogin from 'template/event/LuckydrawLogin';
-import LuckydrawSignup from 'template/event/LuckydrawSignup';
-import LuckydrawModify from 'template/event/LuckydrawModify';
-import { loginStatus } from 'constant/';
 import { useObserver } from 'mobx-react-lite';
+import { pushRoute } from 'childs/lib/router';
+import useStores from 'stores/useStores';
 
-function ToolBar({ alert, luckyDraw, login }) {
+function ToolBar() {
+  const { alert } = useStores();
   const [isCategoryVisible, setIsCategoryVisible] = useState(false);
   const [isBrandVisible, setIsBrandVisible] = useState(false);
   const [selectedTool, setSelectedTool] = useState('');
+
+  const handleClickMypage = useCallback(() => {
+    // FIXME: 마이페이지 개발 완료 후 조건문 제거
+    const isMypageEnabled = process.env.NODE_ENV === 'development';
+
+    if (isMypageEnabled) {
+      setSelectedTool('mypage');
+      pushRoute('/mypage');
+    } else {
+      alert.showAlert({ content: '모바일 버전 준비중입니다.' });
+    }
+  }, [alert]);
 
   return useObserver(() => (
     <div className={css.wrap}>
@@ -44,7 +53,7 @@ function ToolBar({ alert, luckyDraw, login }) {
       <div
         onClick={() => {
           setSelectedTool('home');
-          Router.push('/?home=0');
+          pushRoute('/?home=0');
         }}
         className={cn(css.itemWrap, css.home, {
           [css.selected]: selectedTool === 'home',
@@ -52,7 +61,7 @@ function ToolBar({ alert, luckyDraw, login }) {
       >
         홈
       </div>
-      <div
+      {/* <div
         onClick={() => {
           setSelectedTool('community');
           alert.showAlert({ content: '모바일 버전 준비중입니다.' });
@@ -62,12 +71,9 @@ function ToolBar({ alert, luckyDraw, login }) {
         })}
       >
         커뮤니티
-      </div>
+      </div> */}
       <div
-        onClick={() => {
-          setSelectedTool('mypage');
-          alert.showAlert({ content: '모바일 버전 준비중입니다.' });
-        }}
+        onClick={handleClickMypage}
         className={cn(css.itemWrap, css.mypage, {
           [css.selected]: selectedTool === 'mypage',
         })}
@@ -89,4 +95,4 @@ function ToolBar({ alert, luckyDraw, login }) {
     </div>
   ));
 }
-export default inject('alert', 'luckyDraw', 'login')(ToolBar);
+export default ToolBar;

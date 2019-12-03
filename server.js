@@ -68,14 +68,19 @@ app
 
     /**
      * 일부 라우트는 production 모드에서 접근했을 때 인덱스(/) 라우트로 보낸다
+     *
+     * FIXME: 마이페이지 개발 완료 후에는 이 미들웨어를 완전히 제거
      */
     server.use(function(req, res, next) {
       const isProd = process.env.NODE_ENV === 'production';
+      const host = req.headers.host;
+      const isProdHost = isProd && host === 'm.guhada.com';
+
       const routeRegexToBlock = [/^\/mypage/];
       const isRedirectRequired =
         routeRegexToBlock.findIndex(r => r.test(req.path)) > -1;
 
-      if (isProd && isRedirectRequired) {
+      if (isProdHost && isRedirectRequired) {
         res.redirect('/');
       } else {
         next();

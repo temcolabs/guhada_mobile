@@ -3,6 +3,7 @@ import Head from 'next/head';
 import AddressManagement from 'template/mypage/AddressManagement';
 import withAuth from 'components/common/hoc/withAuth';
 
+@withAuth({ isAuthRequired: true })
 class AddressManagementPage extends Component {
   render() {
     return (
@@ -17,4 +18,4 @@ class AddressManagementPage extends Component {
   }
 }
 
-export default withAuth({ isAuthRequired: true })(AddressManagementPage);
+export default AddressManagementPage;

@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { withRouter } from 'next/router';
+<<<<<<< HEAD
 import css from './AddressManagement.module.scss';
 import DefaultLayout from 'components/layout/DefaultLayout';
+=======
+>>>>>>> develop
 import MypageLayout from 'components/mypage/MypageLayout';
 import MypageAddressList from 'components/mypage/address/MypageAddressList';
 import MypageAddressModal from 'components/mypage/address/MypageAddressModal';
@@ -15,12 +18,12 @@ class AddressManagement extends Component {
   render() {
     let { mypageAddress } = this.props;
     return (
-      <DefaultLayout
+      <MypageLayout
         topLayout={'main'}
         pageTitle={'마이페이지'}
-        toolBar={false}
         headerShape={'mypage'}
       >
+<<<<<<< HEAD
         <MypageLayout>
           <div className={css.wrap}>
             <div
@@ -38,6 +41,10 @@ class AddressManagement extends Component {
           </div>
         </MypageLayout>
       </DefaultLayout>
+=======
+        <div>배송지 관리</div>
+      </MypageLayout>
+>>>>>>> develop
     );
   }
 }

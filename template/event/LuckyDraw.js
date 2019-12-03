@@ -16,7 +16,7 @@ import LuckydrawLogin from './LuckydrawLogin';
 import LuckydrawSignup from './LuckydrawSignup';
 import LuckydrawModify from './LuckydrawModify';
 import CategorySlider from 'components/common/CategorySlider';
-import { mainCategory } from 'constant/category';
+import { mainCategory } from 'childs/lib/constant/category';
 import LoadingPortal from 'components/common/loading/Loading';
 
 const enhancer = compose(withRouter);
@@ -64,11 +64,13 @@ function LuckyDraw({ router }) {
         />
 
         <main className={css.main}>
-          <div className={css.slideWrap}>
-            <LuckyDrawMainSlider
-              imageList={luckyDrawStore.luckyDrawData?.titleList}
-            />
-          </div>
+          {luckyDrawStore.luckyDrawData?.titleList?.length > 0 && (
+            <div className={css.slideWrap}>
+              <LuckyDrawMainSlider
+                imageList={luckyDrawStore.luckyDrawData?.titleList}
+              />
+            </div>
+          )}
 
           {isCountdownVisible && (
             <div className={css.timerWrap}>
