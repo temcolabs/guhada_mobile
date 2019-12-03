@@ -164,15 +164,15 @@ const MENUBAR_SECTIONS = [
   //     },
   //   ]
   // },
-  // {
-  //   links: [
-  //     {
-  //       targetPaths: [mypageRouteObj['/mypage/AddressManagement']?.asPath],
-  //       asPath: mypageRouteObj['/mypage/AddressManagement']?.asPath,
-  //       text: '배송지 관리',
-  //     },
-  //   ],
-  // },
+  {
+    links: [
+      {
+        targetPaths: [mypageRouteObj['/mypage/AddressManagement']?.asPath],
+        asPath: mypageRouteObj['/mypage/AddressManagement']?.asPath,
+        text: '배송지',
+      },
+    ],
+  },
   // * 회원 등급 메뉴는 빠지기로 결정됨
   // {
   //   links: [

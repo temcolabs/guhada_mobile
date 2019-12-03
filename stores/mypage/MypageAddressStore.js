@@ -59,7 +59,7 @@ export default class MypageAddressStore {
     zipcode: '',
   };
   @observable orderAddressPurchaseId = null;
-
+  @observable defaultAddress = false;
   @action
   getAddressList = async () => {
     const action = () => {
@@ -160,6 +160,7 @@ export default class MypageAddressStore {
     };
     this.editAddress = {};
     this.addressType = 'R';
+    this.defaultAddress = false;
   };
 
   @action
@@ -245,6 +246,7 @@ export default class MypageAddressStore {
         break;
       case 'defaultCheck':
         this.newAddress.defaultAddress = e.target.checked;
+        this.defaultAddress = e.target.checked;
         break;
       default:
         break;
@@ -335,6 +337,7 @@ export default class MypageAddressStore {
         break;
       case 'defaultCheck':
         this.editAddress.defaultAddress = e.target.checked;
+        this.defaultAddress = e.target.checked;
         break;
 
       default:

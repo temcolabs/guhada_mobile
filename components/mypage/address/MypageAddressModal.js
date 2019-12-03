@@ -12,6 +12,7 @@ class MypageAddressModal extends Component {
    */
   renderEditModal() {
     const { mypageAddress } = this.props;
+
     return (
       <div className={css.modal}>
         <div className={css.modal__top}>
@@ -123,7 +124,7 @@ class MypageAddressModal extends Component {
                   onChange={e => {
                     mypageAddress.setEditAddress(e, 'defaultCheck');
                   }}
-                  // checked={mypageAddress.editAddress.detailAddress}
+                  checked={mypageAddress.defaultAddress}
                 />
                 <div className={css.checkBox} />
                 <div className={css.labelTxt}>기본 배송지로 설정</div>
@@ -266,6 +267,7 @@ class MypageAddressModal extends Component {
                   onChange={e => {
                     mypageAddress.setNewAddress(e, 'defaultCheck');
                   }}
+                  checked={mypageAddress.defaultAddress}
                 />
                 <div className={css.checkBox} />
                 <div className={css.labelTxt}>기본 배송지로 설정</div>
