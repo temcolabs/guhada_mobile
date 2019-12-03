@@ -5,7 +5,7 @@ $browserTool: 50px;
   color: #393939;
   margin-top: 20px;
   position: relative;
-  overflow-y: auto;
+  //   overflow-y: auto;
   display: inline-block;
   width: 100%;
   height: calc(100vh - #{$burgerHeader} - #{$browserTool});
