@@ -8,8 +8,8 @@ $browserTool: 50px;
   //   overflow-y: auto;
   display: inline-block;
   width: 100%;
-  height: calc(100vh - #{$burgerHeader} - #{$browserTool});
-  padding-bottom: $browserTool;
+  //   height: calc(100vh - #{$burgerHeader} - #{$browserTool});
+  //   padding-bottom: $browserTool;
 
   & li {
     list-style: none;
