@@ -17,10 +17,14 @@ import { pushRoute } from 'childs/lib/router';
 import _ from 'lodash';
 import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
 import isTruthy from 'childs/lib/common/isTruthy';
+import AppDownload from 'components/event/popup/AppDownload';
+import FirstPurchase from 'components/event/popup/FirstPurchase';
+// import FirstPurchaseReward from 'components/event/popup/FirstPurchaseReward';
+import Cookies from 'js-cookie';
 
 @withScrollToTopOnMount
 @withRouter
-@inject('main', 'searchitem')
+@inject('main', 'searchitem', 'eventmain')
 @observer
 class Home extends React.Component {
   static propTypes = {};
@@ -65,6 +69,15 @@ class Home extends React.Component {
       widerplanetTracker.signUp({});
     }
     window.addEventListener('scroll', this.scrollDirection);
+    // let cookie = Cookies.get(key.ACCESS_TOKEN);
+    let checkAppDownCookie = Cookies.get('appDownPopupStop');
+    let checkFirstPurchaseCookie = Cookies.get('firstPurchasePopupStop');
+    // if (!checkAppDownCookie) {
+    //   this.props.eventmain.appDownPopupOpen();
+    // }
+    // if (!checkFirstPurchaseCookie) {
+    //   this.props.eventmain.firstPurchasePopupOpen();
+    // }
   }
 
   componentWillUnmount() {
@@ -88,7 +101,7 @@ class Home extends React.Component {
   };
 
   render() {
-    const { main, searchitem } = this.props;
+    const { main, searchitem, eventmain } = this.props;
 
     return (
       <DefaultLayout
@@ -141,6 +154,13 @@ class Home extends React.Component {
             searchitem={searchitem}
           />
         </HomeItemDefault>
+
+        <AppDownload isOpen={eventmain.status.appDownPopupIsOpen} />
+        <FirstPurchase isOpen={eventmain.status.firstPurchasePopupIsOpen} />
+        {/* <FirstPurchaseReward
+          isOpen={eventmain.status.firstPurchaseRewardPopupIsOpen}
+        /> */}
+
         <Footer />
       </DefaultLayout>
     );
