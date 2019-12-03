@@ -135,6 +135,7 @@ class GuhadaMobileWeb extends App {
       /^\/productdetail.*/, // 상품 상세
       /^\/shoppingcart.*/, // 카트
       /^\/orderpaymentsuccess.*/, // 구매 완료
+      /^\/event\/luckydraw.*/, // 럭키드로우
     ];
 
     if (isBrowser) {
@@ -151,11 +152,6 @@ class GuhadaMobileWeb extends App {
           this.mobxStore.user.pushJobForUserInfo(userInfo => {
             // 공통
             widerplanetTracker.common({
-              userId: userInfo?.id,
-            });
-
-            // 로그인
-            widerplanetTracker.signIn({
               userId: userInfo?.id,
             });
           });

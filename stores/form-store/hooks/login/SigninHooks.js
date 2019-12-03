@@ -4,6 +4,7 @@ import qs from 'qs';
 import { pushRoute } from 'childs/lib/router';
 import { devLog } from 'childs/lib/common/devLog';
 import _ from 'lodash';
+import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
 export default {
   onInit(form) {},
 

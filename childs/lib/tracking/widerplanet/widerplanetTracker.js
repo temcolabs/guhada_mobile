@@ -316,7 +316,7 @@ export default {
 
     if (isBrowser) {
       loadScript(null, {
-        id: scriptIds.WIDERPLANET_TRACKER + `_PURCHASE_COMPLETE_CONVERSION`,
+        id: scriptIds.WIDERPLANET_TRACKER + `_APPLICATION_COMPLETE_CONVERSION`,
         async: false,
         replaceExitsing: true,
         innerHTML: `
@@ -327,14 +327,14 @@ export default {
                 wp_hcuid: ${convertUserIdForTracker(userId)},
                 /*고객넘버 등 Unique ID (ex. 로그인  ID, 고객넘버 등 )를 암호화하여 대입. *주의 : 로그인 하지 않은 사용자는 어떠한 값도 대입하지 않습니다.*/
                 ti: "${ACCOUNT_ID}" /*광고주 코드 */,
-                ty:"EVENT",
-                device:"${getDeviceType()}",
+                ty: "EVENT",
+                device: "${getDeviceType()}",
                 items: [
                   {
-                    i: '응모하기 ' /*전환 식별 코드  (한글 , 영어 , 번호 , 공백 허용 )*/,
-                    t: '응모하기 ' /*전환명  (한글 , 영어 , 번호 , 공백 허용 )*/,
-                    p: '1' /*전환가격  (전환 가격이 없을경우 1로 설정 )*/,
-                    q: '1' /*전환수량  (전환 수량이 고정적으로 1개 이하일 경우 1로 설정 )*/,
+                    i: "응모하기 " /*전환 식별 코드  (한글 , 영어 , 번호 , 공백 허용 )*/,
+                    t: "응모하기 " /*전환명  (한글 , 영어 , 번호 , 공백 허용 )*/,
+                    p: "1" /*전환가격  (전환 가격이 없을경우 1로 설정 )*/,
+                    q: "1" /*전환수량  (전환 수량이 고정적으로 1개 이하일 경우 1로 설정 )*/,
                   },
                 ],
               };
@@ -346,7 +346,9 @@ export default {
       loadScript(WIDER_PLANET_TRACKER_URL, {
         async: true,
         id: scriptIds.WIDERPLANET_TRACKER,
+        replaceExitsing: true,
         onLoad: () => {
+          devLog(`WIDERPLANET_TRACKER onLoad`, window.wptg_tagscript_vars);
           window.wptg_tagscript.exec();
         },
       });
