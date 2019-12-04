@@ -4,13 +4,13 @@
   width: 100%;
   display: flex;
   margin-top: 12px;
+  flex-wrap: wrap;
 }
 
 .orderActionButton {
+  flex: 1 1 calc((100% - 8px) / 2);
   display: inline-flex;
   justify-content: center;
-
-  width: calc((100% - 8px) / 2);
   height: 40px;
   margin-top: 8px;
   margin-right: 0;

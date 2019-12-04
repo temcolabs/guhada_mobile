@@ -9,6 +9,7 @@ import OrderItemTable from 'components/mypage/order/OrderItemTable';
 import { inject, observer } from 'mobx-react';
 import addHyphenToMobile from 'childs/lib/string/addHyphenToMobile';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
+import MypageSectionTitle from 'components/mypage/MypageSectionTitle';
 
 @withScrollToTopOnMount
 @withRouter
@@ -68,13 +69,12 @@ class OrderCompleteDetail extends Component {
             )}
           </div>
 
-          <div title="주문 상품 정보" wrapperStyle={{ marginTop: '40px' }} />
           <OrderItemTable orderList={orderData?.orderList} />
 
           {/* 구매자 정보 */}
           <div className={css.buyerInfomation}>
             <div className={css.buyerInfomation__section}>
-              <h2 className={css.buyerInfomation__sectionTitle}>주문자 정보</h2>
+              <MypageSectionTitle>주문자 정보</MypageSectionTitle>
               <table className={css.buyerInfomation__table}>
                 <tbody>
                   <tr>
@@ -95,7 +95,7 @@ class OrderCompleteDetail extends Component {
             </div>
 
             <div className={css.buyerInfomation__section}>
-              <h2 className={css.buyerInfomation__sectionTitle}>배송지 정보</h2>
+              <MypageSectionTitle>배송지 정보</MypageSectionTitle>
               <table className={css.buyerInfomation__table}>
                 <tbody>
                   <tr>
@@ -123,7 +123,7 @@ class OrderCompleteDetail extends Component {
             </div>
           </div>
 
-          <div title="결제 정보" />
+          <MypageSectionTitle>결제 정보</MypageSectionTitle>
           <PaymentInfo order={orderData} />
         </div>
       </MypageLayout>
