@@ -95,10 +95,19 @@ class AddressItem extends Component {
               <input
                 type="text"
                 value={
-                  orderpayment.addressType === 'R'
-                    ? tempEditAddress.roadAddress || tempEditAddress.address
-                    : tempEditAddress.address || tempEditAddress.roadAddress
+                  tempEditAddress.zip
+                    ? `${`(우:${tempEditAddress.zip})`} ${
+                        orderpayment.addressType === 'R'
+                          ? tempEditAddress.roadAddress ||
+                            tempEditAddress.address ||
+                            ''
+                          : tempEditAddress.address ||
+                            tempEditAddress.roadAddress ||
+                            ''
+                      }`
+                    : null
                 }
+                readOnly
                 onClick={() => {
                   orderpayment.searchZipcode(
                     '주문페이지-수정',
@@ -106,8 +115,6 @@ class AddressItem extends Component {
                     null
                   );
                 }}
-                id="edit__address"
-                readOnly
               />
             </div>
 
@@ -199,7 +206,9 @@ class AddressItem extends Component {
 
             <div className={css.section}>
               <div className={css.address}>
-                {`[${data.zip}] ${data.roadAddress} ${data.detailAddress}`}
+                {`[${data.zip}] ${data.roadAddress || data.address} ${
+                  data.detailAddress
+                }`}
               </div>
             </div>
             <div className={css.section}>

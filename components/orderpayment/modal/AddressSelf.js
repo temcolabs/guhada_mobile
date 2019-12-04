@@ -59,12 +59,27 @@ class AddressSelf extends Component {
               id="newAddress"
               placeholder="주소"
               readOnly
+              onClick={() => {
+                orderpayment.searchZipcode(
+                  '주문페이지-신규',
+                  null,
+                  orderpayment.setNewShippingAddress
+                );
+              }}
               value={
-                orderpayment.addressType === 'R'
-                  ? orderpayment.orderShippingList.newAddress.roadAddress ||
-                    orderpayment.orderShippingList.newAddress.address
-                  : orderpayment.orderShippingList.newAddress.address ||
-                    orderpayment.orderShippingList.newAddress.roadAddress
+                orderpayment.orderShippingList.newAddress.zip
+                  ? `${
+                      orderpayment.addressType === 'R'
+                        ? orderpayment.orderShippingList.newAddress
+                            .roadAddress ||
+                          orderpayment.orderShippingList.newAddress.address ||
+                          ''
+                        : orderpayment.orderShippingList.newAddress.address ||
+                          orderpayment.orderShippingList.newAddress
+                            .roadAddress ||
+                          ''
+                    }`
+                  : null
               }
             />
           </div>
