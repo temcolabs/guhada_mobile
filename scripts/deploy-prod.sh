@@ -10,11 +10,3 @@ echo "> git pull && build app"
 cd $DEST_REPO && git reset --hard && git remote update --prune && git checkout $BRANCH && git pull && rm -rf .next && npm install && npm run build
 
 HOST=$HOST ./scripts/deploy-prod-upload.sh
-
-# 로드 밸런싱을 사용한다면 동시 배포
-# HOST=$HOST1 ./scripts/deploy-prod-upload.sh & HOST=$HOST2 ./scripts/deploy-prod-upload.sh
-
-echo "> delete old build files from build server"
-exit
-cd $DEST_REPO
-./scripts/delete-old-builds.sh
