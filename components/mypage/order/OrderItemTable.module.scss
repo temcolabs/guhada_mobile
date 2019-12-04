@@ -1,60 +1,6 @@
 @import 'styles/mixins/index';
 
-table.orderItemTable {
-  border: none;
-
-  td,
-  th {
-    border: none;
-  }
-
-  thead {
-    tr {
-      border-bottom: 1px solid #eeeeee;
-    }
-
-    th {
-      color: #444444;
-      padding: 16px 16px 15px;
-      font-weight: 500;
-    }
-  }
-
-  tbody {
-    border-bottom: 1px solid #eee;
-
-    tr {
-      border-bottom: 1px dashed #eee;
-
-      &:last-child {
-        border-bottom: none;
-      }
-    }
-
-    td {
-      padding: 40px 30px;
-
-      // 이미지 + 상품명+ 가격
-      &:nth-child(1) {
-        max-width: 550px;
-      }
-
-      // 수량
-      &:nth-child(2),
-       // 배송비
-      &:nth-child(3),
-      // 주문금액
-      &:nth-child(4) {
-        min-width: 120px;
-        @include mediaMD {
-          min-width: 110px;
-        }
-      }
-
-      &:nth-child(3),
-      &:nth-child(4) {
-        color: #444444;
-      }
-    }
-  }
+.orderItemTable {
+  background: #fff;
+  padding: 0 20px;
 }

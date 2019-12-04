@@ -4,6 +4,15 @@ import Header from 'components/header/Header';
 import ToolBar from 'components/toolbar/ToolBar';
 import Router from 'next/router';
 import { inject, observer } from 'mobx-react';
+import memoize from 'memoize-one';
+
+const topLayouts = {
+  main: 'main',
+  category: 'category',
+  brand: 'brand',
+  search: 'search',
+  keyword: 'keyword',
+};
 
 /**
  * DefaultLayout
@@ -23,15 +32,51 @@ class DefaultLayout extends Component {
       this.shoppingCartAmountCheck();
     };
   }
+
+  static defaultProps = {
+    wrapperStyle: {},
+    toolBar: true,
+  };
+
+  /**
+   * 페이지에 따라서 상단 패딩의 높이가 다르다.
+   * topLayout props 값을 기준으로 계산한다
+   */
+  get paddingTopMap() {
+    const headerHeight = 60;
+    const categorySize = 44;
+    const searchTabSize = 56;
+
+    return {
+      [topLayouts.main]: headerHeight,
+      [topLayouts.category]: headerHeight + categorySize,
+      [topLayouts.brand]: headerHeight + searchTabSize,
+      [topLayouts.search]: headerHeight + categorySize + searchTabSize,
+      [topLayouts.keyword]: headerHeight + searchTabSize,
+    };
+  }
+
+  getWrapperStyle = memoize((style, toolBar, topLayout) => {
+    console.log(`style, toolBar, topLayout`, style, toolBar, topLayout);
+
+    return {
+      paddingTop: `${this.paddingTopMap[topLayout]}px`,
+      paddingBottom: toolBar ? '57px' : 0, // 하단 툴바가 있으면 툴바 높이만큼 간격을 추가해준다.
+      ...style,
+    };
+  });
+
   componentDidMount() {
     this.shoppingCartAmountCheck();
   }
+
   shoppingCartAmountCheck = () => {
     const job = () => {
       this.props.shoppingcart.globalGetUserShoppingCartList();
     };
     this.props.user.pushJobForUserInfo(job);
   };
+
   render() {
     const {
       pageTitle,
@@ -39,35 +84,22 @@ class DefaultLayout extends Component {
       headerShape,
       topLayout,
       scrollDirection,
+      wrapperStyle,
     } = this.props;
-    const headerSize = 60;
-    const categorySize = 44;
-    const searchTabSize = 56;
-
-    let paddingTop;
 
     let cartAmount = this.props.shoppingcart.cartAmount;
-    if (topLayout === 'main') {
-      paddingTop = headerSize;
-    } else if (topLayout === 'category') {
-      paddingTop = headerSize + categorySize;
-    } else if (topLayout === 'brand') {
-      paddingTop = headerSize + searchTabSize;
-    } else if (topLayout === 'search') {
-      paddingTop = headerSize + categorySize + searchTabSize;
-    } else if (topLayout === 'keyword') {
-      paddingTop = headerSize + searchTabSize;
-    }
+
+    console.log(
+      `this.getWrapperStyle(wrapperStyle, toolBar, topLayout)`,
+      this.getWrapperStyle(wrapperStyle, toolBar, topLayout)
+    );
 
     return (
       <div
         className={css.wrap}
-        style={
-          scrollDirection === 'down'
-            ? // ? { paddingTop: `0px` }
-              { paddingTop: `${paddingTop}px` }
-            : { paddingTop: `${paddingTop}px` }
-        }
+        style={{
+          ...this.getWrapperStyle(wrapperStyle, toolBar, topLayout),
+        }}
       >
         {topLayout === 'keyword' ? null : (
           <Header

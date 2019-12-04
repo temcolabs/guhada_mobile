@@ -4,7 +4,7 @@ import cn from 'classnames';
 import MypageMenubar from 'components/mypage/MypageMenubar';
 import { withRouter } from 'next/router';
 import { inject, observer } from 'mobx-react';
-import { string, bool } from 'prop-types';
+import { string, bool, object } from 'prop-types';
 import Footer from 'components/footer/Footer';
 import DefaultLayout from 'components/layout/DefaultLayout';
 
@@ -20,29 +20,34 @@ class MypageLayout extends React.Component {
 
     // MypageLayout props
     isMenuVisibile: bool, // 상단 메뉴바 표시 여부
+    defaultLayoutStyle: object,
   };
 
   static defaultProps = {
     isMenuVisibile: true,
-    router: {},
   };
 
   render() {
-    const { isMenuVisibile, ...rest } = this.props;
+    const {
+      isMenuVisibile,
+      defaultLayoutStyle = {},
+      wrapperStyle = {},
+      ...rest
+    } = this.props;
+
     return (
-      <DefaultLayout toolbar {...rest}>
+      <DefaultLayout toolBar wrapperStyle={defaultLayoutStyle} {...rest}>
         <div
           className={cn(css.wrap, {
             [css.isMenuVisible]: isMenuVisibile,
           })}
+          style={wrapperStyle}
         >
           {isMenuVisibile && <MypageMenubar />}
 
           <div className={css.pageContents}>{this.props.children}</div>
 
-          <div className={css.footerWrap}>
-            <Footer />
-          </div>
+          <Footer />
         </div>
       </DefaultLayout>
     );

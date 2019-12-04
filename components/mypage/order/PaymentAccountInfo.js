@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import css from './PaymentAccountInfo.module.scss';
 import moment from 'moment';
 import { dateFormat } from 'childs/lib/constant';
 import paymentMethod, {
   paymentMethodOptions,
-  paymentMethodTypes,
 } from 'childs/lib/constant/order/paymentMethod';
-import addCommaToNum from 'childs/lib/common/addCommaToNum';
 
 /**
  * 결제정보 섹션에서 결제 수단별 상세정보

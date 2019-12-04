@@ -19,7 +19,6 @@ import { LoadingSpinner } from 'components/common/loading/Loading';
 import EmptyListNoti from 'components/mypage/EmptyListNoti';
 import OrderItem from 'components/mypage/order/OrderItem';
 import Pagination from 'components/common/Pagination';
-
 import OrderAddressEditModal from 'components/mypage/order/OrderAddressEditModal';
 // import MypageAddressModal from 'components/mypage/address/MypageAddressModal';
 // import ReviewWriteModal, {
@@ -226,8 +225,7 @@ class OrderCompleteList extends Component {
     return (
       <MypageLayout
         topLayout={'main'}
-        pageTitle={'마이페이지'}
-        toolBar={true}
+        pageTitle={'주문배송'}
         headerShape={'mypage'}
       >
         <PeriodSelector

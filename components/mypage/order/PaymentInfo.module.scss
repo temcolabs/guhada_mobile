@@ -2,173 +2,50 @@
 @import 'styles/var';
 
 .wrap {
-  @include gridContainer(0);
+  padding: 30px 20px;
 }
 
-.row {
-  @include gridRow;
-  border-bottom: 1px solid $guhada-base-line;
+.sectionWrap {
 }
+.section {
+  padding: 20px 0;
 
-@mixin iconOnDivider {
-  @include centeredY;
-  right: calc(-1 * (25px / 2));
-  content: ' ';
-  font-size: 30px;
-  line-height: 1;
-  width: 25px;
-  height: 25px;
-  z-index: 1;
-  background-size: contain;
-  background-position: center;
-  border-radius: 50%;
-}
-
-.column {
-  position: relative;
-  padding-top: 40px;
-  padding-bottom: 36px;
-
-  &.withMinus {
-    &::after {
-      @include iconOnDivider;
-      background-image: url('/static/icon/mypage/order-result-minus@3x.png');
-    }
+  &:first-child {
+    border-top: 1px solid #111;
+    padding-top: 30px;
+    margin-top: 20px;
   }
 
-  &.withEqual {
-    &::after {
-      @include iconOnDivider;
-      background-image: url('/static/icon/order_result_equal.png');
-    }
-
-    &.equalAtPointArea {
-      &::after {
-        top: 50px;
-      }
-    }
-  }
-
-  &.withBorderRight {
-    border-right: 1px solid $guhada-base-line;
+  &:not(:first-child) {
+    border-top: 1px solid #eeeeee;
   }
 }
 
-.column_1_3 {
-  @include gridColumn(1/3, 0);
-  padding-left: 20px;
-  padding-right: 30px;
-}
+.section__field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-.column_2_3 {
-  @include gridColumn(2/3, 0);
-  padding-left: 20px;
-  padding-right: 30px;
-}
-
-.totalPayments {
-  .column {
-    &:nth-child(1),
-    &:nth-child(2) {
-      background: #f9f9fa;
-      min-height: 172px;
-    }
+  &:not(:first-child) {
+    margin-top: 18px;
   }
-}
 
-.label {
-  @include clearfix;
-  float: left;
-
-  & > * {
-    float: left;
-  }
-}
-.value {
-  float: right;
-}
-
-.totalPrice {
-  @include clearfix;
-  font-weight: bold;
-  color: #444;
-  margin-bottom: 34px;
-
-  .label {
+  &.isHeading {
     font-size: 14px;
+    font-weight: bold;
   }
 
-  .value {
-    font-size: 20px;
-  }
-}
+  &.isTotal {
+    color: $blue-purple;
 
-.totalPriceDetail {
-  @include clearfix;
-  color: #777;
-  margin-top: 10px;
-
-  .label {
-    font-size: 13px;
-  }
-
-  .value {
-    font-size: 13px;
-    font-weight: 500;
-  }
-}
-
-.pointsInfo {
-  .column {
-    padding: 39px 40px 35px;
-  }
-
-  .label {
-    font-size: 14px;
-    margin-right: 70px;
-  }
-
-  .value {
-    font-size: 16px;
-    font-weight: 700;
-    color: #444;
-  }
-}
-
-.point {
-  position: relative;
-  float: left;
-  font-size: 16px;
-  font-weight: bold;
-  min-width: 60px;
-  color: #444;
-
-  &.withPlus {
-    $plusIconGap: 55px;
-    margin-right: calc(#{$plusIconGap} * 2);
-    &::after {
-      @include centeredY;
-      content: '+';
-      top: 8px;
-      right: calc((#{$plusIconGap} + 10px) * -1);
-      font-size: 35px;
-      font-weight: 100;
-      color: #e1e3e8;
+    & > .section__value {
+      font-size: 20px;
     }
   }
-
-  .description {
-    margin-top: 10px;
-    font-size: 12px;
-    color: #777;
-  }
 }
 
-.point {
-  text-align: center;
+.section__label {
 }
 
-.unitPoint {
-  font-size: 12px;
-  margin-left: -2px;
+.section__value {
 }
