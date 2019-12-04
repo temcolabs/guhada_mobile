@@ -756,11 +756,6 @@ export default class OrderPaymentStore {
         content: '[필수] 본인인증을 해주세요.',
       });
       paymentCheck = false;
-    } else if (!this.orderUserInfo.emailVerify) {
-      this.root.alert.showAlert({
-        content: '이메일을 인증해주세요.',
-      });
-      paymentCheck = false;
     } else if (!this.paymentMethod) {
       this.root.alert.showAlert({
         content: '결제수단을 선택해주세요.',
@@ -772,7 +767,12 @@ export default class OrderPaymentStore {
       });
       paymentCheck = false;
     }
-
+    // else if (!this.orderUserInfo.emailVerify) {
+    //   this.root.alert.showAlert({
+    //     content: '이메일을 인증해주세요.',
+    //   });
+    //   paymentCheck = false;
+    // }
     if (!this.status.selectedShipStatus) {
       if (!this.orderShippingList.newAddress.shippingName) {
         this.root.alert.showAlert({
