@@ -3,7 +3,7 @@ import API from 'childs/lib/API';
 import Router from 'next/router';
 import Form from '../stores/form-store/_.forms';
 import { root } from 'store';
-import { pushRoute } from 'lib/router';
+import { pushRoute } from 'childs/lib/router';
 import { devLog } from 'childs/lib/common/devLog';
 import _ from 'lodash';
 

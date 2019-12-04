@@ -3,10 +3,10 @@ import _ from 'lodash';
 import API from 'childs/lib/API';
 import { root } from 'store';
 import { devLog } from 'childs/lib/common/devLog';
-import userService from 'lib/API/user/userService';
-import notificationService from 'lib/API/user/notificationService';
+import userService from 'childs/lib/API/user/userService';
+import notificationService from 'childs/lib/API/user/notificationService';
 import { isBrowser } from 'childs/lib/common/isServer';
-import verifyService from 'lib/API/user/verifyService';
+import verifyService from 'childs/lib/API/user/verifyService';
 
 export default {
   onInit() {

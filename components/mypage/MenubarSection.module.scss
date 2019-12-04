@@ -1,0 +1,25 @@
+.wrap {
+  margin-right: 22px;
+  display: inline-block;
+
+  &:last-child {
+    margin-right: 0;
+  }
+  .dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    border: 0;
+    background-color: transparent;
+    margin: 0 auto 3.5px auto;
+  }
+  .isSelected {
+    color: #5d2ed1;
+    font-weight: 500;
+
+    .dot {
+      border: solid 1px rgba(0, 0, 0, 0);
+      background-color: #5d2ed1;
+    }
+  }
+}

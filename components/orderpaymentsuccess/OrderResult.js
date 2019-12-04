@@ -95,21 +95,25 @@ class OrderResult extends Component {
               <div className={css.dueSavePointDetail}>
                 {successInfo.totalDueSavePointResponseList.map(
                   (data, index) => {
-                    return data.dueSaveType === 'BUY' ? (
+                    return (
                       <div className={css.duesave__point__value} key={index}>
-                        <div className={css.type}>구매 확정</div>
-                        <div className={css.point}>
-                          {data.totalPoint.toLocaleString() || 0}
-                          <span>P</span>
+                        <div className={css.type}>
+                          {data.dueSaveType === 'BUY'
+                            ? '구매 확정'
+                            : data.dueSaveType === 'REVIEW'
+                            ? '리뷰 작성'
+                            : data.dueSaveType === 'FIRST_ORDER'
+                            ? '첫 구매'
+                            : null}
                         </div>
-                      </div>
-                    ) : (
-                      <div className={css.duesave__point__value} key={index}>
-                        <div className={css.type}>리뷰 작성</div>
                         <div className={css.point}>
-                          {data.totalPoint
+                          {data.dueSaveType === 'BUY'
+                            ? `${data.totalPoint.toLocaleString() || 0}`
+                            : data.dueSaveType === 'REVIEW'
                             ? `최대 ${data.totalPoint.toLocaleString() || 0}`
-                            : 0}
+                            : data.dueSaveType === 'FIRST_ORDER'
+                            ? `${data.totalPoint.toLocaleString() || 0}`
+                            : null}
 
                           <span>P</span>
                         </div>

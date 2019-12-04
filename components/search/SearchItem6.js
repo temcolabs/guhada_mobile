@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import css from './SearchItem6.module.scss';
 import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
-import { LinkRoute } from 'lib/router';
+import { LinkRoute } from 'childs/lib/router';
 
 @observer
 class SearchItem6 extends Component {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import css from './TimeDeal.module.scss';
 import DefaultLayout from 'components/layout/DefaultLayout';
 import CategorySlider from 'components/common/CategorySlider';
-import { mainCategory } from 'constant/category';
+import { mainCategory } from 'childs/lib/constant/category';
 import { observer, inject } from 'mobx-react';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
 import { withRouter } from 'next/router';

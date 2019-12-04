@@ -2,7 +2,7 @@ import { computed, observable, action, toJS } from 'mobx';
 import API from 'childs/lib/API';
 
 export default class MainStore {
-  @observable unitPerPage = 6;
+  @observable unitPerPage = 60;
   @observable plusItem = [];
   @observable newArrivals = [];
   @observable hits = [];

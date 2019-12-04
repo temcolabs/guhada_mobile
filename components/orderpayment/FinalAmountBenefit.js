@@ -178,21 +178,28 @@ const BenefitInfo = props => {
   return (
     <div className={css.benefitInfoWrap}>
       {props.data.totalDueSavePointResponseList.map((data, index) => {
-        return data.dueSaveType === 'BUY' ? (
+        return (
           <div className={css.discountMenu} key={index}>
-            <div className={css.sectionTitle}>구매 확정</div>
-            <div
-              className={css.sectionValue}
-            >{`${data.totalPoint?.toLocaleString() || 0}P`}</div>
+            <div className={css.sectionTitle}>
+              {data.dueSaveType === 'BUY'
+                ? '구매 확정'
+                : data.dueSaveType === 'FIRST_ORDER'
+                ? '첫 구매'
+                : data.dueSaveType === 'REVIEW'
+                ? '리뷰 작성'
+                : null}
+            </div>
+            <div className={css.sectionValue}>
+              {data.dueSaveType === 'BUY'
+                ? `${data.totalPoint?.toLocaleString() || 0}P`
+                : data.dueSaveType === 'FIRST_ORDER'
+                ? `${data.totalPoint?.toLocaleString() || 0}P`
+                : data.dueSaveType === 'REVIEW'
+                ? `최대 ${data.totalPoint?.toLocaleString() || 0}P`
+                : null}
+            </div>
           </div>
-        ) : data.dueSaveType === 'REVIEW' ? (
-          <div className={css.discountMenu} key={index}>
-            <div className={css.sectionTitle}>리뷰 작성</div>
-            <div
-              className={css.sectionValue}
-            >{`최대 ${data.totalPoint?.toLocaleString() || 0}P`}</div>
-          </div>
-        ) : null;
+        );
       })}
     </div>
   );

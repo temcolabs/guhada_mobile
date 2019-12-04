@@ -4,9 +4,9 @@ import API from 'childs/lib/API';
 import _ from 'lodash';
 import { devLog, devGroup, devGroupEnd } from 'childs/lib/common/devLog';
 import naverShoppingTrakers from 'childs/lib/tracking/navershopping/naverShoppingTrakers';
-import daumTrakers from 'childs/lib/tracking/daum/daumTrakers';
+import daumTracker from 'childs/lib/tracking/daum/daumTracker';
 import { root } from 'store';
-import { snsTypes } from 'constant/sns';
+import { snsTypes } from 'childs/lib/constant/sns';
 
 export default {
   onInit(form) {},

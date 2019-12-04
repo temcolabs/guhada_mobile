@@ -1,4 +1,4 @@
-import { offsetToDocument } from './dom';
+import offsetToDocument from '../dom/offsetToDocument';
 
 const canUseDOM = () => typeof window !== 'undefined';
 

@@ -1,11 +1,11 @@
 import { observable, action, toJS } from 'mobx';
-import { loginStatus } from 'constant';
+import { loginStatus } from 'childs/lib/constant';
 import API from 'childs/lib/API';
 import Router from 'next/router';
-import { sendBackToLogin, pushRoute } from 'lib/router';
+import { sendBackToLogin, pushRoute } from 'childs/lib/router';
 import qs from 'qs';
 import naverShoppingTrakers from 'childs/lib/tracking/navershopping/naverShoppingTrakers';
-import daumTrakers from 'childs/lib/tracking/daum/daumTrakers';
+import daumTracker from 'childs/lib/tracking/daum/daumTracker';
 import criteoTracker from 'childs/lib/tracking/criteo/criteoTracker';
 import kochavaTracker from 'childs/lib/tracking/kochava/kochavaTracker';
 import _ from 'lodash';
@@ -84,7 +84,7 @@ export default class CartAndPurchaseStore {
 
             // 트래커 연결
             naverShoppingTrakers.shoppingCart();
-            daumTrakers.shoppingCart();
+            daumTracker.shoppingCart();
             criteoTracker.addDealToCart({
               email: this.root.user?.userInfo?.email,
               items: [
@@ -95,7 +95,6 @@ export default class CartAndPurchaseStore {
                 },
               ],
             });
-
             kochavaTracker.shoppingCart({
               dealId: this.root.productdetail.deals.dealsId,
               productId: this.root.productdetail.deals.productId,

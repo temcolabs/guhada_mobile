@@ -4,13 +4,14 @@ import API from 'childs/lib/API';
 import localStorage from 'childs/lib/common/localStorage';
 import sessionStorage from 'childs/lib/common/sessionStorage';
 import Router from 'next/router';
-import { loginStatus } from 'constant';
-import key from 'constant/key';
+import { loginStatus } from 'childs/lib/constant';
+import key from 'childs/lib/constant/key';
 import { isBrowser } from 'childs/lib/common/isServer';
-import { pushRoute } from 'lib/router';
-import { snsTypes } from 'constant/sns';
+import { pushRoute } from 'childs/lib/router';
+import { snsTypes } from 'childs/lib/constant/sns';
 import _ from 'lodash';
 import { devLog } from 'childs/lib/common/devLog';
+import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
 const isServer = typeof window === 'undefined';
 
 export default class LoginStore {
@@ -161,6 +162,11 @@ export default class LoginStore {
       const { userId } = parsedloginInfo;
 
       this.root.user.getUserInfo({ userId });
+
+      // 와이더플래닛 로그인
+      widerplanetTracker.signIn({
+        userId,
+      });
 
       return parsedloginInfo;
     } else {

@@ -49,7 +49,7 @@ class ProductDetailName extends Component {
             {deals.brandName}
             <span className={css.arrow} />
           </div>
-          <div className={css.detail__number}>{deals.modelNumber}</div>
+          <div className={css.detail__number}>{deals.dealId}</div>
         </div>
 
         <div className={css.inner__middle}>

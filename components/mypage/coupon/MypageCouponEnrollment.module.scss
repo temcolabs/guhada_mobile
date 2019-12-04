@@ -1,0 +1,48 @@
+.wrap {
+  margin-top: 40px;
+  padding: 0 20px;
+
+  .title {
+    font-size: 16px;
+    color: #111;
+    font-weight: bold;
+  }
+
+  .subTitle {
+    font-size: 13px;
+    font-weight: normal;
+    color: #777;
+    margin-top: 10px;
+  }
+
+  .couponRegister {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+
+    .couponInput {
+      flex: 1;
+      input {
+        width: 100%;
+        height: 45px;
+        border: 1px solid #eee;
+        padding: 0 15px;
+        font-size: 13px;
+        color: #777;
+        font-weight: normal;
+      }
+    }
+
+    .button {
+      min-width: 100px;
+      height: 45px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #444;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 500;
+    }
+  }
+}

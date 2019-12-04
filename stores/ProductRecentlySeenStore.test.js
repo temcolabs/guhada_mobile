@@ -1,5 +1,5 @@
 import ProductRecentlySeenStore from './ProductRecentlySeenStore';
-import key from 'constant/key';
+import key from 'childs/lib/constant/key';
 import localStorage from 'childs/lib/common/localStorage';
 
 /**

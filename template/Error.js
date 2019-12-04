@@ -1,6 +1,6 @@
 import React from 'react';
 import css from './Error.module.scss';
-import { pushRoute } from 'lib/router';
+import { pushRoute } from 'childs/lib/router';
 
 export default function Error() {
   return (

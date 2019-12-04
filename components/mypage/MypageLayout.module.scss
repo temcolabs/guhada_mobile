@@ -1,0 +1,8 @@
+@import 'styles/mixins/index';
+@import 'styles/var';
+
+.wrap {
+  &.isMenuVisible {
+    padding-top: $mypageMenuSliderHeight;
+  }
+}

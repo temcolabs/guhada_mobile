@@ -25,8 +25,11 @@ import AlertStore from './AlertStore';
 import BookMarkStore from './BookMarkStore';
 import AuthMobileStore from './AuthMobileStore';
 import CustomerAuthenticationStore from './orderpayment/CustomerAuthenticationStore';
-import MyOrderListStore from './myOrder/OrderListStore';
-import MyOrderDetailStore from './myOrder/OrderDetailStore';
+
+import OrderCompleteListStore from './myOrder/OrderCompleteListStore';
+import OrderCompleteDetailStore from './myOrder/OrderCompleteDetailStore';
+import OrderClaimFormStore from './myOrder/OrderClaimFormStore';
+import OrderClaimListStore from './myOrder/OrderClaimListStore';
 import MypagePointStore from './mypage/MypagePointStore.js';
 import MypagePointChargeStore from './mypage/MypagePointChargeStore.js';
 import MypageReviewStore from './mypage/ReviewStore';
@@ -34,6 +37,15 @@ import MypageCouponStore from './mypage/MypageCouponStore';
 import MypageAddressStore from './mypage/MypageAddressStore';
 import ProductRecentlySeenStore from './ProductRecentlySeenStore';
 import MypageLikeStore from './mypage/MypageLikeStore';
+import MypageRecentlySeenStore from './mypage/MypageRecentlySeenStore';
+import MypageSellerClaimStore from './mypage/MypageSellerClaimStore';
+import MypageFollowStore from './mypage/MypageFollowStore';
+import MypageDashboardStore from './mypage/MypageDashboardStore';
+import MypageTokenStore from './mypage/MypageTokenStore';
+import MypageInquirieStore from './mypage/MypageInquirieStore';
+import MySizeStore from './mypage/MySizeStore';
+import MypageDeliveryStore from './mypage/MypageDeliveryStore';
+
 import CountdownStore from './CountdownStore';
 import ToastStore from './ToastStore';
 import RouteHistoryStore from './RouteHistoryStore';
@@ -93,11 +105,15 @@ class RootStore {
     // order payment - 사이드 탭
     this.productRecentlySeen = new ProductRecentlySeenStore(this, initialState);
 
+    /**
+     * 마이페이지
+     */
     // 나의 주문
-    // mypage - 나의주문
-    this.myOrderList = new MyOrderListStore(this, initialState);
-    // mypage - 상품상세
-    this.myOrderDetail = new MyOrderDetailStore(this, initialState);
+    this.orderCompleteList = new OrderCompleteListStore(this, initialState); // 나의주문
+    this.orderCompleteDetail = new OrderCompleteDetailStore(this, initialState); // 상품상세
+    this.orderClaimList = new OrderClaimListStore(this, initialState); // 취소 ・ 교환 ・ 반품 리스트
+    this.orderClaimForm = new OrderClaimFormStore(this, initialState); // 취소 ・ 교환 ・ 반품 신청
+
     // mypage - 포인트
     this.mypagePoint = new MypagePointStore(this, initialState);
     // mypage - 충전
@@ -110,6 +126,14 @@ class RootStore {
     this.mypageAddress = new MypageAddressStore(this, initialState);
     // mypage - 찜한상품
     this.mypageLike = new MypageLikeStore(this, initialState);
+    this.mypageInquiry = new MypageInquirieStore(this, initialState); // 문의
+    this.mypageRecentlySeen = new MypageRecentlySeenStore(this, initialState); // 최근본상품
+    this.mySize = new MySizeStore(this, initialState); // 내 사이즈 정보
+    this.myDelivery = new MypageDeliveryStore(this, initialState); // 배송정보 스토어
+    this.mypageFollow = new MypageFollowStore(this, initialState); // 팔로우 스토어
+    this.mypageDashboard = new MypageDashboardStore(this, initialState); // 상단 대시보드
+    this.mypageSellerClaim = new MypageSellerClaimStore(this, initialState); // 판매자 문의하기
+    this.mypageToken = new MypageTokenStore(this, initialState); // 토큰
 
     this.toast = new ToastStore(this, initialState);
     this.history = new RouteHistoryStore(this, initialState);

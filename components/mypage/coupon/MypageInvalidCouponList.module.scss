@@ -1,0 +1,17 @@
+@import 'styles/mixins/index';
+
+.wrap {
+  margin-top: 40px;
+  padding: 0 20px;
+  @include clearfix;
+
+  .title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #111;
+  }
+  ul {
+    margin: 0 auto;
+    @include clearfix;
+  }
+}

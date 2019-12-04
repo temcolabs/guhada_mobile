@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import Form from '../../stores/form-store/_.forms';
 import FindPasswordResult from 'template/signin/FindPasswordResult';
-import { pushRoute } from 'lib/router';
+import { pushRoute } from 'childs/lib/router';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
 
 @inject('authmobile')

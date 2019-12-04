@@ -6,7 +6,7 @@ import RecentItem from './RecentItem';
 import PopularKeyword from './PopularKeyword';
 import AutoComplete from './AutoComplete';
 import Router from 'next/router';
-import { pushRoute } from 'lib/router';
+import { pushRoute } from 'childs/lib/router';
 
 @inject('searchitem', 'keyword', 'alert')
 @observer

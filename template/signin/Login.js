@@ -9,14 +9,14 @@ import {
 } from 'components/login/';
 import { observer, inject } from 'mobx-react';
 import { format } from 'util';
-import { LinkRoute } from 'lib/router';
+import { LinkRoute } from 'childs/lib/router';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 import GoogleLogin from 'react-google-login';
 import KakaoLogin from 'react-kakao-login';
 import NaverLogin from 'components/login/NaverLogin';
 import SaveIdCheckBox from 'components/login/SaveIdCheckBox';
 import Cookies from 'js-cookie';
-import { snsAppKey } from 'constant/sns';
+import { snsAppKey } from 'childs/lib/constant/sns';
 import Router from 'next/router';
 
 let userId = Cookies.get('userId');

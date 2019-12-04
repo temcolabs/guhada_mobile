@@ -3,9 +3,9 @@ import { observable, action, toJS } from 'mobx';
 import { autoHypenPhone, getUserAgent } from '../../utils';
 import API from 'childs/lib/API';
 import Router from 'next/router';
-import { HOSTNAME } from 'constant/hostname';
+import { HOSTNAME } from 'childs/lib/constant/hostname';
 import { devLog } from 'childs/lib/common/devLog';
-import { pushRoute } from 'lib/router';
+import { pushRoute } from 'childs/lib/router';
 const isServer = typeof window === 'undefined';
 export default class OrderPaymentStore {
   constructor(root) {
@@ -48,6 +48,7 @@ export default class OrderPaymentStore {
     },
     isAddShippingAddress: false,
   };
+  @observable addressType = 'R';
   @observable status = {
     pageStatus: false,
     selectedShipStatus: true,
@@ -55,7 +56,7 @@ export default class OrderPaymentStore {
     newShppingRequestSelfStatus: false,
     shppingListModalStatus: false,
     totalDiscountDetailStatus: false,
-    orderPaymentAgreement: false,
+    // orderPaymentAgreement: false,
     paymentProceed: false,
     newShippingName: false,
     newAddress: false,
@@ -230,26 +231,16 @@ export default class OrderPaymentStore {
           switch (path) {
             case '주문페이지-신규':
               if (data.userSelectedType === 'J') {
-                document.getElementById('new__zipCode').value = data.zonecode;
-                document.getElementById('newAddress').value = data.jibunAddress;
                 setNewShippingAddress(null, 'address', data);
               } else {
-                document.getElementById('new__zipCode').value = data.zonecode;
-                document.getElementById('newAddress').value = data.jibunAddress;
                 setNewShippingAddress(null, 'roadAddress', data);
               }
               break;
             case '주문페이지-수정':
               if (data.userSelectedType === 'J') {
-                document.getElementById('edit__zipCode').value = data.zonecode;
                 addressEditing(null, 'address', data);
-                document.getElementById('edit__address').value =
-                  data.jibunAddress;
               } else {
-                document.getElementById('edit__zipCode').value = data.zonecode;
                 addressEditing(null, 'roadAddress', data);
-                document.getElementById('edit__address').value =
-                  data.roadAddress;
               }
               break;
             default:
@@ -282,12 +273,14 @@ export default class OrderPaymentStore {
       case 'roadAddress':
         this.orderShippingList.newAddress.roadAddress = address.roadAddress;
         this.orderShippingList.newAddress.zip = address.zonecode;
-        this.orderShippingList.newAddress.address = address.address;
+        this.orderShippingList.newAddress.address = address.jibunAddress;
+        this.addressType = 'R';
         break;
       case 'address':
-        this.orderShippingList.newAddress.address = address.address;
+        this.orderShippingList.newAddress.address = address.jibunAddress;
         this.orderShippingList.newAddress.zip = address.zonecode;
         this.orderShippingList.newAddress.roadAddress = address.roadAddress;
+        this.addressType = 'J';
         break;
       default:
         break;
@@ -507,13 +500,15 @@ export default class OrderPaymentStore {
         this.orderShippingList.tempEditAddress.roadAddress =
           address.roadAddress;
         this.orderShippingList.tempEditAddress.zip = address.zonecode;
-        this.orderShippingList.tempEditAddress.address = address.address;
+        this.orderShippingList.tempEditAddress.address = address.jibunAddress;
+        this.addressType = 'R';
         break;
       case 'address':
-        this.orderShippingList.tempEditAddress.address = address.address;
+        this.orderShippingList.tempEditAddress.address = address.jibunAddress;
         this.orderShippingList.tempEditAddress.zip = address.zonecode;
         this.orderShippingList.tempEditAddress.roadAddress =
           address.roadAddress;
+        this.addressType = 'J';
         break;
       default:
         break;
@@ -1039,10 +1034,10 @@ export default class OrderPaymentStore {
     this.status.totalDiscountDetailStatus = !this.status
       .totalDiscountDetailStatus;
   };
-  @action
-  orderPaymentAgreement = () => {
-    this.status.orderPaymentAgreement = !this.status.orderPaymentAgreement;
-  };
+  // @action
+  // orderPaymentAgreement = () => {
+  //   this.status.orderPaymentAgreement = !this.status.orderPaymentAgreement;
+  // };
 
   @action
   orderpaymentInit = () => {
@@ -1083,7 +1078,7 @@ export default class OrderPaymentStore {
       shppingRequestSelfStatus: false,
       newShppingRequestSelfStatus: false,
       shppingListModalStatus: false,
-      orderPaymentAgreement: false,
+      // orderPaymentAgreement: false,
       paymentProceed: false,
       newShippingName: false,
       newAddress: false,

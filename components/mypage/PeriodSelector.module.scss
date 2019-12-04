@@ -1,0 +1,114 @@
+@import 'styles/mixins/index';
+@import 'styles/var';
+
+.wrap {
+  padding: 20px;
+  background-color: #f9f9fa;
+
+  @mixin tabContainer() {
+    @include clearfix;
+
+    &.isFocused {
+      button.isSelected {
+        color: #fff;
+        background: $blue-purple;
+        border: 1px solid $blue-purple;
+      }
+    }
+  }
+
+  @mixin tabButton() {
+    padding: 0 0.5em;
+    height: 40px;
+    line-height: calc(30px * 0.93);
+    font-size: 13px;
+    text-align: center;
+    min-width: 25%;
+    border: 1px solid #ddd;
+    background: #fff;
+    &:not(:first-child) {
+      border-left: none;
+    }
+  }
+
+  .daysTab {
+    @include tabContainer;
+  }
+
+  .daysButton {
+    @include tabButton;
+  }
+
+  .monthTab {
+    @include tabContainer;
+    margin-left: 10px;
+  }
+
+  .monthButton {
+    @include tabButton;
+  }
+
+  .applyArea {
+    display: flex;
+    margin-top: 10px;
+  }
+
+  .datePickerTab {
+    margin-right: 7px;
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    :global {
+      .SingleDatePicker {
+        flex: 1;
+
+        .SingleDatePickerInput {
+          display: block;
+          width: 100%;
+
+          .DateInput {
+            width: 100%;
+          }
+
+          input {
+            display: block;
+            width: 100%;
+            color: #777777;
+            &:focus {
+              color: #111;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .applyArea__tilde {
+    text-align: center;
+    width: 21px;
+  }
+
+  .applyButton {
+    border: 1px solid #444444;
+    padding: 0 5px;
+    min-width: 60px;
+    height: 40px;
+    line-height: 28px;
+    background: #444444;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+  }
+}
+
+// react-dates SingleDatePikcerInput 스타일 덮어쓰기
+:global {
+  .SingleDatePickerInput {
+    input#PeriodSelector {
+      height: 38px;
+    }
+  }
+}

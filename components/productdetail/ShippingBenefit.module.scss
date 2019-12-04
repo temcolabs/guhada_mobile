@@ -98,8 +98,10 @@
         font-weight: normal;
 
         div {
+          margin-bottom: 5px;
+
           &:last-child {
-            line-height: 1.5;
+            margin-bottom: 0;
           }
         }
       }

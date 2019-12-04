@@ -5,11 +5,11 @@ import Cookies from 'js-cookie';
 import Router from 'next/router';
 import loadScript from 'childs/lib/dom/loadScript';
 import API from 'childs/lib/API';
-import { key } from 'constant';
-import { snsAppKey } from 'constant/sns';
+import { key } from 'childs/lib/constant';
+import { snsAppKey } from 'childs/lib/constant/sns';
 import withAuth from 'components/common/hoc/withAuth';
 import { devLog } from 'childs/lib/common/devLog';
-import { HOSTNAME } from 'constant/hostname';
+import { HOSTNAME } from 'childs/lib/constant/hostname';
 
 //TODO
 const client_id = snsAppKey.NAVER;

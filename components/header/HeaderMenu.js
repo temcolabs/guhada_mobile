@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 import css from './HeaderMenu.module.scss';
 import Category from './item/Category';
-import { LinkRoute } from 'lib/router';
+import { LinkRoute } from 'childs/lib/router';
 import Router from 'next/router';
 import { inject } from 'mobx-react';
-import { loginStatus } from 'constant';
+import { loginStatus } from 'childs/lib/constant';
 
 /**
  * 헤더의 햄버거 버튼 클릭시 표시되는 메뉴

@@ -1,0 +1,16 @@
+@import 'styles/var';
+.wrap {
+  position: fixed;
+  top: $guhadaMainHeaderHeight;
+  left: 0;
+  width: 100%;
+  height: $mypageMenuSliderHeight;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 0 20px 10px;
+  border-bottom: 1px solid #eeeeee;
+  transition: top 0.1s linear;
+  white-space: nowrap;
+}

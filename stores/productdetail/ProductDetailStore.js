@@ -1,7 +1,7 @@
 import { observable, action } from 'mobx';
 import Axios from 'axios';
 import API from 'childs/lib/API';
-import { pushRoute } from 'lib/router';
+import { pushRoute } from 'childs/lib/router';
 import _ from 'lodash';
 import { devLog } from 'childs/lib/common/devLog';
 import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';

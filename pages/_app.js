@@ -1,5 +1,4 @@
 import App, { Container } from 'next/app';
-import Head from 'next/head';
 import React from 'react';
 import Router from 'next/router';
 import { initializeStore } from '../store';
@@ -9,7 +8,7 @@ import ReactModal from 'react-modal';
 import moment from 'moment';
 import AlertConductor from 'components/common/modal/AlertConductor';
 import AssociatedProduct from 'components/common/modal/AssociatedProduct';
-import 'react-dates/initialize';
+import 'react-dates/initialize'; // react-dates
 import qs from 'qs';
 import { isBrowser, isServer } from 'childs/lib/common/isServer';
 import { devLog } from 'childs/lib/common/devLog';
@@ -136,6 +135,7 @@ class GuhadaMobileWeb extends App {
       /^\/productdetail.*/, // 상품 상세
       /^\/shoppingcart.*/, // 카트
       /^\/orderpaymentsuccess.*/, // 구매 완료
+      /^\/event\/luckydraw.*/, // 럭키드로우
     ];
 
     if (isBrowser) {
@@ -152,11 +152,6 @@ class GuhadaMobileWeb extends App {
           this.mobxStore.user.pushJobForUserInfo(userInfo => {
             // 공통
             widerplanetTracker.common({
-              userId: userInfo?.id,
-            });
-
-            // 로그인
-            widerplanetTracker.signIn({
               userId: userInfo?.id,
             });
           });

@@ -1,0 +1,112 @@
+@import 'styles/mixins/index';
+
+.wrap {
+  @include clearfix;
+  border-bottom: 1px solid #eeeeee;
+  padding: 30px 20px;
+
+  &:last-child {
+    border: none;
+  }
+}
+
+.pointInfoWrapper {
+  display: flex;
+  position: relative;
+  // .pointImageBox {
+  //   float: left;
+  //   width: 100px;
+  //   height: 100px;
+  //   background-size: contain;
+  //   background-position: center;
+  //   background-repeat: no-repeat;
+  // }
+
+  .pointAmount {
+    min-width: 100px;
+    height: 65px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .pointAmountInner {
+      text-align: center;
+
+      > div {
+        &:first-child {
+          font-size: 13px;
+          font-weight: 500;
+        }
+        &:last-child {
+          margin-top: 2px;
+          font-size: 18px;
+          font-weight: normal;
+        }
+      }
+    }
+  }
+
+  .pointInfo {
+    padding: 0 20px;
+    width: 100%;
+    height: 65px;
+    .pointDate {
+      color: #777;
+      font-size: 13px;
+      font-weight: normal;
+    }
+
+    .pointInfo__prodName {
+      margin-top: 2px;
+      padding-right: 80px;
+      div {
+        font-size: 13px;
+        color: #444;
+        font-weight: normal;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
+    .pointStatus {
+      margin-top: 8px;
+      font-size: 13px;
+      font-size: 13px;
+      font-weight: normal;
+    }
+  }
+
+  .SAVED {
+    color: #5c2ed1;
+  }
+
+  .CONSUMPTION {
+    color: #ce2525;
+  }
+
+  .DUE {
+    color: #777;
+  }
+
+  // .RESTORE {
+  //   color: #5c2ed1;
+  // }
+
+  // .EXPIRED {
+  //   color: #ce2525;
+  // }
+  .pointDeleteButtonBox {
+    position: absolute;
+    right: 0;
+    top: 0;
+    .pointDeleteButton {
+      width: 20px;
+      height: 20px;
+      background: url('/static/icon/mypage-icon-delete@3x.png') no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+  }
+}

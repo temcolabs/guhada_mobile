@@ -3,7 +3,7 @@ import API from 'childs/lib/API';
 import { isBrowser } from 'childs/lib/common/isServer';
 import { devLog } from 'childs/lib/common/devLog';
 import Form from 'stores/form-store/_.forms';
-import luckyDrawService from 'lib/API/product/luckyDrawService';
+import luckyDrawService from 'childs/lib/API/product/luckyDrawService';
 import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
 
 export default class LukcyDrawStore {
@@ -205,18 +205,8 @@ export default class LukcyDrawStore {
       await this.getLuckyDrawList();
 
       // 와이더플래닛 트래커
-      widerplanetTracker.purchaseComplete({
+      widerplanetTracker.applicationComplete({
         userId: this.root.user.userId,
-        items: [
-          {
-            i:
-              '응모하기 ' /*전환 식별 코드  (한글 , 영어 , 번호 , 공백 허용 )*/,
-            t: '응모하기 ' /*전환명  (한글 , 영어 , 번호 , 공백 허용 )*/,
-            p: '1' /*전환가격  (전환 가격이 없을경우 1로 설정 )*/,
-            q:
-              '1' /*전환수량  (전환 수량이 고정적으로 1개 이하일 경우 1로 설정 )*/,
-          },
-        ],
       });
     } catch (e) {
       // TODO: 에러 케이스에 따라 프로세스 진행

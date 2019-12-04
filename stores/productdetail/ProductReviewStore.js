@@ -1,7 +1,7 @@
 import { observable, action, toJS } from 'mobx';
 import API from 'childs/lib/API';
 import { devLog } from 'childs/lib/common/devLog';
-import bookmarkTarget from 'constant/user/bookmarkTarget';
+import bookmarkTarget from 'childs/lib/constant/user/bookmarkTarget';
 import _ from 'lodash';
 const isServer = typeof window === 'undefined';
 

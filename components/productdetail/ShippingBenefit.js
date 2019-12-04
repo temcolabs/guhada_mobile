@@ -4,8 +4,8 @@ import StarItem from './StarItem';
 import { inject, observer } from 'mobx-react';
 import _ from 'lodash';
 import cn from 'classnames';
-import { pushRoute, sendBackToLogin } from 'lib/router';
-import { loginStatus } from 'constant/';
+import { pushRoute, sendBackToLogin } from 'childs/lib/router';
+import { loginStatus } from 'childs/lib/constant';
 import CardInterestModal from 'components/common/modal/CardInterestModal';
 @inject(
   'productreview',
@@ -114,7 +114,11 @@ class ShippingBenefit extends Component {
                       <div key={index}>
                         {data.dueSaveType === 'BUY'
                           ? `구매 확정 시 ${data.totalPoint?.toLocaleString()}P 적립`
-                          : `리뷰 작성 시 최대 ${data.totalPoint?.toLocaleString()}P 적립`}
+                          : data.dueSaveType === 'REVIEW'
+                          ? `리뷰 작성 시 최대 ${data.totalPoint?.toLocaleString()}P 적립`
+                          : data.dueSaveType === 'FIRST_ORDER'
+                          ? `첫 구매 시 ${data.totalPoint?.toLocaleString()}P 적립`
+                          : `구매 시 ${data.totalPoint?.toLocaleString()}P 적립`}
                       </div>
                     );
                   })}

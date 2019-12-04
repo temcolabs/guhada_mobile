@@ -5,7 +5,7 @@ import HeaderMenu from './HeaderMenu';
 import CategoryDepthMenu from './CategoryDepthMenu';
 import { inject } from 'mobx-react';
 import sessionStorage from 'childs/lib/common/sessionStorage';
-import { pushRoute, LinkRoute } from 'lib/router';
+import { pushRoute, LinkRoute } from 'childs/lib/router';
 import cn from 'classnames';
 import SearchMenu from './SearchMenu';
 import BrandContainer from './item/BrandContainer';
