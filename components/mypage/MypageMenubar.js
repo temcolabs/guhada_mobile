@@ -43,6 +43,15 @@ const MENUBAR_SECTIONS = [
       },
     ],
   },
+  {
+    links: [
+      {
+        targetPaths: [mypageRouteObj['/mypage/ProductReview']?.asPath],
+        asPath: mypageRouteObj['/mypage/ProductReview']?.asPath,
+        text: '리뷰',
+      },
+    ],
+  },
   // {
   //   links: [
   //     {
@@ -118,15 +127,7 @@ const MENUBAR_SECTIONS = [
   //     },
   //   ]
   // },
-  // {
-  //   links: [
-  //     {
-  //       targetPaths: [mypageRouteObj['/mypage/ProductReview']?.asPath],
-  //       asPath: mypageRouteObj['/mypage/ProductReview']?.asPath,
-  //       text: '리뷰',
-  //     },
-  //   ],
-  // },
+
   // {
   //   links: [
   //     {

@@ -32,7 +32,7 @@ import OrderClaimFormStore from './myOrder/OrderClaimFormStore';
 import OrderClaimListStore from './myOrder/OrderClaimListStore';
 import MypagePointStore from './mypage/MypagePointStore.js';
 import MypagePointChargeStore from './mypage/MypagePointChargeStore.js';
-import MypageReviewStore from './mypage/ReviewStore';
+import MypageReviewStore from './mypage/MypageReviewStore';
 import MypageCouponStore from './mypage/MypageCouponStore';
 import MypageAddressStore from './mypage/MypageAddressStore';
 import ProductRecentlySeenStore from './ProductRecentlySeenStore';
