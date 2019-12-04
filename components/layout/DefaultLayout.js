@@ -35,6 +35,7 @@ class DefaultLayout extends Component {
 
   static defaultProps = {
     wrapperStyle: {},
+    toolBar: true,
   };
 
   /**
@@ -56,6 +57,8 @@ class DefaultLayout extends Component {
   }
 
   getWrapperStyle = memoize((style, toolBar, topLayout) => {
+    console.log(`style, toolBar, topLayout`, style, toolBar, topLayout);
+
     return {
       paddingTop: `${this.paddingTopMap[topLayout]}px`,
       paddingBottom: toolBar ? '57px' : 0, // 하단 툴바가 있으면 툴바 높이만큼 간격을 추가해준다.
@@ -85,6 +88,11 @@ class DefaultLayout extends Component {
     } = this.props;
 
     let cartAmount = this.props.shoppingcart.cartAmount;
+
+    console.log(
+      `this.getWrapperStyle(wrapperStyle, toolBar, topLayout)`,
+      this.getWrapperStyle(wrapperStyle, toolBar, topLayout)
+    );
 
     return (
       <div

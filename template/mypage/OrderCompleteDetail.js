@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'next/router';
 import MypageLayout from 'components/mypage/MypageLayout';
-
 import css from './OrderCompleteDetail.module.scss';
 import cn from 'classnames';
 import PaymentInfo from 'components/mypage/order/PaymentInfo';
@@ -123,7 +122,6 @@ class OrderCompleteDetail extends Component {
             </div>
           </div>
 
-          <MypageSectionTitle>결제 정보</MypageSectionTitle>
           <PaymentInfo order={orderData} />
         </div>
       </MypageLayout>

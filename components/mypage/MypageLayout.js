@@ -36,7 +36,7 @@ class MypageLayout extends React.Component {
     } = this.props;
 
     return (
-      <DefaultLayout toolbar wrapperStyle={defaultLayoutStyle} {...rest}>
+      <DefaultLayout toolBar wrapperStyle={defaultLayoutStyle} {...rest}>
         <div
           className={cn(css.wrap, {
             [css.isMenuVisible]: isMenuVisibile,
@@ -47,9 +47,7 @@ class MypageLayout extends React.Component {
 
           <div className={css.pageContents}>{this.props.children}</div>
 
-          <div className={css.footerWrap}>
-            <Footer />
-          </div>
+          <Footer />
         </div>
       </DefaultLayout>
     );
