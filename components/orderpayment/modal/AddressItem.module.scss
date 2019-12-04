@@ -110,6 +110,10 @@
         border: 1px solid #ddd;
         font-size: 13px;
         padding: 5px 15px;
+
+        &:read-only {
+          background: #fafaf9;
+        }
       }
 
       .searchZipcode {

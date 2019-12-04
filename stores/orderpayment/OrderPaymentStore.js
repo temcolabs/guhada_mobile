@@ -48,6 +48,7 @@ export default class OrderPaymentStore {
     },
     isAddShippingAddress: false,
   };
+  @observable addressType = 'R';
   @observable status = {
     pageStatus: false,
     selectedShipStatus: true,
@@ -230,26 +231,16 @@ export default class OrderPaymentStore {
           switch (path) {
             case '주문페이지-신규':
               if (data.userSelectedType === 'J') {
-                document.getElementById('new__zipCode').value = data.zonecode;
-                document.getElementById('newAddress').value = data.jibunAddress;
                 setNewShippingAddress(null, 'address', data);
               } else {
-                document.getElementById('new__zipCode').value = data.zonecode;
-                document.getElementById('newAddress').value = data.jibunAddress;
                 setNewShippingAddress(null, 'roadAddress', data);
               }
               break;
             case '주문페이지-수정':
               if (data.userSelectedType === 'J') {
-                document.getElementById('edit__zipCode').value = data.zonecode;
                 addressEditing(null, 'address', data);
-                document.getElementById('edit__address').value =
-                  data.jibunAddress;
               } else {
-                document.getElementById('edit__zipCode').value = data.zonecode;
                 addressEditing(null, 'roadAddress', data);
-                document.getElementById('edit__address').value =
-                  data.roadAddress;
               }
               break;
             default:
@@ -282,12 +273,14 @@ export default class OrderPaymentStore {
       case 'roadAddress':
         this.orderShippingList.newAddress.roadAddress = address.roadAddress;
         this.orderShippingList.newAddress.zip = address.zonecode;
-        this.orderShippingList.newAddress.address = address.address;
+        this.orderShippingList.newAddress.address = address.jibunAddress;
+        this.addressType = 'R';
         break;
       case 'address':
-        this.orderShippingList.newAddress.address = address.address;
+        this.orderShippingList.newAddress.address = address.jibunAddress;
         this.orderShippingList.newAddress.zip = address.zonecode;
         this.orderShippingList.newAddress.roadAddress = address.roadAddress;
+        this.addressType = 'J';
         break;
       default:
         break;
@@ -507,13 +500,15 @@ export default class OrderPaymentStore {
         this.orderShippingList.tempEditAddress.roadAddress =
           address.roadAddress;
         this.orderShippingList.tempEditAddress.zip = address.zonecode;
-        this.orderShippingList.tempEditAddress.address = address.address;
+        this.orderShippingList.tempEditAddress.address = address.jibunAddress;
+        this.addressType = 'R';
         break;
       case 'address':
-        this.orderShippingList.tempEditAddress.address = address.address;
+        this.orderShippingList.tempEditAddress.address = address.jibunAddress;
         this.orderShippingList.tempEditAddress.zip = address.zonecode;
         this.orderShippingList.tempEditAddress.roadAddress =
           address.roadAddress;
+        this.addressType = 'J';
         break;
       default:
         break;
