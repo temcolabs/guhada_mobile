@@ -237,7 +237,7 @@ class OrderCompleteList extends Component {
 
         <MypageContentsWrap wrapperStyle={{ paddingTop: '10px' }}>
           <OrderDashboard data={orderCompleteListStore.myOrderStatus} />
-
+          ith
           <div className={css.listWrap}>
             {orderCompleteListStore.isLoadingList && (
               <LoadingSpinner isAbsolute />
@@ -263,7 +263,6 @@ class OrderCompleteList extends Component {
               })
             )}
           </div>
-
           <div className={css.paginationWrap}>
             <Pagination
               initialPage={parseInt(orderCompleteListStore.page, 10)}

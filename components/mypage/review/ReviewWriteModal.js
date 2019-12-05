@@ -1,3 +1,4 @@
+import React, { Component } from 'react';
 const color = ['BRIGHTER', 'SAME', 'DARKER'];
 const length = ['SHORT', 'REGULAR', 'LONG'];
 const size = ['SMALL', 'JUST_FIT', 'LARGE'];
@@ -19,3 +20,6 @@ export const reviewModalType = {
   MODIFY: 'Modify',
 };
 const maxByte = 1000;
+
+class ReviewWriteModal extends Component {}
+export default ReviewWriteModal;

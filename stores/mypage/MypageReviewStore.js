@@ -20,7 +20,8 @@ export default class MypageReviewStore {
   myReviewsPageSize = 5; // 페이지 사이즈
 
   @observable availableReview = []; // 작성 가능한 리뷰
-
+  @observable availableReviewPage = 1;
+  @observable orderItemList = [];
   // 서버로 부터 받은 것들
   @observable reviewPhotos = [];
   // 가공한 데이터
@@ -120,7 +121,12 @@ export default class MypageReviewStore {
     API.order
       .get(`/order-review/available-review-order/${page}`)
       .then(res => {
+        // this.availableReview = this.availableReview.concat(res.data.data);
         this.availableReview = res.data.data;
+        this.orderItemList = this.orderItemList.concat(
+          res.data?.data?.orderItemList
+        );
+        console.log('this.availableReview', this.availableReview);
       })
       .catch(e => {
         this.availableReview = [];

@@ -5,6 +5,7 @@ import ToolBar from 'components/toolbar/ToolBar';
 import Router from 'next/router';
 import { inject, observer } from 'mobx-react';
 import memoize from 'memoize-one';
+import openPopupCenter from 'childs/lib/common/openPopupCenter';
 
 const topLayouts = {
   main: 'main',
@@ -89,11 +90,6 @@ class DefaultLayout extends Component {
 
     let cartAmount = this.props.shoppingcart.cartAmount;
 
-    console.log(
-      `this.getWrapperStyle(wrapperStyle, toolBar, topLayout)`,
-      this.getWrapperStyle(wrapperStyle, toolBar, topLayout)
-    );
-
     return (
       <div
         className={css.wrap}
@@ -113,6 +109,18 @@ class DefaultLayout extends Component {
         {this.props.children}
 
         {toolBar === false ? null : <ToolBar />}
+        <div
+          className={css.kakaoChat}
+          onClick={() =>
+            openPopupCenter(
+              'https://pf.kakao.com/_yxolxbT/chat',
+              '구하다 채팅하기',
+              500,
+              700
+            )
+          }
+        />
+        <div className={css.btnTop} onClick={() => window.scrollTo(0, 0)} />
       </div>
     );
   }

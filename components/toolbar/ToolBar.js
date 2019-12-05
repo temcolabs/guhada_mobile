@@ -27,7 +27,6 @@ function ToolBar() {
 
   return useObserver(() => (
     <div className={css.wrap}>
-      <div className={css.btnTop} onClick={() => window.scrollTo(0, 0)} />
       <div
         onClick={() => {
           setIsCategoryVisible(true);

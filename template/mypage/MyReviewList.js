@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import MypageLayout from 'components/mypage/MypageLayout';
 import { inject, observer } from 'mobx-react';
 import MypageReviewHeading from 'components/mypage/review/MypageReviewHeading';
-import MypageDataEmpty from 'components/mypage/MypageDataEmpty';
+import ReviewWrite from 'components/mypage/review/ReviewWrite';
+import ReviewModify from 'components/mypage/review/ReviewModify';
 
 @inject('mypagereview', 'mypagePoint')
 @observer
@@ -39,7 +40,13 @@ class MyReviewList extends Component {
           availableReviewCount={mypagereview.availableReview?.count || 0}
           reviewCount={mypagereview.myReviews?.totalElements || 0}
         />
-        <MypageDataEmpty text={`작성 가능한 리뷰가 없습니다.`} />
+        {this.state.selection === 'write' ? (
+          // 작성 가능한 리뷰
+          <ReviewWrite />
+        ) : (
+          // 내가 작성한 리뷰
+          <ReviewModify />
+        )}
       </MypageLayout>
     );
   }
