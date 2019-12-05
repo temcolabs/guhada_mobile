@@ -44,6 +44,7 @@ function Header({
             css.wrap,
             {
               [css.borderBottom]:
+                headerShape === 'detailPage' ||
                 headerShape === 'sellerStore' ||
                 headerShape === 'productDetail' ||
                 headerShape === 'ordersuccess' ||

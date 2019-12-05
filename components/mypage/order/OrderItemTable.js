@@ -45,12 +45,14 @@ export default class OrderItemTable extends React.Component {
       <div className={css.orderItemTable}>
         {orderListGroupBySeller?.map((order, index) => {
           return (
-            <OrderItem
-              key={index}
-              order={order}
-              isClaim={false}
-              onClickInquire={this.handleOpenSellerClaimModal}
-            />
+            <div className={css.orderItemTable__item}>
+              <OrderItem
+                key={index}
+                order={order}
+                isClaim={false}
+                onClickInquire={this.handleOpenSellerClaimModal}
+              />
+            </div>
           );
         })}
       </div>
