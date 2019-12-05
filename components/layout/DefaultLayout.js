@@ -90,11 +90,6 @@ class DefaultLayout extends Component {
 
     let cartAmount = this.props.shoppingcart.cartAmount;
 
-    console.log(
-      `this.getWrapperStyle(wrapperStyle, toolBar, topLayout)`,
-      this.getWrapperStyle(wrapperStyle, toolBar, topLayout)
-    );
-
     return (
       <div
         className={css.wrap}

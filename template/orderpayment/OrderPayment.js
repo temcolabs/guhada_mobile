@@ -12,6 +12,7 @@ import PaymentAgreement from 'components/orderpayment/PaymentAgreement';
 import PaymentButton from 'components/orderpayment/PaymentButton';
 import { inject, observer } from 'mobx-react';
 import css from './OrderPayment.module.scss';
+
 @inject('orderpayment', 'customerauthentication')
 @observer
 class OrderPayment extends React.Component {

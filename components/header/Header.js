@@ -3,12 +3,13 @@ import Router from 'next/router';
 import css from './Header.module.scss';
 import HeaderMenu from './HeaderMenu';
 import CategoryDepthMenu from './CategoryDepthMenu';
-import { inject } from 'mobx-react';
 import sessionStorage from 'childs/lib/common/sessionStorage';
-import { pushRoute, LinkRoute } from 'childs/lib/router';
+import { LinkRoute } from 'childs/lib/router';
 import cn from 'classnames';
 import SearchMenu from './SearchMenu';
 import BrandContainer from './item/BrandContainer';
+import useStores from 'stores/useStores';
+import { useObserver } from 'mobx-react-lite';
 
 /**
  *
@@ -17,11 +18,13 @@ import BrandContainer from './item/BrandContainer';
  */
 function Header({
   children,
+  pageTitle,
   headerShape,
-  history,
   cartAmount,
   scrollDirection,
 }) {
+  // eslint-disable-next-line
+  const { history } = useStores();
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isCategoryVisible, setIsCategoryVisible] = useState(false);
   const [categoryId, setCategoryId] = useState(0);
@@ -30,7 +33,7 @@ function Header({
   const [isBrandVisible, setIsBrandVisible] = useState(false);
   let urlHistory = sessionStorage.get('urlHistory');
 
-  return (
+  return useObserver(() => (
     <>
       {headerShape === 'keyword' ? (
         <div className={css.wrap} />
@@ -54,7 +57,8 @@ function Header({
           // style={scrollDirection === 'down' ? { display: 'none' } : null}
         >
           {/* 백버튼 */}
-          {headerShape === 'productDetail' ||
+          {headerShape === 'detailPage' ||
+          headerShape === 'productDetail' ||
           headerShape === 'searchList' ||
           headerShape === 'shoppingcart' ||
           headerShape === 'orderpayment' ||
@@ -65,7 +69,8 @@ function Header({
             <button className={css.backButton} onClick={() => Router.back()} />
           ) : null}
 
-          {headerShape === 'shoppingcart' ||
+          {headerShape === 'detailPage' ||
+          headerShape === 'shoppingcart' ||
           headerShape === 'orderpayment' ||
           headerShape === 'ordersuccess' ? null : (
             <button
@@ -75,8 +80,8 @@ function Header({
           )}
 
           {/* 페이지 타이틀 또는 로고 렌더링 */}
-          {children ? (
-            <h1 className={css.pageTitle}>{children}</h1>
+          {children || pageTitle ? (
+            <h1 className={css.pageTitle}>{children || pageTitle}</h1>
           ) : headerShape === 'productDetail' ? null : (
             <LinkRoute href="/">
               <div className={css.headerLogo} />
@@ -89,7 +94,8 @@ function Header({
             </LinkRoute>
           ) : null}
 
-          {headerShape === 'shoppingcart' ||
+          {headerShape === 'detailPage' ||
+          headerShape === 'shoppingcart' ||
           headerShape === 'orderpayment' ||
           headerShape === 'ordersuccess' ? null : (
             <button
@@ -100,7 +106,8 @@ function Header({
             />
           )}
 
-          {headerShape === 'shoppingcart' ||
+          {headerShape === 'detailPage' ||
+          headerShape === 'shoppingcart' ||
           headerShape === 'orderpayment' ||
           headerShape === 'ordersuccess' ? null : (
             <LinkRoute href="/shoppingcart">
@@ -153,7 +160,6 @@ function Header({
         </div>
       )}
     </>
-  );
+  ));
 }
-
-export default inject('history')(Header);
+export default Header;
