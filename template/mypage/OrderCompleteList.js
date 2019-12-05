@@ -237,7 +237,6 @@ class OrderCompleteList extends Component {
 
         <MypageContentsWrap wrapperStyle={{ paddingTop: '10px' }}>
           <OrderDashboard data={orderCompleteListStore.myOrderStatus} />
-          ith
           <div className={css.listWrap}>
             {orderCompleteListStore.isLoadingList && (
               <LoadingSpinner isAbsolute />

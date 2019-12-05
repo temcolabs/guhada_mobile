@@ -9,6 +9,7 @@ import { inject, observer } from 'mobx-react';
 import addHyphenToMobile from 'childs/lib/string/addHyphenToMobile';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
 import MypageSectionTitle from 'components/mypage/MypageSectionTitle';
+import DetailPageLayout from 'components/layout/DetailPageLayout';
 
 @withScrollToTopOnMount
 @withRouter
@@ -31,11 +32,7 @@ class OrderCompleteDetail extends Component {
     const { shippingAddress = {} } = orderData; // 배송지 정보
 
     return (
-      <MypageLayout
-        topLayout={'main'}
-        pageTitle={'주문내역'}
-        headerShape={'mypage'}
-      >
+      <DetailPageLayout pageTitle={'주문 내역 상세'}>
         <div className={css.wrap}>
           <div className={css.orderInfo}>
             <div className={css.orderInfo__orderId}>
@@ -124,7 +121,7 @@ class OrderCompleteDetail extends Component {
 
           <PaymentInfo order={orderData} />
         </div>
-      </MypageLayout>
+      </DetailPageLayout>
     );
   }
 }
