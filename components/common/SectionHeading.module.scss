@@ -1,0 +1,47 @@
+@import 'styles/mixins/index';
+
+.wrap {
+  &:not(:first-child) {
+    margin-top: 60px;
+  }
+}
+
+.title {
+  font-size: 20px;
+  font-weight: bold;
+  border-bottom: 2px solid #111111;
+  padding-bottom: 20px;
+  margin-top: 0;
+  margin-bottom: 0px;
+  text-align: left;
+
+  &.isBorderHidden {
+    border-bottom: 2px solid transparent;
+  }
+}
+
+.children {
+  @include clearfix;
+  margin-top: 20px;
+}
+
+.guideText {
+  font-weight: normal;
+  line-height: 1;
+  margin-top: 8px;
+  margin-left: 15px;
+  font-size: 13px;
+  color: #777777;
+  position: relative;
+}
+
+.guideText__questionIcon {
+  @include centeredY;
+  right: -22px;
+  width: 18px;
+  height: 18px;
+  background: url('/static/icon/mypage/btn-questionmark@3x.png') no-repeat
+    center 60%;
+  background-size: 16px;
+  background-color: #ffffff;
+}

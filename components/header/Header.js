@@ -47,7 +47,8 @@ function Header({
                 headerShape === 'orderpayment' ||
                 headerShape === 'shoppingcart' ||
                 headerShape === 'brand' ||
-                headerShape === 'eventmain',
+                headerShape === 'eventmain' ||
+                headerShape === 'mypageSimple',
             },
             { [css.scrollDown]: scrollDirection === 'down' }
           )}
@@ -61,13 +62,15 @@ function Header({
           headerShape === 'sellerStore' ||
           headerShape === 'brand' ||
           headerShape === 'eventmain' ||
+          headerShape === 'mypageSimple' ||
           (headerShape === 'address' && urlHistory !== '') ? (
             <button className={css.backButton} onClick={() => Router.back()} />
           ) : null}
 
           {headerShape === 'shoppingcart' ||
           headerShape === 'orderpayment' ||
-          headerShape === 'ordersuccess' ? null : (
+          headerShape === 'ordersuccess' ||
+          headerShape === 'mypageSimple' ? null : (
             <button
               className={css.menuButton}
               onClick={() => setIsMenuVisible(true)}
@@ -91,7 +94,8 @@ function Header({
 
           {headerShape === 'shoppingcart' ||
           headerShape === 'orderpayment' ||
-          headerShape === 'ordersuccess' ? null : (
+          headerShape === 'ordersuccess' ||
+          headerShape === 'mypageSimple' ? null : (
             <button
               className={cn(css.searchButton, {
                 [css.leftItemExist]: headerShape === 'productDetail',
@@ -102,7 +106,8 @@ function Header({
 
           {headerShape === 'shoppingcart' ||
           headerShape === 'orderpayment' ||
-          headerShape === 'ordersuccess' ? null : (
+          headerShape === 'ordersuccess' ||
+          headerShape === 'mypageSimple' ? null : (
             <LinkRoute href="/shoppingcart">
               <div className={css.cartButton}>
                 <button />
