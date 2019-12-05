@@ -58,6 +58,23 @@ function RefundInfo({
               원
             </span>
           </div>
+
+          <div className={cn(css.totalPriceDetail)}>
+            <span className={css.label}>상품 금액</span>
+            <span className={css.value}>
+              {addCommaToNum(
+                nilToZero(refundResponse?.totalCancelProductPrice)
+              )}
+              원
+            </span>
+          </div>
+
+          <div className={cn(css.totalPriceDetail)}>
+            <span className={css.label}>배송비</span>
+            <span className={css.value}>
+              {addCommaToNum(nilToZero(refundResponse?.totalCancelShipPrice))}원
+            </span>
+          </div>
         </div>
 
         {/* 환불금액 차감내역은 기획에서 빠짐. 취소상품 주문금액 = 환불 예상금액이라서 0을 넣어도 상관없음 */}

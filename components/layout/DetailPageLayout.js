@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from 'components/header/Header';
+import css from './DetailPageLayout.module.scss';
 
 /**
  * 상세 페이지용 레이아웃
@@ -9,7 +10,7 @@ export default function DetailPageLayout({ pageTitle, children }) {
   return (
     <div>
       <Header headerShape={'detailPage'} pageTitle={pageTitle} />
-      <div>{children}</div>
+      <div className={css.childrenWrap}>{children}</div>
     </div>
   );
 }

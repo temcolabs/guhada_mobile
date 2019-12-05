@@ -25,5 +25,14 @@ stories.add('DefaultLayout', () => {
 });
 
 stories.add('DetailPageLayout', () => {
-  return <DetailPageLayout pageTitle={text('pageTitle', '상세페이지')} />;
+  return (
+    <DetailPageLayout pageTitle={text('pageTitle', '상세페이지')}>
+      <div>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Possimus,
+        asperiores! Quo dolor enim similique? Corporis provident similique sed
+        magnam odit, nobis voluptas doloribus ipsa dolorem reiciendis ratione
+        dolores maiores delectus?
+      </div>
+    </DetailPageLayout>
+  );
 });
