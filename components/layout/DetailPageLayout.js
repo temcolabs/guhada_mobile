@@ -9,7 +9,7 @@ import css from './DetailPageLayout.module.scss';
 export default function DetailPageLayout({ pageTitle, children }) {
   return (
     <div>
-      <Header headerShape={'detailPage'} piageTtle={pageTitle} />
+      <Header headerShape={'detailPage'} pageTitle={pageTitle} />
       <div className={css.childrenWrap}>{children}</div>
     </div>
   );
