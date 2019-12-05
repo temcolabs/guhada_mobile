@@ -6,7 +6,8 @@ import { pushRoute } from 'childs/lib/router';
 import { devLog } from 'childs/lib/common/devLog';
 import isTruthy from 'childs/lib/common/isTruthy';
 import orderClaimTypes from 'childs/lib/constant/order/orderClaimTypes';
-
+import moment from 'moment';
+import { dateFormat } from 'childs/lib/constant/date';
 /**
  * 클레임(취소교환반품) 폼, 클레임 상세에서 사용할 데이터 관리.
  *
@@ -633,4 +634,14 @@ export default class OrderClaimFormStore {
       console.error(e);
     }
   };
+
+  /**
+   * 포맷된 주문 날짜. claimData.orderTimestamp 날짜를 사용한다.
+   */
+  @computed get orderDateWithFormat() {
+    return (
+      moment(this.claimData?.orderTimestamp).format(dateFormat.YYYYMMDD_UI) ||
+      '-'
+    );
+  }
 }

@@ -3,9 +3,9 @@
 
 .wrap {
   @include clearfix;
-  width: 91px;
-  height: 25px;
-  margin-left: auto;
+  width: 120px;
+  height: 32px;
+  // margin-left: auto;
   margin-right: auto;
 
   & > * {
@@ -14,20 +14,21 @@
 }
 
 .value {
-  @include centerWithHeight(25px);
-  width: 41px;
-  font-size: 12px;
+  @include centerWithHeight(32px);
+  width: 56px;
+  font-size: 14px;
   font-weight: bold;
   text-align: center;
+  color: 111;
 }
 
 @mixin icon {
-  width: 25px;
-  height: 25px;
+  width: 32px;
+  height: 32px;
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-  border: 1px solid $very-light-pink;
+  border: 1px solid #ddd;
 }
 
 .plus {
