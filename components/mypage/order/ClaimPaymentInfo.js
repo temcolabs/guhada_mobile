@@ -106,11 +106,6 @@ export default function ClaimPaymentInfo({ claimData = {} }) {
               {addCommaToNum(claimData?.orderPrice)}원
             </span>
           </div>
-
-          {/* 결제금액 + 결제 수단 */}
-          <div className={cn(css.section__field)}>
-            <PaymentAccountInfo payment={claimData?.order?.payment} />
-          </div>
         </div>
       </div>
     </div>
