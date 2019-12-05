@@ -1,0 +1,43 @@
+.wrap {
+  width: 100%;
+  text-align: center;
+  padding: 60px;
+  border: solid 3px #eeeeee;
+}
+
+.heading {
+  font-size: 26px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: center;
+  color: #111111;
+
+  & b {
+    color: #5d2ed1;
+    font-weight: normal;
+  }
+}
+
+.border {
+  display: block;
+  width: 700px;
+  height: 1px;
+  margin: 30px auto;
+  background: #eeeeee;
+}
+
+.desc {
+  font-size: 13px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.38;
+  letter-spacing: normal;
+  text-align: left;
+  color: #999;
+  text-align: center;
+  margin-top: 8px;
+}
