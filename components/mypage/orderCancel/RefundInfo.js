@@ -1,12 +1,12 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useMemo, useReducer } from 'react';
 import css from './RefundInfo.module.scss';
 import cn from 'classnames';
 import addCommaToNum from 'childs/lib/common/addCommaToNum';
-import { useObserver } from 'mobx-react-lite';
 import nilToZero from 'childs/lib/common/nilToZero';
 import { paymentMethodOptions } from 'childs/lib/constant/order/paymentMethod';
 import { observer } from 'mobx-react';
 import { compose } from 'lodash/fp';
+import MypageSectionTitle from '../MypageSectionTitle';
 
 const enhancer = compose(observer);
 
@@ -19,7 +19,8 @@ const enhancer = compose(observer);
  * http://dev.claim.guhada.com/swagger-ui.html#/ORDER-CLAIM/getClaimCompleteFormUsingGET
  */
 function RefundInfo({
-  isRefundExpectation = false, // 환불금액 or 환불예상금액
+  // 섹션 열고 닫기가 가능한지
+  isCollapsingEnabled = false,
 
   // OrderClaimUpdateResponse.refundResponse
   refundResponse = {
@@ -38,20 +39,47 @@ function RefundInfo({
     paymentMethodOptions.find(o => o.value === paymentMethodText)?.label ||
     paymentMethodText;
 
+  const collapsingName = useMemo(
+    () => ({
+      ORDER_PRICE: 'ORDER_PRICE',
+      DISCOUNT_PRICE: 'DISCOUNT_PRICE',
+      TOTAL_PRICE: 'TOTAL_PRICE',
+    }),
+    []
+  );
+
+  // 닫힘 영역 토글 리듀서
+  const [collapsingState, dispatch] = useReducer(
+    (state, { name = collapsingName.ORDER_PRICE }) => {
+      return {
+        ...state,
+        [name]: !state[name],
+      };
+    },
+    {
+      [collapsingName.ORDER_PRICE]: true,
+      [collapsingName.DISCOUNT_PRICE]: true,
+      [collapsingName.TOTAL_PRICE]: true,
+    }
+  );
+
   return (
     <div className={css.wrap}>
-      <div className={cn(css.row, css.totalPayments)}>
+      <MypageSectionTitle>환불 정보</MypageSectionTitle>
+
+      {/* 주문 금액 */}
+      <div className={cn(css.sectionWrap)}>
         <div
-          className={cn(
-            css.column,
-            css.column_1_3,
-            css.withMinus,
-            css.withBorderRight
-          )}
+          className={cn(css.section, {
+            [css.isClosed]: collapsingState[collapsingName.ORDER_PRICE],
+          })}
         >
-          <div className={cn(css.totalPrice)}>
-            <span className={css.label}>주문금액</span>
-            <span className={css.value}>
+          <div
+            className={cn(css.section__field, css.isHeading)}
+            onClick={() => dispatch({ name: collapsingName.ORDER_PRICE })}
+          >
+            <span className={css.section__label}>주문금액</span>
+            <span className={css.section__value}>
               {addCommaToNum(
                 nilToZero(refundResponse?.totalCancelProductPrice)
               )}
@@ -59,9 +87,9 @@ function RefundInfo({
             </span>
           </div>
 
-          <div className={cn(css.totalPriceDetail)}>
-            <span className={css.label}>상품 금액</span>
-            <span className={css.value}>
+          <div className={cn(css.section__field)}>
+            <span className={css.section__label}>상품 금액</span>
+            <span className={css.section__value}>
               {addCommaToNum(
                 nilToZero(refundResponse?.totalCancelProductPrice)
               )}
@@ -69,9 +97,9 @@ function RefundInfo({
             </span>
           </div>
 
-          <div className={cn(css.totalPriceDetail)}>
-            <span className={css.label}>배송비</span>
-            <span className={css.value}>
+          <div className={cn(css.section__field)}>
+            <span className={css.section__label}>배송비</span>
+            <span className={css.section__value}>
               {addCommaToNum(nilToZero(refundResponse?.totalCancelShipPrice))}원
             </span>
           </div>
@@ -79,62 +107,65 @@ function RefundInfo({
 
         {/* 환불금액 차감내역은 기획에서 빠짐. 취소상품 주문금액 = 환불 예상금액이라서 0을 넣어도 상관없음 */}
         <div
-          className={cn(
-            css.column,
-            css.column_1_3,
-            css.withEqual,
-            css.withBorderRight
-          )}
+          className={cn(css.section, {
+            [css.isClosed]: collapsingState[collapsingName.DISCOUNT_PRICE],
+          })}
         >
-          <div className={cn(css.totalPrice)}>
-            <span className={css.label}>차감금액</span>
-            <span className={css.value}>
+          <div
+            className={cn(css.section__field, css.isHeading)}
+            onClick={() => dispatch({ name: collapsingName.DISCOUNT_PRICE })}
+          >
+            <span className={css.section__label}>차감금액</span>
+            <span className={css.section__value}>
               {addCommaToNum(refundResponse?.totalCancelDiscountPrice)}원
             </span>
           </div>
 
-          <div className={cn(css.totalPriceDetail)}>
-            <span className={css.label}>할인금액</span>
-            <span className={css.value}>
+          <div className={cn(css.section__field)}>
+            <span className={css.section__label}>할인금액</span>
+            <span className={css.section__value}>
               {addCommaToNum(
                 nilToZero(refundResponse?.totalCancelDiscountPrice)
               )}
               원
             </span>
           </div>
-          {/*
-          <div className={cn(css.totalPriceDetail)}>
-            <span className={css.label}>취소・반품비용 차감</span>
-            <span className={css.value}>{addCommaToNum(nilToZero(0))}원</span>
-          </div> */}
         </div>
 
-        <div className={cn(css.column, css.column_1_3)}>
-          <div className={cn(css.totalPrice, css.red)}>
-            <span className={css.label}>환불 예정 금액</span>
-            <span className={css.value}>
+        {/* 환불 예정 금액 */}
+        <div
+          className={cn(css.section, {
+            [css.isClosed]: collapsingState[collapsingName.TOTAL_PRICE],
+          })}
+        >
+          <div
+            className={cn(css.section__field, css.isHeading, css.isRed)}
+            onClick={() => dispatch({ name: collapsingName.TOTAL_PRICE })}
+          >
+            <span className={css.section__label}>환불 예정 금액</span>
+            <span className={css.section__value}>
               {// * 최종 결제금액과 동일한 값이 되어야 한다
               addCommaToNum(nilToZero(refundResponse?.totalCancelOrderPrice))}
               원
             </span>
           </div>
 
-          <div className={cn(css.totalPriceDetail)}>
+          <div className={cn(css.section__field)}>
             {/* 결제 수단에 따라 텍스트 달라짐 */}
-            <span className={css.label}>
+            <span className={css.section__label}>
               {paymentMethodTextInView && `${paymentMethodTextInView} `}최종
               결제금액
             </span>
-            <span className={css.value}>
+            <span className={css.section__value}>
               {addCommaToNum(
                 nilToZero(refundResponse?.totalPaymentCancelPrice)
               )}
               원
             </span>
           </div>
-          <div className={cn(css.totalPriceDetail)}>
-            <span className={css.label}>포인트 사용</span>
-            <span className={css.value}>
+          <div className={cn(css.section__field)}>
+            <span className={css.section__label}>포인트 사용</span>
+            <span className={css.section__value}>
               {addCommaToNum(nilToZero(refundResponse?.totalPointCancelPrice))}
               원
             </span>

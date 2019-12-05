@@ -189,16 +189,13 @@ class OrderClaimDetail extends Component {
           <ClaimPaymentInfo claimData={orderClaimForm.claimData} />
 
           {this.isRefundInfoVisible && (
-            <>
-              <MypageSectionTitle title="환불금액 정보" />
-              <RefundInfo
-                // 클레임 상세에서는 getRefundResponse를 하지 않고 order-complete-form에 확정된 데이터를 사용한다
-                refundResponse={orderClaimForm.claimData?.refundResponse}
-                paymentMethodText={
-                  orderClaimForm.claimData?.refundResponse?.paymentMethodText
-                }
-              />
-            </>
+            <RefundInfo
+              // 클레임 상세에서는 getRefundResponse를 하지 않고 order-complete-form에 확정된 데이터를 사용한다
+              refundResponse={orderClaimForm.claimData?.refundResponse}
+              paymentMethodText={
+                orderClaimForm.claimData?.refundResponse?.paymentMethodText
+              }
+            />
           )}
         </div>
       </DetailPageLayout>
