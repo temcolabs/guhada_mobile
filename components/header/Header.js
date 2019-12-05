@@ -9,19 +9,17 @@ import { pushRoute, LinkRoute } from 'childs/lib/router';
 import cn from 'classnames';
 import SearchMenu from './SearchMenu';
 import BrandContainer from './item/BrandContainer';
+import useStores from 'stores/useStores';
+import { useObserver } from 'mobx-react-lite';
 
 /**
  *
  * @param {string} headerShape
  * productDetail 일때 layout 변경
  */
-function Header({
-  children,
-  headerShape,
-  history,
-  cartAmount,
-  scrollDirection,
-}) {
+function Header({ children, headerShape, cartAmount, scrollDirection }) {
+  // eslint-disable-next-line
+  const { history } = useStores();
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isCategoryVisible, setIsCategoryVisible] = useState(false);
   const [categoryId, setCategoryId] = useState(0);
@@ -30,7 +28,7 @@ function Header({
   const [isBrandVisible, setIsBrandVisible] = useState(false);
   let urlHistory = sessionStorage.get('urlHistory');
 
-  return (
+  return useObserver(() => (
     <>
       {headerShape === 'keyword' ? (
         <div className={css.wrap} />
@@ -153,7 +151,6 @@ function Header({
         </div>
       )}
     </>
-  );
+  ));
 }
-
-export default inject('history')(Header);
+export default Header;
