@@ -645,6 +645,16 @@ export default class SearchItemStore {
   @computed get getExpandedKeys() {
     return this.expandedKeys.slice();
   }
+  @action
+  setExpandedKeys = expandedKeys => {
+    if (expandedKeys == null) expandedKeys = '';
+
+    if (Array.isArray(expandedKeys)) {
+      this.expandedKeys = expandedKeys;
+    } else {
+      this.expandedKeys = [expandedKeys];
+    }
+  };
 
   @computed get getKeyArray() {
     return this.keyArray;
@@ -655,46 +665,65 @@ export default class SearchItemStore {
     this.title = data;
   };
 
+  @observable categoryquery;
+
   @computed get getCheckedKeys() {
     return this.checkedKeys.slice();
   }
 
-  @observable categoryquery;
+  checkDuplicatedCheckedKeys(info) {
+    let idx = -1;
+    for (let i = 0; i < this.checkedKeys.length; i++) {
+      if (toJS(this.checkedKeys[i]) === info.node.props.eventKey) idx = i;
+    }
 
+    if (idx === -1) {
+      this.checkedKeys.push(info.node.props.eventKey);
+      this.checkedKeysId.push(info.node.props.id);
+    } else {
+      this.checkedKeys.splice(idx, 1);
+      this.checkedKeysId.splice(idx, 1);
+    }
+  }
   @action
   onCheck = (checkedKeys, info) => {
-    if (info.node.props.children.length > 0) {
-      // 들어올 일 없음
+    let classNames = info.node.props.className;
+
+    if (classNames === 'ableCheckbox') {
+      this.checkDuplicatedCheckedKeys(info);
     } else {
-      let idx = -1;
-      for (let i = 0; i < this.checkedKeys.length; i++) {
-        if (toJS(this.checkedKeys[i]) == info.node.props.eventKey) idx = i;
-      }
-
-      if (idx === -1) {
-        this.checkedKeys.push(info.node.props.eventKey);
-        this.checkedKeysId.push(info.node.props.id);
-      } else {
-        this.checkedKeys.splice(idx, 1);
-        this.checkedKeysId.splice(idx, 1);
-      }
-
-      let query = Router.router.query;
-
-      this.categoryquery = this.checkedKeysId.join();
-
-      this.toSearch(
-        query.category,
-        query.brand,
-        query.page,
-        query.unitPerPage,
-        query.order,
-        query.filter,
-        this.categoryquery,
-        query.enter,
-        query.keyword
-      );
+      this.setExpandedKeys(checkedKeys);
     }
+  };
+  @action
+  onSelect = (selectedKeys, info) => {
+    let classNames = info.node.props.className;
+    if (classNames === 'ableCheckbox') {
+      this.checkDuplicatedCheckedKeys(info);
+    } else {
+      this.setExpandedKeys(selectedKeys);
+    }
+  };
+
+  @action
+  initFilter = () => {
+    this.filterBrand = [];
+    this.root.brands.getBrands();
+  };
+
+  @observable filterBrand = [];
+  setFilterBrand = brand => {
+    const idx = this.filterBrand.findIndex(function(item) {
+      return item.id === brand.id;
+    });
+
+    if (idx > -1) {
+      this.filterBrand.splice(idx, 1);
+    } else {
+      this.filterBrand.push(brand);
+    }
+
+    console.log('toJS(this.filterBrand)', toJS(this.filterBrand));
   };
 
   // filter 부분

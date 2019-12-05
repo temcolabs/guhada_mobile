@@ -1,5 +1,5 @@
 $topPosition: 60px;
-$toolbarHeader:55px;
+$toolbarHeader:60px;
 
 .wrap {
     position: absolute;
@@ -13,7 +13,9 @@ $toolbarHeader:55px;
     & .header {
         width: 100%;
         height: $toolbarHeader;
-        padding: 18px 0 0 20px;
+        padding: 0 0 0 20px;
+        display: flex;
+        align-items: center;
         font-size: 18px;
         font-weight: bold;
         font-style: normal;
@@ -31,9 +33,9 @@ $toolbarHeader:55px;
         position: fixed;
         top: 0;
         background-image: url('/static/icon/tool_btn_close.png');
-        background-size: 35px;
+        background-size: 30px;
         background-repeat: no-repeat;
-        background-position: right 12px bottom;
+        background-position: right 9px bottom 13px;
     }
 
     & .itemWrap {

@@ -5,8 +5,28 @@ import cn from 'classnames';
 import Router from 'next/router';
 import RgbButton from './RgbButton';
 import TextButton from './TextButton';
+import SearchCategory from './SearchCategory';
+import SearchBrand from './SearchBrand';
+import memoize from 'memoize-one';
+import { inject, observer } from 'mobx-react';
 
-export class SearchFilter extends Component {
+@inject('brands', 'searchitem')
+@observer
+class SearchFilter extends Component {
+  componentDidUpdate(prevProps, prevState) {
+    this.setBrandData(this.props.isVisible);
+  }
+  // isVisible
+  setBrandData = memoize(isVisible => {
+    console.log('isVisible', isVisible);
+    const { brands, searchitem } = this.props;
+    if (isVisible === false) {
+      searchitem.initFilter();
+    } else {
+      brands.setBrandsFromFilter(searchitem.item?.brands);
+    }
+  });
+
   render() {
     const {
       isVisible,
@@ -24,8 +44,9 @@ export class SearchFilter extends Component {
           <button className={css.close} onClick={onClose} />
           <div className={css.header}>상세검색</div>
           <div className={css.itemWrap}>
-            <div className={cn(css.item)}>카테고리</div>
-            <div className={cn(css.item)}>브랜드</div>
+            <SearchCategory />
+            <SearchBrand />
+
             {filters
               ? filters.map(filter => {
                   if (filter.viewType === 'RGB_BUTTON') {
@@ -42,4 +63,4 @@ export class SearchFilter extends Component {
   }
 }
 
-export default SlideIn;
+export default SearchFilter;

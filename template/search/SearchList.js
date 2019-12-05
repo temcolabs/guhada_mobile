@@ -14,11 +14,10 @@ import {
 } from 'components/search';
 import _ from 'lodash';
 
-// import { SearchFilter } from 'components/search/SearchFilter';
-
 // enter : keyword 일때
 import KeywordMenu from 'components/header/keyword/KeywordMenu';
 import SearchResultEmpty from 'components/search/SearchResultEmpty';
+import SearchFilter from 'components/search/SearchFilter';
 
 @withRouter
 @inject('searchitem')
@@ -137,12 +136,11 @@ class SearchList extends Component {
           toSearch={searchitem.toSearch}
         />
 
-        {/* NEXT TODO */}
-        {/* <SearchFilter
+        <SearchFilter
           isVisible={this.state.isFilterVisible}
           onClose={() => this.setIsFilterVisible(false)}
           filters={searchitem.filterData}
-        /> */}
+        />
       </DefaultLayout>
     );
   }
