@@ -1,0 +1,18 @@
+.periodWrap {
+  height: 90px;
+  padding-top: 30px;
+  border-bottom: solid 1px #eee;
+
+  & .totalCountWrap {
+    font-size: 13px;
+    font-weight: 500;
+    color: #444444;
+    float: left;
+    margin-top: 6px;
+  }
+}
+
+.answerWrap {
+  width: 110px;
+  float: right;
+}

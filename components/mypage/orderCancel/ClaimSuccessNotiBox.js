@@ -12,9 +12,6 @@ export default function ClaimSuccessNotiBox({
   return (
     <div className={css.wrap}>
       <div className={css.heading}>{heading()}</div>
-      <div className={css.border} />
-
-      <div className={css.desc}>{isFunction(desc) ? desc() : desc}</div>
     </div>
   );
 }

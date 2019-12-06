@@ -1,0 +1,95 @@
+@import 'styles/mixins/index';
+
+@mixin paddingSide20 {
+  padding: 0 20px;
+}
+
+.wrap {
+  background: #f9f9fa;
+}
+
+.orderInfo {
+  padding: 30px 20px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #444444;
+}
+
+.formWrap {
+  background: #fff;
+  padding: 30px 0;
+}
+
+.orderInfo__orderId {
+}
+
+.orderInfo__field {
+  &:not(:first-child) {
+    margin-top: 9px;
+  }
+}
+
+.orderInfo__label {
+  display: inline-block;
+  min-width: 48px;
+  @include withDivider(
+    $height: 9px,
+    $distance: 17px,
+    $color: #dddddd,
+    $width: 1px
+  );
+}
+
+.orderInfo__value {
+  display: inline-block;
+  font-family: Roboto;
+}
+
+.dealWrap {
+  @include paddingSide20;
+}
+
+.fieldWrap {
+  margin-top: 35px;
+  @include paddingSide20;
+
+  section {
+    display: flex;
+    margin-top: 25px;
+    height: 32px;
+    line-height: 32px;
+    &:first-child {
+      margin-top: 0;
+    }
+    .sectionTitle {
+      min-width: 120px;
+      font-size: 14px;
+      font-weight: normal;
+    }
+  }
+}
+
+.reasonWrapper {
+  margin-top: 30px;
+  @include paddingSide20;
+}
+
+.cancelReasonText {
+  margin-top: 10px;
+  @include paddingSide20;
+}
+
+.isRefundInfo {
+  margin-top: 40px;
+  @include paddingSide20;
+  padding-top: 30px;
+  background: #f9f9fa;
+}
+
+.refundFormWrap {
+  margin-top: 8px;
+  padding: 30px 20px;
+  background: #fff;
+}

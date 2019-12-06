@@ -1,0 +1,223 @@
+@import 'styles/var';
+@import 'styles/mixins/index';
+
+$imageBoxSize: 100px;
+
+.itemWrap {
+  border-bottom: solid 1px #eee;
+
+  &:last-child {
+    margin-bottom: 70px;
+  }
+}
+
+.productWrap {
+  @include clearfix;
+  width: calc(100% - 60px);
+  border-bottom: dashed 1px #eee;
+  padding: 40px 0;
+  margin: 0 30px;
+}
+
+.productImageBox {
+  float: left;
+  width: $imageBoxSize;
+  height: $imageBoxSize;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #fff;
+}
+
+.productInfo {
+  float: left;
+  padding-left: 40px;
+  width: calc(100% - #{$mypageListActionBoxWidth} - #{$imageBoxSize});
+  height: 100px;
+  line-height: 1.57;
+  position: relative;
+
+  .brandName {
+    font-weight: bold;
+  }
+
+  .prodName {
+    color: #444;
+    margin-top: 2px;
+  }
+
+  .statusBox {
+    margin-top: 20px;
+  }
+
+  .status {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: #5d2ed1;
+  }
+
+  .statusMessage {
+    font-size: 12px;
+    color: #777777;
+    margin-left: 10px;
+  }
+
+  .writing {
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.08;
+    color: #777777;
+    margin-top: 14px;
+    position: absolute;
+    bottom: 0;
+  }
+
+  .nickName {
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 1.2;
+    color: #777777;
+    margin-top: 6px;
+  }
+}
+
+.actionBox {
+  width: $mypageListActionBoxWidth;
+  float: left;
+  padding: 27px 0 25px 0;
+
+  & > button {
+    display: block;
+    width: 80px;
+    height: 27px;
+    line-height: calc(24px * 0.95);
+    text-align: center;
+    font-size: 12px;
+    border: solid 1px #cccccc;
+    float: right;
+
+    &:not(:first-child) {
+      margin-top: 6px;
+    }
+
+    // 색이 들어간 버튼
+    &.isColored {
+      text-align: center;
+      background: #5d2ed1;
+      border: 1px solid #5d2ed1;
+      color: #fff;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.answerWrap {
+  @include clearfix;
+  padding: 18px 30px 18px 30px;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  .answerText {
+    width: calc(100% - 100px);
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 24px;
+    color: #444444;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-left: 30px;
+  }
+}
+
+.statusBox {
+  width: 100px;
+  height: 24px;
+  border: solid 1px #dddddd;
+  background-color: #ffffff;
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 22px;
+  letter-spacing: normal;
+  text-align: center;
+  color: #444444;
+  float: left;
+
+  &__true {
+    @extend .statusBox;
+    background-color: #5d2ed1;
+    border: solid 1px #5d2ed1;
+    color: #ffffff;
+  }
+}
+
+.replyDivWrap {
+  padding: 18px 30px 0 30px;
+  background-color: #f9f9fa;
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 24px;
+  color: #444444;
+  cursor: pointer;
+
+  .replyAnswerWrap {
+    padding-bottom: 20px;
+    border-bottom: 1px dashed #eeeeee;
+    display: inline-block;
+    width: 100%;
+  }
+
+  .answerText {
+    width: calc(100% - 100px);
+    padding-left: 30px;
+    float: left;
+  }
+
+  & b {
+    font-size: 13px;
+    font-weight: normal;
+    color: #5d2ed1;
+  }
+
+  .replyWrap {
+    position: relative;
+    margin-top: 20px;
+    margin-left: 131px;
+    width: calc(100% - 131px);
+    padding-left: 14px;
+
+    &::before {
+      content: ' ';
+      position: absolute;
+      top: 5px;
+      left: 0;
+      width: 12px;
+      height: 12px;
+      background: url('/static/icon/mypage/icon-a@3x.png') no-repeat center;
+      background-size: contain;
+    }
+  }
+
+  & .replyTextWrap {
+    position: relative;
+    top: -24px;
+    left: 53px;
+    width: calc(100% - 24px - 30px);
+
+    & .writing {
+      padding-top: 12px;
+
+      & span {
+        color: #7c7c7c;
+      }
+    }
+  }
+}

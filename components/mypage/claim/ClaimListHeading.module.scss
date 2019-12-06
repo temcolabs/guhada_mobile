@@ -1,0 +1,40 @@
+.wrap {
+  border-bottom: 2px solid #111111;
+  padding-top: 5px;
+  padding-bottom: 20px;
+}
+
+.title {
+  display: inline-block;
+  font-size: 20px;
+  margin-bottom: 0;
+}
+
+.children {
+  margin-top: 39px;
+}
+
+.tabWrap {
+  float: right;
+}
+
+.tabItem {
+  display: inline-block;
+  width: 160px;
+  text-align: center;
+  padding: 6px 0 18px;
+  font-size: 16px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+  text-align: center;
+  color: #444444;
+  cursor: pointer;
+
+  &.isSelected {
+    color: #5d2ed1;
+    border-bottom: 2px solid #8c71ff;
+  }
+}

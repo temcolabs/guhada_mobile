@@ -1,0 +1,39 @@
+.wrap {
+  border: none;
+  font-size: 14px;
+
+  td {
+    border: none;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  thead {
+    tr {
+      border-bottom: 1px solid #eeeeee;
+    }
+
+    td,
+    th {
+      border: none;
+      color: #444444;
+      padding: 16px;
+    }
+  }
+
+  tbody {
+    border-bottom: 1px solid #eee;
+
+    tr {
+      border-bottom: 1px dashed #eee;
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    td {
+      padding: 20px 14px;
+    }
+  }
+}

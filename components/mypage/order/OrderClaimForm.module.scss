@@ -1,6 +1,67 @@
 @import 'styles/mixins/index';
 @import 'styles/var';
 
+@import 'styles/var';
+
+// 라벨과 밸류가 한줄씩 구성됨
+.field {
+  display: flex;
+  flex-direction: column;
+
+  & + & {
+    margin-top: 30px;
+  }
+
+  & > .field__label {
+  }
+
+  & > .field__value {
+    margin-top: 15px;
+  }
+
+  // 라벨과 필드가 한줄로 구성
+  &.hasChildrenInOneLine {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 32px;
+
+    & + & {
+      margin-top: 10px;
+    }
+
+    .field__label {
+      flex: 1 0 115px;
+    }
+
+    .field__value {
+      flex: 1 1 auto;
+      margin-top: 0;
+    }
+  }
+}
+
+.field__label {
+  font-size: 14px;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.43;
+  letter-spacing: normal;
+  text-align: left;
+  color: $guhada-black;
+}
+
+.field__value {
+  color: #777777;
+}
+
+.errorMsg {
+  margin-top: 3px;
+  color: #c72121;
+  font-size: 13px;
+}
+
 .orderItemTable {
   border: none;
 

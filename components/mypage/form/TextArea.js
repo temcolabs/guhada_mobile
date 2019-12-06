@@ -29,16 +29,18 @@ export default function TextArea({
         placeholder={placeholder}
       />
 
-      <div
-        className={cn(css.inputSize, {
-          [css.outsideBottomRight]: 'OUTSIDE_BOTTOM_RIGHT',
-        })}
-      >
-        <span className={css.inputSize__current}>
-          {_.isNil(value) ? 0 : parseInt(value.length, 10)}
-        </span>
-        /{maxSize}
-      </div>
+      {isInputSizeVisible && (
+        <div
+          className={cn(css.inputSize, {
+            [css.outsideBottomRight]: 'OUTSIDE_BOTTOM_RIGHT',
+          })}
+        >
+          <span className={css.inputSize__current}>
+            {_.isNil(value) ? 0 : parseInt(value.length, 10)}
+          </span>
+          /{maxSize}
+        </div>
+      )}
     </div>
   );
 }

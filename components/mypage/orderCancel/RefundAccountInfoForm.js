@@ -1,9 +1,7 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import SectionHeading from 'components/common/SectionHeading';
+import React, { useState, useCallback } from 'react';
 import Input from 'components/mypage/form/Input';
 import Select from 'components/mypage/form/Select';
-import KeyValueTable from 'components/mypage/form/KeyValueTable';
-import tableCSS from 'components/mypage/form/KeyValueTable.module.scss';
+import css from './RefundAccountInfoForm.module.scss';
 import { Field } from 'react-final-form';
 import {
   composeValidators,
@@ -15,6 +13,10 @@ import FormButton, {
   formButtonColors,
 } from 'components/mypage/form/FormButton';
 import accountService from 'childs/lib/API/order/accountService';
+import useStores from 'stores/useStores';
+import MypageSectionTitle from '../MypageSectionTitle';
+import claimFormCSS from 'components/mypage/order/OrderClaimForm.module.scss';
+import cn from 'classnames';
 
 /**
  * 환불 계좌정보 입력 폼.
@@ -23,8 +25,6 @@ import accountService from 'childs/lib/API/order/accountService';
  * final form의 render props 안에 마운팅되어야 한다.
  */
 export default function RefundAccountInfoForm({
-  isRefundEnabled = false, // 환불이 가능한지
-  orderClaimForm,
   isCreate = true,
   fields = {
     refundBankCode: 'refundBankCode',
@@ -34,6 +34,7 @@ export default function RefundAccountInfoForm({
   },
   formApi, // final form instance
 }) {
+  const { orderClaimForm } = useStores();
   const [isValidatingTried, setIsValidatingTried] = useState(false);
   const [isValidatingAccount, setIsValidatingAccount] = useState(false);
 
@@ -41,10 +42,10 @@ export default function RefundAccountInfoForm({
   const claimData = orderClaimForm.claimData;
 
   // 환불 계좌정보 입력 양식. 반품 신청에서 표시된다.
-  const isRefundAccountFormVisible = isCreate && isRefundEnabled;
+  const isRefundAccountFormVisible = isCreate && orderClaimForm.isRefundEnabled;
 
   // 저장된 환불 계좌정보 표시 여부. 반품 신청 수정에서 표시된다.
-  const isRefundAccontInfoVisible = !isCreate && isRefundEnabled;
+  const isRefundAccontInfoVisible = !isCreate && orderClaimForm.isRefundEnabled;
 
   /**
    * 계좌번호 확인
@@ -63,8 +64,8 @@ export default function RefundAccountInfoForm({
       // 필요한 정보를 입력하지 않았다면 오류 처리
       formApi.change(fields.isRefundAccountChecked, false);
     } else {
+      setIsValidatingTried(false);
       setIsValidatingAccount(true);
-      setIsValidatingTried(true);
 
       accountService
         .accountCheck({
@@ -86,6 +87,7 @@ export default function RefundAccountInfoForm({
           formApi.change(fields.isRefundAccountChecked, false);
         })
         .finally(() => {
+          setIsValidatingTried(true);
           setIsValidatingAccount(false);
         });
     }
@@ -102,98 +104,94 @@ export default function RefundAccountInfoForm({
     !!values[fields.refundBankCode] &&
     !!values[fields.refundBankAccountOwner];
 
+  const isAccountVerified = values[fields.isRefundAccountChecked];
+
   return (
-    <>
+    <div>
+      <MypageSectionTitle title="환불 계좌정보" />
+
       {isRefundAccountFormVisible && (
-        <>
-          <SectionHeading title="환불 계좌정보" />
-          <KeyValueTable>
-            <tr>
-              <td>은행명</td>
-              <td>
-                <div className={tableCSS.smallInputWrapper}>
-                  <Field
-                    name={fields.refundBankCode}
-                    validate={composeValidators(required)}
-                  >
-                    {props => (
-                      <div>
-                        <Select
-                          options={orderClaimForm.bankCodeOptions}
-                          value={orderClaimForm.bankCodeOptions?.find(
-                            o => o.value === props.input.value
-                          )}
-                          onChange={({ value }) => {
-                            props.input.onChange(value);
+        <div style={{ marginTop: '20px' }}>
+          <div className={claimFormCSS.field}>
+            <div className={claimFormCSS.field__label}>은행명</div>
+            <div className={claimFormCSS.field__value}>
+              <Field
+                name={fields.refundBankCode}
+                validate={composeValidators(required)}
+              >
+                {props => (
+                  <div>
+                    <Select
+                      options={orderClaimForm.bankCodeOptions}
+                      value={orderClaimForm.bankCodeOptions?.find(
+                        o => o.value === props.input.value
+                      )}
+                      onChange={({ value }) => {
+                        props.input.onChange(value);
 
-                            // 변경될때마다 계좌가 확인 안됨으로 변경
-                            if (isAllInputFilled) {
-                              formApi.change(
-                                fields.isRefundAccountChecked,
-                                false
-                              );
-                            }
+                        // 변경될때마다 계좌가 확인 안됨으로 변경
+                        if (isAllInputFilled) {
+                          formApi.change(fields.isRefundAccountChecked, false);
+                        }
 
+                        formApi.change(fields.isRefundAccountChecked, false);
+                      }}
+                    />
+                    {props.meta.submitFailed && props.meta.error && (
+                      <div className={claimFormCSS.errorMsg}>
+                        {props.meta.error}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </Field>
+            </div>
+          </div>
+          <div className={claimFormCSS.field}>
+            <div className={claimFormCSS.field__label}>계좌번호</div>
+            <div className={claimFormCSS.field__value}>
+              <div className={css.smallInputWrapper}>
+                <Field
+                  name={fields.refundBankAccountNumber}
+                  validate={composeValidators(required, notEmptyString)}
+                >
+                  {({ input, meta }) => (
+                    <>
+                      <Input
+                        initialValue={input.value}
+                        onChange={value => {
+                          if (isAllInputFilled) {
                             formApi.change(
                               fields.isRefundAccountChecked,
                               false
                             );
-                          }}
-                        />
-                        {props.meta.submitFailed && props.meta.error && (
-                          <div data-name="error">{props.meta.error}</div>
-                        )}
-                      </div>
-                    )}
-                  </Field>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>계좌번호</td>
-              <td>
-                <div className={tableCSS.smallInputWrapper}>
-                  <Field
-                    name={fields.refundBankAccountNumber}
-                    validate={composeValidators(required, notEmptyString)}
-                  >
-                    {({ input, meta }) => (
-                      <>
-                        <Input
-                          initialValue={input.value}
-                          onChange={value => {
-                            if (isAllInputFilled) {
-                              formApi.change(
-                                fields.isRefundAccountChecked,
-                                false
-                              );
-                            }
-                            input.onChange(value);
-                          }}
-                          placeholder="계좌번호를 입력해주세요."
-                        />
-                        {meta.submitFailed && meta.error && (
-                          <div data-name="error">{meta.error}</div>
-                        )}
-                      </>
-                    )}
-                  </Field>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>예금주명 (본인명)</td>
-              <td>
-                <div
-                  className={tableCSS.smallInputWrapper}
-                  style={{ float: 'left', marginRight: '10px' }}
-                >
+                          }
+                          input.onChange(value);
+                        }}
+                        placeholder="계좌번호를 입력해주세요."
+                      />
+                      {meta.submitFailed && meta.error && (
+                        <div className={claimFormCSS.errorMsg}>
+                          {meta.error}
+                        </div>
+                      )}
+                    </>
+                  )}
+                </Field>
+              </div>
+            </div>
+          </div>
+          <div className={claimFormCSS.field}>
+            <div className={claimFormCSS.field__label}>예금주명 (본인명)</div>
+            <div className={claimFormCSS.field__value}>
+              <div className={css.checkAccountField}>
+                <div className={css.checkAccountField__input}>
                   <Field
                     name={fields.refundBankAccountOwner}
                     validate={composeValidators(required, notEmptyString)}
                   >
                     {props => (
-                      <div>
+                      <>
                         <Input
                           initialValue={props.input.value}
                           onChange={value => {
@@ -209,14 +207,40 @@ export default function RefundAccountInfoForm({
                           placeholder="예금주명을 입력해주세요."
                         />
                         {props.meta.submitFailed && props.meta.error && (
-                          <div data-name="error">{props.meta.error}</div>
+                          <div className={claimFormCSS.errorMsg}>
+                            {props.meta.error}
+                          </div>
                         )}
-                      </div>
+                      </>
                     )}
                   </Field>
                 </div>
 
                 {/* 계좌 확인 메시지 */}
+                <div className={css.checkAccountField__button}>
+                  <FormButton
+                    type="button"
+                    onClick={e => {
+                      e.stopPropagation();
+                      formApi.submit();
+                      handleClickCheckAccount();
+                    }}
+                    status={
+                      !isAccountVerified
+                        ? formButtonColors.DEFAULT
+                        : formButtonColors.PURPLE
+                    }
+                  >
+                    {isValidatingAccount
+                      ? '확인중...'
+                      : isAccountVerified
+                      ? '확인 완료'
+                      : '계좌확인'}
+                  </FormButton>
+                </div>
+              </div>
+
+              <div>
                 <Field
                   name={fields.isRefundAccountChecked}
                   validate={v => {
@@ -228,78 +252,64 @@ export default function RefundAccountInfoForm({
                   {({ meta }) => {
                     return (
                       <>
-                        <FormButton
-                          type="button"
-                          onClick={e => {
-                            e.stopPropagation();
-                            formApi.submit();
-                            handleClickCheckAccount();
-                          }}
-                          status={
-                            !meta.error
-                              ? formButtonColors.DEFAULT
-                              : formButtonColors.PURPLE
-                          }
-                        >
-                          {isValidatingAccount
-                            ? '확인중...'
-                            : !meta.error
-                            ? '확인 완료'
-                            : '계좌확인'}
-                        </FormButton>
-
                         {isValidatingTried && isAllInputFilled && meta.error ? (
-                          <div data-name="error">{meta.error}</div>
-                        ) : meta.dirty && !meta.error ? (
-                          <div data-name="success">계좌 확인되었습니다</div>
+                          <div className={claimFormCSS.errorMsg}>
+                            {meta.error}
+                          </div>
                         ) : null}
                       </>
                     );
                     // 초기값이 변경된 후에 에러메시지 표시
                   }}
                 </Field>
-              </td>
-            </tr>
-          </KeyValueTable>
-        </>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
 
       {/* 입력한 환불 계좌정보 */}
       {isRefundAccontInfoVisible && (
-        <>
-          <SectionHeading title="환불 계좌정보" />
-          <KeyValueTable>
-            <tr>
-              <td>은행명</td>
-              <td>
-                <div className={'textValueCell'}>
-                  {
-                    orderClaimForm.bankCodeOptions.find(
-                      o => o.value === claimData?.refundBankCode
-                    )?.label
-                  }
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>계좌번호</td>
-              <td>
-                <div className={'textValueCell'}>
-                  {claimData?.refundBankAccountNumber}
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>예금주명 (본인명)</td>
-              <td>
-                <div className={'textValueCell'}>
-                  {claimData?.refundBankAccountOwner}
-                </div>
-              </td>
-            </tr>
-          </KeyValueTable>
-        </>
+        <div style={{ marginTop: '20px' }}>
+          <div
+            className={cn(
+              claimFormCSS.field,
+              claimFormCSS.hasChildrenInOneLine
+            )}
+          >
+            <div className={claimFormCSS.field__label}>은행명</div>
+            <div className={claimFormCSS.field__value}>
+              {
+                orderClaimForm.bankCodeOptions.find(
+                  o => o.value === claimData?.refundBankCode
+                )?.label
+              }
+            </div>
+          </div>
+          <div
+            className={cn(
+              claimFormCSS.field,
+              claimFormCSS.hasChildrenInOneLine
+            )}
+          >
+            <div className={claimFormCSS.field__label}>계좌번호</div>
+            <div className={claimFormCSS.field__value}>
+              {claimData?.refundBankAccountNumber}
+            </div>
+          </div>
+          <div
+            className={cn(
+              claimFormCSS.field,
+              claimFormCSS.hasChildrenInOneLine
+            )}
+          >
+            <div className={claimFormCSS.field__label}>예금주명 (본인명)</div>
+            <div className={claimFormCSS.field__value}>
+              {claimData?.refundBankAccountOwner}
+            </div>
+          </div>
+        </div>
       )}
-    </>
+    </div>
   );
 }
