@@ -1,7 +1,4 @@
 import React from 'react';
-import Table from 'components/mypage/Table';
-import addCommaToNum from 'childs/lib/common/addCommaToNum';
-import claimFormCSS from 'components/mypage/order/OrderClaimForm.module.scss';
 import useStores from 'stores/useStores';
 import { useObserver } from 'mobx-react-lite';
 import DealOrdered from '../DealOrdered';
@@ -12,17 +9,15 @@ import DealOrdered from '../DealOrdered';
  */
 function ClaimOrderTableAtDone() {
   const { orderClaimForm } = useStores();
-  const { claimData } = orderClaimForm;
 
   return useObserver(() => (
     <div>
       <DealOrdered
+        isClaim={true}
         order={orderClaimForm.claimData}
-        isPriceVisible={false}
-        hasOptionQuantity={false}
-        isSmallImage={true}
+        hasOptionQuantity={true}
+        isPriceVisible
         isPurchaseStatusVisible={false}
-        isBrandAndProductInSameLine={true}
       />
     </div>
   ));
