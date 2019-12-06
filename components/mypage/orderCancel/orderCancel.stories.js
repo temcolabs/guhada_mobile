@@ -1,26 +1,20 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import {
-  withKnobs,
-  text,
-  boolean,
-  number,
-  color,
-  select,
-  object,
-} from '@storybook/addon-knobs';
+import { withKnobs, boolean, object } from '@storybook/addon-knobs';
 import OrderCancelDashboard from './OrderCancelDashboard';
 import ClaimSuccessNotiBox from './ClaimSuccessNotiBox';
 import CancelItem from './CancelItem';
 import RefundInfo from './RefundInfo';
 import withCenteredDeco from '.storybook/decorators/withCenteredDeco';
+import withMobxDeco from '.storybook/decorators/withMobxDeco';
 
 const stories = storiesOf('mypage/orderCancel', module);
 
 // Add the `withKnobs` decorator to add knobs support to your stories.
 // You can also configure `withKnobs` as a global decorator.
 stories.addDecorator(withKnobs);
+stories.addDecorator(withMobxDeco({}));
 stories.addDecorator(withCenteredDeco);
 
 stories.add('OrderCancelDashboard', () => {

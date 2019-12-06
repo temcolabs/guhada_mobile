@@ -1,7 +1,13 @@
 @import 'styles/mixins/index';
+
 @mixin paddingSide20 {
   padding: 0 20px;
 }
+
+.wrap {
+  background: #f9f9fa;
+}
+
 .orderInfo {
   padding: 30px 20px;
   display: flex;
@@ -9,7 +15,11 @@
   justify-content: space-between;
   font-size: 13px;
   color: #444444;
-  background: #f9f9fa;
+}
+
+.formWrap {
+  background: #fff;
+  padding: 30px 0;
 }
 
 .orderInfo__orderId {
@@ -39,7 +49,6 @@
 
 .dealWrap {
   @include paddingSide20;
-  margin-top: 30px;
 }
 
 .fieldWrap {
@@ -77,4 +86,10 @@
   @include paddingSide20;
   padding-top: 30px;
   background: #f9f9fa;
+}
+
+.refundFormWrap {
+  margin-top: 8px;
+  padding: 30px 20px;
+  background: #fff;
 }

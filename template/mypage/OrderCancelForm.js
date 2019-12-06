@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import css from './OrderCancelForm.module.scss';
 import DetailPageLayout from 'components/layout/DetailPageLayout';
-import SectionHeading from 'components/common/SectionHeading';
-import sectionHeadingCss from 'components/common/SectionHeading.module.scss';
 import { observer, inject } from 'mobx-react';
-import Table from 'components/mypage/Table';
 import TextArea from 'components/mypage/form/TextArea';
 import Select from 'components/mypage/form/Select';
 import QuantityControl from 'components/mypage/form/QuantityControl';
@@ -15,8 +12,6 @@ import SubmitButton, {
   SubmitButtonWrapper,
 } from 'components/mypage/form/SubmitButton';
 import RefundInfo from 'components/mypage/orderCancel/RefundInfo';
-import KeyValueTable from 'components/mypage/form/KeyValueTable';
-import tableCSS from 'components/mypage/form/KeyValueTable.module.scss';
 import claimFormCSS from 'components/mypage/order/OrderClaimForm.module.scss';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
 import { Form, Field } from 'react-final-form';
@@ -28,7 +23,6 @@ import {
 } from 'childs/lib/common/finalFormValidators';
 import isDev from 'childs/lib/common/isDev';
 import purchaseStatus from 'childs/lib/constant/order/purchaseStatus';
-import paymentMethod from 'childs/lib/constant/order/paymentMethod';
 import RefundAccountInfoForm from 'components/mypage/orderCancel/RefundAccountInfoForm';
 import { isFalsey } from 'childs/lib/common/isTruthy';
 import { toJS } from 'mobx';
@@ -178,175 +172,192 @@ class OrderCancelForm extends Component {
 
           return (
             <DetailPageLayout pageTitle={'주문상품 취소 신청'}>
-              <form onSubmit={handleSubmit}>
-                <div className={css.orderInfo}>
-                  <div className={css.orderInfo__orderId}>
-                    <div className={css.orderInfo__field}>
-                      <span className={css.orderInfo__label}>주문번호</span>
-                      <span className={css.orderInfo__value}>
-                        {claimData.purchaseId || '-'}
-                      </span>
-                    </div>
-                    <div className={css.orderInfo__field}>
-                      <span className={css.orderInfo__label}>주문일</span>
-                      <span
-                        className={cn(css.orderInfo__value, css.withDivider)}
-                      >
-                        {orderClaimForm.orderDateWithFormat}
-                      </span>
+              <div className={css.wrap}>
+                <form onSubmit={handleSubmit}>
+                  <div className={css.orderInfo}>
+                    <div className={css.orderInfo__orderId}>
+                      <div className={css.orderInfo__field}>
+                        <span className={css.orderInfo__label}>주문번호</span>
+                        <span className={css.orderInfo__value}>
+                          {claimData.purchaseId || '-'}
+                        </span>
+                      </div>
+                      <div className={css.orderInfo__field}>
+                        <span className={css.orderInfo__label}>주문일</span>
+                        <span
+                          className={cn(css.orderInfo__value, css.withDivider)}
+                        >
+                          {orderClaimForm.orderDateWithFormat}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <div className={css.dealWrap}>
-                  <DealOrdered
-                    order={orderClaimForm.claimData}
-                    isSmallImage={false}
-                    isBrandAndProductInSameLine={false}
-                    hasOptionQuantity={true}
-                    isPurchaseStatusVisible
-                    isPriceVisible
-                  />
-                </div>
+                  <div className={css.formWrap}>
+                    <div className={css.dealWrap}>
+                      <DealOrdered
+                        order={orderClaimForm.claimData}
+                        isSmallImage={false}
+                        isBrandAndProductInSameLine={false}
+                        hasOptionQuantity={true}
+                        isPurchaseStatusVisible
+                        isPriceVisible
+                      />
 
-                <div className={css.fieldWrap}>
-                  <section>
-                    <div className={css.sectionTitle}>취소수량</div>
-                    <Field
-                      name={this.fields.quantity}
-                      validate={composeValidators(
-                        maxValue(claimData?.quantity)
-                      )}
-                    >
-                      {props => {
-                        return (
-                          <QuantityControl
-                            initialValue={
-                              this.state.initialValues[this.fields.quantity]
-                            }
-                            max={claimData?.quantity}
-                            onChange={value => {
-                              props.input.onChange(value);
-                              this.handleChangeQuantity(value);
-                            }}
-                          />
-                        );
-                      }}
-                    </Field>
-                  </section>
-                  <section>
-                    <div className={css.sectionTitle}>판매자</div>
-                    <div className={css.sellerName}>
-                      {claimData?.sellerName || '-'}
-                    </div>
-                  </section>
-                </div>
-                <div className={css.reasonWrapper}>
-                  <Field
-                    name={this.fields.cancelReason}
-                    validate={composeValidators(required)}
-                  >
-                    {({ input, meta }) => {
-                      return (
-                        <>
-                          <Select
-                            placeholder="취소 사유를 선택해주세요."
-                            options={cancelReasonOptions}
-                            value={cancelReasonOptions.find(
-                              o => o.value === values[this.fields.cancelReason]
-                            )}
-                            onChange={({ value }) => {
-                              this.handleChangeReason({
-                                reasonSelected: value,
-                                formApi,
-                              });
-                            }}
-                            styles={{ height: '45px' }}
-                          />
-                          {meta.submitFailed && meta.error && (
-                            <div data-name="error">{meta.error}</div>
+                      <div
+                        style={{
+                          marginTop: '32px',
+                        }}
+                      >
+                        <div
+                          className={cn(
+                            claimFormCSS.field,
+                            claimFormCSS.hasChildrenInOneLine
                           )}
-                        </>
-                      );
-                    }}
-                  </Field>
-                </div>
+                        >
+                          <div className={claimFormCSS.field__label}>
+                            취소수량
+                          </div>
+                          <div className={claimFormCSS.field__value}>
+                            <Field
+                              name={this.fields.quantity}
+                              validate={composeValidators(
+                                maxValue(claimData?.quantity)
+                              )}
+                            >
+                              {props => {
+                                return (
+                                  <QuantityControl
+                                    initialValue={
+                                      this.state.initialValues[
+                                        this.fields.quantity
+                                      ]
+                                    }
+                                    max={claimData?.quantity}
+                                    onChange={value => {
+                                      props.input.onChange(value);
+                                      this.handleChangeQuantity(value);
+                                    }}
+                                  />
+                                );
+                              }}
+                            </Field>
+                          </div>
+                        </div>
+                        <div
+                          className={cn(
+                            claimFormCSS.field,
+                            claimFormCSS.hasChildrenInOneLine
+                          )}
+                        >
+                          <div className={claimFormCSS.field__label}>
+                            판매자
+                          </div>
+                          <div className={claimFormCSS.field__value}>
+                            {claimData?.sellerName || '-'}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
-                <div className={css.cancelReasonText}>
-                  <Field
-                    name={this.fields.cancelReasonText}
-                    validate={requiredWithMessage(
-                      '취소 사유를 간략히 적어주세요.'
-                    )}
-                  >
-                    {({ input, meta }) => (
-                      <>
-                        <TextArea
-                          placeholder="취소 사유를 간략히 적어주세요."
-                          onChange={input.onChange}
-                          initialValue={values[this.fields.cancelReasonText]}
-                          style={{ height: '120px' }}
-                          isInputSizeVisible={false}
-                        />
-                        {meta.submitFailed && meta.error && (
-                          <div data-name="error">{meta.error}</div>
-                        )}
-                      </>
-                    )}
-                  </Field>
-                </div>
-
-                {/* 환불 계좌정보 */}
-                <RefundAccountInfoForm
-                  isRefundEnabled={
-                    // 입금 대기중이 아니고
-                    claimData?.orderStatus !==
-                      purchaseStatus.WAITING_PAYMENT.code &&
-                    // 무통장 입금
-                    claimData?.paymentMethod === paymentMethod.VBANK.code
-                  }
-                  orderClaimForm={orderClaimForm}
-                  isCreate={this.getIsCreate()}
-                  fields={this.fields}
-                  formApi={formApi}
-                />
-
-                {/* <div className={css.isRefundInfo}>
-                  {isRefundInfoVisible && (
-                    <>
-                      <SectionHeading
-                        title={() => {
+                    <div className={css.reasonWrapper}>
+                      <Field
+                        name={this.fields.cancelReason}
+                        validate={composeValidators(required)}
+                      >
+                        {({ input, meta }) => {
                           return (
                             <>
-                              <span>환불 정보</span>
+                              <Select
+                                placeholder="취소 사유를 선택해주세요."
+                                options={cancelReasonOptions}
+                                value={cancelReasonOptions.find(
+                                  o =>
+                                    o.value === values[this.fields.cancelReason]
+                                )}
+                                onChange={({ value }) => {
+                                  this.handleChangeReason({
+                                    reasonSelected: value,
+                                    formApi,
+                                  });
+                                }}
+                                styles={{ height: '45px' }}
+                              />
+                              {meta.submitFailed && meta.error && (
+                                <div className={claimFormCSS.errorMsg}>
+                                  {meta.error}
+                                </div>
+                              )}
                             </>
                           );
                         }}
-                      />
+                      </Field>
+                    </div>
 
-                      <RefundInfo
-                        isRefundExpectation={true}
-                        refundResponse={orderClaimForm.refundResponse}
-                        paymentMethodText={
-                          claimData?.paymentMethodText ||
-                          claimData?.paymentMethod
-                        }
+                    <div className={css.cancelReasonText}>
+                      <Field
+                        name={this.fields.cancelReasonText}
+                        validate={requiredWithMessage(
+                          '취소 사유를 간략히 적어주세요.'
+                        )}
+                      >
+                        {({ input, meta }) => (
+                          <>
+                            <TextArea
+                              placeholder="취소 사유를 간략히 적어주세요."
+                              onChange={input.onChange}
+                              initialValue={
+                                values[this.fields.cancelReasonText]
+                              }
+                              style={{ height: '120px' }}
+                              isInputSizeVisible={false}
+                            />
+                            {meta.submitFailed && meta.error && (
+                              <div className={claimFormCSS.errorMsg}>
+                                {meta.error}
+                              </div>
+                            )}
+                          </>
+                        )}
+                      </Field>
+                    </div>
+                  </div>
+
+                  {orderClaimForm.isRefundEnabled && (
+                    <div className={css.refundFormWrap}>
+                      {/* 환불 계좌정보 */}
+                      <RefundAccountInfoForm
+                        isCreate={this.getIsCreate()}
+                        fields={this.fields}
+                        formApi={formApi}
                       />
-                    </>
+                    </div>
                   )}
-                </div> */}
 
-                <SubmitButtonWrapper>
-                  <CancelButton
-                    onClick={this.props.orderClaimList.redirectToOrderClaimList}
-                  >
-                    취소
-                  </CancelButton>
-                  <SubmitButton disabled={!_.isEmpty(errors)}>
-                    주문취소 신청
-                  </SubmitButton>
-                </SubmitButtonWrapper>
-              </form>
+                  {isRefundInfoVisible && (
+                    <RefundInfo
+                      isRefundExpectation={true}
+                      refundResponse={orderClaimForm.refundResponse}
+                      paymentMethodText={
+                        claimData?.paymentMethodText || claimData?.paymentMethod
+                      }
+                    />
+                  )}
+
+                  <SubmitButtonWrapper>
+                    <CancelButton
+                      onClick={
+                        this.props.orderClaimList.redirectToOrderClaimList
+                      }
+                    >
+                      취소
+                    </CancelButton>
+                    <SubmitButton disabled={!_.isEmpty(errors)}>
+                      주문취소 신청
+                    </SubmitButton>
+                  </SubmitButtonWrapper>
+                </form>
+              </div>
             </DetailPageLayout>
           );
         }}
