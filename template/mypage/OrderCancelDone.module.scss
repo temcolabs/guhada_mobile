@@ -1,3 +1,31 @@
 .wrap {
-  border: 1px solid red;
+  padding: 13px 20px;
+}
+
+.orderItemsWrap {
+  margin-top: 40px;
+}
+
+.refundInfoWrap {
+  margin-top: 40px;
+  padding-top: 40px;
+  border-top: 1px solid #eeeeee;
+}
+
+// 환불예정금액
+.refundCharge {
+  font-size: 14px;
+  margin-top: 16px;
+  font-size: 14px;
+  color: #777777;
+
+  b {
+    font-weight: 500;
+    color: #444;
+  }
+}
+
+.refundCharge__method {
+  margin-left: 10px;
+  font-size: 14px;
 }

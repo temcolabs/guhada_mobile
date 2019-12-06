@@ -4,7 +4,6 @@ import ModalLayout, {
   useModalLayoutState,
 } from 'components/layout/ModalLayout';
 import ClaimSuccessNotiBox from 'components/mypage/orderCancel/ClaimSuccessNotiBox';
-import SectionHeading from 'components/common/SectionHeading';
 import SubmitButton, {
   SubmitButtonWrapper,
 } from 'components/mypage/form/SubmitButton';
@@ -20,6 +19,8 @@ import ClaimOrderTableAtDone from 'components/mypage/claim/ClaimOrderTableAtDone
 import { observer } from 'mobx-react';
 import nilToZero from 'childs/lib/common/nilToZero';
 import Router from 'next/router';
+import RefundInfo from 'components/mypage/orderCancel/RefundInfo';
+import MypageSectionTitle from 'components/mypage/MypageSectionTitle';
 
 const enhancer = compose(
   withScrollToTopOnMount,
@@ -55,13 +56,17 @@ function OrderCancelDone({ router }) {
     <span>
       <b>{orderClaimForm.claimReasonLabel}</b>으로 인해,
       <br />
-      판매자에게 주문 상품의 <b>주문 취소가 요청</b>되었습니다.
+      판매자에게 주문 상품의
+      <br />
+      <b>주문 취소가 요청</b>되었습니다.
     </span>
   );
 
   const headingOnComplete = () => (
     <span>
-      주문 상품의 <b>주문취소가 완료</b>되었습니다.
+      주문 상품의 <b>주문취소</b>가
+      <br />
+      완료되었습니다.
     </span>
   );
 
@@ -72,52 +77,41 @@ function OrderCancelDone({ router }) {
       ? headingOnComplete
       : headingOnComplete;
 
-  // 상단 박스 설명 파트
-  const notiBoxDesc = useMemo(() => {
-    return () => (
-      <div>
-        <div className={css.refundCharge}>
-          <span>
-            <b>
-              환불 예정 금액{' '}
-              {addCommaToNum(
-                nilToZero(claimData?.refundResponse?.totalCancelOrderPrice)
-              )}
-              원
-            </b>
-          </span>
-          <span className={css.refundCharge__method}>
-            ({claimData?.paymentMethodText}{' '}
-            {addCommaToNum(
-              nilToZero(claimData?.refundResponse?.totalPaymentCancelPrice)
-            )}
-            원)
-          </span>
-        </div>
-        <div>
-          결제 수단에 따라 결제 환불 기간이 차이가 날 수 있습니다.
-          <br />
-          주문상품의 취소 처리 현황은 취소 ・ 교환 ・ 반품에서 확인하실 수
-          있습니다.
-        </div>
-      </div>
-    );
-  }, [claimData]);
   return (
     <ModalLayout isOpen={isModalLayoutOpen} onClose={closeModalLayout}>
-      <ClaimSuccessNotiBox heading={notiBoxHeading} />
+      <div className={css.wrap}>
+        <ClaimSuccessNotiBox heading={notiBoxHeading} />
 
-      <ClaimOrderTableAtDone />
+        <div className={css.orderItemsWrap}>
+          <ClaimOrderTableAtDone />
+        </div>
 
-      {notiBoxDesc}
-      <SubmitButtonWrapper wrapperStyle={{ marginTop: '60px' }}>
-        <Link
-          as={`/mypage/orders/claim/list`}
-          href={getRouteHref(`/mypage/orders/claim/list`)}
-        >
-          <SubmitButton>확인</SubmitButton>
-        </Link>
-      </SubmitButtonWrapper>
+        <div className={css.refundInfoWrap}>
+          <MypageSectionTitle>환불 예정 금액</MypageSectionTitle>
+          <div className={css.refundCharge}>
+            {addCommaToNum(
+              nilToZero(claimData?.refundResponse?.totalCancelOrderPrice)
+            )}
+            원
+            <span className={css.refundCharge__method}>
+              ({claimData?.paymentMethodText}{' '}
+              {addCommaToNum(
+                nilToZero(claimData?.refundResponse?.totalPaymentCancelPrice)
+              )}
+              원)
+            </span>
+          </div>
+        </div>
+
+        <SubmitButtonWrapper wrapperStyle={{ marginTop: '60px' }}>
+          <Link
+            as={`/mypage/orders/claim/list`}
+            href={getRouteHref(`/mypage/orders/claim/list`)}
+          >
+            <SubmitButton>확인</SubmitButton>
+          </Link>
+        </SubmitButtonWrapper>
+      </div>
     </ModalLayout>
   );
 }
