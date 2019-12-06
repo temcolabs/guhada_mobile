@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { withRouter } from 'next/router';
-import MypageLayout from 'components/mypage/MypageLayout';
+import MypageLayout, {
+  MypageContentsWrap,
+} from 'components/mypage/MypageLayout';
 import _ from 'lodash';
-import css from './OrderClaimList.module.scss';
+import css from './OrderCompleteList.module.scss';
 import moment from 'moment';
 import { inject, observer } from 'mobx-react';
 import { dateUnit } from 'childs/lib/constant/date';
 import { pushRoute } from 'childs/lib/router';
-import MypageSectionTitle from 'components/mypage/MypageSectionTitle';
 import OrderItem from 'components/mypage/order/OrderItem';
 import Pagination from 'components/common/Pagination';
 import PeriodSelector, {
@@ -220,37 +221,39 @@ class OrderClaimList extends Component {
           monthlyTabRange={0}
           onChangePeriod={this.handleChangePeriod}
         />
-        <div id={this.dashboardElementId}>
+        <MypageContentsWrap>
           <OrderCancelDashboard data={orderClaimList.myCancelOrderStatus} />
-        </div>
-        {/* 취소교환반품 목록 */}
-        <div className={css.listWrap}>
-          {orderClaimList.isNoResults ? (
-            <EmptyListNoti message={this.emtpyListMessage} />
-          ) : (
-            orderClaimList.list?.map((order, index) => {
-              return (
-                <OrderItem
-                  key={index}
-                  order={order}
-                  onClickInquire={this.handleOpenSellerClaimModal}
-                  isClaim={true}
-                  redirectToDetail={() =>
-                    this.props.orderClaimList.redirectToOrderClaimDetail(order)
-                  }
-                />
-              );
-            })
-          )}
-        </div>
-        <div className={css.paginationWrap}>
-          <Pagination
-            initialPage={parseInt(orderClaimList.page, 10)}
-            onChangePage={this.handleChangePage}
-            itemsCountPerPage={orderClaimList.itemsCountPerPage}
-            totalItemsCount={orderClaimList.count}
-          />
-        </div>
+          {/* 취소교환반품 목록 */}
+          <div className={css.listWrap}>
+            {orderClaimList.isNoResults ? (
+              <EmptyListNoti message={this.emtpyListMessage} />
+            ) : (
+              orderClaimList.list?.map((order, index) => {
+                return (
+                  <OrderItem
+                    key={index}
+                    order={order}
+                    onClickInquire={this.handleOpenSellerClaimModal}
+                    isClaim={true}
+                    redirectToDetail={() =>
+                      this.props.orderClaimList.redirectToOrderClaimDetail(
+                        order
+                      )
+                    }
+                  />
+                );
+              })
+            )}
+          </div>
+          <div className={css.paginationWrap}>
+            <Pagination
+              initialPage={parseInt(orderClaimList.page, 10)}
+              onChangePage={this.handleChangePage}
+              itemsCountPerPage={orderClaimList.itemsCountPerPage}
+              totalItemsCount={orderClaimList.count}
+            />
+          </div>
+        </MypageContentsWrap>
 
         {/* 리뷰 작성 모달 */}
         {/* <ReviewWriteModal

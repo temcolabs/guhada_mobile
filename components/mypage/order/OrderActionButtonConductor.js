@@ -366,14 +366,16 @@ function OrderActionButtonConductor({
        */
       case purchaseStatusType.REQUEST_CANCEL.code: // "취소 요청"
         buttons = [
-          ShowOrderButton(actionButtonText.CANCEL_INFO),
+          // ShowOrderButton(actionButtonText.CANCEL_INFO),
           // ! WithdrawCancelButton, 취소 철회 버튼은 API가 없어 표시하지 않음.
         ];
         break;
 
       case purchaseStatusType.SALE_CANCEL.code: // "판매 취소"
       case purchaseStatusType.COMPLETE_CANCEL.code: // "취소 완료"
-        buttons = [ShowOrderButton(actionButtonText.CANCEL_INFO)];
+        buttons = [
+          // ShowOrderButton(actionButtonText.CANCEL_INFO)
+        ];
         break;
 
       /**
@@ -385,13 +387,15 @@ function OrderActionButtonConductor({
 
       case purchaseStatusType.PICKING_EXCHANGE.code: // "교환 수거중"
         buttons = [
-          ShowOrderButton(actionButtonText.EXCHANGE_INFO),
+          // ShowOrderButton(actionButtonText.EXCHANGE_INFO),
           WithdrawExchangeButton,
         ];
         break;
 
       case purchaseStatusType.COMPLETE_PICK_EXCHANGE.code: // "교환 수거완료"
-        buttons = [ShowOrderButton(actionButtonText.EXCHANGE_INFO)];
+        buttons = [
+          // ShowOrderButton(actionButtonText.EXCHANGE_INFO)
+        ];
         break;
 
       case purchaseStatusType.RESEND_EXCHANGE.code: // "교환 재배송중"

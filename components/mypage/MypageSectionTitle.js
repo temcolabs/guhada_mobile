@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function MypageSectionTitle({ wrapperStyle, children }) {
+export default function MypageSectionTitle({ wrapperStyle, title, children }) {
   return (
     <h2
       style={{
@@ -17,7 +17,7 @@ export default function MypageSectionTitle({ wrapperStyle, children }) {
         ...wrapperStyle,
       }}
     >
-      {children}
+      {title || children}
     </h2>
   );
 }

@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import { withRouter } from 'next/router';
-import MypageLayout from 'components/mypage/MypageLayout';
 import css from './OrderCompleteDetail.module.scss';
 import cn from 'classnames';
+import DetailPageLayout from 'components/layout/DetailPageLayout';
 import PaymentInfo from 'components/mypage/order/PaymentInfo';
 import OrderItemTable from 'components/mypage/order/OrderItemTable';
 import { inject, observer } from 'mobx-react';
 import addHyphenToMobile from 'childs/lib/string/addHyphenToMobile';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
 import MypageSectionTitle from 'components/mypage/MypageSectionTitle';
-import DetailPageLayout from 'components/layout/DetailPageLayout';
 
 @withScrollToTopOnMount
 @withRouter
