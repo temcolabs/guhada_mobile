@@ -19,7 +19,7 @@ const AppEventPopup = ({ isOpen, eventpopup, data }) => {
     >
       <div className={css.wrap}>
         {data.appDownLink ? (
-          <a href={data.appDownLink}>
+          <a href={data.appDownLink} target="_blank" rel="noopener noreferrer">
             <div
               className={css.content}
               style={{

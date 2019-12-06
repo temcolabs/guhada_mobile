@@ -22,20 +22,22 @@ export default class EventPopupStore {
         let data = res.data.data;
 
         for (let i = 0; i < data.length; i++) {
-          if (Cookies.get(data[i].eventTitle)) {
-            data[i].popupStatus = false;
+          if (localStorage.getItem(data[i].eventTitle)) {
+            let getItem = JSON.parse(localStorage.getItem(data[i].eventTitle));
+
+            if (moment(getItem.setDate).diff(moment(), 'days') !== 0) {
+              data[i].popupStatus = true;
+              localStorage.removeItem(data[i].eventTitle);
+              this.setAppDownLink(data[i]);
+            } else {
+              data[i].popupStatus = false;
+            }
           } else {
             data[i].popupStatus = true;
-            if (isIOS && data[i].eventTitle === '앱다운로드') {
-              data[i].appDownLink = 'https://apps.apple.com/app/id1478120259';
-            } else if (isAndroid && data[i].eventTitle === '앱다운로드') {
-              data[i].appDownLink =
-                'https://play.google.com/store/apps/details?id=io.temco.guhada';
-            }
+            this.setAppDownLink(data[i]);
           }
         }
         this.popupList = [...data];
-
         devLog(this.popupList, 'eventPopupList');
       })
       .catch(err => {
@@ -46,7 +48,7 @@ export default class EventPopupStore {
   @action
   appEventPopupClose = ({ stop = false }, title) => {
     if (stop) {
-      this.setPopupCookie(title);
+      this.setPopupLocalStorage(title);
     }
 
     for (let i = 0; i < this.popupList.length; i++) {
@@ -60,9 +62,20 @@ export default class EventPopupStore {
     // });
   };
 
-  setPopupCookie = name => {
-    let now = new Date();
-    now.setDate(now.getDate() + 1); // 현재시간 부터 1일 뒤 계산
-    document.cookie = name + '=true;expires=' + now.toUTCString();
+  setPopupLocalStorage = name => {
+    let data = {
+      name: name,
+      setDate: +moment().startOf('second'),
+    };
+    localStorage.setItem(name, JSON.stringify(data));
+  };
+
+  setAppDownLink = data => {
+    if (isIOS && data.eventTitle === '앱다운로드') {
+      data.appDownLink = 'https://apps.apple.com/app/id1478120259';
+    } else if (isAndroid && data.eventTitle === '앱다운로드') {
+      data.appDownLink =
+        'https://play.google.com/store/apps/details?id=io.temco.guhada';
+    }
   };
 }
