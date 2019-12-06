@@ -31,7 +31,7 @@ class OrderCompleteDetail extends Component {
     const { shippingAddress = {} } = orderData; // 배송지 정보
 
     return (
-      <DetailPageLayout pageTitle={'주문 내역 상세'}>
+      <DetailPageLayout pageTitle={'주문 내역 상세'} noPaddingBottom>
         <div className={css.wrap}>
           <div className={css.orderInfo}>
             <div className={css.orderInfo__orderId}>

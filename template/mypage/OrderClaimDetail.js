@@ -94,7 +94,7 @@ class OrderClaimDetail extends Component {
     const { orderClaimForm } = this.props;
 
     return (
-      <DetailPageLayout pageTitle="주문 내역 상세">
+      <DetailPageLayout pageTitle="주문 내역 상세" noPaddingBottom>
         <div className={css.wrap}>
           <div className={css.orderInfo}>
             <div className={css.orderInfo__orderId}>
