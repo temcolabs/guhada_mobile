@@ -71,9 +71,9 @@ export default class EventPopupStore {
   };
 
   setAppDownLink = data => {
-    if (isIOS && data.eventTitle === '앱다운로드') {
+    if (isIOS() && data.eventTitle === '앱다운로드') {
       data.appDownLink = 'https://apps.apple.com/app/id1478120259';
-    } else if (isAndroid && data.eventTitle === '앱다운로드') {
+    } else if (isAndroid() && data.eventTitle === '앱다운로드') {
       data.appDownLink =
         'https://play.google.com/store/apps/details?id=io.temco.guhada';
     }
