@@ -17,10 +17,7 @@ import { pushRoute } from 'childs/lib/router';
 import _ from 'lodash';
 import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
 import isTruthy from 'childs/lib/common/isTruthy';
-import AppDownload from 'components/event/popup/AppDownload';
-import FirstPurchase from 'components/event/popup/FirstPurchase';
-// import FirstPurchaseReward from 'components/event/popup/FirstPurchaseReward';
-import Cookies from 'js-cookie';
+import AppEventPopup from 'components/event/popup/AppEventPopup';
 
 @withScrollToTopOnMount
 @withRouter
@@ -71,14 +68,7 @@ class Home extends React.Component {
     window.addEventListener('scroll', this.scrollDirection);
     // let cookie = Cookies.get(key.ACCESS_TOKEN);
 
-    // let checkAppDownCookie = Cookies.get('appDownPopupStop');
-    // let checkFirstPurchaseCookie = Cookies.get('firstPurchasePopupStop');
-    // if (!checkAppDownCookie) {
-    this.props.eventpopup.appDownPopupOpen();
-    // }
-    // if (!checkFirstPurchaseCookie) {
-    //   this.props.eventpopup.firstPurchasePopupOpen();
-    // }
+    this.props.eventpopup.appEventPopupOpen();
   }
 
   componentWillUnmount() {
@@ -159,8 +149,8 @@ class Home extends React.Component {
         {eventpopup.popupList.length > 0
           ? eventpopup.popupList.map((data, index) => {
               return (
-                <AppDownload
-                  isOpen={data.eventStatus}
+                <AppEventPopup
+                  isOpen={data.popupStatus}
                   data={data}
                   key={index}
                 />
