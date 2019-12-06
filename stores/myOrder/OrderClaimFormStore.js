@@ -8,6 +8,7 @@ import isTruthy from 'childs/lib/common/isTruthy';
 import orderClaimTypes from 'childs/lib/constant/order/orderClaimTypes';
 import moment from 'moment';
 import { dateFormat } from 'childs/lib/constant/date';
+import layout from '@storybook/api/dist/modules/layout';
 /**
  * 클레임(취소교환반품) 폼, 클레임 상세에서 사용할 데이터 관리.
  *

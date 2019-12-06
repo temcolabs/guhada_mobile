@@ -1,8 +1,7 @@
 @import 'styles/mixins/index';
 
 .button {
-  display: inline-block;
-  width: 270px;
+  width: 100%;
   height: 60px;
   border: solid 1px #5d2ed1;
   background-color: #5d2ed1;
@@ -10,10 +9,6 @@
 
   a {
     color: #ffffff;
-  }
-
-  & + & {
-    margin-left: 10px;
   }
 
   &:hover {
@@ -31,16 +26,17 @@
 }
 
 .submitButtonWrapper {
-  width: 550px;
-  margin: 0 auto;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
   text-align: center;
-
+  display: flex;
   &.responsive {
     @include clearfix;
 
     & > button {
-      width: calc((100% - 10px) / 2);
-      float: left;
+      width: 50%;
       font-size: inherit;
     }
   }

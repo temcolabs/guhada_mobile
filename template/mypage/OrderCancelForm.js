@@ -336,7 +336,7 @@ class OrderCancelForm extends Component {
                   )}
                 </div> */}
 
-                <SubmitButtonWrapper wrapperStyle={{ marginTop: '60px' }}>
+                <SubmitButtonWrapper>
                   <CancelButton
                     onClick={this.props.orderClaimList.redirectToOrderClaimList}
                   >

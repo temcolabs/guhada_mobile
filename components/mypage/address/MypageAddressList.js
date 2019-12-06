@@ -42,7 +42,7 @@ class MypageAddressList extends React.Component {
 
           <div className={css.section}>
             <div className={css.address}>
-              {`[${data.zip}] ${data.roadAddress} ${data.detailAddress}`}
+              {`[${data?.zip}] ${data?.roadAddress} ${data?.detailAddress}`}
             </div>
           </div>
 

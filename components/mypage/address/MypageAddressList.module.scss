@@ -1,13 +1,13 @@
 .wrap {
-  margin-top: 15px;
+  border-bottom: 1px solid #eee;
 
+  &:last-child {
+    border-bottom: none;
+    margin-bottom: 80px;
+  }
   .addressItem {
-    border-bottom: 1px solid #eee;
     padding: 20px 0;
 
-    &:last-child {
-      border-bottom: none;
-    }
     .section {
       display: flex;
       justify-content: space-between;

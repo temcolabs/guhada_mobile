@@ -50,8 +50,7 @@ function Header({
                 headerShape === 'orderpayment' ||
                 headerShape === 'shoppingcart' ||
                 headerShape === 'brand' ||
-                headerShape === 'eventmain' ||
-                headerShape === 'mypageSimple',
+                headerShape === 'eventmain',
             },
             { [css.scrollDown]: scrollDirection === 'down' }
           )}
@@ -66,7 +65,6 @@ function Header({
           headerShape === 'sellerStore' ||
           headerShape === 'brand' ||
           headerShape === 'eventmain' ||
-          headerShape === 'mypageSimple' ||
           (headerShape === 'address' && urlHistory !== '') ? (
             <button className={css.backButton} onClick={() => Router.back()} />
           ) : null}
@@ -74,8 +72,7 @@ function Header({
           {headerShape === 'detailPage' ||
           headerShape === 'shoppingcart' ||
           headerShape === 'orderpayment' ||
-          headerShape === 'ordersuccess' ||
-          headerShape === 'mypageSimple' ? null : (
+          headerShape === 'ordersuccess' ? null : (
             <button
               className={css.menuButton}
               onClick={() => setIsMenuVisible(true)}
@@ -100,8 +97,7 @@ function Header({
           {headerShape === 'detailPage' ||
           headerShape === 'shoppingcart' ||
           headerShape === 'orderpayment' ||
-          headerShape === 'ordersuccess' ||
-          headerShape === 'mypageSimple' ? null : (
+          headerShape === 'ordersuccess' ? null : (
             <button
               className={cn(css.searchButton, {
                 [css.leftItemExist]: headerShape === 'productDetail',
@@ -113,8 +109,7 @@ function Header({
           {headerShape === 'detailPage' ||
           headerShape === 'shoppingcart' ||
           headerShape === 'orderpayment' ||
-          headerShape === 'ordersuccess' ||
-          headerShape === 'mypageSimple' ? null : (
+          headerShape === 'ordersuccess' ? null : (
             <LinkRoute href="/shoppingcart">
               <div className={css.cartButton}>
                 <button />
