@@ -6,6 +6,7 @@ import Router from 'next/router';
 import { HOSTNAME } from 'childs/lib/constant/hostname';
 import { devLog } from 'childs/lib/common/devLog';
 import { pushRoute } from 'childs/lib/router';
+import isEmailString from 'childs/lib/string/isEmailString';
 const isServer = typeof window === 'undefined';
 export default class OrderPaymentStore {
   constructor(root) {
@@ -126,7 +127,7 @@ export default class OrderPaymentStore {
         this.getShippingMessageOption();
         this.userAuthenticationCheck();
         devLog(this.orderInfo, '주문 데이터');
-        this.orderProductInfo.map(data => {
+        this.orderProductInfo.forEach(data => {
           if (data.orderValidStatus !== 'VALID') {
             this.root.alert.showAlert({
               content:
@@ -399,7 +400,7 @@ export default class OrderPaymentStore {
         let data = res.data;
         this.orderShippingList.list = data.data;
 
-        this.orderShippingList.list.map(data => {
+        this.orderShippingList.list.forEach(data => {
           data.recipientMobile = autoHypenPhone(data.recipientMobile);
           if (data.defaultAddress) {
             this.orderShippingList.currentUseAddressId = data.id;
@@ -469,8 +470,8 @@ export default class OrderPaymentStore {
     this.orderShippingList.currentUseAddressId = id;
     this.orderShippingList.currentEditAddressId = id;
 
-    this.orderShippingList.list.map(data => {
-      if (data.id == id) {
+    this.orderShippingList.list.forEach(data => {
+      if (data.id === id) {
         this.orderShippingList.tempEditAddress = { ...data };
       }
     });
@@ -531,7 +532,7 @@ export default class OrderPaymentStore {
       )
       .then(res => {
         if (res.data.resultCode === 200) {
-          this.orderShippingList.list.map((list, index) => {
+          this.orderShippingList.list.forEach((list, index) => {
             if (list.id === data.id) {
               this.orderShippingList.list[index] = data;
               if (this.orderShippingList.defaultAddress.id === data.id) {
@@ -578,7 +579,7 @@ export default class OrderPaymentStore {
         this.root.alert.showAlert({
           content: '배송지 삭제완료.',
         });
-        this.orderShippingList.list.map((data, index) => {
+        this.orderShippingList.list.forEach((data, index) => {
           if (data.id === targetId) {
             this.orderShippingList.list.splice(index, 1);
           }
@@ -1153,8 +1154,7 @@ export default class OrderPaymentStore {
 
   @action
   emailValidCheck = email => {
-    let emailValid = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
-    if (emailValid.test(email) === false) {
+    if (isEmailString(email) === false) {
       this.root.customerauthentication.emailValid = false;
     } else {
       this.root.customerauthentication.emailValid = true;
