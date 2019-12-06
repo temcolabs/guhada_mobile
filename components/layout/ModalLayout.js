@@ -42,13 +42,13 @@ export const useModalLayoutState = ({
   };
 };
 
-function ModalLayout({ pageTitle, children, isOpen, closeModalLayout }) {
+function ModalLayout({ pageTitle, children, isOpen, onClose }) {
   return (
     <SlideIn direction={slideDirection.BOTTOM} isVisible={isOpen}>
       <div className={css.wrap}>
         <div className={css.header}>
           <div className={css.title}>{pageTitle || ''}</div>
-          <div className={css.close} onClick={closeModalLayout} />
+          <div className={css.close} onClick={onClose} />
         </div>
         <div className={css.content}>{children}</div>
       </div>

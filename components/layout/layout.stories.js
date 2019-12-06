@@ -58,7 +58,7 @@ stories.add('ModalLayout', () => {
         <ModalLayout
           pageTitle={text('pageTitle', '상세페이지')}
           isOpen={isModalLayoutOpen}
-          closeModalLayout={closeModalLayout}
+          onClose={closeModalLayout}
         >
           <div>
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Possimus,

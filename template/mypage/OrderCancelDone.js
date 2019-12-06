@@ -1,6 +1,8 @@
 import React, { useEffect, useCallback, useMemo } from 'react';
 import css from './OrderCancelDone.module.scss';
-import ModalLayout from 'components/layout/ModalLayout';
+import ModalLayout, {
+  useModalLayoutState,
+} from 'components/layout/ModalLayout';
 import ClaimSuccessNotiBox from 'components/mypage/orderCancel/ClaimSuccessNotiBox';
 import SectionHeading from 'components/common/SectionHeading';
 import SubmitButton, {
@@ -18,20 +20,25 @@ import ClaimOrderTableAtDone from 'components/mypage/claim/ClaimOrderTableAtDone
 import { observer } from 'mobx-react';
 import nilToZero from 'childs/lib/common/nilToZero';
 import Router from 'next/router';
+
 const enhancer = compose(
   withScrollToTopOnMount,
   withRouter,
   observer
 );
-/**
- */
+
 function OrderCancelDone({ router }) {
   const { orderClaimId, orderClaimGroupId } = router.query;
   const { orderClaimForm } = useStores();
   const { claimData } = orderClaimForm;
-  const close = () => {
-    Router.push('/mypage/orders/claim/list');
-  };
+
+  const { isModalLayoutOpen, closeModalLayout } = useModalLayoutState({
+    isOpenOnMount: true,
+    onClose: useCallback(() => {
+      Router.push('/mypage/orders/claim/list');
+    }, []),
+  });
+
   // claimId 할당하고 데이터 가져옴
   useEffect(() => {
     orderClaimForm.setClaimId({
@@ -97,7 +104,7 @@ function OrderCancelDone({ router }) {
     );
   }, [claimData]);
   return (
-    <ModalLayout onClose={close}>
+    <ModalLayout isOpen={isModalLayoutOpen} onClose={closeModalLayout}>
       <ClaimSuccessNotiBox heading={notiBoxHeading} />
 
       <ClaimOrderTableAtDone />
