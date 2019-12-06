@@ -23,9 +23,11 @@ const SearchBrand = enhancer(({ searchitem, router }) => {
         }}
       >
         브랜드
-        {searchitem.filterBrand.map((brand, index) => {
-          return <span key={index}>{brand.nameDefault}</span>;
-        })}
+        <div className={css.spanWrap}>
+          {searchitem.filterBrand.map((brand, index) => {
+            return <span key={index}>{brand.nameDefault}</span>;
+          })}
+        </div>
       </div>
       {isOpen && <FilterBrand />}
     </div>

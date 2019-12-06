@@ -60,7 +60,14 @@ class SearchFilter extends Component {
             >
               초기화
             </button>
-            <button className={css.search}>검색결과 보기</button>
+            <button
+              className={css.search}
+              onClick={() => {
+                searchitem.searchFilter();
+              }}
+            >
+              검색결과 보기
+            </button>
           </div>
         </div>
       </SlideIn>

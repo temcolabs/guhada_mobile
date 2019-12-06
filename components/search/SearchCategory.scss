@@ -133,16 +133,7 @@ ul.rc-tree {
 
 ul[role="group"] {
   .rc-tree-treenode-checkbox-checked {
-    font-weight: bold;
     color: #5d2ed1;
   }
-
-  & .disabledNode {
-    color: #b9babd;
-  }
-
-  // & .rc-tree-child-tree.rc-tree-child-tree-open {
-
-
 
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import css from './SearchCategory.module.scss';
 import './SearchCategory.scss';
 import cn from 'classnames';
@@ -22,7 +22,9 @@ const SearchCategory = enhancer(({ searchitem, router }) => {
     ? router.query.subcategory
     : router.query.category;
 
-  const categories = getCategory(entireCategories, categoryId);
+  const categories = isTruthy(searchitem.selectCategory)
+    ? getCategory(entireCategories, categoryId)
+    : searchitem.selectCategory;
 
   return useObserver(() => (
     <div className={css.wrap}>

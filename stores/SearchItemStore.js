@@ -697,6 +697,9 @@ export default class SearchItemStore {
       this.setExpandedKeys(checkedKeys);
     }
   };
+  @observable
+  selectCategory;
+
   @action
   onSelect = (selectedKeys, info) => {
     let classNames = info.node.props.className;
@@ -704,6 +707,8 @@ export default class SearchItemStore {
       this.checkDuplicatedCheckedKeys(info);
     } else {
       this.setExpandedKeys(selectedKeys);
+      this.selectCategory = info.node.props;
+      console.log('info.node.props', info.node.props);
     }
   };
 
@@ -719,6 +724,41 @@ export default class SearchItemStore {
         }
       });
     });
+  };
+
+  @action
+  searchFilter = () => {
+    let brandList = [];
+    let filterList = [];
+
+    if (Array.isArray(toJS(this.filterData))) {
+      this.filterData.map(filter => {
+        filter.attributes.map(attr => {
+          if (attr.filter) filterList.push(attr.id);
+        });
+      });
+    }
+
+    if (Array.isArray(toJS(this.filterBrand))) {
+      this.filterBrand.map(brand => {
+        brandList.push(brand.id);
+      });
+    }
+
+    brandList = brandList
+      .map(e => {
+        return e;
+      })
+      .join(',');
+
+    filterList = filterList
+      .map(e => {
+        return e;
+      })
+      .join(',');
+
+    console.log('filterList', filterList);
+    console.log('brandList', brandList);
   };
 
   @observable filterBrand = [];
