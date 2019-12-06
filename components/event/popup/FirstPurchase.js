@@ -4,7 +4,7 @@ import ModalWrapper from 'components/common/modal/ModalWrapper';
 import { inject } from 'mobx-react';
 import { useObserver } from 'mobx-react-lite';
 
-const FirstPurchase = ({ isOpen, eventmain }) => {
+const FirstPurchase = ({ isOpen, eventpopup }) => {
   return useObserver(() => (
     <ModalWrapper
       isOpen={isOpen}
@@ -23,7 +23,7 @@ const FirstPurchase = ({ isOpen, eventmain }) => {
           <div
             className={css.stop}
             onClick={() => {
-              eventmain.firstPurchasePopupClose('stop');
+              eventpopup.firstPurchasePopupClose('stop');
             }}
           >
             그만보기
@@ -31,7 +31,7 @@ const FirstPurchase = ({ isOpen, eventmain }) => {
           <div
             className={css.close}
             onClick={() => {
-              eventmain.firstPurchasePopupClose();
+              eventpopup.firstPurchasePopupClose();
             }}
           >
             닫기
@@ -42,4 +42,4 @@ const FirstPurchase = ({ isOpen, eventmain }) => {
   ));
 };
 
-export default inject('eventmain')(FirstPurchase);
+export default inject('eventpopup')(FirstPurchase);
