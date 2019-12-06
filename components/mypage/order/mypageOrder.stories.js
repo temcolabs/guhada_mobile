@@ -16,7 +16,7 @@ import {
 import OrderItem from './OrderItem';
 // import OrderActionButtonConductor from './OrderActionButtonConductor';
 // import OrderItemTable from './OrderItemTable';
-// import PaymentInfo from './PaymentInfo';
+import PaymentInfo from './PaymentInfo';
 // import withCenteredDeco from '.storybook/decorators/withCenteredDeco';
 // import PaymentInfoPopover from './PaymentInfoPopover';
 // import ClaimPaymentInfo from './ClaimPaymentInfo';
@@ -117,20 +117,16 @@ stories.add('OrderItem', () => {
 //   );
 // });
 
-// stories.add('PaymentInfo', () => {
-//   return (
-//     <div style={{ width: '920px' }}>
-//       <PaymentInfo order={SAMPLE_ORDER_DATA} />
-//     </div>
-//   );
-// });
+stories.add('PaymentInfo', () => {
+  return <PaymentInfo order={SAMPLE_ORDER_DATA} />;
+});
 
 // stories.add('ClaimPaymentInfo', () => {
 //   return (
 //     <div style={{ width: '920px' }}>
 //       <ClaimPaymentInfo order={{}} />
 //     </div>
-//   );
+//   );`
 // });
 
 // stories.add('PaymentInfoPopover', () => {

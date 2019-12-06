@@ -45,7 +45,8 @@ stories.add('ClaimSuccessNotiBox', () => {
       )}
       desc={() => (
         <span>
-          주문상품 취소 처리 현황은 취소 ・ 교환 ・ 반품에서 확인하실 수 있습니다.
+          주문상품 취소 처리 현황은 취소 ・ 교환 ・ 반품에서 확인하실 수
+          있습니다.
         </span>
       )}
     />
@@ -87,6 +88,17 @@ stories.add('CancelItem', () => {
 
 stories.add('RefundInfo', () => {
   return (
-    <RefundInfo isRefundExpectation={boolean('isRefundExpectation', false)} />
+    <RefundInfo
+      isRefundExpectation={boolean('isRefundExpectation', false)}
+      refundResponse={object('refundResponse', {
+        totalAmount: 18000,
+        totalCancelDiscountPrice: -12000,
+        totalCancelOrderPrice: 18000,
+        totalCancelProductPrice: 30000,
+        totalCancelShipPrice: 0,
+        totalPaymentCancelPrice: 17000,
+        totalPointCancelPrice: 1000,
+      })}
+    />
   );
 });

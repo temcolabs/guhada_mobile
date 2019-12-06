@@ -9,10 +9,11 @@ $browserTool: 50px;
   display: inline-block;
   width: 100%;
   //   height: calc(100vh - #{$burgerHeader} - #{$browserTool});
-  //   padding-bottom: $browserTool;
+  padding-bottom: 120px;
 
   & li {
     list-style: none;
+
   }
 
   & ul {
@@ -67,7 +68,7 @@ $browserTool: 50px;
     display: none;
   }
 
-  & input[type='checkbox']:checked ~ label {
+  & input[type='checkbox']:checked~label {
     color: #5d2ed1;
     background-image: url('/static/icon/minus_icon.png');
   }

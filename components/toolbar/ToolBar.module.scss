@@ -12,6 +12,7 @@
   transform: translate(-50%, 0);
 
   & .btnTop {
+    z-index: 10;
     width: 41px;
     height: 41px;
     background: url('/static/icon/btn-top.png') no-repeat;
