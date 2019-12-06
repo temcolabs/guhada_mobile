@@ -2,10 +2,11 @@
   position: relative;
   .content {
     width: 300px;
-    height: 350px;
-    background: url('/static/icon/ad-popup-appdown@3x.png') no-repeat;
+    height: 340px;
+    background: transparent;
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
   }
 
   .buttonGroup {

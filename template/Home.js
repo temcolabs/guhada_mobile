@@ -24,7 +24,7 @@ import Cookies from 'js-cookie';
 
 @withScrollToTopOnMount
 @withRouter
-@inject('main', 'searchitem', 'eventmain')
+@inject('main', 'searchitem', 'eventpopup')
 @observer
 class Home extends React.Component {
   static propTypes = {};
@@ -71,13 +71,13 @@ class Home extends React.Component {
     window.addEventListener('scroll', this.scrollDirection);
     // let cookie = Cookies.get(key.ACCESS_TOKEN);
 
-    let checkAppDownCookie = Cookies.get('appDownPopupStop');
-    let checkFirstPurchaseCookie = Cookies.get('firstPurchasePopupStop');
+    // let checkAppDownCookie = Cookies.get('appDownPopupStop');
+    // let checkFirstPurchaseCookie = Cookies.get('firstPurchasePopupStop');
     // if (!checkAppDownCookie) {
-    //   this.props.eventmain.appDownPopupOpen();
+    this.props.eventpopup.appDownPopupOpen();
     // }
     // if (!checkFirstPurchaseCookie) {
-    //   this.props.eventmain.firstPurchasePopupOpen();
+    //   this.props.eventpopup.firstPurchasePopupOpen();
     // }
   }
 
@@ -102,7 +102,7 @@ class Home extends React.Component {
   };
 
   render() {
-    const { main, searchitem, eventmain } = this.props;
+    const { main, searchitem, eventpopup } = this.props;
 
     return (
       <DefaultLayout
@@ -156,11 +156,17 @@ class Home extends React.Component {
           />
         </HomeItemDefault>
 
-        <AppDownload isOpen={eventmain.status.appDownPopupIsOpen} />
-        <FirstPurchase isOpen={eventmain.status.firstPurchasePopupIsOpen} />
-        {/* <FirstPurchaseReward
-          isOpen={eventmain.status.firstPurchaseRewardPopupIsOpen}
-        /> */}
+        {eventpopup.popupList.length > 0
+          ? eventpopup.popupList.map((data, index) => {
+              return (
+                <AppDownload
+                  isOpen={data.eventStatus}
+                  data={data}
+                  key={index}
+                />
+              );
+            })
+          : null}
 
         <Footer />
       </DefaultLayout>

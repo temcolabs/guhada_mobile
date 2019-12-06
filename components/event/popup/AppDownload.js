@@ -4,7 +4,7 @@ import ModalWrapper from 'components/common/modal/ModalWrapper';
 import { inject } from 'mobx-react';
 import { useObserver } from 'mobx-react-lite';
 
-const AppDownload = ({ isOpen, eventmain }) => {
+const AppDownload = ({ isOpen, eventpopup, data }) => {
   return useObserver(() => (
     <ModalWrapper
       isOpen={isOpen}
@@ -18,12 +18,19 @@ const AppDownload = ({ isOpen, eventmain }) => {
       zIndex={1000}
     >
       <div className={css.wrap}>
-        <div className={css.content} />
+        <div
+          className={css.content}
+          style={{
+            backgroundImage: `url(${
+              data.agent === 'MOBILE' ? data.imgUrlM : data.imgUrl
+            })`,
+          }}
+        />
         <div className={css.buttonGroup}>
           <div
             className={css.stop}
             onClick={() => {
-              eventmain.appDownPopupClose('stop');
+              eventpopup.appDownPopupClose('stop');
             }}
           >
             그만보기
@@ -31,7 +38,7 @@ const AppDownload = ({ isOpen, eventmain }) => {
           <div
             className={css.close}
             onClick={() => {
-              eventmain.appDownPopupClose();
+              eventpopup.appDownPopupClose(data.id);
             }}
           >
             닫기
@@ -42,4 +49,4 @@ const AppDownload = ({ isOpen, eventmain }) => {
   ));
 };
 
-export default inject('eventmain')(AppDownload);
+export default inject('eventpopup')(AppDownload);

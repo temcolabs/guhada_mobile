@@ -58,6 +58,7 @@ import CardInterestStore from './CardInterestStore';
 
 import EventMainStore from './event/EventMainStore';
 import LuckyDrawStore from './event/LuckyDrawStore';
+import EventPopupStore from './event/EventPopupStore';
 
 class RootStore {
   constructor(isServer, initialState) {
@@ -153,6 +154,7 @@ class RootStore {
     // 이벤트 메인
     this.eventmain = new EventMainStore(this, initialState);
     this.luckyDraw = new LuckyDrawStore(this, initialState);
+    this.eventpopup = new EventPopupStore(this, initialState);
   }
 }
 
