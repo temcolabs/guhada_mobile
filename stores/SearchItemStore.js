@@ -12,6 +12,8 @@ import { pushRoute } from 'childs/lib/router/index.js';
 import qs from 'qs';
 import _ from 'lodash';
 import criteoTracker from 'childs/lib/tracking/criteo/criteoTracker';
+import { devLog } from 'childs/lib/common/devLog.js';
+import isTruthy from 'childs/lib/common/isTruthy.js';
 
 const isServer = typeof window === 'undefined';
 
@@ -708,7 +710,15 @@ export default class SearchItemStore {
   @action
   initFilter = () => {
     this.filterBrand = [];
-    this.root.brands.getBrands();
+    this.filterData.map((data, dataKey) => {
+      return data.attributes.map((attributes, attributesKey) => {
+        if (
+          !_.isNil(this.filterData[dataKey].attributes[attributesKey].filter)
+        ) {
+          this.filterData[dataKey].attributes[attributesKey].filter = false;
+        }
+      });
+    });
   };
 
   @observable filterBrand = [];
@@ -722,14 +732,11 @@ export default class SearchItemStore {
     } else {
       this.filterBrand.push(brand);
     }
-
-    console.log('toJS(this.filterBrand)', toJS(this.filterBrand));
   };
 
   // filter 부분
   // viewType : "TEXT_BUTTON", "RGB_BUTTON", "TEXT"\
   @observable filterData = [];
-
   @action
   setFilter = (filter, value) => {
     this.filterData.map((data, dataKey) => {
@@ -752,8 +759,6 @@ export default class SearchItemStore {
         });
       }
     });
-    let query = Router.router.query;
-
     let filterList = [];
 
     if (Array.isArray(toJS(this.filterData))) {
@@ -769,19 +774,6 @@ export default class SearchItemStore {
         return e;
       })
       .join(',');
-
-    this.toSearch(
-      query.category,
-      query.brand,
-      query.page,
-      query.unitPerPage,
-      query.order,
-      filterList,
-      query.subcategory,
-      query.enter,
-      query.keyword
-    );
-    window.scrollTo(0, 0);
   };
 
   @observable preUrl;
