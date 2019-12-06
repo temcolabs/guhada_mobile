@@ -1,0 +1,33 @@
+.wrap {
+  position: relative;
+  .content {
+    width: 340px;
+    height: 370px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .buttonGroup {
+    display: flex;
+    height: 50px;
+    background: #111;
+    width: 300px;
+    margin: 0 auto;
+    div {
+      width: 50%;
+      height: 50px;
+      background: #f9f9fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 14px;
+      font-weight: normal;
+      color: #444;
+
+      &:first-child {
+        border-right: 1px solid #eee;
+      }
+    }
+  }
+}
