@@ -317,4 +317,18 @@ module.exports = [
     asPath: `/event/luckydraw`,
     name: `럭키드로우`,
   },
+
+  // ============================================================
+  // 기획전
+  // ============================================================
+  {
+    pagePath: `/event/special`,
+    asPath: `/event/special`,
+    name: `기획전`,
+  },
+  {
+    pagePath: `/event/specialdetail`,
+    asPath: `/event/special/:id`,
+    name: `기획전 상세페이지`,
+  },
 ];
