@@ -11,7 +11,7 @@ export default function ClaimSuccessNotiBox({
 }) {
   return (
     <div className={css.wrap}>
-      <div className={css.heading}>{heading()}</div>
+      <h1 className={css.heading}>{heading()}</h1>
     </div>
   );
 }

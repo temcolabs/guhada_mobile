@@ -28,7 +28,6 @@ export const useModalLayoutState = ({
   }, [handleChangeVisibility]);
 
   useEffect(() => {
-    console.log('useEffect');
     if (isOpenOnMount) {
       handleChangeVisibility(true);
     }
