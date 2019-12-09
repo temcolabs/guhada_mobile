@@ -10,10 +10,7 @@ const AppEventPopup = ({ isOpen, eventpopup, data }) => {
       isOpen={isOpen}
       onClose={() => {}}
       contentStyle={{
-        position: 'fixed',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
+        background: 'transparent',
       }}
       zIndex={1000}
     >

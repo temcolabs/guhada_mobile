@@ -112,7 +112,7 @@ class ModalWrapper extends React.Component {
             bottom: 'initial',
             right: 'initial',
             transform: 'translate(-50%, -50%)',
-            background: 'transparent',
+            background: '#fff',
             padding: 0,
             overflow: 'hidden',
             border: 'none',
