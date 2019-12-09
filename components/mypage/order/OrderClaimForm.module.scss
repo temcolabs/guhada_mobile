@@ -1,7 +1,48 @@
 @import 'styles/mixins/index';
 @import 'styles/var';
 
-@import 'styles/var';
+@mixin paddingSide20 {
+  padding: 0 20px;
+}
+
+.orderInfo {
+  padding: 30px 20px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #444444;
+}
+
+.orderInfo__orderId {
+}
+
+.orderInfo__field {
+  &:not(:first-child) {
+    margin-top: 9px;
+  }
+}
+
+.orderInfo__label {
+  display: inline-block;
+  min-width: 48px;
+  @include withDivider(
+    $height: 9px,
+    $distance: 17px,
+    $color: #dddddd,
+    $width: 1px
+  );
+}
+
+.orderInfo__value {
+  display: inline-block;
+  font-family: Roboto;
+}
+
+.formWrap {
+  background: #fff;
+  padding: 30px 0;
+}
 
 // 라벨과 밸류가 한줄씩 구성됨
 .field {
@@ -56,13 +97,33 @@
   color: #777777;
 }
 
+.dealWrap {
+  @include paddingSide20;
+}
+
+.reasonWrapper {
+  margin-top: 30px;
+  @include paddingSide20;
+}
+
+.reasonTextareaWrapper {
+  margin-top: 10px;
+  @include paddingSide20;
+}
+
+.refundFormWrap {
+  margin-top: 8px;
+  padding: 30px 20px;
+  background: #fff;
+}
+
 .errorMsg {
   margin-top: 3px;
   color: #c72121;
   font-size: 13px;
 }
 
-.orderItemTable {
+.orderItemsWrapper {
   border: none;
 
   td,
@@ -123,8 +184,8 @@
   }
 }
 
-.orderItemTable--done {
-  @extend .orderItemTable;
+.orderItemsWrapper--done {
+  @extend .orderItemsWrapper;
 
   td,
   th {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import css from './OrderCancelForm.module.scss';
+import claimFormCSS from 'components/mypage/order/OrderClaimForm.module.scss';
 import DetailPageLayout from 'components/layout/DetailPageLayout';
 import { observer, inject } from 'mobx-react';
 import TextArea from 'components/mypage/form/TextArea';
@@ -12,7 +12,6 @@ import SubmitButton, {
   SubmitButtonWrapper,
 } from 'components/mypage/form/SubmitButton';
 import RefundInfo from 'components/mypage/orderCancel/RefundInfo';
-import claimFormCSS from 'components/mypage/order/OrderClaimForm.module.scss';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
 import { Form, Field } from 'react-final-form';
 import {
@@ -172,29 +171,31 @@ class OrderCancelForm extends Component {
 
           return (
             <DetailPageLayout pageTitle={'주문상품 취소 신청'}>
-              <div className={css.wrap}>
+              <div className={claimFormCSS.wrap}>
                 <form onSubmit={handleSubmit}>
-                  <div className={css.orderInfo}>
-                    <div className={css.orderInfo__orderId}>
-                      <div className={css.orderInfo__field}>
-                        <span className={css.orderInfo__label}>주문번호</span>
-                        <span className={css.orderInfo__value}>
+                  <div className={claimFormCSS.orderInfo}>
+                    <div className={claimFormCSS.orderInfo__orderId}>
+                      <div className={claimFormCSS.orderInfo__field}>
+                        <span className={claimFormCSS.orderInfo__label}>
+                          주문번호
+                        </span>
+                        <span className={claimFormCSS.orderInfo__value}>
                           {claimData.purchaseId || '-'}
                         </span>
                       </div>
-                      <div className={css.orderInfo__field}>
-                        <span className={css.orderInfo__label}>주문일</span>
-                        <span
-                          className={cn(css.orderInfo__value, css.withDivider)}
-                        >
+                      <div className={claimFormCSS.orderInfo__field}>
+                        <span className={claimFormCSS.orderInfo__label}>
+                          주문일
+                        </span>
+                        <span className={cn(claimFormCSS.orderInfo__value)}>
                           {orderClaimForm.orderDateWithFormat}
                         </span>
                       </div>
                     </div>
                   </div>
 
-                  <div className={css.formWrap}>
-                    <div className={css.dealWrap}>
+                  <div className={claimFormCSS.formWrap}>
+                    <div className={claimFormCSS.dealWrap}>
                       <DealOrdered
                         order={orderClaimForm.claimData}
                         isSmallImage={false}
@@ -260,7 +261,7 @@ class OrderCancelForm extends Component {
                       </div>
                     </div>
 
-                    <div className={css.reasonWrapper}>
+                    <div className={claimFormCSS.reasonWrapper}>
                       <Field
                         name={this.fields.cancelReason}
                         validate={composeValidators(required)}
@@ -294,7 +295,7 @@ class OrderCancelForm extends Component {
                       </Field>
                     </div>
 
-                    <div className={css.cancelReasonText}>
+                    <div className={claimFormCSS.reasonTextareaWrapper}>
                       <Field
                         name={this.fields.cancelReasonText}
                         validate={requiredWithMessage(
@@ -324,7 +325,7 @@ class OrderCancelForm extends Component {
                   </div>
 
                   {orderClaimForm.isRefundEnabled && (
-                    <div className={css.refundFormWrap}>
+                    <div className={claimFormCSS.refundFormWrap}>
                       {/* 환불 계좌정보 */}
                       <RefundAccountInfoForm
                         isCreate={this.getIsCreate()}
