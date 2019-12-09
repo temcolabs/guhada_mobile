@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
-import claimFormCSS from 'components/mypage/order/OrderClaimForm.module.scss';
-import DetailPageLayout from 'components/layout/DetailPageLayout';
 import { observer, inject } from 'mobx-react';
+import _ from 'lodash';
+import cn from 'classnames';
+import { Form, Field } from 'react-final-form';
+import { withRouter } from 'next/router';
+import css from 'components/mypage/order/OrderClaimForm.module.scss';
+import DetailPageLayout from 'components/layout/DetailPageLayout';
 import TextArea from 'components/mypage/form/TextArea';
 import Select from 'components/mypage/form/Select';
 import QuantityControl from 'components/mypage/form/QuantityControl';
 import DealOrdered from 'components/mypage/DealOrdered';
-import { withRouter } from 'next/router';
 import SubmitButton, {
   CancelButton,
   SubmitButtonWrapper,
 } from 'components/mypage/form/SubmitButton';
 import RefundInfo from 'components/mypage/orderCancel/RefundInfo';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
-import { Form, Field } from 'react-final-form';
 import {
   composeValidators,
   maxValue,
@@ -24,10 +26,7 @@ import isDev from 'childs/lib/common/isDev';
 import purchaseStatus from 'childs/lib/constant/order/purchaseStatus';
 import RefundAccountInfoForm from 'components/mypage/orderCancel/RefundAccountInfoForm';
 import { isFalsey } from 'childs/lib/common/isTruthy';
-import { toJS } from 'mobx';
 import { devLog } from 'childs/lib/common/devLog';
-import _ from 'lodash';
-import cn from 'classnames';
 
 /**
  * 주문 취소 신청 페이지
@@ -162,31 +161,27 @@ class OrderCancelForm extends Component {
 
           return (
             <DetailPageLayout pageTitle={'주문상품 취소 신청'}>
-              <div className={claimFormCSS.wrap}>
+              <div className={css.wrap}>
                 <form onSubmit={handleSubmit}>
-                  <div className={claimFormCSS.orderInfo}>
-                    <div className={claimFormCSS.orderInfo__orderId}>
-                      <div className={claimFormCSS.orderInfo__field}>
-                        <span className={claimFormCSS.orderInfo__label}>
-                          주문번호
-                        </span>
-                        <span className={claimFormCSS.orderInfo__value}>
+                  <div className={css.orderInfo}>
+                    <div className={css.orderInfo__orderId}>
+                      <div className={css.orderInfo__field}>
+                        <span className={css.orderInfo__label}>주문번호</span>
+                        <span className={css.orderInfo__value}>
                           {claimData.purchaseId || '-'}
                         </span>
                       </div>
-                      <div className={claimFormCSS.orderInfo__field}>
-                        <span className={claimFormCSS.orderInfo__label}>
-                          주문일
-                        </span>
-                        <span className={cn(claimFormCSS.orderInfo__value)}>
+                      <div className={css.orderInfo__field}>
+                        <span className={css.orderInfo__label}>주문일</span>
+                        <span className={cn(css.orderInfo__value)}>
                           {orderClaimForm.orderDateWithFormat}
                         </span>
                       </div>
                     </div>
                   </div>
 
-                  <div className={claimFormCSS.formWrap}>
-                    <div className={claimFormCSS.dealWrap}>
+                  <div className={css.formSection}>
+                    <div className={css.dealWrap}>
                       <DealOrdered
                         order={orderClaimForm.claimData}
                         isSmallImage={false}
@@ -202,15 +197,10 @@ class OrderCancelForm extends Component {
                         }}
                       >
                         <div
-                          className={cn(
-                            claimFormCSS.field,
-                            claimFormCSS.hasChildrenInOneLine
-                          )}
+                          className={cn(css.field, css.hasChildrenInOneLine)}
                         >
-                          <div className={claimFormCSS.field__label}>
-                            취소수량
-                          </div>
-                          <div className={claimFormCSS.field__value}>
+                          <div className={css.field__label}>취소수량</div>
+                          <div className={css.field__value}>
                             <Field
                               name={this.fields.quantity}
                               validate={composeValidators(
@@ -237,22 +227,17 @@ class OrderCancelForm extends Component {
                           </div>
                         </div>
                         <div
-                          className={cn(
-                            claimFormCSS.field,
-                            claimFormCSS.hasChildrenInOneLine
-                          )}
+                          className={cn(css.field, css.hasChildrenInOneLine)}
                         >
-                          <div className={claimFormCSS.field__label}>
-                            판매자
-                          </div>
-                          <div className={claimFormCSS.field__value}>
+                          <div className={css.field__label}>판매자</div>
+                          <div className={css.field__value}>
                             {claimData?.sellerName || '-'}
                           </div>
                         </div>
                       </div>
                     </div>
 
-                    <div className={claimFormCSS.reasonWrapper}>
+                    <div className={css.reasonSelectWrapper}>
                       <Field
                         name={this.fields.cancelReason}
                         validate={composeValidators(required)}
@@ -276,9 +261,7 @@ class OrderCancelForm extends Component {
                                 styles={{ height: '45px' }}
                               />
                               {meta.submitFailed && meta.error && (
-                                <div className={claimFormCSS.errorMsg}>
-                                  {meta.error}
-                                </div>
+                                <div className={css.errorMsg}>{meta.error}</div>
                               )}
                             </>
                           );
@@ -286,7 +269,7 @@ class OrderCancelForm extends Component {
                       </Field>
                     </div>
 
-                    <div className={claimFormCSS.reasonTextareaWrapper}>
+                    <div className={css.reasonTextareaWrapper}>
                       <Field
                         name={this.fields.cancelReasonText}
                         validate={requiredWithMessage(
@@ -305,9 +288,7 @@ class OrderCancelForm extends Component {
                               isInputSizeVisible={false}
                             />
                             {meta.submitFailed && meta.error && (
-                              <div className={claimFormCSS.errorMsg}>
-                                {meta.error}
-                              </div>
+                              <div className={css.errorMsg}>{meta.error}</div>
                             )}
                           </>
                         )}
@@ -316,7 +297,7 @@ class OrderCancelForm extends Component {
                   </div>
 
                   {orderClaimForm.isRefundEnabled && (
-                    <div className={claimFormCSS.refundFormWrap}>
+                    <div className={css.refundFormWrap}>
                       {/* 환불 계좌정보 */}
                       <RefundAccountInfoForm
                         isCreate={this.getIsCreate()}

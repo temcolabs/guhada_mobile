@@ -5,6 +5,38 @@
   padding: 0 20px;
 }
 
+.wrap {
+  background: #f9f9fa;
+}
+
+.formSection {
+  padding: 40px 20px 30px 20px;
+  background: #fff;
+  &:not(:first-child) {
+    margin-top: 8px;
+  }
+}
+
+.formSection__content {
+  font-size: 14px;
+  margin-top: 16px;
+  font-size: 14px;
+  color: #777777;
+
+  & + & {
+    margin-top: 16px;
+  }
+
+  b {
+    font-weight: 500;
+    color: #5d2ed1;
+  }
+
+  span + span {
+    margin-left: 0.5em;
+  }
+}
+
 .orderInfo {
   padding: 30px 20px;
   display: flex;
@@ -97,18 +129,20 @@
   color: #777777;
 }
 
-.dealWrap {
-  @include paddingSide20;
+.inputWrapper {
+  margin-top: 10px;
 }
 
-.reasonWrapper {
+.quantityControlWrapper {
+  margin-top: 32px;
+}
+
+.reasonSelectWrapper {
   margin-top: 30px;
-  @include paddingSide20;
 }
 
 .reasonTextareaWrapper {
   margin-top: 10px;
-  @include paddingSide20;
 }
 
 .refundFormWrap {
@@ -214,4 +248,31 @@
       font-weight: bold;
     }
   }
+}
+
+.radioWrapper {
+  margin-top: 31px;
+}
+
+.exchangeAddressTitleWrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__button {
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.11;
+    color: #444;
+    padding-right: 17px;
+    background: url('/static/icon/arrow_r_line.png') no-repeat center right;
+    background-size: 14px;
+    font-size: 13px;
+  }
+}
+
+.shippingName {
+  margin-bottom: 12px;
+  color: #111;
 }

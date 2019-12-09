@@ -7,8 +7,18 @@
     float: left;
   }
 
+  &.isSingleItemInLine {
+    & > div {
+      float: initial;
+    }
+
+    & > div + div {
+      margin-top: 20px;
+    }
+  }
+
   padding: 8px 0 9px;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .radioSet {
@@ -20,7 +30,7 @@
     float: left;
     display: inline-block;
     position: relative;
-    padding-left: 30px;
+    padding-left: 35px;
     font-weight: normal;
     margin-bottom: 0;
 
@@ -31,7 +41,7 @@
       width: 20px;
       height: 20px;
       content: ' ';
-      background: url('/static/icon/radio_btn_off.png') no-repeat center;
+      background: url('/static/icon/m_radio_btn_off.png') no-repeat center;
       background-size: contain;
     }
 
@@ -42,7 +52,7 @@
 
   & > input:checked + label {
     &:before {
-      background-image: url('/static/icon/radio_btn_on.png');
+      background-image: url('/static/icon/m_radio_btn_on.png');
     }
   }
 }

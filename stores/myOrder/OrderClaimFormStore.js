@@ -269,7 +269,7 @@ export default class OrderClaimFormStore {
         sellerReturnRoadAddress,
         sellerReturnDetailAddress,
       } = this.claimData;
-      return `(우: ${sellerReturnZip}) ${sellerReturnRoadAddress ||
+      return `[${sellerReturnZip}] ${sellerReturnRoadAddress ||
         sellerReturnAddress} ${sellerReturnDetailAddress}`;
     } else {
       return '';

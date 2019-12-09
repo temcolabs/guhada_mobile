@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import MypageLayout from 'components/mypage/MypageLayout';
-import css from './OrderExchangeForm.module.scss';
-import SectionHeading from 'components/common/SectionHeading';
+import cn from 'classnames';
+import { Form, Field } from 'react-final-form';
 import { observer, inject } from 'mobx-react';
-import Table from 'components/mypage/Table';
+import DetailPageLayout from 'components/layout/DetailPageLayout';
+import css from 'components/mypage/order/OrderClaimForm.module.scss';
 import Input from 'components/mypage/form/Input';
 import Select from 'components/mypage/form/Select';
 import QuantityControl from 'components/mypage/form/QuantityControl';
@@ -14,24 +14,17 @@ import SubmitButton, {
   CancelButton,
   SubmitButtonWrapper,
 } from 'components/mypage/form/SubmitButton';
-import KeyValueTable from 'components/mypage/form/KeyValueTable';
 import RadioGroup from 'components/mypage/form/RadioGroup';
 import tableCSS from 'components/mypage/form/KeyValueTable.module.scss';
-import sectionHeadingCss from 'components/common/SectionHeading.module.scss';
 import addCommaToNum from 'childs/lib/common/addCommaToNum';
 import NoInvoiceWarning from 'components/mypage/orderCancel/NoInvoiceWarning';
-import claimFormCSS from 'components/mypage/order/OrderClaimForm.module.scss';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
-import { Form, Field } from 'react-final-form';
 import addHyphenToMobile from 'childs/lib/string/addHyphenToMobile';
 import {
   claimShippingPriceTypes,
   claimShippingPriceOptions,
 } from 'childs/lib/constant/order/claimShippingPrice';
-import {
-  claimShippingAddressTypeOptions,
-  claimShippingAddressTypes,
-} from 'childs/lib/constant/order/claimShippingAddress';
+
 import isDev from 'childs/lib/common/isDev';
 import { devLog } from 'childs/lib/common/devLog';
 import {
@@ -41,11 +34,14 @@ import {
 // import SelectMyAddressModal from 'components/common/modal/SelectMyAddressModal';
 import openDaumAddressSearch from 'childs/lib/common/openDaumAddressSearch';
 import { isFalsey } from 'childs/lib/common/isTruthy';
-import nilToZero from 'childs/lib/common/nilToZero';
 import {
-  requiredWithMessage,
+  composeValidators,
+  maxValue,
   required,
+  requiredWithMessage,
 } from 'childs/lib/common/finalFormValidators';
+import TextArea from 'components/mypage/form/TextArea';
+import MypageSectionTitle from 'components/mypage/MypageSectionTitle';
 
 /**
  * 주문 교환 신청 및 수정 페이지.
@@ -80,7 +76,6 @@ class OrderExchangeForm extends Component {
 
     // 기타 필드
     isAlreadySent: 'isAlreadySent', // 이미 발송?
-    claimShippingAddressType: 'claimShippingAddressType', // 배송지 종류 라디오
     isUserFault: 'isUserFault', // 교환배송비 부담을 누구에게 줄 것인지
     shippingMessageType: 'shippingMessageType', // 배송 메시지 타입 (코드)
   };
@@ -106,9 +101,7 @@ class OrderExchangeForm extends Component {
     zip: null,
 
     // 기타 값
-    isAlreadySent: alreadySentTypes.NO,
-    claimShippingAddressType: claimShippingAddressTypes.ORDER_ADDRESS,
-    // claimShippingAddressType: claimShippingAddressTypes.NEW_ADDRESS, // FIXME: 테스트용
+    isAlreadySent: alreadySentTypes.YES,
     isUserFault: null,
     shippingMessageType: null,
   };
@@ -119,7 +112,7 @@ class OrderExchangeForm extends Component {
   defaultBody = {
     claimShippingPriceType: null,
     exchangeReason: null,
-    exchangeReasonDetail: null,
+    exchangeReasonDetail: '',
     invoiceNo: null, // number
 
     quantity: 1,
@@ -144,21 +137,6 @@ class OrderExchangeForm extends Component {
 
   get orderClaimId() {
     return this.props.router?.query.orderClaimId;
-  }
-
-  get claimShippingAddressTypeOptions() {
-    const hasDefaultAdress =
-      this.props.mypageAddress.addressList?.findIndex(
-        address => address.defaultAddress === true
-      ) > -1;
-
-    if (hasDefaultAdress) {
-      return claimShippingAddressTypeOptions;
-    } else {
-      return claimShippingAddressTypeOptions.filter(
-        o => o.value !== claimShippingAddressTypes.DEFAULT_ADDRESS
-      );
-    }
   }
 
   constructor(props) {
@@ -231,8 +209,6 @@ class OrderExchangeForm extends Component {
         : // 신청서 수정 초기화 데이터
           {
             // UI 전용
-            claimShippingAddressType:
-              claimShippingAddressTypes.EXCHANGE_ADDRESS,
             isAlreadySent: !_.isNil(claimData?.exchangePickingInvoiceNo)
               ? alreadySentTypes.YES
               : alreadySentTypes.NO,
@@ -270,134 +246,6 @@ class OrderExchangeForm extends Component {
 
     // 클레임 데이터를 가져온 후 job 실행
     this.props.orderClaimForm.pushJobForClaimData(job);
-  };
-
-  /**
-   * 교환상품 배송지 타입 변경
-   */
-  handleChangeShippingAddressType = ({
-    type = claimShippingAddressTypes.ORDER_ADDRESS,
-    formApi,
-  }) => {
-    const { mypageAddress } = this.props;
-    const { claimData = {} } = this.props.orderClaimForm;
-
-    devLog(`this.fields`, this.fields);
-
-    switch (type) {
-      // 교환 주소지 (claimData)
-      case claimShippingAddressTypes.EXCHANGE_ADDRESS:
-        formApi.batch(() => {
-          formApi.change(this.fields.defaultAddress, false);
-          formApi.change(
-            this.fields.address,
-            claimData?.exchangeBuyerAddressName
-          );
-          formApi.change(
-            this.fields.detailAddress,
-            claimData?.exchangeBuyerRoadAddress
-          );
-          formApi.change(
-            this.fields.recipientMobile,
-            claimData?.exchangeBuyerRecipientMobile
-          );
-          formApi.change(
-            this.fields.recipientName,
-            claimData?.exchangeBuyerRecipientName
-          );
-          formApi.change(
-            this.fields.roadAddress,
-            claimData?.exchangeBuyerRoadAddress
-          );
-          formApi.change(
-            this.fields.shippingMessage,
-            claimData?.exchangeBuyerShippingMessage
-          );
-          formApi.change(
-            this.fields.shippingName,
-            claimData?.exchangeBuyerAddressName
-          );
-          formApi.change(this.fields.zip, claimData?.exchangeBuyerZip);
-          formApi.change(this.fields.safetyMobile, claimData?.false);
-        });
-
-        break;
-
-      // 주문 주소
-      case claimShippingAddressTypes.ORDER_ADDRESS:
-        formApi.batch(() => {
-          formApi.change(this.fields.defaultAddress, false);
-          formApi.change(this.fields.address, claimData?.receiverAddress);
-          formApi.change(
-            this.fields.detailAddress,
-            claimData?.receiverAddressDetail
-          );
-          formApi.change(this.fields.recipientMobile, claimData?.receiverPhone);
-          formApi.change(this.fields.recipientName, claimData?.receiverName);
-          formApi.change(
-            this.fields.roadAddress,
-            claimData?.receiverRoadAddress
-          );
-          formApi.change(
-            this.fields.shippingMessage,
-            claimData?.receiverMessage
-          );
-          formApi.change(
-            this.fields.shippingName,
-            claimData?.receiverAddressName
-          );
-          formApi.change(this.fields.zip, claimData?.receiverZipcode);
-          formApi.change(this.fields.safetyMobile, false);
-        });
-        break;
-
-      // 내 배송지 데이터의 기본 주소 선택
-      case claimShippingAddressTypes.DEFAULT_ADDRESS:
-        const {
-          address,
-          roadAddress,
-          zip,
-          detailAddress,
-          recipientName,
-          recipientMobile,
-          shippingName,
-          shippingMessage,
-        } = mypageAddress.myDefaultAddress || {};
-
-        formApi.batch(() => {
-          formApi.change(this.fields.defaultAddress, true);
-          formApi.change(this.fields.address, address);
-          formApi.change(this.fields.detailAddress, detailAddress);
-          formApi.change(this.fields.recipientMobile, recipientMobile);
-          formApi.change(this.fields.recipientName, recipientName);
-          formApi.change(this.fields.roadAddress, roadAddress);
-          formApi.change(this.fields.shippingMessage, shippingMessage);
-          formApi.change(this.fields.shippingName, shippingName);
-          formApi.change(this.fields.zip, zip);
-          formApi.change(this.fields.safetyMobile, false); // TODO: 안심번호 여부
-        });
-        break;
-
-      // 신규 주소. 입력 필드에서 새로 입력받는다.
-      case claimShippingAddressTypes.NEW_ADDRESS:
-        formApi.batch(() => {
-          formApi.change(this.fields.defaultAddress, false);
-          formApi.change(this.fields.address, '');
-          formApi.change(this.fields.detailAddress, '');
-          formApi.change(this.fields.recipientMobile, '');
-          formApi.change(this.fields.recipientName, '');
-          formApi.change(this.fields.roadAddress, '');
-          formApi.change(this.fields.safetyMobile, false);
-          formApi.change(this.fields.shippingMessage, '');
-          formApi.change(this.fields.shippingName, '');
-          formApi.change(this.fields.zip, '');
-          formApi.change(this.fields.shippingMessageType, null);
-        });
-        break;
-
-      default:
-        break;
-    }
   };
 
   /**
@@ -446,7 +294,7 @@ class OrderExchangeForm extends Component {
 
     if (option.value === 'SELF') {
       // 직접 입력이면 상세 메시지 초기화
-      formApi.change(this.fields.shippingMessage, null);
+      formApi.change(this.fields.shippingMessage, '');
     } else {
       // 옵션을 선택했다면 라벨을 저장
       formApi.change(this.fields.shippingMessage, option.label);
@@ -511,8 +359,7 @@ class OrderExchangeForm extends Component {
     roadAddress = '',
     address = '',
   } = {}) => {
-    return `${zip || ''} ${roadAddress || address || ''} ${detailAddress ||
-      ''}`;
+    return `[${zip}] ${roadAddress || address || ''} ${detailAddress || ''}`;
   };
 
   /**
@@ -532,37 +379,21 @@ class OrderExchangeForm extends Component {
   renderAddressInfoSaved = ({ values }) => {
     return (
       <>
-        <tr>
-          <td>받는 분</td>
-          <td>
-            <Field name={this.fields.recipientName}>
-              {props => (
-                <div className={'textValueCell'}>{props.input.value}</div>
-              )}
-            </Field>
-          </td>
-        </tr>
-        <tr>
-          <td>배송주소</td>
-          <td>
-            <div className={'textValueCell'}>
-              {this.getFullAddressString({
-                zip: values[this.fields.zip],
-                detailAddress: values[this.fields.detailAddress],
-                roadAddress: values[this.fields.roadAddress],
-                address: values[this.fields.address],
-              })}
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>연락처</td>
-          <td>
-            <div className={'textValueCell'}>
-              {addHyphenToMobile(values[this.fields.recipientMobile])}
-            </div>
-          </td>
-        </tr>
+        <div className={css.shippingName}>
+          {values[this.fields.shippingName]}
+        </div>
+        <div>
+          {this.getFullAddressString({
+            zip: values[this.fields.zip],
+            detailAddress: values[this.fields.detailAddress],
+            roadAddress: values[this.fields.roadAddress],
+            address: values[this.fields.address],
+          })}
+        </div>
+        <div>
+          <span>{values[this.fields.recipientName]} </span>
+          <span>{addHyphenToMobile(values[this.fields.recipientMobile])}</span>
+        </div>
       </>
     );
   };
@@ -574,101 +405,79 @@ class OrderExchangeForm extends Component {
   renderNewAddressForm({ values, formApi }) {
     return (
       <>
-        <Field name={this.fields.shippingName}>
-          {props => (
-            <tr>
-              <td>배송지 이름</td>
-              <td>
-                <div className={tableCSS.smallInputWrapper}>
-                  <Input
-                    initialValue={props.input.value}
-                    onChange={props.input.onChange}
-                  />
-                </div>
-              </td>
-            </tr>
-          )}
-        </Field>
-
-        <tr>
-          <td>배송 주소</td>
-          <td className={css.newAddressSearchField}>
-            <div className={tableCSS.smallInputWrapper}>
+        <div className={css.inputWrapper}>
+          <Field name={this.fields.shippingName}>
+            {props => (
               <Input
-                disabled
-                placeholder="우편번호 찾기를 통해 입력해주세요."
-                initialValue={
-                  // 도로명 주소를 우선해서 초기값을 넣어준다
-                  values[this.fields.roadAddress] || values[this.fields.address]
-                }
+                initialValue={props.input.value}
+                onChange={props.input.onChange}
+                placeholder="배송지 이름을 입력해주세요"
               />
-            </div>
-            <button
-              type="button"
-              className={css.addressListButton}
-              onClick={() =>
-                openDaumAddressSearch({
-                  onComplete: data =>
-                    this.handleSelectDaumAddressSearchResult({
-                      data,
-                      formApi,
-                    }),
-                })
-              }
-            >
-              우편번호 찾기
-            </button>
-          </td>
-        </tr>
+            )}
+          </Field>
+        </div>
+
+        <div className={css.inputWrapper}>
+          <Input
+            disabled
+            placeholder="주소는 우편번호 찾기를 통해 입력해주세요."
+            initialValue={
+              // 도로명 주소를 우선해서 초기값을 넣어준다
+              values[this.fields.roadAddress] || values[this.fields.address]
+            }
+          />
+          <button
+            type="button"
+            className={css.addressListButton}
+            onClick={() =>
+              openDaumAddressSearch({
+                onComplete: data =>
+                  this.handleSelectDaumAddressSearchResult({
+                    data,
+                    formApi,
+                  }),
+              })
+            }
+          >
+            우편번호 찾기
+          </button>
+        </div>
         {/*  상세 주소 */}
-        <Field name={this.fields.detailAddress}>
-          {props => (
-            <tr>
-              <td />
-              <td>
-                <div className={tableCSS.smallInputWrapper}>
-                  <Input
-                    initialValue={props.input.value}
-                    onChange={props.input.onChange}
-                    placeholder="상세 주소를 입력해주세요."
-                  />
-                </div>
-              </td>
-            </tr>
-          )}
-        </Field>
+        <div className={css.inputWrapper}>
+          <Field name={this.fields.detailAddress}>
+            {props => (
+              <Input
+                initialValue={props.input.value}
+                onChange={props.input.onChange}
+                placeholder="상세 주소를 입력해주세요."
+              />
+            )}
+          </Field>
+        </div>
         {/* 수령인 */}
-        <Field name={this.fields.recipientName}>
-          {props => (
-            <tr>
-              <td>수령인</td>
-              <td>
-                <div className={tableCSS.smallInputWrapper}>
-                  <Input
-                    initialValue={props.input.value}
-                    onChange={props.input.onChange}
-                  />
-                </div>
-              </td>
-            </tr>
-          )}
-        </Field>
+        <div className={css.inputWrapper}>
+          <Field name={this.fields.recipientName}>
+            {props => (
+              <Input
+                placeholder="수령인을 입력해주세요"
+                initialValue={props.input.value}
+                onChange={props.input.onChange}
+              />
+            )}
+          </Field>
+        </div>
         {/* 연락처 */}
-        <Field name={this.fields.recipientMobile}>
-          {props => (
-            <tr>
-              <td>연락처</td>
-              <td>
-                <div className={tableCSS.smallInputWrapper}>
-                  <Input
-                    initialValue={props.input.value}
-                    onChange={props.input.onChange}
-                  />
-                </div>
-              </td>
-            </tr>
-          )}
-        </Field>
+        <div className={css.inputWrapper}>
+          <Field name={this.fields.recipientMobile}>
+            {props => (
+              <Input
+                placeholder="연락처를 입력해주세요"
+                initialValue={props.input.value}
+                onChange={props.input.onChange}
+              />
+            )}
+          </Field>
+        </div>
       </>
     );
   }
@@ -731,81 +540,89 @@ class OrderExchangeForm extends Component {
           )?.label;
 
           return (
-            <MypageLayout
-              topLayout={'main'}
-              pageTitle={'마이페이지'}
-              headerShape={'mypage'}
-            >
-              <form onSubmit={handleSubmit}>
-                <SectionHeading
-                  title={() => (
-                    <div>
-                      {/* 수정일 때는 타이틀이 달라짐 */}
-                      <span>교환 {this.getIsCreate() ? '신청' : '수정'}</span>
-                      <span className={sectionHeadingCss.guideText}>
-                        교환 신청을 하시기 전에 반드시 판매자와 교환 진행에 대해
-                        먼저 협의해 주세요.
-                      </span>
+            <DetailPageLayout pageTitle={'교환 신청'}>
+              <div className={css.wrap}>
+                <form onSubmit={handleSubmit}>
+                  <div className={css.orderInfo}>
+                    <div className={css.orderInfo__orderId}>
+                      <div className={css.orderInfo__field}>
+                        <span className={css.orderInfo__label}>주문번호</span>
+                        <span className={css.orderInfo__value}>
+                          {claimData.purchaseId || '-'}
+                        </span>
+                      </div>
+                      <div className={css.orderInfo__field}>
+                        <span className={css.orderInfo__label}>주문일</span>
+                        <span className={cn(css.orderInfo__value)}>
+                          {orderClaimForm.orderDateWithFormat}
+                        </span>
+                      </div>
                     </div>
-                  )}
-                />
-                <Table className={claimFormCSS.orderItemTable}>
-                  <thead>
-                    <tr>
-                      <th data-name="deal">상품 정보</th>
-                      <th data-name="quantity">교환수량</th>
-                      <th data-name="seller">판매자</th>
-                    </tr>
-                  </thead>
+                  </div>
 
-                  <tbody>
-                    <tr>
-                      <td>
-                        <DealOrdered
-                          order={orderClaimForm.claimData}
-                          isSmallImage={false}
-                          isBrandAndProductInSameLine={false}
-                          hasOptionQuantity={true}
-                          isPurchaseStatusVisible
-                          isPriceVisible
-                        />
-                      </td>
-                      <td>
-                        <Field name={this.fields.quantity}>
-                          {props =>
-                            this.getIsCreate() ? (
-                              <QuantityControl
-                                initialValue={
-                                  initialValues[this.fields.quantity]
-                                }
-                                onChange={props.input.onChange}
-                                max={claimData?.quantity}
-                              />
-                            ) : (
-                              // * 수정시에는 수량 변경 불가
-                              <span>{props.input.value}</span>
-                            )
-                          }
-                        </Field>
-                      </td>
-                      <td>{claimData?.sellerName || '-'}</td>
-                    </tr>
-                  </tbody>
-                </Table>
-                <KeyValueTable>
-                  <tr>
-                    <td>사유 선택</td>
-                    <td>
-                      <div className={tableCSS.smallInputWrapper}>
-                        <Field
-                          name={this.fields.exchangeReason}
-                          validate={required}
-                        >
-                          {props => (
+                  <div className={css.formSection}>
+                    <DealOrdered
+                      order={orderClaimForm.claimData}
+                      isSmallImage={false}
+                      isBrandAndProductInSameLine={false}
+                      hasOptionQuantity={true}
+                      isPurchaseStatusVisible
+                      isPriceVisible
+                    />
+
+                    <div className={css.quantityControlWrapper}>
+                      <div className={cn(css.field, css.hasChildrenInOneLine)}>
+                        <div className={css.field__label}>교환수량</div>
+                        <div className={css.field__value}>
+                          <Field
+                            name={this.fields.quantity}
+                            validate={composeValidators(
+                              maxValue(claimData?.quantity)
+                            )}
+                          >
+                            {props => {
+                              return (
+                                <QuantityControl
+                                  initialValue={
+                                    this.state.initialValues[
+                                      this.fields.quantity
+                                    ]
+                                  }
+                                  max={claimData?.quantity}
+                                  onChange={value => {
+                                    props.input.onChange(value);
+                                  }}
+                                />
+                              );
+                            }}
+                          </Field>
+                        </div>
+                      </div>
+                      <div className={cn(css.field, css.hasChildrenInOneLine)}>
+                        <div className={css.field__label}>판매자</div>
+                        <div className={css.field__value}>
+                          {claimData?.sellerName || '-'}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className={css.reasonSelectWrapper}>
+                      <Field
+                        name={this.fields.exchangeReason}
+                        validate={composeValidators(required)}
+                      >
+                        {({ input, meta }) => {
+                          return (
                             <>
                               <Select
+                                placeholder="교환 사유를 선택해주세요."
                                 options={orderClaimForm.exchangeReasonOptions}
-                                onChange={({ value, userFault } = {}) => {
+                                value={orderClaimForm.exchangeReasonOptions.find(
+                                  o =>
+                                    o.value ===
+                                    values[this.fields.exchangeReason]
+                                )}
+                                onChange={({ value, userFault }) => {
                                   this.handleChangeReason({
                                     reasonSelected: value,
                                     formApi,
@@ -813,145 +630,90 @@ class OrderExchangeForm extends Component {
                                     values,
                                   });
                                 }}
-                                // 기본값
-                                value={orderClaimForm.exchangeReasonOptions?.find(
-                                  o =>
-                                    o.value ===
-                                    values[this.fields.exchangeReason]
-                                )}
+                                styles={{ height: '45px' }}
                               />
-
-                              {props.meta.submitFailed && props.meta.error && (
-                                <div data-name="error">{props.meta.error}</div>
+                              {meta.submitFailed && meta.error && (
+                                <div className={css.errorMsg}>{meta.error}</div>
                               )}
                             </>
-                          )}
-                        </Field>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>사유 상세</td>
-                    <td>
+                          );
+                        }}
+                      </Field>
+                    </div>
+
+                    <div className={css.reasonTextareaWrapper}>
                       <Field
                         name={this.fields.exchangeReasonDetail}
                         validate={requiredWithMessage(
                           '교환 사유를 간략히 적어주세요.'
                         )}
                       >
-                        {props => (
+                        {({ input, meta }) => (
                           <>
-                            <Input
+                            <TextArea
+                              placeholder="교환 사유를 간략히 적어주세요."
+                              onChange={input.onChange}
                               initialValue={
-                                initialValues[this.fields.exchangeReasonDetail]
+                                values[this.fields.exchangeReasonDetail]
                               }
-                              onChange={props.input.onChange}
+                              style={{ height: '120px' }}
+                              isInputSizeVisible={false}
                             />
-                            {props.meta.submitFailed && props.meta.error && (
-                              <div data-name="error">{props.meta.error}</div>
+                            {meta.submitFailed && meta.error && (
+                              <div className={css.errorMsg}>{meta.error}</div>
                             )}
                           </>
                         )}
                       </Field>
-                    </td>
-                  </tr>
-                </KeyValueTable>
-
-                {/* TODO: 셀러 반송지 주소 연결 */}
-                <SectionHeading
-                  title={() => (
-                    <div>
-                      <span>교환 반송지</span>
-                      <span className={sectionHeadingCss.guideText}>
-                        교환을 보낼 곳입니다. 해당 주소로 교환 상품을 직접
-                        반송해주세요.
-                      </span>
                     </div>
-                  )}
-                />
-                <KeyValueTable>
-                  <tr>
-                    <td>받는 분</td>
-                    <td>
+                  </div>
+
+                  <div className={css.formSection}>
+                    <MypageSectionTitle>교환 반송지</MypageSectionTitle>
+                    <div className={css.formSection__content}>
+                      <div>{orderClaimForm.sellerReturnAddressInView}</div>
                       <div>
-                        <div className={'textValueCell'}>
-                          {claimData?.sellerName}
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>연락처</td>
-                    <td>
-                      <div>
-                        <div className={'textValueCell'}>
+                        <span>{claimData?.sellerName}</span>
+                        <span>
                           {addHyphenToMobile(claimData?.sellerReturnTelephone)}
-                        </div>
+                        </span>
                       </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>주소</td>
-                    <td>
-                      <div>
-                        <div className={'textValueCell'}>
-                          {orderClaimForm.sellerReturnAddressInView}
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                </KeyValueTable>
-
-                <SectionHeading
-                  title={() => (
-                    <div>
-                      <span>교환 발송 여부</span>
-                      <span className={sectionHeadingCss.guideText}>
-                        위 반송지로 발송을 하셨다면, 반드시 송장번호를
-                        입력해주세요. 송장번호 미입력시 교환 처리가 늦어질 수
-                        있습니다.
-                      </span>
                     </div>
-                  )}
-                />
-                <KeyValueTable>
-                  <tr>
-                    <td>
+                  </div>
+
+                  <div className={css.formSection}>
+                    <MypageSectionTitle>교환 발송 여부</MypageSectionTitle>
+                    <div className={css.formSection__content}>
                       <div>이미 발송하셨나요?</div>
-                    </td>
-                    <td>
-                      <Field name={this.fields.isAlreadySent}>
-                        {props => {
-                          return (
-                            <RadioGroup
-                              name={this.fields.isAlreadySent}
-                              options={alreadySentOptions}
-                              onChange={value => {
-                                props.input.onChange(value);
 
-                                this.handleChangeIsAlreadySent({
-                                  formApi,
-                                  value,
-                                });
-                              }}
-                              initialValue={props.input.value}
-                            />
-                          );
-                        }}
-                      </Field>
-                    </td>
-                  </tr>
+                      <div className={css.radioWrapper}>
+                        <Field name={this.fields.isAlreadySent}>
+                          {props => {
+                            return (
+                              <RadioGroup
+                                name={this.fields.isAlreadySent}
+                                options={alreadySentOptions}
+                                onChange={value => {
+                                  props.input.onChange(value);
 
-                  {/* 이미 배송했다면 송장번호 입력 */}
-                  {values[this.fields.isAlreadySent] ===
-                    alreadySentTypes.YES && (
-                    <>
-                      <tr>
-                        <td>
-                          <div>택배사</div>
-                        </td>
-                        <td>
-                          <div className={tableCSS.smallInputWrapper}>
+                                  this.handleChangeIsAlreadySent({
+                                    formApi,
+                                    value,
+                                  });
+                                }}
+                                initialValue={props.input.value}
+                                isSingleItemInLine
+                              />
+                            );
+                          }}
+                        </Field>
+                      </div>
+
+                      {/* 이미 배송했다면 송장번호 입력 */}
+                      {values[this.fields.isAlreadySent] ===
+                        alreadySentTypes.YES && (
+                        <>
+                          <div className={css.reasonSelectWrapper}>
                             <Field
                               name={this.fields.shippingCompanyCode}
                               validate={
@@ -963,6 +725,7 @@ class OrderExchangeForm extends Component {
                             >
                               {props => (
                                 <Select
+                                  placeholder="택배사를 선택해주세요"
                                   options={orderClaimForm.shipCompanyOptions}
                                   onChange={option => {
                                     props.input.onChange(option.value);
@@ -974,14 +737,7 @@ class OrderExchangeForm extends Component {
                               )}
                             </Field>
                           </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div>송장번호</div>
-                        </td>
-                        <td>
-                          <div className={tableCSS.smallInputWrapper}>
+                          <div className={css.reasonTextareaWrapper}>
                             <Field
                               name={this.fields.invoiceNo}
                               validate={
@@ -993,6 +749,7 @@ class OrderExchangeForm extends Component {
                             >
                               {props => (
                                 <Input
+                                  placeholder="송장번호를 입력해주세요."
                                   type="number"
                                   onChange={props.input.onChange}
                                   initialValue={
@@ -1002,181 +759,88 @@ class OrderExchangeForm extends Component {
                               )}
                             </Field>
                           </div>
-                        </td>
-                      </tr>
-                    </>
-                  )}
-                </KeyValueTable>
+                        </>
+                      )}
 
-                <SectionHeading
-                  title={() => (
-                    <div>
-                      <span>교환배송비 결제</span>
-                      <span className={sectionHeadingCss.guideText}>
-                        교환배송비는 교환 사유에 따라 부담여부가 결정되며,
-                        올바르지 않은 사유 선택 시 판매자가 변경할 수 있습니다.
-                      </span>
+                      {/* 이미 보냈을 때 송장번호 입력 안내  */}
+                      {this.isInvoiceWarningVisible({ values }) && (
+                        <NoInvoiceWarning />
+                      )}
                     </div>
-                  )}
-                />
-                <KeyValueTable>
-                  <tr>
-                    <td>교환배송비 부담 대상</td>
-                    <td>
+                  </div>
+
+                  <div className={css.formSection}>
+                    <MypageSectionTitle>교환배송비 결제</MypageSectionTitle>
+                    <div className={css.formSection__content}>
                       <Field name={this.fields.isUserFault}>
-                        {props => (
-                          <div>
-                            <div className={'textValueCell'}>
-                              {props.input.value === true
-                                ? `${exchangeReasonLabel}에 인해 구매자 부담`
-                                : props.input.value === false
-                                ? `${exchangeReasonLabel}에 인해 판매자 부담`
-                                : `(교환 사유를 선택하세요)`}
-                            </div>
-                          </div>
-                        )}
-                      </Field>
-                    </td>
-                  </tr>
-
-                  {/* 판매자 귀책사유 */}
-                  {values[this.fields.isUserFault] && (
-                    <>
-                      <tr>
-                        <td>교환배송비</td>
-                        <td>
-                          <div className={'textValueCell'}>
-                            {addCommaToNum(
-                              parseInt(
-                                nilToZero(
-                                  claimData?.exchangeShippingPrice ||
-                                    claimData?.exchangeShipExpense
-                                ),
-                                10
-                              )
-                            )}
-                            원
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>교환배송비 결제방식</td>
-                        <td>
-                          <Field
-                            name={this.fields.claimShippingPriceType}
-                            validate={required}
-                          >
-                            {props => (
-                              <RadioGroup
-                                name={this.fields.claimShippingPriceType}
-                                options={claimShippingPriceOptions}
-                                onChange={props.input.onChange}
-                                initialValue={
-                                  values[this.fields.claimShippingPriceType]
-                                }
-                              />
-                            )}
-                          </Field>
-                        </td>
-                      </tr>
-                    </>
-                  )}
-                </KeyValueTable>
-
-                <SectionHeading
-                  title={() => (
-                    <div>
-                      <span>교환상품 배송지</span>
-                      <span className={sectionHeadingCss.guideText}>
-                        교환 상품을 받을 곳입니다.
-                      </span>
-                    </div>
-                  )}
-                />
-                <KeyValueTable>
-                  <tr>
-                    {/* TODO: 기본배송지 데이터 연결. 신규 배송지 선택시 배송지 입력 폼 작성 (주문에 있음) */}
-                    {/* (주문 배송지 || 교환 배송지) || 기본 배송지 || 신규 배송지 */}
-                    <td>배송지명</td>
-                    <td>
-                      <Field name={this.fields.claimShippingAddressType}>
-                        {props => {
-                          return (
-                            <div className={css.exchangeAddressControl}>
-                              {/* 주문 배송지와 교환 배송지가 다르면 배송지 이름 표시*/}
-                              {!!claimData?.exchangeBuyerAddressName &&
-                                !claimData?.orderExchangeAddressSame &&
-                                !values[
-                                  this.fields.claimShippingAddressType
-                                ] && (
-                                  <div
-                                    className={'textValueCell'}
-                                    style={{ marginRight: '2em' }}
-                                  >
-                                    <b>
-                                      {claimData?.exchangeBuyerAddressName ||
-                                        ''}
-                                    </b>
-                                  </div>
+                        {({ input }) =>
+                          input.value === null ? (
+                            <div />
+                          ) : input.value === true ? (
+                            <div>
+                              교환사유 "<b>{exchangeReasonLabel}</b>
+                              "으로 인해 교환배송비{' '}
+                              <b>
+                                {addCommaToNum(
+                                  claimData?.exchangeShippingPrice
                                 )}
-
-                              <RadioGroup
-                                name={this.fields.claimShippingAddressType}
-                                options={this.claimShippingAddressTypeOptions}
-                                initialValue={
-                                  initialValues[
-                                    this.fields.claimShippingAddressType
-                                  ]
-                                }
-                                onChange={value => {
-                                  props.input.onChange(value);
-
-                                  this.handleChangeShippingAddressType({
-                                    type: value,
-                                    formApi,
-                                  });
-                                }}
-                                wrapperStyle={{}}
-                              />
-                              <button
-                                type="button"
-                                className={css.addressListButton}
-                                onClick={this.toggleOpenAddressListModal}
-                              >
-                                배송지 목록
-                              </button>
-
-                              {/* 배송지 선택 모달 */}
-                              {/* FIXME: 추가 */}
-                              {/* <SelectMyAddressModal
-                                  isOpen={this.state.isMyAddressModalOpen}
-                                  onClose={this.toggleOpenAddressListModal}
-                                  onSubmit={address =>
-                                    this.handleSelectAddressFromListModal({
-                                      address,
-                                      formApi,
-                                    })
-                                  }
-                                /> */}
+                              </b>
+                              원을{' '}
+                              <b>{claimData?.exchangeShippingPriceTypeText}</b>
+                              으로 구매자가 부담합니다.
                             </div>
-                          );
-                        }}
+                          ) : (
+                            <div>판매자가 부담합니다.</div>
+                          )
+                        }
                       </Field>
-                    </td>
-                  </tr>
+                    </div>
 
-                  {/* 새 주소 입력 모드에서는 다른 양식을 표시한다 */}
-                  {values[this.fields.claimShippingAddressType] !==
-                  claimShippingAddressTypes.NEW_ADDRESS
-                    ? this.renderAddressInfoSaved({ values })
-                    : this.renderNewAddressForm({ values, formApi })}
+                    {/* 판매자 귀책사유 */}
+                    <div className={css.radioWrapper}>
+                      {values[this.fields.isUserFault] && (
+                        <Field
+                          name={this.fields.claimShippingPriceType}
+                          validate={required}
+                        >
+                          {props => (
+                            <RadioGroup
+                              name={this.fields.claimShippingPriceType}
+                              options={claimShippingPriceOptions}
+                              onChange={props.input.onChange}
+                              initialValue={
+                                values[this.fields.claimShippingPriceType]
+                              }
+                              isSingleItemInLine
+                            />
+                          )}
+                        </Field>
+                      )}
+                    </div>
+                  </div>
 
-                  <tr>
-                    <td>배송 메모</td>
-                    <td>
+                  <div className={css.formSection}>
+                    <MypageSectionTitle>
+                      <div className={css.exchangeAddressTitleWrap}>
+                        <span>교환상품 배송지</span>
+                        <button
+                          className={css.exchangeAddressTitleWrap__button}
+                        >
+                          배송지 변경
+                        </button>
+                      </div>
+                    </MypageSectionTitle>
+
+                    {/* 배송지 */}
+                    <div className={css.formSection__content}>
+                      {this.renderAddressInfoSaved({ values })}
+                    </div>
+
+                    {/* 배송 메모 */}
+                    <div className={css.reasonSelectWrapper}>
                       <Field name={this.fields.shippingMessage}>
                         {props => (
-                          <div className={tableCSS.smallInputWrapper}>
+                          <div>
                             <Select
                               placeholder="배송 메모를 선택해주세요."
                               options={orderClaimForm.shippingMessageOptions}
@@ -1207,25 +871,20 @@ class OrderExchangeForm extends Component {
                           </div>
                         )}
                       </Field>
-                    </td>
-                  </tr>
-                </KeyValueTable>
+                    </div>
+                  </div>
 
-                {/* 이미 보냈을 때 송장번호 입력 안내  */}
-                {this.isInvoiceWarningVisible({ values }) && (
-                  <NoInvoiceWarning />
-                )}
-
-                <SubmitButtonWrapper wrapperStyle={{ marginTop: '60px' }}>
-                  <CancelButton onClick={() => this.props.router.back()}>
-                    취소
-                  </CancelButton>
-                  <SubmitButton disabled={!_.isEmpty(errors)}>
-                    교환 신청{!this.getIsCreate() && ' 수정'}
-                  </SubmitButton>
-                </SubmitButtonWrapper>
-              </form>
-            </MypageLayout>
+                  <SubmitButtonWrapper wrapperStyle={{ marginTop: '60px' }}>
+                    <CancelButton onClick={() => this.props.router.back()}>
+                      취소
+                    </CancelButton>
+                    <SubmitButton disabled={!_.isEmpty(errors)}>
+                      교환 신청{!this.getIsCreate() && ' 수정'}
+                    </SubmitButton>
+                  </SubmitButtonWrapper>
+                </form>
+              </div>
+            </DetailPageLayout>
           );
         }}
       />
