@@ -150,15 +150,6 @@ class OrderCancelForm extends Component {
     const isRefundInfoVisible =
       claimData?.orderStatus !== purchaseStatus.WAITING_PAYMENT.code;
 
-    // ? 로그를 찍지 않으면 RefundInfo에 업데이트된 refundResponse가 전달되지 않음.
-    devLog('refundResponse', toJS(this.props.orderClaimForm.refundResponse));
-
-    devLog(
-      'orderClaimFormorderClaimFormorderClaimForm',
-      toJS(this.props.orderClaimForm)
-    );
-
-    devLog('claimDataclaimDataclaimDataclaimData', toJS(claimData));
     return (
       <Form
         onSubmit={this.handleSubmit}
@@ -335,15 +326,7 @@ class OrderCancelForm extends Component {
                     </div>
                   )}
 
-                  {isRefundInfoVisible && (
-                    <RefundInfo
-                      isRefundExpectation={true}
-                      refundResponse={orderClaimForm.refundResponse}
-                      paymentMethodText={
-                        claimData?.paymentMethodText || claimData?.paymentMethod
-                      }
-                    />
-                  )}
+                  {isRefundInfoVisible && <RefundInfo />}
 
                   <SubmitButtonWrapper>
                     <CancelButton
