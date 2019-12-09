@@ -86,20 +86,27 @@ function OrderCancelDone({ router }) {
           <ClaimOrderTableAtDone />
         </div>
 
-        <div className={css.refundInfoWrap}>
-          <MypageSectionTitle>환불 예정 금액</MypageSectionTitle>
-          <div className={css.refundCharge}>
-            {addCommaToNum(
-              nilToZero(claimData?.refundResponse?.totalCancelOrderPrice)
-            )}
-            원
-            <span className={css.refundCharge__method}>
-              ({claimData?.paymentMethodText}{' '}
-              {addCommaToNum(
-                nilToZero(claimData?.refundResponse?.totalPaymentCancelPrice)
-              )}
-              원)
-            </span>
+        <div className={css.sectionsWrap}>
+          <div className={css.section}>
+            <MypageSectionTitle>환불 예정 금액</MypageSectionTitle>
+            <div className={css.section__content}>
+              <span>
+                {addCommaToNum(
+                  nilToZero(claimData?.refundResponse?.totalCancelOrderPrice)
+                )}
+                원
+              </span>
+
+              <span>&nbsp;</span>
+
+              <span>
+                ({claimData?.paymentMethodText}{' '}
+                {addCommaToNum(
+                  nilToZero(claimData?.refundResponse?.totalPaymentCancelPrice)
+                )}
+                원)
+              </span>
+            </div>
           </div>
         </div>
 

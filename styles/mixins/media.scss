@@ -51,3 +51,17 @@ $lgBreak: 1600px; // 이하는 일반 데스크탑, 이상은 큰 화면(large d
     @content;
   }
 }
+
+// samsung gallaxy series
+@mixin mediaGallaxy {
+  @media (max-width: 360px) {
+    @content;
+  }
+}
+
+// iphone5
+@mixin mediaIhpone5 {
+  @media (max-width: 320px) {
+    @content;
+  }
+}
