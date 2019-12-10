@@ -113,6 +113,10 @@ class OrderCompleteDetail extends Component {
                     <td>배송 메모</td>
                     <td>{shippingAddress.message}</td>
                   </tr>
+                  <tr>
+                    <td>기타 요청 사항</td>
+                    <td>{orderData?.etcMessage || '-'}</td>
+                  </tr>
                 </tbody>
               </table>
             </div>

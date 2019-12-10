@@ -48,6 +48,7 @@ export default class OrderPaymentStore {
       shippingMessage: false,
     },
     isAddShippingAddress: false,
+    otherRequest: null,
   };
   @observable addressType = 'R';
   @observable status = {
@@ -746,6 +747,14 @@ export default class OrderPaymentStore {
       last: null,
     };
   };
+
+  @action
+  addOtherRequest = e => {
+    this.orderShippingList.otherRequest = e.target.value;
+
+    // devLog(this.orderShippingList.otherRequest, '기타요청사항');
+  };
+
   //--------------------- 결제요청 ---------------------
   @action
   payment = () => {
@@ -917,10 +926,9 @@ export default class OrderPaymentStore {
         userAgent: getUserAgent(),
         addShippingAddress: this.orderShippingList.isAddShippingAddress,
         shippingType: this.status.selectedShipStatus,
-        wScroll: window.scrollY,
+        etcMessage: this.orderShippingList.otherRequest,
         consumptionPoint: this.usePoint,
         cashReceiptUsage: this.cashReceiptUsage,
-
         cashReceiptNo:
           this.cashReceiptUsage === 'PERSONAL'
             ? String(this.cashReceiptPhone.first) +
@@ -946,9 +954,8 @@ export default class OrderPaymentStore {
         userAgent: getUserAgent(),
         addShippingAddress: this.orderShippingList.isAddShippingAddress,
         shippingType: this.status.selectedShipStatus,
-        wScroll: window.scrollY,
+        etcMessage: this.orderShippingList.otherRequest,
         consumptionPoint: this.usePoint,
-
         web: true,
       };
     }
@@ -1000,6 +1007,8 @@ export default class OrderPaymentStore {
           nextUrl: nextUrl,
           vbankdt: data.expireDate,
         };
+
+        forms.wScroll = window.scrollY;
         sessionStorage.setItem('paymentInfo', JSON.stringify(forms));
       })
       .catch(err => {
@@ -1060,6 +1069,7 @@ export default class OrderPaymentStore {
         defaultAddress: false,
       },
       isAddShippingAddress: false,
+      otherRequest: null,
     };
     this.orderUserInfo = {
       address: null,
