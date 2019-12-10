@@ -19,3 +19,14 @@ export const SPECIAL_FILTER = [
     value: 'END',
   },
 ];
+
+export const SPECIAL_DETAIL_FILTER = [
+  {
+    label: '신상품 순',
+    value: 'NEW',
+  },
+  {
+    label: '가격 순',
+    value: 'PRICE',
+  },
+];

@@ -7,6 +7,7 @@ import SectionItem from 'components/home/SectionItem';
 import { LinkRoute } from 'childs/lib/router';
 import Router from 'next/router';
 import copy from 'copy-to-clipboard';
+import DetailFilter from 'components/event/special/DetailFilter';
 function SpecialDetail({ eventmain, alert }) {
   const [detail, setDetail] = useState({});
   let itemList = [];
@@ -48,7 +49,9 @@ function SpecialDetail({ eventmain, alert }) {
           <div className={css.dashBoard}>
             <div className={css.totalCount}>총 {123}개</div>
             <div className={css.orderWrap}>
-              <div className={css.order}>신상품순</div>
+              <div className={css.order}>
+                <DetailFilter />
+              </div>
             </div>
           </div>
 
