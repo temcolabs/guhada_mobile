@@ -1,0 +1,246 @@
+@import 'styles/mixins/index';
+
+.wrap {
+  width: 100%;
+  overflow: scroll;
+  -ms-overflow-style: none; // IE에서 스크롤바 감춤
+
+  &::-webkit-scrollbar {
+    display: none !important; // 윈도우 크롬 등
+  }
+
+  padding: 20px;
+}
+
+.header {
+  font-size: 20px;
+  font-weight: bold;
+  color: #111111;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #111111;
+
+  & .delIcon {
+    width: 29px;
+    height: 29px;
+    background: url('/static/icon/shipping/pc-popup-icon-del.png') no-repeat
+      center;
+    background-size: contain;
+    float: right;
+  }
+}
+
+.deliveryInfo {
+  font-size: 13px;
+
+  & .deliveryInfo__item {
+    display: flex;
+
+    &:not(:first-child) {
+      margin-top: 10px;
+    }
+  }
+
+  & .deliveryInfo__label {
+    flex: 0 0 107px;
+  }
+
+  & .deliveryInfo__content {
+    flex: 1 1 auto;
+    color: #777777;
+  }
+}
+
+.shippingStatusWrap {
+  padding: 10px 0;
+  border-bottom: 2px solid #111111;
+
+  & .shippingItemWrap {
+    position: relative;
+    width: 108px;
+    height: 205px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: normal;
+    color: #777777;
+    display: inline-block;
+
+    &.pass {
+      font-weight: normal;
+      color: #5d2ed1;
+    }
+
+    &.current {
+      font-size: 14px;
+      font-weight: bold;
+      color: #5d2ed1;
+    }
+
+    &.deliveryIcon0 {
+      background: url('/static/icon/shipping/delivery_icon_01.png') no-repeat
+        center 40px;
+      background-size: 60px;
+
+      &.active {
+        background: url('/static/icon/shipping/delivery_icon_01_active.png')
+          no-repeat center 40px;
+        background-size: 60px;
+      }
+    }
+
+    &.deliveryIcon1 {
+      background: url('/static/icon/shipping/delivery_icon_02.png') no-repeat
+        center 40px;
+      background-size: 60px;
+
+      &.active {
+        background: url('/static/icon/shipping/delivery_icon_02_active.png')
+          no-repeat center 40px;
+        background-size: 60px;
+      }
+    }
+
+    &.deliveryIcon2 {
+      background: url('/static/icon/shipping/delivery_icon_03.png') no-repeat
+        center 40px;
+      background-size: 60px;
+
+      &.active {
+        background: url('/static/icon/shipping/delivery_icon_03_active.png')
+          no-repeat center 40px;
+        background-size: 60px;
+      }
+    }
+
+    &.deliveryIcon3 {
+      background: url('/static/icon/shipping/delivery_icon_04.png') no-repeat
+        center 40px;
+      background-size: 60px;
+
+      &.active {
+        background: url('/static/icon/shipping/delivery_icon_04_active.png')
+          no-repeat center 40px;
+        background-size: 60px;
+      }
+    }
+
+    &.deliveryIcon4 {
+      background: url('/static/icon/shipping/delivery_icon_05.png') no-repeat
+        center 40px;
+      background-size: 60px;
+
+      &.active {
+        background: url('/static/icon/shipping/delivery_icon_05_active.png')
+          no-repeat center 40px;
+        background-size: 60px;
+      }
+    }
+
+    & .positionWrap {
+      padding-top: 120px;
+      margin-bottom: 15px;
+      display: inline-block;
+    }
+
+    $dotPositionY: 120px;
+    $statusLabelPositionY: 145px;
+    $lineWidth: 92px;
+    $dotSize: 10px;
+
+    & .dot {
+      @include centeredX;
+      width: $dotSize;
+      height: $dotSize;
+      top: $dotPositionY;
+      background-color: #eeeeee;
+      border-radius: 10px;
+
+      &.pass {
+        border: solid 3px #8d6cde;
+        background-color: #ffffff;
+      }
+
+      &.current {
+        background-color: #5d2ed1;
+      }
+    }
+
+    & .line {
+      position: absolute;
+      top: calc(#{$dotPositionY} + (#{$dotSize} / 2));
+      right: calc(50% + 8px);
+      width: $lineWidth;
+      height: 1px;
+      background-color: #eeeeee;
+
+      &.colored {
+        background-color: #5d2ed1;
+      }
+    }
+
+    & .statusLabel {
+      margin-top: $statusLabelPositionY;
+    }
+  }
+}
+
+.deliveryDetail {
+  & .deliveryItem {
+    height: 63px;
+    padding: 10px 0;
+    border-bottom: 1px solid #eeeeee;
+    box-sizing: content-box;
+
+    &:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    & .dateWrap {
+      width: 130px;
+      height: 63px;
+      position: relative;
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 500;
+      color: #111111;
+      padding-left: 26px;
+    }
+
+    & .date {
+      width: 130px;
+      display: inline-block;
+      @include centeredY();
+
+      & .hours {
+        margin-top: 8px;
+        font-weight: normal;
+      }
+    }
+
+    & .detailWrap {
+      width: 384px;
+      height: 63px;
+      position: relative;
+      display: inline-block;
+      padding-left: 20px;
+    }
+
+    & .detail {
+      width: 384px;
+      display: inline-block;
+      font-size: 13px;
+      @include centeredY();
+
+      & .status {
+        font-weight: 500;
+        color: #111111;
+      }
+
+      & .location {
+        font-weight: normal;
+        color: #444444;
+        margin-top: 5px;
+      }
+    }
+  }
+}
