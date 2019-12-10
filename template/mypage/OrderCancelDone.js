@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useMemo } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import css from './OrderCancelDone.module.scss';
 import ModalLayout, {
   useModalLayoutState,
@@ -19,7 +19,6 @@ import ClaimOrderTableAtDone from 'components/mypage/claim/ClaimOrderTableAtDone
 import { observer } from 'mobx-react';
 import nilToZero from 'childs/lib/common/nilToZero';
 import Router from 'next/router';
-import RefundInfo from 'components/mypage/orderCancel/RefundInfo';
 import MypageSectionTitle from 'components/mypage/MypageSectionTitle';
 
 const enhancer = compose(
@@ -58,13 +57,13 @@ function OrderCancelDone({ router }) {
       <br />
       판매자에게 주문 상품의
       <br />
-      <b>주문 취소가 요청</b>되었습니다.
+      <b>취소가 요청</b>되었습니다.
     </span>
   );
 
   const headingOnComplete = () => (
     <span>
-      주문 상품의 <b>주문취소</b>가
+      주문 상품의 <b>취소</b>가
       <br />
       완료되었습니다.
     </span>

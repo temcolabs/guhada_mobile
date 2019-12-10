@@ -821,7 +821,7 @@ class OrderReturnForm extends Component {
                     </div>
 
                     {/* 판매자 귀책사유 */}
-                    <div className3={css.radioWrapper}>
+                    <div className={css.radioWrapper}>
                       {values[this.fields.isUserFault] && (
                         <Field
                           name={this.fields.claimShippingPriceType}
