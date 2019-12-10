@@ -70,13 +70,13 @@ function DeliveryTrackingModal({ myDelivery, isModalOpen }) {
           </div>
         </div>
 
-        <div className={css.shippingStatusWrap}>
+        <div className={css.shippingProgress}>
           {shippingStatus.map((shipping, index) => {
             return (
               <div
                 key={index}
                 className={cn(
-                  css.shippingItemWrap,
+                  css.shippingLevelItem,
                   css[`deliveryIcon${index}`],
                   {
                     [css.active]:
@@ -118,7 +118,7 @@ function DeliveryTrackingModal({ myDelivery, isModalOpen }) {
             ?.sort((a, b) => +moment(b.timeString) - +moment(a.timeString)) // 시간 역순 정렬
             .map((detail, index) => {
               return (
-                <div className={css.deliveryItem} key={index}>
+                <div className={css.deliveryDetail_item} key={index}>
                   <div className={css.dateWrap}>
                     <div className={css.date}>
                       {moment(detail.timeString).format(dateFormat.YYYYMMDD_UI)}
