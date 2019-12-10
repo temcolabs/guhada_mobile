@@ -16,6 +16,7 @@
     align-items: center;
     position: relative;
     padding: 0 10px;
+    border-bottom: 1px solid #f9f9fa;
     .title {
       margin: 0;
       @include centered;

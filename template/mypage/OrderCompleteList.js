@@ -24,7 +24,7 @@ import OrderAddressEditModal from 'components/mypage/order/OrderAddressEditModal
 // import ReviewWriteModal, {
 //   reviewModalType,
 // } from 'components/mypage/review/ReviewWriteModal';
-// import DeliveryTrackingModal from 'components/mypage/shipping/DeliveryTrackingModal';
+import DeliveryTrackingModal from 'components/mypage/shipping/DeliveryTrackingModal';
 // import SellerClaimModal from 'components/claim/sellerclaim/SellerClaimModal';
 // import LoadingPortal from 'components/common/loading/Loading';
 // import PointSavingModal, {
@@ -301,7 +301,7 @@ class OrderCompleteList extends Component {
           /> */}
 
         {/* 배송 조회 모달. 컨트롤은 store에서 */}
-        {/* <DeliveryTrackingModal /> */}
+        <DeliveryTrackingModal />
 
         {/* 주문 배송지 수정 모달 */}
         <OrderAddressEditModal

@@ -3,7 +3,8 @@ import css from './ModalLayout.module.scss';
 import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 
 export const useModalLayoutState = ({
-  isOpenOnMount = false,
+  isModalOpen = false, // 모달 열림 닫힘 여부. UI를 통해 동적으로 변경할 값
+  isOpenOnMount = false, // 고정값. 마운팅과 함께 모달을 표시하기 위한 목적
   onClose = () => {},
 }) => {
   const [isModalLayoutOpen, setIsModalLayoutOpen] = useState(false);
@@ -32,6 +33,10 @@ export const useModalLayoutState = ({
       handleChangeVisibility(true);
     }
   }, [handleChangeVisibility, isOpenOnMount]);
+
+  useEffect(() => {
+    handleChangeVisibility(isModalOpen);
+  }, [handleChangeVisibility, isModalOpen]);
 
   return {
     isModalLayoutOpen,
