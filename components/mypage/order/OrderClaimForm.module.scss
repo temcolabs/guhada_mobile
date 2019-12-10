@@ -1,7 +1,80 @@
 @import 'styles/mixins/index';
 @import 'styles/var';
 
-@import 'styles/var';
+@mixin paddingSide20 {
+  padding: 0 20px;
+}
+
+.wrap {
+  background: #f9f9fa;
+}
+
+.formSection {
+  padding: 40px 20px 30px 20px;
+  background: #fff;
+  &:not(:first-child) {
+    margin-top: 8px;
+  }
+}
+
+.formSection__content {
+  font-size: 14px;
+  margin-top: 16px;
+  font-size: 14px;
+  color: #777777;
+
+  & + & {
+    margin-top: 16px;
+  }
+
+  b {
+    font-weight: 500;
+    color: #5d2ed1;
+  }
+
+  span + span {
+    margin-left: 0.5em;
+  }
+}
+
+.orderInfo {
+  padding: 30px 20px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #444444;
+}
+
+.orderInfo__orderId {
+}
+
+.orderInfo__field {
+  &:not(:first-child) {
+    margin-top: 9px;
+  }
+}
+
+.orderInfo__label {
+  display: inline-block;
+  min-width: 48px;
+  @include withDivider(
+    $height: 9px,
+    $distance: 17px,
+    $color: #dddddd,
+    $width: 1px
+  );
+}
+
+.orderInfo__value {
+  display: inline-block;
+  font-family: Roboto;
+}
+
+.formWrap {
+  background: #fff;
+  padding: 30px 0;
+}
 
 // 라벨과 밸류가 한줄씩 구성됨
 .field {
@@ -56,13 +129,35 @@
   color: #777777;
 }
 
+.inputWrapper {
+  margin-top: 10px;
+}
+
+.quantityControlWrapper {
+  margin-top: 32px;
+}
+
+.reasonSelectWrapper {
+  margin-top: 30px;
+}
+
+.reasonTextareaWrapper {
+  margin-top: 10px;
+}
+
+.refundFormWrap {
+  margin-top: 8px;
+  padding: 30px 20px;
+  background: #fff;
+}
+
 .errorMsg {
   margin-top: 3px;
   color: #c72121;
   font-size: 13px;
 }
 
-.orderItemTable {
+.orderItemsWrapper {
   border: none;
 
   td,
@@ -123,8 +218,8 @@
   }
 }
 
-.orderItemTable--done {
-  @extend .orderItemTable;
+.orderItemsWrapper--done {
+  @extend .orderItemsWrapper;
 
   td,
   th {
@@ -153,4 +248,31 @@
       font-weight: bold;
     }
   }
+}
+
+.radioWrapper {
+  margin-top: 31px;
+}
+
+.exchangeAddressTitleWrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__button {
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.11;
+    color: #444;
+    padding-right: 17px;
+    background: url('/static/icon/arrow_r_line.png') no-repeat center right;
+    background-size: 14px;
+    font-size: 13px;
+  }
+}
+
+.shippingName {
+  margin-bottom: 12px;
+  color: #111;
 }
