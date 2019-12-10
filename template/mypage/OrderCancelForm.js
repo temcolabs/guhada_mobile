@@ -27,6 +27,7 @@ import purchaseStatus from 'childs/lib/constant/order/purchaseStatus';
 import RefundAccountInfoForm from 'components/mypage/orderCancel/RefundAccountInfoForm';
 import { isFalsey } from 'childs/lib/common/isTruthy';
 import { devLog } from 'childs/lib/common/devLog';
+import MypageSectionTitle from 'components/mypage/MypageSectionTitle';
 
 /**
  * 주문 취소 신청 페이지
@@ -296,9 +297,10 @@ class OrderCancelForm extends Component {
                     </div>
                   </div>
 
+                  {/* 환불 계좌정보 */}
                   {orderClaimForm.isRefundEnabled && (
-                    <div className={css.refundFormWrap}>
-                      {/* 환불 계좌정보 */}
+                    <div className={css.formSection}>
+                      <MypageSectionTitle>환불 계좌정보</MypageSectionTitle>
                       <RefundAccountInfoForm
                         isCreate={this.getIsCreate()}
                         fields={this.fields}

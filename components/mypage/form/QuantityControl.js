@@ -22,8 +22,6 @@ class QuantityControl extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    devLog(`this.props.initialValue`, this.props.initialValue);
-
     // 초기값 반영
     if (this.props.initialValue !== prevProps.initialValue) {
       this.setState({ value: this.props.initialValue });

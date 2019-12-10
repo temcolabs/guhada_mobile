@@ -669,8 +669,6 @@ export default class OrderClaimFormStore {
    */
   @computed
   get isRefundEnabled() {
-    console.log(`this.claimData`, toJS(this.claimData));
-
     return (
       this.claimData?.orderStatus !== purchaseStatus.WAITING_PAYMENT.code &&
       this.claimData?.paymentMethod === paymentMethod.VBANK.code
