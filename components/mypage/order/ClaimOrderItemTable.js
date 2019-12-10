@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import css from './OrderItemTable.module.scss';
+import css from './ClaimOrderItemTable.module.scss';
 import OrderItem from './OrderItem';
 
 /**
@@ -16,7 +16,7 @@ export default function ClaimOrderItemTable({ orderList = [] }) {
   const handleOpenSellerClaimModal = useCallback(() => {}, []);
 
   return (
-    <div className={css.orderItemsWrapper}>
+    <div className={css.orderItemTable}>
       {orderListGroupBySeller.map((order, index) => {
         return (
           // 클레임에서 쓰는 데이터가 다르기 때문에 직접 구성해서 전달한다

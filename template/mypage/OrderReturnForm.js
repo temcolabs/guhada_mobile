@@ -42,7 +42,7 @@ import RefundInfo from 'components/mypage/orderCancel/RefundInfo';
 import paymentMethod from 'childs/lib/constant/order/paymentMethod';
 import FormButton from 'components/mypage/form/FormButton';
 import accountService from 'childs/lib/API/order/accountService';
-import  { isFalsey } from 'childs/lib/common/isTruthy';
+import { isFalsey } from 'childs/lib/common/isTruthy';
 import RefundAccountInfoForm from 'components/mypage/orderCancel/RefundAccountInfoForm';
 import TextArea from 'components/mypage/form/TextArea';
 import _ from 'lodash';
@@ -255,7 +255,7 @@ class OrderReturnForm extends Component {
    * 수량 변경
    */
   handleChangeQuantity = quantity => {
-    // 취소예샹금액 변경
+    // 샹금액 변경
     this.props.orderClaimForm.getRefundResponse({
       orderProdGroupId: this.orderProdGroupId,
       quantity,
@@ -677,7 +677,7 @@ class OrderReturnForm extends Component {
                         {({ input, meta }) => (
                           <>
                             <TextArea
-                              placeholder="취소 사유를 간략히 적어주세요."
+                              placeholder="반품 사유를 간략히 적어주세요."
                               onChange={input.onChange}
                               initialValue={
                                 values[this.fields.returnReasonDetail]
@@ -805,7 +805,7 @@ class OrderReturnForm extends Component {
                           ) : input.value === true ? (
                             <div>
                               반품사유 "<b>{returnReasonLabel}</b>
-                              "으로 인해 교환배송비{' '}
+                              "으로 인해 반품배송비{' '}
                               <b>
                                 {addCommaToNum(claimData?.returnShippingPrice)}
                               </b>
@@ -821,7 +821,7 @@ class OrderReturnForm extends Component {
                     </div>
 
                     {/* 판매자 귀책사유 */}
-                    <div className={css.radioWrapper}>
+                    <div className3={css.radioWrapper}>
                       {values[this.fields.isUserFault] && (
                         <Field
                           name={this.fields.claimShippingPriceType}
