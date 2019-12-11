@@ -110,11 +110,6 @@ function OrderAddressEditModal({
         render={({ handleSubmit, form: formApi }) => {
           const { values } = formApi.getState();
 
-          console.log(
-            `addHyphenToMobile(fields.recipientMobile)`,
-            addHyphenToMobile(values[fields.recipientMobile])
-          );
-
           return (
             <form onSubmit={handleSubmit}>
               <div className={css.modal}>

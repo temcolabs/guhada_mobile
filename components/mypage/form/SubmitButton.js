@@ -46,10 +46,13 @@ export function SubmitButtonWrapper({
   responsive = false,
   wrapperStyle = {},
   children,
+  wrapperClassname,
 }) {
   return (
     <div
-      className={cn(css.submitButtonWrapper, { [css.responsive]: responsive })}
+      className={cn(css.submitButtonWrapper, wrapperClassname, {
+        [css.responsive]: responsive,
+      })}
       style={wrapperStyle}
     >
       {children}

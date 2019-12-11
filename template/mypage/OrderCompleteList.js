@@ -30,18 +30,18 @@ import DeliveryTrackingModal from 'components/mypage/shipping/DeliveryTrackingMo
 // import PointSavingModal, {
 //   pointSavingTypes,
 // } from 'components/mypage/point/PointSavingModal';
-// import OrderConfirmModal from 'components/mypage/order/OrderConfirmModal';
+import OrderConfirmModal from 'components/mypage/order/OrderConfirmModal';
 
 /**
  * 마이페이지 - 주문 배송 (주문 완료 목록)
  */
 @withRouter
 @inject(
-  'orderCompleteList'
-  // 'mypageAddress',
-  // 'mypagereview',
-  // 'myDelivery',
-  // 'mypagePoint'
+  'orderCompleteList',
+  'mypageAddress',
+  'mypagereview',
+  'myDelivery',
+  'mypagePoint'
 )
 @observer
 class OrderCompleteList extends Component {
@@ -222,6 +222,8 @@ class OrderCompleteList extends Component {
       // mypagePoint: mypagePointStore,
     } = this.props;
 
+    const { orderConfirmModalData } = orderCompleteListStore;
+
     return (
       <MypageLayout
         topLayout={'main'}
@@ -271,9 +273,6 @@ class OrderCompleteList extends Component {
             />
           </div>
         </MypageContentsWrap>
-
-        {/* 주소 수정 모달 */}
-        {/* <MypageAddressModal /> */}
 
         {/* 리뷰 작성 모달 */}
         {/* <ReviewWriteModal
@@ -330,17 +329,17 @@ class OrderCompleteList extends Component {
             savedPointResponse={mypagePointStore.savedPointResponse}
           /> */}
 
-        {/* <OrderConfirmModal
-            isOpen={orderCompleteListStore.isOrderConfirmModalOpen}
-            order={orderConfirmModalData?.order}
-            onConfirm={orderConfirmModalData?.onConfirm}
-            onClose={orderConfirmModalData?.onClose}
-            dueSavePointOnConfirm={orderConfirmModalData.dueSavePointOnConfirm}
-            dueSavePointOnReview={orderConfirmModalData.dueSavePointOnReview}
-            dueSavePointOnFirstPurchase={
-              orderConfirmModalData.dueSavePointOnFirstPurchase
-            }
-          /> */}
+        <OrderConfirmModal
+          isOpen={orderCompleteListStore.isOrderConfirmModalOpen}
+          order={orderConfirmModalData?.order}
+          onConfirm={orderConfirmModalData?.onConfirm}
+          onClose={orderConfirmModalData?.onClose}
+          dueSavePointOnConfirm={orderConfirmModalData.dueSavePointOnConfirm}
+          dueSavePointOnReview={orderConfirmModalData.dueSavePointOnReview}
+          dueSavePointOnFirstPurchase={
+            orderConfirmModalData.dueSavePointOnFirstPurchase
+          }
+        />
       </MypageLayout>
     );
   }
