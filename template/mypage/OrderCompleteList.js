@@ -27,9 +27,9 @@ import OrderAddressEditModal from 'components/mypage/order/OrderAddressEditModal
 import DeliveryTrackingModal from 'components/mypage/shipping/DeliveryTrackingModal';
 // import SellerClaimModal from 'components/claim/sellerclaim/SellerClaimModal';
 // import LoadingPortal from 'components/common/loading/Loading';
-// import PointSavingModal, {
-//   pointSavingTypes,
-// } from 'components/mypage/point/PointSavingModal';
+import PointSavingModal, {
+  pointSavingTypes,
+} from 'components/mypage/point/PointSavingModal';
 import OrderConfirmModal from 'components/mypage/order/OrderConfirmModal';
 
 /**
@@ -219,7 +219,7 @@ class OrderCompleteList extends Component {
     const {
       orderCompleteList: orderCompleteListStore,
       // mypagereview,
-      // mypagePoint: mypagePointStore,
+      mypagePoint: mypagePointStore,
     } = this.props;
 
     const { orderConfirmModalData } = orderCompleteListStore;
@@ -322,13 +322,14 @@ class OrderCompleteList extends Component {
           /> */}
 
         {/* 구매확정시 포인트 지급 모달  */}
-        {/* <PointSavingModal
-            pointSavingType={pointSavingTypes.CONFIRM_PURCHASE}
-            isOpen={mypagePointStore.isPointSavingModalOpen}
-            onClose={mypagePointStore.closePointSavingModalOpen}
-            savedPointResponse={mypagePointStore.savedPointResponse}
-          /> */}
+        <PointSavingModal
+          pointSavingType={pointSavingTypes.CONFIRM_PURCHASE}
+          isOpen={mypagePointStore.isPointSavingModalOpen}
+          onClose={mypagePointStore.closePointSavingModalOpen}
+          savedPointResponse={mypagePointStore.savedPointResponse}
+        />
 
+        {/* 구매확정 모달 */}
         <OrderConfirmModal
           isOpen={orderCompleteListStore.isOrderConfirmModalOpen}
           order={orderConfirmModalData?.order}
