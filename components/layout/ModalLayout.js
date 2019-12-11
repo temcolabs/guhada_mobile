@@ -4,7 +4,6 @@ import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 
 export const useModalLayoutState = ({
   isModalOpen = false, // 모달 열림 닫힘 여부. UI를 통해 동적으로 변경할 값
-  isOpenOnMount = false, // 고정값. 마운팅과 함께 모달을 표시하기 위한 목적
   onClose = () => {},
 }) => {
   const [isModalLayoutOpen, setIsModalLayoutOpen] = useState(false);
@@ -13,6 +12,7 @@ export const useModalLayoutState = ({
     isOpen => {
       setIsModalLayoutOpen(isOpen);
 
+      // 닫힘 기능외에 추가로 실행할 콜백 호출
       if (typeof onClose === 'function' && !isOpen) {
         onClose();
       }
@@ -27,12 +27,6 @@ export const useModalLayoutState = ({
   const closeModalLayout = useCallback(() => {
     handleChangeVisibility(false);
   }, [handleChangeVisibility]);
-
-  useEffect(() => {
-    if (isOpenOnMount) {
-      handleChangeVisibility(true);
-    }
-  }, [handleChangeVisibility, isOpenOnMount]);
 
   useEffect(() => {
     handleChangeVisibility(isModalOpen);
@@ -54,7 +48,8 @@ function ModalLayout({ pageTitle, children, isOpen, onClose, wrapperStyle }) {
           <div className={css.title}>{pageTitle || ''}</div>
           <div className={css.close} onClick={onClose} />
         </div>
-        <div className={css.content}>{children}</div>
+
+        {children}
       </div>
     </SlideIn>
   );

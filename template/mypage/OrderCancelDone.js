@@ -33,7 +33,7 @@ function OrderCancelDone({ router }) {
   const { claimData } = orderClaimForm;
 
   const { isModalLayoutOpen, closeModalLayout } = useModalLayoutState({
-    isOpenOnMount: true,
+    isModalOpen: true,
     onClose: useCallback(() => {
       Router.push('/mypage/orders/claim/list');
     }, []),
@@ -108,16 +108,15 @@ function OrderCancelDone({ router }) {
             </div>
           </div>
         </div>
-
-        <SubmitButtonWrapper wrapperStyle={{ marginTop: '60px' }}>
-          <Link
-            as={`/mypage/orders/claim/list`}
-            href={getRouteHref(`/mypage/orders/claim/list`)}
-          >
-            <SubmitButton>확인</SubmitButton>
-          </Link>
-        </SubmitButtonWrapper>
       </div>
+      <SubmitButtonWrapper fixedAtBottom>
+        <Link
+          as={`/mypage/orders/claim/list`}
+          href={getRouteHref(`/mypage/orders/claim/list`)}
+        >
+          <SubmitButton>확인</SubmitButton>
+        </Link>
+      </SubmitButtonWrapper>
     </ModalLayout>
   );
 }

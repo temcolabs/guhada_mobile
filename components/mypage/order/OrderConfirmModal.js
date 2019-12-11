@@ -108,6 +108,7 @@ export default function OrderConfirmModal({
       </div>
       <SubmitButtonWrapper
         responsive
+        fixedAtBottom
         wrapperClassname={css.submitButtonWrapper}
       >
         <CancelButton onClick={onClose}>취소</CancelButton>
