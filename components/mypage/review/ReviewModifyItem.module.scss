@@ -1,0 +1,319 @@
+@import 'styles/var';
+@import 'styles/mixins/index';
+
+.itemWrap {
+  padding: 30px 0 0 0;
+  margin: 0 20px;
+  border-bottom: solid 1px #eee;
+
+  &:first-child {
+    padding-top: 40px;
+  }
+
+  &:last-child {
+    margin-bottom: 30px;
+    border-bottom: 0;
+  }
+}
+
+.reviewWrap {
+  display: inline-block;
+  width: 100%;
+  padding-bottom: 20px;
+  border-bottom: dashed 1px #eee;
+}
+
+.productImageBox {
+  float: left;
+  width: 100px;
+  height: 100px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #fff;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.productInfo {
+  float: left;
+  margin-left: 24px;
+  width: calc(100% - 124px);
+  height: 100px;
+  position: relative;
+  font-size: 13px;
+  color: #111111;
+  line-height: 16px;
+
+  .brandName {
+    font-weight: 500;
+    @include textEllipsis;
+  }
+
+  .prodName {
+    font-weight: normal;
+    margin-top: 3px;
+    @include textEllipsis;
+  }
+
+  .option {
+    font-size: 13px;
+    min-height: 16px;
+    color: #777777;
+    margin-top: 3px;
+    @include textEllipsis;
+
+    & .optionLine {
+      height: 8px;
+      width: 1px;
+      border-right: 1px solid #cccccc;
+      margin: 0 6px;
+      display: inline-block;
+    }
+
+    & .optionItem {
+      display: inline-block;
+
+      &::after {
+        content: ',\00a0'
+      }
+
+      &:last-child {
+        &::after {
+          content: ''
+        }
+      }
+    }
+  }
+
+  .price {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 17px;
+    color: #111;
+    margin-top: 3px;
+  }
+
+  .statusBox {
+    margin-top: 20px;
+  }
+
+  .status {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: #5d2ed1;
+  }
+
+  .statusMessage {
+    font-size: 12px;
+    color: #777777;
+    margin-left: 10px;
+  }
+
+  .shipping {
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 1.08;
+    color: #777777;
+    margin-top: 21px;
+    position: absolute;
+    bottom: 0;
+  }
+}
+
+.actionBox {
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  display: inline-block;
+
+  &>button {
+    display: block;
+    width: 100%;
+    height: 40px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 500;
+    border: solid 1px #cccccc;
+
+    &:not(:first-child) {
+      margin-top: 6px;
+    }
+
+    // 색이 들어간 버튼
+    &.isColored {
+      text-align: center;
+      background: #5d2ed1;
+      border: 1px solid #5d2ed1;
+      color: #fff;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.detailWrap {
+  padding-top: 20px;
+
+
+  .detailItemWrap {
+    width: 100%;
+  }
+
+  .detailStarWrap {
+    display: inline-block;
+    margin-bottom: 1px;
+    height: 15px;
+
+    &>img {
+      float: left;
+    }
+  }
+
+  .detailStarText {
+    font-size: 12px;
+    font-weight: normal;
+    color: #777777;
+    margin-left: 5px;
+    line-height: 15px;
+    float: left;
+  }
+
+  .textReview {
+    height: 56px;
+    @include textEllipsis;
+    white-space: normal;
+    line-height: 18px;
+    text-align: left;
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+
+  .detailButtonWrap {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 11px;
+    border: solid 1px #eeeeee;
+    background-color: #ffffff;
+    margin-right: 5px;
+    height: 22px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  .detailLine {
+    margin: 0 6px;
+    height: 8px;
+    border-right: 1px solid #eee;
+  }
+
+  .detailText {
+    color: #5d2ed1;
+  }
+
+  .detailButton {
+
+    padding: 0 7px;
+    font-size: 10px;
+    font-weight: normal;
+    line-height: 1.2;
+    color: #444444;
+
+    &>div {
+      display: inline-block;
+    }
+  }
+
+  .contents {
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.43;
+    color: #444444;
+    margin-top: 15px;
+    display: inline-block;
+    width: 100%;
+
+    & .contentItemWithImage {
+      width: calc(100% - 124px);
+      display: inline-block;
+    }
+  }
+
+  .date {
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 15px;
+    color: #777777;
+    margin-top: 9px;
+  }
+
+  .likeWrap {
+    height: 20px;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 20px;
+    color: #444444;
+    margin-top: 38px;
+    position: relative;
+
+    .likeImage {
+      width: 20px;
+      height: 20px;
+      background-image: url('/static/icon/icon_thumbsup_on.png');
+      background-size: 20px 20px;
+      background-repeat: no-repeat;
+      background-position: center;
+      display: inline-block;
+      position: relative;
+      top: 4px;
+    }
+
+    .likeline {
+      display: inline-block;
+      height: 8px;
+      border-right: 1px solid #ccc;
+      padding-top: 6px;
+      margin: 0 10px;
+    }
+
+    .like {
+      color: #111;
+    }
+  }
+}
+
+.detailImageBox {
+  float: left;
+  width: 100px;
+  height: 100px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #eee;
+  margin-right: 24px;
+}
+
+.moreBtn {
+  width: 100%;
+  height: 50px;
+  border-top: 1px solid #eeeeee;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url('/static/icon/detail_btn_more_open.png') no-repeat;
+  background-position: calc(50% + 20px) center;
+  background-size: 16px;
+  padding-right: 20px;
+}

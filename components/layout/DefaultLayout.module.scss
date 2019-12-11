@@ -6,4 +6,28 @@
   position: relative;
   display: block;
   padding-bottom: 57px;
+
+  .kakaoChat {
+    position: fixed;
+    z-index: 10;
+    right: 15px;
+    bottom: 119px;
+    width: 41px;
+    height: 41px;
+    border-radius: 50%;
+    background: url('/static/icon/kakao_chat.png') no-repeat center;
+    background-size: 41px 41px;
+    cursor: pointer;
+  }
+
+  & .btnTop {
+    z-index: 10;
+    width: 41px;
+    height: 41px;
+    background: url('/static/icon/btn-top.png') no-repeat;
+    background-size: 41px;
+    position: fixed;
+    right: 15px;
+    bottom: 70px;
+  }
 }

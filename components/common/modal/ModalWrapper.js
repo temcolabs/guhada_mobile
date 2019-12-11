@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactModal from 'react-modal';
 import css from './ModalWrapper.module.scss';
-import PropTypes from 'prop-types';
+import cn from 'classnames';
+import { bool, func, object, string, number, any } from 'prop-types';
 import isServer from 'childs/lib/common/isServer';
 import setScrollability from 'childs/lib/dom/setScrollability';
 import documentHeight from 'childs/lib/dom/documentHeight';
@@ -15,16 +16,18 @@ export const ModalContentWrap = ({ children }) => (
  */
 class ModalWrapper extends React.Component {
   static propTypes = {
-    isOpen: PropTypes.bool, // 표시 여부
-    onClose: PropTypes.func, // 모달이 닫힐 때 콜백
-    overlayStyle: PropTypes.object, // 모달 오버레이(모달의 상위 element) 스타일.
-    contentStyle: PropTypes.object, // 모달 래퍼 스타일. 사이즈, 위치 등을 설정
-    contentLabel: PropTypes.string, // accessibility를 위한 모달 아이디.
-    zIndex: PropTypes.number,
-    children: PropTypes.any,
-    closeTimeoutMS: PropTypes.number, // 모달 닫힘 딜레이. transition을 위한 시간
-    lockScroll: PropTypes.bool, // 오픈되었을 때 스크롤을 막을 것인지
-    isBigModal: PropTypes.bool, // 브라우저 높이를 넘어서는 큰 사이즈 모달 여부
+    isOpen: bool.isRequired, // 표시 여부
+    onClose: func, // 모달이 닫힐 때 콜백
+    overlayStyle: object, // 모달 오버레이(모달의 상위 element) 스타일.
+    contentStyle: object, // 모달 래퍼 스타일. 사이즈, 위치 등을 설정
+    contentLabel: string, // accessibility를 위한 모달 아이디.
+    zIndex: number,
+    children: any,
+    closeTimeoutMS: number, // 모달 닫힘 딜레이. transition을 위한 시간
+    lockScroll: bool, // 오픈되었을 때 스크롤을 막을 것인지
+    isBigModal: bool, // 브라우저 높이를 넘어서는 큰 사이즈 모달 여부
+
+    modalTitle: string,
   };
 
   static defaultProps = {
@@ -94,7 +97,11 @@ class ModalWrapper extends React.Component {
       zIndex,
       children,
       closeTimeoutMS = 200,
+      modalTitle,
     } = this.props;
+
+    const isModalTitleVisible = !!modalTitle;
+
     return (
       <ReactModal
         isOpen={isOpen}
@@ -122,7 +129,24 @@ class ModalWrapper extends React.Component {
         }}
         closeTimeoutMS={closeTimeoutMS}
       >
-        {children}
+        <div
+          className={cn(css.childrenWrap, {
+            [css.withTitle]: isModalTitleVisible,
+          })}
+        >
+          {modalTitle && (
+            <div className={css.modalTitle}>
+              <span>{modalTitle}</span>
+
+              <button
+                className={css.modalTitle__closeButton}
+                onClick={onClose}
+              />
+            </div>
+          )}
+
+          {children}
+        </div>
       </ReactModal>
     );
   }

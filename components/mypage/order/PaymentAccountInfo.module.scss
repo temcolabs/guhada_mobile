@@ -1,0 +1,28 @@
+@import 'styles/mixins/index';
+@import 'styles/var';
+
+.wrap {
+  width: 100%;
+  position: relative;
+  display: block;
+  font-size: 13px;
+  color: #777777;
+  padding: 15px;
+  background: #ffffff;
+}
+
+.row {
+  display: flex;
+  justify-content: flex-start;
+
+  &:not(:first-child) {
+    margin-top: 7px;
+  }
+}
+
+.label {
+}
+
+.value {
+  margin-left: 1em;
+}

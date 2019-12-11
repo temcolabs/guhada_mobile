@@ -20,20 +20,29 @@ export default class EventPopupStore {
       .get(`/event/main/popup`)
       .then(res => {
         let data = res.data.data;
+        const isMobile = /Mobile|iP(hone|od)|BlackBerry|IEMobile|Kindle|NetFront|Silk-Accelerated|(hpw|web)OS|Fennec|Minimo|Opera M(obi|ini)|Blazer|Dolfin|Dolphin|Skyfire|Zune/.test(
+          window.navigator.userAgent
+        )
+          ? true
+          : false;
 
         for (let i = 0; i < data.length; i++) {
           if (localStorage.getItem(data[i].eventTitle)) {
             let getItem = JSON.parse(localStorage.getItem(data[i].eventTitle));
 
             if (moment(getItem.setDate).diff(moment(), 'days') !== 0) {
-              data[i].popupStatus = true;
+              !isMobile && data[i].agent === 'MOBILE'
+                ? (data[i].popupStatus = false)
+                : (data[i].popupStatus = true);
               localStorage.removeItem(data[i].eventTitle);
               this.setAppDownLink(data[i]);
             } else {
               data[i].popupStatus = false;
             }
           } else {
-            data[i].popupStatus = true;
+            !isMobile && data[i].agent === 'MOBILE'
+              ? (data[i].popupStatus = false)
+              : (data[i].popupStatus = true);
             this.setAppDownLink(data[i]);
           }
         }

@@ -2,4 +2,47 @@
 
 .wrap {
   width: 100%;
+  padding-top: 26px;
+  padding-bottom: 26px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.orderState {
+  width: 47px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.orderState__value {
+  height: 23px;
+  font-family: Roboto;
+  font-size: 19px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: center;
+  color: #111111;
+}
+
+.orderState__desc {
+  margin-top: 9px;
+  font-family: Roboto;
+  font-size: 12px;
+  letter-spacing: 0;
+}
+
+.arrow {
+  width: 15px;
+  height: 15px;
+  background: url('/static/icon/mypage/mypages-orderdashboard-arrow-m@3x.png')
+    no-repeat center;
+  background-size: contain;
+  margin-top: auto;
+  margin-bottom: 21px;
 }

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { withRouter } from 'next/router';
-import DefaultLayout from 'components/layout/DefaultLayout';
-
 import MypageLayout from 'components/mypage/MypageLayout';
 
 /**
@@ -14,16 +12,13 @@ import MypageLayout from 'components/mypage/MypageLayout';
 class OrderReturnForm extends Component {
   render() {
     return (
-      <DefaultLayout
+      <MypageLayout
         topLayout={'main'}
         pageTitle={'마이페이지'}
-        toolBar={false}
         headerShape={'mypage'}
       >
-        <MypageLayout>
-          <div>주문 반품 신청 및 수정 페이지.</div>
-        </MypageLayout>
-      </DefaultLayout>
+        <div>주문 반품 신청 및 수정 페이지.</div>
+      </MypageLayout>
     );
   }
 }

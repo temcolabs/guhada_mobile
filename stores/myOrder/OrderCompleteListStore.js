@@ -6,7 +6,6 @@ import { isBrowser } from 'childs/lib/common/isServer';
 import moment from 'moment';
 import { pushRoute } from 'childs/lib/router';
 import qs from 'qs';
-// import { reviewModalType } from 'components/mypage/review/ReviewWriteModal';
 import isFunction from 'childs/lib/common/isFunction';
 import orderService from 'childs/lib/API/order/orderService';
 import { devLog } from 'childs/lib/common/devLog';
@@ -123,6 +122,7 @@ export default class OrderListStore {
     order: {},
     dueSavePointOnConfirm: 0, // 구매
     dueSavePointOnReview: 0, // 리뷰 작성시 모달
+    dueSavePointOnFirstPurchase: 0, // 첫 구매 시
     onConfirm: () => {},
     onClose: () => {},
   };
@@ -244,6 +244,10 @@ export default class OrderListStore {
       // 리뷰 작성시 포인트
       dueSavePointOnReview: dueSavePointList?.find(
         item => item.dueSaveType === 'REVIEW'
+      )?.totalPoint,
+
+      dueSavePointOnFirstPurchase: dueSavePointList?.find(
+        item => item.dueSaveType === 'FIRST_ORDER'
       )?.totalPoint,
 
       onConfirm: async () => {

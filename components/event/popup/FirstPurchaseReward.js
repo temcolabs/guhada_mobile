@@ -1,10 +1,10 @@
 import React from 'react';
-import css from './AppDownload.module.scss';
+import css from './FirstPurchaseReward.module.scss';
 import ModalWrapper from 'components/common/modal/ModalWrapper';
 import { inject } from 'mobx-react';
 import { useObserver } from 'mobx-react-lite';
 
-const AppDownload = ({ isOpen, eventmain }) => {
+const FirstPurchaseReward = ({ isOpen, eventmain }) => {
   return useObserver(() => (
     <ModalWrapper
       isOpen={isOpen}
@@ -21,20 +21,12 @@ const AppDownload = ({ isOpen, eventmain }) => {
         <div className={css.content} />
         <div className={css.buttonGroup}>
           <div
-            className={css.stop}
-            onClick={() => {
-              eventmain.appDownPopupClose('stop');
-            }}
-          >
-            그만보기
-          </div>
-          <div
             className={css.close}
             onClick={() => {
-              eventmain.appDownPopupClose();
+              eventmain.firstPurchaseRewardPopupClose();
             }}
           >
-            닫기
+            확인
           </div>
         </div>
       </div>
@@ -42,4 +34,4 @@ const AppDownload = ({ isOpen, eventmain }) => {
   ));
 };
 
-export default inject('eventmain')(AppDownload);
+export default inject('eventmain')(FirstPurchaseReward);

@@ -1,0 +1,142 @@
+@import 'styles/mixins/index';
+@import 'styles/var';
+
+.wrap {
+  @include clearfix;
+  padding: 30px 0;
+}
+
+.orderInfoWrapper {
+  @include clearfix;
+}
+
+// 상단 주문정보
+.orderInfo {
+  @include clearfix;
+  font-size: 12px;
+  color: #777;
+}
+
+.orderInfo__date {
+  @include withDivider(9px, 17px, #ddd, 1px);
+  float: left;
+}
+
+.orderInfo__id {
+  float: left;
+}
+
+.orderInfo__idValue {
+  position: relative;
+
+  &::after {
+    display: block;
+    content: ' ';
+    @include centeredY;
+    right: -14px;
+    width: 14px;
+    height: 14px;
+    background: url('/static/icon/mypage/mypage-arrow@2x.png') no-repeat center;
+    background-size: contain;
+  }
+}
+
+.sellerInfo {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+
+  & > button {
+    display: flex;
+    width: 100%;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    color: #111;
+    background-color: #f9f9fa;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: normal;
+    text-align: center;
+  }
+}
+
+.productInfoWrapper {
+  @include clearfix;
+  margin-top: 20px;
+}
+
+.productImageBox {
+  float: left;
+  width: 100px;
+  height: 100px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #fff;
+}
+
+.productInfo {
+  float: left;
+  margin-left: 40px;
+  max-width: 670px;
+  line-height: 1.57;
+
+  .brandName {
+    font-weight: bold;
+  }
+  .prodName {
+    color: #444;
+  }
+  .option {
+    font-size: 13px;
+    line-height: 1.2;
+    min-height: 16px;
+    color: #777777;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  .option__divider {
+    display: inline-block;
+    margin: 1px 8px;
+    width: 1px;
+    height: 8px;
+    background-color: #cccccc;
+  }
+  .price {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.2;
+    color: #444444;
+    margin-top: 9px;
+  }
+  .discountPrice {
+  }
+  .originalPrice {
+  }
+  .discountRate {
+  }
+  .statusBox {
+    margin-top: 20px;
+  }
+  .status {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: #5d2ed1;
+  }
+  .statusMessage {
+    font-size: 12px;
+    color: #777777;
+    margin-left: 10px;
+  }
+}
+
+.dealOrderdWrapper {
+  float: left;
+  width: 100%;
+}
+
+.actionBox {
+}

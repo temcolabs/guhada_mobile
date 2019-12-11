@@ -1,4 +1,3 @@
-import { action, observable } from 'mobx';
 import { useStaticRendering } from 'mobx-react';
 import Root from './stores/Root';
 
@@ -17,3 +16,17 @@ export function initializeStore(initialState) {
   }
   return root;
 }
+
+export const applyInitialData = ({
+  initialData = {},
+  storeName = '',
+  store = {},
+} = {}) => {
+  const storeInitialData = initialData[storeName];
+
+  if (!!storeInitialData) {
+    Object.keys(storeInitialData).forEach(key => {
+      store[key] = storeInitialData[key];
+    });
+  }
+};

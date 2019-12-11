@@ -46,15 +46,24 @@ const MENUBAR_SECTIONS = [
   {
     links: [
       {
-        targetPaths: [
-          mypageRouteObj['/mypage/CouponList']?.asPath,
-          mypageRouteObj['/mypage/CouponEvents']?.asPath,
-        ],
-        asPath: mypageRouteObj['/mypage/CouponList']?.asPath,
-        text: '쿠폰',
+        targetPaths: [mypageRouteObj['/mypage/ProductReview']?.asPath],
+        asPath: mypageRouteObj['/mypage/ProductReview']?.asPath,
+        text: '리뷰',
       },
     ],
   },
+  // {
+  //   links: [
+  //     {
+  //       targetPaths: [
+  //         mypageRouteObj['/mypage/CouponList']?.asPath,
+  //         mypageRouteObj['/mypage/CouponEvents']?.asPath,
+  //       ],
+  //       asPath: mypageRouteObj['/mypage/CouponList']?.asPath,
+  //       text: '쿠폰',
+  //     },
+  //   ],
+  // },
   // {
   //   links: [
   //     {
@@ -64,33 +73,33 @@ const MENUBAR_SECTIONS = [
   //     },
   //   ]
   // },
-  {
-    links: [
-      {
-        targetPaths: [mypageRouteObj['/mypage/FollowStore']?.asPath],
-        asPath: mypageRouteObj['/mypage/FollowStore']?.asPath,
-        text: '팔로우한 스토어',
-      },
-    ],
-  },
-  {
-    links: [
-      {
-        targetPaths: [mypageRouteObj['/mypage/ProductLikeList']?.asPath],
-        asPath: mypageRouteObj['/mypage/ProductLikeList']?.asPath,
-        text: '찜한 상품',
-      },
-    ],
-  },
-  {
-    links: [
-      {
-        targetPaths: [mypageRouteObj['/mypage/RecentlySeenList']?.asPath],
-        asPath: mypageRouteObj['/mypage/RecentlySeenList']?.asPath,
-        text: '최근 본 상품',
-      },
-    ],
-  },
+  // {
+  //   links: [
+  //     {
+  //       targetPaths: [mypageRouteObj['/mypage/FollowStore']?.asPath],
+  //       asPath: mypageRouteObj['/mypage/FollowStore']?.asPath,
+  //       text: '팔로우한 스토어',
+  //     },
+  //   ],
+  // },
+  // {
+  //   links: [
+  //     {
+  //       targetPaths: [mypageRouteObj['/mypage/ProductLikeList']?.asPath],
+  //       asPath: mypageRouteObj['/mypage/ProductLikeList']?.asPath,
+  //       text: '찜한 상품',
+  //     },
+  //   ],
+  // },
+  // {
+  //   links: [
+  //     {
+  //       targetPaths: [mypageRouteObj['/mypage/RecentlySeenList']?.asPath],
+  //       asPath: mypageRouteObj['/mypage/RecentlySeenList']?.asPath,
+  //       text: '최근 본 상품',
+  //     },
+  //   ],
+  // },
   // {
   //   links: [
   //      {
@@ -118,24 +127,16 @@ const MENUBAR_SECTIONS = [
   //     },
   //   ]
   // },
-  {
-    links: [
-      {
-        targetPaths: [mypageRouteObj['/mypage/ProductReview']?.asPath],
-        asPath: mypageRouteObj['/mypage/ProductReview']?.asPath,
-        text: '리뷰',
-      },
-    ],
-  },
-  {
-    links: [
-      {
-        targetPaths: [mypageRouteObj['/mypage/ClaimPageMain']?.asPath],
-        asPath: mypageRouteObj['/mypage/ClaimPageMain']?.asPath,
-        text: '문의',
-      },
-    ],
-  },
+
+  // {
+  //   links: [
+  //     {
+  //       targetPaths: [mypageRouteObj['/mypage/ClaimPageMain']?.asPath],
+  //       asPath: mypageRouteObj['/mypage/ClaimPageMain']?.asPath,
+  //       text: '문의',
+  //     },
+  //   ],
+  // },
   // {
   //   links: [
   //     {
@@ -169,7 +170,7 @@ const MENUBAR_SECTIONS = [
       {
         targetPaths: [mypageRouteObj['/mypage/AddressManagement']?.asPath],
         asPath: mypageRouteObj['/mypage/AddressManagement']?.asPath,
-        text: '배송지 관리',
+        text: '배송지',
       },
     ],
   },
@@ -183,16 +184,15 @@ const MENUBAR_SECTIONS = [
   //     },
   //   ]
   // },
-  // TODO: 회원정보 수정은 API가 완성되면 작업 진행
-  {
-    links: [
-      {
-        targetPaths: [mypageRouteObj['/mypage/UserInfomation']?.asPath],
-        asPath: mypageRouteObj['/mypage/UserInfomation']?.asPath,
-        text: '회원정보 수정',
-      },
-    ],
-  },
+  // {
+  //   links: [
+  //     {
+  //       targetPaths: [mypageRouteObj['/mypage/UserInfomation']?.asPath],
+  //       asPath: mypageRouteObj['/mypage/UserInfomation']?.asPath,
+  //       text: '회원정보 수정',
+  //     },
+  //   ],
+  // },
 ];
 
 function MypageMenubar({ userInfo = {}, pathname = '/', router = {} }) {
@@ -200,7 +200,7 @@ function MypageMenubar({ userInfo = {}, pathname = '/', router = {} }) {
   const menubarSections = MENUBAR_SECTIONS.slice();
 
   return (
-    <div className={css.wrap}>
+    <nav className={css.wrap}>
       {menubarSections.map((section, index) => {
         return (
           <MenubarSection
@@ -215,7 +215,7 @@ function MypageMenubar({ userInfo = {}, pathname = '/', router = {} }) {
           />
         );
       })}
-    </div>
+    </nav>
   );
 }
 

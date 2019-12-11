@@ -9,16 +9,17 @@ import {
   color,
   select,
 } from '@storybook/addon-knobs';
-import withMobile from '.storybook/decorators/withMobile';
 import Header from './Header';
 import HeaderMenu from './HeaderMenu';
+import withMobxDeco from '.storybook/decorators/withMobxDeco';
+import '.storybook/decorators/withRouterDeco';
 
 const stories = storiesOf('header', module);
 
 // Add the `withKnobs` decorator to add knobs support to your stories.
 // You can also configure `withKnobs` as a global decorator.
 stories.addDecorator(withKnobs);
-// stories.addDecorator(withMobile);
+stories.addDecorator(withMobxDeco({}));
 
 stories.add('Header', () => {
   return <Header />;

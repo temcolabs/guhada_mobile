@@ -6,6 +6,10 @@ import { pushRoute } from 'childs/lib/router';
 import { devLog } from 'childs/lib/common/devLog';
 import isTruthy from 'childs/lib/common/isTruthy';
 import orderClaimTypes from 'childs/lib/constant/order/orderClaimTypes';
+import moment from 'moment';
+import { dateFormat } from 'childs/lib/constant/date';
+import purchaseStatus from 'childs/lib/constant/order/purchaseStatus';
+import paymentMethod from 'childs/lib/constant/order/paymentMethod';
 
 /**
  * 클레임(취소교환반품) 폼, 클레임 상세에서 사용할 데이터 관리.
@@ -14,7 +18,7 @@ import orderClaimTypes from 'childs/lib/constant/order/orderClaimTypes';
  * http://dev.claim.guhada.com/swagger-ui.html#/ORDER-CLAIM
  */
 export default class OrderClaimFormStore {
-  constructor(root) {
+  constructor(root, initialState) {
     if (isBrowser) {
       this.root = root;
     }
@@ -633,4 +637,28 @@ export default class OrderClaimFormStore {
       console.error(e);
     }
   };
+
+  /**
+   * 포맷된 주문 날짜. claimData.orderTimestamp 날짜를 사용한다.
+   */
+  @computed get orderDateWithFormat() {
+    return (
+      moment(this.claimData?.orderTimestamp).format(dateFormat.YYYYMMDD_UI) ||
+      '-'
+    );
+  }
+
+  /**
+   * 환불계좌 입력 양식을 표시할 것인지 결정
+   * 입금 대기중이 아니고, 무통장 입금 결제일 때
+   */
+  @computed
+  get isRefundEnabled() {
+    console.log(`this.claimData`, toJS(this.claimData));
+
+    return (
+      this.claimData?.orderStatus !== purchaseStatus.WAITING_PAYMENT.code &&
+      this.claimData?.paymentMethod === paymentMethod.VBANK.code
+    );
+  }
 }

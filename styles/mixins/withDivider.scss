@@ -1,0 +1,17 @@
+@import './centered.scss';
+
+// distance = 글자와 글자 사이의 간격
+@mixin withDivider($height: 8px, $distance: 10px, $color: #ccc, $width: 1px) {
+  $marginRight: $distance + $width;
+  position: relative;
+  margin-right: $marginRight;
+
+  &:after {
+    @include centeredY;
+    content: ' ';
+    width: $width;
+    height: $height;
+    background: $color;
+    right: calc(-0.5 * #{$marginRight});
+  }
+}

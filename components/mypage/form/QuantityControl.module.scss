@@ -1,0 +1,44 @@
+@import 'styles/mixins/index';
+@import 'styles/var';
+
+.wrap {
+  @include clearfix;
+  width: 120px;
+  height: 32px;
+  // margin-left: auto;
+  margin-right: auto;
+
+  & > * {
+    float: left;
+  }
+}
+
+.value {
+  @include centerWithHeight(32px);
+  width: 56px;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  color: 111;
+}
+
+@mixin icon {
+  width: 32px;
+  height: 32px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  border: 1px solid #ddd;
+}
+
+.plus {
+  @include icon;
+  display: block;
+  background-image: url('/static/icon/quantity_plus_on.png');
+}
+
+.minus {
+  @include icon;
+  display: block;
+  background-image: url('/static/icon/quantity_minus_on.png');
+}

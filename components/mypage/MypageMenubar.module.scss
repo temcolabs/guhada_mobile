@@ -1,6 +1,8 @@
 @import 'styles/var';
+
 .wrap {
   position: fixed;
+  z-index: 100;
   top: $guhadaMainHeaderHeight;
   left: 0;
   width: 100%;

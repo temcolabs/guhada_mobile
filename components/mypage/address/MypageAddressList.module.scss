@@ -1,0 +1,89 @@
+.wrap {
+  border-bottom: 1px solid #eee;
+
+  &:last-child {
+    border-bottom: none;
+    margin-bottom: 80px;
+  }
+  .addressItem {
+    padding: 20px 0;
+
+    .section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 3px;
+      &:first-child {
+        margin-bottom: 16px;
+      }
+      .addressTitleWrap {
+        display: flex;
+        align-items: center;
+        .defaultAddress {
+          margin-left: 10px;
+          min-width: 44px;
+          height: 18px;
+          background: url('/static/icon/m_default_address.png') no-repeat;
+          background-size: cover;
+          background-position: center;
+        }
+      }
+
+      .utilButton {
+        display: flex;
+        position: relative;
+        div {
+          font-size: 13px;
+          font-weight: 400;
+          color: #a0a0a0;
+          position: relative;
+          margin-left: 14px;
+          white-space: nowrap;
+          &:last-child {
+            padding: 0 0 0 14px;
+          }
+          &:last-child::before {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 1px;
+            height: 10px;
+            margin-top: -5px;
+            background-color: #cfcfcf;
+            content: '';
+          }
+        }
+      }
+
+      .address {
+        font-size: 14px;
+        color: #777;
+        font-weight: normal;
+      }
+      .customer {
+        font-size: 14px;
+        color: #777;
+        font-weight: normal;
+        // word-break: break-all;
+      }
+      input {
+        width: 100%;
+        border: 1px solid #ddd;
+        font-size: 13px;
+        padding: 5px 15px;
+      }
+
+      .searchZipcode {
+        border: 1px solid #ddd;
+        width: 110px;
+        margin-left: 10px;
+        padding: 5px;
+        text-align: center;
+        font-size: 13px;
+        font-weight: 500;
+        color: #111;
+        white-space: nowrap;
+      }
+    }
+  }
+}

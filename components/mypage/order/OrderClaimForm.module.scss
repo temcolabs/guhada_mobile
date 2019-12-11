@@ -1,0 +1,156 @@
+@import 'styles/mixins/index';
+@import 'styles/var';
+
+@import 'styles/var';
+
+// 라벨과 밸류가 한줄씩 구성됨
+.field {
+  display: flex;
+  flex-direction: column;
+
+  & + & {
+    margin-top: 30px;
+  }
+
+  & > .field__label {
+  }
+
+  & > .field__value {
+    margin-top: 15px;
+  }
+
+  // 라벨과 필드가 한줄로 구성
+  &.hasChildrenInOneLine {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 32px;
+
+    & + & {
+      margin-top: 10px;
+    }
+
+    .field__label {
+      flex: 1 0 115px;
+    }
+
+    .field__value {
+      flex: 1 1 auto;
+      margin-top: 0;
+    }
+  }
+}
+
+.field__label {
+  font-size: 14px;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.43;
+  letter-spacing: normal;
+  text-align: left;
+  color: $guhada-black;
+}
+
+.field__value {
+  color: #777777;
+}
+
+.errorMsg {
+  margin-top: 3px;
+  color: #c72121;
+  font-size: 13px;
+}
+
+.orderItemTable {
+  border: none;
+
+  td,
+  th {
+    border: none;
+    font-size: 14px;
+
+    &[data-name='deal'] {
+      min-width: 552px;
+
+      @include mediaMD {
+        min-width: 520px;
+      }
+    }
+
+    &[data-name='quantity'] {
+      min-width: 160px;
+      color: #444444;
+
+      @include mediaMD {
+        min-width: 135px;
+      }
+    }
+
+    &[data-name='seller'] {
+      min-width: 160px;
+      color: #444444;
+
+      @include mediaMD {
+        min-width: 150px;
+      }
+    }
+  }
+
+  thead {
+    tr {
+      border-bottom: 1px solid #eeeeee;
+    }
+
+    td,
+    th {
+      color: #444444;
+      padding: 16px 16px 15px;
+      font-weight: 500;
+    }
+  }
+
+  tbody {
+    border-bottom: 1px solid #eee;
+
+    tr {
+      border-bottom: 1px dashed #eee;
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+}
+
+.orderItemTable--done {
+  @extend .orderItemTable;
+
+  td,
+  th {
+    border: none;
+    font-size: 14px;
+
+    &[data-name='deal'] {
+      max-width: 562px;
+
+      @include mediaMD {
+        max-width: 520px;
+      }
+    }
+
+    &[data-name='quantity'] {
+      min-width: 102px;
+    }
+
+    &[data-name='delivery'] {
+      min-width: 102px;
+    }
+
+    &[data-name='price'] {
+      min-width: 124px;
+      color: #444444;
+      font-weight: bold;
+    }
+  }
+}

@@ -1,0 +1,51 @@
+@import 'styles/mixins/index';
+@import 'styles/var';
+
+.wrap {
+  padding: 30px 20px;
+}
+
+.sectionWrap {
+}
+.section {
+  padding: 20px 0;
+
+  &:first-child {
+    border-top: 1px solid #111;
+    padding-top: 30px;
+    margin-top: 20px;
+  }
+
+  &:not(:first-child) {
+    border-top: 1px solid #eeeeee;
+  }
+}
+
+.section__field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &:not(:first-child) {
+    margin-top: 18px;
+  }
+
+  &.isHeading {
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  &.isTotal {
+    color: $blue-purple;
+
+    & > .section__value {
+      font-size: 20px;
+    }
+  }
+}
+
+.section__label {
+}
+
+.section__value {
+}

@@ -11,6 +11,16 @@ export class MainSlideBanner extends Component {
     index: 0,
   };
 
+  componentDidMount() {
+    const { imageFile } = this.props;
+    let imageLength = imageFile.length;
+    let li = document.querySelector('.slickDots').childNodes;
+
+    for (let i = 0; i < imageLength; i++) {
+      li[i].style.width = `calc((100% - 38px) / ${imageLength})`;
+    }
+  }
+
   onBeforeChange = (oldIndex, newIndex) => {
     this.setState({ index: newIndex });
   };
@@ -47,9 +57,9 @@ export class MainSlideBanner extends Component {
             );
           })}
         </Slider>
-        {/* <div className={css.counter}>{`${this.state.index + 1}/${
+        <div className={css.counter}>{`${this.state.index + 1}/${
           imageFile.length
-        }`}</div> */}
+        }`}</div>
       </div>
     );
   }

@@ -29,7 +29,7 @@ export default class ProductDetailLikeStore {
     };
 
     const likeAction = () => {
-      for (let i = 0; i < this.likeList.length; i++) {
+      for (let i = 0; i < this.likeList?.length; i++) {
         if (
           this.likeList[i].targetId === this.root.productdetail.deals.productId
         ) {

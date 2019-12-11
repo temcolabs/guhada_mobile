@@ -3,6 +3,7 @@ import { isBrowser } from 'childs/lib/common/isServer';
 import API from 'childs/lib/API';
 import { devLog } from 'childs/lib/common/devLog';
 import { isIOS, isAndroid } from 'childs/lib/common/detectMobileEnv';
+import moment from 'moment';
 export default class EventMainStore {
   constructor(root, initialState) {
     if (isBrowser) {
@@ -19,9 +20,6 @@ export default class EventMainStore {
   @observable status = {
     page: false,
     detailPage: false,
-    appDownPopupIsOpen: false,
-    firstPurchasePopupIsOpen: false,
-    firstPurchaseRewardPopupIsOpen: false,
   };
 
   @action

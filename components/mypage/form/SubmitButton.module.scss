@@ -1,0 +1,50 @@
+@import 'styles/mixins/index';
+
+.button {
+  width: 100%;
+  height: 60px;
+  border: solid 1px #5d2ed1;
+  background-color: #5d2ed1;
+  color: #ffffff;
+
+  a {
+    color: #ffffff;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &.isDisabled {
+    background: #ccc;
+    border-color: #ccc;
+    color: #fff;
+    &:hover {
+      cursor: initial;
+    }
+  }
+}
+
+.submitButtonWrapper {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+  display: flex;
+  &.responsive {
+    @include clearfix;
+
+    & > button {
+      width: 50%;
+      font-size: inherit;
+    }
+  }
+
+  // 에러 메시지 스타일
+  & [data-name='error'] {
+    text-align: left;
+    margin-top: 3px;
+    color: #c72121;
+  }
+}

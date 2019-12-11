@@ -1,0 +1,157 @@
+@import 'styles/mixins/index';
+@import 'styles/var';
+
+// 최상위 래핑 스타일
+.wrapper {
+  padding: 30px;
+  width: 600px;
+  font-size: 13px;
+}
+
+.title {
+  position: relative;
+  font-size: 20px;
+  line-height: 1.2;
+  font-weight: bold;
+  border-bottom: solid 2px #111;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.title__closeButton {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 30px;
+  height: 30px;
+  background: url('/static/icon/modal_close.png') no-repeat center;
+  background-size: contain;
+}
+
+// 취소, 실행 버튼
+.submitButtons {
+  $buttonGap: 10px;
+
+  & > button {
+    width: calc((100% - #{$buttonGap}) / 2);
+    background-color: #444;
+    color: #fff;
+    padding: 18px;
+    font-size: 16px;
+    margin-top: 30px;
+
+    // submit button
+    &:nth-child(2) {
+      margin-left: $buttonGap;
+      background-color: $blue-purple;
+    }
+  }
+}
+
+.formField {
+  @include clearfix;
+  color: #444444;
+}
+
+$formLabelWidth: 115px;
+.formField__label {
+  width: $formLabelWidth;
+  float: left;
+  padding: 16px 8px;
+  min-height: 51px;
+  color: #444;
+  font-weight: 500;
+}
+
+.formField__value {
+  // value 필드가 단독으로 사용되면 넓이 100%
+  z-index: 10000;
+  width: 100%;
+  float: right;
+  padding: 8px 0 7px;
+}
+
+.formField__label + .formField__value {
+  // value 필드가 label과 함께 사용되면 넓이 조절됨
+  width: calc(100% - #{$formLabelWidth});
+  padding: 8px 14px 7px;
+}
+
+.formField__textValue {
+  min-height: 36px;
+  padding: 8px 0 9px;
+  font-weight: 400;
+}
+
+.formField__errorMessage {
+  margin-top: 3px;
+  color: #c72121;
+  font-size: 12px;
+}
+
+// 파일 첨부 영역
+.fileAttachment {
+  padding-bottom: 16px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+// 파일첨부 영역이 어떤 요소 다음에 온다면 상단 마진을 준다
+* + .fileAttachment {
+  margin-top: 10px;
+}
+
+.fileAttachment__photoButton {
+  display: inline-block;
+  width: 200px;
+  height: 30px;
+  background: url('/static/icon/community/icon-camera.png') no-repeat left
+    center;
+  background-size: 20px 17px;
+  padding-left: 29px;
+  text-align: left;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.fileAttachment__imageWrapper {
+  @include clearfix;
+
+  &:not(:empty) {
+    margin-top: 16px;
+  }
+}
+
+// 첨부 이미지 사이즈
+$attahcedImageCountInRow: 6;
+$attahcedImageGap: 10px;
+$attahcedImageSize: calc(
+  (100% - (#{$attahcedImageCountInRow - 1} * #{$attahcedImageGap})) / 6
+);
+
+.fileAttachment__image {
+  float: left;
+  position: relative;
+  margin-right: $attahcedImageGap;
+  margin-bottom: $attahcedImageGap;
+  width: $attahcedImageSize;
+  padding-bottom: $attahcedImageSize;
+  background-size: cover;
+  background-position: center;
+
+  &:nth-child(6n) {
+    margin-right: 0;
+  }
+}
+
+.fileAttachment__deleteImageButton {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: 0;
+  right: 0;
+  background: url('/static/icon/like_item_delete.png') no-repeat center;
+  background-size: cover;
+  background-color: rgba(0, 0, 0, 0.4);
+}

@@ -1,0 +1,52 @@
+@import 'styles/mixins/index';
+
+.button {
+  @include centerWithHeight(45px);
+  display: inline-block;
+  min-width: 90px;
+  text-align: center;
+  font-size: 12px;
+  padding-left: 9px;
+  padding-right: 9px;
+  border: 1px solid #cccccc;
+  background-color: #fff;
+  color: #444444;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &.default {
+    border: 1px solid #cccccc;
+    background-color: #fff;
+    color: #444444;
+  }
+
+  &.purple {
+    border: 1px solid #5d2ed1;
+    background-color: #5d2ed1;
+    color: #ffffff;
+
+    a {
+      color: #ffffff;
+    }
+  }
+
+  &:disabled {
+    border: 1px solid #eeeeee;
+    background: #eeeeee;
+    color: #dbdbdb;
+
+    &:hover {
+      cursor: initial;
+    }
+
+    a {
+      color: #dbdbdb;
+    }
+  }
+
+  & + & {
+    margin-left: 10px;
+  }
+}

@@ -62,7 +62,7 @@ class PointHistory extends React.Component {
             />
 
             <div className={css.pointHistoryList}>
-              {mypagePoint.totalItemsCount > 0 ? (
+              {mypagePoint.pointHistory.length > 0 ? (
                 mypagePoint.pointHistory.map((data, index) => {
                   return (
                     <PointItem

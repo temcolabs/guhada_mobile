@@ -1,0 +1,12 @@
+@import 'styles/mixins/index';
+
+.orderItemTable {
+  background: #fff;
+  padding: 0 20px;
+}
+
+.orderItemTable__item {
+  &:not(:first-child) {
+    border-top: 1px solid #eeeeee;
+  }
+}
