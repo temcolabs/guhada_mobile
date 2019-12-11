@@ -7,12 +7,17 @@ import {
   notEmptyString,
   mustBeBoolean,
   required,
+  mustBeMobile,
 } from 'childs/lib/common/finalFormValidators';
 import Input from 'components/mypage/form/Input';
 import Checkbox from '../form/Checkbox';
 import openDaumAddressSearch from 'childs/lib/common/openDaumAddressSearch';
 import { useObserver } from 'mobx-react-lite';
 import FormButton from '../form/FormButton';
+import ModalLayout, {
+  useModalLayoutState,
+} from 'components/layout/ModalLayout';
+import addHyphenToMobile from 'childs/lib/string/addHyphenToMobile';
 
 /**
  * 주문 배송지 수정 모달
@@ -27,6 +32,9 @@ function OrderAddressEditModal({
   purchaseId,
   updateShippingAddress,
 }) {
+  const { isModalLayoutOpen } = useModalLayoutState({
+    isModalOpen: isOpen,
+  });
   // final form field names
   const fields = useMemo(
     () => ({
@@ -91,21 +99,21 @@ function OrderAddressEditModal({
   };
 
   return useObserver(() => (
-    <ModalWrapper
-      modalTitle="주문 배송지 수정"
-      isOpen={isOpen}
+    <ModalLayout
+      pageTitle={'주문 배송지 수정'}
+      isOpen={isModalLayoutOpen}
       onClose={onClose}
-      zIndex={1000}
-      contentStyle={{
-        width: '100vw',
-        height: '100vh',
-      }}
     >
       <Form
         onSubmit={handleSubmit}
         initialValues={initialValues}
         render={({ handleSubmit, form: formApi }) => {
           const { values } = formApi.getState();
+
+          console.log(
+            `addHyphenToMobile(fields.recipientMobile)`,
+            addHyphenToMobile(values[fields.recipientMobile])
+          );
 
           return (
             <form onSubmit={handleSubmit}>
@@ -248,13 +256,15 @@ function OrderAddressEditModal({
                             name={fields.recipientMobile}
                             validate={composeValidators(
                               required,
-                              notEmptyString
+                              notEmptyString,
+                              mustBeMobile
                             )}
                           >
                             {props => (
                               <div className={css.inputWrapper}>
                                 <Input
                                   type="text"
+                                  formatter={addHyphenToMobile}
                                   onChange={props.input.onChange}
                                   initialValue={
                                     initialValues[fields.recipientMobile]
@@ -332,7 +342,7 @@ function OrderAddressEditModal({
           );
         }}
       />
-    </ModalWrapper>
+    </ModalLayout>
   ));
 }
 

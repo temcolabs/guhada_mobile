@@ -474,6 +474,7 @@ class OrderExchangeForm extends Component {
                 placeholder="연락처를 입력해주세요"
                 initialValue={props.input.value}
                 onChange={props.input.onChange}
+                formatter={addHyphenToMobile}
               />
             )}
           </Field>
