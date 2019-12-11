@@ -27,21 +27,21 @@ import OrderAddressEditModal from 'components/mypage/order/OrderAddressEditModal
 import DeliveryTrackingModal from 'components/mypage/shipping/DeliveryTrackingModal';
 // import SellerClaimModal from 'components/claim/sellerclaim/SellerClaimModal';
 // import LoadingPortal from 'components/common/loading/Loading';
-// import PointSavingModal, {
-//   pointSavingTypes,
-// } from 'components/mypage/point/PointSavingModal';
-// import OrderConfirmModal from 'components/mypage/order/OrderConfirmModal';
+import PointSavingModal, {
+  pointSavingTypes,
+} from 'components/mypage/point/PointSavingModal';
+import OrderConfirmModal from 'components/mypage/order/OrderConfirmModal';
 
 /**
  * 마이페이지 - 주문 배송 (주문 완료 목록)
  */
 @withRouter
 @inject(
-  'orderCompleteList'
-  // 'mypageAddress',
-  // 'mypagereview',
-  // 'myDelivery',
-  // 'mypagePoint'
+  'orderCompleteList',
+  'mypageAddress',
+  'mypagereview',
+  'myDelivery',
+  'mypagePoint'
 )
 @observer
 class OrderCompleteList extends Component {
@@ -219,8 +219,10 @@ class OrderCompleteList extends Component {
     const {
       orderCompleteList: orderCompleteListStore,
       // mypagereview,
-      // mypagePoint: mypagePointStore,
+      mypagePoint: mypagePointStore,
     } = this.props;
+
+    const { orderConfirmModalData } = orderCompleteListStore;
 
     return (
       <MypageLayout
@@ -272,9 +274,6 @@ class OrderCompleteList extends Component {
           </div>
         </MypageContentsWrap>
 
-        {/* 주소 수정 모달 */}
-        {/* <MypageAddressModal /> */}
-
         {/* 리뷰 작성 모달 */}
         {/* <ReviewWriteModal
             isOpen={mypagereview.isReviewWriteModalOpen}
@@ -323,24 +322,25 @@ class OrderCompleteList extends Component {
           /> */}
 
         {/* 구매확정시 포인트 지급 모달  */}
-        {/* <PointSavingModal
-            pointSavingType={pointSavingTypes.CONFIRM_PURCHASE}
-            isOpen={mypagePointStore.isPointSavingModalOpen}
-            onClose={mypagePointStore.closePointSavingModalOpen}
-            savedPointResponse={mypagePointStore.savedPointResponse}
-          /> */}
+        <PointSavingModal
+          pointSavingType={pointSavingTypes.CONFIRM_PURCHASE}
+          isOpen={mypagePointStore.isPointSavingModalOpen}
+          onClose={mypagePointStore.closePointSavingModalOpen}
+          savedPointResponse={mypagePointStore.savedPointResponse}
+        />
 
-        {/* <OrderConfirmModal
-            isOpen={orderCompleteListStore.isOrderConfirmModalOpen}
-            order={orderConfirmModalData?.order}
-            onConfirm={orderConfirmModalData?.onConfirm}
-            onClose={orderConfirmModalData?.onClose}
-            dueSavePointOnConfirm={orderConfirmModalData.dueSavePointOnConfirm}
-            dueSavePointOnReview={orderConfirmModalData.dueSavePointOnReview}
-            dueSavePointOnFirstPurchase={
-              orderConfirmModalData.dueSavePointOnFirstPurchase
-            }
-          /> */}
+        {/* 구매확정 모달 */}
+        <OrderConfirmModal
+          isOpen={orderCompleteListStore.isOrderConfirmModalOpen}
+          order={orderConfirmModalData?.order}
+          onConfirm={orderConfirmModalData?.onConfirm}
+          onClose={orderConfirmModalData?.onClose}
+          dueSavePointOnConfirm={orderConfirmModalData.dueSavePointOnConfirm}
+          dueSavePointOnReview={orderConfirmModalData.dueSavePointOnReview}
+          dueSavePointOnFirstPurchase={
+            orderConfirmModalData.dueSavePointOnFirstPurchase
+          }
+        />
       </MypageLayout>
     );
   }

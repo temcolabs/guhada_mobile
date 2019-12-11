@@ -12,6 +12,7 @@ export const inputStatTypes = {
 
 function Input({
   initialValue,
+  formatter, // 입력값 변환 함수
   onChange = value => {},
   style, // css style
   wrapperStyle,
@@ -28,6 +29,7 @@ function Input({
   const { value, handleChange } = useChangeInput({
     initialValue,
     onChange,
+    formatter,
   });
 
   return (

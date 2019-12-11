@@ -34,7 +34,7 @@ function OrderReturnDone({ router }) {
   const { claimData } = orderClaimForm;
 
   const { isModalLayoutOpen, closeModalLayout } = useModalLayoutState({
-    isOpenOnMount: true,
+    isModalOpen: true,
     onClose: useCallback(() => {
       Router.push('/mypage/orders/claim/list');
     }, []),
@@ -141,7 +141,7 @@ function OrderReturnDone({ router }) {
           </div>
         </div>
 
-        <SubmitButtonWrapper wrapperStyle={{ marginTop: '60px' }}>
+        <SubmitButtonWrapper fixedAtBottom>
           <Link
             as={`/mypage/orders/claim/list`}
             href={getRouteHref(`/mypage/orders/claim/list`)}
