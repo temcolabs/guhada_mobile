@@ -1,14 +1,13 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import css from './ProductInquiry.module.scss';
 import cn from 'classnames';
 import InquiryItem from './InquiryItem';
 import { inject, observer } from 'mobx-react';
-import { toJS } from 'mobx';
 import NewInquiry from './NewInquiry';
 import SellerClaimModal from 'components/claim/sellerclaim/SellerClaimModal';
 import _ from 'lodash';
 import { loginStatus } from 'childs/lib/constant';
-import { pushRoute, sendBackToLogin } from 'childs/lib/router';
+import { sendBackToLogin } from 'childs/lib/router';
 
 @inject('productdetail', 'login', 'alert', 'sellerClaim')
 @observer
@@ -38,7 +37,7 @@ class ProductInquiry extends Component {
     this.props.sellerClaim.closeClaim();
   }
   render() {
-    const { productdetail, login, tabRefMap, alert, sellerClaim } = this.props;
+    const { productdetail, login, tabRefMap, sellerClaim } = this.props;
     const { deals, inquiryList, inquiryPage } = productdetail;
     let handleInquiryIcon =
       inquiryList.totalPages === inquiryPage + 1 ? true : false;
