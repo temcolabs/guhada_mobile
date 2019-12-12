@@ -20,13 +20,11 @@ import EmptyListNoti from 'components/mypage/EmptyListNoti';
 import OrderItem from 'components/mypage/order/OrderItem';
 import Pagination from 'components/common/Pagination';
 import OrderAddressEditModal from 'components/mypage/order/OrderAddressEditModal';
-// import MypageAddressModal from 'components/mypage/address/MypageAddressModal';
-// import ReviewWriteModal, {
-//   reviewModalType,
-// } from 'components/mypage/review/ReviewWriteModal';
+import ReviewWriteModal, {
+  reviewModalType,
+} from 'components/mypage/review/ReviewWriteModal';
 import DeliveryTrackingModal from 'components/mypage/shipping/DeliveryTrackingModal';
 import SellerClaimModal from 'components/claim/sellerclaim/SellerClaimModal';
-// import LoadingPortal from 'components/common/loading/Loading';
 import PointSavingModal, {
   pointSavingTypes,
 } from 'components/mypage/point/PointSavingModal';
@@ -42,7 +40,8 @@ import OrderConfirmModal from 'components/mypage/order/OrderConfirmModal';
   'mypagereview',
   'myDelivery',
   'mypagePoint',
-  'sellerClaim'
+  'sellerClaim',
+  'alert'
 )
 @observer
 class OrderCompleteList extends Component {
@@ -226,7 +225,7 @@ class OrderCompleteList extends Component {
   render() {
     const {
       orderCompleteList: orderCompleteListStore,
-      // mypagereview,
+      mypagereview,
       mypagePoint: mypagePointStore,
     } = this.props;
 
@@ -283,29 +282,31 @@ class OrderCompleteList extends Component {
         </MypageContentsWrap>
 
         {/* 리뷰 작성 모달 */}
-        {/* <ReviewWriteModal
-            isOpen={mypagereview.isReviewWriteModalOpen}
-            handleModalClose={mypagereview.closeReviewModal}
-            modalData={mypagereview.orderProdGroup} // 선택한 주문 데이터
-            status={reviewModalType.WRITE}
-            onSuccessSubmit={() => {
-              mypagereview.closeReviewModal();
-              orderCompleteListStore.getMyOrders(); //  목록 새로고침
-            }}
-          /> */}
+        <ReviewWriteModal
+          isOpen={mypagereview.isReviewWriteModalOpen}
+          handleModalClose={mypagereview.closeReviewModal}
+          modalData={mypagereview.orderProdGroup} // 선택한 주문 데이터
+          status={reviewModalType.WRITE}
+          onSuccessSubmit={() => {
+            mypagereview.closeReviewModal();
+            orderCompleteListStore.getMyOrders(); //  목록 새로고침
+            this.props.alert.showAlert('리뷰가 작성되었습니다.');
+          }}
+        />
 
         {/* 리뷰 수정 모달 */}
-        {/* <ReviewWriteModal
-            isOpen={mypagereview.isReviewModifyModalOpen}
-            handleModalClose={mypagereview.closeReviewModal}
-            modalData={mypagereview.orderProdGroup} // 선택한 주문 데이터
-            status={reviewModalType.MODIFY}
-            reviewData={mypagereview.reviewData}
-            onSuccessModify={() => {
-              mypagereview.closeReviewModal();
-              orderCompleteListStore.getMyOrders(); //  목록 새로고침
-            }}
-          /> */}
+        <ReviewWriteModal
+          isOpen={mypagereview.isReviewModifyModalOpen}
+          handleModalClose={mypagereview.closeReviewModal}
+          modalData={mypagereview.orderProdGroup} // 선택한 주문 데이터
+          status={reviewModalType.MODIFY}
+          reviewData={mypagereview.reviewData}
+          onSuccessModify={() => {
+            mypagereview.closeReviewModal();
+            orderCompleteListStore.getMyOrders(); //  목록 새로고침
+            this.props.alert.showAlert('리뷰가 수정되었습니다.');
+          }}
+        />
 
         {/* 배송 조회 모달. 컨트롤은 store에서 */}
         <DeliveryTrackingModal />

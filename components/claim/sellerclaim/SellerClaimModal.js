@@ -6,7 +6,7 @@ import ClaimType from './ClaimType';
 import useStores from 'stores/useStores';
 import { useObserver } from 'mobx-react-lite';
 
-function SellerClaimModal({ isOpen, sellerId, onClose }) {
+function SellerClaimModal({ isOpen = false, sellerId, onClose }) {
   const { sellerClaim } = useStores();
   const [myDeal, setMyDeal] = useState('INIT');
   const [claimType, setClaimType] = useState('INIT');
@@ -104,10 +104,10 @@ function SellerClaimModal({ isOpen, sellerId, onClose }) {
     setTitleCheck(true);
   }, [claim, title]);
 
-  useEffect(() => {
-    sellerClaim.checkIsSellerClaimPossible(sellerId);
-    return () => {};
-  }, [sellerClaim, sellerId]);
+  // useEffect(() => {
+  //   sellerClaim.checkIsSellerClaimPossible(sellerId);
+  //   return () => {};
+  // }, [sellerClaim, sellerId]);
 
   return useObserver(() => (
     <div>
