@@ -1,4 +1,21 @@
 import React, { Component } from 'react';
+import ModalWrapper from 'components/common/modal/ModalWrapper';
+import css from './ReviewWriteModal.module.scss';
+// import ReviewWriteOption from './ReviewWriteOption';
+import ReviewWriteModalScore from './ReviewWriteModalScore';
+import { inject, observer } from 'mobx-react';
+import moment from 'moment';
+import { dateFormat } from 'childs/lib/constant';
+import { toJS } from 'mobx';
+import { shape, func, bool, number, any } from 'prop-types';
+import memoize from 'memoize-one';
+import _ from 'lodash';
+import ReviewImageUpload from './ReviewImageUpload';
+import MySizeModal from 'components/mypage/userinfo/form/MySizeModal';
+import isTruthy from 'childs/lib/common/isTruthy';
+import cn from 'classnames';
+import cutByLen from 'childs/lib/common/cutByLen';
+
 const color = ['BRIGHTER', 'SAME', 'DARKER'];
 const length = ['SHORT', 'REGULAR', 'LONG'];
 const size = ['SMALL', 'JUST_FIT', 'LARGE'];
@@ -20,6 +37,485 @@ export const reviewModalType = {
   MODIFY: 'Modify',
 };
 const maxByte = 1000;
+/**
+ * 리뷰작성을 하기 위해서는 modalData props로
+ * orderProdGroupId, productId 를 넘겨야 합니다.
+ */
+@inject('mypagereview', 'alert', 'mySize', 'productreview')
+@observer
+class ReviewWriteModal extends Component {
+  static propTypes = {
+    isOpen: bool,
+    handleModalClose: func,
+    status: any, // 작성 || 수정
+    reviewData: any, // 리뷰 데이터
+    modalData: shape({
+      // 주문 데이터
+      brandName: any, // 브랜드명 ,
+      discountPrice: any, // 할인된 가격 ,
+      expireDate: any, // 무통장 입금시 입금기한(무통장이 아니면경우 null) ,
+      imageName: any, // 대표 이미지 파일명 ,
+      imageUrl: any, // 대표 이미지 URL ,
+      optionAttribute1: any, // 첫번째 옵션 ,
+      optionAttribute2: any, // 두번째 옵션 ,
+      optionAttribute3: any, // 세번째 옵션 ,
+      orderDate: any, // 주문일 ,
+      orderPrice: any, // 주문한 금액 ,
+      originalPrice: any, // 원래 가격 ,
+      prodName: any, // 상품명 ,
+      productId: any,
+      purchaseId: any, // 구매 데이터의 아이디 ,
+      purchaseStatus: '', //
+      purchaseStatusText: any, // 주문의 상태값 ,
+      quantity: any, // 구매수량 ,
+      season: any, // 시즌 ,
+      sellerId: any, // 판매자의 아이디 ,
+      sellerName: any, // 판매자의 이름 ,
+      shipPrice: any, // 배송비 ,
+      statusMessage: any, // 상태의 따른 메세지,
+      orderProdGroupId: any, // 리뷰 작성을 위한 아이디
+      orderProdId: number,
+    }),
+    onSuccessSubmit: func, // 리뷰 작성 API 호출 성공 콜백
+    onSuccessModify: func, // 리뷰 수정 API 호출 성공 콜백
+  };
 
-class ReviewWriteModal extends Component {}
+  static defaultReviewData = {
+    sizeSatisfaction: 'JUST_FIT',
+    colorSatisfaction: 'SAME',
+    lengthSatisfaction: 'REGULAR',
+    createdAt: '',
+    id: 0,
+    bookmarkCount: 0,
+    orderProductGroupId: 0,
+    photoCount: 0,
+    productId: 0,
+    productRating: 'FIVE',
+    textReview: '',
+    userId: 0,
+    userNickname: '',
+  };
+
+  state = {
+    totalByte: 0,
+    imageList: [],
+    imageFile: [],
+    reviewData: Object.assign({}, ReviewWriteModal.defaultReviewData),
+    isMySizeModalOpen: false,
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    const { mypagereview, isOpen } = this.props;
+    let { reviewData } = this.props;
+    this.initReviewForm(isOpen, reviewData, this.state.isMySizeModalOpen);
+  }
+
+  /**
+   * 리뷰 입력 데이터 초기화
+   * isOpen, reviewData 값이 바뀔때 실행된다
+   */
+  initReviewForm = memoize((isOpen, reviewData, isMySizeModalOpen) => {
+    const { mypagereview } = this.props;
+    if (isOpen) {
+      mypagereview.checkUserSize();
+    }
+    if (isOpen && !_.isNil(toJS(reviewData))) {
+      // 기존의 리뷰 데이터로 입력 폼 초기화
+      this.setState({
+        reviewData: reviewData.review,
+      });
+      this.checkTextarea(reviewData.review.textReview);
+      // 리뷰 이미지 설정
+      if (!_.isNil(reviewData.reviewPhotos)) {
+        mypagereview.initReviewPhotos(
+          reviewData.reviewPhotos.sort(function(a, b) {
+            return a['photoOrder'] - b['photoOrder'];
+          })
+        );
+      } else if (_.isNil(reviewData.reviewPhotos)) {
+        mypagereview.clearReviewPhotos();
+      }
+    } else {
+      // 모달이 닫힘으로 전환되었다면 리뷰 입력 데이터를 초기화한다
+      this.setState({
+        reviewData: Object.assign({}, ReviewWriteModal.defaultReviewData),
+        totalByte: 0,
+      });
+
+      mypagereview.clearReviewPhotos();
+    }
+  });
+
+  setStarScore = score => {
+    this.setState(prevState => ({
+      reviewData: { ...prevState.reviewData, productRating: score },
+    }));
+  };
+
+  onChangeTextarea = e => {
+    let totalByte = 0;
+    let message = e.target.value;
+    for (let index = 0, length = message.length; index < length; index++) {
+      let currentByte = message.charCodeAt(index);
+      currentByte > 128 ? (totalByte += 2) : totalByte++;
+    }
+
+    if (totalByte > maxByte) {
+      message = cutByLen(message, maxByte);
+      totalByte = maxByte;
+    }
+
+    this.setState(prevState => ({
+      totalByte,
+      reviewData: {
+        ...prevState.reviewData,
+        textReview: message,
+      },
+    }));
+  };
+
+  checkTextarea = textReview => {
+    let totalByte = 0;
+    let message = textReview;
+
+    for (let index = 0, length = message.length; index < length; index++) {
+      let currentByte = message.charCodeAt(index);
+      currentByte > 128 ? (totalByte += 2) : totalByte++;
+    }
+    this.setState({
+      totalByte,
+    });
+  };
+
+  onChangeSize = score => {
+    this.setState(prevState => ({
+      reviewData: {
+        ...prevState.reviewData,
+        sizeSatisfaction: score,
+      },
+    }));
+  };
+
+  onChangeColor = score => {
+    this.setState(prevState => ({
+      reviewData: {
+        ...prevState.reviewData,
+        colorSatisfaction: score,
+      },
+    }));
+  };
+
+  onChangeLength = score => {
+    this.setState(prevState => ({
+      reviewData: {
+        ...prevState.reviewData,
+        lengthSatisfaction: score,
+      },
+    }));
+  };
+
+  previewFile = event => {
+    let files = event.target.files;
+    const { mypagereview, alert } = this.props;
+    const maxPhotoCount = 10;
+    let photoLength = toJS(mypagereview.newReviewPhotos.length);
+    let allowPhotoCount = maxPhotoCount - photoLength;
+
+    if (allowPhotoCount > 0) {
+      for (var i = 0; i < files.length; i++) {
+        let reader = new FileReader();
+        reader.onload = e => {
+          mypagereview.setReviewPhotos(
+            toJS(mypagereview.newReviewPhotos).concat({
+              imageStatus: 'ADDED',
+              reviewPhotoUrl: [e.target.result],
+              newImage: true,
+            })
+          );
+        };
+        if (allowPhotoCount > i) {
+          if (files[i]) reader.readAsDataURL(files[i]);
+        }
+      }
+
+      let allowFiles = Array.from(files).filter(function(file, index) {
+        return index < allowPhotoCount;
+      });
+
+      mypagereview.setReviewPhotosFile(
+        mypagereview.reviewPhotosFile.concat(allowFiles)
+      );
+    } else {
+      alert.showAlert('리뷰 사진은 최대 10장까지만 가능합니다.');
+    }
+  };
+
+  onSubmit = () => {
+    let { mypagereview, modalData, onSuccessSubmit } = this.props;
+    let { reviewData } = this.state;
+
+    if (reviewData.textReview === '') {
+      this.props.alert.showAlert('리뷰 상세는 필수 입력입니다.');
+    } else
+      mypagereview.reviewSubmit({
+        reviewData,
+        orderProdGroupId: modalData.orderProdGroupId,
+        productId: modalData.productId,
+        sellerId: modalData.sellerId,
+        onSuccess: onSuccessSubmit || this.props.handleModalClose,
+      });
+  };
+
+  onModify = () => {
+    let { mypagereview, modalData, onSuccessModify } = this.props;
+    let { reviewData } = this.state;
+
+    if (reviewData.textReview === '') {
+      this.props.alert.showAlert('리뷰 상세는 필수 입력입니다.');
+    } else
+      mypagereview.reviewModify({
+        reviewData,
+        orderProdGroupId: modalData.orderProdGroupId,
+        productId: modalData.productId,
+        sellerId: modalData.sellerId,
+        onSuccess: onSuccessModify || this.props.handleModalClose,
+      });
+  };
+
+  renderStars = startCount => {
+    let starCount = rating.indexOf(this.state.reviewData.productRating) + 1;
+    let starItems = [];
+
+    for (let i = 0; i < 10; i++) {
+      if (i < starCount) {
+        if (i % 2 === 0)
+          starItems.push(
+            <img
+              src="/static/icon/big_star_yellow_half_l.png"
+              width={25}
+              height={50}
+              key={i}
+              onMouseOver={() => this.setStarScore(rating[i])}
+            />
+          );
+        else
+          starItems.push(
+            <img
+              src="/static/icon/big_star_yellow_half_r.png"
+              width={25}
+              height={50}
+              key={i}
+              onMouseOver={() => this.setStarScore(rating[i])}
+            />
+          );
+      } else {
+        if (i % 2 === 0)
+          starItems.push(
+            <img
+              src="/static/icon/big_star_grey_half_l.png"
+              width={25}
+              height={50}
+              key={i}
+              onMouseOver={() => this.setStarScore(rating[i])}
+            />
+          );
+        else
+          starItems.push(
+            <img
+              src="/static/icon/big_star_grey_half_r.png"
+              width={25}
+              height={50}
+              key={i}
+              onMouseOver={() => this.setStarScore(rating[i])}
+            />
+          );
+      }
+    }
+
+    return starItems;
+  };
+
+  toggleMySizeModal = () => {
+    this.setState({ isMySizeModalOpen: !this.state.isMySizeModalOpen });
+  };
+
+  handleSubmitMySize = mySize => {
+    this.props.mySize.submitMySize({
+      mySize,
+      onComplete: this.toggleMySizeModal,
+    });
+  };
+
+  render() {
+    const { isOpen, modalData, mypagereview, productreview } = this.props;
+    const isModalDataExists = isTruthy(toJS(modalData));
+    const isModalOpen = isOpen && isModalDataExists;
+    const item = modalData || {};
+
+    return (
+      <ModalWrapper
+        isOpen={isModalOpen}
+        onClose={() => {}}
+        contentStyle={{
+          background: 'white',
+        }}
+        isBigModal={true}
+        contentLabel={'reviewWrite'}
+        zIndex={1000}
+      >
+        <div className={css.modalWrap}>
+          <div
+            className={cn(css.header, {
+              [css.isSizePossible]: mypagereview.isPossibleSetUserSize === true,
+            })}
+          >
+            {this.props.status === reviewModalType.WRITE ? (
+              <span>리뷰 작성</span>
+            ) : (
+              <span>리뷰 수정</span>
+            )}
+            <div
+              className={css.close}
+              onClick={() => this.props.handleModalClose()}
+            />
+          </div>
+          {mypagereview.isPossibleSetUserSize === true && (
+            <div className={css.sizeAddWrap}>
+              <div className={css.sizeAddContents}>
+                <div className={css.sizeAddIcon}>!</div>
+                <span>내 사이즈 등록하면 적립금 500원 적립!</span>
+                <span
+                  className={css.sizeAddButton}
+                  onClick={() => this.toggleMySizeModal()}
+                >
+                  내 사이즈 등록
+                </span>
+              </div>
+            </div>
+          )}
+
+          <div className={css.reviewItemWrap}>
+            <div className={css.reviewItem}>
+              <div
+                className={css.reviewImage}
+                style={{ backgroundImage: `url(${item.imageUrl})` }}
+              />
+              <div className={css.reviewContentWrap}>
+                <div className={css.brandName}>{item.brandName}</div>
+                <div className={css.itemName}>
+                  <span>{item.season ? item.season : ''}</span>
+                  <span>{` ` + item.prodName}</span>
+                </div>
+                <div className={css.option}>
+                  {item.optionAttribute1}{' '}
+                  {_.isNil(item.optionAttribute2) === false &&
+                    `, ${item.optionAttribute2}`}
+                  {_.isNil(item.optionAttribute3) === false &&
+                    `, ${item.optionAttribute3}`}
+                </div>
+
+                <div className={css.shippingDate}>
+                  {moment(item.orderTimestamp).format(dateFormat.YYYYMMDD_UI)}{' '}
+                  {item.purchaseStatusText}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className={css.starWrap}>
+            <div className={css.starHeader}>상품은 만족하시나요?</div>
+            <div>{this.renderStars()}</div>
+          </div>
+          <ReviewWriteModalScore
+            header="사이즈는 어떤가요?"
+            score={this.state.reviewData.sizeSatisfaction}
+            items={size}
+            itemsText={['작아요', '정사이즈에요', '커요']}
+            onChangeScore={this.onChangeSize}
+          />
+          <ReviewWriteModalScore
+            header="컬러는 어떤가요?"
+            score={this.state.reviewData.colorSatisfaction}
+            items={color}
+            itemsText={['밝아요', '화면과 같아요', '어두워요']}
+            onChangeScore={this.onChangeColor}
+          />
+          <ReviewWriteModalScore
+            header="길이는 어떤가요?"
+            score={this.state.reviewData.lengthSatisfaction}
+            items={length}
+            itemsText={['짧아요', '적당해요', '길어요']}
+            onChangeScore={this.onChangeLength}
+          />
+
+          {/* ! UI가 API에 영향을 미치지 않으므로 숨김. 추후 작성 옵션이 늘어난다면 다시 추가 */}
+          {/* <ReviewWriteOption /> */}
+          <div className={css.textareaWrap}>
+            <textarea
+              className={css.textarea}
+              onChange={e => this.onChangeTextarea(e)}
+              // maxLength={1000}
+              placeholder={`어떤 점이 좋으셨나요?
+사진과 함께 리뷰 작성 시 ${productreview.maximumPoint.toLocaleString()}P 적립!
+상품에 대한 솔직한 리뷰를 작성해주세요.`}
+              value={this.state.reviewData.textReview}
+            />
+          </div>
+          <div className={css.photoWrap}>
+            <label className={css.photoItemWrap} htmlFor="photo_upload">
+              <input
+                type="file"
+                onChange={this.previewFile}
+                multiple
+                id="photo_upload"
+              />
+              <div className={css.photoText}>첨부파일</div>
+            </label>
+            {/* <img src="/static/icon/icon_video.png" />
+                <div className={css.photoText}>동영상</div> */}
+            <div className={css.textareaLength}>
+              <span>{this.state.totalByte}</span>/1000
+            </div>
+            {mypagereview.newReviewPhotos.length !== 0 ? (
+              <ReviewImageUpload />
+            ) : null}
+          </div>
+
+          <div className={css.warning}>
+            <div>
+              상품과 관련 없는 내용이 포함될 경우, 통보 없이 삭제 및 적립 혜택이
+              회수될 수 있습니다.
+            </div>
+          </div>
+          <div>
+            <button
+              className={css.cancelBtn}
+              onClick={() => {
+                this.props.handleModalClose();
+                mypagereview.initReviewPhotos();
+              }}
+            >
+              취소
+            </button>
+            {this.props.status === reviewModalType.WRITE ? (
+              <button className={css.addBtn} onClick={() => this.onSubmit()}>
+                등록
+              </button>
+            ) : (
+              <button className={css.addBtn} onClick={() => this.onModify()}>
+                수정
+              </button>
+            )}
+          </div>
+        </div>
+        <MySizeModal
+          // mySize={this.props.mySize.mySize}
+          isOpen={this.state.isMySizeModalOpen}
+          onClose={this.toggleMySizeModal}
+          onSubmitMySize={this.handleSubmitMySize}
+          showAlert={this.props.alert.showAlert}
+        />
+      </ModalWrapper>
+    );
+  }
+}
 export default ReviewWriteModal;
