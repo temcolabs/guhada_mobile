@@ -15,6 +15,17 @@ import MySizeModal from 'components/mypage/userinfo/form/MySizeModal';
 import isTruthy from 'childs/lib/common/isTruthy';
 import cn from 'classnames';
 import cutByLen from 'childs/lib/common/cutByLen';
+import ModalLayout, {
+  useModalLayoutState,
+} from 'components/layout/ModalLayout';
+import SlideIn from 'components/search/SearchFilter';
+import { slideDirection } from 'components/common/panel/SlideIn';
+import SubmitButton, {
+  CancelButton,
+  SubmitButtonWrapper,
+} from 'components/mypage/form/SubmitButton';
+import DealOrdered from '../DealOrdered';
+import TextArea from 'components/mypage/form/TextArea';
 
 const color = ['BRIGHTER', 'SAME', 'DARKER'];
 const length = ['SHORT', 'REGULAR', 'LONG'];
@@ -105,7 +116,7 @@ class ReviewWriteModal extends Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
-    const { mypagereview, isOpen } = this.props;
+    const { isOpen } = this.props;
     let { reviewData } = this.props;
     this.initReviewForm(isOpen, reviewData, this.state.isMySizeModalOpen);
   }
@@ -152,16 +163,15 @@ class ReviewWriteModal extends Component {
     }));
   };
 
-  onChangeTextarea = e => {
+  onChangeTextarea = value => {
     let totalByte = 0;
-    let message = e.target.value;
-    for (let index = 0, length = message.length; index < length; index++) {
-      let currentByte = message.charCodeAt(index);
+    for (let index = 0, length = value.length; index < length; index++) {
+      let currentByte = value.charCodeAt(index);
       currentByte > 128 ? (totalByte += 2) : totalByte++;
     }
 
     if (totalByte > maxByte) {
-      message = cutByLen(message, maxByte);
+      value = cutByLen(value, maxByte);
       totalByte = maxByte;
     }
 
@@ -169,7 +179,7 @@ class ReviewWriteModal extends Component {
       totalByte,
       reviewData: {
         ...prevState.reviewData,
-        textReview: message,
+        textReview: value,
       },
     }));
   };
@@ -336,6 +346,7 @@ class ReviewWriteModal extends Component {
   };
 
   toggleMySizeModal = () => {
+    this.props.mypagereview.closeReviewModal();
     this.setState({ isMySizeModalOpen: !this.state.isMySizeModalOpen });
   };
 
@@ -353,32 +364,14 @@ class ReviewWriteModal extends Component {
     const item = modalData || {};
 
     return (
-      <ModalWrapper
+      <ModalLayout
+        pageTitle={'리뷰 작성'}
+        direction={slideDirection.BOTTOM}
         isOpen={isModalOpen}
-        onClose={() => {}}
-        contentStyle={{
-          background: 'white',
-        }}
-        isBigModal={true}
-        contentLabel={'reviewWrite'}
-        zIndex={1000}
+        onClose={this.props.handleModalClose}
       >
         <div className={css.modalWrap}>
-          <div
-            className={cn(css.header, {
-              [css.isSizePossible]: mypagereview.isPossibleSetUserSize === true,
-            })}
-          >
-            {this.props.status === reviewModalType.WRITE ? (
-              <span>리뷰 작성</span>
-            ) : (
-              <span>리뷰 수정</span>
-            )}
-            <div
-              className={css.close}
-              onClick={() => this.props.handleModalClose()}
-            />
-          </div>
+          {/* TODO: */}
           {mypagereview.isPossibleSetUserSize === true && (
             <div className={css.sizeAddWrap}>
               <div className={css.sizeAddContents}>
@@ -395,31 +388,14 @@ class ReviewWriteModal extends Component {
           )}
 
           <div className={css.reviewItemWrap}>
-            <div className={css.reviewItem}>
-              <div
-                className={css.reviewImage}
-                style={{ backgroundImage: `url(${item.imageUrl})` }}
-              />
-              <div className={css.reviewContentWrap}>
-                <div className={css.brandName}>{item.brandName}</div>
-                <div className={css.itemName}>
-                  <span>{item.season ? item.season : ''}</span>
-                  <span>{` ` + item.prodName}</span>
-                </div>
-                <div className={css.option}>
-                  {item.optionAttribute1}{' '}
-                  {_.isNil(item.optionAttribute2) === false &&
-                    `, ${item.optionAttribute2}`}
-                  {_.isNil(item.optionAttribute3) === false &&
-                    `, ${item.optionAttribute3}`}
-                </div>
-
-                <div className={css.shippingDate}>
-                  {moment(item.orderTimestamp).format(dateFormat.YYYYMMDD_UI)}{' '}
-                  {item.purchaseStatusText}
-                </div>
-              </div>
-            </div>
+            <DealOrdered
+              order={item}
+              isSmallImage={false}
+              isBrandAndProductInSameLine={false}
+              hasOptionQuantity={true}
+              isPurchaseStatusVisible
+              isPriceVisible
+            />
           </div>
           <div className={css.starWrap}>
             <div className={css.starHeader}>상품은 만족하시나요?</div>
@@ -450,14 +426,11 @@ class ReviewWriteModal extends Component {
           {/* ! UI가 API에 영향을 미치지 않으므로 숨김. 추후 작성 옵션이 늘어난다면 다시 추가 */}
           {/* <ReviewWriteOption /> */}
           <div className={css.textareaWrap}>
-            <textarea
-              className={css.textarea}
-              onChange={e => this.onChangeTextarea(e)}
+            <TextArea
+              onChange={this.onChangeTextarea}
               // maxLength={1000}
-              placeholder={`어떤 점이 좋으셨나요?
-사진과 함께 리뷰 작성 시 ${productreview.maximumPoint.toLocaleString()}P 적립!
-상품에 대한 솔직한 리뷰를 작성해주세요.`}
-              value={this.state.reviewData.textReview}
+              placeholder={`어떤 점이 좋으셨나요?\n사진과 함께 리뷰 작성 시 ${productreview.maximumPoint.toLocaleString()}P 적립!\n상품에 대한 솔직한 리뷰를 작성해주세요.`}
+              initialValue={this.state.reviewData.textReview}
             />
           </div>
           <div className={css.photoWrap}>
@@ -470,11 +443,6 @@ class ReviewWriteModal extends Component {
               />
               <div className={css.photoText}>첨부파일</div>
             </label>
-            {/* <img src="/static/icon/icon_video.png" />
-                <div className={css.photoText}>동영상</div> */}
-            <div className={css.textareaLength}>
-              <span>{this.state.totalByte}</span>/1000
-            </div>
             {mypagereview.newReviewPhotos.length !== 0 ? (
               <ReviewImageUpload />
             ) : null}
@@ -486,26 +454,26 @@ class ReviewWriteModal extends Component {
               회수될 수 있습니다.
             </div>
           </div>
-          <div>
-            <button
-              className={css.cancelBtn}
+
+          <SubmitButtonWrapper fixedAtBottom>
+            <CancelButton
               onClick={() => {
                 this.props.handleModalClose();
                 mypagereview.initReviewPhotos();
               }}
             >
               취소
-            </button>
-            {this.props.status === reviewModalType.WRITE ? (
-              <button className={css.addBtn} onClick={() => this.onSubmit()}>
-                등록
-              </button>
-            ) : (
-              <button className={css.addBtn} onClick={() => this.onModify()}>
-                수정
-              </button>
-            )}
-          </div>
+            </CancelButton>
+            <SubmitButton
+              onClick={
+                this.props.status === reviewModalType.WRITE
+                  ? this.onSubmit
+                  : this.onModify
+              }
+            >
+              {this.props.status === reviewModalType.WRITE ? '등록' : '수정'}
+            </SubmitButton>
+          </SubmitButtonWrapper>
         </div>
         <MySizeModal
           // mySize={this.props.mySize.mySize}
@@ -514,7 +482,7 @@ class ReviewWriteModal extends Component {
           onSubmitMySize={this.handleSubmitMySize}
           showAlert={this.props.alert.showAlert}
         />
-      </ModalWrapper>
+      </ModalLayout>
     );
   }
 }

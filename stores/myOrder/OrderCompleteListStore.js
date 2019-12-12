@@ -181,6 +181,13 @@ export default class OrderListStore {
         this.page = page;
         this.count = count;
         this.totalPage = totalPage;
+
+        // // FIXME:
+        // setTimeout(() => {
+        //   this.handleClickWriteReviewButton({
+        //     orderListItem: orderItemList[0],
+        //   });
+        // }, 1000);
       } catch (e) {
         console.error(e);
         this.emtpyList();

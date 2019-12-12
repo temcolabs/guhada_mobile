@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import css from './ReviewWriteModal.module.scss';
+import cn from 'classnames';
 
 export class ReviewWriteModalScore extends Component {
   render() {
@@ -8,16 +9,17 @@ export class ReviewWriteModalScore extends Component {
     return (
       <div className={css.scoreWrap}>
         <div className={css.scoreHeader}>{this.props.header}</div>
-        <div>
+        <div className={css.scoreItemWrap}>
           {items.map((item, index) => {
             return (
-              <div key={index} className={css.scoreItem}>
+              <div
+                key={index}
+                className={cn(css.scoreItem, {
+                  [css.isFocused]: this.props.score === this.props.items[item],
+                })}
+              >
                 <div
-                  className={
-                    this.props.score === this.props.items[item]
-                      ? css.scoreBtnFocus
-                      : css.scoreBtn
-                  }
+                  className={css.scoreBtn}
                   onClick={() =>
                     this.props.onChangeScore(this.props.items[item])
                   }
@@ -26,9 +28,8 @@ export class ReviewWriteModalScore extends Component {
               </div>
             );
           })}
-
-          <div className={css.scoreLine} />
         </div>
+        <div className={css.scoreLine} />
       </div>
     );
   }

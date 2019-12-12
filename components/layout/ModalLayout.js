@@ -40,6 +40,10 @@ export const useModalLayoutState = ({
   };
 };
 
+/**
+ * 클래스 컴포넌트 내부에서 사용할때는 useModalLayoutState를 사용할 수 없다.
+ * @param {*} param0
+ */
 function ModalLayout({
   pageTitle,
   children,
