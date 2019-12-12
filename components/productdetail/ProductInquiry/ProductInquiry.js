@@ -159,7 +159,7 @@ class ProductInquiry extends Component {
 
         <SellerClaimModal
           sellerId={deals?.sellerId}
-          isVisible={sellerClaim.isPossible}
+          isOpen={sellerClaim.isPossible}
           onClose={() => sellerClaim.closeClaim()}
         />
       </div>

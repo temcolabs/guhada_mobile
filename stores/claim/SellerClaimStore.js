@@ -5,6 +5,7 @@ import { sendBackToLogin } from 'childs/lib/router';
 import { isImageFile } from 'childs/lib/common/isImageFile';
 import { uploadImageFile } from 'childs/lib/API/gateway/fileUploadService';
 import { devLog } from 'childs/lib/common/devLog';
+import isFunction from 'childs/lib/common/isFunction';
 /**
  * 판매자 문의하기 관련
  */
@@ -23,7 +24,7 @@ export default class SellerClaimStore {
   @observable orderProdGroupId = 0;
   @observable claimType = null;
   @action
-  checkIsSellerClaimPossible = (sellerId, inquiryHandle) => {
+  checkIsSellerClaimPossible = (sellerId, inquiryHandle = () => {}) => {
     // 판매자 문의는 로그인 상태에서만 가능하다.
     if (!this.root.login.isLoggedIn) {
       sendBackToLogin();
@@ -58,7 +59,9 @@ export default class SellerClaimStore {
             cancelText: '취소',
             confirmText: '상품 문의하기',
             onConfirm: () => {
-              inquiryHandle();
+              if (isFunction(inquiryHandle)) {
+                inquiryHandle();
+              }
             },
           });
         }
@@ -71,6 +74,11 @@ export default class SellerClaimStore {
   @action
   closeClaim = () => {
     this.isPossible = false;
+  };
+
+  @action
+  openClaim = () => {
+    this.isPossible = true;
   };
 
   @action

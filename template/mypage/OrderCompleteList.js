@@ -25,7 +25,7 @@ import OrderAddressEditModal from 'components/mypage/order/OrderAddressEditModal
 //   reviewModalType,
 // } from 'components/mypage/review/ReviewWriteModal';
 import DeliveryTrackingModal from 'components/mypage/shipping/DeliveryTrackingModal';
-// import SellerClaimModal from 'components/claim/sellerclaim/SellerClaimModal';
+import SellerClaimModal from 'components/claim/sellerclaim/SellerClaimModal';
 // import LoadingPortal from 'components/common/loading/Loading';
 import PointSavingModal, {
   pointSavingTypes,
@@ -41,7 +41,8 @@ import OrderConfirmModal from 'components/mypage/order/OrderConfirmModal';
   'mypageAddress',
   'mypagereview',
   'myDelivery',
-  'mypagePoint'
+  'mypagePoint',
+  'sellerClaim'
 )
 @observer
 class OrderCompleteList extends Component {
@@ -65,7 +66,6 @@ class OrderCompleteList extends Component {
       sellerClaimModal: {
         sellerId: null,
         orderProdGroupId: null,
-        isOpen: false,
       },
     };
   }
@@ -196,23 +196,31 @@ class OrderCompleteList extends Component {
   };
 
   handleOpenSellerClaimModal = (order = {}) => {
-    this.setState({
-      sellerClaimModal: {
-        sellerId: order.sellerId,
-        orderProdGroupId: order.orderProdGroupId,
-        isOpen: true,
+    this.setState(
+      {
+        sellerClaimModal: {
+          sellerId: order.sellerId,
+          orderProdGroupId: order.orderProdGroupId,
+        },
       },
-    });
+      () => {
+        this.props.sellerClaim.openClaim();
+      }
+    );
   };
 
   handleCloseSellerClaimModal = () => {
-    this.setState({
-      sellerClaimModal: {
-        sellerId: null,
-        orderProdGroupId: null,
-        isOpen: false,
+    this.setState(
+      {
+        sellerClaimModal: {
+          sellerId: null,
+          orderProdGroupId: null,
+        },
       },
-    });
+      () => {
+        this.props.sellerClaim.closeClaim();
+      }
+    );
   };
 
   render() {
@@ -314,12 +322,12 @@ class OrderCompleteList extends Component {
         />
 
         {/* 판매자 문의하기 모달 */}
-        {/* <SellerClaimModal
-            sellerId={this.state.sellerClaimModal.sellerId}
-            orderProdGroupId={this.state.sellerClaimModal.orderProdGroupId}
-            isOpen={this.state.sellerClaimModal.isOpen}
-            onClose={this.handleCloseSellerClaimModal}
-          /> */}
+        <SellerClaimModal
+          isOpen={this.props.sellerClaim.isPossible}
+          sellerId={this.state.sellerClaimModal.sellerId}
+          orderProdGroupId={this.state.sellerClaimModal.orderProdGroupId}
+          onClose={this.handleCloseSellerClaimModal}
+        />
 
         {/* 구매확정시 포인트 지급 모달  */}
         <PointSavingModal
