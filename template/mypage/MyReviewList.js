@@ -28,7 +28,7 @@ class MyReviewList extends Component {
   }
 
   render() {
-    const { mypagereview, mypagePoint: mypagePointStore } = this.props;
+    const { mypagereview } = this.props;
 
     return (
       <MypageLayout
