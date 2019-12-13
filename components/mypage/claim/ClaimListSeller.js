@@ -128,9 +128,8 @@ class ClaimListSeller extends Component {
         />
 
         <SellerClaimModal
-          sellerId={this.state.sellerClaimModal.sellerId}
-          orderProdGroupId={this.state.sellerClaimModal.orderProdGroupId}
           isOpen={this.state.sellerClaimModal.isOpen}
+          sellerId={this.state.sellerClaimModal.sellerId}
           onClose={this.handleCloseSellerClaimModal}
         />
       </>

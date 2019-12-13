@@ -283,7 +283,6 @@ class OrderClaimList extends Component {
         {/* 판매자 문의하기 모달 */}
         {/* <SellerClaimModal
           sellerId={this.state.sellerClaimModal.sellerId}
-          orderProdGroupId={this.state.sellerClaimModal.orderProdGroupId}
           isOpen={this.state.sellerClaimModal.isOpen}
           onClose={this.handleCloseSellerClaimModal}
         /> */}

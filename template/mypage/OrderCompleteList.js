@@ -29,6 +29,7 @@ import PointSavingModal, {
   pointSavingTypes,
 } from 'components/mypage/point/PointSavingModal';
 import OrderConfirmModal from 'components/mypage/order/OrderConfirmModal';
+import memoize from 'memoize-one';
 
 /**
  * 마이페이지 - 주문 배송 (주문 완료 목록)
@@ -62,10 +63,8 @@ class OrderCompleteList extends Component {
       },
 
       // 판매자 문의하기 모달
-      sellerClaimModal: {
-        sellerId: null,
-        orderProdGroupId: null,
-      },
+      sellerIdToClaim: null,
+      isUserRequestedSellerClaim: false,
     };
   }
 
@@ -195,38 +194,36 @@ class OrderCompleteList extends Component {
   };
 
   handleOpenSellerClaimModal = (order = {}) => {
-    this.setState(
-      {
-        sellerClaimModal: {
-          sellerId: order.sellerId,
-          orderProdGroupId: order.orderProdGroupId,
-        },
+    this.props.sellerClaim.checkIsSellerClaimPossible({
+      sellerId: order.sellerId,
+      whenPossible: () => {
+        this.setState({
+          sellerIdToClaim: order.sellerId,
+          isUserRequestedSellerClaim: true,
+        });
       },
-      () => {
-        this.props.sellerClaim.openClaim();
-      }
-    );
+    });
   };
 
   handleCloseSellerClaimModal = () => {
-    this.setState(
-      {
-        sellerClaimModal: {
-          sellerId: null,
-          orderProdGroupId: null,
-        },
-      },
-      () => {
-        this.props.sellerClaim.closeClaim();
-      }
-    );
+    this.setState({
+      sellerIdToClaim: null,
+      isUserRequestedSellerClaim: false,
+    });
   };
+
+  isSellerClaimModalOpen = memoize(
+    (isSellerClaimPossible, isUserRequestedSellerClaim) => {
+      return isSellerClaimPossible && isUserRequestedSellerClaim;
+    }
+  );
 
   render() {
     const {
       orderCompleteList: orderCompleteListStore,
       mypagereview,
       mypagePoint: mypagePointStore,
+      sellerClaim,
     } = this.props;
 
     const { orderConfirmModalData } = orderCompleteListStore;
@@ -324,9 +321,11 @@ class OrderCompleteList extends Component {
 
         {/* 판매자 문의하기 모달 */}
         <SellerClaimModal
-          isOpen={this.props.sellerClaim.isPossible}
-          sellerId={this.state.sellerClaimModal.sellerId}
-          orderProdGroupId={this.state.sellerClaimModal.orderProdGroupId}
+          isOpen={this.isSellerClaimModalOpen(
+            sellerClaim.isPossible,
+            this.state.isUserRequestedSellerClaim
+          )}
+          sellerId={this.state.sellerIdToClaim}
           onClose={this.handleCloseSellerClaimModal}
         />
 

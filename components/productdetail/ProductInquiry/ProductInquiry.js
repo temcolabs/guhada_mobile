@@ -18,6 +18,10 @@ class ProductInquiry extends Component {
     isSellerClaimVisible: false,
   };
 
+  componentWillUnmount() {
+    this.props.sellerClaim.resetSellerClaimData();
+  }
+
   setTab = tab => {
     this.setState({ tab });
   };
@@ -27,15 +31,29 @@ class ProductInquiry extends Component {
   };
 
   getIsSellerClaimVisible = sellerId => {
-    const inquiryHandle = () => {
-      this.setState({ isNewInquiryVisible: true });
-    };
-    this.props.sellerClaim.checkIsSellerClaimPossible(sellerId, inquiryHandle);
+    this.props.sellerClaim.checkIsSellerClaimPossible({
+      sellerId,
+      whenPossible: () => {
+        this.setState({ isSellerClaimVisible: true });
+      },
+      whenImpossible: () => {
+        this.props.alert.showConfirm({
+          content:
+            '해당 판매자에게 주문한 기록을 찾을 수 없습니다. 상품 문의를 통해서만 문의가 가능합니다.',
+          cancelText: '취소',
+          confirmText: '상품 문의하기',
+          onConfirm: () => {
+            this.setState({ isNewInquiryVisible: true });
+          },
+        });
+      },
+    });
   };
 
-  componentWillUnmount() {
-    this.props.sellerClaim.closeClaim();
-  }
+  setIsSellerClaimModalVisible = isVisible => {
+    this.setState({ isSellerClaimVisible: isVisible });
+  };
+
   render() {
     const { productdetail, login, tabRefMap, sellerClaim } = this.props;
     const { deals, inquiryList, inquiryPage } = productdetail;
@@ -72,9 +90,7 @@ class ProductInquiry extends Component {
                   }}
                 />
               )}
-              <label htmlFor="askCheckbox">
-                <span />내 문의만 보기
-              </label>
+              <label htmlFor="askCheckbox">내 문의만 보기</label>
             </div>
           </div>
           <div>
@@ -89,7 +105,9 @@ class ProductInquiry extends Component {
               상품 문의하기
             </button>
             <button
-              onClick={() => this.getIsSellerClaimVisible(deals.sellerId)}
+              onClick={() =>
+                this.getIsSellerClaimVisible({ sellerId: deals.sellerId })
+              }
             >
               판매자 문의하기
             </button>
@@ -122,9 +140,10 @@ class ProductInquiry extends Component {
               className={cn(css.tabItem, {
                 [css.selectTab]: this.state.tab === 'PENDING',
               })}
-              onClick={() => (
-                this.setTab('PENDING'), productdetail.getInquiry(0, 'PENDING')
-              )}
+              onClick={() => {
+                this.setTab('PENDING');
+                productdetail.getInquiry(0, 'PENDING');
+              }}
             >
               <div className={css.betweenTab}>미답변</div>
             </div>
@@ -151,15 +170,17 @@ class ProductInquiry extends Component {
           </div>
         )}
 
+        {/* 상품 문의 */}
         <NewInquiry
           isVisible={this.state.isNewInquiryVisible}
           onClose={() => this.setIsNewInquiryVisible(false)}
         />
 
+        {/* 판매나 주의 */}
         <SellerClaimModal
           sellerId={deals?.sellerId}
-          isOpen={sellerClaim.isPossible}
-          onClose={() => sellerClaim.closeClaim()}
+          isOpen={this.state.isSellerClaimVisible && sellerClaim.isPossible}
+          onClose={() => this.setIsSellerClaimModalVisible(false)}
         />
       </div>
     );

@@ -6,7 +6,7 @@ import ClaimType from './ClaimType';
 import useStores from 'stores/useStores';
 import { useObserver } from 'mobx-react-lite';
 
-function SellerClaimModal({ isOpen = false, sellerId, onClose }) {
+function SellerClaimModal({ isOpen = false, sellerId, onClose = () => {} }) {
   const { sellerClaim } = useStores();
   const [myDeal, setMyDeal] = useState('INIT');
   const [claimType, setClaimType] = useState('INIT');
@@ -67,7 +67,7 @@ function SellerClaimModal({ isOpen = false, sellerId, onClose }) {
   );
 
   const createSellerClaimHandler = useCallback(
-    (title, claim, attachImage, sellerId) => {
+    async (title, claim, attachImage, sellerId) => {
       if (myDeal === 'INIT') {
         setMyDeal(false);
         return false;
@@ -83,31 +83,34 @@ function SellerClaimModal({ isOpen = false, sellerId, onClose }) {
       }
 
       if (myDeal && claimType && title && claim) {
-        sellerClaim.createSellerClaim(title, claim, attachImage, sellerId);
+        await sellerClaim.createSellerClaim(
+          title,
+          claim,
+          attachImage,
+          sellerId
+        );
+        onClose();
       }
     },
-    [claimType, myDeal, sellerClaim]
+    [claimType, myDeal, onClose, sellerClaim]
   );
 
   useEffect(() => {
-    setClaim('');
-    setMyDeal('INIT');
-    setClaimType('INIT');
-    setTitle('');
-    setAttachImage([]);
-    setClaimCheck(true);
-    setTitleCheck(true);
-  }, [sellerClaim.isPossible]);
+    if (isOpen) {
+      setClaim('');
+      setMyDeal('INIT');
+      setClaimType('INIT');
+      setTitle('');
+      setAttachImage([]);
+      setClaimCheck(true);
+      setTitleCheck(true);
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     setClaimCheck(true);
     setTitleCheck(true);
   }, [claim, title]);
-
-  // useEffect(() => {
-  //   sellerClaim.checkIsSellerClaimPossible(sellerId);
-  //   return () => {};
-  // }, [sellerClaim, sellerId]);
 
   return useObserver(() => (
     <div>
@@ -239,4 +242,5 @@ function SellerClaimModal({ isOpen = false, sellerId, onClose }) {
     </div>
   ));
 }
+
 export default SellerClaimModal;
