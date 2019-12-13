@@ -15,7 +15,6 @@ import SubmitButton, {
   SubmitButtonWrapper,
 } from 'components/mypage/form/SubmitButton';
 import RadioGroup from 'components/mypage/form/RadioGroup';
-import tableCSS from 'components/mypage/form/KeyValueTable.module.scss';
 import addCommaToNum from 'childs/lib/common/addCommaToNum';
 import NoInvoiceWarning from 'components/mypage/orderCancel/NoInvoiceWarning';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
@@ -42,6 +41,7 @@ import {
 } from 'childs/lib/common/finalFormValidators';
 import TextArea from 'components/mypage/form/TextArea';
 import MypageSectionTitle from 'components/mypage/MypageSectionTitle';
+import MypageAddressModal from 'components/mypage/address/MypageAddressModal';
 
 /**
  * 주문 교환 신청 및 수정 페이지.
@@ -143,8 +143,6 @@ class OrderExchangeForm extends Component {
     super(props);
     this.state = {
       initialValues: { ...this.defaultInitialValues },
-
-      isMyAddressModalOpen: false, // 내 배송지 선택 모달
     };
   }
 
@@ -302,12 +300,23 @@ class OrderExchangeForm extends Component {
   };
 
   /**
-   * 배송지 목록 모달 열고 닫기
+   * 배송지 변경 모달 열기
    */
-  toggleOpenAddressListModal = () => {
-    this.setState((state, props) => ({
-      isMyAddressModalOpen: !state.isMyAddressModalOpen,
-    }));
+  openEditOrderAddressModal = formValues => {
+    const { claimData } = this.props.orderClaimForm;
+
+    this.props.mypageAddress.openEditOrderAddressModal({
+      purchaseId: claimData.purchaseId,
+      address: {
+        addressBasic: formValues.address,
+        addressDetail: formValues.detailAddress,
+        roadAddress: formValues.roadAddress,
+        phone: formValues.recipientMobile,
+        receiverName: formValues.recipientName,
+        addressname: formValues.shippingName,
+        zipcode: formValues.zip,
+      },
+    });
   };
 
   /**
@@ -820,12 +829,15 @@ class OrderExchangeForm extends Component {
                     </div>
                   </div>
 
+                  {/* 배송지 정보 */}
                   <div className={css.formSection}>
                     <MypageSectionTitle>
                       <div className={css.exchangeAddressTitleWrap}>
                         <span>교환상품 배송지</span>
                         <button
+                          type="button"
                           className={css.exchangeAddressTitleWrap__button}
+                          onClick={() => this.openEditOrderAddressModal(values)}
                         >
                           배송지 변경
                         </button>
@@ -888,6 +900,10 @@ class OrderExchangeForm extends Component {
                   </SubmitButtonWrapper>
                 </form>
               </div>
+
+              <MypageAddressModal
+                isOpen={this.props.mypageAddress.isModalOpen}
+              />
             </DetailPageLayout>
           );
         }}
