@@ -8,11 +8,10 @@ import { shape, func, bool, number, any } from 'prop-types';
 import memoize from 'memoize-one';
 import _ from 'lodash';
 import ReviewImageUpload from './ReviewImageUpload';
-import MySizeModal from 'components/mypage/userinfo/form/MySizeModal';
+import MySizeModal from 'components/mypage/userinfo/MySizeModal';
 import isTruthy from 'childs/lib/common/isTruthy';
 import cutByLen from 'childs/lib/common/cutByLen';
 import ModalLayout from 'components/layout/ModalLayout';
-import { slideDirection } from 'components/common/panel/SlideIn';
 import SubmitButton, {
   CancelButton,
   SubmitButtonWrapper,
