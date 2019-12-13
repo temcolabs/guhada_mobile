@@ -6,6 +6,7 @@ import { isImageFile } from 'childs/lib/common/isImageFile';
 import { uploadImageFile } from 'childs/lib/API/gateway/fileUploadService';
 import { devLog } from 'childs/lib/common/devLog';
 import isFunction from 'childs/lib/common/isFunction';
+
 /**
  * 판매자 문의하기 관련
  */
@@ -62,7 +63,7 @@ export default class SellerClaimStore {
 
     // 이미 타겟 셀러아이디에 대한 확인을 끝냈다면 API 추가 실행하지 않는다
     if (this.sellerId === sellerId && this.isPossible === true) {
-      whenPossible();
+      isFunction(whenPossible) && whenPossible();
       return;
     }
 
@@ -87,15 +88,15 @@ export default class SellerClaimStore {
         this.sellerId = sellerId;
         this.isPossible = true;
         this.myDealsOrdered = data.data;
-        whenPossible();
+        isFunction(whenPossible) && whenPossible();
       } else {
         this.resetSellerClaimData();
-        whenImpossible();
+        isFunction(whenImpossible) && whenPossible();
       }
     } catch (err) {
       console.log(err, '판매자문의하기 조회 err');
       this.resetSellerClaimData();
-      whenImpossible();
+      isFunction(whenImpossible) && whenPossible();
     }
   };
 

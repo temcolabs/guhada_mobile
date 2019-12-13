@@ -24,16 +24,18 @@ import ReviewWriteModal, {
   reviewModalType,
 } from 'components/mypage/review/ReviewWriteModal';
 import DeliveryTrackingModal from 'components/mypage/shipping/DeliveryTrackingModal';
-import SellerClaimModal from 'components/claim/sellerclaim/SellerClaimModal';
+import SellerClaimModal, {
+  withSellerClaimModal,
+} from 'components/claim/sellerclaim/SellerClaimModal';
 import PointSavingModal, {
   pointSavingTypes,
 } from 'components/mypage/point/PointSavingModal';
 import OrderConfirmModal from 'components/mypage/order/OrderConfirmModal';
-import memoize from 'memoize-one';
 
 /**
  * 마이페이지 - 주문 배송 (주문 완료 목록)
  */
+@withSellerClaimModal
 @withRouter
 @inject(
   'orderCompleteList',
@@ -41,7 +43,6 @@ import memoize from 'memoize-one';
   'mypagereview',
   'myDelivery',
   'mypagePoint',
-  'sellerClaim',
   'alert'
 )
 @observer
@@ -193,37 +194,11 @@ class OrderCompleteList extends Component {
     });
   };
 
-  handleOpenSellerClaimModal = (order = {}) => {
-    this.props.sellerClaim.checkIsSellerClaimPossible({
-      sellerId: order.sellerId,
-      whenPossible: () => {
-        this.setState({
-          sellerIdToClaim: order.sellerId,
-          isUserRequestedSellerClaim: true,
-        });
-      },
-    });
-  };
-
-  handleCloseSellerClaimModal = () => {
-    this.setState({
-      sellerIdToClaim: null,
-      isUserRequestedSellerClaim: false,
-    });
-  };
-
-  isSellerClaimModalOpen = memoize(
-    (isSellerClaimPossible, isUserRequestedSellerClaim) => {
-      return isSellerClaimPossible && isUserRequestedSellerClaim;
-    }
-  );
-
   render() {
     const {
       orderCompleteList: orderCompleteListStore,
       mypagereview,
       mypagePoint: mypagePointStore,
-      sellerClaim,
     } = this.props;
 
     const { orderConfirmModalData } = orderCompleteListStore;
@@ -256,7 +231,7 @@ class OrderCompleteList extends Component {
                   <OrderItem
                     key={index}
                     order={order}
-                    onClickInquire={this.handleOpenSellerClaimModal}
+                    onClickInquire={this.props.handleOpenSellerClaimModal}
                     isClaim={false}
                     redirectToDetail={() =>
                       orderCompleteListStore.redirectToOrderCompleteDetail({
@@ -321,12 +296,9 @@ class OrderCompleteList extends Component {
 
         {/* 판매자 문의하기 모달 */}
         <SellerClaimModal
-          isOpen={this.isSellerClaimModalOpen(
-            sellerClaim.isPossible,
-            this.state.isUserRequestedSellerClaim
-          )}
-          sellerId={this.state.sellerIdToClaim}
-          onClose={this.handleCloseSellerClaimModal}
+          isOpen={this.props.isSellerClaimModalOpen}
+          sellerId={this.props.sellerIdToClaim}
+          onClose={this.props.handleCloseSellerClaimModal}
         />
 
         {/* 구매확정시 포인트 지급 모달  */}

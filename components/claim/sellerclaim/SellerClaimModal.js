@@ -5,6 +5,8 @@ import MyDealSelect from './MyDealSelect';
 import ClaimType from './ClaimType';
 import useStores from 'stores/useStores';
 import { useObserver } from 'mobx-react-lite';
+import memoize from 'memoize-one';
+import { inject, observer } from 'mobx-react';
 
 function SellerClaimModal({ isOpen = false, sellerId, onClose = () => {} }) {
   const { sellerClaim } = useStores();
@@ -241,6 +243,67 @@ function SellerClaimModal({ isOpen = false, sellerId, onClose = () => {} }) {
       </SlideIn>
     </div>
   ));
+}
+
+export function withSellerClaimModal(BaseComponent) {
+  @inject('sellerClaim')
+  @observer
+  class wrappedComponent extends React.Component {
+    constructor(props) {
+      super(props);
+
+      this.state = {
+        // 판매자 문의하기 모달
+        sellerIdToClaim: null,
+        isUserRequestedSellerClaim: false,
+      };
+    }
+
+    handleOpenSellerClaimModal = (order = {}) => {
+      this.props.sellerClaim.checkIsSellerClaimPossible({
+        sellerId: order.sellerId,
+        whenPossible: () => {
+          this.setState({
+            sellerIdToClaim: order.sellerId,
+            isUserRequestedSellerClaim: true,
+          });
+        },
+      });
+    };
+
+    handleCloseSellerClaimModal = () => {
+      this.setState({
+        sellerIdToClaim: null,
+        isUserRequestedSellerClaim: false,
+      });
+    };
+
+    isSellerClaimModalOpen = memoize(
+      (isSellerClaimPossible, isUserRequestedSellerClaim) => {
+        return isSellerClaimPossible && isUserRequestedSellerClaim;
+      }
+    );
+
+    render() {
+      const passedProps = Object.assign({}, this.props, {
+        // state
+        sellerIdToClaim: this.state.sellerIdToClaim,
+        isUserRequestedSellerClaim: this.state.isUserRequestedSellerClaim,
+
+        // method
+        handleOpenSellerClaimModal: this.handleOpenSellerClaimModal,
+        handleCloseSellerClaimModal: this.handleCloseSellerClaimModal,
+        isSellerClaimModalOpen: this.isSellerClaimModalOpen(
+          this.props.sellerClaim.isPossible,
+          this.state.isUserRequestedSellerClaim
+        ),
+      });
+
+      return <BaseComponent {...passedProps} />;
+    }
+  }
+
+  return wrappedComponent;
 }
 
 export default SellerClaimModal;
