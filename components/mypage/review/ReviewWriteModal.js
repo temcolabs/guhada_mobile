@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import ModalWrapper from 'components/common/modal/ModalWrapper';
 import css from './ReviewWriteModal.module.scss';
 // import ReviewWriteOption from './ReviewWriteOption';
 import ReviewWriteModalScore from './ReviewWriteModalScore';
 import { inject, observer } from 'mobx-react';
-import moment from 'moment';
-import { dateFormat } from 'childs/lib/constant';
 import { toJS } from 'mobx';
 import { shape, func, bool, number, any } from 'prop-types';
 import memoize from 'memoize-one';
@@ -13,12 +10,8 @@ import _ from 'lodash';
 import ReviewImageUpload from './ReviewImageUpload';
 import MySizeModal from 'components/mypage/userinfo/form/MySizeModal';
 import isTruthy from 'childs/lib/common/isTruthy';
-import cn from 'classnames';
 import cutByLen from 'childs/lib/common/cutByLen';
-import ModalLayout, {
-  useModalLayoutState,
-} from 'components/layout/ModalLayout';
-import SlideIn from 'components/search/SearchFilter';
+import ModalLayout from 'components/layout/ModalLayout';
 import { slideDirection } from 'components/common/panel/SlideIn';
 import SubmitButton, {
   CancelButton,
@@ -362,10 +355,13 @@ class ReviewWriteModal extends Component {
     const isModalDataExists = isTruthy(toJS(modalData));
     const isModalOpen = isOpen && isModalDataExists;
     const item = modalData || {};
+    const isCreate = this.props.status === reviewModalType.WRITE;
+
+    console.log(`isCreate`, isCreate);
 
     return (
       <ModalLayout
-        pageTitle={'리뷰 작성'}
+        pageTitle={isCreate ? '리뷰 등록' : '리뷰 수정'}
         direction={slideDirection.BOTTOM}
         isOpen={isModalOpen}
         onClose={this.props.handleModalClose}
@@ -464,14 +460,8 @@ class ReviewWriteModal extends Component {
             >
               취소
             </CancelButton>
-            <SubmitButton
-              onClick={
-                this.props.status === reviewModalType.WRITE
-                  ? this.onSubmit
-                  : this.onModify
-              }
-            >
-              {this.props.status === reviewModalType.WRITE ? '등록' : '수정'}
+            <SubmitButton onClick={isCreate ? this.onSubmit : this.onModify}>
+              {isCreate ? '등록' : '수정'}
             </SubmitButton>
           </SubmitButtonWrapper>
         </div>
@@ -486,4 +476,5 @@ class ReviewWriteModal extends Component {
     );
   }
 }
+
 export default ReviewWriteModal;

@@ -20,9 +20,6 @@ import EmptyListNoti from 'components/mypage/EmptyListNoti';
 import OrderItem from 'components/mypage/order/OrderItem';
 import Pagination from 'components/common/Pagination';
 import OrderAddressEditModal from 'components/mypage/order/OrderAddressEditModal';
-import ReviewWriteModal, {
-  reviewModalType,
-} from 'components/mypage/review/ReviewWriteModal';
 import DeliveryTrackingModal from 'components/mypage/shipping/DeliveryTrackingModal';
 import SellerClaimModal, {
   withSellerClaimModal,
@@ -31,10 +28,12 @@ import PointSavingModal, {
   pointSavingTypes,
 } from 'components/mypage/point/PointSavingModal';
 import OrderConfirmModal from 'components/mypage/order/OrderConfirmModal';
+import withReviewModal from 'components/mypage/review/withReviewModal';
 
 /**
  * 마이페이지 - 주문 배송 (주문 완료 목록)
  */
+@withReviewModal
 @withSellerClaimModal
 @withRouter
 @inject(
@@ -200,7 +199,6 @@ class OrderCompleteList extends Component {
       mypagereview,
       mypagePoint: mypagePointStore,
     } = this.props;
-
     const { orderConfirmModalData } = orderCompleteListStore;
 
     return (
@@ -252,33 +250,6 @@ class OrderCompleteList extends Component {
             />
           </div>
         </MypageContentsWrap>
-
-        {/* 리뷰 작성 모달 */}
-        <ReviewWriteModal
-          isOpen={mypagereview.isReviewWriteModalOpen}
-          handleModalClose={mypagereview.closeReviewModal}
-          modalData={mypagereview.orderProdGroup} // 선택한 주문 데이터
-          status={reviewModalType.WRITE}
-          onSuccessSubmit={() => {
-            mypagereview.closeReviewModal();
-            orderCompleteListStore.getMyOrders(); //  목록 새로고침
-            this.props.alert.showAlert('리뷰가 작성되었습니다.');
-          }}
-        />
-
-        {/* 리뷰 수정 모달 */}
-        <ReviewWriteModal
-          isOpen={mypagereview.isReviewModifyModalOpen}
-          handleModalClose={mypagereview.closeReviewModal}
-          modalData={mypagereview.orderProdGroup} // 선택한 주문 데이터
-          status={reviewModalType.MODIFY}
-          reviewData={mypagereview.reviewData}
-          onSuccessModify={() => {
-            mypagereview.closeReviewModal();
-            orderCompleteListStore.getMyOrders(); //  목록 새로고침
-            this.props.alert.showAlert('리뷰가 수정되었습니다.');
-          }}
-        />
 
         {/* 배송 조회 모달. 컨트롤은 store에서 */}
         <DeliveryTrackingModal />
