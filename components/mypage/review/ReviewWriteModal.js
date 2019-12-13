@@ -357,12 +357,9 @@ class ReviewWriteModal extends Component {
     const item = modalData || {};
     const isCreate = this.props.status === reviewModalType.WRITE;
 
-    console.log(`isCreate`, isCreate);
-
     return (
       <ModalLayout
         pageTitle={isCreate ? '리뷰 등록' : '리뷰 수정'}
-        direction={slideDirection.BOTTOM}
         isOpen={isModalOpen}
         onClose={this.props.handleModalClose}
       >
