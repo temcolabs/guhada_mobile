@@ -448,7 +448,7 @@ class ReviewWriteModal extends Component {
             </div>
           </div>
 
-          <SubmitButtonWrapper fixedAtBottom>
+          <SubmitButtonWrapper fixedToBottom>
             <CancelButton
               onClick={() => {
                 this.props.handleModalClose();

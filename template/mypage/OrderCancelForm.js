@@ -311,7 +311,7 @@ class OrderCancelForm extends Component {
 
                   {isRefundInfoVisible && <RefundInfo />}
 
-                  <SubmitButtonWrapper fixedAtBottom>
+                  <SubmitButtonWrapper fixedToBottom>
                     <CancelButton
                       onClick={
                         this.props.orderClaimList.redirectToOrderClaimList

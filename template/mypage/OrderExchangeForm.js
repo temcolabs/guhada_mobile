@@ -875,7 +875,10 @@ class OrderExchangeForm extends Component {
                     </div>
                   </div>
 
-                  <SubmitButtonWrapper wrapperStyle={{ marginTop: '60px' }}>
+                  <SubmitButtonWrapper
+                    fixedToBottom
+                    wrapperStyle={{ marginTop: '60px' }}
+                  >
                     <CancelButton onClick={() => this.props.router.back()}>
                       취소
                     </CancelButton>

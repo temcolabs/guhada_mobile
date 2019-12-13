@@ -44,7 +44,7 @@ export function CancelButton({ children, style, ...rest }) {
  */
 export function SubmitButtonWrapper({
   responsive = false,
-  fixedAtBottom = false,
+  fixedToBottom = false,
   wrapperStyle = {},
   children,
   wrapperClassname,
@@ -53,7 +53,7 @@ export function SubmitButtonWrapper({
     <div
       className={cn(css.submitButtonWrapper, wrapperClassname, {
         [css.responsive]: responsive,
-        [css.fixedAtBottom]: fixedAtBottom,
+        [css.fixedToBottom]: fixedToBottom,
       })}
       style={wrapperStyle}
     >

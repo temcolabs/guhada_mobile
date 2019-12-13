@@ -141,7 +141,7 @@ function OrderReturnDone({ router }) {
           </div>
         </div>
 
-        <SubmitButtonWrapper fixedAtBottom>
+        <SubmitButtonWrapper fixedToBottom>
           <Link
             as={`/mypage/orders/claim/list`}
             href={getRouteHref(`/mypage/orders/claim/list`)}
