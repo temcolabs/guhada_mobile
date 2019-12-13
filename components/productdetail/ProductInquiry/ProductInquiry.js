@@ -4,23 +4,21 @@ import cn from 'classnames';
 import InquiryItem from './InquiryItem';
 import { inject, observer } from 'mobx-react';
 import NewInquiry from './NewInquiry';
-import SellerClaimModal from 'components/claim/sellerclaim/SellerClaimModal';
+import SellerClaimModal, {
+  withSellerClaimModal,
+} from 'components/claim/sellerclaim/SellerClaimModal';
 import _ from 'lodash';
 import { loginStatus } from 'childs/lib/constant';
 import { sendBackToLogin } from 'childs/lib/router';
 
+@withSellerClaimModal
 @inject('productdetail', 'login', 'alert', 'sellerClaim')
 @observer
 class ProductInquiry extends Component {
   state = {
     tab: '',
     isNewInquiryVisible: false,
-    isSellerClaimVisible: false,
   };
-
-  componentWillUnmount() {
-    this.props.sellerClaim.resetSellerClaimData();
-  }
 
   setTab = tab => {
     this.setState({ tab });
@@ -28,30 +26,6 @@ class ProductInquiry extends Component {
 
   setIsNewInquiryVisible = isNewInquiryVisible => {
     this.setState({ isNewInquiryVisible: isNewInquiryVisible });
-  };
-
-  getIsSellerClaimVisible = sellerId => {
-    this.props.sellerClaim.checkIsSellerClaimPossible({
-      sellerId,
-      whenPossible: () => {
-        this.setState({ isSellerClaimVisible: true });
-      },
-      whenImpossible: () => {
-        this.props.alert.showConfirm({
-          content:
-            '해당 판매자에게 주문한 기록을 찾을 수 없습니다. 상품 문의를 통해서만 문의가 가능합니다.',
-          cancelText: '취소',
-          confirmText: '상품 문의하기',
-          onConfirm: () => {
-            this.setState({ isNewInquiryVisible: true });
-          },
-        });
-      },
-    });
-  };
-
-  setIsSellerClaimModalVisible = isVisible => {
-    this.setState({ isSellerClaimVisible: isVisible });
   };
 
   render() {
@@ -106,7 +80,20 @@ class ProductInquiry extends Component {
             </button>
             <button
               onClick={() =>
-                this.getIsSellerClaimVisible({ sellerId: deals.sellerId })
+                this.props.handleOpenSellerClaimModal({
+                  sellerId: deals.sellerId,
+                  onImpossible: () => {
+                    this.props.alert.showConfirm({
+                      content:
+                        '해당 판매자에게 주문한 기록을 찾을 수 없습니다. 상품 문의를 통해서만 문의가 가능합니다.',
+                      cancelText: '취소',
+                      confirmText: '상품 문의하기',
+                      onConfirm: () => {
+                        this.setState({ isNewInquiryVisible: true });
+                      },
+                    });
+                  },
+                })
               }
             >
               판매자 문의하기
@@ -176,11 +163,11 @@ class ProductInquiry extends Component {
           onClose={() => this.setIsNewInquiryVisible(false)}
         />
 
-        {/* 판매나 주의 */}
+        {/* 판매자 문의하기 모달 */}
         <SellerClaimModal
-          sellerId={deals?.sellerId}
-          isOpen={this.state.isSellerClaimVisible && sellerClaim.isPossible}
-          onClose={() => this.setIsSellerClaimModalVisible(false)}
+          isOpen={this.props.isSellerClaimModalOpen}
+          sellerId={this.props.sellerIdToClaim}
+          onClose={this.props.handleCloseSellerClaimModal}
         />
       </div>
     );

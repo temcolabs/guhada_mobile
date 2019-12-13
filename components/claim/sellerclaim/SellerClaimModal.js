@@ -245,7 +245,7 @@ function SellerClaimModal({ isOpen = false, sellerId, onClose = () => {} }) {
   ));
 }
 
-export function withSellerClaimModal(BaseComponent) {
+export const withSellerClaimModal = BaseComponent => {
   @inject('sellerClaim')
   @observer
   class wrappedComponent extends React.Component {
@@ -259,14 +259,27 @@ export function withSellerClaimModal(BaseComponent) {
       };
     }
 
-    handleOpenSellerClaimModal = (order = {}) => {
+    handleOpenSellerClaimModal = ({
+      sellerId,
+      onPossible = () => {},
+      onImpossible = () => {},
+    }) => {
       this.props.sellerClaim.checkIsSellerClaimPossible({
-        sellerId: order.sellerId,
-        whenPossible: () => {
-          this.setState({
-            sellerIdToClaim: order.sellerId,
-            isUserRequestedSellerClaim: true,
-          });
+        sellerId: sellerId,
+        onPossible: () => {
+          this.setState(
+            {
+              sellerIdToClaim: sellerId,
+              isUserRequestedSellerClaim: true,
+            },
+            () => {
+              onPossible();
+            }
+          );
+        },
+        onImpossible: () => {
+          this.handleCloseSellerClaimModal();
+          onImpossible();
         },
       });
     };
@@ -304,6 +317,6 @@ export function withSellerClaimModal(BaseComponent) {
   }
 
   return wrappedComponent;
-}
+};
 
 export default SellerClaimModal;

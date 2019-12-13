@@ -39,14 +39,14 @@ export default class SellerClaimStore {
    * 판매자 문의 모달을 열기 위한 데이터를 가져온다.
    *
    * @param isPossible 판매자 문의가 가능한지
-   * @param whenPossible 판매자 문의가 가능할 때 콜백
-   * @param whenImpossible 판매자 문의가 불가능할 때 콜백
+   * @param onPossible 판매자 문의가 가능할 때 콜백
+   * @param onImpossible 판매자 문의가 불가능할 때 콜백
    */
   @action
   checkIsSellerClaimPossible = async ({
     sellerId,
-    whenPossible = () => {},
-    whenImpossible = () => {},
+    onPossible = () => {},
+    onImpossible = () => {},
   }) => {
     // 판매자 문의는 로그인 상태에서만 가능하다.
     if (!this.root.login.isLoggedIn) {
@@ -54,16 +54,9 @@ export default class SellerClaimStore {
       return;
     }
 
-    console.log(
-      `this.sellerId === sellerId`,
-      this.sellerId,
-      sellerId,
-      this.sellerId === sellerId
-    );
-
     // 이미 타겟 셀러아이디에 대한 확인을 끝냈다면 API 추가 실행하지 않는다
     if (this.sellerId === sellerId && this.isPossible === true) {
-      isFunction(whenPossible) && whenPossible();
+      isFunction(onPossible) && onPossible();
       return;
     }
 
@@ -88,15 +81,15 @@ export default class SellerClaimStore {
         this.sellerId = sellerId;
         this.isPossible = true;
         this.myDealsOrdered = data.data;
-        isFunction(whenPossible) && whenPossible();
+        isFunction(onPossible) && onPossible();
       } else {
         this.resetSellerClaimData();
-        isFunction(whenImpossible) && whenPossible();
+        isFunction(onImpossible) && onImpossible();
       }
     } catch (err) {
       console.log(err, '판매자문의하기 조회 err');
       this.resetSellerClaimData();
-      isFunction(whenImpossible) && whenPossible();
+      isFunction(onImpossible) && onImpossible();
     }
   };
 
@@ -196,6 +189,7 @@ export default class SellerClaimStore {
       await API.claim.post(`/users/${userId}/seller-claims`, body);
       this.root.alert.showAlert('판매자 문의가 등록되었습니다.');
     } catch (e) {
+      this.root.alert.showAlert('오류가 발생했습니다.');
       console.error(e);
     }
   };

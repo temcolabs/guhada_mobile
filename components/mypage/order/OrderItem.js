@@ -86,7 +86,13 @@ class OrderItem extends React.Component {
           />
         </div>
         <div className={css.sellerInfo}>
-          <button onClick={() => this.props.handleOpenSellerClaimModal(order)}>
+          <button
+            onClick={() =>
+              this.props.handleOpenSellerClaimModal({
+                sellerId: order.sellerId,
+              })
+            }
+          >
             {order.sellerName || '셀러'}에 문의하기
           </button>
         </div>

@@ -19,15 +19,18 @@ import { scrollToTarget } from 'childs/lib/common/scroll';
 import OrderCancelDashboard from 'components/mypage/orderCancel/OrderCancelDashboard';
 import EmptyListNoti from 'components/mypage/EmptyListNoti';
 import LoadingPortal from 'components/common/loading/Loading';
+import SellerClaimModal, {
+  withSellerClaimModal,
+} from 'components/claim/sellerclaim/SellerClaimModal';
 // import ReviewWriteModal, {
 //   reviewModalType,
 // } from 'components/mypage/review/ReviewWriteModal';
-// import SellerClaimModal from 'components/claim/sellerclaim/SellerClaimModal';
 // import DeliveryTrackingModal from 'components/mypage/shipping/DeliveryTrackingModal';
 
 /**
  * 마이페이지 - 주문 배송 (주문 취소 ・ 교환 ・ 반품 목록)
  */
+@withSellerClaimModal
 @withRouter
 @inject('orderClaimList', 'mypagereview')
 @observer
@@ -205,6 +208,10 @@ class OrderClaimList extends Component {
     });
   };
 
+  SellerClaimModal = () => {
+    return SellerClaimModal;
+  };
+
   render() {
     const { orderClaimList, mypagereview } = this.props;
 
@@ -281,11 +288,11 @@ class OrderClaimList extends Component {
         /> */}
 
         {/* 판매자 문의하기 모달 */}
-        {/* <SellerClaimModal
-          sellerId={this.state.sellerClaimModal.sellerId}
-          isOpen={this.state.sellerClaimModal.isOpen}
-          onClose={this.handleCloseSellerClaimModal}
-        /> */}
+        <SellerClaimModal
+          isOpen={this.props.isSellerClaimModalOpen}
+          sellerId={this.props.sellerIdToClaim}
+          onClose={this.props.handleCloseSellerClaimModal}
+        />
         {/* 배송 조회 모달. 컨트롤은 store에서 */}
         {/* <DeliveryTrackingModal /> */}
       </MypageLayout>
