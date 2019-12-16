@@ -67,7 +67,7 @@ class ClaimListSeller extends Component {
         size: this.pageSize,
       });
 
-      scrollToTarget(this.props.scrollTargetOnChangePage);
+      window.scroll(0, 0);
     });
   };
 

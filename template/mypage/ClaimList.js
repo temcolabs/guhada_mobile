@@ -1,18 +1,55 @@
-import React from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import MypageLayout from 'components/mypage/MypageLayout';
+import css from './ClaimList.module.scss';
+import ClaimListProduct from 'components/mypage/claim/ClaimListProduct';
+import ClaimListSeller from 'components/mypage/claim/ClaimListSeller';
 
 /**
- * 마이페이지 문의하기
- * @param {*} param0
+ * 클레임 탭 종류
  */
-export default function ClaimList() {
+export default function MyReviewList() {
+  const claimTabs = {
+    PRODUCT: 'PRODUCT', // 상품
+    SELLER: 'SELLER', // 셀러
+  };
+  const [tab, setTab] = useState(claimTabs.PRODUCT);
+
+  const handleClickTab = useCallback(tab => {
+    setTab(tab);
+  }, []);
+
   return (
     <MypageLayout
       topLayout={'main'}
       pageTitle={'마이페이지'}
       headerShape={'mypage'}
     >
-      <div>OrderExchangeDone</div>
+      <div className={css.wrap} id="claimListWrap">
+        <div className={css.tabWrap}>
+          <div
+            className={`${css.tabItem} ${
+              tab === claimTabs.PRODUCT ? css.select : ''
+            }`}
+            onClick={() => handleClickTab(claimTabs.PRODUCT)}
+          >
+            상품 문의
+          </div>
+          <div
+            className={`${css.tabItem} ${
+              tab === claimTabs.SELLER ? css.select : ''
+            }`}
+            onClick={() => handleClickTab(claimTabs.SELLER)}
+          >
+            판매자 문의
+          </div>
+        </div>
+
+        {tab === claimTabs.PRODUCT ? (
+          <ClaimListProduct />
+        ) : tab === claimTabs.SELLER ? (
+          <ClaimListSeller />
+        ) : null}
+      </div>
     </MypageLayout>
   );
 }

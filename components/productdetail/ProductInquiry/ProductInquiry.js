@@ -10,6 +10,7 @@ import SellerClaimModal, {
 import _ from 'lodash';
 import { loginStatus } from 'childs/lib/constant';
 import { sendBackToLogin } from 'childs/lib/router';
+import inquiryStatus from 'childs/lib/constant/inquiry/inquiryStatus';
 
 @withSellerClaimModal
 @inject('productdetail', 'login', 'alert', 'sellerClaim')
@@ -29,7 +30,7 @@ class ProductInquiry extends Component {
   };
 
   render() {
-    const { productdetail, login, tabRefMap, sellerClaim } = this.props;
+    const { productdetail, login, tabRefMap } = this.props;
     const { deals, inquiryList, inquiryPage } = productdetail;
     let handleInquiryIcon =
       inquiryList.totalPages === inquiryPage + 1 ? true : false;
@@ -114,22 +115,22 @@ class ProductInquiry extends Component {
             </div>
             <div
               className={cn(css.tabItem, {
-                [css.selectTab]: this.state.tab === 'COMPLETED',
+                [css.selectTab]: this.state.tab === inquiryStatus.COMPLETED,
               })}
-              onClick={() => (
-                this.setTab('COMPLETED'),
-                productdetail.getInquiry(0, 'COMPLETED')
-              )}
+              onClick={() => {
+                this.setTab(inquiryStatus.COMPLETED);
+                productdetail.getInquiry(0, inquiryStatus.COMPLETED);
+              }}
             >
               <div className={css.betweenTab}>답변완료</div>
             </div>
             <div
               className={cn(css.tabItem, {
-                [css.selectTab]: this.state.tab === 'PENDING',
+                [css.selectTab]: this.state.tab === inquiryStatus.PENDING,
               })}
               onClick={() => {
-                this.setTab('PENDING');
-                productdetail.getInquiry(0, 'PENDING');
+                this.setTab(inquiryStatus.PENDING);
+                productdetail.getInquiry(0, inquiryStatus.PENDING);
               }}
             >
               <div className={css.betweenTab}>미답변</div>
