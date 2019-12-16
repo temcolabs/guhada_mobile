@@ -674,6 +674,12 @@ export default class SearchItemStore {
     return this.checkedKeys.slice();
   }
 
+  @action
+  initCheckedKeys = () => {
+    this.checkedKeys = [];
+    this.checkedKeysId = [];
+  };
+
   checkDuplicatedCheckedKeys(info) {
     let idx = -1;
     for (let i = 0; i < this.checkedKeys.length; i++) {
@@ -688,27 +694,28 @@ export default class SearchItemStore {
       this.checkedKeysId.splice(idx, 1);
     }
   }
+
   @action
   onCheck = (checkedKeys, info) => {
     let classNames = info.node.props.className;
-
     if (classNames === 'ableCheckbox') {
       this.checkDuplicatedCheckedKeys(info);
     } else {
       this.setExpandedKeys(checkedKeys);
     }
   };
-  @observable
-  selectCategory;
+  @observable selectCategory;
 
   @action
   onSelect = (selectedKeys, info) => {
     let classNames = info.node.props.className;
     if (classNames === 'ableCheckbox') {
       this.checkDuplicatedCheckedKeys(info);
+    } else if (selectedKeys.length === 0) {
     } else {
       this.setExpandedKeys(selectedKeys);
       this.selectCategory = info.node.props;
+      this.initCheckedKeys();
     }
   };
 
@@ -730,10 +737,9 @@ export default class SearchItemStore {
   searchFilter = () => {
     let brandList = [];
     let filterList = [];
-    let cateogryList = [];
+    let category;
     let subCategoryList = [];
-    console.log('toJS(this.selectCategory)', toJS(this.selectCategory));
-    console.log('toJS(this.checkedKeysId)', toJS(this.checkedKeysId));
+    let query = Router.router.query;
     // filter list push
     if (Array.isArray(toJS(this.filterData))) {
       this.filterData.map(filter => {
@@ -750,23 +756,24 @@ export default class SearchItemStore {
       });
     }
 
-    // brandList = brandList
-    //   .map(e => {
-    //     return e;
-    //   })
-    //   .join(',');
-
     brandList = addCommaToArray(brandList);
     filterList = addCommaToArray(filterList);
+    subCategoryList = addCommaToArray(this.checkedKeysId);
+    category = isTruthy(this.selectCategory)
+      ? toJS(this.selectCategory.id)
+      : query.category;
 
-    // filterList = filterList
-    //   .map(e => {
-    //     return e;
-    //   })
-    //   .join(',');
-
-    console.log('filterList', filterList);
+    console.log('cateogry', category);
+    console.log('subCategoryList', subCategoryList);
     console.log('brandList', brandList);
+    console.log('filterList', filterList);
+
+    this.toSearch({
+      category: category,
+      brand: brandList,
+      filter: filterList,
+      subcategory: subCategoryList,
+    });
   };
 
   @observable filterBrand = [];

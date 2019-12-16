@@ -65,6 +65,8 @@ $toolbarHeader:60px;
         font-weight: 500;
         color: #fff;
         margin-top: 25px;
+        position: fixed;
+        bottom: 0;
 
         & .init {
             width: 33%;

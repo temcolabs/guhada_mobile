@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import css from './SearchCategory.module.scss';
 import './SearchCategory.scss';
 import cn from 'classnames';
@@ -14,17 +14,18 @@ const enhancer = compose(withRouter);
 
 const SearchCategory = enhancer(({ searchitem, router }) => {
   const [isOpen, setisOpen] = useState(false);
-  const entireCategories = searchChildrenCheck(
-    toJS(searchitem.item?.categories)
+  const [entireCategories] = useState(
+    searchChildrenCheck(toJS(searchitem.item?.categories))
+  );
+  const [categoryId] = useState(router.query.category);
+  const [categories, setCategories] = useState(
+    getCategory(entireCategories, categoryId)
   );
 
-  let categoryId = isTruthy(router.query.subcategory)
-    ? router.query.subcategory
-    : router.query.category;
-
-  const categories = isTruthy(searchitem.selectCategory)
-    ? getCategory(entireCategories, categoryId)
-    : searchitem.selectCategory;
+  useEffect(() => {
+    setCategories(getCategory(entireCategories, categoryId));
+    searchitem.setExpandedKeys(categories.key);
+  }, [entireCategories, categoryId, searchitem, categories]);
 
   return useObserver(() => (
     <div className={css.wrap}>
@@ -35,7 +36,11 @@ const SearchCategory = enhancer(({ searchitem, router }) => {
         }}
       >
         카테고리
-        <span>{categories?.fullDepthName}</span>
+        <span>
+          {isTruthy(searchitem.selectCategory)
+            ? searchitem.selectCategory?.fullDepthName
+            : categories?.fullDepthName}
+        </span>
       </div>
       {isOpen && (
         <div className={css.categoryWrap}>
