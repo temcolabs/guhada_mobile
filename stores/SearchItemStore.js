@@ -14,6 +14,7 @@ import _ from 'lodash';
 import criteoTracker from 'childs/lib/tracking/criteo/criteoTracker';
 import { devLog } from 'childs/lib/common/devLog.js';
 import isTruthy from 'childs/lib/common/isTruthy.js';
+import addCommaToArray from 'childs/lib/string/addCommaToArray.js';
 
 const isServer = typeof window === 'undefined';
 
@@ -708,7 +709,6 @@ export default class SearchItemStore {
     } else {
       this.setExpandedKeys(selectedKeys);
       this.selectCategory = info.node.props;
-      console.log('info.node.props', info.node.props);
     }
   };
 
@@ -730,7 +730,11 @@ export default class SearchItemStore {
   searchFilter = () => {
     let brandList = [];
     let filterList = [];
-
+    let cateogryList = [];
+    let subCategoryList = [];
+    console.log('toJS(this.selectCategory)', toJS(this.selectCategory));
+    console.log('toJS(this.checkedKeysId)', toJS(this.checkedKeysId));
+    // filter list push
     if (Array.isArray(toJS(this.filterData))) {
       this.filterData.map(filter => {
         filter.attributes.map(attr => {
@@ -739,23 +743,27 @@ export default class SearchItemStore {
       });
     }
 
+    // brand list push
     if (Array.isArray(toJS(this.filterBrand))) {
       this.filterBrand.map(brand => {
         brandList.push(brand.id);
       });
     }
 
-    brandList = brandList
-      .map(e => {
-        return e;
-      })
-      .join(',');
+    // brandList = brandList
+    //   .map(e => {
+    //     return e;
+    //   })
+    //   .join(',');
 
-    filterList = filterList
-      .map(e => {
-        return e;
-      })
-      .join(',');
+    brandList = addCommaToArray(brandList);
+    filterList = addCommaToArray(filterList);
+
+    // filterList = filterList
+    //   .map(e => {
+    //     return e;
+    //   })
+    //   .join(',');
 
     console.log('filterList', filterList);
     console.log('brandList', brandList);
