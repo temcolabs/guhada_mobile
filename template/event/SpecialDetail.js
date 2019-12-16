@@ -8,13 +8,11 @@ import { LinkRoute } from 'childs/lib/router';
 import Router from 'next/router';
 import copy from 'copy-to-clipboard';
 import DetailFilter from 'components/event/special/DetailFilter';
-function SpecialDetail({ eventmain, alert }) {
-  const [detail, setDetail] = useState({});
+
+import moment from 'moment';
+function SpecialDetail({ special, alert }) {
   let itemList = [];
   for (let i = 0; i < 20; i++) itemList.push('');
-  useEffect(() => {
-    setDetail(eventmain.eventDetail);
-  }, [eventmain.eventDetail]);
 
   const copyUrlToClipboard = () => {
     const productUrl = `${window.location.protocol}//${window.location.host}${
@@ -25,12 +23,43 @@ function SpecialDetail({ eventmain, alert }) {
 
     alert.showAlert('상품 URL이 클립보드에 복사되었습니다.');
   };
+
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+
+  useEffect(() => {
+    special.specialDetail.startDate
+      ? setStartDate(
+          moment(special.specialDetail.startDate).format('YYYY. MM. DD')
+        )
+      : setStartDate(null);
+
+    special.specialDetail.endDate
+      ? setEndDate(moment(special.specialDetail.endDate).format('YYYY. MM. DD'))
+      : setEndDate(null);
+  }, [special.specialDetail]);
+
+  // const categoryList = [
+  //   { label: '가방', tab: true },
+  //   { label: '지갑', tab: false },
+  //   { label: '니트', tab: false },
+  // ];
+
+  // const categoryTabHandler = index => {
+  //   for (let i = 0; i < categoryList.length; i++) {
+  //     categoryList[i].tab = false;
+  //     if (categoryList[i] === index) {
+  //       categoryList[i].tab = true;
+  //     }
+  //   }
+  // };
+
   return (
     <DefaultLayout headerShape={'eventmain'} pageTitle={'기획전'}>
       <div className={css.wrap}>
         <div className={css.headerWrap}>
           <div className={css.titleWrap}>
-            <div className={css.title}>겨울 특가 아우터 기획전</div>
+            <div className={css.title}>{special.specialDetail.detailTitle}</div>
             <div
               className={css.share}
               onClick={() => {
@@ -38,32 +67,61 @@ function SpecialDetail({ eventmain, alert }) {
               }}
             />
           </div>
-          <div className={css.date}>2019. 05. 01 ~ 2019. 05. 31</div>
+          <div className={css.date}>{`${startDate ? startDate : ''} ~ ${
+            endDate ? endDate : ''
+          }`}</div>
         </div>
 
-        <div className={css.eventMainWrap} />
-
+        <div
+          className={css.eventMainWrap}
+          style={{
+            backgroundImage: `url(${special.specialDetail.mobileImageUrl})`,
+          }}
+        />
+        {/* <div className={css.category}>
+          {categoryList.map((special.specialDetail, index) => {
+            return (
+              <div
+                className={[css.categoryItem, special.specialDetail.tab ? css.tabOn : null].join(
+                  ' '
+                )}
+                onClick={() => {
+                  categoryTabHandler(index);
+                }}
+                key={index}
+              >
+                {special.specialDetail.label}
+              </div>
+            );
+          })}
+        </div> */}
         <div className={css.specialItemList}>
           <div className={css.itemTitle}>기획전 ITEM</div>
 
           <div className={css.dashBoard}>
-            <div className={css.totalCount}>총 {123}개</div>
-            <div className={css.orderWrap}>
+            <div className={css.totalCount}>
+              총
+              {special.totalItemCount !== undefined
+                ? Number(special.totalItemCount)
+                : 0}
+              개
+            </div>
+            {/* <div className={css.orderWrap}>
               <div className={css.order}>
                 <DetailFilter />
               </div>
-            </div>
+            </div> */}
           </div>
 
           <div className={css.itemWrap}>
-            {itemList.map(() => {
+            {special.specialDetail?.planListDetails?.map((data, index) => {
               return (
                 <LinkRoute
-                // href={`/productdetail?deals=${item.dealId}`}
-                // key={item.dealId}
+                  href={`/productdetail?deals=${data.dealId}`}
+                  key={data.dealId}
                 >
                   <a>
-                    <SectionItem />
+                    <SectionItem item={data} />
                   </a>
                 </LinkRoute>
               );
@@ -75,4 +133,4 @@ function SpecialDetail({ eventmain, alert }) {
   );
 }
 
-export default inject('eventmain', 'alert')(SpecialDetail);
+export default inject('special', 'alert')(SpecialDetail);

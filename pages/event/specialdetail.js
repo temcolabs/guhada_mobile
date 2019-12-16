@@ -10,38 +10,38 @@ import _ from 'lodash';
 import moment from 'moment';
 import { dateFormat } from 'childs/lib/constant';
 
-@inject('eventmain')
+@inject('special')
 @observer
 class specialdetail extends Component {
   static async getInitialProps({ req }) {
     try {
       const eventId = isServer ? req.params?.id : Router.query.id;
-      const { data } = await API.settle.get(`/event/list/detail?`, {
+      const { data } = await API.settle.get(`/plan/list/detail?`, {
         params: {
           eventId,
         },
       });
-      const eventDetail = data.data;
+      const specialDetail = data.data;
 
       const headData = {
-        pageName: eventDetail.eventTitle,
-        description: `구하다 기획전 "${eventDetail.eventTitle}". ${moment(
-          eventDetail.eventStartDate
+        pageName: specialDetail.eventTitle,
+        description: `구하다 기획전 "${specialDetail.eventTitle}". ${moment(
+          specialDetail.eventStartDate
         ).format(`${dateFormat.YYYYMMDD_UI} 부터`)} ${
-          !!eventDetail.eventEndDate
-            ? moment(eventDetail.eventEndDate).format(
+          !!specialDetail.eventEndDate
+            ? moment(specialDetail.eventEndDate).format(
                 `${dateFormat.YYYYMMDD_UI} 까지`
               )
             : ''
         }`,
-        image: _.get(eventDetail, 'imgUrlM'),
+        image: _.get(specialDetail, 'imgUrlM'),
       };
 
       return {
         headData,
         initialState: {
-          eventmain: {
-            eventDetail,
+          special: {
+            specialDetail,
           },
         },
       };
@@ -53,10 +53,11 @@ class specialdetail extends Component {
   componentDidMount() {
     const url = document.location.href;
     const id = url.substr(url.lastIndexOf('/') + 1);
-    this.props.eventmain.getEventDetail(id);
+
+    this.props.special.getSpecialDetail({ id });
   }
   render() {
-    const { eventmain, headData } = this.props;
+    const { special, headData } = this.props;
 
     return (
       <>
@@ -66,7 +67,7 @@ class specialdetail extends Component {
           image={headData?.image}
         />
         <div>
-          {eventmain.status.detailPage ? <SpecialDetail /> : <LoadingPortal />}
+          {special.status.detailPage ? <SpecialDetail /> : <LoadingPortal />}
         </div>
       </>
     );

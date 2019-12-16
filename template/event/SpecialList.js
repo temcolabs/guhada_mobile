@@ -6,26 +6,26 @@ import ListItem from 'components/event/special/ListItem';
 import Filter from 'components/event/special/Filter';
 import { useObserver } from 'mobx-react-lite';
 
-function SpecialList({ eventmain }) {
+function SpecialList({ special }) {
   return useObserver(() => (
-    <DefaultLayout headerShape={'eventmain'} pageTitle={'기획전'}>
+    <DefaultLayout headerShape={'special'} pageTitle={'기획전'}>
       <div className={css.wrap}>
         <div className={css.dashBoard}>
           <div className={css.totalCount}>
-            총 {eventmain.eventList.length}개
+            총 {special.specialList.length}개
           </div>
           <div className={css.filter}>
             <Filter
               onChange={value => {
-                eventmain.getEventList(value);
+                special.getSpecialList(value);
               }}
             />
           </div>
         </div>
 
-        {eventmain?.eventList?.length > 0 ? (
-          <div className={css.eventListWrap}>
-            {eventmain?.eventList?.map((data, index) => {
+        {special?.specialList?.length > 0 ? (
+          <div className={css.specialListWrap}>
+            {special?.specialList?.map((data, index) => {
               return <ListItem key={index} data={data} />;
             })}
           </div>
@@ -42,4 +42,4 @@ function SpecialList({ eventmain }) {
   ));
 }
 
-export default inject('eventmain')(SpecialList);
+export default inject('special')(SpecialList);

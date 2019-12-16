@@ -18,34 +18,27 @@ function ListItem({ data }) {
   }, [data]);
   return (
     <div className={css.eventItem}>
-      {data.detailPage === true ? (
-        <Link href={data.detailPageUrl}>
-          <div className={css.detailTrue}>
-            <div
-              className={css.bannerImage}
-              style={{
-                backgroundImage: `url(${data.imgUrlM})`,
-              }}
-            />
-
-            <div className={css.eventTitle}>{data.eventTitle}</div>
-            <div className={css.eventDate}>{`${startDate ? startDate : ''} ~ ${
-              endDate ? endDate : ''
-            }`}</div>
-          </div>
-        </Link>
-      ) : (
-        <Fragment>
+      <Link
+        href={data.detailPageUrl ? data.detailPageUrl : data.detailPageLink}
+      >
+        <div
+          className={
+            data.detailPageUrl || data.detailPageLink ? css.detailTrue : null
+          }
+        >
           <div
             className={css.bannerImage}
-            style={{ backgroundImage: `url(${data.imgUrl})` }}
+            style={{
+              backgroundImage: `url(${data.imgUrlM})`,
+            }}
           />
+
           <div className={css.eventTitle}>{data.eventTitle}</div>
           <div className={css.eventDate}>{`${startDate ? startDate : ''} ~ ${
             endDate ? endDate : ''
           }`}</div>
-        </Fragment>
-      )}
+        </div>
+      </Link>
     </div>
   );
 }

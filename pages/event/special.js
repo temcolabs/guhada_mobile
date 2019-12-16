@@ -4,7 +4,7 @@ import LoadingPortal from 'components/common/loading/Loading';
 import { observer, inject } from 'mobx-react';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
 
-@inject('eventmain')
+@inject('special')
 @observer
 class special extends Component {
   static async getInitialProps({ req }) {
@@ -12,16 +12,16 @@ class special extends Component {
   }
 
   componentDidMount() {
-    this.props.eventmain.getEventList();
+    this.props.special.getSpecialList();
   }
 
   render() {
-    const { eventmain } = this.props;
+    const { special } = this.props;
 
     return (
       <>
         <HeadForSEO pageName="기획전" />
-        <div>{eventmain.status.page ? <SpecialList /> : <LoadingPortal />}</div>
+        <div>{special.status.page ? <SpecialList /> : <LoadingPortal />}</div>
       </>
     );
   }
