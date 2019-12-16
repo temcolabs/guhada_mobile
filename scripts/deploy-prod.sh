@@ -1,6 +1,6 @@
 # 배포 스크립트
 APP_NAME=guhada-mobile-prod
-HOST=mobile
+HOST1=mobile
 HOST2=mobile2
 USER=ec2-user
 REPOSITORY=git@github.com:temcolabs/guhada_mobile.git

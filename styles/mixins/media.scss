@@ -21,30 +21,21 @@ $lgBreak: 1600px; // 이하는 일반 데스크탑, 이상은 큰 화면(large d
 
 // large desktop 보다 작은 화면 일반 데스크탑에 적용.
 @mixin mediaMD {
-  @media (max-width: #{calc(#{$lgBreak} - 1px)
-}
-
-) {
+  @media (max-width: #{calc(#{$lgBreak} - 1px)}) {
     @content;
   }
 }
 
 // normal desktop 보다 작은 화면. 태블릿 사이즈를 의미함
 @mixin mediaSM {
-  @media (max-width: #{calc(#{$mdBreak} - 1px)
-}
-
-) {
+  @media (max-width: #{calc(#{$mdBreak} - 1px)}) {
     @content;
   }
 }
 
 // 모바일 사이즈
 @mixin mediaXS {
-  @media (max-width: #{calc(#{$smBreak} - 1px)
-}
-
-) {
+  @media (max-width: #{calc(#{$smBreak} - 1px)}) {
     @content;
   }
 }
@@ -57,6 +48,20 @@ $lgBreak: 1600px; // 이하는 일반 데스크탑, 이상은 큰 화면(large d
 
 @mixin mediaMax($break) {
   @media (max-width: $break) {
+    @content;
+  }
+}
+
+// samsung gallaxy series
+@mixin mediaGallaxy {
+  @media (max-width: 360px) {
+    @content;
+  }
+}
+
+// iphone5
+@mixin mediaIhpone5 {
+  @media (max-width: 320px) {
     @content;
   }
 }

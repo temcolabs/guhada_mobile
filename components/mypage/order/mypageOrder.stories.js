@@ -16,11 +16,11 @@ import {
 import OrderItem from './OrderItem';
 // import OrderActionButtonConductor from './OrderActionButtonConductor';
 // import OrderItemTable from './OrderItemTable';
-// import PaymentInfo from './PaymentInfo';
+import PaymentInfo from './PaymentInfo';
 // import withCenteredDeco from '.storybook/decorators/withCenteredDeco';
 // import PaymentInfoPopover from './PaymentInfoPopover';
 // import ClaimPaymentInfo from './ClaimPaymentInfo';
-// import OrderConfirmModal from './OrderConfirmModal';
+import OrderConfirmModal from './OrderConfirmModal';
 // import PaymentAccountInfo from './PaymentAccountInfo';
 
 const SAMPLE_ORDER_DATA = {
@@ -36,7 +36,7 @@ const SAMPLE_ORDER_DATA = {
   prodName: 'prada shoulder bag',
   imageName: 'prada_shoulder_bag.jpg',
   imageUrl:
-    'https://d3ikprf0m31yc7.cloudfront.net/images/products/thumb/0c7b63e4f8104742ae57ed35a21ab6d7',
+    'https://dolh13ote4loq.cloudfront.net/images/products/thumb/32d8bbd243954442aaaeccb34bce2826;',
   optionAttribute1: '옵션1',
   optionAttribute2: '옵션2',
   optionAttribute3: null,
@@ -117,20 +117,16 @@ stories.add('OrderItem', () => {
 //   );
 // });
 
-// stories.add('PaymentInfo', () => {
-//   return (
-//     <div style={{ width: '920px' }}>
-//       <PaymentInfo order={SAMPLE_ORDER_DATA} />
-//     </div>
-//   );
-// });
+stories.add('PaymentInfo', () => {
+  return <PaymentInfo order={SAMPLE_ORDER_DATA} />;
+});
 
 // stories.add('ClaimPaymentInfo', () => {
 //   return (
 //     <div style={{ width: '920px' }}>
 //       <ClaimPaymentInfo order={{}} />
 //     </div>
-//   );
+//   );`
 // });
 
 // stories.add('PaymentInfoPopover', () => {
@@ -236,19 +232,19 @@ stories.add('OrderItem', () => {
 //   );
 // });
 
-// stories.add('OrderConfirmModal', () => {
-//   return (
-//     <OrderConfirmModal
-//       isOpen
-//       order={{
-//         brandName: '브랜드 이름',
-//         prodName: '19FW 반소매 프린트 레이스 긴소매 프릴 스퀘어넥 패',
-//         imageUrl:
-//           'https://dolh13ote4loq.cloudfront.net/images/products/thumb/fafac5ff99cc4e22a5b40010ae94a151',
-//       }}
-//       dueSavePointOnConfirm={2000}
-//       dueSavePointOnReview={5000}
-//       dueSavePointOnFirstPurchase={10000}
-//     />
-//   );
-// });
+stories.add('OrderConfirmModal', () => {
+  return (
+    <OrderConfirmModal
+      isOpen
+      order={{
+        brandName: '브랜드 이름',
+        prodName: '19FW 반소매 프린트 레이스 긴소매 프릴 스퀘어넥 패',
+        imageUrl:
+          'https://dolh13ote4loq.cloudfront.net/images/products/thumb/32d8bbd243954442aaaeccb34bce2826',
+      }}
+      dueSavePointOnConfirm={2000}
+      dueSavePointOnReview={5000}
+      dueSavePointOnFirstPurchase={10000}
+    />
+  );
+});

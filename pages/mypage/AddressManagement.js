@@ -11,7 +11,6 @@ class AddressManagementPage extends Component {
         <Head>
           <title>마이페이지</title>
         </Head>
-
         <AddressManagement />
       </>
     );

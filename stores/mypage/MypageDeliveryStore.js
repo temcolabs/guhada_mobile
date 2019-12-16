@@ -59,7 +59,6 @@ export default class MypageDeliveryStore {
    */
   @action
   openDeliveryTrackingModal = async ({ order = ORDER_COMPLETE_SAMPLE }) => {
-    // sample 04 354449654635
     const isClaim = !!order.orderClaimId; // 교환 재배송이면 클레임 아이디가 있음.
     const companyNo = isClaim ? order.resendShipCompany : order.shipCompany;
     const invoiceNo = isClaim ? order.resendInvoiceNo : order.invoiceNo;

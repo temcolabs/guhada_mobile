@@ -1,0 +1,221 @@
+@import 'styles/mixins/index';
+
+.wrap {
+  width: 100%;
+  overflow: scroll;
+  -ms-overflow-style: none; // IE에서 스크롤바 감춤
+
+  &::-webkit-scrollbar {
+    display: none !important; // 윈도우 크롬 등
+  }
+
+  padding: 20px;
+}
+
+.header {
+  font-size: 20px;
+  font-weight: bold;
+  color: #111111;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #111111;
+
+  & .delIcon {
+    width: 29px;
+    height: 29px;
+    background: url('/static/icon/shipping/pc-popup-icon-del.png') center;
+    background-size: contain;
+    float: right;
+  }
+}
+
+.deliveryInfo {
+  font-size: 13px;
+
+  & .deliveryInfo__item {
+    display: flex;
+
+    &:not(:first-child) {
+      margin-top: 10px;
+    }
+  }
+
+  & .deliveryInfo__label {
+    flex: 0 0 107px;
+  }
+
+  & .deliveryInfo__content {
+    flex: 1 1 auto;
+    color: #777777;
+  }
+}
+
+.shippingProgress {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 0;
+  margin-top: 20px;
+  border-bottom: 2px solid #111111;
+  border-top: 1px solid #eeeeee;
+
+  & .shippingLevelItem {
+    flex: 0 0 47px;
+    position: relative;
+    text-align: center;
+    font-size: 12px;
+    color: #777777;
+    height: 100px;
+
+    &.pass {
+      color: #5d2ed1;
+    }
+
+    &.current {
+      font-weight: bold;
+      color: #5d2ed1;
+    }
+
+    &:not(:first-child) {
+      margin-left: 21px;
+    }
+
+    @mixin deliveryIconBg {
+      background-position: center top;
+      background-size: 31px;
+      background-repeat: no-repeat;
+    }
+
+    &.deliveryIcon0 {
+      @include deliveryIconBg;
+      background-image: url('/static/icon/shipping/delivery_icon_01.png');
+
+      &.active {
+        background-image: url('/static/icon/shipping/delivery_icon_01_active.png');
+      }
+    }
+
+    &.deliveryIcon1 {
+      @include deliveryIconBg;
+      background-image: url('/static/icon/shipping/delivery_icon_02.png');
+
+      &.active {
+        background-image: url('/static/icon/shipping/delivery_icon_02_active.png');
+      }
+    }
+
+    &.deliveryIcon2 {
+      @include deliveryIconBg;
+      background-image: url('/static/icon/shipping/delivery_icon_03.png');
+
+      &.active {
+        background-image: url('/static/icon/shipping/delivery_icon_03_active.png');
+      }
+    }
+
+    &.deliveryIcon3 {
+      @include deliveryIconBg;
+      background-image: url('/static/icon/shipping/delivery_icon_04.png');
+
+      &.active {
+        background-image: url('/static/icon/shipping/delivery_icon_04_active.png');
+      }
+    }
+
+    &.deliveryIcon4 {
+      @include deliveryIconBg;
+      background-image: url('/static/icon/shipping/delivery_icon_05.png');
+
+      &.active {
+        background-image: url('/static/icon/shipping/delivery_icon_05_active.png');
+      }
+    }
+
+    & .positionWrap {
+      padding-top: 120px;
+      margin-bottom: 15px;
+      display: inline-block;
+    }
+
+    $dotPositionY: 56px;
+    $statusLabelPositionY: 73px;
+    $lineWidth: 92px;
+    $dotSize: 7px;
+
+    & .dot {
+      @include centeredX;
+      width: $dotSize;
+      height: $dotSize;
+      top: $dotPositionY;
+      background-color: #eeeeee;
+      border-radius: 10px;
+
+      &.pass {
+        border: solid 3px #8d6cde;
+        background-color: #ffffff;
+      }
+
+      &.current {
+        background-color: #5d2ed1;
+      }
+    }
+
+    & .line {
+      position: absolute;
+      top: calc(#{$dotPositionY} + (#{$dotSize} / 2));
+      right: calc(50% + 8px);
+      width: 57px;
+      height: 1px;
+      background-color: #eeeeee;
+
+      &.colored {
+        background-color: #5d2ed1;
+      }
+    }
+
+    & .statusLabel {
+      margin-top: $statusLabelPositionY;
+    }
+  }
+}
+
+.deliveryDetail {
+}
+
+.deliveryDetail_item {
+  display: flex;
+  padding: 20px 0;
+  border-bottom: 1px solid #eeeeee;
+  box-sizing: content-box;
+  font-size: 13px;
+  color: #111111;
+
+  & .dateWrap {
+    padding-left: 10px;
+    flex: 0 0 96px;
+    font-weight: 500;
+  }
+
+  & .date {
+    width: 130px;
+
+    & .hours {
+      margin-top: 3px;
+    }
+  }
+
+  & .detailWrap {
+    flex: 1 1 auto;
+  }
+
+  & .detail {
+    & .status {
+      font-weight: 500;
+    }
+
+    & .location {
+      font-weight: normal;
+      color: #777;
+      margin-top: 5px;
+    }
+  }
+}

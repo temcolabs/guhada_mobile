@@ -9,6 +9,7 @@
 
   .kakaoChat {
     position: fixed;
+    z-index: 10;
     right: 15px;
     bottom: 119px;
     width: 41px;
@@ -20,6 +21,7 @@
   }
 
   & .btnTop {
+    z-index: 10;
     width: 41px;
     height: 41px;
     background: url('/static/icon/btn-top.png') no-repeat;
@@ -28,5 +30,4 @@
     right: 15px;
     bottom: 70px;
   }
-
 }

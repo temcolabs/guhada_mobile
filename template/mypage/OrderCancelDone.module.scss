@@ -1,0 +1,53 @@
+@import 'styles/mixins/index';
+
+.wrap {
+  padding: 13px 20px;
+
+  @include mediaGallaxy {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  @include mediaIhpone5 {
+    padding-left: 16px;
+    padding-right: 16px;
+
+    h1 {
+      font-size: 23px;
+    }
+  }
+}
+
+.orderItemsWrap {
+  margin-top: 40px;
+}
+
+.sectionsWrap {
+  margin-top: 40px;
+}
+
+.section {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  border-top: 1px solid #eeeeee;
+}
+
+.section__content {
+  font-size: 14px;
+  margin-top: 16px;
+  font-size: 14px;
+  color: #777777;
+
+  & + & {
+    margin-top: 16px;
+  }
+
+  b {
+    font-weight: 500;
+    color: #444;
+  }
+
+  span + span {
+    margin-left: 0.5em;
+  }
+}

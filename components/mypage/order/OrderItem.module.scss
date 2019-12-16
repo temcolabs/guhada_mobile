@@ -4,11 +4,6 @@
 .wrap {
   @include clearfix;
   padding: 30px 0;
-  border-top: solid 1px #eeeeee;
-
-  &:last-child {
-    border-bottom: solid 1px #eeeeee;
-  }
 }
 
 .orderInfoWrapper {

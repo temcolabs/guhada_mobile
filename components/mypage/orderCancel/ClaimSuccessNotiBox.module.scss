@@ -1,0 +1,19 @@
+.wrap {
+  width: 100%;
+  text-align: left;
+}
+
+.heading {
+  font-size: 26px;
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  color: #111111;
+
+  & b {
+    color: #5d2ed1;
+    font-weight: normal;
+  }
+}

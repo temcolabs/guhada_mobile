@@ -1,0 +1,12 @@
+.checkAccountField {
+  display: flex;
+}
+
+.checkAccountField__input {
+  flex: 100 1 auto;
+}
+
+.checkAccountField__button {
+  flex: 1 0 45px;
+  margin-left: 10px;
+}

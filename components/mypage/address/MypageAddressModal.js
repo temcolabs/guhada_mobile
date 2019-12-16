@@ -295,6 +295,9 @@ class MypageAddressModal extends Component {
   renderEditOrderAdress() {
     const { mypageAddress } = this.props;
     const { orderAddress } = mypageAddress;
+
+    console.log(`orderAddress`, orderAddress);
+
     return (
       <div className={css.modal}>
         <div className={css.modal__top}>
@@ -312,17 +315,38 @@ class MypageAddressModal extends Component {
             가능합니다.
           </div>
           <div className={css.modal__body__content}>
-            <div className={css.section}>
-              <div className={css.value}>
-                <input
-                  type="text"
-                  placeholder="주소를 입력해주세요"
-                  id="mypage__newAddress"
-                  readOnly
-                  value={orderAddress.addressBasic || ''}
-                />
+            {/* 지번 주소  */}
+            {orderAddress.addressBasic && (
+              <div className={css.section}>
+                <div className={css.value}>
+                  <input
+                    type="text"
+                    placeholder="주소를 입력해주세요"
+                    id="mypage__newAddress"
+                    readOnly
+                    value={orderAddress.addressBasic || ''}
+                  />
+                </div>
               </div>
-            </div>
+            )}
+
+            {/* 도로명 주소 */}
+            {orderAddress.roadAddress && (
+              <div className={css.section}>
+                <div className={css.value}>
+                  <input
+                    type="text"
+                    placeholder="주소"
+                    readOnly
+                    onClick={() => {
+                      mypageAddress.searchZipcode('shipping');
+                    }}
+                    value={orderAddress.roadAddress}
+                  />
+                </div>
+              </div>
+            )}
+
             <div className={css.section}>
               <div className={css.value}>
                 <input
@@ -332,7 +356,7 @@ class MypageAddressModal extends Component {
                   onClick={() => {
                     mypageAddress.searchZipcode('shipping');
                   }}
-                  value={mypageAddress.newAddress.zip || ''}
+                  value={orderAddress.zipcode || ''}
                 />
               </div>
               <div
@@ -344,19 +368,7 @@ class MypageAddressModal extends Component {
                 우편번호찾기
               </div>
             </div>
-            <div className={css.section}>
-              <div className={css.value}>
-                <input
-                  type="text"
-                  placeholder="주소"
-                  readOnly
-                  onClick={() => {
-                    mypageAddress.searchZipcode('shipping');
-                  }}
-                  value={orderAddress.addressBasic}
-                />
-              </div>
-            </div>
+
             <div className={css.section}>
               <div className={css.value}>
                 <input

@@ -5,6 +5,8 @@ import { sendBackToLogin } from 'childs/lib/router';
 import { isImageFile } from 'childs/lib/common/isImageFile';
 import { uploadImageFile } from 'childs/lib/API/gateway/fileUploadService';
 import { devLog } from 'childs/lib/common/devLog';
+import isFunction from 'childs/lib/common/isFunction';
+
 /**
  * 판매자 문의하기 관련
  */
@@ -17,60 +19,86 @@ export default class SellerClaimStore {
 
   // 셀러에게 주문한 상품들
   @observable myDealsOrdered = [];
-  @observable isPossible = false;
+  @observable sellerId = null; // 타겟 셀러아이디
+  @observable isPossible = false; // 판매자문의 작성이 가능한지
   @observable sellerClaimTypes = [];
   @observable attachImageUrls = [];
   @observable orderProdGroupId = 0;
   @observable claimType = null;
+
+  // 판매자 문의 입력 관련 데이터 초기화
+  @action resetSellerClaimData = () => {
+    this.sellerId = null;
+    this.myDealsOrdered = [];
+    this.attachImageUrls = [];
+    this.orderProdGroupId = 0;
+    this.claimType = null;
+  };
+
+  /**
+   * 판매자 문의 모달을 열기 위한 데이터를 가져온다.
+   *
+   * @param isPossible 판매자 문의가 가능한지
+   * @param onPossible 판매자 문의가 가능할 때 콜백
+   * @param onImpossible 판매자 문의가 불가능할 때 콜백
+   */
   @action
-  checkIsSellerClaimPossible = (sellerId, inquiryHandle) => {
+  checkIsSellerClaimPossible = async ({
+    sellerId,
+    onPossible = () => {},
+    onImpossible = () => {},
+  }) => {
     // 판매자 문의는 로그인 상태에서만 가능하다.
     if (!this.root.login.isLoggedIn) {
       sendBackToLogin();
+      return;
     }
 
-    API.order
-      .get(`/order-review/seller-inquire-order`, {
-        params: {
-          sellerId,
-        },
-      })
-      .then(res => {
-        devLog(res, 'res /order-review/seller-inquire-order');
-        if (res.data.data.length > 0) {
-          this.isPossible = true;
-          this.myDealsOrdered = res.data.data;
+    // 이미 타겟 셀러아이디에 대한 확인을 끝냈다면 API 추가 실행하지 않는다
+    if (this.sellerId === sellerId && this.isPossible === true) {
+      isFunction(onPossible) && onPossible();
+      return;
+    }
 
-          if (!this.sellerClaimTypes?.length > 0) {
-            API.claim
-              .get(`/users/seller-claims/types`)
-              .then(res => {
-                this.sellerClaimTypes = res.data.data;
-              })
-              .catch(err => {
-                console.log(err, 'sellerClaimTypes err');
-              });
-          }
-        } else {
-          this.root.alert.showConfirm({
-            content:
-              '해당 판매자에게 주문한 기록을 찾을 수 없습니다. 상품 문의를 통해서만 문의가 가능합니다.',
-            cancelText: '취소',
-            confirmText: '상품 문의하기',
-            onConfirm: () => {
-              inquiryHandle();
-            },
-          });
+    try {
+      // 셀러클레임 타입 가져오기. 1번만 가져오면 됨
+      if (!this.sellerClaimTypes?.length > 0) {
+        const { data } = await API.claim.get(`/users/seller-claims/types`);
+        this.sellerClaimTypes = data.data;
+      }
+
+      const { data } = await API.order.get(
+        `/order-review/seller-inquire-order`,
+        {
+          params: {
+            sellerId,
+          },
         }
-      })
-      .catch(err => {
-        console.log(err, '판매자문의하기 조회 err');
-      });
+      );
+
+      // 유저가 셀러에게 구입한 상품이 있다면
+      if (data.data.length > 0) {
+        this.sellerId = sellerId;
+        this.isPossible = true;
+        this.myDealsOrdered = data.data;
+        isFunction(onPossible) && onPossible();
+      } else {
+        this.resetSellerClaimData();
+        isFunction(onImpossible) && onImpossible();
+      }
+    } catch (err) {
+      console.log(err, '판매자문의하기 조회 err');
+      this.resetSellerClaimData();
+      isFunction(onImpossible) && onImpossible();
+    }
   };
 
   @action
-  closeClaim = () => {
+  disableSellerClaim = (reset = true) => {
     this.isPossible = false;
+    if (reset) {
+      this.resetSellerClaimData();
+    }
   };
 
   @action
@@ -138,7 +166,7 @@ export default class SellerClaimStore {
         },
       })
       .then(res => {
-        devLog(res, ' delete image');
+        devLog(res, 'delete image');
       })
       .catch(err => {
         console.log(err);
@@ -146,25 +174,23 @@ export default class SellerClaimStore {
   };
 
   @action
-  createSellerClaim = (title, claim, attachImage, sellerId) => {
-    let userId = this.root.user.userId;
-    let body = {
-      contents: claim,
-      imageUrls: attachImage,
-      orderProdGroupId: this.orderProdGroupId,
-      sellerId: sellerId,
-      title: title,
-      type: this.claimType,
-    };
+  createSellerClaim = async (title, claim, attachImage, sellerId) => {
+    try {
+      let userId = this.root.user.userId;
+      let body = {
+        contents: claim,
+        imageUrls: attachImage,
+        orderProdGroupId: this.orderProdGroupId,
+        sellerId: sellerId,
+        title: title,
+        type: this.claimType,
+      };
 
-    API.claim
-      .post(`/users/${userId}/seller-claims`, body)
-      .then(res => {
-        this.root.alert.showAlert('판매자 문의가 등록되었습니다.');
-        this.closeClaim();
-      })
-      .catch(err => {
-        console.log(err);
-      });
+      await API.claim.post(`/users/${userId}/seller-claims`, body);
+      this.root.alert.showAlert('판매자 문의가 등록되었습니다.');
+    } catch (e) {
+      this.root.alert.showAlert('오류가 발생했습니다.');
+      console.error(e);
+    }
   };
 }

@@ -23,7 +23,7 @@ export default class MypageAddressStore {
   @observable isModalOpen = false;
   @observable isNewAdressModal = true; // 신규 배송지를 등록하는 모달인지. false면 수정
   @observable addressList = []; // 내 배송지 목록.
-
+  @observable pageStatus = false;
   // 새 주소 데이터
   @observable newAddress = {
     shippingName: null,
@@ -70,6 +70,7 @@ export default class MypageAddressStore {
         .then(res => {
           let { data } = res;
           this.addressList = data.data;
+          this.pageStatus = true;
         })
         .catch(err => {
           console.error(err);
@@ -380,13 +381,13 @@ export default class MypageAddressStore {
 
           // 주문 배송지
           case 'shipping':
-            const address =
-              data.userSelectedType === 'J'
-                ? data.jibunAddress
-                : data.roadAddress;
-
-            this.setOrderAddress(address, 'addressBasic'); // 기본주소
-            this.setOrderAddress(address, 'roadAddress'); // 도로명 주소
+            if (data.userSelectedType === 'J') {
+              this.setOrderAddress(data.jibunAddress, 'addressBasic'); // 기본주소
+              this.setOrderAddress(data.postcode, 'zipcode'); // 기본주소
+            } else {
+              this.setOrderAddress(data.roadAddress, 'roadAddress'); // 도로명 주소
+              this.setOrderAddress(data.zonecode, 'zipcode'); // 도로명 주소
+            }
 
             break;
 

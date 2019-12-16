@@ -6,11 +6,14 @@ import './Select.scss';
 const customStyles = {
   control: (base, state) => ({
     ...base,
-    height: 36,
-    minHeight: 36,
+    display: 'flex',
+    alignItems: 'center',
+    height: 45,
+    minHeight: 45,
     boxShadow: 'none',
     fontSize: 13,
     borderColor: state.isFocused ? '#eeeeee' : '#eeeeee',
+    borderRadius: 0,
     '&:hover': {
       borderColor: '#eeeeee',
     },
@@ -23,7 +26,6 @@ const customStyles = {
   valueContainer: (base, state) => ({
     ...base,
     padding: '0 15px',
-    marginTop: '-3px',
     zIndex: 10,
     minHeight: '1.45em',
   }),

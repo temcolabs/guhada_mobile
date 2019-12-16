@@ -1,22 +1,23 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import css from './ProductInquiry.module.scss';
 import cn from 'classnames';
 import InquiryItem from './InquiryItem';
 import { inject, observer } from 'mobx-react';
-import { toJS } from 'mobx';
 import NewInquiry from './NewInquiry';
-import SellerClaimModal from 'components/claim/sellerclaim/SellerClaimModal';
+import SellerClaimModal, {
+  withSellerClaimModal,
+} from 'components/claim/sellerclaim/SellerClaimModal';
 import _ from 'lodash';
 import { loginStatus } from 'childs/lib/constant';
-import { pushRoute, sendBackToLogin } from 'childs/lib/router';
+import { sendBackToLogin } from 'childs/lib/router';
 
+@withSellerClaimModal
 @inject('productdetail', 'login', 'alert', 'sellerClaim')
 @observer
 class ProductInquiry extends Component {
   state = {
     tab: '',
     isNewInquiryVisible: false,
-    isSellerClaimVisible: false,
   };
 
   setTab = tab => {
@@ -27,18 +28,8 @@ class ProductInquiry extends Component {
     this.setState({ isNewInquiryVisible: isNewInquiryVisible });
   };
 
-  getIsSellerClaimVisible = sellerId => {
-    const inquiryHandle = () => {
-      this.setState({ isNewInquiryVisible: true });
-    };
-    this.props.sellerClaim.checkIsSellerClaimPossible(sellerId, inquiryHandle);
-  };
-
-  componentWillUnmount() {
-    this.props.sellerClaim.closeClaim();
-  }
   render() {
-    const { productdetail, login, tabRefMap, alert, sellerClaim } = this.props;
+    const { productdetail, login, tabRefMap, sellerClaim } = this.props;
     const { deals, inquiryList, inquiryPage } = productdetail;
     let handleInquiryIcon =
       inquiryList.totalPages === inquiryPage + 1 ? true : false;
@@ -73,9 +64,7 @@ class ProductInquiry extends Component {
                   }}
                 />
               )}
-              <label htmlFor="askCheckbox">
-                <span />내 문의만 보기
-              </label>
+              <label htmlFor="askCheckbox">내 문의만 보기</label>
             </div>
           </div>
           <div>
@@ -90,7 +79,22 @@ class ProductInquiry extends Component {
               상품 문의하기
             </button>
             <button
-              onClick={() => this.getIsSellerClaimVisible(deals.sellerId)}
+              onClick={() =>
+                this.props.handleOpenSellerClaimModal({
+                  sellerId: deals.sellerId,
+                  onImpossible: () => {
+                    this.props.alert.showConfirm({
+                      content:
+                        '해당 판매자에게 주문한 기록을 찾을 수 없습니다. 상품 문의를 통해서만 문의가 가능합니다.',
+                      cancelText: '취소',
+                      confirmText: '상품 문의하기',
+                      onConfirm: () => {
+                        this.setState({ isNewInquiryVisible: true });
+                      },
+                    });
+                  },
+                })
+              }
             >
               판매자 문의하기
             </button>
@@ -123,9 +127,10 @@ class ProductInquiry extends Component {
               className={cn(css.tabItem, {
                 [css.selectTab]: this.state.tab === 'PENDING',
               })}
-              onClick={() => (
-                this.setTab('PENDING'), productdetail.getInquiry(0, 'PENDING')
-              )}
+              onClick={() => {
+                this.setTab('PENDING');
+                productdetail.getInquiry(0, 'PENDING');
+              }}
             >
               <div className={css.betweenTab}>미답변</div>
             </div>
@@ -152,15 +157,17 @@ class ProductInquiry extends Component {
           </div>
         )}
 
+        {/* 상품 문의 */}
         <NewInquiry
           isVisible={this.state.isNewInquiryVisible}
           onClose={() => this.setIsNewInquiryVisible(false)}
         />
 
+        {/* 판매자 문의하기 모달 */}
         <SellerClaimModal
-          sellerId={deals?.sellerId}
-          isVisible={sellerClaim.isPossible}
-          onClose={() => sellerClaim.closeClaim()}
+          isOpen={this.props.isSellerClaimModalOpen}
+          sellerId={this.props.sellerIdToClaim}
+          onClose={this.props.handleCloseSellerClaimModal}
         />
       </div>
     );

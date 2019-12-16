@@ -6,6 +6,10 @@ import { pushRoute } from 'childs/lib/router';
 import { devLog } from 'childs/lib/common/devLog';
 import isTruthy from 'childs/lib/common/isTruthy';
 import orderClaimTypes from 'childs/lib/constant/order/orderClaimTypes';
+import moment from 'moment';
+import { dateFormat } from 'childs/lib/constant/date';
+import purchaseStatus from 'childs/lib/constant/order/purchaseStatus';
+import paymentMethod from 'childs/lib/constant/order/paymentMethod';
 
 /**
  * 클레임(취소교환반품) 폼, 클레임 상세에서 사용할 데이터 관리.
@@ -14,7 +18,7 @@ import orderClaimTypes from 'childs/lib/constant/order/orderClaimTypes';
  * http://dev.claim.guhada.com/swagger-ui.html#/ORDER-CLAIM
  */
 export default class OrderClaimFormStore {
-  constructor(root) {
+  constructor(root, initialState) {
     if (isBrowser) {
       this.root = root;
     }
@@ -50,7 +54,14 @@ export default class OrderClaimFormStore {
    * 환불 예상 데이터
    */
   @observable
-  refundResponse = null;
+  refundResponse = {
+    // totalCancelDiscountPrice: 0, // 상품 주문할인 취소
+    // totalCancelOrderPrice: 0, // 취소상품 주문금액
+    // totalCancelProductPrice: 0, // 취소상품 금액합계
+    // totalCancelShipPrice: 0, // 취소 배송비 합계
+    // totalPaymentCancelPrice: 0, // 신용카드 환불금액
+    // totalPointCancelPrice: 0, // 포인트 환불금액
+  };
 
   // * 클레임 종류. 이 스토어에서는 claimId와 claimType에 기반해서 computed value를 많이 사용함
   @computed
@@ -258,7 +269,7 @@ export default class OrderClaimFormStore {
         sellerReturnRoadAddress,
         sellerReturnDetailAddress,
       } = this.claimData;
-      return `(우: ${sellerReturnZip}) ${sellerReturnRoadAddress ||
+      return `[${sellerReturnZip}] ${sellerReturnRoadAddress ||
         sellerReturnAddress} ${sellerReturnDetailAddress}`;
     } else {
       return '';
@@ -361,6 +372,12 @@ export default class OrderClaimFormStore {
     );
   }
 
+  // 결제 수단 텍스트
+  @computed
+  get paymentMethodText() {
+    return this.claimData?.paymentMethodText || this.claimData?.paymentMethod;
+  }
+
   /**
    * 클레임 등록할 때 필요한 데이터 가져오기
    * memoize 적용해서 같은 아이디로 중복 호출 안함
@@ -434,10 +451,11 @@ export default class OrderClaimFormStore {
   pushJobForClaimData = (job = () => {}) => {
     if (typeof job === 'function') {
       if (_.isEmpty(toJS(this.claimData))) {
+        // this.jobsForClaimData.push(action(job));
         this.jobsForClaimData.push(job);
       } else {
         // 데이터가 있으면 즉시 실행한다.
-        job(toJS(this.claimData));
+        job(this.claimData);
       }
     } else {
       console.error('[pushJobForClaimData] job is not function');
@@ -447,6 +465,7 @@ export default class OrderClaimFormStore {
   /**
    * pushJobForClaimData에서 쌓아둔 잡 실행
    */
+  @action
   runJobsForClaimData = (claimData = {}) => {
     while (this.jobsForClaimData.length > 0) {
       const job = this.jobsForClaimData.pop();
@@ -633,4 +652,26 @@ export default class OrderClaimFormStore {
       console.error(e);
     }
   };
+
+  /**
+   * 포맷된 주문 날짜. claimData.orderTimestamp 날짜를 사용한다.
+   */
+  @computed get orderDateWithFormat() {
+    return (
+      moment(this.claimData?.orderTimestamp).format(dateFormat.YYYYMMDD_UI) ||
+      '-'
+    );
+  }
+
+  /**
+   * 환불계좌 입력 양식을 표시할 것인지 결정
+   * 입금 대기중이 아니고, 무통장 입금 결제일 때
+   */
+  @computed
+  get isRefundEnabled() {
+    return (
+      this.claimData?.orderStatus !== purchaseStatus.WAITING_PAYMENT.code &&
+      this.claimData?.paymentMethod === paymentMethod.VBANK.code
+    );
+  }
 }

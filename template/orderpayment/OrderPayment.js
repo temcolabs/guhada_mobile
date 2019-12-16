@@ -10,8 +10,11 @@ import PaymentMethod from 'components/orderpayment/PaymentMethod';
 import CashReceipt from 'components/orderpayment/CashReceipt';
 import PaymentAgreement from 'components/orderpayment/PaymentAgreement';
 import PaymentButton from 'components/orderpayment/PaymentButton';
+import OtherRequest from 'components/orderpayment/OtherRequest';
+
 import { inject, observer } from 'mobx-react';
 import css from './OrderPayment.module.scss';
+
 @inject('orderpayment', 'customerauthentication')
 @observer
 class OrderPayment extends React.Component {
@@ -48,6 +51,9 @@ class OrderPayment extends React.Component {
 
         {/* 배송지 정보 */}
         <ShippingAddress />
+
+        {/* 기타 요청 사항 */}
+        <OtherRequest request={orderpayment?.orderShippingList?.otherRequest} />
 
         {/* 베네핏 */}
         <Benefit />

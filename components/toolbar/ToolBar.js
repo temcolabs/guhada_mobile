@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import css from './ToolBar.module.scss';
 import cn from 'classnames';
 import ToolbarCategory from './ToolbarCategory';
@@ -13,9 +13,16 @@ function ToolBar() {
   const [isBrandVisible, setIsBrandVisible] = useState(false);
   const [selectedTool, setSelectedTool] = useState('');
 
+  const hostMypageEnabled = useMemo(
+    () => [/^local\.?.+/, /^dev\..+/, /^qa\..+/, /^stg\..+/],
+    []
+  );
   const handleClickMypage = useCallback(() => {
     // FIXME: 마이페이지 개발 완료 후 조건문 제거
-    const isMypageEnabled = process.env.NODE_ENV === 'development';
+    const isMypageEnabled =
+      hostMypageEnabled.findIndex(
+        regex => regex.test(window.location.hostname) === true
+      ) > -1;
 
     if (isMypageEnabled) {
       setSelectedTool('mypage');
@@ -23,7 +30,7 @@ function ToolBar() {
     } else {
       alert.showAlert({ content: '모바일 버전 준비중입니다.' });
     }
-  }, [alert]);
+  }, [alert, hostMypageEnabled]);
 
   return useObserver(() => (
     <div className={css.wrap}>

@@ -20,28 +20,29 @@ import EmptyListNoti from 'components/mypage/EmptyListNoti';
 import OrderItem from 'components/mypage/order/OrderItem';
 import Pagination from 'components/common/Pagination';
 import OrderAddressEditModal from 'components/mypage/order/OrderAddressEditModal';
-// import MypageAddressModal from 'components/mypage/address/MypageAddressModal';
-// import ReviewWriteModal, {
-//   reviewModalType,
-// } from 'components/mypage/review/ReviewWriteModal';
-// import DeliveryTrackingModal from 'components/mypage/shipping/DeliveryTrackingModal';
-// import SellerClaimModal from 'components/claim/sellerclaim/SellerClaimModal';
-// import LoadingPortal from 'components/common/loading/Loading';
-// import PointSavingModal, {
-//   pointSavingTypes,
-// } from 'components/mypage/point/PointSavingModal';
-// import OrderConfirmModal from 'components/mypage/order/OrderConfirmModal';
+import DeliveryTrackingModal from 'components/mypage/shipping/DeliveryTrackingModal';
+import SellerClaimModal, {
+  withSellerClaimModal,
+} from 'components/claim/sellerclaim/SellerClaimModal';
+import PointSavingModal, {
+  pointSavingTypes,
+} from 'components/mypage/point/PointSavingModal';
+import OrderConfirmModal from 'components/mypage/order/OrderConfirmModal';
+import withReviewModal from 'components/mypage/review/withReviewModal';
 
 /**
  * 마이페이지 - 주문 배송 (주문 완료 목록)
  */
+@withReviewModal
+@withSellerClaimModal
 @withRouter
 @inject(
-  'orderCompleteList'
-  // 'mypageAddress',
-  // 'mypagereview',
-  // 'myDelivery',
-  // 'mypagePoint'
+  'orderCompleteList',
+  'mypageAddress',
+  'mypagereview',
+  'myDelivery',
+  'mypagePoint',
+  'alert'
 )
 @observer
 class OrderCompleteList extends Component {
@@ -62,11 +63,8 @@ class OrderCompleteList extends Component {
       },
 
       // 판매자 문의하기 모달
-      sellerClaimModal: {
-        sellerId: null,
-        orderProdGroupId: null,
-        isOpen: false,
-      },
+      sellerIdToClaim: null,
+      isUserRequestedSellerClaim: false,
     };
   }
 
@@ -195,32 +193,13 @@ class OrderCompleteList extends Component {
     });
   };
 
-  handleOpenSellerClaimModal = (order = {}) => {
-    this.setState({
-      sellerClaimModal: {
-        sellerId: order.sellerId,
-        orderProdGroupId: order.orderProdGroupId,
-        isOpen: true,
-      },
-    });
-  };
-
-  handleCloseSellerClaimModal = () => {
-    this.setState({
-      sellerClaimModal: {
-        sellerId: null,
-        orderProdGroupId: null,
-        isOpen: false,
-      },
-    });
-  };
-
   render() {
     const {
       orderCompleteList: orderCompleteListStore,
-      // mypagereview,
-      // mypagePoint: mypagePointStore,
+      mypagereview,
+      mypagePoint: mypagePointStore,
     } = this.props;
+    const { orderConfirmModalData } = orderCompleteListStore;
 
     return (
       <MypageLayout
@@ -237,7 +216,6 @@ class OrderCompleteList extends Component {
 
         <MypageContentsWrap wrapperStyle={{ paddingTop: '10px' }}>
           <OrderDashboard data={orderCompleteListStore.myOrderStatus} />
-
           <div className={css.listWrap}>
             {orderCompleteListStore.isLoadingList && (
               <LoadingSpinner isAbsolute />
@@ -251,7 +229,7 @@ class OrderCompleteList extends Component {
                   <OrderItem
                     key={index}
                     order={order}
-                    onClickInquire={this.handleOpenSellerClaimModal}
+                    onClickInquire={this.props.handleOpenSellerClaimModal}
                     isClaim={false}
                     redirectToDetail={() =>
                       orderCompleteListStore.redirectToOrderCompleteDetail({
@@ -263,7 +241,6 @@ class OrderCompleteList extends Component {
               })
             )}
           </div>
-
           <div className={css.paginationWrap}>
             <Pagination
               initialPage={parseInt(orderCompleteListStore.page, 10)}
@@ -274,36 +251,8 @@ class OrderCompleteList extends Component {
           </div>
         </MypageContentsWrap>
 
-        {/* 주소 수정 모달 */}
-        {/* <MypageAddressModal /> */}
-
-        {/* 리뷰 작성 모달 */}
-        {/* <ReviewWriteModal
-            isOpen={mypagereview.isReviewWriteModalOpen}
-            handleModalClose={mypagereview.closeReviewModal}
-            modalData={mypagereview.orderProdGroup} // 선택한 주문 데이터
-            status={reviewModalType.WRITE}
-            onSuccessSubmit={() => {
-              mypagereview.closeReviewModal();
-              orderCompleteListStore.getMyOrders(); //  목록 새로고침
-            }}
-          /> */}
-
-        {/* 리뷰 수정 모달 */}
-        {/* <ReviewWriteModal
-            isOpen={mypagereview.isReviewModifyModalOpen}
-            handleModalClose={mypagereview.closeReviewModal}
-            modalData={mypagereview.orderProdGroup} // 선택한 주문 데이터
-            status={reviewModalType.MODIFY}
-            reviewData={mypagereview.reviewData}
-            onSuccessModify={() => {
-              mypagereview.closeReviewModal();
-              orderCompleteListStore.getMyOrders(); //  목록 새로고침
-            }}
-          /> */}
-
         {/* 배송 조회 모달. 컨트롤은 store에서 */}
-        {/* <DeliveryTrackingModal /> */}
+        <DeliveryTrackingModal />
 
         {/* 주문 배송지 수정 모달 */}
         <OrderAddressEditModal
@@ -317,32 +266,32 @@ class OrderCompleteList extends Component {
         />
 
         {/* 판매자 문의하기 모달 */}
-        {/* <SellerClaimModal
-            sellerId={this.state.sellerClaimModal.sellerId}
-            orderProdGroupId={this.state.sellerClaimModal.orderProdGroupId}
-            isOpen={this.state.sellerClaimModal.isOpen}
-            onClose={this.handleCloseSellerClaimModal}
-          /> */}
+        <SellerClaimModal
+          isOpen={this.props.isSellerClaimModalOpen}
+          sellerId={this.props.sellerIdToClaim}
+          onClose={this.props.handleCloseSellerClaimModal}
+        />
 
         {/* 구매확정시 포인트 지급 모달  */}
-        {/* <PointSavingModal
-            pointSavingType={pointSavingTypes.CONFIRM_PURCHASE}
-            isOpen={mypagePointStore.isPointSavingModalOpen}
-            onClose={mypagePointStore.closePointSavingModalOpen}
-            savedPointResponse={mypagePointStore.savedPointResponse}
-          /> */}
+        <PointSavingModal
+          pointSavingType={pointSavingTypes.CONFIRM_PURCHASE}
+          isOpen={mypagePointStore.isPointSavingModalOpen}
+          onClose={mypagePointStore.closePointSavingModalOpen}
+          savedPointResponse={mypagePointStore.savedPointResponse}
+        />
 
-        {/* <OrderConfirmModal
-            isOpen={orderCompleteListStore.isOrderConfirmModalOpen}
-            order={orderConfirmModalData?.order}
-            onConfirm={orderConfirmModalData?.onConfirm}
-            onClose={orderConfirmModalData?.onClose}
-            dueSavePointOnConfirm={orderConfirmModalData.dueSavePointOnConfirm}
-            dueSavePointOnReview={orderConfirmModalData.dueSavePointOnReview}
-            dueSavePointOnFirstPurchase={
-              orderConfirmModalData.dueSavePointOnFirstPurchase
-            }
-          /> */}
+        {/* 구매확정 모달 */}
+        <OrderConfirmModal
+          isOpen={orderCompleteListStore.isOrderConfirmModalOpen}
+          order={orderConfirmModalData?.order}
+          onConfirm={orderConfirmModalData?.onConfirm}
+          onClose={orderConfirmModalData?.onClose}
+          dueSavePointOnConfirm={orderConfirmModalData.dueSavePointOnConfirm}
+          dueSavePointOnReview={orderConfirmModalData.dueSavePointOnReview}
+          dueSavePointOnFirstPurchase={
+            orderConfirmModalData.dueSavePointOnFirstPurchase
+          }
+        />
       </MypageLayout>
     );
   }

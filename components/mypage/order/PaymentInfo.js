@@ -3,7 +3,6 @@ import css from './PaymentInfo.module.scss';
 import cn from 'classnames';
 import addCommaToNum from 'childs/lib/common/addCommaToNum';
 import { ORDER_COMPLETE_SAMPLE } from 'childs/lib/constant/order/orderModel';
-import { paymentMethodOption } from 'childs/lib/constant/order/paymentMethod';
 import PaymentAccountInfo from './PaymentAccountInfo';
 import MypageSectionTitle from 'components/mypage/MypageSectionTitle';
 

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'next/router';
-import MypageLayout from 'components/mypage/MypageLayout';
 import css from './OrderCompleteDetail.module.scss';
 import cn from 'classnames';
+import DetailPageLayout from 'components/layout/DetailPageLayout';
 import PaymentInfo from 'components/mypage/order/PaymentInfo';
 import OrderItemTable from 'components/mypage/order/OrderItemTable';
 import { inject, observer } from 'mobx-react';
@@ -21,7 +21,6 @@ class OrderCompleteDetail extends Component {
 
   componentDidMount() {
     const { orderCompleteDetail } = this.props;
-
     orderCompleteDetail.getOrderComplete(this.purchaseId);
   }
 
@@ -31,11 +30,7 @@ class OrderCompleteDetail extends Component {
     const { shippingAddress = {} } = orderData; // 배송지 정보
 
     return (
-      <MypageLayout
-        topLayout={'main'}
-        pageTitle={'주문내역'}
-        headerShape={'mypage'}
-      >
+      <DetailPageLayout pageTitle={'주문 내역 상세'} noPaddingBottom>
         <div className={css.wrap}>
           <div className={css.orderInfo}>
             <div className={css.orderInfo__orderId}>
@@ -117,6 +112,10 @@ class OrderCompleteDetail extends Component {
                     <td>배송 메모</td>
                     <td>{shippingAddress.message}</td>
                   </tr>
+                  <tr>
+                    <td>기타 요청 사항</td>
+                    <td>{orderData?.etcMessage || '-'}</td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -124,7 +123,7 @@ class OrderCompleteDetail extends Component {
 
           <PaymentInfo order={orderData} />
         </div>
-      </MypageLayout>
+      </DetailPageLayout>
     );
   }
 }

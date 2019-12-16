@@ -318,9 +318,7 @@ function OrderActionButtonConductor({
     });
   } else {
     /**
-     * TODO: UI에서 어떤 버튼을 표시할지는 claimStatus 값과의 조합이 필요함
-     * 현재 구현된 로직은 수정될 예정임.
-     *
+     * UI에서 어떤 버튼을 표시할지는 claimStatus 값과의 조합이 필요함
      * 참조) https://temcolabs.atlassian.net/browse/TECH-898
      */
     switch (purchaseStatus) {
@@ -366,14 +364,16 @@ function OrderActionButtonConductor({
        */
       case purchaseStatusType.REQUEST_CANCEL.code: // "취소 요청"
         buttons = [
-          ShowOrderButton(actionButtonText.CANCEL_INFO),
+          // ShowOrderButton(actionButtonText.CANCEL_INFO),
           // ! WithdrawCancelButton, 취소 철회 버튼은 API가 없어 표시하지 않음.
         ];
         break;
 
       case purchaseStatusType.SALE_CANCEL.code: // "판매 취소"
       case purchaseStatusType.COMPLETE_CANCEL.code: // "취소 완료"
-        buttons = [ShowOrderButton(actionButtonText.CANCEL_INFO)];
+        buttons = [
+          // ShowOrderButton(actionButtonText.CANCEL_INFO)
+        ];
         break;
 
       /**
@@ -385,13 +385,15 @@ function OrderActionButtonConductor({
 
       case purchaseStatusType.PICKING_EXCHANGE.code: // "교환 수거중"
         buttons = [
-          ShowOrderButton(actionButtonText.EXCHANGE_INFO),
+          // ShowOrderButton(actionButtonText.EXCHANGE_INFO),
           WithdrawExchangeButton,
         ];
         break;
 
       case purchaseStatusType.COMPLETE_PICK_EXCHANGE.code: // "교환 수거완료"
-        buttons = [ShowOrderButton(actionButtonText.EXCHANGE_INFO)];
+        buttons = [
+          // ShowOrderButton(actionButtonText.EXCHANGE_INFO)
+        ];
         break;
 
       case purchaseStatusType.RESEND_EXCHANGE.code: // "교환 재배송중"
