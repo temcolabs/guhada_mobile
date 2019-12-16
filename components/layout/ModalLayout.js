@@ -3,7 +3,7 @@ import css from './ModalLayout.module.scss';
 import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 
 export const useModalLayoutState = ({
-  isOpenOnMount = false,
+  isModalOpen = false, // 모달 열림 닫힘 여부. UI를 통해 동적으로 변경할 값
   onClose = () => {},
 }) => {
   const [isModalLayoutOpen, setIsModalLayoutOpen] = useState(false);
@@ -12,6 +12,7 @@ export const useModalLayoutState = ({
     isOpen => {
       setIsModalLayoutOpen(isOpen);
 
+      // 닫힘 기능외에 추가로 실행할 콜백 호출
       if (typeof onClose === 'function' && !isOpen) {
         onClose();
       }
@@ -28,11 +29,8 @@ export const useModalLayoutState = ({
   }, [handleChangeVisibility]);
 
   useEffect(() => {
-    console.log('useEffect');
-    if (isOpenOnMount) {
-      handleChangeVisibility(true);
-    }
-  }, [handleChangeVisibility, isOpenOnMount]);
+    handleChangeVisibility(isModalOpen);
+  }, [handleChangeVisibility, isModalOpen]);
 
   return {
     isModalLayoutOpen,
@@ -42,15 +40,27 @@ export const useModalLayoutState = ({
   };
 };
 
-function ModalLayout({ pageTitle, children, isOpen, onClose }) {
+/**
+ * 클래스 컴포넌트 내부에서 사용할때는 useModalLayoutState를 사용할 수 없다.
+ * @param {*} param0
+ */
+function ModalLayout({
+  pageTitle,
+  children,
+  isOpen,
+  onClose,
+  wrapperStyle,
+  direction = slideDirection.RIGHT,
+}) {
   return (
-    <SlideIn direction={slideDirection.BOTTOM} isVisible={isOpen}>
-      <div className={css.wrap}>
+    <SlideIn direction={direction} isVisible={isOpen}>
+      <div className={css.wrap} style={wrapperStyle}>
         <div className={css.header}>
           <div className={css.title}>{pageTitle || ''}</div>
           <div className={css.close} onClick={onClose} />
         </div>
-        <div className={css.content}>{children}</div>
+
+        {children}
       </div>
     </SlideIn>
   );

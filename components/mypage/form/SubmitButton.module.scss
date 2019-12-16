@@ -26,19 +26,24 @@
 }
 
 .submitButtonWrapper {
-  position: fixed;
   width: 100%;
-  bottom: 0;
-  left: 0;
   text-align: center;
   display: flex;
+
   &.responsive {
     @include clearfix;
 
     & > button {
-      width: 50%;
       font-size: inherit;
+      flex: 0 0 50%;
     }
+  }
+
+  &.fixedToBottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
   }
 
   // 에러 메시지 스타일

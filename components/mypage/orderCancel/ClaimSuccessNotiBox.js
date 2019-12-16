@@ -1,6 +1,5 @@
 import React from 'react';
 import css from './ClaimSuccessNotiBox.module.scss';
-import isFunction from 'childs/lib/common/isFunction';
 
 /**
  * 취소, 반품 완료 페이지 상단 알림 박스
@@ -11,7 +10,7 @@ export default function ClaimSuccessNotiBox({
 }) {
   return (
     <div className={css.wrap}>
-      <div className={css.heading}>{heading()}</div>
+      <h1 className={css.heading}>{heading()}</h1>
     </div>
   );
 }

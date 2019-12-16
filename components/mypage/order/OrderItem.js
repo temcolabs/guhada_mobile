@@ -5,10 +5,14 @@ import { object, func, bool } from 'prop-types';
 import { dateFormat } from 'childs/lib/constant/date';
 import OrderActionButtonConductor from './OrderActionButtonConductor';
 import DealOrdered from '../DealOrdered';
+import SellerClaimModal, {
+  withSellerClaimModal,
+} from 'components/claim/sellerclaim/SellerClaimModal';
 
 /**
  * 주문 목록의 아이템
  */
+@withSellerClaimModal
 class OrderItem extends React.Component {
   static propTypes = {
     order: object,
@@ -42,7 +46,6 @@ class OrderItem extends React.Component {
         shipPrice: 0, // 배송비 ,
         statusMessage: '', // 상태의 따른 메세지
       },
-      onClickInquire,
       isClaim,
       redirectToDetail,
     } = this.props;
@@ -64,7 +67,6 @@ class OrderItem extends React.Component {
             </div>
           </div>
         </div>
-
         <div className={css.productInfoWrapper}>
           <div className={css.dealOrderdWrapper}>
             <DealOrdered
@@ -83,12 +85,23 @@ class OrderItem extends React.Component {
             isClaim={isClaim}
           />
         </div>
-
         <div className={css.sellerInfo}>
-          <button onClick={() => onClickInquire(order)}>
+          <button
+            onClick={() =>
+              this.props.handleOpenSellerClaimModal({
+                sellerId: order.sellerId,
+              })
+            }
+          >
             {order.sellerName || '셀러'}에 문의하기
           </button>
         </div>
+        {/* 판매자 문의하기 모달 */}
+        <SellerClaimModal
+          isOpen={this.props.isSellerClaimModalOpen}
+          sellerId={this.props.sellerIdToClaim}
+          onClose={this.props.handleCloseSellerClaimModal}
+        />
       </div>
     );
   }

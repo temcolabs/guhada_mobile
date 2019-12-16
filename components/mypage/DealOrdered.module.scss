@@ -5,6 +5,7 @@ $productInfoPadLeft: 24px;
 
 .wrapper {
   @include clearfix;
+  min-height: $imageWidth;
   text-align: left;
   font-size: 13px;
   display: flex;

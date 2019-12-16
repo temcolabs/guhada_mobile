@@ -21,7 +21,6 @@ class OrderCompleteDetail extends Component {
 
   componentDidMount() {
     const { orderCompleteDetail } = this.props;
-
     orderCompleteDetail.getOrderComplete(this.purchaseId);
   }
 
@@ -112,6 +111,10 @@ class OrderCompleteDetail extends Component {
                   <tr>
                     <td>배송 메모</td>
                     <td>{shippingAddress.message}</td>
+                  </tr>
+                  <tr>
+                    <td>기타 요청 사항</td>
+                    <td>{orderData?.etcMessage || '-'}</td>
                   </tr>
                 </tbody>
               </table>

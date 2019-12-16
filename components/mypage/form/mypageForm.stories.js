@@ -127,6 +127,7 @@ stories.add('RadioGroup', () => {
       ])}
       onChange={action('onChange')}
       initialValue={'another'}
+      isSingleItemInLine={boolean('isSingleItemInLine', true)}
     />
   );
 });

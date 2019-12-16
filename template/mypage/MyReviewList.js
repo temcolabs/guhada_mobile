@@ -4,7 +4,9 @@ import { inject, observer } from 'mobx-react';
 import MypageReviewHeading from 'components/mypage/review/MypageReviewHeading';
 import ReviewWrite from 'components/mypage/review/ReviewWrite';
 import ReviewModify from 'components/mypage/review/ReviewModify';
+import withReviewModal from 'components/mypage/review/withReviewModal';
 
+@withReviewModal
 @inject('mypagereview', 'mypagePoint')
 @observer
 class MyReviewList extends Component {
@@ -26,7 +28,7 @@ class MyReviewList extends Component {
   }
 
   render() {
-    const { mypagereview, mypagePoint: mypagePointStore } = this.props;
+    const { mypagereview } = this.props;
 
     return (
       <MypageLayout

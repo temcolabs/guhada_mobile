@@ -1,7 +1,5 @@
 import React, { useCallback } from 'react';
-import css from './OrderItemTable.module.scss';
-import addCommaToNum from 'childs/lib/common/addCommaToNum';
-import DealOrdered from '../DealOrdered';
+import css from './ClaimOrderItemTable.module.scss';
 import OrderItem from './OrderItem';
 
 /**

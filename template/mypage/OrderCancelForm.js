@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
-import css from './OrderCancelForm.module.scss';
-import DetailPageLayout from 'components/layout/DetailPageLayout';
 import { observer, inject } from 'mobx-react';
+import _ from 'lodash';
+import cn from 'classnames';
+import { Form, Field } from 'react-final-form';
+import { withRouter } from 'next/router';
+import css from 'components/mypage/order/OrderClaimForm.module.scss';
+import DetailPageLayout from 'components/layout/DetailPageLayout';
 import TextArea from 'components/mypage/form/TextArea';
 import Select from 'components/mypage/form/Select';
 import QuantityControl from 'components/mypage/form/QuantityControl';
 import DealOrdered from 'components/mypage/DealOrdered';
-import { withRouter } from 'next/router';
 import SubmitButton, {
   CancelButton,
   SubmitButtonWrapper,
 } from 'components/mypage/form/SubmitButton';
 import RefundInfo from 'components/mypage/orderCancel/RefundInfo';
-import claimFormCSS from 'components/mypage/order/OrderClaimForm.module.scss';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
-import { Form, Field } from 'react-final-form';
 import {
   composeValidators,
   maxValue,
@@ -25,10 +26,8 @@ import isDev from 'childs/lib/common/isDev';
 import purchaseStatus from 'childs/lib/constant/order/purchaseStatus';
 import RefundAccountInfoForm from 'components/mypage/orderCancel/RefundAccountInfoForm';
 import { isFalsey } from 'childs/lib/common/isTruthy';
-import { toJS } from 'mobx';
 import { devLog } from 'childs/lib/common/devLog';
-import _ from 'lodash';
-import cn from 'classnames';
+import MypageSectionTitle from 'components/mypage/MypageSectionTitle';
 
 /**
  * 주문 취소 신청 페이지
@@ -151,15 +150,6 @@ class OrderCancelForm extends Component {
     const isRefundInfoVisible =
       claimData?.orderStatus !== purchaseStatus.WAITING_PAYMENT.code;
 
-    // ? 로그를 찍지 않으면 RefundInfo에 업데이트된 refundResponse가 전달되지 않음.
-    devLog('refundResponse', toJS(this.props.orderClaimForm.refundResponse));
-
-    devLog(
-      'orderClaimFormorderClaimFormorderClaimForm',
-      toJS(this.props.orderClaimForm)
-    );
-
-    devLog('claimDataclaimDataclaimDataclaimData', toJS(claimData));
     return (
       <Form
         onSubmit={this.handleSubmit}
@@ -184,16 +174,14 @@ class OrderCancelForm extends Component {
                       </div>
                       <div className={css.orderInfo__field}>
                         <span className={css.orderInfo__label}>주문일</span>
-                        <span
-                          className={cn(css.orderInfo__value, css.withDivider)}
-                        >
+                        <span className={cn(css.orderInfo__value)}>
                           {orderClaimForm.orderDateWithFormat}
                         </span>
                       </div>
                     </div>
                   </div>
 
-                  <div className={css.formWrap}>
+                  <div className={css.formSection}>
                     <div className={css.dealWrap}>
                       <DealOrdered
                         order={orderClaimForm.claimData}
@@ -210,15 +198,10 @@ class OrderCancelForm extends Component {
                         }}
                       >
                         <div
-                          className={cn(
-                            claimFormCSS.field,
-                            claimFormCSS.hasChildrenInOneLine
-                          )}
+                          className={cn(css.field, css.hasChildrenInOneLine)}
                         >
-                          <div className={claimFormCSS.field__label}>
-                            취소수량
-                          </div>
-                          <div className={claimFormCSS.field__value}>
+                          <div className={css.field__label}>취소수량</div>
+                          <div className={css.field__value}>
                             <Field
                               name={this.fields.quantity}
                               validate={composeValidators(
@@ -245,22 +228,17 @@ class OrderCancelForm extends Component {
                           </div>
                         </div>
                         <div
-                          className={cn(
-                            claimFormCSS.field,
-                            claimFormCSS.hasChildrenInOneLine
-                          )}
+                          className={cn(css.field, css.hasChildrenInOneLine)}
                         >
-                          <div className={claimFormCSS.field__label}>
-                            판매자
-                          </div>
-                          <div className={claimFormCSS.field__value}>
+                          <div className={css.field__label}>판매자</div>
+                          <div className={css.field__value}>
                             {claimData?.sellerName || '-'}
                           </div>
                         </div>
                       </div>
                     </div>
 
-                    <div className={css.reasonWrapper}>
+                    <div className={css.reasonSelectWrapper}>
                       <Field
                         name={this.fields.cancelReason}
                         validate={composeValidators(required)}
@@ -284,9 +262,7 @@ class OrderCancelForm extends Component {
                                 styles={{ height: '45px' }}
                               />
                               {meta.submitFailed && meta.error && (
-                                <div className={claimFormCSS.errorMsg}>
-                                  {meta.error}
-                                </div>
+                                <div className={css.errorMsg}>{meta.error}</div>
                               )}
                             </>
                           );
@@ -294,7 +270,7 @@ class OrderCancelForm extends Component {
                       </Field>
                     </div>
 
-                    <div className={css.cancelReasonText}>
+                    <div className={css.reasonTextareaWrapper}>
                       <Field
                         name={this.fields.cancelReasonText}
                         validate={requiredWithMessage(
@@ -313,9 +289,7 @@ class OrderCancelForm extends Component {
                               isInputSizeVisible={false}
                             />
                             {meta.submitFailed && meta.error && (
-                              <div className={claimFormCSS.errorMsg}>
-                                {meta.error}
-                              </div>
+                              <div className={css.errorMsg}>{meta.error}</div>
                             )}
                           </>
                         )}
@@ -323,9 +297,10 @@ class OrderCancelForm extends Component {
                     </div>
                   </div>
 
+                  {/* 환불 계좌정보 */}
                   {orderClaimForm.isRefundEnabled && (
-                    <div className={css.refundFormWrap}>
-                      {/* 환불 계좌정보 */}
+                    <div className={css.formSection}>
+                      <MypageSectionTitle>환불 계좌정보</MypageSectionTitle>
                       <RefundAccountInfoForm
                         isCreate={this.getIsCreate()}
                         fields={this.fields}
@@ -334,17 +309,9 @@ class OrderCancelForm extends Component {
                     </div>
                   )}
 
-                  {isRefundInfoVisible && (
-                    <RefundInfo
-                      isRefundExpectation={true}
-                      refundResponse={orderClaimForm.refundResponse}
-                      paymentMethodText={
-                        claimData?.paymentMethodText || claimData?.paymentMethod
-                      }
-                    />
-                  )}
+                  {isRefundInfoVisible && <RefundInfo />}
 
-                  <SubmitButtonWrapper>
+                  <SubmitButtonWrapper fixedToBottom>
                     <CancelButton
                       onClick={
                         this.props.orderClaimList.redirectToOrderClaimList

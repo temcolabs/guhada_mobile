@@ -1,0 +1,74 @@
+.imageList {
+    width: 100%;
+    float: left;
+}
+
+.imageItem {
+    width: 82px;
+    height: 82px;
+    margin-top: 10px;
+    margin-right: 9px;
+    float: left;
+    position: relative;
+
+    img {
+        width: 82px;
+        height: 82px;
+    }
+
+    .reviewIcon {
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+    }
+
+    &:hover {
+        .imageHover {
+            display: block;
+        }
+    }
+
+    .imageHover {
+        display: none;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 30px;
+        background-color: #444444;
+        opacity: 0.8;
+        text-align: center;
+    }
+
+    &:nth-child(2n-1) {
+        margin-right: 10px;
+    }
+
+    &:nth-child(6n) {
+        margin-right: 0;
+    }
+}
+
+.photoItemWrap {
+    cursor: pointer;
+
+    input[type="file"] {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
+    }
+
+}
+
+.photoText {
+    display: inline-block;
+    margin-left: 3px;
+    line-height: 59px;
+    font-size: 13px;
+    font-weight: normal;
+    color: #444444;
+}

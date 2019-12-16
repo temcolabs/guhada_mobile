@@ -381,13 +381,13 @@ export default class MypageAddressStore {
 
           // 주문 배송지
           case 'shipping':
-            const address =
-              data.userSelectedType === 'J'
-                ? data.jibunAddress
-                : data.roadAddress;
-
-            this.setOrderAddress(address, 'addressBasic'); // 기본주소
-            this.setOrderAddress(address, 'roadAddress'); // 도로명 주소
+            if (data.userSelectedType === 'J') {
+              this.setOrderAddress(data.jibunAddress, 'addressBasic'); // 기본주소
+              this.setOrderAddress(data.postcode, 'zipcode'); // 기본주소
+            } else {
+              this.setOrderAddress(data.roadAddress, 'roadAddress'); // 도로명 주소
+              this.setOrderAddress(data.zonecode, 'zipcode'); // 도로명 주소
+            }
 
             break;
 

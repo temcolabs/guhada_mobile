@@ -108,7 +108,9 @@ class ClaimListSeller extends Component {
                 <ClaimItemSeller
                   content={claimContent}
                   handleModifyModal={sellerClaim =>
-                    this.handleOpenSellerClaimModal(sellerClaim)
+                    this.handleOpenSellerClaimModal({
+                      sellerId: sellerClaim?.sellerId,
+                    })
                   }
                   handleDeleteModalOpen={this.handleDeleteModalOpen}
                 />
@@ -128,9 +130,8 @@ class ClaimListSeller extends Component {
         />
 
         <SellerClaimModal
-          sellerId={this.state.sellerClaimModal.sellerId}
-          orderProdGroupId={this.state.sellerClaimModal.orderProdGroupId}
           isOpen={this.state.sellerClaimModal.isOpen}
+          sellerId={this.state.sellerClaimModal.sellerId}
           onClose={this.handleCloseSellerClaimModal}
         />
       </>
