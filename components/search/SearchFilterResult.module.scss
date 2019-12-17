@@ -1,0 +1,31 @@
+.wrap {
+  height: 56px;
+  padding-left: 20px;
+  font-size: 12px;
+  font-weight: 500;
+
+
+  & .buttonWrap {
+    height: 27px;
+    white-space: nowrap;
+    overflow-x: auto;
+  }
+
+  & button {
+    height: 26px;
+    padding: 0 29px 0 12px;
+    color: #5d2ed1;
+    border: 1px solid #5d2ed1;
+    margin-right: 3px;
+    border-radius: 15px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &.colored {
+      background-color: #5d2ed1;
+      color: white;
+    }
+  }
+}

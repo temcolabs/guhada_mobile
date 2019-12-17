@@ -18,6 +18,7 @@ import _ from 'lodash';
 import KeywordMenu from 'components/header/keyword/KeywordMenu';
 import SearchResultEmpty from 'components/search/SearchResultEmpty';
 import SearchFilter from 'components/search/SearchFilter';
+import SearchFilterResult from 'components/search/SearchFilterResult';
 
 @withRouter
 @inject('searchitem')

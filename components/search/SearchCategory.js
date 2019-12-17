@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import css from './SearchCategory.module.scss';
 import './SearchCategory.scss';
 import cn from 'classnames';
@@ -9,23 +9,32 @@ import { withRouter } from 'next/router';
 import isTruthy from 'childs/lib/common/isTruthy';
 import { getCategory, searchChildrenCheck } from 'utils';
 import { toJS } from 'mobx';
-import Tree from 'rc-tree';
+import Tree, { TreeNode } from 'rc-tree';
+
 const enhancer = compose(withRouter);
 
 const SearchCategory = enhancer(({ searchitem, router }) => {
   const [isOpen, setisOpen] = useState(false);
-  const [entireCategories] = useState(
-    searchChildrenCheck(toJS(searchitem.item?.categories))
+  const entireCategories = searchChildrenCheck(
+    toJS(searchitem.item?.categories)
   );
   const [categoryId] = useState(router.query.category);
-  const [categories, setCategories] = useState(
-    getCategory(entireCategories, categoryId)
-  );
+  const [categories] = useState(getCategory(entireCategories, categoryId));
 
   useEffect(() => {
-    setCategories(getCategory(entireCategories, categoryId));
-    searchitem.setExpandedKeys(categories.key);
-  }, [entireCategories, categoryId, searchitem, categories]);
+    if (!isTruthy(categoryId)) {
+      searchitem.setExpandedKeys(null);
+    }
+  }, [categoryId, searchitem, categories]);
+
+  const loop = data => {
+    return data.map(item => {
+      if (item.children) {
+        return <TreeNode {...item}>{loop(item.children)}</TreeNode>;
+      }
+      return <TreeNode {...item} />;
+    });
+  };
 
   return useObserver(() => (
     <div className={css.wrap}>
@@ -36,11 +45,7 @@ const SearchCategory = enhancer(({ searchitem, router }) => {
         }}
       >
         카테고리
-        <span>
-          {isTruthy(searchitem.selectCategory)
-            ? searchitem.selectCategory?.fullDepthName
-            : categories?.fullDepthName}
-        </span>
+        <span>{categories?.fullDepthName}</span>
       </div>
       {isOpen && (
         <div className={css.categoryWrap}>
@@ -50,9 +55,10 @@ const SearchCategory = enhancer(({ searchitem, router }) => {
             onSelect={searchitem.onSelect}
             onCheck={searchitem.onCheck}
             checkedKeys={searchitem.getCheckedKeys}
-            treeData={entireCategories}
             autoExpandParent={true}
-          />
+          >
+            {loop(entireCategories)}
+          </Tree>
         </div>
       )}
     </div>

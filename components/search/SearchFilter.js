@@ -18,7 +18,6 @@ class SearchFilter extends Component {
   }
   // isVisible
   setBrandData = memoize(isVisible => {
-    console.log('isVisible', isVisible);
     const { brands, searchitem } = this.props;
     if (isVisible === false) {
       searchitem.initFilter();

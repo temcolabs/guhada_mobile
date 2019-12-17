@@ -31,7 +31,7 @@ export default class SearchItemStore {
   @observable itemEmpty = false;
   @observable hover = [false, false, false];
   @observable deals = [];
-
+  @observable dealsOfCategories = [];
   @action
   toggleHover = i => {
     let hoversState = this.hover;
@@ -337,6 +337,7 @@ export default class SearchItemStore {
             if (data.resultCode === 200) {
               // * 목록 검색 성공 후 크리테오 트래커 실행
               const { deals } = data.data;
+              this.dealsOfCategories = data.data.categories;
 
               if (deals.length >= 3) {
                 criteoTracker.searchResults({
@@ -367,6 +368,12 @@ export default class SearchItemStore {
               else if (categoryIds)
                 this.setTitle(
                   getCategoryTitle(data.data.categories, categoryIds)
+                );
+
+              // SearchCategory init key 값 설정
+              if (categoryIds && data.data.categories.length !== 0)
+                this.setExpandedKeys(
+                  getCategory(data.data.categories, categoryIds).key
                 );
 
               if (enter === 'all') {
@@ -709,6 +716,7 @@ export default class SearchItemStore {
   @action
   onSelect = (selectedKeys, info) => {
     let classNames = info.node.props.className;
+
     if (classNames === 'ableCheckbox') {
       this.checkDuplicatedCheckedKeys(info);
     } else if (selectedKeys.length === 0) {
@@ -739,12 +747,21 @@ export default class SearchItemStore {
     let filterList = [];
     let category;
     let subCategoryList = [];
+
+    let brandListTitle = [];
+    let filterListTitle = [];
+    let categoryListTitle = [];
+    let subCategoryListTitle = [];
+
     let query = Router.router.query;
     // filter list push
     if (Array.isArray(toJS(this.filterData))) {
       this.filterData.map(filter => {
         filter.attributes.map(attr => {
-          if (attr.filter) filterList.push(attr.id);
+          if (attr.filter) {
+            filterList.push(attr.id);
+            filterListTitle.push(attr);
+          }
         });
       });
     }
@@ -753,8 +770,27 @@ export default class SearchItemStore {
     if (Array.isArray(toJS(this.filterBrand))) {
       this.filterBrand.map(brand => {
         brandList.push(brand.id);
+        brandListTitle.push(brand);
       });
     }
+
+    this.searchFilterList['brand'] = brandListTitle;
+    this.searchFilterList['filter'] = filterListTitle;
+
+    console.log('toJS(this.deals)', toJS(this.deals));
+    categoryListTitle.push({
+      title: isTruthy(this.selectCategory)
+        ? getCategoryTitle(this.dealsOfCategories, toJS(this.selectCategory.id))
+        : getCategoryTitle(this.dealsOfCategories, query.category),
+      id: isTruthy(this.selectCategory)
+        ? toJS(this.selectCategory.id)
+        : query.category,
+    });
+
+    this.searchFilterList['category'] = categoryListTitle;
+    this.searchFilterList['subcategory'] = toJS(this.checkedKeysId);
+
+    console.log('this.searchFilterList', this.searchFilterList);
 
     brandList = addCommaToArray(brandList);
     filterList = addCommaToArray(filterList);
@@ -774,6 +810,13 @@ export default class SearchItemStore {
       filter: filterList,
       subcategory: subCategoryList,
     });
+  };
+
+  @observable searchFilterList = {
+    brand: [],
+    filter: [],
+    category: [],
+    subcategory: [],
   };
 
   @observable filterBrand = [];
