@@ -22,6 +22,12 @@ export default class SpecialStore {
     detailPage: false,
     firstPurchasePopupIsOpen: false,
   };
+  @observable id = '';
+  @observable specialDetailList = [];
+  @observable scrollPosition;
+  @observable infinityStauts = true;
+  @observable endPage = 0;
+  @observable scrollDirection;
 
   @action
   getSpecialList = value => {
@@ -55,6 +61,7 @@ export default class SpecialStore {
 
   @action
   getSpecialDetail = ({ id, page = 1 }) => {
+    this.id = id;
     API.settle
       .get(`/plan/list/detail?`, {
         params: {
@@ -67,7 +74,26 @@ export default class SpecialStore {
         this.totalItemCount = this.specialDetail.totalItemCount;
         this.status.detailPage = true;
         this.page = page;
-        devLog(toJS(this.specialDetail), this.totalItemCount, 'special detail');
+
+        if (this.specialDetailList.length === 0) {
+          this.specialDetailList = res.data.data.planListDetails;
+        } else {
+          this.specialDetailList = this.specialDetailList.concat(
+            res.data.data.planListDetails
+          );
+          this.endPage = Math.ceil(this.totalItemCount / 20);
+          if (this.page >= this.endPage) {
+            this.infinityStauts = false;
+          } else {
+            this.infinityStauts = true;
+          }
+        }
+
+        devLog(
+          toJS(this.specialDetailList),
+          this.totalItemCount,
+          'special detail'
+        );
       })
       .catch(err => {
         console.log(err, 'special detail get error');
@@ -75,15 +101,27 @@ export default class SpecialStore {
       });
   };
 
-  getUrl = () => {
-    let url = this.specialDetail.detailPageLink;
-    let start = url.indexOf('com');
-    let query = url.substr(start + 3);
+  @action
+  listenToScroll = () => {
+    const winScroll =
+      document.body.scrollTop || document.documentElement.scrollTop;
 
-    if (query.indexOf('signup')) {
-      this.specialDetail.detailPageLink = '/login/selectsignup';
-    } else {
-      this.specialDetail.detailPageLink = query;
+    const height =
+      document.documentElement.scrollHeight -
+      document.documentElement.clientHeight;
+
+    const scrolled = winScroll / height;
+    // 스트롤의 방향을 확인
+    if (this.scrollPosition > scrolled) {
+      return false;
+    }
+    this.scrollPosition = scrolled;
+
+    if (this.scrollPosition > 0.7 && this.infinityStauts === true) {
+      this.infinityStauts = false;
+      this.page += 1;
+
+      this.getSpecialDetail({ id: this.id, page: this.page });
     }
   };
 }

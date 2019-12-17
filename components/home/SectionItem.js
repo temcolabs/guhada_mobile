@@ -40,11 +40,13 @@ export default function SectionItem({
   return (
     <div className={css.wrap}>
       <div className={css.imageWrap}>
-        <div className={css.freeShipping}>
-          무료
-          <br />
-          배송
-        </div>
+        {item.freeShipping === true || item.freeShipping === 'FREE' ? (
+          <div className={css.freeShipping}>
+            무료
+            <br />
+            배송
+          </div>
+        ) : null}
         <img src={item.productImage.url} alt={item.productImage.name} />
       </div>
       <div className={css.contentWrap}>

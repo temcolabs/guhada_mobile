@@ -55,6 +55,11 @@ class specialdetail extends Component {
     const id = url.substr(url.lastIndexOf('/') + 1);
 
     this.props.special.getSpecialDetail({ id });
+    window.addEventListener('scroll', this.props.special.listenToScroll);
+  }
+
+  componentWillUnmount() {
+    window.addEventListener('scroll', this.props.special.listenToScroll);
   }
   render() {
     const { special, headData } = this.props;

@@ -8,12 +8,10 @@ import { LinkRoute } from 'childs/lib/router';
 import Router from 'next/router';
 import copy from 'copy-to-clipboard';
 import DetailFilter from 'components/event/special/DetailFilter';
+import { useObserver } from 'mobx-react-lite';
 
 import moment from 'moment';
 function SpecialDetail({ special, alert }) {
-  let itemList = [];
-  for (let i = 0; i < 20; i++) itemList.push('');
-
   const copyUrlToClipboard = () => {
     const productUrl = `${window.location.protocol}//${window.location.host}${
       Router.router.asPath
@@ -54,7 +52,7 @@ function SpecialDetail({ special, alert }) {
   //   }
   // };
 
-  return (
+  return useObserver(() => (
     <DefaultLayout headerShape={'eventmain'} pageTitle={'기획전'}>
       <div className={css.wrap}>
         <div className={css.headerWrap}>
@@ -114,11 +112,11 @@ function SpecialDetail({ special, alert }) {
           </div>
 
           <div className={css.itemWrap}>
-            {special.specialDetail?.planListDetails?.map((data, index) => {
+            {special.specialDetailList?.map((data, index) => {
               return (
                 <LinkRoute
                   href={`/productdetail?deals=${data.dealId}`}
-                  key={data.dealId}
+                  key={index}
                 >
                   <a>
                     <SectionItem item={data} />
@@ -130,7 +128,7 @@ function SpecialDetail({ special, alert }) {
         </div>
       </div>
     </DefaultLayout>
-  );
+  ));
 }
 
 export default inject('special', 'alert')(SpecialDetail);
