@@ -5,10 +5,7 @@ $imageBoxSize: 80px;
 
 .wrap {
   font-size: 13px;
-
-  &:not(:first-child) {
-    margin-top: 30px;
-  }
+  margin-top: 30px;
 
   b {
     font-weight: normal;
@@ -145,16 +142,19 @@ $imageBoxSize: 80px;
   margin-top: 16px;
   padding-right: 24px; // 아이콘
 
-  // 닫힘 아이콘
-  &::before {
-    content: ' ';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 19px;
-    height: 19px;
-    background: url('/static/icon/detail_icon_arrow_open.png') no-repeat center;
-    background-size: contain;
+  &.isFolderble {
+    // 닫힘 아이콘
+    &::before {
+      content: ' ';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 19px;
+      height: 19px;
+      background: url('/static/icon/detail_icon_arrow_open.png') no-repeat
+        center;
+      background-size: contain;
+    }
   }
 
   &.isFolded {

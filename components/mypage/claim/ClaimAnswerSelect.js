@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import Select from 'react-select';
 import { inject, observer } from 'mobx-react';
 import inquiryStatus from 'childs/lib/constant/inquiry/inquiryStatus';
+
 @inject('mypageInquiry')
 @observer
 class ClaimAnswerSelect extends Component {
@@ -79,10 +80,7 @@ class ClaimAnswerSelect extends Component {
           styles={selectStyles}
           options={inquiryOption}
           defaultValue={inquiryOption[0]}
-          onChange={inquiryOption => {
-            mypageInquiry.setStatus(inquiryOption.value);
-            mypageInquiry.getInquirie(mypageInquiry.page, mypageInquiry.status);
-          }}
+          onChange={this.props.onChange}
           isSearchable={false}
         />
       </Fragment>

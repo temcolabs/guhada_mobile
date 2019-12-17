@@ -4,6 +4,7 @@ import cn from 'classnames';
 import moment from 'moment';
 import { dateFormat } from 'childs/lib/constant';
 import inquiryStatus from 'childs/lib/constant/inquiry/inquiryStatus';
+import { pushRoute } from 'childs/lib/router';
 
 function ClaimItem({
   inquiry = {
@@ -50,13 +51,15 @@ function ClaimItem({
     setFold(status => !status);
   }, []);
 
-  const handleClickAnswer = useCallback(() => {
-    toggleIsFolded();
-  }, [toggleIsFolded]);
-
   const isAnswered = useMemo(() => inquiry.status === inquiryStatus.COMPLETED, [
     inquiry.status,
   ]);
+
+  const handleClickAnswer = useCallback(() => {
+    if (isAnswered) {
+      toggleIsFolded();
+    }
+  }, [isAnswered, toggleIsFolded]);
 
   return (
     <div className={css.wrap}>
@@ -64,6 +67,7 @@ function ClaimItem({
         <div
           className={css.productImageBox}
           style={{ backgroundImage: `url(${product.imageUrl})` }}
+          onClick={() => pushRoute(`/productdetail?deals=${product.dealId}`)}
         />
         <div className={css.productInfo}>
           <div className={css.brandName}>{product.brandName}</div>
@@ -97,7 +101,11 @@ function ClaimItem({
         className={cn(css.answerWrap, { [css.isExpanded]: !isFolded })}
         onClick={handleClickAnswer}
       >
-        <div className={cn(css.answerInner, { [css.isFolded]: isFolded })}>
+        <div
+          className={cn(css.answerInner, {
+            [css.isFolded]: isFolded,
+          })}
+        >
           <div
             className={cn(css.answerStatus, {
               [css.isAnswered]: isAnswered,
@@ -106,7 +114,12 @@ function ClaimItem({
             {isAnswered ? '답변완료' : '미답변'}
           </div>
 
-          <div className={cn(css.inquiry, { [css.isFolded]: isFolded })}>
+          <div
+            className={cn(css.inquiry, {
+              [css.isFolded]: isFolded,
+              [css.isFolderble]: isAnswered,
+            })}
+          >
             <div className={css.inquiry_text}>{inquiry?.inquiry}</div>
 
             <div className={cn(css.reply, { [css.isHidden]: isFolded })}>

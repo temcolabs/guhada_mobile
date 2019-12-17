@@ -13,7 +13,6 @@ import ClaimAnswerSelect from 'components/mypage/claim/ClaimAnswerSelect';
 class ClaimListProduct extends Component {
   state = {
     isOpen: false,
-    deleteIsOpen: false,
     modalData: {},
   };
 
@@ -68,7 +67,15 @@ class ClaimListProduct extends Component {
             {`총 ${inquiries.totalElements}개`}
           </div>
           <div className={css.answerWrap}>
-            <ClaimAnswerSelect />
+            <ClaimAnswerSelect
+              onChange={option => {
+                mypageInquiry.setStatus(option.value);
+                mypageInquiry.getInquirie(
+                  mypageInquiry.page,
+                  mypageInquiry.status
+                );
+              }}
+            />
           </div>
         </div>
 
