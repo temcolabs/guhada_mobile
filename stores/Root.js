@@ -60,6 +60,9 @@ import EventMainStore from './event/EventMainStore';
 import LuckyDrawStore from './event/LuckyDrawStore';
 import EventPopupStore from './event/EventPopupStore';
 
+//기획전
+import SpecialStore from './event/SpecialStore';
+
 class RootStore {
   constructor(isServer, initialState) {
     this.user = new UserStore(this, initialState);
@@ -155,6 +158,9 @@ class RootStore {
     this.eventmain = new EventMainStore(this, initialState);
     this.luckyDraw = new LuckyDrawStore(this, initialState);
     this.eventpopup = new EventPopupStore(this, initialState);
+
+    //기획전
+    this.special = new SpecialStore(this, initialState);
   }
 }
 
