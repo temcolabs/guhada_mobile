@@ -21,7 +21,6 @@ class OrderCompleteDetail extends Component {
 
   componentDidMount() {
     const { orderCompleteDetail } = this.props;
-
     orderCompleteDetail.getOrderComplete(this.purchaseId);
   }
 

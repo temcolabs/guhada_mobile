@@ -1,13 +1,14 @@
 import React from 'react';
-import ModalWrapper from 'components/common/modal/ModalWrapper';
 import css from './OrderConfirmModal.module.scss';
 import addCommaToNum from 'childs/lib/common/addCommaToNum';
 import SubmitButton, {
   SubmitButtonWrapper,
   CancelButton,
 } from '../form/SubmitButton';
-import ModalFormTitle from 'components/common/modal/modalform/ModalFormTitle';
 import Notimark from 'components/common/icon/Notimark';
+import ModalLayout, {
+  useModalLayoutState,
+} from 'components/layout/ModalLayout';
 
 /**
  * 구매확정 모달
@@ -25,25 +26,27 @@ export default function OrderConfirmModal({
   dueSavePointOnReview = 0,
   dueSavePointOnFirstPurchase = 0,
 }) {
+  const { isModalLayoutOpen } = useModalLayoutState({
+    isModalOpen: isOpen,
+  });
+
   return (
-    <ModalWrapper
-      isOpen={isOpen}
-      contentLabel={'OrderConfirmModal'}
+    <ModalLayout
+      isOpen={isModalLayoutOpen}
       onClose={onClose}
-      onRequestClose={onClose}
+      wrapperStyle={{
+        paddingBottom: '90px',
+      }}
     >
       <div className={css.wrap}>
-        <ModalFormTitle
-          wrapperStyle={{ paddingBottom: '40px' }}
-          onClose={onClose}
-        >
+        <div>
           <h2 className={css.title}>구매확정을 진행해주세요!</h2>
 
           <div className={css.confirmGuide}>
             구매확정 이후에는 반품・교환이 불가하므로 <br />
             반드시 상품을 받으신 후 진행해주세요.
           </div>
-        </ModalFormTitle>
+        </div>
 
         <div className={css.product}>
           <div
@@ -54,28 +57,27 @@ export default function OrderConfirmModal({
           />
 
           <div className={css.productInfo}>
-            <div className={css.brandName}>{order?.brandName}</div>
-            <div className={css.prodName}>{order?.prodName}</div>
+            <div className={css.brandAndProductName}>
+              <span className={css.brandName}>{order?.brandName}</span>{' '}
+              <span className={css.prodName}>{order?.prodName}</span>
+            </div>
 
             <div className={css.pointGuide}>
               <div className={css.pointGuide__item}>
                 <div className={css.pointGuide__condition}>구매 확정 시</div>
                 <div className={css.pointGuide__result}>
-                  {/* TODO: */}
                   포인트 {addCommaToNum(dueSavePointOnConfirm)}원
                 </div>
               </div>
               <div className={css.pointGuide__item}>
                 <div className={css.pointGuide__condition}>리뷰 작성 시</div>
                 <div className={css.pointGuide__result}>
-                  {/* TODO: */}
                   포인트 최대 {addCommaToNum(dueSavePointOnReview)}원
                 </div>
               </div>
               <div className={css.pointGuide__item}>
                 <div className={css.pointGuide__condition}>첫 구매 시</div>
                 <div className={css.pointGuide__result}>
-                  {/* TODO: */}
                   포인트 {addCommaToNum(dueSavePointOnFirstPurchase)}원
                 </div>
               </div>
@@ -103,14 +105,17 @@ export default function OrderConfirmModal({
             삭제 및 적립 혜택이 회수될 수 있습니다.
           </li>
         </ul>
-
-        <SubmitButtonWrapper responsive wrapperStyle={{ marginTop: '60px' }}>
-          <CancelButton onClick={onClose}>취소</CancelButton>
-          <SubmitButton type="button" onClick={onConfirm}>
-            구매확정
-          </SubmitButton>
-        </SubmitButtonWrapper>
       </div>
-    </ModalWrapper>
+      <SubmitButtonWrapper
+        responsive
+        fixedToBottom
+        wrapperClassname={css.submitButtonWrapper}
+      >
+        <CancelButton onClick={onClose}>취소</CancelButton>
+        <SubmitButton type="button" onClick={onConfirm}>
+          구매확정
+        </SubmitButton>
+      </SubmitButtonWrapper>
+    </ModalLayout>
   );
 }

@@ -4,11 +4,9 @@ import cn from 'classnames';
 import addCommaToNum from 'childs/lib/common/addCommaToNum';
 import nilToZero from 'childs/lib/common/nilToZero';
 import { paymentMethodOptions } from 'childs/lib/constant/order/paymentMethod';
-import { observer } from 'mobx-react';
-import { compose } from 'lodash/fp';
 import MypageSectionTitle from '../MypageSectionTitle';
-
-const enhancer = compose(observer);
+import { observer } from 'mobx-react-lite';
+import useStores from 'stores/useStores';
 
 /**
  * 환불금액 정보
@@ -20,19 +18,12 @@ const enhancer = compose(observer);
  */
 function RefundInfo({
   // 섹션 열고 닫기가 가능한지
-  isCollapsingEnabled = false,
-
-  // OrderClaimUpdateResponse.refundResponse
-  refundResponse = {
-    totalCancelDiscountPrice: 0, // 상품 주문할인 취소
-    totalCancelOrderPrice: 0, // 취소상품 주문금액
-    totalCancelProductPrice: 0, // 취소상품 금액합계
-    totalCancelShipPrice: 0, // 취소 배송비 합계
-    totalPaymentCancelPrice: 0, // 신용카드 환불금액
-    totalPointCancelPrice: 0, // 포인트 환불금액
-  },
-  paymentMethodText = '', // 결제 수단 텍스트
+  isCollapsingEnabled = true,
 }) {
+  const { orderClaimForm } = useStores();
+
+  const { paymentMethodText, refundResponse } = orderClaimForm;
+
   // 결제 방법이 한글 텍스트가 아닌 enum으로 오는 케이스가 있음(신청 페이지)
   // 옵션에서 찾을 수 있으면 대체하고, 아니면 전달된 값을 그대로 사용한다.
   const paymentMethodTextInView =
@@ -176,4 +167,4 @@ function RefundInfo({
   );
 }
 
-export default enhancer(RefundInfo);
+export default observer(RefundInfo);

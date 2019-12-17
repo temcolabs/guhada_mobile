@@ -1,6 +1,5 @@
 import React from 'react';
 import css from './ClaimSuccessNotiBox.module.scss';
-import isFunction from 'childs/lib/common/isFunction';
 
 /**
  * 취소, 반품 완료 페이지 상단 알림 박스

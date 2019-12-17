@@ -318,9 +318,7 @@ function OrderActionButtonConductor({
     });
   } else {
     /**
-     * TODO: UI에서 어떤 버튼을 표시할지는 claimStatus 값과의 조합이 필요함
-     * 현재 구현된 로직은 수정될 예정임.
-     *
+     * UI에서 어떤 버튼을 표시할지는 claimStatus 값과의 조합이 필요함
      * 참조) https://temcolabs.atlassian.net/browse/TECH-898
      */
     switch (purchaseStatus) {

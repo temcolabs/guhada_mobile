@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import ReviewWriteItem from './ReviewWriteItem';
-import Pagination from 'components/common/Pagination';
-import ReviewWriteModal, { reviewModalType } from './ReviewWriteModal';
 import MypageDataEmpty from '../MypageDataEmpty';
 import { inject, observer } from 'mobx-react';
-import { scrollToTarget } from 'childs/lib/common/scroll';
-import { devLog } from 'childs/lib/common/devLog';
 import css from './ReviewWriteItem.module.scss';
 
 /**
  * 작성 가능한 리뷰
  */
-@inject('mypagereview', 'mypagePoint', 'mypageDashboard', 'alert')
+@inject(
+  'orderCompleteList',
+  'mypagereview',
+  'mypagePoint',
+  'mypageDashboard',
+  'alert'
+)
 @observer
 class ReviewWrite extends Component {
   state = { isModalOpen: false, modalData: {}, initialPage: 1 };
@@ -19,20 +21,12 @@ class ReviewWrite extends Component {
   listTop = 'listTop';
 
   handleClickWriteReviewButton = orderItem => {
-    this.setState({
-      isModalOpen: true,
-      modalData: orderItem,
-    });
-  };
-
-  handleModalClose = () => {
-    this.setState({ isModalOpen: false });
+    this.props.orderCompleteList.handleClickWriteReviewButton(orderItem);
   };
 
   handleChangePage = page => {
     const { mypagereview: mypageReviewStore } = this.props;
 
-    // scrollToTarget({ id: this.listTop, behavior: 'auto' });
     mypageReviewStore.availableReviewPage += 1;
     mypageReviewStore.getAvailableReview(mypageReviewStore.availableReviewPage);
   };
@@ -65,7 +59,6 @@ class ReviewWrite extends Component {
       orderItemList,
       availableReviewPage,
     } = mypageReviewStore;
-    devLog(`availableReview`, availableReview);
 
     return (
       <>
@@ -96,15 +89,6 @@ class ReviewWrite extends Component {
             더 보기
           </div>
         )}
-
-        {/* 리뷰 작성 모달 */}
-        {/* <ReviewWriteModal
-          isOpen={this.state.isModalOpen}
-          handleModalClose={this.handleModalClose}
-          modalData={this.state.modalData}
-          status={reviewModalType.WRITE}
-          onSuccessSubmit={this.handleSubmitReview}
-        /> */}
       </>
     );
   }

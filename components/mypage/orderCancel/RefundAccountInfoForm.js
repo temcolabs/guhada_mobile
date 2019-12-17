@@ -14,7 +14,6 @@ import FormButton, {
 } from 'components/mypage/form/FormButton';
 import accountService from 'childs/lib/API/order/accountService';
 import useStores from 'stores/useStores';
-import MypageSectionTitle from '../MypageSectionTitle';
 import claimFormCSS from 'components/mypage/order/OrderClaimForm.module.scss';
 import cn from 'classnames';
 
@@ -106,10 +105,10 @@ export default function RefundAccountInfoForm({
 
   const isAccountVerified = values[fields.isRefundAccountChecked];
 
+  console.log(`isRefundAccountFormVisible`, isRefundAccountFormVisible);
+
   return (
     <div>
-      <MypageSectionTitle title="환불 계좌정보" />
-
       {isRefundAccountFormVisible && (
         <div style={{ marginTop: '20px' }}>
           <div className={claimFormCSS.field}>

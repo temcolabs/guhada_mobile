@@ -1,21 +1,27 @@
 @import 'styles/mixins/index';
+
 .wrap {
   position: absolute;
   width: 100%;
   bottom: 0;
   left: 0;
   height: 100vh;
-  overflow: auto;
   background: #fff;
   padding-bottom: 60px;
+  padding-top: 60px;
+  overflow-x: scroll;
+
   .header {
+    position: absolute;
+    top: 0;
+    left: 0;
     display: flex;
     width: 100%;
     height: 60px;
     justify-content: center;
     align-items: center;
-    position: relative;
     padding: 0 10px;
+
     .title {
       margin: 0;
       @include centered;

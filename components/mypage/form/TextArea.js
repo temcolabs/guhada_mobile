@@ -6,7 +6,7 @@ import useChangeInput from 'components/hooks/useChangeInput';
 
 export default function TextArea({
   initialValue = '',
-  onChange = () => {},
+  onChange = (v) => {},
   placeholder = '내용을 입력해주세요',
   maxSize = 1000,
   isResizable = true,

@@ -13,6 +13,7 @@ module.exports = {
     wcs_do: true,
     wcs: true,
     _nasa: true,
+    kochava: true,
   },
   rules: {
     'jsx-a11y/anchor-is-valid': 'off', // Link 컴포넌트(https://github.com/zeit/next.js#with-link)

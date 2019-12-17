@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
-
+import { EVENT_FILTER } from 'childs/lib/constant/event/FilterOption';
 class Filter extends Component {
   render() {
     let selectStyles = {
@@ -53,16 +53,7 @@ class Filter extends Component {
       <Select
         styles={selectStyles}
         placeholder={`진행중 이벤트`}
-        options={[
-          {
-            label: '진행중 이벤트',
-            value: 'PROGRESS',
-          },
-          {
-            label: '종료 이벤트',
-            value: 'END',
-          },
-        ]}
+        options={EVENT_FILTER}
         onChange={value => {
           this.props.onChange(value);
         }}

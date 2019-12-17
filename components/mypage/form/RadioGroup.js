@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import css from './RadioGroup.module.scss';
 import useChangeOption from 'components/hooks/useChangeOption';
+import cn from 'classnames';
 
 export default function RadioGroup({
   name = '', // unique string
@@ -9,6 +10,7 @@ export default function RadioGroup({
   onChange, // 파라미터로 선택된 value가 전달된다.
   initialValue, // 선택 옵션의 value
   wrapperStyle = {},
+  isSingleItemInLine = false, // 한줄에 한 아이템
 }) {
   const [value, label, handleChange] = useChangeOption({
     onChange,
@@ -17,7 +19,10 @@ export default function RadioGroup({
   });
 
   return (
-    <div className={css.wrap} style={wrapperStyle}>
+    <div
+      className={cn(css.wrap, { [css.isSingleItemInLine]: isSingleItemInLine })}
+      style={wrapperStyle}
+    >
       {options.map((option, index) => {
         const id = `${name}_${index}`;
 

@@ -287,8 +287,6 @@ export default class MypageReviewStore {
             .then(res => {
               if (isFunction(onSuccess)) {
                 onSuccess({ data: res.data?.data });
-
-                this.root.alert.showAlert('리뷰가 수정되었습니다.');
               }
             })
             .catch(e => {

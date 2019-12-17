@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 // import OrderPeriodSelector from '../order/OrderPeriodSelector';
 import ReviewModifyItem from './ReviewModifyItem';
-import Pagination from 'components/common/Pagination';
+// import Pagination from 'components/common/Pagination';
 import { observer, inject } from 'mobx-react';
-import ReviewWriteModal, { reviewModalType } from './ReviewWriteModal';
 import ReviewDeleteModal from './ReviewDeleteModal';
 import MypageDataEmpty from '../MypageDataEmpty';
 import { toJS } from 'mobx';
@@ -15,12 +14,10 @@ import css from './ReviewModifyItem.module.scss';
 /**
  * 내가 작성한 리뷰
  */
-@inject('mypagereview')
+@inject('mypagereview', 'orderCompleteList')
 @observer
 class ReviewModify extends Component {
   state = {
-    isModalOpen: false,
-    modalData: {},
     reviewData: {},
     isDeleteModalOpen: false,
   };
@@ -28,11 +25,7 @@ class ReviewModify extends Component {
   listTop = 'listTop';
 
   handleClickWriteReviewButton = (orderItem, reivewItem) => {
-    this.setState({
-      isModalOpen: true,
-      modalData: orderItem,
-      reviewData: reivewItem,
-    });
+    this.props.orderCompleteList.handleClickEditReviewButton(orderItem);
   };
 
   handleClickDeleteReviewButton = reivewItem => {
@@ -40,10 +33,6 @@ class ReviewModify extends Component {
       isDeleteModalOpen: true,
       reviewData: reivewItem,
     });
-  };
-
-  handleModalClose = () => {
-    this.setState({ isModalOpen: false });
   };
 
   handleDeleteModalClose = () => {
@@ -87,28 +76,12 @@ class ReviewModify extends Component {
         >
           더 보기
         </div>
-        {/* 
+        {/*
         <Pagination
           initialPage={myReviews.pageable?.pageNumber + 1 || 1}
           onChangePage={this.handleChangePage}
           itemsCountPerPage={mypageReviewStore.myReviewsPageSize || 1}
           totalItemsCount={myReviews.totalElements || 1}
-        /> */}
-
-        {/* 리뷰 수정 모달 */}
-        {/* <ReviewWriteModal
-          isOpen={this.state.isModalOpen}
-          handleModalClose={this.handleModalClose}
-          modalData={this.state.modalData}
-          reviewData={this.state.reviewData}
-          status={reviewModalType.MODIFY}
-          onSuccessModify={() => {
-            this.handleModalClose();
-            mypageReviewStore.initReviewPhotos();
-            mypageReviewStore.getMyReviews();
-            mypageReviewStore.getAvailableReview();
-            mypageReviewStore.initReviewPhotos();
-          }}
         /> */}
 
         <ReviewDeleteModal

@@ -1,0 +1,42 @@
+.wrap {
+  margin-top: 60px;
+  margin-bottom: 60px;
+  .dashBoard {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    height: 56px;
+
+    .totalCount {
+      color: #333;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .filter {
+      width: 100px;
+    }
+  }
+
+  .eventListWrap {
+    margin-bottom: 60px;
+  }
+  .moreButton {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    justify-content: center;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    i {
+      margin-left: 4px;
+      display: block;
+      background: url('/static/icon/detail_btn_more_open.png') no-repeat;
+      width: 16px;
+      height: 16px;
+      background-size: cover;
+      background-position: center;
+    }
+  }
+}

@@ -7,6 +7,7 @@ export default {
     { id: 4, title: '타임딜', href: '/event/timedeal', flag: 'event' },
     { id: 5, title: '럭키드로우', href: '/event/luckydraw', flag: 'event' },
     { id: 6, title: '이벤트', href: '/event' },
+    { id: 7, title: '기획전', href: '/event/special' },
     // { id: 6, title: '한정특가', href: '' },
     // { id: 7, title: 'Sale', href: '' },
   ],
