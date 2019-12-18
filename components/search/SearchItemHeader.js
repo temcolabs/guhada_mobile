@@ -22,7 +22,7 @@ class SearchItemHeader extends Component {
           className={cn(css.wrap, { [css.scrollUp]: scrollDirection === 'up' })}
           style={{ top: `${isBrand === true ? 60 : 104}px` }}
         >
-          <div className={css.order} onClick={setIsOrderVisible}>
+          <div className={css.order} onClick={() => setIsOrderVisible(true)}>
             {searchitem.searchOrderFilter === 'DATE'
               ? '신상품 순'
               : searchitem.searchOrderFilter === 'PRICE_ASC'
@@ -54,7 +54,10 @@ class SearchItemHeader extends Component {
             />
           </div>
           {process.env.NODE_ENV === 'development' && (
-            <div className={css.detail} onClick={setIsFilterVisible}>
+            <div
+              className={css.detail}
+              onClick={() => setIsFilterVisible(true)}
+            >
               상세검색
             </div>
           )}

@@ -31,7 +31,7 @@ export default class SearchItemStore {
   @observable itemEmpty = false;
   @observable hover = [false, false, false];
   @observable deals = [];
-  @observable dealsOfCategories = [];
+
   @action
   toggleHover = i => {
     let hoversState = this.hover;
@@ -337,7 +337,6 @@ export default class SearchItemStore {
             if (data.resultCode === 200) {
               // * 목록 검색 성공 후 크리테오 트래커 실행
               const { deals } = data.data;
-              this.dealsOfCategories = data.data.categories;
 
               if (deals.length >= 3) {
                 criteoTracker.searchResults({
@@ -766,6 +765,10 @@ export default class SearchItemStore {
       });
     }
 
+    if (query.enter === 'brand') {
+      brandList.push(query.brand.split(',')[0]);
+    }
+
     // brand list push
     if (Array.isArray(toJS(this.filterBrand))) {
       this.filterBrand.map(brand => {
@@ -774,24 +777,32 @@ export default class SearchItemStore {
       });
     }
 
+    // subcategory list push
+    if (Array.isArray(toJS(this.checkedKeysId))) {
+      this.checkedKeysId.map(subcategory => {
+        subCategoryListTitle.push({
+          title: getCategoryTitle(this.locationFilter, subcategory),
+          id: subcategory,
+        });
+      });
+    }
+
     this.searchFilterList['brand'] = brandListTitle;
     this.searchFilterList['filter'] = filterListTitle;
 
-    console.log('toJS(this.deals)', toJS(this.deals));
     categoryListTitle.push({
       title: isTruthy(this.selectCategory)
-        ? getCategoryTitle(this.dealsOfCategories, toJS(this.selectCategory.id))
-        : getCategoryTitle(this.dealsOfCategories, query.category),
+        ? getCategoryTitle(this.locationFilter, toJS(this.selectCategory.id))
+        : getCategoryTitle(this.locationFilter, query.category),
       id: isTruthy(this.selectCategory)
         ? toJS(this.selectCategory.id)
         : query.category,
     });
-
     this.searchFilterList['category'] = categoryListTitle;
-    this.searchFilterList['subcategory'] = toJS(this.checkedKeysId);
+    this.searchFilterList['subcategory'] = subCategoryListTitle;
 
-    console.log('this.searchFilterList', this.searchFilterList);
-
+    console.log('this.searchFilterList', toJS(this.searchFilterList));
+    console.log('brandList', brandList);
     brandList = addCommaToArray(brandList);
     filterList = addCommaToArray(filterList);
     subCategoryList = addCommaToArray(this.checkedKeysId);
@@ -799,17 +810,23 @@ export default class SearchItemStore {
       ? toJS(this.selectCategory.id)
       : query.category;
 
-    console.log('cateogry', category);
-    console.log('subCategoryList', subCategoryList);
-    console.log('brandList', brandList);
-    console.log('filterList', filterList);
-
     this.toSearch({
       category: category,
       brand: brandList,
       filter: filterList,
       subcategory: subCategoryList,
+      filtered: true,
     });
+  };
+
+  @action
+  initSearchFilterList = () => {
+    this.searchFilterList = {
+      brand: [],
+      filter: [],
+      category: [],
+      subcategory: [],
+    };
   };
 
   @observable searchFilterList = {
@@ -887,7 +904,10 @@ export default class SearchItemStore {
     enter = '',
     keyword = '',
     condition = '',
+    filtered = false,
   }) => {
+    let query = Router.router.query;
+
     pushRoute(
       `/search?${qs.stringify({
         category: category,
@@ -897,9 +917,10 @@ export default class SearchItemStore {
         order: order === null || order === '' ? 'DATE' : order,
         filter: filter,
         subcategory: subcategory,
-        enter: enter,
-        keyword: keyword,
-        condition: condition === '' ? [] : condition,
+        enter: enter === '' ? query.enter : enter,
+        keyword: keyword === '' ? query.keyword : keyword,
+        condition: condition === '' ? query.condition : condition,
+        filtered: filtered,
       })}`
     );
     if (this.preUrl !== Router.asPath) this.deals = [];

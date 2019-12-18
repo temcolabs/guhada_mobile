@@ -103,13 +103,7 @@ class SearchList extends Component {
           />
         )}
 
-        {!!searchitem.itemStatus && searchitem.itemEmpty === true ? (
-          <SearchResultEmpty
-            title={isKeyword && Router.router.query.keyword}
-            setIsSearchVisible={isKeyword && this.setIsSearchVisible}
-            setKeywordText={isKeyword && this.setKeywordText}
-          />
-        ) : (
+        {
           <>
             <SearchItemHeader
               setIsOrderVisible={this.setIsOrderVisible}
@@ -118,7 +112,13 @@ class SearchList extends Component {
               scrollDirection={searchitem.scrollDirection}
             />
             <div className={css.searchItemWrap}>
-              {searchitem.thumbnail === 'list4' ? (
+              {!!searchitem.itemStatus && searchitem.itemEmpty === true ? (
+                <SearchResultEmpty
+                  title={isKeyword && Router.router.query.keyword}
+                  setIsSearchVisible={isKeyword && this.setIsSearchVisible}
+                  setKeywordText={isKeyword && this.setKeywordText}
+                />
+              ) : searchitem.thumbnail === 'list4' ? (
                 <SearchItem4 deals={searchitem.deals} />
               ) : searchitem.thumbnail === 'list2' ? (
                 <SearchItem2 deals={searchitem.deals} />
@@ -127,7 +127,7 @@ class SearchList extends Component {
               )}
             </div>
           </>
-        )}
+        }
 
         <SearchOrder
           isVisible={this.state.isOrderVisible}
