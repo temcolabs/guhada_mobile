@@ -26,7 +26,7 @@ class Category extends Component {
     }
   }
 
-  toSearch = ({ category, subcategory = '' }) => {
+  toSearch = ({ category = '', subcategory = '' }) => {
     let { searchitem, onClose } = this.props;
     searchitem.toSearch({
       category: category,
@@ -59,7 +59,9 @@ class Category extends Component {
               </label>
               <ul id={`${categoryMain.key}toolbarGrowCategory`}>
                 <div className={`toolbarMeasuringWrapper${categoryMain.key}`}>
-                  <li onClick={() => this.toSearch(categoryMain.id)}>
+                  <li
+                    onClick={() => this.toSearch({ category: categoryMain.id })}
+                  >
                     전체보기
                   </li>
                   {categoryMain.children.map(categoryItem => {
@@ -77,7 +79,7 @@ class Category extends Component {
                             onClick={() =>
                               categoryItem.children
                                 ? this.grow(categoryItem.key)
-                                : this.toSearch(categoryItem.id)
+                                : this.toSearch({ category: categoryItem.id })
                             }
                           >
                             {categoryItem.title}
@@ -91,7 +93,9 @@ class Category extends Component {
                           >
                             <li
                               className={css.categorySecond}
-                              onClick={() => this.toSearch(categoryItem.id)}
+                              onClick={() =>
+                                this.toSearch({ category: categoryItem.id })
+                              }
                             >
                               전체보기
                             </li>
@@ -137,7 +141,9 @@ class Category extends Component {
                                         <li
                                           className={css.categoryLast}
                                           onClick={() =>
-                                            this.toSearch(categorySecond.id)
+                                            this.toSearch({
+                                              category: categorySecond.id,
+                                            })
                                           }
                                         >
                                           전체보기
