@@ -9,7 +9,9 @@ import { inject, observer } from 'mobx-react';
 import addHyphenToMobile from 'childs/lib/string/addHyphenToMobile';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
 import MypageSectionTitle from 'components/mypage/MypageSectionTitle';
+import withReviewModal from 'components/mypage/review/withReviewModal';
 
+@withReviewModal
 @withScrollToTopOnMount
 @withRouter
 @inject('orderCompleteDetail', 'orderClaimList', 'user')

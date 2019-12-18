@@ -13,10 +13,13 @@ import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount
 import purchaseStatus from 'childs/lib/constant/order/purchaseStatus';
 import DetailPageLayout from 'components/layout/DetailPageLayout';
 import MypageSectionTitle from 'components/mypage/MypageSectionTitle';
+import withReviewModal from 'components/mypage/review/withReviewModal';
+
 
 /**
  * 주문 취소 ・ 교환 ・ 반품 상세
  */
+@withReviewModal
 @withScrollToTopOnMount
 @withRouter
 @inject('orderCompleteDetail', 'user', 'orderClaimForm')
