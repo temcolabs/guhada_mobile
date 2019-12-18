@@ -1,0 +1,78 @@
+@import 'styles/mixins/index';
+@import 'styles/var';
+
+.modal {
+  background-color: #ffffff;
+  border-top: 1px solid #eeeeee;
+}
+
+.checkBoxWrap {
+}
+
+.textAreaWrap {
+  padding: 16px 20px 20px;
+}
+
+.textarea {
+  width: 100%;
+  height: 320px;
+  resize: none;
+  outline: none;
+
+  &::placeholder {
+    color: #777;
+  }
+}
+
+.textCount {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #777777;
+  text-align: right;
+
+  & span {
+    color: #5d2ed1;
+  }
+}
+
+.checkbox {
+  input + label {
+    font-weight: 500;
+    margin-bottom: 20px;
+    font-size: 12px;
+    font-weight: normal;
+    color: #444444;
+  }
+}
+
+.guideWrap {
+  padding: 20px 20px 30px;
+  border-top: 1px solid #eeeeee;
+}
+
+.guide {
+  color: #444444;
+  font-weight: 300;
+  font-size: 12px;
+
+  b {
+    color: $blue-purple;
+    font-weight: 400;
+  }
+}
+
+.btnwrap {
+  display: flex;
+  justify-content: space-between;
+
+  button {
+    width: 265px;
+    height: 60px;
+    background-color: #444;
+    color: #fff;
+
+    &:last-child {
+      background-color: $blue-purple;
+    }
+  }
+}
