@@ -169,7 +169,7 @@ class OrderCancelForm extends Component {
                       <div className={css.orderInfo__field}>
                         <span className={css.orderInfo__label}>주문번호</span>
                         <span className={css.orderInfo__value}>
-                          {claimData.purchaseId || '-'}
+                          {claimData?.purchaseId || '-'}
                         </span>
                       </div>
                       <div className={css.orderInfo__field}>
