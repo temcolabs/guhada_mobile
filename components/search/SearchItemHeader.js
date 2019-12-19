@@ -54,16 +54,14 @@ class SearchItemHeader extends Component {
               onClick={() => searchitem.setThumbnailStyle('list6')}
             />
           </div>
-          {process.env.NODE_ENV === 'development' && (
-            <div
-              className={css.detail}
-              onClick={() =>
-                searchitem.deals.length !== 0 && setIsFilterVisible(true)
-              }
-            >
-              상세검색
-            </div>
-          )}
+          <div
+            className={css.detail}
+            onClick={() =>
+              searchitem.deals.length !== 0 && setIsFilterVisible(true)
+            }
+          >
+            상세검색
+          </div>
         </div>
         <SearchFilterResult />
       </>
