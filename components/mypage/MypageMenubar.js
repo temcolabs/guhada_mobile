@@ -128,15 +128,15 @@ const MENUBAR_SECTIONS = [
   //   ]
   // },
 
-  // {
-  //   links: [
-  //     {
-  //       targetPaths: [mypageRouteObj['/mypage/ClaimPageMain']?.asPath],
-  //       asPath: mypageRouteObj['/mypage/ClaimPageMain']?.asPath,
-  //       text: '문의',
-  //     },
-  //   ],
-  // },
+  {
+    links: [
+      {
+        targetPaths: [mypageRouteObj['/mypage/ClaimPageMain']?.asPath],
+        asPath: mypageRouteObj['/mypage/ClaimPageMain']?.asPath,
+        text: '문의',
+      },
+    ],
+  },
   // {
   //   links: [
   //     {

@@ -43,66 +43,63 @@ export default function DealOrdered({
           {/* 상품 정보 */}
           <div className={css.productInfo}>
             <div className={css.productInfo__inner}>
-              <div className={css.productInfo__upperArea}>
-                <div className={css.brandName}>[{order?.brandName}]</div>
-                <div className={css.productName}>{order?.prodName}</div>
+              <div className={css.brandName}>[{order?.brandName}]</div>
+              <div className={css.productName}>{order?.prodName}</div>
 
-                {isOptionVisible && (
-                  <div className={css.option}>
-                    <span>
-                      {order?.optionAttribute1 && (
-                        <span className={css.optionItem}>
-                          {order?.optionAttribute1}
-                        </span>
-                      )}
-                      {order?.optionAttribute2 && (
-                        <span className={css.optionItem}>
-                          {order?.optionAttribute2}
-                        </span>
-                      )}
-                      {order?.optionAttribute3 && (
-                        <span className={css.optionItem}>
-                          {order?.optionAttribute3}
-                        </span>
-                      )}
-                      {hasOptionQuantity && (
-                        <span className={css.optionItem}>
-                          {order?.quantity}개
-                        </span>
-                      )}
-                    </span>
-                  </div>
-                )}
-
-                {isPriceVisible && (
-                  <div className={css.priceWrapper}>
-                    <span className={css.finalPrice}>
-                      <span>{addCommaToNum(order?.originalPrice) || '-'}</span>
-                      <span>{'원'}</span>
-                    </span>
-                  </div>
-                )}
-
-                {isPurchaseStatusVisible && (
-                  <div className={css.productInfo__lowerArea}>
-                    {isPurchaseStatusVisible && (
-                      <div className={css.statusWrapper}>
-                        {/* 주문 상태 */}
-                        <span className={css.status}>
-                          {!isClaim
-                            ? order?.orderStatusText ||
-                              order?.purchaseStatusText
-                            : order?.claimStatusText}
-                        </span>
-                        {/* 주문 상태 관련 메시지 */}
-                        <span className={css.statusMessage}>
-                          {order?.statusMessage}
-                        </span>
-                      </div>
+              {isOptionVisible && (
+                <div className={css.option}>
+                  <span>
+                    {order?.optionAttribute1 && (
+                      <span className={css.optionItem}>
+                        {order?.optionAttribute1}
+                      </span>
                     )}
-                  </div>
-                )}
-              </div>
+                    {order?.optionAttribute2 && (
+                      <span className={css.optionItem}>
+                        {order?.optionAttribute2}
+                      </span>
+                    )}
+                    {order?.optionAttribute3 && (
+                      <span className={css.optionItem}>
+                        {order?.optionAttribute3}
+                      </span>
+                    )}
+                    {hasOptionQuantity && (
+                      <span className={css.optionItem}>
+                        {order?.quantity}개
+                      </span>
+                    )}
+                  </span>
+                </div>
+              )}
+
+              {isPriceVisible && (
+                <div className={css.priceWrapper}>
+                  <span className={css.finalPrice}>
+                    <span>{addCommaToNum(order?.originalPrice) || '-'}</span>
+                    <span>{'원'}</span>
+                  </span>
+                </div>
+              )}
+
+              {isPurchaseStatusVisible && (
+                <div className={css.productInfo__lowerArea}>
+                  {isPurchaseStatusVisible && (
+                    <div className={css.statusWrapper}>
+                      {/* 주문 상태 */}
+                      <span className={css.status}>
+                        {!isClaim
+                          ? order?.orderStatusText || order?.purchaseStatusText
+                          : order?.claimStatusText}
+                      </span>
+                      {/* 주문 상태 관련 메시지 */}
+                      <span className={css.statusMessage}>
+                        {order?.statusMessage}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </>

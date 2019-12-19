@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import SlideIn from 'components/search/SearchFilter';
-import { slideDirection } from 'components/common/panel/SlideIn';
+import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 import { observer, inject } from 'mobx-react';
 import KeywordMenu from './keyword/KeywordMenu';
 

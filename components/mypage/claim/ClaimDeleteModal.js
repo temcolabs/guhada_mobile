@@ -24,12 +24,6 @@ class ClaimDeleteModal extends Component {
         zIndex={1000}
       >
         <div className={css.modalWrap}>
-          <div
-            className={css.close}
-            onClick={() => this.props.handleDeleteModalClose()}
-          >
-            {' '}
-          </div>
           <div className={css.text}>
             작성한 문의를 삭제할 경우
             <br /> 문의는 영구적으로 삭제되어 복구할 수 없습니다.

@@ -8,6 +8,7 @@ import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTrack
 import Cookies from 'js-cookie';
 import key from 'childs/lib/constant/key';
 import { isBrowser } from 'childs/lib/common/isServer';
+import Router from 'next/router';
 
 const isServer = typeof window === 'undefined';
 export default class ProductDetailStore {
@@ -83,22 +84,31 @@ export default class ProductDetailStore {
         this.root.productoption.getCouponData();
 
         sessionStorage.removeItem('paymentInfo');
+        this.dealsStatus = true;
       })
       .catch(e => {
-        if (e.status === 200) {
-          if (_.get(e, 'data.resultCode') === 8404) {
-            this.root.alert.showAlert({
-              content: _.get(e, 'data.message'),
-              onConfirm: () => {
-                pushRoute('/');
-              },
-            });
-          }
+        const data = _.get(e, 'data');
+
+        if (data?.resultCode === 8404) {
+          devLog('object', data.message);
+          this.root.alert.showAlert({
+            content: _.get(e, 'data.message'),
+            onConfirm: () => {
+              Router.back();
+            },
+          });
+        }
+
+        if (e.code === 'ECONNABORTED') {
+          this.root.alert.showAlert({
+            content: '서버로 부터 응답이 내려오지 않습니다.',
+            onConfirm: () => {
+              Router.back();
+            },
+          });
         }
       })
       .finally(() => {
-        this.dealsStatus = true;
-
         const executeTracker = userInfo => {
           widerplanetTracker.productDetail({
             userId: userInfo?.id,

@@ -1,7 +1,10 @@
 import React from 'react';
 import css from './TextButton.module.scss';
 import cn from 'classnames';
-export default function TextButton({
+import { inject } from 'mobx-react';
+import { useObserver } from 'mobx-react-lite';
+
+function TextButton({
   filter = {
     attributes: [
       { id: 208, name: '0~3개월', selected: false },
@@ -16,20 +19,27 @@ export default function TextButton({
     name: '베이비 사이즈(연령)',
     viewType: 'TEXT_BUTTON',
   },
+  searchitem,
 }) {
-  return (
+  return useObserver(() => (
     <div className={css.wrap}>
       <div className={css.header}>{filter.name}</div>
       <div className={css.itemWrap}>
         {filter.attributes.map(item => {
           return (
-            <div className={css.item} key={item.id}>
-              <div className={cn(css.checkIcon)} />
-              <div className={cn(css.text)}>{item.name}</div>
+            <div
+              className={cn(css.item, {
+                [css.selected]: item.filter === true,
+              })}
+              key={item.id}
+              onClick={() => searchitem.setFilter(filter, item)}
+            >
+              {item.name}
             </div>
           );
         })}
       </div>
     </div>
-  );
+  ));
 }
+export default inject('searchitem')(TextButton);

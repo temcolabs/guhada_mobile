@@ -1,6 +1,6 @@
 import React from 'react';
 import css from './OrderItemTable.module.scss';
-import OrderItem from './OrderItem';
+import OrderItemForDetail from './OrderItemForDetail';
 
 export default class OrderItemTable extends React.Component {
   constructor(props) {
@@ -46,7 +46,7 @@ export default class OrderItemTable extends React.Component {
         {orderListGroupBySeller?.map((order, index) => {
           return (
             <div className={css.orderItemTable__item}>
-              <OrderItem
+              <OrderItemForDetail
                 key={index}
                 order={order}
                 isClaim={false}

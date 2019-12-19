@@ -1,0 +1,36 @@
+@import 'styles/mixins/index';
+
+.wrap {
+  @include clearfix;
+  position: relative;
+}
+
+.tabWrap {
+  display: flex;
+}
+
+.tabItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  height: 50px;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+  color: #111111;
+  cursor: pointer;
+  background-color: #f9f9fa;
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid #111111;
+
+  &:nth-child(1) {
+    border-right: 1px solid #111111;
+  }
+
+  &.select {
+    border-top: 1px solid #111111;
+    border-bottom: 1px solid transparent;
+    background-color: white;
+  }
+}

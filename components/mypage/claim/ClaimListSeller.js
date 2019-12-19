@@ -7,8 +7,6 @@ import ClaimItemSeller from 'components/mypage/claim/ClaimItemSeller';
 import MypageDataEmpty from 'components/mypage/MypageDataEmpty';
 import { inject, observer } from 'mobx-react';
 import Pagination from 'components/common/Pagination';
-import ClaimModifyModal from 'components/mypage/claim/ClaimModifyModal';
-import ClaimDeleteModal from 'components/mypage/claim/ClaimDeleteModal';
 import ClaimAnswerSelect from 'components/mypage/claim/ClaimAnswerSelect';
 import SellerClaimModal from 'components/claim/sellerclaim/SellerClaimModal';
 import { scrollToTarget } from 'childs/lib/common/scroll';
@@ -21,7 +19,6 @@ import { scrollToTarget } from 'childs/lib/common/scroll';
 class ClaimListSeller extends Component {
   state = {
     isModifyModalOpen: false,
-    modalData: {},
     page: 1,
     sellerClaimModal: {
       sellerId: null,
@@ -67,7 +64,7 @@ class ClaimListSeller extends Component {
         size: this.pageSize,
       });
 
-      scrollToTarget(this.props.scrollTargetOnChangePage);
+      window.scroll(0, 0);
     });
   };
 
@@ -94,29 +91,37 @@ class ClaimListSeller extends Component {
     const isListEmpty = sellerClaimList.content?.length === 0;
 
     return (
-      <>
-        <div className={css.listFilter} id={this.scrollTargetId}>
-          {/* <div className={css.answerWrap}>
-            <ClaimAnswerSelect />
-          </div> */}
-        </div>
+      <div className={css.wrap}>
+        {/* NOTE: 판매자 문의 목록 API에 필터 파라미터 없음 */}
+        {/* <div className={css.listFilter} id={this.scrollTargetId}>
+          <div className={css.answerWrap}>
+            <ClaimAnswerSelect
+              onChange={option => {
+                mypageInquiry.setStatus(option.value);
+                mypageInquiry.getInquirie(
+                  mypageInquiry.page,
+                  mypageInquiry.status
+                );
+              }}
+            />
+          </div>
+        </div> */}
 
         {!isListEmpty ? (
-          mypageSellerClaim.sellerClaimList?.content?.map(
-            (claimContent, index) => {
-              return (
-                <ClaimItemSeller
-                  content={claimContent}
-                  handleModifyModal={sellerClaim =>
-                    this.handleOpenSellerClaimModal({
-                      sellerId: sellerClaim?.sellerId,
-                    })
-                  }
-                  handleDeleteModalOpen={this.handleDeleteModalOpen}
-                />
-              );
-            }
-          )
+          mypageSellerClaim.sellerClaimList?.content?.map((claim, index) => {
+            return (
+              <ClaimItemSeller
+                key={index}
+                claim={claim}
+                handleModifyModal={sellerClaim =>
+                  this.handleOpenSellerClaimModal({
+                    sellerId: sellerClaim?.sellerId,
+                  })
+                }
+                handleDeleteModalOpen={this.handleDeleteModalOpen}
+              />
+            );
+          })
         ) : (
           <MypageDataEmpty text="상품 문의 내역이 없습니다." />
         )}
@@ -127,14 +132,16 @@ class ClaimListSeller extends Component {
           onChangePage={this.handleChangePage}
           itemsCountPerPage={this.pageSize}
           totalItemsCount={sellerClaimList.totalElements}
+          pageRangeDisplayed={5}
         />
 
-        <SellerClaimModal
+        {/* TODO: 판매자 문의하기 수정 가능하도록 수정 */}
+        {/* <SellerClaimModal
           isOpen={this.state.sellerClaimModal.isOpen}
           sellerId={this.state.sellerClaimModal.sellerId}
           onClose={this.handleCloseSellerClaimModal}
-        />
-      </>
+        /> */}
+      </div>
     );
   }
 }

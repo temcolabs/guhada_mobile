@@ -699,7 +699,6 @@ class OrderReturnForm extends Component {
                     <div className={css.formSection__content}>
                       <div>{orderClaimForm.sellerReturnAddressInView}</div>
                       <div>
-                        <span>{claimData?.sellerName}</span>
                         <span>
                           {addHyphenToMobile(claimData?.sellerReturnTelephone)}
                         </span>

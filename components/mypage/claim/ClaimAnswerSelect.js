@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import Select from 'react-select';
 import { inject, observer } from 'mobx-react';
+import inquiryStatus from 'childs/lib/constant/inquiry/inquiryStatus';
 
 @inject('mypageInquiry')
 @observer
@@ -9,15 +10,15 @@ class ClaimAnswerSelect extends Component {
     const { mypageInquiry } = this.props;
     const inquiryOption = [
       {
-        value: '',
+        value: inquiryStatus.ALL,
         label: '전체문의',
       },
       {
-        value: 'PENDING',
+        value: inquiryStatus.PENDING,
         label: '미답변',
       },
       {
-        value: 'COMPLETED',
+        value: inquiryStatus.COMPLETED,
         label: '답변완료',
       },
     ];
@@ -79,10 +80,7 @@ class ClaimAnswerSelect extends Component {
           styles={selectStyles}
           options={inquiryOption}
           defaultValue={inquiryOption[0]}
-          onChange={inquiryOption => {
-            mypageInquiry.setStatus(inquiryOption.value);
-            mypageInquiry.getInquirie(mypageInquiry.page, mypageInquiry.status);
-          }}
+          onChange={this.props.onChange}
           isSearchable={false}
         />
       </Fragment>

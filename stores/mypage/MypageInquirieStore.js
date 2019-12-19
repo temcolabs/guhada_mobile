@@ -3,6 +3,7 @@ import API from 'childs/lib/API';
 import { isBrowser } from 'childs/lib/common/isServer';
 
 export default class MypageInquirieStore {
+  @observable isOnRequest = false;
   @observable inquiries = {
     content: [],
     totalElements: 0,
@@ -29,6 +30,7 @@ export default class MypageInquirieStore {
 
   @action
   getInquirie = (page = 1, status = '') => {
+    this.isOnRequest = true;
     API.claim
       .get(
         `/users/my-page/inquiries?page=${page -
@@ -36,6 +38,9 @@ export default class MypageInquirieStore {
       )
       .then(res => {
         this.inquiries = res.data.data;
+      })
+      .finally(() => {
+        this.isOnRequest = false;
       });
   };
 
@@ -72,11 +77,11 @@ export default class MypageInquirieStore {
   };
 
   @action
-  deleteInquiry = (inquiry, close) => {
+  deleteInquiry = (inquiry, onSuccess = () => {}) => {
     API.claim
       .delete(`/products/${inquiry.productId}/inquiries/${inquiry.id}`)
       .then(res => {
-        close();
+        onSuccess();
         this.getInquirie();
       });
   };

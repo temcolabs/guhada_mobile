@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
-import ModalWrapper from 'components/common/modal/ModalWrapper';
 import { inject, observer } from 'mobx-react';
 import _ from 'lodash';
+import css from './ClaimModifyModal.module.scss';
+import ModalLayout from 'components/layout/ModalLayout';
+import Checkbox from '../form/Checkbox';
+import SubmitButton, {
+  SubmitButtonWrapper,
+  CancelButton,
+} from '../form/SubmitButton';
 
 /**
  * 상품 문의 수정하기 모달
@@ -54,65 +60,61 @@ class ClaimModifyModal extends Component {
     let { mypageInquiry } = this.props;
 
     return (
-      <ModalWrapper
+      <ModalLayout
+        pageTitle={'상품 문의하기'}
         isOpen={this.props.isOpen}
-        onRequestClose={this.closeModal}
-        contentLabel="product inquiry"
+        onClose={this.props.closeModal}
       >
-        <div className="productInquiry__modal">
-          <div className="productInquiry__modal-header">
-            <div>상품 문의 수정하기</div>
-            <img
-              src="/static/icon/modal_close.png"
-              width={29}
-              height={29}
-              onClick={() => this.props.closeModal()}
-            />
-          </div>
-          <div>
+        <div className={css.modal}>
+          <div className={css.textAreaWrap}>
             <textarea
-              className="productInquiry__modal-textarea"
-              placeholder="문의하실 내용을 입력하세요"
+              className={css.textarea}
+              placeholder="내용을 입력해주세요."
               onChange={e => this.setInquiryContents(e.target.value)}
               value={this.state.inquiry.inquiry}
             />
+            <div className={css.textCount}>
+              {_.size(this.state.inquiry.inquiry)}/1000
+            </div>
           </div>
-          <div className="productInquiry__modal-checkBoxWrap">
-            <div className="productInquiry__checkbox productInquiry__modal-checkbox">
-              <input
-                type="checkbox"
-                id="askproduct"
-                onChange={e => this.setSecretInquiry(e.target.checked)}
-                checked={this.state.inquiry.private}
-              />
-              <label htmlFor="askproduct">
-                <span />
+
+          <div className={css.guideWrap}>
+            <div className={css.checkBoxWrap}>
+              <Checkbox
+                name="askproduct"
+                onChange={this.setSecretInquiry}
+                initialValue={this.state.inquiry.private}
+              >
                 비공개글 설정
-              </label>
+              </Checkbox>
             </div>
-            <div className="productInquiry__modal-textCount">
-              <span>{_.size(this.state.inquiry.inquiry)}</span>/1000
+
+            <div className={css.guide}>
+              문의하신 내용에 대한 답변은 해당 상품의 상세페이지 또는{' '}
+              <b>마이페이지 > 상품문의</b>에서 확인하실 수 있습니다.
             </div>
           </div>
-          <div className="productInquiry__modal-contents">
-            문의하신 내용에 대한 답변은 해당 상품의 상세페이지 또는
-            <span>{` `}마이페이지 > 상품문의</span>에서 확인하실 수 있습니다.
-          </div>
-          <div className="productInquiry__modal-btnwrap">
-            <button onClick={() => this.props.closeModal()}>취소</button>
-            <button
-              onClick={() =>
+
+          <SubmitButtonWrapper
+            responsive
+            fixedToBottom
+            wrapperClassname={css.submitButtonWrapper}
+          >
+            <CancelButton onClick={this.props.closeModal}>취소</CancelButton>
+            <SubmitButton
+              type="button"
+              onClick={() => {
                 mypageInquiry.updateInquiry(
                   this.state.inquiry,
                   this.props.closeModal
-                )
-              }
+                );
+              }}
             >
               수정
-            </button>
-          </div>
+            </SubmitButton>
+          </SubmitButtonWrapper>
         </div>
-      </ModalWrapper>
+      </ModalLayout>
     );
   }
 }

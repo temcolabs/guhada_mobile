@@ -3,6 +3,9 @@ import css from './NewInquiry.module.scss';
 import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 import { inject } from 'mobx-react';
 
+/**
+ * 상품 문의하기 슬라이드인
+ */
 function NewInquiry({ isVisible, onClose, productdetail }) {
   const [content, setContent] = useState('');
   const [count, setCount] = useState(0);

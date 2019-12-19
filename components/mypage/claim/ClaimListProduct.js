@@ -1,29 +1,20 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import MyPageLayout from 'components/mypage/MyPageLayout';
-import SectionHeading from 'components/common/SectionHeading';
-import PeriodSelector from 'components/mypage/PeriodSelector';
-import { dateUnit } from 'childs/lib/constant';
 import css from './ClaimListProduct.module.scss';
 import ClaimItem from 'components/mypage/claim/ClaimItem';
 import MypageDataEmpty from 'components/mypage/MypageDataEmpty';
 import { inject, observer } from 'mobx-react';
 import Pagination from 'components/common/Pagination';
 import ClaimModifyModal from 'components/mypage/claim/ClaimModifyModal';
-import ClaimDeleteModal from 'components/mypage/claim/ClaimDeleteModal';
 import ClaimAnswerSelect from 'components/mypage/claim/ClaimAnswerSelect';
-import { scrollToTarget } from 'childs/lib/common/scroll';
 
-@inject('mypageInquiry')
+@inject('mypageInquiry', 'alert')
 @observer
 class ClaimListProduct extends Component {
   state = {
     isOpen: false,
-    deleteIsOpen: false,
     modalData: {},
   };
-
-  scrollTargetId = 'claimListTop';
 
   handleModifyModal = modalItem => {
     this.setState({ isOpen: true, modalData: modalItem });
@@ -46,69 +37,67 @@ class ClaimListProduct extends Component {
       mypageInquiry.status
     );
 
-    scrollToTarget(this.props.scrollTargetOnChangePage);
+    window.scroll(0, 0);
   };
 
-  handleDeleteModalOpen = modalItem => {
-    this.setState({ deleteIsOpen: true, modalData: modalItem });
+  handleDeleteModalOpen = inquiry => {
+    this.props.alert.showConfirm({
+      content: () => (
+        <div>
+          작성한 문의를 삭제할 경우 문의는 영구적으로 삭제되어 복구할 수
+          없습니다.
+          <br />
+          삭제하시겠습니까?
+        </div>
+      ),
+      onConfirm: () => {
+        this.props.mypageInquiry.deleteInquiry(inquiry);
+      },
+    });
   };
-
-  handleDeleteModalClose = () => {
-    this.setState({ deleteIsOpen: false });
-  };
-
-  /**
-   * 날짜 선택
-   */
-  handleChangePeriod = ({
-    startDate = '2019-07-01',
-    endDate = '2019-12-31',
-  }) => {};
 
   render() {
     const { mypageInquiry } = this.props;
     const { inquiries = {} } = mypageInquiry;
 
     return (
-      <>
+      <div className={css.wrap}>
         <div className={css.periodWrap}>
           <div className={css.totalCountWrap}>
             {`총 ${inquiries.totalElements}개`}
           </div>
           <div className={css.answerWrap}>
-            <ClaimAnswerSelect />
+            <ClaimAnswerSelect
+              onChange={option => {
+                mypageInquiry.setStatus(option.value);
+                mypageInquiry.getInquirie(
+                  mypageInquiry.page,
+                  mypageInquiry.status
+                );
+              }}
+            />
           </div>
-          {/* <PeriodSelector
-            defaultTabItems={[
-              { value: 1, unit: dateUnit.WEEK },
-              { value: 15, unit: dateUnit.DAY },
-              { value: 30, unit: dateUnit.DAY },
-              { value: 3, unit: dateUnit.MONTH },
-              { value: 6, unit: dateUnit.MONTH },
-              { value: 1, unit: dateUnit.YEAR },
-              { value: 3, unit: dateUnit.YEAR },
-            ]}
-            isMonthlyTabVisible={false}
-            onChangePeriod={this.handleChangePeriod}
-          /> */}
         </div>
 
         {_.size(inquiries.content) > 0 ? (
-          inquiries.content.map((inquirie, index) => {
+          inquiries.content.map((contentItem, index) => {
             return (
               <ClaimItem
-                content={inquirie}
+                product={contentItem.item}
+                inquiry={contentItem.inquiry}
                 handleModifyModal={this.handleModifyModal}
-                handleDeleteModalOpen={this.handleDeleteModalOpen}
+                handleDeleteModalOpen={() =>
+                  this.handleDeleteModalOpen(contentItem.inquiry)
+                }
               />
             );
           })
-        ) : (
+        ) : !mypageInquiry.isOnRequest ? (
           <MypageDataEmpty text="상품 문의 내역이 없습니다." />
-        )}
+        ) : null}
 
         <Pagination
-          wrapperStyle={{ marginTop: '70px' }}
+          wrapperStyle={{ margin: '30px auto' }}
           initialPage={mypageInquiry.page}
           onChangePage={this.handleChangePage}
           itemsCountPerPage={5}
@@ -120,13 +109,7 @@ class ClaimListProduct extends Component {
           closeModal={this.handleCloseModal}
           inquiry={this.state.modalData}
         />
-
-        <ClaimDeleteModal
-          isDeleteOpen={this.state.deleteIsOpen}
-          handleDeleteModalClose={this.handleDeleteModalClose}
-          inquiry={this.state.modalData}
-        />
-      </>
+      </div>
     );
   }
 }

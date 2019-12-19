@@ -1,7 +1,12 @@
 .wrap {
-    padding-bottom: 5px;
+    padding-bottom: 10px;
     border-bottom: dotted 1px #ebedef;
     margin: 0 20px;
+
+    &:last-child {
+        border-bottom: 0;
+        padding-bottom: 75px;
+    }
 
     & .header {
         width: 100%;
@@ -22,29 +27,18 @@
             height: 38px;
             display: inline-flex;
             align-items: center;
+            font-size: 14px;
+            font-weight: normal;
+            color: #111111;
+            padding-left: calc(16px + 7px);
+            background: url('/static/icon/filter_checkbox_inactive.png') no-repeat left;
+            background-size: 16px;
+            overflow: hidden;
 
-            & .checkIcon {
-                width: 16px;
-                height: 16px;
-                background: url('/static/icon/filter_checkbox_inactive.png') no-repeat center;
+            &.selected {
+                background: url('/static/icon/filter_checkbox_selected.png') no-repeat left;
                 background-size: 16px;
-                margin-right: 7px;
-
-                &.selected {
-                    background: url('/static/icon/filter_checkbox_selected.png') no-repeat center;
-                }
-            }
-
-            & .text {
-                font-size: 14px;
-                font-weight: normal;
-                color: #111111;
-                width: calc(100% - 16px);
-                overflow: hidden;
-
-                &.selected {
-                    color: #5d2ed1;
-                }
+                color: #5d2ed1;
             }
         }
     }

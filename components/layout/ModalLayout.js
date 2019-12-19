@@ -49,11 +49,17 @@ function ModalLayout({
   children,
   isOpen,
   onClose,
-  wrapperStyle,
+  zIndex,
+  wrapperStyle = {},
   direction = slideDirection.RIGHT,
 }) {
   return (
-    <SlideIn direction={direction} isVisible={isOpen}>
+    <SlideIn
+      direction={direction}
+      isVisible={isOpen}
+      wrapperStyle={wrapperStyle}
+      zIndex={zIndex}
+    >
       <div className={css.wrap} style={wrapperStyle}>
         <div className={css.header}>
           <div className={css.title}>{pageTitle || ''}</div>

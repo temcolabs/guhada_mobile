@@ -31,11 +31,7 @@ class MyReviewList extends Component {
     const { mypagereview } = this.props;
 
     return (
-      <MypageLayout
-        topLayout={'main'}
-        pageTitle={'마이페이지'}
-        headerShape={'mypage'}
-      >
+      <MypageLayout topLayout={'main'} headerShape={'mypage'}>
         <MypageReviewHeading
           setSelection={this.setSelection}
           selection={this.state.selection}
