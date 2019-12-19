@@ -13,24 +13,25 @@ function ToolBar() {
   const [isBrandVisible, setIsBrandVisible] = useState(false);
   const [selectedTool, setSelectedTool] = useState('');
 
-  const hostMypageEnabled = useMemo(
-    () => [/^local\.?.+/, /^dev\..+/, /^qa\..+/, /^stg\..+/],
-    []
-  );
-  const handleClickMypage = useCallback(() => {
-    // FIXME: 마이페이지 개발 완료 후 조건문 제거
-    const isMypageEnabled =
-      hostMypageEnabled.findIndex(
-        regex => regex.test(window.location.hostname) === true
-      ) > -1;
+  // const hostMypageEnabled = useMemo(
+  //   () => [/^local\.?.+/, /^dev\..+/, /^qa\..+/, /^stg\..+/],
+  //   []
+  // );
 
-    if (isMypageEnabled) {
-      setSelectedTool('mypage');
-      pushRoute('/mypage');
-    } else {
-      alert.showAlert({ content: '모바일 버전 준비중입니다.' });
-    }
-  }, [alert, hostMypageEnabled]);
+  // const handleClickMypage = useCallback(() => {
+  //   // FIXME: 마이페이지 개발 완료 후 조건문 제거
+  //   const isMypageEnabled =
+  //     hostMypageEnabled.findIndex(
+  //       regex => regex.test(window.location.hostname) === true
+  //     ) > -1;
+
+  //   if (isMypageEnabled) {
+  //     setSelectedTool('mypage');
+  //     pushRoute('/mypage');
+  //   } else {
+  //     alert.showAlert({ content: '모바일 버전 준비중입니다.' });
+  //   }
+  // }, [alert, hostMypageEnabled]);
 
   return useObserver(() => (
     <div className={css.wrap}>
@@ -79,7 +80,10 @@ function ToolBar() {
         커뮤니티
       </div> */}
       <div
-        onClick={handleClickMypage}
+        onClick={() => {
+          setSelectedTool('mypage');
+          pushRoute('/mypage');
+        }}
         className={cn(css.itemWrap, css.mypage, {
           [css.selected]: selectedTool === 'mypage',
         })}

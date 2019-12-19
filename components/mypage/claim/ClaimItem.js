@@ -5,6 +5,7 @@ import moment from 'moment';
 import { dateFormat } from 'childs/lib/constant';
 import inquiryStatus from 'childs/lib/constant/inquiry/inquiryStatus';
 import { pushRoute } from 'childs/lib/router';
+import isTruthy from 'childs/lib/common/isTruthy';
 
 function ClaimItem({
   inquiry = {
@@ -64,18 +65,20 @@ function ClaimItem({
   return (
     <div className={css.wrap}>
       <div className={css.productWrap}>
-        <div
-          className={css.productImageBox}
-          style={{ backgroundImage: `url(${product.imageUrl})` }}
-          onClick={() => pushRoute(`/productdetail?deals=${product.dealId}`)}
-        />
+        {isTruthy(product?.imageUrl) ? (
+          <div
+            className={css.productImageBox}
+            style={{ backgroundImage: `url(${product.imageUrl})` }}
+            onClick={() => pushRoute(`/productdetail?deals=${product.dealId}`)}
+          />
+        ) : null}
         <div className={css.productInfo}>
-          <div className={css.brandName}>{product.brandName}</div>
+          <div className={css.brandName}>{product?.brandName}</div>
           <div className={css.prodName}>
-            {product.season ? product.season + ' ' : ''}
-            {product.productName}
+            {product?.season ? product?.season + ' ' : ''}
+            {product?.productName}
           </div>
-          <div className={css.option}>{product.sellerName}</div>
+          <div className={css.option}>{product?.sellerName}</div>
           <div className={css.shipping}>
             {moment(inquiry.updatedAt).format(dateFormat.YYYYMMDD_UI)}
           </div>
