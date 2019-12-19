@@ -14,11 +14,11 @@ import {
 } from 'components/search';
 import _ from 'lodash';
 
-// import { SearchFilter } from 'components/search/SearchFilter';
-
 // enter : keyword 일때
 import KeywordMenu from 'components/header/keyword/KeywordMenu';
 import SearchResultEmpty from 'components/search/SearchResultEmpty';
+import SearchFilter from 'components/search/SearchFilter';
+import SearchFilterResult from 'components/search/SearchFilterResult';
 
 @withRouter
 @inject('searchitem')
@@ -103,13 +103,7 @@ class SearchList extends Component {
           />
         )}
 
-        {!!searchitem.itemStatus && searchitem.itemEmpty === true ? (
-          <SearchResultEmpty
-            title={isKeyword && Router.router.query.keyword}
-            setIsSearchVisible={isKeyword && this.setIsSearchVisible}
-            setKeywordText={isKeyword && this.setKeywordText}
-          />
-        ) : (
+        {
           <>
             <SearchItemHeader
               setIsOrderVisible={this.setIsOrderVisible}
@@ -118,7 +112,13 @@ class SearchList extends Component {
               scrollDirection={searchitem.scrollDirection}
             />
             <div className={css.searchItemWrap}>
-              {searchitem.thumbnail === 'list4' ? (
+              {!!searchitem.itemStatus && searchitem.itemEmpty === true ? (
+                <SearchResultEmpty
+                  title={isKeyword && Router.router.query.keyword}
+                  setIsSearchVisible={isKeyword && this.setIsSearchVisible}
+                  setKeywordText={isKeyword && this.setKeywordText}
+                />
+              ) : searchitem.thumbnail === 'list4' ? (
                 <SearchItem4 deals={searchitem.deals} />
               ) : searchitem.thumbnail === 'list2' ? (
                 <SearchItem2 deals={searchitem.deals} />
@@ -127,7 +127,7 @@ class SearchList extends Component {
               )}
             </div>
           </>
-        )}
+        }
 
         <SearchOrder
           isVisible={this.state.isOrderVisible}
@@ -137,12 +137,11 @@ class SearchList extends Component {
           toSearch={searchitem.toSearch}
         />
 
-        {/* NEXT TODO */}
-        {/* <SearchFilter
+        <SearchFilter
           isVisible={this.state.isFilterVisible}
           onClose={() => this.setIsFilterVisible(false)}
           filters={searchitem.filterData}
-        /> */}
+        />
       </DefaultLayout>
     );
   }

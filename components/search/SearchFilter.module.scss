@@ -1,5 +1,5 @@
 $topPosition: 60px;
-$toolbarHeader:55px;
+$toolbarHeader:60px;
 
 .wrap {
     position: absolute;
@@ -13,7 +13,9 @@ $toolbarHeader:55px;
     & .header {
         width: 100%;
         height: $toolbarHeader;
-        padding: 18px 0 0 20px;
+        padding: 0 0 0 20px;
+        display: flex;
+        align-items: center;
         font-size: 18px;
         font-weight: bold;
         font-style: normal;
@@ -31,9 +33,9 @@ $toolbarHeader:55px;
         position: fixed;
         top: 0;
         background-image: url('/static/icon/tool_btn_close.png');
-        background-size: 35px;
+        background-size: 30px;
         background-repeat: no-repeat;
-        background-position: right 12px bottom;
+        background-position: right 9px bottom 13px;
     }
 
     & .itemWrap {
@@ -53,6 +55,35 @@ $toolbarHeader:55px;
             &.selected {
                 color: #5d2ed1;
             }
+        }
+    }
+
+    & .button {
+        width: 100%;
+        height: 60px;
+        font-size: 13px;
+        font-weight: 500;
+        color: #fff;
+        margin-top: 25px;
+        position: fixed;
+        bottom: 0;
+
+        & .init {
+            width: 33%;
+            height: 60px;
+            background-color: #444444;
+            background-image: url('/static/icon/filter_icon_reset_w@3x.png');
+            background-repeat: no-repeat;
+            background-size: 27px;
+            background-position: center left 26%;
+            padding-left: 5%;
+        }
+
+        & .search {
+            width: 67%;
+            height: 60px;
+            background-color: #5d2ed1;
+            text-align: center;
         }
     }
 }

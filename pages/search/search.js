@@ -23,6 +23,7 @@ class search extends Component {
       searchitem.deals = [];
       searchitem.preUrl = Router.asPath;
       searchitem.initDealspage();
+      if (query.filtered === 'false') searchitem.initSearchFilterList();
 
       let brand = JSON.parse('[' + query.brand + ']');
       let subcategory = JSON.parse('[' + query.subcategory + ']');
@@ -52,6 +53,7 @@ class search extends Component {
       searchitem.deals = [];
       searchitem.preUrl = Router.asPath;
       searchitem.initDealspage();
+      if (query.filtered === 'false') searchitem.initSearchFilterList();
 
       let brand = JSON.parse('[' + query.brand + ']');
       let subcategory = JSON.parse('[' + query.subcategory + ']');

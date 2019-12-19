@@ -26,14 +26,18 @@ class Category extends Component {
     }
   }
 
-  toSearch = category => {
+  toSearch = ({ category = '', subcategory = '' }) => {
     let { searchitem, onClose } = this.props;
-    searchitem.toSearch({ category: category, enter: 'category' });
+    searchitem.toSearch({
+      category: category,
+      subcategory: subcategory,
+      enter: 'category',
+    });
     onClose();
   };
 
   render() {
-    const { category } = this.props;
+    const { category, searchitem } = this.props;
     let categoryList = toJS(category.category);
 
     return (
@@ -55,7 +59,9 @@ class Category extends Component {
               </label>
               <ul id={`${categoryMain.key}toolbarGrowCategory`}>
                 <div className={`toolbarMeasuringWrapper${categoryMain.key}`}>
-                  <li onClick={() => this.toSearch(categoryMain.id)}>
+                  <li
+                    onClick={() => this.toSearch({ category: categoryMain.id })}
+                  >
                     전체보기
                   </li>
                   {categoryMain.children.map(categoryItem => {
@@ -73,7 +79,7 @@ class Category extends Component {
                             onClick={() =>
                               categoryItem.children
                                 ? this.grow(categoryItem.key)
-                                : this.toSearch(categoryItem.id)
+                                : this.toSearch({ category: categoryItem.id })
                             }
                           >
                             {categoryItem.title}
@@ -87,7 +93,9 @@ class Category extends Component {
                           >
                             <li
                               className={css.categorySecond}
-                              onClick={() => this.toSearch(categoryItem.id)}
+                              onClick={() =>
+                                this.toSearch({ category: categoryItem.id })
+                              }
                             >
                               전체보기
                             </li>
@@ -110,7 +118,10 @@ class Category extends Component {
                                       onClick={() =>
                                         categorySecond.children
                                           ? this.grow(categorySecond.key)
-                                          : this.toSearch(categorySecond.id)
+                                          : this.toSearch({
+                                              category: categoryItem.id,
+                                              subcategory: categorySecond.id,
+                                            })
                                       }
                                     >
                                       {categorySecond.title}
@@ -130,7 +141,9 @@ class Category extends Component {
                                         <li
                                           className={css.categoryLast}
                                           onClick={() =>
-                                            this.toSearch(categorySecond.id)
+                                            this.toSearch({
+                                              category: categorySecond.id,
+                                            })
                                           }
                                         >
                                           전체보기
@@ -143,9 +156,13 @@ class Category extends Component {
                                                 key={`${
                                                   categoryLast.id
                                                 }categoryLastKey`}
-                                                onClick={() =>
-                                                  this.toSearch(categoryLast.id)
-                                                }
+                                                onClick={() => {
+                                                  this.toSearch({
+                                                    category: categorySecond.id,
+                                                    subcategory:
+                                                      categoryLast.id,
+                                                  });
+                                                }}
                                               >
                                                 {categoryLast.title}
                                               </li>
