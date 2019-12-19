@@ -6,14 +6,9 @@ import { pushRoute } from 'childs/lib/router';
 import { ORDER_LIST_ITEM_SAMPLE } from 'childs/lib/constant/order/orderModel';
 
 /**
- * 마이페이지의 목록에서 사용되는 상품 정보 영역
- *
- * 이미지 + 제조사, 상품명, 옵션, 가격, ... 주문 상태
- *
- * ! 클레임(취소교환반품) 은 purchaseStatus가 아닌 claimStatus를 사용한다.
- *
+ * 마이페이지의 상품 상세에서 사용하는 상품 정보
  */
-export default function DealOrdered({
+export default function DealOrderedForDetail({
   order = ORDER_LIST_ITEM_SAMPLE, // 주문 데이터
   isClaim = false, // 클레임 여부. 주문상태 텍스트를 사용하는 필드가 다르다
   hasOptionQuantity = true, // 옵션이 수량을 포함하는지
@@ -43,8 +38,11 @@ export default function DealOrdered({
           {/* 상품 정보 */}
           <div className={css.productInfo}>
             <div className={css.productInfo__inner}>
-              <div className={css.brandName}>[{order?.brandName}]</div>
-              <div className={css.productName}>{order?.prodName}</div>
+              <div className={css.dealId}>상품번호 {order.dealId}</div>
+
+              <div className={css.productName}>
+                [{order?.brandName}] {order?.prodName}
+              </div>
 
               {isOptionVisible && (
                 <div className={css.option}>
