@@ -122,6 +122,7 @@ function SearchFilterResult({ searchitem, router }) {
       subcategory: isArray(querySubcategory)
         ? addCommaToArray(querySubcategory)
         : querySubcategory,
+      keyword: query.keyword,
       filtered: true,
     });
   };

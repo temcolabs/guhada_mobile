@@ -801,8 +801,6 @@ export default class SearchItemStore {
     this.searchFilterList['category'] = categoryListTitle;
     this.searchFilterList['subcategory'] = subCategoryListTitle;
 
-    console.log('this.searchFilterList', toJS(this.searchFilterList));
-    console.log('brandList', brandList);
     brandList = addCommaToArray(brandList);
     filterList = addCommaToArray(filterList);
     subCategoryList = addCommaToArray(this.checkedKeysId);
@@ -815,12 +813,14 @@ export default class SearchItemStore {
       brand: brandList,
       filter: filterList,
       subcategory: subCategoryList,
+      keyword: query.keyword,
       filtered: true,
     });
   };
 
   @action
   initSearchFilterList = () => {
+    this.checkedKeysId = [];
     this.searchFilterList = {
       brand: [],
       filter: [],
@@ -918,7 +918,8 @@ export default class SearchItemStore {
         filter: filter,
         subcategory: subcategory,
         enter: enter === '' ? query.enter : enter,
-        keyword: keyword === '' ? query.keyword : keyword,
+        // keyword: keyword === '' ? query.keyword : keyword,
+        keyword: keyword,
         condition: condition === '' ? query.condition : condition,
         filtered: filtered,
       })}`
