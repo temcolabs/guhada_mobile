@@ -45,7 +45,9 @@ export default function Footer() {
             <br />
             상담가능시간 : 오전 10시 ~ 오후6시 토요일 공휴일 휴무
             <br />
-            E-mail : help@guhada.com
+            <span>
+              E-mail : <a href="mailto:help@guhada.com">help@guhada.com</a>
+            </span>
           </div>
           <div className={css.guhadaItem}>
             (주)구하다 <br />

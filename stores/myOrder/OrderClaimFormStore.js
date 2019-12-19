@@ -451,7 +451,6 @@ export default class OrderClaimFormStore {
   pushJobForClaimData = (job = () => {}) => {
     if (typeof job === 'function') {
       if (_.isEmpty(toJS(this.claimData))) {
-        // this.jobsForClaimData.push(action(job));
         this.jobsForClaimData.push(job);
       } else {
         // 데이터가 있으면 즉시 실행한다.

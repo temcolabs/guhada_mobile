@@ -36,6 +36,11 @@ $productInfoPadLeft: 24px;
   line-height: 1.3;
   overflow: hidden;
 
+  .dealId {
+    font-size: 12px;
+    margin-bottom: 3px;
+  }
+
   .brandName {
     font-weight: bold;
   }
@@ -93,7 +98,7 @@ $productInfoPadLeft: 24px;
   }
 
   .statusWrapper {
-    margin-top: 10px;
+    margin-top: 7px;
   }
 
   .status {
@@ -109,12 +114,4 @@ $productInfoPadLeft: 24px;
 // 주문 상품 정보 박스 세로 중앙 정렬
 .productInfo__inner {
   width: 100%;
-}
-
-// 브랜드, 제품명, 옵션
-.productInfo__upperArea {
-}
-
-// 가격, 주문상태
-.productInfo__lowerArea {
 }

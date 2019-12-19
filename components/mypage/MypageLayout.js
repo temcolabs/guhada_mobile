@@ -25,6 +25,7 @@ class MypageLayout extends React.Component {
 
   static defaultProps = {
     isMenuVisibile: true,
+    pageTitle: '마이페이지',
   };
 
   render() {

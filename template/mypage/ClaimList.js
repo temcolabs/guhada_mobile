@@ -19,11 +19,7 @@ export default function MyReviewList() {
   }, []);
 
   return (
-    <MypageLayout
-      topLayout={'main'}
-      pageTitle={'마이페이지'}
-      headerShape={'mypage'}
-    >
+    <MypageLayout topLayout={'main'} headerShape={'mypage'}>
       <div className={css.wrap} id="claimListWrap">
         <div className={css.tabWrap}>
           <div

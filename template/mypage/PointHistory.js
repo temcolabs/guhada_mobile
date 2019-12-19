@@ -8,6 +8,7 @@ import PeriodSelector from 'components/mypage/PeriodSelector';
 import { dateUnit } from 'childs/lib/constant/date';
 import { inject, observer } from 'mobx-react';
 import PointItem from 'components/mypage/point/PointItem';
+
 @withRouter
 @inject('mypagePoint')
 @observer
@@ -40,12 +41,7 @@ class PointHistory extends React.Component {
   render() {
     let { mypagePoint } = this.props;
     return (
-      <DefaultLayout
-        topLayout={'main'}
-        pageTitle={'마이페이지'}
-        toolBar={false}
-        headerShape={'mypage'}
-      >
+      <DefaultLayout topLayout={'main'} toolBar={false} headerShape={'mypage'}>
         <MypageLayout>
           <div className={css.wrap}>
             <PointDashboard props={mypagePoint.pointSummary} />

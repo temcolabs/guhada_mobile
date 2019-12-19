@@ -88,7 +88,7 @@ class OrderCancelForm extends Component {
       orderProdGroupId: this.orderProdGroupId,
     });
 
-    const job = claimData => {
+    const job = (claimData = {}) => {
       // 반품 환불예상금액 가져오기. 최초에 클레임 데이터(최대값)으로 계산
       this.props.orderClaimForm.getRefundResponse({
         orderProdGroupId: claimData.orderProdGroupId,
