@@ -16,6 +16,7 @@ class SearchItemHeader extends Component {
       alert,
       scrollDirection,
     } = this.props;
+
     return (
       <>
         <div
@@ -56,7 +57,9 @@ class SearchItemHeader extends Component {
           {process.env.NODE_ENV === 'development' && (
             <div
               className={css.detail}
-              onClick={() => setIsFilterVisible(true)}
+              onClick={() =>
+                searchitem.deals.length !== 0 && setIsFilterVisible(true)
+              }
             >
               상세검색
             </div>
