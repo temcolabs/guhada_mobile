@@ -196,17 +196,12 @@ class OrderCompleteList extends Component {
   render() {
     const {
       orderCompleteList: orderCompleteListStore,
-      mypagereview,
       mypagePoint: mypagePointStore,
     } = this.props;
     const { orderConfirmModalData } = orderCompleteListStore;
 
     return (
-      <MypageLayout
-        topLayout={'main'}
-        pageTitle={'주문배송'}
-        headerShape={'mypage'}
-      >
+      <MypageLayout topLayout={'main'} headerShape={'mypage'}>
         <PeriodSelector
           initialData={this.state.initialPeriodData}
           defaultTabItems={this.defaultPeriodTabItems}
