@@ -1,0 +1,41 @@
+.wrap {
+  height: 56px;
+  padding-left: 20px;
+
+  font-size: 12px;
+  font-weight: 500;
+
+
+  & .buttonWrap {
+    height: 27px;
+    white-space: nowrap;
+    overflow-x: auto;
+    padding-right: 93px;
+
+    & img {
+      position: absolute;
+      right: 0;
+    }
+  }
+
+  & button {
+    height: 26px;
+    padding: 0 29px 0 12px;
+    color: #5d2ed1;
+    border: 1px solid #5d2ed1;
+    margin-right: 3px;
+    border-radius: 15px;
+    background: url('/static/icon/filter_search_delete_p@3x.png') no-repeat center right 8px;
+    background-size: 15px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &.colored {
+      color: white;
+      background: #5d2ed1 url('/static/icon/filter_search_delete_w@3x.png') no-repeat center right 8px;
+      background-size: 15px;
+    }
+  }
+}

@@ -52,7 +52,7 @@ class DefaultLayout extends Component {
       [topLayouts.main]: headerHeight,
       [topLayouts.category]: headerHeight + categorySize + searchTabSize,
       [topLayouts.brand]: headerHeight + searchTabSize,
-      [topLayouts.search]: headerHeight + categorySize + searchTabSize,
+      [topLayouts.search]: headerHeight + searchTabSize,
       [topLayouts.keyword]: headerHeight + searchTabSize,
     };
   }

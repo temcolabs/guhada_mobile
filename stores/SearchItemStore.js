@@ -12,6 +12,9 @@ import { pushRoute } from 'childs/lib/router/index.js';
 import qs from 'qs';
 import _ from 'lodash';
 import criteoTracker from 'childs/lib/tracking/criteo/criteoTracker';
+import { devLog } from 'childs/lib/common/devLog.js';
+import isTruthy from 'childs/lib/common/isTruthy.js';
+import addCommaToArray from 'childs/lib/string/addCommaToArray.js';
 
 const isServer = typeof window === 'undefined';
 
@@ -366,6 +369,12 @@ export default class SearchItemStore {
                   getCategoryTitle(data.data.categories, categoryIds)
                 );
 
+              // SearchCategory init key 값 설정
+              if (categoryIds && data.data.categories.length !== 0)
+                this.setExpandedKeys(
+                  getCategory(data.data.categories, categoryIds).key
+                );
+
               if (enter === 'all') {
                 let keyArray;
 
@@ -645,6 +654,16 @@ export default class SearchItemStore {
   @computed get getExpandedKeys() {
     return this.expandedKeys.slice();
   }
+  @action
+  setExpandedKeys = expandedKeys => {
+    if (expandedKeys == null) expandedKeys = '';
+
+    if (Array.isArray(expandedKeys)) {
+      this.expandedKeys = expandedKeys;
+    } else {
+      this.expandedKeys = [expandedKeys];
+    }
+  };
 
   @computed get getKeyArray() {
     return this.keyArray;
@@ -655,52 +674,184 @@ export default class SearchItemStore {
     this.title = data;
   };
 
+  @observable categoryquery;
+
   @computed get getCheckedKeys() {
     return this.checkedKeys.slice();
   }
 
-  @observable categoryquery;
+  @action
+  initCheckedKeys = () => {
+    this.checkedKeys = [];
+    this.checkedKeysId = [];
+  };
+
+  checkDuplicatedCheckedKeys(info) {
+    let idx = -1;
+    for (let i = 0; i < this.checkedKeys.length; i++) {
+      if (toJS(this.checkedKeys[i]) === info.node.props.eventKey) idx = i;
+    }
+
+    if (idx === -1) {
+      this.checkedKeys.push(info.node.props.eventKey);
+      this.checkedKeysId.push(info.node.props.id);
+    } else {
+      this.checkedKeys.splice(idx, 1);
+      this.checkedKeysId.splice(idx, 1);
+    }
+  }
 
   @action
   onCheck = (checkedKeys, info) => {
-    if (info.node.props.children.length > 0) {
-      // 들어올 일 없음
+    let classNames = info.node.props.className;
+    if (classNames === 'ableCheckbox') {
+      this.checkDuplicatedCheckedKeys(info);
     } else {
-      let idx = -1;
-      for (let i = 0; i < this.checkedKeys.length; i++) {
-        if (toJS(this.checkedKeys[i]) == info.node.props.eventKey) idx = i;
-      }
+      this.setExpandedKeys(checkedKeys);
+    }
+  };
+  @observable selectCategory;
 
-      if (idx === -1) {
-        this.checkedKeys.push(info.node.props.eventKey);
-        this.checkedKeysId.push(info.node.props.id);
-      } else {
-        this.checkedKeys.splice(idx, 1);
-        this.checkedKeysId.splice(idx, 1);
-      }
+  @action
+  onSelect = (selectedKeys, info) => {
+    let classNames = info.node.props.className;
 
-      let query = Router.router.query;
+    if (classNames === 'ableCheckbox') {
+      this.checkDuplicatedCheckedKeys(info);
+    } else if (selectedKeys.length === 0) {
+    } else {
+      this.setExpandedKeys(selectedKeys);
+      this.selectCategory = info.node.props;
+      this.initCheckedKeys();
+    }
+  };
 
-      this.categoryquery = this.checkedKeysId.join();
+  @action
+  initFilter = () => {
+    this.filterBrand = [];
+    this.filterData.map((data, dataKey) => {
+      return data.attributes.map((attributes, attributesKey) => {
+        if (
+          !_.isNil(this.filterData[dataKey].attributes[attributesKey].filter)
+        ) {
+          this.filterData[dataKey].attributes[attributesKey].filter = false;
+        }
+      });
+    });
+  };
 
-      this.toSearch(
-        query.category,
-        query.brand,
-        query.page,
-        query.unitPerPage,
-        query.order,
-        query.filter,
-        this.categoryquery,
-        query.enter,
-        query.keyword
-      );
+  @action
+  searchFilter = () => {
+    let brandList = [];
+    let filterList = [];
+    let category;
+    let subCategoryList = [];
+
+    let brandListTitle = [];
+    let filterListTitle = [];
+    let categoryListTitle = [];
+    let subCategoryListTitle = [];
+
+    let query = Router.router.query;
+    // filter list push
+    if (Array.isArray(toJS(this.filterData))) {
+      this.filterData.map(filter => {
+        filter.attributes.map(attr => {
+          if (attr.filter) {
+            filterList.push(attr.id);
+            filterListTitle.push(attr);
+          }
+        });
+      });
+    }
+
+    if (query.enter === 'brand') {
+      brandList.push(query.brand.split(',')[0]);
+    }
+
+    // brand list push
+    if (Array.isArray(toJS(this.filterBrand))) {
+      this.filterBrand.map(brand => {
+        brandList.push(brand.id);
+        brandListTitle.push(brand);
+      });
+    }
+
+    // subcategory list push
+    if (Array.isArray(toJS(this.checkedKeysId))) {
+      this.checkedKeysId.map(subcategory => {
+        subCategoryListTitle.push({
+          title: getCategoryTitle(this.locationFilter, subcategory),
+          id: subcategory,
+        });
+      });
+    }
+
+    this.searchFilterList['brand'] = brandListTitle;
+    this.searchFilterList['filter'] = filterListTitle;
+
+    categoryListTitle.push({
+      title: isTruthy(this.selectCategory)
+        ? getCategoryTitle(this.locationFilter, toJS(this.selectCategory.id))
+        : getCategoryTitle(this.locationFilter, query.category),
+      id: isTruthy(this.selectCategory)
+        ? toJS(this.selectCategory.id)
+        : query.category,
+    });
+    this.searchFilterList['category'] = categoryListTitle;
+    this.searchFilterList['subcategory'] = subCategoryListTitle;
+
+    brandList = addCommaToArray(brandList);
+    filterList = addCommaToArray(filterList);
+    subCategoryList = addCommaToArray(this.checkedKeysId);
+    category = isTruthy(this.selectCategory)
+      ? toJS(this.selectCategory.id)
+      : query.category;
+
+    this.toSearch({
+      category: category,
+      brand: brandList,
+      filter: filterList,
+      subcategory: subCategoryList,
+      keyword: query.keyword,
+      filtered: true,
+    });
+  };
+
+  @action
+  initSearchFilterList = () => {
+    this.checkedKeysId = [];
+    this.searchFilterList = {
+      brand: [],
+      filter: [],
+      category: [],
+      subcategory: [],
+    };
+  };
+
+  @observable searchFilterList = {
+    brand: [],
+    filter: [],
+    category: [],
+    subcategory: [],
+  };
+
+  @observable filterBrand = [];
+  setFilterBrand = brand => {
+    const idx = this.filterBrand.findIndex(function(item) {
+      return item.id === brand.id;
+    });
+
+    if (idx > -1) {
+      this.filterBrand.splice(idx, 1);
+    } else {
+      this.filterBrand.push(brand);
     }
   };
 
   // filter 부분
   // viewType : "TEXT_BUTTON", "RGB_BUTTON", "TEXT"\
   @observable filterData = [];
-
   @action
   setFilter = (filter, value) => {
     this.filterData.map((data, dataKey) => {
@@ -723,8 +874,6 @@ export default class SearchItemStore {
         });
       }
     });
-    let query = Router.router.query;
-
     let filterList = [];
 
     if (Array.isArray(toJS(this.filterData))) {
@@ -740,19 +889,6 @@ export default class SearchItemStore {
         return e;
       })
       .join(',');
-
-    this.toSearch(
-      query.category,
-      query.brand,
-      query.page,
-      query.unitPerPage,
-      query.order,
-      filterList,
-      query.subcategory,
-      query.enter,
-      query.keyword
-    );
-    window.scrollTo(0, 0);
   };
 
   @observable preUrl;
@@ -768,7 +904,10 @@ export default class SearchItemStore {
     enter = '',
     keyword = '',
     condition = '',
+    filtered = false,
   }) => {
+    let query = Router.router.query;
+
     pushRoute(
       `/search?${qs.stringify({
         category: category,
@@ -778,9 +917,11 @@ export default class SearchItemStore {
         order: order === null || order === '' ? 'DATE' : order,
         filter: filter,
         subcategory: subcategory,
-        enter: enter,
+        enter: enter === '' ? query.enter : enter,
+        // keyword: keyword === '' ? query.keyword : keyword,
         keyword: keyword,
-        condition: condition === '' ? [] : condition,
+        condition: condition === '' ? query.condition : condition,
+        filtered: filtered,
       })}`
     );
     if (this.preUrl !== Router.asPath) this.deals = [];

@@ -268,6 +268,24 @@ export const searchTreeKey = function(element, matchingTitle) {
   return null;
 };
 
+/**
+ * 마지막 children을 확인하고 임의의 코드를 넣는 함수
+ * 다만 checkbox 관련 key 값을 실행 시키는 것은 테스트 결과 안됨
+ * key 값을 넣는 기능은 가능
+ * @param {*} element
+ */
+export const searchChildrenCheck = function(element) {
+  element.forEach(data => {
+    if (data.children) {
+      searchChildrenCheck(data.children);
+    } else {
+      data['className'] = `ableCheckbox`;
+    }
+  });
+
+  return element;
+};
+
 export const loadScript = function(src, id) {
   let script = document.createElement('script');
   script.src = src;

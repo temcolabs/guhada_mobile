@@ -30,6 +30,16 @@
             &:nth-child(7n) {
                 margin-right: 0;
             }
+
+            &.select {
+                background: url('/static/icon/filter_btn_check_w@3x.png') no-repeat center;
+                background-size: 16px;
+
+                &.ffffff {
+                    background: url('/static/icon/filter_btn_check_b@3x.png') no-repeat center;
+                    background-size: 16px;
+                }
+            }
         }
 
     }

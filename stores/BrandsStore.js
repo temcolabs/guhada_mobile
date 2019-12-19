@@ -83,6 +83,11 @@ export default class BrandsStore {
     });
   };
 
+  setBrandsFromFilter = brands => {
+    this.brands = brands;
+    this.setGroupBrandList(brands);
+  };
+
   @action
   getFavoriteBrands = () => {
     API.product.get('/brands?filters=favorites').then(res => {
