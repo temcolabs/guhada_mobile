@@ -1,0 +1,229 @@
+@import 'styles/mixins/index';
+$formButtonSize : 85px;
+
+.wrap {
+  font-size: 12px;
+}
+
+// 상하 가운데 정렬이 된 텍스트. 버튼, 인풋의 높이가 36px이라서 거기에 맞춤
+.text {
+  @include centerWithHeight(36px);
+}
+
+.errorText {
+  color: #ce2525;
+  margin: 3px 0 6px;
+  font-size: 12px;
+}
+
+.formGroup {
+  @include clearfix;
+
+  &+& {
+    margin-top: 10px;
+  }
+
+  & .formInput {
+    float: left;
+
+    &:not(:first-child) {
+      margin-left: 10px;
+    }
+
+    &[data-type='defaultSize'] {
+      width: 100%;
+    }
+
+    &[data-type='formButtonSize'] {
+      width: calc(100% - #{$formButtonSize} - 10px);
+    }
+
+    &[data-type='emailId'] {
+      width: 136px;
+      margin-right: 8px;
+    }
+
+    &[data-type='at'] {
+      @include centerWithHeight(36px);
+      font-family: NotoSansCJKkr;
+      width: 12px;
+      margin-right: 8px;
+    }
+
+    &[data-type='emailDomain'] {
+      width: 136px;
+    }
+
+    &[data-type='hyphen'] {
+      @include centerWithHeight(36px);
+      font-family: NotoSansCJKkr;
+      font-size: 13px;
+      width: 5px;
+      margin-right: 7px;
+    }
+
+    &[data-type='mobileNumber_1'] {
+      width: 87px;
+      margin-right: 7px;
+    }
+
+    &[data-type='mobileNumber_2'] {
+      width: 87px;
+      margin-right: 7px;
+    }
+
+    &[data-type='mobileNumber_3'] {
+      width: 87px;
+    }
+
+    &[data-type='emailAuthCode'] {
+      width: 180px;
+    }
+
+    &[data-type='newPassword'] {
+      width: 300px;
+    }
+
+    &[data-type='newPasswordConfirm'] {
+      clear: left;
+      width: 300px;
+    }
+
+    &[data-type='notiAgreeCheckbox'] {
+      &:not(:first-child) {
+        margin-left: 30px;
+      }
+    }
+
+    &[data-type='birthdayYear'] {
+      width: 120px;
+    }
+
+    &[data-type='birthdayMonth'] {
+      width: 84px;
+    }
+
+    &[data-type='birthdayDay'] {
+      width: 84px;
+    }
+  }
+}
+
+.description {
+  font-size: 12px;
+  line-height: 1.83;
+  color: #777777;
+  margin-top: 10px;
+  text-align: left;
+}
+
+.highlight {
+  color: #4d2ed1;
+
+  &:hover {
+    color: #4d2ed1;
+  }
+}
+
+.link {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+// 내 사이즈
+.mySizeBox {
+  width: 100%;
+  padding: 30px;
+  border: solid 1px #eeeeee;
+  background-color: #ffffff;
+  font-size: 13px;
+  line-height: 1.2;
+  color: #777777;
+  margin-bottom: 20px;
+
+  & .mySizeRow {
+    @include clearfix;
+
+    &>* {
+      float: left;
+    }
+
+    margin-bottom: 10px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  & .mySizeLabel {
+    width: 113px;
+    padding-right: 26px;
+  }
+
+  & .mySizeValue {
+    width: 200px;
+    padding-right: 26px;
+    color: #444444;
+  }
+}
+
+.changeBodySizeButton {
+  @include centerWithHeight(24px);
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: inline-block;
+  width: 80px;
+  border: solid 1px #cccccc;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: #444444;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.withdrawMemebrButton {
+  float: right;
+  width: 104px;
+  height: 40px;
+  font-size: 14px;
+
+  &:hover {
+    color: #444 !important;
+  }
+}
+
+.mobileAuthTimer {
+  @include centeredY;
+  z-index: 10;
+  right: 0;
+  color: #5d2ed1;
+  background: #fff;
+  padding: 5px 15px;
+}
+
+
+.connectedSnsWrap {
+  .formInput {
+    width: 50%;
+    text-align: left;
+
+    &:nth-child(-n+2) {
+      margin-bottom: 15px;
+    }
+
+    &:not(:first-child) {
+      margin-left: 0;
+    }
+  }
+}
+
+.sectionDivider {
+  width: 100%;
+  height: 8px;
+  background-color: #f9f9fa;
+}

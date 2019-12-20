@@ -39,20 +39,25 @@ class NaverLogin extends React.Component {
   render() {
     return (
       <Fragment>
-        <div className={css.social} id="naverIdLogin_loginButton">
-          <div
-            id="naverIdLogin"
-            className={css.icon}
-            style={{
-              backgroundImage: "url('/static/icon/social/login_btn_naver.png')",
-            }}
-          />
-          <div className={css.text}>
-            네이버
-            <br />
-            로그인
+        {this.props.render ? (
+          this.props.render
+        ) : (
+          <div className={css.social} id="naverIdLogin_loginButton">
+            <div
+              id="naverIdLogin"
+              className={css.icon}
+              style={{
+                backgroundImage:
+                  "url('/static/icon/social/login_btn_naver.png')",
+              }}
+            />
+            <div className={css.text}>
+              네이버
+              <br />
+              로그인
+            </div>
           </div>
-        </div>
+        )}
       </Fragment>
     );
   }

@@ -184,15 +184,15 @@ const MENUBAR_SECTIONS = [
   //     },
   //   ]
   // },
-  // {
-  //   links: [
-  //     {
-  //       targetPaths: [mypageRouteObj['/mypage/UserInfomation']?.asPath],
-  //       asPath: mypageRouteObj['/mypage/UserInfomation']?.asPath,
-  //       text: '회원정보 수정',
-  //     },
-  //   ],
-  // },
+  {
+    links: [
+      {
+        targetPaths: [mypageRouteObj['/mypage/UserInfomation']?.asPath],
+        asPath: mypageRouteObj['/mypage/UserInfomation']?.asPath,
+        text: '회원정보 수정',
+      },
+    ],
+  },
 ];
 
 function MypageMenubar({ userInfo = {}, pathname = '/', router = {} }) {

@@ -3,14 +3,14 @@
 .button {
   @include centerWithHeight(45px);
   display: inline-block;
-  min-width: 90px;
+  min-width: 85px;
   text-align: center;
-  font-size: 12px;
+  font-size: 13px;
   padding-left: 9px;
   padding-right: 9px;
   border: 1px solid #cccccc;
   background-color: #fff;
-  color: #444444;
+  color: #111111;
 
   &:hover {
     cursor: pointer;
@@ -46,7 +46,7 @@
     }
   }
 
-  & + & {
+  &+& {
     margin-left: 10px;
   }
 }
