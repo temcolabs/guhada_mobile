@@ -30,3 +30,10 @@ export const SPECIAL_DETAIL_FILTER = [
     value: 'PRICE',
   },
 ];
+
+export const SPECIAL_DETAIL_ORDER = [
+  { label: '신상품순', value: 'DATE' },
+  // { label: '평점순', value: 'SCORE' },
+  { label: '낮은가격순', value: 'PRICE_ASC' },
+  { label: '높은가격순', value: 'PRICE_DESC' },
+];

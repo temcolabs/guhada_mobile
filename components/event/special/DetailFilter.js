@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
-import { SPECIAL_DETAIL_FILTER } from 'childs/lib/constant/event/FilterOption';
+import { SPECIAL_DETAIL_ORDER } from 'childs/lib/constant/event/FilterOption';
+import { inject, observer } from 'mobx-react';
+import Router from 'next/router';
+
+@inject('special')
+@observer
 class Filter extends Component {
   render() {
     let selectStyles = {
@@ -49,13 +54,20 @@ class Filter extends Component {
       }),
     };
 
+    const { query } = Router.router;
+    const { special } = this.props;
+
     return (
       <Select
         styles={selectStyles}
-        placeholder={`가격 순`}
-        options={SPECIAL_DETAIL_FILTER}
+        placeholder={`신상품순`}
+        options={SPECIAL_DETAIL_ORDER}
         onChange={value => {
-          this.props.onChange(value);
+          special.getSpecialDetail({
+            id: query.id,
+            page: 1,
+            order: value.value,
+          });
         }}
         isSearchable={false}
       />
