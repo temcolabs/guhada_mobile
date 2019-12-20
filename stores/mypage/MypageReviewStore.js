@@ -18,6 +18,8 @@ export default class MypageReviewStore {
 
   @observable myReviews = []; // 내가 작성한 리뷰
   myReviewsPageSize = 5; // 페이지 사이즈
+  @observable myReviewPage = 1;
+  @observable myReivewsItemList = [];
 
   @observable availableReview = []; // 작성 가능한 리뷰
   @observable availableReviewPage = 1;
@@ -320,6 +322,9 @@ export default class MypageReviewStore {
       )
       .then(res => {
         this.myReviews = res.data.data;
+        this.myReivewsItemList = this.myReivewsItemList.concat(
+          res.data?.data?.content
+        );
       })
       .catch(e => {
         this.myReviews = [];
