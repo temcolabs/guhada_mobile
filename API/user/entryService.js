@@ -42,4 +42,14 @@ export default {
   naverLogin: (body = SNS_LOGIN_COMMON_BODY) => {
     return API.user.post(`/sns-users/naverLogin`, body);
   },
+
+  /**
+   * 비밀번호 확인. 로그인 후 비밀번호 재확인이 피룡할 때 사용한다.
+   */
+  checkPassword: ({ userId, email, password }) => {
+    return API.user.post(`/users/${userId}/password`, {
+      email,
+      password,
+    });
+  },
 };
