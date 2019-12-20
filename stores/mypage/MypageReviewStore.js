@@ -287,6 +287,7 @@ export default class MypageReviewStore {
             .then(res => {
               if (isFunction(onSuccess)) {
                 onSuccess({ data: res.data?.data });
+                this.getMyReviews();
               }
             })
             .catch(e => {
