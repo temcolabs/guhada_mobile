@@ -96,15 +96,15 @@ $formButtonSize : 85px;
     }
 
     &[data-type='birthdayYear'] {
-      width: 120px;
+      width: calc(40% - 20px);
     }
 
     &[data-type='birthdayMonth'] {
-      width: 84px;
+      width: calc(30%);
     }
 
     &[data-type='birthdayDay'] {
-      width: 84px;
+      width: calc(30%);
     }
   }
 }

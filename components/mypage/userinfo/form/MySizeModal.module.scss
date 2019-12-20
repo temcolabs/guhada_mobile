@@ -1,12 +1,16 @@
 @import 'styles/mixins/index';
 
 .wrap {
-  width: 600px;
-  padding: 30px;
+  width: 100vw;
+  padding: 0 20px 30px 20px;
 }
 
 .sizeSection {
-  margin-top: 30px;
+  padding-top: 30px;
+
+  &:first-child {
+    border-top: 2px solid #111111;
+  }
 }
 
 .sizeSectionName {
@@ -16,6 +20,11 @@
 }
 
 .bodySize {
+  margin-bottom: 30px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .agreement {
@@ -34,13 +43,13 @@
   background-color: #ffffff;
 
   button {
-    width: calc(100% / 5);
-    height: 36px;
+    width: calc(100% / 3);
+    height: 45px;
     border-right: 1px solid #eee;
     border-bottom: 1px solid #eee;
 
     &.isSelected {
-      height: 34px;
+      height: 43px;
       background-color: #444444;
       color: #ffffff;
     }

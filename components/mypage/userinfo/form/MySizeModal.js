@@ -15,6 +15,7 @@ import getRangeSelectOptions from 'childs/lib/common/getRangeSelectOptions';
 import memoize from 'memoize-one';
 import SectionHeading from 'components/common/SectionHeading';
 import { devLog } from 'childs/lib/common/devLog';
+import ModalLayout from 'components/layout/ModalLayout';
 
 /**
  * 내 사이즈 등록, 수정 모달
@@ -119,7 +120,7 @@ class MySizeModal extends React.Component {
           },
           {
             name: 'weight',
-            label: '체중 (km)',
+            label: '체중 (kg)',
             placeholder: '선택하세요',
             rules: 'required',
             extra: self.weightOptions,
@@ -230,18 +231,17 @@ class MySizeModal extends React.Component {
 
   render() {
     return (
-      <ModalWrapper
+      <ModalLayout
         isOpen={this.props.isOpen}
-        contentStyle={{ overflow: 'visible' }}
         onClose={this.props.onClose}
+        pageTitle={'내 사이즈 등록/수정'}
+        wrapperStyle={{ paddingBottom: '0' }}
       >
         <form>
           <div className={css.wrap}>
-            <SectionHeading title="내 사이즈 등록/수정" />
-
             <div className={cn('grid_10', css.sizeSection)}>
               <div className={cn('gridRow')}>
-                <div className={cn('col_1_3', css.bodySize)}>
+                <div className={cn(css.bodySize)}>
                   <div className={css.sizeSectionName}>
                     {this.form.$('height').label}
                   </div>
@@ -251,7 +251,7 @@ class MySizeModal extends React.Component {
                     value={this.form.$('height').value}
                   />
                 </div>
-                <div className={cn('col_1_3', css.bodySize)}>
+                <div className={cn(css.bodySize)}>
                   <div className={css.sizeSectionName}>
                     {this.form.$('weight').label}
                   </div>
@@ -261,7 +261,7 @@ class MySizeModal extends React.Component {
                     value={this.form.$('weight').value}
                   />
                 </div>
-                <div className={cn('col_1_3', css.bodySize)}>
+                <div className={cn(css.bodySize)}>
                   <div className={css.sizeSectionName}>
                     {this.form.$('shoe').label}
                   </div>
@@ -309,6 +309,7 @@ class MySizeModal extends React.Component {
                     <button
                       key={option.value}
                       type="button"
+                      style={{ width: 'calc(100% / 4)' }}
                       className={cn({
                         [css.isSelected]:
                           option.value === this.form.$('bottom').value,
@@ -336,20 +337,20 @@ class MySizeModal extends React.Component {
                   this.form.reset();
                   this.props.onClose();
                 }}
-                style={{ width: '265px' }}
+                style={{ marginRight: '6px' }}
               >
                 취소
               </CancelButton>
               <SubmitButton
                 onClick={this.form.onSubmit}
-                style={{ width: '265px' }}
+                // style={{ width: '265px' }}
               >
                 등록
               </SubmitButton>
             </SubmitButtonWrapper>
           </div>
         </form>
-      </ModalWrapper>
+      </ModalLayout>
     );
   }
 }
