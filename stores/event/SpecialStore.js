@@ -28,7 +28,7 @@ export default class SpecialStore {
   @observable infinityStauts = true;
   @observable endPage = 0;
   @observable scrollDirection;
-
+  @observable order = 'DATE';
   @action
   getSpecialList = value => {
     if (!value?.value) {
@@ -60,21 +60,29 @@ export default class SpecialStore {
   };
 
   @action
-  getSpecialDetail = ({ id, page = 1 }) => {
+  getSpecialDetail = ({ id, page = 1, order = this.order }) => {
     this.id = id;
     API.settle
       .get(`/plan/list/detail?`, {
         params: {
           eventId: id,
           page: page,
+          searchProgress: order,
         },
       })
       .then(res => {
         if (res.data.data.mainUse) {
+          if (page === 1) {
+            this.specialDetailList = [];
+            this.endPage = 0;
+          }
+
           this.specialDetail = res.data.data;
           this.totalItemCount = this.specialDetail.totalItemCount;
           this.status.detailPage = true;
           this.page = page;
+          this.order = order;
+
           if (this.specialDetailList.length === 0) {
             this.specialDetailList = res.data.data.planListDetails;
           } else {

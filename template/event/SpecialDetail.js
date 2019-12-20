@@ -104,11 +104,11 @@ function SpecialDetail({ special, alert }) {
                 : 0}
               개
             </div>
-            {/* <div className={css.orderWrap}>
+            <div className={css.orderWrap}>
               <div className={css.order}>
                 <DetailFilter />
               </div>
-            </div> */}
+            </div>
           </div>
 
           <div className={css.itemWrap}>
