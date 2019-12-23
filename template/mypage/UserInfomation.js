@@ -335,7 +335,9 @@ class UserInfomation extends Component {
       // 폼 데이터를 초기화. pristine 상태가 되도록 한다.
       if (isInitFormValues) {
         await this.props.user.getUserInfo({ userId });
-        this.initFormValues();
+        this.setState({ isEditFormVisible: false });
+        this.props.user.setPasswordDoubleChecked(false);
+        // this.initFormValues();
       }
       return true;
     } catch (e) {
@@ -453,7 +455,14 @@ class UserInfomation extends Component {
                     <SubmitButtonWrapper
                       wrapperStyle={{ marginTop: '60px', fontSize: '16px' }}
                     >
-                      <CancelButton>취소</CancelButton>
+                      <CancelButton
+                        onClick={() => {
+                          this.setState({ isEditFormVisible: false });
+                          this.props.user.setPasswordDoubleChecked(false);
+                        }}
+                      >
+                        취소
+                      </CancelButton>
                       <SubmitButton
                         onClick={this.handleSubmitEditForm}
                         disabled={!_.isEmpty(errors)}
