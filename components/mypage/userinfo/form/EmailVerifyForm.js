@@ -271,7 +271,7 @@ export default function EmailVerifyForm() {
               ? '인증 완료'
               : isResendEmailAuthButtonVisible
               ? '재전송'
-              : '인증메일 발송'}
+              : '인증받기'}
           </FormButton>
         </div>
       </div>

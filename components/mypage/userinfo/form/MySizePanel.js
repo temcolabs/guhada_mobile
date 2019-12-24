@@ -91,6 +91,7 @@ class MySizePanel extends Component {
         <FormButton
           onClick={this.toggleMySizeModal}
           color={formButtonColors.PURPLE}
+          style={{ width: '100%' }}
         >
           사이즈 등록
         </FormButton>

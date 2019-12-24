@@ -37,8 +37,10 @@ export default function MobileAuthForm() {
    */
   const handleRequestMobileAuth = () => {
     // TODO: 모바일 인증코드 발송 API 호출
+    const childWindow = window.open('', 'popupChk');
     authMobileStore.getCertKey(
       authLocations.EDIT_USERINFO,
+      childWindow,
       async (
         verifyParams = {
           // sample data

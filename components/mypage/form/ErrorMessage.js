@@ -5,10 +5,11 @@ export const ErrorMessage = ({ children, wrapperStyle = {} }) => {
   return (
     <div
       style={{
-        marginTop: '3px',
+        marginTop: '7px',
         marginBottom: '5px',
         color: '#c72121',
         fontSize: '12px',
+        textAlign: 'left',
         ...wrapperStyle,
       }}
     >

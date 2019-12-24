@@ -35,7 +35,10 @@ export default function ShippingAddressForm() {
     <div>
       <Text>
         배송지 정보는{' '}
-        <a className={cn(css.highlight, css.link)} onClick={handleClickLink}>
+        <a
+          className={cn(css.highlight, css.link)}
+          // onClick={handleClickLink}
+        >
           배송지 관리
         </a>
         에서 수정 및 등록 가능합니다.

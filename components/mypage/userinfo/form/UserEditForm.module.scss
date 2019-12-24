@@ -77,7 +77,7 @@ $formButtonSize : 85px;
     }
 
     &[data-type='emailAuthCode'] {
-      width: 180px;
+      width: calc(100% - #{$formButtonSize} - 10px);
     }
 
     &[data-type='newPassword'] {
