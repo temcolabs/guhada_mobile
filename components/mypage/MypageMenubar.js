@@ -82,15 +82,15 @@ const MENUBAR_SECTIONS = [
       },
     ],
   },
-  // {
-  //   links: [
-  //     {
-  //       targetPaths: [mypageRouteObj['/mypage/ProductLikeList']?.asPath],
-  //       asPath: mypageRouteObj['/mypage/ProductLikeList']?.asPath,
-  //       text: '찜한 상품',
-  //     },
-  //   ],
-  // },
+  {
+    links: [
+      {
+        targetPaths: [mypageRouteObj['/mypage/ProductLikeList']?.asPath],
+        asPath: mypageRouteObj['/mypage/ProductLikeList']?.asPath,
+        text: '찜한 상품',
+      },
+    ],
+  },
   // {
   //   links: [
   //     {

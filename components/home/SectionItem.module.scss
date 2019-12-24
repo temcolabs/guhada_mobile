@@ -22,6 +22,18 @@ $contentsHeight : 117px;
         }
     }
 
+    .item__delete__btn {
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: url('/static/icon/like_item_delete.png') no-repeat;
+        background-size: cover;
+        background-position: center;
+        cursor: pointer;
+    }
+
     & .freeShipping {
         width: 30px;
         height: 30px;

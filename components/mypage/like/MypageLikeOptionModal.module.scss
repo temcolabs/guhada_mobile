@@ -1,0 +1,274 @@
+@import 'styles/mixins/index';
+.modal__wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+
+  .modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: auto;
+    padding: 30px;
+    box-sizing: border-box;
+    background: #fff;
+
+    .modal__top {
+      @include clearfix;
+      border-bottom: 2px solid #111;
+      padding-bottom: 20px;
+
+      .modal__title {
+        float: left;
+        font-size: 20px;
+        color: #111;
+        font-weight: bold;
+      }
+      .modal__close {
+        position: relative;
+        text-align: right;
+        cursor: pointer;
+        img {
+          width: 29px;
+          height: 29px;
+        }
+      }
+    }
+
+    .modal__body {
+      margin-top: 30px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 30px;
+      .product {
+        @include clearfix;
+        .product__image {
+          width: 100px;
+          height: 100px;
+          background-size: contain;
+          background-position: center;
+          background-repeat: no-repeat;
+          float: left;
+        }
+
+        .product__info {
+          width: 410px;
+          margin-left: 30px;
+          float: left;
+
+          .product__brand {
+            font-size: 14px;
+            font-weight: bold;
+            color: #444;
+            max-width: 410px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
+          .product__name {
+            overflow: hidden;
+            max-width: 410px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-size: 14px;
+            color: #444;
+            margin-top: 2px;
+          }
+
+          .product__price {
+            @include clearfix;
+            margin-top: 20px;
+
+            .product__discountPrice {
+              float: left;
+              font-size: 14px;
+              font-weight: bold;
+              color: #111;
+            }
+
+            .product__sellPrice {
+              float: left;
+              margin-left: 11px;
+              font-size: 14px;
+              font-weight: 500;
+              color: #a0a0a0;
+              text-decoration: line-through;
+            }
+
+            .product__discountRate {
+              float: left;
+              margin-left: 10px;
+              font-size: 14px;
+              color: #5d2ed1;
+              font-weight: bold;
+            }
+          }
+        }
+      }
+
+      .shipping {
+        margin-top: 24px;
+        height: 50px;
+        @include clearfix;
+        .shipping__title {
+          font-size: 13px;
+          color: #777;
+          font-weight: 400;
+          line-height: 50px;
+          float: left;
+          width: 110px;
+        }
+
+        .ship__expense {
+          float: left;
+          font-size: 13px;
+          color: #444;
+          font-weight: 500;
+          line-height: 50px;
+        }
+      }
+
+      .option {
+        margin-top: 16px;
+        height: 50px;
+        @include clearfix;
+
+        .option__title {
+          font-size: 13px;
+          color: #777;
+          font-weight: 400;
+          line-height: 50px;
+          float: left;
+          width: 110px;
+        }
+
+        .option__select {
+          float: left;
+          width: 430px;
+          position: relative;
+          line-height: 50px;
+        }
+      }
+
+      .quantity__change {
+        margin-top: 16px;
+        height: 50px;
+        @include clearfix;
+
+        .quantity__title {
+          font-size: 13px;
+          color: #777;
+          font-weight: 400;
+          line-height: 50px;
+          float: left;
+          width: 110px;
+        }
+
+        .quantity__select {
+          float: left;
+          @include clearfix;
+          .minus__btn {
+            float: left;
+            width: 48px;
+            height: 48px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border: 1px solid #eee;
+          }
+          .quantity {
+            float: left;
+            width: 50px;
+            height: 48px;
+            position: relative;
+
+            input[type='text'] {
+              width: 100%;
+              text-align: center;
+              line-height: 48px;
+            }
+          }
+          .plus__btn {
+            float: left;
+            width: 48px;
+            height: 48px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border: 1px solid #eee;
+          }
+        }
+
+        .quantity__stock {
+          float: left;
+          font-size: 12px;
+          color: #5d2ed1;
+          line-height: 50px;
+          margin-left: 10px;
+        }
+      }
+    }
+
+    .total__price {
+      position: relative;
+      margin-top: 30px;
+      height: 42px;
+      @include clearfix;
+      .total__price__title {
+        font-size: 16px;
+        color: #111;
+        font-weight: bold;
+        float: left;
+        line-height: 42px;
+      }
+      .total__price__amount {
+        float: right;
+        font-size: 28px;
+        font-weight: 900;
+        color: #5d2ed1;
+
+        span.total__option__price {
+          display: block;
+          color: #999;
+          font-size: 18px;
+          margin-right: 15px;
+          font-weight: normal;
+          line-height: 42px;
+          float: left;
+        }
+        span {
+          font-size: 20px;
+        }
+      }
+    }
+    .btnGroup {
+      display: block;
+      margin-top: 30px;
+      box-sizing: border-box;
+      div {
+        width: 265px;
+        height: 60px;
+        display: inline-block;
+        text-align: center;
+        line-height: 60px;
+        font-size: 16px;
+        color: #fff;
+        cursor: pointer;
+        &:first-child {
+          background: #444;
+        }
+        &:last-child {
+          margin-left: 10px;
+          background: #5d2ed1;
+        }
+      }
+    }
+  }
+}
