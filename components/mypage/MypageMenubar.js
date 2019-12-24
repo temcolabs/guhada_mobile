@@ -73,15 +73,15 @@ const MENUBAR_SECTIONS = [
   //     },
   //   ]
   // },
-  // {
-  //   links: [
-  //     {
-  //       targetPaths: [mypageRouteObj['/mypage/FollowStore']?.asPath],
-  //       asPath: mypageRouteObj['/mypage/FollowStore']?.asPath,
-  //       text: '팔로우한 스토어',
-  //     },
-  //   ],
-  // },
+  {
+    links: [
+      {
+        targetPaths: [mypageRouteObj['/mypage/FollowStore']?.asPath],
+        asPath: mypageRouteObj['/mypage/FollowStore']?.asPath,
+        text: '팔로우한 스토어',
+      },
+    ],
+  },
   // {
   //   links: [
   //     {
