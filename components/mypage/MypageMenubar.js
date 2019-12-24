@@ -170,7 +170,7 @@ const MENUBAR_SECTIONS = [
       {
         targetPaths: [mypageRouteObj['/mypage/AddressManagement']?.asPath],
         asPath: mypageRouteObj['/mypage/AddressManagement']?.asPath,
-        text: '배송지',
+        text: '배송지 관리',
       },
     ],
   },

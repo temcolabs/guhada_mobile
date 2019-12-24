@@ -78,6 +78,7 @@ export default class MypageAddressStore {
           // this.root.alert.showAlert({
           //   content: `${_.get(err, 'data.message') || '오류가 발생했습니다.'}`,
           // });
+          this.pageStatus = true;
         });
     };
 
