@@ -68,6 +68,8 @@
       textarea {
         width: 100%;
         min-height: 190px;
+        outline: none;
+        border: none;
 
         &::placeholder {
           color: #ccc;
