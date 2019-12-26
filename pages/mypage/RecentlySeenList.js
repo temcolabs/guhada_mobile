@@ -8,7 +8,7 @@ class RecentlySeenListPage extends Component {
     return (
       <>
         <Head>
-          <title>마이페이지</title>
+          <title>최근 본 상품</title>
         </Head>
 
         <RecentlySeenList />

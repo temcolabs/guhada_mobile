@@ -7,34 +7,51 @@ $cellHoriPadding: 14px;
 .wrap {
   table-layout: fixed;
   border: none;
-  margin-top: 14px;
   font-size: 14px;
+  padding: 0 20px;
 
   tr {
-    @include clearfix;
+    // @include clearfix;
+    padding: 0 20px;
+  }
+
+  th {
+    font-size: 14px;
+    font-weight: 500;
+    border: 0;
+    text-align: left;
+    padding: 15px 20px 15px 20px;
+
+    &[data-name='first'] {
+      padding-top: 0;
+    }
   }
 
   td {
     border: none;
     line-height: 1.4;
-    vertical-align: top;
+    color: #444444;
+    display: block;
+    box-sizing: border-box;
+    clear: both;
+    padding: 0 20px;
+    margin-bottom: 15px;
+    //     &:nth-child(1) {
+    //   padding: 15px $cellHoriPadding 7.5px;
+    //   font-size: 13px;
+    //   font-weight: bold;
+    //   text-align: left;
+    //   color: #444444;
+    //   width: $keyWidth;
+    // }
 
-    &:nth-child(1) {
-      padding: 15px $cellHoriPadding 7.5px;
-      font-size: 13px;
-      font-weight: bold;
-      text-align: left;
-      color: #444444;
-      width: $keyWidth;
-    }
-
-    &:nth-child(2) {
-      padding: 7.5px $cellHoriPadding 8px;
-      width: 100%;
-      font-size: 13px;
-      text-align: left;
-      color: #444444;
-    }
+    // &:nth-child(2) {
+    //   padding: 7.5px $cellHoriPadding 8px;
+    //   width: 100%;
+    //   font-size: 13px;
+    //   text-align: left;
+    //   color: #444444;
+    // }
 
     // sibling element가 없을 때
     &:only-child {

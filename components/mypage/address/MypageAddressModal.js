@@ -25,10 +25,13 @@ class MypageAddressModal extends Component {
           />
         </div>
         <div className={css.modal__body}>
-          <div className={css.modal__body__title}>
-            저장하신 배송지는 <span>배송지 관리</span>에서 수정 및 삭제가
-            가능합니다.
-          </div>
+          {mypageAddress.isNewAdressModal && (
+            <div className={css.modal__body__title}>
+              저장하신 배송지는 <span>배송지 관리</span>에서 수정 및 삭제가
+              가능합니다.
+            </div>
+          )}
+
           <div className={css.modal__body__content}>
             <div className={css.section}>
               <div className={css.value}>

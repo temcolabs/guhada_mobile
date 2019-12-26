@@ -17,13 +17,9 @@ class AddressManagement extends Component {
   render() {
     let { mypageAddress } = this.props;
     return (
-      <DefaultLayout
-        topLayout={'main'}
-        pageTitle={'마이페이지'}
-        headerShape={'mypage'}
-      >
+      <>
         {mypageAddress.pageStatus ? (
-          <MypageLayout>
+          <MypageLayout topLayout={'main'} headerShape={'mypage'}>
             <div className={css.wrap}>
               {mypageAddress.addressList.length > 0 ? (
                 <>
@@ -62,7 +58,7 @@ class AddressManagement extends Component {
         ) : (
           <Loading />
         )}
-      </DefaultLayout>
+      </>
     );
   }
 }

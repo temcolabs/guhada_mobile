@@ -12,6 +12,7 @@ import { snsTypes } from 'childs/lib/constant/sns';
 import _ from 'lodash';
 import { devLog } from 'childs/lib/common/devLog';
 import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
+import entryService from 'childs/lib/API/user/entryService';
 const isServer = typeof window === 'undefined';
 
 export default class LoginStore {
@@ -192,6 +193,9 @@ export default class LoginStore {
     // 상태 값 변경
     this.setLoginStatus(loginStatus.LOGOUT);
 
+    // 비밀번호 중복체크 상태 해제
+    this.root.user.setPasswordDoubleChecked(false);
+
     // 홈 화면으로 이동
     Router.push(`/`);
   };
@@ -201,19 +205,35 @@ export default class LoginStore {
   @observable snsId;
   @observable snsType;
   @observable loginPosition;
-
+  @observable showEditForm = false;
   /**
-   * TODO : https 적용 후 테스트 가능 facebook
+   * 페이스북 로그인 성공 결과에서 데이터 추출
    */
+  extractFacebookLoginParams = data => {
+    return {
+      email: data.email,
+      profileJson: data,
+      snsId: data.id,
+      snsType: snsTypes.FACEBOOK,
+    };
+  };
+
   @action
   responseFacebook = response => {
     let data = response;
     let login = this;
 
-    this.email = data.email;
-    this.profileJson = data;
-    this.snsId = data.id;
-    this.snsType = snsTypes.FACEBOOK;
+    const {
+      email,
+      profileJson,
+      snsId,
+      snsType,
+    } = this.extractFacebookLoginParams(data);
+
+    this.email = email;
+    this.profileJson = profileJson;
+    this.snsId = snsId;
+    this.snsType = snsType;
 
     API.user
       .get('/users/sns', {
@@ -251,8 +271,8 @@ export default class LoginStore {
   loginFacebook = (email = '') => {
     let login = this;
 
-    API.user
-      .post('/sns-users/facebookLogin', {
+    entryService
+      .facebookLogin({
         email: this.email,
         profileJson: this.profileJson,
         snsId: this.snsId,
@@ -277,12 +297,24 @@ export default class LoginStore {
         } else if (email !== '') {
           Router.push('/?signupsuccess=true&email=' + email);
         } else {
-          pushRoute('/');
+          pushRoute(Router.query.redirectTo || '/');
         }
       })
       .catch(e => {
         devLog('e', e);
       });
+  };
+
+  /**
+   * 구글 로그인 성공 결과에서 데이터 추출
+   */
+  extractGoogleLoginParams = data => {
+    return {
+      email: data.profileObj?.email,
+      profileJson: data.profileObj,
+      snsId: data.profileObj?.googleId,
+      snsType: snsTypes.GOOGLE,
+    };
   };
 
   @action
@@ -291,10 +323,17 @@ export default class LoginStore {
     let data = response;
     let login = this;
 
-    this.email = data.profileObj.email;
-    this.profileJson = data.profileObj;
-    this.snsId = data.profileObj.googleId;
-    this.snsType = snsTypes.GOOGLE;
+    const {
+      email,
+      profileJson,
+      snsId,
+      snsType,
+    } = this.extractGoogleLoginParams(data);
+
+    this.email = email;
+    this.profileJson = profileJson;
+    this.snsId = snsId;
+    this.snsType = snsType;
 
     API.user
       .get('/users/sns', {
@@ -332,8 +371,8 @@ export default class LoginStore {
   loginGoogle = (email = '') => {
     let login = this;
 
-    API.user
-      .post('/sns-users/googleLogin', {
+    entryService
+      .googleLogin({
         email: this.email,
         profileJson: this.profileJson,
         snsId: this.snsId,
@@ -356,12 +395,24 @@ export default class LoginStore {
         } else if (email !== '') {
           Router.push('/?signupsuccess=true&email=' + email);
         } else {
-          pushRoute('/');
+          pushRoute(Router.query.redirectTo || '/');
         }
       })
       .catch(e => {
         devLog('e', e);
       });
+  };
+
+  /**
+   * 카카오 로그인 성공 결과에서 데이터 추출
+   */
+  extractKakaoLoginParams = data => {
+    return {
+      email: data.profile?.kakao_account?.email,
+      profileJson: data.profile?.properties,
+      snsId: data.profile?.id,
+      snsType: snsTypes.KAKAO,
+    };
   };
 
   @action
@@ -370,10 +421,14 @@ export default class LoginStore {
     let data = response;
     let login = this;
 
-    this.email = data.profile.kakao_account.email;
-    this.profileJson = data.profile.properties;
-    this.snsId = data.profile.id;
-    this.snsType = snsTypes.KAKAO;
+    const { email, profileJson, snsId, snsType } = this.extractKakaoLoginParams(
+      data
+    );
+
+    this.email = email;
+    this.profileJson = profileJson;
+    this.snsId = snsId;
+    this.snsType = snsType;
 
     API.user
       .get('/users/sns', {
@@ -409,8 +464,8 @@ export default class LoginStore {
   loginKakao = (email = '') => {
     let login = this;
 
-    API.user
-      .post('/sns-users/kakaoLogin', {
+    entryService
+      .kakaoLogin({
         email: this.email,
         profileJson: this.profileJson,
         snsId: this.snsId,
@@ -433,12 +488,24 @@ export default class LoginStore {
         } else if (email !== '') {
           Router.push('/?signupsuccess=true&email=' + email);
         } else {
-          pushRoute('/');
+          pushRoute(Router.query.redirectTo || '/');
         }
       })
       .catch(e => {
         devLog('e', e);
       });
+  };
+
+  /**
+   * 네이버 로그인 성공 결과에서 데이터 추출
+   */
+  extractNaverLoginParams = data => {
+    return {
+      email: data.user.email,
+      profileJson: data.user,
+      snsId: data.user.id,
+      snsType: snsTypes.NAVER,
+    };
   };
 
   @action
@@ -447,10 +514,14 @@ export default class LoginStore {
     let data = response;
     let login = this;
 
-    this.email = data.user.email;
-    this.profileJson = data.user;
-    this.snsId = data.user.id;
-    this.snsType = snsTypes.NAVER;
+    const { email, profileJson, snsId, snsType } = this.extractNaverLoginParams(
+      data
+    );
+
+    this.email = email;
+    this.profileJson = profileJson;
+    this.snsId = snsId;
+    this.snsType = snsType;
 
     API.user
       .get('/users/sns', {
@@ -486,8 +557,8 @@ export default class LoginStore {
   loginNaver = (email = '') => {
     let login = this;
 
-    API.user
-      .post('/sns-users/naverLogin', {
+    entryService
+      .naverLogin({
         email: this.email,
         profileJson: this.profileJson,
         snsId: this.snsId,
@@ -503,14 +574,18 @@ export default class LoginStore {
           refreshToken: data.data.refreshToken,
           expiresIn: data.data.expiresIn,
         });
-        if (login.loginPosition === 'luckydrawSNS') {
+        if (login.loginPosition === 'checkPassword') {
+          pushRoute('/mypage/me');
+          login.showEditForm = true;
+        } else if (login.loginPosition === 'luckydrawSNS') {
+          pushRoute('/event/luckydraw');
           login.root.luckyDraw.getEventUser();
           login.root.luckyDraw.setLuckydrawLoginModal(false);
           login.root.luckyDraw.setLuckydrawSignupModal(false);
         } else if (email !== '') {
           Router.push('/?signupsuccess=true&email=' + email);
         } else {
-          pushRoute('/');
+          pushRoute(Router.query.redirectTo || '/');
         }
       })
       .catch(e => {

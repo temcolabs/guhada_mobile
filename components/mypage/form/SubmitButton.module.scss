@@ -19,6 +19,7 @@
     background: #ccc;
     border-color: #ccc;
     color: #fff;
+
     &:hover {
       cursor: initial;
     }
@@ -33,8 +34,9 @@
   &.responsive {
     @include clearfix;
 
-    & > button {
-      font-size: inherit;
+    &>button {
+      font-size: 13px;
+      font-weight: 500;
       flex: 0 0 50%;
     }
   }
