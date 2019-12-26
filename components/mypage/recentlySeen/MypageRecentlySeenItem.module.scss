@@ -1,0 +1,203 @@
+@import 'styles/mixins/index';
+
+$listItemGap: 10px; // 아이템 좌우 간격
+$itemsPerRow: 2;
+
+.wrap {
+  float: left;
+  width: calc((100% - #{$listItemGap} * (#{$itemsPerRow} - 1)) / #{$itemsPerRow});
+  margin-left: 6px;
+  margin-top: 0;
+  margin-bottom: 40px;
+
+  &:nth-child(2n + 1) {
+    margin-left: 0;
+  }
+
+  &:last-child {
+    margin-bottom: 60px;
+  }
+
+  &:hover .select__button {
+    height: 35px;
+  }
+
+  overflow: hidden;
+}
+
+.item__back__image {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  overflow: hidden;
+  cursor: pointer;
+
+  @include mediaMD {
+    height: 172px;
+  }
+
+  .select__button {
+    position: absolute;
+    width: 100%;
+    height: 0px;
+    bottom: 0;
+    transition: 0.5s;
+    @include clearfix;
+
+    div {
+      float: left;
+      width: 50%;
+      line-height: 35px;
+      text-align: center;
+      color: #fff;
+      cursor: pointer;
+
+      &:first-child {
+        background: #444;
+      }
+
+      &:last-child {
+        background: #5d2ed1;
+      }
+    }
+  }
+
+  .soldOut {
+    div {
+      width: 100%;
+
+      &:last-child {
+        background: #ccc;
+        pointer-events: none;
+      }
+    }
+  }
+
+  .item__delete__btn {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: url('/static/icon/like_item_delete.png') no-repeat;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+  }
+}
+
+.item__detail {
+  cursor: pointer;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  margin-top: 15px;
+
+  .item__detail__top {
+    @include clearfix;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 13px;
+    color: #111111;
+    font-weight: 500;
+
+    .item__detail__brand {
+      max-width: 160px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      float: left;
+      font-size: 14px;
+      color: #111;
+    }
+
+    .item__detail__season {
+      float: left;
+      color: #777;
+      font-size: 13px;
+      margin-left: 4px;
+      line-height: 21px;
+    }
+  }
+
+  .item__name {
+    margin-top: 6px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    width: 100%;
+    height: 31px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px;
+    font-weight: normal;
+    color: #111;
+  }
+
+  .item__price {
+    @include clearfix;
+    width: 100%;
+    height: 21px;
+    overflow: hidden;
+    margin-top: 12px;
+
+    .item__discount__price {
+      float: left;
+      word-wrap: break-word;
+      font-size: 15px;
+      color: #111;
+      font-weight: 500;
+    }
+
+    .item__sell__price {
+      float: left;
+      font-size: 11px;
+      color: #777777;
+      text-decoration-line: line-through;
+      margin-left: 10px;
+      line-height: 24px;
+      font-weight: normal;
+    }
+
+    .item__discount__rate {
+      float: left;
+      font-size: 13px;
+      font-weight: bold;
+      color: #5d2ed1;
+      margin-left: 10px;
+      line-height: 22px;
+    }
+  }
+
+  .seller {
+    @include clearfix;
+    margin-top: 5px;
+    // .seller__level {
+    //   position: relative;
+    //   width: 21px;
+    //   height: 13px;
+    //   border-radius: 6.5px;
+    //   border: 1px solid #ddd;
+    //   text-align: center;
+    //   float: left;
+    //   margin-right: 4px;
+    //   div {
+    //     font-size: 11px;
+    //     transform: scale(0.7);
+    //     line-height: 11px;
+    //   }
+    // }
+
+    .seller__name {
+      float: left;
+      font-size: 9px;
+      color: #333;
+      font-weight: normal;
+      // margin-left: 4px;
+    }
+  }
+}

@@ -91,15 +91,15 @@ const MENUBAR_SECTIONS = [
       },
     ],
   },
-  // {
-  //   links: [
-  //     {
-  //       targetPaths: [mypageRouteObj['/mypage/RecentlySeenList']?.asPath],
-  //       asPath: mypageRouteObj['/mypage/RecentlySeenList']?.asPath,
-  //       text: '최근 본 상품',
-  //     },
-  //   ],
-  // },
+  {
+    links: [
+      {
+        targetPaths: [mypageRouteObj['/mypage/RecentlySeenList']?.asPath],
+        asPath: mypageRouteObj['/mypage/RecentlySeenList']?.asPath,
+        text: '최근 본 상품',
+      },
+    ],
+  },
   // {
   //   links: [
   //      {
