@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import _ from 'lodash';
-import MyPageLayout from 'components/mypage/MyPageLayout';
+import MyPageLayout from 'components/mypage/MypageLayout';
 import { inject, observer } from 'mobx-react';
 import CheckPassword from 'components/mypage/userinfo/CheckPassword';
 import UserEditForm from 'components/mypage/userinfo/form/UserEditForm';
