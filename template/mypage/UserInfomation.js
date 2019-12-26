@@ -338,6 +338,7 @@ class UserInfomation extends Component {
         this.setState({ isEditFormVisible: false });
         this.props.user.setPasswordDoubleChecked(false);
         // this.initFormValues();
+        window.scrollTo(0, 0);
       }
       return true;
     } catch (e) {

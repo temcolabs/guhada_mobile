@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import Head from 'next/head';
 import UserInfomation from 'template/mypage/UserInfomation';
 import withAuth from 'components/common/hoc/withAuth';
-import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
 
-@withScrollToTopOnMount
 class UserInfomationPage extends Component {
   render() {
     return (
