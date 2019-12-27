@@ -89,7 +89,7 @@ export default class ProductDetailLikeStore {
 
   @action
   productBookmarkInit = () => {
-    this.bookMarkImageSrc = false;
+    this.bookMarkStatus = false;
     this.bookMarkAdd = false;
   };
 }
