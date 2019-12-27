@@ -53,7 +53,6 @@ class Alert extends React.Component {
       isConfirm,
       children,
       contentLabel = 'alert',
-      zIndex,
     } = this.props;
 
     return (
@@ -61,7 +60,7 @@ class Alert extends React.Component {
         isOpen={isOpen}
         contentLabel={contentLabel}
         onClose={onConfirm || onCancel}
-        zIndex={zIndex}
+        zIndex={9999}
       >
         <div className={css.ModalContentWrap}>
           <div className={css.modalBody}>
