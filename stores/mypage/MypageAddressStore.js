@@ -214,6 +214,18 @@ export default class MypageAddressStore {
   @action
   setNewAddress = (e, target, address) => {
     let editValue;
+    let jibunAddress;
+    let roadAddress;
+    if (address) {
+      jibunAddress =
+        address.jibunAddress === ''
+          ? address.autoJibunAddress
+          : address.jibunAddress;
+      roadAddress =
+        address.roadAddress === ''
+          ? address.autoRoadAddress
+          : address.roadAddress;
+    }
     if (e) {
       editValue = e.target.value;
     }
@@ -235,15 +247,15 @@ export default class MypageAddressStore {
         this.newAddress.recipientMobile = phoneNum;
         break;
       case 'roadAddress':
-        this.newAddress.roadAddress = address.roadAddress;
+        this.newAddress.roadAddress = roadAddress;
         this.newAddress.zip = address.zonecode;
-        this.newAddress.address = address.jibunAddress;
+        this.newAddress.address = jibunAddress;
         this.addressType = 'R';
         break;
       case 'address':
-        this.newAddress.address = address.jibunAddress;
+        this.newAddress.address = jibunAddress;
         this.newAddress.zip = address.zonecode;
-        this.newAddress.roadAddress = address.roadAddress;
+        this.newAddress.roadAddress = roadAddress;
         this.addressType = 'J';
         break;
       case 'defaultCheck':
@@ -306,6 +318,18 @@ export default class MypageAddressStore {
   @action
   setEditAddress = (e, target, address) => {
     let editValue;
+    let jibunAddress;
+    let roadAddress;
+    if (address) {
+      jibunAddress =
+        address.jibunAddress === ''
+          ? address.autoJibunAddress
+          : address.jibunAddress;
+      roadAddress =
+        address.roadAddress === ''
+          ? address.autoRoadAddress
+          : address.roadAddress;
+    }
     if (e) {
       editValue = e.target.value;
     }
@@ -326,15 +350,15 @@ export default class MypageAddressStore {
         this.editAddress.recipientMobile = phoneNum;
         break;
       case 'roadAddress':
-        this.editAddress.roadAddress = address.roadAddress;
+        this.editAddress.roadAddress = roadAddress;
         this.editAddress.zip = address.zonecode;
-        this.editAddress.address = address.jibunAddress;
+        this.editAddress.address = jibunAddress;
         this.addressType = 'R';
         break;
       case 'address':
-        this.editAddress.address = address.jibunAddress;
+        this.editAddress.address = jibunAddress;
         this.editAddress.zip = address.zonecode;
-        this.editAddress.roadAddress = address.roadAddress;
+        this.editAddress.roadAddress = roadAddress;
         this.addressType = 'J';
         break;
       case 'defaultCheck':
@@ -383,10 +407,20 @@ export default class MypageAddressStore {
           // 주문 배송지
           case 'shipping':
             if (data.userSelectedType === 'J') {
-              this.setOrderAddress(data.jibunAddress, 'addressBasic'); // 기본주소
+              this.setOrderAddress(
+                data.jibunAddress === ''
+                  ? data.autoJibunAddress
+                  : data.jibunAddress,
+                'addressBasic'
+              ); // 기본주소
               this.setOrderAddress(data.postcode, 'zipcode'); // 기본주소
             } else {
-              this.setOrderAddress(data.roadAddress, 'roadAddress'); // 도로명 주소
+              this.setOrderAddress(
+                data.roadAddress === ''
+                  ? data.autoRoadAddress
+                  : data.roadAddress,
+                'roadAddress'
+              ); // 도로명 주소
               this.setOrderAddress(data.zonecode, 'zipcode'); // 도로명 주소
             }
 

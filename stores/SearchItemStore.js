@@ -918,7 +918,6 @@ export default class SearchItemStore {
         filter: filter,
         subcategory: subcategory,
         enter: enter === '' ? query.enter : enter,
-        // keyword: keyword === '' ? query.keyword : keyword,
         keyword: keyword,
         condition: condition === '' ? query.condition : condition,
         filtered: filtered,
