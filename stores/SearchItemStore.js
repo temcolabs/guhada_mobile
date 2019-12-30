@@ -15,6 +15,7 @@ import criteoTracker from 'childs/lib/tracking/criteo/criteoTracker';
 import { devLog } from 'childs/lib/common/devLog.js';
 import isTruthy from 'childs/lib/common/isTruthy.js';
 import addCommaToArray from 'childs/lib/string/addCommaToArray.js';
+import { conditionOption } from 'childs/lib/constant/filter/condition.js';
 
 const isServer = typeof window === 'undefined';
 
@@ -230,7 +231,9 @@ export default class SearchItemStore {
     subcategory,
     enter,
     keyword,
-    condition
+    condition,
+    productCondition = 'ANY',
+    shippingCondition = 'ANY'
   ) => {
     this.itemEmpty = false;
 
@@ -317,6 +320,8 @@ export default class SearchItemStore {
         }
 
         let query = Router.router.query;
+        this.productCondition = productCondition;
+        this.shippingCondition = shippingCondition;
 
         API.search
           .post(
@@ -329,6 +334,8 @@ export default class SearchItemStore {
               searchResultOrder:
                 order === null || order === '' ? 'DATE' : order,
               searchCondition: condition === '' ? null : condition,
+              productCondition: productCondition,
+              shippingCondition: shippingCondition,
             }
           )
           .then(res => {
@@ -738,6 +745,10 @@ export default class SearchItemStore {
         }
       });
     });
+
+    let query = Router.router.query;
+    this.productCondition = query.productCondition;
+    this.shippingCondition = query.shippingCondition;
   };
 
   @action
@@ -815,6 +826,8 @@ export default class SearchItemStore {
       subcategory: subCategoryList,
       keyword: query.keyword,
       filtered: true,
+      productCondition: this.productCondition,
+      shippingCondition: this.shippingCondition,
     });
   };
 
@@ -891,6 +904,41 @@ export default class SearchItemStore {
       .join(',');
   };
 
+  @observable productCondition = 'ANY';
+  @observable shippingCondition = 'ANY';
+  @action
+  setCondition = (condition, option) => {
+    let query = Router.router.query;
+
+    if (option === conditionOption.internationalShipping) {
+      if (this.shippingCondition === condition) {
+        this.shippingCondition = 'ANY';
+      } else {
+        this.shippingCondition = condition;
+      }
+    } else if (option === conditionOption.brandNew) {
+      if (this.productCondition === condition) {
+        this.productCondition = 'ANY';
+      } else {
+        this.productCondition = condition;
+      }
+    }
+
+    // this.toSearch({
+    //   category: query.category,
+    //   brand: query.brand,
+    //   page: query.page,
+    //   order: query.order,
+    //   filter: query.filter,
+    //   subcategory: query.subcategory,
+    //   enter: query.enter,
+    //   keyword: query.keyword,
+    //   condition: query.condition,
+    //   productCondition: this.productCondition,
+    //   shippingCondition: this.shippingCondition,
+    // });
+  };
+
   @observable preUrl;
   @action
   toSearch = ({
@@ -905,8 +953,12 @@ export default class SearchItemStore {
     keyword = '',
     condition = '',
     filtered = false,
+    productCondition = 'ANY',
+    shippingCondition = 'ANY',
   }) => {
     let query = Router.router.query;
+    this.productCondition = productCondition;
+    this.shippingCondition = shippingCondition;
 
     pushRoute(
       `/search?${qs.stringify({
@@ -921,6 +973,8 @@ export default class SearchItemStore {
         keyword: keyword,
         condition: condition === '' ? query.condition : condition,
         filtered: filtered,
+        productCondition: this.productCondition,
+        shippingCondition: this.shippingCondition,
       })}`
     );
     if (this.preUrl !== Router.asPath) this.deals = [];

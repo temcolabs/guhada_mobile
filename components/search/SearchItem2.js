@@ -3,7 +3,10 @@ import css from './SearchItem2.module.scss';
 import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import { LinkRoute } from 'childs/lib/router';
-
+import _ from 'lodash';
+import cn from 'classnames';
+import brandNew from 'childs/lib/constant/filter/brandNew';
+import internationalShipping from 'childs/lib/constant/filter/internationalShipping';
 @observer
 class SearchItem2 extends Component {
   static propTypes = {
@@ -70,6 +73,27 @@ class SearchItem2 extends Component {
                   />
                 </div>
                 <div className={css.detailWrap}>
+                  {_.isEmpty(deal.brandNew) && (
+                    <div className={css.conditionWrap}>
+                      <div
+                        className={cn(css.brandNew, {
+                          [css.new]: deal.brandNew,
+                        })}
+                      >
+                        {deal.brandNew ? brandNew.NEW : brandNew.USED}
+                      </div>
+
+                      {deal.internationalShipping && (
+                        <>
+                          <div className={css.betweenLine} />
+                          <div className={css.internationalShipping}>
+                            {deal.internationalShipping &&
+                              internationalShipping.INTERNATIONAL}
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  )}
                   <div className={css.brandWrap}>
                     <span className={css.brandName}>{deal.brandName}</span>
                     <span className={css.productSeason}>

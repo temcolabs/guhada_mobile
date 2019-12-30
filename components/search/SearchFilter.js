@@ -10,6 +10,10 @@ import SearchBrand from './SearchBrand';
 import memoize from 'memoize-one';
 import { inject, observer } from 'mobx-react';
 import { toJS } from 'mobx';
+import TextButtonCondition from './TextButtonCondition';
+import { conditionOption } from 'childs/lib/constant/filter/condition';
+import { internationalShippingOptions } from 'childs/lib/constant/filter/internationalShipping';
+import { brandNewOptions } from 'childs/lib/constant/filter/brandNew';
 @inject('brands', 'searchitem')
 @observer
 class SearchFilter extends Component {
@@ -38,6 +42,15 @@ class SearchFilter extends Component {
           <div className={css.itemWrap}>
             <SearchCategory />
             <SearchBrand />
+
+            <TextButtonCondition
+              title={conditionOption.internationalShipping}
+              data={internationalShippingOptions}
+            />
+            <TextButtonCondition
+              title={conditionOption.brandNew}
+              data={brandNewOptions}
+            />
 
             {toJS(searchitem.filterData)
               ? toJS(searchitem.filterData).map((filter, i) => {
