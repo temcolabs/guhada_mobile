@@ -38,7 +38,9 @@ class search extends Component {
         subcategory,
         query.enter,
         query.keyword,
-        query.condition
+        query.condition,
+        query.productCondition,
+        query.shippingCondition
       );
     } else {
       searchitem.preUrl = Router.asPath;
@@ -68,7 +70,9 @@ class search extends Component {
         subcategory,
         query.enter,
         query.keyword,
-        query.condition
+        query.condition,
+        query.productCondition,
+        query.shippingCondition
       );
     }
   }

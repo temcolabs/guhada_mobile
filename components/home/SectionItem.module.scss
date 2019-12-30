@@ -7,6 +7,41 @@ $contentsHeight : 117px;
     display: inline-block;
 
 
+
+    .conditionWrap {
+        height: 24px;
+        font-size: 11px;
+        font-weight: normal;
+
+        & .brandNew {
+            color: #b58c44;
+            float: left;
+
+            &.new {
+                color: #5e24d1;
+            }
+        }
+
+        & .betweenLine {
+            float: left;
+            margin: 0 10px;
+            width: 1px;
+            height: 10px;
+            margin-top: 3px;
+            background-color: #ddd;
+        }
+
+        & .internationalShipping {
+            float: left;
+            color: #111111;
+            padding-left: 13px;
+            background: url('/static/icon/airplane_icon@3x.png') no-repeat left center;
+            background-size: 8px;
+
+
+        }
+    }
+
     & .imageWrap {
         position: relative;
         width: 100%;

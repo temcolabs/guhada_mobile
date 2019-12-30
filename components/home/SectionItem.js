@@ -2,6 +2,9 @@ import React from 'react';
 import css from './SectionItem.module.scss';
 import cn from 'classnames';
 import isTruthy from 'childs/lib/common/isTruthy';
+import _ from 'lodash';
+import brandNew from 'childs/lib/constant/filter/brandNew';
+import internationalShipping from 'childs/lib/constant/filter/internationalShipping';
 
 export default function SectionItem({
   item = {
@@ -61,6 +64,23 @@ export default function SectionItem({
         )}
       </div>
       <div className={css.contentWrap}>
+        {_.isEmpty(item.brandNew) && (
+          <div className={css.conditionWrap}>
+            <div className={cn(css.brandNew, { [css.new]: item.brandNew })}>
+              {item.brandNew ? brandNew.NEW : brandNew.USED}
+            </div>
+
+            {item.internationalShipping && (
+              <>
+                <div className={css.betweenLine} />
+                <div className={css.internationalShipping}>
+                  {item.internationalShipping &&
+                    internationalShipping.INTERNATIONAL}
+                </div>
+              </>
+            )}
+          </div>
+        )}
         <div className={css.brandWrap}>
           <div className={css.brandName}>{item.brandName}</div>
           <div className={css.productSeason}>{item.productSeason}</div>
