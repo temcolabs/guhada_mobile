@@ -22,6 +22,7 @@ import ProductInquiry from 'components/productdetail/ProductInquiry/ProductInqui
 import ProductReview from 'components/productdetail/ProductReview/ProductReview';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
 import Coupon from 'components/productdetail/Coupon';
+import _ from 'lodash';
 
 @withScrollToTopOnMount
 @inject(
@@ -30,7 +31,8 @@ import Coupon from 'components/productdetail/Coupon';
   'sellerfollow',
   'productdetail',
   'login',
-  'alert'
+  'alert',
+  'mypageRecentlySeen'
 )
 @observer
 class ProductDetail extends React.Component {
@@ -45,6 +47,17 @@ class ProductDetail extends React.Component {
       sellerstoreTab: React.createRef(),
       reviewTab: React.createRef(),
     };
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    //  최근 본 상품에 현재 아이템 추가
+    const isDealsFetched =
+      _.get(this, 'props.productdetail.deals.dealsId') !==
+      _.get(this, 'prevProps.productdetail.deals.dealsId');
+
+    if (isDealsFetched) {
+      this.props.mypageRecentlySeen.addItem(this.props.productdetail.deals);
+    }
   }
 
   handleSellerFollows = () => {

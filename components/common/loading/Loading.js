@@ -6,22 +6,25 @@ import cn from 'classnames';
 
 export const LoadingSpinner = ({ isAbsolute = false }) => {
   return (
-    <div className={cn(css.wrap, { [css.isAbsolute]: isAbsolute })}>
-      <div className={css.loader}>
-        <div className={css.box} />
-        <div className={css.box} />
-        <div className={css.box} />
-        <div className={css.box} />
-        <div className={css.box} />
-        <div className={css.box} />
-        <div className={css.box} />
-        <div className={css.box} />
-        <div className={css.box} />
-        <div className={css.box} />
-        <div className={css.box} />
-        <div className={css.box} />
+    <>
+      <div className={cn(css.wrap, { [css.isAbsolute]: isAbsolute })}>
+        <div className={css.loader}>
+          <div className={css.box} />
+          <div className={css.box} />
+          <div className={css.box} />
+          <div className={css.box} />
+          <div className={css.box} />
+          <div className={css.box} />
+          <div className={css.box} />
+          <div className={css.box} />
+          <div className={css.box} />
+          <div className={css.box} />
+          <div className={css.box} />
+          <div className={css.box} />
+        </div>
       </div>
-    </div>
+      {isAbsolute && <div className={css.fixedMask} />}
+    </>
   );
 };
 

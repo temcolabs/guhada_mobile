@@ -59,8 +59,9 @@ app
         ua.isDesktop && pathToIgnore.findIndex(r => r.test(req.path)) < 0;
 
       if (isRedirectRequired) {
-        console.log('HOSTNAME', `${process.env.HOSTNAME}`);
-        console.log('originalUrl', `${req.originalUrl}`);
+        console.log('process.env.HOSTNAME', `${process.env.HOSTNAME}`);
+        console.log('req.originalUrl', `${req.originalUrl}`);
+
         res.redirect(`${process.env.HOSTNAME}${req.originalUrl}`);
       } else {
         next();

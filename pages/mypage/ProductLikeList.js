@@ -8,7 +8,7 @@ class ProductLikeListPage extends Component {
     return (
       <>
         <Head>
-          <title>마이페이지</title>
+          <title>찜한 상품</title>
         </Head>
 
         <ProductLikeList />

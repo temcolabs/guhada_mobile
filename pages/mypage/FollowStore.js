@@ -8,7 +8,7 @@ class FollowStore extends Component {
     return (
       <>
         <Head>
-          <title>마이페이지</title>
+          <title>팔로우한 스토어</title>
         </Head>
 
         <FollowStoreList />

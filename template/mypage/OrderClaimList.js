@@ -18,7 +18,7 @@ import PeriodSelector, {
 import { scrollToTarget } from 'childs/lib/common/scroll';
 import OrderCancelDashboard from 'components/mypage/orderCancel/OrderCancelDashboard';
 import EmptyListNoti from 'components/mypage/EmptyListNoti';
-import LoadingPortal from 'components/common/loading/Loading';
+import { LoadingSpinner } from 'components/common/loading/Loading';
 import SellerClaimModal, {
   withSellerClaimModal,
 } from 'components/claim/sellerclaim/SellerClaimModal';
@@ -26,7 +26,6 @@ import ReviewWriteModal, {
   reviewModalType,
 } from 'components/mypage/review/ReviewWriteModal';
 import DeliveryTrackingModal from 'components/mypage/shipping/DeliveryTrackingModal';
-
 /**
  * 마이페이지 - 주문 배송 (주문 취소 ・ 교환 ・ 반품 목록)
  */
@@ -225,7 +224,6 @@ class OrderClaimList extends Component {
         pageTitle={'마이페이지'}
         headerShape={'mypage'}
       >
-        {orderClaimList.isLoadingList && <LoadingPortal />}
         <PeriodSelector
           initialData={this.state.initialPeriodData}
           defaultTabItems={this.defaultPeriodTabItems}
@@ -236,6 +234,8 @@ class OrderClaimList extends Component {
           <OrderCancelDashboard data={orderClaimList.myCancelOrderStatus} />
           {/* 취소교환반품 목록 */}
           <div className={css.listWrap}>
+            {orderClaimList.isLoadingList && <LoadingSpinner isAbsolute />}
+
             {orderClaimList.isNoResults ? (
               <EmptyListNoti message={this.emtpyListMessage} />
             ) : (

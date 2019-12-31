@@ -20,8 +20,10 @@ class ProductDetailName extends Component {
       : null;
   }
   componentDidUpdate(prevProps, prevState, snapshot) {
+    console.log(snapshot, 'snapshot');
     if (!snapshot) {
       this.props.productDetailBookmark.productBookmarkInit();
+      console.log('componenet update');
     }
   }
   copyUrlToClipboard = () => {

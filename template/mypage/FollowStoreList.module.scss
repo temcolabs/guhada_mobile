@@ -1,0 +1,6 @@
+@import 'styles/mixins/index';
+
+.followList {
+  // margin-top: 55px;
+  @include clearfix;
+}

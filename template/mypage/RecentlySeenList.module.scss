@@ -1,0 +1,28 @@
+@import 'styles/mixins/index';
+
+.list__wrap {
+  margin-top: 5px;
+  padding: 0 10px;
+  @include clearfix;
+}
+
+.nodata {
+  padding: 100px 0 120px;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+  color: #444;
+  font-size: 14px;
+
+  div {
+    margin-bottom: 20px;
+
+    img {
+      width: 50px;
+      height: 50px;
+    }
+  }
+}
+
+.paginationWrap {
+  margin-top: 100px;
+}

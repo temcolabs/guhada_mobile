@@ -1,4 +1,4 @@
-import { observable, action } from 'mobx';
+import { observable, action, toJS } from 'mobx';
 import API from 'childs/lib/API';
 import Router from 'next/router';
 import Form from '../stores/form-store/_.forms';
@@ -6,6 +6,19 @@ import { root } from 'store';
 import { pushRoute } from 'childs/lib/router';
 import { devLog } from 'childs/lib/common/devLog';
 import _ from 'lodash';
+
+/**
+ * 인증 요청 위치.
+ * nice 인증이 성공한 후 로직 분기를 위해서 사용한다
+ */
+export const authLocations = {
+  FINDPASSWORD: 'findpassword',
+  FINDID: 'findid',
+  SIGNUPSELLER: 'signupseller',
+  SIGNUPBUSINESS: 'signupbusiness',
+  ORDER: 'order',
+  EDIT_USERINFO: 'edit_userinfo',
+};
 
 export default class AuthMobileStore {
   @observable authKey = '';
@@ -19,7 +32,7 @@ export default class AuthMobileStore {
     name: '',
   };
   @action
-  getCertKey = (location, childWindow) => {
+  getCertKey = (location, childWindow, onAuthSuccess = () => {}) => {
     API.order.get('/mobile/phoneCertification').then(res => {
       const key = res.data.data;
       this.authKey = key;
@@ -134,6 +147,9 @@ export default class AuthMobileStore {
                   });
                 }
               });
+          } else if (location === authLocations.EDIT_USERINFO) {
+            // * 회원정보 수정에서 인증을 호출했을 때
+            onAuthSuccess(toJS(verifyParams));
           } else if (location === 'luckydrawModify') {
             checkIdentity(authData, afterResponse, afterException);
 

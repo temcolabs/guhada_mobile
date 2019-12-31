@@ -1,6 +1,7 @@
 import React from 'react';
 import css from './SectionItem.module.scss';
 import cn from 'classnames';
+import isTruthy from 'childs/lib/common/isTruthy';
 
 export default function SectionItem({
   item = {
@@ -36,6 +37,7 @@ export default function SectionItem({
     setDiscount: false,
   },
   sellerStore = false,
+  likeItemDelete = () => {},
 }) {
   return (
     <div className={css.wrap}>
@@ -48,6 +50,15 @@ export default function SectionItem({
           </div>
         ) : null}
         <img src={item.productImage.url} alt={item.productImage.name} />
+        {isTruthy(likeItemDelete) && (
+          <div
+            className={css.item__delete__btn}
+            onClick={e => {
+              e.preventDefault();
+              likeItemDelete(e, item.productId);
+            }}
+          />
+        )}
       </div>
       <div className={css.contentWrap}>
         <div className={css.brandWrap}>

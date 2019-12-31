@@ -73,33 +73,33 @@ const MENUBAR_SECTIONS = [
   //     },
   //   ]
   // },
-  // {
-  //   links: [
-  //     {
-  //       targetPaths: [mypageRouteObj['/mypage/FollowStore']?.asPath],
-  //       asPath: mypageRouteObj['/mypage/FollowStore']?.asPath,
-  //       text: '팔로우한 스토어',
-  //     },
-  //   ],
-  // },
-  // {
-  //   links: [
-  //     {
-  //       targetPaths: [mypageRouteObj['/mypage/ProductLikeList']?.asPath],
-  //       asPath: mypageRouteObj['/mypage/ProductLikeList']?.asPath,
-  //       text: '찜한 상품',
-  //     },
-  //   ],
-  // },
-  // {
-  //   links: [
-  //     {
-  //       targetPaths: [mypageRouteObj['/mypage/RecentlySeenList']?.asPath],
-  //       asPath: mypageRouteObj['/mypage/RecentlySeenList']?.asPath,
-  //       text: '최근 본 상품',
-  //     },
-  //   ],
-  // },
+  {
+    links: [
+      {
+        targetPaths: [mypageRouteObj['/mypage/FollowStore']?.asPath],
+        asPath: mypageRouteObj['/mypage/FollowStore']?.asPath,
+        text: '팔로우한 스토어',
+      },
+    ],
+  },
+  {
+    links: [
+      {
+        targetPaths: [mypageRouteObj['/mypage/ProductLikeList']?.asPath],
+        asPath: mypageRouteObj['/mypage/ProductLikeList']?.asPath,
+        text: '찜한 상품',
+      },
+    ],
+  },
+  {
+    links: [
+      {
+        targetPaths: [mypageRouteObj['/mypage/RecentlySeenList']?.asPath],
+        asPath: mypageRouteObj['/mypage/RecentlySeenList']?.asPath,
+        text: '최근 본 상품',
+      },
+    ],
+  },
   // {
   //   links: [
   //      {
@@ -170,7 +170,7 @@ const MENUBAR_SECTIONS = [
       {
         targetPaths: [mypageRouteObj['/mypage/AddressManagement']?.asPath],
         asPath: mypageRouteObj['/mypage/AddressManagement']?.asPath,
-        text: '배송지',
+        text: '배송지 관리',
       },
     ],
   },
@@ -184,15 +184,15 @@ const MENUBAR_SECTIONS = [
   //     },
   //   ]
   // },
-  // {
-  //   links: [
-  //     {
-  //       targetPaths: [mypageRouteObj['/mypage/UserInfomation']?.asPath],
-  //       asPath: mypageRouteObj['/mypage/UserInfomation']?.asPath,
-  //       text: '회원정보 수정',
-  //     },
-  //   ],
-  // },
+  {
+    links: [
+      {
+        targetPaths: [mypageRouteObj['/mypage/UserInfomation']?.asPath],
+        asPath: mypageRouteObj['/mypage/UserInfomation']?.asPath,
+        text: '회원정보 수정',
+      },
+    ],
+  },
 ];
 
 function MypageMenubar({ userInfo = {}, pathname = '/', router = {} }) {

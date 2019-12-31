@@ -1,0 +1,36 @@
+@import 'styles/mixins/index';
+
+.wrap {
+  height: 55px;
+  line-height: 55px;
+  padding: 0 20px;
+  position: relative;
+  @include clearfix;
+
+  .total {
+    float: left;
+    font-size: 13px;
+    font-weight: 500;
+    color: #111;
+    text-align: center;
+
+    span {
+      color: #5d2ed1;
+    }
+  }
+
+  .total__delete {
+    margin-top: 13px;
+    float: right;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    color: #111;
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+  }
+
+}

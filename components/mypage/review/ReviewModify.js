@@ -10,6 +10,7 @@ import { scrollToTarget } from 'childs/lib/common/scroll';
 import { devLog } from 'childs/lib/common/devLog';
 import _ from 'lodash';
 import css from './ReviewModifyItem.module.scss';
+import isTruthy from 'childs/lib/common/isTruthy';
 
 /**
  * 내가 작성한 리뷰
@@ -40,13 +41,17 @@ class ReviewModify extends Component {
   };
 
   handleChangePage = page => {
-    scrollToTarget({ id: this.listTop, behavior: 'auto' });
-    this.props.mypagereview.getMyReviews(page);
+    const { mypagereview: mypageReviewStore } = this.props;
+
+    mypageReviewStore.myReviewPage += 1;
+    mypageReviewStore.getMyReviews(mypageReviewStore.myReviewPage);
+    // scrollToTarget({ id: this.listTop, behavior: 'auto' });
+    // this.props.mypagereview.getMyReviews(page);
   };
 
   render() {
     const { mypagereview: mypageReviewStore } = this.props;
-    const { myReviews } = mypageReviewStore;
+    const { myReviews, myReviewPage, myReivewsItemList } = mypageReviewStore;
     devLog(`toJs(myReviews)`, toJS(myReviews));
 
     return (
@@ -54,8 +59,8 @@ class ReviewModify extends Component {
         {/* TODO:  */}
         {/* <OrderPeriodSelector /> */}
         <div id={this.listTop}>
-          {!_.isNil(myReviews.content) ? (
-            myReviews.content?.map((review, index) => {
+          {isTruthy(myReivewsItemList) ? (
+            myReivewsItemList.map((review, index) => {
               return (
                 <ReviewModifyItem
                   onClickReviewButton={this.handleClickWriteReviewButton}
@@ -69,13 +74,17 @@ class ReviewModify extends Component {
             <MypageDataEmpty text="내가 작성한 리뷰가 없습니다." />
           )}
         </div>
+        {/* myReviews */}
+        {mypageReviewStore.myReviews?.number + 1 !==
+          mypageReviewStore.myReviews?.totalPages && (
+          <div
+            className={css.moreBtn}
+            onClick={() => this.handleChangePage(myReviewPage)}
+          >
+            더 보기
+          </div>
+        )}
 
-        <div
-          className={css.moreBtn}
-          // onClick={() => this.handleChangePage(availableReviewPage)}
-        >
-          더 보기
-        </div>
         {/*
         <Pagination
           initialPage={myReviews.pageable?.pageNumber + 1 || 1}

@@ -1,0 +1,15 @@
+.wrap {
+  padding: 0 10px;
+  margin-top: -35px;
+  display: inline-block;
+  margin-bottom: 60px;
+
+  & a {
+    margin-right: 6px;
+
+    &:nth-child(2n) {
+      margin-right: 0;
+    }
+
+  }
+}
