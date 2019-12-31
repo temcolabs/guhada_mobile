@@ -35,7 +35,7 @@ class OrderResult extends Component {
 
           <div className={css.totalDiscountAmount}>
             <div className={css.resultAmountSection}>
-              <div className={css.bigTitle}>할인 ∙ 포인트</div>
+              <div className={css.bigTitle}>할인</div>
               <div
                 className={css.bigAmount}
               >{`${successInfo.couponPointProdDiscountPrice?.toLocaleString()}원`}</div>
