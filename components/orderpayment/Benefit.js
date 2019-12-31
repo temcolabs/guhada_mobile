@@ -46,52 +46,7 @@ class Benefit extends Component {
       orderpayment.getPaymentInfo();
     }
   };
-  componentDidMount() {
-    this.props.orderPaymentBenefit.getAvailablePoint();
 
-    this.setCouponList();
-  }
-  setCouponList = () => {
-    let orderProduct = this.props.orderpayment.orderProductInfo;
-    let couponWallet = this.props.orderpayment.orderMyCouponWallet;
-    let tempCouponProductList = [];
-    let tempSellerList = [];
-    let tempData = {};
-
-    if (couponWallet.length > 0) {
-      for (let i = 0; i < orderProduct.length; i++) {
-        for (let j = 0; j < couponWallet.length; j++) {
-          tempData = {};
-          if (orderProduct[i].dealId === couponWallet[j].dealId) {
-            tempData.product = orderProduct[i];
-            tempData.coupon = couponWallet[j].couponWalletResponseList;
-            tempData.dealId = couponWallet[j].dealId;
-            // tempData.usedCouponList = [];
-            tempCouponProductList.push(tempData);
-          }
-        }
-      }
-    }
-
-    for (let i = 0; i < tempCouponProductList.length; i++) {
-      tempSellerList.push(tempCouponProductList[i].product.sellerName);
-    }
-    tempSellerList = [...new Set(tempSellerList)];
-
-    this.setState(
-      {
-        sellerList: this.state.sellerList.concat(...tempSellerList),
-        couponProductList: this.state.couponProductList.concat(
-          ...tempCouponProductList
-        ),
-      },
-      () => {
-        this.props.orderPaymentBenefit.setCouponWithProduct(
-          this.state.couponProductList
-        );
-      }
-    );
-  };
   render() {
     let { orderpayment, orderPaymentBenefit } = this.props;
     return (
@@ -103,13 +58,13 @@ class Benefit extends Component {
             쿠폰
             <span> (사용가능 </span>
             <span className={css.myCoupon}>
-              {orderpayment.orderInfo.availableCouponCount
-                ? orderpayment.orderInfo.availableCouponCount
-                : '0'}
+              {orderpayment.orderCouponInfo?.availableCouponCount
+                ? ` ${orderpayment.orderCouponInfo?.availableCouponCount}`
+                : ` 0`}
             </span>
             <span>{`장 / 보유 ${
-              orderpayment.orderInfo.totalCouponCount
-                ? orderpayment.orderInfo.totalCouponCount
+              orderpayment.orderCouponInfo?.savedCouponCount
+                ? orderpayment.orderCouponInfo?.savedCouponCount
                 : 0
             }장)`}</span>
           </div>
@@ -123,18 +78,18 @@ class Benefit extends Component {
                 }장)`}</div>
               ) : (
                 <div>
-                  {orderpayment.orderInfo?.availableCouponCount
-                    ? '쿠폰을 선택해주세요 '
-                    : '적용 가능한 쿠폰이 없습니다.'}
+                  {`${orderpayment.orderCouponInfo?.totalCouponDiscountPrice?.toLocaleString()}원 (${
+                    orderpayment.orderCouponInfo?.selectedCouponCount
+                  }장)`}
                 </div>
               )}
             </div>
-            {orderpayment.orderInfo.availableCouponCount ? (
+            {orderpayment.orderCouponInfo?.savedCouponCount ? (
               <div
                 className={css.couponSelect}
-                // onClick={() => {
-                //   orderPaymentBenefit.handleModalShow();
-                // }}
+                onClick={() => {
+                  orderpayment.couponModalShow();
+                }}
               >
                 쿠폰 변경
               </div>
@@ -144,16 +99,13 @@ class Benefit extends Component {
           </div>
         </div>
 
-        <CouponSelectModal
-          isVisible={orderPaymentBenefit.isOpen}
-          sellerList={this.state.sellerList}
-        />
+        <CouponSelectModal isVisible={orderpayment.status.couponSelectModal} />
 
         <div className={css.point}>
           <div className={css.pointTitle}>
             <div>포인트</div>
             <div>
-              (사용가능{' '}
+              (사용가능
               <span>
                 {orderpayment?.orderInfo?.availablePointResponse?.availableTotalPoint?.toLocaleString()}
               </span>

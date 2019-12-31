@@ -28,10 +28,6 @@ export default class OrderPaymentBenefitStore {
     applyCouponAmount: 0,
   };
   @observable isOpen = false;
-  @action
-  getAvailablePoint = () => {
-    this.availablePoint = this.root.orderpayment.orderInfo.availableTotalPoint;
-  };
 
   @action
   getMyPoint = () => {

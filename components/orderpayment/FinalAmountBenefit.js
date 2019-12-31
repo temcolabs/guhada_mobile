@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './FinalAmountBenefit.module.scss';
 
-@inject('orderpayment', 'orderPaymentBenefit')
+@inject('orderpayment')
 @observer
 class FinalAmountBenefit extends Component {
   state = {
@@ -21,7 +21,7 @@ class FinalAmountBenefit extends Component {
     });
   };
   render() {
-    let { orderpayment, orderPaymentBenefit } = this.props;
+    let { orderpayment } = this.props;
     let { orderInfo, orderSidetabTotalInfo } = orderpayment;
     return (
       <div className={css.wrap}>
@@ -88,7 +88,7 @@ class FinalAmountBenefit extends Component {
           <DiscountInfo
             data={orderSidetabTotalInfo}
             couponHandler={() => {
-              orderPaymentBenefit.handleModalShow();
+              orderpayment.couponModalShow();
             }}
           />
         ) : null}
