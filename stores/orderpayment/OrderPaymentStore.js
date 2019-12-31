@@ -16,6 +16,7 @@ export default class OrderPaymentStore {
   @observable orderInfo = {};
   @observable orderSidetabTotalInfo = {};
   @observable orderProductInfo;
+  @observable orderCouponInfo = null;
   @observable orderUserInfo = {
     address: null,
     detailAddress: null,
@@ -69,6 +70,8 @@ export default class OrderPaymentStore {
     addressSelf: false,
     cashReceipt: false,
     cashReceiptRequest: false,
+    loadingStatus: false,
+    couponSelectModal: false,
   };
 
   @observable cashReceiptUsage = 'PERSONAL';
@@ -103,7 +106,9 @@ export default class OrderPaymentStore {
     color: '#fff',
   };
 
-  @observable applySelectedCoupon = [];
+  @observable selectedCouponList = [];
+  @observable totalCouponDiscount = 0;
+  @observable totalDiscountPrice = 0;
 
   //--------------------- 주문페이지 토탈 데이터 최초 바인딩 ---------------------
   @action
@@ -122,11 +127,13 @@ export default class OrderPaymentStore {
 
         this.usePoint = 0;
 
-        this.getPaymentInfo();
+        this.userAuthenticationCheck();
         this.emailValidCheck(data.user.email);
         this.getTotalQuantity();
         this.getShippingMessageOption();
-        this.userAuthenticationCheck();
+
+        this.getCouponInfo(this.cartList);
+
         devLog(this.orderInfo, '주문 데이터');
         this.orderProductInfo.forEach(data => {
           if (data.orderValidStatus !== 'VALID') {
@@ -198,12 +205,12 @@ export default class OrderPaymentStore {
   @action
   getPaymentInfo = () => {
     let cartItemPayments = [];
-    for (let i = 0; i < this.orderProductInfo.length; i++) {
-      cartItemPayments.push({
-        cartItemId: this.orderProductInfo[i].cartItemId,
-        couponNumber: '',
-      });
-    }
+    cartItemPayments = this.selectedCouponList.map(data => {
+      return {
+        cartItemId: Number(data.cartId),
+        couponNumber: data.couponNumber,
+      };
+    });
     API.order
       .post(`/order/calculate-payment-info?`, {
         cartItemPayments,
@@ -212,10 +219,22 @@ export default class OrderPaymentStore {
       .then(res => {
         let data = res;
         this.orderSidetabTotalInfo = data.data.data;
+        if (this.status.pageStatus) {
+          this.updateCouponInfo(this.cartList);
+        } else {
+          this.status.pageStatus = true;
+        }
         devLog(toJS(this.orderSidetabTotalInfo), '결제정보창');
       })
       .catch(err => {
-        devLog(err, 'err');
+        console.log(err);
+        let message = _.get(err, 'data.message');
+        if (message) {
+          this.root.alert.showAlert({
+            content: message,
+          });
+        }
+        this.status.loadingStatus = false;
       });
   };
   gotoMain = () => {
@@ -318,7 +337,7 @@ export default class OrderPaymentStore {
         ? (this.status.newShppingRequestSelfStatus = true)
         : (this.status.newShppingRequestSelfStatus = false);
     }
-    console.log(toJS(shippingOption), 'shippingOption');
+    devLog(toJS(shippingOption), 'shippingOption');
   };
 
   @action
@@ -887,38 +906,17 @@ export default class OrderPaymentStore {
       return false;
     }
     let cartItemPayments = [];
-    if (this.applySelectedCoupon.length === 0) {
-      cartItemPayments = cartList.map(data => {
-        return {
-          cartItemId: Number(data),
-          couponNumber: '',
-        };
-      });
-    } else {
-      for (let i = 0; i < this.applySelectedCoupon.length; i++) {
-        if (this.applySelectedCoupon[i].couponNumber) {
-          cartItemPayments.push({
-            cartItemId: Number(this.applySelectedCoupon[i].cartItemId),
-            couponNumber: this.applySelectedCoupon[i].couponNumber,
-          });
-        } else {
-          cartItemPayments.push({
-            cartItemId: Number(
-              this.root.orderPaymentBenefit.selectedCouponList[i].cartItemId
-            ),
-            couponNumber: '',
-          });
-        }
-      }
-    }
-
+    cartItemPayments = this.selectedCouponList.map(data => {
+      return {
+        cartItemId: Number(data.cartId),
+        couponNumber: data.couponNumber,
+      };
+    });
     let forms;
     if (this.status.cashReceiptRequest) {
       forms = {
         cartItemPayments: cartItemPayments,
-        couponPayments: {},
         parentMethodCd: this.paymentMethod,
-        pointPayments: {},
         shippingAddress: this.status.selectedShipStatus
           ? this.orderShippingList.defaultAddress
           : this.orderShippingList.newAddress,
@@ -944,9 +942,7 @@ export default class OrderPaymentStore {
     } else {
       forms = {
         cartItemPayments: cartItemPayments,
-        couponPayments: {},
         parentMethodCd: this.paymentMethod,
-        pointPayments: {},
         shippingAddress: this.status.selectedShipStatus
           ? this.orderShippingList.defaultAddress
           : this.orderShippingList.newAddress,
@@ -1098,19 +1094,17 @@ export default class OrderPaymentStore {
       newRecipientMobile: false,
       cashReceipt: false,
       cashReceiptRequest: false,
+      loadingStatus: false,
     };
     this.paymentMethod = 'Card';
-
+    this.orderCouponInfo = null;
     this.orderInfo = {};
     this.shippingListModalClose();
-    this.root.orderPaymentBenefit.handleModalClose();
-    this.applySelectedCoupon = [];
-    this.root.orderPaymentBenefit.applyCoupon = {
-      applyDiscount: 0,
-      applyCouponAmount: 0,
-    };
+    this.couponModalClose();
+
     this.root.customerauthentication.sendMailSuccess = false;
     this.root.orderPaymentBenefit.myCoupon = 0;
+    this.totalCouponDiscount = 0;
   };
 
   getTotalQuantity = () => {
@@ -1179,6 +1173,280 @@ export default class OrderPaymentStore {
       .then(res => {
         this.root.customerauthentication.userVerify =
           res.data.data.userDetail.diCode;
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  @action
+  getCouponInfo = cartList => {
+    API.gateway
+      .get(`/benefits/order/coupon?cartItemIdSet=${cartList}`)
+      .then(res => {
+        this.orderCouponInfo = res.data.data;
+
+        devLog(toJS(this.orderCouponInfo), 'orderCouponInfo');
+        this.setInitCouponInfo();
+        this.getPaymentInfo();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+  @action
+  couponModalShow = () => {
+    // if (!this.orderCouponInfo.availableCouponCount) {
+    //   this.root.alert.showAlert({
+    //     content: `적용가능한 쿠폰이 없습니다.`,
+    //   });
+    //   return false;
+    // }
+    this.status.couponSelectModal = true;
+  };
+
+  @action
+  couponModalClose = () => {
+    this.status.couponSelectModal = false;
+    // this.updateCouponInfo(this.cartList);
+  };
+
+  @action
+  setSelectCoupon = ({
+    cartId = 0,
+    sellerId = 0,
+    couponNumber = '',
+    couponDiscountPrice = 0,
+  }) => {
+    devLog(
+      cartId,
+      sellerId,
+      couponNumber,
+      couponDiscountPrice,
+      'cartId, sellerId, couponNumber couponDiscountPrice'
+    );
+
+    devLog(toJS(this.orderCouponInfo), 'this.orderCouponInfo');
+    let tempObj = {
+      cartId,
+      sellerId,
+      couponNumber,
+      couponDiscountPrice,
+    };
+
+    if (this.selectedCouponList.length === 0) {
+      this.selectedCouponList = this.selectedCouponList.concat(tempObj);
+    } else {
+      for (let i = 0; i < this.selectedCouponList.length; i++) {
+        if (this.selectedCouponList[i].cartId === cartId) {
+          this.selectedCouponList.splice(i, 1);
+        }
+      }
+      this.selectedCouponList = this.selectedCouponList.concat(tempObj);
+    }
+
+    devLog(toJS(this.selectedCouponList), ' this.selectedCouponList');
+
+    let tempArr = [];
+    tempArr = JSON.parse(JSON.stringify(this.orderCouponInfo));
+
+    for (let i = 0; i < tempArr.benefitSellerResponseList.length; i++) {
+      if (tempArr.benefitSellerResponseList[i].sellerId === sellerId) {
+        for (
+          let z = 0;
+          z <
+          tempArr.benefitSellerResponseList[i].benefitOrderProductResponseList
+            .length;
+          z++
+        ) {
+          if (
+            tempArr.benefitSellerResponseList[i]
+              .benefitOrderProductResponseList[z].cartId === cartId
+          ) {
+            for (
+              let j = 0;
+              j <
+              tempArr.benefitSellerResponseList[i]
+                .benefitOrderProductResponseList[z]
+                .benefitProductCouponResponseList.length;
+              j++
+            ) {
+              if (
+                tempArr.benefitSellerResponseList[i]
+                  .benefitOrderProductResponseList[z]
+                  .benefitProductCouponResponseList[j].couponNumber ===
+                couponNumber
+              ) {
+                tempArr.benefitSellerResponseList[
+                  i
+                ].benefitOrderProductResponseList[
+                  z
+                ].benefitProductCouponResponseList[j].selected = true;
+              } else {
+                tempArr.benefitSellerResponseList[
+                  i
+                ].benefitOrderProductResponseList[
+                  z
+                ].benefitProductCouponResponseList[j].selected = false;
+              }
+            }
+          } else if (
+            tempArr.benefitSellerResponseList[i]
+              .benefitOrderProductResponseList[z].cartId !== cartId
+          ) {
+            for (
+              let j = 0;
+              j <
+              tempArr.benefitSellerResponseList[i]
+                .benefitOrderProductResponseList[z]
+                .benefitProductCouponResponseList.length;
+              j++
+            ) {
+              if (
+                tempArr.benefitSellerResponseList[i]
+                  .benefitOrderProductResponseList[z]
+                  .benefitProductCouponResponseList[j].couponNumber ===
+                couponNumber
+              ) {
+                tempArr.benefitSellerResponseList[
+                  i
+                ].benefitOrderProductResponseList[
+                  z
+                ].benefitProductCouponResponseList[j].selected = false;
+                tempArr.benefitSellerResponseList[
+                  i
+                ].benefitOrderProductResponseList[
+                  z
+                ].benefitProductCouponResponseList[j].disable = true;
+              } else {
+                if (
+                  tempArr.benefitSellerResponseList[i]
+                    .benefitOrderProductResponseList[z]
+                    .benefitProductCouponResponseList[j].disable === true
+                ) {
+                  let check = this.selectedCouponList.findIndex(
+                    data =>
+                      data.couponNumber ===
+                      tempArr.benefitSellerResponseList[i]
+                        .benefitOrderProductResponseList[z]
+                        .benefitProductCouponResponseList[j].couponNumber
+                  );
+
+                  if (check === -1) {
+                    tempArr.benefitSellerResponseList[
+                      i
+                    ].benefitOrderProductResponseList[
+                      z
+                    ].benefitProductCouponResponseList[j].disable = false;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    this.orderCouponInfo = tempArr;
+
+    this.couponDiscountCalculator();
+  };
+
+  setInitCouponInfo = () => {
+    this.selectedCouponList = [];
+    this.selectedCouponList = this.orderProductInfo.map(data => {
+      return {
+        cartId: data.cartItemId,
+        sellerId: 0,
+        couponNumber: '',
+        couponDiscountPrice: 0,
+      };
+    });
+
+    let tempArr = [];
+    tempArr = JSON.parse(JSON.stringify(this.orderCouponInfo));
+    for (let i = 0; i < tempArr.benefitSellerResponseList.length; i++) {
+      for (
+        let z = 0;
+        z <
+        tempArr.benefitSellerResponseList[i].benefitOrderProductResponseList
+          .length;
+        z++
+      ) {
+        for (
+          let j = 0;
+          j <
+          tempArr.benefitSellerResponseList[i].benefitOrderProductResponseList[
+            z
+          ].benefitProductCouponResponseList.length;
+          j++
+        ) {
+          if (
+            tempArr.benefitSellerResponseList[i]
+              .benefitOrderProductResponseList[z]
+              .benefitProductCouponResponseList[j].selected
+          ) {
+            let tempObj = {
+              cartId:
+                tempArr.benefitSellerResponseList[i]
+                  .benefitOrderProductResponseList[z].cartId,
+              sellerId:
+                tempArr.benefitSellerResponseList[i]
+                  .benefitOrderProductResponseList[z]
+                  .benefitProductCouponResponseList[j].sellerId,
+              couponNumber:
+                tempArr.benefitSellerResponseList[i]
+                  .benefitOrderProductResponseList[z]
+                  .benefitProductCouponResponseList[j].couponNumber,
+              couponDiscountPrice:
+                tempArr.benefitSellerResponseList[i]
+                  .benefitOrderProductResponseList[z]
+                  .benefitProductCouponResponseList[j].couponDiscountPrice,
+            };
+
+            for (let i = 0; i < this.selectedCouponList.length; i++) {
+              if (this.selectedCouponList[i].cartId === tempObj.cartId) {
+                this.selectedCouponList.splice(i, 1);
+              }
+            }
+
+            this.selectedCouponList = this.selectedCouponList.concat(tempObj);
+
+            this.couponDiscountCalculator();
+          }
+        }
+      }
+    }
+  };
+
+  couponDiscountCalculator = () => {
+    this.totalCouponDiscount = 0;
+    this.totalDiscountPrice = 0;
+    for (let i = 0; i < this.selectedCouponList.length; i++) {
+      this.totalCouponDiscount += this.selectedCouponList[
+        i
+      ].couponDiscountPrice;
+    }
+
+    this.totalDiscountPrice =
+      this.orderCouponInfo.totalProductPrice - this.totalCouponDiscount;
+  };
+
+  @action
+  couponApply = () => {
+    this.status.loadingStatus = true;
+    this.getPaymentInfo();
+  };
+
+  updateCouponInfo = cartList => {
+    API.gateway
+      .get(`/benefits/order/coupon?cartItemIdSet=${cartList}`)
+      .then(res => {
+        this.orderCouponInfo = res.data.data;
+        devLog(this.orderCouponInfo, 'update');
+        this.couponModalClose();
+        this.couponDiscountCalculator();
+        this.status.loadingStatus = false;
       })
       .catch(err => {
         console.log(err);
