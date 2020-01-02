@@ -7,6 +7,7 @@ import Cookies from 'js-cookie';
 import key from 'childs/lib/constant/key';
 import { isBrowser } from 'childs/lib/common/isServer';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
+import momentTracker from 'childs/lib/tracking/kakaomoment/momentTracker';
 
 @inject('shoppingcart', 'user')
 @observer
@@ -23,6 +24,7 @@ class shoppingcart extends React.Component {
         this.props.user.pushJobForUserInfo(userInfo => {
           this.executeTracker({ userInfo, cartData });
         });
+        momentTracker.shoppingCart();
       }
     } catch (e) {
       console.error(e);
