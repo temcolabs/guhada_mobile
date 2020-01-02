@@ -14,6 +14,8 @@ import TextButtonCondition from './TextButtonCondition';
 import { conditionOption } from 'childs/lib/constant/filter/condition';
 import { internationalShippingOptions } from 'childs/lib/constant/filter/internationalShipping';
 import { brandNewOptions } from 'childs/lib/constant/filter/brandNew';
+import PriceFilter from './PriceFilter';
+import ResultSearchFilter from 'components/search/ResultSearchFilter';
 @inject('brands', 'searchitem')
 @observer
 class SearchFilter extends Component {
@@ -61,12 +63,14 @@ class SearchFilter extends Component {
                   }
                 })
               : null}
+            <PriceFilter query={Router.router.query} />
+            <ResultSearchFilter />
           </div>
           <div className={css.button}>
             <button
               className={css.init}
               onClick={() => {
-                searchitem.initFilter();
+                searchitem.clearFilter();
                 this.refs.filterScroll.scrollTo(0, 0);
               }}
             >

@@ -42,4 +42,53 @@
             }
         }
     }
+
+    & .priceWrap {
+        position: relative;
+        height: 40px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+
+        & input {
+            width: calc((100% - 21px - 60px - 7px) / 2);
+            height: inherit;
+            float: left;
+            border: solid 1px #dddddd;
+            padding-left: 10px;
+        }
+
+        & div {
+            width: 21px;
+            height: inherit;
+            text-align: center;
+            float: left;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        & button {
+            width: 60px;
+            height: inherit;
+            margin-left: 7px;
+            float: left;
+            background-color: #444444;
+            color: #ffffff;
+        }
+    }
+
+    & .resultSearch {
+        width: 100%;
+        height: 52px;
+        margin-top: 10px;
+        border-bottom: 1px solid #111111;
+        background: url('/static/icon/header-search.png') no-repeat center right;
+        background-size: 30px;
+
+        &::placeholder {
+            font-size: 13px;
+            font-weight: normal;
+            color: #aaaaaa;
+        }
+    }
 }
