@@ -91,7 +91,13 @@ export default class SearchItemStore {
         query.filter,
         query.subcategory,
         query.enter,
-        query.keyword
+        query.keyword,
+        query.resultKeyword,
+        query.condition,
+        query.productCondition,
+        query.shippingCondition,
+        query.minPrice,
+        query.maxPrice
       );
     }
   };
@@ -231,9 +237,12 @@ export default class SearchItemStore {
     subcategory,
     enter,
     keyword,
+    resultKeyword = '',
     condition,
     productCondition = 'ANY',
-    shippingCondition = 'ANY'
+    shippingCondition = 'ANY',
+    minPrice = 0,
+    maxPrice = 0
   ) => {
     this.itemEmpty = false;
 
@@ -323,6 +332,10 @@ export default class SearchItemStore {
         this.productCondition = productCondition;
         this.shippingCondition = shippingCondition;
 
+        let searchResultKeyword = [];
+        if (isTruthy(keyword)) searchResultKeyword.push(keyword);
+        if (isTruthy(resultKeyword)) searchResultKeyword.push(resultKeyword);
+        console.log('keyword', keyword, resultKeyword);
         API.search
           .post(
             '/ps/search/filter?page=' + page + '&unitPerPage=' + unitPerPage,
@@ -330,12 +343,14 @@ export default class SearchItemStore {
               brandIds: brandList,
               categoryIds: categoryList,
               filters: filterList,
-              searchQueries: keyword === '' ? [] : [keyword],
+              searchQueries: searchResultKeyword,
               searchResultOrder:
                 order === null || order === '' ? 'DATE' : order,
               searchCondition: condition === '' ? null : condition,
               productCondition: productCondition,
               shippingCondition: shippingCondition,
+              minPrice: minPrice,
+              maxPrice: maxPrice,
             }
           )
           .then(res => {
@@ -749,8 +764,15 @@ export default class SearchItemStore {
     let query = Router.router.query;
     this.productCondition = query.productCondition;
     this.shippingCondition = query.shippingCondition;
+    this.minPrice = '';
+    this.maxPrice = '';
+    this.resultKeyword = '';
   };
-
+  @action
+  clearFilter = () => {
+    this.initFilter();
+    this.toSearch({ resultKeyword: ' ' });
+  };
   @action
   searchFilter = () => {
     let brandList = [];
@@ -764,6 +786,12 @@ export default class SearchItemStore {
     let subCategoryListTitle = [];
 
     let query = Router.router.query;
+
+    if (this.minPrice > this.maxPrice) {
+      alert.showAlert('최대 가격은 최소 가격보다 커야 합니다.');
+      return false;
+    }
+
     // filter list push
     if (Array.isArray(toJS(this.filterData))) {
       this.filterData.map(filter => {
@@ -825,9 +853,12 @@ export default class SearchItemStore {
       filter: filterList,
       subcategory: subCategoryList,
       keyword: query.keyword,
+      resultKeyword: this.resultKeyword,
       filtered: true,
       productCondition: this.productCondition,
       shippingCondition: this.shippingCondition,
+      minPrice: this.minPrice,
+      maxPrice: this.maxPrice,
     });
   };
 
@@ -906,10 +937,9 @@ export default class SearchItemStore {
 
   @observable productCondition = 'ANY';
   @observable shippingCondition = 'ANY';
+
   @action
   setCondition = (condition, option) => {
-    let query = Router.router.query;
-
     if (option === conditionOption.internationalShipping) {
       if (this.shippingCondition === condition) {
         this.shippingCondition = 'ANY';
@@ -923,22 +953,21 @@ export default class SearchItemStore {
         this.productCondition = condition;
       }
     }
-
-    // this.toSearch({
-    //   category: query.category,
-    //   brand: query.brand,
-    //   page: query.page,
-    //   order: query.order,
-    //   filter: query.filter,
-    //   subcategory: query.subcategory,
-    //   enter: query.enter,
-    //   keyword: query.keyword,
-    //   condition: query.condition,
-    //   productCondition: this.productCondition,
-    //   shippingCondition: this.shippingCondition,
-    // });
   };
 
+  @observable minPrice = '';
+  @observable maxPrice = '';
+
+  @action
+  setPriceFilter = ({ min = 0, max = 0 }) => {
+    this.minPrice = min;
+    this.maxPrice = max;
+  };
+
+  @observable resultKeyword = '';
+  setResultSearchFilter = value => {
+    this.resultKeyword = value;
+  };
   @observable preUrl;
   @action
   toSearch = ({
@@ -951,10 +980,13 @@ export default class SearchItemStore {
     subcategory = '',
     enter = '',
     keyword = '',
+    resultKeyword = '',
     condition = '',
     filtered = false,
     productCondition = 'ANY',
     shippingCondition = 'ANY',
+    minPrice = '',
+    maxPrice = '',
   }) => {
     let query = Router.router.query;
     this.productCondition = productCondition;
@@ -971,10 +1003,13 @@ export default class SearchItemStore {
         subcategory: subcategory,
         enter: enter === '' ? query.enter : enter,
         keyword: keyword,
+        resultKeyword: resultKeyword,
         condition: condition === '' ? query.condition : condition,
         filtered: filtered,
         productCondition: this.productCondition,
         shippingCondition: this.shippingCondition,
+        minPrice: minPrice,
+        maxPrice: maxPrice,
       })}`
     );
     if (this.preUrl !== Router.asPath) this.deals = [];

@@ -13,6 +13,7 @@ import daumTracker from 'childs/lib/tracking/daum/daumTracker';
 import kochavaTracker from 'childs/lib/tracking/kochava/kochavaTracker';
 import naverShoppingTrakers from 'childs/lib/tracking/navershopping/naverShoppingTrakers';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
+import momentTracker from 'childs/lib/tracking/kakaomoment/momentTracker';
 
 @inject('orderpaymentsuccess', 'user')
 @observer
@@ -44,6 +45,9 @@ class index extends React.Component {
       orderID: successInfo.orderNumber,
       amount: successInfo.totalOrderPrice,
     });
+
+    // 카카오 모먼트 트래커
+    momentTracker.purchaseComplete();
 
     // 크리테오 트래커
     criteoTracker.purchaseComplete({

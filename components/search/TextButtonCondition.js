@@ -14,10 +14,6 @@ function TextButtonCondition({
   title,
   searchitem,
 }) {
-  console.log(
-    'searchitem.shippingCondition',
-    toJS(searchitem.shippingCondition)
-  );
   return useObserver(() => (
     <div className={css.wrap}>
       <div className={css.header}>{title}</div>

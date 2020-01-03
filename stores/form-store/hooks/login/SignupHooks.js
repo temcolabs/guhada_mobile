@@ -6,6 +6,7 @@ import { devLog } from 'childs/lib/common/devLog';
 import _ from 'lodash';
 import daumTracker from 'childs/lib/tracking/daum/daumTracker';
 import naverShoppingTrakers from 'childs/lib/tracking/navershopping/naverShoppingTrakers';
+import momentTracker from 'childs/lib/tracking/kakaomoment/momentTracker';
 export default {
   onInit(form) {
     // devLog('-> onInit Form HOOK');
@@ -30,6 +31,8 @@ export default {
         let data = res.data;
         naverShoppingTrakers.signup();
         daumTracker.signup();
+        momentTracker.signup();
+
         if (data.resultCode === 200) {
           Router.push('/?signupsuccess=true&email=' + loginData.email);
         }
