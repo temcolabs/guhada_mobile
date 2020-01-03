@@ -1008,8 +1008,8 @@ export default class SearchItemStore {
         filtered: filtered,
         productCondition: this.productCondition,
         shippingCondition: this.shippingCondition,
-        minPrice: minPrice === '' ? query.minPrice : minPrice,
-        maxPrice: maxPrice === '' ? query.maxPrice : maxPrice,
+        minPrice: minPrice,
+        maxPrice: maxPrice,
       })}`
     );
     if (this.preUrl !== Router.asPath) this.deals = [];
