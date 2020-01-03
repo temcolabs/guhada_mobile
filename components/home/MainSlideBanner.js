@@ -13,7 +13,7 @@ export class MainSlideBanner extends Component {
 
   componentDidMount() {
     const { imageFile } = this.props;
-    let imageLength = imageFile.length;
+    let imageLength = imageFile.filter(image => image.mainUse === true).length;
     let li = document.querySelector('.slickDots').childNodes;
 
     for (let i = 0; i < imageLength; i++) {
@@ -44,21 +44,23 @@ export class MainSlideBanner extends Component {
       <div className={css.wrap}>
         <Slider {...settings}>
           {imageFile.map((image, index) => {
-            return (
-              <img
-                className={css.dummyImage}
-                src={image.mobileImageUrl}
-                onClick={() => {
-                  pushRoute(image.link);
-                }}
-                key={index}
-                alt={`banner${index}`}
-              />
-            );
+            if (image.mainUse)
+              return (
+                <img
+                  className={css.dummyImage}
+                  src={image.mobileImageUrl}
+                  onClick={() => {
+                    pushRoute(image.link);
+                  }}
+                  key={index}
+                  alt={`banner${index}`}
+                />
+              );
+            else return null;
           })}
         </Slider>
         <div className={css.counter}>{`${this.state.index + 1}/${
-          imageFile.length
+          imageFile.filter(image => image.mainUse === true).length
         }`}</div>
       </div>
     );
