@@ -219,9 +219,11 @@ export default class OrderPaymentStore {
       .then(res => {
         let data = res;
         this.orderSidetabTotalInfo = data.data.data;
-        if (this.status.pageStatus) {
+        if (this.status.loadingStatus) {
           this.updateCouponInfo(this.cartList);
-        } else {
+        }
+
+        if (!this.status.pageStatus) {
           this.status.pageStatus = true;
         }
         devLog(toJS(this.orderSidetabTotalInfo), '결제정보창');

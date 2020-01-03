@@ -33,7 +33,7 @@ export default class SpecialStore {
   getSpecialList = value => {
     if (!value?.value) {
       API.settle
-        .get(`/plan/list?eventProgress=ALL`)
+        .get(`/plan/list?eventProgress=PROGRESS`)
         .then(res => {
           this.specialListMain = res.data.data;
           this.specialList = res.data.data;

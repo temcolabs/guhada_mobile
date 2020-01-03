@@ -11,6 +11,12 @@ class Benefit extends Component {
     couponProductList: [],
   };
   pointHandler = e => {
+    let checkValue = e.target.value.replace(/[0-9]|,/g, '');
+    checkValue = Number(checkValue);
+    if (isNaN(checkValue)) {
+      return false;
+    }
+
     let { orderpayment, alert } = this.props;
     let value = e.target.value.replace(/[^0-9]/g, '');
     value = Number(value);
@@ -28,6 +34,8 @@ class Benefit extends Component {
       orderpayment.getPaymentInfo();
     } else {
       orderpayment.usePoint = value;
+      orderpayment.orderSidetabTotalInfo.totalPointPrice = value;
+
       orderpayment.getPaymentInfo();
     }
   };
@@ -37,13 +45,16 @@ class Benefit extends Component {
     let myPoint = orderpayment.orderInfo.totalPoint;
     let availablePoint =
       orderpayment.orderInfo.availablePointResponse.availableTotalPoint;
-    if (myPoint >= availablePoint) {
-      orderpayment.usePoint = availablePoint;
-      orderpayment.getPaymentInfo();
-    } else {
-      orderpayment.usePoint = myPoint;
 
-      orderpayment.getPaymentInfo();
+    if (myPoint > 0) {
+      if (myPoint >= availablePoint) {
+        orderpayment.usePoint = availablePoint;
+        orderpayment.getPaymentInfo();
+      } else {
+        orderpayment.usePoint = myPoint;
+
+        orderpayment.getPaymentInfo();
+      }
     }
   };
 

@@ -26,7 +26,7 @@ export default class EventMainStore {
   getEventList = value => {
     if (!value?.value) {
       API.settle
-        .get(`/event/list?eventProgress=ALL`)
+        .get(`/event/list?eventProgress=PROGRESS`)
         .then(res => {
           this.eventList = res.data.data;
           this.status.page = true;
