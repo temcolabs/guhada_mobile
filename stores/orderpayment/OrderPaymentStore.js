@@ -7,6 +7,7 @@ import { HOSTNAME } from 'childs/lib/constant/hostname';
 import { devLog } from 'childs/lib/common/devLog';
 import { pushRoute } from 'childs/lib/router';
 import isEmailString from 'childs/lib/string/isEmailString';
+import accountService from 'childs/lib/API/order/accountService';
 const isServer = typeof window === 'undefined';
 export default class OrderPaymentStore {
   constructor(root) {
@@ -70,8 +71,10 @@ export default class OrderPaymentStore {
     addressSelf: false,
     cashReceipt: false,
     cashReceiptRequest: false,
-    loadingStatus: false,
     couponSelectModal: false,
+    loadingStatus: false,
+
+    VBank: false,
   };
 
   @observable cashReceiptUsage = 'PERSONAL';
@@ -386,6 +389,7 @@ export default class OrderPaymentStore {
   };
   //--------------------- 결제방법변경 모듈 ---------------------
   methodChange = () => {
+    this.status.VBank = false;
     this.status.cashReceipt = false;
     this.status.cashReceiptRequest = false;
 
@@ -398,6 +402,7 @@ export default class OrderPaymentStore {
         break;
       case 'VBank':
         this.status.cashReceipt = true;
+        this.status.VBank = true;
         break;
       case 'TOKEN':
         this.receiptDataInit();
@@ -1097,6 +1102,7 @@ export default class OrderPaymentStore {
       cashReceipt: false,
       cashReceiptRequest: false,
       loadingStatus: false,
+      VBank: false,
     };
     this.paymentMethod = 'Card';
     this.orderCouponInfo = null;
@@ -1452,6 +1458,34 @@ export default class OrderPaymentStore {
       })
       .catch(err => {
         console.log(err);
+      });
+  };
+
+  @action
+  accountCheck = (bankCode, bankNumber, name) => {
+    this.status.loadingStatus = true;
+    accountService
+      .accountCheck({
+        bankCode,
+        bankNumber,
+        name,
+      })
+      .then(({ data }) => {
+        devLog(`accountCheck`, data);
+
+        // if (data.data?.result === true) {
+        //   formApi.change(fields.isRefundAccountChecked, true);
+        // } else {
+        //   formApi.change(fields.isRefundAccountChecked, false);
+        // }
+        this.status.loadingStatus = false;
+      })
+      .catch(e => {
+        console.error(e);
+        // formApi.change(fields.isRefundAccountChecked, false);
+      })
+      .finally(() => {
+        // setIsValidatingAccount(false);
       });
   };
 }
