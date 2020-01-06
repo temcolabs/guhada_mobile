@@ -20,6 +20,7 @@ import _ from 'lodash';
 import getIsProdHost from 'childs/lib/tracking/getIsProdHost';
 import CommonHead from 'childs/lib/components/CommonHead';
 import momentTracker from 'childs/lib/tracking/kakaomoment/momentTracker';
+import ReactPixel from 'react-facebook-pixel';
 
 moment.locale('ko');
 
@@ -115,6 +116,9 @@ class GuhadaMobileWeb extends App {
     this.initDaumTracker();
     this.execWiderPlanetTracker();
     momentTracker.visit();
+    ReactPixel.init('801611600305440');
+
+    ReactPixel.pageView();
   }
 
   initDaumTracker = () => {

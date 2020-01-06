@@ -14,6 +14,7 @@ import kochavaTracker from 'childs/lib/tracking/kochava/kochavaTracker';
 import naverShoppingTrakers from 'childs/lib/tracking/navershopping/naverShoppingTrakers';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
 import momentTracker from 'childs/lib/tracking/kakaomoment/momentTracker';
+import ReactPixel from 'react-facebook-pixel';
 
 @inject('orderpaymentsuccess', 'user')
 @observer
@@ -71,6 +72,8 @@ class index extends React.Component {
     });
 
     kochavaTracker.purchaseComplete({ successInfo });
+
+    ReactPixel.track('Purchase', successInfo);
   };
 
   render() {

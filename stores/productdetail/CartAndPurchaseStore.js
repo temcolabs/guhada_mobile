@@ -9,7 +9,7 @@ import daumTracker from 'childs/lib/tracking/daum/daumTracker';
 import criteoTracker from 'childs/lib/tracking/criteo/criteoTracker';
 import kochavaTracker from 'childs/lib/tracking/kochava/kochavaTracker';
 import _ from 'lodash';
-
+import ReactPixel from 'react-facebook-pixel';
 const isServer = typeof window === 'undefined';
 
 export default class CartAndPurchaseStore {
@@ -105,6 +105,8 @@ export default class CartAndPurchaseStore {
               sellPrice: this.root.productdetail.deals.sellPrice,
               discountPrice: this.root.productdetail.deals.discountPrice,
             });
+
+            ReactPixel.track('AddToCart');
           })
           .catch(err => {
             if (this.root.login.loginStatus === loginStatus.LOGOUT) {
