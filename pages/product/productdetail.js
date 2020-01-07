@@ -54,12 +54,7 @@ class ProductDetailPage extends React.Component {
   };
 
   componentDidMount() {
-    let {
-      productdetail,
-      productDetailLike,
-      user,
-      initialHeadData,
-    } = this.props;
+    const { productdetail, productDetailLike, user } = this.props;
     let dealId = getParameterByName('deals');
     productdetail.getDeals(dealId);
     productDetailLike.getUserLike();
@@ -75,7 +70,7 @@ class ProductDetailPage extends React.Component {
 
     //facebook tracker
     // window.fbq('track', 'ViewContent');
-    ReactPixel.track('ViewContent');
+    ReactPixel.track('ViewContent', productdetail.deals);
   }
 
   componentDidUpdate(prevProps) {

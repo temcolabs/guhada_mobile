@@ -106,7 +106,16 @@ export default class CartAndPurchaseStore {
               discountPrice: this.root.productdetail.deals.discountPrice,
             });
 
-            ReactPixel.track('AddToCart');
+            ReactPixel.track('AddToCart', {
+              dealId: this.root.productdetail.deals.dealsId,
+              productId: this.root.productdetail.deals.productId,
+              brandId: this.root.productdetail.deals.brandId,
+              sellerId: this.root.productdetail.deals.sellerId,
+              season: this.root.productdetail.deals.season,
+              name: this.root.productdetail.deals.name,
+              sellPrice: this.root.productdetail.deals.sellPrice,
+              discountPrice: this.root.productdetail.deals.discountPrice,
+            });
           })
           .catch(err => {
             if (this.root.login.loginStatus === loginStatus.LOGOUT) {
