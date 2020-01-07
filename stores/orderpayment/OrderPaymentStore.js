@@ -1027,14 +1027,8 @@ export default class OrderPaymentStore {
     // form.P_GOODS.value = encodeURIComponent(form.P_GOODS.value);
     // form.P_UNAME.value = encodeURIComponent(form.P_UNAME.value);
 
-    // devLog(form, 'form check');
-    // devLog(this.paymentForm.jsUrl, 'check this.paymentForm.jsUrl');
-    // devLog(form.P_GOODS.value, form.P_UNAME.value, 'check encode');
     form.action = this.paymentForm.jsUrl;
     form.submit();
-    // };
-    // const url = this.paymentForm.jsUrl;
-    // loadScript(url, { callback: action, async: false, id: 'INIStdPay' });
   };
 
   @action

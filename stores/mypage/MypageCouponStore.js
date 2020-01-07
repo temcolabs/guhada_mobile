@@ -19,6 +19,8 @@ export default class MypageCouponStore {
   @observable validCouponPage = 1;
   @observable invalidCouponPage = 1;
   @observable conponRegisterNum = 0;
+  @observable validTotalPage = 0;
+  @observable invalidTotalPage = 0;
   @action
   validCoponTab = () => {
     this.activeTab = true;
@@ -37,18 +39,40 @@ export default class MypageCouponStore {
       )
       .then(res => {
         let data = res.data.data;
-        if (res.status === 200) {
-          this.validCouponList = data.content;
-          this.validTotalItem = data.totalElements;
+        this.validCouponList = data.content;
+        this.validTotalItem = data.totalElements;
+        this.validTotalPage = data.totalPages;
+        this.validCouponPage = page;
 
-          this.validCouponPage = page;
-
-          devLog(toJS(this.validCouponList), 'this.validCouponList');
-        }
+        devLog(toJS(this.validCouponList), 'this.validCouponList');
       })
       .catch(err => {
         // this.root.alert.showAlert({
         //   content: `${_.get(err, 'data.message') || 'err.message'}`,
+        // });
+      });
+  };
+
+  @action
+  getMoreVaildCoupon = () => {
+    API.benefit
+      .get(
+        `/coupon/wallet?isAvailable=true&page=${this.validCouponPage +
+          1}&unitPerPage=${this.itemsCountPerPage}`
+      )
+      .then(res => {
+        this.validCouponList = this.validCouponList.concat(
+          res.data.data.content
+        );
+        this.validTotalItem = res.data.data.totalElements;
+        this.validTotalPage = res.data.data.totalPages;
+        this.validCouponPage = this.validCouponPage + 1;
+        devLog(res, 'this.validCouponList');
+      })
+      .catch(err => {
+        console.log(err);
+        // this.root.alert.showAlert({
+        //   content: `${_.get(err, 'data.message') || 'ERROR'}`,
         // });
       });
   };
@@ -63,18 +87,40 @@ export default class MypageCouponStore {
       )
       .then(res => {
         let data = res.data.data;
-        if (res.status === 200) {
-          this.invalidCouponList = data.content;
-          this.invalidTotalItem = data.totalElements;
+        this.invalidCouponList = data.content;
+        this.invalidTotalItem = data.totalElements;
+        this.invalidTotalPage = data.totalPages;
+        this.invalidCouponPage = page;
 
-          this.invalidCouponPage = page;
-
-          devLog(this.invalidCouponList, 'this.invalidCouponList');
-        }
+        devLog(res, 'this.invalidCouponList');
       })
       .catch(err => {
         // this.root.alert.showAlert({
         //   content: `${_.get(err, 'data.message') || 'err.message'}`,
+        // });
+      });
+  };
+
+  @action
+  getMoreInvaildCoupon = () => {
+    API.benefit
+      .get(
+        `/coupon/wallet?isAvailable=false&page=${this.invalidCouponPage +
+          1}&unitPerPage=${this.itemsCountPerPage}`
+      )
+      .then(res => {
+        this.invalidCouponList = this.invalidCouponList.concat(
+          res.data.data.content
+        );
+        this.invalidTotalItem = res.data.data.totalElements;
+        this.invalidTotalPage = res.data.data.totalPages;
+        this.invalidCouponPage = this.invalidCouponPage + 1;
+        devLog(res, 'this.invalidCouponList');
+      })
+      .catch(err => {
+        console.log(err);
+        // this.root.alert.showAlert({
+        //   content: `${_.get(err, 'data.message') || 'ERROR'}`,
         // });
       });
   };
