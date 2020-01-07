@@ -43,7 +43,7 @@ export default function PaymentInfo({ order = ORDER_COMPLETE_SAMPLE }) {
         <div className={cn(css.section)}>
           {/* 총 할인금액 */}
           <div className={cn(css.section__field, css.isHeading)}>
-            <span className={css.section__label}>할인 · 포인트</span>
+            <span className={css.section__label}>할인</span>
             <span className={css.section__value}>
               {/* 쿠폰+포인트+상품 할인 합계*/}
               <span>- </span>
@@ -60,17 +60,10 @@ export default function PaymentInfo({ order = ORDER_COMPLETE_SAMPLE }) {
             </span>
           </div>
           <div className={cn(css.section__field)}>
-            <span className={css.section__label}>장바구니 쿠폰</span>
+            <span className={css.section__label}>쿠폰</span>
             <span className={css.section__value}>
               <span>- </span>
-              {addCommaToNum(order.cartCouponPrice)}원
-            </span>
-          </div>
-          <div className={cn(css.section__field)}>
-            <span className={css.section__label}>프로모션 쿠폰</span>
-            <span className={css.section__value}>
-              <span>- </span>
-              {addCommaToNum(order.promotionCouponPrice)}원
+              {addCommaToNum(order.couponDiscountPrice)}원
             </span>
           </div>
           <div className={cn(css.section__field)}>
