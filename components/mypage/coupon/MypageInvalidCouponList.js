@@ -5,20 +5,17 @@ import { inject, observer } from 'mobx-react';
 
 @inject('mypageCoupon')
 @observer
-class MypageAvailableCouponList extends React.Component {
-  handleChangePage = page => {
-    this.props.mypageCoupon.getInvaildCoupon({ page: page });
-  };
+class MypageInvalidCouponList extends React.Component {
   render() {
     let { mypageCoupon } = this.props;
 
     return (
       <div className={css.wrap}>
         {mypageCoupon.invalidCouponList.length > 0 ? (
-          <ul>
-            {mypageCoupon.invalidCouponList.map((data, index) => {
-              return (
-                <li className={css.coupon__list__item} key={index}>
+          mypageCoupon.invalidCouponList.map((data, index) => {
+            return (
+              <ul key={index}>
+                <li className={css.coupon__list__item}>
                   <div className={css.coupon}>
                     <div className={css.coupon__header}>
                       <div className={css.coupon__title}>
@@ -41,18 +38,7 @@ class MypageAvailableCouponList extends React.Component {
                         </div>
                       ) : null}
                     </div>
-                    <div className={css.coupon__limit}>
-                      <div>
-                        {data.minimumPrice > 0
-                          ? `${data.minimumPrice?.toLocaleString()} 이상 구매시`
-                          : null}
-                        {data.maximumDiscountPrice > 0
-                          ? ` (최대 ${data.maximumDiscountPrice?.toLocaleString()}원 할인)`
-                          : null}
-                      </div>
 
-                      <div>{`${data.startAt} ~ ${data.endAt} 까지`} </div>
-                    </div>
                     <div className={css.coupon__number}>
                       {`쿠폰번호 ${data.couponNumber}`}
                     </div>
@@ -67,7 +53,9 @@ class MypageAvailableCouponList extends React.Component {
                           }}
                         />
                       ) : null}
-                      <div className={css.seller__name}>{data.sellerName}</div>
+                      <div className={css.seller__name}>
+                        {data.sellerName || ''}
+                      </div>
                     </div>
                     <div
                       className={css.coupon__delete}
@@ -77,15 +65,40 @@ class MypageAvailableCouponList extends React.Component {
                     />
                   </div>
                 </li>
-              );
-            })}
-          </ul>
+                <li className={css.coupon__limit}>
+                  <div>
+                    {data.minimumPrice > 0
+                      ? `・ ${data.minimumPrice?.toLocaleString()} 이상 구매시`
+                      : null}
+                    {data.maximumDiscountPrice > 0
+                      ? ` (최대 ${data.maximumDiscountPrice?.toLocaleString()}원 할인)`
+                      : null}
+                  </div>
+
+                  <div>{`・ ${data.startAt} ~ ${data.endAt} 까지`} </div>
+                </li>
+              </ul>
+            );
+          })
         ) : (
-          <DataEmpty text={'사용 만료 쿠폰이 없습니다.'} />
+          <DataEmpty text={'사용 만료 쿠폰이 없습니다.'} PADDING={'50px 0'} />
         )}
+
+        {mypageCoupon.invalidTotalPage > 1 &&
+        mypageCoupon.invalidTotalPage > mypageCoupon.invalidCouponPage ? (
+          <div
+            className={css.more}
+            onClick={() => {
+              mypageCoupon.getMoreInvaildCoupon();
+            }}
+          >
+            더 보기
+            <i className={css.detailBtn} />
+          </div>
+        ) : null}
       </div>
     );
   }
 }
 
-export default MypageAvailableCouponList;
+export default MypageInvalidCouponList;

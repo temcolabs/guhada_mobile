@@ -5,6 +5,7 @@ import { snsTypes } from 'childs/lib/constant/sns';
 import { devLog } from 'childs/lib/common/devLog';
 import daumTracker from 'childs/lib/tracking/daum/daumTracker';
 import naverShoppingTrakers from 'childs/lib/tracking/navershopping/naverShoppingTrakers';
+import ReactPixel from 'react-facebook-pixel';
 export default {
   onInit() {},
 
@@ -31,6 +32,7 @@ export default {
           let data = res.data;
           naverShoppingTrakers.signup();
           daumTracker.signup();
+          ReactPixel.track('CompleteRegistration', data);
           if (data.resultCode === 200) {
             if (login.snsType === snsTypes.KAKAO) {
               login.loginKakao(login.email);

@@ -9,7 +9,7 @@ import daumTracker from 'childs/lib/tracking/daum/daumTracker';
 import criteoTracker from 'childs/lib/tracking/criteo/criteoTracker';
 import kochavaTracker from 'childs/lib/tracking/kochava/kochavaTracker';
 import _ from 'lodash';
-
+import ReactPixel from 'react-facebook-pixel';
 const isServer = typeof window === 'undefined';
 
 export default class CartAndPurchaseStore {
@@ -96,6 +96,17 @@ export default class CartAndPurchaseStore {
               ],
             });
             kochavaTracker.shoppingCart({
+              dealId: this.root.productdetail.deals.dealsId,
+              productId: this.root.productdetail.deals.productId,
+              brandId: this.root.productdetail.deals.brandId,
+              sellerId: this.root.productdetail.deals.sellerId,
+              season: this.root.productdetail.deals.season,
+              name: this.root.productdetail.deals.name,
+              sellPrice: this.root.productdetail.deals.sellPrice,
+              discountPrice: this.root.productdetail.deals.discountPrice,
+            });
+
+            ReactPixel.track('AddToCart', {
               dealId: this.root.productdetail.deals.dealsId,
               productId: this.root.productdetail.deals.productId,
               brandId: this.root.productdetail.deals.brandId,

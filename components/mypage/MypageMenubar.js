@@ -46,24 +46,25 @@ const MENUBAR_SECTIONS = [
   {
     links: [
       {
+        targetPaths: [
+          mypageRouteObj['/mypage/CouponList']?.asPath,
+          mypageRouteObj['/mypage/CouponEvents']?.asPath,
+        ],
+        asPath: mypageRouteObj['/mypage/CouponList']?.asPath,
+        text: '쿠폰',
+      },
+    ],
+  },
+  {
+    links: [
+      {
         targetPaths: [mypageRouteObj['/mypage/ProductReview']?.asPath],
         asPath: mypageRouteObj['/mypage/ProductReview']?.asPath,
         text: '리뷰',
       },
     ],
   },
-  // {
-  //   links: [
-  //     {
-  //       targetPaths: [
-  //         mypageRouteObj['/mypage/CouponList']?.asPath,
-  //         mypageRouteObj['/mypage/CouponEvents']?.asPath,
-  //       ],
-  //       asPath: mypageRouteObj['/mypage/CouponList']?.asPath,
-  //       text: '쿠폰',
-  //     },
-  //   ],
-  // },
+
   // {
   //   links: [
   //     {
