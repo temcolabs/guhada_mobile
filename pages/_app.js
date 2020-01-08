@@ -78,6 +78,7 @@ class GuhadaMobileWeb extends App {
       initialProps, // 컴포넌트 intialProps
       fullUrl,
       isProdHost,
+      hostname,
     };
   }
 
@@ -193,13 +194,19 @@ class GuhadaMobileWeb extends App {
   }
 
   render() {
-    const { Component, initialProps, fullUrl, isProdHost } = this.props;
+    const {
+      Component,
+      initialProps,
+      fullUrl,
+      isProdHost,
+      hostname,
+    } = this.props;
 
     return (
       <Container>
         <Provider {...this.mobxStore}>
           <>
-            <CommonHead isRobotAllowed={isProdHost}>
+            <CommonHead isRobotAllowed={getIsProdHost(hostname)}>
               <>
                 {/* canonical url of current page */}
                 {fullUrl && (
