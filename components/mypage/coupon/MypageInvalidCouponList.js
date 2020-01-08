@@ -5,7 +5,7 @@ import { inject, observer } from 'mobx-react';
 
 @inject('mypageCoupon')
 @observer
-class MypageAvailableCouponList extends React.Component {
+class MypageInvalidCouponList extends React.Component {
   render() {
     let { mypageCoupon } = this.props;
 
@@ -101,4 +101,4 @@ class MypageAvailableCouponList extends React.Component {
   }
 }
 
-export default MypageAvailableCouponList;
+export default MypageInvalidCouponList;
