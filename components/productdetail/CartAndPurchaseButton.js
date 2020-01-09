@@ -20,7 +20,9 @@ class CartAndPurchaseButton extends Component {
             <div
               className={css.shoppingCart__btn}
               onClick={() => {
-                if (cartAndPurchase.checkLoginStatus()) {
+                if (!deals.internationalShipping) {
+                  cartAndPurchase.addShoppingCart();
+                } else if (cartAndPurchase.checkLoginStatus()) {
                   handleInternationalPopup(true);
                   isInternationalSubmit('addShoppingCart');
                 }
@@ -32,7 +34,9 @@ class CartAndPurchaseButton extends Component {
             <div
               className={css.buy__btn}
               onClick={() => {
-                if (cartAndPurchase.checkLoginStatus()) {
+                if (!deals.internationalShipping) {
+                  cartAndPurchase.immediatePurchase();
+                } else if (cartAndPurchase.checkLoginStatus()) {
                   handleInternationalPopup(true);
                   isInternationalSubmit('immediatePurchase');
                 }
