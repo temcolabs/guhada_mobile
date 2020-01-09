@@ -6,7 +6,12 @@ import { inject, observer } from 'mobx-react';
 @observer
 class CartAndPurchaseButton extends Component {
   render() {
-    let { productdetail, cartAndPurchase } = this.props;
+    let {
+      productdetail,
+      cartAndPurchase,
+      handleInternationalPopup,
+      isInternationalSubmit,
+    } = this.props;
     let deals = productdetail.deals;
     return (
       <div className={css.wrap}>
@@ -15,7 +20,11 @@ class CartAndPurchaseButton extends Component {
             <div
               className={css.shoppingCart__btn}
               onClick={() => {
-                cartAndPurchase.addShoppingCart();
+                if (cartAndPurchase.checkLoginStatus()) {
+                  handleInternationalPopup(true);
+                  isInternationalSubmit('addShoppingCart');
+                }
+                // cartAndPurchase.addShoppingCart();
               }}
             >
               장바구니
@@ -23,7 +32,11 @@ class CartAndPurchaseButton extends Component {
             <div
               className={css.buy__btn}
               onClick={() => {
-                cartAndPurchase.immediatePurchase();
+                if (cartAndPurchase.checkLoginStatus()) {
+                  handleInternationalPopup(true);
+                  isInternationalSubmit('immediatePurchase');
+                }
+                // cartAndPurchase.immediatePurchase();
               }}
             >
               바로구매
