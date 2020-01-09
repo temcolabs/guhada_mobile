@@ -9,7 +9,7 @@ import Cookies from 'js-cookie';
 import key from 'childs/lib/constant/key';
 import { isBrowser } from 'childs/lib/common/isServer';
 import Router from 'next/router';
-
+import ReactPixel from 'react-facebook-pixel';
 const isServer = typeof window === 'undefined';
 export default class ProductDetailStore {
   constructor(root, initialState) {
@@ -85,6 +85,7 @@ export default class ProductDetailStore {
 
         sessionStorage.removeItem('paymentInfo');
         this.dealsStatus = true;
+        ReactPixel.track('ViewContent', this.deals);
       })
       .catch(e => {
         const data = _.get(e, 'data');

@@ -10,7 +10,6 @@ import HeadForSEO from 'childs/lib/components/HeadForSEO';
 import API from 'childs/lib/API';
 import _ from 'lodash';
 import isServer, { isBrowser } from 'childs/lib/common/isServer';
-import ReactPixel from 'react-facebook-pixel';
 
 @withScrollToTopOnMount
 @withRouter
@@ -67,10 +66,6 @@ class ProductDetailPage extends React.Component {
       email: user.userInfo?.email,
       dealId: dealId,
     });
-
-    //facebook tracker
-    // window.fbq('track', 'ViewContent');
-    ReactPixel.track('ViewContent', productdetail.deals);
   }
 
   componentDidUpdate(prevProps) {
