@@ -43,6 +43,26 @@ app
       next();
     });
 
+    const robotsOptions = {
+      root: __dirname + '/static/',
+      headers: {
+        'Content-Type': 'text/plain;charset=UTF-8',
+      },
+    };
+    server.get('/robots.txt', (req, res) =>
+      res.status(200).sendFile('robots.txt', robotsOptions)
+    );
+
+    const sitemapOptions = {
+      root: __dirname + '/static/',
+      headers: {
+        'Content-Type': 'text/xml;charset=UTF-8',
+      },
+    };
+    server.get('/sitemap.xml', (req, res) =>
+      res.status(200).sendFile('sitemap.xml', sitemapOptions)
+    );
+
     /**
      * 데스크탑에서 접속하면 데스크탑 웹으로 보낸다
      */
