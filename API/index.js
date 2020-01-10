@@ -96,7 +96,6 @@ class ApiFactory {
     return {
       onResponse: response => {
         const guhadaResultCode = _.get(response, 'data.resultCode');
-        console.log(guhadaResultCode, 'guhadaResultCode');
         // resultCode가 있다면 확인한다
         if (!!guhadaResultCode) {
           // resultCode가 200이면 성공, 아니라면 catch 블럭에서 잡을 수 있도록 Promise.reject
@@ -116,14 +115,6 @@ class ApiFactory {
         const guhadaResultCode = _.get(error, 'response.data.resultCode');
         const errorStatus = _.get(error, 'response.status');
 
-        console.log(
-          guhadaResultCode,
-          'guhadaResultCode',
-          errorStatus,
-          'errorStatus',
-          error.config,
-          'error.config'
-        );
         this.createGuhadaServerError(error.response);
 
         // TODO: accessToken 인증 오류 status 코드 확인
