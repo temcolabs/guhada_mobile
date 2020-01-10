@@ -23,6 +23,7 @@ import ProductReview from 'components/productdetail/ProductReview/ProductReview'
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
 import Coupon from 'components/productdetail/Coupon';
 import _ from 'lodash';
+import CommonPopup from 'components/common/modal/CommonPopup';
 
 @withScrollToTopOnMount
 @inject(
@@ -32,7 +33,8 @@ import _ from 'lodash';
   'productdetail',
   'login',
   'alert',
-  'mypageRecentlySeen'
+  'mypageRecentlySeen',
+  'cartAndPurchase'
 )
 @observer
 class ProductDetail extends React.Component {
@@ -40,7 +42,7 @@ class ProductDetail extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { isInternationalPopup: false, isInternationalSubmit: '' };
     this.tabRefMap = {
       detailTab: React.createRef(),
       inquiryTab: React.createRef(),
@@ -69,6 +71,28 @@ class ProductDetail extends React.Component {
     } else if (follows === true) {
       sellerfollow.deleteSellerFollow(productdetail.deals.sellerId);
     }
+  };
+
+  handleInternationalPopup = bool => {
+    this.setState({
+      isInternationalPopup: bool,
+    });
+  };
+
+  isInternationalSubmit = text => {
+    this.setState({ isInternationalSubmit: text });
+  };
+
+  submitInternationalPopup = () => {
+    const { cartAndPurchase } = this.props;
+    if (this.state.isInternationalSubmit === 'addShoppingCart') {
+      cartAndPurchase.addShoppingCart();
+    } else if (this.state.isInternationalSubmit === 'immediatePurchase') {
+      cartAndPurchase.immediatePurchase();
+    }
+    this.setState({
+      isInternationalPopup: false,
+    });
   };
 
   render() {
@@ -189,7 +213,24 @@ class ProductDetail extends React.Component {
         </SectionWrap>
 
         {/* 상품 상세 장바구니 , 구매하기 버튼 */}
-        <CartAndPurchaseButton />
+        <CartAndPurchaseButton
+          handleInternationalPopup={this.handleInternationalPopup}
+          isInternationalSubmit={this.isInternationalSubmit}
+        />
+        <CommonPopup
+          isOpen={this.state.isInternationalPopup}
+          backgroundImage={`${
+            process.env.API_CLOUD
+          }/images/web/common/notice_delivery@3x.png`}
+          cancelButtonText={'취소'}
+          submitButtonText={'확인'}
+          onCancel={() => {
+            this.handleInternationalPopup(false);
+          }}
+          onSubmit={() => {
+            this.submitInternationalPopup();
+          }}
+        />
       </DefaultLayout>
     );
   }

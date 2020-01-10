@@ -67,12 +67,12 @@ export default function SectionItem({
         {_.isEmpty(item.brandNew) && (
           <div className={css.conditionWrap}>
             <div className={cn(css.brandNew, { [css.new]: item.brandNew })}>
-              {item.brandNew ? brandNew.NEW : brandNew.USED}
+              {item.brandNew ? '' : brandNew.USED}
             </div>
 
             {item.internationalShipping && (
               <>
-                <div className={css.betweenLine} />
+                {!item.brandNew && <div className={css.betweenLine} />}
                 <div className={css.internationalShipping}>
                   {item.internationalShipping &&
                     internationalShipping.INTERNATIONAL}

@@ -177,6 +177,16 @@ export default class CartAndPurchaseStore {
       sendBackToLogin();
     }
   };
+
+  @action
+  checkLoginStatus = () => {
+    if (this.root.login.loginStatus === loginStatus.LOGOUT) {
+      sendBackToLogin();
+    } else {
+      return true;
+    }
+  };
+
   @action
   reEntryNotify = () => {
     this.root.alert.showAlert({

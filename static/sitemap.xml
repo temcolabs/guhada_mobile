@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+   <!-- 이벤트 -->
+   <url>
+      <loc>https://www.guhada.com/event</loc>
+      <lastmod>2020-01-07</lastmod>
+      <changefreq>always</changefreq>
+      <priority>1.0</priority>
+   </url>
+   <!-- 기획전 -->
+   <url>
+      <loc>https://www.guhada.com/event/special</loc>
+      <lastmod>2020-01-07</lastmod>
+      <changefreq>always</changefreq>
+      <priority>1.0</priority>
+   </url>
+   <!-- 타임딜 -->
+   <url>
+      <loc>https://www.guhada.com/event/timedeal</loc>
+      <lastmod>2020-01-07</lastmod>
+      <changefreq>always</changefreq>
+      <priority>1.0</priority>
+   </url>
+   <!-- 럭키드로우 -->
+   <url>
+      <loc>https://www.guhada.com/event/luckydraw</loc>
+      <lastmod>2020-01-07</lastmod>
+      <changefreq>always</changefreq>
+      <priority>1.0</priority>
+   </url>
+   <!-- 커뮤니티 -->
+   <url>
+      <loc>https://www.guhada.com/community/board/all</loc>
+      <lastmod>2020-01-07</lastmod>
+      <changefreq>always</changefreq>
+      <priority>1.0</priority>
+   </url>
+</urlset>

@@ -78,12 +78,14 @@ class SearchItem6 extends Component {
                           [css.new]: deal.brandNew,
                         })}
                       >
-                        {deal.brandNew ? brandNew.NEW : brandNew.USED}
+                        {deal.brandNew ? '' : brandNew.USED}
                       </div>
 
                       {deal.internationalShipping && (
                         <>
-                          <div className={css.betweenLine} />
+                          {!deal.brandNew && (
+                            <div className={css.betweenLine} />
+                          )}
                           <div className={css.internationalShipping}>
                             {deal.internationalShipping &&
                               internationalShipping.INTERNATIONAL}

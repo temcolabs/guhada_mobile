@@ -66,6 +66,7 @@ export default function PaymentInfo({ order = ORDER_COMPLETE_SAMPLE }) {
               {addCommaToNum(order.couponDiscountPrice)}원
             </span>
           </div>
+
           <div className={cn(css.section__field)}>
             <span className={css.section__label}>포인트 사용</span>
             <span className={css.section__value}>
