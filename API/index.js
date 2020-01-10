@@ -250,7 +250,6 @@ class ApiFactory {
             refresh_token,
             expires_in,
           });
-          console.log(access_token, 'datadatadatadatadat adata');
         })
         .catch(err => {
           console.error('err', err);
