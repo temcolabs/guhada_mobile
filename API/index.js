@@ -6,7 +6,6 @@ const merge = require('lodash/merge');
 const _ = require('lodash');
 const getGuhadaCustomHeaders = require('../common/getGuhadaCustomHeaders');
 const isBrowser = typeof window === 'object';
-
 const key = {
   ACCESS_TOKEN: `access_token`,
   REFRESH_TOKEN: `refresh_token`,
@@ -97,7 +96,7 @@ class ApiFactory {
     return {
       onResponse: response => {
         const guhadaResultCode = _.get(response, 'data.resultCode');
-
+        console.log(guhadaResultCode, 'guhadaResultCode');
         // resultCode가 있다면 확인한다
         if (!!guhadaResultCode) {
           // resultCode가 200이면 성공, 아니라면 catch 블럭에서 잡을 수 있도록 Promise.reject
@@ -117,6 +116,14 @@ class ApiFactory {
         const guhadaResultCode = _.get(error, 'response.data.resultCode');
         const errorStatus = _.get(error, 'response.status');
 
+        console.log(
+          guhadaResultCode,
+          'guhadaResultCode',
+          errorStatus,
+          'errorStatus',
+          error.config,
+          'error.config'
+        );
         this.createGuhadaServerError(error.response);
 
         // TODO: accessToken 인증 오류 status 코드 확인
@@ -131,7 +138,7 @@ class ApiFactory {
           } else {
             // 리프레시 토큰이 없으면 로그인으로
             if (isBrowser) {
-              console.error('401. redirect to login');
+              console.error('401. redirect to login this index.js');
               window.location.href = '/login';
             }
           }
@@ -243,6 +250,7 @@ class ApiFactory {
             refresh_token,
             expires_in,
           });
+          console.log(access_token, 'datadatadatadatadat adata');
         })
         .catch(err => {
           console.error('err', err);
@@ -260,7 +268,25 @@ class ApiFactory {
     });
   }
 
-  saveAuthTokens({ accessToken, expiresIn, refreshToken }) {
+  getRefreshTokenExpires(refreshToken) {
+    let loginInfoKey;
+
+    if (refreshToken) {
+      loginInfoKey = refreshToken.split('.');
+    }
+
+    if (isBrowser && Array.isArray(loginInfoKey)) {
+      const parsedloginInfo = JSON.parse(window.atob(loginInfoKey[1]));
+
+      return parsedloginInfo.exp;
+    } else {
+      return null;
+    }
+  }
+
+  saveAuthTokens({ accessToken, refreshToken, expiresIn }) {
+    let refreshTokenExpires = this.getRefreshTokenExpires(refreshToken);
+
     if (window.location.hostname === 'localhost') {
       Cookies.set(key.ACCESS_TOKEN, accessToken, {
         expires: moment()
@@ -270,7 +296,7 @@ class ApiFactory {
 
       Cookies.set(key.REFRESH_TOKEN, refreshToken, {
         expires: moment()
-          .add(1, 'day')
+          .add(refreshTokenExpires, 'milliseconds')
           .toDate(),
       });
     } else {
@@ -284,7 +310,7 @@ class ApiFactory {
 
       Cookies.set(key.REFRESH_TOKEN, refreshToken, {
         expires: moment()
-          .add(1, 'day')
+          .add(3, 'month')
           .toDate(),
         domain: '.guhada.com',
       });
