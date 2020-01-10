@@ -13,6 +13,7 @@ import _ from 'lodash';
 import { devLog } from 'childs/lib/common/devLog';
 import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
 import entryService from 'childs/lib/API/user/entryService';
+import isDev from 'childs/lib/common/isDev';
 const isServer = typeof window === 'undefined';
 
 export default class LoginStore {
@@ -22,10 +23,22 @@ export default class LoginStore {
   // 로그인 상태값. 처음부터 자동로그인을 시도하므로 LOGIN_IN_PROGRESS을 초기값으로 둔다.
   @observable loginStatus = loginStatus.LOGIN_IN_PROGRESS;
 
+  // 로그인 되었는지
   @computed get isLoggedIn() {
-    return this.loginStatus === loginStatus.LOGIN_DONE;
+    return (
+      this.loginStatus === loginStatus.LOGIN_DONE &&
+      !!_.get(this, 'loginInfo.userId')
+    );
   }
 
+  /**
+   * 로그인, 로그아웃 여부를 결정하는 과정이 완료되었는데.
+   * 로그인/로그아웃 버튼처럼 로그인 여부에 따라 상태가 바뀌는 버튼은 로그인 과정이 모두 완료된 후 보여줘야 한다.
+   */
+  @computed
+  get isLoginProcessDone() {
+    return this.loginStatus !== loginStatus.LOGIN_IN_PROGRESS;
+  }
   // user의 실제 정보
   @observable userInfo = {};
 
@@ -35,23 +48,6 @@ export default class LoginStore {
       this.autoLogin();
     }
   }
-
-  /**
-   * 이메일, 비밀번호로 로그인 시도
-   */
-  loginUser = async ({ email, password, then = () => {} }) => {
-    try {
-      await API.user.post(`/loginUser`, {
-        email,
-        password,
-      });
-
-      then();
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
   /**
    * 로그인 성공 후 데이터 처리
    * API 인스턴스에 토큰을 업데이트 하고 유저 정보를 가져온다.
@@ -71,31 +67,28 @@ export default class LoginStore {
     if (isServer) {
       return;
     }
-
-    console.group(`autoLogin`);
     try {
       this.setLoginStatus(loginStatus.LOGIN_IN_PROGRESS); // 로그인 프로세스 진행중
 
       const accessToken = Cookies.get(key.ACCESS_TOKEN);
       const refreshToken = Cookies.get(key.REFRESH_TOKEN);
 
-      if (
-        !accessToken ||
-        !refreshToken ||
-        accessToken === 'undefined' ||
-        refreshToken === 'undefined'
-      ) {
+      if (!refreshToken || refreshToken === 'undefined') {
         // 토큰이 없으므로 로그아웃 처리
-        Cookies.remove(key.ACCESS_TOKEN);
-        Cookies.remove(key.REFRESH_TOKEN);
+        // Cookies.remove(key.ACCESS_TOKEN);
+        // Cookies.remove(key.REFRESH_TOKEN);
         this.setLoginStatus(loginStatus.LOGOUT);
       } else if (accessToken) {
         // 발급된 토큰으로 다음 과정 진행
         this.handleSuccessGetAccessToken(accessToken);
       } else if (refreshToken) {
         // 토큰 재발급
-        const { accessToken } = await API.refreshAccessToken();
-        this.handleSuccessGetAccessToken(accessToken);
+        await API.refreshAccessToken().then(({ access_token }) => {
+          devLog('토큰 재발급', access_token);
+          if (access_token) {
+            this.handleSuccessGetAccessToken(access_token);
+          }
+        });
       } else {
         this.logout();
       }
@@ -112,27 +105,17 @@ export default class LoginStore {
    * access token 가져오기 성공. 토큰에서 로그인 정보를 추출하고 유저 정보를 가져온다.
    */
   handleSuccessGetAccessToken = async accessToken => {
-    console.group(`handleSuccessGetAccessToken`);
-
     try {
       this.decodeLoginData(accessToken);
       this.setLoginStatus(loginStatus.LOGIN_DONE);
+      if (isDev) {
+        console.log(`Bearer ${accessToken}`);
+      }
     } catch (e) {
-      this.logout();
+      // this.logout();
       console.error(e);
     } finally {
       console.groupEnd(`handleSuccessGetAccessToken`);
-    }
-  };
-
-  /**
-   * 로컬스토리지에 저장된 유저정보를 가져온다
-   */
-  @action
-  setUserInfoFromStorage = () => {
-    const userInfo = localStorage.get(key.GUHADA_USERINFO);
-    if (userInfo) {
-      this.userInfo = userInfo;
     }
   };
 
@@ -197,7 +180,7 @@ export default class LoginStore {
     this.root.user.setPasswordDoubleChecked(false);
 
     // 홈 화면으로 이동
-    Router.push(`/`);
+    // Router.push(`/`);
   };
 
   @observable email;
@@ -592,4 +575,31 @@ export default class LoginStore {
         devLog('e', e);
       });
   };
+
+  /**
+   * 이메일, 비밀번호로 로그인 시도
+   */
+  // loginUser = async ({ email, password, then = () => {} }) => {
+  //   try {
+  //     await API.user.post(`/loginUser`, {
+  //       email,
+  //       password,
+  //     });
+
+  //     then();
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
+  // };
+
+  /**
+   * 로컬스토리지에 저장된 유저정보를 가져온다
+   */
+  // @action
+  // setUserInfoFromStorage = () => {
+  //   const userInfo = localStorage.get(key.GUHADA_USERINFO);
+  //   if (userInfo) {
+  //     this.userInfo = userInfo;
+  //   }
+  // };
 }

@@ -105,7 +105,6 @@ class ApiFactory {
             return response;
           } else {
             this.createGuhadaServerError(response);
-
             return Promise.reject(response);
           }
         } else {
@@ -184,6 +183,24 @@ class ApiFactory {
         !!message ? `"${message}"` : ''
       } at ${_.get(response, 'config.method') || ''} ${responseURL}`
     );
+
+    // if (resultCode === 6017) {
+    //   console.log(response.config, 'response.config');
+    //   if (!!Cookies.get(key.REFRESH_TOKEN)) {
+    //     console.error('access token expired. refresh starts.');
+
+    //     this.refreshAccessToken().then(res => {
+    //       // 토큰 재발급에 성공하면 실패한 요청을 다시 호출한다
+    //       return axios.request(response.config);
+    //     });
+    //   } else {
+    //     // 리프레시 토큰이 없으면 로그인으로
+    //     if (isBrowser) {
+    //       console.error('401. redirect to login');
+    //       window.location.href = '/login';
+    //     }
+    //   }
+    // }
   }
 
   /**
@@ -260,7 +277,24 @@ class ApiFactory {
     });
   }
 
+  getRefreshTokenExpires(refreshToken) {
+    let loginInfoKey;
+
+    if (refreshToken) {
+      loginInfoKey = refreshToken.split('.');
+    }
+
+    if (isBrowser && Array.isArray(loginInfoKey)) {
+      const parsedloginInfo = JSON.parse(window.atob(loginInfoKey[1]));
+
+      return parsedloginInfo.exp;
+    } else {
+      return null;
+    }
+  }
+
   saveAuthTokens({ accessToken, expiresIn, refreshToken }) {
+    let refreshTokenExpires = this.getRefreshTokenExpires(refreshToken);
     if (window.location.hostname === 'localhost') {
       Cookies.set(key.ACCESS_TOKEN, accessToken, {
         expires: moment()
@@ -270,7 +304,7 @@ class ApiFactory {
 
       Cookies.set(key.REFRESH_TOKEN, refreshToken, {
         expires: moment()
-          .add(1, 'day')
+          .add(refreshTokenExpires, 'milliseconds')
           .toDate(),
       });
     } else {
@@ -284,7 +318,7 @@ class ApiFactory {
 
       Cookies.set(key.REFRESH_TOKEN, refreshToken, {
         expires: moment()
-          .add(1, 'day')
+          .add(refreshTokenExpires, 'milliseconds')
           .toDate(),
         domain: '.guhada.com',
       });

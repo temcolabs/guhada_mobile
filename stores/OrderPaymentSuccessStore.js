@@ -48,8 +48,7 @@ export default class OrderPaymentStore {
         return successInfo;
       })
       .catch(err => {
-        console.error(err, 'err');
-        Router.push('/');
+        console.error(err, 'orderpayment success err');
       })
       .finally(() => {
         sessionStorage.removeItem('paymentInfo');

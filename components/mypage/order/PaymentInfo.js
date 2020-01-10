@@ -35,7 +35,7 @@ export default function PaymentInfo({ order = ORDER_COMPLETE_SAMPLE }) {
           <div className={cn(css.section__field)}>
             <span className={css.section__label}>배송비</span>
             <span className={css.section__value}>
-              {addCommaToNum(order.shipExpenseTypeText)}원
+              {addCommaToNum(order.totalShipPrice)}원
             </span>
           </div>
         </div>
