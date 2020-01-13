@@ -14,6 +14,7 @@ import { devLog } from 'childs/lib/common/devLog';
 import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
 import entryService from 'childs/lib/API/user/entryService';
 import isDev from 'childs/lib/common/isDev';
+import gtagTracker from 'childs/lib/tracking/google/gtagTracker';
 const isServer = typeof window === 'undefined';
 
 export default class LoginStore {
@@ -278,6 +279,7 @@ export default class LoginStore {
           login.root.luckyDraw.setLuckydrawLoginModal(false);
           login.root.luckyDraw.setLuckydrawSignupModal(false);
         } else if (email !== '') {
+          gtagTracker.signup('/?signupsuccess=true&email=' + email);
           Router.push('/?signupsuccess=true&email=' + email);
         } else {
           pushRoute(Router.query.redirectTo || '/');
@@ -376,6 +378,7 @@ export default class LoginStore {
           login.root.luckyDraw.setLuckydrawLoginModal(false);
           login.root.luckyDraw.setLuckydrawSignupModal(false);
         } else if (email !== '') {
+          gtagTracker.signup('/?signupsuccess=true&email=' + email);
           Router.push('/?signupsuccess=true&email=' + email);
         } else {
           pushRoute(Router.query.redirectTo || '/');
@@ -469,6 +472,7 @@ export default class LoginStore {
           login.root.luckyDraw.setLuckydrawLoginModal(false);
           login.root.luckyDraw.setLuckydrawSignupModal(false);
         } else if (email !== '') {
+          gtagTracker.signup('/?signupsuccess=true&email=' + email);
           Router.push('/?signupsuccess=true&email=' + email);
         } else {
           pushRoute(Router.query.redirectTo || '/');
@@ -566,6 +570,7 @@ export default class LoginStore {
           login.root.luckyDraw.setLuckydrawLoginModal(false);
           login.root.luckyDraw.setLuckydrawSignupModal(false);
         } else if (email !== '') {
+          gtagTracker.signup('/?signupsuccess=true&email=' + email);
           Router.push('/?signupsuccess=true&email=' + email);
         } else {
           pushRoute(Router.query.redirectTo || '/');

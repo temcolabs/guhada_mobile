@@ -21,6 +21,7 @@ import getIsProdHost from 'childs/lib/tracking/getIsProdHost';
 import CommonHead from 'childs/lib/components/CommonHead';
 import momentTracker from 'childs/lib/tracking/kakaomoment/momentTracker';
 import ReactPixel from 'react-facebook-pixel';
+import gtagTracker from 'childs/lib/tracking/google/gtagTracker';
 
 moment.locale('ko');
 
@@ -34,6 +35,7 @@ class GuhadaMobileWeb extends App {
       GuhadaMobileWeb.naverShoppingTracker();
       GuhadaMobileWeb.aceCouterTracker(ctx.asPath);
       momentTracker.visit();
+      gtagTracker.visit();
     }
 
     let initialProps = {};
@@ -118,8 +120,8 @@ class GuhadaMobileWeb extends App {
     this.execWiderPlanetTracker();
     momentTracker.visit();
     ReactPixel.init('801611600305440');
-
     ReactPixel.pageView();
+    gtagTracker.visit();
   }
 
   initDaumTracker = () => {
