@@ -10,8 +10,8 @@
   padding: 20px;
   .couponLayout {
     background: #fff;
-    height: calc(100vh);
-    padding: 20px;
+    // height: calc(100vh);
+    padding: 20px 20px 30px;
 
     .close {
       width: 100%;
@@ -48,18 +48,23 @@
     .couponContainer {
       height: calc(100vh - 283px);
       overflow-y: auto;
+      margin-top: 35px;
 
       @include break350 {
         height: calc(100vh - 283px);
       }
       .couponWrap {
+        margin-top: 35px;
+
+        &:first-child {
+          margin-top: 0;
+        }
         .coupon {
           width: 280px;
           height: 136px;
           background: url('/static/icon/coupon_bg@3x.png') no-repeat;
           background-size: cover;
           background-position: center;
-          margin-top: 35px;
           position: relative;
           color: #fff;
 
