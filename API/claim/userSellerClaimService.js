@@ -14,4 +14,7 @@ export default {
       },
     });
   },
+  deleteSellerClaim: ({ userId, id }) => {
+    return API.claim.delete(`/users/${userId}/seller-claims/${id}`);
+  },
 };

@@ -29,6 +29,9 @@ export default {
     return API.claim.post(`/users/${userId}/seller-claims`, body);
   },
 
+  getImageUrlSellerClaim: () => {
+    return API.claim.get(`/users/seller-claims/image-upload-url`);
+  },
   /**
    * 유저 문의하기 type 가져오기
    * 카테고리 코드에 children이 있는 구조
