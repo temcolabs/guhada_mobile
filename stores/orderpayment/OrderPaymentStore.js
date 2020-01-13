@@ -38,13 +38,13 @@ export default class OrderPaymentStore {
     tempEditAddress: {},
     defaultAddress: {},
     newAddress: {
-      shippingName: null,
-      address: null,
-      roadAddress: null,
-      zip: null,
-      detailAddress: null,
-      recipientName: null,
-      recipientMobile: null,
+      shippingName: '',
+      address: '',
+      roadAddress: '',
+      zip: '',
+      detailAddress: '',
+      recipientName: '',
+      recipientMobile: '',
       defaultAddress: false,
       shippingMessage: false,
     },
@@ -251,6 +251,7 @@ export default class OrderPaymentStore {
     daum.postcode.load(function() {
       new daum.Postcode({
         oncomplete: function(data) {
+          console.log(data, '배송지 주소');
           switch (path) {
             case '주문페이지-신규':
               if (data.userSelectedType === 'J') {
@@ -296,11 +297,11 @@ export default class OrderPaymentStore {
       case 'roadAddress':
         this.orderShippingList.newAddress.roadAddress = address.roadAddress;
         this.orderShippingList.newAddress.zip = address.zonecode;
-        this.orderShippingList.newAddress.address = address.jibunAddress;
+        this.orderShippingList.newAddress.address = address.address;
         this.addressType = 'R';
         break;
       case 'address':
-        this.orderShippingList.newAddress.address = address.jibunAddress;
+        this.orderShippingList.newAddress.address = address.address;
         this.orderShippingList.newAddress.zip = address.zonecode;
         this.orderShippingList.newAddress.roadAddress = address.roadAddress;
         this.addressType = 'J';
@@ -523,11 +524,11 @@ export default class OrderPaymentStore {
         this.orderShippingList.tempEditAddress.roadAddress =
           address.roadAddress;
         this.orderShippingList.tempEditAddress.zip = address.zonecode;
-        this.orderShippingList.tempEditAddress.address = address.jibunAddress;
+        this.orderShippingList.tempEditAddress.address = address.address;
         this.addressType = 'R';
         break;
       case 'address':
-        this.orderShippingList.tempEditAddress.address = address.jibunAddress;
+        this.orderShippingList.tempEditAddress.address = address.address;
         this.orderShippingList.tempEditAddress.zip = address.zonecode;
         this.orderShippingList.tempEditAddress.roadAddress =
           address.roadAddress;
@@ -638,7 +639,10 @@ export default class OrderPaymentStore {
       });
       this.status.newShippingName = true;
       return false;
-    } else if (!this.orderShippingList.newAddress.address) {
+    } else if (
+      !this.orderShippingList.newAddress.address &&
+      !this.orderShippingList.newAddress.roadAddress
+    ) {
       this.root.alert.showAlert({
         content: '주소를 입력해주세요.',
       });
@@ -779,6 +783,10 @@ export default class OrderPaymentStore {
   //--------------------- 결제요청 ---------------------
   @action
   payment = () => {
+    devLog(
+      this.orderShippingList.newAddress,
+      'this.orderShippingList.newAddress'
+    );
     let cartList = this.getCartList();
     let paymentCheck = true;
 
