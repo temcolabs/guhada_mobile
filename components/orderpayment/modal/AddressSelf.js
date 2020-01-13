@@ -18,7 +18,7 @@ class AddressSelf extends Component {
                 orderpayment.setNewShippingAddress(e, 'newShippingName', null);
               }}
               value={
-                orderpayment.orderShippingList.newAddress.shippingName || ''
+                orderpayment.orderShippingList.newAddress?.shippingName || ''
               }
             />
           </div>
@@ -29,7 +29,7 @@ class AddressSelf extends Component {
               type="text"
               placeholder="우편번호"
               readOnly
-              value={orderpayment.orderShippingList.newAddress.zip || ''}
+              value={orderpayment.orderShippingList.newAddress?.zip || ''}
               onClick={() => {
                 orderpayment.searchZipcode(
                   '주문페이지-신규',
@@ -67,16 +67,16 @@ class AddressSelf extends Component {
                 );
               }}
               value={
-                orderpayment.orderShippingList.newAddress.zip
+                orderpayment.orderShippingList.newAddress?.zip
                   ? `${
                       orderpayment.addressType === 'R'
                         ? orderpayment.orderShippingList.newAddress
-                            .roadAddress ||
-                          orderpayment.orderShippingList.newAddress.address ||
+                            ?.roadAddress ||
+                          orderpayment.orderShippingList.newAddress?.address ||
                           ''
-                        : orderpayment.orderShippingList.newAddress.address ||
+                        : orderpayment.orderShippingList.newAddress?.address ||
                           orderpayment.orderShippingList.newAddress
-                            .roadAddress ||
+                            ?.roadAddress ||
                           ''
                     }`
                   : null
@@ -93,7 +93,7 @@ class AddressSelf extends Component {
                 orderpayment.setNewShippingAddress(e, 'newDetailAddress', null);
               }}
               value={
-                orderpayment.orderShippingList.newAddress.detailAddress || ''
+                orderpayment.orderShippingList.newAddress?.detailAddress || ''
               }
             />
           </div>
@@ -107,7 +107,7 @@ class AddressSelf extends Component {
                 orderpayment.setNewShippingAddress(e, 'newRecipientName', null);
               }}
               value={
-                orderpayment.orderShippingList.newAddress.recipientName || ''
+                orderpayment.orderShippingList.newAddress?.recipientName || ''
               }
             />
           </div>
@@ -128,7 +128,7 @@ class AddressSelf extends Component {
               }}
               value={
                 addHyphenToMobile(
-                  orderpayment.orderShippingList.newAddress.recipientMobile
+                  orderpayment.orderShippingList.newAddress?.recipientMobile
                 ) || ''
               }
             />
