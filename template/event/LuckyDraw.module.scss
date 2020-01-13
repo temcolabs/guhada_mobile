@@ -62,8 +62,10 @@ $mainHoriPad: 20px;
 }
 
 .notificationBox {
+  border-top: 1px solid #2e3243;
   width: 100%;
-  margin: 100px auto 66px;
+  margin: 60px auto 110px;
+  padding: 30px 0 0;
 
   & > img {
     display: block;
