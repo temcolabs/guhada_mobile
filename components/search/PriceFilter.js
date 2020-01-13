@@ -27,7 +27,7 @@ class PriceFilter extends Component {
   searchPriceFilter = () => {
     const { searchitem, alert } = this.props;
 
-    if (searchitem.minPrice > searchitem.maxPrice) {
+    if (Number(searchitem.minPrice) > Number(searchitem.maxPrice)) {
       alert.showAlert('최대 가격은 최소 가격보다 커야 합니다.');
       return false;
     } else {

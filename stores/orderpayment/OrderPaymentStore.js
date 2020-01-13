@@ -254,18 +254,10 @@ export default class OrderPaymentStore {
           console.log(data, '배송지 주소');
           switch (path) {
             case '주문페이지-신규':
-              if (data.userSelectedType === 'J') {
-                setNewShippingAddress(null, 'address', data);
-              } else {
-                setNewShippingAddress(null, 'roadAddress', data);
-              }
+              setNewShippingAddress(null, 'address', data);
               break;
             case '주문페이지-수정':
-              if (data.userSelectedType === 'J') {
-                addressEditing(null, 'address', data);
-              } else {
-                addressEditing(null, 'roadAddress', data);
-              }
+              addressEditing(null, 'address', data);
               break;
             default:
               break;
@@ -294,17 +286,18 @@ export default class OrderPaymentStore {
 
         this.orderShippingList.newAddress.recipientMobile = phoneNum;
         break;
-      case 'roadAddress':
-        this.orderShippingList.newAddress.roadAddress = address.roadAddress;
-        this.orderShippingList.newAddress.zip = address.zonecode;
-        this.orderShippingList.newAddress.address = address.address;
-        this.addressType = 'R';
-        break;
+
       case 'address':
-        this.orderShippingList.newAddress.address = address.address;
+        this.orderShippingList.newAddress.address =
+          address.jibunAddress === ''
+            ? address.autoJibunAddress
+            : address.jibunAddress;
         this.orderShippingList.newAddress.zip = address.zonecode;
-        this.orderShippingList.newAddress.roadAddress = address.roadAddress;
-        this.addressType = 'J';
+        this.orderShippingList.newAddress.roadAddress =
+          address.roadAddress === ''
+            ? address.autoRoadAddress
+            : address.roadAddress;
+        this.addressType = address.userSelectedType;
         break;
       default:
         break;
@@ -520,19 +513,17 @@ export default class OrderPaymentStore {
       case 'recipientMobile':
         this.orderShippingList.tempEditAddress.recipientMobile = editValue;
         break;
-      case 'roadAddress':
-        this.orderShippingList.tempEditAddress.roadAddress =
-          address.roadAddress;
-        this.orderShippingList.tempEditAddress.zip = address.zonecode;
-        this.orderShippingList.tempEditAddress.address = address.address;
-        this.addressType = 'R';
-        break;
       case 'address':
-        this.orderShippingList.tempEditAddress.address = address.address;
+        this.orderShippingList.tempEditAddress.address =
+          address.jibunAddress === ''
+            ? address.autoJibunAddress
+            : address.jibunAddress;
         this.orderShippingList.tempEditAddress.zip = address.zonecode;
         this.orderShippingList.tempEditAddress.roadAddress =
-          address.roadAddress;
-        this.addressType = 'J';
+          address.roadAddress === ''
+            ? address.autoRoadAddress
+            : address.roadAddress;
+        this.addressType = address.userSelectedType;
         break;
       default:
         break;
@@ -819,7 +810,10 @@ export default class OrderPaymentStore {
         });
         this.status.newShippingName = true;
         paymentCheck = false;
-      } else if (!this.orderShippingList.newAddress.address) {
+      } else if (
+        !this.orderShippingList.newAddress.address &&
+        !this.orderShippingList.newAddress.roadAddress
+      ) {
         this.root.alert.showAlert({
           content: '주소를 입력해주세요.',
         });
