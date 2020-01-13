@@ -85,7 +85,21 @@ function LuckyDraw({ router }) {
               );
             })}
           </div>
+          <div className={css.luckyDrawHowToBox}>
+            <div className={css.imgBox}>
+              <img
+                src="/static/icon/event/lucky-con-intro@3x.png"
+                alt="럭키드로우"
+              />
+            </div>
 
+            <div className={css.imgBox}>
+              <img
+                src="/static/icon/event/lucky-con-howto@3x.png"
+                alt="럭키드로우"
+              />
+            </div>
+          </div>
           <div className={css.notificationBox}>
             <img
               src="/static/icon/event/luckydraw-notification.png"
