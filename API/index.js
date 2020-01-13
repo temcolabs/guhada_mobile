@@ -300,14 +300,8 @@ class ApiFactory {
     }
   }
 
-<<<<<<< HEAD
   saveAuthTokens({ accessToken, expiresIn, refreshToken }) {
     let refreshTokenExpires = this.getRefreshTokenExpires(refreshToken);
-=======
-  saveAuthTokens({ accessToken, refreshToken, expiresIn }) {
-    let refreshTokenExpires = this.getRefreshTokenExpires(refreshToken);
-
->>>>>>> 17f28880fde89b93720ee9826c6d2ac31da84c20
     if (window.location.hostname === 'localhost') {
       Cookies.set(key.ACCESS_TOKEN, accessToken, {
         expires: moment()
@@ -331,11 +325,7 @@ class ApiFactory {
 
       Cookies.set(key.REFRESH_TOKEN, refreshToken, {
         expires: moment()
-<<<<<<< HEAD
           .add(refreshTokenExpires, 'milliseconds')
-=======
-          .add(3, 'month')
->>>>>>> 17f28880fde89b93720ee9826c6d2ac31da84c20
           .toDate(),
         domain: '.guhada.com',
       });
