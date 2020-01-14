@@ -145,6 +145,28 @@ export default function RelatedAndRecommend({
                     }}
                   />
                   <div className={css.contentsWrap}>
+                    {_.isEmpty(deal.brandNew) && (
+                      <div className={css.conditionWrap}>
+                        {deal.internationalShipping && (
+                          <>
+                            <div className={css.internationalShipping}>
+                              {deal.internationalShipping &&
+                                internationalShipping.INTERNATIONAL}
+                            </div>
+                            {!deal.brandNew && (
+                              <div className={css.betweenLine} />
+                            )}
+                          </>
+                        )}
+                        <div
+                          className={cn(css.brandNew, {
+                            [css.new]: deal.brandNew,
+                          })}
+                        >
+                          {deal.brandNew ? '' : brandNew.USED}
+                        </div>
+                      </div>
+                    )}
                     <div className={css.brandWrap}>
                       <div className={css.brand}>{deal.brandName}</div>
                       <div className={css.season}>{deal.productSeason}</div>
