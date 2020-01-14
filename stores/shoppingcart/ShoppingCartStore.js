@@ -75,12 +75,13 @@ export default class ShoppingCartStore {
         devLog(data, 'message', 'resultCode');
 
         if (data) {
-          pushRoute(
-            `/login?${qs.stringify({
-              redirectTo: `/shoppingcart`,
-            })}`,
-            { isReplace: true }
-          );
+          // pushRoute(
+          //   `/login?${qs.stringify({
+          //     redirectTo: `/shoppingcart`,
+          //   })}`,
+          //   { isReplace: true }
+          // );
+          // Router.push('/login');
         }
       });
   };
