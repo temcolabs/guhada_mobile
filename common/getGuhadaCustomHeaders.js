@@ -43,8 +43,8 @@ async function getGuhadaCustomHeaders() {
     if (isBrowser) {
       countryCode = localStorage.get(key.COUNTRY_CODE);
       if (!countryCode) {
-        // 세션 스토리지에 없으면 extreme-ip-lookup 서비스를 통해 가져옴
-        // TODO: 동시 최대 request 제한 있음
+        // 세션 스토리지에 없으면 https://ip2c.org/self 서비스를 통해 가져옴
+        // 기존에 사용하던 extreme-ip-lookup 는 제한이 있어서 일단 교체
         const countryCode = await getCountryCode();
         localStorage.set(key.COUNTRY_CODE, countryCode);
       }
