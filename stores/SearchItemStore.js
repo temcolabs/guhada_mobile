@@ -787,8 +787,8 @@ export default class SearchItemStore {
 
     let query = Router.router.query;
 
-    if (this.minPrice > this.maxPrice) {
-      alert.showAlert('최대 가격은 최소 가격보다 커야 합니다.');
+    if (Number(this.minPrice) > Number(this.maxPrice)) {
+      this.root.alert.showAlert('최대 가격은 최소 가격보다 커야 합니다.');
       return false;
     }
 
