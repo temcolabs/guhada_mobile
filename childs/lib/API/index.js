@@ -96,7 +96,6 @@ class ApiFactory {
     return {
       onResponse: response => {
         const guhadaResultCode = _.get(response, 'data.resultCode');
-        console.log(guhadaResultCode, 'guhadaResultCode');
         // resultCode가 있다면 확인한다
         if (!!guhadaResultCode) {
           // resultCode가 200이면 성공, 아니라면 catch 블럭에서 잡을 수 있도록 Promise.reject

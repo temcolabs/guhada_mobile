@@ -17,7 +17,7 @@ class Coupon extends Component {
               // TODO: 쿠폰 다운로드 여부 확인
               const isCouponDownloaded = coupon.alreadySaved;
 
-              return !isCouponDownloaded ? (
+              return isCouponDownloaded ? (
                 <div className={css.coupon__wrap} key={index}>
                   <div
                     className={css.coupon__title}
