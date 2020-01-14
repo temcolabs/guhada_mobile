@@ -192,13 +192,6 @@ export default class OrderPaymentStore {
       })
       .catch(err => {
         devLog(err, 'err');
-        // this.root.alert.showAlert({
-        //   content: `${_.get(err, 'data.message') || '오류발생'}`,
-        //   onConfirm: () => {
-        //     this.gotoMain();
-        //   },
-        // });
-        Router.push('/');
       });
   };
 
