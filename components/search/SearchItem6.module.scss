@@ -51,15 +51,17 @@
     }
 
     & .detailWrap {
-        height: 87px;
-        padding: 12px 0 0 8px;
+        // height: 87px;
+        padding: 0 0 0 8px;
 
     }
 
     .conditionWrap {
-        height: 24px;
+        height: 25px;
         font-size: 11px;
         font-weight: normal;
+        display: flex;
+        align-items: center;
 
         & .brandNew {
             color: #b58c44;
@@ -71,12 +73,9 @@
         }
 
         & .betweenLine {
+            width: 10px;
+            height: inherit;
             float: left;
-            margin: 0 10px;
-            width: 1px;
-            height: 10px;
-            margin-top: 3px;
-            background-color: #ddd;
         }
 
         & .internationalShipping {

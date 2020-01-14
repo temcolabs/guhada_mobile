@@ -70,7 +70,7 @@
     }
 
     .conditionWrap {
-        height: 24px;
+        height: 26px;
         font-size: 11px;
         font-weight: normal;
 
@@ -84,12 +84,9 @@
         }
 
         & .betweenLine {
+            width: 10px;
+            height: inherit;
             float: left;
-            margin: 0 10px;
-            width: 1px;
-            height: 10px;
-            margin-top: 3px;
-            background-color: #ddd;
         }
 
         & .internationalShipping {
@@ -142,7 +139,7 @@
     }
 
     & .priceWrap {
-        margin-top: 12px;
+        margin-top: 10px;
         display: flex;
         align-items: center;
         line-height: 1;
