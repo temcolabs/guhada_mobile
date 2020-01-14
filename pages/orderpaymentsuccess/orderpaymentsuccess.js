@@ -15,6 +15,7 @@ import naverShoppingTrakers from 'childs/lib/tracking/navershopping/naverShoppin
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
 import momentTracker from 'childs/lib/tracking/kakaomoment/momentTracker';
 import ReactPixel from 'react-facebook-pixel';
+import gtagTracker from 'childs/lib/tracking/google/gtagTracker';
 
 @inject('orderpaymentsuccess', 'user')
 @observer
@@ -49,6 +50,9 @@ class index extends React.Component {
 
     // 카카오 모먼트 트래커
     momentTracker.purchaseComplete();
+
+    // gtag 트래커
+    gtagTracker.purchaseComplete();
 
     // 크리테오 트래커
     criteoTracker.purchaseComplete({

@@ -6,7 +6,6 @@ const merge = require('lodash/merge');
 const _ = require('lodash');
 const getGuhadaCustomHeaders = require('../common/getGuhadaCustomHeaders');
 const isBrowser = typeof window === 'object';
-
 const key = {
   ACCESS_TOKEN: `access_token`,
   REFRESH_TOKEN: `refresh_token`,
@@ -97,7 +96,6 @@ class ApiFactory {
     return {
       onResponse: response => {
         const guhadaResultCode = _.get(response, 'data.resultCode');
-
         // resultCode가 있다면 확인한다
         if (!!guhadaResultCode) {
           // resultCode가 200이면 성공, 아니라면 catch 블럭에서 잡을 수 있도록 Promise.reject
@@ -116,6 +114,14 @@ class ApiFactory {
         const guhadaResultCode = _.get(error, 'response.data.resultCode');
         const errorStatus = _.get(error, 'response.status');
 
+        console.log(
+          guhadaResultCode,
+          'guhadaResultCode',
+          errorStatus,
+          'errorStatus',
+          error.config,
+          'error.config'
+        );
         this.createGuhadaServerError(error.response);
         console.error(
           'access token expired. refresh starts.  refresh starts.  refresh starts. '
@@ -132,7 +138,7 @@ class ApiFactory {
           } else {
             // 리프레시 토큰이 없으면 로그인으로
             if (isBrowser) {
-              console.error('401. redirect to login');
+              console.error('401. redirect to login this index.js');
               window.location.href = '/login';
             }
           }

@@ -8,6 +8,7 @@ import key from 'childs/lib/constant/key';
 import { isBrowser } from 'childs/lib/common/isServer';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
 import momentTracker from 'childs/lib/tracking/kakaomoment/momentTracker';
+import gtagTracker from 'childs/lib/tracking/google/gtagTracker';
 
 @inject('shoppingcart', 'user')
 @observer
@@ -25,6 +26,7 @@ class shoppingcart extends React.Component {
           this.executeTracker({ userInfo, cartData });
         });
         momentTracker.shoppingCart();
+        gtagTracker.shoppingCart();
       }
     } catch (e) {
       console.error(e);
