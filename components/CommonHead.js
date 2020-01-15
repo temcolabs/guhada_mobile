@@ -17,7 +17,8 @@ export default function CommonHead({
       />
       <meta
         name="robots"
-        content={isRobotAllowed ? 'index,follow' : 'noindex,nofollow'}
+        // content={isRobotAllowed ? 'index,follow' : 'noindex,nofollow'}
+        content={'index,follow'}
       />
 
       {/* <link rel="manifest" href="/static/manifest.json" /> */}
