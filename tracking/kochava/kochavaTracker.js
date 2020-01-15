@@ -21,7 +21,7 @@ export default {
     });
   },
   purchaseComplete: ({ successInfo }) => {
-    for (let i = 0; i < successInfo.orderList.length; i++) {
+    for (let i = 0; i < successInfo?.orderList?.length; i++) {
       kochava.activity('Buy_Product', {
         dealId: successInfo.orderList[i].dealId,
         season: successInfo.orderList[i].season
