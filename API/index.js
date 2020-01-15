@@ -104,7 +104,24 @@ class ApiFactory {
           } else {
             this.createGuhadaServerError(response);
 
-            return Promise.reject(response);
+            if (guhadaResultCode === 6017) {
+              if (!!Cookies.get(key.REFRESH_TOKEN)) {
+                console.error('access token expired. refresh starts.');
+
+                this.refreshAccessToken().then(res => {
+                  // 토큰 재발급에 성공하면 실패한 요청을 다시 호출한다
+                  window.location.reload();
+                });
+              } else {
+                // 리프레시 토큰이 없으면 로그인으로
+                if (isBrowser) {
+                  console.error('401. redirect to login this index.js');
+                  window.location.href = '/login';
+                }
+              }
+            } else {
+              return Promise.reject(response);
+            }
           }
         } else {
           // resultCode가 없다면 결과를 그대로 넘긴다
