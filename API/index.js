@@ -102,7 +102,7 @@ class ApiFactory {
           if (guhadaResultCode === 200) {
             return response;
           } else {
-            // this.createGuhadaServerError(response);
+            this.createGuhadaServerError(response);
             if (guhadaResultCode === 6017) {
               if (!!Cookies.get(key.REFRESH_TOKEN)) {
                 console.error('access token expired. refresh starts.');
@@ -133,7 +133,7 @@ class ApiFactory {
 
         this.createGuhadaServerError(error.response);
         console.error(
-          'access token expired. refresh starts.  refresh starts.  refresh starts. '
+          'access token expired. refresh starts. refresh starts. refresh starts. '
         );
         // TODO: accessToken 인증 오류 status 코드 확인
         if (guhadaResultCode === 401 || errorStatus === 401) {
