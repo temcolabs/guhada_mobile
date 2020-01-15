@@ -74,15 +74,14 @@ export default class ShoppingCartStore {
         let data = _.get(err, 'data');
         devLog(err, data, 'message', 'resultCode');
 
-        if (data) {
-          // pushRoute(
-          //   `/login?${qs.stringify({
-          //     redirectTo: `/shoppingcart`,
-          //   })}`,
-          //   { isReplace: true }
-          // );
-          // Router.push('/login');
-        }
+        // if (data) {
+        //   pushRoute(
+        //     `/login?${qs.stringify({
+        //       redirectTo: `/shoppingcart`,
+        //     })}`,
+        //     { isReplace: true }
+        //   );
+        // }
       });
   };
 
