@@ -77,6 +77,23 @@ export default function CommonHead({
       {/* 커스텀 앱 스키마 */}
       {/* <meta property="al:android:url" content={seo.ANDROID_APP_LINK} /> */}
 
+      {/* 사이트 연관 채널 */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'http://schema.org',
+            '@type': 'Organization',
+            name: 'guhada',
+            url: 'https://www.guhada.com',
+            sameAs: [
+              'https://www.instagram.com/guhada.official',
+              'https://play.google.com/store/apps/details?id=io.temco.guhada&hl=ko',
+              'https://apps.apple.com/kr/app/구하다-명품-쇼핑-필수앱/id1478120259',
+            ],
+          }),
+        }}
+      />
       {children}
     </Head>
   );
