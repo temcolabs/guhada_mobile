@@ -136,8 +136,6 @@ class ApiFactory {
         // TODO: accessToken 인증 오류 status 코드 확인
         if (guhadaResultCode === 401 || errorStatus === 401) {
           if (!!Cookies.get(key.REFRESH_TOKEN)) {
-            console.error('access token expired. refresh starts.');
-
             this.refreshAccessToken().then(res => {
               // 토큰 재발급에 성공하면 실패한 요청을 다시 호출한다
               return axios.request(error.config);
@@ -245,7 +243,6 @@ class ApiFactory {
         .then(res => {
           const { data } = res;
           const { access_token, expires_in, refresh_token } = data;
-
           this.updateAccessToken({
             accessToken: access_token,
             expiresIn: expires_in,
