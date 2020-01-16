@@ -132,9 +132,7 @@ class ApiFactory {
         const errorStatus = _.get(error, 'response.status');
 
         this.createGuhadaServerError(error.response);
-        console.error(
-          'access token expired. refresh starts. refresh starts. refresh starts. '
-        );
+
         // TODO: accessToken 인증 오류 status 코드 확인
         if (guhadaResultCode === 401 || errorStatus === 401) {
           if (!!Cookies.get(key.REFRESH_TOKEN)) {
