@@ -52,7 +52,7 @@ export default function SellerStoreInfomation({ sellerStore }) {
       <div className={css.storeInfoWrap}>
         <div className={css.infoHeader}>오프라인 스토어</div>
         <div className={css.map}>
-          <SellerStoreMap address={sellerStore.offlineStoreAddress} />
+          <SellerStoreMap address={sellerStore.offlineStoreAddressForMap} />
         </div>
         <div className={css.infoStoreAddress}>
           {sellerStore.offlineStoreAddress}
