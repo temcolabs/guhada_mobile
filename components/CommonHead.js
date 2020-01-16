@@ -84,7 +84,7 @@ export default function CommonHead({
           __html: JSON.stringify({
             '@context': 'http://schema.org',
             '@type': 'Organization',
-            name: 'guhada',
+            name: '구하다',
             url: 'https://www.guhada.com',
             sameAs: [
               'https://www.instagram.com/guhada.official',
