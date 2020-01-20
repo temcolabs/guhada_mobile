@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import css from './ProductReviewItems.module.scss';
+import css from './SellerReviewItems.module.scss';
 import _ from 'lodash';
 import StarItem from '../StarItem';
 import moment from 'moment';
@@ -11,7 +11,7 @@ import cn from 'classnames';
 
 @inject('productreview', 'login', 'alert')
 @observer
-class ProductReviewItems extends Component {
+class SellerReviewItems extends Component {
   render() {
     const { review: item, productreview, login } = this.props;
     const { reviewBookMarks } = productreview;
@@ -72,43 +72,26 @@ class ProductReviewItems extends Component {
         renderProductoption = `구매옵션 : ${item.productOption.size}`;
       }
     }
+    const brand = 'GUCCI';
+    const title =
+      '19FW 반소매 프린트 레이스 긴소매 프릴 스퀘어넥스퀘어넥스퀘어넥스퀘어넥';
     return (
       <div className={css.wrap}>
         <div className={css.profileWrap}>
-          <div
-            className={css.profileImage}
-            style={
-              _.isNil(item.review) === false &&
-              _.isNil(item.review.profileImageUrl) === false
-                ? {
-                    backgroundImage: `url(${item.review.profileImageUrl})`,
-                  }
-                : null
-            }
-          />
-          <div className={css.profileContents}>
-            <div>
-              <div className={css.levelWrap}>
-                {/* 추후 적용 */}
-                {/* <div className={css.profileBox}>
-                <div className={css.level}>1</div>
-              </div> */}
-                <div className={css.userNickname}>
-                  {item.review.userNickname}
-                </div>
-                {/* 유저 사이즈 */}
-                {renderUserSize}
-              </div>
-              <div className={css.levelWrap}>
-                <div>{StarItem(item.review.productRating)}</div>
-                {!_.isNil(item.productOption) ? (
-                  <div className={cn(css.profileSize, css.option)}>
-                    {renderProductoption}
-                  </div>
-                ) : null}
-              </div>
+          <div>
+            <div className={cn(css.levelWrap, css.fullWidth)}>
+              <div className={css.brand}>{brand}</div>
+              <div className={css.line} />
+              <div className={css.title}>{title}</div>
             </div>
-            <div />
+            <div className={css.levelWrap}>
+              <div>{StarItem(item.review.productRating)}</div>
+              {!_.isNil(item.productOption) ? (
+                <div className={cn(css.profileSize, css.option)}>
+                  {renderProductoption}
+                </div>
+              ) : null}
+            </div>
           </div>
         </div>
         <div className={css.sizeWrap}>
@@ -126,6 +109,13 @@ class ProductReviewItems extends Component {
             <div>길이감</div>
             <div className={css.line} />
             <div className={css.colored}>{item.reviewTexts.length}</div>
+          </div>
+        </div>
+        <div className={css.profileWrap}>
+          <div className={css.levelWrap}>
+            <div className={css.userNickname}>{item.review.userNickname}</div>
+            {/* 유저 사이즈 */}
+            {renderUserSize}
           </div>
         </div>
         <div className={css.contentWrap}>{item.review.textReview}</div>
@@ -197,4 +187,4 @@ class ProductReviewItems extends Component {
   }
 }
 
-export default ProductReviewItems;
+export default SellerReviewItems;

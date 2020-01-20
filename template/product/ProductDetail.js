@@ -24,6 +24,7 @@ import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount
 import Coupon from 'components/productdetail/Coupon';
 import _ from 'lodash';
 import CommonPopup from 'components/common/modal/CommonPopup';
+import SellerReview from 'components/productdetail/SellerReview/SellerReview';
 
 @withScrollToTopOnMount
 @inject(
@@ -163,6 +164,12 @@ class ProductDetail extends React.Component {
 
         {/* 상품 리뷰 */}
         <ProductReview tabRefMap={this.tabRefMap} />
+        {SeparateLine}
+
+        {/* 셀러 리뷰 */}
+        <SellerReview />
+        {SeparateLine}
+
         {SeparateLine}
         {/* 상품 문의 */}
         <SectionWrap>
