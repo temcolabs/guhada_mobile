@@ -66,7 +66,7 @@ class CouponDownModal extends Component {
                           <div>{` ㆍ ${data.maximumDiscountPrice?.toLocaleString()}원 까지할인`}</div>
                         ) : null}
 
-                        <div>ㆍ 발급일부터 {data.expireAt}일 간 유효</div>
+                        <div>ㆍ 발급일로부터 {data.expireAt}일간 유효</div>
                       </div>
                     </div>
                   );
