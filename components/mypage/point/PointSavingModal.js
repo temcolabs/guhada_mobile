@@ -12,6 +12,7 @@ export const pointSavingTypes = {
   CONFIRM_PURCHASE: 'BUY', // 구매확정
   CREATE_REVIEW: 'REVIEW', // 리뷰 작성
   REGISTER_MYSIZE: 'REGISTER_MYSIZE', // 내 사이즈 등록
+  SIGNUP: 'SIGNUP',
 };
 
 /**
@@ -132,6 +133,7 @@ export default function PointSavingModal({
       // 리뷰 등록과 사이즈 등록은 같은 모달을 사용한다
       case pointSavingTypes.CREATE_REVIEW:
       case pointSavingTypes.REGISTER_MYSIZE:
+      case pointSavingTypes.SIGNUP:
         return (
           <ReviewPointNoti
             savedPointResponse={savedPointResponse}

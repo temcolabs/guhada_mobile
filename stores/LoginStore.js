@@ -14,7 +14,7 @@ import { devLog } from 'childs/lib/common/devLog';
 import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
 import entryService from 'childs/lib/API/user/entryService';
 import isDev from 'childs/lib/common/isDev';
-import gtagTracker from 'childs/lib/tracking/google/gtagTracker';
+import isTruthy from 'childs/lib/common/isTruthy';
 const isServer = typeof window === 'undefined';
 
 export default class LoginStore {
@@ -254,7 +254,7 @@ export default class LoginStore {
   @action
   loginFacebook = (email = '') => {
     let login = this;
-
+    let savedPointResponse = sessionStorage.get('signup');
     entryService
       .facebookLogin({
         email: this.email,
@@ -278,9 +278,8 @@ export default class LoginStore {
           login.root.luckyDraw.getEventUser();
           login.root.luckyDraw.setLuckydrawLoginModal(false);
           login.root.luckyDraw.setLuckydrawSignupModal(false);
-        } else if (email !== '') {
-          gtagTracker.signup('/?signupsuccess=true&email=' + email);
-          Router.push('/?signupsuccess=true&email=' + email);
+        } else if (isTruthy(savedPointResponse)) {
+          Router.push('/');
         } else {
           pushRoute(Router.query.redirectTo || '/');
         }
@@ -355,7 +354,7 @@ export default class LoginStore {
   @action
   loginGoogle = (email = '') => {
     let login = this;
-
+    let savedPointResponse = sessionStorage.get('signup');
     entryService
       .googleLogin({
         email: this.email,
@@ -377,9 +376,8 @@ export default class LoginStore {
           login.root.luckyDraw.getEventUser();
           login.root.luckyDraw.setLuckydrawLoginModal(false);
           login.root.luckyDraw.setLuckydrawSignupModal(false);
-        } else if (email !== '') {
-          gtagTracker.signup('/?signupsuccess=true&email=' + email);
-          Router.push('/?signupsuccess=true&email=' + email);
+        } else if (isTruthy(savedPointResponse)) {
+          Router.push('/');
         } else {
           pushRoute(Router.query.redirectTo || '/');
         }
@@ -449,7 +447,7 @@ export default class LoginStore {
   @action
   loginKakao = (email = '') => {
     let login = this;
-
+    let savedPointResponse = sessionStorage.get('signup');
     entryService
       .kakaoLogin({
         email: this.email,
@@ -471,9 +469,8 @@ export default class LoginStore {
           login.root.luckyDraw.getEventUser();
           login.root.luckyDraw.setLuckydrawLoginModal(false);
           login.root.luckyDraw.setLuckydrawSignupModal(false);
-        } else if (email !== '') {
-          gtagTracker.signup('/?signupsuccess=true&email=' + email);
-          Router.push('/?signupsuccess=true&email=' + email);
+        } else if (isTruthy(savedPointResponse)) {
+          Router.push('/');
         } else {
           pushRoute(Router.query.redirectTo || '/');
         }
@@ -543,7 +540,7 @@ export default class LoginStore {
   @action
   loginNaver = (email = '') => {
     let login = this;
-
+    let savedPointResponse = sessionStorage.get('signup');
     entryService
       .naverLogin({
         email: this.email,
@@ -569,9 +566,8 @@ export default class LoginStore {
           login.root.luckyDraw.getEventUser();
           login.root.luckyDraw.setLuckydrawLoginModal(false);
           login.root.luckyDraw.setLuckydrawSignupModal(false);
-        } else if (email !== '') {
-          gtagTracker.signup('/?signupsuccess=true&email=' + email);
-          Router.push('/?signupsuccess=true&email=' + email);
+        } else if (isTruthy(savedPointResponse)) {
+          Router.push('/');
         } else {
           pushRoute(Router.query.redirectTo || '/');
         }

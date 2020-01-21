@@ -9,6 +9,7 @@ import naverShoppingTrakers from 'childs/lib/tracking/navershopping/naverShoppin
 import momentTracker from 'childs/lib/tracking/kakaomoment/momentTracker';
 import ReactPixel from 'react-facebook-pixel';
 import gtagTracker from 'childs/lib/tracking/google/gtagTracker';
+import sessionStorage from 'childs/lib/common/sessionStorage';
 export default {
   onInit(form) {
     // devLog('-> onInit Form HOOK');
@@ -18,27 +19,34 @@ export default {
     let loginData = form.values();
     let termData = termForm.termAgree.values();
 
+    const header = {
+      'ACCEPT-VERSION': '1.1',
+    };
+
     API.user
-      .post('/signUpUser', {
-        email: loginData.email,
-        password: loginData.password,
-        agreeCollectPersonalInfoTos: termData.agreeCollectPersonalInfoTos,
-        agreeEmailReception: termData.agreeEmailReception,
-        agreePurchaseTos: termData.agreePurchaseTos,
-        agreeSaleTos: termData.agreeSaleTos,
-        agreeSmsReception: termData.agreeSmsReception,
-      })
+      .post(
+        '/signUpUser',
+        {
+          email: loginData.email,
+          password: loginData.password,
+          agreeCollectPersonalInfoTos: termData.agreeCollectPersonalInfoTos,
+          agreeEmailReception: termData.agreeEmailReception,
+          agreePurchaseTos: termData.agreePurchaseTos,
+          agreeSaleTos: termData.agreeSaleTos,
+          agreeSmsReception: termData.agreeSmsReception,
+        },
+        { headers: header }
+      )
       .then(function(res) {
         devLog(res.data);
-        let data = res.data;
+        let data = res.data.data;
         naverShoppingTrakers.signup();
         daumTracker.signup();
         momentTracker.signup();
-        ReactPixel.track('CompleteRegistration', data);
-        gtagTracker.signup('/?signupsuccess=true&email=' + loginData.email);
-        if (data.resultCode === 200) {
-          Router.push('/?signupsuccess=true&email=' + loginData.email);
-        }
+        ReactPixel.track('CompleteRegistration', res.data);
+        gtagTracker.signup('/');
+        sessionStorage.set('signup', data.savedPointResponse);
+        Router.push('/');
       })
       .catch(e => {
         let data = _.get(e, 'data');
