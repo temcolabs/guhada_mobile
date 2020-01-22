@@ -61,7 +61,8 @@ const loadScript = (
 
   // 기존의 태그 제거
   if (existingTag && replaceExitsing) {
-    existingTag.remove();
+    existingTag.parentNode.removeChild(existingTag);
+    // existingTag.remove();
   }
 
   // 스크립트 추가

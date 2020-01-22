@@ -4,7 +4,7 @@ const sns = require('./sns');
 module.exports = {
   TITLE: '구하다',
   DESCRIPTION:
-    '명품 특가 타임딜! 정품 100% 보장! 전 상품 무료 배송! 명품쇼핑의 즐거움을 구하다',
+    '14만+ 정품 명품 상품. 매주 이어지는 타임딜 특가. 220% 정품보장. 초저가 럭키드로우까지. 명품 정품 쇼핑의 기준 구하다',
 
   // window.location.origin에 해당하는 값
   BASE_URL: process.env.BASE_URL,

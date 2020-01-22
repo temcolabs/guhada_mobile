@@ -85,7 +85,7 @@ export default class LoginStore {
       } else if (refreshToken) {
         // 토큰 재발급
         await API.refreshAccessToken().then(({ access_token }) => {
-          devLog('토큰 재발급', access_token);
+          // devLog('토큰 재발급', access_token);
           if (access_token) {
             this.handleSuccessGetAccessToken(access_token);
           }

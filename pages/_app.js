@@ -119,7 +119,7 @@ class GuhadaMobileWeb extends App {
     this.initDaumTracker();
     this.execWiderPlanetTracker();
     momentTracker.visit();
-    ReactPixel.init('801611600305440');
+    ReactPixel.init('1378843585603534');
     ReactPixel.pageView();
     gtagTracker.visit();
   }

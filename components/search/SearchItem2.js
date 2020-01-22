@@ -75,6 +75,17 @@ class SearchItem2 extends Component {
                 <div className={css.detailWrap}>
                   {_.isEmpty(deal.brandNew) && (
                     <div className={css.conditionWrap}>
+                      {deal.internationalShipping && (
+                        <>
+                          <div className={css.internationalShipping}>
+                            {deal.internationalShipping &&
+                              internationalShipping.INTERNATIONAL}
+                          </div>
+                          {!deal.brandNew && (
+                            <div className={css.betweenLine} />
+                          )}
+                        </>
+                      )}
                       <div
                         className={cn(css.brandNew, {
                           [css.new]: deal.brandNew,
@@ -82,18 +93,6 @@ class SearchItem2 extends Component {
                       >
                         {deal.brandNew ? '' : brandNew.USED}
                       </div>
-
-                      {deal.internationalShipping && (
-                        <>
-                          {!deal.brandNew && (
-                            <div className={css.betweenLine} />
-                          )}
-                          <div className={css.internationalShipping}>
-                            {deal.internationalShipping &&
-                              internationalShipping.INTERNATIONAL}
-                          </div>
-                        </>
-                      )}
                     </div>
                   )}
                   <div className={css.brandWrap}>
