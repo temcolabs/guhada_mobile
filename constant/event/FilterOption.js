@@ -18,6 +18,10 @@ export const SPECIAL_FILTER = [
     label: '종료 기획전',
     value: 'END',
   },
+  {
+    label: '전체 기획전',
+    value: 'ALL',
+  },
 ];
 
 export const SPECIAL_DETAIL_FILTER = [

@@ -96,7 +96,6 @@ class ApiFactory {
     return {
       onResponse: response => {
         const guhadaResultCode = _.get(response, 'data.resultCode');
-        console.log(guhadaResultCode, 'guhadaResultCode');
         // resultCode가 있다면 확인한다
         if (!!guhadaResultCode) {
           // resultCode가 200이면 성공, 아니라면 catch 블럭에서 잡을 수 있도록 Promise.reject
@@ -104,7 +103,24 @@ class ApiFactory {
             return response;
           } else {
             this.createGuhadaServerError(response);
-            return Promise.reject(response);
+            if (guhadaResultCode === 6017) {
+              if (!!Cookies.get(key.REFRESH_TOKEN)) {
+                console.error('access token expired. refresh starts.');
+
+                this.refreshAccessToken().then(res => {
+                  // 토큰 재발급에 성공하면 실패한 요청을 다시 호출한다
+                  window.location.reload();
+                });
+              } else {
+                // 리프레시 토큰이 없으면 로그인으로
+                if (isBrowser) {
+                  console.error('401. redirect to login this index.js');
+                  window.location.href = '/login';
+                }
+              }
+            } else {
+              return Promise.reject(response);
+            }
           }
         } else {
           // resultCode가 없다면 결과를 그대로 넘긴다
@@ -115,21 +131,11 @@ class ApiFactory {
         const guhadaResultCode = _.get(error, 'response.data.resultCode');
         const errorStatus = _.get(error, 'response.status');
 
-        console.log(
-          guhadaResultCode,
-          'guhadaResultCode',
-          errorStatus,
-          'errorStatus',
-          error.config,
-          'error.config'
-        );
         this.createGuhadaServerError(error.response);
 
         // TODO: accessToken 인증 오류 status 코드 확인
         if (guhadaResultCode === 401 || errorStatus === 401) {
           if (!!Cookies.get(key.REFRESH_TOKEN)) {
-            console.error('access token expired. refresh starts.');
-
             this.refreshAccessToken().then(res => {
               // 토큰 재발급에 성공하면 실패한 요청을 다시 호출한다
               return axios.request(error.config);
@@ -190,24 +196,6 @@ class ApiFactory {
         !!message ? `"${message}"` : ''
       } at ${_.get(response, 'config.method') || ''} ${responseURL}`
     );
-
-    // if (resultCode === 6017) {
-    //   console.log(response.config, 'response.config');
-    //   if (!!Cookies.get(key.REFRESH_TOKEN)) {
-    //     console.error('access token expired. refresh starts.');
-
-    //     this.refreshAccessToken().then(res => {
-    //       // 토큰 재발급에 성공하면 실패한 요청을 다시 호출한다
-    //       return axios.request(response.config);
-    //     });
-    //   } else {
-    //     // 리프레시 토큰이 없으면 로그인으로
-    //     if (isBrowser) {
-    //       console.error('401. redirect to login');
-    //       window.location.href = '/login';
-    //     }
-    //   }
-    // }
   }
 
   /**
@@ -255,7 +243,6 @@ class ApiFactory {
         .then(res => {
           const { data } = res;
           const { access_token, expires_in, refresh_token } = data;
-
           this.updateAccessToken({
             accessToken: access_token,
             expiresIn: expires_in,
