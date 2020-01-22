@@ -44,16 +44,15 @@ export default {
           ReactPixel.track('CompleteRegistration', res.data);
           gtagTracker.signup('/');
           sessionStorage.set('signup', data.savedPointResponse);
-          if (data.resultCode === 200) {
-            if (login.snsType === snsTypes.KAKAO) {
-              login.loginKakao(login.email);
-            } else if (login.snsType === snsTypes.GOOGLE) {
-              login.loginGoogle(login.email);
-            } else if (login.snsType === snsTypes.NAVER) {
-              login.loginNaver(login.email);
-            } else if (login.snsType === snsTypes.FACEBOOK) {
-              login.loginFacebook(login.email);
-            }
+
+          if (login.snsType === snsTypes.KAKAO) {
+            login.loginKakao(login.email);
+          } else if (login.snsType === snsTypes.GOOGLE) {
+            login.loginGoogle(login.email);
+          } else if (login.snsType === snsTypes.NAVER) {
+            login.loginNaver(login.email);
+          } else if (login.snsType === snsTypes.FACEBOOK) {
+            login.loginFacebook(login.email);
           }
         })
         .catch(e => {
