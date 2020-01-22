@@ -8,7 +8,7 @@ import { isBrowser } from 'childs/lib/common/isServer';
 import { HOSTNAME } from 'childs/lib/constant/hostname';
 
 const client_id = snsAppKey.NAVER;
-const redirectURI = encodeURI(`${HOSTNAME}/callbacknaver`);
+let redirectURI = encodeURI(`${HOSTNAME}/callbacknaver`);
 
 @inject('luckyDraw')
 @observer
@@ -23,6 +23,18 @@ class NaverLogin extends React.Component {
   }
 
   loadNaverLogin = () => {
+    const { loginPosition, luckydrawDealId } = this.props;
+
+    if (loginPosition === 'checkPassword') {
+      redirectURI = encodeURI(
+        `${HOSTNAME}/callbacknaver?location=checkPassword`
+      );
+    } else if (loginPosition === 'luckydrawSNS') {
+      redirectURI = encodeURI(
+        `${HOSTNAME}/callbacknaver?location=luckydrawSNS&luckydrawDealId=${luckydrawDealId}`
+      );
+    }
+
     loadScript('https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js', {
       id: 'naveridlogin_js_sdk',
       onLoad: () => {

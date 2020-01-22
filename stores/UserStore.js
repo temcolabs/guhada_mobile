@@ -232,8 +232,6 @@ export default class UserStore {
               [snsEnum]: true,
             });
           }, toJS(this.connectedSNS));
-
-          console.log(`this.connectedSNS`, toJS(this.connectedSNS));
         }
       } catch (e) {
         this.resetMySnsTypes();
