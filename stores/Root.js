@@ -18,6 +18,7 @@ import ProductDetailLikeStore from './productdetail/ProductDetailLikeStore';
 import ProductDetailBookmarkStore from './productdetail/ProductDetailBookmarkStore';
 import ProductDetailGalleryStore from './productdetail/ProductDetailGalleryStore';
 import SellerFollowStore from './productdetail/SellerFollowStore';
+import SellerReviewStore from './productdetail/SellerReviewStore';
 
 import CartAndPurchaseStore from './productdetail/CartAndPurchaseStore';
 import ShoppingCartSuccessModalStore from './productdetail/ShoppingCartSuccessModalStore';
@@ -84,6 +85,8 @@ class RootStore {
     this.shoppingcart = new ShoppingCartStore(this, initialState);
     this.productreview = new ProductReviewStore(this, initialState);
     this.productoption = new ProductOptionStore(this, initialState);
+    this.sellerReview = new SellerReviewStore(this, initialState);
+
     // 상품 상세
     this.productDetailLike = new ProductDetailLikeStore(this, initialState);
     this.productDetailBookmark = new ProductDetailBookmarkStore(

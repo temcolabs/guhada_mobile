@@ -5,7 +5,7 @@ import bookmarkTarget from 'childs/lib/constant/user/bookmarkTarget';
 import _ from 'lodash';
 const isServer = typeof window === 'undefined';
 
-export default class ProductReviewStore {
+export default class SellerReviewStore {
   constructor(root) {
     if (!isServer) this.root = root;
   }
@@ -21,6 +21,7 @@ export default class ProductReviewStore {
   @observable photoPoint = 0;
   @observable textPoint = 0;
   @observable maximumPoint = 0;
+  @observable sellerId;
 
   @action
   setReviewTab = (tab, rating = '') => {
@@ -81,7 +82,7 @@ export default class ProductReviewStore {
     API.user
       .get(`/reviews`, {
         params: {
-          productId: productId,
+          sellerId: this.sellerId,
           page: reviewPage,
           size: this.unitPerPage,
           sort: this.sort,
@@ -154,18 +155,24 @@ export default class ProductReviewStore {
 
   @action
   addReview = () => {
-    let productId = this.root.productdetail.deals.productId;
     this.reviewPage += 1;
     API.user
-      .get(`/reviews`, {
-        params: {
-          productId: productId,
-          page: this.reviewPage,
-          size: this.unitPerPage,
-          sort: this.sort,
-          rating: this.reviewRating,
-        },
-      })
+      .get(
+        this.reviewTab === 'all'
+          ? `/reviews`
+          : this.reviewTab === 'photo'
+          ? `/reviews/photo`
+          : `/reviews/user-size`,
+        {
+          params: {
+            sellerId: this.sellerId,
+            page: this.reviewPage,
+            size: this.unitPerPage,
+            sort: this.sort,
+            rating: this.reviewRating,
+          },
+        }
+      )
       .then(res => {
         let data = res.data;
         devLog('data', data);
@@ -182,12 +189,10 @@ export default class ProductReviewStore {
 
   @action
   getProductReviewPhoto = (page = '0') => {
-    let productId = this.root.productdetail.deals.productId;
-
     API.user
       .get(`/reviews/photo`, {
         params: {
-          productId: productId,
+          sellerId: this.sellerId,
           page: this.reviewPage,
           size: this.unitPerPage,
           sort: this.sort,
@@ -204,12 +209,10 @@ export default class ProductReviewStore {
 
   @action
   getProductReviewUserSize = (page = '0') => {
-    let productId = this.root.productdetail.deals.productId;
-
     API.user
       .get(`/reviews/user-size`, {
         params: {
-          productId: productId,
+          sellerId: this.sellerId,
           page: this.reviewPage,
           size: this.unitPerPage,
           sort: this.sort,

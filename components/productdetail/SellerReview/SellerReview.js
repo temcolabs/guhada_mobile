@@ -7,21 +7,21 @@ import SellerReviewItems from './SellerReviewItems';
 import _ from 'lodash';
 import SellerReviewEmpty from './SellerReviewEmpty';
 
-@inject('productreview', 'alert', 'login')
+@inject('sellerReview', 'alert', 'login')
 @observer
 class SellerReview extends Component {
   render() {
-    const { productreview, alert, login } = this.props;
-    const review = productreview.review;
+    const { sellerReview, alert, login } = this.props;
+    const review = sellerReview.review;
 
     let handleReviewIcon =
-      review.totalPages === productreview.reviewPage + 1 ? true : false;
+      review.totalPages === sellerReview.reviewPage + 1 ? true : false;
     return (
       <SectionWrap>
         <SellerTab
           totalElements={review.totalElements}
-          setReviewTab={productreview.setReviewTab}
-          setOrder={productreview.setOrder}
+          setReviewTab={sellerReview.setReviewTab}
+          setOrder={sellerReview.setOrder}
         />
         {!_.isNil(review.content) ? (
           <>
@@ -31,7 +31,7 @@ class SellerReview extends Component {
                   <SellerReviewItems
                     review={review}
                     key={index}
-                    productreview={productreview}
+                    sellerReview={sellerReview}
                     alert={alert}
                     login={login}
                   />
@@ -42,7 +42,7 @@ class SellerReview extends Component {
               <div className={css.reviewItemWrap}>
                 <div
                   className={css.addReviewButton}
-                  onClick={() => productreview.addReview()}
+                  onClick={() => sellerReview.addReview()}
                 >
                   상품 리뷰 더보기
                   <div className={css.plusIcon} />
@@ -51,7 +51,7 @@ class SellerReview extends Component {
             )}
           </>
         ) : (
-          <SellerReviewEmpty alert={alert} productreview={productreview} />
+          <SellerReviewEmpty alert={alert} sellerReview={sellerReview} />
         )}
       </SectionWrap>
     );

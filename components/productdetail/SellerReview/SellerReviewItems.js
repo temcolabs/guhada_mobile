@@ -9,12 +9,12 @@ import { pushRoute } from 'childs/lib/router';
 import isTruthy from 'childs/lib/common/isTruthy';
 import cn from 'classnames';
 
-@inject('productreview', 'login', 'alert')
+@inject('sellerReview', 'login', 'alert')
 @observer
 class SellerReviewItems extends Component {
   render() {
-    const { review: item, productreview, login } = this.props;
-    const { reviewBookMarks } = productreview;
+    const { review: item, sellerReview, login } = this.props;
+    const { reviewBookMarks } = sellerReview;
     let checkBookmarks = false;
     if (login.loginStatus === 'LOGIN_DONE') {
       checkBookmarks =
@@ -143,7 +143,7 @@ class SellerReviewItems extends Component {
               <div
                 className={css.likeWrap}
                 onClick={() =>
-                  productreview.setProductReviewBookmarks(item.review.id)
+                  sellerReview.setProductReviewBookmarks(item.review.id)
                 }
               >
                 <div>도움되었어요</div>
@@ -156,7 +156,7 @@ class SellerReviewItems extends Component {
               <div
                 className={css.likeWrap}
                 onClick={() =>
-                  productreview.delProductReviewBookmarks(item.review.id)
+                  sellerReview.delProductReviewBookmarks(item.review.id)
                 }
               >
                 <div>도움되었어요</div>

@@ -151,6 +151,8 @@
 
         & .reviewPhotos {
             width: 100%;
+            height: calc(100vw - 40px);
+            object-fit: contain;
         }
     }
 
