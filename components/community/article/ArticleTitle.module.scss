@@ -1,0 +1,71 @@
+@import 'styles/mixins/index';
+@import 'styles/var';
+
+.wrap {
+  margin-top: 40px;
+  padding-bottom: 40px;
+}
+
+.articleInfo {
+  @include clearfix;
+}
+
+.category {
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+  color: $blue-purple;
+  line-height: 1.1;
+  min-height: 1.1em;
+}
+
+.title {
+  margin-top: 14px;
+  margin-bottom: 16px;
+  font-size: 21px;
+  font-weight: 500;
+  color: #111111;
+  line-height: 1.1;
+  min-height: 1.1em;
+}
+
+.articleInfo {
+}
+
+.articleInfo_username {
+  font-size: 13px;
+  color: #444444;
+  margin-right: 15px;
+}
+
+.articleInfo_memberGrade {
+  @include memberGrade;
+}
+
+.articleInfo_created {
+  font-size: 12px;
+  color: #7c7c7c;
+}
+
+.articleInfo_user {
+  float: left;
+}
+
+.articleInfo_counts {
+  float: right;
+  font-size: 12px;
+
+  & > * {
+    color: #7c7c7c;
+    &:not(:last-child) {
+      @include middot(22px, 2px, #7c7c7c);
+    }
+  }
+}
+
+.articleInfo_read {
+}
+.articleInfo_like {
+}
+.articleInfo_read {
+}

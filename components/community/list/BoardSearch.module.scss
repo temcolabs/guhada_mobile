@@ -1,0 +1,22 @@
+@import 'styles/mixins/index';
+
+.wrap {
+  @include clearfix;
+  width: 440px;
+  margin: 33px auto 0;
+
+  & > * {
+    display: block;
+    margin: 0;
+    float: left;
+
+    &:nth-child(1) {
+      width: 140px;
+    }
+
+    &:nth-child(2) {
+      width: calc(100% - 140px);
+      padding-left: 7px;
+    }
+  }
+}

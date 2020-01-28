@@ -1,0 +1,153 @@
+@import 'styles/mixins/index';
+@import 'styles/var';
+
+.wrap {
+  width: 100%;
+}
+
+.contentsWrap {
+  @include clearfix;
+  position: relative;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+$avartarAreaWidth: 70px;
+.avatar {
+  position: relative;
+  float: left;
+  width: $avartarAreaWidth;
+}
+
+.avatar_image {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  background-color: #eee;
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+}
+
+.avatar_memberGrade {
+  @include buttonCentered;
+  position: absolute;
+  right: -7px;
+  top: 19px;
+  z-index: 1;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  background: #fff;
+  font-size: 9px;
+  font-weight: 500;
+  color: #444444;
+  border: 1px solid #eeeeee;
+}
+
+// 대댓글임을 알려주는 기호
+.subCommentIndicator {
+  position: absolute;
+  left: -20px;
+  top: 10px;
+  width: 11px;
+  height: 11px;
+  border-bottom: 1px solid #eee;
+  border-left: 1px solid #eee;
+}
+
+.comment {
+  float: left;
+  width: calc(100% - #{$avartarAreaWidth});
+}
+
+.comment_nickname {
+  font-size: 14px;
+  font-weight: bold;
+  color: #111111;
+}
+
+.timeCreatedAt {
+  margin-top: 3px;
+  float: right;
+  font-size: 12px;
+  line-height: 1.3;
+  color: #cccccc;
+  font-weight: normal;
+}
+
+.comment_contents {
+  margin-top: 5px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #444444;
+
+  // 삭제된 댓글
+  &.isDeleted {
+    color: #777;
+    margin-top: 9px;
+  }
+}
+
+.comment_parentComment {
+  font-weight: bold;
+  margin-right: 0.5em;
+}
+
+.comment_controlButtons {
+  margin-top: 10px;
+
+  & button {
+    font-size: 13px;
+    color: #999999;
+
+    &:not(:last-child) {
+      @include middot(22px, 2px, #ccc);
+    }
+  }
+}
+
+.button_showCommentInput {
+  color: #999;
+}
+
+// 좋아요
+.button_like {
+  color: #999;
+
+  &.isOn {
+    color: $blue-purple;
+  }
+}
+
+.button_report {
+  color: #cccccc;
+}
+
+// 대댓글 목록
+.subCommentList {
+  margin-left: 20px;
+}
+
+// 첨부 이미지
+.attachedImagesContainer {
+  @include clearfix;
+  margin-top: 26px;
+  margin-bottom: 40px;
+}
+
+.attachedImage {
+  float: left;
+  position: relative;
+  margin-right: 15px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  width: 200px;
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  &:hover {
+    cursor: pointer;
+  }
+}

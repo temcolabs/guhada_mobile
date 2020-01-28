@@ -1,0 +1,102 @@
+@import 'styles/mixins/index';
+
+$imageContainerWidth: 80px;
+
+.wrap {
+  @include clearfix;
+  display: block;
+  padding: 20px 0;
+  border-bottom: 1px solid #eeeeee;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.imageContainer {
+  width: $imageContainerWidth;
+  float: left;
+}
+
+.productImage {
+  width: 60px;
+  height: 60px;
+  border-radius: 5px;
+  background-color: #eee;
+  background-size: cover;
+  background-position: center;
+}
+
+.infoContainer {
+  width: calc(100% - #{$imageContainerWidth});
+  float: left;
+}
+
+.title {
+  @include clearfix;
+  padding-top: 6px;
+
+  & > * {
+    display: inline-block;
+    float: left;
+  }
+}
+
+.title_text {
+  @include setHeightLimit(2);
+  font-size: 15px;
+  font-weight: 500;
+  color: #111111;
+  max-width: calc(100% - 30px);
+  padding-right: 6px;
+}
+
+.title_commentCount {
+  margin-top: 2px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #5d2ed1;
+  display: block;
+  position: relative;
+}
+
+.title_newIcon {
+  width: 13px;
+  height: 13px;
+  margin-top: 4px;
+  margin-left: 4px;
+  background-image: url('/static/icon/community/icon-new-red.png');
+  background-size: contain;
+}
+
+.itemInfo {
+  margin-top: 5px;
+  font-size: 12px;
+
+  & > * {
+    color: #7c7c7c;
+    &:not(:last-child) {
+      @include middot(22px, 2px, #ccc);
+    }
+  }
+}
+
+.itemInfo_categoryFilter {
+  color: #5d2ed1;
+}
+
+.itemInfo_like {
+}
+
+.itemInfo_read {
+}
+
+.itemInfo_created {
+}
+
+.itemInfo_username {
+}
+
+.itemInfo_memberGrade {
+  @include memberGrade;
+}

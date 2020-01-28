@@ -1,0 +1,23 @@
+.boardSelector {
+  width: 100%;
+  position: relative;
+  border-bottom: 2px solid #111111;
+  height: 50px;
+  background: url('/static/icon/community/arrow-down-boardselector.png')
+    no-repeat right 5px;
+  background-size: 20px;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  & button {
+    text-align: left;
+    width: 100%;
+    font-size: 20px;
+    height: 29px;
+    font-weight: bold;
+    line-height: 1.2;
+    color: #111111;
+  }
+}

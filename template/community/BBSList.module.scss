@@ -1,0 +1,15 @@
+@import 'styles/mixins/index';
+
+.boardListContainer {
+  position: relative;
+  margin-top: 30px;
+
+  // 데이터를 가져오는 중
+  &.isFetching {
+    min-height: 100vh;
+  }
+}
+
+.noResults {
+  @include centered;
+}

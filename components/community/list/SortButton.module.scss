@@ -1,0 +1,17 @@
+@import 'styles/mixins/index';
+
+.wrap {
+  position: relative;
+  display: inline-block;
+  text-align: right;
+  width: 130px;
+}
+
+.button {
+  font-size: 14px;
+  color: #777777;
+  padding-right: 22px;
+  background: url('/static/icon/community/arrow-down-gray.png') no-repeat right
+    center;
+  background-size: 12px;
+}

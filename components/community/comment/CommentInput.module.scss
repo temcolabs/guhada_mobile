@@ -1,0 +1,80 @@
+@import 'styles/mixins/index';
+
+.wrap {
+  width: 100%;
+}
+
+$inputHeight: 50px;
+$registerButtonWidth: 70px;
+.inputBox {
+  @include clearfix;
+  margin-top: 20px;
+}
+
+.inputBox_input {
+  display: block;
+  float: left;
+  width: calc(100% - #{$registerButtonWidth});
+  height: $inputHeight;
+  background-color: #f7f8f9;
+  color: #111;
+  padding: 15px;
+
+  &::placeholder {
+    color: #777;
+  }
+}
+
+.inputBox_registerButton {
+  @include buttonCentered;
+  display: block;
+  float: right;
+  width: $registerButtonWidth;
+  height: $inputHeight;
+  background-color: #444444;
+  color: #ffffff;
+}
+
+.attach {
+  margin-top: 10px;
+}
+
+.attach_photoButton {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background: url('/static/icon/community/icon-camera.png') no-repeat center;
+  background-size: 20px 17px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.attachedImages {
+  @include clearfix;
+  margin-top: 26px;
+  margin-bottom: 40px;
+}
+
+.imagePreview {
+  float: left;
+  position: relative;
+  margin-right: 15px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  width: 207px;
+  height: 207px;
+  background-size: cover;
+  background-position: center;
+}
+
+.deleteImageButton {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: 0;
+  right: 0;
+  background: url('/static/icon/like_item_delete.png') no-repeat center;
+  background-size: cover;
+}

@@ -1,0 +1,21 @@
+.button {
+  display: inline-block;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-image: url('/static/icon/community/icon-bookmark-off.png');
+  background-size: 25px;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: solid 1px #eeeeee;
+  text-align: center;
+  color: #7c7c7c;
+  font-size: 13px;
+  text-align: center;
+
+  &.isOn {
+    background-image: url('/static/icon/community/icon-bookmark-on.png');
+    border-color: #5d2ed1;
+    color: #5d2ed1;
+  }
+}

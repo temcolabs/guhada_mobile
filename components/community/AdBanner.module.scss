@@ -1,0 +1,24 @@
+@import 'styles/mixins/index';
+
+.wrap {
+  width: 100%;
+  position: relative;
+}
+
+.banner {
+  height: 160px;
+  background-size: cover;
+  background-position: center;
+
+  &.href {
+    cursor: pointer;
+  }
+}
+
+.banner_1280 {
+  @extend .banner;
+
+  @include mediaLG {
+    display: none;
+  }
+}

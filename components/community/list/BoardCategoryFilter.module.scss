@@ -1,0 +1,34 @@
+@mixin categoryButtonHighlight {
+  border-color: #5d2ed1;
+  color: #5d2ed1;
+}
+
+.wrap {
+  margin-top: 30px;
+}
+
+.categoryButton {
+  display: inline-block;
+  padding: 8px 20px 9px;
+  border-radius: 21px;
+  border: solid 1px #eeeeee;
+  background-color: #ffffff;
+  color: #000;
+  font-size: 14px;
+  line-height: inherit;
+  color: #777777;
+  text-align: center;
+
+  &:not(:first-child) {
+    margin-left: 5px;
+  }
+
+  &:hover {
+    cursor: pointer;
+    @include categoryButtonHighlight;
+  }
+
+  &.isSelected {
+    @include categoryButtonHighlight;
+  }
+}

@@ -1,0 +1,91 @@
+@import 'styles/mixins/index';
+
+.wrap {
+  position: relative;
+  text-align: right;
+}
+
+.button {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 2.15;
+  letter-spacing: normal;
+  text-align: left;
+  color: #999999;
+}
+
+.button_count {
+  color: #5d2ed1;
+}
+
+// 클릭시 표시되는 공유 관련 메뉴
+.slideArea {
+  width: 400px;
+  padding: 30px;
+  border: solid 1px #eeeeee;
+  background-color: #ffffff;
+  right: 0;
+}
+
+.slideArea_closeButton {
+  width: 30px;
+  height: 30px;
+  background: url('/static/icon/modal_close.png') no-repeat center;
+  background-size: contain;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.slideArea_title {
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+  color: #111111;
+}
+
+.tempArticle {
+  position: relative;
+  @include clearfix;
+  width: 100%;
+  padding: 20px;
+  background-color: #f9f9fa;
+  font-size: 12px;
+  text-align: left;
+  color: #7c7c7c;
+  margin-top: 20px;
+}
+
+.tempArticle_item {
+  width: 260px;
+  float: left;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.tempArticle_title {
+  font-size: 14px;
+  text-align: left;
+  color: #7c7c7c;
+}
+
+.tempArticle_savedAt {
+  margin-top: 5px;
+  font-size: 13px;
+  text-align: left;
+  color: #cccccc;
+}
+
+.tempArticle_removeButton {
+  @include centeredY;
+  right: 15px;
+  float: right;
+  width: 30px;
+  height: 30px;
+  background: url('/static/icon/community/icon-delete.png') no-repeat center;
+  background-size: contain;
+}
