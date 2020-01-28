@@ -71,49 +71,49 @@ export default class SpecialStore {
         },
       })
       .then(res => {
-        if (res.data.data.mainUse) {
-          if (page === 1) {
-            this.specialDetailList = [];
-            this.endPage = 0;
-          }
-
-          this.specialDetail = res.data.data;
-          this.totalItemCount = this.specialDetail.totalItemCount;
-          this.status.detailPage = true;
-          this.page = page;
-          this.order = order;
-
-          if (this.specialDetailList.length === 0) {
-            this.specialDetailList = res.data.data.planListDetails;
-          } else {
-            this.specialDetailList = this.specialDetailList.concat(
-              res.data.data.planListDetails
-            );
-            this.endPage = Math.ceil(this.totalItemCount / 20);
-            if (this.page >= this.endPage) {
-              this.infinityStauts = false;
-            } else {
-              this.infinityStauts = true;
-            }
-          }
-
-          devLog(
-            toJS(this.specialDetailList),
-            this.totalItemCount,
-            'special detail'
-          );
-        } else {
-          this.root.alert.showConfirm({
-            content: '존재하지 않는 기획전 입니다.',
-            confirmText: '확인',
-            onConfirm: () => {
-              Router.push('/');
-            },
-            onCancel: () => {
-              Router.push('/');
-            },
-          });
+        if (page === 1) {
+          this.specialDetailList = [];
+          this.endPage = 0;
         }
+
+        this.specialDetail = res.data.data;
+        this.totalItemCount = this.specialDetail.totalItemCount;
+        this.status.detailPage = true;
+        this.page = page;
+        this.order = order;
+
+        if (this.specialDetailList.length === 0) {
+          this.specialDetailList = res.data.data.planListDetails;
+        } else {
+          this.specialDetailList = this.specialDetailList.concat(
+            res.data.data.planListDetails
+          );
+          this.endPage = Math.ceil(this.totalItemCount / 20);
+          if (this.page >= this.endPage) {
+            this.infinityStauts = false;
+          } else {
+            this.infinityStauts = true;
+          }
+        }
+
+        devLog(
+          toJS(this.specialDetailList),
+          this.totalItemCount,
+          'special detail'
+        );
+
+        // else {
+        //   this.root.alert.showConfirm({
+        //     content: '존재하지 않는 기획전 입니다.',
+        //     confirmText: '확인',
+        //     onConfirm: () => {
+        //       Router.push('/');
+        //     },
+        //     onCancel: () => {
+        //       Router.push('/');
+        //     },
+        //   });
+        // }
       })
       .catch(err => {
         console.log(err, 'special detail get error');

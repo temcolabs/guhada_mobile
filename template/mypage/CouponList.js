@@ -5,7 +5,7 @@ import MypageCouponTab from 'components/mypage/coupon/MypageCouponTab';
 import MypageCouponEnrollment from 'components/mypage/coupon/MypageCouponEnrollment';
 import MypageValidCouponList from 'components/mypage/coupon/MypageValidCouponList';
 import MypageInvalidCouponList from 'components/mypage/coupon/MypageInvalidCouponList';
-
+import { isBrowser } from 'childs/lib/common/isServer';
 import { inject, observer } from 'mobx-react';
 /**
  * 마이페이지 - 쿠폰
@@ -14,6 +14,27 @@ import { inject, observer } from 'mobx-react';
 @inject('mypageCoupon')
 @observer
 class CouponList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  componentDidMount() {
+    if (isBrowser) {
+      this.getVaildCoupon();
+      this.getInvaildCoupon();
+    }
+  }
+
+  getVaildCoupon = () => {
+    const { mypageCoupon } = this.props;
+    mypageCoupon.getVaildCoupon({ page: 1 });
+  };
+
+  getInvaildCoupon = () => {
+    const { mypageCoupon } = this.props;
+    mypageCoupon.getInvaildCoupon({ page: 1 });
+  };
   render() {
     let { mypageCoupon } = this.props;
     return (

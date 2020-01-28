@@ -1,0 +1,27 @@
+.wrap {
+  width: 300px;
+  height: 400px;
+
+  & .imageWrap {
+    width: 100%;
+    height: 350px;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  & .buttonWrap {
+    & button {
+      width: 50%;
+      height: 50px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: normal;
+      color: #666666;
+      background-color: #eeeeee;
+
+      &:first-child {
+        border-right: 1px solid #dddddd;
+      }
+    }
+  }
+}

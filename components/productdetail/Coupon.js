@@ -17,7 +17,7 @@ class Coupon extends Component {
               // TODO: 쿠폰 다운로드 여부 확인
               const isCouponDownloaded = coupon.alreadySaved;
 
-              return !isCouponDownloaded ? (
+              return isCouponDownloaded ? (
                 <div className={css.coupon__wrap} key={index}>
                   <div
                     className={css.coupon__title}
@@ -26,6 +26,8 @@ class Coupon extends Component {
                     {`${
                       coupon.saveTargetType === 'FOLLOW'
                         ? coupon.couponTitle
+                        : coupon.discountType === 'RATE'
+                        ? coupon.discountRate * 100 + `% 할인쿠폰`
                         : coupon.discountPrice?.toLocaleString() + `원 할인쿠폰`
                     }`}
                   </div>
@@ -51,6 +53,8 @@ class Coupon extends Component {
                     {`${
                       coupon.saveTargetType === 'FOLLOW'
                         ? coupon.couponTitle
+                        : coupon.discountType === 'RATE'
+                        ? coupon.discountRate * 100 + `% 할인쿠폰`
                         : coupon.discountPrice?.toLocaleString() + `원 할인쿠폰`
                     }`}
                   </div>

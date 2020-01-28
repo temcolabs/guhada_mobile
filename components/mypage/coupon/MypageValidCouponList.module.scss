@@ -1,8 +1,8 @@
 @import 'styles/mixins/index';
 
 .wrap {
-  margin-top: 40px;
   padding: 0 20px;
+  margin: 40px 0;
   @include clearfix;
 
   .title {
@@ -11,7 +11,140 @@
     color: #111;
   }
   ul {
-    margin: 0 auto;
     @include clearfix;
+
+    li.coupon__list__item {
+      position: relative;
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      margin-top: 40px;
+
+      &:first-child {
+        margin-top: 20px;
+      }
+      .coupon {
+        position: relative;
+        width: 220px;
+        height: 140px;
+        padding: 25px 20px;
+        border: 1px solid #e5e5e5;
+        border-top-left-radius: 6px;
+        border-bottom-left-radius: 6px;
+        border-right: none;
+        @include break350 {
+          width: 100%;
+          flex: 1;
+        }
+        & .coupon__header {
+          display: flex;
+          justify-content: space-between;
+          .coupon__title {
+            font-size: 14px;
+            color: #111;
+            font-weight: normal;
+            white-space: nowrap;
+          }
+          .coupon__status {
+            color: #999;
+            white-space: nowrap;
+          }
+        }
+
+        .coupon__amount {
+          font-size: 22px;
+          color: #111;
+          font-weight: bold;
+          white-space: nowrap;
+        }
+
+        .coupon__number {
+          margin-top: 30px;
+          font-size: 12px;
+          color: #777;
+          font-weight: normal;
+          white-space: nowrap;
+        }
+      }
+
+      .coupon__seller {
+        position: relative;
+        height: 140px;
+        min-width: 100px;
+        background: url('/static/icon/mypage/coupon@3x.png') no-repeat;
+        background-size: cover;
+        background-position: center;
+
+        .seller {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+
+          .seller__logo {
+            margin: 0 auto;
+            width: 40px;
+            height: 40px;
+            background-position: center;
+            background-size: cover;
+            border-radius: 50%;
+          }
+
+          .seller__name {
+            color: #fff;
+            margin-top: 10px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: bold;
+            width: 90px;
+            min-height: 16px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
+        }
+        .coupon__delete {
+          position: absolute;
+          top: 5px;
+          right: 5px;
+          background: url('/static/icon/mypage/coupon-del-icon@3x.png')
+            no-repeat;
+          background-position: center;
+          background-size: cover;
+          width: 20px;
+          height: 20px;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .coupon__limit {
+      margin: 15px auto 0;
+      width: 320px;
+      font-size: 13px;
+      font-weight: normal;
+      color: #777;
+      line-height: 1.54;
+      @include break350 {
+        width: 100%;
+      }
+    }
+  }
+
+  .more {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    border-top: 1px solid #ebebeb;
+    margin-top: 40px;
+    .detailBtn {
+      margin-left: 4px;
+      background: url('/static/icon/detail_btn_more_open.png') no-repeat;
+      background-size: cover;
+      background-position: center;
+      width: 16px;
+      height: 16px;
+    }
   }
 }

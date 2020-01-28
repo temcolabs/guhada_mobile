@@ -39,13 +39,13 @@ export default class OrderPaymentStore {
     tempEditAddress: {},
     defaultAddress: {},
     newAddress: {
-      shippingName: null,
-      address: null,
-      roadAddress: null,
-      zip: null,
-      detailAddress: null,
-      recipientName: null,
-      recipientMobile: null,
+      shippingName: '',
+      address: '',
+      roadAddress: '',
+      zip: '',
+      detailAddress: '',
+      recipientName: '',
+      recipientMobile: '',
       defaultAddress: false,
       shippingMessage: false,
     },
@@ -195,13 +195,6 @@ export default class OrderPaymentStore {
       })
       .catch(err => {
         devLog(err, 'err');
-        // this.root.alert.showAlert({
-        //   content: `${_.get(err, 'data.message') || '오류발생'}`,
-        //   onConfirm: () => {
-        //     this.gotoMain();
-        //   },
-        // });
-        Router.push('/');
       });
   };
 
@@ -254,20 +247,13 @@ export default class OrderPaymentStore {
     daum.postcode.load(function() {
       new daum.Postcode({
         oncomplete: function(data) {
+          console.log(data, '배송지 주소');
           switch (path) {
             case '주문페이지-신규':
-              if (data.userSelectedType === 'J') {
-                setNewShippingAddress(null, 'address', data);
-              } else {
-                setNewShippingAddress(null, 'roadAddress', data);
-              }
+              setNewShippingAddress(null, 'address', data);
               break;
             case '주문페이지-수정':
-              if (data.userSelectedType === 'J') {
-                addressEditing(null, 'address', data);
-              } else {
-                addressEditing(null, 'roadAddress', data);
-              }
+              addressEditing(null, 'address', data);
               break;
             default:
               break;
@@ -296,17 +282,18 @@ export default class OrderPaymentStore {
 
         this.orderShippingList.newAddress.recipientMobile = phoneNum;
         break;
-      case 'roadAddress':
-        this.orderShippingList.newAddress.roadAddress = address.roadAddress;
-        this.orderShippingList.newAddress.zip = address.zonecode;
-        this.orderShippingList.newAddress.address = address.jibunAddress;
-        this.addressType = 'R';
-        break;
+
       case 'address':
-        this.orderShippingList.newAddress.address = address.jibunAddress;
+        this.orderShippingList.newAddress.address =
+          address.jibunAddress === ''
+            ? address.autoJibunAddress
+            : address.jibunAddress;
         this.orderShippingList.newAddress.zip = address.zonecode;
-        this.orderShippingList.newAddress.roadAddress = address.roadAddress;
-        this.addressType = 'J';
+        this.orderShippingList.newAddress.roadAddress =
+          address.roadAddress === ''
+            ? address.autoRoadAddress
+            : address.roadAddress;
+        this.addressType = address.userSelectedType;
         break;
       default:
         break;
@@ -524,19 +511,17 @@ export default class OrderPaymentStore {
       case 'recipientMobile':
         this.orderShippingList.tempEditAddress.recipientMobile = editValue;
         break;
-      case 'roadAddress':
-        this.orderShippingList.tempEditAddress.roadAddress =
-          address.roadAddress;
-        this.orderShippingList.tempEditAddress.zip = address.zonecode;
-        this.orderShippingList.tempEditAddress.address = address.jibunAddress;
-        this.addressType = 'R';
-        break;
       case 'address':
-        this.orderShippingList.tempEditAddress.address = address.jibunAddress;
+        this.orderShippingList.tempEditAddress.address =
+          address.jibunAddress === ''
+            ? address.autoJibunAddress
+            : address.jibunAddress;
         this.orderShippingList.tempEditAddress.zip = address.zonecode;
         this.orderShippingList.tempEditAddress.roadAddress =
-          address.roadAddress;
-        this.addressType = 'J';
+          address.roadAddress === ''
+            ? address.autoRoadAddress
+            : address.roadAddress;
+        this.addressType = address.userSelectedType;
         break;
       default:
         break;
@@ -643,7 +628,10 @@ export default class OrderPaymentStore {
       });
       this.status.newShippingName = true;
       return false;
-    } else if (!this.orderShippingList.newAddress.address) {
+    } else if (
+      !this.orderShippingList.newAddress.address &&
+      !this.orderShippingList.newAddress.roadAddress
+    ) {
       this.root.alert.showAlert({
         content: '주소를 입력해주세요.',
       });
@@ -784,6 +772,10 @@ export default class OrderPaymentStore {
   //--------------------- 결제요청 ---------------------
   @action
   payment = () => {
+    devLog(
+      this.orderShippingList.newAddress,
+      'this.orderShippingList.newAddress'
+    );
     let cartList = this.getCartList();
     let paymentCheck = true;
 
@@ -816,7 +808,10 @@ export default class OrderPaymentStore {
         });
         this.status.newShippingName = true;
         paymentCheck = false;
-      } else if (!this.orderShippingList.newAddress.address) {
+      } else if (
+        !this.orderShippingList.newAddress.address &&
+        !this.orderShippingList.newAddress.roadAddress
+      ) {
         this.root.alert.showAlert({
           content: '주소를 입력해주세요.',
         });
@@ -1032,14 +1027,8 @@ export default class OrderPaymentStore {
     // form.P_GOODS.value = encodeURIComponent(form.P_GOODS.value);
     // form.P_UNAME.value = encodeURIComponent(form.P_UNAME.value);
 
-    // devLog(form, 'form check');
-    // devLog(this.paymentForm.jsUrl, 'check this.paymentForm.jsUrl');
-    // devLog(form.P_GOODS.value, form.P_UNAME.value, 'check encode');
     form.action = this.paymentForm.jsUrl;
     form.submit();
-    // };
-    // const url = this.paymentForm.jsUrl;
-    // loadScript(url, { callback: action, async: false, id: 'INIStdPay' });
   };
 
   @action

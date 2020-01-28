@@ -5,7 +5,7 @@ import moment from 'moment';
 import openPopupCenter from 'childs/lib/common/openPopupCenter';
 import { dateFormat } from 'childs/lib/constant/date';
 import orderService from 'childs/lib/API/order/orderService';
-
+import { devLog } from 'childs/lib/common/devLog';
 /**
  * 주문 데이터
  */
@@ -90,6 +90,7 @@ export default class OrderCompleteDetailStore {
       this.data = data.data;
 
       this.receiptUrl = await this.getReceitUrl(data.data?.pgTid);
+      devLog(this.data, 'getOrderComplete');
     } catch (e) {
       console.error(e);
     }

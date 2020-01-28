@@ -6,7 +6,6 @@ const merge = require('lodash/merge');
 const _ = require('lodash');
 const getGuhadaCustomHeaders = require('../common/getGuhadaCustomHeaders');
 const isBrowser = typeof window === 'object';
-
 const key = {
   ACCESS_TOKEN: `access_token`,
   REFRESH_TOKEN: `refresh_token`,
@@ -97,7 +96,6 @@ class ApiFactory {
     return {
       onResponse: response => {
         const guhadaResultCode = _.get(response, 'data.resultCode');
-
         // resultCode가 있다면 확인한다
         if (!!guhadaResultCode) {
           // resultCode가 200이면 성공, 아니라면 catch 블럭에서 잡을 수 있도록 Promise.reject
@@ -105,8 +103,24 @@ class ApiFactory {
             return response;
           } else {
             this.createGuhadaServerError(response);
+            if (guhadaResultCode === 6017) {
+              if (!!Cookies.get(key.REFRESH_TOKEN)) {
+                console.error('access token expired. refresh starts.');
 
-            return Promise.reject(response);
+                this.refreshAccessToken().then(res => {
+                  // 토큰 재발급에 성공하면 실패한 요청을 다시 호출한다
+                  window.location.reload();
+                });
+              } else {
+                // 리프레시 토큰이 없으면 로그인으로
+                if (isBrowser) {
+                  console.error('401. redirect to login this index.js');
+                  window.location.href = '/login';
+                }
+              }
+            } else {
+              return Promise.reject(response);
+            }
           }
         } else {
           // resultCode가 없다면 결과를 그대로 넘긴다
@@ -122,8 +136,6 @@ class ApiFactory {
         // TODO: accessToken 인증 오류 status 코드 확인
         if (guhadaResultCode === 401 || errorStatus === 401) {
           if (!!Cookies.get(key.REFRESH_TOKEN)) {
-            console.error('access token expired. refresh starts.');
-
             this.refreshAccessToken().then(res => {
               // 토큰 재발급에 성공하면 실패한 요청을 다시 호출한다
               return axios.request(error.config);
@@ -131,7 +143,7 @@ class ApiFactory {
           } else {
             // 리프레시 토큰이 없으면 로그인으로
             if (isBrowser) {
-              console.error('401. redirect to login');
+              console.error('401. redirect to login this index.js');
               window.location.href = '/login';
             }
           }
@@ -231,7 +243,6 @@ class ApiFactory {
         .then(res => {
           const { data } = res;
           const { access_token, expires_in, refresh_token } = data;
-
           this.updateAccessToken({
             accessToken: access_token,
             expiresIn: expires_in,
@@ -260,7 +271,24 @@ class ApiFactory {
     });
   }
 
+  getRefreshTokenExpires(refreshToken) {
+    let loginInfoKey;
+
+    if (refreshToken) {
+      loginInfoKey = refreshToken.split('.');
+    }
+
+    if (isBrowser && Array.isArray(loginInfoKey)) {
+      const parsedloginInfo = JSON.parse(window.atob(loginInfoKey[1]));
+
+      return parsedloginInfo.exp;
+    } else {
+      return null;
+    }
+  }
+
   saveAuthTokens({ accessToken, expiresIn, refreshToken }) {
+    let refreshTokenExpires = this.getRefreshTokenExpires(refreshToken);
     if (window.location.hostname === 'localhost') {
       Cookies.set(key.ACCESS_TOKEN, accessToken, {
         expires: moment()
@@ -270,7 +298,7 @@ class ApiFactory {
 
       Cookies.set(key.REFRESH_TOKEN, refreshToken, {
         expires: moment()
-          .add(1, 'day')
+          .add(refreshTokenExpires, 'milliseconds')
           .toDate(),
       });
     } else {
@@ -284,7 +312,7 @@ class ApiFactory {
 
       Cookies.set(key.REFRESH_TOKEN, refreshToken, {
         expires: moment()
-          .add(1, 'day')
+          .add(refreshTokenExpires, 'milliseconds')
           .toDate(),
         domain: '.guhada.com',
       });

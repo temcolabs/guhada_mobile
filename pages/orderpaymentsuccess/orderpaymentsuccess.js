@@ -14,6 +14,8 @@ import kochavaTracker from 'childs/lib/tracking/kochava/kochavaTracker';
 import naverShoppingTrakers from 'childs/lib/tracking/navershopping/naverShoppingTrakers';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
 import momentTracker from 'childs/lib/tracking/kakaomoment/momentTracker';
+import ReactPixel from 'react-facebook-pixel';
+import gtagTracker from 'childs/lib/tracking/google/gtagTracker';
 
 @inject('orderpaymentsuccess', 'user')
 @observer
@@ -49,6 +51,9 @@ class index extends React.Component {
     // 카카오 모먼트 트래커
     momentTracker.purchaseComplete();
 
+    // gtag 트래커
+    gtagTracker.purchaseComplete();
+
     // 크리테오 트래커
     criteoTracker.purchaseComplete({
       email: userInfo?.email,
@@ -71,6 +76,8 @@ class index extends React.Component {
     });
 
     kochavaTracker.purchaseComplete({ successInfo });
+
+    ReactPixel.track('Purchase', successInfo);
   };
 
   render() {

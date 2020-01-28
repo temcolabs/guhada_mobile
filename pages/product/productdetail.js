@@ -53,7 +53,7 @@ class ProductDetailPage extends React.Component {
   };
 
   componentDidMount() {
-    let { productdetail, productDetailLike, user } = this.props;
+    const { productdetail, productDetailLike, user } = this.props;
     let dealId = getParameterByName('deals');
     productdetail.getDeals(dealId);
     productDetailLike.getUserLike();

@@ -52,10 +52,10 @@ export default class ShoppingCartStore {
   getUserShoppingCartList = () => {
     return API.order
       .get(`/cart`)
-      .then(({ data }) => {
-        const cartData = data.data;
-        devLog(data, '장바구니 데이터');
-        this.cartList = cartData.cartItemResponseList;
+      .then(res => {
+        devLog(res, '장바구니 데이터');
+        const cartData = res.data.data;
+        this.cartList = cartData?.cartItemResponseList;
         this.getOptions();
         this.setTotalItemCheckbox();
         this.getTotalResultAmount();
@@ -70,15 +70,18 @@ export default class ShoppingCartStore {
         return cartData;
       })
       .catch(err => {
-        devLog(err);
-        if (err.data) {
-          pushRoute(
-            `/login?${qs.stringify({
-              redirectTo: `/shoppingcart`,
-            })}`,
-            { isReplace: true }
-          );
-        }
+        console.error(err);
+        let data = _.get(err, 'data');
+        devLog(err, data, 'message', 'resultCode');
+
+        // if (data) {
+        //   pushRoute(
+        //     `/login?${qs.stringify({
+        //       redirectTo: `/shoppingcart`,
+        //     })}`,
+        //     { isReplace: true }
+        //   );
+        // }
       });
   };
 
@@ -88,7 +91,7 @@ export default class ShoppingCartStore {
       .get(`/cart`)
       .then(res => {
         let data = res.data;
-        this.cartList = data.data.cartItemResponseList;
+        this.cartList = data?.data?.cartItemResponseList;
         this.cartAmount = this.cartList.length;
         devLog(data, 'global shoppingcart length');
       })
@@ -104,13 +107,11 @@ export default class ShoppingCartStore {
       .get(`/deals?division=MAIN_NEW_ARRIVALS&unitPerPage=3`)
       .then(res => {
         let data = res.data;
-        if (data.resultCode === 200) {
-          this.realTimePopularityProducts = data.data;
-          devLog(
-            this.realTimePopularityProducts,
-            'this.realTimePopularityProducts'
-          );
-        }
+        this.realTimePopularityProducts = data.data;
+        devLog(
+          this.realTimePopularityProducts,
+          'this.realTimePopularityProducts'
+        );
       })
       .catch(err => {
         devLog(err, 'err');
@@ -123,7 +124,7 @@ export default class ShoppingCartStore {
     API.order.get(`/cart`).then(res => {
       let data = res.data;
       if (data.resultCode === 200) {
-        this.cartList = data.data.cartItemResponseList;
+        this.cartList = data?.data?.cartItemResponseList;
         this.getOptions();
         this.getTotalResultAmount();
       }

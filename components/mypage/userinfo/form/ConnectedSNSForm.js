@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import css from './UserEditForm.module.scss';
-import { useObserver } from 'mobx-react-lite';
+import { useObserver, observer } from 'mobx-react-lite';
 import Checkbox from 'components/mypage/form/Checkbox';
 import useStores from 'stores/useStores';
 import cn from 'classnames';
 
-export default function ConnectedSNSForm() {
+function ConnectedSNSForm() {
   const { user: userStore } = useStores();
   const { connectedSNS } = userStore;
 
-  return useObserver(() => (
+  return (
     <div className={cn(css.formGroup, css.connectedSnsWrap)}>
       <div className={css.formInput}>
         <Checkbox
@@ -52,5 +52,6 @@ export default function ConnectedSNSForm() {
         </Checkbox>
       </div>
     </div>
-  ));
+  );
 }
+export default observer(ConnectedSNSForm);

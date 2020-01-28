@@ -20,6 +20,8 @@ import _ from 'lodash';
 import getIsProdHost from 'childs/lib/tracking/getIsProdHost';
 import CommonHead from 'childs/lib/components/CommonHead';
 import momentTracker from 'childs/lib/tracking/kakaomoment/momentTracker';
+import ReactPixel from 'react-facebook-pixel';
+import gtagTracker from 'childs/lib/tracking/google/gtagTracker';
 
 moment.locale('ko');
 
@@ -33,6 +35,7 @@ class GuhadaMobileWeb extends App {
       GuhadaMobileWeb.naverShoppingTracker();
       GuhadaMobileWeb.aceCouterTracker(ctx.asPath);
       momentTracker.visit();
+      gtagTracker.visit();
     }
 
     let initialProps = {};
@@ -77,6 +80,7 @@ class GuhadaMobileWeb extends App {
       initialProps, // 컴포넌트 intialProps
       fullUrl,
       isProdHost,
+      hostname,
     };
   }
 
@@ -115,6 +119,9 @@ class GuhadaMobileWeb extends App {
     this.initDaumTracker();
     this.execWiderPlanetTracker();
     momentTracker.visit();
+    ReactPixel.init('1378843585603534');
+    ReactPixel.pageView();
+    gtagTracker.visit();
   }
 
   initDaumTracker = () => {
@@ -189,13 +196,19 @@ class GuhadaMobileWeb extends App {
   }
 
   render() {
-    const { Component, initialProps, fullUrl, isProdHost } = this.props;
+    const {
+      Component,
+      initialProps,
+      fullUrl,
+      isProdHost,
+      hostname,
+    } = this.props;
 
     return (
       <Container>
         <Provider {...this.mobxStore}>
           <>
-            <CommonHead isRobotAllowed={isProdHost}>
+            <CommonHead isRobotAllowed={getIsProdHost(hostname)}>
               <>
                 {/* canonical url of current page */}
                 {fullUrl && (

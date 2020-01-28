@@ -73,23 +73,24 @@ class SearchItem6 extends Component {
                 <div className={css.detailWrap}>
                   {_.isEmpty(deal.brandNew) && (
                     <div className={css.conditionWrap}>
+                      {deal.internationalShipping && (
+                        <>
+                          <div className={css.internationalShipping}>
+                            {deal.internationalShipping &&
+                              internationalShipping.INTERNATIONAL}
+                          </div>
+                          {!deal.brandNew && (
+                            <div className={css.betweenLine} />
+                          )}
+                        </>
+                      )}
                       <div
                         className={cn(css.brandNew, {
                           [css.new]: deal.brandNew,
                         })}
                       >
-                        {deal.brandNew ? brandNew.NEW : brandNew.USED}
+                        {deal.brandNew ? '' : brandNew.USED}
                       </div>
-
-                      {deal.internationalShipping && (
-                        <>
-                          <div className={css.betweenLine} />
-                          <div className={css.internationalShipping}>
-                            {deal.internationalShipping &&
-                              internationalShipping.INTERNATIONAL}
-                          </div>
-                        </>
-                      )}
                     </div>
                   )}
                   <div className={css.brandName}>{deal.brandName}</div>
