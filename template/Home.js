@@ -18,6 +18,7 @@ import _ from 'lodash';
 import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
 import isTruthy from 'childs/lib/common/isTruthy';
 import AppEventPopup from 'components/event/popup/AppEventPopup';
+import BestReview from 'components/home/BestReview';
 
 @withScrollToTopOnMount
 @withRouter
@@ -144,6 +145,10 @@ class Home extends React.Component {
             hotKeyword={main.hotKeyword}
             searchitem={searchitem}
           />
+        </HomeItemDefault>
+
+        <HomeItemDefault header={'BEST REVIEW'}>
+          <BestReview />
         </HomeItemDefault>
 
         {eventpopup.popupList.length > 0
