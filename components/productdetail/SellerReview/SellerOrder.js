@@ -2,27 +2,37 @@ import React, { Component } from 'react';
 import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 import css from './NormalSlide.module.scss';
 import cn from 'classnames';
-import { inject, observer } from 'mobx-react';
 
-@inject('productreview')
-@observer
-class ReviewRating extends Component {
+class SellerOrder extends Component {
+  changeOrder = item => {
+    const { onClose, setOrder, setOrderLabel } = this.props;
+
+    setOrder(item.sort, item.dir);
+    onClose();
+    setOrderLabel(item.label);
+  };
+
   render() {
-    const { isVisible, onClose, productreview, ratingList } = this.props;
+    const orderList = [
+      { label: '최신 순', dir: 'desc', sort: 'created_at' },
+      { label: '랭킹 순', dir: 'desc', sort: 'created_at' },
+      { label: '평점 높은 순', dir: 'desc', sort: 'product_rating' },
+      { label: '평점 낮은 순', dir: 'asc', sort: 'product_rating' },
+    ];
 
+    const { isVisible, onClose } = this.props;
     return (
       <SlideIn isVisible={isVisible} direction={slideDirection.BOTTOM}>
         <div className={css.wrap}>
           <button className={css.close} onClick={onClose} />
-          <div className={css.header}>리뷰평점</div>
+          <div className={css.header}>리뷰순서</div>
           <div className={css.itemWrap}>
-            {ratingList.map((item, index) => {
+            {orderList.map((item, index) => {
               return (
                 <div
                   className={cn(css.item, {})}
                   onClick={() => {
-                    onClose();
-                    productreview.setReviewTab('all', item.value);
+                    this.changeOrder(item);
                   }}
                   key={index}
                 >
@@ -37,4 +47,4 @@ class ReviewRating extends Component {
   }
 }
 
-export default ReviewRating;
+export default SellerOrder;

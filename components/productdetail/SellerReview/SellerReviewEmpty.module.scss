@@ -1,0 +1,35 @@
+.wrap {
+    padding: 50px 20px 30px 20px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: normal;
+    color: #777777;
+
+    & img {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 8px;
+    }
+
+    & .bold {
+        font-size: 14px;
+        font-weight: 500;
+        color: #444444;
+        margin-bottom: 5px;
+    }
+
+    & .colored {
+        color: #5d2ed1;
+    }
+
+    & button {
+        width: 164px;
+        height: 44px;
+        border: solid 1px #5d2ed1;
+        background-color: #ffffff;
+        font-size: 14px;
+        font-weight: 500;
+        color: #5d2ed1;
+        margin-top: 20px;
+    }
+}

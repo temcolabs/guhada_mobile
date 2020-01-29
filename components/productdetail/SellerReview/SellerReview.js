@@ -1,40 +1,37 @@
 import React, { Component } from 'react';
 import SectionWrap from '../SectionWrap';
-import css from './ProductReview.module.scss';
+import css from './SellerReview.module.scss';
 import { inject, observer } from 'mobx-react';
-import ReviewSummary from './ReviewSummary';
-import ReviewTab from './ReviewTab';
-import ProductReviewItems from './ProductReviewItems';
+import SellerTab from './SellerTab';
+import SellerReviewItems from './SellerReviewItems';
 import _ from 'lodash';
-import ProductReviewEmpty from './ProductReviewEmpty';
+import SellerReviewEmpty from './SellerReviewEmpty';
 
-@inject('productreview', 'alert', 'login')
+@inject('sellerReview', 'alert', 'login')
 @observer
-class ProductReview extends Component {
+class SellerReview extends Component {
   render() {
-    const { productreview, tabRefMap, alert, login } = this.props;
-    const review = productreview.review;
-    const reviewSummary = productreview.reviewSummary;
+    const { sellerReview, alert, login } = this.props;
+    const review = sellerReview.review;
 
     let handleReviewIcon =
-      review.totalPages === productreview.reviewPage + 1 ? true : false;
+      review.totalPages === sellerReview.reviewPage + 1 ? true : false;
     return (
       <SectionWrap>
-        <ReviewSummary reviewSummary={reviewSummary} tabRefMap={tabRefMap} />
-        <ReviewTab
+        <SellerTab
           totalElements={review.totalElements}
-          setReviewTab={productreview.setReviewTab}
-          setOrder={productreview.setOrder}
+          setReviewTab={sellerReview.setReviewTab}
+          setOrder={sellerReview.setOrder}
         />
         {!_.isNil(review.content) ? (
           <>
             <div className={css.reviewItemWrap}>
               {review.content.map((review, index) => {
                 return (
-                  <ProductReviewItems
+                  <SellerReviewItems
                     review={review}
                     key={index}
-                    productreview={productreview}
+                    sellerReview={sellerReview}
                     alert={alert}
                     login={login}
                   />
@@ -45,7 +42,7 @@ class ProductReview extends Component {
               <div className={css.reviewItemWrap}>
                 <div
                   className={css.addReviewButton}
-                  onClick={() => productreview.addReview()}
+                  onClick={() => sellerReview.addReview()}
                 >
                   상품 리뷰 더보기
                   <div className={css.plusIcon} />
@@ -54,11 +51,11 @@ class ProductReview extends Component {
             )}
           </>
         ) : (
-          <ProductReviewEmpty alert={alert} productreview={productreview} />
+          <SellerReviewEmpty alert={alert} sellerReview={sellerReview} />
         )}
       </SectionWrap>
     );
   }
 }
 
-export default ProductReview;
+export default SellerReview;

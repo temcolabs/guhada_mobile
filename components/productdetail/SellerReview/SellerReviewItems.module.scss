@@ -1,3 +1,5 @@
+@import 'styles/mixins/index';
+
 .wrap {
     padding: 20px 0 18px 0;
     border-bottom: 1px solid #eeeeee;
@@ -8,7 +10,7 @@
 
     & .profileWrap {
         display: flex;
-        margin-bottom: 14px;
+        margin-bottom: 10px;
 
         & .profileImage {
             width: 40px;
@@ -23,6 +25,10 @@
             display: flex;
             align-items: center;
             margin-bottom: 5px;
+
+            &.fullWidth {
+                width: calc(100vw - 40px);
+            }
 
             &:last-child {
                 margin-bottom: 0;
@@ -61,6 +67,33 @@
                 &.option {
                     margin-top: 3px;
                 }
+            }
+
+            & .brand {
+                @include textEllipsis;
+                width: auto;
+                max-width: 20%;
+                font-size: 13px;
+                font-weight: 500;
+                color: #444444;
+            }
+
+            & .line {
+                width: 1px;
+                height: 7px;
+                background-color: #cccccc;
+                margin: 0 10px;
+                display: inline-block;
+            }
+
+            & .title {
+                @include textEllipsis;
+                width: auto;
+                max-width: calc(80% - 21px);
+                font-size: 13px;
+                font-weight: 500;
+                color: #444444;
+
             }
         }
     }
