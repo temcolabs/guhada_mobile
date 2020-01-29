@@ -4,17 +4,26 @@ import cn from 'classnames';
 import SellerOrder from './SellerOrder';
 import SellerRating from './SellerRating';
 import _ from 'lodash';
-
-export default function SellerTab({
+import { inject } from 'mobx-react';
+function SellerTab({
   setReviewTab = () => {},
   setOrder,
   totalElements,
+  sellerReview,
 }) {
-  const [reviewTabText, setReviewTabText] = useState('all');
   const [isOrderVisible, setIsOrderVisible] = useState(false);
   const [isRatingVisible, setIsRatingVisible] = useState(false);
   const [orderLabel, setOrderLabel] = useState('최신 순');
-  const [ratingLabel, setRatingLabel] = useState('전체평점');
+
+  const ratingList = [
+    { label: '전체 평점', value: '' },
+    { label: '5점 만', value: 'FIVE' },
+    { label: '4점 만', value: 'FOUR' },
+    { label: '3점 만', value: 'THREE' },
+    { label: '2점 만', value: 'TWO' },
+    { label: '1점 만', value: 'ONE' },
+  ];
+  let rating = ratingList.find(rating => rating.value === sellerReview.rating);
   return (
     <div className={css.wrap}>
       <div className={css.tabHeader}>
@@ -35,7 +44,7 @@ export default function SellerTab({
             className={css.orderItem}
             onClick={() => setIsRatingVisible(true)}
           >
-            <div>{ratingLabel}</div>
+            <div>{rating.label}</div>
             <img
               className={css.icon}
               src={'/static/icon/arrow_down_line.png'}
@@ -47,10 +56,9 @@ export default function SellerTab({
       <div className={css.tabWrap}>
         <div
           className={cn(css.tabItem, {
-            [css.selected]: reviewTabText === 'all',
+            [css.selected]: sellerReview.reviewTab === 'all',
           })}
           onClick={() => {
-            setReviewTabText('all');
             setReviewTab('all');
           }}
         >
@@ -58,10 +66,9 @@ export default function SellerTab({
         </div>
         <div
           className={cn(css.tabItem, {
-            [css.selected]: reviewTabText === 'photo',
+            [css.selected]: sellerReview.reviewTab === 'photo',
           })}
           onClick={() => {
-            setReviewTabText('photo');
             setReviewTab('photo');
           }}
         >
@@ -69,10 +76,9 @@ export default function SellerTab({
         </div>
         <div
           className={cn(css.tabItem, {
-            [css.selected]: reviewTabText === 'personal',
+            [css.selected]: sellerReview.reviewTab === 'personal',
           })}
           onClick={() => {
-            setReviewTabText('personal');
             setReviewTab('personal');
           }}
         >
@@ -80,10 +86,9 @@ export default function SellerTab({
         </div>
         {/* <div
           className={cn(css.tabItem, {
-            [css.selected]: reviewTabText === 'reply',
+            [css.selected]: sellerReview.reviewTab === 'reply',
           })}
           onClick={() => {
-            setReviewTabText('reply');
             setReviewTab('reply');
           }}
         >
@@ -99,8 +104,9 @@ export default function SellerTab({
       <SellerRating
         isVisible={isRatingVisible}
         onClose={() => setIsRatingVisible(false)}
-        setRatingLabel={setRatingLabel}
+        ratingList={ratingList}
       />
     </div>
   );
 }
+export default inject('sellerReview')(SellerTab);

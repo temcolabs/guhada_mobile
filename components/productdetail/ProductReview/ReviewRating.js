@@ -8,15 +8,8 @@ import { inject, observer } from 'mobx-react';
 @observer
 class ReviewRating extends Component {
   render() {
-    const { isVisible, onClose, productreview, setRatingLabel } = this.props;
-    const ratingList = [
-      { label: '전체 평점', value: '' },
-      { label: '5점 만', value: 'FIVE' },
-      { label: '4점 만', value: 'FOUR' },
-      { label: '3점 만', value: 'THREE' },
-      { label: '2점 만', value: 'TWO' },
-      { label: '1점 만', value: 'ONE' },
-    ];
+    const { isVisible, onClose, productreview, ratingList } = this.props;
+
     return (
       <SlideIn isVisible={isVisible} direction={slideDirection.BOTTOM}>
         <div className={css.wrap}>
@@ -30,7 +23,6 @@ class ReviewRating extends Component {
                   onClick={() => {
                     onClose();
                     productreview.setReviewTab('all', item.value);
-                    setRatingLabel(item.label);
                   }}
                   key={index}
                 >

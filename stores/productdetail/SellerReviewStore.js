@@ -76,7 +76,6 @@ export default class SellerReviewStore {
 
   @action
   getProductReview = (reviewPage = '0') => {
-    let productId = this.root.productdetail.deals.productId;
     this.reviewPage = 0;
 
     API.user

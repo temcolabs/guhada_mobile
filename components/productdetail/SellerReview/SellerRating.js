@@ -4,19 +4,12 @@ import css from './NormalSlide.module.scss';
 import cn from 'classnames';
 import { inject, observer } from 'mobx-react';
 
-@inject('productreview')
+@inject('sellerReview')
 @observer
 class SellerRating extends Component {
   render() {
-    const { isVisible, onClose, productreview, setRatingLabel } = this.props;
-    const ratingList = [
-      { label: '전체 평점', value: '' },
-      { label: '5점 만', value: 'FIVE' },
-      { label: '4점 만', value: 'FOUR' },
-      { label: '3점 만', value: 'THREE' },
-      { label: '2점 만', value: 'TWO' },
-      { label: '1점 만', value: 'ONE' },
-    ];
+    const { isVisible, onClose, sellerReview, ratingList } = this.props;
+
     return (
       <SlideIn isVisible={isVisible} direction={slideDirection.BOTTOM}>
         <div className={css.wrap}>
@@ -29,8 +22,7 @@ class SellerRating extends Component {
                   className={cn(css.item, {})}
                   onClick={() => {
                     onClose();
-                    productreview.setReviewTab('all', item.value);
-                    setRatingLabel(item.label);
+                    sellerReview.setReviewTab('all', item.value);
                   }}
                   key={index}
                 >
