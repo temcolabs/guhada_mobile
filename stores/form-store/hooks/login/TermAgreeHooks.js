@@ -6,6 +6,8 @@ import { devLog } from 'childs/lib/common/devLog';
 import daumTracker from 'childs/lib/tracking/daum/daumTracker';
 import naverShoppingTrakers from 'childs/lib/tracking/navershopping/naverShoppingTrakers';
 import ReactPixel from 'react-facebook-pixel';
+import sessionStorage from 'childs/lib/common/sessionStorage';
+import gtagTracker from 'childs/lib/tracking/google/gtagTracker';
 export default {
   onInit() {},
 
@@ -16,33 +18,41 @@ export default {
     if (value.sns === true) {
       let login = root.login;
 
+      const header = {
+        'ACCEPT-VERSION': '1.1',
+      };
       API.user
-        .post('/sns-users', {
-          agreeCollectPersonalInfoTos: value.agreeCollectPersonalInfoTos,
-          agreeEmailReception: value.agreeEmailReception,
-          agreePurchaseTos: value.agreePurchaseTos,
-          agreeSaleTos: value.agreeSaleTos,
-          agreeSmsReception: value.agreeSmsReception,
-          email: login.email,
-          profileJson: login.profileJson,
-          snsId: login.snsId,
-          snsType: login.snsType,
-        })
+        .post(
+          '/sns-users',
+          {
+            agreeCollectPersonalInfoTos: value.agreeCollectPersonalInfoTos,
+            agreeEmailReception: value.agreeEmailReception,
+            agreePurchaseTos: value.agreePurchaseTos,
+            agreeSaleTos: value.agreeSaleTos,
+            agreeSmsReception: value.agreeSmsReception,
+            email: login.email,
+            profileJson: login.profileJson,
+            snsId: login.snsId,
+            snsType: login.snsType,
+          },
+          { headers: header }
+        )
         .then(function(res) {
-          let data = res.data;
+          let data = res.data.data;
           naverShoppingTrakers.signup();
           daumTracker.signup();
-          ReactPixel.track('CompleteRegistration', data);
-          if (data.resultCode === 200) {
-            if (login.snsType === snsTypes.KAKAO) {
-              login.loginKakao(login.email);
-            } else if (login.snsType === snsTypes.GOOGLE) {
-              login.loginGoogle(login.email);
-            } else if (login.snsType === snsTypes.NAVER) {
-              login.loginNaver(login.email);
-            } else if (login.snsType === snsTypes.FACEBOOK) {
-              login.loginFacebook(login.email);
-            }
+          ReactPixel.track('CompleteRegistration', res.data);
+          gtagTracker.signup('/');
+          sessionStorage.set('signup', data.savedPointResponse);
+
+          if (login.snsType === snsTypes.KAKAO) {
+            login.loginKakao(login.email);
+          } else if (login.snsType === snsTypes.GOOGLE) {
+            login.loginGoogle(login.email);
+          } else if (login.snsType === snsTypes.NAVER) {
+            login.loginNaver(login.email);
+          } else if (login.snsType === snsTypes.FACEBOOK) {
+            login.loginFacebook(login.email);
           }
         })
         .catch(e => {
