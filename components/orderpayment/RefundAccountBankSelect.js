@@ -7,16 +7,23 @@ import { inject, observer } from 'mobx-react';
 class RefundAccountBankSelect extends Component {
   render() {
     let { orderpayment, bankNameSelect } = this.props;
-    let options = [
-      {
-        label: '우리은행',
-        value: '06',
-      },
-      {
-        label: '신한카드',
-        value: '07',
-      },
-    ];
+    let bankOptions = orderpayment.orderInfo.bankList.map(data => {
+      return {
+        label: data.bankName,
+        value: data.bankCode,
+      };
+    });
+
+    const getDefaultBank = () => {
+      for (let i in bankOptions) {
+        if (
+          bankOptions[i].value === orderpayment.orderUserInfo.refundBankCode
+        ) {
+          return bankOptions[i];
+        }
+      }
+      return 0;
+    };
     let selectStyles = {
       container: () => ({
         position: 'relative',
@@ -80,10 +87,11 @@ class RefundAccountBankSelect extends Component {
       <Select
         styles={selectStyles}
         placeholder="은행명을 선택해주세요."
-        options={options}
+        options={bankOptions}
         onChange={value => {
-          bankNameSelect(value.label);
+          orderpayment.bankNameSelect(value);
         }}
+        defaultValue={getDefaultBank()}
         isSearchable={false}
       />
     );

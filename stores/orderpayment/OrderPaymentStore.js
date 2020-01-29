@@ -29,6 +29,10 @@ export default class OrderPaymentStore {
     nickname: null,
     roadAddress: null,
     zip: null,
+    refundBankCode: null,
+    refundBankName: null,
+    refundBankAccountNumber: null,
+    refundBankAccountOwner: null,
   };
   @observable usePoint = 0;
   @observable orderMyCouponWallet = [];
@@ -73,8 +77,8 @@ export default class OrderPaymentStore {
     cashReceiptRequest: false,
     couponSelectModal: false,
     loadingStatus: false,
-
     VBank: false,
+    refundBankAccount: false,
   };
 
   @observable cashReceiptUsage = 'PERSONAL';
@@ -1451,30 +1455,70 @@ export default class OrderPaymentStore {
   };
 
   @action
-  accountCheck = (bankCode, bankNumber, name) => {
-    this.status.loadingStatus = true;
-    accountService
-      .accountCheck({
-        bankCode,
-        bankNumber,
-        name,
-      })
-      .then(({ data }) => {
-        devLog(`accountCheck`, data);
+  bankNameSelect = value => {
+    this.orderUserInfo.refundBankName = value.label;
+    this.orderUserInfo.refundBankCode = value.value;
 
-        // if (data.data?.result === true) {
-        //   formApi.change(fields.isRefundAccountChecked, true);
-        // } else {
-        //   formApi.change(fields.isRefundAccountChecked, false);
-        // }
-        this.status.loadingStatus = false;
-      })
-      .catch(e => {
-        console.error(e);
-        // formApi.change(fields.isRefundAccountChecked, false);
-      })
-      .finally(() => {
-        // setIsValidatingAccount(false);
-      });
+    console.log(this.orderUserInfo);
+  };
+
+  @action
+  setAccountInfo = e => {
+    this.status.refundBankAccount = false;
+    if (e.target.name === 'bankAccount') {
+      this.orderUserInfo.refundBankAccountNumber = e.target.value;
+    } else if (e.target.name === 'bankHolder') {
+      this.orderUserInfo.refundBankAccountOwner = e.target.value;
+    }
+
+    console.log(
+      this.orderUserInfo.refundBankAccountNumber,
+      this.orderUserInfo.refundBankAccountOwner
+    );
+  };
+
+  @action
+  verifyAccount = () => {
+    console.log(
+      this.orderUserInfo.refundBankAccountNumber,
+      this.orderUserInfo.refundBankAccountOwner
+    );
+    if (
+      this.orderUserInfo.refundBankCode &&
+      this.orderUserInfo.refundBankAccountNumber &&
+      this.orderUserInfo.refundBankAccountOwner
+    ) {
+      this.status.loadingStatus = true;
+      accountService
+        .accountCheck({
+          bankCode: this.orderUserInfo.refundBankCode,
+          bankNumber: this.orderUserInfo.refundBankAccountNumber,
+          name: this.orderUserInfo.refundBankAccountOwner,
+        })
+        .then(({ data }) => {
+          devLog(`accountCheck`, data);
+
+          if (data.data.result) {
+            this.root.alert.showAlert({
+              content: '계좌 확인완료.',
+            });
+            this.status.refundBankAccount = true;
+          } else {
+            this.root.alert.showAlert({
+              content: '계좌 확인실패.',
+            });
+          }
+
+          this.status.loadingStatus = false;
+        })
+        .catch(e => {
+          console.error(e);
+          this.root.alert.showAlert({
+            content: '계좌 확인실패.',
+          });
+          this.status.loadingStatus = false;
+        })
+        .finally(() => {});
+    }
   };
 }
