@@ -192,13 +192,6 @@ export default class OrderPaymentStore {
       })
       .catch(err => {
         devLog(err, 'err');
-        // this.root.alert.showAlert({
-        //   content: `${_.get(err, 'data.message') || '오류발생'}`,
-        //   onConfirm: () => {
-        //     this.gotoMain();
-        //   },
-        // });
-        Router.push('/');
       });
   };
 
@@ -251,6 +244,7 @@ export default class OrderPaymentStore {
     daum.postcode.load(function() {
       new daum.Postcode({
         oncomplete: function(data) {
+          console.log(data, '배송지 주소');
           switch (path) {
             case '주문페이지-신규':
               setNewShippingAddress(null, 'address', data);
@@ -629,7 +623,10 @@ export default class OrderPaymentStore {
       });
       this.status.newShippingName = true;
       return false;
-    } else if (!this.orderShippingList.newAddress.address) {
+    } else if (
+      !this.orderShippingList.newAddress.address &&
+      !this.orderShippingList.newAddress.roadAddress
+    ) {
       this.root.alert.showAlert({
         content: '주소를 입력해주세요.',
       });
@@ -770,6 +767,10 @@ export default class OrderPaymentStore {
   //--------------------- 결제요청 ---------------------
   @action
   payment = () => {
+    devLog(
+      this.orderShippingList.newAddress,
+      'this.orderShippingList.newAddress'
+    );
     let cartList = this.getCartList();
     let paymentCheck = true;
 

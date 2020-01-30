@@ -77,7 +77,10 @@ class index extends React.Component {
 
     kochavaTracker.purchaseComplete({ successInfo });
 
-    ReactPixel.track('Purchase', successInfo);
+    ReactPixel.track('Purchase', {
+      value: successInfo.totalOrderPrice,
+      currency: 'KRW',
+    });
   };
 
   render() {

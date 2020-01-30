@@ -6,6 +6,8 @@ import { useObserver } from 'mobx-react-lite';
 import { pushRoute } from 'childs/lib/router';
 import { loginStatus } from 'childs/lib/constant';
 import isTruthy from 'childs/lib/common/isTruthy';
+import internationalShipping from 'childs/lib/constant/filter/internationalShipping';
+import brandNew from 'childs/lib/constant/filter/brandNew';
 
 function SellerStoreInfo({
   deals,
@@ -36,6 +38,8 @@ function SellerStoreInfo({
       sellerName: '',
       shipExpenseType: '',
       totalStock: '',
+      internationalShipping: false,
+      brandNew: true,
     },
   ],
   followers = { isFollower: '팔로우' },
@@ -121,6 +125,26 @@ function SellerStoreInfo({
                 />
               </div>
               <div className={css.contentsWrap}>
+                {_.isEmpty(deal.brandNew) && (
+                  <div className={css.conditionWrap}>
+                    {deal.internationalShipping && (
+                      <>
+                        <div className={css.internationalShipping}>
+                          {deal.internationalShipping &&
+                            internationalShipping.INTERNATIONAL}
+                        </div>
+                        {!deal.brandNew && <div className={css.betweenLine} />}
+                      </>
+                    )}
+                    <div
+                      className={cn(css.brandNew, {
+                        [css.new]: deal.brandNew,
+                      })}
+                    >
+                      {deal.brandNew ? '' : brandNew.USED}
+                    </div>
+                  </div>
+                )}
                 <div className={css.brandWrap}>
                   <div className={css.brand}>{deal.brandName}</div>
                   <div className={css.season}>{deal.productSeason}</div>

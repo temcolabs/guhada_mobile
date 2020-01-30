@@ -90,8 +90,7 @@ function CheckPassword({
               style={{ display: 'inline-block', width: '50%' }}
               id="naverIdLogin_loginButton"
               onClick={() => {
-                Cookies.remove(key.ACCESS_TOKEN);
-                Cookies.remove(key.ACCESS_TOKEN, { domain: '.guhada.com' });
+                loginStore.logout();
               }}
             >
               <button

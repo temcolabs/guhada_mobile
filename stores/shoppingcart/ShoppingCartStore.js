@@ -52,9 +52,9 @@ export default class ShoppingCartStore {
   getUserShoppingCartList = () => {
     return API.order
       .get(`/cart`)
-      .then(({ data }) => {
-        const cartData = data.data;
-        devLog(data, '장바구니 데이터');
+      .then(res => {
+        devLog(res, '장바구니 데이터');
+        const cartData = res.data.data;
         this.cartList = cartData?.cartItemResponseList;
         this.getOptions();
         this.setTotalItemCheckbox();
@@ -72,7 +72,7 @@ export default class ShoppingCartStore {
       .catch(err => {
         console.error(err);
         let data = _.get(err, 'data');
-        devLog(data, 'message', 'resultCode');
+        devLog(err, data, 'message', 'resultCode');
 
         // if (data) {
         //   pushRoute(

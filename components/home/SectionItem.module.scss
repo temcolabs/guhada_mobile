@@ -23,12 +23,9 @@ $contentsHeight : 117px;
         }
 
         & .betweenLine {
+            width: 10px;
+            height: inherit;
             float: left;
-            margin: 0 10px;
-            width: 1px;
-            height: 10px;
-            margin-top: 3px;
-            background-color: #ddd;
         }
 
         & .internationalShipping {
@@ -90,7 +87,7 @@ $contentsHeight : 117px;
     & .contentWrap {
         width: 100%;
         height: $contentsHeight;
-        padding: 15px 0 0 5px;
+        padding: 12px 0 0 5px;
 
         & .brandWrap {
             display: flex;

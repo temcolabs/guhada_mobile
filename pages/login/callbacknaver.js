@@ -1,25 +1,27 @@
 import { Component } from 'react';
-import Axios from 'axios';
 import { observer, inject } from 'mobx-react';
-import Cookies from 'js-cookie';
-import Router from 'next/router';
 import loadScript from 'childs/lib/dom/loadScript';
-import API from 'childs/lib/API';
-import { key } from 'childs/lib/constant';
 import { snsAppKey } from 'childs/lib/constant/sns';
 import withAuth from 'components/common/hoc/withAuth';
 import { devLog } from 'childs/lib/common/devLog';
 import { HOSTNAME } from 'childs/lib/constant/hostname';
+import { getParameterByName } from 'utils';
 
 //TODO
 const client_id = snsAppKey.NAVER;
 const redirectURI = encodeURI(`${HOSTNAME}/callbacknaver`);
 
-@inject('uistatus', 'login')
+@inject('login', 'luckyDraw')
 @observer
 class callbacknaver extends Component {
   componentDidMount() {
-    const { uistatus, login } = this.props;
+    const { login, luckyDraw } = this.props;
+    login.loginPosition = getParameterByName('location', window.location.href);
+    luckyDraw.luckydrawDealId = getParameterByName(
+      'luckydrawDealId',
+      window.location.href
+    );
+
     loadScript('https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js', {
       id: 'naveridlogin_js_sdk',
       onLoad: () => {

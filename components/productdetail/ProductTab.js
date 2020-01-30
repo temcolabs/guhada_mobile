@@ -24,6 +24,8 @@ class ProductTab extends Component {
 
   handleChangeScroll = () => {
     const offsetTop = this.tabBoundaryRef.current.offsetTop;
+    const { tabRefMap } = this.props;
+    let pageYOffset = window.pageYOffset;
     if (window.pageYOffset + this.state.tabSize > offsetTop) {
       this.setState({
         tabStyle: {
@@ -34,6 +36,20 @@ class ProductTab extends Component {
     } else {
       this.setState({ tabStyle: null });
     }
+    let pinGap = 141;
+
+    if (tabRefMap['sellerstoreTab'].current.offsetTop - pinGap < pageYOffset)
+      this.setState({
+        selected: 'sellerstoreTab',
+      });
+    else if (tabRefMap['inquiryTab'].current.offsetTop - pinGap < pageYOffset)
+      this.setState({
+        selected: 'inquiryTab',
+      });
+    else
+      this.setState({
+        selected: 'detailTab',
+      });
   };
 
   selectTab = selected => {
