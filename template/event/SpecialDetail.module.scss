@@ -36,10 +36,9 @@
   .eventMainWrap {
     margin-top: 40px;
     width: 100%;
-    padding-bottom: 100%;
-    background-size: cover;
-    background-position: top;
-    background-repeat: no-repeat;
+    & img {
+      width: 100%;
+    }
   }
 
   .category {
