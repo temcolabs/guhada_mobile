@@ -70,12 +70,9 @@ function SpecialDetail({ special, alert }) {
           }`}</div>
         </div>
 
-        <div
-          className={css.eventMainWrap}
-          style={{
-            backgroundImage: `url(${special.specialDetail.mobileImageUrl})`,
-          }}
-        />
+        <div className={css.eventMainWrap}>
+          <img src={`${special.specialDetail.mobileImageUrl}`} alt="" />
+        </div>
         {/* <div className={css.category}>
           {categoryList.map((special.specialDetail, index) => {
             return (
