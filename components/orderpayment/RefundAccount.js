@@ -52,17 +52,14 @@ const RefundAccount = () => {
       <div className={css.refundInfoWrap}>
         <div className={css.refundInfoTitle}>예금주명 (본인명)</div>
         <div className={css.refundInfoContent}>
-          <div className={css.refundInfo}>
+          <div className={[css.refundInfo, css.bankOwner].join(' ')}>
             <input
               type="text"
-              placeholder="입력해주세요."
-              name="bankHolder"
+              name="bankOwner"
               value={
                 orderPaymentStore.orderUserInfo?.refundBankAccountOwner || ''
               }
-              onChange={e => {
-                orderPaymentStore.setAccountInfo(e);
-              }}
+              disabled
             />
           </div>
           <div
@@ -75,9 +72,8 @@ const RefundAccount = () => {
           </div>
         </div>
 
-        {!isValidatingTried &&
-        !orderPaymentStore.orderUserInfo.refundBankAccountOwner ? (
-          <div className={css.errorMessage}>빈칸을 입력해주세요.</div>
+        {!orderPaymentStore.status.refundBankAccount ? (
+          <div className={css.errorMessage}>계좌를 확인해주세요</div>
         ) : null}
       </div>
     </div>
