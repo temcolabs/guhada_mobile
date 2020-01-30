@@ -11,7 +11,7 @@ export default class MainStore {
   @observable timeDeal = [];
   @observable timeDealStatus = false;
   @observable bannerInfo = [];
-
+  @observable bestReview = [];
   constructor() {
     this.getPlusItem();
     this.getNewArrivals();
@@ -19,6 +19,7 @@ export default class MainStore {
     this.getHotKeyword();
     this.getTimeDeal();
     this.getMainBannner();
+    this.getBestReview();
   }
 
   @action
@@ -91,5 +92,14 @@ export default class MainStore {
     API.settle.get(`selectMainBanner`).then(res => {
       this.bannerInfo = res.data;
     });
+  };
+
+  @action
+  getBestReview = () => {
+    API.user
+      .get(`/main-best-reviews`, { params: { unitPerPage: 5 } })
+      .then(res => {
+        this.bestReview = res.data.data;
+      });
   };
 }

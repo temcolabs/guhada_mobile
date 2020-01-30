@@ -1,0 +1,48 @@
+@import 'styles/mixins/index';
+
+.wrap {
+  width: 130px;
+  margin-right: 6px;
+  display: inline-block;
+  cursor: pointer;
+  &:last-child {
+    margin-right: 0;
+  }
+
+  & .img {
+    width: 130px;
+    height: 130px;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  & .detailWrap {
+    width: 100%;
+    height: 90px;
+    padding-left: 10px;
+    padding-top: 16px;
+
+    & .title {
+      height: 15px;
+      font-size: 12px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      @include textEllipsis;
+    }
+
+    & .desc {
+      font-size: 12px;
+      font-weight: normal;
+      color: #777777;
+      @include textEllipsis;
+      white-space: normal;
+      line-height: 1.33;
+      height: 31px;
+      text-align: left;
+      word-wrap: break-word;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+  }
+}

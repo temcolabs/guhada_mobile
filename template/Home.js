@@ -22,6 +22,7 @@ import PointSavingModal, {
   pointSavingTypes,
 } from 'components/mypage/point/PointSavingModal';
 import sessionStorage from 'childs/lib/common/sessionStorage';
+import BestReview from 'components/home/BestReview';
 
 @withScrollToTopOnMount
 @withRouter
@@ -172,6 +173,10 @@ class Home extends React.Component {
             hotKeyword={main.hotKeyword}
             searchitem={searchitem}
           />
+        </HomeItemDefault>
+
+        <HomeItemDefault header={'BEST REVIEW'}>
+          <BestReview />
         </HomeItemDefault>
 
         {eventpopup.popupList.length > 0
