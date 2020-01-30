@@ -6,7 +6,7 @@ import { inject, observer } from 'mobx-react';
 @observer
 class RefundAccountBankSelect extends Component {
   render() {
-    let { orderpayment, bankNameSelect } = this.props;
+    let { orderpayment } = this.props;
     let bankOptions = orderpayment.orderInfo.bankList.map(data => {
       return {
         label: data.bankName,

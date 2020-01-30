@@ -39,9 +39,14 @@
       display: flex;
       justify-content: space-between;
 
-      .refundInfo {
+      .bankOwner {
         flex: 1;
         margin-right: 10px;
+
+        input {
+          color: #ccc;
+          background: #f9f9fa;
+        }
       }
 
       .checkAccount {
