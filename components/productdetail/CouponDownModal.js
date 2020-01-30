@@ -42,15 +42,15 @@ class CouponDownModal extends Component {
                           {data.sellerName ? data.sellerName : ''}
                         </div>
                         <div className={css.couponAmount}>
-                          {data.discountPrice ? (
+                          {data.discountType === 'RATE' ? (
                             <div>
-                              {`${data.discountPrice.toLocaleString()}`}
-                              <span>원 할인</span>
+                              {`${(data.discountRate * 100).toFixed(0)}`}
+                              <span>% 할인</span>
                             </div>
                           ) : (
                             <div>
-                              {`${data.discountRate * 100}`}
-                              <span>% 할인</span>
+                              {`${data.discountPrice.toLocaleString()}`}
+                              <span>원 할인</span>
                             </div>
                           )}
                         </div>

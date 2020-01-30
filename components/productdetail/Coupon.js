@@ -27,7 +27,7 @@ class Coupon extends Component {
                       coupon.saveTargetType === 'FOLLOW'
                         ? coupon.couponTitle
                         : coupon.discountType === 'RATE'
-                        ? coupon.discountRate * 100 + `% 할인쿠폰`
+                        ? (coupon.discountRate * 100).toFixed(0) + `% 할인쿠폰`
                         : coupon.discountPrice?.toLocaleString() + `원 할인쿠폰`
                     }`}
                   </div>
@@ -54,7 +54,7 @@ class Coupon extends Component {
                       coupon.saveTargetType === 'FOLLOW'
                         ? coupon.couponTitle
                         : coupon.discountType === 'RATE'
-                        ? coupon.discountRate * 100 + `% 할인쿠폰`
+                        ? (coupon.discountRate * 100).toFixed(0) + `% 할인쿠폰`
                         : coupon.discountPrice?.toLocaleString() + `원 할인쿠폰`
                     }`}
                   </div>
