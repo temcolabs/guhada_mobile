@@ -21,6 +21,7 @@ export const UserEditFormContext = React.createContext({});
 
 const fields = {
   name: 'name', // 이름
+  profileImageUrl: 'profileImageUrl', // 프로필 사진
   nickname: 'nickname', // 닉네임
 
   email: 'email',
@@ -63,6 +64,7 @@ const fields = {
 
 export const fieldNames = {
   name: '이름', // 이름
+  profileImageUrl: '프로필 사진', // 프로필 사진
   nickname: '닉네임', // 닉네임
 
   email: '이메일',
@@ -150,6 +152,7 @@ class UserInfomation extends Component {
 
   defaultInitialValues = {
     name: null,
+    profileImageUrl: null,
     nickname: null,
 
     email: null,
@@ -216,6 +219,7 @@ class UserInfomation extends Component {
       const values = {
         ...this.defaultInitialValues,
         name: userInfo.name,
+        profileImageUrl: userInfo.profileImageUrl,
         nickname: userInfo.nickname,
 
         // TODO: ! SNS로 인증한 이메일 초기값은 이메일 형식이 아닐 수 있다. 그럴땐 빈 문자열을 넣는다
