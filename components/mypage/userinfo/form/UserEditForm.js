@@ -17,6 +17,7 @@ import WithdrawalForm from 'components/mypage/userinfo/form/WithdrawalForm';
 import ShippingAddressForm from 'components/mypage/userinfo/form/ShippingAddressForm';
 import FormErrors from './FormErrors';
 import css from './UserEditForm.module.scss';
+import ProfileImageForm from './ProfileImageForm';
 
 @inject('user', 'alert')
 @observer
@@ -35,6 +36,11 @@ class UserEditForm extends React.Component {
             <input type="password" name="hidden" style={{ display: 'none' }} />
             <SectionHeading title="회원정보" wrapperStyle={{ marginTop: 0 }} />
             <KeyValueTable>
+              <tr>
+                <td>
+                  <ProfileImageForm />
+                </td>
+              </tr>
               <tr>
                 <th>이름</th>
               </tr>
