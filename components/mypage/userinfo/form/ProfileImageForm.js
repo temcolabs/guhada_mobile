@@ -30,6 +30,7 @@ export default function ProfileImageForm() {
           updateInitialValues({
             profileImageUrl: data,
           });
+          userStore.getUserInfo({ userId: userStore.userId });
         });
       } catch (e) {
         alertStore.showAlert('이미지 파일만 첨부 가능합니다.');
@@ -44,6 +45,7 @@ export default function ProfileImageForm() {
         updateInitialValues({
           profileImageUrl: '',
         });
+        userStore.getUserInfo({ userId: userStore.userId });
       });
     } catch (e) {
       console.error(e);
