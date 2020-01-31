@@ -2,9 +2,16 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './OrderInfo.module.scss';
 import addHyphenToMobile from 'childs/lib/string/addHyphenToMobile';
-@inject('orderpaymentsuccess', 'user')
+import copy from 'copy-to-clipboard';
+@inject('orderpaymentsuccess', 'user', 'alert')
 @observer
 class OrderInfo extends Component {
+  copyAccountToClipboard = vbankNo => {
+    copy(vbankNo);
+
+    this.props.alert.showAlert('계좌번호가 복사되었습니다.');
+  };
+
   render() {
     let { orderpaymentsuccess } = this.props;
     let { orderSuccessShipping, successInfo } = orderpaymentsuccess;
@@ -83,6 +90,14 @@ class OrderInfo extends Component {
           ) : successInfo.payment.parentMethod === 'TOKEN' ? (
             <div className={css.paymentMethod}>토큰결제</div>
           ) : null}
+        </div>
+        <div
+          className={css.accountCopy}
+          onClick={() => {
+            this.copyAccountToClipboard(successInfo.payment.vbankNo);
+          }}
+        >
+          계좌번호 복사
         </div>
       </div>
     );
