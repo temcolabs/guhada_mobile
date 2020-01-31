@@ -10,11 +10,12 @@ import addHyphenToMobile from 'childs/lib/string/addHyphenToMobile';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
 import MypageSectionTitle from 'components/mypage/MypageSectionTitle';
 import withReviewModal from 'components/mypage/review/withReviewModal';
+import copy from 'copy-to-clipboard';
 
 @withReviewModal
 @withScrollToTopOnMount
 @withRouter
-@inject('orderCompleteDetail', 'orderClaimList', 'user')
+@inject('orderCompleteDetail', 'orderClaimList', 'user', 'alert')
 @observer
 class OrderCompleteDetail extends Component {
   get purchaseId() {
@@ -25,6 +26,12 @@ class OrderCompleteDetail extends Component {
     const { orderCompleteDetail } = this.props;
     orderCompleteDetail.getOrderComplete(this.purchaseId);
   }
+
+  copyAccountToClipboard = vbankNo => {
+    copy(vbankNo);
+
+    this.props.alert.showAlert('계좌번호가 복사되었습니다.');
+  };
 
   render() {
     const { orderCompleteDetail } = this.props;
@@ -123,7 +130,10 @@ class OrderCompleteDetail extends Component {
             </div>
           </div>
 
-          <PaymentInfo order={orderData} />
+          <PaymentInfo
+            order={orderData}
+            copyAccountToClipboard={this.copyAccountToClipboard}
+          />
         </div>
       </DetailPageLayout>
     );

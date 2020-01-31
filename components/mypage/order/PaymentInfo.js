@@ -10,7 +10,10 @@ import MypageSectionTitle from 'components/mypage/MypageSectionTitle';
  * 주문 상세 페이지의 결제 정보
  * @param {*} param0
  */
-export default function PaymentInfo({ order = ORDER_COMPLETE_SAMPLE }) {
+export default function PaymentInfo({
+  order = ORDER_COMPLETE_SAMPLE,
+  copyAccountToClipboard,
+}) {
   return (
     <div className={css.wrap}>
       <MypageSectionTitle>결제 정보</MypageSectionTitle>
@@ -32,6 +35,7 @@ export default function PaymentInfo({ order = ORDER_COMPLETE_SAMPLE }) {
               {addCommaToNum(order.totalProdPrice)}원
             </span>
           </div>
+
           <div className={cn(css.section__field)}>
             <span className={css.section__label}>배송비</span>
             <span className={css.section__value}>
@@ -89,6 +93,19 @@ export default function PaymentInfo({ order = ORDER_COMPLETE_SAMPLE }) {
           <div className={cn(css.section__field)}>
             <PaymentAccountInfo payment={order?.payment} />
           </div>
+
+          {order?.payment?.parentMethod === 'VBank' ? (
+            <div className={cn(css.section__field)}>
+              <div
+                className={css.accountCopy}
+                onClick={() => {
+                  copyAccountToClipboard(order?.payment.vbankNo);
+                }}
+              >
+                계좌번호 복사
+              </div>
+            </div>
+          ) : null}
         </div>
       </div>
     </div>
