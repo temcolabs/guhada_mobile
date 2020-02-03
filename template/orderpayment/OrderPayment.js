@@ -11,6 +11,7 @@ import CashReceipt from 'components/orderpayment/CashReceipt';
 import PaymentAgreement from 'components/orderpayment/PaymentAgreement';
 import PaymentButton from 'components/orderpayment/PaymentButton';
 import OtherRequest from 'components/orderpayment/OtherRequest';
+import RefundAccount from 'components/orderpayment/RefundAccount';
 
 import { inject, observer } from 'mobx-react';
 import css from './OrderPayment.module.scss';
@@ -67,6 +68,8 @@ class OrderPayment extends React.Component {
         {/* 현금영수증 */}
         {orderpayment.status.cashReceipt ? <CashReceipt /> : null}
 
+        {/* 환불 계좌 정보 */}
+        {orderpayment.status.VBank ? <RefundAccount /> : null}
         {/* 결제 동의 */}
         <PaymentAgreement />
 

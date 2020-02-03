@@ -12,10 +12,10 @@ module.exports = {
     let para = req.url;
 
     let oid = para.substring(para.indexOf('?') + 1, para.length);
-    console.log(para, oid, authData, ' oid , /privyCertifyResult');
+    console.log(para, oid, authData);
 
     if (authData.P_STATUS !== '00') {
-      console.log(authData, 'authData', authData.P_RMESG1, 'message');
+      console.log(authData, ' : authData', authData.P_RMESG1, ' : message');
 
       if (req.query.cartList && authData.P_RMESG1) {
         // res.redirect(

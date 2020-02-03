@@ -22,6 +22,7 @@ class index extends React.Component {
 
         <div>
           {orderpayment.status.pageStatus ? <OrderPayment /> : <Loading />}
+          {orderpayment.status.loadingStatus ? <Loading /> : <null />}
         </div>
       </>
     );

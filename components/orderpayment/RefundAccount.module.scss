@@ -1,0 +1,67 @@
+.wrap {
+  margin-top: 30px;
+  border-top: 8px solid #f9f9fa;
+
+  .title {
+    font-size: 15px;
+    padding: 20px 20px;
+    font-weight: bold;
+    color: #111;
+  }
+
+  .refundInfoWrap {
+    padding: 0 20px;
+
+    &:nth-child(3) {
+      margin-top: 30px;
+    }
+    &:nth-child(4) {
+      margin-top: 30px;
+    }
+    .refundInfoTitle {
+      font-size: 14px;
+      font-weight: 500;
+      color: #111;
+    }
+
+    .refundInfo {
+      margin-top: 15px;
+
+      input {
+        width: 100%;
+        height: 45px;
+        border: 1px solid #eee;
+        padding: 0 15px;
+      }
+    }
+
+    .refundInfoContent {
+      display: flex;
+      justify-content: space-between;
+
+      .bankOwner {
+        flex: 1;
+        margin-right: 10px;
+
+        input {
+          color: #ccc;
+          background: #f9f9fa;
+        }
+      }
+
+      .checkAccount {
+        margin-top: 15px;
+        width: 90px;
+        height: 45px;
+        border: 1px solid #ddd;
+        text-align: center;
+        line-height: 45px;
+      }
+    }
+
+    .errorMessage {
+      margin-top: 3px;
+      color: #c72121;
+    }
+  }
+}
