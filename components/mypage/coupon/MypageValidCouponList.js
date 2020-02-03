@@ -28,17 +28,17 @@ class MypageValidCouponList extends React.Component {
                       </div>
                     </div>
                     <div className={css.coupon__amount}>
-                      {data.discountPrice ? (
+                      {data.discountType === 'RATE' ? (
+                        <div>
+                          {`${(data.discountRate * 100).toFixed(0)}`}
+                          <span>% 할인</span>
+                        </div>
+                      ) : (
                         <div>
                           {`${data.discountPrice.toLocaleString()}`}
                           <span>원 할인</span>
                         </div>
-                      ) : data.discountRate ? (
-                        <div>
-                          {`${data.discountRate * 100}`}
-                          <span>% 할인</span>
-                        </div>
-                      ) : null}
+                      )}
                     </div>
 
                     <div className={css.coupon__number}>

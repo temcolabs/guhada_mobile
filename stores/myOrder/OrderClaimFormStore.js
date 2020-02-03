@@ -566,8 +566,13 @@ export default class OrderClaimFormStore {
 
       onSuccess();
     } catch (e) {
-      this.root.alert.showAlert('오류가 발생했습니다');
       console.error(e);
+      const resultMessage = _.get(e, 'data.message');
+      if (resultMessage) {
+        this.root.alert.showAlert(e.data.message);
+      } else {
+        this.root.alert.showAlert('오류가 발생했습니다');
+      }
     }
   };
 

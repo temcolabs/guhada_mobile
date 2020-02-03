@@ -7,6 +7,7 @@ import { HOSTNAME } from 'childs/lib/constant/hostname';
 import { devLog } from 'childs/lib/common/devLog';
 import { pushRoute } from 'childs/lib/router';
 import isEmailString from 'childs/lib/string/isEmailString';
+import accountService from 'childs/lib/API/order/accountService';
 const isServer = typeof window === 'undefined';
 export default class OrderPaymentStore {
   constructor(root) {
@@ -28,6 +29,10 @@ export default class OrderPaymentStore {
     nickname: null,
     roadAddress: null,
     zip: null,
+    refundBankCode: null,
+    refundBankName: null,
+    refundBankAccountNumber: null,
+    refundBankAccountOwner: null,
   };
   @observable usePoint = 0;
   @observable orderMyCouponWallet = [];
@@ -70,8 +75,10 @@ export default class OrderPaymentStore {
     addressSelf: false,
     cashReceipt: false,
     cashReceiptRequest: false,
-    loadingStatus: false,
     couponSelectModal: false,
+    loadingStatus: false,
+    VBank: false,
+    refundBankAccount: false,
   };
 
   @observable cashReceiptUsage = 'PERSONAL';
@@ -151,6 +158,9 @@ export default class OrderPaymentStore {
           this.status.selectedShipStatus = false;
         }
 
+        if (this.orderUserInfo.refundBankAccountNumber) {
+          this.status.refundBankAccount = true;
+        }
         // let paymentRemainCheck = JSON.parse(
         //   sessionStorage.getItem('paymentInfo')
         // );
@@ -373,6 +383,7 @@ export default class OrderPaymentStore {
   };
   //--------------------- 결제방법변경 모듈 ---------------------
   methodChange = () => {
+    this.status.VBank = false;
     this.status.cashReceipt = false;
     this.status.cashReceiptRequest = false;
 
@@ -385,6 +396,7 @@ export default class OrderPaymentStore {
         break;
       case 'VBank':
         this.status.cashReceipt = true;
+        this.status.VBank = true;
         break;
       case 'TOKEN':
         this.receiptDataInit();
@@ -767,34 +779,29 @@ export default class OrderPaymentStore {
   //--------------------- 결제요청 ---------------------
   @action
   payment = () => {
-    devLog(
-      this.orderShippingList.newAddress,
-      'this.orderShippingList.newAddress'
-    );
     let cartList = this.getCartList();
-    let paymentCheck = true;
 
     if (!this.root.customerauthentication.userVerify) {
       this.root.alert.showAlert({
         content: '[필수] 본인인증을 해주세요.',
       });
-      paymentCheck = false;
+      return false;
     } else if (!this.paymentMethod) {
       this.root.alert.showAlert({
         content: '결제수단을 선택해주세요.',
       });
-      paymentCheck = false;
+      return false;
     } else if (this.paymentMethod === 'TOKEN') {
       this.root.alert.showAlert({
         content: '토큰결제 현재 사용 불가',
       });
-      paymentCheck = false;
+      return false;
     }
     // else if (!this.orderUserInfo.emailVerify) {
     //   this.root.alert.showAlert({
     //     content: '이메일을 인증해주세요.',
     //   });
-    //   paymentCheck = false;
+    //   return false
     // }
     if (!this.status.selectedShipStatus) {
       if (!this.orderShippingList.newAddress.shippingName) {
@@ -802,7 +809,7 @@ export default class OrderPaymentStore {
           content: '배송지이름을 입력해주세요.',
         });
         this.status.newShippingName = true;
-        paymentCheck = false;
+        return false;
       } else if (
         !this.orderShippingList.newAddress.address &&
         !this.orderShippingList.newAddress.roadAddress
@@ -811,25 +818,25 @@ export default class OrderPaymentStore {
           content: '주소를 입력해주세요.',
         });
         this.status.newAddress = true;
-        paymentCheck = false;
+        return false;
       } else if (!this.orderShippingList.newAddress.detailAddress) {
         this.root.alert.showAlert({
           content: '상세주소를 입력해주세요.',
         });
         this.status.newDetail = true;
-        paymentCheck = false;
+        return false;
       } else if (!this.orderShippingList.newAddress.recipientName) {
         this.root.alert.showAlert({
           content: '수령인을 입력해주세요.',
         });
         this.status.newRecipientName = true;
-        paymentCheck = false;
+        return false;
       } else if (!this.orderShippingList.newAddress.recipientMobile) {
         this.root.alert.showAlert({
           content: '수령인의 연락처를 입력해주세요.',
         });
         this.status.newRecipientMobile = true;
-        paymentCheck = false;
+        return false;
       } else if (this.orderShippingList.newAddress.recipientMobile) {
         let currentPhoneNum = this.orderShippingList.newAddress.recipientMobile;
         let regPhone = /^((01[1|6|7|8|9])[0-9][0-9]{6,7})|(010[0-9][0-9]{7})$/;
@@ -840,7 +847,7 @@ export default class OrderPaymentStore {
             content: '연락처를 정확히 입력해주세요.',
           });
           this.status.newRecipientMobile = true;
-          paymentCheck = false;
+          return false;
         } else if (
           !regPhone.test(currentPhoneNum) &&
           !regTel.test(currentPhoneNum)
@@ -849,7 +856,7 @@ export default class OrderPaymentStore {
             content: '연락처를 정확히 입력해주세요.',
           });
           this.status.newRecipientMobile = true;
-          paymentCheck = false;
+          return false;
         }
       }
       // if (
@@ -859,12 +866,12 @@ export default class OrderPaymentStore {
       //   this.root.alert.showAlert({
       //     content: '배송요청사항을 입력해주세요.',
       //   });
-      //   paymentCheck = false;
+      //   return false
       // } else if (!this.orderShippingList.newAddress.shippingMessage) {
       //   this.root.alert.showAlert({
       //     content: '배송요청사항을 선택해주세요.',
       //   });
-      //   paymentCheck = false;
+      //   return false
       // }
     }
 
@@ -873,7 +880,7 @@ export default class OrderPaymentStore {
         this.root.alert.showAlert({
           content: '배송지 연락처를 입력해주세요.',
         });
-        paymentCheck = false;
+        return false;
       }
     }
 
@@ -884,7 +891,7 @@ export default class OrderPaymentStore {
             this.root.alert.showAlert({
               content: '현금영수증 정보를 정확히 입력해주세요',
             });
-            paymentCheck = false;
+            return false;
           }
         }
       } else {
@@ -893,14 +900,19 @@ export default class OrderPaymentStore {
             this.root.alert.showAlert({
               content: '현금영수증 정보를 정확히 입력해주세요',
             });
-            paymentCheck = false;
+            return false;
           }
         }
       }
     }
 
-    if (!paymentCheck) {
-      return false;
+    if (this.status.VBank) {
+      if (!this.status.refundBankAccount) {
+        this.root.alert.showAlert({
+          content: '환불계좌 를 확인해주세요.',
+        });
+        return false;
+      }
     }
     let cartItemPayments = [];
     cartItemPayments = this.selectedCouponList.map(data => {
@@ -934,6 +946,11 @@ export default class OrderPaymentStore {
               String(this.cashReceiptEntrepreneur.last),
         cashReceiptType:
           this.cashReceiptUsage === 'PERSONAL' ? 'MOBILE' : 'BUSINESS',
+        refundBankVerification: this.status.refundBankAccount,
+        refundBankCode: this.orderUserInfo.refundBankCode,
+        refundBankName: this.orderUserInfo.refundBankName,
+        refundBankAccountNumber: this.orderUserInfo.refundBankAccountNumber,
+        refundBankAccountOwner: this.orderUserInfo.refundBankAccountOwner,
         web: true,
       };
     } else {
@@ -949,6 +966,11 @@ export default class OrderPaymentStore {
         shippingType: this.status.selectedShipStatus,
         etcMessage: this.orderShippingList.otherRequest,
         consumptionPoint: this.usePoint,
+        refundBankVerification: this.status.refundBankAccount,
+        refundBankCode: this.orderUserInfo.refundBankCode,
+        refundBankName: this.orderUserInfo.refundBankName,
+        refundBankAccountNumber: this.orderUserInfo.refundBankAccountNumber,
+        refundBankAccountOwner: this.orderUserInfo.refundBankAccountOwner,
         web: true,
       };
     }
@@ -1086,6 +1108,7 @@ export default class OrderPaymentStore {
       cashReceipt: false,
       cashReceiptRequest: false,
       loadingStatus: false,
+      VBank: false,
     };
     this.paymentMethod = 'Card';
     this.orderCouponInfo = null;
@@ -1442,5 +1465,63 @@ export default class OrderPaymentStore {
       .catch(err => {
         console.log(err);
       });
+  };
+
+  @action
+  bankNameSelect = value => {
+    this.orderUserInfo.refundBankName = value.label;
+    this.orderUserInfo.refundBankCode = value.value;
+    this.status.refundBankAccount = false;
+  };
+
+  @action
+  setAccountInfo = e => {
+    this.status.refundBankAccount = false;
+    if (e.target.name === 'bankAccount') {
+      this.orderUserInfo.refundBankAccountNumber = e.target.value;
+    }
+  };
+
+  @action
+  verifyAccount = () => {
+    if (
+      this.orderUserInfo.refundBankCode &&
+      this.orderUserInfo.refundBankAccountNumber
+    ) {
+      this.status.loadingStatus = true;
+      accountService
+        .accountCheck({
+          bankCode: this.orderUserInfo.refundBankCode,
+          bankNumber: this.orderUserInfo.refundBankAccountNumber,
+          name: this.orderUserInfo.refundBankAccountOwner,
+        })
+        .then(({ data }) => {
+          devLog(`accountCheck`, data);
+
+          if (data.data.result) {
+            this.root.alert.showAlert({
+              content: '계좌 확인완료',
+            });
+            this.status.refundBankAccount = true;
+            this.orderUserInfo.refundBankAccountOwner = data.data.name;
+          } else {
+            this.root.alert.showAlert({
+              content: '계좌 확인실패.',
+            });
+            this.status.refundBankAccount = false;
+            this.orderUserInfo.refundBankAccountOwner = data.data.name;
+          }
+
+          this.status.loadingStatus = false;
+        })
+        .catch(e => {
+          console.error(e);
+          this.root.alert.showAlert({
+            content: '계좌 확인실패.',
+          });
+          this.status.loadingStatus = false;
+        })
+        .finally(() => {});
+    }
   };
 }

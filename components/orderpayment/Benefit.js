@@ -34,7 +34,6 @@ class Benefit extends Component {
       orderpayment.getPaymentInfo();
     } else {
       orderpayment.usePoint = value;
-      orderpayment.orderSidetabTotalInfo.totalPointPrice = value;
 
       orderpayment.getPaymentInfo();
     }

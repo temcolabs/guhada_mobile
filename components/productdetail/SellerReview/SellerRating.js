@@ -4,11 +4,11 @@ import css from './NormalSlide.module.scss';
 import cn from 'classnames';
 import { inject, observer } from 'mobx-react';
 
-@inject('productreview')
+@inject('sellerReview')
 @observer
-class ReviewRating extends Component {
+class SellerRating extends Component {
   render() {
-    const { isVisible, onClose, productreview, ratingList } = this.props;
+    const { isVisible, onClose, sellerReview, ratingList } = this.props;
 
     return (
       <SlideIn isVisible={isVisible} direction={slideDirection.BOTTOM}>
@@ -22,7 +22,7 @@ class ReviewRating extends Component {
                   className={cn(css.item, {})}
                   onClick={() => {
                     onClose();
-                    productreview.setReviewTab('all', item.value);
+                    sellerReview.setReviewTab('all', item.value);
                   }}
                   key={index}
                 >
@@ -37,4 +37,4 @@ class ReviewRating extends Component {
   }
 }
 
-export default ReviewRating;
+export default SellerRating;

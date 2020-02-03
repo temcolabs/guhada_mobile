@@ -70,8 +70,16 @@ export default class ProductDetailStore {
         this.root.sellerfollow.getSellerFollow(this.deals.sellerId);
         this.getSatisfaction();
         this.getSellerDetail();
+
+        // 상품리뷰
         this.root.productreview.getProductReview();
         this.root.productreview.getProductReviewSummary();
+
+        // 셀러 리뷰
+        this.root.sellerReview.sellerId = this.deals.sellerId;
+        this.root.sellerReview.getProductReview();
+        this.root.sellerReview.getProductReviewSummary();
+
         this.getInquiry(0);
         // 데이터 테이블 형태로 가공해야 하는 attributes
         this.initTableData();

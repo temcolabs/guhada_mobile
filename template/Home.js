@@ -18,6 +18,11 @@ import _ from 'lodash';
 import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
 import isTruthy from 'childs/lib/common/isTruthy';
 import AppEventPopup from 'components/event/popup/AppEventPopup';
+import PointSavingModal, {
+  pointSavingTypes,
+} from 'components/mypage/point/PointSavingModal';
+import sessionStorage from 'childs/lib/common/sessionStorage';
+import BestReview from 'components/home/BestReview';
 
 @withScrollToTopOnMount
 @withRouter
@@ -33,6 +38,7 @@ class Home extends React.Component {
       email: '',
       scrollDirection: 'up',
       lastScrollTop: 0,
+      savedPointResponse: {},
     };
   }
 
@@ -55,16 +61,30 @@ class Home extends React.Component {
       pushRoute('/');
     }
 
+    let savedPointResponse = sessionStorage.get('signup');
+
     // 회원가입 성공 모달 표시
-    if (query.signupsuccess) {
+    if (isTruthy(savedPointResponse)) {
       this.setState({
         signupModal: true,
-        email: query.email,
+        savedPointResponse: savedPointResponse,
       });
+      sessionStorage.remove('signup');
 
       // 회원가입 전환. 로그인한 상태가 아니어서 유저 아이디를 전달할 수 없다.
       widerplanetTracker.signUp({});
     }
+
+    // // 회원가입 성공 모달 표시
+    // if (query.signupsuccess) {
+    //   this.setState({
+    //     signupModal: true,
+    //     email: query.email,
+    //   });
+
+    //   // 회원가입 전환. 로그인한 상태가 아니어서 유저 아이디를 전달할 수 없다.
+    //   widerplanetTracker.signUp({});
+    // }
     window.addEventListener('scroll', this.scrollDirection);
     // let cookie = Cookies.get(key.ACCESS_TOKEN);
 
@@ -111,10 +131,19 @@ class Home extends React.Component {
           <MainSlideBanner imageFile={main.bannerInfo} />
         )}
 
-        <SignupSuccessModal
+        {/* <SignupSuccessModal
           isOpen={this.state.signupModal}
           isHandleModal={this.handleModal}
           email={this.state.email}
+        /> */}
+
+        <PointSavingModal
+          isOpen={this.state.signupModal}
+          pointSavingType={pointSavingTypes.SIGNUP}
+          savedPointResponse={this.state.savedPointResponse}
+          onClose={() => {
+            this.setState({ signupModal: false });
+          }}
         />
         <div>
           <MainSectionItem
@@ -144,6 +173,10 @@ class Home extends React.Component {
             hotKeyword={main.hotKeyword}
             searchitem={searchitem}
           />
+        </HomeItemDefault>
+
+        <HomeItemDefault header={'BEST REVIEW'}>
+          <BestReview />
         </HomeItemDefault>
 
         {eventpopup.popupList.length > 0
