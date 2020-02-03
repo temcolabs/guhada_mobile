@@ -116,7 +116,9 @@ export default function RelatedAndRecommend({
                     </div>
                     <div className={css.title}>{deal.dealName}</div>
                     <div className={css.price}>
-                      {deal.sellPrice.toLocaleString()}
+                      {deal.discountRate > 0
+                        ? deal.discountPrice.toLocaleString()
+                        : deal.sellPrice.toLocaleString()}
                     </div>
                   </div>
                 </div>
@@ -173,7 +175,9 @@ export default function RelatedAndRecommend({
                     </div>
                     <div className={css.title}>{deal.dealName}</div>
                     <div className={css.price}>
-                      {deal.sellPrice.toLocaleString()}
+                      {deal.discountRate > 0
+                        ? deal.discountPrice.toLocaleString()
+                        : deal.sellPrice.toLocaleString()}
                     </div>
                   </div>
                 </div>
