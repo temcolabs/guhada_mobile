@@ -1,0 +1,17 @@
+/**
+ * 박스의 최대 높이
+ * @param {} param0
+ */
+@mixin setHeightLimit($line: 1, $lineHeight: 1.428) {
+  position: relative;
+  line-height: #{$lineHeight};
+  max-height: calc(#{$lineHeight} * #{$line}em);
+
+  // IE11, Firefox에서 지원하지 않는 lineclamp를 사용해서 높이 제한과 ellipsis를 같이 적용
+  display: box;
+  max-height: calc(#{$lineHeight} * #{$line}em);
+  -webkit-line-clamp: #{$line};
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

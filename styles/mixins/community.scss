@@ -1,0 +1,14 @@
+// 커뮤니티에서 사용하는 믹스인
+
+@mixin memberGrade() {
+  height: 13px;
+  border-radius: 6.5px;
+  border: solid 1px #dddddd;
+  background-color: #ffffff;
+  font-size: 7px;
+  padding: 0 9px;
+
+  & + * {
+    margin-left: 6px;
+  }
+}
