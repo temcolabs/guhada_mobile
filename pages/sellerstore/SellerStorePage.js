@@ -14,6 +14,7 @@ class SellerStorePage extends Component {
     if (isBrowser) {
       seller.nickname = nickname;
       seller.getSellerId();
+      seller.toSearch({});
     }
   }
   componentDidUpdate() {

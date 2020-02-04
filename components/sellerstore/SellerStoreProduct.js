@@ -37,6 +37,7 @@ export default function SellerStoreProduct({ seller, items, countOfDeals }) {
     <>
       <div className={css.headerWrap}>
         <div className={css.count}>{`총 ${countOfDeals}개`}</div>
+        <div className={css.detail}>상세검색</div>
         <div className={css.orderWrap} onClick={() => setOrderHover(true)}>
           {orderLabel}
           <SellerStoreOrder

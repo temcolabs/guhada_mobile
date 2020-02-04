@@ -5,6 +5,9 @@ import bookmarkTarget from 'childs/lib/constant/user/bookmarkTarget';
 import { isBrowser } from 'childs/lib/common/isServer';
 import _ from 'lodash';
 import { loginStatus } from 'childs/lib/constant';
+import { pushRoute } from 'childs/lib/router';
+import qs from 'qs';
+import Router from 'next/router';
 
 export default class SellerStore {
   constructor(root) {
@@ -45,6 +48,10 @@ export default class SellerStore {
   @observable storeFollowBool = false;
   @observable nickname;
   @observable sellerId;
+  @observable filterData;
+
+  @observable productCondition = 'ANY';
+  @observable shippingCondition = 'ANY';
 
   @action
   getSellerId = () => {
@@ -85,22 +92,77 @@ export default class SellerStore {
 
   @action
   getSellerStoreDeal = sellerId => {
-    API.search
-      .get(
-        `/ps/search/seller/${sellerId}?page=${this.page}&unitPerPage=${
-          this.unitPerPage
-        }&order=${this.order}`
-      )
-      .then(res => {
-        let data = res.data;
-        if (this.page === 1) {
-          this.dealsOfSellerStore = data.data.deals;
-        } else {
-          this.setSellerStoreItem(data.data.deals);
-        }
+    // 일반적인 카테고리 검색을 위해서 전체 카테고리 값을 불러오기 위한 api 콜
+    API.search.get('/ps/search/all').then(async res => {
+      API.search
+        .post(
+          `/ps/search/filter?page=${this.page}&unitPerPage=${
+            this.unitPerPage
+          }&order=${this.order}`,
+          {
+            searchResultOrder:
+              this.order === null || this.order === '' ? 'DATE' : this.order,
+            sellerIds: [sellerId],
+          }
+        )
+        .then(res => {
+          let data = res.data;
+          if (this.page === 1) {
+            this.dealsOfSellerStore = data.data.deals;
+          } else {
+            this.setSellerStoreItem(data.data.deals);
+          }
 
-        this.countOfDeals = data.data.countOfDeals;
-      });
+          this.countOfDeals = data.data.countOfDeals;
+          this.filterData = data.data.filterData;
+        });
+    });
+  };
+
+  @action
+  toSearch = ({
+    category = '',
+    brand = '',
+    page = 1,
+    unitPerPage = 20,
+    order = this.order,
+    filter = '',
+    subcategory = '',
+    enter = '',
+    keyword = '',
+    resultKeyword = '',
+    condition = '',
+    filtered = false,
+    productCondition = 'ANY',
+    shippingCondition = 'ANY',
+    minPrice = '',
+    maxPrice = '',
+  }) => {
+    let query = Router.router.query;
+    this.productCondition = productCondition;
+    this.shippingCondition = shippingCondition;
+
+    pushRoute(
+      `/store/${this.nickname}?${qs.stringify({
+        category: category,
+        brand: brand,
+        page: page,
+        unitPerPage: unitPerPage,
+        order: order === null || order === '' ? 'DATE' : order,
+        filter: filter,
+        subcategory: subcategory,
+        enter: enter === '' ? query.enter : enter,
+        keyword: keyword,
+        resultKeyword: resultKeyword,
+        condition: condition === '' ? query.condition : condition,
+        filtered: filtered,
+        productCondition: this.productCondition,
+        shippingCondition: this.shippingCondition,
+        minPrice: minPrice,
+        maxPrice: maxPrice,
+      })}`
+    );
+    if (this.preUrl !== Router.asPath) this.deals = [];
   };
 
   @action

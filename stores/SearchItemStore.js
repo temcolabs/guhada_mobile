@@ -335,7 +335,7 @@ export default class SearchItemStore {
         let searchResultKeyword = [];
         if (isTruthy(keyword)) searchResultKeyword.push(keyword);
         if (isTruthy(resultKeyword)) searchResultKeyword.push(resultKeyword);
-        console.log('keyword', keyword, resultKeyword);
+
         API.search
           .post(
             '/ps/search/filter?page=' + page + '&unitPerPage=' + unitPerPage,

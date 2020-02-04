@@ -11,6 +11,17 @@
     float: left;
   }
 
+  & .detail {
+    background-image: url('/static/icon/fillter_icon.png');
+    background-size: 16px 14px;
+    background-repeat: no-repeat;
+    background-position: right;
+    padding-right: 22px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #333333;
+    float: right;
+  }
   & .orderWrap {
     position: relative;
     float: right;
@@ -21,6 +32,7 @@
     padding-right: 16px;
     font-size: 13px;
     color: #333;
+    margin-right: 20px;
 
     & .hoverPadding {
       width: 85px;
@@ -41,7 +53,6 @@
     }
 
     & .hoverItem {
-
       font-size: 13px;
       font-weight: normal;
       color: #111111;
@@ -53,7 +64,7 @@
         color: #5d2ed1;
       }
 
-      &~div {
+      & ~ div {
         margin-top: 10px;
       }
     }

@@ -10,6 +10,7 @@ import SellerStoreProduct from 'components/sellerstore/SellerStoreProduct';
 import SellerStoreInfomation from 'components/sellerstore/SellerStoreInfomation';
 import DefaultLayout from 'components/layout/DefaultLayout';
 import _ from 'lodash';
+import StoreSearchFilter from 'components/sellerstore/StoreSearchFilter';
 
 const enhancer = compose(
   withScrollToTopOnMount,
@@ -21,7 +22,7 @@ const enhancer = compose(
  */
 const SellerStore = enhancer(({ router, seller, sellerId, login }) => {
   const [tab, setTab] = useState('store');
-
+  const [isFilterVisible, setIsFilterVisible] = useState(false);
   return useObserver(() => (
     <>
       <DefaultLayout
@@ -49,6 +50,11 @@ const SellerStore = enhancer(({ router, seller, sellerId, login }) => {
         ) : (
           <SellerStoreInfomation sellerStore={seller.sellerStore} />
         )}
+        {/* <StoreSearchFilter
+          isVisible={isFilterVisible}
+          onClose={() => setIsFilterVisible(false)}
+          filters={seller.filterData}
+        /> */}
       </DefaultLayout>
     </>
   ));
