@@ -247,12 +247,6 @@ export default function ShippingReturn({
               </td>
             </tr>
           )}
-          {checkNullAndEmpty(sellerStore.claimTelephone) === false && (
-            <tr>
-              <th>고객센터</th>
-              <td>{autoHypenTele(sellerStore.claimTelephone)}</td>
-            </tr>
-          )}
         </tbody>
       </table>
     </>

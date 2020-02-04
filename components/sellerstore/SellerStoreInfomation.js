@@ -10,7 +10,6 @@ export default function SellerStoreInfomation({ sellerStore }) {
     { label: '사업자등록번호', key: 'companyRegistrationNumber' },
     { label: '통신판매업번호', key: 'mailorderRegistrationNumber' },
     { label: '사업장소재지', key: 'offlineStoreAddress' },
-    // { label: '고객센터', key: 'claimTelephone' },
   ];
   let renderTable = [];
   sellerInfo.map(info => {
