@@ -63,6 +63,7 @@ import EventPopupStore from './event/EventPopupStore';
 
 //기획전
 import SpecialStore from './event/SpecialStore';
+import SearchPlaceholderStore from './home/SearchPlaceholderStore';
 
 class RootStore {
   constructor(isServer, initialState) {
@@ -164,6 +165,7 @@ class RootStore {
 
     //기획전
     this.special = new SpecialStore(this, initialState);
+    this.searchHolder = new SearchPlaceholderStore(this, initialState);
   }
 }
 

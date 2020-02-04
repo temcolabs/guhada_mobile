@@ -8,7 +8,7 @@ import AutoComplete from './AutoComplete';
 import Router from 'next/router';
 import { pushRoute } from 'childs/lib/router';
 
-@inject('searchitem', 'keyword', 'alert')
+@inject('searchitem', 'keyword', 'alert', 'searchHolder')
 @observer
 class KeywordMenu extends Component {
   state = {
@@ -97,7 +97,7 @@ class KeywordMenu extends Component {
   };
 
   render() {
-    const { keyword, onClose, isSearchVisible } = this.props;
+    const { keyword, onClose, isSearchVisible, searchHolder } = this.props;
     const { displayContent, keywordTab } = this.state;
     let recentKeywordList = keyword.list;
     let query = Router.router.query;
@@ -119,7 +119,7 @@ class KeywordMenu extends Component {
           />
           <input
             type="text"
-            placeholder={'검색어를 입력해주세요'}
+            placeholder={searchHolder.placeholderData?.placeholder}
             onKeyUp={this.onChange}
             onChange={this.onChangeValue}
             value={this.state.inputValue}
