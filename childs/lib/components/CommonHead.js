@@ -89,7 +89,7 @@ export default function CommonHead({
             sameAs: [
               'https://www.instagram.com/guhada.official',
               'https://play.google.com/store/apps/details?id=io.temco.guhada&hl=ko',
-              'https://apps.apple.com/kr/app/구하다-명품-쇼핑-필수앱/id1478120259',
+              'https://itunes.apple.com/kr/app/id1478120259',
             ],
           }),
         }}
