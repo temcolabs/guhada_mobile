@@ -153,6 +153,11 @@ class Home extends React.Component {
             toSearch={searchitem.toSearch}
             condition={'PLUS'}
           />
+
+          <HomeItemDefault header={'BEST REVIEW'}>
+            <BestReview />
+          </HomeItemDefault>
+
           <MainSectionItem
             title={'BEST ITEM'}
             items={main.hits}
@@ -173,10 +178,6 @@ class Home extends React.Component {
             hotKeyword={main.hotKeyword}
             searchitem={searchitem}
           />
-        </HomeItemDefault>
-
-        <HomeItemDefault header={'BEST REVIEW'}>
-          <BestReview />
         </HomeItemDefault>
 
         {eventpopup.popupList.length > 0
