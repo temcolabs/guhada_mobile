@@ -72,17 +72,14 @@ class SellerReviewItems extends Component {
         renderProductoption = `구매옵션 : ${item.productOption.size}`;
       }
     }
-    const brand = 'GUCCI';
-    const title =
-      '19FW 반소매 프린트 레이스 긴소매 프릴 스퀘어넥스퀘어넥스퀘어넥스퀘어넥';
     return (
       <div className={css.wrap}>
         <div className={css.profileWrap}>
           <div>
             <div className={cn(css.levelWrap, css.fullWidth)}>
-              <div className={css.brand}>{brand}</div>
+              <div className={css.brand}>{item.review.brandName}</div>
               <div className={css.line} />
-              <div className={css.title}>{title}</div>
+              <div className={css.title}>{item.review.dealName}</div>
             </div>
             <div className={css.levelWrap}>
               <div>{StarItem(item.review.productRating)}</div>
