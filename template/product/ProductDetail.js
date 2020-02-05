@@ -25,7 +25,7 @@ import Coupon from 'components/productdetail/Coupon';
 import _ from 'lodash';
 import CommonPopup from 'components/common/modal/CommonPopup';
 import SellerReview from 'components/productdetail/SellerReview/SellerReview';
-
+import LoadingPortal from 'components/common/loading/Loading';
 @withScrollToTopOnMount
 @inject(
   'searchitem',
@@ -238,6 +238,8 @@ class ProductDetail extends React.Component {
             this.submitInternationalPopup();
           }}
         />
+
+        {this.props.cartAndPurchase.addCartStatus ? <LoadingPortal /> : null}
       </DefaultLayout>
     );
   }

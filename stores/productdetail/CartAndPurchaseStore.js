@@ -17,12 +17,14 @@ export default class CartAndPurchaseStore {
     if (!isServer) this.root = root;
   }
   @observable associatedProduct = [];
+  @observable addCartStatus = false;
 
   @action
   addShoppingCart = () => {
     let options = this.root.productoption.options;
     if (this.root.login.loginStatus === loginStatus.LOGIN_DONE) {
       if (options.selectedOption) {
+        this.addCartStatus = true;
         API.order
           .post(
             `/cart/addCartItem`,
@@ -74,6 +76,10 @@ export default class CartAndPurchaseStore {
                     pushRoute('/shoppingcart');
                   },
                 });
+                this.addCartStatus = false;
+              })
+              .catch(() => {
+                this.addCartStatus = false;
               });
 
             this.root.shoppingcart.globalGetUserShoppingCartList();
@@ -121,6 +127,7 @@ export default class CartAndPurchaseStore {
             if (this.root.login.loginStatus === loginStatus.LOGOUT) {
               sendBackToLogin();
             }
+            this.addCartStatus = false;
           });
       } else {
         this.root.alert.showAlert({
@@ -137,6 +144,7 @@ export default class CartAndPurchaseStore {
     let options = this.root.productoption.options;
     if (this.root.login.loginStatus === loginStatus.LOGIN_DONE) {
       if (options.selectedOption) {
+        this.addCartStatus = true;
         API.order
           .post(
             `/cart/addCartItem`,
@@ -162,11 +170,13 @@ export default class CartAndPurchaseStore {
             });
 
             this.root.shoppingcart.globalGetUserShoppingCartList();
+            this.addCartStatus = false;
           })
           .catch(err => {
             if (this.root.login.loginStatus === loginStatus.LOGOUT) {
               sendBackToLogin();
             }
+            this.addCartStatus = false;
           });
       } else {
         this.root.alert.showAlert({
