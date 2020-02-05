@@ -30,6 +30,7 @@ export default class BBSStore {
 export const useBBSStore = () => {
   const bbs = useStores()?.bbs;
 
+  console.log(bbs, 'bbs');
   return useObserver(() => ({
     search: bbs.search,
     article: bbs.article,

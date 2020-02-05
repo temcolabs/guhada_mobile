@@ -64,7 +64,8 @@ import EventPopupStore from './event/EventPopupStore';
 //기획전
 import SpecialStore from './event/SpecialStore';
 import SearchPlaceholderStore from './home/SearchPlaceholderStore';
-
+// 커뮤니티
+import BBSStore from './bbs';
 class RootStore {
   constructor(isServer, initialState) {
     this.user = new UserStore(this, initialState);
@@ -166,6 +167,11 @@ class RootStore {
     //기획전
     this.special = new SpecialStore(this, initialState);
     this.searchHolder = new SearchPlaceholderStore(this, initialState);
+
+    /**
+     * 커뮤니티
+     */
+    this.bbs = new BBSStore(this, initialState);
   }
 }
 
