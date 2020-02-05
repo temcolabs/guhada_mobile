@@ -93,7 +93,7 @@ class CouponModal extends Component {
               <div className={css.resultPrice}>
                 <div>할인 후 구매금액</div>
                 <div>
-                  {`${orderpayment.totalDiscountPrice?.toLocaleString()}원`}
+                  {`${orderpayment.totalDiscountPrice?.toLocaleString()}`}
                   <span>원</span>
                 </div>
               </div>

@@ -114,6 +114,7 @@ export default class OrderPaymentStore {
   };
 
   @observable selectedCouponList = [];
+  @observable tempSelectedCouponList = [];
   @observable totalCouponDiscount = 0;
   @observable totalDiscountPrice = 0;
 
@@ -208,7 +209,7 @@ export default class OrderPaymentStore {
   @action
   getPaymentInfo = () => {
     let cartItemPayments = [];
-    cartItemPayments = this.selectedCouponList.map(data => {
+    cartItemPayments = this.tempSelectedCouponList.map(data => {
       return {
         cartItemId: Number(data.cartId),
         couponNumber: data.couponNumber,
@@ -1119,6 +1120,8 @@ export default class OrderPaymentStore {
     this.root.customerauthentication.sendMailSuccess = false;
     this.root.orderPaymentBenefit.myCoupon = 0;
     this.totalCouponDiscount = 0;
+    this.selectedCouponList = [];
+    this.tempSelectedCouponList = [];
   };
 
   getTotalQuantity = () => {
@@ -1232,15 +1235,6 @@ export default class OrderPaymentStore {
     couponNumber = '',
     couponDiscountPrice = 0,
   }) => {
-    devLog(
-      cartId,
-      sellerId,
-      couponNumber,
-      couponDiscountPrice,
-      'cartId, sellerId, couponNumber couponDiscountPrice'
-    );
-
-    devLog(toJS(this.orderCouponInfo), 'this.orderCouponInfo');
     let tempObj = {
       cartId,
       sellerId,
@@ -1248,18 +1242,16 @@ export default class OrderPaymentStore {
       couponDiscountPrice,
     };
 
-    if (this.selectedCouponList.length === 0) {
-      this.selectedCouponList = this.selectedCouponList.concat(tempObj);
+    if (this.tempSelectedCouponList.length === 0) {
+      this.tempSelectedCouponList = this.tempSelectedCouponList.concat(tempObj);
     } else {
-      for (let i = 0; i < this.selectedCouponList.length; i++) {
-        if (this.selectedCouponList[i].cartId === cartId) {
-          this.selectedCouponList.splice(i, 1);
+      for (let i = 0; i < this.tempSelectedCouponList.length; i++) {
+        if (this.tempSelectedCouponList[i].cartId === cartId) {
+          this.tempSelectedCouponList.splice(i, 1);
         }
       }
-      this.selectedCouponList = this.selectedCouponList.concat(tempObj);
+      this.tempSelectedCouponList = this.tempSelectedCouponList.concat(tempObj);
     }
-
-    devLog(toJS(this.selectedCouponList), ' this.selectedCouponList');
 
     let tempArr = [];
     tempArr = JSON.parse(JSON.stringify(this.orderCouponInfo));
@@ -1338,7 +1330,7 @@ export default class OrderPaymentStore {
                     .benefitOrderProductResponseList[z]
                     .benefitProductCouponResponseList[j].disable === true
                 ) {
-                  let check = this.selectedCouponList.findIndex(
+                  let check = this.tempSelectedCouponList.findIndex(
                     data =>
                       data.couponNumber ===
                       tempArr.benefitSellerResponseList[i]
@@ -1369,6 +1361,16 @@ export default class OrderPaymentStore {
   setInitCouponInfo = () => {
     this.selectedCouponList = [];
     this.selectedCouponList = this.orderProductInfo.map(data => {
+      return {
+        cartId: data.cartItemId,
+        sellerId: 0,
+        couponNumber: '',
+        couponDiscountPrice: 0,
+      };
+    });
+
+    this.tempSelectedCouponList = [];
+    this.tempSelectedCouponList = this.orderProductInfo.map(data => {
       return {
         cartId: data.cartItemId,
         sellerId: 0,
@@ -1424,7 +1426,16 @@ export default class OrderPaymentStore {
               }
             }
 
+            for (let i = 0; i < this.tempSelectedCouponList.length; i++) {
+              if (this.tempSelectedCouponList[i].cartId === tempObj.cartId) {
+                this.tempSelectedCouponList.splice(i, 1);
+              }
+            }
+
             this.selectedCouponList = this.selectedCouponList.concat(tempObj);
+            this.tempSelectedCouponList = this.tempSelectedCouponList.concat(
+              tempObj
+            );
 
             this.couponDiscountCalculator();
           }
@@ -1436,8 +1447,8 @@ export default class OrderPaymentStore {
   couponDiscountCalculator = () => {
     this.totalCouponDiscount = 0;
     this.totalDiscountPrice = 0;
-    for (let i = 0; i < this.selectedCouponList.length; i++) {
-      this.totalCouponDiscount += this.selectedCouponList[
+    for (let i = 0; i < this.tempSelectedCouponList.length; i++) {
+      this.totalCouponDiscount += this.tempSelectedCouponList[
         i
       ].couponDiscountPrice;
     }
@@ -1450,6 +1461,7 @@ export default class OrderPaymentStore {
   couponApply = () => {
     this.status.loadingStatus = true;
     this.getPaymentInfo();
+    this.selectedCouponList = this.tempSelectedCouponList;
   };
 
   updateCouponInfo = cartList => {
