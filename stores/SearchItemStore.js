@@ -242,7 +242,8 @@ export default class SearchItemStore {
     productCondition = 'ANY',
     shippingCondition = 'ANY',
     minPrice = 0,
-    maxPrice = 0
+    maxPrice = 0,
+    sellerIds = ''
   ) => {
     this.itemEmpty = false;
 
@@ -351,6 +352,7 @@ export default class SearchItemStore {
               shippingCondition: shippingCondition,
               minPrice: minPrice,
               maxPrice: maxPrice,
+              sellerIds: sellerIds === '' ? null : [sellerIds],
             }
           )
           .then(res => {
@@ -359,7 +361,7 @@ export default class SearchItemStore {
             if (data.resultCode === 200) {
               // * 목록 검색 성공 후 크리테오 트래커 실행
               const { deals } = data.data;
-
+              this.countOfDeals = data.data.countOfDeals;
               if (deals.length >= 3) {
                 criteoTracker.searchResults({
                   email: this.root.user.userInfo?.email,
@@ -578,30 +580,6 @@ export default class SearchItemStore {
   @observable pageList = [];
 
   @observable countOfDeals;
-
-  @action
-  getSearchCountOfDeals = (brandIds, categoryIds) => {
-    let brandList = [];
-    brandIds.map(brand => {
-      if (brand.id) brandList.push(brand.id);
-      else brandList.push(brand);
-    });
-
-    API.search
-      .post('/ps/search/filter', {
-        brandIds: brandList,
-        categoryIds: [categoryIds],
-        filters: [],
-        searchQueries: [],
-        searchResultOrder: 'DATE',
-      })
-      .then(res => {
-        let data = res.data;
-        if (data.resultCode === 200) {
-          this.countOfDeals = data.data.countOfDeals;
-        }
-      });
-  };
 
   @observable categoryTreeData = [];
   @observable expandedKeys = [];
@@ -987,31 +965,55 @@ export default class SearchItemStore {
     shippingCondition = 'ANY',
     minPrice = '',
     maxPrice = '',
+    sellerIds = '',
   }) => {
     let query = Router.router.query;
     this.productCondition = productCondition;
     this.shippingCondition = shippingCondition;
 
-    pushRoute(
-      `/search?${qs.stringify({
-        category: category,
-        brand: brand,
-        page: page,
-        unitPerPage: unitPerPage,
-        order: order === null || order === '' ? 'DATE' : order,
-        filter: filter,
-        subcategory: subcategory,
-        enter: enter === '' ? query.enter : enter,
-        keyword: keyword,
-        resultKeyword: resultKeyword,
-        condition: condition === '' ? query.condition : condition,
-        filtered: filtered,
-        productCondition: this.productCondition,
-        shippingCondition: this.shippingCondition,
-        minPrice: minPrice,
-        maxPrice: maxPrice,
-      })}`
-    );
+    if (sellerIds === '') {
+      pushRoute(
+        `/search?${qs.stringify({
+          category: category,
+          brand: brand,
+          page: page,
+          unitPerPage: unitPerPage,
+          order: order === null || order === '' ? 'DATE' : order,
+          filter: filter,
+          subcategory: subcategory,
+          enter: enter === '' ? query.enter : enter,
+          keyword: keyword,
+          resultKeyword: resultKeyword,
+          condition: condition === '' ? query.condition : condition,
+          filtered: filtered,
+          productCondition: this.productCondition,
+          shippingCondition: this.shippingCondition,
+          minPrice: minPrice,
+          maxPrice: maxPrice,
+        })}`
+      );
+    } else {
+      pushRoute(
+        `/store/${this.root.seller.nickname}?${qs.stringify({
+          category: category,
+          brand: brand,
+          page: page,
+          unitPerPage: unitPerPage,
+          order: order === null || order === '' ? 'DATE' : order,
+          filter: filter,
+          subcategory: subcategory,
+          enter: enter === '' ? query.enter : enter,
+          keyword: keyword,
+          resultKeyword: resultKeyword,
+          condition: condition === '' ? query.condition : condition,
+          filtered: filtered,
+          productCondition: this.productCondition,
+          shippingCondition: this.shippingCondition,
+          minPrice: minPrice,
+          maxPrice: maxPrice,
+        })}`
+      );
+    }
     if (this.preUrl !== Router.asPath) this.deals = [];
   };
 

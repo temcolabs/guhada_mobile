@@ -16,7 +16,7 @@ import PriceFilter from 'components/search/PriceFilter';
 import SearchCategory from 'components/search/SearchCategory';
 import SearchBrand from 'components/search/SearchBrand';
 import TextButtonCondition from 'components/search/TextButtonCondition';
-@inject('brands', 'searchitem')
+@inject('brands', 'searchitem', 'seller')
 @observer
 class StoreSearchFilter extends Component {
   componentDidUpdate(prevProps, prevState) {
@@ -24,17 +24,17 @@ class StoreSearchFilter extends Component {
   }
   // isVisible
   setBrandData = memoize(isVisible => {
-    const { brands, searchitem } = this.props;
+    const { brands, seller } = this.props;
     if (isVisible === false) {
-      searchitem.initFilter();
+      seller.initFilter();
       brands.getBrands();
     } else {
-      brands.setBrandsFromFilter(searchitem.item?.brands);
+      brands.setBrandsFromFilter(seller.brands);
     }
   });
 
   render() {
-    const { isVisible, onClose, searchitem } = this.props;
+    const { isVisible, onClose, seller } = this.props;
 
     return (
       <SlideIn isVisible={isVisible} direction={slideDirection.BOTTOM}>
@@ -54,8 +54,8 @@ class StoreSearchFilter extends Component {
               data={brandNewOptions}
             />
 
-            {toJS(searchitem.filterData)
-              ? toJS(searchitem.filterData).map((filter, i) => {
+            {toJS(seller.filterData)
+              ? toJS(seller.filterData).map((filter, i) => {
                   if (filter.viewType === 'RGB_BUTTON') {
                     return <RgbButton filter={filter} key={i} />;
                   } else {
@@ -70,7 +70,7 @@ class StoreSearchFilter extends Component {
             <button
               className={css.init}
               onClick={() => {
-                searchitem.clearFilter();
+                seller.clearFilter();
                 this.refs.filterScroll.scrollTo(0, 0);
               }}
             >
@@ -79,7 +79,7 @@ class StoreSearchFilter extends Component {
             <button
               className={css.search}
               onClick={() => {
-                searchitem.searchFilter();
+                seller.searchFilter();
               }}
             >
               검색결과 보기

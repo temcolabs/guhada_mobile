@@ -11,6 +11,7 @@ import SellerStoreInfomation from 'components/sellerstore/SellerStoreInfomation'
 import DefaultLayout from 'components/layout/DefaultLayout';
 import _ from 'lodash';
 import StoreSearchFilter from 'components/sellerstore/StoreSearchFilter';
+import SearchFilter from 'components/search/SearchFilter';
 
 const enhancer = compose(
   withScrollToTopOnMount,
@@ -20,44 +21,55 @@ const enhancer = compose(
 /**
  * 셀러스토어
  */
-const SellerStore = enhancer(({ router, seller, sellerId, login }) => {
-  const [tab, setTab] = useState('store');
-  const [isFilterVisible, setIsFilterVisible] = useState(false);
-  return useObserver(() => (
-    <>
-      <DefaultLayout
-        pageTitle={
-          _.isNil(seller.sellerStore) === false
-            ? seller.sellerStore.nickname
-            : ''
-        }
-        headerShape={'sellerStore'}
-      >
-        <SellerStoreHeader
-          sellerStore={seller.sellerStore}
-          seller={seller}
-          login={login}
-          setTab={setTab}
-        />
-        <SellerStoreTab tab={tab} setTab={setTab} />
-
-        {tab === 'store' ? (
-          <SellerStoreProduct
+const SellerStore = enhancer(
+  ({ router, seller, sellerId, login, searchitem }) => {
+    const [tab, setTab] = useState('store');
+    const [isFilterVisible, setIsFilterVisible] = useState(false);
+    return useObserver(() => (
+      <>
+        <DefaultLayout
+          pageTitle={
+            _.isNil(seller.sellerStore) === false
+              ? seller.sellerStore.nickname
+              : ''
+          }
+          headerShape={'sellerStore'}
+        >
+          <SellerStoreHeader
+            sellerStore={seller.sellerStore}
             seller={seller}
-            items={seller.dealsOfSellerStore}
-            countOfDeals={seller.countOfDeals}
+            login={login}
+            setTab={setTab}
           />
-        ) : (
-          <SellerStoreInfomation sellerStore={seller.sellerStore} />
-        )}
-        {/* <StoreSearchFilter
-          isVisible={isFilterVisible}
-          onClose={() => setIsFilterVisible(false)}
-          filters={seller.filterData}
-        /> */}
-      </DefaultLayout>
-    </>
-  ));
-});
+          <SellerStoreTab tab={tab} setTab={setTab} />
+
+          {tab === 'store' ? (
+            <SellerStoreProduct
+              seller={seller}
+              items={searchitem.deals}
+              countOfDeals={searchitem.countOfDeals}
+            />
+          ) : (
+            <SellerStoreInfomation sellerStore={seller.sellerStore} />
+          )}
+          {searchitem.itemStatus && (
+            <SearchFilter
+              isVisible={isFilterVisible}
+              onClose={() => setIsFilterVisible(false)}
+              filters={searchitem.filterData}
+            />
+          )}
+          {/* {searchitem.itemStatus && (
+            <StoreSearchFilter
+              isVisible={isFilterVisible}
+              onClose={() => setIsFilterVisible(false)}
+              filters={seller.filterData}
+            />
+          )} */}
+        </DefaultLayout>
+      </>
+    ));
+  }
+);
 
 export default SellerStore;
