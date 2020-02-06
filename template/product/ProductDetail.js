@@ -139,7 +139,7 @@ class ProductDetail extends React.Component {
         <ShippingBenefit
           deals={deals}
           satisfaction={satisfaction}
-          seller={seller}
+          sellerData={seller}
           shipExpenseType={productoption.shipExpenseType}
           tabRefMap={this.tabRefMap}
           sellerStore={productdetail.sellerStore}
@@ -209,7 +209,7 @@ class ProductDetail extends React.Component {
             deals={deals}
             dealsOfSellerStore={dealsOfSellerStore}
             followers={followers}
-            seller={seller}
+            sellerData={seller}
             tabRefMap={this.tabRefMap}
             handleSellerFollows={this.handleSellerFollows}
             sellerfollow={sellerfollow}

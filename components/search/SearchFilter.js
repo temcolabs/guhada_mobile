@@ -34,8 +34,8 @@ class SearchFilter extends Component {
   });
 
   render() {
-    const { isVisible, onClose, searchitem } = this.props;
-
+    const { isVisible, onClose, searchitem, sellerId } = this.props;
+    console.log('SearchFiltersellerId', sellerId);
     return (
       <SlideIn isVisible={isVisible} direction={slideDirection.BOTTOM}>
         <div className={css.wrap} ref="filterScroll">
@@ -79,7 +79,7 @@ class SearchFilter extends Component {
             <button
               className={css.search}
               onClick={() => {
-                searchitem.searchFilter();
+                searchitem.searchFilter(sellerId);
               }}
             >
               검색결과 보기

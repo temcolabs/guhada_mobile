@@ -752,7 +752,7 @@ export default class SearchItemStore {
     this.toSearch({ resultKeyword: ' ' });
   };
   @action
-  searchFilter = () => {
+  searchFilter = (sellerId = '') => {
     let brandList = [];
     let filterList = [];
     let category;
@@ -837,6 +837,7 @@ export default class SearchItemStore {
       shippingCondition: this.shippingCondition,
       minPrice: this.minPrice,
       maxPrice: this.maxPrice,
+      sellerIds: sellerId,
     });
   };
 
@@ -946,7 +947,9 @@ export default class SearchItemStore {
   setResultSearchFilter = value => {
     this.resultKeyword = value;
   };
+
   @observable preUrl;
+
   @action
   toSearch = ({
     category = '',
@@ -970,7 +973,7 @@ export default class SearchItemStore {
     let query = Router.router.query;
     this.productCondition = productCondition;
     this.shippingCondition = shippingCondition;
-
+    console.log('sellerIds', sellerIds);
     if (sellerIds === '') {
       pushRoute(
         `/search?${qs.stringify({

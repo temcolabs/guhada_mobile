@@ -48,6 +48,7 @@ const SellerStore = enhancer(
               seller={seller}
               items={searchitem.deals}
               countOfDeals={searchitem.countOfDeals}
+              setIsFilterVisible={setIsFilterVisible}
             />
           ) : (
             <SellerStoreInfomation sellerStore={seller.sellerStore} />
@@ -57,6 +58,7 @@ const SellerStore = enhancer(
               isVisible={isFilterVisible}
               onClose={() => setIsFilterVisible(false)}
               filters={searchitem.filterData}
+              sellerId={seller.sellerId}
             />
           )}
           {/* {searchitem.itemStatus && (

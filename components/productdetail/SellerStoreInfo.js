@@ -8,6 +8,7 @@ import { loginStatus } from 'childs/lib/constant';
 import isTruthy from 'childs/lib/common/isTruthy';
 import internationalShipping from 'childs/lib/constant/filter/internationalShipping';
 import brandNew from 'childs/lib/constant/filter/brandNew';
+import { inject } from 'mobx-react';
 
 function SellerStoreInfo({
   deals,
@@ -43,28 +44,30 @@ function SellerStoreInfo({
     },
   ],
   followers = { isFollower: '팔로우' },
-  seller,
+  sellerData,
   tabRefMap,
   sellerfollow,
   handleSellerFollows = () => {},
   alert,
   login,
   sellerStore,
+  seller,
 }) {
   return useObserver(() => (
     <div className={css.wrap} ref={tabRefMap.sellerstoreTab}>
       <div
         className={css.headerWrap}
-        onClick={() => pushRoute(`/store/${sellerStore.nickname}`)}
+        onClick={() => seller.toSearch({ nickname: sellerStore.nickname })}
+        // onClick={() => pushRoute(`/store/${sellerStore.nickname}`)}
       >
         <div
           className={css.profileImage}
           style={
-            _.isNil(seller) !== true &&
-            seller.user.profileImageUrl !== '' &&
-            seller.user.profileImageUrl !== null
+            _.isNil(sellerData) !== true &&
+            sellerData.user.profileImageUrl !== '' &&
+            sellerData.user.profileImageUrl !== null
               ? {
-                  backgroundImage: `url(${seller.user.profileImageUrl})`,
+                  backgroundImage: `url(${sellerData.user.profileImageUrl})`,
                 }
               : null
           }
@@ -163,4 +166,4 @@ function SellerStoreInfo({
     </div>
   ));
 }
-export default SellerStoreInfo;
+export default inject('seller')(SellerStoreInfo);

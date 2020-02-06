@@ -80,6 +80,7 @@ export default class SellerStore {
         this.sellerId = data.data.id;
 
         this.getSellerStore();
+
         const { searchitem } = this.root;
         const query = Router.router.query;
 
@@ -87,6 +88,10 @@ export default class SellerStore {
         searchitem.preUrl = Router.asPath;
         searchitem.initDealspage();
         if (query.filtered === 'false') searchitem.initSearchFilterList();
+
+        // searchitem.toSearch({
+        //   sellerIds: this.sellerId,
+        // });
 
         let brand = JSON.parse('[' + query.brand + ']');
         let subcategory = JSON.parse('[' + query.subcategory + ']');
@@ -110,8 +115,9 @@ export default class SellerStore {
           this.sellerId
         );
 
+        console.log('1');
         // this.root.searchitem.getSearchByUri();
-        this.getSellerStoreDeal(this.sellerId);
+        // this.getSellerStoreDeal(this.sellerId);
 
         if (this.root.login.loginStatus === loginStatus.LOGIN_DONE)
           this.getFollowSellerStore(this.sellerId);
@@ -359,23 +365,12 @@ export default class SellerStore {
     shippingCondition = 'ANY',
     minPrice = '',
     maxPrice = '',
+    nickname = '',
   }) => {
     let query = Router.router.query;
-    this.productCondition = productCondition;
-    this.shippingCondition = shippingCondition;
-    this.category = category;
-    this.brand = brand;
-    this.filter = filter;
-    this.subcategory = subcategory;
-    this.enter = enter;
-    this.keyword = keyword;
-    this.resultKeyword = resultKeyword;
-    this.condition = condition;
-    this.filtered = filtered;
-    this.minPrice = minPrice;
-    this.maxPrice = maxPrice;
+
     pushRoute(
-      `/store/${this.nickname}?${qs.stringify({
+      `/store/${nickname}?${qs.stringify({
         category: category,
         brand: brand,
         page: page,

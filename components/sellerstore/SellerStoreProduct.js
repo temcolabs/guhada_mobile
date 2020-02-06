@@ -6,7 +6,12 @@ import { LinkRoute } from 'childs/lib/router';
 import { useObserver } from 'mobx-react-lite';
 import SellerStoreOrder from './SellerStroeOrder';
 
-export default function SellerStoreProduct({ seller, items, countOfDeals }) {
+export default function SellerStoreProduct({
+  seller,
+  items,
+  countOfDeals,
+  setIsFilterVisible,
+}) {
   const [orderHover, setOrderHover] = useState(false);
   const [sellerStoreFilter, setSellerStoreFilter] = useState('DATE');
   const orderList = [
@@ -37,7 +42,15 @@ export default function SellerStoreProduct({ seller, items, countOfDeals }) {
     <>
       <div className={css.headerWrap}>
         <div className={css.count}>{`총 ${countOfDeals}개`}</div>
-        <div className={css.detail}>상세검색</div>
+        <div
+          className={css.detail}
+          onClick={e => {
+            e.stopPropagation();
+            setIsFilterVisible(true);
+          }}
+        >
+          상세검색
+        </div>
         <div className={css.orderWrap} onClick={() => setOrderHover(true)}>
           {orderLabel}
           <SellerStoreOrder
