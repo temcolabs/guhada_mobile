@@ -128,7 +128,8 @@ export default class ProductReviewStore {
         targetId: id,
       })
       .then(res => {
-        this.getProductReview();
+        if (this.root.login.loginStatus === 'LOGIN_DONE')
+          this.getProductReviewBookmarks();
       })
       .catch(e => {
         console.error('e', e);
@@ -145,7 +146,8 @@ export default class ProductReviewStore {
         },
       })
       .then(res => {
-        this.getProductReview();
+        if (this.root.login.loginStatus === 'LOGIN_DONE')
+          this.getProductReviewBookmarks();
       })
       .catch(e => {
         console.error('e', e);
@@ -196,6 +198,9 @@ export default class ProductReviewStore {
       .then(res => {
         let data = res.data;
         this.review = data.data;
+
+        if (this.root.login.loginStatus === 'LOGIN_DONE')
+          this.getProductReviewBookmarks();
       })
       .catch(e => {
         this.review = [];
@@ -218,6 +223,9 @@ export default class ProductReviewStore {
       .then(res => {
         let data = res.data;
         this.review = data.data;
+
+        if (this.root.login.loginStatus === 'LOGIN_DONE')
+          this.getProductReviewBookmarks();
       })
       .catch(e => {
         this.review = [];

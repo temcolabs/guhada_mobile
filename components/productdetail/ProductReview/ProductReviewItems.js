@@ -152,9 +152,10 @@ class ProductReviewItems extends Component {
             _.isNil(checkBookmarks) === true ? (
               <div
                 className={css.likeWrap}
-                onClick={() =>
-                  productreview.setProductReviewBookmarks(item.review.id)
-                }
+                onClick={() => {
+                  productreview.setProductReviewBookmarks(item.review.id);
+                  item.review.bookmarkCount++;
+                }}
               >
                 <div>도움되었어요</div>
                 <div className={css.likeIcon} />
@@ -165,9 +166,10 @@ class ProductReviewItems extends Component {
             ) : (
               <div
                 className={css.likeWrap}
-                onClick={() =>
-                  productreview.delProductReviewBookmarks(item.review.id)
-                }
+                onClick={() => {
+                  productreview.delProductReviewBookmarks(item.review.id);
+                  item.review.bookmarkCount--;
+                }}
               >
                 <div>도움되었어요</div>
                 <div className={css.unLikeIcon} />
