@@ -13,7 +13,7 @@ class BBSListPage extends Component {
   render() {
     return (
       <div>
-        <HeadForSEO pageName="커뮤니티"></HeadForSEO>
+        <HeadForSEO pageName="커뮤니티" />
         <BBSList />
       </div>
     );

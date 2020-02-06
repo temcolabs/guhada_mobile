@@ -19,7 +19,7 @@ class CommunityLayout extends React.Component {
 
   render() {
     return (
-      <DefaultLayout isCateogryNavVisible>
+      <DefaultLayout pageTitle={`커뮤니티`}>
         <div className={css.communityMain}>
           <div className={css.pageAndSidebar}>
             <div className={css.pageContents}>{this.props.children}</div>
