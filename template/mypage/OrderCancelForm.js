@@ -50,10 +50,10 @@ class OrderCancelForm extends Component {
     cancelReasonText: 'cancelReasonText',
 
     // 환불 계좌정보
-    refundBankCode: 'refundBankCode', // 은행코드
-    refundBankAccountNumber: 'refundBankAccountNumber', // 계좌번호
-    refundBankAccountOwner: 'refundBankAccountOwner', // 예금주
-    isRefundAccountChecked: 'isRefundAccountChecked', // 환불계좌가 확인되었는지?
+    // refundBankCode: 'refundBankCode', // 은행코드
+    // refundBankAccountNumber: 'refundBankAccountNumber', // 계좌번호
+    // refundBankAccountOwner: 'refundBankAccountOwner', // 예금주
+    // isRefundAccountChecked: 'isRefundAccountChecked', // 환불계좌가 확인되었는지?
   };
 
   // 폼 초기값
@@ -62,10 +62,10 @@ class OrderCancelForm extends Component {
     [this.fields.cancelReason]: null,
     [this.fields.cancelReasonText]: null,
 
-    [this.fields.refundBankCode]: null,
-    [this.fields.refundBankAccountNumber]: null,
-    [this.fields.refundBankAccountOwner]: null,
-    [this.fields.isRefundAccountChecked]: null,
+    // [this.fields.refundBankCode]: null,
+    // [this.fields.refundBankAccountNumber]: null,
+    // [this.fields.refundBankAccountOwner]: null,
+    // [this.fields.isRefundAccountChecked]: null,
   };
 
   get orderProdGroupId() {

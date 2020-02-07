@@ -25,19 +25,19 @@ import cn from 'classnames';
  */
 export default function RefundAccountInfoForm({
   isCreate = true,
-  fields = {
-    refundBankCode: 'refundBankCode',
-    refundBankAccountNumber: 'refundBankAccountNumber',
-    refundBankAccountOwner: 'refundBankAccountOwner',
-    isRefundAccountChecked: 'isRefundAccountChecked',
-  },
-  formApi, // final form instance
+  // fields = {
+  //   refundBankCode: 'refundBankCode',
+  //   refundBankAccountNumber: 'refundBankAccountNumber',
+  //   refundBankAccountOwner: 'refundBankAccountOwner',
+  //   isRefundAccountChecked: 'isRefundAccountChecked',
+  // },
+  // formApi, // final form instance
 }) {
   const { orderClaimForm } = useStores();
   const [isValidatingTried, setIsValidatingTried] = useState(false);
   const [isValidatingAccount, setIsValidatingAccount] = useState(false);
 
-  const { values } = formApi.getState();
+  // const { values } = formApi.getState();
   const claimData = orderClaimForm.claimData;
 
   // 환불 계좌정보 입력 양식. 반품 신청에서 표시된다.
@@ -49,61 +49,61 @@ export default function RefundAccountInfoForm({
   /**
    * 계좌번호 확인
    */
-  const handleClickCheckAccount = useCallback(() => {
-    const { values } = formApi.getState();
-    const refundBankCode = values[fields.refundBankCode];
-    const refundBankAccountNumber = values[fields.refundBankAccountNumber];
-    const refundBankAccountOwner = values[fields.refundBankAccountOwner];
+  // const handleClickCheckAccount = useCallback(() => {
+  //   const { values } = formApi.getState();
+  //   const refundBankCode = values[fields.refundBankCode];
+  //   const refundBankAccountNumber = values[fields.refundBankAccountNumber];
+  //   const refundBankAccountOwner = values[fields.refundBankAccountOwner];
 
-    if (
-      !refundBankCode ||
-      !refundBankAccountNumber ||
-      !refundBankAccountOwner
-    ) {
-      // 필요한 정보를 입력하지 않았다면 오류 처리
-      formApi.change(fields.isRefundAccountChecked, false);
-    } else {
-      setIsValidatingTried(false);
-      setIsValidatingAccount(true);
+  //   if (
+  //     !refundBankCode ||
+  //     !refundBankAccountNumber ||
+  //     !refundBankAccountOwner
+  //   ) {
+  //     // 필요한 정보를 입력하지 않았다면 오류 처리
+  //     formApi.change(fields.isRefundAccountChecked, false);
+  //   } else {
+  //     setIsValidatingTried(false);
+  //     setIsValidatingAccount(true);
 
-      accountService
-        .accountCheck({
-          bankCode: refundBankCode,
-          bankNumber: refundBankAccountNumber,
-          name: refundBankAccountOwner,
-        })
-        .then(({ data }) => {
-          devLog(`accountCheck`, data);
+  //     accountService
+  //       .accountCheck({
+  //         bankCode: refundBankCode,
+  //         bankNumber: refundBankAccountNumber,
+  //         name: refundBankAccountOwner,
+  //       })
+  //       .then(({ data }) => {
+  //         devLog(`accountCheck`, data);
 
-          if (data.data?.result === true) {
-            formApi.change(fields.isRefundAccountChecked, true);
-          } else {
-            formApi.change(fields.isRefundAccountChecked, false);
-          }
-        })
-        .catch(e => {
-          console.error(e);
-          formApi.change(fields.isRefundAccountChecked, false);
-        })
-        .finally(() => {
-          setIsValidatingTried(true);
-          setIsValidatingAccount(false);
-        });
-    }
-  }, [
-    fields.isRefundAccountChecked,
-    fields.refundBankAccountNumber,
-    fields.refundBankAccountOwner,
-    fields.refundBankCode,
-    formApi,
-  ]);
+  //         if (data.data?.result === true) {
+  //           formApi.change(fields.isRefundAccountChecked, true);
+  //         } else {
+  //           formApi.change(fields.isRefundAccountChecked, false);
+  //         }
+  //       })
+  //       .catch(e => {
+  //         console.error(e);
+  //         formApi.change(fields.isRefundAccountChecked, false);
+  //       })
+  //       .finally(() => {
+  //         setIsValidatingTried(true);
+  //         setIsValidatingAccount(false);
+  //       });
+  //   }
+  // }, [
+  //   fields.isRefundAccountChecked,
+  //   fields.refundBankAccountNumber,
+  //   fields.refundBankAccountOwner,
+  //   fields.refundBankCode,
+  //   formApi,
+  // ]);
 
-  const isAllInputFilled =
-    !!values[fields.refundBankAccountNumber] &&
-    !!values[fields.refundBankCode] &&
-    !!values[fields.refundBankAccountOwner];
+  // const isAllInputFilled =
+  //   !!values[fields.refundBankAccountNumber] &&
+  //   !!values[fields.refundBankCode] &&
+  //   !!values[fields.refundBankAccountOwner];
 
-  const isAccountVerified = values[fields.isRefundAccountChecked];
+  // const isAccountVerified = values[fields.isRefundAccountChecked];
 
   console.log(`isRefundAccountFormVisible`, isRefundAccountFormVisible);
 
@@ -114,7 +114,8 @@ export default function RefundAccountInfoForm({
           <div className={claimFormCSS.field}>
             <div className={claimFormCSS.field__label}>은행명</div>
             <div className={claimFormCSS.field__value}>
-              <Field
+              <input type="text" value={claimData?.refundBankName} readOnly />
+              {/* <Field
                 name={fields.refundBankCode}
                 validate={composeValidators(required)}
               >
@@ -143,14 +144,19 @@ export default function RefundAccountInfoForm({
                     )}
                   </div>
                 )}
-              </Field>
+              </Field> */}
             </div>
           </div>
           <div className={claimFormCSS.field}>
             <div className={claimFormCSS.field__label}>계좌번호</div>
             <div className={claimFormCSS.field__value}>
               <div className={css.smallInputWrapper}>
-                <Field
+                <input
+                  type="text"
+                  value={claimData?.refundBankAccountNumber}
+                  readOnly
+                />
+                {/* <Field
                   name={fields.refundBankAccountNumber}
                   validate={composeValidators(required, notEmptyString)}
                 >
@@ -176,7 +182,7 @@ export default function RefundAccountInfoForm({
                       )}
                     </>
                   )}
-                </Field>
+                </Field> */}
               </div>
             </div>
           </div>
@@ -185,7 +191,12 @@ export default function RefundAccountInfoForm({
             <div className={claimFormCSS.field__value}>
               <div className={css.checkAccountField}>
                 <div className={css.checkAccountField__input}>
-                  <Field
+                  <input
+                    type="text"
+                    value={claimData?.refundBankAccountOwner}
+                    readOnly
+                  />
+                  {/* <Field
                     name={fields.refundBankAccountOwner}
                     validate={composeValidators(required, notEmptyString)}
                   >
@@ -212,11 +223,11 @@ export default function RefundAccountInfoForm({
                         )}
                       </>
                     )}
-                  </Field>
+                  </Field> */}
                 </div>
 
                 {/* 계좌 확인 메시지 */}
-                <div className={css.checkAccountField__button}>
+                {/* <div className={css.checkAccountField__button}>
                   <FormButton
                     type="button"
                     onClick={e => {
@@ -236,10 +247,10 @@ export default function RefundAccountInfoForm({
                       ? '확인 완료'
                       : '계좌확인'}
                   </FormButton>
-                </div>
+                </div> */}
               </div>
 
-              <div>
+              {/* <div>
                 <Field
                   name={fields.isRefundAccountChecked}
                   validate={v => {
@@ -261,7 +272,7 @@ export default function RefundAccountInfoForm({
                     // 초기값이 변경된 후에 에러메시지 표시
                   }}
                 </Field>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
