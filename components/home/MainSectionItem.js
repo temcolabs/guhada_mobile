@@ -6,13 +6,14 @@ import { mainSectionCategory } from 'childs/lib/constant/home/mainSectionCategor
 import SectionItem from './SectionItem';
 import { LinkRoute } from 'childs/lib/router';
 import _ from 'lodash';
-
-export default function MainSectionItem({
+import { inject, observer } from 'mobx-react';
+function MainSectionItem({
   title = 'PLUS ITEM',
   items,
   categoryId,
   toSearch = () => {},
   condition,
+  user,
 }) {
   const [isCategory, setIsCategory] = useState('');
   useEffect(() => {
@@ -20,6 +21,18 @@ export default function MainSectionItem({
     else setIsCategory(categoryId);
   }, [categoryId]);
 
+  useEffect(() => {
+    switch (user.userInfo.gender) {
+      case 'FEMALE':
+        setIsCategory(1);
+        break;
+      case 'MALE':
+        setIsCategory(2);
+        break;
+      default:
+        break;
+    }
+  }, [user.userInfo.gender]);
   return (
     <>
       <div className={cn(css.wrap, { [css.wrapNotHome]: categoryId !== 0 })}>
@@ -85,3 +98,4 @@ export default function MainSectionItem({
     </>
   );
 }
+export default inject('user')(observer(MainSectionItem));
