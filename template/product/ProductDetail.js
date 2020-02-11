@@ -26,6 +26,7 @@ import _ from 'lodash';
 import CommonPopup from 'components/common/modal/CommonPopup';
 import SellerReview from 'components/productdetail/SellerReview/SellerReview';
 import LoadingPortal from 'components/common/loading/Loading';
+import { sendBackToLogin } from 'childs/lib/router';
 @withScrollToTopOnMount
 @inject(
   'searchitem',
@@ -35,7 +36,8 @@ import LoadingPortal from 'components/common/loading/Loading';
   'login',
   'alert',
   'mypageRecentlySeen',
-  'cartAndPurchase'
+  'cartAndPurchase',
+  'login'
 )
 @observer
 class ProductDetail extends React.Component {
@@ -64,13 +66,16 @@ class ProductDetail extends React.Component {
   }
 
   handleSellerFollows = () => {
-    const { sellerfollow, productdetail } = this.props;
+    const { sellerfollow, productdetail, login } = this.props;
     const follows = sellerfollow.follows;
-
-    if (follows === false) {
-      sellerfollow.setSellerFollow(productdetail.deals.sellerId);
-    } else if (follows === true) {
-      sellerfollow.deleteSellerFollow(productdetail.deals.sellerId);
+    if (login.isLoggedIn) {
+      if (follows === false) {
+        sellerfollow.setSellerFollow(productdetail.deals.sellerId);
+      } else if (follows === true) {
+        sellerfollow.deleteSellerFollow(productdetail.deals.sellerId);
+      }
+    } else {
+      sendBackToLogin();
     }
   };
 

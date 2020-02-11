@@ -14,7 +14,8 @@ import CardInterestModal from 'components/common/modal/CardInterestModal';
   'sellerfollow',
   'login',
   'alert',
-  'cardinterest'
+  'cardinterest',
+  'login'
 )
 @observer
 class ShippingBenefit extends Component {
@@ -28,13 +29,16 @@ class ShippingBenefit extends Component {
   };
 
   handleSellerFollows = () => {
-    const { sellerfollow, productdetail } = this.props;
+    const { sellerfollow, productdetail, login } = this.props;
     const follows = sellerfollow.follows;
-
-    if (follows === false) {
-      sellerfollow.setSellerFollow(productdetail.deals.sellerId);
-    } else if (follows === true) {
-      sellerfollow.deleteSellerFollow(productdetail.deals.sellerId);
+    if (login.isLoggedIn) {
+      if (follows === false) {
+        sellerfollow.setSellerFollow(productdetail.deals.sellerId);
+      } else if (follows === true) {
+        sellerfollow.deleteSellerFollow(productdetail.deals.sellerId);
+      }
+    } else {
+      sendBackToLogin();
     }
   };
   componentWillUnmount() {

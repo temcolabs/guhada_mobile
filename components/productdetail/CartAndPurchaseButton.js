@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import css from './CartAndPurchaseButton.module.scss';
 import { inject, observer } from 'mobx-react';
+import { sendBackToLogin } from 'childs/lib/router';
 
-@inject('productdetail', 'cartAndPurchase')
+@inject('productdetail', 'cartAndPurchase', 'login')
 @observer
 class CartAndPurchaseButton extends Component {
   render() {
@@ -11,6 +12,7 @@ class CartAndPurchaseButton extends Component {
       cartAndPurchase,
       handleInternationalPopup,
       isInternationalSubmit,
+      login,
     } = this.props;
     let deals = productdetail.deals;
     return (
@@ -20,13 +22,16 @@ class CartAndPurchaseButton extends Component {
             <div
               className={css.shoppingCart__btn}
               onClick={() => {
-                if (!deals.internationalShipping) {
-                  cartAndPurchase.addShoppingCart();
-                } else if (cartAndPurchase.checkLoginStatus()) {
-                  handleInternationalPopup(true);
-                  isInternationalSubmit('addShoppingCart');
+                if (login.isLoggedIn) {
+                  if (!deals.internationalShipping) {
+                    cartAndPurchase.addShoppingCart();
+                  } else {
+                    handleInternationalPopup(true);
+                    isInternationalSubmit('addShoppingCart');
+                  }
+                } else {
+                  sendBackToLogin();
                 }
-                // cartAndPurchase.addShoppingCart();
               }}
             >
               장바구니
@@ -34,13 +39,16 @@ class CartAndPurchaseButton extends Component {
             <div
               className={css.buy__btn}
               onClick={() => {
-                if (!deals.internationalShipping) {
-                  cartAndPurchase.immediatePurchase();
-                } else if (cartAndPurchase.checkLoginStatus()) {
-                  handleInternationalPopup(true);
-                  isInternationalSubmit('immediatePurchase');
+                if (login.isLoggedIn) {
+                  if (!deals.internationalShipping) {
+                    cartAndPurchase.immediatePurchase();
+                  } else {
+                    handleInternationalPopup(true);
+                    isInternationalSubmit('immediatePurchase');
+                  }
+                } else {
+                  sendBackToLogin();
                 }
-                // cartAndPurchase.immediatePurchase();
               }}
             >
               바로구매

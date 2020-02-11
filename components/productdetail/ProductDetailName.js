@@ -4,13 +4,15 @@ import { inject, observer } from 'mobx-react';
 import _ from 'lodash';
 import copy from 'copy-to-clipboard';
 import Router from 'next/router';
+import { sendBackToLogin } from 'childs/lib/router';
 
 @inject(
   'productdetail',
   'productDetailBookmark',
   'productoption',
   'alert',
-  'searchitem'
+  'searchitem',
+  'login'
 )
 @observer
 class ProductDetailName extends Component {
@@ -35,7 +37,12 @@ class ProductDetailName extends Component {
   };
 
   render() {
-    let { productdetail, productDetailBookmark, searchitem } = this.props;
+    let {
+      productdetail,
+      productDetailBookmark,
+      searchitem,
+      login,
+    } = this.props;
     let { deals } = productdetail;
     return (
       <div className={css.wrap}>
@@ -83,7 +90,11 @@ class ProductDetailName extends Component {
             <div
               className={css.like__btn}
               onClick={() => {
-                productDetailBookmark.saveBookmark(deals.productId);
+                if (login.isLoggedIn) {
+                  productDetailBookmark.saveBookmark(deals.productId);
+                } else {
+                  sendBackToLogin();
+                }
               }}
             >
               {productDetailBookmark.bookMarkStatus ? (

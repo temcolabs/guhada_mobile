@@ -3,7 +3,7 @@ import css from './SellerStoreInfo.module.scss';
 import cn from 'classnames';
 import _ from 'lodash';
 import { useObserver } from 'mobx-react-lite';
-import { pushRoute } from 'childs/lib/router';
+import { pushRoute, sendBackToLogin } from 'childs/lib/router';
 import { loginStatus } from 'childs/lib/constant';
 import isTruthy from 'childs/lib/common/isTruthy';
 import internationalShipping from 'childs/lib/constant/filter/internationalShipping';
@@ -84,6 +84,7 @@ function SellerStoreInfo({
             <div>*굿서비스</div> */}
           </div>
         </div>
+
         {login.loginStatus === loginStatus.LOGIN_DONE ? (
           <div
             className={cn(css.followBtn, {
@@ -100,7 +101,7 @@ function SellerStoreInfo({
           <button
             className={cn(css.followBtn)}
             onClick={e => {
-              pushRoute(`/login`);
+              sendBackToLogin();
               e.stopPropagation();
             }}
           >

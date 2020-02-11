@@ -36,7 +36,7 @@ export default function MyReviewList() {
             }`}
             onClick={() => handleClickTab(claimTabs.SELLER)}
           >
-            판매자 문의
+            주문 문의
           </div>
         </div>
 

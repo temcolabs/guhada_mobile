@@ -79,30 +79,9 @@ class ProductInquiry extends Component {
             >
               상품 문의하기
             </button>
-            <button
-              onClick={() =>
-                this.props.handleOpenSellerClaimModal({
-                  sellerId: deals.sellerId,
-                  onImpossible: () => {
-                    this.props.alert.showConfirm({
-                      content:
-                        '해당 판매자에게 주문한 기록을 찾을 수 없습니다. 상품 문의를 통해서만 문의가 가능합니다.',
-                      cancelText: '취소',
-                      confirmText: '상품 문의하기',
-                      onConfirm: () => {
-                        this.setState({ isNewInquiryVisible: true });
-                      },
-                    });
-                  },
-                })
-              }
-            >
-              판매자 문의하기
-            </button>
           </div>
           <div className={css.desc}>
             구매하시려는 상품에 대해 궁금하신 점이 있으신 경우, 문의해주세요.
-            {/* 상품 이외의 문의는 ‘판매자 문의하기’를 이용해주세요. */}
           </div>
           <div className={css.tabWrap}>
             <div
@@ -165,11 +144,11 @@ class ProductInquiry extends Component {
         />
 
         {/* 판매자 문의하기 모달 */}
-        <SellerClaimModal
+        {/* <SellerClaimModal
           isOpen={this.props.isSellerClaimModalOpen}
           sellerId={this.props.sellerIdToClaim}
           onClose={this.props.handleCloseSellerClaimModal}
-        />
+        /> */}
       </div>
     );
   }
