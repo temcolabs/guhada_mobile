@@ -3,9 +3,9 @@ import css from './SellerReviewItems.module.scss';
 import _ from 'lodash';
 import StarItem from '../StarItem';
 import moment from 'moment';
-import { dateFormat } from 'childs/lib/constant';
+import { dateFormat, loginStatus } from 'childs/lib/constant';
 import { inject, observer } from 'mobx-react';
-import { pushRoute } from 'childs/lib/router';
+import { pushRoute, sendBackToLogin } from 'childs/lib/router';
 import isTruthy from 'childs/lib/common/isTruthy';
 import cn from 'classnames';
 
@@ -135,7 +135,7 @@ class SellerReviewItems extends Component {
           ) : null}
         </div>
         <div className={css.likeCommentWrap}>
-          {login.loginStatus === 'LOGIN_DONE' ? (
+          {login.loginStatus === loginStatus.LOGIN_DONE ? (
             _.isNil(checkBookmarks) === true ? (
               <div
                 className={css.likeWrap}
@@ -166,7 +166,7 @@ class SellerReviewItems extends Component {
               </div>
             )
           ) : (
-            <div className={css.likeWrap} onClick={() => pushRoute(`/login`)}>
+            <div className={css.likeWrap} onClick={() => sendBackToLogin()}>
               <div>도움되었어요</div>
               <div className={css.likeIcon} />
               <div className={css.bookmarkCount}>{`${
