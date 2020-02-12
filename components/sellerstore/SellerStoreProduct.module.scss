@@ -23,9 +23,10 @@
     color: #333333;
     float: right;
   }
+
   & .orderWrap {
     position: relative;
-    float: right;
+    float: left;
     background-image: url('/static/icon/list_select_arrow_open.png');
     background-repeat: no-repeat;
     background-position: right center;
@@ -65,7 +66,7 @@
         color: #5d2ed1;
       }
 
-      & ~ div {
+      &~div {
         margin-top: 10px;
       }
     }
@@ -95,6 +96,7 @@
   color: #111111;
   padding-top: 16px;
   border-top: 1px solid #eeeeee;
+  margin-top: 40px;
 
   & .moreIcon {
     width: 16px;

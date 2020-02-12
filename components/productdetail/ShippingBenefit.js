@@ -7,6 +7,7 @@ import cn from 'classnames';
 import { pushRoute, sendBackToLogin } from 'childs/lib/router';
 import { loginStatus } from 'childs/lib/constant';
 import CardInterestModal from 'components/common/modal/CardInterestModal';
+
 @inject(
   'productreview',
   'productoption',
@@ -156,7 +157,6 @@ class ShippingBenefit extends Component {
         ) : null}
         <div
           className={css.sellerWrap}
-          // onClick={() => pushRoute(`/store/${sellerStore.nickname}`)}
           onClick={() => seller.toSearch({ nickname: sellerStore.nickname })}
         >
           <div

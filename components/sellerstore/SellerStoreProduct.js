@@ -41,7 +41,6 @@ export default function SellerStoreProduct({
   return useObserver(() => (
     <>
       <div className={css.headerWrap}>
-        <div className={css.count}>{`총 ${countOfDeals}개`}</div>
         <div
           className={css.detail}
           onClick={e => {
