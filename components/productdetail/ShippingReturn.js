@@ -72,10 +72,8 @@ export default function ShippingReturn({
   },
 }) {
   const asInfo = _.isNil(deals.asInfo);
-  const asTelephone = _.isNil(deals.asTelephone);
   const asDesc = _.isNil(deals.asDesc);
-  const asValueHandle =
-    asInfo !== false && asTelephone !== false && asDesc !== false;
+  const asValueHandle = asInfo !== false && asDesc !== false;
 
   return (
     <>
@@ -99,12 +97,7 @@ export default function ShippingReturn({
                   <td>{deals.asInfo}</td>
                 </tr>
               )}
-              {asTelephone === false && (
-                <tr>
-                  <th>AS 전화번호</th>
-                  <td>{autoHypenTele(deals.asTelephone)}</td>
-                </tr>
-              )}
+
               {asDesc === false && (
                 <tr>
                   <th>판매자 특이사항</th>
