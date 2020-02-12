@@ -11,7 +11,7 @@ import BoardSearch from 'components/community/list/BoardSearch';
 import BoardListItem from 'components/community/list/BoardListItem';
 import BoardCategoryFilter from 'components/community/list/BoardCategoryFilter';
 // import useStores from 'stores/useStores';
-import AdBanner from 'components/community/AdBanner';
+// import AdBanner from 'components/community/AdBanner';
 import CommunityContentWrap from 'components/community/CommunityContentWrap';
 import { useBBSStore } from 'stores/bbs';
 import useBBSSearchState from 'components/community/list/useBBSSearchState';
@@ -21,8 +21,11 @@ import BoardGridItem, {
   BoardGridContainer,
 } from 'components/community/list/BoardGridItem';
 import categoryViewType from 'childs/lib/constant/community/categoryViewType';
-
-const enhancer = compose(withScrollToTopOnMount, withRouter);
+import MoreButton from 'components/common/MoreButton';
+const enhancer = compose(
+  withScrollToTopOnMount,
+  withRouter
+);
 
 /**
  * 게시판. 게시글 목록
@@ -80,7 +83,7 @@ const BBSList = enhancer(({ router }) => {
       <div id={scrollUpTargetId} />
 
       {/* 광고 */}
-      <AdBanner />
+      {/* <AdBanner /> */}
 
       {/* 게시판 */}
       <CommunityContentWrap>
@@ -88,10 +91,10 @@ const BBSList = enhancer(({ router }) => {
         <BoardTitle>{boardTitle}</BoardTitle>
 
         {/* 필터, 정렬  */}
-        <BoardCategoryFilter
+        {/* <BoardCategoryFilter
           order={searchQuery.order}
           onChangeOrder={handleChangeOrder}
-        />
+        /> */}
 
         {/* 목록 */}
         <div
@@ -114,7 +117,7 @@ const BBSList = enhancer(({ router }) => {
         </div>
 
         {/* 페이지네이션 */}
-        {!searchStore.isFetching && (
+        {/* {!searchStore.isFetching && (
           <Pagination
             wrapperStyle={{ marginTop: isNormalView ? '62px' : '20px' }}
             onChangePage={handleChangePage}
@@ -122,7 +125,13 @@ const BBSList = enhancer(({ router }) => {
             itemsCountPerPage={ITEMS_PER_PAGE}
             totalItemsCount={searchStore.totalCount}
           />
-        )}
+        )} */}
+
+        <MoreButton
+          getMoreContent={() => {
+            searchStore.moreBBSList();
+          }}
+        />
 
         {/* 검색어 입력  */}
         {!searchStore.isFetching && (

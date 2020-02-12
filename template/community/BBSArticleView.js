@@ -17,7 +17,10 @@ import { pushRoute } from 'childs/lib/router';
 import BoardTitleOnly from 'components/community/list/BoardTitleWithSort';
 import RelatedArticleList from 'components/community/article/RelatedArticleList';
 
-const enhancer = compose(withRouter, observer);
+const enhancer = compose(
+  withRouter,
+  observer
+);
 
 export const ArticleIdContext = React.createContext(null);
 
@@ -96,16 +99,13 @@ const BBSArticleView = enhancer(({ router }) => {
   return (
     <ArticleIdContext.Provider value={articleId}>
       <CommunityLayout>
-        {/* 광고 */}
-        <AdBanner />
-
         {/* 게시글 */}
         {isArticleVisible && (
-          <div>
+          <div className={css.wrap}>
             <CommunityContentWrap key="article">
-              <BoardTitleOnly isSortVisible={false}>
+              {/* <BoardTitleOnly isSortVisible={false}>
                 {articleStore.articleCategoryName}
-              </BoardTitleOnly>
+              </BoardTitleOnly> */}
               <article>
                 {/* 제목 영역 */}
                 <ArticleTitle
@@ -129,6 +129,9 @@ const BBSArticleView = enhancer(({ router }) => {
                   <ArticleControlButtons />
                 </div>
 
+                {/* 광고 (모바일은 광고 영역 없음) */}
+                <AdBanner />
+
                 {/* 댓글 영역 */}
                 <div className={css.commentWrapper}>
                   <CommentsList commentCount={commentCount} />
@@ -141,7 +144,7 @@ const BBSArticleView = enhancer(({ router }) => {
               lastSearchQuery={searchStore.searchQuery} // 목록에서 실행한 검색 쿼리
               lastCategoryId={searchStore.searchQuery?.categoryId || categoryId} // 검색결과의 카테고리 아이디 또는 게시글의 카테고리아이디
               lastPage={searchStore.searchQuery?.page || 1} // 검색 결과의 페이지 번호 또는 1
-            ></RelatedArticleList>
+            />
           </div>
         )}
       </CommunityLayout>

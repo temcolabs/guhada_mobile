@@ -3,6 +3,7 @@
 
 .wrap {
   width: 100%;
+  padding: 0 20px;
 }
 
 .contentsWrap {
@@ -10,10 +11,9 @@
   position: relative;
   padding-top: 20px;
   padding-bottom: 20px;
-  border-bottom: 1px solid #eeeeee;
 }
 
-$avartarAreaWidth: 70px;
+$avartarAreaWidth: 47px;
 .avatar {
   position: relative;
   float: left;
@@ -22,8 +22,8 @@ $avartarAreaWidth: 70px;
 
 .avatar_image {
   position: relative;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   background-color: #eee;
   background-size: cover;
   background-position: center;
@@ -60,21 +60,26 @@ $avartarAreaWidth: 70px;
 .comment {
   float: left;
   width: calc(100% - #{$avartarAreaWidth});
+  @include clearfix;
 }
-
+.commentWrap {
+  background-color: #fafafa;
+  padding: 15px;
+}
 .comment_nickname {
   font-size: 14px;
   font-weight: bold;
-  color: #111111;
+  color: #111;
+  display: flex;
 }
 
 .timeCreatedAt {
   margin-top: 3px;
-  float: right;
   font-size: 12px;
   line-height: 1.3;
-  color: #cccccc;
+  color: #999;
   font-weight: normal;
+  margin-left: 10px;
 }
 
 .comment_contents {
@@ -96,15 +101,18 @@ $avartarAreaWidth: 70px;
 }
 
 .comment_controlButtons {
-  margin-top: 10px;
+  margin-top: 5px;
 
   & button {
     font-size: 13px;
-    color: #999999;
+    color: #999;
 
     &:not(:last-child) {
       @include middot(22px, 2px, #ccc);
     }
+  }
+  .button_report {
+    color: #cccccc;
   }
 }
 
@@ -119,10 +127,6 @@ $avartarAreaWidth: 70px;
   &.isOn {
     color: $blue-purple;
   }
-}
-
-.button_report {
-  color: #cccccc;
 }
 
 // 대댓글 목록

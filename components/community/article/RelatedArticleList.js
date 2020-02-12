@@ -6,6 +6,7 @@ import BoardListItem from '../list/BoardListItem';
 import Pagination from 'components/common/Pagination';
 import { useObserver } from 'mobx-react-lite';
 import { ITEMS_PER_PAGE } from 'childs/lib/constant/community/searchQuery';
+import MoreButton from 'components/common/moreButton';
 
 /**
  * 관련글 목록
@@ -30,20 +31,20 @@ export default function RelatedArticleList({
     asPath: bbsListPath, // 검색시 이동할 경로를 직접 지정
   });
 
-  const handleClickPage = useCallback(
-    (page = 1) => {
-      pushRouteToSearch(
-        {
-          ...lastSearchQuery,
-          page,
-        },
-        {
-          href: bbsListPath,
-        }
-      );
-    },
-    [pushRouteToSearch, lastSearchQuery, bbsListPath]
-  );
+  // `const handleClickPage = useCallback(
+  //   (page = 1) => {
+  //     pushRouteToSearch(
+  //       {
+  //         ...lastSearchQuery,
+  //         page,
+  //       },
+  //       {
+  //         href: bbsListPath,
+  //       }
+  //     );
+  //   },
+  //   [pushRouteToSearch, lastSearchQuery, bbsListPath]
+  // );`
 
   // 쿼리로 검색 실행. 목록 검색에서 사용하는 것과 같은 메소드를 사용함.
   useEffect(() => {
@@ -92,12 +93,18 @@ export default function RelatedArticleList({
         );
       })}
 
-      <Pagination
+      {/* <Pagination
         wrapperStyle={{ marginTop: '62px' }}
         onChangePage={handleClickPage}
         initialPage={parseInt(lastPage, 10)}
         itemsCountPerPage={ITEMS_PER_PAGE}
         totalItemsCount={searchStore.totalCount}
+      /> */}
+
+      <MoreButton
+        getMoreContent={() => {
+          searchStore.moreBBSList();
+        }}
       />
     </CommunityContentWrap>
   ));

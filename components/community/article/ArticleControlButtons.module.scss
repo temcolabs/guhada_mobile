@@ -1,16 +1,13 @@
 @import 'styles/mixins/index';
 
 .buttonsContainer {
-  @include clearfix;
-  margin-top: 80px;
-}
-
-.buttonsContainer_leftSide {
-  float: left;
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .buttonsContainer_rightSide {
-  float: right;
   & > * {
     margin-left: 8px;
   }

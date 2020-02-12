@@ -10,7 +10,7 @@ import jumpToAnchor from 'childs/lib/dom/jumpToAnchor';
 import ReportModal from 'components/claim/report/ReportModal';
 import { default as reportTargetEnum } from 'childs/lib/constant/reportTarget';
 import { ArticleIdContext } from 'template/community/BBSArticleView';
-
+import MoreButton from 'components/common/MoreButton';
 /**
  * 게시글의 댓글 목록
  * 게시글 아이디만 받아서 해당 글의 댓글을 렌더링한다
@@ -119,7 +119,7 @@ const CommentsList = ({ commentCount }) => {
         })}
       </div>
 
-      {commentsStore.data.totalElements > 0 && (
+      {/* {commentsStore.data.totalElements > 0 && (
         <Pagination
           wrapperStyle={{ marginTop: '75px' }}
           onChangePage={handleClickPage}
@@ -127,7 +127,14 @@ const CommentsList = ({ commentCount }) => {
           itemsCountPerPage={ITEMS_PER_PAGE}
           totalItemsCount={commentsStore.data.totalElements}
         />
-      )}
+      )} */}
+      {commentsStore.data.totalPages > commentsStore.commentsQuery.page ? (
+        <MoreButton
+          getMoreContent={() => {
+            commentsStore.getMoreComments();
+          }}
+        />
+      ) : null}
 
       <ReportModal
         isOpen={isCommentReportModalOpen}

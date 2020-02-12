@@ -3,7 +3,9 @@ import { isBrowser } from 'childs/lib/common/isServer';
 import API from 'childs/lib/API';
 import _ from 'lodash';
 import moment from 'moment';
-import userLikeService, { bbsTargetTypes } from 'childs/lib/API/user/userLikeService';
+import userLikeService, {
+  bbsTargetTypes,
+} from 'childs/lib/API/user/userLikeService';
 import { sendBackToLogin } from 'childs/lib/router';
 
 export default class CommentsStore {
@@ -78,7 +80,7 @@ export default class CommentsStore {
       sortType,
       orderType,
     };
-
+    this.commentsQuery.page = 1;
     try {
       const { data } = await API.bbs.get(`/comments`, {
         params: this.commentsQuery,
@@ -90,6 +92,21 @@ export default class CommentsStore {
     }
   };
 
+  @action
+  getMoreComments = async () => {
+    this.commentsQuery.page = parseInt(this.commentsQuery.page) + 1;
+    try {
+      const { data } = await API.bbs.get(`/comments`, {
+        params: this.commentsQuery,
+      });
+
+      this.data.content = this.data.content.concat(data.data.content);
+
+      console.log(this.list, 'this.list');
+    } catch (e) {
+      console.error(e);
+    }
+  };
   /**
    * reset comments data
    */

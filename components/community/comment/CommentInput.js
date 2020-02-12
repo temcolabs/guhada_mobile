@@ -3,7 +3,7 @@ import css from './CommentInput.module.scss';
 import useStores from 'stores/useStores';
 import { useObserver } from 'mobx-react-lite';
 import useChangeInput from 'components/hooks/useChangeInput';
-import { uploadImageFile }  from 'childs/lib/API/gateway/fileUploadService';
+import { uploadImageFile } from 'childs/lib/API/gateway/fileUploadService';
 import { sendBackToLogin } from 'childs/lib/router';
 
 export default function CommentInput({
@@ -106,41 +106,40 @@ export default function CommentInput({
         <button type="submit" className={css.inputBox_registerButton}>
           <span>{isUpdate ? '수정' : '등록'}</span>
         </button>
-      </div>
 
-      <div className={css.attach}>
-        <input
-          id={`${commentId}_fileinput`}
-          type="file"
-          style={{ display: 'none' }}
-          onChange={handleChangeAttachFileInput}
-        />
-        <label
-          htmlFor={`${commentId}_fileinput`}
-          className={css.attach_photoButton}
-        />
-
-        {atthcedImages.length > 0 && (
-          <div className={css.attachedImages}>
-            {atthcedImages.map(({ url }, index) => {
-              return (
-                <div
-                  className={css.imagePreview}
-                  style={{
-                    backgroundImage: `url(${url})`,
-                  }}
-                >
-                  <button
-                    type="button"
-                    className={css.deleteImageButton}
-                    onClick={() => handleDeleteImage(index)}
-                  />
-                </div>
-              );
-            })}
-          </div>
-        )}
+        <div className={css.attach}>
+          <input
+            id={`${commentId}_fileinput`}
+            type="file"
+            style={{ display: 'none' }}
+            onChange={handleChangeAttachFileInput}
+          />
+          <label
+            htmlFor={`${commentId}_fileinput`}
+            className={css.attach_photoButton}
+          />
+        </div>
       </div>
+      {atthcedImages.length > 0 && (
+        <div className={css.attachedImages}>
+          {atthcedImages.map(({ url }, index) => {
+            return (
+              <div
+                className={css.imagePreview}
+                style={{
+                  backgroundImage: `url(${url})`,
+                }}
+              >
+                <button
+                  type="button"
+                  className={css.deleteImageButton}
+                  onClick={() => handleDeleteImage(index)}
+                />
+              </div>
+            );
+          })}
+        </div>
+      )}
     </form>
   ));
 }

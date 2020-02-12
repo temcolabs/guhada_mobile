@@ -18,13 +18,14 @@ const ArticleTitle = ({
 }) => {
   return useObserver(() => (
     <div className={css.wrap}>
-      {/* 카테고리필터 */}
-      {categoryFilterName && (
-        <div className={css.category}>{categoryFilterName}</div>
-      )}
-
       {/* 제목 */}
-      <h1 className={css.title}>{title || ' '}</h1>
+      <h1 className={css.title}>
+        {/* 카테고리필터 */}
+        {categoryFilterName && (
+          <span className={css.category}>{`[${categoryFilterName}]`}</span>
+        )}
+        {title || ' '}
+      </h1>
 
       {/* 게시글 정보 */}
       <div className={css.articleInfo}>
@@ -43,7 +44,7 @@ const ArticleTitle = ({
           <span className={css.articleInfo_read}>조회 {hitCount}</span>
 
           {/* TODO: 좋아요 기능 추가 후 주석 제거*/}
-          {/* <span className={css.articleInfo_like}>좋아요 {likeCount}</span> */}
+          <span className={css.articleInfo_like}>좋아요 {likeCount}</span>
 
           <span className={css.articleInfo_comment}>댓글 {commentCount}</span>
         </div>

@@ -187,56 +187,58 @@ const CommentItem = ({
         </div>
 
         <div className={css.comment}>
-          {/* 댓글 작성자 */}
-          {!comment.delete && ( // 삭제된 댓글은 타겟을 표시하지 않음.
-            <div className={css.comment_nickname}>
-              {createUserInfo.nickname || createUserInfo.name}
+          <div className={css.commentWrap}>
+            {/* 댓글 작성자 */}
+            {!comment.delete && ( // 삭제된 댓글은 타겟을 표시하지 않음.
+              <div className={css.comment_nickname}>
+                {createUserInfo.nickname || createUserInfo.name}
 
-              <div className={css.timeCreatedAt}>
-                {commentsStore.getCreatedTimeWithFormat({
-                  current: comment.currentTimestamp,
-                  created: comment.createdTimestamp,
-                })}
-              </div>
-            </div>
-          )}
-
-          {/* 댓글 본문 */}
-          {!isUpdateInputVisible && (
-            <div>
-              <div
-                className={cn(css.comment_contents, {
-                  [css.isDeleted]: comment.delete,
-                })}
-              >
-                {/* 최상위 댓글과 대댓글 대상이 다를 대만 타겟 닉네임 표시 */}
-                {comment.parentCommentId !== comment.originCommentId && (
-                  <span className={css.comment_parentComment}>
-                    @{originCreaterUser.nickname || originCreaterUser.name}
-                  </span>
-                )}
-
-                {comment.contents}
-              </div>
-
-              {commentImageList.length > 0 && (
-                <div className={css.attachedImagesContainer}>
-                  {commentImageList.map(({ url }, index) => (
-                    <div
-                      key={index}
-                      className={css.attachedImage}
-                      onClick={() => {
-                        window.open(url, '_blank');
-                      }}
-                      style={{
-                        backgroundImage: `url(${url})`,
-                      }}
-                    />
-                  ))}
+                <div className={css.timeCreatedAt}>
+                  {commentsStore.getCreatedTimeWithFormat({
+                    current: comment.currentTimestamp,
+                    created: comment.createdTimestamp,
+                  })}
                 </div>
-              )}
-            </div>
-          )}
+              </div>
+            )}
+
+            {/* 댓글 본문 */}
+            {!isUpdateInputVisible && (
+              <div>
+                <div
+                  className={cn(css.comment_contents, {
+                    [css.isDeleted]: comment.delete,
+                  })}
+                >
+                  {/* 최상위 댓글과 대댓글 대상이 다를 대만 타겟 닉네임 표시 */}
+                  {comment.parentCommentId !== comment.originCommentId && (
+                    <span className={css.comment_parentComment}>
+                      @{originCreaterUser.nickname || originCreaterUser.name}
+                    </span>
+                  )}
+
+                  {comment.contents}
+                </div>
+
+                {commentImageList.length > 0 && (
+                  <div className={css.attachedImagesContainer}>
+                    {commentImageList.map(({ url }, index) => (
+                      <div
+                        key={index}
+                        className={css.attachedImage}
+                        onClick={() => {
+                          window.open(url, '_blank');
+                        }}
+                        style={{
+                          backgroundImage: `url(${url})`,
+                        }}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
 
           {/* 댓글 좋아요 신고 */}
           {!comment.delete && (
@@ -246,7 +248,7 @@ const CommentItem = ({
                   className={css.button_showCommentInput}
                   onClick={toggleInputVisible}
                 >
-                  댓글 달기
+                  댓글달기
                 </button>
               )}
 
@@ -267,12 +269,10 @@ const CommentItem = ({
 
               {isMyComment ? (
                 <>
-                  <button className onClick={toggleShowModifyComment}>
+                  <button onClick={toggleShowModifyComment}>
                     {!isUpdateInputVisible ? '수정' : '수정 취소'}
                   </button>
-                  <button className onClick={handleDeleteComment}>
-                    삭제
-                  </button>
+                  <button onClick={handleDeleteComment}>삭제</button>
                 </>
               ) : (
                 <button

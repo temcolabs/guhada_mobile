@@ -3,48 +3,38 @@
 
 .wrap {
   @include clearfix;
-  padding: 30px;
-  background: #fff;
-  border: 1px solid #eeeeee;
+  position: fixed;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  z-index: 100;
+  top: $guhadaMainHeaderHeight;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  border-bottom: 1px solid #eeeeee;
+  transition: top 0.1s linear;
+  white-space: nowrap;
+  display: flex;
+  padding: 10px 20px 13px 0;
 }
 
 // 상위 카테고리
 .category {
-  &:not(:first-child) {
-    margin-top: 30px;
+  font-size: 15px;
+  font-weight: 500;
+  &:last-child {
+    padding-right: 20px;
   }
 }
 
 .menuList {
-  margin-top: 20px;
-  margin-left: 10px;
-  & .menuButton {
-    color: #444;
-    font-weight: 400;
-
-    &:not(:first-of-type) {
-      margin-top: 15px;
-    }
-  }
 }
 
 .menuButton {
-  width: 100%;
-  font-size: 15px;
-  text-align: left;
-  font-weight: 500;
-  min-height: 1.46em;
+  margin-left: 22px;
 
   &.isSelected {
     color: $blue-purple;
     font-weight: bold;
-  }
-
-  &:not(:first-of-type) {
-    margin-top: 30px;
-  }
-
-  &:hover {
-    cursor: pointer;
   }
 }

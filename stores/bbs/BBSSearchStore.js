@@ -1,4 +1,4 @@
-import { observable, action } from 'mobx';
+import { observable, action, toJS } from 'mobx';
 import { isBrowser } from 'childs/lib/common/isServer';
 import API from 'childs/lib/API';
 import _ from 'lodash';
@@ -124,8 +124,59 @@ export default class SearchStore {
       const { data } = await API.bbsSearch.post(`/bbs/search?`, searchBody, {
         params: pageQuery,
       });
-
       this.bbsList = this.mapBBSList(data.data?.bbs) || [];
+      this.totalCount = data.data?.totalCount;
+    } catch (e) {
+      console.error(e);
+    } finally {
+      this.isFetching = false;
+      devGroupEnd(`searchWithPost`);
+    }
+  };
+
+  /**
+   * POST /bbs/search
+   */
+  @action
+  moreBBSList = async () => {
+    devGroup(`moreBBSList`);
+    if (this.searchQuery.page) {
+      this.searchQuery.page = parseInt(this.searchQuery.page) + 1;
+    } else {
+      this.searchQuery.page = 1;
+    }
+    devLog(` this.searchQuery `, this.searchQuery);
+
+    const filterUnvalid = _.partialRight(
+      _.omitBy,
+      v => _.isNil(v) || _.isNaN(v) || v === ''
+    );
+
+    const searchBody = filterUnvalid({
+      categoryId: parseInt(this.searchQuery.categoryId, 10),
+      filterId: parseInt(this.searchQuery.filterId, 10),
+      deleted: this.searchQuery.deleted,
+      inUse: this.searchQuery.inUse,
+      query: this.searchQuery.query,
+      searchType: this.searchQuery.searchType,
+    });
+
+    const pageQuery = {
+      order:
+        // 인기글 카테고리는 order가 고정이다. 인기글 검색은 카테고리 아이디가 아닌 ORDER로 하기 때문
+        this.searchQuery.categoryId === POPULAR_CATEGORY_ID
+          ? searchOrder.POPULARITY
+          : this.searchQuery.order || searchOrder.DATE_DESC,
+      page: parseInt(this.searchQuery.page, 10) || 1,
+      unitPerPage: parseInt(this.searchQuery.unitPerPage, 10) || ITEMS_PER_PAGE,
+    };
+
+    try {
+      this.isFetching = true;
+      const { data } = await API.bbsSearch.post(`/bbs/search?`, searchBody, {
+        params: pageQuery,
+      });
+      this.bbsList = this.bbsList.concat(this.mapBBSList(data.data?.bbs) || []);
       this.totalCount = data.data?.totalCount;
     } catch (e) {
       console.error(e);

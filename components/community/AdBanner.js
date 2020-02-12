@@ -41,7 +41,7 @@ class AdBanner extends Component {
       <div className={css.wrap}>
         <Slider {...settings}>
           {main.bannerInfo.map((banner, index) => {
-            if (isTruthy(banner.communityImageUrl))
+            if (isTruthy(banner.mediumImageUrl))
               return (
                 <div key={index}>
                   <div
@@ -49,7 +49,7 @@ class AdBanner extends Component {
                       [css.href]: banner.link !== '/',
                     })}
                     style={{
-                      backgroundImage: `url(${banner.communityImageUrl})`,
+                      backgroundImage: `url(${banner.mediumImageUrl})`,
                     }}
                     onClick={() =>
                       banner.href !== '/' ? pushRoute(banner.link) : null

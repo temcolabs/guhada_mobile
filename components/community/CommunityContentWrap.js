@@ -9,10 +9,9 @@ export default function CommunityContentWrap({
     <div
       id={id}
       style={{
-        marginTop: '10px',
+        marginTop: '24px',
         background: '#fff',
-        border: '1px solid #eeeeee',
-        padding: '40px 40px 100px',
+        padding: '0',
         ...wrapperStyle,
       }}
     >

@@ -1,17 +1,14 @@
 @import 'styles/mixins/index';
 
-.adBannerWrap {
-  margin-bottom: 8px;
+.wrap {
+  padding: 30px 0 20px;
 }
-
 .contentWrapper {
+  margin-top: 30px;
+  padding: 0 20px;
   position: relative;
-  padding-top: 50px;
-  padding-bottom: 20px;
-  border-top: 1px solid #eeeeee;
-  border-bottom: 1px solid #eeeeee;
 }
 
 .commentWrapper {
-  margin-top: 40px;
+  margin-top: 30px;
 }

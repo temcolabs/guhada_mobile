@@ -5,7 +5,7 @@ import { withRouter } from 'next/router';
 import DefaultLayout from 'components/layout/DefaultLayout';
 import CommunitySidebar from './sidebar/CommunitySidebar';
 import { inject, observer } from 'mobx-react';
-
+import BoardMenus from 'components/community/sidebar/BoardMenus';
 @withRouter
 @inject(store => ({
   category: store.bbs.category,
@@ -21,11 +21,9 @@ class CommunityLayout extends React.Component {
     return (
       <DefaultLayout pageTitle={`커뮤니티`}>
         <div className={css.communityMain}>
+          <BoardMenus />
           <div className={css.pageAndSidebar}>
             <div className={css.pageContents}>{this.props.children}</div>
-            <div className={css.sidebar}>
-              <CommunitySidebar />
-            </div>
           </div>
         </div>
       </DefaultLayout>

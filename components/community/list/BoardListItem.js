@@ -23,6 +23,12 @@ const BoardListItem = ({ bbs = {}, wrapperStyle = {} }) => {
 
         <div className={css.infoContainer}>
           <div className={css.title}>
+            {/* categoryFilter */}
+            {!!bbs.categoryFilterName && (
+              <span className={css.itemInfo_categoryFilter}>
+                {bbs.categoryFilterName}
+              </span>
+            )}
             <span className={css.title_text}>{bbs.title}</span>
             {bbs.comments > 0 && (
               <span className={css.title_commentCount}>({bbs.comments})</span>
@@ -31,12 +37,6 @@ const BoardListItem = ({ bbs = {}, wrapperStyle = {} }) => {
           </div>
 
           <div className={css.itemInfo}>
-            {/* categoryFilter */}
-            {!!bbs.categoryFilterName && (
-              <span className={css.itemInfo_categoryFilter}>
-                {bbs.categoryFilterName}
-              </span>
-            )}
             {/* TODO: 좋아요는 추후 추가 */}
             <span className={css.itemInfo_like}>
               좋아요 {bbs.likes > 0 ? bbs.likes : 0}

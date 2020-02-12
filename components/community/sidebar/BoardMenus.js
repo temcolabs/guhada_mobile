@@ -1,14 +1,16 @@
 import React from 'react';
 import css from './BoardMenus.module.scss';
 import cn from 'classnames';
-
 import { useBBSStore } from 'stores/bbs';
 import { observer } from 'mobx-react-lite';
 import useBBSSearchState from '../list/useBBSSearchState';
 import { withRouter } from 'next/router';
 import { compose } from 'lodash/fp';
 
-const enhancer = compose(withRouter, observer);
+const enhancer = compose(
+  withRouter,
+  observer
+);
 
 /**
  * 사이드바 게시판 선택 버튼 그리드
@@ -55,20 +57,8 @@ const BoardMenus = ({ router }) => {
       </div>
 
       {categoriesByCommunity.map((item = {}) => {
-        // 상위 카테고리를 선택했을 때 이동할 기본 카테고리
-        const defaultCategory =
-          item.categories.length > 0 ? item.categories[0].id : {};
-
         return (
           <div className={css.category} key={item.community.id}>
-            {/* 커뮤니티의 첫번째 카테고리로 이동 */}
-            <button
-              className={css.menuButton}
-              onClick={() => handleChangeCategory(defaultCategory)}
-            >
-              {item.community?.name}
-            </button>
-
             <div className={css.menuList}>
               {item.categories.map((category = {}) => {
                 return (

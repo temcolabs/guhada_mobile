@@ -7,36 +7,37 @@
 $inputHeight: 50px;
 $registerButtonWidth: 70px;
 .inputBox {
-  @include clearfix;
   margin-top: 20px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .inputBox_input {
   display: block;
-  float: left;
   width: calc(100% - #{$registerButtonWidth});
   height: $inputHeight;
-  background-color: #f7f8f9;
   color: #111;
   padding: 15px;
-
+  margin-left: 30px;
   &::placeholder {
-    color: #777;
+    color: #ccc;
   }
 }
 
 .inputBox_registerButton {
   @include buttonCentered;
   display: block;
-  float: right;
   width: $registerButtonWidth;
   height: $inputHeight;
-  background-color: #444444;
-  color: #ffffff;
+  color: #5d2ed1;
 }
 
 .attach {
-  margin-top: 10px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
 }
 
 .attach_photoButton {
@@ -55,6 +56,7 @@ $registerButtonWidth: 70px;
   @include clearfix;
   margin-top: 26px;
   margin-bottom: 40px;
+  padding: 0 20px;
 }
 
 .imagePreview {
@@ -63,18 +65,20 @@ $registerButtonWidth: 70px;
   margin-right: 15px;
   margin-bottom: 15px;
   border-radius: 5px;
-  width: 207px;
-  height: 207px;
+  width: 60px;
+  height: 60px;
   background-size: cover;
   background-position: center;
 }
 
 .deleteImageButton {
   position: absolute;
-  width: 30px;
-  height: 30px;
+  width: 18px;
+  height: 18px;
   top: 0;
   right: 0;
   background: url('/static/icon/like_item_delete.png') no-repeat center;
   background-size: cover;
+  background-color: #444;
+  border-top-right-radius: 5px;
 }

@@ -3,45 +3,25 @@
 
 .communityMain {
   @include clearfix;
-  background: #f6f7f8;
   padding-top: 80px;
   padding-bottom: 240px;
-
-  @include mediaMD {
-    padding-left: $pageMainSidePad;
-    padding-right: $pageMainSidePad;
-  }
 }
 
 .breadcrumbWrap {
 }
 
 .pageAndSidebar {
-  width: $communityContentWidth;
+  width: 100%;
   margin-top: 50px;
   margin: 0 auto;
-
-  @include mediaMD {
-    width: $communityContentWidthMD;
-  }
 }
 
 .pageContents {
-  float: left;
-  width: calc(100% - #{$communitySidebarWidth});
-  padding-right: 10px;
+  width: 100%;
   padding-bottom: 120px;
-
-  @include mediaMD {
-    width: calc(100% - #{$communitySidebarWidthMD});
-  }
 }
 
-.sidebar {
-  float: right;
-  width: #{$communitySidebarWidth};
-
-  @include mediaMD {
-    width: #{$communitySidebarWidthMD};
-  }
-}
+// .sidebar {
+//   float: right;
+//   width: #{$communitySidebarWidth};
+// }

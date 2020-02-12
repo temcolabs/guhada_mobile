@@ -1,5 +1,5 @@
 import { isBrowser } from 'childs/lib/common/isServer';
-import { observable, action, computed } from 'mobx';
+import { observable, action, computed, toJS } from 'mobx';
 import API from 'childs/lib/API';
 import _ from 'lodash';
 import qs from 'qs';
@@ -119,7 +119,7 @@ class ArticleStore {
 
       const articleData = data.data;
       this.data = articleData;
-
+      console.log(toJS(this.data), 'this.data ');
       return articleData;
     } catch (e) {
       this.data = {};

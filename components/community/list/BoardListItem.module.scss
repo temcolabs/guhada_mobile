@@ -5,17 +5,18 @@ $imageContainerWidth: 80px;
 .wrap {
   @include clearfix;
   display: block;
-  padding: 20px 0;
+  padding: 20px 20px;
   border-bottom: 1px solid #eeeeee;
-
+  display: flex;
   &:hover {
     cursor: pointer;
+  }
+  &:first-child {
+    padding: 0 20px 20px;
   }
 }
 
 .imageContainer {
-  width: $imageContainerWidth;
-  float: left;
 }
 
 .productImage {
@@ -25,29 +26,34 @@ $imageContainerWidth: 80px;
   background-color: #eee;
   background-size: cover;
   background-position: center;
+  margin-right: 15px;
 }
 
 .infoContainer {
-  width: calc(100% - #{$imageContainerWidth});
-  float: left;
+  width: calc(100%);
 }
 
 .title {
   @include clearfix;
   padding-top: 6px;
-
-  & > * {
-    display: inline-block;
-    float: left;
-  }
+  display: flex;
 }
-
+.itemInfo_categoryFilter {
+  color: #5d2ed1;
+  font-size: 14px;
+  font-weight: 500;
+  margin-right: 5px;
+  min-width: 30px;
+}
 .title_text {
   @include setHeightLimit(2);
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
-  color: #111111;
-  max-width: calc(100% - 30px);
+  color: #111;
+  max-width: calc(100% - 40px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   padding-right: 6px;
 }
 
@@ -72,17 +78,16 @@ $imageContainerWidth: 80px;
 .itemInfo {
   margin-top: 5px;
   font-size: 12px;
-
+  max-width: calc(100% - 20px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   & > * {
-    color: #7c7c7c;
+    color: #999;
     &:not(:last-child) {
-      @include middot(22px, 2px, #ccc);
+      @include middot(14px, 2px, #ccc);
     }
   }
-}
-
-.itemInfo_categoryFilter {
-  color: #5d2ed1;
 }
 
 .itemInfo_like {
