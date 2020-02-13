@@ -126,6 +126,7 @@ export default class SearchStore {
       });
       this.bbsList = this.mapBBSList(data.data?.bbs) || [];
       this.totalCount = data.data?.totalCount;
+      console.log(this.bbsList, 'this.bbsList ');
     } catch (e) {
       console.error(e);
     } finally {

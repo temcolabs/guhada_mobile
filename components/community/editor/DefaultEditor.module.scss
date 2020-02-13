@@ -13,15 +13,12 @@
     .note-editor.note-frame {
       position: relative;
       border: none;
-      padding-top: 41px; // 툴바 영역
 
-      @include mediaMD {
-        padding-top: 77px;
-      }
+      // padding-top: 41px; // 툴바 영역
 
-      &.fullscreen {
-        padding-top: 41px; // 툴바 영역
-      }
+      // &.fullscreen {
+      //   padding-top: 41px; // 툴바 영역
+      // }
 
       &.panel {
         border-radius: 2px;
@@ -30,12 +27,12 @@
 
     // 에디터 툴바
     .note-toolbar {
-      top: 0;
-      left: 0;
-      position: absolute !important; // 초기화 과정에서 position이 fixed가 되는 현상이 있음
+      position: relative !important; // 초기화 과정에서 position이 fixed가 되는 현상이 있음
       width: 100%;
       background: #f7f8f9;
       border-bottom: 1px solid #eaedf2;
+      padding-left: 20px;
+      padding-right: 20px;
     }
 
     // 버튼 기본 스타일

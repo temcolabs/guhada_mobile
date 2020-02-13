@@ -30,10 +30,8 @@ const TempArticleButton = ({
         return (
           <div className={css.wrap} style={wrapperStyle}>
             <button type="button" className={css.button}>
-              <span>임시 저장된 글</span>
-              <span> </span>
               <span className={css.button_count}>
-                ({tempArticle.totalElements})
+                {tempArticle.totalElements}
               </span>
             </button>
           </div>
@@ -42,9 +40,12 @@ const TempArticleButton = ({
       renderSlideArea={({ initialStyle, toggleSlide }) => {
         return (
           <div className={css.slideArea} style={initialStyle}>
-            <div className={css.slideArea_closeButton} onClick={toggleSlide} />
-            <div className={css.slideArea_title}>
-              임시 저장된 글 ({tempArticle.totalElements})
+            <div className={css.slideAreaHeader}>
+              <div
+                className={css.slideArea_closeButton}
+                onClick={toggleSlide}
+              />
+              <div className={css.slideArea_title}>임시저장함</div>
             </div>
 
             {tempArticle.list.map((item, index) => {
@@ -83,7 +84,7 @@ const TempArticleButton = ({
           </div>
         );
       }}
-      topPosOnEnter="40px"
+      topPosOnEnter="0"
       topPosOnExit="50px"
       isOpenEnabled={tempArticle.list.length > 0}
     />

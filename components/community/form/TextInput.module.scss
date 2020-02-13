@@ -24,6 +24,7 @@
 
 .searchInput {
   @include inputStyle;
+  border: none;
 }
 
 .searchIcon {

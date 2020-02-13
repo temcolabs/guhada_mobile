@@ -64,18 +64,7 @@ export default function RelatedArticleList({
       // searchQuery 바뀌면 검색 결과 초기화
       searchStore.cleanResults();
     };
-  }, [
-    lastCategoryId,
-    lastSearchQuery.deleted,
-    lastSearchQuery.filterId,
-    lastSearchQuery.inUse,
-    lastSearchQuery.order,
-    lastSearchQuery.page,
-    lastSearchQuery.query,
-    lastSearchQuery.searchType,
-    lastSearchQuery.unitPerPage,
-    searchStore,
-  ]);
+  }, []);
 
   return useObserver(() => (
     <CommunityContentWrap key="list">

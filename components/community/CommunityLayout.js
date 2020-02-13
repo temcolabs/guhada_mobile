@@ -8,6 +8,7 @@ import { inject, observer } from 'mobx-react';
 import BoardMenus from 'components/community/sidebar/BoardMenus';
 import { pushRoute } from 'childs/lib/router';
 import { devWarn } from 'childs/lib/common/devLog';
+import Footer from 'components/footer/Footer';
 @withRouter
 @inject(store => ({
   category: store.bbs.category,
@@ -43,6 +44,7 @@ class CommunityLayout extends React.Component {
             글쓰기
           </button>
         </div>
+        <Footer />
       </DefaultLayout>
     );
   }

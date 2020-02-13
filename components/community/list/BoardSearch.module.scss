@@ -2,9 +2,10 @@
 
 .wrap {
   @include clearfix;
-  width: 440px;
-  margin: 33px auto 0;
-
+  width: 100%;
+  margin: 44px auto 0;
+  position: relative;
+  border-bottom: 1px solid #111;
   & > * {
     display: block;
     margin: 0;
@@ -16,7 +17,6 @@
 
     &:nth-child(2) {
       width: calc(100% - 140px);
-      padding-left: 7px;
     }
   }
 }

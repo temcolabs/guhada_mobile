@@ -135,11 +135,13 @@ const BBSList = enhancer(({ router }) => {
 
         {/* 검색어 입력  */}
         {!searchStore.isFetching && (
-          <BoardSearch
-            onSubmitSearch={handleSubmitSearch}
-            initialSearchType={searchQuery.searchType}
-            initialQuery={searchQuery.query}
-          />
+          <div className={css.boardSearchWrap}>
+            <BoardSearch
+              onSubmitSearch={handleSubmitSearch}
+              initialSearchType={searchQuery.searchType}
+              initialQuery={searchQuery.query}
+            />
+          </div>
         )}
       </CommunityContentWrap>
     </CommunityLayout>

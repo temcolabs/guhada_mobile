@@ -8,7 +8,7 @@ import guhadaClientPlatform from 'childs/lib/constant/guhadaClientPlatform';
 import userLikeService from 'childs/lib/API/user/userLikeService';
 import { sendBackToLogin } from 'childs/lib/router';
 import { bbsTargetTypes } from 'childs/lib/API/user/userLikeService';
-
+import { devLog } from 'childs/lib/common/devLog';
 class ArticleStore {
   constructor(root, initialState = {}) {
     if (isBrowser) {
@@ -117,9 +117,9 @@ class ArticleStore {
         `/bbses/${id}?${qs.stringify({ userIp: this.userIp })}`
       );
 
+      devLog(data, 'data');
       const articleData = data.data;
       this.data = articleData;
-      console.log(toJS(this.data), 'this.data ');
       return articleData;
     } catch (e) {
       this.data = {};

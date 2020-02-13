@@ -30,6 +30,7 @@ import isTruthy from 'childs/lib/common/isTruthy';
 import { pushRoute } from 'childs/lib/router';
 import striptags from 'striptags';
 import categoryViewType from 'childs/lib/constant/community/categoryViewType';
+import Router from 'next/router';
 
 const enhancer = compose(
   withRouter,
@@ -453,7 +454,12 @@ function BBSEditor({ router }) {
               <CommunityContentWrap>
                 {/* 게시판(카테고리) 선택 */}
                 <div className={css.editorHeader}>
-                  <button className={css.cancelButton}>취소</button>
+                  <button
+                    className={css.cancelButton}
+                    onClick={() => Router.back()}
+                  >
+                    취소
+                  </button>
                   <button
                     type="button"
                     className={css.tempSave}
@@ -525,13 +531,6 @@ function BBSEditor({ router }) {
                   </div>
                 </div>
 
-                {/* 임시저장  */}
-                {/* <TempArticleButton
-                  onClickTempArticle={handleClickTempArticle}
-                  onDeleteTempArticle={handleShowDeleteTempArticleConfirm}
-                  wrapperStyle={{ marginTop: '26px' }}
-                /> */}
-
                 {/* 에디터 */}
                 <Field
                   name={fields.contents}
@@ -542,7 +541,7 @@ function BBSEditor({ router }) {
                       <DefaultEditor
                         initialContents={meta.initial}
                         onChange={input.onChange}
-                        wrapperStyle={{ marginTop: '15px' }}
+                        wrapperStyle={{ marginTop: '0' }}
                       />
                       {meta.submitFailed && (
                         <span className={css.errorMessage}>{meta.error}</span>
@@ -606,6 +605,12 @@ function BBSEditor({ router }) {
                   </div>
                 </div>
 
+                {/* 임시저장  */}
+                <TempArticleButton
+                  onClickTempArticle={handleClickTempArticle}
+                  onDeleteTempArticle={handleShowDeleteTempArticleConfirm}
+                  wrapperStyle={{ marginTop: '0px' }}
+                />
                 {/* <div className={css.submitButtonWrap}>
                   <button
                     type="button"

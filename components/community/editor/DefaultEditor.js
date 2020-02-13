@@ -31,21 +31,41 @@ export default class CommunityDefaultEditor extends React.Component {
   }
 
   componentWillUnmount() {
-    // this.summernote.summernote('destroy');
+    this.summernote.summernote('destroy');
   }
 
   /**
    * summernote 초기화
    */
   initSummernote = el => {
-    console.log(this.summernote, 'thissummernote');
     if (isBrowser && !!el) {
       this.summernote.summernote({
         lang: 'ko-KR', // default: 'en-US'
-        height: 500, // set editor height
+        height: 300, // set editor height
         minHeight: null, // set minimum height of editor
         maxHeight: null, // set maximum height of editor
         focus: true, // set focus to editable area after initializing summernote
+        toolbar: [
+          ['font', ['bold', 'underline', 'clear']],
+          ['color', ['color']],
+          ['fontsize', ['fontsize']],
+          ['para', ['ul', 'ol', 'paragraph']],
+          ['insert', ['picture', 'link', 'video', 'hr']],
+          ['view', ['fullscreen', 'codeview']],
+        ],
+        fontSizes: [
+          '8',
+          '9',
+          '10',
+          '11',
+          '12',
+          '14',
+          '18',
+          '24',
+          '36',
+          '48',
+          '64',
+        ],
         callbacks: {
           onImageUpload: files => {
             // cdn에 이미지 업로드 후 url 받아옴

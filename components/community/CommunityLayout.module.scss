@@ -3,8 +3,7 @@
 
 .communityMain {
   @include clearfix;
-  padding-top: 80px;
-  padding-bottom: 240px;
+  margin-top: 100px;
 }
 
 .breadcrumbWrap {
@@ -18,7 +17,7 @@
 
 .pageContents {
   width: 100%;
-  padding-bottom: 120px;
+  padding-bottom: 60px;
 }
 
 .writeButton {

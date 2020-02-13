@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 import css from './BBSArticleView.module.scss';
-import CommunityLayout from 'components/community/CommunityLayout';
+import DefaultLayout from 'components/layout/DefaultLayout';
 import ArticleControlButtons from 'components/community/article/ArticleControlButtons';
 import ArticleTitle from 'components/community/article/ArticleTitle';
 import AdBanner from 'components/community/AdBanner';
@@ -92,13 +92,19 @@ const BBSArticleView = enhancer(({ router }) => {
         },
       });
     }
+    console.log(articleStore.data, 'articleStore.data');
   }, [alert, ALL_CATEGORY_ID, isArticleDeleted, router]);
 
   const isArticleVisible = articleStore.isArticleFetched && !isArticleDeleted;
 
   return (
     <ArticleIdContext.Provider value={articleId}>
-      <CommunityLayout>
+      <DefaultLayout
+        pageTitle={articleStore.articleCategoryName}
+        kakaoChat={false}
+        toolBar={false}
+        headerShape={'BBSArticleView'}
+      >
         {/* 게시글 */}
         {isArticleVisible && (
           <div className={css.wrap}>
@@ -147,7 +153,7 @@ const BBSArticleView = enhancer(({ router }) => {
             />
           </div>
         )}
-      </CommunityLayout>
+      </DefaultLayout>
     </ArticleIdContext.Provider>
   );
 });
