@@ -2,7 +2,7 @@
 @mixin inputStyle {
   position: relative;
   padding: 14px 50px 14px 20px;
-  border: solid 1px #eeeeee;
+  border-bottom: solid 1px #eeeeee;
   background-color: #ffffff;
 
   input {
@@ -13,7 +13,7 @@
     background: transparent;
 
     &::placeholder {
-      color: #777;
+      color: #ccc;
     }
   }
 }

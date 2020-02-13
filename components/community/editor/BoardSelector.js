@@ -23,9 +23,7 @@ const BoardSelector = ({ onChange = () => {}, options, initialValue }) => {
           </div>
         );
       }}
-      wrapperStyle={{
-        width: '100%',
-      }}
+      wrapperStyle={{}}
       options={optionsAvailable}
       onChangeOption={handleChange}
       optionStyle={{

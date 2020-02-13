@@ -3,104 +3,75 @@
 $brandAndProductGridGap: 40px;
 $brandAndProductGridGapMD: 29px;
 
-.brandAndProduct {
-  @include gridContainer($brandAndProductGridGap);
-  margin-top: 30px;
-
-  @include mediaMD {
-    @include gridContainer($brandAndProductGridGapMD);
+.editorHeader {
+  position: relative;
+  display: flex;
+  height: 60px;
+  align-items: center;
+  padding: 0 20px;
+  border-bottom: 1px solid #eee;
+  .cancelButton {
+    font-size: 15px;
+    font-weight: 500;
+    color: #999;
+    margin-right: 15px;
   }
+  .tempSave {
+    font-size: 15px;
+    font-weight: 500;
+    color: #999;
+    white-space: nowrap;
+  }
+
+  .submitButton {
+    margin-left: auto;
+    color: #5d2ed1;
+    font-size: 15px;
+    font-weight: 500;
+    &.purple {
+      border: solid 1px #5d2ed1;
+    }
+
+    a {
+      color: #131212;
+    }
+
+    & + & {
+      margin-left: 10px;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+.brandAndProduct {
 }
 
 .brandAndProduct_row {
-  @include gridRow;
 }
 
 .brandAndProduct_searchItem {
-  @include gridColumn(1/2, $brandAndProductGridGap);
-  @include clearfix;
-  width: 50%;
-  float: left;
-
-  @include mediaMD {
-    @include gridColumn(1/2, $brandAndProductGridGapMD);
-  }
+  width: 100%;
 }
 
 $searchLabelWidth: 85px;
 $searchLabelWidthMD: 82px;
 
-.brandAndProduct_searchLabel {
-  @include buttonCenteredY;
-  float: left;
-  width: $searchLabelWidth;
-  height: 50px;
-  font-size: 14px;
-  font-weight: normal;
-  line-height: 2;
-  color: #111111;
-
-  @include mediaMD {
-    width: $searchLabelWidthMD;
-  }
-}
-
 .brandAndProduct_searchComponent {
-  float: left;
-  width: calc(100% - #{$searchLabelWidth});
-
-  @include mediaMD {
-    width: calc(100% - #{$searchLabelWidthMD});
-  }
-}
-
-.submitButtonWrap {
-  margin-top: 70px;
-  text-align: center;
   width: 100%;
-}
-
-.submitButton {
-  @include buttonCentered;
-  display: inline-block;
-  width: 150px;
-  height: 45px;
-  border: solid 1px #444444;
-  background-color: #444444;
-  color: #ffffff;
-
-  &.purple {
-    border: solid 1px #5d2ed1;
-    background-color: #5d2ed1;
-  }
-
-  a {
-    color: #131212;
-  }
-
-  & + & {
-    margin-left: 10px;
-  }
-
-  &:hover {
-    cursor: pointer;
-  }
 }
 
 .articleTitle {
   @include clearfix;
   width: 100%;
-  margin-top: 30px;
 }
 
 .articleTitle_category {
-  width: 160px;
-  float: left;
+  width: 100%;
 }
 .articleTitle_title {
-  width: calc(100% - 160px);
-  float: left;
-  padding-left: 10px;
+  width: 100%;
 }
 
 .errorMessage {

@@ -1,10 +1,11 @@
 module.exports = {
   extends: ['react-app'],
   parser: 'babel-eslint',
-  plugins: [],
+  plugins: ['react-hooks'],
   globals: {
-    define: 0,
-
+    define: true,
+    $: true,
+    jQuery: true,
     daum: true,
     DaumConversionDctSv: true,
     DaumConversionAccountID: true,

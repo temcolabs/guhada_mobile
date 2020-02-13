@@ -21,6 +21,20 @@
   padding-bottom: 120px;
 }
 
+.writeButton {
+  position: fixed;
+  z-index: 10;
+  right: 15px;
+  bottom: 119px;
+  width: 41px;
+  height: 41px;
+  border-radius: 50%;
+  background: url('/static/icon/community/com-btn-editor@3x.png') no-repeat
+    center;
+  background-size: 41px 41px;
+  text-indent: -9999px;
+  cursor: pointer;
+}
 // .sidebar {
 //   float: right;
 //   width: #{$communitySidebarWidth};

@@ -6,7 +6,7 @@ import BoardListItem from '../list/BoardListItem';
 import Pagination from 'components/common/Pagination';
 import { useObserver } from 'mobx-react-lite';
 import { ITEMS_PER_PAGE } from 'childs/lib/constant/community/searchQuery';
-import MoreButton from 'components/common/moreButton';
+import MoreButton from 'components/common/MoreButton';
 
 /**
  * 관련글 목록

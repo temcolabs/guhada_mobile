@@ -27,18 +27,28 @@ class MyDocument extends Document {
             }}
           />
           {/* bootstrap 스타일시트(summernote의 dependency)*/}
-          <link
+          {/* <link
             rel="stylesheet"
             href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
             integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu"
             crossOrigin="anonymous"
-          />
+          /> */}
 
           {/* 다음 주소검색 */}
           <script
             id="daumPostcode"
             src={`${urlConstant.daumPostCode}?autoload=false`}
           />
+
+          {/* summernote 0.8.12 */}
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js" />
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js" />
+          <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css"
+            rel="stylesheet"
+          />
+          {/* https://github.com/summernote/summernote/tree/develop/lang */}
+          <script src="/static/js/summernote-lang/ko-KR.js" />
 
           {/* 네이버 쇼핑 트래커 */}
           <script type="text/javascript" src="//wcs.naver.net/wcslog.js" />

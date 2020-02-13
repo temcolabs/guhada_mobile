@@ -31,13 +31,14 @@ export default class CommunityDefaultEditor extends React.Component {
   }
 
   componentWillUnmount() {
-    this.summernote.summernote('destroy');
+    // this.summernote.summernote('destroy');
   }
 
   /**
    * summernote 초기화
    */
   initSummernote = el => {
+    console.log(this.summernote, 'thissummernote');
     if (isBrowser && !!el) {
       this.summernote.summernote({
         lang: 'ko-KR', // default: 'en-US'

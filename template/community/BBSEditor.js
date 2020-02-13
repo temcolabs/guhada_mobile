@@ -433,9 +433,9 @@ function BBSEditor({ router }) {
   }, 400);
 
   return useObserver(() => (
-    <CommunityLayout>
+    <div>
       {/* 광고 */}
-      <AdBanner />
+      {/* <AdBanner /> */}
 
       <Form
         initialValues={initialValues}
@@ -452,20 +452,33 @@ function BBSEditor({ router }) {
             <form onSubmit={handleSubmit}>
               <CommunityContentWrap>
                 {/* 게시판(카테고리) 선택 */}
-                <Field
-                  name={fields.categoryId}
-                  validate={validators.categoryId}
-                >
-                  {({ input, meta }) => (
-                    <BoardSelector
-                      initialValue={meta.initial}
-                      options={allCategoryOptions}
-                      onChange={value => {
-                        handleChangeCategory({ categoryId: value, formApi });
-                      }}
-                    />
-                  )}
-                </Field>
+                <div className={css.editorHeader}>
+                  <button className={css.cancelButton}>취소</button>
+                  <button
+                    type="button"
+                    className={css.tempSave}
+                    onClick={() => handleSaveTempArticle({ values })}
+                  >
+                    임시
+                  </button>
+                  <Field
+                    name={fields.categoryId}
+                    validate={validators.categoryId}
+                  >
+                    {({ input, meta }) => (
+                      <BoardSelector
+                        initialValue={meta.initial}
+                        options={allCategoryOptions}
+                        onChange={value => {
+                          handleChangeCategory({ categoryId: value, formApi });
+                        }}
+                      />
+                    )}
+                  </Field>
+                  <button type="submit" className={css.submitButton}>
+                    {isUpdate ? '수정' : '등록'}
+                  </button>
+                </div>
 
                 <div className={css.articleTitle}>
                   <div className={css.articleTitle_category}>
@@ -513,11 +526,11 @@ function BBSEditor({ router }) {
                 </div>
 
                 {/* 임시저장  */}
-                <TempArticleButton
+                {/* <TempArticleButton
                   onClickTempArticle={handleClickTempArticle}
                   onDeleteTempArticle={handleShowDeleteTempArticleConfirm}
                   wrapperStyle={{ marginTop: '26px' }}
-                />
+                /> */}
 
                 {/* 에디터 */}
                 <Field
@@ -546,9 +559,9 @@ function BBSEditor({ router }) {
                   <div className={css.brandAndProduct_row}>
                     {categorySelected.visibleProductSearch && (
                       <div className={css.brandAndProduct_searchItem}>
-                        <div className={css.brandAndProduct_searchLabel}>
+                        {/* <div className={css.brandAndProduct_searchLabel}>
                           <span>브랜드명</span>
-                        </div>
+                        </div> */}
                         <div className={css.brandAndProduct_searchComponent}>
                           <Field
                             name={fields.brandName}
@@ -569,9 +582,9 @@ function BBSEditor({ router }) {
                     )}
                     {categorySelected.visibleProductSearch && (
                       <div className={css.brandAndProduct_searchItem}>
-                        <div className={css.brandAndProduct_searchLabel}>
+                        {/* <div className={css.brandAndProduct_searchLabel}>
                           <span>상품명</span>
-                        </div>
+                        </div> */}
                         <div className={css.brandAndProduct_searchComponent}>
                           <Field
                             name={fields.dealName}
@@ -593,7 +606,7 @@ function BBSEditor({ router }) {
                   </div>
                 </div>
 
-                <div className={css.submitButtonWrap}>
+                {/* <div className={css.submitButtonWrap}>
                   <button
                     type="button"
                     className={css.submitButton}
@@ -614,7 +627,7 @@ function BBSEditor({ router }) {
                   >
                     {isUpdate ? '수정하기' : '등록하기'}
                   </button>
-                </div>
+                </div> */}
               </CommunityContentWrap>
 
               {/* 게시글 미리보기  */}
@@ -642,7 +655,7 @@ function BBSEditor({ router }) {
           );
         }}
       />
-    </CommunityLayout>
+    </div>
   ));
 }
 

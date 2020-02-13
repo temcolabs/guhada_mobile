@@ -36,8 +36,8 @@ export default function CategoryFilterSelector({
       }}
       options={optionsAvailable} // 선택된 값 제외
       onChangeOption={handleChange}
-      topPosOnEnter="49px"
-      topPosOnExit="49px"
+      topPosOnEnter="109px"
+      topPosOnExit="109px"
     />
   );
 }

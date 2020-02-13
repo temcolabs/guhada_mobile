@@ -1,7 +1,6 @@
 import React from 'react';
 import css from './index.module.scss';
-import { func } from 'prop-types';
-function MoreButton({ getMoreContent = func.isRequired }) {
+function MoreButton({ getMoreContent }) {
   return (
     <div
       className={css.more}
