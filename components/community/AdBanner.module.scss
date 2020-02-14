@@ -7,10 +7,10 @@
 }
 
 .banner {
-  height: 140px;
-  background-size: cover;
+  padding-bottom: 39%;
+  background-size: contain;
   background-position: center;
-
+  background-repeat: no-repeat;
   &.href {
     cursor: pointer;
   }

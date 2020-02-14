@@ -162,11 +162,14 @@ export default function useBBSSearchState({ query, asPath } = {}) {
   const handleSubmitSearch = useCallback(
     ({ searchType, query }) => {
       scrollToTarget(scrollUpTargetId);
-      pushRouteToSearch({
-        searchType,
-        query,
-        page: 1,
-      });
+      pushRouteToSearch(
+        {
+          query,
+        },
+        {
+          href: `/community/board/all`,
+        }
+      );
     },
     [pushRouteToSearch]
   );

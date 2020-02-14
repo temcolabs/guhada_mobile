@@ -42,7 +42,7 @@ export default function SortButton({
       }}
       slideWrapperStyle={optionsWrapperStyle}
       topPosOnEnter={'30px'}
-      topPosOnExit={'40px'}
+      topPosOnExit={'60px'}
     />
   );
 }

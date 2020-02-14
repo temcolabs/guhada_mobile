@@ -4,31 +4,17 @@
 }
 
 .wrap {
-  margin-top: 30px;
+  position: relative;
 }
 
 .categoryButton {
-  display: inline-block;
-  padding: 8px 20px 9px;
-  border-radius: 21px;
-  border: solid 1px #eeeeee;
-  background-color: #ffffff;
-  color: #000;
-  font-size: 14px;
+  color: #333;
+  font-size: 13px;
+  font-weight: 500;
   line-height: inherit;
-  color: #777777;
-  text-align: center;
-
-  &:not(:first-child) {
-    margin-left: 5px;
-  }
-
-  &:hover {
-    cursor: pointer;
-    @include categoryButtonHighlight;
-  }
-
-  &.isSelected {
-    @include categoryButtonHighlight;
-  }
+  background: url('/static/icon/community/list-btn-lineup@3x.png') no-repeat
+    right center;
+  background-size: 10px;
+  width: 80px;
+  text-align: left;
 }

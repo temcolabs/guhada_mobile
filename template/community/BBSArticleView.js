@@ -16,7 +16,8 @@ import useBBSSearchState from 'components/community/list/useBBSSearchState';
 import { pushRoute } from 'childs/lib/router';
 import BoardTitleOnly from 'components/community/list/BoardTitleWithSort';
 import RelatedArticleList from 'components/community/article/RelatedArticleList';
-
+import BoardSearch from 'components/community/list/BoardSearch';
+import Footer from 'components/footer/Footer';
 const enhancer = compose(
   withRouter,
   observer
@@ -46,6 +47,11 @@ const BBSArticleView = enhancer(({ router }) => {
       articleStore.initArticleData();
     };
   }, [articleStore, articleId]);
+
+  const { searchQuery, handleSubmitSearch } = useBBSSearchState({
+    query: router.query,
+    asPath: router.asPath,
+  });
 
   const {
     categoryId,
@@ -151,8 +157,20 @@ const BBSArticleView = enhancer(({ router }) => {
               lastCategoryId={searchStore.searchQuery?.categoryId || categoryId} // 검색결과의 카테고리 아이디 또는 게시글의 카테고리아이디
               lastPage={searchStore.searchQuery?.page || 1} // 검색 결과의 페이지 번호 또는 1
             />
+
+            {/* 검색어 입력  */}
+            {!searchStore.isFetching && (
+              <div className={css.boardSearchWrap}>
+                <BoardSearch
+                  onSubmitSearch={handleSubmitSearch}
+                  initialSearchType={searchQuery.searchType}
+                  initialQuery={searchQuery.query}
+                />
+              </div>
+            )}
           </div>
         )}
+        <Footer />
       </DefaultLayout>
     </ArticleIdContext.Provider>
   );

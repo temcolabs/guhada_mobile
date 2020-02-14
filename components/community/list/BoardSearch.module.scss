@@ -12,11 +12,11 @@
     float: left;
 
     &:nth-child(1) {
-      width: 140px;
+      width: 100px;
     }
 
     &:nth-child(2) {
-      width: calc(100% - 140px);
+      width: calc(100% - 100px);
     }
   }
 }

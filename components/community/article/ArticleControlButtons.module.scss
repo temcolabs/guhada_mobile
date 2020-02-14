@@ -8,6 +8,7 @@
 }
 
 .buttonsContainer_rightSide {
+  position: relative;
   & > * {
     margin-left: 8px;
   }

@@ -1,17 +1,14 @@
 @import 'styles/mixins/index';
 
 .boardGridContainer {
-  @include gridContainer(21px);
+  @include clearfix;
+  padding: 20px 10px;
 }
 
 // boardGridItem wrapper
 .gridItem {
-  @include gridColumn(1/4, 25px);
-  margin-bottom: 40px;
-
-  @include mediaMD {
-    @include gridColumn(1/3, 25px);
-  }
+  @include gridColumn(1/2, 10px);
+  margin-bottom: 35px;
 }
 
 .imageContainer {
@@ -33,13 +30,13 @@
 }
 
 .infoContainer {
-  margin-top: 20px;
+  margin-top: 15px;
 }
 
 .title {
   @include clearfix;
 
-  &>* {
+  & > * {
     display: inline-block;
   }
 }
@@ -48,7 +45,7 @@
   float: left;
   @include textEllipsis;
   width: auto;
-  max-width: 152px;
+  max-width: calc(100% - 30px);
   font-size: 15px;
   font-weight: 400;
   color: #111111;
@@ -60,7 +57,7 @@
   margin-top: 2px;
   float: left;
 
-  &>* {
+  & > * {
     float: left;
   }
 }
@@ -70,7 +67,6 @@
   font-size: 13px;
   font-weight: bold;
   color: #5d2ed1;
-  line-height: 1.4;
 }
 
 .title_newIcon {
@@ -84,7 +80,7 @@
 }
 
 .itemInfo_username {
-  margin: 7px 0;
+  margin: 5px 0;
   height: 1.3em;
 }
 
@@ -110,7 +106,7 @@
 }
 
 .itemInfo_counts {
-  &>* {
+  & > * {
     color: #7c7c7c;
 
     &:not(:last-child) {
@@ -119,8 +115,11 @@
   }
 }
 
-.itemInfo_like {}
+.itemInfo_like {
+}
 
-.itemInfo_read {}
+.itemInfo_read {
+}
 
-.itemInfo_created {}
+.itemInfo_created {
+}

@@ -6,8 +6,23 @@ import { withRouter } from 'next/router';
 import useBBSSearchState from 'components/community/list/useBBSSearchState';
 import { useBBSStore } from 'stores/bbs';
 import { useObserver } from 'mobx-react-lite';
+import SlideUpOptions, { slideOptionsPropType } from '../form/SlideUpOptions';
+import useChangeOption from 'components/hooks/useChangeOption';
+import { func } from 'prop-types';
 
-function BoardCategoryFilter({ router = {}, wrapperStyle = {} }) {
+BoardCategoryFilter.prototype = {
+  options: slideOptionsPropType,
+  onChange: func,
+};
+
+function BoardCategoryFilter({
+  router = {},
+  options = [], //
+  onChange = value => {},
+  initialValue,
+  wrapperStyle = {},
+  optionsWrapperStyle = { width: '130px' },
+}) {
   const { searchQuery, handleChangeCategoryFilter } = useBBSSearchState({
     query: router.query,
     asPath: router.asPath,
@@ -47,33 +62,31 @@ function BoardCategoryFilter({ router = {}, wrapperStyle = {} }) {
   }, [searchQuery.filterId]);
 
   return useObserver(() => {
-    return (
+    return categoryFilterStore.categoryFiltersWithAllOptions.length > 0 ? (
       <div
         key={searchQuery.categoryId}
         className={css.wrap}
         style={wrapperStyle}
       >
-        {categoryFilterStore.categoryFiltersWithAllOptions.map(
-          (filterOption, index) => {
+        <SlideUpOptions
+          renderButton={() => {
             return (
-              <button
-                key={index}
-                className={cn(css.categoryButton, {
-                  [css.isSelected]:
-                    filterOption.value === null // 전체 옵션
-                      ? _.isNil(filterId) === _.isNil(filterOption.value)
-                      : // 필터 아이디 일치 체크
-                        parseInt(filterId, 10) === filterOption.value,
-                })}
-                onClick={() => handleClickCategory(filterOption.value)}
-              >
-                {filterOption.label}
-              </button>
+              <div className={css.wrap}>
+                <button className={css.categoryButton}>말머리 선택</button>
+              </div>
             );
-          }
-        )}
+          }}
+          options={categoryFilterStore.categoryFiltersWithAllOptions} // 현재 선택된 값은 제외하고
+          onChangeOption={handleClickCategory}
+          wrapperStyle={{
+            display: 'inline-block',
+          }}
+          slideWrapperStyle={optionsWrapperStyle}
+          topPosOnEnter={'30px'}
+          topPosOnExit={'60px'}
+        />
       </div>
-    );
+    ) : null;
   });
 }
 export default withRouter(BoardCategoryFilter);

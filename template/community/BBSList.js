@@ -9,7 +9,7 @@ import Pagination from 'components/common/Pagination';
 import BoardTitle from 'components/community/list/BoardTitle';
 import BoardSearch from 'components/community/list/BoardSearch';
 import BoardListItem from 'components/community/list/BoardListItem';
-import BoardCategoryFilter from 'components/community/list/BoardCategoryFilter';
+
 // import useStores from 'stores/useStores';
 // import AdBanner from 'components/community/AdBanner';
 import CommunityContentWrap from 'components/community/CommunityContentWrap';
@@ -22,6 +22,8 @@ import BoardGridItem, {
 } from 'components/community/list/BoardGridItem';
 import categoryViewType from 'childs/lib/constant/community/categoryViewType';
 import MoreButton from 'components/common/MoreButton';
+import BoardCategoryFilter from 'components/community/list/BoardCategoryFilter';
+
 const enhancer = compose(
   withScrollToTopOnMount,
   withRouter
@@ -78,6 +80,10 @@ const BBSList = enhancer(({ router }) => {
       ? true
       : false;
 
+  console.log(
+    searchQuery.page * searchQuery.unitPerPage,
+    'searchQuery.page * searchQuery.unitPerPage'
+  );
   return useObserver(() => (
     <CommunityLayout>
       <div id={scrollUpTargetId} />
@@ -88,13 +94,7 @@ const BBSList = enhancer(({ router }) => {
       {/* 게시판 */}
       <CommunityContentWrap>
         {/* 게시판 이름 */}
-        <BoardTitle>{boardTitle}</BoardTitle>
-
-        {/* 필터, 정렬  */}
-        {/* <BoardCategoryFilter
-          order={searchQuery.order}
-          onChangeOrder={handleChangeOrder}
-        /> */}
+        <BoardTitle />
 
         {/* 목록 */}
         <div
@@ -127,11 +127,13 @@ const BBSList = enhancer(({ router }) => {
           />
         )} */}
 
-        <MoreButton
-          getMoreContent={() => {
-            searchStore.moreBBSList();
-          }}
-        />
+        {searchStore.totalCount > searchQuery.page * searchQuery.unitPerPage ? (
+          <MoreButton
+            getMoreContent={() => {
+              searchStore.moreBBSList();
+            }}
+          />
+        ) : null}
 
         {/* 검색어 입력  */}
         {!searchStore.isFetching && (

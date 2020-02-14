@@ -117,8 +117,6 @@ export default class SearchStore {
       unitPerPage: parseInt(searchQuery.unitPerPage, 10) || ITEMS_PER_PAGE,
     };
 
-    devLog('searchBody, pageQuery', searchBody, pageQuery);
-
     try {
       this.isFetching = true;
       const { data } = await API.bbsSearch.post(`/bbs/search?`, searchBody, {
@@ -126,7 +124,8 @@ export default class SearchStore {
       });
       this.bbsList = this.mapBBSList(data.data?.bbs) || [];
       this.totalCount = data.data?.totalCount;
-      console.log(this.bbsList, 'this.bbsList ');
+
+      console.log(data, 'data');
     } catch (e) {
       console.error(e);
     } finally {
@@ -179,6 +178,8 @@ export default class SearchStore {
       });
       this.bbsList = this.bbsList.concat(this.mapBBSList(data.data?.bbs) || []);
       this.totalCount = data.data?.totalCount;
+
+      console.log(data, 'data');
     } catch (e) {
       console.error(e);
     } finally {

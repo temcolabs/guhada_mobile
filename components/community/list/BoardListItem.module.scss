@@ -5,14 +5,11 @@ $imageContainerWidth: 80px;
 .wrap {
   @include clearfix;
   display: block;
-  padding: 20px 20px;
+  padding: 20px;
   border-bottom: 1px solid #eeeeee;
   display: flex;
   &:hover {
     cursor: pointer;
-  }
-  &:first-child {
-    padding: 0 20px 20px;
   }
 }
 
