@@ -3,20 +3,15 @@ import { withRouter } from 'next/router';
 import { compose } from 'lodash/fp';
 import { useObserver } from 'mobx-react-lite';
 
-import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
 import SellerStoreHeader from 'components/sellerstore/SellerStoreHeader';
 import SellerStoreTab from 'components/sellerstore/SellerStoreTab';
 import SellerStoreProduct from 'components/sellerstore/SellerStoreProduct';
 import SellerStoreInfomation from 'components/sellerstore/SellerStoreInfomation';
 import DefaultLayout from 'components/layout/DefaultLayout';
 import _ from 'lodash';
-import StoreSearchFilter from 'components/sellerstore/StoreSearchFilter';
 import SearchFilter from 'components/search/SearchFilter';
 
-const enhancer = compose(
-  withScrollToTopOnMount,
-  withRouter
-);
+const enhancer = compose(withRouter);
 
 /**
  * 셀러스토어
@@ -46,6 +41,7 @@ const SellerStore = enhancer(
           {tab === 'store' ? (
             <SellerStoreProduct
               seller={seller}
+              searchitem={searchitem}
               items={searchitem.deals}
               countOfDeals={searchitem.countOfDeals}
               setIsFilterVisible={setIsFilterVisible}

@@ -9,10 +9,8 @@ import HeadForSEO from 'childs/lib/components/HeadForSEO';
 @observer
 class SellerStorePage extends Component {
   componentDidMount() {
-    const { seller, searchitem } = this.props;
+    const { seller } = this.props;
     const nickname = Router.router.query.nickname;
-    const query = Router.router.query;
-    console.log('SellerStorePage componentDidMount');
     if (isBrowser) {
       seller.nickname = nickname;
       seller.getSellerId();
@@ -21,7 +19,6 @@ class SellerStorePage extends Component {
   componentDidUpdate() {
     const { seller } = this.props;
     const nickname = Router.router.query.nickname;
-    console.log('SellerStorePage componentDidUpdate');
     if (isBrowser) {
       seller.nickname = nickname;
       seller.getSellerId();

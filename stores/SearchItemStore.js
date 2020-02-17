@@ -103,6 +103,32 @@ export default class SearchItemStore {
   };
 
   @action
+  addPage = () => {
+    let query = Router.router.query;
+    this.dealsPage += 1;
+
+    let brand = JSON.parse('[' + query.brand + ']');
+
+    this.getSearchByUri(
+      brand,
+      query.category,
+      this.dealsPage,
+      query.unitPerPage,
+      query.order,
+      query.filter,
+      query.subcategory,
+      query.enter,
+      query.keyword,
+      query.resultKeyword,
+      query.condition,
+      query.productCondition,
+      query.shippingCondition,
+      query.minPrice,
+      query.maxPrice,
+      this.root.seller.sellerId
+    );
+  };
+  @action
   initDealspage = () => {
     this.dealsPage = 1;
   };

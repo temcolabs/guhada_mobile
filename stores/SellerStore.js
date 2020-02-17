@@ -81,43 +81,7 @@ export default class SellerStore {
 
         this.getSellerStore();
 
-        const { searchitem } = this.root;
-        const query = Router.router.query;
-
-        searchitem.deals = [];
-        searchitem.preUrl = Router.asPath;
-        searchitem.initDealspage();
-        if (query.filtered === 'false') searchitem.initSearchFilterList();
-
-        // searchitem.toSearch({
-        //   sellerIds: this.sellerId,
-        // });
-
-        let brand = JSON.parse('[' + query.brand + ']');
-        let subcategory = JSON.parse('[' + query.subcategory + ']');
-
-        searchitem.getSearchByUri(
-          brand,
-          query.category,
-          query.page,
-          query.unitPerPage,
-          query.order,
-          query.filter,
-          subcategory,
-          query.enter,
-          query.keyword,
-          query.resultKeyword,
-          query.condition,
-          query.productCondition,
-          query.shippingCondition,
-          query.minPrice,
-          query.maxPrice,
-          this.sellerId
-        );
-
-        console.log('1');
-        // this.root.searchitem.getSearchByUri();
-        // this.getSellerStoreDeal(this.sellerId);
+        this.getFromSearchItemDeals();
 
         if (this.root.login.loginStatus === loginStatus.LOGIN_DONE)
           this.getFollowSellerStore(this.sellerId);
@@ -141,210 +105,36 @@ export default class SellerStore {
   };
 
   @action
-  getInitSellerStoreItem = () => {
-    this.page = 1;
-  };
+  getFromSearchItemDeals = () => {
+    const { searchitem } = this.root;
+    const query = Router.router.query;
 
-  @action
-  getSellerStoreDeal = sellerId => {
-    // 일반적인 카테고리 검색을 위해서 전체 카테고리 값을 불러오기 위한 api 콜
-    API.search.get('/ps/search/all').then(async res => {
-      let categoryList = [];
+    searchitem.deals = [];
+    searchitem.preUrl = Router.asPath;
+    searchitem.initDealspage();
+    if (query.filtered === 'false') searchitem.initSearchFilterList();
 
-      let brandList = [];
-      if (this.brand) {
-        if (this.brand.length > 0 && this.brand[0] != null) {
-          this.brand.map(brand => {
-            if (brand.id) brandList.push(brand.id);
-            else brandList.push(brand);
-          });
-        }
-      }
+    let brand = JSON.parse('[' + query.brand + ']');
+    let subcategory = JSON.parse('[' + query.subcategory + ']');
 
-      if (this.subcategory[0] != null) {
-        categoryList = [];
-        categoryList = JSON.parse('[' + this.subcategory + ']');
-
-        this.checkedKeys = [];
-        this.checkedKeysId = [];
-
-        categoryList.map(category => {
-          this.checkedKeys.push(
-            getCategoryKey(this.treeDataForFilter, category)
-          );
-          this.checkedKeysId.push(category);
-        });
-      } else {
-        categoryList.push(this.categoryIds);
-      }
-
-      let filterList = [];
-
-      if (!this.filter) {
-        this.filter = '';
-      }
-
-      let filterCount = JSON.parse('[' + this.filter + ']');
-
-      if (Array.isArray(toJS(filterCount))) {
-        filterCount.map(filter => {
-          filterList.push({ filterAttributeId: filter });
-        });
-      }
-
-      let searchResultKeyword = [];
-      if (isTruthy(this.keyword)) searchResultKeyword.push(this.keyword);
-      if (isTruthy(this.resultKeyword))
-        searchResultKeyword.push(this.resultKeyword);
-
-      API.search
-        .post(
-          `/ps/search/filter?page=${this.page}&unitPerPage=${
-            this.unitPerPage
-          }&order=${this.order}`,
-          {
-            searchResultOrder:
-              this.order === null || this.order === '' ? 'DATE' : this.order,
-            sellerIds: [sellerId],
-            brandIds: brandList,
-            categoryIds: categoryList,
-            filters: filterList,
-            searchQueries: searchResultKeyword,
-            searchCondition: this.condition === '' ? null : this.condition,
-            productCondition: this.productCondition,
-            shippingCondition: this.shippingCondition,
-            minPrice: this.minPrice,
-            maxPrice: this.maxPrice,
-          }
-        )
-        .then(res => {
-          let data = res.data;
-          if (this.page === 1) {
-            this.dealsOfSellerStore = data.data.deals;
-          } else {
-            this.setSellerStoreItem(data.data.deals);
-          }
-          this.brands = data.data.brands;
-          this.countOfDeals = data.data.countOfDeals;
-          this.filterData = data.data.filterData;
-          this.itemStatus = true;
-        });
-    });
-  };
-
-  @action
-  initFilter = () => {
-    this.filterBrand = [];
-    this.filterData.map((data, dataKey) => {
-      return data.attributes.map((attributes, attributesKey) => {
-        if (
-          !_.isNil(this.filterData[dataKey].attributes[attributesKey].filter)
-        ) {
-          this.filterData[dataKey].attributes[attributesKey].filter = false;
-        }
-      });
-    });
-
-    let query = Router.router.query;
-    this.productCondition = query.productCondition;
-    this.shippingCondition = query.shippingCondition;
-    this.minPrice = '';
-    this.maxPrice = '';
-    this.resultKeyword = '';
-  };
-
-  @action
-  clearFilter = () => {
-    this.initFilter();
-    this.toSearch({ resultKeyword: ' ' });
-  };
-  @action
-  searchFilter = () => {
-    let brandList = [];
-    let filterList = [];
-    let category;
-    let subCategoryList = [];
-
-    let brandListTitle = [];
-    let filterListTitle = [];
-    let categoryListTitle = [];
-    let subCategoryListTitle = [];
-
-    let query = Router.router.query;
-
-    if (Number(this.minPrice) > Number(this.maxPrice)) {
-      this.root.alert.showAlert('최대 가격은 최소 가격보다 커야 합니다.');
-      return false;
-    }
-
-    // filter list push
-    if (Array.isArray(toJS(this.filterData))) {
-      this.filterData.map(filter => {
-        filter.attributes.map(attr => {
-          if (attr.filter) {
-            filterList.push(attr.id);
-            filterListTitle.push(attr);
-          }
-        });
-      });
-    }
-
-    if (query.enter === 'brand') {
-      brandList.push(query.brand.split(',')[0]);
-    }
-
-    // brand list push
-    if (Array.isArray(toJS(this.filterBrand))) {
-      this.filterBrand.map(brand => {
-        brandList.push(brand.id);
-        brandListTitle.push(brand);
-      });
-    }
-
-    // subcategory list push
-    if (Array.isArray(toJS(this.checkedKeysId))) {
-      this.checkedKeysId.map(subcategory => {
-        subCategoryListTitle.push({
-          title: getCategoryTitle(this.locationFilter, subcategory),
-          id: subcategory,
-        });
-      });
-    }
-
-    this.searchFilterList['brand'] = brandListTitle;
-    this.searchFilterList['filter'] = filterListTitle;
-
-    categoryListTitle.push({
-      title: isTruthy(this.selectCategory)
-        ? getCategoryTitle(this.locationFilter, toJS(this.selectCategory.id))
-        : getCategoryTitle(this.locationFilter, query.category),
-      id: isTruthy(this.selectCategory)
-        ? toJS(this.selectCategory.id)
-        : query.category,
-    });
-    this.searchFilterList['category'] = categoryListTitle;
-    this.searchFilterList['subcategory'] = subCategoryListTitle;
-
-    brandList = addCommaToArray(brandList);
-    filterList = addCommaToArray(filterList);
-    subCategoryList = addCommaToArray(this.checkedKeysId);
-    category = isTruthy(this.selectCategory)
-      ? toJS(this.selectCategory.id)
-      : query.category;
-
-    this.toSearch({
-      category: category,
-      brand: brandList,
-      filter: filterList,
-      subcategory: subCategoryList,
-      keyword: query.keyword,
-      resultKeyword: this.resultKeyword,
-      filtered: true,
-      productCondition: this.productCondition,
-      shippingCondition: this.shippingCondition,
-      minPrice: this.minPrice,
-      maxPrice: this.maxPrice,
-    });
+    searchitem.getSearchByUri(
+      brand,
+      query.category,
+      query.page,
+      query.unitPerPage,
+      query.order,
+      query.filter,
+      subcategory,
+      query.enter,
+      query.keyword,
+      query.resultKeyword,
+      query.condition,
+      query.productCondition,
+      query.shippingCondition,
+      query.minPrice,
+      query.maxPrice,
+      this.sellerId
+    );
   };
 
   @action

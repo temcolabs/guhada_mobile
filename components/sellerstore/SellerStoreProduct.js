@@ -5,9 +5,11 @@ import _ from 'lodash';
 import { LinkRoute } from 'childs/lib/router';
 import { useObserver } from 'mobx-react-lite';
 import SellerStoreOrder from './SellerStroeOrder';
+import SearchFilterResult from 'components/search/SearchFilterResult';
 
 export default function SellerStoreProduct({
   seller,
+  searchitem,
   items,
   countOfDeals,
   setIsFilterVisible,
@@ -29,9 +31,9 @@ export default function SellerStoreProduct({
     e.stopPropagation();
     setOrderHover(false);
     seller.order = order;
-    seller.getInitSellerStoreItem();
-    seller.getSellerStoreDeal(seller.sellerId);
     setSellerStoreFilter(order);
+    searchitem.toSearch({ order: order, sellerIds: seller.sellerId });
+    seller.getFromSearchItemDeals();
   }
   const handleMoreItemBtn =
     seller.countOfDeals / (seller.unitPerPage * seller.page) <= 1
@@ -60,6 +62,7 @@ export default function SellerStoreProduct({
           />
         </div>
       </div>
+      <SearchFilterResult />
       <div className={css.productWrap}>
         {_.isNil(items) === false &&
           items.map((item, i) => {
@@ -72,12 +75,14 @@ export default function SellerStoreProduct({
             );
           })}
       </div>
+
       {handleMoreItemBtn === true && (
         <div
           className={css.moreItemButton}
           onClick={() => {
-            seller.page += 1;
-            seller.getSellerStoreDeal(seller.sellerId);
+            searchitem.addPage();
+            // seller.page += 1;
+            // seller.getSellerStoreDeal(seller.sellerId);
           }}
         >
           더 보기
