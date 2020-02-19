@@ -143,6 +143,8 @@ function BBSEditor({ router }) {
    * 페이지 로딩시 카테고리 목록을 가져왔는지 확인하고, 첫번째 항목을 기본값으로 설정한다.
    * 게시글 수정모드라면 저장된 게시글로 에디터를 초기화한다.
    */
+  categoryStore.getCommunities();
+
   useEffect(() => {
     const initEditorState = async () => {
       try {
@@ -426,6 +428,7 @@ function BBSEditor({ router }) {
 
   const printFormLog = _.debounce(formApi => {
     const { values, initialValues, errors } = formApi.getState();
+
     devGroup('BBSEditor');
     devLog('form values', values);
     devLog('initial values', initialValues);
@@ -445,10 +448,11 @@ function BBSEditor({ router }) {
           printFormLog(formApi);
 
           const { values } = formApi.getState();
-          const categorySelected = categoryStore.getCategoryById(
+          let categorySelected = categoryStore.getCategoryById(
             values[fields.categoryId]
           );
-
+          if (Object.keys(categorySelected).length === 0) {
+          }
           return (
             <form onSubmit={handleSubmit}>
               <CommunityContentWrap>

@@ -124,8 +124,6 @@ export default class SearchStore {
       });
       this.bbsList = this.mapBBSList(data.data?.bbs) || [];
       this.totalCount = data.data?.totalCount;
-
-      console.log(data, 'data');
     } catch (e) {
       console.error(e);
     } finally {
@@ -143,9 +141,9 @@ export default class SearchStore {
     if (this.searchQuery.page) {
       this.searchQuery.page = parseInt(this.searchQuery.page) + 1;
     } else {
-      this.searchQuery.page = 1;
+      this.searchQuery.page = 2;
     }
-    devLog(` this.searchQuery `, this.searchQuery);
+    devLog(`this.searchQuery `, this.searchQuery);
 
     const filterUnvalid = _.partialRight(
       _.omitBy,

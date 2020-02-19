@@ -100,7 +100,7 @@ export default function CommentInput({
         <input
           className={css.inputBox_input}
           placeholder="댓글을 입력해주세요."
-          value={contents}
+          value={contents || ''}
           onChange={e => handleChangeContents(e.target.value)}
         />
         <button type="submit" className={css.inputBox_registerButton}>

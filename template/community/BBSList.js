@@ -9,7 +9,6 @@ import Pagination from 'components/common/Pagination';
 import BoardTitle from 'components/community/list/BoardTitle';
 import BoardSearch from 'components/community/list/BoardSearch';
 import BoardListItem from 'components/community/list/BoardListItem';
-
 // import useStores from 'stores/useStores';
 // import AdBanner from 'components/community/AdBanner';
 import CommunityContentWrap from 'components/community/CommunityContentWrap';
@@ -80,10 +79,6 @@ const BBSList = enhancer(({ router }) => {
       ? true
       : false;
 
-  console.log(
-    searchQuery.page * searchQuery.unitPerPage,
-    'searchQuery.page * searchQuery.unitPerPage'
-  );
   return useObserver(() => (
     <CommunityLayout>
       <div id={scrollUpTargetId} />

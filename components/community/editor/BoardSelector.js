@@ -13,7 +13,6 @@ const BoardSelector = ({ onChange = () => {}, options, initialValue }) => {
     options,
     initialValue,
   });
-
   return (
     <SlideUpOptions
       renderButton={() => {

@@ -9,8 +9,6 @@ export const BoardGridContainer = ({ children }) => {
 };
 
 export default function BoardGridItem({ bbs = {} }) {
-  console.log(`bbs.comments`, bbs.comments);
-
   return (
     <LinkRoute href={`/community/article/${bbs.bbsId}`}>
       <a className={css.gridItem}>
