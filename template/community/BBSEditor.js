@@ -451,8 +451,7 @@ function BBSEditor({ router }) {
           let categorySelected = categoryStore.getCategoryById(
             values[fields.categoryId]
           );
-          if (Object.keys(categorySelected).length === 0) {
-          }
+          console.log(categorySelected, 'categorySelected');
           return (
             <form onSubmit={handleSubmit}>
               <CommunityContentWrap>
@@ -460,7 +459,11 @@ function BBSEditor({ router }) {
                 <div className={css.editorHeader}>
                   <button
                     className={css.cancelButton}
-                    onClick={() => Router.back()}
+                    onClick={() =>
+                      pushRoute(
+                        `/community/board/${categorySelected.communityId}`
+                      )
+                    }
                   >
                     취소
                   </button>

@@ -3,25 +3,25 @@
 
 // 최상위 래핑 스타일
 .wrapper {
-  padding: 30px;
-  width: 600px;
-  font-size: 13px;
+  width: 100%;
+  background: #fff;
+  height: 100vh;
+  overflow-y: auto;
 }
 
 .title {
   position: relative;
-  font-size: 20px;
-  line-height: 1.2;
-  font-weight: bold;
-  border-bottom: solid 2px #111;
-  padding-bottom: 20px;
-  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
 }
 
 .title__closeButton {
   position: absolute;
-  right: 0;
-  top: 0;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
   width: 30px;
   height: 30px;
   background: url('/static/icon/modal_close.png') no-repeat center;
@@ -30,10 +30,8 @@
 
 // 취소, 실행 버튼
 .submitButtons {
-  $buttonGap: 10px;
-
   & > button {
-    width: calc((100% - #{$buttonGap}) / 2);
+    width: calc(50%);
     background-color: #444;
     color: #fff;
     padding: 18px;
@@ -42,7 +40,6 @@
 
     // submit button
     &:nth-child(2) {
-      margin-left: $buttonGap;
       background-color: $blue-purple;
     }
   }
@@ -68,7 +65,6 @@ $formLabelWidth: 115px;
   z-index: 10000;
   width: 100%;
   float: right;
-  padding: 8px 0 7px;
 }
 
 .formField__label + .formField__value {

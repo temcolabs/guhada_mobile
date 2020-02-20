@@ -3,12 +3,12 @@ import _ from 'lodash';
 import useReportState from './useReportState';
 import { default as reportTargetEnum } from 'childs/lib/constant/reportTarget';
 import css from './ReportModal.module.scss';
-import Input from 'components/mypage/form/Input';
+import Input from 'components/claim/report/form/Input';
 import Checkbox from 'components/mypage/form/Checkbox';
-import TextArea from 'components/mypage/form/TextArea';
-import Select from 'components/mypage/form/Select';
+import TextArea from 'components/claim/report/form/TextArea';
+import Select from 'components/claim/report/Select';
 import useStores from 'stores/useStores';
-
+import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 import ModalForm, {
   ModalFormField,
   ModalFormLabel,
@@ -103,30 +103,17 @@ export default function ReportModal({
   ]);
 
   return (
-    <ModalForm isOpen={isOpen} isBigModal onClose={onClose}>
+    // <SlideIn direction={slideDirection.RIGHT} isVisible={isOpen}>
+    <ModalForm isOpen={isOpen} onClose={onClose}>
       <ModalFormTitle onClose={onClose}>
         <span>{getReportModalName(reportTarget)} 신고</span>
       </ModalFormTitle>
 
-      {/* 폼 영역 */}
-      {/* 신고 유형  */}
-      <ModalFormField>
-        <ModalFormLabel>신고 유형</ModalFormLabel>
-        <ModalFormValue>
-          <Select
-            placeholder="신고 유형 선택"
-            options={reportState.reportTypeOptions}
-            onChange={option => handleChangeReportType(option.value)}
-            value={reportState.reportTypeOptions.find(o =>
-              _.isEqual(o.value, reportState.editing.reportType)
-            )}
-          />
-        </ModalFormValue>
-      </ModalFormField>
-
       {/* 관련 정보 */}
       <ModalFormField>
-        <ModalFormLabel>{getReportModalName(reportTarget)} 정보</ModalFormLabel>
+        {/* <ModalFormLabel>
+            {getReportModalName(reportTarget)} 정보
+          </ModalFormLabel> */}
         <ModalFormValue>
           <div className={css.relatedInfo}>
             {reportState.relatedData?.map((data, i) => (
@@ -142,19 +129,36 @@ export default function ReportModal({
         </ModalFormValue>
       </ModalFormField>
 
+      {/* 폼 영역 */}
+      {/* 신고 유형  */}
+      <ModalFormField>
+        {/* <ModalFormLabel>신고 유형</ModalFormLabel> */}
+        <ModalFormValue>
+          <Select
+            placeholder="신고 유형 선택"
+            options={reportState.reportTypeOptions}
+            onChange={option => handleChangeReportType(option.value)}
+            value={reportState.reportTypeOptions.find(o =>
+              _.isEqual(o.value, reportState.editing.reportType)
+            )}
+          />
+        </ModalFormValue>
+      </ModalFormField>
+
       {/* 제목 입력  */}
       <ModalFormField>
-        <ModalFormLabel>제목</ModalFormLabel>
+        {/* <ModalFormLabel>제목</ModalFormLabel> */}
         <ModalFormValue>
           <Input
             placeholder="제목을 입력해주세요"
             onChange={handleChangeTitle}
+            style={{ border: 'none' }}
           />
         </ModalFormValue>
       </ModalFormField>
 
       <ModalFormField>
-        <ModalFormLabel>내용</ModalFormLabel>
+        {/* <ModalFormLabel>내용</ModalFormLabel> */}
         <ModalFormValue>
           <TextArea
             initialValue={reportState.editing.content || ''}
@@ -165,14 +169,7 @@ export default function ReportModal({
       </ModalFormField>
 
       <ModalFormField>
-        <ModalFormLabel>이메일</ModalFormLabel>
-        <ModalFormValue>
-          <Input initialValue={user.userInfo.email} disabled />
-        </ModalFormValue>
-      </ModalFormField>
-
-      <ModalFormField>
-        <ModalFormLabel>파일첨부</ModalFormLabel>
+        {/* <ModalFormLabel>파일첨부</ModalFormLabel> */}
         <ModalFormValue>
           {/* <ModalFormAttachment
             onChangeFile={handleChangeAttachFile}
@@ -180,6 +177,19 @@ export default function ReportModal({
             onDeleteImage={handleRemovedAttachedFile}
           /> */}
           <div className={css.attachment}>
+            <div className={css.attachment__button}>
+              <input
+                type="file"
+                ref={attachFileInputRef}
+                onChange={handleChangeAttachFile}
+              />
+              <button
+                onClick={() => {
+                  attachFileInputRef.current.click();
+                }}
+              />
+            </div>
+
             <div className={css.attachment__files}>
               {reportState.editing.imageFileNames.length > 0 ? (
                 reportState.editing.imageFileNames.map((filename, index) => {
@@ -196,29 +206,27 @@ export default function ReportModal({
                 <div>첨부파일</div>
               )}
             </div>
-
-            <div className={css.attachment__button}>
-              <input
-                type="file"
-                ref={attachFileInputRef}
-                onChange={handleChangeAttachFile}
-              />
-              <button
-                onClick={() => {
-                  attachFileInputRef.current.click();
-                }}
-              >
-                <span>파일선택</span>
-              </button>
-            </div>
           </div>
         </ModalFormValue>
       </ModalFormField>
 
       <ModalFormField>
-        <ModalFormLabel wrapperStyle={{ letterSpacing: '-1px' }}>
-          개인정보 수집동의
-        </ModalFormLabel>
+        {/* <ModalFormLabel>이메일</ModalFormLabel> */}
+        <ModalFormValue>
+          <Input
+            initialValue={user.userInfo.email}
+            disabled
+            style={{
+              border: 'none',
+            }}
+          />
+        </ModalFormValue>
+      </ModalFormField>
+
+      <ModalFormField>
+        {/* <ModalFormLabel wrapperStyle={{ letterSpacing: '-1px' }}>
+            개인정보 수집동의
+          </ModalFormLabel> */}
         <ModalFormValue>
           <p className={css.privacyAgreeNoti}>
             문의하시는 이메일 정보는 문의 접수 및 서비스 개선을 위해 수집하여
@@ -243,5 +251,6 @@ export default function ReportModal({
         onSubmit={handleSubmitReport}
       />
     </ModalForm>
+    // </SlideIn>
   );
 }

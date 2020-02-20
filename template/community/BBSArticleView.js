@@ -168,9 +168,10 @@ const BBSArticleView = enhancer(({ router }) => {
                 />
               </div>
             )}
+
+            <Footer />
           </div>
         )}
-        <Footer />
       </DefaultLayout>
     </ArticleIdContext.Provider>
   );

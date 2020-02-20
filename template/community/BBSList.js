@@ -22,7 +22,7 @@ import BoardGridItem, {
 import categoryViewType from 'childs/lib/constant/community/categoryViewType';
 import MoreButton from 'components/common/MoreButton';
 import BoardCategoryFilter from 'components/community/list/BoardCategoryFilter';
-
+import DataEmpty from 'components/common/DataEmpty.js';
 const enhancer = compose(
   withScrollToTopOnMount,
   withRouter
@@ -98,10 +98,17 @@ const BBSList = enhancer(({ router }) => {
           })}
         >
           {isNormalView ? ( // 일반 리스트 뷰
-            searchStore.bbsList.map(bbs => {
-              return <BoardListItem key={bbs.bbsId} bbs={bbs} />;
-            })
+            searchStore.bbsList.length > 0 ? (
+              searchStore.bbsList.map(bbs => {
+                return <BoardListItem key={bbs.bbsId} bbs={bbs} />;
+              })
+            ) : null
           ) : (
+            // (
+            //   <DataEmpty PADDING={'100px 0'}>
+            //     등록된 게시글이 없습니다.
+            //   </DataEmpty>
+            // )
             // 그리드 뷰
             <BoardGridContainer>
               {searchStore.bbsList.map((bbs, index) => {

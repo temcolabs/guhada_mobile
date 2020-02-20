@@ -6,7 +6,7 @@ $imageContainerWidth: 80px;
   @include clearfix;
   display: block;
   padding: 20px;
-  border-bottom: 1px solid #eeeeee;
+  border-bottom: 1px solid #eee;
   display: flex;
   &:hover {
     cursor: pointer;
@@ -17,8 +17,8 @@ $imageContainerWidth: 80px;
 }
 
 .productImage {
-  width: 60px;
-  height: 60px;
+  width: 42px;
+  height: 42px;
   border-radius: 5px;
   background-color: #eee;
   background-size: cover;
@@ -32,9 +32,10 @@ $imageContainerWidth: 80px;
 
 .title {
   @include clearfix;
-  padding-top: 6px;
   display: flex;
+  align-items: center;
 }
+
 .itemInfo_categoryFilter {
   color: #5d2ed1;
   font-size: 14px;
@@ -42,8 +43,8 @@ $imageContainerWidth: 80px;
   margin-right: 5px;
   min-width: 30px;
 }
+
 .title_text {
-  @include setHeightLimit(2);
   font-size: 14px;
   font-weight: 500;
   color: #111;
@@ -66,14 +67,14 @@ $imageContainerWidth: 80px;
 .title_newIcon {
   width: 13px;
   height: 13px;
-  margin-top: 4px;
+  margin-top: 1px;
   margin-left: 4px;
   background-image: url('/static/icon/community/icon-new-red.png');
   background-size: contain;
 }
 
 .itemInfo {
-  margin-top: 5px;
+  margin-top: 7px;
   font-size: 12px;
   max-width: calc(100% - 20px);
   white-space: nowrap;
