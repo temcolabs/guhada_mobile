@@ -103,6 +103,32 @@ export default class SearchItemStore {
   };
 
   @action
+  addPage = () => {
+    let query = Router.router.query;
+    this.dealsPage += 1;
+
+    let brand = JSON.parse('[' + query.brand + ']');
+
+    this.getSearchByUri(
+      brand,
+      query.category,
+      this.dealsPage,
+      query.unitPerPage,
+      query.order,
+      query.filter,
+      query.subcategory,
+      query.enter,
+      query.keyword,
+      query.resultKeyword,
+      query.condition,
+      query.productCondition,
+      query.shippingCondition,
+      query.minPrice,
+      query.maxPrice,
+      this.root.seller.sellerId
+    );
+  };
+  @action
   initDealspage = () => {
     this.dealsPage = 1;
   };
@@ -242,7 +268,8 @@ export default class SearchItemStore {
     productCondition = 'ANY',
     shippingCondition = 'ANY',
     minPrice = 0,
-    maxPrice = 0
+    maxPrice = 0,
+    sellerIds = ''
   ) => {
     this.itemEmpty = false;
 
@@ -335,7 +362,7 @@ export default class SearchItemStore {
         let searchResultKeyword = [];
         if (isTruthy(keyword)) searchResultKeyword.push(keyword);
         if (isTruthy(resultKeyword)) searchResultKeyword.push(resultKeyword);
-        console.log('keyword', keyword, resultKeyword);
+
         API.search
           .post(
             '/ps/search/filter?page=' + page + '&unitPerPage=' + unitPerPage,
@@ -351,6 +378,7 @@ export default class SearchItemStore {
               shippingCondition: shippingCondition,
               minPrice: minPrice,
               maxPrice: maxPrice,
+              sellerIds: sellerIds === '' ? null : [sellerIds],
             }
           )
           .then(res => {
@@ -359,7 +387,7 @@ export default class SearchItemStore {
             if (data.resultCode === 200) {
               // * 목록 검색 성공 후 크리테오 트래커 실행
               const { deals } = data.data;
-
+              this.countOfDeals = data.data.countOfDeals;
               if (deals.length >= 3) {
                 criteoTracker.searchResults({
                   email: this.root.user.userInfo?.email,
@@ -579,30 +607,6 @@ export default class SearchItemStore {
 
   @observable countOfDeals;
 
-  @action
-  getSearchCountOfDeals = (brandIds, categoryIds) => {
-    let brandList = [];
-    brandIds.map(brand => {
-      if (brand.id) brandList.push(brand.id);
-      else brandList.push(brand);
-    });
-
-    API.search
-      .post('/ps/search/filter', {
-        brandIds: brandList,
-        categoryIds: [categoryIds],
-        filters: [],
-        searchQueries: [],
-        searchResultOrder: 'DATE',
-      })
-      .then(res => {
-        let data = res.data;
-        if (data.resultCode === 200) {
-          this.countOfDeals = data.data.countOfDeals;
-        }
-      });
-  };
-
   @observable categoryTreeData = [];
   @observable expandedKeys = [];
   @observable title = '';
@@ -774,7 +778,7 @@ export default class SearchItemStore {
     this.toSearch({ resultKeyword: ' ' });
   };
   @action
-  searchFilter = () => {
+  searchFilter = (sellerId = '') => {
     let brandList = [];
     let filterList = [];
     let category;
@@ -859,6 +863,7 @@ export default class SearchItemStore {
       shippingCondition: this.shippingCondition,
       minPrice: this.minPrice,
       maxPrice: this.maxPrice,
+      sellerIds: sellerId,
     });
   };
 
@@ -968,7 +973,9 @@ export default class SearchItemStore {
   setResultSearchFilter = value => {
     this.resultKeyword = value;
   };
+
   @observable preUrl;
+
   @action
   toSearch = ({
     category = '',
@@ -987,31 +994,55 @@ export default class SearchItemStore {
     shippingCondition = 'ANY',
     minPrice = '',
     maxPrice = '',
+    sellerIds = '',
   }) => {
     let query = Router.router.query;
     this.productCondition = productCondition;
     this.shippingCondition = shippingCondition;
-
-    pushRoute(
-      `/search?${qs.stringify({
-        category: category,
-        brand: brand,
-        page: page,
-        unitPerPage: unitPerPage,
-        order: order === null || order === '' ? 'DATE' : order,
-        filter: filter,
-        subcategory: subcategory,
-        enter: enter === '' ? query.enter : enter,
-        keyword: keyword,
-        resultKeyword: resultKeyword,
-        condition: condition === '' ? query.condition : condition,
-        filtered: filtered,
-        productCondition: this.productCondition,
-        shippingCondition: this.shippingCondition,
-        minPrice: minPrice,
-        maxPrice: maxPrice,
-      })}`
-    );
+    console.log('sellerIds', sellerIds);
+    if (sellerIds === '') {
+      pushRoute(
+        `/search?${qs.stringify({
+          category: category,
+          brand: brand,
+          page: page,
+          unitPerPage: unitPerPage,
+          order: order === null || order === '' ? 'DATE' : order,
+          filter: filter,
+          subcategory: subcategory,
+          enter: enter === '' ? query.enter : enter,
+          keyword: keyword,
+          resultKeyword: resultKeyword,
+          condition: condition === '' ? query.condition : condition,
+          filtered: filtered,
+          productCondition: this.productCondition,
+          shippingCondition: this.shippingCondition,
+          minPrice: minPrice,
+          maxPrice: maxPrice,
+        })}`
+      );
+    } else {
+      pushRoute(
+        `/store/${this.root.seller.nickname}?${qs.stringify({
+          category: category,
+          brand: brand,
+          page: page,
+          unitPerPage: unitPerPage,
+          order: order === null || order === '' ? 'DATE' : order,
+          filter: filter,
+          subcategory: subcategory,
+          enter: enter === '' ? query.enter : enter,
+          keyword: keyword,
+          resultKeyword: resultKeyword,
+          condition: condition === '' ? query.condition : condition,
+          filtered: filtered,
+          productCondition: this.productCondition,
+          shippingCondition: this.shippingCondition,
+          minPrice: minPrice,
+          maxPrice: maxPrice,
+        })}`
+      );
+    }
     if (this.preUrl !== Router.asPath) this.deals = [];
   };
 

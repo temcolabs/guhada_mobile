@@ -13,11 +13,11 @@ import addCommaToArray from 'childs/lib/string/addCommaToArray';
 import { isArray } from 'util';
 
 const enhancer = compose(
-  inject('searchitem'),
+  inject('searchitem', 'seller'),
   withRouter
 );
 
-function SearchFilterResult({ searchitem, router }) {
+function SearchFilterResult({ searchitem, router, seller }) {
   const [isVisible, setIsVisible] = useState(false);
   let searchFilterList = toJS(searchitem.searchFilterList);
   let brand = searchFilterList?.brand.length > 0 ? true : false;
@@ -124,6 +124,7 @@ function SearchFilterResult({ searchitem, router }) {
         : querySubcategory,
       keyword: query.keyword,
       filtered: true,
+      sellerIds: seller.sellerId,
     });
   };
 

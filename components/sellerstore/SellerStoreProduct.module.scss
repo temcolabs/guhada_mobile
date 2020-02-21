@@ -1,8 +1,8 @@
 .headerWrap {
   width: 100%;
+  height: 56px;
   padding: 20px 20px 0 20px;
   display: inline-block;
-  margin-bottom: -10px;
 
   & .count {
     font-size: 13px;
@@ -11,9 +11,22 @@
     float: left;
   }
 
+  & .detail {
+    position: relative;
+    background-image: url('/static/icon/fillter_icon.png');
+    background-size: 16px 14px;
+    background-repeat: no-repeat;
+    background-position: right;
+    padding-right: 22px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #333333;
+    float: right;
+  }
+
   & .orderWrap {
     position: relative;
-    float: right;
+    float: left;
     background-image: url('/static/icon/list_select_arrow_open.png');
     background-repeat: no-repeat;
     background-position: right center;
@@ -21,6 +34,7 @@
     padding-right: 16px;
     font-size: 13px;
     color: #333;
+    margin-right: 20px;
 
     & .hoverPadding {
       width: 85px;
@@ -41,7 +55,6 @@
     }
 
     & .hoverItem {
-
       font-size: 13px;
       font-weight: normal;
       color: #111111;
@@ -53,7 +66,7 @@
         color: #5d2ed1;
       }
 
-      &~div {
+      & ~ div {
         margin-top: 10px;
       }
     }
@@ -62,7 +75,7 @@
 
 .productWrap {
   padding: 0 10px;
-  margin-top: -10px;
+  margin-top: -40px;
 
   & a {
     margin-right: 6px;
@@ -83,6 +96,7 @@
   color: #111111;
   padding-top: 16px;
   border-top: 1px solid #eeeeee;
+  margin-top: 40px;
 
   & .moreIcon {
     width: 16px;
