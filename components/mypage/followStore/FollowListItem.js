@@ -2,30 +2,37 @@ import React, { Fragment } from 'react';
 import css from './FollowListItem.module.scss';
 import { inject, observer } from 'mobx-react';
 import Link from 'next/link';
-@inject('mypageFollow')
+@inject('mypageFollow', 'seller')
 @observer
 class FollowListItem extends React.Component {
   render() {
-    let { mypageFollow, data } = this.props;
+    let { mypageFollow, data, seller } = this.props;
     return (
       <div className={css.wrap}>
-        <Link href={`/store/${data.nickname}`}>
-          {data.profileImageUrl ? (
-            <div
-              className={css.sellerImage}
-              style={{ backgroundImage: `url(${data.profileImageUrl})` }}
-            />
-          ) : (
-            <div className={css.nosellerImage}>
-              {data.nickname ? data.nickname : ''}
-            </div>
-          )}
-        </Link>
-        <Link href={`/store/${data.nickname}`}>
-          <div className={css.sellerName}>
+        {/* <Link href={`/store/${data.nickname}`}> */}
+        {data.profileImageUrl ? (
+          <div
+            className={css.sellerImage}
+            style={{ backgroundImage: `url(${data.profileImageUrl})` }}
+            onClick={() => seller.toSearch({ nickname: data.nickname })}
+          />
+        ) : (
+          <div
+            className={css.nosellerImage}
+            onClick={() => seller.toSearch({ nickname: data.nickname })}
+          >
             {data.nickname ? data.nickname : ''}
           </div>
-        </Link>
+        )}
+        {/* </Link> */}
+        {/* <Link href={`/store/${data.nickname}`}> */}
+        <div
+          className={css.sellerName}
+          onClick={() => seller.toSearch({ nickname: data.nickname })}
+        >
+          {data.nickname ? data.nickname : ''}
+        </div>
+        {/* </Link> */}
         <div className={css.sellerGreeting}>
           {`${data.storeIntroduction ? data.storeIntroduction : data.nickname}`}
         </div>

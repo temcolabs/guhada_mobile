@@ -13,19 +13,19 @@ import Tree, { TreeNode } from 'rc-tree';
 
 const enhancer = compose(withRouter);
 
-const SearchCategory = enhancer(({ searchitem, router }) => {
+const SearchCategory = enhancer(({ itmeStore, router }) => {
   const [isOpen, setisOpen] = useState(false);
   const entireCategories = searchChildrenCheck(
-    toJS(searchitem.item?.categories)
+    toJS(itmeStore.item?.categories)
   );
   const [categoryId] = useState(router.query.category);
   const [categories] = useState(getCategory(entireCategories, categoryId));
 
   useEffect(() => {
     if (!isTruthy(categoryId)) {
-      searchitem.setExpandedKeys(null);
+      itmeStore.setExpandedKeys(null);
     }
-  }, [categoryId, searchitem, categories]);
+  }, [categoryId, itmeStore, categories]);
 
   const loop = data => {
     return data.map(item => {
@@ -51,10 +51,10 @@ const SearchCategory = enhancer(({ searchitem, router }) => {
         <div className={css.categoryWrap}>
           <Tree
             checkable
-            expandedKeys={searchitem.getExpandedKeys}
-            onSelect={searchitem.onSelect}
-            onCheck={searchitem.onCheck}
-            checkedKeys={searchitem.getCheckedKeys}
+            expandedKeys={itmeStore.getExpandedKeys}
+            onSelect={itmeStore.onSelect}
+            onCheck={itmeStore.onCheck}
+            checkedKeys={itmeStore.getCheckedKeys}
             autoExpandParent={true}
           >
             {loop(entireCategories)}
@@ -64,4 +64,4 @@ const SearchCategory = enhancer(({ searchitem, router }) => {
     </div>
   ));
 });
-export default inject('searchitem')(SearchCategory);
+export default SearchCategory;

@@ -5,6 +5,12 @@ import bookmarkTarget from 'childs/lib/constant/user/bookmarkTarget';
 import { isBrowser } from 'childs/lib/common/isServer';
 import _ from 'lodash';
 import { loginStatus } from 'childs/lib/constant';
+import { pushRoute } from 'childs/lib/router';
+import qs from 'qs';
+import Router from 'next/router';
+import { getCategoryKey, getCategoryTitle } from 'utils';
+import isTruthy from 'childs/lib/common/isTruthy';
+import addCommaToArray from 'childs/lib/string/addCommaToArray';
 
 export default class SellerStore {
   constructor(root) {
@@ -45,7 +51,26 @@ export default class SellerStore {
   @observable storeFollowBool = false;
   @observable nickname;
   @observable sellerId;
+  @observable filterData;
+  @observable brands;
 
+  @observable productCondition = 'ANY';
+  @observable shippingCondition = 'ANY';
+  @observable category;
+  @observable brand;
+  @observable filter;
+  @observable subcategory;
+  @observable enter;
+  @observable keyword;
+  @observable resultKeyword;
+  @observable condition;
+  @observable filtered;
+  @observable minPrice;
+  @observable maxPrice;
+  @observable checkedKeys = [];
+  @observable checkedKeysId = [];
+
+  @observable itemStatus = false;
   @action
   getSellerId = () => {
     API.user
@@ -55,7 +80,8 @@ export default class SellerStore {
         this.sellerId = data.data.id;
 
         this.getSellerStore();
-        this.getSellerStoreDeal(this.sellerId);
+
+        this.getFromSearchItemDeals();
 
         if (this.root.login.loginStatus === loginStatus.LOGIN_DONE)
           this.getFollowSellerStore(this.sellerId);
@@ -79,28 +105,81 @@ export default class SellerStore {
   };
 
   @action
-  getInitSellerStoreItem = () => {
-    this.page = 1;
+  getFromSearchItemDeals = () => {
+    const { searchitem } = this.root;
+    const query = Router.router.query;
+
+    searchitem.deals = [];
+    searchitem.preUrl = Router.asPath;
+    searchitem.initDealspage();
+    if (query.filtered === 'false') searchitem.initSearchFilterList();
+
+    let brand = JSON.parse('[' + query.brand + ']');
+    let subcategory = JSON.parse('[' + query.subcategory + ']');
+
+    searchitem.getSearchByUri(
+      brand,
+      query.category,
+      query.page,
+      query.unitPerPage,
+      query.order,
+      query.filter,
+      subcategory,
+      query.enter,
+      query.keyword,
+      query.resultKeyword,
+      query.condition,
+      query.productCondition,
+      query.shippingCondition,
+      query.minPrice,
+      query.maxPrice,
+      this.sellerId
+    );
   };
 
   @action
-  getSellerStoreDeal = sellerId => {
-    API.search
-      .get(
-        `/ps/search/seller/${sellerId}?page=${this.page}&unitPerPage=${
-          this.unitPerPage
-        }&order=${this.order}`
-      )
-      .then(res => {
-        let data = res.data;
-        if (this.page === 1) {
-          this.dealsOfSellerStore = data.data.deals;
-        } else {
-          this.setSellerStoreItem(data.data.deals);
-        }
+  toSearch = ({
+    category = '',
+    brand = '',
+    page = 1,
+    unitPerPage = 20,
+    order = this.order,
+    filter = '',
+    subcategory = '',
+    enter = '',
+    keyword = '',
+    resultKeyword = '',
+    condition = '',
+    filtered = false,
+    productCondition = 'ANY',
+    shippingCondition = 'ANY',
+    minPrice = '',
+    maxPrice = '',
+    nickname = '',
+  }) => {
+    let query = Router.router.query;
 
-        this.countOfDeals = data.data.countOfDeals;
-      });
+    pushRoute(
+      `/store/${nickname}?${qs.stringify({
+        category: category,
+        brand: brand,
+        page: page,
+        unitPerPage: unitPerPage,
+        order: order === null || order === '' ? 'DATE' : order,
+        filter: filter,
+        subcategory: subcategory,
+        enter: enter === '' ? query.enter : enter,
+        keyword: keyword,
+        resultKeyword: resultKeyword,
+        condition: condition === '' ? query.condition : condition,
+        filtered: filtered,
+        productCondition: this.productCondition,
+        shippingCondition: this.shippingCondition,
+        minPrice: minPrice,
+        maxPrice: maxPrice,
+      })}`
+    );
+    if (this.preUrl !== Router.asPath) this.deals = [];
   };
 
   @action

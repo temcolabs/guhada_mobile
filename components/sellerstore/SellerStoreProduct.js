@@ -5,8 +5,15 @@ import _ from 'lodash';
 import { LinkRoute } from 'childs/lib/router';
 import { useObserver } from 'mobx-react-lite';
 import SellerStoreOrder from './SellerStroeOrder';
+import SearchFilterResult from 'components/search/SearchFilterResult';
 
-export default function SellerStoreProduct({ seller, items, countOfDeals }) {
+export default function SellerStoreProduct({
+  seller,
+  searchitem,
+  items,
+  countOfDeals,
+  setIsFilterVisible,
+}) {
   const [orderHover, setOrderHover] = useState(false);
   const [sellerStoreFilter, setSellerStoreFilter] = useState('DATE');
   const orderList = [
@@ -24,9 +31,9 @@ export default function SellerStoreProduct({ seller, items, countOfDeals }) {
     e.stopPropagation();
     setOrderHover(false);
     seller.order = order;
-    seller.getInitSellerStoreItem();
-    seller.getSellerStoreDeal(seller.sellerId);
     setSellerStoreFilter(order);
+    searchitem.toSearch({ order: order, sellerIds: seller.sellerId });
+    seller.getFromSearchItemDeals();
   }
   const handleMoreItemBtn =
     seller.countOfDeals / (seller.unitPerPage * seller.page) <= 1
@@ -36,7 +43,15 @@ export default function SellerStoreProduct({ seller, items, countOfDeals }) {
   return useObserver(() => (
     <>
       <div className={css.headerWrap}>
-        <div className={css.count}>{`총 ${countOfDeals}개`}</div>
+        <div
+          className={css.detail}
+          onClick={e => {
+            e.stopPropagation();
+            setIsFilterVisible(true);
+          }}
+        >
+          상세검색
+        </div>
         <div className={css.orderWrap} onClick={() => setOrderHover(true)}>
           {orderLabel}
           <SellerStoreOrder
@@ -47,6 +62,7 @@ export default function SellerStoreProduct({ seller, items, countOfDeals }) {
           />
         </div>
       </div>
+      <SearchFilterResult />
       <div className={css.productWrap}>
         {_.isNil(items) === false &&
           items.map((item, i) => {
@@ -59,12 +75,14 @@ export default function SellerStoreProduct({ seller, items, countOfDeals }) {
             );
           })}
       </div>
+
       {handleMoreItemBtn === true && (
         <div
           className={css.moreItemButton}
           onClick={() => {
-            seller.page += 1;
-            seller.getSellerStoreDeal(seller.sellerId);
+            searchitem.addPage();
+            // seller.page += 1;
+            // seller.getSellerStoreDeal(seller.sellerId);
           }}
         >
           더 보기

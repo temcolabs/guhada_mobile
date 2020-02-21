@@ -5,7 +5,7 @@ import { inject, observer } from 'mobx-react';
 import Router from 'next/router';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
 
-@inject('seller', 'login')
+@inject('seller', 'login', 'searchitem')
 @observer
 class SellerStorePage extends Component {
   componentDidMount() {
@@ -25,12 +25,12 @@ class SellerStorePage extends Component {
     }
   }
   render() {
-    const { seller, login } = this.props;
+    const { seller, login, searchitem } = this.props;
     return (
       <>
         <HeadForSEO pageName="셀러스토어" />
 
-        <SellerStore seller={seller} login={login} />
+        <SellerStore seller={seller} login={login} searchitem={searchitem} />
       </>
     );
   }

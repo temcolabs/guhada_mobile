@@ -7,6 +7,7 @@ import cn from 'classnames';
 import { pushRoute, sendBackToLogin } from 'childs/lib/router';
 import { loginStatus } from 'childs/lib/constant';
 import CardInterestModal from 'components/common/modal/CardInterestModal';
+
 @inject(
   'productreview',
   'productoption',
@@ -15,7 +16,7 @@ import CardInterestModal from 'components/common/modal/CardInterestModal';
   'login',
   'alert',
   'cardinterest',
-  'login'
+  'seller'
 )
 @observer
 class ShippingBenefit extends Component {
@@ -48,7 +49,7 @@ class ShippingBenefit extends Component {
     const {
       deals,
       satisfaction,
-      seller,
+      sellerData,
       productreview,
       tabRefMap,
       productoption,
@@ -57,6 +58,7 @@ class ShippingBenefit extends Component {
       alert,
       sellerStore,
       cardinterest,
+      seller,
     } = this.props;
     const { reviewSummary } = productreview;
     return (
@@ -158,16 +160,16 @@ class ShippingBenefit extends Component {
         ) : null}
         <div
           className={css.sellerWrap}
-          onClick={() => pushRoute(`/store/${sellerStore.nickname}`)}
+          onClick={() => seller.toSearch({ nickname: sellerStore.nickname })}
         >
           <div
             className={css.profile}
             style={
-              _.isNil(seller) !== true &&
-              seller.user.profileImageUrl !== '' &&
-              seller.user.profileImageUrl !== null
+              _.isNil(sellerData) !== true &&
+              sellerData.user.profileImageUrl !== '' &&
+              sellerData.user.profileImageUrl !== null
                 ? {
-                    backgroundImage: `url(${seller.user.profileImageUrl})`,
+                    backgroundImage: `url(${sellerData.user.profileImageUrl})`,
                   }
                 : null
             }
