@@ -123,6 +123,8 @@ function SearchFilterResult({ searchitem, router, seller }) {
         ? addCommaToArray(querySubcategory)
         : querySubcategory,
       keyword: query.keyword,
+      productCondition: 'ANY',
+      shippingCondition: 'ANY',
       filtered: true,
       sellerIds: seller.sellerId,
     });
