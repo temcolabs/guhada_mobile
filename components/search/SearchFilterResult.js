@@ -91,29 +91,33 @@ function SearchFilterResult({ searchitem, router, seller }) {
       queryBrand.splice(queryBrand.indexOf(String(brand)), 1);
     }
 
-    if (reset) {
-      if (enter === 'category') {
-        queryCategory = getCategory(
-          searchitem.locationFilter,
-          queryCategory
-        ).hierarchy.split(',')[0];
-        queryBrand = '';
-        queryFilter = '';
-        querySubcategory = '';
-      } else if (enter === 'brand') {
-        queryCategory = '';
-        queryBrand = queryBrand.split(',')[0];
-        queryFilter = '';
-        querySubcategory = '';
-      } else if (enter === 'keyword') {
-        queryCategory = '';
-        queryBrand = '';
-        queryFilter = '';
-        querySubcategory = '';
-      }
+    /**
+     * clearFilter() 안정화 시 삭제 예정
+     * 02-21
+     */
+    // if (reset) {
+    //   if (enter === 'category') {
+    //     queryCategory = getCategory(
+    //       searchitem.locationFilter,
+    //       queryCategory
+    //     ).hierarchy.split(',')[0];
+    //     queryBrand = '';
+    //     queryFilter = '';
+    //     querySubcategory = '';
+    //   } else if (enter === 'brand') {
+    //     queryCategory = '';
+    //     queryBrand = queryBrand.split(',')[0];
+    //     queryFilter = '';
+    //     querySubcategory = '';
+    //   } else if (enter === 'keyword') {
+    //     queryCategory = '';
+    //     queryBrand = '';
+    //     queryFilter = '';
+    //     querySubcategory = '';
+    //   }
 
-      searchitem.initSearchFilterList();
-    }
+    //   searchitem.initSearchFilterList();
+    // }
 
     searchitem.toSearch({
       category: queryCategory,
@@ -131,6 +135,7 @@ function SearchFilterResult({ searchitem, router, seller }) {
   const clearFilter = () => {
     let query = router.query;
 
+    searchitem.initSearchFilterList();
     searchitem.toSearch({
       category: query.category,
       order: query.order,
