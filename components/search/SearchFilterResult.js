@@ -123,13 +123,28 @@ function SearchFilterResult({ searchitem, router, seller }) {
         ? addCommaToArray(querySubcategory)
         : querySubcategory,
       keyword: query.keyword,
-      productCondition: 'ANY',
-      shippingCondition: 'ANY',
       filtered: true,
       sellerIds: seller.sellerId,
     });
   };
 
+  const clearFilter = () => {
+    let query = router.query;
+
+    searchitem.toSearch({
+      category: query.category,
+      order: query.order,
+      subcategory: query.subcategory,
+      enter: query.enter,
+      keyword: query.keyword,
+      resultKeyword: ' ',
+      productCondition: 'ANY',
+      shippingCondition: 'ANY',
+      minPrice: 0,
+      maxPrice: 0,
+      sellerIds: seller.sellerId,
+    });
+  };
   return useObserver(
     () =>
       isVisible && (
@@ -206,7 +221,7 @@ function SearchFilterResult({ searchitem, router, seller }) {
               src={'/static/icon/btn_filter_reset@3x.png'}
               width={93}
               height={27}
-              onClick={() => toSearch({ reset: true })}
+              onClick={() => clearFilter()}
             />
           </div>
         </div>
