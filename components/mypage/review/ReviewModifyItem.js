@@ -9,6 +9,7 @@ import StarCount from './StarCount';
 import { pushRoute } from 'childs/lib/router';
 import cn from 'classnames';
 import isTruthy from 'childs/lib/common/isTruthy';
+import ReviewReply from 'components/productdetail/ReviewReply';
 export default function ReviewModifyItem({
   productReview = {
     // 내가 작성한 리뷰
@@ -246,6 +247,12 @@ export default function ReviewModifyItem({
             <span>댓글 *0개</span>
               </div> */}
             </div>
+            {productReview.review.replied ? (
+              <ReviewReply
+                reviewItem={productReview}
+                key={productReview.review.id}
+              />
+            ) : null}
             <div className={css.actionBox}>
               <button
                 onClick={() =>

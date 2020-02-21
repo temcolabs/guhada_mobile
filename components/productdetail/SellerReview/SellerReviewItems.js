@@ -8,10 +8,19 @@ import { inject, observer } from 'mobx-react';
 import { pushRoute, sendBackToLogin } from 'childs/lib/router';
 import isTruthy from 'childs/lib/common/isTruthy';
 import cn from 'classnames';
-
+import ReviewReply from 'components/productdetail/ReviewReply';
 @inject('sellerReview', 'login', 'alert')
 @observer
 class SellerReviewItems extends Component {
+  state = {
+    reviewReply: false,
+  };
+
+  handleReviewReply = () => {
+    this.setState({
+      reviewReply: !this.state.reviewReply,
+    });
+  };
   render() {
     const { review: item, sellerReview, login } = this.props;
     const { reviewBookMarks } = sellerReview;
@@ -180,7 +189,36 @@ class SellerReviewItems extends Component {
             {/* <div className={css.line} /> */}
             {/* <div>신고</div> */}
           </div>
+          {item.review.replied ? (
+            <div
+              className={css.commentWrap}
+              onClick={() => {
+                this.handleReviewReply();
+              }}
+            >
+              <div
+                className={this.state.reviewReply ? css.replyOn : css.replyOff}
+              >
+                셀러 댓글 1
+              </div>
+              <div
+                className={css.arrow}
+                style={
+                  this.state.reviewReply
+                    ? {
+                        backgroundImage: `url('/static/icon/detail-icon-down-color@3x.png')`,
+                      }
+                    : {
+                        backgroundImage: `url('/static/icon/detail-icon-arrow-open@3x.png')`,
+                      }
+                }
+              />
+            </div>
+          ) : null}
         </div>
+        {item.review.replied && this.state.reviewReply ? (
+          <ReviewReply reviewItem={item} key={item.review.id} />
+        ) : null}
       </div>
     );
   }
