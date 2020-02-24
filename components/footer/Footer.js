@@ -39,8 +39,39 @@ export default function Footer() {
           </div>
         </div>
         <div className={css.contentsWrap}>
+          <div className={css.snsWrap}>
+            <ul>
+              <li>
+                <a
+                  href="https://www.instagram.com/guhada.official/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img src="/static/icon/sns-insta@3x.png" />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.facebook.com/official.guhada"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img src="/static/icon/sns-fb@3x.png" />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.youtube.com/channel/UCFTpZVfGP02a6s-jWfxAoTQ/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img src="/static/icon/sns-youtube@3x.png" />
+                </a>
+              </li>
+            </ul>
+          </div>
           <div className={css.storeItem}>
-            <span style={{ color: '#777777' }}>고객센터 : </span>
+            <span className={css.csCenterTitle}>고객센터 : </span>
             <span style={{ color: '#5d2ed1' }}>1522-9839</span>
             <br />
             상담가능시간 : 오전 10시 ~ 오후6시 토요일 공휴일 휴무

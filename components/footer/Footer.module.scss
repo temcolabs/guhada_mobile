@@ -23,7 +23,7 @@
         width: calc(100% - 160px);
       }
 
-      &:nth-child(n+2) {
+      &:nth-child(n + 2) {
         margin-bottom: 0;
       }
     }
@@ -36,8 +36,29 @@
     font-weight: normal;
     line-height: 1.82;
 
+    .snsWrap ul {
+      display: flex;
+      margin-bottom: 0;
+      li {
+        margin-left: 16px;
+
+        &:first-child {
+          margin-left: 0;
+        }
+        img {
+          width: 22px;
+          height: 22px;
+        }
+      }
+    }
     & .storeItem {
+      margin-top: 24px;
       margin-bottom: 24px;
+
+      .csCenterTitle {
+        color: #111;
+        font-weight: 500;
+      }
     }
 
     & .guhadaItem {
