@@ -999,7 +999,7 @@ export default class SearchItemStore {
     let query = Router.router.query;
     this.productCondition = productCondition;
     this.shippingCondition = shippingCondition;
-    console.log('sellerIds', sellerIds);
+
     if (sellerIds === '') {
       pushRoute(
         `/search?${qs.stringify({
