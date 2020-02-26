@@ -320,15 +320,15 @@ export default class SearchItemStore {
           categoryList = [];
           categoryList = JSON.parse('[' + subcategory + ']');
 
-          this.checkedKeys = [];
-          this.checkedKeysId = [];
+          // this.checkedKeys = [];
+          // this.checkedKeysId = [];
 
-          categoryList.map(category => {
-            this.checkedKeys.push(
-              getCategoryKey(this.treeDataForFilter, category)
-            );
-            this.checkedKeysId.push(category);
-          });
+          // categoryList.map(category => {
+          //   this.checkedKeys.push(
+          //     getCategoryKey(this.treeDataForFilter, category)
+          //   );
+          //   this.checkedKeysId.push(category);
+          // });
         } else {
           categoryList.push(categoryIds);
         }
@@ -383,6 +383,17 @@ export default class SearchItemStore {
           )
           .then(res => {
             let data = res.data;
+
+            // 카테고리의 checkedKey 값을 검색하기 위한 기능
+            this.checkedKeys = [];
+            this.checkedKeysId = [];
+
+            categoryList.map(category => {
+              this.checkedKeys.push(
+                getCategoryKey(data.data.categories, category)
+              );
+              this.checkedKeysId.push(category);
+            });
 
             if (data.resultCode === 200) {
               // * 목록 검색 성공 후 크리테오 트래커 실행
