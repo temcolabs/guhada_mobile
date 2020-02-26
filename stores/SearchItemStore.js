@@ -779,14 +779,14 @@ export default class SearchItemStore {
     let query = Router.router.query;
     this.productCondition = query.productCondition;
     this.shippingCondition = query.shippingCondition;
-    this.minPrice = '';
-    this.maxPrice = '';
+    this.minPrice = query.minPrice;
+    this.maxPrice = query.maxPrice;
     this.resultKeyword = '';
   };
   @action
   clearFilter = () => {
     this.initFilter();
-    this.toSearch({ resultKeyword: ' ' });
+    this.toSearch({ resultKeyword: ' ', sellerIds: this.root.seller.sellerId });
   };
   @action
   searchFilter = (sellerId = '') => {
@@ -975,7 +975,9 @@ export default class SearchItemStore {
   @observable maxPrice = '';
 
   @action
-  setPriceFilter = ({ min = 0, max = 0 }) => {
+  setPriceFilter = ({ min, max }) => {
+    console.log('min', min);
+    console.log('max', max);
     this.minPrice = min;
     this.maxPrice = max;
   };
