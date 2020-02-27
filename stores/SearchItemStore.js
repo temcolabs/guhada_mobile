@@ -786,7 +786,7 @@ export default class SearchItemStore {
   @action
   clearFilter = () => {
     this.initFilter();
-    this.toSearch({ resultKeyword: ' ', sellerIds: this.root.seller.sellerId });
+    this.toSearch({ resultKeyword: '', sellerIds: this.root.seller.sellerId });
   };
   @action
   searchFilter = (sellerId = '') => {
@@ -999,8 +999,8 @@ export default class SearchItemStore {
     filter = '',
     subcategory = '',
     enter = '',
-    keyword = '',
-    resultKeyword = '',
+    keyword = 'empty',
+    resultKeyword = 'empty',
     condition = '',
     filtered = false,
     productCondition = 'ANY',
@@ -1023,10 +1023,10 @@ export default class SearchItemStore {
           order: order === null || order === '' ? 'DATE' : order,
           filter: filter,
           subcategory: subcategory,
-          enter: enter === '' ? query.enter : enter,
+          enter: enter === 'empty' ? query.enter : enter,
           keyword: keyword,
           resultKeyword: resultKeyword,
-          condition: condition === '' ? query.condition : condition,
+          condition: condition === 'empty' ? query.condition : condition,
           filtered: filtered,
           productCondition: this.productCondition,
           shippingCondition: this.shippingCondition,
