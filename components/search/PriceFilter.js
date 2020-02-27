@@ -4,6 +4,7 @@ import cn from 'classnames';
 import css from './TextButton.module.scss';
 import { priceOption } from 'childs/lib/constant/filter/price';
 import isTruthy from 'childs/lib/common/isTruthy';
+import _ from 'lodash';
 
 @inject('searchitem', 'alert')
 @observer
@@ -16,6 +17,35 @@ class PriceFilter extends Component {
     };
   }
 
+  componentDidMount() {
+    let { query, searchitem } = this.props;
+    console.log('componentDidMount');
+    this.setState({
+      minPrice: query.minPrice,
+      maxPrice: query.maxPrice,
+    });
+    searchitem.setPriceFilter({
+      min: query.minPrice,
+      max: query.maxPrice,
+    });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    let { query, searchitem } = this.props;
+
+    if (!_.isEqual(prevProps.query, query)) {
+      console.log('componentDidUpdate');
+      this.setState({
+        minPrice: query.minPrice,
+        maxPrice: query.maxPrice,
+      });
+      searchitem.setPriceFilter({
+        min: query.minPrice,
+        max: query.maxPrice,
+      });
+    }
+  }
+
   onChangeMinPrice = e => {
     this.setState({ minPrice: Number(e.target.value) });
   };
@@ -26,7 +56,7 @@ class PriceFilter extends Component {
 
   searchPriceFilter = () => {
     const { searchitem, alert } = this.props;
-
+    console.log('searchPriceFilter');
     if (Number(searchitem.minPrice) > Number(searchitem.maxPrice)) {
       alert.showAlert('최대 가격은 최소 가격보다 커야 합니다.');
       return false;
@@ -39,12 +69,14 @@ class PriceFilter extends Component {
   };
 
   setPriceFilter = ({ min, max }) => {
+    console.log('setPriceFilter');
     const { searchitem } = this.props;
     this.setState({ minPrice: Number(min), maxPrice: Number(max) });
     searchitem.setPriceFilter({ min: min, max: max });
   };
   render() {
-    const { searchitem, query } = this.props;
+    const { searchitem } = this.props;
+    console.log('searchitem.maxPrice', searchitem.maxPrice);
     return (
       <div className={css.wrap}>
         <div className={css.header}>가격</div>

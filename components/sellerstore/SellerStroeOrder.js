@@ -6,7 +6,6 @@ import cn from 'classnames';
 class SellerStoreOrder extends Component {
   render() {
     const { isVisible, onClose, getOrderDeal, sellerStoreFilter } = this.props;
-
     return (
       <SlideIn isVisible={isVisible} direction={slideDirection.BOTTOM}>
         <div className={css.wrap}>

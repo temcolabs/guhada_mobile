@@ -6,8 +6,9 @@ import { LinkRoute } from 'childs/lib/router';
 import { useObserver } from 'mobx-react-lite';
 import SellerStoreOrder from './SellerStroeOrder';
 import SearchFilterResult from 'components/search/SearchFilterResult';
+import { observer } from 'mobx-react';
 
-export default function SellerStoreProduct({
+function SellerStoreProduct({
   seller,
   searchitem,
   items,
@@ -30,11 +31,11 @@ export default function SellerStoreProduct({
   function getOrderDeal(order, e) {
     e.stopPropagation();
     setOrderHover(false);
-    seller.order = order;
     setSellerStoreFilter(order);
+    seller.order = order;
     searchitem.toSearch({ order: order, sellerIds: seller.sellerId });
-    seller.getFromSearchItemDeals();
   }
+
   const handleMoreItemBtn =
     seller.countOfDeals / (seller.unitPerPage * seller.page) <= 1
       ? false
@@ -58,7 +59,7 @@ export default function SellerStoreProduct({
             isVisible={orderHover}
             onClose={() => setOrderHover(false)}
             getOrderDeal={getOrderDeal}
-            sellerStoreFilter={sellerStoreFilter}
+            sellerStoreFilter={seller.order}
           />
         </div>
       </div>
@@ -81,8 +82,6 @@ export default function SellerStoreProduct({
           className={css.moreItemButton}
           onClick={() => {
             searchitem.addPage();
-            // seller.page += 1;
-            // seller.getSellerStoreDeal(seller.sellerId);
           }}
         >
           더 보기
@@ -92,3 +91,4 @@ export default function SellerStoreProduct({
     </>
   ));
 }
+export default observer(SellerStoreProduct);
