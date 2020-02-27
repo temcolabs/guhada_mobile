@@ -137,9 +137,7 @@ function SearchFilterResult({ searchitem, router, seller }) {
 
     searchitem.initSearchFilterList();
     searchitem.toSearch({
-      category: query.category,
       order: query.order,
-      subcategory: query.subcategory,
       enter: query.enter,
       keyword: query.keyword,
       resultKeyword: '',
