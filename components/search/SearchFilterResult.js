@@ -142,7 +142,7 @@ function SearchFilterResult({ searchitem, router, seller }) {
       subcategory: query.subcategory,
       enter: query.enter,
       keyword: query.keyword,
-      resultKeyword: ' ',
+      resultKeyword: '',
       productCondition: 'ANY',
       shippingCondition: 'ANY',
       minPrice: 0,
