@@ -141,7 +141,7 @@ const BBSArticleView = enhancer(({ router }) => {
                   <ArticleControlButtons />
                 </div>
 
-                {/* 광고 (모바일은 광고 영역 없음) */}
+                {/* 광고 */}
                 <AdBanner />
 
                 {/* 댓글 영역 */}
