@@ -49,7 +49,7 @@ class AdBanner extends Component {
                       [css.href]: banner.link !== '/',
                     })}
                     style={{
-                      backgroundImage: `url(${banner.mediumImageUrl})`,
+                      backgroundImage: `url(${banner.communityPlusImageUrl})`,
                     }}
                     onClick={() =>
                       banner.href !== '/' ? pushRoute(banner.link) : null
