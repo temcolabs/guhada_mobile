@@ -526,13 +526,13 @@ export default class ProductDetailStore {
   };
   @action
   getSellerStoreDeals = () => {
-    API.product
-      .get(`/deals?sellerId=${this.deals.sellerId}&pageIndex=0&unitPerPage=9`)
+    API.search
+      .post('/ps/search/filter?page=0&unitPerPage=9', {
+        sellerIds: [this.deals.sellerId],
+      })
       .then(res => {
         let data = res.data;
-        if (data.resultCode === 200) {
-          this.dealsOfSellerStore = data.data;
-        }
+        this.dealsOfSellerStore = data.data.deals;
       });
   };
 }
