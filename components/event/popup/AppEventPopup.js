@@ -26,6 +26,21 @@ const AppEventPopup = ({ isOpen, eventpopup, data }) => {
               }}
             />
           </a>
+        ) : data.detailPageLink ? (
+          <a
+            href={data.detailPageLink}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <div
+              className={css.content}
+              style={{
+                backgroundImage: `url(${
+                  data.agent === 'MOBILE' ? data.imgUrlM : data.imgUrl
+                })`,
+              }}
+            />
+          </a>
         ) : (
           <div
             className={css.content}
