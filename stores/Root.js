@@ -3,7 +3,6 @@ import UiStatus from './UiStatus';
 import LoginStore from './LoginStore';
 import BrandsStore from './BrandsStore';
 import CategoryStore from './CategoryStore';
-import SearchStore from './SearchStore';
 import SearchItemStore from './SearchItemStore';
 import ProductDetailStore from './productdetail/ProductDetailStore';
 import OrderPaymentStore from './orderpayment/OrderPaymentStore';
@@ -72,7 +71,6 @@ class RootStore {
     this.login = new LoginStore(this, initialState);
     this.brands = new BrandsStore(this, initialState);
     this.category = new CategoryStore(this, initialState);
-    this.search = new SearchStore(this, initialState);
     this.searchitem = new SearchItemStore(this, initialState);
     this.productdetail = new ProductDetailStore(this, initialState);
     this.orderpayment = new OrderPaymentStore(this, initialState);

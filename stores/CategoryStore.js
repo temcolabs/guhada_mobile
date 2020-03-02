@@ -1,6 +1,5 @@
-import Axios from 'axios';
-import { observable, action, computed, runInAction, toJS } from 'mobx';
-import { searchCategoryName, searchTreeId, getCategory } from '../utils';
+import { observable, action } from 'mobx';
+import { searchCategoryName, getCategory } from '../utils';
 import API from 'childs/lib/API';
 
 export default class CategoryStore {
@@ -38,10 +37,6 @@ export default class CategoryStore {
       .catch(e => {
         console.error(e);
       });
-
-    // API.product.get('/categories').then(res => {
-    //   this.setCategory(res.data.data);
-    // });
   }
 
   @action
@@ -73,11 +68,6 @@ export default class CategoryStore {
         .catch(e => {
           console.error(e);
         });
-
-      // API.product.get('/categories').then(res => {
-      //   let category = res.data;
-      //   this.categoryList = getCategory(category, id);
-      // });
     } else {
       this.categoryList = getCategory(this.category, id);
     }
