@@ -12,15 +12,15 @@ export default class MainStore {
   @observable timeDealStatus = false;
   @observable bannerInfo = [];
   @observable bestReview = [];
-  constructor() {
-    this.getPlusItem();
-    this.getNewArrivals();
-    this.getHits();
-    this.getHotKeyword();
-    this.getTimeDeal();
-    this.getMainBannner();
-    this.getBestReview();
-  }
+  // constructor() {
+  //   this.getPlusItem();
+  //   this.getNewArrivals();
+  //   this.getHits();
+  //   this.getHotKeyword();
+  //   this.getTimeDeal();
+  //   this.getMainBannner();
+  //   this.getBestReview();
+  // }
 
   @action
   setNavDealId = id => {

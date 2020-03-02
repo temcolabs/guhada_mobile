@@ -6,6 +6,7 @@ import Router from 'next/router';
 import { inject, observer } from 'mobx-react';
 import memoize from 'memoize-one';
 import openPopupCenter from 'childs/lib/common/openPopupCenter';
+import isTruthy from 'childs/lib/common/isTruthy';
 
 const topLayouts = {
   main: 'main',
@@ -24,7 +25,7 @@ const topLayouts = {
  * @param {String} topLayout 페이지 레이아웃 형태에 따라서 사용된다. main, category, search 3가지 형태를 정의해두었다.
  * @param {String} pageTitle
  */
-@inject('shoppingcart', 'user')
+@inject('shoppingcart', 'user', 'category', 'brands')
 @observer
 class DefaultLayout extends Component {
   constructor(props) {
@@ -67,6 +68,9 @@ class DefaultLayout extends Component {
 
   componentDidMount() {
     this.shoppingCartAmountCheck();
+    const { category, brands } = this.props;
+
+    if (!isTruthy(category.category)) category.getCategory();
   }
 
   shoppingCartAmountCheck = () => {

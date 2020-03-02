@@ -89,6 +89,13 @@ class Home extends React.Component {
     // let cookie = Cookies.get(key.ACCESS_TOKEN);
 
     this.props.eventpopup.appEventPopupOpen();
+
+    main.getPlusItem();
+    main.getNewArrivals();
+    main.getHits();
+    main.getHotKeyword();
+    main.getMainBannner();
+    main.getBestReview();
   }
 
   componentWillUnmount() {

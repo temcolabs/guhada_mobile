@@ -9,9 +9,9 @@ export default class CategoryStore {
 
   @observable searchCategoryList = [];
 
-  constructor() {
-    this.getCategory();
-  }
+  // constructor() {
+  // this.getCategory();
+  // }
 
   @action setHoverInit = () => {
     this.hover = true;

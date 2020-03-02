@@ -7,6 +7,7 @@ import PopularKeyword from './PopularKeyword';
 import AutoComplete from './AutoComplete';
 import Router from 'next/router';
 import { pushRoute } from 'childs/lib/router';
+import isTruthy from 'childs/lib/common/isTruthy';
 
 @inject('searchitem', 'keyword', 'alert', 'searchHolder')
 @observer
@@ -19,7 +20,7 @@ class KeywordMenu extends Component {
   };
 
   componentDidMount() {
-    let { keyword, keywordText } = this.props;
+    let { keyword, keywordText, searchHolder } = this.props;
     keyword.init();
     keyword.getPopularList();
     let query = Router.router.query;
@@ -27,6 +28,8 @@ class KeywordMenu extends Component {
     if (query.enter === 'keyword') {
       this.setState({ displayContent: '', inputValue: keywordText });
     }
+
+    if (!isTruthy(searchHolder.placeholderData)) searchHolder.getPlaceholder();
   }
 
   componentDidUpdate(prevProps) {

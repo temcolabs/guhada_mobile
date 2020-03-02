@@ -7,6 +7,10 @@ import HeadForSEO from 'childs/lib/components/HeadForSEO';
 @inject('main')
 @observer
 class timedeal extends Component {
+  componentDidMount() {
+    const { main } = this.props;
+    main.getTimeDeal();
+  }
   render() {
     const { main } = this.props;
     return (

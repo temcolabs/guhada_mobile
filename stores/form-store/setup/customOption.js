@@ -67,20 +67,7 @@ let customOption = observable({
     { value: '30', label: '30일' },
     { value: '31', label: '31일' },
   ],
-  bank: [
-    // { value: "005", label: "외환은행" },
-    // { value: "003", label: "기업은행" },
-    // { value: "006", label: "국민은행" },
-    // { value: "011", label: "농협" },
-    // { value: "026", label: "신한은행" },
-    // { value: "081", label: "하나은행" },
-    // { value: "071", label: "우체국" },
-    // { value: "039", label: "경남은행" },
-    // { value: "020", label: "우리은행" },
-    // { value: "032", label: "부산은행" },
-    // { value: "007", label: "수협" },
-    // { value: "031", label: "대구은행" }
-  ],
+  bank: [],
   companyDivision: [
     { value: 'CORPORATION', label: '법인 사업자' },
     { value: 'PERSONAL', label: '개인 사업자' },
@@ -97,21 +84,6 @@ let customOption = observable({
 });
 
 export default customOption;
-
-API.user.get('/banks').then(function(res) {
-  let data = res.data;
-
-  if (data.resultCode === 200) {
-    let bankData = data.data;
-    bankData.forEach(element => {
-      customOption.bank.push({
-        value: element.bankCode,
-        label: element.bankName,
-      });
-    });
-  } else {
-  }
-});
 
 for (let x = 2019; x > 1910; x--) {
   customOption.year.push({ value: x.toString(), label: x + '년' });
