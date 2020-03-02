@@ -5,6 +5,7 @@ import isTruthy from 'childs/lib/common/isTruthy';
 import _ from 'lodash';
 import brandNew from 'childs/lib/constant/filter/brandNew';
 import internationalShipping from 'childs/lib/constant/filter/internationalShipping';
+import LazyLoad from 'react-lazyload';
 
 export default function SectionItem({
   item = {
@@ -52,7 +53,9 @@ export default function SectionItem({
             배송
           </div>
         ) : null}
-        <img src={item.productImage.url} alt={item.productImage.name} />
+        <LazyLoad>
+          <img src={item.productImage.url} alt={item.productImage.name} />
+        </LazyLoad>
         {isTruthy(likeItemDelete) && (
           <div
             className={css.item__delete__btn}

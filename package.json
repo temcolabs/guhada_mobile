@@ -63,6 +63,7 @@
     "react-google-login": "^5.0.2",
     "react-js-pagination": "^3.0.2",
     "react-kakao-login": "^1.1.0",
+    "react-lazyload": "^2.6.5",
     "react-modal": "^3.8.1",
     "react-moment-proptypes": "^1.6.0",
     "react-no-ssr": "^1.1.0",
