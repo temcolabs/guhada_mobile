@@ -19,6 +19,8 @@ class specialdetail extends Component {
       const { data } = await API.settle.get(`/plan/list/detail?`, {
         params: {
           eventId,
+          page: 1,
+          searchProgress: 'DATE',
         },
       });
       const specialDetail = data.data;
@@ -57,7 +59,6 @@ class specialdetail extends Component {
       special.eventId = query.id;
       special.getSpecialDetail({ id: query.id });
       special.getSpecialDeal();
-      window.addEventListener('scroll', this.props.special.listenToScroll);
     }
   }
 
@@ -76,7 +77,8 @@ class specialdetail extends Component {
   }
 
   componentWillUnmount() {
-    window.addEventListener('scroll', this.props.special.listenToScroll);
+    const { special } = this.props;
+    special.eventId = '';
   }
   render() {
     const { searchitem, headData } = this.props;
@@ -92,8 +94,8 @@ class specialdetail extends Component {
           {searchitem.itemStatus ? (
             <SpecialDetail
               searchitem={searchitem}
-              items={searchitem.item.deals}
-              countOfDeals={searchitem.item.countOfDeals}
+              items={searchitem.deals}
+              countOfDeals={searchitem.countOfDeals}
             />
           ) : (
             <LoadingPortal />

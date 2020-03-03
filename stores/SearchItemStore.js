@@ -125,7 +125,8 @@ export default class SearchItemStore {
       query.shippingCondition,
       query.minPrice,
       query.maxPrice,
-      this.root.seller.sellerId
+      this.root.seller.sellerId,
+      this.root.special.eventId
     );
   };
   @action
@@ -1062,21 +1063,22 @@ export default class SearchItemStore {
     } else if (eventIds && sellerIds === '') {
       pushRoute(
         `/event/special/${this.root.special.eventId}?${qs.stringify({
-          category: category === 'empty' ? query.category : category,
-          brand: brand === 'empty' ? query.brand : brand,
+          category: category,
+          brand: brand,
           page: page,
-          unitPerPage: 24,
+          unitPerPage: unitPerPage,
           order: order === null || order === '' ? 'DATE' : order,
+          filter: filter,
           subcategory: subcategory,
           enter: enter === '' ? query.enter : enter,
-          condition: condition === '' ? query.condition : condition,
-          keyword: keyword === '' ? query.keyword : keyword,
+          keyword: keyword === 'empty' ? query.keyword : keyword,
           resultKeyword: resultKeyword,
-          filter: filter,
-          minPrice: minPrice,
-          maxPrice: maxPrice,
+          condition: condition === '' ? query.condition : condition,
+          filtered: filtered,
           productCondition: this.productCondition,
           shippingCondition: this.shippingCondition,
+          minPrice: minPrice,
+          maxPrice: maxPrice,
         })}`
       );
     }

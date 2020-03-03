@@ -23,16 +23,16 @@ export default class SpecialStore {
   @observable eventId;
   @observable status = {
     page: false,
-    detailPage: false,
     firstPurchasePopupIsOpen: false,
   };
   @observable id = '';
-  @observable specialDetailList = [];
   @observable scrollPosition;
   @observable infinityStauts = true;
-  @observable endPage = 0;
   @observable scrollDirection;
+  @observable unitPerPage = 24;
   @observable order = 'DATE';
+  @observable productCondition = 'ANY';
+  @observable shippingCondition = 'ANY';
   @action
   getSpecialList = value => {
     if (!value?.value) {
@@ -75,36 +75,9 @@ export default class SpecialStore {
         },
       })
       .then(res => {
-        if (page === 1) {
-          this.specialDetailList = [];
-          this.endPage = 0;
-        }
-
         this.specialDetail = res.data.data;
-        this.totalItemCount = this.specialDetail.totalItemCount;
-        this.status.detailPage = true;
-        this.page = page;
-        this.order = order;
 
-        if (this.specialDetailList.length === 0) {
-          this.specialDetailList = res.data.data.planListDetails;
-        } else {
-          this.specialDetailList = this.specialDetailList.concat(
-            res.data.data.planListDetails
-          );
-          this.endPage = Math.ceil(this.totalItemCount / 20);
-          if (this.page >= this.endPage) {
-            this.infinityStauts = false;
-          } else {
-            this.infinityStauts = true;
-          }
-        }
-
-        devLog(
-          toJS(this.specialDetailList),
-          this.totalItemCount,
-          'special detail'
-        );
+        devLog(toJS(this.specialDetail), 'special detail');
 
         // else {
         //   this.root.alert.showConfirm({
@@ -130,7 +103,7 @@ export default class SpecialStore {
     category = '',
     brand = '',
     page = 1,
-    unitPerPage = 24,
+    unitPerPage = this.unitPerPage,
     order = this.order,
     filter = '',
     subcategory = '',
@@ -201,27 +174,27 @@ export default class SpecialStore {
     );
   };
 
-  @action
-  listenToScroll = () => {
-    const winScroll =
-      document.body.scrollTop || document.documentElement.scrollTop;
+  // @action
+  // listenToScroll = () => {
+  //   const winScroll =
+  //     document.body.scrollTop || document.documentElement.scrollTop;
 
-    const height =
-      document.documentElement.scrollHeight -
-      document.documentElement.clientHeight;
+  //   const height =
+  //     document.documentElement.scrollHeight -
+  //     document.documentElement.clientHeight;
 
-    const scrolled = winScroll / height;
-    // 스트롤의 방향을 확인
-    if (this.scrollPosition > scrolled) {
-      return false;
-    }
-    this.scrollPosition = scrolled;
+  //   const scrolled = winScroll / height;
+  //   // 스트롤의 방향을 확인
+  //   if (this.scrollPosition > scrolled) {
+  //     return false;
+  //   }
+  //   this.scrollPosition = scrolled;
 
-    if (this.scrollPosition > 0.7 && this.infinityStauts === true) {
-      this.infinityStauts = false;
-      this.page += 1;
+  //   if (this.scrollPosition > 0.7 && this.infinityStauts === true) {
+  //     this.infinityStauts = false;
+  //     this.page += 1;
 
-      this.getSpecialDetail({ id: this.id, page: this.page });
-    }
-  };
+  //     this.getSpecialDetail({ id: this.id, page: this.page });
+  //   }
+  // };
 }
