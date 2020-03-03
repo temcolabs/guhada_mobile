@@ -14,8 +14,7 @@ import ArticleContents from 'components/community/article/ArticleContents';
 import useStores from 'stores/useStores';
 import useBBSSearchState from 'components/community/list/useBBSSearchState';
 import { pushRoute } from 'childs/lib/router';
-import BoardTitleOnly from 'components/community/list/BoardTitleWithSort';
-// import RelatedArticleList from 'components/community/article/RelatedArticleList';
+import RelatedArticleList from 'components/community/article/RelatedArticleList';
 import BoardSearch from 'components/community/list/BoardSearch';
 import Footer from 'components/footer/Footer';
 const enhancer = compose(
@@ -151,12 +150,12 @@ const BBSArticleView = enhancer(({ router }) => {
               </article>
             </CommunityContentWrap>
 
-            {/* <RelatedArticleList
+            <RelatedArticleList
               articleId={articleStore.data?.id}
               lastSearchQuery={searchStore.searchQuery} // 목록에서 실행한 검색 쿼리
               lastCategoryId={searchStore.searchQuery?.categoryId || categoryId} // 검색결과의 카테고리 아이디 또는 게시글의 카테고리아이디
               lastPage={searchStore.searchQuery?.page || 1} // 검색 결과의 페이지 번호 또는 1
-            /> */}
+            />
 
             {/* 검색어 입력  */}
             {!searchStore.isFetching && (

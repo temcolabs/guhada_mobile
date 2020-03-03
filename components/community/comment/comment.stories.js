@@ -13,7 +13,7 @@ import {
 } from '@storybook/addon-knobs';
 import CommentInput from './CommentInput';
 import CommentItem from './CommentItem';
-import CommentsList from './CommentsList';
+// import CommentsList from './CommentsList';
 
 const stories = storiesOf('community/comment', module);
 
