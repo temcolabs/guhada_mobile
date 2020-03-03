@@ -1,0 +1,65 @@
+@import 'styles/mixins/index';
+
+.button {
+  position: relative;
+  display: inline-block;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-image: url('/static/icon/community/icon-share.png');
+  background-size: 25px;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: solid 1px #eeeeee;
+  text-align: center;
+  color: #7c7c7c;
+  font-size: 13px;
+  text-align: center;
+}
+
+// 클릭시 표시되는 공유 관련 메뉴
+.shareSlideArea {
+  @include centeredX;
+  width: 360px;
+  padding: 30px;
+  border: solid 1px #eeeeee;
+  background-color: #ffffff;
+}
+
+.shareSlideArea_title {
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+  color: #111111;
+}
+
+.urlBox {
+  @include clearfix;
+  width: 100%;
+  padding: 14px 15px 13px;
+  background-color: #f9f9fa;
+  font-size: 12px;
+  text-align: left;
+  color: #7c7c7c;
+  margin-top: 20px;
+}
+
+$copyButtonSize: 35px;
+.urlBox_url {
+  @include textEllipsis;
+  width: calc(100% - #{$copyButtonSize});
+  float: left;
+}
+
+.urlBox_copyButton {
+  float: right;
+  width: $copyButtonSize;
+  padding-left: 10px;
+  font-size: 12px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #111111;
+}

@@ -1,0 +1,84 @@
+@import 'styles/mixins/index';
+
+.wrap {
+  width: 100%;
+}
+
+$inputHeight: 50px;
+$registerButtonWidth: 70px;
+.inputBox {
+  margin-top: 20px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.inputBox_input {
+  display: block;
+  width: calc(100% - #{$registerButtonWidth});
+  height: $inputHeight;
+  color: #111;
+  padding: 15px;
+  margin-left: 30px;
+  &::placeholder {
+    color: #ccc;
+  }
+}
+
+.inputBox_registerButton {
+  @include buttonCentered;
+  display: block;
+  width: $registerButtonWidth;
+  height: $inputHeight;
+  color: #5d2ed1;
+}
+
+.attach {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.attach_photoButton {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background: url('/static/icon/community/icon-camera.png') no-repeat center;
+  background-size: 20px 17px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.attachedImages {
+  @include clearfix;
+  margin-top: 26px;
+  margin-bottom: 40px;
+  padding: 0 20px;
+}
+
+.imagePreview {
+  float: left;
+  position: relative;
+  margin-right: 15px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  width: 60px;
+  height: 60px;
+  background-size: cover;
+  background-position: center;
+}
+
+.deleteImageButton {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  top: 0;
+  right: 0;
+  background: url('/static/icon/like_item_delete.png') no-repeat center;
+  background-size: cover;
+  background-color: #444;
+  border-top-right-radius: 5px;
+}

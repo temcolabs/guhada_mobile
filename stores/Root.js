@@ -63,6 +63,11 @@ import EventPopupStore from './event/EventPopupStore';
 //기획전
 import SpecialStore from './event/SpecialStore';
 import SearchPlaceholderStore from './home/SearchPlaceholderStore';
+// 커뮤니티
+import BBSStore from './bbs';
+
+// 신고하기
+import ReportStore from './claim/ReportStore';
 
 class RootStore {
   constructor(isServer, initialState) {
@@ -152,7 +157,10 @@ class RootStore {
 
     //판매자 문의하기
     this.sellerClaim = new SellerClaimStore(this, initialState);
-
+    /**
+     * 신고하기
+     */
+    this.report = new ReportStore(this, initialState);
     //무이자정보
     this.cardinterest = new CardInterestStore(this, initialState);
 
@@ -164,6 +172,11 @@ class RootStore {
     //기획전
     this.special = new SpecialStore(this, initialState);
     this.searchHolder = new SearchPlaceholderStore(this, initialState);
+
+    /**
+     * 커뮤니티
+     */
+    this.bbs = new BBSStore(this, initialState);
   }
 }
 

@@ -1,0 +1,91 @@
+@import 'styles/mixins/index';
+
+.wrap {
+  position: relative;
+  width: 100%;
+  text-align: left;
+}
+
+// 검색 결과 슬라이드 영역
+.searchResult {
+  width: 100%;
+  border: solid 1px #eeeeee;
+  background-color: #ffffff;
+  padding: 0 30px;
+}
+
+.resultSection {
+  padding: 30px 0;
+  &:not(:last-child) {
+    border-bottom: 1px solid #eeeeee;
+  }
+}
+
+.sectionTitle {
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+  color: #111111;
+  margin-bottom: 20px;
+}
+
+.recentOrderItem {
+  @include clearfix;
+
+  &:not(:last-child) {
+    margin-bottom: 20px;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+$itemImageWidth: 66px;
+.recentOrderItem_image {
+  float: left;
+  width: $itemImageWidth;
+  height: 87px;
+  background-color: #eee;
+}
+
+.recentOrderItem_info {
+  width: calc(100% - #{$itemImageWidth});
+  float: right;
+  padding-left: 20px;
+}
+.recentOrderItem_name {
+  font-size: 13px;
+  color: #444444;
+}
+.recentOrderItem_option {
+  margin-top: 7px;
+  & span {
+    color: #777777;
+    &:not(:last-child) {
+      @include withDivider(8px, 15px, #777777);
+    }
+  }
+}
+.recentOrderItem_price {
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+  color: #444444;
+}
+
+// 검색한 상품
+.searchedItem {
+  font-size: 14px;
+  font-weight: normal;
+  color: #7c7c7c;
+
+  &:not(:last-child) {
+    margin-bottom: 16px;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}

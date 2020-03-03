@@ -1,0 +1,16 @@
+@import 'styles/mixins/index';
+
+.wrap {
+  position: relative;
+  text-align: right;
+  width: 130px;
+}
+
+.button {
+  font-size: 13px;
+  color: #111;
+  padding-right: 22px;
+  background: url('/static/icon/community/list-btn-lineup@3x.png') no-repeat
+    right center;
+  background-size: 10px;
+}

@@ -1,0 +1,35 @@
+@import 'styles/mixins/index';
+
+.boardListContainer {
+  position: relative;
+  // 데이터를 가져오는 중
+  &.isFetching {
+    min-height: 100vh;
+  }
+}
+
+.noResults {
+  @include centered;
+}
+
+.more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 58px;
+  border-bottom: 8px solid #f9f9fa;
+  font-size: 14px;
+  font-weight: 500;
+  .detailBtn {
+    margin-left: 4px;
+    background: url('/static/icon/detail_btn_more_open.png') no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.boardSearchWrap {
+  padding: 0 20px;
+}

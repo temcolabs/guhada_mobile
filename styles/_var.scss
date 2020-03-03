@@ -3,6 +3,34 @@ $categorySliderWrapHeight: 44px;
 $mypageMenuSliderHeight: 44px; // 마이페이지 메뉴 슬라이더 높이
 $fixedButtonBottomPadding: 60px; // 하단 고정 버튼 있을시 패딩
 
+// 페이지 main의 사이드 패딩
+$pageMainSidePad: 40px;
+
+// 마이페이지
+$mypageContentWidth: 1310px;
+$mypageContentWidthMD: 1250px;
+$mypageContentSidePad: 15px;
+$mypageContentSidePadMD: 40px;
+$mypageSidebarWidth: 220px;
+$mypageListActionBoxWidth: 120px; // 목록 오른쪽의 액션 박스 넓이. 왼쪽에 컨텐츠가 들어감
+
+// 커뮤니티
+$communityContentWidth: 1280px;
+$communityContentSidePad: 15px;
+$communitySidebarWidth: 300px;
+
+$communityContentWidthMD: 1070px;
+$communityContentSidePadMD: 15px;
+$communitySidebarWidthMD: 300px;
+
+// 스크롤바의 width
+$scrollBarWidth: 18px;
+
+// 이벤트
+$luckyDrawWrapperWidthLG: 1800px;
+$luckyDrawWrapperWidthMD: 1280px;
+$luckyDrawContentsWidth: 640px;
+
 // colors
 $blue-purple: #5d2ed1; // 구하다 메인 보라색
 $guhada-black: #111;

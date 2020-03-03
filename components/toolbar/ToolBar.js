@@ -68,17 +68,17 @@ function ToolBar() {
       >
         홈
       </div>
-      {/* <div
+      <div
         onClick={() => {
           setSelectedTool('community');
-          alert.showAlert({ content: '모바일 버전 준비중입니다.' });
+          pushRoute('/community');
         }}
         className={cn(css.itemWrap, css.community, {
           [css.selected]: selectedTool === 'community',
         })}
       >
         커뮤니티
-      </div> */}
+      </div>
       <div
         onClick={() => {
           setSelectedTool('mypage');

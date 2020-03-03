@@ -38,6 +38,7 @@ class DefaultLayout extends Component {
   static defaultProps = {
     wrapperStyle: {},
     toolBar: true,
+    kakaoChat: true,
   };
 
   /**
@@ -88,6 +89,7 @@ class DefaultLayout extends Component {
       topLayout,
       scrollDirection,
       wrapperStyle,
+      kakaoChat,
     } = this.props;
 
     let cartAmount = this.props.shoppingcart.cartAmount;
@@ -111,17 +113,20 @@ class DefaultLayout extends Component {
         {this.props.children}
 
         {toolBar === false ? null : <ToolBar />}
-        <div
-          className={css.kakaoChat}
-          onClick={() =>
-            openPopupCenter(
-              'https://pf.kakao.com/_yxolxbT/chat',
-              '구하다 채팅하기',
-              500,
-              700
-            )
-          }
-        />
+        {kakaoChat ? (
+          <div
+            className={css.kakaoChat}
+            onClick={() =>
+              openPopupCenter(
+                'https://pf.kakao.com/_yxolxbT/chat',
+                '구하다 채팅하기',
+                500,
+                700
+              )
+            }
+          />
+        ) : null}
+
         <div className={css.btnTop} onClick={() => window.scrollTo(0, 0)} />
       </div>
     );

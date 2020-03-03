@@ -1,0 +1,20 @@
+@mixin categoryButtonHighlight {
+  border-color: #5d2ed1;
+  color: #5d2ed1;
+}
+
+.wrap {
+  position: relative;
+}
+
+.categoryButton {
+  color: #333;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: inherit;
+  background: url('/static/icon/community/list-btn-lineup@3x.png') no-repeat
+    right center;
+  background-size: 10px;
+  width: 80px;
+  text-align: left;
+}
