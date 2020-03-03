@@ -3,6 +3,9 @@ import API from 'childs/lib/API';
 import { isBrowser } from 'childs/lib/common/isServer';
 import { devLog } from 'childs/lib/common/devLog';
 import Router from 'next/router';
+import { pushRoute } from 'childs/lib/router';
+import qs from 'qs';
+
 export default class SpecialStore {
   constructor(root, initialState) {
     if (isBrowser) {
@@ -16,7 +19,8 @@ export default class SpecialStore {
   }
 
   @observable specialList = [];
-  @observable specialDetail = {};
+  @observable specialDetail = [];
+  @observable eventId;
   @observable status = {
     page: false,
     detailPage: false,
@@ -119,6 +123,82 @@ export default class SpecialStore {
         console.log(err, 'special detail get error');
         this.specialDetail = [];
       });
+  };
+
+  @action
+  toSearch = ({
+    category = '',
+    brand = '',
+    page = 1,
+    unitPerPage = 24,
+    order = this.order,
+    filter = '',
+    subcategory = '',
+    enter = '',
+    keyword = '',
+    resultKeyword = '',
+    condition = '',
+    productCondition = 'ANY',
+    shippingCondition = 'ANY',
+    minPrice = '',
+    maxPrice = '',
+    eventIds = '',
+  }) => {
+    let query = Router.router.query;
+
+    pushRoute(
+      `/event/special/${eventIds}?${qs.stringify({
+        category: category,
+        brand: brand,
+        page: page,
+        unitPerPage: unitPerPage,
+        order: order === null || order === '' ? 'DATE' : order,
+        filter: filter,
+        subcategory: subcategory,
+        enter: '',
+        keyword: keyword,
+        resultKeyword: resultKeyword,
+        condition: condition === '' ? query.condition : condition,
+        productCondition: this.productCondition,
+        shippingCondition: this.shippingCondition,
+        minPrice: minPrice,
+        maxPrice: maxPrice,
+      })}`
+    );
+    if (this.preUrl !== Router.asPath) this.deals = [];
+  };
+
+  @action
+  getSpecialDeal = () => {
+    const { searchitem } = this.root;
+    const query = Router.router.query;
+
+    searchitem.deals = [];
+    searchitem.preUrl = Router.asPath;
+    searchitem.initDealspage();
+    if (query.filtered === 'false') searchitem.initSearchFilterList();
+
+    let brand = JSON.parse('[' + query.brand + ']');
+    let subcategory = JSON.parse('[' + query.subcategory + ']');
+    searchitem.getSearchByUri(
+      brand,
+      query.category,
+      query.page,
+      query.unitPerPage,
+      query.order,
+      query.filter,
+      subcategory,
+      query.enter,
+      query.keyword,
+      query.resultKeyword,
+      query.condition,
+      query.productCondition,
+      query.shippingCondition,
+      query.minPrice,
+      query.maxPrice,
+      '',
+      this.eventId
+    );
   };
 
   @action

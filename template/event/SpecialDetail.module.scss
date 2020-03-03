@@ -79,7 +79,16 @@
       align-items: center;
 
       .order {
-        width: 90px;
+        width: 80px;
+      }
+
+      .filterWrap {
+        position: relative;
+        width: 80px;
+        height: 20px;
+        background: url('/static/icon/fillter_icon.png') no-repeat;
+        background-size: 16px 14px;
+        background-position: right;
       }
     }
   }

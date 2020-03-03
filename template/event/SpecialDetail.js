@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import useStores from 'stores/useStores';
 import { inject } from 'mobx-react';
 import css from './SpecialDetail.module.scss';
 import DefaultLayout from 'components/layout/DefaultLayout';
@@ -9,9 +10,15 @@ import Router from 'next/router';
 import copy from 'copy-to-clipboard';
 import DetailFilter from 'components/event/special/DetailFilter';
 import { useObserver } from 'mobx-react-lite';
-
+import { withRouter } from 'next/router';
+import { compose } from 'lodash/fp';
 import moment from 'moment';
-function SpecialDetail({ special, alert }) {
+import SearchFilter from 'components/search/SearchFilter';
+import SearchFilterResult from 'components/search/SearchFilterResult';
+const enhancer = compose(withRouter);
+
+const SpecialDetail = enhancer(props => {
+  const { special, alert, searchitem } = useStores();
   const copyUrlToClipboard = () => {
     const productUrl = `${window.location.protocol}//${window.location.host}${
       Router.router.asPath
@@ -21,6 +28,7 @@ function SpecialDetail({ special, alert }) {
 
     alert.showAlert('상품 URL이 클립보드에 복사되었습니다.');
   };
+  const [isFilterVisible, setIsFilterVisible] = useState(false);
 
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
@@ -94,22 +102,23 @@ function SpecialDetail({ special, alert }) {
           <div className={css.itemTitle}>기획전 ITEM</div>
 
           <div className={css.dashBoard}>
-            <div className={css.totalCount}>
-              총
-              {special.totalItemCount !== undefined
-                ? Number(special.totalItemCount)
-                : 0}
-              개
-            </div>
             <div className={css.orderWrap}>
               <div className={css.order}>
                 <DetailFilter />
               </div>
             </div>
+            <div
+              className={css.filterWrap}
+              onClick={e => {
+                setIsFilterVisible(true);
+              }}
+            >
+              상세검색
+            </div>
           </div>
-
+          <SearchFilterResult />
           <div className={css.itemWrap}>
-            {special.specialDetailList?.map((data, index) => {
+            {props.items?.map((data, index) => {
               return (
                 <LinkRoute
                   href={`/productdetail?deals=${data.dealId}`}
@@ -123,9 +132,18 @@ function SpecialDetail({ special, alert }) {
             })}
           </div>
         </div>
+
+        {searchitem.itemStatus && (
+          <SearchFilter
+            isVisible={isFilterVisible}
+            onClose={() => setIsFilterVisible(false)}
+            filters={searchitem.filterData}
+            eventId={special.eventId}
+          />
+        )}
       </div>
     </DefaultLayout>
   ));
-}
+});
 
-export default inject('special', 'alert')(SpecialDetail);
+export default SpecialDetail;
