@@ -19,7 +19,7 @@ import BoardGridItem, {
   BoardGridContainer,
 } from 'components/community/list/BoardGridItem';
 import categoryViewType from 'childs/lib/constant/community/categoryViewType';
-import MoreButton from '..components/common/MoreButton';
+import MoreButton from 'components/common/MoreButton';
 import DataEmpty from 'components/common/DataEmpty.js';
 const enhancer = compose(
   withScrollToTopOnMount,
