@@ -1,0 +1,46 @@
+.wrap {
+  position: relative;
+  border: 1px solid #eeeeee;
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 13px;
+
+  & > textarea {
+    display: block;
+    width: 100%;
+    border: none;
+    min-height: 120px;
+    font-size: inherit;
+    font-weight: 400;
+    color: #444;
+    outline: none;
+    line-height: 20px;
+
+    &.isNoResize {
+      resize: none; /* 사용자 임의 변경 불가 */
+      // resize: both; /* 사용자 변경이 모두 가능 */
+      // resize: horizontal; /* 좌우만 가능 */
+      // resize: vertical; /* 상하만 가능 */
+    }
+
+    &::placeholder {
+      color: #ccc;
+    }
+  }
+}
+
+.inputSize {
+  text-align: right;
+  font-size: 12px;
+  color: #777777;
+
+  &.outsideBottomRight {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+  }
+}
+
+.inputSize__current {
+  color: #5d2ed1;
+}

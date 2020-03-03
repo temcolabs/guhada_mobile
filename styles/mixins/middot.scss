@@ -1,0 +1,15 @@
+// 엘레멘트 padding-right 영역에 middot을 그린다
+@mixin middot($gap: 12px, $dotSize: 2px, $color: #7c7c7c) {
+  position: relative;
+  padding-right: $gap;
+
+  &::after {
+    @include centeredY;
+    content: ' ';
+    right: calc(#{$gap} / 2);
+    background: $color;
+    width: $dotSize;
+    height: $dotSize;
+    border-radius: 50%;
+  }
+}

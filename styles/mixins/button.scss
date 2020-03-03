@@ -1,0 +1,44 @@
+@import './centered.scss';
+
+// flex를 사용하지 않고 버튼 텍스트를 가운데 정렬하기.
+// 버튼 안의 span 태그를 absolute 포지션으로 만들어서 정렬한다.
+// (!) 믹스인을 사용한 클래스에는 넓이가 지정되어 있어야 한다
+@mixin buttonCentered {
+  position: relative;
+
+  & > span {
+    @include centered;
+    width: 100%;
+    display: inline-block;
+  }
+}
+
+@mixin buttonCenteredX {
+  position: relative;
+
+  & > span {
+    @include centeredX;
+    display: inline-block;
+    width: 100%;
+  }
+}
+
+@mixin buttonCenteredY {
+  position: relative;
+
+  & > span {
+    @include centeredY;
+    display: inline-block;
+    width: 100%;
+  }
+}
+
+// 구하다 웹에서 사용하는 기본 보라색 버튼
+@mixin buttonPurple {
+  @include buttonCentered;
+  width: 200px;
+  height: 50px;
+  background: #5d2ed1;
+  color: #fff;
+  font-size: 14px;
+}

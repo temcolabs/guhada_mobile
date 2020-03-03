@@ -1,0 +1,22 @@
+.button {
+  display: inline-block;
+  width: 120px;
+  height: 45px;
+  border-radius: 23px;
+  background-image: url('/static/icon/community/icon-like-off.png');
+  background-size: 25px;
+  background-position: 30px center;
+  background-repeat: no-repeat;
+  border: solid 1px #eeeeee;
+  padding: 13px 16px 13px 49px;
+  text-align: center;
+  color: #7c7c7c;
+  font-size: 13px;
+  text-align: center;
+
+  &.isOn {
+    background-image: url('/static/icon/community/icon-like-on.png');
+    border-color: #5d2ed1;
+    color: #5d2ed1;
+  }
+}

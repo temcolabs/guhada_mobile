@@ -1,0 +1,22 @@
+@import 'styles/mixins/index';
+@import 'styles/var';
+.boardSelector {
+  @include centered();
+  margin-top: -1px;
+  width: 100px;
+  background: url('/static/icon/community/arrow-down-boardselector.png')
+    no-repeat right;
+  background-size: 20px;
+  &:hover {
+    cursor: pointer;
+  }
+
+  & button {
+    text-align: left;
+    width: 100%;
+    font-size: 17px;
+    height: 28px;
+    font-weight: 500;
+    color: #111;
+  }
+}

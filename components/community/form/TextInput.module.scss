@@ -1,0 +1,39 @@
+@import 'styles/mixins/index';
+@mixin inputStyle {
+  position: relative;
+  padding: 14px 50px 14px 0px;
+  border-bottom: solid 1px #eeeeee;
+  background-color: #ffffff;
+
+  input {
+    display: block;
+    width: 100%;
+    font-size: 14px;
+    height: 20px;
+    background: transparent;
+    padding: 0 20px;
+    &::placeholder {
+      color: #ccc;
+    }
+  }
+}
+
+.textInput {
+  @include inputStyle;
+}
+
+.searchInput {
+  @include inputStyle;
+  border: none;
+}
+
+.searchIcon {
+  @include centeredY;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  background-image: url('/static/icon/community/icon-search@3x.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}

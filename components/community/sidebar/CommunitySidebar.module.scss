@@ -1,0 +1,38 @@
+.wrap {
+  & > * {
+    &:not(:first-of-type) {
+      margin-top: 10px;
+    }
+  }
+}
+
+.searchContainer {
+  margin-top: 1px;
+  padding: 20px;
+  border: solid 1px #eeeeee;
+  background-color: #ffffff;
+  background-image: url('/static/icon/community/icon-search@3x.png');
+  background-size: 30px;
+  background-position: 250px center;
+  background-repeat: no-repeat;
+
+  input {
+    display: block;
+    width: 230px;
+    font-size: 14px;
+    height: 20px;
+
+    &::placeholder {
+      color: #777;
+    }
+  }
+}
+
+.searchKeywordInput {
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+  & > input {
+    font-weight: 300;
+  }
+}

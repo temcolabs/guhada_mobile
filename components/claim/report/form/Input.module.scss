@@ -1,0 +1,79 @@
+@import 'styles/var';
+@import 'styles/mixins/index';
+
+$wrapperSidePad: 15px;
+.wrap {
+  position: relative;
+  width: 100%;
+  height: 45px;
+  border: 1px solid #eeeeee;
+  font-size: 13px;
+  font-weight: 400;
+  color: #444444;
+  padding: 0 45px 0 $wrapperSidePad;
+  box-sizing: border-box;
+
+  & > input {
+    @include centeredY();
+    display: block;
+    width: calc(100% - #{$wrapperSidePad} * 2);
+    height: 1.5em;
+    border: none;
+    background-color: transparent;
+    font-size: inherit;
+    background: white;
+    &::placeholder {
+      color: #ccc;
+    }
+  }
+
+  // status 이미지
+  &::after {
+    content: ' ';
+    @include centeredY;
+    right: 15px;
+    width: 17px;
+    height: 17px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+  }
+
+  &::placeholder {
+    color: #ccc;
+  }
+
+  // status - 아이콘 없음
+  &.normal {
+    padding-right: 15px;
+
+    &::after {
+      display: none;
+    }
+  }
+
+  // status - 입력 오류
+  &.error {
+    border-color: #ce2525;
+    &::after {
+      background-image: url('/static/icon/mypage/input-error-icon.png');
+    }
+  }
+
+  // status - 입력 정상
+  &.ok {
+    border-color: #5d2ed1;
+    &::after {
+      background-image: url('/static/icon/mypage/input-ok-icon.png');
+    }
+  }
+
+  &.isDisabled {
+    background-color: #f9f9fa;
+
+    & > input {
+      color: #777777;
+      background-color: #f9f9fa;
+    }
+  }
+}

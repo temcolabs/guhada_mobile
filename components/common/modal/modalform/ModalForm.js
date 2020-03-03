@@ -8,7 +8,15 @@ import css from './ModalForm.module.scss';
  */
 export default function ModalForm({ children, wrapperStyle = {}, ...rest }) {
   return (
-    <ModalWrapper {...rest}>
+    <ModalWrapper
+      contentStyle={{
+        positon: 'relative',
+        top: '0',
+        left: '0',
+        transform: 'translate(0,0)',
+      }}
+      {...rest}
+    >
       <div className={css.wrapper} style={wrapperStyle}>
         {children}
       </div>

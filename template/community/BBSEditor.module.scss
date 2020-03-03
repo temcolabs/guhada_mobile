@@ -1,0 +1,84 @@
+@import 'styles/mixins/index';
+
+$brandAndProductGridGap: 40px;
+$brandAndProductGridGapMD: 29px;
+
+.editorHeader {
+  position: relative;
+  display: flex;
+  height: 60px;
+  align-items: center;
+  padding: 0 20px;
+  border-bottom: 1px solid #eee;
+  .cancelButton {
+    font-size: 15px;
+    font-weight: 500;
+    color: #999;
+    margin-right: 15px;
+  }
+  .tempSave {
+    font-size: 15px;
+    font-weight: 500;
+    color: #999;
+    white-space: nowrap;
+  }
+
+  .submitButton {
+    width: 20px;
+    white-space: nowrap;
+    margin-left: auto;
+    color: #5d2ed1;
+    font-size: 15px;
+    font-weight: 500;
+    &.purple {
+      border: solid 1px #5d2ed1;
+    }
+
+    a {
+      color: #131212;
+    }
+
+    & + & {
+      margin-left: 10px;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+.brandAndProduct {
+}
+
+.brandAndProduct_row {
+}
+
+.brandAndProduct_searchItem {
+  width: 100%;
+}
+
+$searchLabelWidth: 85px;
+$searchLabelWidthMD: 82px;
+
+.brandAndProduct_searchComponent {
+  width: 100%;
+}
+
+.articleTitle {
+  @include clearfix;
+  width: 100%;
+}
+
+.articleTitle_category {
+  width: 100%;
+}
+.articleTitle_title {
+  width: 100%;
+}
+
+.errorMessage {
+  display: inline-block;
+  color: #ce2525;
+  font-size: 14px;
+  margin-top: 0.2em;
+}

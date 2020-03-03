@@ -21,12 +21,12 @@ module.exports = withBundleAnalyzer(
         },
       });
 
-      config.plugins.push(
-        new webpack.ProvidePlugin({
-          $: 'jquery',
-          jQuery: 'jquery',
-        })
-      );
+      // config.plugins.push(
+      //   new webpack.ProvidePlugin({
+      //     $: 'jquery',
+      //     jQuery: 'jquery',
+      //   })
+      // );
 
       config.plugins.push(
         new FilterWarningsPlugin({

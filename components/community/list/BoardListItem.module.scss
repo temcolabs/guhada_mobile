@@ -1,0 +1,105 @@
+@import 'styles/mixins/index';
+
+$imageContainerWidth: 80px;
+
+.wrap {
+  @include clearfix;
+  display: block;
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.imageContainer {
+}
+
+.productImage {
+  width: 42px;
+  height: 42px;
+  border-radius: 5px;
+  background-color: #eee;
+  background-size: cover;
+  background-position: center;
+  margin-right: 15px;
+}
+
+.infoContainer {
+  width: calc(100%);
+}
+
+.title {
+  @include clearfix;
+  display: flex;
+  align-items: center;
+}
+
+.itemInfo_categoryFilter {
+  color: #5d2ed1;
+  font-size: 14px;
+  font-weight: 500;
+  margin-right: 5px;
+  min-width: 30px;
+}
+
+.title_text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #111;
+  max-width: calc(100% - 40px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 6px;
+}
+
+.title_commentCount {
+  margin-top: 2px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #5d2ed1;
+  display: block;
+  position: relative;
+}
+
+.title_newIcon {
+  width: 13px;
+  height: 13px;
+  margin-top: 1px;
+  margin-left: 4px;
+  background-image: url('/static/icon/community/icon-new-red.png');
+  background-size: contain;
+}
+
+.itemInfo {
+  margin-top: 7px;
+  font-size: 12px;
+  max-width: calc(100% - 20px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  & > * {
+    color: #999;
+    &:not(:last-child) {
+      @include middot(14px, 2px, #ccc);
+    }
+  }
+}
+
+.itemInfo_like {
+}
+
+.itemInfo_read {
+}
+
+.itemInfo_created {
+}
+
+.itemInfo_username {
+}
+
+.itemInfo_memberGrade {
+  @include memberGrade;
+}

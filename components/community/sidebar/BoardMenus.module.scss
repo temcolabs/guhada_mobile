@@ -1,0 +1,40 @@
+@import 'styles/mixins/index';
+@import 'styles/var';
+
+.wrap {
+  @include clearfix;
+  position: fixed;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  z-index: 100;
+  top: $guhadaMainHeaderHeight;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  border-bottom: 1px solid #eeeeee;
+  transition: top 0.1s linear;
+  white-space: nowrap;
+  display: flex;
+  padding: 10px 20px 13px 0;
+}
+
+// 상위 카테고리
+.category {
+  font-size: 15px;
+  font-weight: 500;
+  &:last-child {
+    padding-right: 20px;
+  }
+}
+
+.menuList {
+}
+
+.menuButton {
+  margin-left: 22px;
+
+  &.isSelected {
+    color: $blue-purple;
+    font-weight: bold;
+  }
+}
