@@ -1,11 +1,9 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import CommunityContentWrap from 'components/community/CommunityContentWrap';
 import { useBBSStore } from 'stores/bbs';
 import useBBSSearchState from 'components/community/list/useBBSSearchState';
 import BoardListItem from '../list/BoardListItem';
-import Pagination from 'components/common/Pagination';
 import { useObserver } from 'mobx-react-lite';
-import { ITEMS_PER_PAGE } from 'childs/lib/constant/community/searchQuery';
 import MoreButton from 'components/common/MoreButton';
 
 /**
