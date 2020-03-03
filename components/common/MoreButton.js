@@ -1,5 +1,5 @@
 import React from 'react';
-import css from './index.module.scss';
+import css from './MoreButton.module.scss';
 function MoreButton({ getMoreContent }) {
   return (
     <div
