@@ -5,7 +5,6 @@ import css from './BBSList.module.scss';
 import cn from 'classnames';
 import { withRouter } from 'next/router';
 import { compose } from 'lodash/fp';
-import Pagination from 'components/common/Pagination';
 import BoardTitle from 'components/community/list/BoardTitle';
 import BoardSearch from 'components/community/list/BoardSearch';
 import BoardListItem from 'components/community/list/BoardListItem';
@@ -20,8 +19,7 @@ import BoardGridItem, {
   BoardGridContainer,
 } from 'components/community/list/BoardGridItem';
 import categoryViewType from 'childs/lib/constant/community/categoryViewType';
-import MoreButton from 'components/common/MoreButton';
-import BoardCategoryFilter from 'components/community/list/BoardCategoryFilter';
+import MoreButton from '..components/common/MoreButton';
 import DataEmpty from 'components/common/DataEmpty.js';
 const enhancer = compose(
   withScrollToTopOnMount,

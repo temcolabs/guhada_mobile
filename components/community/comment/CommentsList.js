@@ -3,14 +3,13 @@ import _ from 'lodash';
 import css from './CommentsList.module.scss';
 import CommentItem from './CommentItem';
 import CommentInput from './CommentInput';
-import Pagination from 'components/common/Pagination';
 import { useObserver } from 'mobx-react-lite';
 import { useBBSStore } from 'stores/bbs';
 import jumpToAnchor from 'childs/lib/dom/jumpToAnchor';
 import ReportModal from 'components/claim/report/ReportModal';
 import { default as reportTargetEnum } from 'childs/lib/constant/reportTarget';
 import { ArticleIdContext } from 'template/community/BBSArticleView';
-import MoreButton from 'components/common/MoreButton';
+import MoreButton from '..components/common/MoreButton';
 /**
  * 게시글의 댓글 목록
  * 게시글 아이디만 받아서 해당 글의 댓글을 렌더링한다
