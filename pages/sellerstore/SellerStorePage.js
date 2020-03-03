@@ -11,6 +11,11 @@ class SellerStorePage extends Component {
   componentDidMount() {
     const { seller } = this.props;
     const nickname = Router.router.query.nickname;
+    const category = Router.router.query.category;
+
+    if (category === undefined) {
+      seller.toSearch({ nickname: nickname });
+    }
     if (isBrowser) {
       seller.nickname = nickname;
       seller.getSellerId();
@@ -19,6 +24,11 @@ class SellerStorePage extends Component {
   componentDidUpdate() {
     const { seller } = this.props;
     const nickname = Router.router.query.nickname;
+    const category = Router.router.query.category;
+
+    if (category === undefined) {
+      seller.toSearch({ nickname: nickname });
+    }
     if (isBrowser) {
       seller.nickname = nickname;
       seller.getSellerId();
