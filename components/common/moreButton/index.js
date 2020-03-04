@@ -1,9 +1,10 @@
 import React from 'react';
 import css from './index.module.scss';
-function MoreButton({ getMoreContent }) {
+function MoreButton({ getMoreContent = () => {}, wrapStyle = {} }) {
   return (
     <div
       className={css.more}
+      style={wrapStyle}
       onClick={() => {
         getMoreContent();
       }}
