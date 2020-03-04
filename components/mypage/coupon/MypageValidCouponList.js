@@ -23,9 +23,6 @@ class MypageValidCouponList extends React.Component {
                       <div className={css.coupon__title}>
                         {data.couponTitle}
                       </div>
-                      <div className={css.coupon__status}>
-                        {data.status === 'USED' ? '사용완료' : '기간만료'}
-                      </div>
                     </div>
                     <div className={css.coupon__amount}>
                       {data.discountType === 'RATE' ? (
