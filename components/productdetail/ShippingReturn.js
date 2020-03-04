@@ -161,8 +161,8 @@ export default function ShippingReturn({
         <div className={css.numberWrap}>
           <div className={css.numberItem}>2.</div>
           <div>
-            구매자의 책임 있는 사유로 상품 등이 멸실 또는 훼손된 경 (단, 상품의
-            내용을 확인하기 위하여 포장 등을 훼손한 경우는 제외)
+            구매자의 책임 있는 사유로 상품 등이 멸실 또는 훼손된 경우 (단,
+            상품의 내용을 확인하기 위하여 포장 등을 훼손한 경우는 제외)
           </div>
         </div>
         <div className={css.numberWrap}>
