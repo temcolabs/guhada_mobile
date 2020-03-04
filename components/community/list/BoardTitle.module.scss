@@ -1,0 +1,17 @@
+@import 'styles/mixins/index';
+
+.wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 20px 0;
+}
+
+.categoryFilter {
+  position: relative;
+}
+
+.sortButtonWrapper {
+  position: relative;
+  // margin-top: 1px;
+}

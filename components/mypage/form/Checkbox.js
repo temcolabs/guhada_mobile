@@ -14,7 +14,6 @@ export default function Checkbox({
 }) {
   const id = `checkbox_${name}`.replace(/\s+/, '_');
   const { value, handleChange } = useChangeInput({ initialValue, onChange });
-
   return (
     <div
       className={cn(css.wrap, css[icon], {

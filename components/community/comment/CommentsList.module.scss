@@ -1,0 +1,13 @@
+@import 'styles/mixins/index';
+
+.wrap {
+  width: 100%;
+}
+
+.commentCount {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.6;
+  color: #111;
+  padding: 0 20px;
+}

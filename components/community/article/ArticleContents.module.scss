@@ -1,0 +1,33 @@
+@import 'styles/mixins/index';
+
+.articleContents {
+  word-break: break-all;
+  overflow: hidden;
+
+  img {
+    max-width: 100% !important;
+  }
+
+  a {
+    color: #337ab7;
+    text-decoration: underline;
+  }
+}
+
+.articleContents__mobile {
+  @extend .articleContents;
+  margin-bottom: 1rem;
+}
+
+.bbsImageList {
+  width: 100%;
+  margin: 0 auto;
+
+  canvas,
+  img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    margin-bottom: 1.4rem;
+  }
+}

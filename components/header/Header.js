@@ -51,7 +51,8 @@ function Header({
                 headerShape === 'orderpayment' ||
                 headerShape === 'shoppingcart' ||
                 headerShape === 'brand' ||
-                headerShape === 'eventmain',
+                headerShape === 'eventmain' ||
+                headerShape === 'BBSArticleView',
             },
             { [css.scrollDown]: scrollDirection === 'down' }
           )}
@@ -66,6 +67,7 @@ function Header({
           headerShape === 'sellerStore' ||
           headerShape === 'brand' ||
           headerShape === 'eventmain' ||
+          headerShape === 'BBSArticleView' ||
           (headerShape === 'address' && urlHistory !== '') ? (
             <button className={css.backButton} onClick={() => Router.back()} />
           ) : null}
@@ -73,7 +75,8 @@ function Header({
           {headerShape === 'detailPage' ||
           headerShape === 'shoppingcart' ||
           headerShape === 'orderpayment' ||
-          headerShape === 'ordersuccess' ? null : (
+          headerShape === 'ordersuccess' ||
+          headerShape === 'BBSArticleView' ? null : (
             <button
               className={css.menuButton}
               onClick={() => setIsMenuVisible(true)}
