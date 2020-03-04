@@ -87,16 +87,13 @@ export default class ShoppingCartStore {
 
   @action
   globalGetUserShoppingCartList = () => {
-    API.order
-      .get(`/cart`)
+    API.gateway
+      .get(`/common/heaser/summary`)
       .then(res => {
-        let data = res.data;
-        this.cartList = data?.data?.cartItemResponseList;
-        this.cartAmount = this.cartList.length;
+        this.cartAmount = res.data.data.cartCount;
       })
       .catch(err => {
         console.error(err);
-        this.cartAmount = 0;
       });
   };
   //--------------------- 장바구니 실시간 인기 상품 가져오기 ---------------------
@@ -567,7 +564,6 @@ export default class ShoppingCartStore {
       .post(`/cart/removeCartItem?cartItemIdList=${selectIdList}`)
       .then(res => {
         this.getUserShoppingCartList();
-        this.globalGetUserShoppingCartList();
       });
   };
   //--------------------- 장바구니 아이템 즉시구매하기 ---------------------
