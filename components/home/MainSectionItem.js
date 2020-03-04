@@ -72,7 +72,7 @@ function MainSectionItem({
                           key={item.dealId}
                         >
                           <a>
-                            <SectionItem item={item} />
+                            <SectionItem item={item} Shape={'main'} />
                           </a>
                         </LinkRoute>
                       );
