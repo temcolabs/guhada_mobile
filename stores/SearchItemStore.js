@@ -149,7 +149,6 @@ export default class SearchItemStore {
   getTreeDataForFilter = () => {
     API.search.get('/ps/search/all').then(res => {
       let data = res.data;
-
       if (data.resultCode === 200) {
         this.treeDataForFilter = data.data.categories;
       }

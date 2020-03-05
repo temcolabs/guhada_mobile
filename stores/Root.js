@@ -59,7 +59,7 @@ import CardInterestStore from './CardInterestStore';
 import EventMainStore from './event/EventMainStore';
 import LuckyDrawStore from './event/LuckyDrawStore';
 import EventPopupStore from './event/EventPopupStore';
-
+import TimeDealStore from './event/TimeDealStore';
 //기획전
 import SpecialStore from './event/SpecialStore';
 import SearchPlaceholderStore from './home/SearchPlaceholderStore';
@@ -168,6 +168,7 @@ class RootStore {
     this.eventmain = new EventMainStore(this, initialState);
     this.luckyDraw = new LuckyDrawStore(this, initialState);
     this.eventpopup = new EventPopupStore(this, initialState);
+    this.timedeal = new TimeDealStore(this, initialState);
 
     //기획전
     this.special = new SpecialStore(this, initialState);

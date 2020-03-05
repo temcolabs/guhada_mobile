@@ -10,11 +10,11 @@ import TimeDealItem from 'components/home/TimeDealItem';
 
 @withScrollToTopOnMount
 @withRouter
-@inject('main', 'searchitem')
+@inject('main', 'searchitem', 'timedeal')
 @observer
 class TimeDeal extends Component {
   render() {
-    const { main } = this.props;
+    const { main, timedeal } = this.props;
     return (
       <DefaultLayout title={null} topLayout={'main'}>
         <CategorySlider
@@ -30,7 +30,7 @@ class TimeDeal extends Component {
               }/images/background/timedeal/time_deal_bg_mobile.png)`,
             }}
           >
-            {main.timeDeal.map((deal, index) => {
+            {timedeal.timeDeal.map((deal, index) => {
               return (
                 <div key={index}>
                   <TimeDealItem deal={deal} />
