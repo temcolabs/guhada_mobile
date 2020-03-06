@@ -176,7 +176,7 @@ export default function ShippingReturn({
           <div className={css.numberItem}>4.</div>
           <div>
             구매자의 사용 또는 일부 소비에 의하여 상품의 가치가 현저히 감소한
-            우, (라벨이 떨어진 의류 또는 태그가 떨어진 상품인 경우)
+            경우, (라벨이 떨어진 의류 또는 태그가 떨어진 상품인 경우)
           </div>
         </div>
         <div className={css.numberWrap}>
