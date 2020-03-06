@@ -43,7 +43,7 @@ export default class MypageReviewStore {
   constructor(root) {
     if (isBrowser) {
       this.root = root;
-      this.root.productreview.getProductReviewPoint();
+      // this.root.productreview.getProductReviewPoint();
     }
   }
 
@@ -128,7 +128,6 @@ export default class MypageReviewStore {
         this.orderItemList = this.orderItemList.concat(
           res.data?.data?.orderItemList
         );
-        console.log('this.availableReview', this.availableReview);
       })
       .catch(e => {
         this.availableReview = [];

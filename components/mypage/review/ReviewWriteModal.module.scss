@@ -297,12 +297,14 @@
   display: inline-block;
   font-size: 13px;
   font-weight: normal;
-  color: #444444;
+  color: #444;
   background: url('/static/icon/community_icon_photo.png') no-repeat center;
   background-position-x: left;
   background-size: 21px 18px;
   width: auto;
   padding-left: 29px;
+  height: 20px;
+  line-height: 20px;
 }
 
 .textareaLength {
@@ -311,7 +313,7 @@
   font-weight: normal;
   line-height: 50px;
   text-align: right;
-  color: #444444;
+  color: #444;
 
   span {
     color: #5d2ed1;
