@@ -125,7 +125,8 @@ export default class SearchItemStore {
       query.shippingCondition,
       query.minPrice,
       query.maxPrice,
-      this.root.seller.sellerId
+      this.root.seller.sellerId,
+      this.root.special.eventId
     );
   };
   @action
@@ -148,7 +149,6 @@ export default class SearchItemStore {
   getTreeDataForFilter = () => {
     API.search.get('/ps/search/all').then(res => {
       let data = res.data;
-
       if (data.resultCode === 200) {
         this.treeDataForFilter = data.data.categories;
       }
@@ -269,7 +269,8 @@ export default class SearchItemStore {
     shippingCondition = 'ANY',
     minPrice = 0,
     maxPrice = 0,
-    sellerIds = ''
+    sellerIds = '',
+    eventIds = ''
   ) => {
     this.itemEmpty = false;
 
@@ -379,6 +380,7 @@ export default class SearchItemStore {
               minPrice: minPrice,
               maxPrice: maxPrice,
               sellerIds: sellerIds === '' ? null : [sellerIds],
+              eventIds: eventIds === '' ? null : [eventIds],
             }
           )
           .then(res => {
@@ -786,10 +788,10 @@ export default class SearchItemStore {
   @action
   clearFilter = () => {
     this.initFilter();
-    this.toSearch({ resultKeyword: '', sellerIds: this.root.seller.sellerId });
+    this.toSearch({ resultKeyword: '' });
   };
   @action
-  searchFilter = (sellerId = '') => {
+  searchFilter = () => {
     let brandList = [];
     let filterList = [];
     let category;
@@ -874,7 +876,8 @@ export default class SearchItemStore {
       shippingCondition: this.shippingCondition,
       minPrice: this.minPrice,
       maxPrice: this.maxPrice,
-      sellerIds: sellerId,
+      sellerIds: this.root.seller.sellerId || '',
+      eventIds: this.root.special.eventId || '',
     });
   };
 
@@ -905,7 +908,7 @@ export default class SearchItemStore {
     if (idx > -1) {
       this.filterBrand.splice(idx, 1);
     } else {
-      this.filterBrand.push(brand);
+      this.filterBrand = [...this.filterBrand, brand];
     }
   };
 
@@ -1007,13 +1010,14 @@ export default class SearchItemStore {
     shippingCondition = 'ANY',
     minPrice = '',
     maxPrice = '',
-    sellerIds = '',
+    sellerIds = this.root.seller.sellerId || '',
+    eventIds = this.root.special.eventId || '',
   }) => {
     let query = Router.router.query;
     this.productCondition = productCondition;
     this.shippingCondition = shippingCondition;
 
-    if (sellerIds === '') {
+    if (sellerIds === '' && eventIds === '') {
       pushRoute(
         `/search?${qs.stringify({
           category: category,
@@ -1034,9 +1038,30 @@ export default class SearchItemStore {
           maxPrice: maxPrice,
         })}`
       );
-    } else {
+    } else if (sellerIds && eventIds === '') {
       pushRoute(
         `/store/${this.root.seller.nickname}?${qs.stringify({
+          category: category,
+          brand: brand,
+          page: page,
+          unitPerPage: unitPerPage,
+          order: order === null || order === '' ? 'DATE' : order,
+          filter: filter,
+          subcategory: subcategory,
+          enter: enter === '' ? query.enter : enter,
+          keyword: keyword === 'empty' ? query.keyword : keyword,
+          resultKeyword: resultKeyword,
+          condition: condition === '' ? query.condition : condition,
+          filtered: filtered,
+          productCondition: this.productCondition,
+          shippingCondition: this.shippingCondition,
+          minPrice: minPrice,
+          maxPrice: maxPrice,
+        })}`
+      );
+    } else if (eventIds && sellerIds === '') {
+      pushRoute(
+        `/event/special/${this.root.special.eventId}?${qs.stringify({
           category: category,
           brand: brand,
           page: page,

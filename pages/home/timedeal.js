@@ -4,19 +4,19 @@ import LoadingPortal from 'components/common/loading/Loading';
 import { observer, inject } from 'mobx-react';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
 
-@inject('main')
+@inject('timedeal')
 @observer
 class timedeal extends Component {
   componentDidMount() {
-    const { main } = this.props;
-    main.getTimeDeal();
+    const { timedeal } = this.props;
+    timedeal.getTimeDeal();
   }
   render() {
-    const { main } = this.props;
+    const { timedeal } = this.props;
     return (
       <>
         <HeadForSEO pageName="타임딜" />
-        <div>{main.timeDealStatus ? <TimeDeal /> : <LoadingPortal />}</div>
+        <div>{timedeal.timeDealStatus ? <TimeDeal /> : <LoadingPortal />}</div>
       </>
     );
   }

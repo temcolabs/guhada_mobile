@@ -1,4 +1,4 @@
-import { observable, action } from 'mobx';
+import { observable, action, toJS } from 'mobx';
 import { searchCategoryName, getCategory } from '../utils';
 import API from 'childs/lib/API';
 
@@ -22,21 +22,22 @@ export default class CategoryStore {
   };
 
   @action setCategory = category => {
+    this.category = [];
     this.category = category;
   };
 
   @action
   getCategory() {
-    this.category = [];
-
-    API.search
-      .get('/ps/search/all')
-      .then(res => {
-        this.setCategory(res.data.data.categories);
-      })
-      .catch(e => {
-        console.error(e);
-      });
+    if (this.category.length === 0) {
+      API.search
+        .get('/ps/search/all')
+        .then(res => {
+          this.setCategory(res.data.data.categories);
+        })
+        .catch(e => {
+          console.error(e);
+        });
+    }
   }
 
   @action
@@ -58,18 +59,18 @@ export default class CategoryStore {
   @action
   returnCategory = id => {
     this.categoryList = [];
-
-    if (this.category.length === 0) {
-      API.search
-        .get('/ps/search/all')
-        .then(res => {
-          this.categoryList = getCategory(res.data.data.categories, id);
-        })
-        .catch(e => {
-          console.error(e);
-        });
-    } else {
-      this.categoryList = getCategory(this.category, id);
-    }
+    // if (this.category.length === 0) {
+    //   API.search
+    //     .get('/ps/search/all')
+    //     .then(res => {
+    //       this.categoryList = getCategory(res.data.data.categories, id);
+    //       this.setCategory(res.data.data.categories);
+    //     })
+    //     .catch(e => {
+    //       console.error(e);
+    //     });
+    // } else {
+    this.categoryList = getCategory(this.category, id);
+    // }
   };
 }

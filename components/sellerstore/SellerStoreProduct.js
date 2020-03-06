@@ -37,9 +37,7 @@ function SellerStoreProduct({
   }
 
   const handleMoreItemBtn =
-    seller.countOfDeals / (seller.unitPerPage * seller.page) <= 1
-      ? false
-      : true;
+    countOfDeals / (seller.unitPerPage * seller.page) <= 1 ? false : true;
 
   return useObserver(() => (
     <>

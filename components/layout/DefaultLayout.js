@@ -71,7 +71,9 @@ class DefaultLayout extends Component {
     this.shoppingCartAmountCheck();
     const { category, brands } = this.props;
 
-    if (!isTruthy(category.category)) category.getCategory();
+    if (!isTruthy(category.category)) {
+      category.getCategory();
+    }
   }
 
   shoppingCartAmountCheck = () => {

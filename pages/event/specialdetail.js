@@ -9,8 +9,8 @@ import Router from 'next/router';
 import _ from 'lodash';
 import moment from 'moment';
 import { dateFormat } from 'childs/lib/constant';
-
-@inject('special')
+import { isBrowser } from 'childs/lib/common/isServer';
+@inject('special', 'searchitem')
 @observer
 class specialdetail extends Component {
   static async getInitialProps({ req }) {
@@ -19,6 +19,8 @@ class specialdetail extends Component {
       const { data } = await API.settle.get(`/plan/list/detail?`, {
         params: {
           eventId,
+          page: 1,
+          searchProgress: 'DATE',
         },
       });
       const specialDetail = data.data;
@@ -51,18 +53,35 @@ class specialdetail extends Component {
   }
 
   componentDidMount() {
-    const url = document.location.href;
-    const id = url.substr(url.lastIndexOf('/') + 1);
+    const { special } = this.props;
+    const query = Router.router.query;
+    if (isBrowser) {
+      special.eventId = query.id;
+      special.getSpecialDetail({ id: query.id });
+      special.getSpecialDeal();
+    }
+  }
 
-    this.props.special.getSpecialDetail({ id });
-    window.addEventListener('scroll', this.props.special.listenToScroll);
+  componentDidUpdate(prevProps, prevState) {
+    const query = Router.router;
+    if (!_.isEqual(prevProps.searchitem.preUrl, query.asPath)) {
+      const { special } = this.props;
+      const category = Router.router.query.category;
+      if (category === undefined) {
+        special.toSearch({ eventIds: query.router.id });
+      }
+      if (isBrowser) {
+        special.getSpecialDeal();
+      }
+    }
   }
 
   componentWillUnmount() {
-    window.addEventListener('scroll', this.props.special.listenToScroll);
+    const { special } = this.props;
+    special.eventId = '';
   }
   render() {
-    const { special, headData } = this.props;
+    const { searchitem, headData } = this.props;
 
     return (
       <>
@@ -72,7 +91,15 @@ class specialdetail extends Component {
           image={headData?.image}
         />
         <div>
-          {special.status.detailPage ? <SpecialDetail /> : <LoadingPortal />}
+          {searchitem.itemStatus ? (
+            <SpecialDetail
+              searchitem={searchitem}
+              items={searchitem.deals}
+              countOfDeals={searchitem.countOfDeals}
+            />
+          ) : (
+            <LoadingPortal />
+          )}
         </div>
       </>
     );

@@ -5,8 +5,6 @@ import { inject } from 'mobx-react';
 import { useObserver } from 'mobx-react-lite';
 import { compose } from 'lodash/fp';
 import { withRouter } from 'next/router';
-import isTruthy from 'childs/lib/common/isTruthy';
-import { getCategory, searchChildrenCheck } from 'utils';
 import { toJS } from 'mobx';
 import FilterBrand from './FilterBrand';
 const enhancer = compose(withRouter);

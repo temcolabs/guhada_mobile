@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import css from './SellerStoreHeader.module.scss';
 import cn from 'classnames';
 import { loginStatus } from 'childs/lib/constant';
@@ -122,19 +122,23 @@ export default function SellerStoreHeader({
             >{`불만족 ${sellerStore.badSatisfactionCount.toLocaleString()}명`}</div>
           </div>
         </div>
-        <div className={css.offlineStoreHeader}>오프라인 스토어</div>
-        <div
-          className={css.offlineStoreAddress}
-          onClick={() => {
-            setTab('info');
-            setTimeout(() => {
-              window.scrollTo(0, document.body.scrollHeight);
-            }, 100);
-          }}
-        >
-          {sellerStore.offlineStoreAddress}
-          <div className={css.offlineStoreAddressIcon} />
-        </div>
+        {sellerStore.offlineStoreAddress ? (
+          <Fragment>
+            <div className={css.offlineStoreHeader}>오프라인 스토어</div>
+            <div
+              className={css.offlineStoreAddress}
+              onClick={() => {
+                setTab('info');
+                setTimeout(() => {
+                  window.scrollTo(0, document.body.scrollHeight);
+                }, 100);
+              }}
+            >
+              {sellerStore.offlineStoreAddress}
+              <div className={css.offlineStoreAddressIcon} />
+            </div>
+          </Fragment>
+        ) : null}
       </div>
     </div>
   ));

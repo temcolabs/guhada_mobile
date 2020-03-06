@@ -8,8 +8,6 @@ export default class MainStore {
   @observable hits = [];
   @observable navDealId = 0;
   @observable hotKeyword = [];
-  @observable timeDeal = [];
-  @observable timeDealStatus = false;
   @observable bannerInfo = [];
   @observable bestReview = [];
   // constructor() {
@@ -17,7 +15,6 @@ export default class MainStore {
   //   this.getNewArrivals();
   //   this.getHits();
   //   this.getHotKeyword();
-  //   this.getTimeDeal();
   //   this.getMainBannner();
   //   this.getBestReview();
   // }
@@ -75,15 +72,6 @@ export default class MainStore {
   getHotKeyword = () => {
     API.product.get('/main-home/hot-keyword', {}).then(res => {
       this.hotKeyword = res.data.data;
-    });
-  };
-
-  @action
-  getTimeDeal = () => {
-    this.timeDealStatus = false;
-    API.product.get(`/time-deals`).then(res => {
-      this.timeDeal = res.data.data;
-      this.timeDealStatus = true;
     });
   };
 

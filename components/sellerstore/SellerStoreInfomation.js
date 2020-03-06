@@ -41,7 +41,7 @@ export default function SellerStoreInfomation({ sellerStore }) {
               return (
                 <tr key={i}>
                   <td className={css.tableHeader}>{item.label}</td>
-                  <td className={css.tableValue}>{item.value}</td>
+                  <td className={css.tableValue}>{item.value || ''}</td>
                 </tr>
               );
             })}
@@ -54,7 +54,7 @@ export default function SellerStoreInfomation({ sellerStore }) {
           <SellerStoreMap address={sellerStore.offlineStoreAddressForMap} />
         </div>
         <div className={css.infoStoreAddress}>
-          {sellerStore.offlineStoreAddress}
+          {sellerStore.offlineStoreAddress || ''}
         </div>
         {_.isNil(sellerStore.businessHours) === false && (
           <div className={css.infoStoreTime}>{sellerStore.businessHours}</div>

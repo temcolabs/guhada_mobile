@@ -54,7 +54,7 @@ const SellerStore = enhancer(
               isVisible={isFilterVisible}
               onClose={() => setIsFilterVisible(false)}
               filters={searchitem.filterData}
-              sellerId={seller.sellerId}
+              // sellerId={seller.sellerId}
             />
           )}
         </DefaultLayout>

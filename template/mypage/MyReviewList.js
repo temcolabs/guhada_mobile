@@ -7,7 +7,7 @@ import ReviewModify from 'components/mypage/review/ReviewModify';
 import withReviewModal from 'components/mypage/review/withReviewModal';
 
 @withReviewModal
-@inject('mypagereview', 'mypagePoint')
+@inject('mypagereview', 'mypagePoint', 'productreview')
 @observer
 class MyReviewList extends Component {
   // write, modify
@@ -22,9 +22,11 @@ class MyReviewList extends Component {
   };
 
   componentDidMount() {
-    const { mypagereview } = this.props;
+    const { mypagereview, productreview } = this.props;
     mypagereview.getAvailableReview(1); // 작성 가능한 리뷰
     mypagereview.getMyReviews(); // 작성한 리뷰
+
+    productreview.getProductReviewPoint();
   }
 
   render() {
