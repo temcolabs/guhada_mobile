@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import useStores from 'stores/useStores';
 import SellerReviewItem from './SellerReviewItem';
 import MoreButton from 'components/common/MoreButton';
-import SellerReviewEmpty from 'components/productdetail/SellerReview/SellerReviewEmpty';
+import SellerReviewEmpty from './SellerReviewEmpty';
 import { observer } from 'mobx-react';
 
 const SellerStoreReview = observer(() => {
@@ -33,7 +33,7 @@ const SellerStoreReview = observer(() => {
           )}
         </>
       ) : (
-        <SellerReviewEmpty maximumPoint={sellerReview.maximumPoint} />
+        <SellerReviewEmpty />
       )}
     </div>
   );
