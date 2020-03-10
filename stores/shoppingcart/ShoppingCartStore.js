@@ -88,7 +88,7 @@ export default class ShoppingCartStore {
   @action
   globalGetUserShoppingCartList = () => {
     API.gateway
-      .get(`/common/heaser/summary`)
+      .get(`/common/header/summary`)
       .then(res => {
         this.cartAmount = res.data.data.cartCount;
       })
