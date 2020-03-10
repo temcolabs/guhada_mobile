@@ -22,7 +22,7 @@ export default class SellerReviewStore {
   @observable textPoint = 0;
   @observable maximumPoint = 0;
   @observable sellerId;
-
+  @observable totalElements = 0;
   @action
   setReviewTab = (tab, rating = '') => {
     if (tab !== 'all') {
@@ -75,7 +75,7 @@ export default class SellerReviewStore {
   @observable unitPerPage = 5;
 
   @action
-  getProductReview = (reviewPage = '0') => {
+  getProductReview = (reviewPage = 0) => {
     this.reviewPage = 0;
 
     API.user
@@ -93,10 +93,37 @@ export default class SellerReviewStore {
 
         if (data.resultCode === 200) {
           this.review = data.data;
+          this.totalElements = data.data.totalElements;
         }
 
         if (this.root.login.loginStatus === 'LOGIN_DONE')
           this.getProductReviewBookmarks();
+      })
+      .catch(e => {
+        this.review = [];
+      });
+  };
+
+  @action
+  getMoreReview = () => {
+    this.reviewPage += 1;
+    API.user
+      .get(`/reviews`, {
+        params: {
+          sellerId: this.sellerId,
+          page: this.reviewPage,
+          size: this.unitPerPage,
+          sort: this.sort,
+          rating: this.rating,
+        },
+      })
+      .then(res => {
+        let temp = this.review;
+        let data = res.data;
+
+        temp.content = this.review.content.concat(data.data.content);
+        this.review = temp;
+        this.totalElements = data.data.totalElements;
       })
       .catch(e => {
         this.review = [];

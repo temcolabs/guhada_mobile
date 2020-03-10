@@ -6,7 +6,7 @@ export default function SellerReviewEmpty({ alert, sellerReview }) {
     <div className={css.wrap}>
       <img src="/static/icon/icon_review.png" alt="reviewIcon" />
       <div className={css.bold}>작성된 상품 리뷰가 없습니다.</div>
-      <div>
+      {/* <div>
         첫 상품 리뷰 작성하고{' '}
         <span
           className={css.colored}
@@ -19,7 +19,7 @@ export default function SellerReviewEmpty({ alert, sellerReview }) {
         }
       >
         첫 리뷰 작성하기
-      </button>
+      </button> */}
     </div>
   );
 }

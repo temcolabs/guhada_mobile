@@ -70,15 +70,11 @@ export default class BrandsStore {
   getBrands = brand => {
     API.product.get(`/brands?viewType=GROUP`).then(res => {
       let data = res.data;
-      if (data.resultCode === 200) {
-        this.setBrands(data.data, data.data['ALL']);
-        this.setGroupBrandList(data.data['ALL']);
-        if (brand) {
-          this.getSelectedTitle(brand);
-
-          this.setBrands(data.data, data.data[this.filterId]);
-        }
-      } else {
+      this.setBrands(data.data, data.data['ALL']);
+      this.setGroupBrandList(data.data['ALL']);
+      if (brand) {
+        this.getSelectedTitle(brand);
+        this.setBrands(data.data, data.data[this.filterId]);
       }
     });
   };

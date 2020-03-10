@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
 import loadScript from 'childs/lib/dom/loadScript';
 
 export class SellerStoreMap extends Component {
@@ -23,7 +22,7 @@ export class SellerStoreMap extends Component {
             getcoder.addressSearch(address, function(result, status) {
               if (status === kakao.maps.services.Status.OK) {
                 var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-                console.log('coords', coords);
+                // console.log('coords', coords);
                 var imageSrc = '/static/icon/seller_icon_locationpin.png', // 마커이미지의 주소입니다
                   imageSize = new kakao.maps.Size(32, 48); // 마커이미지의 크기입니다
 

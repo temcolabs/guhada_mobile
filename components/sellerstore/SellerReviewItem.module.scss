@@ -1,0 +1,121 @@
+@import 'styles/mixins/index';
+.wrap {
+  padding: 0px 20px;
+}
+
+.reviewContent {
+  position: relative;
+  padding: 30px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.sellerItemTitleWrap {
+  color: #444;
+  font-size: 13px;
+  display: flex;
+
+  .sellerItemBrand {
+    max-width: 100%;
+    font-weight: bold;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    @include withDivider(8px, 20px);
+  }
+
+  .sellerItemTitle {
+    max-width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
+
+.reviewRatingWrap {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+
+  .reviewProductOption {
+    margin-left: 6px;
+    font-size: 12px;
+    color: #777;
+    display: flex;
+    .itemLabel {
+      @include withDivider(8px, 14px);
+    }
+  }
+}
+
+.reviewTag {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+
+  .reviewTagItem {
+    border: 1px solid #eee;
+    border-radius: 11px;
+    font-size: 12px;
+    padding: 5px 6px;
+    margin-left: 5px;
+    display: flex;
+    align-items: center;
+    font-size: 11px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+    .itemLabel {
+      color: #444;
+      white-space: nowrap;
+      @include withDivider();
+    }
+
+    .itemValue {
+      color: #5d2ed1;
+    }
+  }
+}
+
+.reviewInfo {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0 0;
+  div {
+    .reviewText {
+      color: #444;
+      font-size: 13px;
+    }
+
+    .reviewBottom {
+      margin-top: 20px;
+      font-size: 12px;
+      @include clearfix;
+      display: flex;
+      .reviewLikeWrap {
+        color: #777;
+        @include withDivider(8px, 20px);
+      }
+
+      .sellerReplied {
+        color: #5d2ed1;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        @include withDivider(8px, 20px);
+      }
+
+      .reviewCreateDate {
+        color: #777;
+      }
+    }
+  }
+
+  .photo {
+    margin-left: 16px;
+    min-width: 80px;
+    min-height: 80px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}

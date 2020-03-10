@@ -4,7 +4,7 @@
   padding: 0 20px;
 
   & .item {
-    width: 50%;
+    width: calc(100% / 3);
     float: left;
     border-top: solid 1px #eeeeee;
     font-size: 15px;
@@ -12,6 +12,7 @@
     color: #444444;
     text-align: center;
     line-height: 60px;
+    white-space: nowrap;
     cursor: pointer;
 
     &.selected {
