@@ -55,6 +55,10 @@ class specialdetail extends Component {
   componentDidMount() {
     const { special } = this.props;
     const query = Router.router.query;
+    if (query.category === undefined) {
+      special.toSearch({ eventIds: query.id });
+    }
+
     if (isBrowser) {
       special.eventId = query.id;
       special.getSpecialDetail({ id: query.id });
