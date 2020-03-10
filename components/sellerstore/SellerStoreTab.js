@@ -18,6 +18,12 @@ export default function SellerStoreTab({ tab, setTab = () => {} }) {
         >
           셀러정보
         </div>
+        <div
+          className={cn(css.item, { [css.selected]: tab === 'review' })}
+          onClick={() => setTab('review')}
+        >
+          셀러리뷰
+        </div>
       </div>
     </>
   );

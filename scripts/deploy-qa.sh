@@ -3,7 +3,6 @@ APP_NAME=guhada-mobile-qa
 HOST=52.78.149.242
 USER=ec2-user
 REPOSITORY=git@github.com:temcolabs/guhada_mobile.git
-BRANCH=release
 DEST_REPO=/home/ec2-user/guhada_mobile
 PACKAGE_VERSION=$(cat package.json \
   | grep version \

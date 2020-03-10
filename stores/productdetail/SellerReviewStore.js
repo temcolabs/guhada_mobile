@@ -75,7 +75,7 @@ export default class SellerReviewStore {
   @observable unitPerPage = 5;
 
   @action
-  getProductReview = (reviewPage = '0') => {
+  getProductReview = (reviewPage = 0) => {
     this.reviewPage = 0;
 
     API.user
@@ -97,6 +97,32 @@ export default class SellerReviewStore {
 
         if (this.root.login.loginStatus === 'LOGIN_DONE')
           this.getProductReviewBookmarks();
+      })
+      .catch(e => {
+        this.review = [];
+      });
+  };
+
+  @action
+  getMoreReview = () => {
+    this.reviewPage += 1;
+    API.user
+      .get(`/reviews`, {
+        params: {
+          sellerId: this.sellerId,
+          page: this.reviewPage,
+          size: this.unitPerPage,
+          sort: this.sort,
+          rating: this.rating,
+        },
+      })
+      .then(res => {
+        let temp = this.review;
+        let data = res.data;
+
+        temp.content = this.review.content.concat(data.data.content);
+        this.review = temp;
+        console.log(this.review.content, 'content');
       })
       .catch(e => {
         this.review = [];

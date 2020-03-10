@@ -10,7 +10,8 @@ import SellerStoreInfomation from 'components/sellerstore/SellerStoreInfomation'
 import DefaultLayout from 'components/layout/DefaultLayout';
 import _ from 'lodash';
 import SearchFilter from 'components/search/SearchFilter';
-
+import SellerStoreReview from 'components/sellerstore/SellerStoreReview';
+import Footer from 'components/footer/Footer';
 const enhancer = compose(withRouter);
 
 /**
@@ -46,8 +47,10 @@ const SellerStore = enhancer(
               countOfDeals={searchitem.countOfDeals}
               setIsFilterVisible={setIsFilterVisible}
             />
-          ) : (
+          ) : tab === 'info' ? (
             <SellerStoreInfomation sellerStore={seller.sellerStore} />
+          ) : (
+            <SellerStoreReview />
           )}
           {searchitem.itemStatus && (
             <SearchFilter
@@ -57,6 +60,7 @@ const SellerStore = enhancer(
               // sellerId={seller.sellerId}
             />
           )}
+          <Footer />
         </DefaultLayout>
       </>
     ));
