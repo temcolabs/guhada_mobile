@@ -55,7 +55,9 @@ class specialdetail extends Component {
   componentDidMount() {
     const { special } = this.props;
     const query = Router.router.query;
+
     if (query.category === undefined) {
+      special.getSpecialDetail({ id: query.id });
       special.toSearch({ eventIds: query.id });
     } else {
       if (isBrowser) {
@@ -67,12 +69,13 @@ class specialdetail extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    const { special } = this.props;
     const query = Router.router;
+    special.eventId = query.query.id;
     if (!_.isEqual(prevProps.searchitem.preUrl, query.asPath)) {
-      const { special } = this.props;
       const category = Router.router.query.category;
       if (category === undefined) {
-        special.toSearch({ eventIds: query.router.id });
+        special.toSearch({ eventIds: query.query.id });
       }
       if (isBrowser) {
         special.getSpecialDeal();
