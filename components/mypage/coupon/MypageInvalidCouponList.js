@@ -81,7 +81,7 @@ class MypageInvalidCouponList extends React.Component {
             );
           })
         ) : (
-          <DataEmpty text={'사용 만료 쿠폰이 없습니다.'} PADDING={'50px 0'} />
+          <DataEmpty PADDING={'50px 0'}>사용 만료 쿠폰이 없습니다.</DataEmpty>
         )}
 
         {mypageCoupon.invalidTotalPage > 1 &&

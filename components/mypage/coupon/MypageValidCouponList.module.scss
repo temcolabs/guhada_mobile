@@ -10,6 +10,12 @@
     font-weight: bold;
     color: #111;
   }
+
+  .coupon__expireDueDay {
+    color: #ce2525;
+    font-weight: normal;
+    font-size: 13px;
+  }
   ul {
     @include clearfix;
 
@@ -52,6 +58,7 @@
         }
 
         .coupon__amount {
+          margin-top: 5px;
           font-size: 22px;
           color: #111;
           font-weight: bold;

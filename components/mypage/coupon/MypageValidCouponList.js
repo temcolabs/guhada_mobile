@@ -23,6 +23,9 @@ class MypageValidCouponList extends React.Component {
                       <div className={css.coupon__title}>
                         {data.couponTitle}
                       </div>
+                      <div className={css.coupon__expireDueDay}>{`D-${
+                        data.expireDueDay
+                      }`}</div>
                     </div>
                     <div className={css.coupon__amount}>
                       {data.discountType === 'RATE' ? (
@@ -30,12 +33,12 @@ class MypageValidCouponList extends React.Component {
                           {`${(data.discountRate * 100).toFixed(0)}`}
                           <span>% 할인</span>
                         </div>
-                      ) : (
+                      ) : data.discountPrice > 0 ? (
                         <div>
-                          {`${data.discountPrice.toLocaleString()}`}
+                          {`${data.discountPrice?.toLocaleString()}`}
                           <span>원 할인</span>
                         </div>
-                      )}
+                      ) : null}
                     </div>
 
                     <div className={css.coupon__number}>
@@ -80,7 +83,7 @@ class MypageValidCouponList extends React.Component {
             );
           })
         ) : (
-          <DataEmpty text={'사용 가능 쿠폰이 없습니다.'} PADDING={'50px 0'} />
+          <DataEmpty PADDING={'50px 0'}>사용 가능 쿠폰이 없습니다.</DataEmpty>
         )}
         {mypageCoupon.validTotalPage > 1 &&
         mypageCoupon.validTotalPage > mypageCoupon.validCouponPage ? (

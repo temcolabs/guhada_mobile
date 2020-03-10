@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import css from './DataEmpty.module.scss';
 
 function DataEmpty({ children, MARGINTOP, PADDING }) {
-  console.log(PADDING, 'PADDING');
-
   return (
     <div
       className={css.wrap}
