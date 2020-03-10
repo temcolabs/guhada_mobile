@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import useStores from 'stores/useStores';
 import SellerReviewItem from './SellerReviewItem';
 import MoreButton from 'components/common/MoreButton';
+import SellerReviewEmpty from 'components/productdetail/SellerReview/SellerReviewEmpty';
 import { observer } from 'mobx-react';
 
 const SellerStoreReview = observer(() => {
@@ -23,13 +24,17 @@ const SellerStoreReview = observer(() => {
           {review.content.map((reviewContent, index) => (
             <SellerReviewItem key={index} review={reviewContent} />
           ))}
-          <MoreButton
-            getMoreContent={sellerReview.getMoreReview}
-            // wrapStyle={{ borderTop: '1px solid #eee' }}
-          />
+          {sellerReview.page * sellerReview.unitPerPage >
+          sellerReview.totalElements ? null : (
+            <MoreButton
+              getMoreContent={sellerReview.getMoreReview}
+              // wrapStyle={{ borderTop: '1px solid #eee' }}
+            />
+          )}
         </>
-      ) : // <SellerReviewEmpty maximumPoint={sellerReview.maximumPoint} />
-      null}
+      ) : (
+        <SellerReviewEmpty maximumPoint={sellerReview.maximumPoint} />
+      )}
     </div>
   );
 });

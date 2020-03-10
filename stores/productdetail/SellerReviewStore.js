@@ -22,7 +22,7 @@ export default class SellerReviewStore {
   @observable textPoint = 0;
   @observable maximumPoint = 0;
   @observable sellerId;
-
+  @observable totalElements = 0;
   @action
   setReviewTab = (tab, rating = '') => {
     if (tab !== 'all') {
@@ -93,6 +93,7 @@ export default class SellerReviewStore {
 
         if (data.resultCode === 200) {
           this.review = data.data;
+          this.totalElements = data.data.totalElements;
         }
 
         if (this.root.login.loginStatus === 'LOGIN_DONE')
@@ -122,7 +123,7 @@ export default class SellerReviewStore {
 
         temp.content = this.review.content.concat(data.data.content);
         this.review = temp;
-        console.log(this.review.content, 'content');
+        this.totalElements = data.data.totalElements;
       })
       .catch(e => {
         this.review = [];
