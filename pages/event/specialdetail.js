@@ -76,9 +76,10 @@ class specialdetail extends Component {
       const category = Router.router.query.category;
       if (category === undefined) {
         special.toSearch({ eventIds: query.query.id });
-      }
-      if (isBrowser) {
-        special.getSpecialDeal();
+      } else {
+        if (isBrowser) {
+          special.getSpecialDeal();
+        }
       }
     }
   }
