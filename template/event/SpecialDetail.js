@@ -58,11 +58,29 @@ const SpecialDetail = enhancer(props => {
   }, [special.specialDetail]);
 
   const getOrderDeal = (order, e) => {
+    const { query } = Router.router;
     e.stopPropagation();
     setOrderHover(false);
     setSellerStoreFilter(order);
     special.order = order;
-    searchitem.toSearch({ order: order });
+    searchitem.toSearch({
+      category: query.category,
+      brand: query.brand,
+      page: query.page,
+      order: order,
+      filter: query.filter,
+      subcategory: query.subcategory,
+      enter: query.enter,
+      keyword: query.keyword,
+      resultKeyword: query.resultKeyword,
+      condition: query.condition,
+      productCondition: query.productCondition,
+      shippingCondition: query.shippingCondition,
+      minPrice: query.minPrice,
+      maxPrice: query.maxPrice,
+      sellerIds: '',
+      eventIds: true,
+    });
   };
   // const categoryList = [
   //   { label: '가방', tab: true },

@@ -31,6 +31,7 @@ function SpecialList({ special }) {
           </div>
         ) : null}
 
+        {/* TODO : 기획전 리스트를 보여주는 곳 은 아직 더보기 기능이 개발되지 않음 */}
         {true ? null : (
           <div className={css.moreButton}>
             더 보기
