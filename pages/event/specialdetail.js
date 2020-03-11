@@ -9,8 +9,8 @@ import Router from 'next/router';
 import _ from 'lodash';
 import moment from 'moment';
 import { dateFormat } from 'childs/lib/constant';
-import { isBrowser } from 'childs/lib/common/isServer';
-@inject('special', 'searchitem')
+
+@inject('special')
 @observer
 class specialdetail extends Component {
   static async getInitialProps({ req }) {
@@ -19,8 +19,6 @@ class specialdetail extends Component {
       const { data } = await API.settle.get(`/plan/list/detail?`, {
         params: {
           eventId,
-          page: 1,
-          searchProgress: 'DATE',
         },
       });
       const specialDetail = data.data;
@@ -53,43 +51,18 @@ class specialdetail extends Component {
   }
 
   componentDidMount() {
-    const { special } = this.props;
-    const query = Router.router.query;
+    const url = document.location.href;
+    const id = url.substr(url.lastIndexOf('/') + 1);
 
-    if (query.category === undefined) {
-      special.getSpecialDetail({ id: query.id });
-      special.toSearch({ eventIds: query.id });
-    } else {
-      if (isBrowser) {
-        special.eventId = query.id;
-        special.getSpecialDetail({ id: query.id });
-        special.getSpecialDeal();
-      }
-    }
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    const { special } = this.props;
-    const query = Router.router;
-    special.eventId = query.query.id;
-    if (!_.isEqual(prevProps.searchitem.preUrl, query.asPath)) {
-      const category = Router.router.query.category;
-      if (category === undefined) {
-        special.toSearch({ eventIds: query.query.id });
-      } else {
-        if (isBrowser) {
-          special.getSpecialDeal();
-        }
-      }
-    }
+    this.props.special.getSpecialDetail({ id });
+    window.addEventListener('scroll', this.props.special.listenToScroll);
   }
 
   componentWillUnmount() {
-    const { special } = this.props;
-    special.eventId = '';
+    window.addEventListener('scroll', this.props.special.listenToScroll);
   }
   render() {
-    const { searchitem, headData } = this.props;
+    const { special, headData } = this.props;
 
     return (
       <>
@@ -99,15 +72,7 @@ class specialdetail extends Component {
           image={headData?.image}
         />
         <div>
-          {searchitem.itemStatus ? (
-            <SpecialDetail
-              searchitem={searchitem}
-              items={searchitem.deals}
-              countOfDeals={searchitem.countOfDeals}
-            />
-          ) : (
-            <LoadingPortal />
-          )}
+          {special.status.detailPage ? <SpecialDetail /> : <LoadingPortal />}
         </div>
       </>
     );
