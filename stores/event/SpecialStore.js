@@ -128,7 +128,7 @@ export default class SpecialStore {
         order: order === null || order === '' ? 'DATE' : order,
         filter: filter,
         subcategory: subcategory,
-        enter: '',
+        enter: 'store',
         keyword: keyword,
         resultKeyword: resultKeyword,
         condition: condition === '' ? query.condition : condition,

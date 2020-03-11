@@ -18,6 +18,10 @@ export class MainSlideBanner extends Component {
 
     for (let i = 0; i < imageLength; i++) {
       li[i].style.width = `calc((100% - 38px) / ${imageLength})`;
+      if (imageFile[i].link.indexOf('/special')) {
+        let eventIds = imageFile[i].link.replace(/[^0-9]/g, '');
+        imageFile[i].eventIds = eventIds;
+      }
     }
   }
 
@@ -49,11 +53,13 @@ export class MainSlideBanner extends Component {
                 <img
                   className={css.dummyImage}
                   src={image.mobileImageUrl}
-                  onClick={() => {
-                    pushRoute(image.link);
-                  }}
                   key={index}
                   alt={`banner${index}`}
+                  onClick={
+                    image.eventIds
+                      ? () => special.toSearch({ eventIds: image.eventIds })
+                      : () => pushRoute(image.link)
+                  }
                 />
               );
             else return null;
