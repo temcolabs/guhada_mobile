@@ -45,6 +45,7 @@ export default class ProductDetailStore {
       .then(res => {
         let data = res.data;
         this.deals = data.data;
+        devLog(data, 'this data');
         this.root.productreview.getProductReviewPoint();
         this.root.productoption.getShipExpenseType();
         this.root.productoption.getOptions();

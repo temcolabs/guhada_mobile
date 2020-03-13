@@ -60,6 +60,7 @@ class ShippingBenefit extends Component {
       cardinterest,
       seller,
     } = this.props;
+    console.log(sellerStore, 'sellerStore');
     const { reviewSummary } = productreview;
     return (
       <div className={css.wrap}>
@@ -177,7 +178,7 @@ class ShippingBenefit extends Component {
           <div>
             <div>
               <div className={css.infoTop}>
-                <div className={css.sellerName}>{deals.sellerName}</div>
+                <div className={css.sellerName}>{sellerStore.nickname}</div>
                 <div>
                   {/* 회원등급 제거 : 추후 추가 예정 */}
                   {/* <div className={css.levelWrap}>

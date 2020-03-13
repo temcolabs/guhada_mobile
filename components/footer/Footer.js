@@ -8,7 +8,7 @@ export default function Footer() {
       <div className={css.footerWrap}>
         <div className={css.tabSection}>
           <div className={css.tabItem}>
-            <a href="mailto:help@guhada.com">입점/제휴문의</a>
+            <a href="mailto:help@mail.guhada.com">입점/제휴문의</a>
           </div>
           <div
             className={css.tabItem}
@@ -77,7 +77,8 @@ export default function Footer() {
             상담가능시간 : 오전 10시 ~ 오후6시 토요일 공휴일 휴무
             <br />
             <span>
-              E-mail : <a href="mailto:help@guhada.com">help@guhada.com</a>
+              E-mail :{' '}
+              <a href="mailto:help@mail.guhada.com">help@mail.guhada.com</a>
             </span>
           </div>
           <div className={css.guhadaItem}>
