@@ -68,6 +68,7 @@ function Header({
           headerShape === 'brand' ||
           headerShape === 'eventmain' ||
           headerShape === 'BBSArticleView' ||
+          headerShape === 'special' ||
           (headerShape === 'address' && urlHistory !== '') ? (
             <button className={css.backButton} onClick={() => Router.back()} />
           ) : null}

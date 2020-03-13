@@ -107,7 +107,7 @@ const BBSArticleView = enhancer(({ router }) => {
       <DefaultLayout
         pageTitle={articleStore.articleCategoryName}
         kakaoChat={false}
-        toolBar={false}
+        toolBar={true}
         headerShape={'BBSArticleView'}
       >
         {/* 게시글 */}

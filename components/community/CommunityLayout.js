@@ -33,7 +33,7 @@ class CommunityLayout extends React.Component {
 
   render() {
     return (
-      <DefaultLayout pageTitle={`커뮤니티`} kakaoChat={false} toolBar={false}>
+      <DefaultLayout pageTitle={`커뮤니티`} kakaoChat={false} toolBar={true}>
         <div className={css.communityMain}>
           <BoardMenus />
           <div className={css.pageAndSidebar}>
