@@ -27,10 +27,10 @@ export default class Form extends MobxReactForm {
             password: {
               function: function(val) {
                 return val.match(
-                  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,15}$/
+                  /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,15}$/
                 );
               },
-              message: '8~15자 영문 대 소문자, 숫자, 특수문자를 사용하세요.',
+              message: '8~15자 영문, 숫자, 특수문자를 사용하세요.',
             },
           };
 
