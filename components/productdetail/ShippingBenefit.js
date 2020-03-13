@@ -60,7 +60,6 @@ class ShippingBenefit extends Component {
       cardinterest,
       seller,
     } = this.props;
-    console.log(sellerStore, 'sellerStore');
     const { reviewSummary } = productreview;
     return (
       <div className={css.wrap}>
@@ -161,7 +160,7 @@ class ShippingBenefit extends Component {
         ) : null}
         <div
           className={css.sellerWrap}
-          onClick={() => seller.toSearch({ nickname: sellerStore.nickname })}
+          onClick={() => seller.toSearch({ nickname: sellerStore?.nickname })}
         >
           <div
             className={css.profile}
@@ -178,7 +177,7 @@ class ShippingBenefit extends Component {
           <div>
             <div>
               <div className={css.infoTop}>
-                <div className={css.sellerName}>{sellerStore.nickname}</div>
+                <div className={css.sellerName}>{sellerStore?.nickname}</div>
                 <div>
                   {/* 회원등급 제거 : 추후 추가 예정 */}
                   {/* <div className={css.levelWrap}>
