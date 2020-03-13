@@ -54,7 +54,8 @@ class Filter extends Component {
       }),
     };
 
-    const { getOrderDeal } = this.props;
+    const { query } = Router.router;
+    const { special } = this.props;
 
     return (
       <Select
@@ -62,7 +63,11 @@ class Filter extends Component {
         placeholder={`신상품순`}
         options={SPECIAL_DETAIL_ORDER}
         onChange={value => {
-          getOrderDeal(value.value);
+          special.getSpecialDetail({
+            id: query.id,
+            page: 1,
+            order: value.value,
+          });
         }}
         isSearchable={false}
       />

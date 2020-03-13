@@ -78,30 +78,8 @@
       justify-content: space-between;
       align-items: center;
 
-      .orderWrap {
-        position: relative;
-        float: left;
-        background-image: url('/static/icon/list_select_arrow_open.png');
-        background-repeat: no-repeat;
-        background-position: right center;
-        background-size: 10px;
-        padding-right: 16px;
-        font-size: 13px;
-        color: #333;
-        margin-right: 20px;
-      }
-
-      .filterWrap {
-        position: relative;
-        min-width: 80px;
-        height: 20px;
-        background: url('/static/icon/fillter_icon.png') no-repeat;
-        background-size: 16px 14px;
-        background-position: right;
-        font-size: 13px;
-        font-weight: 500;
-        color: #333;
-        line-height: 20px;
+      .order {
+        width: 90px;
       }
     }
   }
@@ -109,7 +87,7 @@
   .itemWrap {
     padding: 0 10px;
     margin-top: -30px;
-    margin-bottom: 40px;
+
     a {
       margin-right: 6px;
 
