@@ -16,7 +16,7 @@ class ProductDetailOption extends Component {
     return (
       <div className={css.wrap}>
         <div className={css.title}>옵션선택</div>
-        {productdetail.deals.options.length ? (
+        {productdetail.deals.options.length > 0 ? (
           productoption.options.noOption ? null : (
             <div className={css.option__box}>
               <ProductDetailOptionSelectbox />
