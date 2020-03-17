@@ -1,0 +1,45 @@
+.wrap {
+  position: relative;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  height: calc(100vh);
+  background: transparent;
+  overflow: scroll;
+}
+
+.innerWrap {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  padding: 30px 20px 60px;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  .title {
+    font-size: 16px;
+    font-weight: 500;
+    color: #111;
+  }
+
+  .close {
+    width: 20px;
+    height: 20px;
+    background: url('/static/icon/bag-icon-delete@3x.png') no-repeat;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+  }
+}
+
+.optionBox {
+  margin-top: 20px;
+}
+
+.optionQuantityBox {
+  margin-top: 20px;
+}

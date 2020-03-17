@@ -34,7 +34,6 @@ class ProductOptionSelectbox extends Component {
       option: (provided, state) => ({
         ...provided,
         height: 50,
-
         backgroundColor: state.isFocused ? '#f7f7f8' : '#fff',
         backgroundColor: state.isDisabled ? '#fff' : null,
         display: 'flex',
@@ -47,6 +46,7 @@ class ProductOptionSelectbox extends Component {
       }),
       menu: (provided, state) => ({
         ...provided,
+        position: 'relative',
         margin: '1px 0 0 0',
         borderRadius: 'none',
         border: 'none',

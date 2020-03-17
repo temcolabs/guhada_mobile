@@ -18,6 +18,7 @@ export default class CartAndPurchaseStore {
   }
   @observable associatedProduct = [];
   @observable addCartStatus = false;
+  @observable isProductOptionModal = false;
 
   @action
   addShoppingCart = () => {
@@ -77,9 +78,11 @@ export default class CartAndPurchaseStore {
                   },
                 });
                 this.addCartStatus = false;
+                this.isProductOptionModal = false;
               })
               .catch(() => {
                 this.addCartStatus = false;
+                this.isProductOptionModal = false;
               });
 
             this.root.shoppingcart.globalGetUserShoppingCartList();
@@ -128,11 +131,10 @@ export default class CartAndPurchaseStore {
               sendBackToLogin();
             }
             this.addCartStatus = false;
+            this.isProductOptionModal = false;
           });
       } else {
-        this.root.alert.showAlert({
-          content: '옵션을 선택 해주세요.',
-        });
+        this.isProductOptionModal = true;
       }
     } else {
       sendBackToLogin();
@@ -171,17 +173,17 @@ export default class CartAndPurchaseStore {
 
             this.root.shoppingcart.globalGetUserShoppingCartList();
             this.addCartStatus = false;
+            this.isProductOptionModal = false;
           })
           .catch(err => {
             if (this.root.login.loginStatus === loginStatus.LOGOUT) {
               sendBackToLogin();
             }
             this.addCartStatus = false;
+            this.isProductOptionModal = false;
           });
       } else {
-        this.root.alert.showAlert({
-          content: '옵션 을 선택해주세요.',
-        });
+        this.isProductOptionModal = true;
       }
     } else {
       sendBackToLogin();
