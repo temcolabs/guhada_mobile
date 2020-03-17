@@ -58,9 +58,9 @@ class MypageLikeOptionSelect extends Component {
     return (
       <Select
         styles={selectStyles}
-        placeholder={`${mypageLike.likeItemTempOptions[0].label1 ||
-          ''} ${mypageLike.likeItemTempOptions[0].label2 || ''} ${mypageLike
-          .likeItemTempOptions[0].label3 || ''}  `}
+        placeholder={`${mypageLike.likeItemTempOptions[0]?.label1 ||
+          ''} ${mypageLike.likeItemTempOptions[0]?.label2 || ''} ${mypageLike
+          .likeItemTempOptions[0]?.label3 || ''}  `}
         options={mypageLike.likeItemRealOptions}
         formatOptionLabel={mypageLike.getLabelColor}
         onChange={value => {
