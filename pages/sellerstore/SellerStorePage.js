@@ -34,6 +34,13 @@ class SellerStorePage extends Component {
       seller.getSellerId();
     }
   }
+
+  componentWillUnmount() {
+    const { seller } = this.props;
+    seller.sellerId = '';
+    seller.tabRefTop = '';
+  }
+
   render() {
     const { seller, login, searchitem } = this.props;
     return (

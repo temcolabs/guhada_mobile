@@ -69,12 +69,12 @@ class Benefit extends Component {
             <span> (사용가능 </span>
             <span className={css.myCoupon}>
               {orderpayment.orderCouponInfo?.availableCouponCount
-                ? ` ${orderpayment.orderCouponInfo?.availableCouponCount}`
+                ? ` ${orderpayment.orderCouponInfo?.availableCouponCount || ''}`
                 : ` 0`}
             </span>
             <span>{`장 / 보유 ${
               orderpayment.orderCouponInfo?.savedCouponCount
-                ? orderpayment.orderCouponInfo?.savedCouponCount
+                ? orderpayment.orderCouponInfo?.savedCouponCount || ''
                 : 0
             }장)`}</span>
           </div>
@@ -83,14 +83,14 @@ class Benefit extends Component {
               {orderPaymentBenefit.applyCoupon.applyCouponAmount ? (
                 <div
                   className={css.applyCoupon}
-                >{`${orderPaymentBenefit.applyCoupon.applyDiscount?.toLocaleString()}원 (${
-                  orderPaymentBenefit.applyCoupon.applyCouponAmount
-                }장)`}</div>
+                >{`${orderPaymentBenefit.applyCoupon.applyDiscount?.toLocaleString() ||
+                  '0'}원 (${orderPaymentBenefit.applyCoupon.applyCouponAmount ||
+                  '0'}장)`}</div>
               ) : (
                 <div>
-                  {`${orderpayment.orderCouponInfo?.totalCouponDiscountPrice?.toLocaleString()}원 (${
-                    orderpayment.orderCouponInfo?.selectedCouponCount
-                  }장)`}
+                  {`${orderpayment.orderCouponInfo?.totalCouponDiscountPrice?.toLocaleString() ||
+                    '0'}원 (${orderpayment.orderCouponInfo
+                    ?.selectedCouponCount || '0'}장)`}
                 </div>
               )}
             </div>
