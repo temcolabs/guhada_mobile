@@ -11,7 +11,7 @@ class MypageLikeDashboard extends React.Component {
     return (
       <div className={css.wrap}>
         <div className={css.total}>
-          총 <span>{mypageLike.totalItemsCount}</span>개
+          총 <span>{mypageLike.likeProductList.length}</span>개
         </div>
         <div
           className={css.total__delete}

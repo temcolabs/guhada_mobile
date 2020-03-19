@@ -487,7 +487,13 @@ export default class MypageLikeStore {
           confirmText: '확인',
         });
 
-        this.getLikeList({ pageNo: this.pageNo });
+        let temp = this.likeProductList;
+
+        temp = this.likeProductList.filter((item, idx) => {
+          return item.productId !== id;
+        });
+
+        this.likeProductList = temp;
       })
       .catch(err => {
         console.log(err);
@@ -512,13 +518,14 @@ export default class MypageLikeStore {
           confirmText: '확인',
         });
 
-        this.getLikeList({ pageNo: this.pageNo });
+        this.likeProductList = [];
       })
       .catch(err => {
         console.log(err);
         // this.root.alert.showAlert({
         //   content: `${_.get(err, 'data.message') || 'ERROR'}`,
         // });
+        this.likeProductList = [];
       });
   };
 }

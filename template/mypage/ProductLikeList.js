@@ -2,7 +2,6 @@ import React from 'react';
 import { withRouter } from 'next/router';
 import MypageLayout from 'components/mypage/MypageLayout';
 import MypageLikeDashboard from 'components/mypage/like/MypageLikeDashboard';
-import MypageLikeItem from 'components/mypage/like/MypageLikeItem';
 import { inject, observer } from 'mobx-react';
 import { isBrowser } from 'childs/lib/common/isServer';
 import MypageDataEmpty from 'components/mypage/MypageDataEmpty';
@@ -37,7 +36,7 @@ class ProductLikeList extends React.Component {
         {/* 찜한상품 대시 보드 */}
         <MypageLikeDashboard />
 
-        {mypageLike.totalItemsCount > 0 ? (
+        {mypageLike.likeProductList.length > 0 ? (
           <div className={css.wrap}>
             {mypageLike.likeProductList.map((data, index) => {
               return (

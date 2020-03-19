@@ -16,15 +16,13 @@ import { sendBackToLogin } from 'childs/lib/router';
 )
 @observer
 class ProductDetailName extends Component {
-  getSnapshotBeforeUpdate(prevProps) {
-    return prevProps.productdetail.deals.dealsId
-      ? prevProps.productdetail.deals.dealsId
-      : null;
-  }
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (!snapshot) {
+  componentDidUpdate(prevProps, prevState) {
+    if (!_.isEqual(prevProps.router?.query, this.props.router?.query)) {
       this.props.productDetailBookmark.productBookmarkInit();
     }
+  }
+  componentWillUnmount() {
+    this.props.productDetailBookmark.productBookmarkInit();
   }
   copyUrlToClipboard = () => {
     const productUrl = `${window.location.protocol}//${window.location.host}${
