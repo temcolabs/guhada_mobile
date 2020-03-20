@@ -19,7 +19,6 @@ class PriceFilter extends Component {
 
   componentDidMount() {
     let { query, searchitem } = this.props;
-    console.log('componentDidMount');
     this.setState({
       minPrice: query.minPrice,
       maxPrice: query.maxPrice,
