@@ -15,6 +15,7 @@ class OrderInfo extends Component {
   render() {
     let { orderpaymentsuccess } = this.props;
     let { orderSuccessShipping, successInfo } = orderpaymentsuccess;
+    console.log(successInfo, 'successInfo');
     return (
       <div className={css.wrap}>
         <div className={css.orderInfoSection}>
@@ -91,14 +92,16 @@ class OrderInfo extends Component {
             <div className={css.paymentMethod}>토큰결제</div>
           ) : null}
         </div>
-        <div
-          className={css.accountCopy}
-          onClick={() => {
-            this.copyAccountToClipboard(successInfo.payment.vbankNo);
-          }}
-        >
-          계좌번호 복사
-        </div>
+        {successInfo.payment.parentMethod === 'VBank' ? (
+          <div
+            className={css.accountCopy}
+            onClick={() => {
+              this.copyAccountToClipboard(successInfo.payment.vbankNo);
+            }}
+          >
+            계좌번호 복사
+          </div>
+        ) : null}
       </div>
     );
   }
