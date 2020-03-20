@@ -152,7 +152,6 @@ export default function SlideIn({
   useEffect(() => {
     return () => {
       currentIsViseble = false;
-      console.log(currentIsViseble, 'currentIsViseble');
     };
   }, []);
   if (isBrowser) {
