@@ -2,7 +2,7 @@ import React from 'react';
 import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 import ProductDetailOptionSelectbox from './ProductDetailOptionSelectbox';
 import OptionQuantity from './OptionQuantity';
-// import CartAndPurchaseButton from './CartAndPurchaseButton';
+import CartAndPurchaseButton from './CartAndPurchaseButton';
 import css from './ProductOptionModal.module.scss';
 function ProductOptionModal({ isVisible, onClose, productoption }) {
   return (
@@ -21,6 +21,7 @@ function ProductOptionModal({ isVisible, onClose, productoption }) {
               <OptionQuantity productoption={productoption} />
             </div>
           </div>
+          <CartAndPurchaseButton />
         </div>
       </SlideIn>
     </>

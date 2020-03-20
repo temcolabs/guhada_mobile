@@ -4,6 +4,7 @@
   top: 0;
   bottom: 0;
   left: 0;
+  right: 0;
   height: calc(100vh);
   background: transparent;
   overflow: scroll;
@@ -11,11 +12,11 @@
 
 .innerWrap {
   position: absolute;
-  bottom: 0;
+  bottom: 60px;
   left: 0;
-  width: 100%;
+  right: 0;
   background: #fff;
-  padding: 30px 20px 60px;
+  padding: 30px 20px 90px;
 }
 .header {
   display: flex;
