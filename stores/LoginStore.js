@@ -179,7 +179,7 @@ export default class LoginStore {
 
     // 비밀번호 중복체크 상태 해제
     this.root.user.setPasswordDoubleChecked(false);
-
+    this.root.shoppingcart.cartAmount = 0;
     // 홈 화면으로 이동
     // Router.push(`/`);
   };
