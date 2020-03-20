@@ -47,6 +47,8 @@ class ProductOptionSelectbox extends Component {
       menu: (provided, state) => ({
         ...provided,
         position: 'relative',
+        maxHeight: '200px',
+        overflow: 'auto',
         margin: '1px 0 0 0',
         borderRadius: 'none',
         border: 'none',
