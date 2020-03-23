@@ -172,7 +172,7 @@ export default class OrderPaymentStore {
           this.status.paymentProceed = true;
           console.log(resultMsg, 'resultMsg');
           this.root.alert.showAlert({
-            content: resultMsg || '결제가 취소되었습니다',
+            content: '결제가 취소되었습니다',
             onConfirm: () => {
               this.status.paymentProceed = false;
               sessionStorage.removeItem('paymentInfo');
