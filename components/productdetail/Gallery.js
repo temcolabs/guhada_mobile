@@ -51,7 +51,7 @@ class Gallery extends Component {
                 backgroundImage: `url('/static/icon/bookmark-w-btn-on@3x.png')`,
               }}
             />
-            <p className={css.text}>북마크 완료</p>
+            <p className={css.text}>찜하기 완료</p>
           </div>
         ) : null}
 
@@ -62,7 +62,7 @@ class Gallery extends Component {
                 backgroundImage: `url('/static/icon/bookmark-w-btn-off@3x.png')`,
               }}
             />
-            <p className={css.text}>북마크 해제</p>
+            <p className={css.text}>찜하기 해제</p>
           </div>
         ) : null}
       </div>
