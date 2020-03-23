@@ -12,7 +12,7 @@ import PaymentAgreement from 'components/orderpayment/PaymentAgreement';
 import PaymentButton from 'components/orderpayment/PaymentButton';
 import OtherRequest from 'components/orderpayment/OtherRequest';
 import RefundAccount from 'components/orderpayment/RefundAccount';
-
+import PaymentLoading from 'components/orderpayment/modal/PaymentLoading';
 import { inject, observer } from 'mobx-react';
 import css from './OrderPayment.module.scss';
 
@@ -75,6 +75,8 @@ class OrderPayment extends React.Component {
 
         {/* 결제 버튼 */}
         <PaymentButton />
+
+        <PaymentLoading isVisible={orderpayment.status.paymentProceed} />
       </DefaultLayout>
     );
   }

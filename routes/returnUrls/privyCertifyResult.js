@@ -6,27 +6,20 @@ module.exports = {
   url: '/privyCertifyResult',
 
   handler: function(req, res) {
-    console.log(`process.env.API_ORDER`, process.env.API_ORDER);
-
     const authData = req.body;
     let para = req.url;
-
-    let oid = para.substring(para.indexOf('?') + 1, para.length);
-    console.log(para, oid, authData);
-
+    let oid = para.substring(para.indexOf('?') + 1, para.lastIndexOf('?'));
+    let cartList = para.substring(para.indexOf('=') + 1, para.length);
+    console.log(authData, 'authData');
     if (authData.P_STATUS !== '00') {
-      console.log(authData, ' : authData', authData.P_RMESG1, ' : message');
-
-      if (req.query.cartList && authData.P_RMESG1) {
-        // res.redirect(
-        //   '/orderpayment?cartList=' +
-        //     req.query.cartList +
-        //     '&resultMsg=' +
-        //     authData.P_RMESG1
-        // );
-        res.redirect('/');
+      if (cartList) {
+        res.redirect(
+          '/orderpayment?cartList=' +
+            cartList +
+            '&resultMsg=' +
+            authData.P_RMESG1
+        );
       } else {
-        // res.redirect('/orderpayment?cartList=' + oid);
         res.redirect('/');
       }
 
@@ -62,7 +55,12 @@ module.exports = {
       })
       .catch(err => {
         console.error(`privyCertifyResult err ${err}`);
-        res.redirect('/');
+        res.redirect(
+          '/orderpayment?cartList=' +
+            cartList +
+            '&resultMsg=' +
+            authData.P_RMESG1
+        );
       });
   },
 };
