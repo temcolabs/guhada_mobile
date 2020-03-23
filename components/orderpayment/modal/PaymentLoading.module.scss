@@ -8,4 +8,28 @@
   height: calc(100vh);
   background: #fff;
   overflow: scroll;
+  padding: 60px 20px;
+}
+
+.notice {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 50px);
+  text-align: center;
+
+  div {
+    &:first-child {
+      font-size: 18px;
+      font-weight: normal;
+      color: #5d2ed1;
+    }
+
+    &:nth-child(2) {
+      margin-top: 6px;
+      font-size: 12px;
+      font-weight: normal;
+      color: #777;
+    }
+  }
 }

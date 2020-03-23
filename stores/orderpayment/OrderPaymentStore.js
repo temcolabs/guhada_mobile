@@ -981,14 +981,10 @@ export default class OrderPaymentStore {
       };
     }
     devLog(forms, 'forms');
-    // const query = qs.stringify({
-    //   cartList: cartList,
-    // });
 
     API.order
       .post(`/order/requestOrder`, forms)
       .then(res => {
-        this.status.paymentProceed = true;
         let data = res.data.data;
         const query = qs.stringify({
           cartList: cartList,
@@ -1045,13 +1041,10 @@ export default class OrderPaymentStore {
 
   @action
   paymentStart = () => {
-    // const action = () => {
-    let form = document.getElementById('paymentForm');
-
+    this.status.paymentProceed = true;
     // euc-kr 로 form 전달해야함.
-    // form.P_GOODS.value = encodeURIComponent(form.P_GOODS.value);
-    // form.P_UNAME.value = encodeURIComponent(form.P_UNAME.value);
 
+    let form = document.getElementById('paymentForm');
     form.action = this.paymentForm.jsUrl;
     form.submit();
   };
