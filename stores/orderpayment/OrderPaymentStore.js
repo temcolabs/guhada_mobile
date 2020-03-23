@@ -8,6 +8,8 @@ import { devLog } from 'childs/lib/common/devLog';
 import { pushRoute } from 'childs/lib/router';
 import isEmailString from 'childs/lib/string/isEmailString';
 import accountService from 'childs/lib/API/order/accountService';
+import { getParameterByName } from 'utils';
+import qs from 'qs';
 const isServer = typeof window === 'undefined';
 export default class OrderPaymentStore {
   constructor(root) {
@@ -162,38 +164,41 @@ export default class OrderPaymentStore {
         if (this.orderUserInfo.refundBankAccountNumber) {
           this.status.refundBankAccount = true;
         }
-        // let paymentRemainCheck = JSON.parse(
-        //   sessionStorage.getItem('paymentInfo')
-        // );
+        let paymentRemainCheck = JSON.parse(
+          sessionStorage.getItem('paymentInfo')
+        );
+        let resultMsg = getParameterByName('resultMsg');
+        if (paymentRemainCheck) {
+          this.status.paymentProceed = true;
+          console.log(resultMsg, 'resultMsg');
+          this.root.alert.showAlert({
+            content: resultMsg || '결제가 취소되었습니다',
+            onConfirm: () => {
+              this.status.paymentProceed = false;
+              sessionStorage.removeItem('paymentInfo');
+            },
+          });
+          window.scrollTo(0, paymentRemainCheck.wScroll);
+          if (!paymentRemainCheck.shippingType) {
+            this.status.selectedShipStatus = true;
+            this.orderShippingList.newAddress =
+              paymentRemainCheck.shippingAddress;
 
-        // if (paymentRemainCheck) {
-        //   let resultMsg = getParameterByName('resultMsg');
-        //   this.root.alert.showAlert({
-        //     content: resultMsg || '결제가 취소되었습니다.',
-        //   });
-        //   window.scrollTo(0, paymentRemainCheck.wScroll);
-        //   if (!paymentRemainCheck.shippingType) {
-        //     this.status.selectedShipStatus = true;
-        //     this.orderShippingList.newAddress =
-        //       paymentRemainCheck.shippingAddress;
+            this.orderShippingList.newAddress.shippingMessageType === 'SELF'
+              ? (this.status.newShppingRequestSelfStatus = true)
+              : (this.status.newShppingRequestSelfStatus = false);
 
-        //     this.orderShippingList.newAddress.shippingMessageType === 'SELF'
-        //       ? (this.status.newShppingRequestSelfStatus = true)
-        //       : (this.status.newShppingRequestSelfStatus = false);
+            this.orderShippingList.isAddShippingAddress =
+              paymentRemainCheck.addShippingAddress;
 
-        //     this.orderShippingList.isAddShippingAddress =
-        //       paymentRemainCheck.addShippingAddress;
+            this.orderShippingList.newAddress.defaultAddress =
+              paymentRemainCheck.shippingAddress.defaultAddress;
+          }
 
-        //     this.orderShippingList.newAddress.defaultAddress =
-        //       paymentRemainCheck.shippingAddress.defaultAddress;
-        //   }
-
-        //   this.paymentMethod = paymentRemainCheck.parentMethodCd;
-        //   this.status.orderPaymentAgreement = !this.status
-        //     .orderPaymentAgreement;
-
-        //   sessionStorage.removeItem('paymentInfo');
-        // }
+          this.paymentMethod = paymentRemainCheck.parentMethodCd;
+          this.status.orderPaymentAgreement = !this.status
+            .orderPaymentAgreement;
+        }
         this.status.pageStatus = true;
         window.history.replaceState(
           {},
@@ -976,7 +981,6 @@ export default class OrderPaymentStore {
       };
     }
     devLog(forms, 'forms');
-
     // const query = qs.stringify({
     //   cartList: cartList,
     // });
@@ -986,8 +990,11 @@ export default class OrderPaymentStore {
       .then(res => {
         this.status.paymentProceed = true;
         let data = res.data.data;
-        let returnUrl = `${HOSTNAME}/privyCertifyResult`;
-        let nextUrl = `${HOSTNAME}/privyCertifyResult?${data.pgOid}`;
+        const query = qs.stringify({
+          cartList: cartList,
+        });
+        let returnUrl = `${HOSTNAME}/privyCertifyResult?` + query;
+        let nextUrl = `${HOSTNAME}/privyCertifyResult?${data.pgOid}?` + query;
 
         devLog(nextUrl, 'nextUrl');
 
