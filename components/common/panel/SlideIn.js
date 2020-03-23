@@ -148,12 +148,7 @@ export default function SlideIn({
   zIndex, // css.wrap 클래스에 선언된 SlideIn의 기본 z-index는 201.
   wrapperStyle = {}, // css.wrap 클래스의 스타일을 덮어씌움
 }) {
-  let currentIsViseble = isVisible;
-  useEffect(() => {
-    return () => {
-      currentIsViseble = false;
-    };
-  }, []);
+  
   if (isBrowser) {
     const bodyEl = document.documentElement.getElementsByTagName('body')[0];
 
@@ -168,7 +163,7 @@ export default function SlideIn({
     return ReactDom.createPortal(
       <>
         <Transition
-          in={currentIsViseble}
+          in={isVisible}
           onEnter={animation.onEnter}
           onExit={animation.onExit}
           timeout={DURATION}
@@ -181,7 +176,7 @@ export default function SlideIn({
             );
           }}
         </Transition>
-        <Mask isOpen={currentIsViseble} />
+        <Mask isOpen={isVisible} />
       </>,
       bodyEl
     );
