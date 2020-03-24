@@ -8,7 +8,7 @@ module.exports = {
   handler: function(req, res) {
     const authData = req.body;
     let para = req.url;
-    let oid = para.substring(para.indexOf('?') + 1, para.lastIndexOf('?'));
+    let oid = para.substring(para.indexOf('?') + 1, para.lastIndexOf('&'));
     let cartList = para.substring(para.indexOf('=') + 1, para.length);
     console.log(authData, 'authData');
     if (authData.P_STATUS !== '00') {
