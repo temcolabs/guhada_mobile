@@ -1028,7 +1028,6 @@ export default class OrderPaymentStore {
         };
 
         forms.wScroll = window.scrollY;
-        sessionStorage.setItem('paymentInfo', JSON.stringify(forms));
       })
       .catch(err => {
         devLog(err);
@@ -1042,6 +1041,8 @@ export default class OrderPaymentStore {
   @action
   paymentStart = () => {
     this.status.paymentProceed = true;
+    sessionStorage.setItem('paymentInfo', this.status.paymentProceed);
+
     // euc-kr 로 form 전달해야함.
 
     let form = document.getElementById('paymentForm');
