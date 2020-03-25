@@ -170,9 +170,8 @@ export default class OrderPaymentStore {
         let resultMsg = getParameterByName('resultMsg');
         if (paymentRemainCheck) {
           this.status.paymentProceed = true;
-          console.log(resultMsg, 'resultMsg');
           this.root.alert.showAlert({
-            content: '결제가 취소되었습니다',
+            content: resultMsg || '결제가 취소되었습니다',
             onConfirm: () => {
               this.status.paymentProceed = false;
               sessionStorage.removeItem('paymentInfo');
@@ -195,7 +194,7 @@ export default class OrderPaymentStore {
           //     paymentRemainCheck.shippingAddress.defaultAddress;
           // }
 
-          this.paymentMethod = paymentRemainCheck.parentMethodCd;
+          // this.paymentMethod = paymentRemainCheck.parentMethodCd;
           this.status.orderPaymentAgreement = !this.status
             .orderPaymentAgreement;
         }
