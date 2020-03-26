@@ -47,14 +47,15 @@ export default function SectionItem({
   return (
     <div className={css.wrap}>
       <div className={css.imageWrap}>
-        {(item.freeShipping === true || item.freeShipping === 'FREE') &&
-        Shape === 'main' ? null : (
-          <div className={css.freeShipping}>
-            무료
-            <br />
-            배송
-          </div>
-        )}
+        {item.freeShipping === true || item.freeShipping === 'FREE' ? (
+          Shape === 'main' ? null : (
+            <div className={css.shipping}>
+              무료
+              <br />
+              배송
+            </div>
+          )
+        ) : null}
         <LazyLoad>
           <img src={item.productImage.url} alt={item.productImage.name} />
         </LazyLoad>
