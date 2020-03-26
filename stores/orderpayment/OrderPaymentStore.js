@@ -195,7 +195,7 @@ export default class OrderPaymentStore {
           //     paymentRemainCheck.shippingAddress.defaultAddress;
           // }
 
-          this.paymentMethod = paymentRemainCheck.parentMethodCd;
+          // this.paymentMethod = paymentRemainCheck.parentMethodCd;
           this.status.orderPaymentAgreement = !this.status
             .orderPaymentAgreement;
         }
