@@ -167,12 +167,11 @@ export default class OrderPaymentStore {
         let paymentRemainCheck = JSON.parse(
           sessionStorage.getItem('paymentInfo')
         );
-        let resultMsg = getParameterByName('resultMsg');
         if (paymentRemainCheck) {
           this.status.paymentProceed = true;
-          console.log(resultMsg, 'resultMsg');
+          let resultMsg = getParameterByName('resultMsg');
           this.root.alert.showAlert({
-            content: '결제가 취소되었습니다',
+            content: resultMsg || '결제가 취소되었습니다',
             onConfirm: () => {
               this.status.paymentProceed = false;
               sessionStorage.removeItem('paymentInfo');
