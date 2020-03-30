@@ -12,7 +12,7 @@ PACKAGE_VERSION=$(cat package.json \
   | sed 's/[",]//g')
 
 RELEASE_VERSION=$(echo "release/${PACKAGE_VERSION}" | tr -d ' ')
-WINDOW_RELEASE_VERSION="release/v1.22.0"
+WINDOW_RELEASE_VERSION="release/v1.23.0"
 if [ $RELEASE_VERSION = "release/" ]
 then
   RELEASE_VERSION=${WINDOW_RELEASE_VERSION}
