@@ -47,9 +47,9 @@ export default function SectionItem({
   return (
     <div className={css.wrap}>
       <div className={css.imageWrap}>
-        {item.freeShipping === true || item.freeShipping === 'FREE' ? (
+        {item.freeShipping === true || item.freeShippingText === 'FREE' ? (
           Shape === 'main' ? null : (
-            <div className={css.shipping}>
+            <div className={css.freeShipping}>
               무료
               <br />
               배송
