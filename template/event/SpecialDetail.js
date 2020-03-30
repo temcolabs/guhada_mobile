@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import useStores from 'stores/useStores';
 import { inject } from 'mobx-react';
 import css from './SpecialDetail.module.scss';
 import DefaultLayout from 'components/layout/DefaultLayout';
@@ -7,11 +8,30 @@ import SectionItem from 'components/home/SectionItem';
 import { LinkRoute } from 'childs/lib/router';
 import Router from 'next/router';
 import copy from 'copy-to-clipboard';
-import DetailFilter from 'components/event/special/DetailFilter';
+import Order from 'components/event/special/Order';
 import { useObserver } from 'mobx-react-lite';
-
+import { withRouter } from 'next/router';
+import { compose } from 'lodash/fp';
 import moment from 'moment';
-function SpecialDetail({ special, alert }) {
+import SearchFilter from 'components/search/SearchFilter';
+import SearchFilterResult from 'components/search/SearchFilterResult';
+import MoreButton from 'components/common/MoreButton';
+import DataEmpty from 'components/common/DataEmpty';
+const enhancer = compose(withRouter);
+
+const SpecialDetail = enhancer(props => {
+  const { special, alert, searchitem } = useStores();
+
+  const [orderHover, setOrderHover] = useState(false);
+  const orderList = [
+    { label: '신상품순', value: 'DATE' },
+    { label: '평점순', value: 'SCORE' },
+    { label: '낮은가격순', value: 'PRICE_ASC' },
+    { label: '높은가격순', value: 'PRICE_DESC' },
+  ];
+  const orderLabel = orderList.map(order => {
+    return order.value === special.order ? order.label : '';
+  });
   const copyUrlToClipboard = () => {
     const productUrl = `${window.location.protocol}//${window.location.host}${
       Router.router.asPath
@@ -21,7 +41,8 @@ function SpecialDetail({ special, alert }) {
 
     alert.showAlert('상품 URL이 클립보드에 복사되었습니다.');
   };
-
+  const [isFilterVisible, setIsFilterVisible] = useState(false);
+  const [sellerStoreFilter, setSellerStoreFilter] = useState('DATE');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
 
@@ -37,6 +58,31 @@ function SpecialDetail({ special, alert }) {
       : setEndDate(null);
   }, [special.specialDetail]);
 
+  const getOrderDeal = (order, e) => {
+    const { query } = Router.router;
+    e.stopPropagation();
+    setOrderHover(false);
+    setSellerStoreFilter(order);
+    special.order = order;
+    searchitem.toSearch({
+      category: query.category,
+      brand: query.brand,
+      page: query.page,
+      order: order,
+      filter: query.filter,
+      subcategory: query.subcategory,
+      enter: query.enter,
+      keyword: query.keyword,
+      resultKeyword: query.resultKeyword,
+      condition: query.condition,
+      productCondition: query.productCondition,
+      shippingCondition: query.shippingCondition,
+      minPrice: query.minPrice,
+      maxPrice: query.maxPrice,
+      sellerIds: '',
+      eventIds: true,
+    });
+  };
   // const categoryList = [
   //   { label: '가방', tab: true },
   //   { label: '지갑', tab: false },
@@ -51,7 +97,10 @@ function SpecialDetail({ special, alert }) {
   //     }
   //   }
   // };
-
+  const handleMoreItemBtn =
+    props.countOfDeals / (special.unitPerPage * searchitem.dealsPage) <= 1
+      ? false
+      : true;
   return useObserver(() => (
     <DefaultLayout headerShape={'eventmain'} pageTitle={'기획전'}>
       <div className={css.wrap}>
@@ -94,38 +143,67 @@ function SpecialDetail({ special, alert }) {
           <div className={css.itemTitle}>기획전 ITEM</div>
 
           <div className={css.dashBoard}>
-            <div className={css.totalCount}>
-              총
-              {special.totalItemCount !== undefined
-                ? Number(special.totalItemCount)
-                : 0}
-              개
+            <div className={css.orderWrap} onClick={() => setOrderHover(true)}>
+              {orderLabel}
+              <Order
+                isVisible={orderHover}
+                onClose={() => setOrderHover(false)}
+                getOrderDeal={getOrderDeal}
+                sellerStoreFilter={special.order}
+              />
             </div>
-            <div className={css.orderWrap}>
-              <div className={css.order}>
-                <DetailFilter />
-              </div>
+            <div
+              className={css.filterWrap}
+              onClick={e => {
+                setIsFilterVisible(true);
+              }}
+            >
+              상세검색
             </div>
           </div>
-
+          <SearchFilterResult />
           <div className={css.itemWrap}>
-            {special.specialDetailList?.map((data, index) => {
-              return (
-                <LinkRoute
-                  href={`/productdetail?deals=${data.dealId}`}
-                  key={index}
-                >
-                  <a>
-                    <SectionItem item={data} />
-                  </a>
-                </LinkRoute>
-              );
-            })}
+            {props.items.length > 0 ? (
+              props.items?.map((data, index) => {
+                return (
+                  <LinkRoute
+                    href={`/productdetail?deals=${data.dealId}`}
+                    key={index}
+                  >
+                    <a>
+                      <SectionItem item={data} />
+                    </a>
+                  </LinkRoute>
+                );
+              })
+            ) : (
+              <DataEmpty PADDING="50px">결과 없음</DataEmpty>
+            )}
           </div>
+          {handleMoreItemBtn ? (
+            <MoreButton
+              getMoreContent={() => {
+                searchitem.addPage();
+              }}
+              wrapStyle={{
+                border: 'none',
+                borderTop: '1px solid #eee',
+              }}
+            />
+          ) : null}
         </div>
+
+        {searchitem.itemStatus && (
+          <SearchFilter
+            isVisible={isFilterVisible}
+            onClose={() => setIsFilterVisible(false)}
+            filters={searchitem.filterData}
+            eventId={special.eventId}
+          />
+        )}
       </div>
     </DefaultLayout>
   ));
-}
+});
 
-export default inject('special', 'alert')(SpecialDetail);
+export default SpecialDetail;
