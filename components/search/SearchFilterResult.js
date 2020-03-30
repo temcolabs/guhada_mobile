@@ -20,6 +20,7 @@ const enhancer = compose(
 function SearchFilterResult({ searchitem, router, seller }) {
   const [isVisible, setIsVisible] = useState(false);
   let searchFilterList = toJS(searchitem.searchFilterList);
+  console.log(searchFilterList, 'searchFilterList');
   let brand = searchFilterList?.brand.length > 0 ? true : false;
   let filter = searchFilterList?.filter.length > 0 ? true : false;
   let subcategory = searchFilterList?.subcategory.length > 0 ? true : false;
@@ -173,7 +174,7 @@ function SearchFilterResult({ searchitem, router, seller }) {
               category &&
               searchitem.searchFilterList?.subcategory.map(
                 (subcategory, index) => {
-                  return (
+                  return subcategory.title === '' ? null : (
                     <button
                       className={cn(css.colored)}
                       onClick={() => {
@@ -192,7 +193,7 @@ function SearchFilterResult({ searchitem, router, seller }) {
               )}
             {brand &&
               searchitem.searchFilterList?.brand.map((brand, index) => {
-                return (
+                return brand.nameDefault === '' ? null : (
                   <button
                     onClick={() => {
                       searchitem.searchFilterList.brand.splice(index, 1);
@@ -206,7 +207,7 @@ function SearchFilterResult({ searchitem, router, seller }) {
               })}
             {filter &&
               searchitem.searchFilterList?.filter.map((filter, index) => {
-                return (
+                return filter.colorName === '' && filter.name === '' ? null : (
                   <button
                     onClick={() => {
                       searchitem.searchFilterList.filter.splice(index, 1);
