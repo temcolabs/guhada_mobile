@@ -864,21 +864,39 @@ export default class SearchItemStore {
       ? toJS(this.selectCategory.id)
       : query.category;
 
-    this.toSearch({
-      category: category,
-      brand: brandList,
-      filter: filterList,
-      subcategory: subCategoryList,
-      keyword: query.keyword,
-      resultKeyword: this.resultKeyword,
-      filtered: true,
-      productCondition: this.productCondition,
-      shippingCondition: this.shippingCondition,
-      minPrice: this.minPrice,
-      maxPrice: this.maxPrice,
-      sellerIds: this.root.seller.sellerId || '',
-      eventIds: this.root.special.eventId || '',
-    });
+    if (query.enter === 'keyword') {
+      this.toSearch({
+        category: category,
+        brand: brandList,
+        filter: filterList,
+        subcategory: subCategoryList,
+        keyword: '',
+        resultKeyword: this.resultKeyword,
+        filtered: true,
+        productCondition: this.productCondition,
+        shippingCondition: this.shippingCondition,
+        minPrice: this.minPrice,
+        maxPrice: this.maxPrice,
+        sellerIds: this.root.seller.sellerId || '',
+        eventIds: this.root.special.eventId || '',
+      });
+    } else {
+      this.toSearch({
+        category: category,
+        brand: brandList,
+        filter: filterList,
+        subcategory: subCategoryList,
+        keyword: query.keyword,
+        resultKeyword: this.resultKeyword,
+        filtered: true,
+        productCondition: this.productCondition,
+        shippingCondition: this.shippingCondition,
+        minPrice: this.minPrice,
+        maxPrice: this.maxPrice,
+        sellerIds: this.root.seller.sellerId || '',
+        eventIds: this.root.special.eventId || '',
+      });
+    }
   };
 
   @action
