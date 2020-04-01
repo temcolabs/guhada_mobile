@@ -864,7 +864,7 @@ export default class SearchItemStore {
       ? toJS(this.selectCategory.id)
       : query.category;
 
-    this.toSearch({
+    this.toSearchStayPosition({
       category: category,
       brand: brandList,
       filter: filterList,
@@ -1013,6 +1013,56 @@ export default class SearchItemStore {
     sellerIds = this.root.seller.sellerId || '',
     eventIds = this.root.special.eventId || '',
   }) => {
+    devLog("Search button clicked." )
+    let query = Router.router.query;
+    this.productCondition = productCondition;
+    this.shippingCondition = shippingCondition;
+    pushRoute(
+      `/search?${qs.stringify({
+        category: category,
+        brand: brand,
+        page: page,
+        unitPerPage: unitPerPage,
+        order: order === null || order === '' ? 'DATE' : order,
+        filter: filter,
+        subcategory: subcategory,
+        enter: enter === '' ? query.enter : enter,
+        keyword: keyword === 'empty' ? query.keyword : keyword,
+        resultKeyword: resultKeyword,
+        condition: condition === 'empty' ? query.condition : condition,
+        filtered: filtered,
+        productCondition: this.productCondition,
+        shippingCondition: this.shippingCondition,
+        minPrice: minPrice,
+        maxPrice: maxPrice,
+      })}`
+    );
+    
+    if (this.preUrl !== Router.asPath) this.deals = [];
+  };
+
+  @action
+  toSearchStayPosition = ({
+    category = '',
+    brand = '',
+    page = 1,
+    unitPerPage = 20,
+    order = this.searchOrderFilter,
+    filter = '',
+    subcategory = '',
+    enter = '',
+    keyword = 'empty',
+    resultKeyword = '',
+    condition = '',
+    filtered = false,
+    productCondition = 'ANY',
+    shippingCondition = 'ANY',
+    minPrice = '',
+    maxPrice = '',
+    sellerIds = this.root.seller.sellerId || '',
+    eventIds = this.root.special.eventId || '',
+  }) => {
+    devLog("Search button clicked." )
     let query = Router.router.query;
     this.productCondition = productCondition;
     this.shippingCondition = shippingCondition;

@@ -54,7 +54,7 @@ class ProductDetailName extends Component {
             {deals.brandName}
             <span className={css.arrow} />
           </div>
-          <div className={css.detail__number}>{deals.dealId}</div>
+          <div className={css.detail__number}>상품번호 {deals.dealId}</div>
         </div>
 
         <div className={css.inner__middle}>
