@@ -38,7 +38,7 @@ function Header({
       {headerShape === 'keyword' ? (
         <div className={css.wrap} />
       ) : (
-        // 헤더의 보더 ..
+        // 헤더의 보더
         <div
           className={cn(
             css.wrap,

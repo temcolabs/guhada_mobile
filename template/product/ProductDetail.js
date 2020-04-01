@@ -27,6 +27,7 @@ import CommonPopup from 'components/common/modal/CommonPopup';
 import SellerReview from 'components/productdetail/SellerReview/SellerReview';
 import LoadingPortal from 'components/common/loading/Loading';
 import { sendBackToLogin } from 'childs/lib/router';
+import { devLog } from 'childs/lib/common/devLog';
 @withScrollToTopOnMount
 @inject(
   'searchitem',
@@ -45,7 +46,7 @@ class ProductDetail extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { isInternationalPopup: false, isInternationalSubmit: '' };
+    this.state = { isInternationalPopup: false, isInternationalSubmit: '',  cartAndPurchaseVisible: true};
     this.tabRefMap = {
       detailTab: React.createRef(),
       inquiryTab: React.createRef(),
@@ -100,6 +101,15 @@ class ProductDetail extends React.Component {
       isInternationalPopup: false,
     });
   };
+
+  /**
+   * handle cart and pucrach button visible or not from 상품 문의 visible or not
+   */
+  CartAndPurchaseButtonHandler = (value) => {    
+    this.setState({
+        cartAndPurchaseVisible : !value
+      })
+  }
 
   render() {
     const {
@@ -178,7 +188,7 @@ class ProductDetail extends React.Component {
         {SeparateLine}
         {/* 상품 문의 */}
         <SectionWrap>
-          <ProductInquiry tabRefMap={this.tabRefMap} />
+          <ProductInquiry tabRefMap={this.tabRefMap} isNewInquiryVisible={this.CartAndPurchaseButtonHandler}  />
         </SectionWrap>
         {SeparateLine}
 
@@ -225,11 +235,14 @@ class ProductDetail extends React.Component {
         </SectionWrap>
 
         {/* 상품 상세 장바구니 , 구매하기 버튼 */}
-        <CartAndPurchaseButton
+        {this.state.cartAndPurchaseVisible == true? 
+          <CartAndPurchaseButton isVisible={false}
           handleInternationalPopup={this.handleInternationalPopup}
           isInternationalSubmit={this.isInternationalSubmit}
-        />
-        <CommonPopup
+          />  : null
+        }
+        
+        <CommonPopup 
           isOpen={this.state.isInternationalPopup}
           backgroundImage={`${
             process.env.API_CLOUD

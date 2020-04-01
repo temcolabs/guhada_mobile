@@ -27,6 +27,7 @@ class ProductInquiry extends Component {
 
   setIsNewInquiryVisible = isNewInquiryVisible => {
     this.setState({ isNewInquiryVisible: isNewInquiryVisible });
+    this.props.isNewInquiryVisible(isNewInquiryVisible);
   };
 
   render() {
