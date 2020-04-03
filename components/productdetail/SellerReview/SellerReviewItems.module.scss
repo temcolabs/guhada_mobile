@@ -91,7 +91,8 @@
         width: auto;
         max-width: calc(80% - 21px);
         font-size: 13px;
-        font-weight: 500;
+        font-weight: 400;
+
         a {
           color: #444;
         }
@@ -137,6 +138,7 @@
     font-weight: normal;
     color: #444444;
     margin-bottom: 11px;
+    line-height: 20px;
   }
 
   .dateWithReportWrap {
