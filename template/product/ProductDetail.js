@@ -175,7 +175,6 @@ class ProductDetail extends React.Component {
         <SellerReview />
         {SeparateLine}
 
-        {SeparateLine}
         {/* 상품 문의 */}
         <SectionWrap>
           <ProductInquiry tabRefMap={this.tabRefMap} />
