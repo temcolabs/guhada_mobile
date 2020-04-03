@@ -981,6 +981,12 @@ export default class OrderPaymentStore {
     }
     devLog(forms, 'forms');
 
+    // handle pid by direct_payment or indirect_payment
+    let directPayment = false;    
+    if(sessionStorage.getItem('pid')){      
+      this.orderProductInfo.forEach(element => element.dealId === parseInt(sessionStorage.getItem('dealIdByPid')) ? directPayment = true : directPayment = false);
+    }        
+
     API.order
       .post(`/order/requestOrder`, forms)
       .then(res => {

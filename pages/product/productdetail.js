@@ -10,6 +10,7 @@ import HeadForSEO from 'childs/lib/components/HeadForSEO';
 import API from 'childs/lib/API';
 import _ from 'lodash';
 import isServer, { isBrowser } from 'childs/lib/common/isServer';
+import sessionStorage from 'childs/lib/common/sessionStorage';
 
 @withScrollToTopOnMount
 @withRouter
@@ -55,6 +56,11 @@ class ProductDetailPage extends React.Component {
   componentDidMount() {
     const { productdetail, productDetailLike, user } = this.props;
     let dealId = getParameterByName('deals');
+    const pid = getParameterByName('pid');
+    if(pid && dealId){
+      sessionStorage.set('pid', pid);
+      sessionStorage.set('dealIdByPid', parseInt(dealId));      
+    }
     productdetail.getDeals(dealId);
     productDetailLike.getUserLike();
 

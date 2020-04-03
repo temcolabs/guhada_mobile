@@ -131,7 +131,7 @@ export default class ProductDetailStore {
          * * deal 데이터 가져오기 성공한 후에 다른 API 호출이 실패해 catch 블럭으로 갈 수 있다.
          * 그래서 트래커를 finally에서 실행한다.
          */
-        if (parseInt(id) === parseInt(this.deals.dealId)) {
+        if (this.deals && parseInt(id) === parseInt(this.deals.dealId)) {
           // 와이더플래닛 트래커
           if (isBrowser && Cookies.get(key.ACCESS_TOKEN)) {
             this.root.user.pushJobForUserInfo(userInfo => {
