@@ -15,11 +15,14 @@ export default class OrderPaymentStore {
   constructor(root) {
     if (!isServer) this.root = root;
   }
-  @observable cartList;
-  @observable orderInfo = {};
-  @observable orderSidetabTotalInfo = {};
-  @observable orderProductInfo;
-  @observable orderCouponInfo = null;
+  @observable cartList; // 주문페이지 에 사용하는 주문 상품 정보 : type string
+  @observable orderInfo = {}; //주문 전체 정보
+  @observable orderSidetabTotalInfo = {}; //사이드 주문결제 정보
+  @observable orderProductInfo; //주문 상품 정보
+  @observable orderCouponInfo = null; //주문 쿠폰 정보
+  /*
+    주문 유저 및 배송지정보
+  */
   @observable orderUserInfo = {
     address: null,
     detailAddress: null,
@@ -37,13 +40,18 @@ export default class OrderPaymentStore {
     refundBankAccountOwner: null,
   };
   @observable usePoint = 0;
+
+  /*
+    주문 유저 및 배송지정보
+    배송지 데이터 변경을 관리하기위한 데이터
+  */
   @observable orderMyCouponWallet = [];
   @observable orderShippingList = {
     list: [],
-    currentUseAddressId: 0,
-    currentEditAddressId: 0,
-    tempEditAddress: {},
-    defaultAddress: {},
+    currentUseAddressId: 0, //실제사용할 배송지 넘버
+    currentEditAddressId: 0, // 수정에 필요한 배송지 넘버
+    tempEditAddress: {}, // 수정을 위한 임시
+    defaultAddress: {}, // 최초 기본 주소
     newAddress: {
       shippingName: '',
       address: '',
@@ -55,10 +63,13 @@ export default class OrderPaymentStore {
       defaultAddress: false,
       shippingMessage: false,
     },
-    isAddShippingAddress: false,
-    otherRequest: null,
+    isAddShippingAddress: false, // 결제 완료후 배송지 정보 처리
+    otherRequest: null, // 다른 문의 사항
   };
   @observable addressType = 'R';
+  /**
+   * 주문서에서 사용하게 될 상태 값들
+   */
   @observable status = {
     pageStatus: false,
     selectedShipStatus: true,
@@ -84,6 +95,10 @@ export default class OrderPaymentStore {
   };
 
   @observable cashReceiptUsage = 'PERSONAL';
+
+  /**
+   * 현금 영수증 정보
+   */
   @observable cashReceiptPhone = {
     first: '010',
     middle: null,
@@ -137,7 +152,7 @@ export default class OrderPaymentStore {
 
         this.usePoint = 0;
 
-        this.userAuthenticationCheck();
+        this.userAuthenticationCheck(); // 유저 인증 정보 체크 (본인인증 여부만 , 이메일 인증여부는 체크에서 빠짐)
         this.emailValidCheck(data.user.email);
         this.getTotalQuantity();
         this.getShippingMessageOption();
@@ -145,6 +160,11 @@ export default class OrderPaymentStore {
         this.getCouponInfo(this.cartList);
 
         devLog(this.orderInfo, '주문 데이터');
+
+        /**
+         * 주문 상품정보 체크
+         * orderValidStatus 값이 false 라면 장바구니로 라우팅
+         */
         this.orderProductInfo.forEach(data => {
           if (data.orderValidStatus !== 'VALID') {
             this.root.alert.showAlert({
@@ -157,6 +177,10 @@ export default class OrderPaymentStore {
           }
         });
 
+        /**
+         * 기본 배송지가 없다면
+         * 신규 배송지 등록 화면이 바로 나오도록 해당 데이터 값 세팅
+         */
         if (!this.orderShippingList.defaultAddress) {
           this.status.selectedShipStatus = false;
         }
@@ -164,6 +188,11 @@ export default class OrderPaymentStore {
         if (this.orderUserInfo.refundBankAccountNumber) {
           this.status.refundBankAccount = true;
         }
+
+        /**
+         * 결제 시도시 결제중임을 체크하기위에 세션스토리지에 값을 저장시킴
+         * 주문서 페이지 로드시 결제가 취소 되었는지 세션스토리지에서 값을 찾아 체크
+         */
         let paymentRemainCheck = JSON.parse(
           sessionStorage.getItem('paymentInfo')
         );
@@ -210,6 +239,10 @@ export default class OrderPaymentStore {
       });
   };
 
+  /*
+    주문 결제 금액 정보를 위한 로직
+  */
+
   @action
   getPaymentInfo = () => {
     let cartItemPayments = [];
@@ -247,12 +280,7 @@ export default class OrderPaymentStore {
         this.status.loadingStatus = false;
       });
   };
-  gotoMain = () => {
-    Router.push('/');
-  };
-  gotoLogin = () => {
-    Router.push('/login');
-  };
+
   //--------------------- 우편번호 검색 ---------------------
   @action
   searchZipcode = (path, addressEditing, setNewShippingAddress) => {
@@ -786,6 +814,9 @@ export default class OrderPaymentStore {
   payment = () => {
     let cartList = this.getCartList();
 
+    /**
+     * 유저및 결제 수단 유효성 체크
+     */
     if (!this.root.customerauthentication.userVerify) {
       this.root.alert.showAlert({
         content: '[필수] 본인인증을 해주세요.',
@@ -808,6 +839,11 @@ export default class OrderPaymentStore {
     //   });
     //   return false
     // }
+
+    /**
+     * 배송지 정보 유효성 체크
+     * 기본 배송지가 없을 경우
+     */
     if (!this.status.selectedShipStatus) {
       if (!this.orderShippingList.newAddress.shippingName) {
         this.root.alert.showAlert({
@@ -880,6 +916,9 @@ export default class OrderPaymentStore {
       // }
     }
 
+    /**
+     * 배송지 유효성 체크 기본 배송지가 존재
+     */
     if (this.status.selectedShipStatus) {
       if (!this.orderShippingList.defaultAddress.recipientMobile) {
         this.root.alert.showAlert({
@@ -889,6 +928,9 @@ export default class OrderPaymentStore {
       }
     }
 
+    /**
+     * 현금영수증 을 신청할 시 데이터 유효성 체크
+     */
     if (this.status.cashReceiptRequest) {
       if (this.cashReceiptUsage === 'PERSONAL') {
         for (let n in this.cashReceiptPhone) {
@@ -911,6 +953,9 @@ export default class OrderPaymentStore {
       }
     }
 
+    /**
+     * 결제수단이 가상계좌일때 환불계좌 정보 체크
+     */
     if (this.status.VBank) {
       if (!this.status.refundBankAccount) {
         this.root.alert.showAlert({
@@ -926,7 +971,7 @@ export default class OrderPaymentStore {
         couponNumber: data.couponNumber,
       };
     });
-    let forms;
+    let forms; // 결제에 필요한 모든 정보
     if (this.status.cashReceiptRequest) {
       forms = {
         cartItemPayments: cartItemPayments,
@@ -988,7 +1033,14 @@ export default class OrderPaymentStore {
         const query = qs.stringify({
           cartList: cartList,
         });
+
+        //현재 mWeb 에서는 사용 x next url 로 데이터가 들어옴
         let returnUrl = `${HOSTNAME}/privyCertifyResult?` + query;
+
+        /**
+         * pg 사에 리턴해주는 데이터를 다루기 위한 next url
+         * 취소시 돌아오기위해 상품 정보를 파라미터로 담음
+         */
         let nextUrl = `${HOSTNAME}/privyCertifyResult?${data.pgOid}&` + query;
 
         devLog(nextUrl, 'nextUrl');
@@ -1039,11 +1091,10 @@ export default class OrderPaymentStore {
 
   @action
   paymentStart = () => {
+    // euc-kr 로 form 전달해야함. 설정은 해당 컴포넌트에서 진행중
+
     this.status.paymentProceed = true;
     sessionStorage.setItem('paymentInfo', this.status.paymentProceed);
-
-    // euc-kr 로 form 전달해야함.
-
     let form = document.getElementById('paymentForm');
     form.action = this.paymentForm.jsUrl;
     form.submit();
@@ -1148,9 +1199,6 @@ export default class OrderPaymentStore {
       .filter(opt => opt.value !== 'NONE');
   };
 
-  /*
-    베네핏 스토어와 연결됨
-  */
   @action
   totalPaymentAmount = () => {
     this.orderInfo.totalDiscountDiffPrice =
@@ -1228,6 +1276,9 @@ export default class OrderPaymentStore {
     // this.updateCouponInfo(this.cartList);
   };
 
+  /**
+   * 사용할 쿠폰 선택
+   */
   @action
   setSelectCoupon = ({
     cartId = 0,
@@ -1235,6 +1286,7 @@ export default class OrderPaymentStore {
     couponNumber = '',
     couponDiscountPrice = 0,
   }) => {
+    // 데이터 변경을 위해 배교하는 임시 객체
     let tempObj = {
       cartId,
       sellerId,
@@ -1242,12 +1294,16 @@ export default class OrderPaymentStore {
       couponDiscountPrice,
     };
 
+    /**
+     * 데이터 변경 비교를 위해 선택된 쿠폰을 임시로 저장
+     */
+
     if (this.tempSelectedCouponList.length === 0) {
       this.tempSelectedCouponList = this.tempSelectedCouponList.concat(tempObj);
     } else {
       for (let i = 0; i < this.tempSelectedCouponList.length; i++) {
         if (this.tempSelectedCouponList[i].cartId === cartId) {
-          this.tempSelectedCouponList.splice(i, 1);
+          this.tempSelectedCouponList.splice(i, 1); // 비교되는 값이 한개 이기 때문에 바로 splice 로 배열을 변경
         }
       }
       this.tempSelectedCouponList = this.tempSelectedCouponList.concat(tempObj);
@@ -1256,8 +1312,14 @@ export default class OrderPaymentStore {
     let tempArr = [];
     tempArr = JSON.parse(JSON.stringify(this.orderCouponInfo));
 
+    /**
+     * 쿠폰 선택 을 비교 하고 선택된 쿠폰을 저장하는 로직
+     * api 에서 내려온 쿠폰 과 상품 정보를 탐색하며 현재 선택한 쿠폰과 비교하고
+     * 데이터를 저장
+     */
     for (let i = 0; i < tempArr.benefitSellerResponseList.length; i++) {
       if (tempArr.benefitSellerResponseList[i].sellerId === sellerId) {
+        // 현재 선택한 쿠폰의 셀러와 일치한지 ?
         for (
           let z = 0;
           z <
@@ -1266,6 +1328,7 @@ export default class OrderPaymentStore {
           z++
         ) {
           if (
+            // 현재 선택한 쿠폰이 해당 상품과 일치한지 ?
             tempArr.benefitSellerResponseList[i]
               .benefitOrderProductResponseList[z].cartId === cartId
           ) {
@@ -1278,6 +1341,7 @@ export default class OrderPaymentStore {
               j++
             ) {
               if (
+                // 현재 선택한 쿠폰이 해당 상품에 바인딩된 쿠폰 넘버와 일치 한지 ?
                 tempArr.benefitSellerResponseList[i]
                   .benefitOrderProductResponseList[z]
                   .benefitProductCouponResponseList[j].couponNumber ===
@@ -1297,6 +1361,7 @@ export default class OrderPaymentStore {
               }
             }
           } else if (
+            // 현재 선택한 쿠폰이 해당 상품과 일치하지 않는다면 나머지 상품들의 쿠폰 활성여부를 체크
             tempArr.benefitSellerResponseList[i]
               .benefitOrderProductResponseList[z].cartId !== cartId
           ) {
@@ -1358,6 +1423,10 @@ export default class OrderPaymentStore {
     this.couponDiscountCalculator();
   };
 
+  /**
+   * 주문서 최초 진입시
+   * 사용할 값들을 미리 가공
+   */
   setInitCouponInfo = () => {
     this.selectedCouponList = [];
     this.selectedCouponList = this.orderProductInfo.map(data => {
@@ -1422,13 +1491,13 @@ export default class OrderPaymentStore {
 
             for (let i = 0; i < this.selectedCouponList.length; i++) {
               if (this.selectedCouponList[i].cartId === tempObj.cartId) {
-                this.selectedCouponList.splice(i, 1);
+                this.selectedCouponList.splice(i, 1); //선택된 값은 한개이기 때문에 배열을 바로 변경
               }
             }
 
             for (let i = 0; i < this.tempSelectedCouponList.length; i++) {
               if (this.tempSelectedCouponList[i].cartId === tempObj.cartId) {
-                this.tempSelectedCouponList.splice(i, 1);
+                this.tempSelectedCouponList.splice(i, 1); //선택된 값은 한개이기 때문에 배열을 바로 변경
               }
             }
 
@@ -1444,6 +1513,9 @@ export default class OrderPaymentStore {
     }
   };
 
+  /**
+   * 쿠폰 할인 금액 계싼
+   */
   couponDiscountCalculator = () => {
     this.totalCouponDiscount = 0;
     this.totalDiscountPrice = 0;
