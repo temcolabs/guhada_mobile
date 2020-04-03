@@ -92,7 +92,9 @@
         max-width: calc(80% - 21px);
         font-size: 13px;
         font-weight: 500;
-        color: #444444;
+        a {
+          color: #444;
+        }
       }
     }
   }
