@@ -97,7 +97,6 @@ const BBSArticleView = enhancer(({ router }) => {
         },
       });
     }
-    console.log(articleStore.data, 'articleStore.data');
   }, [alert, ALL_CATEGORY_ID, isArticleDeleted, router]);
 
   const isArticleVisible = articleStore.isArticleFetched && !isArticleDeleted;

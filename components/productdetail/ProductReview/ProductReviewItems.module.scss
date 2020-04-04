@@ -101,15 +101,21 @@
   & .contentWrap {
     font-size: 13px;
     font-weight: normal;
-    color: #444444;
+    color: #444;
     margin-bottom: 11px;
+    line-height: 20px;
   }
 
-  & .dateWrap {
+  .dateWithReportWrap {
+    display: flex;
+    margin-bottom: 21px;
     font-size: 13px;
     font-weight: normal;
-    color: #777777;
-    margin-bottom: 21px;
+    color: #ccc;
+
+    .reportButton {
+      margin-left: 6px;
+    }
   }
 
   & .imageWrap {

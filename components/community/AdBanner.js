@@ -21,6 +21,10 @@ function PrevArrow(props) {
 @inject('main')
 @observer
 class AdBanner extends Component {
+  componentDidMount() {
+    //배너 데이터 호출
+    this.props.main.getMainBannner();
+  }
   render() {
     const settings = {
       dots: true,

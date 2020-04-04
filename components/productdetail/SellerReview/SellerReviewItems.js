@@ -9,11 +9,15 @@ import { pushRoute, sendBackToLogin } from 'childs/lib/router';
 import isTruthy from 'childs/lib/common/isTruthy';
 import cn from 'classnames';
 import ReviewReply from 'components/productdetail/ReviewReply';
-@inject('sellerReview', 'login', 'alert')
+import ReportModal from 'components/claim/report/ReportModal';
+import reportTarget from 'childs/lib/constant/reportTarget';
+import Link from 'next/link';
+@inject('sellerReview', 'login', 'alert', 'searchitem')
 @observer
 class SellerReviewItems extends Component {
   state = {
     reviewReply: false,
+    isReportModalOpen: false,
   };
 
   handleReviewReply = () => {
@@ -21,8 +25,21 @@ class SellerReviewItems extends Component {
       reviewReply: !this.state.reviewReply,
     });
   };
+
+  handleReportModal = () => {
+    this.setState({
+      isReportModalOpen: true,
+    });
+  };
+
+  handleCloseReportModal = () => {
+    this.setState({
+      isReportModalOpen: false,
+    });
+  };
+
   render() {
-    const { review: item, sellerReview, login } = this.props;
+    const { review: item, sellerReview, login, searchitem } = this.props;
     const { reviewBookMarks } = sellerReview;
     let checkBookmarks = false;
     if (login.loginStatus === 'LOGIN_DONE') {
@@ -86,9 +103,23 @@ class SellerReviewItems extends Component {
         <div className={css.profileWrap}>
           <div>
             <div className={cn(css.levelWrap, css.fullWidth)}>
-              <div className={css.brand}>{item.review.brandName}</div>
+              <div
+                className={css.brand}
+                onClick={() => {
+                  searchitem.toSearch({
+                    brand: item.review.brandId,
+                    enter: 'brand',
+                  });
+                }}
+              >
+                {item.review.brandName}
+              </div>
               <div className={css.line} />
-              <div className={css.title}>{item.review.dealName}</div>
+              <div className={css.title}>
+                <Link href={`/productdetail?deals=${item.review.dealId}`}>
+                  {item.review.dealName}
+                </Link>
+              </div>
             </div>
             <div className={css.levelWrap}>
               <div>{StarItem(item.review.productRating)}</div>
@@ -125,13 +156,24 @@ class SellerReviewItems extends Component {
           </div>
         </div>
         <div className={css.contentWrap}>{item.review.textReview}</div>
-        <div className={css.dateWrap}>
-          {moment(item.review.createdAtTimestamp).format(
-            dateFormat.YYYYMMDD_UI
-          )}
-          {` `}
-          {moment(item.review.createdAtTimestamp).format(dateFormat.HHMM)}
+        <div className={css.dateWithReportWrap}>
+          <div className={css.dateWrap}>
+            {moment(item.review.createdAtTimestamp).format(
+              dateFormat.YYYYMMDD_UI
+            )}
+            {` `}
+            {moment(item.review.createdAtTimestamp).format(dateFormat.HHMM)}
+          </div>
+          <div
+            className={css.reportButton}
+            onClick={() => {
+              this.handleReportModal();
+            }}
+          >
+            신고
+          </div>
         </div>
+
         <div className={css.imageWrap}>
           {!_.isNil(item.reviewPhotos) ? (
             <div>
@@ -187,7 +229,7 @@ class SellerReviewItems extends Component {
           <div className={css.commentWrap}>
             {/* <div>{`-댓글 6개`}</div> */}
             {/* <div className={css.line} /> */}
-            {/* <div>신고</div> */}
+            {/* <div></div>신고</div> */}
           </div>
           {item.review.replied ? (
             <div
@@ -217,8 +259,36 @@ class SellerReviewItems extends Component {
           ) : null}
         </div>
         {item.review.replied && this.state.reviewReply ? (
-          <ReviewReply reviewItem={item} key={item.review.id} />
+          <ReviewReply
+            reviewItem={item}
+            key={item.review.id}
+            wrapStyle={{ marginTop: '16px' }}
+          />
         ) : null}
+
+        {/* 신고 모달 */}
+        <ReportModal
+          isOpen={this.state.isReportModalOpen}
+          onClose={this.handleCloseReportModal}
+          reportData={{
+            reportTarget: reportTarget.REVIEW,
+            targetId: item.review.id,
+          }}
+          relatedData={[
+            {
+              label: '상품',
+              value: item.review.dealName,
+            },
+            {
+              label: '리뷰 내용',
+              value: item.review.textReview,
+            },
+            {
+              label: '작성자',
+              value: item.review.userNickname,
+            },
+          ]}
+        />
       </div>
     );
   }

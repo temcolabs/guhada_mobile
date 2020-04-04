@@ -5,8 +5,10 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.scss';
 import 'slick-carousel/slick/slick-theme.scss';
 import { pushRoute } from 'childs/lib/router';
+import { inject } from 'mobx-react';
 
-export class MainSlideBanner extends Component {
+@inject('special')
+class MainSlideBanner extends Component {
   state = {
     index: 0,
   };
@@ -18,6 +20,23 @@ export class MainSlideBanner extends Component {
 
     for (let i = 0; i < imageLength; i++) {
       li[i].style.width = `calc((100% - 38px) / ${imageLength})`;
+      if (imageFile[i].link.indexOf('special')) {
+        let eventIds = imageFile[i].link.replace(/[^0-9]/g, '');
+        imageFile[i].eventIds = eventIds;
+      }
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    const { imageFile } = this.props;
+    if (prevProps.imageFile !== this.props.imageFile) {
+      console.log('update');
+      for (let i = 0; i < imageFile.length; i++) {
+        if (imageFile[i].link.indexOf('/special')) {
+          let eventIds = imageFile[i].link.replace(/[^0-9]/g, '');
+          imageFile[i].eventIds = eventIds;
+        }
+      }
     }
   }
 
@@ -38,7 +57,7 @@ export class MainSlideBanner extends Component {
       dotsClass: 'slickDots',
       beforeChange: this.onBeforeChange,
     };
-    const { imageFile } = this.props;
+    const { imageFile, special } = this.props;
 
     return (
       <div className={css.wrap}>
@@ -51,7 +70,11 @@ export class MainSlideBanner extends Component {
                   src={image.mobileImageUrl}
                   key={index}
                   alt={`banner${index}`}
-                  onClick={() => pushRoute(image.link)}
+                  onClick={
+                    image.eventIds
+                      ? () => special.toSearch({ eventIds: image.eventIds })
+                      : () => pushRoute(image.link)
+                  }
                 />
               );
             else return null;

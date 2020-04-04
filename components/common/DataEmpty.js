@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import css from './DataEmpty.module.scss';
 
-function DataEmpty({ children, MARGINTOP, PADDING }) {
+function DataEmpty({ children, MARGINTOP = '0', PADDING = '0' }) {
   return (
     <div
       className={css.wrap}

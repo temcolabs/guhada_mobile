@@ -15,6 +15,9 @@ export default function ModalForm({ children, wrapperStyle = {}, ...rest }) {
         left: '0',
         transform: 'translate(0,0)',
       }}
+      overlayStyle={{
+        zIndex: 3001,
+      }}
       {...rest}
     >
       <div className={css.wrapper} style={wrapperStyle}>
