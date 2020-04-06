@@ -175,7 +175,7 @@ const CommentItem = ({
           <div
             className={css.avatar_image}
             style={{
-              backgroundImage: `url('${createUserInfo.profileImageUr ||
+              backgroundImage: `url('${createUserInfo.profileImageUrl ||
                 '/static/icon/profile_non_square.png'}')`,
             }}
           >
