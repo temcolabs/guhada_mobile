@@ -11,18 +11,46 @@ class LoginInput extends Component {
     field.validate();
   };
   render() {
-    const { field, style, countDown, maxLength } = this.props;
+    const {
+      field,
+      style,
+      countDown,
+      maxLength,
+      type,
+      typeChangeHandle,
+    } = this.props;
+
     return (
       <div className={cn(css.default)} style={style}>
         <input
           className={cn({ [css.errorBox]: field.error !== null })}
-          {...field.bind()}
+          {...field.bind({ type })}
           maxLength={maxLength}
           disabled={this.props.disabled}
         />
+        {typeChangeHandle !== undefined ? (
+          <div
+            className={css.withIcon}
+            style={
+              type === 'password'
+                ? {
+                    backgroundImage: `url(/static/icon/login-pw-off@3x.png)`,
+                    right: field.error ? '30px' : '10px',
+                  }
+                : {
+                    backgroundImage: `url(/static/icon/login-pw-on@3x.png)`,
+                    right: field.error ? '30px' : '10px',
+                  }
+            }
+            onClick={() => {
+              typeChangeHandle();
+            }}
+          />
+        ) : null}
         {field.error !== null && (
           <div className={css.errorBtn} onClick={() => this.clearError()} />
         )}
+
         {countDown ? <div className={css.countDown}>{countDown}</div> : null}
         {field.error !== null ? (
           <div className={css.error}>{field.error}</div>

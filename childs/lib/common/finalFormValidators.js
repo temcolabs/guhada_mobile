@@ -100,7 +100,7 @@ export const notEmtpryArray = v =>
 export const mustBePassword = v => {
   return isValidPasswordStr(v)
     ? undefined
-    : '8~15자 대/소문자 영문, 숫자, 특수문자를 사용하세요.';
+    : '8~15자 영문, 숫자, 특수문자를 사용하세요.';
 };
 
 /**

@@ -14,10 +14,23 @@ import cn from 'classnames';
 class Signup extends Component {
   state = {
     optionalAgree: false,
+    currentType: 'password',
   };
 
   handleOptionalAgree = () => {
     this.setState({ optionalAgree: true });
+  };
+
+  typeChangeHandle = () => {
+    if (this.state.currentType === 'password') {
+      this.setState({
+        currentType: 'text',
+      });
+    } else {
+      this.setState({
+        currentType: 'password',
+      });
+    }
   };
 
   render() {
@@ -30,7 +43,11 @@ class Signup extends Component {
           <div className={css.wrap}>
             <div>
               <LoginInput field={form.$('email')} />
-              <LoginInput field={form.$('password')} />
+              <LoginInput
+                field={form.$('password')}
+                type={this.state.currentType}
+                typeChangeHandle={this.typeChangeHandle}
+              />
               <LoginInput field={form.$('passwordConfirm')} />
             </div>
             <div className={css.bigCheckboxWrap}>

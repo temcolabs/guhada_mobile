@@ -80,7 +80,7 @@ class FindPasswordResult extends Component {
             <LoginInput field={form.$('password')} type="password" />
             <LoginInput field={form.$('passwordConfirm')} type="password" />
             <div className={css.subText}>
-              8~15자의 영문 대/소문자, 숫자, 특수문자 중 2개 이상 조합
+              8~15자의 영문, 숫자, 특수문자 중 2개 이상 조합
             </div>
             <LoginButton
               className={
