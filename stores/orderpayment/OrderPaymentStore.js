@@ -1026,10 +1026,12 @@ export default class OrderPaymentStore {
     }
     devLog(forms, 'forms');
 
-    // handle pid by direct_payment or indirect_payment
-    let directPayment = false;    
+    // handle pid by direct_payment or indirect_payment    
     if(sessionStorage.getItem('pid')){      
-      this.orderProductInfo.forEach(element => element.dealId === parseInt(sessionStorage.getItem('dealIdByPid')) ? directPayment = true : directPayment = false);
+      let directPayment = 0;    
+      this.orderProductInfo.forEach(element => element.dealId === parseInt(sessionStorage.getItem('dealIdByPid')) ? directPayment = 1 : directPayment = 0);
+      forms.affiliateExtraId = JSON.parse(sessionStorage.getItem('pid'));
+      forms.directOrder = directPayment;      
     }        
 
     API.order
