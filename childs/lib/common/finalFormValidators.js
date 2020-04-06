@@ -3,7 +3,7 @@ import isEmailString from '../string/isEmailString';
 import isTruthy, { isFalsey } from './isTruthy';
 import isValidPasswordStr from '../string/isValidPasswordStr';
 import isValidMobileStr from '../string/isValidMobileStr';
-
+import { passwordValidMessage } from '../string/isValidPasswordStr';
 /**
  * validator 조합
  * 파리미터로 전달된 함수를 실행하면서 발견한 첫번째 오류 메시지를 최종 값으로 전달한다.
@@ -98,9 +98,7 @@ export const notEmtpryArray = v =>
  * 유효한 비밀번호인지 확인
  */
 export const mustBePassword = v => {
-  return isValidPasswordStr(v)
-    ? undefined
-    : '8~15자 영문, 숫자, 특수문자를 사용하세요.';
+  return isValidPasswordStr(v) ? undefined : passwordValidMessage(v);
 };
 
 /**
