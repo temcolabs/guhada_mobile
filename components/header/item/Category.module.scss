@@ -10,7 +10,7 @@ $burgerHeader: 50px;
     height: calc(100vh - #{$burgerHeader});
 
     & .treeLi {
-        margin-bottom: 10px;
+        margin-bottom: 40px;
     }
 
     & ul {
@@ -22,7 +22,7 @@ $burgerHeader: 50px;
         transition: height .5s;
         height: 0;
         overflow: hidden;
-        margin: 0 20px 0 20px;
+        margin: 10px 20px 0 20px;
 
         & li {
             font-size: 14px;
