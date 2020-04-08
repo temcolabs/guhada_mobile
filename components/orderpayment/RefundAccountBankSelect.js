@@ -72,12 +72,14 @@ class RefundAccountBankSelect extends Component {
         ...provided,
         margin: 1,
       }),
+      /**
       dropdownIndicator: (provided, state) => ({
         ...provided,
         transform: state.selectProps.menuIsOpen ? 'rotate(-180deg)' : '',
         padding: 0,
         color: '#777',
       }),
+       */
       indicatorsContainer: () => ({
         padding: 0,
       }),
