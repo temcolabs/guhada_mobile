@@ -3,7 +3,7 @@
     margin-top: 10px;
 
     & li {
-        margin-bottom: 10px;
+        margin-bottom: 40px;
 
         &:last-child {
             margin-bottom: 0;
@@ -57,6 +57,7 @@
     }
 
     & label {
+        display: inherit;
         font-size: 14px;
         font-weight: normal;
         font-style: normal;
