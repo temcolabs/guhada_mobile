@@ -27,7 +27,7 @@ class RefundAccountBankSelect extends Component {
     let selectStyles = {
       container: () => ({
         position: 'relative',
-        width: '100%',
+        width: '90%',
       }),
       valueContainer: () => ({
         padding: 0,
