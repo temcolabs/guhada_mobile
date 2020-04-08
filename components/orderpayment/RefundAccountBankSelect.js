@@ -27,7 +27,7 @@ class RefundAccountBankSelect extends Component {
     let selectStyles = {
       container: () => ({
         position: 'relative',
-        width: '90%',
+        width: '100%',
       }),
       valueContainer: () => ({
         padding: 0,
@@ -72,14 +72,12 @@ class RefundAccountBankSelect extends Component {
         ...provided,
         margin: 1,
       }),
-      /**
       dropdownIndicator: (provided, state) => ({
         ...provided,
         transform: state.selectProps.menuIsOpen ? 'rotate(-180deg)' : '',
         padding: 0,
         color: '#777',
       }),
-       */
       indicatorsContainer: () => ({
         padding: 0,
       }),
