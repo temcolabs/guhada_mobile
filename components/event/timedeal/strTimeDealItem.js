@@ -248,7 +248,7 @@ export const item = [
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816013144',
   },
   {
-    brandName: 'VOTEGA VENETA',
+    brandName: 'BOTTEGA VENETA',
     dealName: '보테가베네타 인트레치아토 반지갑 블랙 605721VCPQ4 8984',
     productSeason: '20ss',
     sellPrice: 635000,
