@@ -8,7 +8,7 @@ export const item = [
     dealName: '버버리 여성 빈티지체크 노트 크로스백 8021110 A1189',
     productSeason: '20ss',
     sellPrice: 1450000,
-    discountPrice: 859750,
+    discountPrice: 895100,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=817122604',
   },
   {
@@ -16,7 +16,7 @@ export const item = [
     dealName: '생로랑 삭드쥬르 나노 토트백 숄더백 392035 02G9W 1000',
     productSeason: '20ss',
     sellPrice: 3085000,
-    discountPrice: 1971000,
+    discountPrice: 2048300,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=817122512',
   },
   {
@@ -24,7 +24,7 @@ export const item = [
     dealName: '생로랑 여성 모노그램 마틀라세 루 미니백 612579 1GF01 1000',
     productSeason: '20ss',
     sellPrice: 1350000,
-    discountPrice: 1244500,
+    discountPrice: 1295600,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816013376',
   },
   {
@@ -32,7 +32,7 @@ export const item = [
     dealName: '프라다 사피아노 가죽 클러치백 블랙 2NH05VQME F0002',
     productSeason: '20ss',
     sellPrice: 970000,
-    discountPrice: 627000,
+    discountPrice: 654100,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816013642',
   },
   {
@@ -41,7 +41,7 @@ export const item = [
       '오프화이트 남성 프린트 드리핑 에로우 맨투맨 블랙 OMBA037R20E30005 1001',
     productSeason: '20ss',
     sellPrice: 762000,
-    discountPrice: 465500,
+    discountPrice: 487600,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816014423',
   },
   {
@@ -49,7 +49,7 @@ export const item = [
     dealName: '버버리 로고 범백 벨트백 8022786 A1189',
     productSeason: '20ss',
     sellPrice: 910000,
-    discountPrice: 607050,
+    discountPrice: 612000,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=817122657',
   },
   {
@@ -58,7 +58,7 @@ export const item = [
       '크리스챤디올 디올옴므 남성 오블리크 B23 하이탑 스니커즈 블랙 3SH118YJP 960',
     productSeason: '20ss',
     sellPrice: 1350000,
-    discountPrice: 1244500,
+    discountPrice: 1295600,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816013405',
   },
   {
@@ -66,7 +66,7 @@ export const item = [
     dealName: '생로랑 캐비어 클래식 클러치백 블랙 375950 BTY0N 1000',
     productSeason: '20ss',
     sellPrice: 555000,
-    discountPrice: 351500,
+    discountPrice: 368200,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816014322',
   },
   {
@@ -74,7 +74,7 @@ export const item = [
     dealName: '버버리 여성 TB 로고 모노그램 숄더백 스몰 블랙 8010334',
     productSeason: '20ss',
     sellPrice: 2750000,
-    discountPrice: 1453500,
+    discountPrice: 1513200,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816013609',
   },
   {
@@ -82,7 +82,7 @@ export const item = [
     dealName: '버버리 여성 그레이스백 토트백 숄더백 스몰 8011972 A1189',
     productSeason: '20ss',
     sellPrice: 1580000,
-    discountPrice: 912000,
+    discountPrice: 949500,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816013221',
   },
   {
@@ -90,7 +90,7 @@ export const item = [
     dealName: '끌로에 여성 테스 스몰 숄더백 블랙 CHC18WS153A37 001',
     productSeason: '20ss',
     sellPrice: 1999000,
-    discountPrice: 1453500,
+    discountPrice: 1513200,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816013941',
   },
   {
@@ -98,7 +98,7 @@ export const item = [
     dealName: '셀린느 비사체 스몰 숄더백 188013 3BF9 03TN',
     productSeason: '20ss',
     sellPrice: 2560000,
-    discountPrice: 1980000,
+    discountPrice: 2057200,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816013354',
   },
   {
@@ -106,7 +106,7 @@ export const item = [
     dealName: '아페쎄 여성 제네바 크로스바디 백 블랙 PXAWV F61161 LZZ',
     productSeason: '20ss',
     sellPrice: 759000,
-    discountPrice: 503500,
+    discountPrice: 527400,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816014080',
   },
   {
@@ -114,7 +114,7 @@ export const item = [
     dealName: '마르니 여성 미디움 트렁크 숄더백 브라운 SBMPN09NO1LV520 ZM28N',
     productSeason: '20ss',
     sellPrice: 2660000,
-    discountPrice: 1415500,
+    discountPrice: 1490000,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816014105',
   },
   {
@@ -122,7 +122,7 @@ export const item = [
     dealName: '마르니 여성 미디움 트렁크 숄더백 블랙 SBMPN09NO1LV520 ZN28N',
     productSeason: '20ss',
     sellPrice: 2660000,
-    discountPrice: 1415500,
+    discountPrice: 1490000,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816014128',
   },
   {
@@ -130,7 +130,7 @@ export const item = [
     dealName: '멀버리 여성 마이크로 지퍼 베이스워터백 블랙 RL5476 205 A237',
     productSeason: '20ss',
     sellPrice: 1209000,
-    discountPrice: 817000,
+    discountPrice: 850600,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=817434043',
   },
   {
@@ -138,7 +138,7 @@ export const item = [
     dealName: '멀버리 여성 미니 지퍼 베이스워터백 블랙 HH4949 205 A100',
     productSeason: '20ss',
     sellPrice: 1539000,
-    discountPrice: 1016500,
+    discountPrice: 1058300,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816014177',
   },
   {
@@ -147,7 +147,7 @@ export const item = [
       '스타우드 STAUD 여성 비셋 버킷백 토트백 숄더백 브라운 07 9000 TAN',
     productSeason: '20ss',
     sellPrice: 499000,
-    discountPrice: 408500,
+    discountPrice: 427900,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816014156',
   },
   {
@@ -155,7 +155,7 @@ export const item = [
     dealName: '발렌시아가 여성 에브리데이 XXS 토트백 블랙 551815 1LRCN 1000',
     productSeason: '20ss',
     sellPrice: 1380000,
-    discountPrice: 1102000,
+    discountPrice: 1147300,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=817435941',
   },
   {
@@ -163,7 +163,7 @@ export const item = [
     dealName: '발렌시아가 여성 퀼팅 B 버킷 토트백 600327 1NH5Y 1000',
     productSeason: '20ss',
     sellPrice: 1990000,
-    discountPrice: 1339500,
+    discountPrice: 1394500,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816013293',
   },
   {
@@ -171,7 +171,7 @@ export const item = [
     dealName: '발렌시아가 여성 퀼팅 체인 숄더백 블랙 5806411NH3M',
     productSeason: '20ss',
     sellPrice: 2085000,
-    discountPrice: 1662500,
+    discountPrice: 1730800,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816013896',
   },
   {
@@ -179,7 +179,7 @@ export const item = [
     dealName: '발렌티노 VLTN 로고 스트랩 파우치 클러치 백 블랙 TY2P0P09LVN 0NO',
     productSeason: '20ss',
     sellPrice: 760000,
-    discountPrice: 522500,
+    discountPrice: 547300,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816013881',
   },
   {
@@ -187,7 +187,7 @@ export const item = [
     dealName: 'Y3 남성 Kaiwa 로우탑 스니커즈 화이트 실버 FU9186 SILVER',
     productSeason: '20ss',
     sellPrice: 499000,
-    discountPrice: 399000,
+    discountPrice: 417900,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816013498',
   },
   {
@@ -195,7 +195,7 @@ export const item = [
     dealName: '발렌티노 남성 바운스 스니커즈 화이트 TY2S0B21RKW',
     productSeason: '20ss',
     sellPrice: 1170000,
-    discountPrice: 741000,
+    discountPrice: 773000,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816013068',
   },
   {
@@ -203,7 +203,7 @@ export const item = [
     dealName: '발렌티노 남성 클라이머 스니커즈 화이트 1AD SY0S0C20PNQ',
     productSeason: '20ss',
     sellPrice: 1170000,
-    discountPrice: 693500,
+    discountPrice: 723500,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816013732',
   },
   {
@@ -219,7 +219,7 @@ export const item = [
     dealName: '페라가모 여성 발레리나 플랫 슈즈 블랙 574556',
     productSeason: '20ss',
     sellPrice: 690000,
-    discountPrice: 427500,
+    discountPrice: 447800,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816013757',
   },
   {
@@ -227,7 +227,7 @@ export const item = [
     dealName: '생로랑 여성 자수 로고 스니커즈 화이트 610685 08G10 9061',
     productSeason: '20ss',
     sellPrice: 810000,
-    discountPrice: 570000,
+    discountPrice: 597000,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816013438',
   },
   {
@@ -236,7 +236,7 @@ export const item = [
       '셀린느 남성 로고 트라이엄프 로우탑 스니커즈 화이트 335953338C 01OG',
     productSeason: '20ss',
     sellPrice: 659000,
-    discountPrice: 551000,
+    discountPrice: 577100,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816013459',
   },
   {
@@ -244,7 +244,7 @@ export const item = [
     dealName: '버버리 스몰 빈티지 체크 백팩 8025707 A7026',
     productSeason: '20ss',
     sellPrice: 1820000,
-    discountPrice: 912000,
+    discountPrice: 949500,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816013144',
   },
   {
@@ -252,7 +252,7 @@ export const item = [
     dealName: '보테가베네타 인트레치아토 반지갑 블랙 605721VCPQ4 8984',
     productSeason: '20ss',
     sellPrice: 635000,
-    discountPrice: 475000,
+    discountPrice: 497500,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816013696',
   },
   {
@@ -260,7 +260,7 @@ export const item = [
     dealName: '페라가모 간치니 로고 카드홀더 장지갑 블랙 0726510',
     productSeason: '20ss',
     sellPrice: 520000,
-    discountPrice: 437000,
+    discountPrice: 457700,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816013582',
   },
   {
@@ -268,7 +268,7 @@ export const item = [
     dealName: '펜디 플랫 카드지갑 블랙 8M0269 A18B F0KUR',
     productSeason: '20ss',
     sellPrice: 339000,
-    discountPrice: 228000,
+    discountPrice: 238800,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816014301',
   },
   {
@@ -277,7 +277,7 @@ export const item = [
       '버버리 TB 모노그램 모티프 그레이니 레더 파우치 클러치백 블랙 8025168 A1189',
     productSeason: '20ss',
     sellPrice: 720000,
-    discountPrice: 589000,
+    discountPrice: 616900,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816014278',
   },
   {
@@ -285,7 +285,7 @@ export const item = [
     dealName: '프라다 사피아노 가죽 클러치백 블랙 2NH005PN9 F0002',
     productSeason: '20ss',
     sellPrice: 992000,
-    discountPrice: 589000,
+    discountPrice: 616900,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816013665',
   },
   {
@@ -293,7 +293,7 @@ export const item = [
     dealName: '셀린느 트리오페 캔버스 지퍼 카드 홀더 블랙 10D882CCP',
     productSeason: '20ss',
     sellPrice: 550000,
-    discountPrice: 475000,
+    discountPrice: 497500,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816013910',
   },
   {
@@ -311,7 +311,7 @@ export const item = [
       '스톤아일랜드 남성 핸드 스프레이 와펜 스웨터 니트 블루 7215543B7 V0041',
     productSeason: '20ss',
     sellPrice: 599000,
-    discountPrice: 380000,
+    discountPrice: 398000,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816014472',
   },
   {
@@ -320,7 +320,7 @@ export const item = [
       '씨피컴퍼니 렌즈와펜 남성 맨투맨 네이비 TOTAL ECLIPSE 08CMSS014A 005160W 888',
     productSeason: '20ss',
     sellPrice: 299000,
-    discountPrice: 161500,
+    discountPrice: 170000,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816014365',
   },
   {
@@ -328,7 +328,7 @@ export const item = [
     dealName: '씨피컴퍼니 렌즈와펜 남성 맨투맨 블랙 08CMSS014A 005160W 888',
     productSeason: '20ss',
     sellPrice: 299000,
-    discountPrice: 161500,
+    discountPrice: 170000,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816014386',
   },
   {
@@ -337,7 +337,7 @@ export const item = [
       '오프화이트 남성 카툰 롱슬리브 맨투맨 스웨트 셔츠 블랙 OMBA037R20E30009',
     productSeason: '20ss',
     sellPrice: 752000,
-    discountPrice: 408500,
+    discountPrice: 427900,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816013837',
   },
   {
@@ -346,7 +346,7 @@ export const item = [
       '오프화이트 남성 페인팅 그래픽 파스칼 맨투맨 스웨트 셔츠 블랙 OMBA035R20E30014',
     productSeason: '20ss',
     sellPrice: 752000,
-    discountPrice: 456000,
+    discountPrice: 477600,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816013793',
   },
   {
@@ -355,7 +355,7 @@ export const item = [
       '오프화이트 남성 프린트 테이프 에로우 후드티 화이트 OMBB037R20E30002 148',
     productSeason: '20ss',
     sellPrice: 785000,
-    discountPrice: 465500,
+    discountPrice: 487600,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816014450',
   },
   {
@@ -363,7 +363,7 @@ export const item = [
     dealName: '오프화이트 남성 핸드 로고 후드 블랙 OMBB034R20E30013',
     productSeason: '20ss',
     sellPrice: 826000,
-    discountPrice: 503500,
+    discountPrice: 527400,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816013862',
   },
   {
@@ -371,7 +371,7 @@ export const item = [
     dealName: '톰브라운 여성 4바 사선 완장 가디건 네이비 FJT069A 00535 415',
     productSeason: '20ss',
     sellPrice: 1350000,
-    discountPrice: 617500,
+    discountPrice: 644200,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816013977',
   },
   {
@@ -380,7 +380,7 @@ export const item = [
       '톰브라운 여성 클래식 브이넥 가디건 네이비 FKC308A 06223 415 NAVY',
     productSeason: '20ss',
     sellPrice: 2800000,
-    discountPrice: 1216000,
+    discountPrice: 1266000,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816014021',
   },
   {
@@ -388,7 +388,7 @@ export const item = [
     dealName: '발렌시아가 BB 그린 로고 볼캡 모자 블랙 593188 310B2 1000',
     productSeason: '20ss',
     sellPrice: 445000,
-    discountPrice: 351500,
+    discountPrice: 368200,
     link: 'http://www.lotte.com/goods/viewGoodsDetail.lotte?goods_no=816013541',
   },
 ];
