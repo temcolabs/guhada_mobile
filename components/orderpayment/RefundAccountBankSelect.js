@@ -28,6 +28,7 @@ class RefundAccountBankSelect extends Component {
       container: () => ({
         position: 'relative',
         width: '100%',
+        borderRadius: 'none',
       }),
       valueContainer: () => ({
         padding: 0,
@@ -49,7 +50,7 @@ class RefundAccountBankSelect extends Component {
       }),
       option: (provided, state) => ({
         ...provided,
-        height: 45,
+        height: 36,
         backgroundColor: state.isFocused
           ? '#f7f7f8'
           : state.isDisabled
@@ -67,6 +68,7 @@ class RefundAccountBankSelect extends Component {
           ? '#ddd'
           : '#111',
         fontFamily: 'NotoSansCJKkr',
+        borderRadius: 'none',
       }),
       menu: (provided, state) => ({
         ...provided,
