@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import TimeDealSingle from 'template/event/TimeDealSingle';
+import TimeDealSingle from 'template/event/timedeal/TimeDealSingle';
 function TimedealSingle() {
   useEffect(() => {
     if (process.env.NODE_ENV !== 'development') {
