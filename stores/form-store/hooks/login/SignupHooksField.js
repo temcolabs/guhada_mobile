@@ -1,5 +1,6 @@
 import Form from '../../_.forms';
 import { devLog } from 'childs/lib/common/devLog';
+import { passwordValidMessage } from 'childs/lib/string/isValidPasswordStr';
 
 export default {
   onInit() {
@@ -98,6 +99,9 @@ export default {
       field.path === 'passwordConfirm'
     ) {
       field.validate({ showErrors: true });
+    }
+    if (field.label === '비밀번호') {
+      field.errorSync = passwordValidMessage(field.value);
     }
   },
 };

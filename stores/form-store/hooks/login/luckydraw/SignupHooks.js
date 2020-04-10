@@ -119,4 +119,9 @@ export default {
       instance.isValid
     );
   },
+
+  onBlur: field => {
+    devLog('-> onBlur HOOK -', field.path, field.value, field);
+    field.validate({ showErrors: true });
+  },
 };

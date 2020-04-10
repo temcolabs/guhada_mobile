@@ -1,64 +1,72 @@
 .default {
-    margin-bottom: 10px;
-    position: relative;
+  margin-bottom: 10px;
+  position: relative;
 
-    &:last-child {
-        margin-bottom: 0;
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  & input {
+    width: 100%;
+    height: 46px;
+    border: solid 1px #eeeeee;
+    padding-left: 15px;
+    color: #111;
+    font-size: 13px;
+    font-weight: normal;
+
+    &:focus {
+      border: solid 1px #5d2ed1;
     }
 
-    & input {
-        width: 100%;
-        height: 46px;
-        border: solid 1px #eeeeee;
-        padding-left: 15px;
-        color: #111;
-        font-size: 13px;
-        font-weight: normal;
-
-        &:focus {
-            border: solid 1px #5d2ed1;
-        }
-
-        &:disabled {
-            background-color: #f9f9fa;
-        }
-
-        &::placeholder {
-            color: #777777;
-        }
-
-        &.errorBox {
-            border: solid 1px #ce2525;
-        }
+    &:disabled {
+      background-color: #f9f9fa;
     }
 
-    & .errorBtn {
-        width: 17px;
-        height: 17px;
-        background: url('/static/icon/input_error_icon.png') no-repeat;
-        background-size: 17px;
-        position: absolute;
-        top: 14px;
-        right: 12px;
+    &::placeholder {
+      color: #777777;
     }
 
-    & .countDown {
-        position: absolute;
-        top: 15px;
-        right: 10px;
-        font-size: 13px;
-        font-weight: normal;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: 1.23;
-        letter-spacing: 0.46px;
-        text-align: right;
-        color: #5d2ed1;
+    &.errorBox {
+      border: solid 1px #ce2525;
     }
+  }
+
+  & .errorBtn {
+    width: 17px;
+    height: 17px;
+    background: url('/static/icon/input_error_icon.png') no-repeat;
+    background-size: 17px;
+    position: absolute;
+    top: 14px;
+    right: 12px;
+  }
+
+  & .countDown {
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    font-size: 13px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.23;
+    letter-spacing: 0.46px;
+    text-align: right;
+    color: #5d2ed1;
+  }
 }
 
 .error {
-    margin-top: 7px;
-    color: #ce2525;
-    font-size: 12px;
+  margin-top: 7px;
+  color: #ce2525;
+  font-size: 12px;
+}
+
+.withIcon {
+  position: absolute;
+  top: 10px;
+  width: 28px;
+  height: 28px;
+  background-size: 28px 28px;
 }

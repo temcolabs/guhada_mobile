@@ -110,8 +110,7 @@ export default function NewPasswordForm() {
         className={css.description}
         style={{ lineHeight: 1, marginBottom: '15px' }}
       >
-        ・ 대/소문자 영문, 숫자, 특수문자로 8~15자 사이에서만 생성할 수
-        있습니다.
+        ・ 영문, 숫자, 특수문자로 8~15자 사이에서만 생성할 수 있습니다.
       </div>
 
       {/* 비밀번호 확인 오류 메시지 */}

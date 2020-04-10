@@ -22,7 +22,7 @@ export default {
     passwordConfirm: {
       type: 'password',
       name: 'passwordConfirm',
-      label: '비밀번호',
+      label: '비밀번호 확인',
       placeholder: '비밀번호 확인',
       autoComplete: 'passwordConfirm',
       rules: 'required|string|same:password',

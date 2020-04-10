@@ -39,7 +39,13 @@ module.exports = [
     asPath: '/event/timedeal',
     name: '타임딜',
   },
-
+  // ============================================================
+  // 이벤트 - 타임딜_단독페이지
+  // ============================================================
+  {
+    pagePath: `/event/timedealsingle`,
+    asPath: `/event/timedealevent`,
+  },
   // 이벤트 - 메인
   {
     pagePath: `/event/eventmain`,
