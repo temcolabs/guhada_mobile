@@ -1,9 +1,14 @@
-import React from 'react';
-import TimeDealSingle from 'template/event/timedeal/TimeDealSingle';
+import React, { useEffect } from 'react';
+import TimeDealSingle from 'template/event/TimeDealSingle';
 function TimedealSingle() {
+  useEffect(() => {
+    if (process.env.NODE_ENV !== 'development') {
+      window.location.href = '/';
+    }
+  }, []);
   return (
     <div>
-      <TimeDealSingle />
+      {process.env.NODE_ENV === 'development' ? <TimeDealSingle /> : null}
     </div>
   );
 }
