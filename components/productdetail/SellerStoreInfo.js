@@ -124,7 +124,7 @@ function SellerStoreInfo({
                 <div
                   className={css.image}
                   style={{
-                    backgroundImage: `url(${deal.productImage.url || ''})`,
+                    backgroundImage: `url(${deal.productImage.url + "?w=375"|| ''})`,
                   }}
                 />
               </div>

@@ -24,7 +24,7 @@ function BestReviewItem({
     >
       <div
         className={css.img}
-        style={{ backgroundImage: `url(${item.imageUrl})` }}
+        style={{ backgroundImage: `url(${item.imageUrl + "?w=375"})` }}
       />
       <div className={css.detailWrap}>
         <div className={css.title}>{item.dealName}</div>

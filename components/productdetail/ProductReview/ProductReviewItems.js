@@ -174,7 +174,7 @@ class ProductReviewItems extends Component {
             <div>
               <img
                 className={css.reviewPhotos}
-                src={`${item.reviewPhotos[0].reviewPhotoUrl}`}
+                src={`${item.reviewPhotos[0].reviewPhotoUrl + "?w=375"}`}
                 alt={`reviewPhoto`}
               />
             </div>

@@ -6,6 +6,7 @@ import _ from 'lodash';
 import brandNew from 'childs/lib/constant/filter/brandNew';
 import internationalShipping from 'childs/lib/constant/filter/internationalShipping';
 import LazyLoad from 'react-lazyload';
+import { Field } from 'react-final-form';
 
 export default function SectionItem({
   item = {
@@ -57,7 +58,7 @@ export default function SectionItem({
           )
         ) : null}
         <LazyLoad>
-          <img src={item.productImage.url} alt={item.productImage.name} />
+          <img src={item.productImage.url + "?w=375"} alt={item.productImage.name} />
         </LazyLoad>
         {isTruthy(likeItemDelete) && (
           <div

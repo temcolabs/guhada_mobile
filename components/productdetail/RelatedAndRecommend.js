@@ -84,7 +84,7 @@ export default function RelatedAndRecommend({
                   <div
                     className={css.image}
                     style={{
-                      backgroundImage: `url('${deal.productImage.url}')` || '',
+                      backgroundImage: `url('${deal.productImage.url + "?w=375"}')` || '',
                     }}
                   />
                   <div className={css.contentsWrap}>
@@ -143,7 +143,7 @@ export default function RelatedAndRecommend({
                   <div
                     className={css.image}
                     style={{
-                      backgroundImage: `url('${deal.productImage.url}')` || '',
+                      backgroundImage: `url('${deal.productImage.url + "?w=375"}')` || '',
                     }}
                   />
                   <div className={css.contentsWrap}>
