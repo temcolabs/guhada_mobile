@@ -68,13 +68,18 @@ const RefundAccount = () => {
               verifyAccount();
             }}
           >
-            계좌확인
+            계좌 확인
           </div>
         </div>
 
         {!orderPaymentStore.status.refundBankAccount ? (
           <div className={css.errorMessage}>계좌를 확인해주세요</div>
         ) : null}
+      </div>
+      <div className={css.refundWarning}>
+      &middot; 무통장 입금 후 주문취소 또는 반품이 발생할 경우 취소/반품
+        완료일로부터 1~2영업일(주말, 공휴일 제외)이내에 입력하신
+        계좌로 환불처리 됩니다.
       </div>
     </div>
   ));

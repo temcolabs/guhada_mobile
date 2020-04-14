@@ -172,8 +172,8 @@ export default function RefundBankAccountForm() {
                       {isCheckingAccount
                         ? '확인 중...'
                         : isAccountVerified
-                        ? '확인완료'
-                        : '계좌확인'}
+                        ? '확인 완료'
+                        : '계좌 확인'}
                     </FormButton>
                   </div>
                 </div>
