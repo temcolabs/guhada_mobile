@@ -34,17 +34,19 @@
 
 .sizeAddWrap {
   width: 100%;
-  height: 50px;
+  height: 100px;
   background-color: #5d2ed1;
   font-size: 14px;
   font-weight: 500;
   line-height: 1.57;
   color: #ffffff;
   position: relative;
+  text-align: center;
 
   .sizeAddContents {
     width: 100%;
     padding: 0 15px;
+    text-align: center;
     @include centeredY;
   }
 
@@ -74,7 +76,13 @@
     border-radius: 30px;
     background-color: #5d2ed1;
     cursor: pointer;
+    text-align: center;
   }
+}
+
+.sizeIconWrapper{
+  display: inline-flex;
+  padding-top: 10px;
 }
 
 .reviewItemWrap {

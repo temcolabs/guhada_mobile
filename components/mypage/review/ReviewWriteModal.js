@@ -368,13 +368,14 @@ class ReviewWriteModal extends Component {
             <div className={css.sizeAddWrap}>
               <div className={css.sizeAddContents}>
                 <div className={css.sizeAddIcon}>!</div>
-                <span>내 사이즈 등록하면 적립금 500원 적립!</span>
-                <span
-                  className={css.sizeAddButton}
-                  onClick={() => this.toggleMySizeModal()}
-                >
-                  내 사이즈 등록
-                </span>
+                <span>내 사이즈 등록하면 적립금 1,000원 적립!</span>
+                <div className={css.sizeIconWrapper}>
+                  <span
+                    className={css.sizeAddButton}
+                    onClick={() => this.toggleMySizeModal()}>
+                    내 사이즈 등록
+                  </span>
+                </div>                
               </div>
             </div>
           )}
