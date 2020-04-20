@@ -140,11 +140,13 @@ function OrderActionButtonConductor({
     <OrderActionButton
       className={css.isColored}
       onClick={() =>
+        !isClaim ?
         orderCompleteList.handleClickConfirmOrderButton({
           order,
-          onSuccess: isClaim // 취소교환반품에 있는 확정이면
-            ? orderClaimList.getMyCancelOrders // 취소목록 새로고침
-            : orderCompleteList.getMyOrders,
+          onSuccess: orderCompleteList.getMyOrders,
+        }) : orderClaimList.handleClickConfirmOrderButton({
+          order,
+          onSuccess: orderClaimList.getMyCancelOrders // 취소목록 새로고침            
         })
       }
     >
