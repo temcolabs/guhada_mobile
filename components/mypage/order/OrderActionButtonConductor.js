@@ -119,7 +119,7 @@ function OrderActionButtonConductor({
     </OrderActionButton>
   );
 
-  const ShowDeliveryButton = (text = '배송조회') => ({ order }) => (
+  const ShowDeliveryButton = () => ({ order }) => (
     <OrderActionButton
       className={css.isColored}
       onClick={() =>
@@ -128,7 +128,7 @@ function OrderActionButtonConductor({
         })
       }
     >
-      {text}
+      {order.shipMethod === 'QUICK' ? '퀵배송 조회' : '배송조회'}
     </OrderActionButton>
   );
 

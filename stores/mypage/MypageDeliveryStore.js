@@ -26,6 +26,9 @@ export default class MypageDeliveryStore {
   isDeliveyTrackingModalOpen = false;
 
   @observable
+  isQuickDeliveyTrackingModalOpen = false;
+
+  @observable
   deliveryInfo = {};
 
   // level은 0 ~ 5 (0은 배송준비)
@@ -62,6 +65,7 @@ export default class MypageDeliveryStore {
     const isClaim = !!order.orderClaimId; // 교환 재배송이면 클레임 아이디가 있음.
     const companyNo = isClaim ? order.resendShipCompany : order.shipCompany;
     const invoiceNo = isClaim ? order.resendInvoiceNo : order.invoiceNo;
+    const shipId = order.shipId;
 
     if (!!companyNo && !!invoiceNo) {
       try {
@@ -76,13 +80,17 @@ export default class MypageDeliveryStore {
         this.isDeliveyTrackingModalOpen = false;
         console.error(e);
       }
-    } else {
+    } else if(order.shipMethod === 'QUICK'){      
+      this.deliveryInfo = await this.getQuickDeliveryInfo({shipId});              
+      this.isQuickDeliveyTrackingModalOpen = true;
+    }else{
       this.root.alert.showAlert('송장 정보가 없습니다.');
     }
   };
 
   closeDeliveryTrackingModal = () => {
     this.isDeliveyTrackingModalOpen = false;
+    this.isQuickDeliveyTrackingModalOpen = false;
     this.resetDeliveryInfo();
   };
 
@@ -101,7 +109,17 @@ export default class MypageDeliveryStore {
     return data.data;
   };
 
+  /**
+   * @param shipId shpping 코드   
+   */
+  @action
+  getQuickDeliveryInfo = async ({ shipId }) => {
+    const { data } = await API.order.get(`/shipping/quick/info/${shipId}`);
+    return data.data;
+  };
+
   resetDeliveryInfo = () => {
     this.deliveryInfo = {};
   };
+  
 }

@@ -21,6 +21,7 @@ import OrderItem from 'components/mypage/order/OrderItem';
 import Pagination from 'components/common/Pagination';
 import OrderAddressEditModal from 'components/mypage/order/OrderAddressEditModal';
 import DeliveryTrackingModal from 'components/mypage/shipping/DeliveryTrackingModal';
+import QuickDeliveryTrackingModal from 'components/mypage/quickShipping/QuickDeliveryTrackingModal';
 import SellerClaimModal, {
   withSellerClaimModal,
 } from 'components/claim/sellerclaim/SellerClaimModal';
@@ -248,6 +249,8 @@ class OrderCompleteList extends Component {
 
         {/* 배송 조회 모달. 컨트롤은 store에서 */}
         <DeliveryTrackingModal />
+
+        <QuickDeliveryTrackingModal />
 
         {/* 주문 배송지 수정 모달 */}
         <OrderAddressEditModal
