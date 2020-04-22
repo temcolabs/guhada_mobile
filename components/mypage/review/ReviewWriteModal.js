@@ -347,6 +347,7 @@ class ReviewWriteModal extends Component {
       mySize,
       onComplete: this.toggleMySizeModal,
     });
+    this.toggleMySizeModal();
   };
 
   render() {
