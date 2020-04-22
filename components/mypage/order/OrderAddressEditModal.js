@@ -174,7 +174,7 @@ function OrderAddressEditModal({
                               </div>
                             )}
                           </Field>
-                          <FormButton
+                          <FormButton className={css.shippingAdressFinder}
                             onClick={() =>
                               handleClickAddressSearch({ formApi })
                             }

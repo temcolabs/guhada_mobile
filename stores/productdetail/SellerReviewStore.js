@@ -71,8 +71,8 @@ export default class SellerReviewStore {
     this.getProductReview();
   };
 
-  @observable reviewPage = 0;
-  @observable unitPerPage = 5;
+  @observable reviewPage = 0;  
+  @observable unitPerPage = 5;  
 
   @action
   getProductReview = (reviewPage = 0) => {
@@ -94,6 +94,7 @@ export default class SellerReviewStore {
         if (data.resultCode === 200) {
           this.review = data.data;
           this.totalElements = data.data.totalElements;
+          this.reviewPage = data.data.number + 1;
         }
 
         if (this.root.login.loginStatus === 'LOGIN_DONE')
@@ -105,8 +106,7 @@ export default class SellerReviewStore {
   };
 
   @action
-  getMoreReview = () => {
-    this.reviewPage += 1;
+  getMoreReview = () => {    
     API.user
       .get(`/reviews`, {
         params: {
@@ -124,6 +124,7 @@ export default class SellerReviewStore {
         temp.content = this.review.content.concat(data.data.content);
         this.review = temp;
         this.totalElements = data.data.totalElements;
+        this.reviewPage = data.data.number + 1;
       })
       .catch(e => {
         this.review = [];

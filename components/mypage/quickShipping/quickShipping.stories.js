@@ -8,20 +8,20 @@ import {
   color,
   select,
 } from '@storybook/addon-knobs';
-import DeliveryTrackingModal from './DeliveryTrackingModal';
+import QuickDeliveryTrackingModal from './QuickDeliveryTrackingModal';
 import withMobxDeco from '.storybook/decorators/withMobxDeco';
 import MypageDeliveryStore from 'stores/mypage/MypageDeliveryStore';
-const stories = storiesOf('mypage/shipping', module);
+const stories = storiesOf('mypage/quickShipping', module);
 
 stories.addDecorator(withKnobs);
 stories.addDecorator(withMobxDeco({}));
 
-stories.add('DeliveryTrackingModal', () => {
+stories.add('QuickDeliveryTrackingModal', () => {
   return (
     <div>
-      <DeliveryTrackingModal
+      <QuickDeliveryTrackingModal
         myDelivery={Object.assign(new MypageDeliveryStore({}), {
-          isDeliveyTrackingModalOpen: true,
+            isQuickDeliveyTrackingModalOpen: true,
         })}
       />
     </div>

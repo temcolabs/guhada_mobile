@@ -25,13 +25,18 @@ import SellerClaimModal, {
 import ReviewWriteModal, {
   reviewModalType,
 } from 'components/mypage/review/ReviewWriteModal';
+import PointSavingModal, {
+  pointSavingTypes,
+} from 'components/mypage/point/PointSavingModal';
 import DeliveryTrackingModal from 'components/mypage/shipping/DeliveryTrackingModal';
+import OrderConfirmModal from 'components/mypage/order/OrderConfirmModal';
+
 /**
  * 마이페이지 - 주문 배송 (주문 취소 ・ 교환 ・ 반품 목록)
  */
 @withSellerClaimModal
 @withRouter
-@inject('orderClaimList', 'mypagereview')
+@inject('orderClaimList', 'mypagereview', 'mypagePoint')
 @observer
 class OrderClaimList extends Component {
   constructor(props) {
@@ -215,8 +220,10 @@ class OrderClaimList extends Component {
     const {
       orderCompleteList: orderCompleteListStore,
       orderClaimList,
+      mypagePoint: mypagePointStore,
       mypagereview,
     } = this.props;
+    const { orderConfirmModalData } = orderClaimList;
 
     return (
       <MypageLayout
@@ -302,6 +309,26 @@ class OrderClaimList extends Component {
 
         {/* 배송 조회 모달. 컨트롤은 store에서 */}
         <DeliveryTrackingModal />
+
+        {/* 구매확정 모달 */}
+        <OrderConfirmModal
+          isOpen={orderClaimList.isOrderConfirmModalOpen}          
+          order={orderConfirmModalData?.order}   
+          onConfirm={orderConfirmModalData?.onConfirm}
+          onClose={orderConfirmModalData?.onClose}
+          dueSavePointOnConfirm={orderConfirmModalData.dueSavePointOnConfirm}
+          dueSavePointOnReview={orderConfirmModalData.dueSavePointOnReview}
+          dueSavePointOnFirstPurchase={orderConfirmModalData.dueSavePointOnFirstPurchase}      
+        />
+
+        {/* 구매확정시 포인트 지급 모달  */}
+        <PointSavingModal
+          pointSavingType={pointSavingTypes.CONFIRM_PURCHASE}
+          isOpen={mypagePointStore.isPointSavingModalOpen}
+          onClose={mypagePointStore.closePointSavingModalOpen}
+          savedPointResponse={mypagePointStore.savedPointResponse}
+        />
+
       </MypageLayout>
     );
   }

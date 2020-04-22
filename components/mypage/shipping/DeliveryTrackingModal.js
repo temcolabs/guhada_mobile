@@ -33,8 +33,8 @@ function DeliveryTrackingModal({ myDelivery, isModalOpen }) {
   return (
     <ModalLayout
       pageTitle={'배송조회'}
-      isOpen={isModalLayoutOpen}
-      onClose={closeModalLayout}
+      isOpen={myDelivery.isDeliveyTrackingModalOpen}
+      onClose={myDelivery.closeDeliveryTrackingModal}
     >
       <div className={css.wrap}>
         <div className={css.deliveryInfo}>

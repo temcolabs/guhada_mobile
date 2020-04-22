@@ -40,18 +40,34 @@ module.exports = {
         web: false,
       })
       .then(response => {
-        let data = response.data.data;
-        console.log('POST order/orderApproval response.data.data:', response);
+        let data = response.data.data;        
         res.redirect('/orderpaymentsuccess?id=' + data);
       })
       .catch(err => {
         console.error(`privyCertifyResult err ${err}`);
-        res.redirect(
-          '/orderpayment?cartList=' +
-            cartList +
-            '&resultMsg=' +
-            authData.P_RMESG1
-        );
+        if (err.status === 200) {          
+          if(err && err.data && err.data.message){            
+            if (req.query.cartList) {
+              res.redirect('/orderpayment?cartList=' + req.query.cartList + '&resultMsg=' + err.data.message);
+            } else {
+              res.redirect('/');
+            }
+          }else{
+            if (req.query.cartList) {
+              res.redirect(`/orderpayment?cartList=${req.query.cartList}`);
+            } else {
+              res.redirect('/');
+            }
+          }          
+        } else {                    
+          res.redirect(
+            '/orderpayment?cartList=' +
+              cartList +
+              '&resultMsg=' +
+              authData.P_RMESG1
+          );
+        }
+        
       });
   },
 };

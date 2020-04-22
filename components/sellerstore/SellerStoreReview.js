@@ -24,7 +24,7 @@ const SellerStoreReview = observer(() => {
           {review.content.map((reviewContent, index) => (
             <SellerReviewItem key={index} review={reviewContent} />
           ))}
-          {sellerReview.page * sellerReview.unitPerPage >
+          {sellerReview.reviewPage * sellerReview.unitPerPage >
           sellerReview.totalElements ? null : (
             <MoreButton
               getMoreContent={sellerReview.getMoreReview}

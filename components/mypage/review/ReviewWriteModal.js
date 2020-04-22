@@ -8,7 +8,7 @@ import { shape, func, bool, number, any } from 'prop-types';
 import memoize from 'memoize-one';
 import _ from 'lodash';
 import ReviewImageUpload from './ReviewImageUpload';
-import MySizeModal from 'components/mypage/userinfo/MySizeModal';
+import MySizeModal from 'components/mypage/userinfo/form/MySizeModal';
 import isTruthy from 'childs/lib/common/isTruthy';
 import cutByLen from 'childs/lib/common/cutByLen';
 import ModalLayout from 'components/layout/ModalLayout';
@@ -347,6 +347,7 @@ class ReviewWriteModal extends Component {
       mySize,
       onComplete: this.toggleMySizeModal,
     });
+    this.toggleMySizeModal();
   };
 
   render() {
@@ -368,13 +369,14 @@ class ReviewWriteModal extends Component {
             <div className={css.sizeAddWrap}>
               <div className={css.sizeAddContents}>
                 <div className={css.sizeAddIcon}>!</div>
-                <span>내 사이즈 등록하면 적립금 500원 적립!</span>
-                <span
-                  className={css.sizeAddButton}
-                  onClick={() => this.toggleMySizeModal()}
-                >
-                  내 사이즈 등록
-                </span>
+                <span>내 사이즈 등록하면 적립금 1,000원 적립!</span>
+                <div className={css.sizeIconWrapper}>
+                  <span
+                    className={css.sizeAddButton}
+                    onClick={() => this.toggleMySizeModal()}>
+                    내 사이즈 등록
+                  </span>
+                </div>                
               </div>
             </div>
           )}

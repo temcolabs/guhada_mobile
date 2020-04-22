@@ -16,15 +16,18 @@ class MainSlideBanner extends Component {
   componentDidMount() {
     const { imageFile } = this.props;
     let imageLength = imageFile.filter(image => image.mainUse === true).length;
-    let li = document.querySelector('.slickDots').childNodes;
 
-    for (let i = 0; i < imageLength; i++) {
-      li[i].style.width = `calc((100% - 38px) / ${imageLength})`;
-      if (imageFile[i].link.indexOf('special')) {
-        let eventIds = imageFile[i].link.replace(/[^0-9]/g, '');
-        imageFile[i].eventIds = eventIds;
+    if(document.querySelector('.slickDots')){
+      let li = document.querySelector('.slickDots').childNodes;
+
+      for (let i = 0; i < imageLength; i++) {
+        li[i].style.width = `calc((100% - 38px) / ${imageLength})`;
+        if (imageFile[i].link.indexOf('special')) {
+          let eventIds = imageFile[i].link.replace(/[^0-9]/g, '');
+          imageFile[i].eventIds = eventIds;
+        }
       }
-    }
+    }    
   }
 
   componentDidUpdate(prevProps) {
