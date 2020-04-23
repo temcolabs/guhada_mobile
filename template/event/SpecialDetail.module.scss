@@ -81,6 +81,18 @@
       .order {
         width: 90px;
       }
+
+      .orderWrap{
+        background: url('/static/icon/list_select_arrow_open.png') no-repeat right;
+        background-size: 10px 10px;
+        width: 95px;
+      }
+
+      .filterWrap{
+        background: url('/static/icon/fillter_icon.png') no-repeat right;
+        background-size: 16px 14px;
+        width: 85px;
+      }
     }
   }
 

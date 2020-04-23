@@ -1035,26 +1035,69 @@ export default class SearchItemStore {
     let query = Router.router.query;
     this.productCondition = productCondition;
     this.shippingCondition = shippingCondition;
-    pushRoute(
-      `/search?${qs.stringify({
-        category: category,
-        brand: brand,
-        page: page,
-        unitPerPage: unitPerPage,
-        order: order === null || order === '' ? 'DATE' : order,
-        filter: filter,
-        subcategory: subcategory,
-        enter: enter === '' ? query.enter : enter,
-        keyword: keyword === 'empty' ? query.keyword : keyword,
-        resultKeyword: resultKeyword,
-        condition: condition === 'empty' ? query.condition : condition,
-        filtered: filtered,
-        productCondition: this.productCondition,
-        shippingCondition: this.shippingCondition,
-        minPrice: minPrice,
-        maxPrice: maxPrice,
-      })}`
-    );
+    if(sellerIds){
+      pushRoute(
+        `/store/${this.root.seller.nickname}?${qs.stringify({
+          category: category === 'empty' ? query.category : category,
+          brand: brand === 'empty' ? query.brand : brand,
+          page: page,
+          unitPerPage: 24,
+          order: order === null || order === '' ? 'DATE' : order,
+          subcategory: subcategory,
+          enter: enter === '' ? query.enter : enter,
+          condition: condition === '' ? query.condition : condition,
+          keyword: keyword === '' ? query.keyword : keyword,
+          resultKeyword: resultKeyword,
+          filter: filter,
+          minPrice: minPrice,
+          maxPrice: maxPrice,
+          productCondition: this.productCondition,
+          shippingCondition: this.shippingCondition,
+        })}`
+      );
+    }else if(eventIds){
+      pushRoute(
+        `/event/special/${this.root.special.eventId}?${qs.stringify({
+          category: category === 'empty' ? query.category : category,
+          brand: brand === 'empty' ? query.brand : brand,
+          page: page,
+          unitPerPage: 24,
+          order: order === null || order === '' ? 'DATE' : order,
+          subcategory: subcategory,
+          enter: enter === '' ? query.enter : enter,
+          condition: condition === '' ? query.condition : condition,
+          keyword: keyword === '' ? query.keyword : keyword,
+          resultKeyword: resultKeyword,
+          filter: filter,
+          minPrice: minPrice, 
+          maxPrice: maxPrice,
+          productCondition: this.productCondition,
+          shippingCondition: this.shippingCondition,
+        })}`
+      );
+    }else{
+      pushRoute(
+        `/search?${qs.stringify({
+          category: category,
+          brand: brand,
+          page: page,
+          unitPerPage: unitPerPage,
+          order: order === null || order === '' ? 'DATE' : order,
+          filter: filter,
+          subcategory: subcategory,
+          enter: enter === '' ? query.enter : enter,
+          keyword: keyword === 'empty' ? query.keyword : keyword,
+          resultKeyword: resultKeyword,
+          condition: condition === 'empty' ? query.condition : condition,
+          filtered: filtered,
+          productCondition: this.productCondition,
+          shippingCondition: this.shippingCondition,
+          minPrice: minPrice,
+          maxPrice: maxPrice,
+        })}`
+      );
+      
+    }
     
     if (this.preUrl !== Router.asPath) this.deals = [];
   };
