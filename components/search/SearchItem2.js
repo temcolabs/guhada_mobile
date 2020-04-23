@@ -39,9 +39,11 @@ class SearchItem2 extends Component {
             <LinkRoute href={`/productdetail?deals=${deal.dealId}`} key={index}>
               <div className={css.wrap}>
                 <div className={css.imageWrap}>
+                  {/**
                   {deal.freeShipping === true && (
                     <div className={css.freeShipping}>무료배송</div>
                   )}
+                   */}
                   <div className={css.color}>
                     {deal.options
                       ? deal.options.map(option => {

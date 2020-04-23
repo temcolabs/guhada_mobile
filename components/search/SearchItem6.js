@@ -63,7 +63,7 @@ class SearchItem6 extends Component {
                       : null}
                   </div>
                   <img
-                    className={css.imageUrl + "?w=375"}
+                    className={css.imageUrl}
                     src={deal.productImage.url  + "?w=375"|| ''}
                     width={165}
                     height={206}
