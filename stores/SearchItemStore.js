@@ -783,13 +783,15 @@ export default class SearchItemStore {
     this.shippingCondition = query.shippingCondition;
     this.minPrice = query.minPrice;
     this.maxPrice = query.maxPrice;
-    this.resultKeyword = '';
+    this.resultKeyword = '';    
   };
+
   @action
   clearFilter = () => {
     this.initFilter();
     this.toSearch({ resultKeyword: '' });
   };
+
   @action
   searchFilter = () => {
     let brandList = [];
@@ -1020,7 +1022,7 @@ export default class SearchItemStore {
     filter = '',
     subcategory = '',
     enter = '',
-    keyword = 'empty',
+    keyword = '',
     resultKeyword = '',
     condition = '',
     filtered = false,
@@ -1063,16 +1065,16 @@ export default class SearchItemStore {
           page: page,
           unitPerPage: 24,
           order: order === null || order === '' ? 'DATE' : order,
+          filter: filter,
           subcategory: subcategory,
           enter: enter === '' ? query.enter : enter,
           condition: condition === '' ? query.condition : condition,
           keyword: keyword === '' ? query.keyword : keyword,
-          resultKeyword: resultKeyword,
-          filter: filter,
-          minPrice: minPrice, 
-          maxPrice: maxPrice,
+          resultKeyword: resultKeyword,                    
           productCondition: this.productCondition,
           shippingCondition: this.shippingCondition,
+          minPrice: minPrice, 
+          maxPrice: maxPrice,
         })}`
       );
     }else{
@@ -1112,7 +1114,7 @@ export default class SearchItemStore {
     filter = '',
     subcategory = '',
     enter = '',
-    keyword = 'empty',
+    keyword = '',
     resultKeyword = '',
     condition = '',
     filtered = false,
