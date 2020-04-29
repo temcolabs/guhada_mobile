@@ -22,7 +22,7 @@ class MainSlideBanner extends Component {
 
       for (let i = 0; i < imageLength; i++) {
         li[i].style.width = `calc((100% - 38px) / ${imageLength})`;
-        if (imageFile[i].link.indexOf('special')) {
+        if (imageFile[i].link.includes('special')) {
           let eventIds = imageFile[i].link.replace(/[^0-9]/g, '');
           imageFile[i].eventIds = eventIds;
         }
@@ -35,7 +35,7 @@ class MainSlideBanner extends Component {
     if (prevProps.imageFile !== this.props.imageFile) {
       console.log('update');
       for (let i = 0; i < imageFile.length; i++) {
-        if (imageFile[i].link.indexOf('/special')) {
+        if (imageFile[i].link.includes('special')) {
           let eventIds = imageFile[i].link.replace(/[^0-9]/g, '');
           imageFile[i].eventIds = eventIds;
         }
