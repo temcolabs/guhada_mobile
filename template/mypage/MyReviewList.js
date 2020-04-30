@@ -29,6 +29,12 @@ class MyReviewList extends Component {
     productreview.getProductReviewPoint();
   }
 
+  componentWillUnmount(){
+    const { mypagereview, productreview } = this.props;
+    if(mypagereview)
+      mypagereview.initialize();
+  }
+
   render() {
     const { mypagereview } = this.props;
 

@@ -47,6 +47,13 @@ export default class MypageReviewStore {
     }
   }
 
+  @action
+  initialize = () => {
+    this.availableReview = [];
+    this.availableReviewPage = [];
+    this.myReivewsItemList = [];
+  }
+
   @action async getReviewData({ productId, reviewId }) {
     try {
       const { data } = await API.user.get(
