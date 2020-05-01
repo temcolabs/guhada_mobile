@@ -54,6 +54,10 @@ class eventdetail extends Component {
     const url = document.location.href;
     const id = url.substr(url.lastIndexOf('/') + 1);
     this.props.eventmain.getEventDetail(id);
+     // force update does not work. work aournd solution for delay
+     setTimeout(function() { 
+      this.setState({ mssg: "forceRefresh" });
+    }.bind(this), 100)
   }
   render() {
     const { eventmain, headData } = this.props;
