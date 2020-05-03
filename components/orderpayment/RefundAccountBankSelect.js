@@ -29,9 +29,13 @@ class RefundAccountBankSelect extends Component {
         position: 'relative',
         width: '100%',
       }),
+      
+      /** -- 무통장 결제에서 ios safari에서 dropdown indicator가 select box 바깥에 위치함 --
       valueContainer: () => ({
         padding: 0,
       }),
+       */
+    
       control: provided => ({
         ...provided,
         height: 45,
