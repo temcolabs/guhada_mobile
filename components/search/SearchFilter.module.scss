@@ -9,6 +9,7 @@ $toolbarHeader: 60px;
   height: calc(100vh - #{$topPosition});
   background: #fff;
   overflow: scroll;
+  padding-bottom: 50px;
 
   & .header {
     width: 100%;
