@@ -38,7 +38,8 @@ import { devLog } from 'childs/lib/common/devLog';
   'alert',
   'mypageRecentlySeen',
   'cartAndPurchase',
-  'login'
+  'login',
+  'shoppingCartSuccessModal'
 )
 @observer
 class ProductDetail extends React.Component {
@@ -129,6 +130,7 @@ class ProductDetail extends React.Component {
       login,
       alert,
       searchitem,
+      shoppingCartSuccessModal
     } = this.props;
 
     return (
@@ -234,8 +236,8 @@ class ProductDetail extends React.Component {
         </SectionWrap>
 
         {/* 상품 상세 장바구니 , 구매하기 버튼 */}
-        {this.state.cartAndPurchaseVisible == true? 
-          <CartAndPurchaseButton isVisible={false}
+        {this.state.cartAndPurchaseVisible === true && !shoppingCartSuccessModal.isOpen? 
+          <CartAndPurchaseButton isVisible = {false}
           handleInternationalPopup={this.handleInternationalPopup}
           isInternationalSubmit={this.isInternationalSubmit}
           />  : null
