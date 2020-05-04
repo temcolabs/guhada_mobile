@@ -6,6 +6,10 @@ import { Field } from 'react-final-form';
 import {
   composeValidators,
   notEmptyString,
+  validateWithValue,
+  delayedValidation,
+  validateStringHasLength,
+  nickNameLength
 } from 'childs/lib/common/finalFormValidators';
 import debouncePromise from 'childs/lib/common/debouncePromise';
 import userService from 'childs/lib/API/user/userService';
@@ -68,7 +72,10 @@ export default function NicknameVerifyForm() {
   }, [fields.nickname, initialValues]);
 
   return useObserver(() => (
-    <Field name={fields.nickname} validate={validator}>
+    <Field name={fields.nickname} validate={composeValidators(
+      delayedValidation(
+        validateStringHasLength(validateWithValue(nickNameLength))
+      ))}>
       {({ meta, input }) => {
         return (
           <div className={css.formGroup}>

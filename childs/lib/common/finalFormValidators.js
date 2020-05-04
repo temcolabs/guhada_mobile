@@ -107,3 +107,12 @@ export const mustBePassword = v => {
 export const mustBeMobile = v => {
   return isValidMobileStr(v) ? undefined : '잘못된 휴대전화 번호입니다.';
 };
+
+/**
+ * 닉네임 글주수 제한
+ */
+export const nickNameLength = value => {
+  return value.length >= 2 && value.length <= 20 ? undefined : '2-20자 이내 입력해주세요';
+};
+
+
