@@ -872,7 +872,7 @@ export default class SearchItemStore {
         brand: brandList,
         filter: filterList,
         subcategory: subCategoryList,
-        keyword: '',
+        keyword: query.keyword,
         resultKeyword: this.resultKeyword,
         filtered: true,
         productCondition: this.productCondition,
