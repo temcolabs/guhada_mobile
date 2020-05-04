@@ -41,25 +41,28 @@ export default function SellerStoreInfomation({ sellerStore }) {
               return (
                 <tr key={i}>
                   <td className={css.tableHeader}>{item.label}</td>
-                  <td className={css.tableValue}>{item.value || ''}</td>
+                  <td className={css.tableValue}>{(_.isNil(sellerStore.offlineStoreAddress.trim()) || sellerStore.offlineStoreAddress.trim() === 'null') ? '' : item.value}</td>
                 </tr>
               );
             })}
           </tbody>
         </table>
       </div>
-      <div className={css.storeInfoWrap}>
-        <div className={css.infoHeader}>오프라인 스토어</div>
-        <div className={css.map}>
-          <SellerStoreMap address={sellerStore.offlineStoreAddressForMap} />
+      {(_.isNil(sellerStore.offlineStoreAddress.trim()) || sellerStore.offlineStoreAddress.trim() === 'null') ? null
+        :
+        <div className={css.storeInfoWrap}>
+          <div className={css.infoHeader}>오프라인 스토어</div>
+          <div className={css.map}>
+            <SellerStoreMap address={sellerStore.offlineStoreAddressForMap} />
+          </div>
+          <div className={css.infoStoreAddress}>
+            {sellerStore.offlineStoreAddress || ''}
+          </div>
+          {_.isNil(sellerStore.businessHours) === false && (
+            <div className={css.infoStoreTime}>{sellerStore.businessHours}</div>
+          )}
         </div>
-        <div className={css.infoStoreAddress}>
-          {sellerStore.offlineStoreAddress || ''}
-        </div>
-        {_.isNil(sellerStore.businessHours) === false && (
-          <div className={css.infoStoreTime}>{sellerStore.businessHours}</div>
-        )}
-      </div>
+      }
     </div>
   );
 }

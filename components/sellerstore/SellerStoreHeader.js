@@ -4,6 +4,8 @@ import cn from 'classnames';
 import { loginStatus } from 'childs/lib/constant';
 import { useObserver } from 'mobx-react-lite';
 import checkNullAndEmpty from 'childs/lib/common/checkNullAndEmpty';
+import _ from 'lodash';
+
 export default function SellerStoreHeader({
   sellerStore = {
     badSatisfactionCount: 0,
@@ -34,9 +36,9 @@ export default function SellerStoreHeader({
         style={
           checkNullAndEmpty(sellerStore.offlineStoreImageUrl) === false
             ? {
-                backgroundImage: `url(${sellerStore.offlineStoreImageUrl})`,
-                boxShadow: `inset 0 0 0 180px rgba(17,17,17,0.3)`,
-              }
+              backgroundImage: `url(${sellerStore.offlineStoreImageUrl})`,
+              boxShadow: `inset 0 0 0 180px rgba(17,17,17,0.3)`,
+            }
             : null
         }
       >
@@ -84,21 +86,21 @@ export default function SellerStoreHeader({
               팔로잉
             </button>
           ) : (
+              <button
+                className={cn(css.colored)}
+                onClick={() => seller.setFollowSellerStore(seller.sellerId)}
+              >
+                팔로우
+              </button>
+            )
+        ) : (
             <button
               className={cn(css.colored)}
               onClick={() => seller.setFollowSellerStore(seller.sellerId)}
             >
               팔로우
             </button>
-          )
-        ) : (
-          <button
-            className={cn(css.colored)}
-            onClick={() => seller.setFollowSellerStore(seller.sellerId)}
-          >
-            팔로우
-          </button>
-        )}
+          )}
         <div className={css.satisfactionWrap}>
           <div className={css.satisfactionHeader}>구매자 만족도</div>
           <div>
@@ -122,8 +124,9 @@ export default function SellerStoreHeader({
             >{`불만족 ${sellerStore.badSatisfactionCount.toLocaleString()}명`}</div>
           </div>
         </div>
-        {sellerStore.offlineStoreAddress ? (
-          <Fragment>
+        {(_.isNil(sellerStore.offlineStoreAddress.trim()) || sellerStore.offlineStoreAddress.trim() === 'null') ? 
+            null
+            : <Fragment>
             <div className={css.offlineStoreHeader}>오프라인 스토어</div>
             <div
               className={css.offlineStoreAddress}
@@ -137,8 +140,7 @@ export default function SellerStoreHeader({
               {sellerStore.offlineStoreAddress}
               <div className={css.offlineStoreAddressIcon} />
             </div>
-          </Fragment>
-        ) : null}
+          </Fragment>}
       </div>
     </div>
   ));
