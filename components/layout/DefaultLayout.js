@@ -39,6 +39,7 @@ class DefaultLayout extends Component {
     wrapperStyle: {},
     toolBar: true,
     kakaoChat: true,
+    topButton: true
   };
 
   /**
@@ -92,6 +93,7 @@ class DefaultLayout extends Component {
       scrollDirection,
       wrapperStyle,
       kakaoChat,
+      topButton
     } = this.props;
 
     let cartAmount = this.props.shoppingcart.cartAmount;
@@ -128,8 +130,10 @@ class DefaultLayout extends Component {
             }
           />
         ) : null}
-
-        <div className={css.btnTop} onClick={() => window.scrollTo(0, 0)} />
+        {topButton ?
+          <div className={css.btnTop} onClick={() => window.scrollTo(0, 0)} />
+          : null
+        }
       </div>
     );
   }

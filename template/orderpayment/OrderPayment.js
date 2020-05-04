@@ -29,7 +29,9 @@ class OrderPayment extends React.Component {
       <DefaultLayout
         pageTitle={'주문 결제'}
         headerShape={'orderpayment'}
+        kakaoChat={false}
         toolBar={false}
+        topButton={false}
       >
         <Controller />
 
