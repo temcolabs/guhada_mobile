@@ -52,7 +52,9 @@ class OrderItem extends React.Component {
 
     return (
       <div className={css.wrap}>
-        <div className={css.orderInfoWrapper}>
+        {order.hasOwnProperty('hasSamePurchseId') && order.hasSamePurchseId === true
+        ? null
+        : <div className={css.orderInfoWrapper}>
           {/* 주문정보 + 판매자 정보 */}
           <div className={css.orderInfo} onClick={redirectToDetail}>
             <div className={css.orderInfo__date}>
@@ -67,6 +69,7 @@ class OrderItem extends React.Component {
             </div>
           </div>
         </div>
+        }
         <div className={css.productInfoWrapper}>
           <div className={css.dealOrderdWrapper}>
             <DealOrdered

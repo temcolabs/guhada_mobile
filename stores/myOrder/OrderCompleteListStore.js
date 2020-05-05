@@ -176,8 +176,17 @@ export default class OrderListStore {
         });
         const result = data.data;
         const { orderItemList, count, page, totalPage } = result;
+        
+        let purchaseIdLst = [];
+        orderItemList.forEach(function(item, index){
+          if(purchaseIdLst.includes(item.purchaseId)){
+            item.hasSamePurchseId = true;
+          }
+          purchaseIdLst.push(item.purchaseId);
+        });
 
         this.list = orderItemList;
+
         this.page = page;
         this.count = count;
         this.totalPage = totalPage;
