@@ -75,12 +75,15 @@ export default function OrderConfirmModal({
                   포인트 최대 {addCommaToNum(dueSavePointOnReview)}원
                 </div>
               </div>
-              <div className={css.pointGuide__item}>
-                <div className={css.pointGuide__condition}>첫 구매 시</div>
-                <div className={css.pointGuide__result}>
-                  포인트 {addCommaToNum(dueSavePointOnFirstPurchase)}원
-                </div>
-              </div>
+              {dueSavePointOnFirstPurchase > 0
+                ? <div className={css.pointGuide__item}>
+                    <div className={css.pointGuide__condition}>첫 구매 시</div>
+                    <div className={css.pointGuide__result}>
+                      포인트 {addCommaToNum(dueSavePointOnFirstPurchase)}원
+                    </div>
+                  </div>
+              : null
+              }
             </div>
           </div>
         </div>
