@@ -19,20 +19,11 @@ class CouponDownModal extends Component {
                     productoption.couponDownModalClose();
                   }}
                 />
-              </div>
-              {sellerfollow.follows ? (
-                <div className={css.title}>
-                  <div>감사 쿠폰을 받아보세요!</div>
-                  <div>팔로우한 셀러는 마이페이지에서 확인할 수 있습니다.</div>
-                </div>
-              ) : (
-                <div className={css.title}>
-                  <div>셀러를 팔로우하고</div>
-                  <div>쿠폰을 받아보세요!</div>
-                  <div>팔로우한 셀러는 마이페이지에서 확인할 수 있습니다.</div>
-                </div>
-              )}
-
+              </div>              
+              <div className={css.title}>
+                <div>현재 발급 가능한 쿠폰</div>
+                <div>발급받은 쿠폰은 마이페이지에서 확인할 수 있습니다.</div>
+              </div>              
               <div className={css.couponContainer}>
                 {productoption.dueSavebenefitCoupon.map((data, index) => {
                   return data.alreadySaved ? null : (
@@ -75,12 +66,14 @@ class CouponDownModal extends Component {
               <div
                 className={css.confirmButton}
                 onClick={() => {
+                  productoption.dueSavebenefitCoupon.forEach(function (element, index){
+                    if(element.saveActionType === 'FOLLOW'){
+                      sellerfollow.setSellerFollow(element.sellerId);
+                    }    
+                  });
                   productoption.couponDown();
-                }}
-              >
-                {sellerfollow.follows
-                  ? '모든 쿠폰 받기'
-                  : '팔로우하고 쿠폰 받기'}
+                }}>                
+                모든 쿠폰 받기                  
               </div>
             </div>
           </div>
