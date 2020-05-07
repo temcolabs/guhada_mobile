@@ -106,6 +106,13 @@ class KeywordMenu extends Component {
     }
   };
 
+  isKeywordPlaceholder = (keyword = '') => {
+    const { searchHolder } = this.props;
+    if(keyword === searchHolder.placeholderData.placeholder)
+      return true;
+    return false;
+  }
+
   render() {
     const { keyword, onClose, isSearchVisible, searchHolder } = this.props;
     const { displayContent, keywordTab } = this.state;
