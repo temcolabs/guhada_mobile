@@ -249,7 +249,7 @@ class ProductDetail extends React.Component {
             process.env.API_CLOUD
           }/images/web/common/notice_delivery@3x.png`}
           cancelButtonText={'취소'}
-          submitButtonText={'확인'}
+          submitButtonText={'동의'}
           onCancel={() => {
             this.handleInternationalPopup(false);
           }}
