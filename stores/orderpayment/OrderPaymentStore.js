@@ -1598,7 +1598,7 @@ export default class OrderPaymentStore {
             this.orderUserInfo.refundBankAccountOwner = data.data.name;
           } else {
             this.root.alert.showAlert({
-              content: '계좌 확인실패.',
+              content: '계좌 정보를 확인해 주세요.',
             });
             this.status.refundBankAccount = false;
             this.orderUserInfo.refundBankAccountOwner = data.data.name;
@@ -1609,7 +1609,7 @@ export default class OrderPaymentStore {
         .catch(e => {
           console.error(e);
           this.root.alert.showAlert({
-            content: '계좌 확인실패.',
+            content: e.data.message,
           });
           this.status.loadingStatus = false;
         })
