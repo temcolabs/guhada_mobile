@@ -7,10 +7,12 @@ export class SearchPlaceholderStore {
   // }
 
   @observable placeholderData;
+  @observable placeHolderClone;
   @action
   getPlaceholder = () => {
     placeholderService.getSearchPlaceholder().then(res => {
       this.placeholderData = res.data;
+      this.placeHolderClone = res.data.placeholder;
     });
   };
 }

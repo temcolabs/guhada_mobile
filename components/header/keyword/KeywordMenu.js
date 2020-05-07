@@ -74,11 +74,17 @@ class KeywordMenu extends Component {
   };
 
   onFocus = () => {
+    const { searchHolder } = this.props;
+    searchHolder.placeholderData.placeholder = '';
     this.setState({ displayContent: 'keyword' });
   };
 
   onBlur = () => {
     this.setState({ displayContent: '' });
+    const { field, searchHolder } = this.props;
+    if(field.value.length === 0){
+      searchHolder.placeholderData.placeholder = searchHolder.placeHolderClone;
+    }
   };
 
   changeKeyword = header => {
@@ -86,17 +92,18 @@ class KeywordMenu extends Component {
   };
 
   clickToSearch = (value = '') => {
-    const { searchitem, keyword, alert } = this.props;
+    const { searchitem, keyword, alert, searchHolder } = this.props;
     let keywordValue = value;
 
-    if (keywordValue.replace(/^\s+/, '') === '') {
-      alert.showAlert('검색 키워드를 입력하셔야 합니다.');
-      return;
+    if (keywordValue.length === 0 || this.isKeywordPlaceholder(keywordValue)) {      
+      if(searchHolder.placeholderData.hasOwnProperty('placeholderLink') 
+        && searchHolder.placeholderData.placeholderLink && searchHolder.placeholderData.placeholderLink.length > 0)
+        pushRoute(searchHolder.placeholderData.placeholderLink);
+    }else{
+      keyword.addItem(value);
+      searchitem.toSearch({ enter: 'keyword', keyword: value });
+      this.setState({ displayContent: '', inputValue: value });
     }
-
-    keyword.addItem(value);
-    searchitem.toSearch({ enter: 'keyword', keyword: value });
-    this.setState({ displayContent: '', inputValue: value });
   };
 
   render() {
