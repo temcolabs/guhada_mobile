@@ -405,6 +405,8 @@ function OrderActionButtonConductor({
           buttons = [
             ShowDeliveryButton(actionButtonText.CHECK_RESEND),
             ConfirmButton,
+            ExchangeButton,
+            TruningBackButton,
           ];
         } else {
           // 구매 확정 후
