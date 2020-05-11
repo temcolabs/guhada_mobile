@@ -21,5 +21,5 @@ fi
 
 echo $RELEASE_VERSION
 # 서버 접속 후 테스트 앱 시작
-ssh -i ~/.ssh/guhada.pem $USER@$HOST "cd $DEST_REPO && git reset --hard && git remote update --prune && git checkout $BRANCH && git pull && npm install && npm run build && pm2 flush && pm2 reload ecosystem.config.js --only $APP_NAME --env production && ./scripts/delete-old-builds.sh && ./scripts/etc/createRobotsDisallowed.sh"
+ssh -i ~/.ssh/guhada.pem $USER@$HOST "cd $DEST_REPO && git reset --hard && git remote update --prune && git checkout $RELEASE_VERSION && git pull && npm install && npm run build && pm2 flush && pm2 reload ecosystem.config.js --only $APP_NAME --env production && ./scripts/delete-old-builds.sh && ./scripts/etc/createRobotsDisallowed.sh"
 
