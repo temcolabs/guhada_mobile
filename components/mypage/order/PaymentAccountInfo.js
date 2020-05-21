@@ -99,6 +99,22 @@ const PaymentAccountInfo = ({
           </div>
         </>
       )}
+
+      {/* 간편 결제 */}
+      {/**
+      {payment.parentMethod === paymentMethod.EASY_PAYMENT.code && (
+        <>
+          <div className={css.row}>
+            <span className={css.label}>이체일시</span>
+            <span className={css.value}>
+              {moment(
+                payment.completeTimestamp || payment.requestTimestamp
+              ).format(`${dateFormat.YYYYMMDD_UI} HH:mm`)}
+            </span>
+          </div>
+        </>
+      )}
+       */}
     </div>
   );
 };

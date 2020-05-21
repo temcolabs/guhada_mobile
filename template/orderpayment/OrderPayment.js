@@ -8,6 +8,7 @@ import Benefit from 'components/orderpayment/Benefit';
 import FinalAmountBenefit from 'components/orderpayment/FinalAmountBenefit';
 import PaymentMethod from 'components/orderpayment/PaymentMethod';
 import CashReceipt from 'components/orderpayment/CashReceipt';
+import EasyPayment from 'components/orderpayment/EasyPayment';
 import PaymentAgreement from 'components/orderpayment/PaymentAgreement';
 import PaymentButton from 'components/orderpayment/PaymentButton';
 import OtherRequest from 'components/orderpayment/OtherRequest';
@@ -72,6 +73,12 @@ class OrderPayment extends React.Component {
 
         {/* 환불 계좌 정보 */}
         {orderpayment.status.VBank ? <RefundAccount /> : null}
+
+        {/* 간편 계좌 정보 */}
+        {/**
+        {orderpayment.status.EasyPayment ? <EasyPayment /> : null}
+         */}
+
         {/* 결제 동의 */}
         <PaymentAgreement />
 

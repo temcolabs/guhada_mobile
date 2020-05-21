@@ -124,12 +124,20 @@ class PaymentMethod extends Component {
               value={paymentForm.nextUrl || ''}
             />
 
-            <input
+            {orderpayment.paymentMethod === 'NAVER' 
+              ? <input
+              readOnly
+              type="hidden"
+              name="P_INI_PAYMENT"
+              value={paymentForm.gopaymethod || ''} />
+              : <input
               readOnly
               type="hidden"
               name="gopaymethod"
-              value={paymentForm.gopaymethod || ''}
-            />
+              value={paymentForm.gopaymethod || ''} />
+            }
+
+           
 
             <input
               readOnly

@@ -92,6 +92,7 @@ export default class OrderPaymentStore {
     loadingStatus: false,
     VBank: false,
     refundBankAccount: false,
+    EasyPayment: false
   };
 
   @observable cashReceiptUsage = 'PERSONAL';
@@ -419,6 +420,7 @@ export default class OrderPaymentStore {
     this.status.VBank = false;
     this.status.cashReceipt = false;
     this.status.cashReceiptRequest = false;
+    this.status.EasyPayment = false;
 
     switch (this.paymentMethod) {
       case 'Card':
@@ -434,6 +436,12 @@ export default class OrderPaymentStore {
       case 'TOKEN':
         this.receiptDataInit();
         break;
+      case 'EASY':
+      case 'EasyPayment':
+      case 'NAVER':
+      case 'KAKAO':  
+        this.status.EasyPayment = true;
+        break;  
       default:
         break;
     }
@@ -1053,7 +1061,7 @@ export default class OrderPaymentStore {
 
         devLog(nextUrl, 'nextUrl');
 
-        devLog(data, 'requestOrder return data');
+        devLog(data, 'requestOrder return data');        
 
         this.paymentForm = {
           version: data.version,
@@ -1104,7 +1112,7 @@ export default class OrderPaymentStore {
     this.status.paymentProceed = true;
     sessionStorage.setItem('paymentInfo', this.status.paymentProceed);
     let form = document.getElementById('paymentForm');
-    form.action = this.paymentForm.jsUrl;
+    form.action = this.paymentForm.jsUrl;    
     form.submit();
   };
 

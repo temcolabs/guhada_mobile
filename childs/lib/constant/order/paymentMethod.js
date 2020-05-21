@@ -6,6 +6,7 @@ const paymentMethod = {
   VBANK: { code: 'VBank', label: '무통장입금' },
   DIRECT_BANK: { code: 'DirectBank', label: '실시간 계좌이체' },
   TOKEN: { code: 'TOKEN', label: '토큰결제' },
+  //EASY_PAYMENT: { code: 'NAVER', label: '간편결제' },
 };
 
 // select 옵션
