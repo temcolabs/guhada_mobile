@@ -75,10 +75,9 @@ class OrderPayment extends React.Component {
         {orderpayment.status.VBank ? <RefundAccount /> : null}
 
         {/* 간편 계좌 정보 */}
-        {/**
+        
         {orderpayment.status.EasyPayment ? <EasyPayment /> : null}
-         */}
-
+        
         {/* 결제 동의 */}
         <PaymentAgreement />
 

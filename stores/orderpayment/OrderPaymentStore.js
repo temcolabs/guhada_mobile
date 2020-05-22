@@ -412,6 +412,7 @@ export default class OrderPaymentStore {
   //--------------------- 결제방법변경 ---------------------
   @action
   setPaymentMethod = targetMethod => {
+    devLog('target payment method : ' + targetMethod);
     this.paymentMethod = targetMethod;
     this.methodChange();
   };
@@ -960,6 +961,17 @@ export default class OrderPaymentStore {
         }
       }
     }
+
+    /**
+     * 결제수단이 간편 결제일때 간편 결제 방법(네이버, 카카오등을) 선택하지 않았을때
+     */
+    if (this.paymentMethod === 'EASY') {      
+      this.root.alert.showAlert({
+        content: '간편 결제를 선택해주세요.',
+      });
+      return false;      
+    }
+
 
     /**
      * 결제수단이 가상계좌일때 환불계좌 정보 체크

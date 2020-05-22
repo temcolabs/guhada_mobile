@@ -124,7 +124,7 @@ class PaymentMethod extends Component {
               value={paymentForm.nextUrl || ''}
             />
 
-            {orderpayment.paymentMethod === 'NAVER' 
+            {orderpayment.paymentMethod === 'NAVER' || 'EASY'
               ? <input
               readOnly
               type="hidden"
@@ -135,10 +135,8 @@ class PaymentMethod extends Component {
               type="hidden"
               name="gopaymethod"
               value={paymentForm.gopaymethod || ''} />
-            }
-
+            }             
            
-
             <input
               readOnly
               type="hidden"

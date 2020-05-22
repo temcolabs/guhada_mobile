@@ -100,8 +100,7 @@ const PaymentAccountInfo = ({
         </>
       )}
 
-      {/* 간편 결제 */}
-      {/**
+      {/* 간편 결제 */}      
       {payment.parentMethod === paymentMethod.EASY_PAYMENT.code && (
         <>
           <div className={css.row}>
@@ -113,8 +112,7 @@ const PaymentAccountInfo = ({
             </span>
           </div>
         </>
-      )}
-       */}
+      )}       
     </div>
   );
 };

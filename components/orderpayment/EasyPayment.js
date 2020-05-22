@@ -4,12 +4,8 @@ import css from './EasyPayment.module.scss';
 
 @inject('orderpayment')
 @observer
-class EasyPayment extends Component {
-
-    componentDidMount(){
-        this.props.orderpayment.setPaymentMethod('NAVER');
-    }
-
+class EasyPayment extends Component {    
+    
     render() {
         let { orderpayment } = this.props;
         return (
@@ -20,8 +16,7 @@ class EasyPayment extends Component {
                             <input
                                 type="radio"
                                 name="receiptStatus"
-                                value="NAVER"
-                                defaultChecked
+                                value="NAVER"                                
                                 onChange={e => {
                                     orderpayment.setPaymentMethod(e.target.value);}
                                 }
