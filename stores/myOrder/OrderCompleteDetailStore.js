@@ -18,7 +18,7 @@ export default class OrderCompleteDetailStore {
 
   @observable data = {}; // purhcaseId 기반 주문 완료 정보. 결제 정보, orderList 포함
   @observable receiptUrl = ''; // 영수증 주소
-
+  
   // 주문 완료 데이터에는 상품 목록(orderProdGroup)이 있음.
   @computed get orderList() {
     return this.data.orderList || [];
@@ -88,8 +88,9 @@ export default class OrderCompleteDetailStore {
       const { data } = await orderService.getOrderComplete({ purchaseId });
 
       this.data = data.data;
-
-      this.receiptUrl = await this.getReceitUrl(data.data?.pgTid);
+      let pgKind = this.pgKind = data.data.payment.pgKind;      
+      this.receiptUrl = await this.getReceitUrl(data.data?.pgTid, pgKind);
+      
       devLog(this.data, 'getOrderComplete');
     } catch (e) {
       console.error(e);
@@ -110,10 +111,10 @@ export default class OrderCompleteDetailStore {
    * @param pgTid ex) StdpayCARDguhadatest20190524185023438796
    */
   @action
-  getReceitUrl = async (pgTid = '') => {
+  getReceitUrl = async (pgTid = '', pgKind) => {
     try {
-      const { data } = await API.order.get(`/receiptUrlSearch`, {
-        params: { tid: pgTid },
+      const { data } = await API.order.get(`/receiptAllUrlSearch`, {
+        params: { tid: pgTid, pgKind: pgKind },
       });
 
       return data.data;
@@ -126,7 +127,7 @@ export default class OrderCompleteDetailStore {
   /**
    * 영수증 팝업 열기
    */
-  openReceiptPopup = receiptUrl => {
+  openReceiptPopup = (receiptUrl) => {
     if (!!receiptUrl) {
       openPopupCenter(receiptUrl, 'receit', 420, 540);
     } else {
