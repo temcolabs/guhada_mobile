@@ -23,14 +23,14 @@ class Benefit extends Component {
     devLog(value, 'value');
 
     if (
-      value > orderpayment.orderInfo.availablePointResponse.availableTotalPoint
+      value > orderpayment.orderSidetabTotalInfo?.availablePoint
     ) {
       alert.showAlert({
         content: '최대 사용 가능 포인트 초과 입니다.',
       });
 
       orderpayment.usePoint =
-        orderpayment.orderInfo.availablePointResponse.availableTotalPoint;
+        orderpayment.orderSidetabTotalInfo?.availablePoint;
       orderpayment.getPaymentInfo();
     } else {
       orderpayment.usePoint = value;
@@ -43,7 +43,7 @@ class Benefit extends Component {
     let { orderpayment } = this.props;
     let myPoint = orderpayment.orderInfo.totalPoint;
     let availablePoint =
-      orderpayment.orderInfo.availablePointResponse.availableTotalPoint;
+      orderpayment.orderSidetabTotalInfo?.availablePoint;
 
     if (myPoint > 0) {
       if (myPoint >= availablePoint) {
