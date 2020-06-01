@@ -117,7 +117,7 @@ class Benefit extends Component {
             <div>
               (사용가능
               <span>
-                {orderpayment?.orderInfo?.availablePointResponse?.availableTotalPoint?.toLocaleString()}
+                {orderpayment.orderSidetabTotalInfo?.availablePoint?.toLocaleString()}
               </span>
             </div>
             <div>{`P / 보유 ${orderpayment?.orderInfo?.totalPoint?.toLocaleString()}P)`}</div>
