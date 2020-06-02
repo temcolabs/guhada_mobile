@@ -330,7 +330,7 @@ export default class MypageReviewStore {
         this.myReviews = res.data.data;
         this.myReivewsItemList = this.myReivewsItemList.concat(
           res.data?.data?.content
-        );
+        ).slice().reverse();
       })
       .catch(e => {
         this.myReviews = [];
