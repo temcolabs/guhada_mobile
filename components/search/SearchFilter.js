@@ -26,7 +26,7 @@ class SearchFilter extends Component {
   setBrandData = memoize(isVisible => {
     const { brands, searchitem } = this.props;
     if (isVisible === false) {
-      searchitem.initFilter();
+      //searchitem.initFilter();
       brands.getBrands();
     } else {
       brands.setBrandsFromFilter(searchitem.item?.brands);
@@ -70,7 +70,7 @@ class SearchFilter extends Component {
             <button
               className={css.init}
               onClick={() => {
-                searchitem.clearFilter();
+                searchitem.initFilter();
                 this.refs.filterScroll.scrollTo(0, 0);
               }}
             >

@@ -8,6 +8,8 @@ import AutoComplete from './AutoComplete';
 import Router from 'next/router';
 import { pushRoute } from 'childs/lib/router';
 import isTruthy from 'childs/lib/common/isTruthy';
+import { devLog } from 'childs/lib/common/devLog';
+import SearchEnum from 'childs/lib/constant/filter/SearchEnum';
 
 @inject('searchitem', 'keyword', 'alert', 'searchHolder')
 @observer
@@ -82,7 +84,7 @@ class KeywordMenu extends Component {
   onBlur = () => {
     this.setState({ displayContent: '' });
     const { field, searchHolder } = this.props;
-    if(field.value.length === 0){
+    if(field && field.value && field.value.length === 0){
       searchHolder.placeholderData.placeholder = searchHolder.placeHolderClone;
     }
   };
@@ -92,6 +94,7 @@ class KeywordMenu extends Component {
   };
 
   clickToSearch = (value = '') => {
+    devLog('[KeyworkMenu] - clickToSearch called.');
     const { searchitem, keyword, alert, searchHolder } = this.props;
     let keywordValue = value;
 
@@ -101,7 +104,7 @@ class KeywordMenu extends Component {
         pushRoute(searchHolder.placeholderData.placeholderLink);
     }else{
       keyword.addItem(value);
-      searchitem.toSearch({ enter: 'keyword', keyword: value });
+      searchitem.toSearch({ enter: 'keyword', keyword: value, searchSourceFrom: SearchEnum.GLOBAL_SEARCH_INPUT });
       this.setState({ displayContent: '', inputValue: value });
     }
   };

@@ -2,10 +2,15 @@ import React, { Component } from 'react';
 import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 import css from './SellerStoreOrder.module.scss';
 import cn from 'classnames';
+import Router from 'next/router';
+import { devLog } from 'childs/lib/common/devLog';
+
+
 
 class SellerStoreOrder extends Component {
   render() {
     const { isVisible, onClose, getOrderDeal, sellerStoreFilter } = this.props;
+
     return (
       <SlideIn isVisible={isVisible} direction={slideDirection.BOTTOM}>
         <div className={css.wrap}>
@@ -42,7 +47,7 @@ class SellerStoreOrder extends Component {
               className={cn(css.item, {
                 [css.selected]: sellerStoreFilter === 'PRICE_ASC',
               })}
-              onClick={e => {
+              onClick={e => {                
                 getOrderDeal('PRICE_ASC', e);
               }}
             >

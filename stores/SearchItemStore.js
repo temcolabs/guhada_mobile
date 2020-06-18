@@ -16,6 +16,8 @@ import { devLog } from 'childs/lib/common/devLog.js';
 import isTruthy from 'childs/lib/common/isTruthy.js';
 import addCommaToArray from 'childs/lib/string/addCommaToArray.js';
 import { conditionOption } from 'childs/lib/constant/filter/condition.js';
+import KeywordMenu from 'components/header/keyword/KeywordMenu.js';
+import SearchEnum from 'childs/lib/constant/filter/SearchEnum.js';
 
 const isServer = typeof window === 'undefined';
 
@@ -272,6 +274,7 @@ export default class SearchItemStore {
     sellerIds = '',
     eventIds = ''
   ) => {
+    devLog('[SearchItemStore] - getSearchByUri called.');
     this.itemEmpty = false;
 
     // 값이 undefined 일 때 문제 되는 parameter 값 "" 처리
@@ -397,6 +400,8 @@ export default class SearchItemStore {
               this.checkedKeysId.push(category);
             });
 
+            devLog('[SearchItemStore] - checked keys :  ' + this.checkedKeys);
+
             if (data.resultCode === 200) {
               // * 목록 검색 성공 후 크리테오 트래커 실행
               const { deals } = data.data;
@@ -433,7 +438,7 @@ export default class SearchItemStore {
                 );
 
               // SearchCategory init key 값 설정
-              if (categoryIds && data.data.categories.length !== 0)
+              if (categoryIds && data && data.data && data.data.categories && data.data.categories.length !== 0)
                 this.setExpandedKeys(
                   getCategory(data.data.categories, categoryIds).key
                 );
@@ -690,11 +695,13 @@ export default class SearchItemStore {
     return toJS(this.categoryTreeData);
   }
 
-  @computed get getExpandedKeys() {
-    return this.expandedKeys.slice();
+  @computed get getExpandedKeys() { 
+    devLog('getExpandedKeys called. this.expandedKeys : ' + this.expandedKeys);
+    return this.expandedKeys.slice().filter(x => x);
   }
   @action
   setExpandedKeys = expandedKeys => {
+    devLog('setExpandedKeys called. setExpandedKeys : ' + expandedKeys);
     if (expandedKeys == null) expandedKeys = '';
 
     if (Array.isArray(expandedKeys)) {
@@ -716,6 +723,7 @@ export default class SearchItemStore {
   @observable categoryquery;
 
   @computed get getCheckedKeys() {
+    devLog('[SearchItemStore] - getCheckedKeys called. this.checkedKeys : ' + this.checkedKeys);
     return this.checkedKeys.slice();
   }
 
@@ -738,10 +746,12 @@ export default class SearchItemStore {
       this.checkedKeys.splice(idx, 1);
       this.checkedKeysId.splice(idx, 1);
     }
+    devLog('[SearchItemStore] - checked keys :  ' + this.checkedKeys);
   }
 
   @action
   onCheck = (checkedKeys, info) => {
+    devLog('[SearchItemStore] - onCheck called. ' + this.checkedKeys);
     let classNames = info.node.props.className;
     if (classNames === 'ableCheckbox') {
       this.checkDuplicatedCheckedKeys(info);
@@ -751,8 +761,10 @@ export default class SearchItemStore {
   };
   @observable selectCategory;
 
-  @action
+  
+  @action 
   onSelect = (selectedKeys, info) => {
+    devLog('[SearchItemStore] - onSelect called.');
     let classNames = info.node.props.className;
 
     if (classNames === 'ableCheckbox') {
@@ -764,9 +776,11 @@ export default class SearchItemStore {
       this.initCheckedKeys();
     }
   };
+  
 
   @action
   initFilter = () => {
+    devLog('[searchItemStore] initFilter called.');
     this.filterBrand = [];
     this.filterData.map((data, dataKey) => {
       return data.attributes.map((attributes, attributesKey) => {
@@ -777,17 +791,22 @@ export default class SearchItemStore {
         }
       });
     });
-
+    
     let query = Router.router.query;
     this.productCondition = query.productCondition;
     this.shippingCondition = query.shippingCondition;
     this.minPrice = query.minPrice;
     this.maxPrice = query.maxPrice;
     this.resultKeyword = '';    
+    query.category = '';
+    query.brand = '';
+    query.conditionValue = '';
+
   };
 
   @action
   clearFilter = () => {
+    devLog('[searchItemStore] clearFilter called.');
     this.initFilter();
     this.toSearch({ resultKeyword: '' });
   };
@@ -1032,73 +1051,48 @@ export default class SearchItemStore {
     maxPrice = '',
     sellerIds = this.root.seller.sellerId || '',
     eventIds = this.root.special.eventId || '',
+    searchSourceFrom = ''
   }) => {
-    devLog("Search button clicked." )
+    devLog("[toSearch function] Search button clicked. searchSourceFrom : " + searchSourceFrom);  
+    if(searchSourceFrom === SearchEnum.GLOBAL_SEARCH_INPUT)
+      this.initFilter();
     let query = Router.router.query;
-    this.productCondition = productCondition;
+    this.productCondition = productCondition; 
     this.shippingCondition = shippingCondition;
-    if(sellerIds){
-      pushRoute(
-        `/store/${this.root.seller.nickname}?${qs.stringify({
-          category: category === 'empty' ? query.category : category,
-          brand: brand === 'empty' ? query.brand : brand,
-          page: page,
-          unitPerPage: 24,
-          order: order === null || order === '' ? 'DATE' : order,
-          subcategory: subcategory,
-          enter: enter === '' ? query.enter : enter,
-          condition: condition === '' ? query.condition : condition,
-          keyword: keyword === '' ? query.keyword : keyword,
-          resultKeyword: resultKeyword,
-          filter: filter,
-          minPrice: minPrice,
-          maxPrice: maxPrice,
-          productCondition: this.productCondition,
-          shippingCondition: this.shippingCondition,
-        })}`
-      );
+
+    let categoryValue = category === '' && !(_.isEmpty(query) || query === undefined) ? query.category : category;
+    let brandValue = brand === '' && !(_.isEmpty(query) || query === undefined) ? query.brand : brand;
+    let keywordValue = keyword === '' && !(_.isEmpty(query) || query === undefined) ? query.keyword : keyword;
+    let conditionValue = condition === '' && !(_.isEmpty(query) || query === undefined) ? query.condition : condition;
+    let enterValue = enter === '' && !(_.isEmpty(query) || query === undefined) ? query.enter : enter;
+
+    let queryStringify = qs.stringify({      
+      category: categoryValue,
+      brand: brandValue,
+      page: page,
+      unitPerPage: searchSourceFrom === (SearchEnum.SELLER_STORE || SearchEnum.PROMOTION_PAGE) ? SearchEnum.DEFAULT_SELLER_STORE_UNIT_PER_PAGE : SearchEnum.DEFAULT_GLOBAL_SEARCH_UNIT_PER_PAGE,
+      order: order === null || order === '' ? SearchEnum.DEFAULT_SEARCH_ORDER : order,
+      filter: filter,
+      subcategory: subcategory,
+      enter: enterValue,
+      keyword: keywordValue,
+      resultKeyword: resultKeyword,
+      condition: conditionValue,
+      filtered: filtered,
+      productCondition: this.productCondition,
+      shippingCondition: this.shippingCondition,
+      minPrice: minPrice,
+      maxPrice: maxPrice,
+    });
+    devLog("query string : " + queryStringify.toString());
+    if(searchSourceFrom === SearchEnum.GLOBAL_SEARCH_INPUT){
+      pushRoute(`/search?${queryStringify}`);
+    }else if(searchSourceFrom === SearchEnum.SELLER_STORE || sellerIds){
+      pushRoute(`/store/${this.root.seller.nickname}?${queryStringify}`);
     }else if(eventIds){
-      pushRoute(
-        `/event/special/${this.root.special.eventId}?${qs.stringify({
-          category: category === 'empty' ? query.category : category,
-          brand: brand === 'empty' ? query.brand : brand,
-          page: page,
-          unitPerPage: 24,
-          order: order === null || order === '' ? 'DATE' : order,
-          filter: filter,
-          subcategory: subcategory,
-          enter: enter === '' ? query.enter : enter,
-          condition: condition === '' ? query.condition : condition,
-          keyword: keyword === '' ? query.keyword : keyword,
-          resultKeyword: resultKeyword,                    
-          productCondition: this.productCondition,
-          shippingCondition: this.shippingCondition,
-          minPrice: minPrice, 
-          maxPrice: maxPrice,
-        })}`
-      );
+      pushRoute(`/event/special/${this.root.special.eventId}?${queryStringify}`);
     }else{
-      pushRoute(
-        `/search?${qs.stringify({
-          category: category,
-          brand: brand,
-          page: page,
-          unitPerPage: unitPerPage,
-          order: order === null || order === '' ? 'DATE' : order,
-          filter: filter,
-          subcategory: subcategory,
-          enter: enter === '' ? query.enter : enter,
-          keyword: keyword === 'empty' ? query.keyword : keyword,
-          resultKeyword: resultKeyword,
-          condition: condition === 'empty' ? query.condition : condition,
-          filtered: filtered,
-          productCondition: this.productCondition,
-          shippingCondition: this.shippingCondition,
-          minPrice: minPrice,
-          maxPrice: maxPrice,
-        })}`
-      );
-      
+      pushRoute(`/search?${queryStringify}`);      
     }
     
     if (this.preUrl !== Router.asPath) this.deals = [];
@@ -1125,7 +1119,7 @@ export default class SearchItemStore {
     sellerIds = this.root.seller.sellerId || '',
     eventIds = this.root.special.eventId || '',
   }) => {
-    devLog("Search button clicked." )
+    devLog("[toSearchStayPosition function]Search button clicked." )
     let query = Router.router.query;
     this.productCondition = productCondition;
     this.shippingCondition = shippingCondition;

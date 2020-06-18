@@ -135,7 +135,7 @@ function SearchFilterResult({ searchitem, router, seller }) {
 
   const clearFilter = () => {
     let query = router.query;
-
+    searchitem.initFilter();
     searchitem.initSearchFilterList();
     searchitem.toSearch({
       order: query.order,
