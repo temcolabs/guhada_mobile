@@ -134,6 +134,7 @@ export default class OrderPaymentStore {
   @observable selectedCouponList = [];
   @observable tempSelectedCouponList = [];
   @observable totalCouponDiscount = 0;
+  @observable totalCouponUsedCount = 0;
   @observable totalDiscountPrice = 0;
 
   //--------------------- 주문페이지 토탈 데이터 최초 바인딩 ---------------------
@@ -246,6 +247,7 @@ export default class OrderPaymentStore {
 
   @action
   getPaymentInfo = () => {
+    devLog('[OrderPaymentStore] - getPaymentInfo called.');
     let cartItemPayments = [];
     cartItemPayments = this.tempSelectedCouponList.map(data => {
       return {
@@ -1545,26 +1547,38 @@ export default class OrderPaymentStore {
    * 쿠폰 할인 금액 계싼
    */
   couponDiscountCalculator = () => {
+    devLog('[OrderPaymentStore] - couponDiscountCalculator called.');
     this.totalCouponDiscount = 0;
     this.totalDiscountPrice = 0;
-    for (let i = 0; i < this.tempSelectedCouponList.length; i++) {
-      this.totalCouponDiscount += this.tempSelectedCouponList[
-        i
-      ].couponDiscountPrice;
+    this.totalCouponUsedCount = 0;
+
+    let appliedCouponPriceSum = 0;
+    let appliedCouponCount = 0;
+    if(this.orderSidetabTotalInfo.discountInfoResponseList){
+      this.orderSidetabTotalInfo.discountInfoResponseList.forEach(function (element){
+        if(element.discountType === 'COUPON_DISCOUNT'){
+          appliedCouponPriceSum += element.discountPrice;
+          appliedCouponCount++;
+        }
+      });
     }
 
-    this.totalDiscountPrice =
-      this.orderCouponInfo.totalProductPrice - this.totalCouponDiscount;
+    this.totalCouponDiscount = appliedCouponPriceSum;
+    this.totalCouponUsedCount = appliedCouponCount;
+    
+    this.totalDiscountPrice = this.orderCouponInfo.totalProductPrice - this.totalCouponDiscount;
   };
 
   @action
   couponApply = () => {
+    devLog('[OrderPaymentStore] - couponApply called.');
     this.status.loadingStatus = true;
     this.getPaymentInfo();
     this.selectedCouponList = this.tempSelectedCouponList;
   };
 
   updateCouponInfo = cartList => {
+    devLog('[OrderPaymentStore] - updateCouponInfo called.');
     API.gateway
       .get(`/benefits/order/coupon?cartItemIdSet=${cartList}`)
       .then(res => {

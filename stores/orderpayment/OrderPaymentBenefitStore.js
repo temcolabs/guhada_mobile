@@ -285,6 +285,7 @@ export default class OrderPaymentBenefitStore {
 
   @action
   apply = () => {
+    devLog('[OrderPaymentBenefitStore] - apply called.');
     this.applyCoupon = {
       applyDiscount: 0,
       applyCouponAmount: 0,

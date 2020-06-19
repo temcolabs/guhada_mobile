@@ -79,20 +79,10 @@ class Benefit extends Component {
             }장)`}</span>
           </div>
           <div className={css.couponSelectBox}>
-            <div className={css.couponInput}>
-              {orderPaymentBenefit.applyCoupon.applyCouponAmount ? (
-                <div
-                  className={css.applyCoupon}
-                >{`${orderPaymentBenefit.applyCoupon.applyDiscount?.toLocaleString() ||
-                  '0'}원 (${orderPaymentBenefit.applyCoupon.applyCouponAmount ||
-                  '0'}장)`}</div>
-              ) : (
-                <div>
-                  {`${orderpayment.orderCouponInfo?.totalCouponDiscountPrice?.toLocaleString() ||
-                    '0'}원 (${orderpayment.orderCouponInfo
-                    ?.selectedCouponCount || '0'}장)`}
-                </div>
-              )}
+            <div className={css.couponInput}>              
+              <div>
+                {`${orderpayment.totalCouponDiscount }원 (${orderpayment.totalCouponUsedCount}장)`}
+              </div>
             </div>
             {orderpayment.orderCouponInfo?.savedCouponCount ? (
               <div
