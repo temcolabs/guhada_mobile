@@ -137,6 +137,18 @@ export default class OrderPaymentStore {
   @observable totalCouponUsedCount = 0;
   @observable totalDiscountPrice = 0;
 
+  @observable easyPaymentList = [];
+
+  @observable easyPaymentMap = {
+    NAVER : {label : '네이버페이', iconUrl: '/static/icon/payment/order_payment_naverpay.png', width : '78px'},
+    KAKAO : {label : '카카오페이', iconUrl: '/static/icon/payment/order_payment_kakaopay.png', width : '57px'},
+    PAYCO : {label : '페이코페이', iconUrl: '/static/icon/payment/payco_icon.png', width : '60px'},
+    SAMSUNGPAY : {label : '삼성페이', iconUrl: '/static/icon/payment/samsungpay_icon_01.png', width : '117px'},
+    LPAY : {label : 'L.페이', iconUrl: '/static/icon/payment/lpay_icon.png', width : '51px'},
+    SSGPAY : {label : 'SSG페이', iconUrl: '/static/icon/payment/ssgpay_icon.png', width : '67px'},
+    TOSS : {label : '토스', iconUrl: '/static/icon/payment/toss_icon.png', width : '59px'}    
+  };
+
   //--------------------- 주문페이지 토탈 데이터 최초 바인딩 ---------------------
   @action
   getOrderItems = cartList => {
@@ -162,6 +174,19 @@ export default class OrderPaymentStore {
         this.getCouponInfo(this.cartList);
 
         devLog(this.orderInfo, '주문 데이터');
+
+        this.easyPaymentList = [];
+
+        this.orderInfo.paymentsMethod.forEach(paymentMethod => {
+          if(paymentMethod.methodCode === 'EASY'){
+              paymentMethod.easyPayList.forEach(easyPay => {
+                this.easyPaymentList.push(easyPay);
+              }
+            );
+          }
+        });
+
+        devLog('easy payment list : ' + this.easyPaymentList);
 
         /**
          * 주문 상품정보 체크
@@ -442,7 +467,12 @@ export default class OrderPaymentStore {
       case 'EASY':
       case 'EasyPayment':
       case 'NAVER':
-      case 'KAKAO':  
+      case 'SAMSUNGPAY':
+      case 'LPAY':
+      case 'SSGPAY':      
+      case 'TOSS':
+      case 'KAKAO':
+      case 'PAYCO':  
         this.status.EasyPayment = true;
         break;  
       default:
