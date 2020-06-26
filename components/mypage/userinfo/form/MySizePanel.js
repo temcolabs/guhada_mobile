@@ -66,7 +66,7 @@ class MySizePanel extends Component {
         </div>
         <div className={cn(css.description)}>
           <div>
-            ・키, 몸무게, 허리, 체형을 모두 입력하시면 1회에 한해 500 포인트를
+            ・키, 몸무게, 허리, 체형을 모두 입력하시면 1회에 한해 1000 포인트를
             드립니다.
           </div>
           <div>
@@ -97,7 +97,7 @@ class MySizePanel extends Component {
         </FormButton>
         <div className={cn(css.description)}>
           <div>
-            ・키, 몸무게, 허리, 체형을 모두 입력하시면 1회에 한해 500 포인트를
+            ・키, 몸무게, 허리, 체형을 모두 입력하시면 1회에 한해 1000 포인트를
             드립니다.
           </div>
           <div>
