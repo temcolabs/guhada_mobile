@@ -12,6 +12,7 @@ import EasyPayment from 'components/orderpayment/EasyPayment';
 import PaymentAgreement from 'components/orderpayment/PaymentAgreement';
 import PaymentButton from 'components/orderpayment/PaymentButton';
 import OtherRequest from 'components/orderpayment/OtherRequest';
+import InternationalShippingInput from 'components/orderpayment/InternationalShippingInput';
 import RefundAccount from 'components/orderpayment/RefundAccount';
 import PaymentLoading from 'components/orderpayment/modal/PaymentLoading';
 import { inject, observer } from 'mobx-react';
@@ -55,6 +56,9 @@ class OrderPayment extends React.Component {
 
         {/* 배송지 정보 */}
         <ShippingAddress />
+
+        {/* 통관 고유 번호 */}
+        {orderpayment.orderInfo.shippingPassNumber ? <InternationalShippingInput /> : null}
 
         {/* 기타 요청 사항 */}
         <OtherRequest request={orderpayment?.orderShippingList?.otherRequest} />

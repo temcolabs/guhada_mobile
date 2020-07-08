@@ -64,8 +64,15 @@ export default class OrderPaymentStore {
       shippingMessage: false,
     },
     isAddShippingAddress: false, // 결제 완료후 배송지 정보 처리
-    otherRequest: null, // 다른 문의 사항
+    otherRequest: null, // 다른 문의 사항    
   };
+
+  // 해외 통관 부호 값
+  @observable customIdNumber = null;
+
+  // 해외 통관 부호 필수 체크 값
+  @observable customIdNumberAgreed = false;
+
   @observable addressType = 'R';
   /**
    * 주문서에서 사용하게 될 상태 값들
@@ -254,6 +261,11 @@ export default class OrderPaymentStore {
           this.status.orderPaymentAgreement = !this.status
             .orderPaymentAgreement;
         }
+
+        if(this.orderInfo.shippingPassNumber === true && this.orderInfo.personalPassNumber != null){                  
+          this.customIdNumber = this.orderInfo.personalPassNumber;
+        }
+
         this.status.pageStatus = true;
         window.history.replaceState(
           {},
@@ -850,6 +862,16 @@ export default class OrderPaymentStore {
     // devLog(this.orderShippingList.otherRequest, '기타요청사항');
   };
 
+  @action
+  customIdNumberChangeHandler = customIdValue => {            
+    this.customIdNumber = customIdValue;    
+  };
+
+  @action
+  customIdNumberAgreeChangeHandler = isChecked => {            
+    this.customIdNumberAgreed = isChecked;    
+  };
+
   //--------------------- 결제요청 ---------------------
   @action
   payment = () => {
@@ -1016,6 +1038,33 @@ export default class OrderPaymentStore {
         return false;
       }
     }
+
+    /**
+     * 통관번호 입력 validation
+     */
+    if(this.orderInfo.shippingPassNumber === true){
+
+      if(this.customIdNumber === null || this.customIdNumber.length === 0){
+        this.root.alert.showAlert({
+          content: '신속한 통관처리를 위해 개인 통관 고유번호를 입력해주세요',
+        });
+        return false;
+      }else if(this.customIdNumber.length > 13){
+        this.root.alert.showAlert({
+          content: '개인통관 번호는 13자 이하까지 입력 가능합니다',
+        });
+        return false;
+      }
+
+      if(this.customIdNumberAgreed === false){
+        this.root.alert.showAlert({
+          content: '개인 통관 번호 수집 동의가 필요합니다',
+        });
+        return false;
+      }      
+    }
+
+
     let cartItemPayments = [];
     cartItemPayments = this.selectedCouponList.map(data => {
       return {
@@ -1053,6 +1102,7 @@ export default class OrderPaymentStore {
         refundBankName: this.orderUserInfo.refundBankName,
         refundBankAccountNumber: this.orderUserInfo.refundBankAccountNumber,
         refundBankAccountOwner: this.orderUserInfo.refundBankAccountOwner,
+        personalPassNumber: this.customIdNumber,
         web: true,
       };
     } else {
@@ -1073,6 +1123,7 @@ export default class OrderPaymentStore {
         refundBankName: this.orderUserInfo.refundBankName,
         refundBankAccountNumber: this.orderUserInfo.refundBankAccountNumber,
         refundBankAccountOwner: this.orderUserInfo.refundBankAccountOwner,
+        personalPassNumber: this.customIdNumber,
         web: true,
       };
     }
@@ -1233,6 +1284,8 @@ export default class OrderPaymentStore {
     this.totalCouponDiscount = 0;
     this.selectedCouponList = [];
     this.tempSelectedCouponList = [];
+    this.customIdNumber = '';
+    this.customIdNumberAgreed = false;
   };
 
   getTotalQuantity = () => {
