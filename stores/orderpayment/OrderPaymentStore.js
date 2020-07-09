@@ -68,7 +68,7 @@ export default class OrderPaymentStore {
   };
 
   // 해외 통관 부호 값
-  @observable customIdNumber = null;
+  @observable customIdNumber = '';
 
   // 해외 통관 부호 필수 체크 값
   @observable customIdNumberAgreed = false;

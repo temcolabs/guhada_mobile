@@ -17,8 +17,7 @@ function InternationalShippingInput({ orderpayment, request }) {
             <div className={css.otherRequest}>
                 <input
                     type="text"
-                    placeholder="P로 시작하는 개인통관 고유부호를 입력해주세요."
-                    value={orderpayment.customIdNumber}
+                    placeholder="P로 시작하는 개인통관 고유부호를 입력해주세요."                    
                     onChange={(event) => {
                         orderpayment.customIdNumberChangeHandler(event.target.value);
                     }}
@@ -27,7 +26,7 @@ function InternationalShippingInput({ orderpayment, request }) {
             </div>
             <div className={css.bottom}>                
                 <input
-                    class={css.checkboxk}
+                    className={css.checkbox}
                     type="checkbox"
                     onChange={(event) => {
                         orderpayment.customIdNumberAgreeChangeHandler(event.target.checked);
