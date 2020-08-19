@@ -561,21 +561,18 @@ function BBSEditor({ router }) {
                 {/* 현재 검색이 아니라 단순 텍스트 입력으로 구현되어 있다 */}
 
                 {/* TODO: editorState.isDealSearchVisible */}
+                {/* HIDE : TECH-7209 
                 <div className={css.brandAndProduct}>
                   <div className={css.brandAndProduct_row}>
                     {categorySelected.visibleProductSearch && (
-                      <div className={css.brandAndProduct_searchItem}>
-                        {/* <div className={css.brandAndProduct_searchLabel}>
-                          <span>브랜드명</span>
-                        </div> */}
+                      <div className={css.brandAndProduct_searchItem}>                        
                         <div className={css.brandAndProduct_searchComponent}>
                           <Field
                             name={fields.brandName}
                             validate={validators.brandName({
                               isRequired:
                                 categorySelected.requiredProductSearch,
-                            })}
-                          >
+                            })}>
                             {({ input, meta }) => (
                               <BrandSearch
                                 initialBrandName={meta.initial}
@@ -587,18 +584,14 @@ function BBSEditor({ router }) {
                       </div>
                     )}
                     {categorySelected.visibleProductSearch && (
-                      <div className={css.brandAndProduct_searchItem}>
-                        {/* <div className={css.brandAndProduct_searchLabel}>
-                          <span>상품명</span>
-                        </div> */}
+                      <div className={css.brandAndProduct_searchItem}>                        
                         <div className={css.brandAndProduct_searchComponent}>
                           <Field
                             name={fields.dealName}
                             validate={validators.dealName({
                               isRequired:
                                 categorySelected.requiredProductSearch,
-                            })}
-                          >
+                            })}>
                             {({ input, meta }) => (
                               <DealSearch
                                 initialDealName={meta.initial}
@@ -611,6 +604,7 @@ function BBSEditor({ router }) {
                     )}
                   </div>
                 </div>
+                */}
 
                 {/* 임시저장  */}
                 <TempArticleButton
