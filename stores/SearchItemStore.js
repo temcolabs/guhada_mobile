@@ -255,6 +255,20 @@ export default class SearchItemStore {
   };
 
   @action
+  saveSearchKeyword = (keyword = '') => {
+    devLog('[SearchItemStore] - saveSearchKeyword called.');
+
+    API.settle.get('/search/word', {
+      params: {
+        agent: 'MWEB',
+        word: keyword        
+      }
+    }).then(res => {
+      // do nothing
+    });
+  };
+
+  @action
   getSearchByUri = (
     brandIds,
     categoryIds,
@@ -290,6 +304,11 @@ export default class SearchItemStore {
     }
     if (keyword === undefined) {
       keyword = '';
+    }
+
+    // 유저 키워드 서치 stat으로 저장 
+    if(keyword.length > 1){
+      this.saveSearchKeyword(keyword);
     }
 
     // order set
@@ -900,7 +919,7 @@ export default class SearchItemStore {
         maxPrice: this.maxPrice,
         sellerIds: this.root.seller.sellerId || '',
         eventIds: this.root.special.eventId || '',
-      });
+      });      
     } else {
       this.toSearch({
         category: category,
