@@ -47,8 +47,8 @@ function SellerReviewItem(props) {
             <div className={css.reviewRating}>
               {StarItem(reviewItem.review.productRating)}
             </div>
-            {reviewItem.productOption.color !== '' ||
-            reviewItem.productOption.size !== '' ? (
+            {reviewItem.productOption && reviewItem.productOption.color !== '' ||
+            reviewItem.productOption && reviewItem.productOption.size !== '' ? (
               <div className={css.reviewProductOption}>
                 <div className={css.itemLabel}>구매옵션</div>
                 <div className={css.itemValue}>
@@ -85,9 +85,7 @@ function SellerReviewItem(props) {
           <div className={css.reviewInfo}>
             <div>
               <div className={css.reviewText}>
-                {reviewItem.review.textReview}
-                영화에서 아아보리 트렌치 입은 영화배우에꽂혀서 계속 찾고있었는데
-                완젼 만족입니다. 퀄리티가 정말 최고이고 약간 오버사이즈로 S
+                {reviewItem.review.textReview}                
               </div>
               <div className={css.reviewBottom}>
                 <div className={css.reviewLikeWrap}>
