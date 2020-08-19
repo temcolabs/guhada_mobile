@@ -23,7 +23,9 @@ export default function Footer() {
           >
             개인정보처리방침
           </div>
+          {/*
           <div className={css.tabItem}>문의하기</div>
+          */}
           <div
             className={css.tabItem}
             onClick={() =>
