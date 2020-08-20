@@ -283,7 +283,7 @@ export default class OrderPaymentStore {
   */
 
   @action
-  getPaymentInfo = () => {
+  getPaymentInfo = (closeCouponModal = true) => {
     devLog('[OrderPaymentStore] - getPaymentInfo called.');
     let cartItemPayments = [];
     cartItemPayments = this.tempSelectedCouponList.map(data => {
@@ -301,7 +301,7 @@ export default class OrderPaymentStore {
         let data = res;
         this.orderSidetabTotalInfo = data.data.data;
         if (this.status.loadingStatus) {
-          this.updateCouponInfo(this.cartList);
+          this.updateCouponInfo(this.cartList, closeCouponModal);
         }
 
         if (!this.status.pageStatus) {
@@ -1650,24 +1650,25 @@ export default class OrderPaymentStore {
     this.totalCouponUsedCount = appliedCouponCount;
     
     this.totalDiscountPrice = this.orderCouponInfo.totalProductPrice - this.totalCouponDiscount;
-  };
+  }; 
 
   @action
-  couponApply = () => {
+  couponApply = (closeCouponModal = true) => {
     devLog('[OrderPaymentStore] - couponApply called.');
     this.status.loadingStatus = true;
-    this.getPaymentInfo();
+    this.getPaymentInfo(closeCouponModal);
     this.selectedCouponList = this.tempSelectedCouponList;
   };
 
-  updateCouponInfo = cartList => {
+  updateCouponInfo = (cartList, closeCouponModal = true) => {
     devLog('[OrderPaymentStore] - updateCouponInfo called.');
     API.gateway
       .get(`/benefits/order/coupon?cartItemIdSet=${cartList}`)
       .then(res => {
         this.orderCouponInfo = res.data.data;
         devLog(this.orderCouponInfo, 'update');
-        this.couponModalClose();
+        if(closeCouponModal)
+          this.couponModalClose();
         this.couponDiscountCalculator();
         this.status.loadingStatus = false;
       })
