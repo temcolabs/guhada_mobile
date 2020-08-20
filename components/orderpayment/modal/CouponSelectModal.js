@@ -60,6 +60,7 @@ class CouponModal extends Component {
                                       couponNumber,
                                       couponDiscountPrice
                                     );
+                                    orderpayment.couponApply(false);
                                   }}
                                 />
                               </Fragment>
