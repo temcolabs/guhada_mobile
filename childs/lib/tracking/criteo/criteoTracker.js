@@ -144,6 +144,32 @@ export default {
   },
 
   /**
+   * Sign up user tracker
+   * 
+   * @param trackTransaction : user id
+   */
+  signUpUser: ({ userId }) => {
+    loadScript(CRITEO_TRACKER_URL, {
+      id: scriptIds.CRITEO_TRACKER,
+      async: true,
+      onLoad: () => {
+        const params = [
+          { event: 'setAccount', account: CRITEO_ACCOUNT_ID },          
+          { event: 'setSiteType', type: getDeviceType() },
+          { event: 'trackTransaction', id: userId, item: []},
+        ];
+
+        devLog(`[CRITEO_TRACKER] sign up`, ...params);
+
+        if (getIsProdHost()) {
+          window.criteo_q = window.criteo_q || [];
+          window.criteo_q.push(...params);
+        }
+      },
+    });
+  },
+
+  /**
    * 바스켓 페이지
     바스켓에 추가되는 각 제품의 경우, 제품 ID, 수량 (해당 제품의 개수) 및 가격을 viewBasket에 전달해야 합니다 . 단가는 통화 기호없이 소수 분리자로서 점을 이용하여 포맷해야 합니다. 예, 9999.99.
 

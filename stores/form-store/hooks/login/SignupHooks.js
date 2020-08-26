@@ -9,6 +9,7 @@ import naverShoppingTrakers from 'childs/lib/tracking/navershopping/naverShoppin
 import momentTracker from 'childs/lib/tracking/kakaomoment/momentTracker';
 import ReactPixel from 'react-facebook-pixel';
 import gtagTracker from 'childs/lib/tracking/google/gtagTracker';
+import criteoTracker from 'childs/lib/tracking/criteo/criteoTracker';
 import sessionStorage from 'childs/lib/common/sessionStorage';
 export default {
   onInit(form) {
@@ -45,6 +46,7 @@ export default {
         momentTracker.signup();
         ReactPixel.track('CompleteRegistration', res.data);
         gtagTracker.signup('/');
+        criteoTracker.signUpUser({email: loginData.email});
         sessionStorage.set('signup', data.savedPointResponse);
         Router.push('/');
       })
