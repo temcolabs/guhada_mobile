@@ -148,7 +148,7 @@ export default {
    * 
    * @param trackTransaction : user id
    */
-  signUpUser: ({ userId }) => {
+  signUpUser: ( userId ) => {
     loadScript(CRITEO_TRACKER_URL, {
       id: scriptIds.CRITEO_TRACKER,
       async: true,
@@ -156,7 +156,8 @@ export default {
         const params = [
           { event: 'setAccount', account: CRITEO_ACCOUNT_ID },          
           { event: 'setSiteType', type: getDeviceType() },
-          { event: 'trackTransaction', id: userId, item: []},
+          { event: 'trackTransaction', id: userId, item: [
+            {id : "1", price: 1, quantity: 1}]},
         ];
 
         devLog(`[CRITEO_TRACKER] sign up`, ...params);

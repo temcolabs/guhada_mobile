@@ -38,15 +38,15 @@ export default {
         },
         { headers: header }
       )
-      .then(function(res) {
-        devLog(res.data);
-        let data = res.data.data;
+      .then(function(res) {        
+        devLog(res.data);        
+        let data = res.data.data;        
         naverShoppingTrakers.signup();
         daumTracker.signup();
         momentTracker.signup();
         ReactPixel.track('CompleteRegistration', res.data);
         gtagTracker.signup('/');
-        criteoTracker.signUpUser({email: loginData.email});
+        criteoTracker.signUpUser(loginData.email);
         sessionStorage.set('signup', data.savedPointResponse);
         Router.push('/');
       })
