@@ -65,12 +65,7 @@ class CouponDownModal extends Component {
               </div>
               <div
                 className={css.confirmButton}
-                onClick={() => {
-                  productoption.dueSavebenefitCoupon.forEach(function (element, index){
-                    if(element.saveActionType === 'FOLLOW'){
-                      sellerfollow.setSellerFollow(element.sellerId);
-                    }    
-                  });
+                onClick={() => {                  
                   productoption.couponDown();
                 }}>                
                 모든 쿠폰 받기                  
