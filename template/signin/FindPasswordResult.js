@@ -6,6 +6,7 @@ import { LinkRoute, pushRoute } from 'childs/lib/router';
 import { observer } from 'mobx-react';
 import API from 'childs/lib/API';
 import { devLog } from 'childs/lib/common/devLog';
+import { root } from 'store';
 import _ from 'lodash';
 
 @observer
@@ -35,6 +36,9 @@ class FindPasswordResult extends Component {
               pushRoute('/login');
             })
             .catch(e => {
+              if (_.get(e, 'status') === 200) {
+                root.toast.getToast(_.get(e, 'data.message'));
+              }
               console.error(e);
             });
         } else {
