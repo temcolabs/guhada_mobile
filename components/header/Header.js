@@ -70,7 +70,7 @@ function Header({
           headerShape === 'BBSArticleView' ||
           headerShape === 'special' ||
           (headerShape === 'address' && urlHistory !== '') ? (
-            <button className={css.backButton} onClick={() => Router.back()} />
+            <button className={css.backButton} onClick={() => Router.back() == null ? Router.push('/') : Router.back() } />
           ) : null}
 
           {headerShape === 'detailPage' ||
