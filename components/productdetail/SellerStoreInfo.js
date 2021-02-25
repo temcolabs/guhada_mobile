@@ -78,14 +78,14 @@ function SellerStoreInfo({
             {/* <div className={css.level}>
               <div className={css.levelText}>4</div>
             </div> */}
-            <div className={css.name}>{sellerStore?.nickname}</div>
+            <div className={css.name}>{deals.sellerName}</div>
           </div>
-          {/* 서비스 만족도 제거 추후 추가 */}
-          {/* <div className={css.satisfiedWrap}>
-            <div className={css.satisfiedLabel}>서비스 만족도</div>
+          <div className={css.satisfiedWrap}>
+            {/* 서비스 만족도 제거 추후 추가 */}
+            {/* <div className={css.satisfiedLabel}>서비스 만족도</div>
             <div className={css.line} />
-            <div>*굿서비스</div>
-          </div> */}
+            <div>*굿서비스</div> */}
+          </div>
         </div>
 
         {login.loginStatus === loginStatus.LOGIN_DONE ? (

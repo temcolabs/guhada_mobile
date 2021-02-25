@@ -1,6 +1,6 @@
 {
   "name": "guhada_web_mobile",
-  "version": "v1.33.0",
+  "version": "v1.31.0",
   "scripts": {
     "dev": "nodemon --watch server.js --watch routes server.js",
     "build": "npm run clean && next build",
