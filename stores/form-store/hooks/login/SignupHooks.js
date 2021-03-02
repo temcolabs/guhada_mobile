@@ -1,6 +1,7 @@
 import Router from 'next/router';
 import termForm from 'stores/form-store/_.forms';
 import API from 'childs/lib/API';
+import feedService from 'childs/lib/API/user/feedService';
 import { root } from 'store';
 import { devLog } from 'childs/lib/common/devLog';
 import _ from 'lodash';
@@ -20,27 +21,33 @@ export default {
     let loginData = form.values();
     let termData = termForm.termAgree.values();
 
+    const signUpData = {
+      email: loginData.email,
+      password: loginData.password,
+      agreeCollectPersonalInfoTos: termData.agreeCollectPersonalInfoTos,
+      agreeEmailReception: termData.agreeEmailReception,
+      agreePurchaseTos: termData.agreePurchaseTos,
+      agreeSaleTos: termData.agreeSaleTos,
+      agreeSmsReception: termData.agreeSmsReception,
+    };
+
+    // feedID 추가
+    let feedId = sessionStorage.getInt('pid') || null;
+    if (feedId) {
+      if (feedService.verifyFeedId(feedId)) {
+        signUpData.feedId = feedId;
+      }
+    }
+
     const header = {
       'ACCEPT-VERSION': '1.1',
     };
 
     API.user
-      .post(
-        '/signUpUser',
-        {
-          email: loginData.email,
-          password: loginData.password,
-          agreeCollectPersonalInfoTos: termData.agreeCollectPersonalInfoTos,
-          agreeEmailReception: termData.agreeEmailReception,
-          agreePurchaseTos: termData.agreePurchaseTos,
-          agreeSaleTos: termData.agreeSaleTos,
-          agreeSmsReception: termData.agreeSmsReception,
-        },
-        { headers: header }
-      )
-      .then(function(res) {        
-        devLog(res.data);        
-        let data = res.data.data;        
+      .post('/signUpUser', signUpData, { headers: header })
+      .then(function(res) {
+        devLog(res.data);
+        let data = res.data.data;
         naverShoppingTrakers.signup();
         daumTracker.signup();
         momentTracker.signup();
