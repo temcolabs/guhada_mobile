@@ -1,6 +1,7 @@
 import Router from 'next/router';
 import termForm from 'stores/form-store/_.forms';
 import API from 'childs/lib/API';
+import feedService from 'childs/lib/API/user/feedService';
 import { root } from 'store';
 import { devLog } from 'childs/lib/common/devLog';
 import _ from 'lodash';
@@ -16,9 +17,17 @@ export default {
     // devLog('-> onInit Form HOOK');
   },
 
-  onSuccess(form) {
+  async onSuccess(form) {
     let loginData = form.values();
     let termData = termForm.termAgree.values();
+
+    let feedId = sessionStorage.getInt('pid') || 1000;
+    if (feedId !== 1000) {
+      let verifyFeedId = await feedService.matchFeedId(feedId);
+      if (!verifyFeedId) {
+        feedId = 1000;
+      }
+    }
 
     const header = {
       'ACCEPT-VERSION': '1.1',
@@ -35,12 +44,13 @@ export default {
           agreePurchaseTos: termData.agreePurchaseTos,
           agreeSaleTos: termData.agreeSaleTos,
           agreeSmsReception: termData.agreeSmsReception,
+          feedId,
         },
         { headers: header }
       )
-      .then(function(res) {        
-        devLog(res.data);        
-        let data = res.data.data;        
+      .then(function(res) {
+        devLog(res.data);
+        let data = res.data.data;
         naverShoppingTrakers.signup();
         daumTracker.signup();
         momentTracker.signup();

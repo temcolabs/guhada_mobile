@@ -18,8 +18,16 @@ const removeSessionStorageItem = name => {
   }
 };
 
+const getIntSessionStorageItem = name => {
+  if (typeof window === 'object') {
+    const value = window.sessionStorage.getItem(name);
+    return !!value ? parseInt(value) : NaN;
+  }
+};
+
 module.exports = {
   get: getSessionStorageItem,
   set: setSessionStorageItem,
   remove: removeSessionStorageItem,
+  getInt: getIntSessionStorageItem,
 };
