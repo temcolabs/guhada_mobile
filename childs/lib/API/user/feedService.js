@@ -7,7 +7,6 @@ export default {
    */
   matchFeedId: feedId => {
     return API.user.get('/feeds').then(res => {
-      // console.log('RESULT', res);
       return res.data?.data.find(el => el.feedId === feedId);
     });
   },

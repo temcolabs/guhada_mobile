@@ -21,10 +21,12 @@ export default {
     let loginData = form.values();
     let termData = termForm.termAgree.values();
 
-    let feedId = sessionStorage.getInt('pid') || null;
-    let verifyFeedId = await feedService.matchFeedId(feedId);
-    if (!verifyFeedId) {
-      feedId = null;
+    let feedId = sessionStorage.getInt('pid') || 1000;
+    if (feedId !== 1000) {
+      let verifyFeedId = await feedService.matchFeedId(feedId);
+      if (!verifyFeedId) {
+        feedId = 1000;
+      }
     }
 
     const header = {

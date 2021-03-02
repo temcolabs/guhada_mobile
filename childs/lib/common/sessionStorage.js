@@ -20,8 +20,8 @@ const removeSessionStorageItem = name => {
 
 const getIntSessionStorageItem = name => {
   if (typeof window === 'object') {
-    const value = window.sessionStorage.getItem(name) || '';
-    return !!value ? parseInt(value) : value;
+    const value = window.sessionStorage.getItem(name);
+    return !!value ? parseInt(value) : NaN;
   }
 };
 
