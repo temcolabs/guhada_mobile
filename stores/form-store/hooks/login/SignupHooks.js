@@ -34,8 +34,7 @@ export default {
     // feedID 추가
     let feedId = sessionStorage.getInt('pid') || null;
     if (feedId) {
-      let verifyFeedId = await feedService.matchFeedId(feedId);
-      if (verifyFeedId) {
+      if (feedService.verifyFeedId(feedId)) {
         signUpData.feedId = feedId;
       }
     }
