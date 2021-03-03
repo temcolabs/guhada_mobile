@@ -9,7 +9,7 @@ export default {
     // return API.user.get('/feeds').then(res => {
     //   return res.data?.data.find(el => el.feedId === feedId);
     // });
-    if (1001 < feedId && feedId < 1008) {
+    if (1000 < feedId && feedId < 1008) {
       return true;
     }
     return false;
