@@ -32,11 +32,9 @@ export default {
     };
 
     // feedID 추가
-    let feedId = sessionStorage.getInt('pid') || null;
-    if (feedId) {
-      if (feedService.verifyFeedId(feedId)) {
-        signUpData.feedId = feedId;
-      }
+    let feedId = sessionStorage.getInt('pid');
+    if (!feedService.verifyFeedId(feedId)) {
+      feedId = '';
     }
 
     const header = {
@@ -56,6 +54,19 @@ export default {
         criteoTracker.signUpUser(loginData.email);
         sessionStorage.set('signup', data.savedPointResponse);
         Router.push('/');
+
+        // feedId post
+        let userId = data.userId;
+        if (userId && feedId) {
+          API.user
+            .post(`/feeds/${userId}`, {
+              userId,
+              feedId,
+            })
+            .catch(() => {
+              console.error('[ERROR] error sending feedId');
+            });
+        }
       })
       .catch(e => {
         let data = _.get(e, 'data');
