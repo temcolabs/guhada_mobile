@@ -21,11 +21,22 @@ export default {
     let loginData = form.values();
     let termData = termForm.termAgree.values();
 
-    let feedId = sessionStorage.getInt('pid') || 1000;
-    if (feedId !== 1000) {
+    const signUpData = {
+      email: loginData.email,
+      password: loginData.password,
+      agreeCollectPersonalInfoTos: termData.agreeCollectPersonalInfoTos,
+      agreeEmailReception: termData.agreeEmailReception,
+      agreePurchaseTos: termData.agreePurchaseTos,
+      agreeSaleTos: termData.agreeSaleTos,
+      agreeSmsReception: termData.agreeSmsReception,
+    };
+
+    // feedID 추가
+    let feedId = sessionStorage.getInt('pid') || null;
+    if (feedId) {
       let verifyFeedId = await feedService.matchFeedId(feedId);
-      if (!verifyFeedId) {
-        feedId = 1000;
+      if (verifyFeedId) {
+        signUpData.feedId = feedId;
       }
     }
 
@@ -34,20 +45,7 @@ export default {
     };
 
     API.user
-      .post(
-        '/signUpUser',
-        {
-          email: loginData.email,
-          password: loginData.password,
-          agreeCollectPersonalInfoTos: termData.agreeCollectPersonalInfoTos,
-          agreeEmailReception: termData.agreeEmailReception,
-          agreePurchaseTos: termData.agreePurchaseTos,
-          agreeSaleTos: termData.agreeSaleTos,
-          agreeSmsReception: termData.agreeSmsReception,
-          feedId,
-        },
-        { headers: header }
-      )
+      .post('/signUpUser', signUpData, { headers: header })
       .then(function(res) {
         devLog(res.data);
         let data = res.data.data;
