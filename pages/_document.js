@@ -35,7 +35,7 @@ class MyDocument extends Document {
           /> */}
 
           {/* 다음 주소검색 */}
-          <script id="daumPostcode" src={urlConstant.daumPostCode} />
+          <script id="daumPostcode" src={`${urlConstant.daumPostCode}`} />
 
           {/* summernote 0.8.12 */}
           <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js" />
