@@ -64,7 +64,7 @@ class MyDocument extends Document {
           />
 
           {/* Facebook Pixel Code */}
-          <script
+          {/* <script
             dangerouslySetInnerHTML={{
               __html: `
                 !function(f,b,e,v,n,t,s)
@@ -86,7 +86,7 @@ class MyDocument extends Document {
                 src="https://www.facebook.com/tr?id=140872021235570&ev=PageView&noscript=1"
                 />`,
             }}
-          />
+          /> */}
           {/* End Facebook Pixel Code */}
         </Head>
         <body>
