@@ -75,7 +75,7 @@ class MyDocument extends Document {
                 t.src=v;s=b.getElementsByTagName(e)[0];
                 s.parentNode.insertBefore(t,s)}(window, document,'script',
                 'https://connect.facebook.net/en_US/fbevents.js');
-                fbq('init', '801611600305440');
+                fbq('init', '140872021235570');
                 fbq('track', 'PageView');`,
             }}
           />
@@ -83,7 +83,7 @@ class MyDocument extends Document {
             dangerouslySetInnerHTML={{
               __html: `
                 <img height="1" width="1" style="display:none"
-                src="https://www.facebook.com/tr?id=801611600305440&ev=PageView&noscript=1"
+                src="https://www.facebook.com/tr?id=140872021235570&ev=PageView&noscript=1"
                 />`,
             }}
           />
