@@ -13,9 +13,11 @@ import { isBrowser } from 'childs/lib/common/isServer';
 @inject('special', 'searchitem')
 @observer
 class specialdetail extends Component {
-  static async getInitialProps({ req }) {
+  static async getInitialProps(ctx) {
+    const { req, query } = ctx;
     try {
-      const eventId = isServer ? req.params?.id : Router.query.id;
+      // const eventId = isServer ? req.params?.id : Router.query.id;
+      const eventId = isServer ? req.query?.id : query.id;
       const { data } = await API.settle.get(`/plan/list/detail?`, {
         params: {
           eventId,
@@ -26,17 +28,17 @@ class specialdetail extends Component {
       const specialDetail = data.data;
 
       const headData = {
-        pageName: specialDetail.eventTitle,
-        description: `구하다 기획전 "${specialDetail.eventTitle}". ${moment(
-          specialDetail.eventStartDate
+        pageName: specialDetail.detailTitle,
+        description: `구하다 기획전 "${specialDetail.detailTitle}". ${moment(
+          specialDetail.startDate
         ).format(`${dateFormat.YYYYMMDD_UI} 부터`)} ${
-          !!specialDetail.eventEndDate
-            ? moment(specialDetail.eventEndDate).format(
+          !!specialDetail.endDate
+            ? moment(specialDetail.endDate).format(
                 `${dateFormat.YYYYMMDD_UI} 까지`
               )
             : ''
         }`,
-        image: _.get(specialDetail, 'imgUrlM'),
+        image: _.get(specialDetail, 'mediumImageUrl'),
       };
 
       return {
