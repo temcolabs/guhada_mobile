@@ -62,6 +62,16 @@
         color: #444;
         text-align: center;
 
+        .totalShipPriceAmount {
+          font-size: 12px;
+          margin-top: 2px;
+          color: #9a9fa8;
+          font-weight: 500;
+          position: absolute;
+          left: 0;
+          right: 0;
+        }
+
         @include break350 {
           font-size: 12px;
         }

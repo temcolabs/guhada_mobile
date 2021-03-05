@@ -23,6 +23,7 @@ class FinalAmountBenefit extends Component {
   render() {
     let { orderpayment } = this.props;
     let { orderInfo, orderSidetabTotalInfo } = orderpayment;
+
     return (
       <div className={css.wrap}>
         <div className={css.finalTop}>
@@ -48,15 +49,13 @@ class FinalAmountBenefit extends Component {
         <div className={css.finalResult}>
           <div className={css.totalOrderAmount}>
             <div className={css.innerContent}>
-              {/* <div className={css.blankBox}>
-                {`${
-                orderInfo.totalShipPrice === 0
-                  ? '무료배송'
-                  : `${orderInfo.totalShipPrice.toLocaleString()}원`
-              }`}
-              </div> */}
-              <div>{`${orderSidetabTotalInfo.totalProductPrice?.toLocaleString() ||
-                0}원`}</div>
+              {`${orderSidetabTotalInfo.totalProductPrice?.toLocaleString() ||
+                0}원`}
+              <div className={css.totalShipPriceAmount}>
+                {orderSidetabTotalInfo.totalShipPrice
+                  ? `${orderSidetabTotalInfo.totalShipPrice.toLocaleString()}원`
+                  : '무료배송'}
+              </div>
             </div>
             <div className={css.calcBox}>
               {/* <div className={css.blankBox} /> */}
