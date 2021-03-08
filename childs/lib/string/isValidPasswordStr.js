@@ -10,7 +10,6 @@ export default function(val = '') {
 }
 
 export function passwordValidMessage(val) {
-  console.log(val, ' val');
   if (val.length < 8 || val.length > 15) {
     return '비밀번호는 8-15자 이내로 입력해주세요.';
   } else if (/^[0-9]+$/.test(val)) {

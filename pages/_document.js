@@ -35,10 +35,7 @@ class MyDocument extends Document {
           /> */}
 
           {/* 다음 주소검색 */}
-          <script
-            id="daumPostcode"
-            src={`${urlConstant.daumPostCode}?autoload=false`}
-          />
+          <script id="daumPostcode" src={urlConstant.daumPostCode} />
 
           {/* summernote 0.8.12 */}
           <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js" />
@@ -65,6 +62,32 @@ class MyDocument extends Document {
             charSet="UTF-8"
             src="//t1.daumcdn.net/adfit/static/kp.js"
           />
+
+          {/* Facebook Pixel Code */}
+          {/* <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                !function(f,b,e,v,n,t,s)
+                {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+                n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+                if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+                n.queue=[];t=b.createElement(e);t.async=!0;
+                t.src=v;s=b.getElementsByTagName(e)[0];
+                s.parentNode.insertBefore(t,s)}(window, document,'script',
+                'https://connect.facebook.net/en_US/fbevents.js');
+                fbq('init', '140872021235570');
+                fbq('track', 'PageView');`,
+            }}
+          />
+          <noscript
+            dangerouslySetInnerHTML={{
+              __html: `
+                <img height="1" width="1" style="display:none"
+                src="https://www.facebook.com/tr?id=140872021235570&ev=PageView&noscript=1"
+                />`,
+            }}
+          /> */}
+          {/* End Facebook Pixel Code */}
         </Head>
         <body>
           <Main />
@@ -104,20 +127,6 @@ class MyDocument extends Document {
 
           {/* widerplanet */}
           <div id="wp_tg_cts" style={{ display: 'none' }} />
-
-          {/* <!-- Facebook Pixel Code --> */}
-          {/* <script
-            language="javascript"
-            dangerouslySetInnerHTML={{
-              __html: `!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init', '801611600305440');fbq('track', 'PageView');`,
-            }}
-          />
-          <noscript
-            dangerouslySetInnerHTML={{
-              __html: `<img height="1" width="1" style="display:none"src="https://www.facebook.com/tr?id=801611600305440&ev=PageView&noscript=1"/>`,
-            }}
-          /> */}
-          {/* <!-- End Facebook Pixel Code --> */}
         </body>
       </Html>
     );
