@@ -385,8 +385,15 @@ export default class OrderClaimFormStore {
   @action
   getOrderClaimRegisterForm = async orderProdGroupId => {
     try {
+      const header = {
+        'ACCEPT-VERSION': '1.1',
+      };
+
       const { data } = await API.claim.get(
-        `/order-claim/claim-form/${orderProdGroupId}`
+        `/order-claim/claim-form/${orderProdGroupId}`,
+        {
+          headers: header,
+        }
       );
 
       this.claimData = data.data;
