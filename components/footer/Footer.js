@@ -49,7 +49,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <img src="/static/icon/sns-insta@3x.png" />
+                  <img src="/static/icon/sns-insta.png" />
                 </a>
               </li>
               <li>
@@ -58,7 +58,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <img src="/static/icon/sns-fb@3x.png" />
+                  <img src="/static/icon/sns-fb.png" />
                 </a>
               </li>
               <li>
@@ -67,7 +67,16 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <img src="/static/icon/sns-youtube@3x.png" />
+                  <img src="/static/icon/sns-youtube.png" />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://blog.naver.com/guhada401"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img src="/static/icon/sns-blog.png" />
                 </a>
               </li>
             </ul>
