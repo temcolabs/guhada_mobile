@@ -16,6 +16,7 @@ import HeadForSEO from 'childs/lib/components/HeadForSEO';
 import momentTracker from 'childs/lib/tracking/kakaomoment/momentTracker';
 import ReactPixel from 'react-facebook-pixel';
 import gtagTracker from 'childs/lib/tracking/google/gtagTracker';
+import mobonTracker from 'childs/lib/tracking/mobon/mobonTracker';
 
 @inject('orderpaymentsuccess', 'user')
 @observer
@@ -23,8 +24,8 @@ class index extends React.Component {
   componentDidMount() {
     let id = getParameterByName('id');
     this.props.orderpaymentsuccess
-      .getOrderPaymentSuccessInfo(id)
-      .then(successInfo => {
+      .getOrderPaymentSuccessInfo(id) /* order/order-complete/{purchaseId} */
+      .then((successInfo) /* the whole response */ => {
         // 로그인 상태라면 화원정보를 가져온 후에 트래커 실행. 아니면 그냥 실행
         if (isBrowser && Cookies.get(key.ACCESS_TOKEN)) {
           this.props.user.pushJobForUserInfo(userInfo => {
@@ -80,6 +81,12 @@ class index extends React.Component {
     ReactPixel.track('Purchase', {
       value: successInfo.totalOrderPrice,
       currency: 'KRW',
+    });
+
+    /* 모비온 트래커 */
+    mobonTracker.purchaseComplete({
+      data: {},
+      products: [],
     });
   };
 
