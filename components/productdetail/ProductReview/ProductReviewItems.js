@@ -37,7 +37,7 @@ class ProductReviewItems extends Component {
   render() {
     const { review: item, productreview, login } = this.props;
     const { reviewBookMarks } = productreview;
-    console.log(item, 'item');
+
     let checkBookmarks = false;
     if (login.loginStatus === 'LOGIN_DONE') {
       checkBookmarks =
@@ -174,7 +174,7 @@ class ProductReviewItems extends Component {
             <div>
               <img
                 className={css.reviewPhotos}
-                src={`${item.reviewPhotos[0].reviewPhotoUrl + "?w=375"}`}
+                src={`${item.reviewPhotos[0].reviewPhotoUrl + '?w=375'}`}
                 alt={`reviewPhoto`}
               />
             </div>
