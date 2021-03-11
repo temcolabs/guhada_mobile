@@ -1,5 +1,4 @@
 import React from 'react';
-import Head from 'next/head';
 import OrderPaymentSuccess from '../../template/orderpaymentsuccess/OrderPaymentSuccess';
 import { inject, observer } from 'mobx-react';
 import Loading from '../../components/common/loading/Loading';
@@ -83,11 +82,8 @@ class index extends React.Component {
       currency: 'KRW',
     });
 
-    /* 모비온 트래커 */
-    mobonTracker.purchaseComplete({
-      data: {},
-      products: [],
-    });
+    // 모비온 트래커
+    mobonTracker.purchaseComplete(successInfo);
   };
 
   render() {

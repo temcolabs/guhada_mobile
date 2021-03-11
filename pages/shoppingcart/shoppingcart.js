@@ -9,6 +9,7 @@ import { isBrowser } from 'childs/lib/common/isServer';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
 import momentTracker from 'childs/lib/tracking/kakaomoment/momentTracker';
 import gtagTracker from 'childs/lib/tracking/google/gtagTracker';
+import mobonTracker from 'childs/lib/tracking/mobon/mobonTracker';
 
 @inject('shoppingcart', 'user')
 @observer
@@ -41,6 +42,8 @@ class shoppingcart extends React.Component {
         t: cartItem.dealName,
       })),
     });
+
+    mobonTracker.shoppingCart(cartData);
   };
 
   render() {
