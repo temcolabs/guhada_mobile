@@ -45,7 +45,7 @@ export default function Footer() {
             <ul>
               <li>
                 <a
-                  href="https://www.instagram.com/guhada.official/"
+                  href="https://www.instagram.com/official.guhada/"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -54,7 +54,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://www.facebook.com/official.guhada"
+                  href="https://www.facebook.com/guhada.official"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
