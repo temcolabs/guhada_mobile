@@ -94,6 +94,12 @@ export default function CommonHead({
           }),
         }}
       />
+
+      {/* Facebook verification */}
+      <meta
+        name="facebook-domain-verification"
+        content="ymaahkzdrzvb83oyg4a6sa658bg9yv"
+      />
       {children}
     </Head>
   );
