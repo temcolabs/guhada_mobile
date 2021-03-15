@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import DefaultLayout from 'components/layout/DefaultLayout';
 import css from './LuckyDraw.module.scss';
 import LuckydrawTimer from 'components/event/luckydraw/LuckydrawTimer';
@@ -18,6 +18,7 @@ import LuckydrawModify from './LuckydrawModify';
 import CategorySlider from 'components/common/CategorySlider';
 import { mainCategory } from 'childs/lib/constant/category';
 import LoadingPortal from 'components/common/loading/Loading';
+import LuckyEventPopup from 'components/event/popup/LuckyEventPopup';
 
 const enhancer = compose(withRouter);
 
@@ -31,6 +32,8 @@ function LuckyDraw({ router }) {
 
   useEffect(() => {
     luckyDrawStore.getLuckyDrawList();
+    luckyDrawStore.initLuckyEventData();
+
     return () => {};
   }, [luckyDrawStore]);
 
@@ -153,6 +156,13 @@ function LuckyDraw({ router }) {
 
         {luckyDrawStore.isOnRequest && <LoadingPortal />}
       </div>
+      {luckyDrawStore.luckyEventData.eventTitle && (
+        <LuckyEventPopup
+          handlePopupClose={luckyDrawStore.handleLuckyPopupClose}
+          isOpen={luckyDrawStore.luckyPopupIsOpen}
+          data={luckyDrawStore.luckyEventData}
+        />
+      )}
     </DefaultLayout>
   ));
 }

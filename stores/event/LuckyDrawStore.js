@@ -18,6 +18,31 @@ export default class LukcyDrawStore {
   @observable luckydrawSignupModal = false;
   @observable luckydrawModifyModal = false;
   @observable luckydrawDealId;
+
+  @observable luckyEventData = {};
+  @observable luckyPopupIsOpen = true;
+
+  @action
+  initLuckyEventData = () => {
+    if (localStorage.getItem('lucky-popup')) {
+      this.luckyPopupIsOpen = false;
+      return;
+    }
+    const data = {
+      eventTitle: 'lucky_popup',
+      imgUrl: '/static/event/lucky_popup.png',
+    };
+    this.luckyEventData = data;
+  };
+
+  @action
+  handleLuckyPopupClose = stop => {
+    if (stop) {
+      localStorage.setItem('lucky-popup', 'stop');
+    }
+    this.luckyPopupIsOpen = false;
+  };
+
   @action
   setLuckydrawLoginModal = bool => {
     if (bool === true) {
