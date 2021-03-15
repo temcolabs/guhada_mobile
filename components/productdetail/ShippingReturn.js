@@ -5,6 +5,31 @@ import { autoHypenTele } from 'utils';
 import _ from 'lodash';
 import checkNullAndEmpty from 'childs/lib/common/checkNullAndEmpty';
 
+const getPolicyHelper = (deals, policyKey) => {
+  const { shipping } = deals;
+  if (shipping && shipping.claimShipExpenseType === 'PAID') {
+    if (shipping[`${policyKey}ShipExpense`] === 0) {
+      if (typeof shipping[`${policyKey}Policy`] === 'string') {
+        if (shipping[`${policyKey}Policy`].length) {
+          return `(${shipping[`${policyKey}Policy`]})`;
+        }
+        return policyKey === 'return' ? '(반품 불가)' : '(교환 불가)';
+      }
+    } else {
+      if (
+        typeof shipping[`${policyKey}Policy`] === 'string' &&
+        shipping[`${policyKey}Policy`].length
+      ) {
+        return `${shipping[`${policyKey}ShipExpense`].toLocaleString()}원 (${
+          shipping[`${policyKey}Policy`]
+        })`;
+      }
+      return `${shipping[`${policyKey}ShipExpense`].toLocaleString()}원`;
+    }
+  }
+  return '무료';
+};
+
 export default function ShippingReturn({
   deals = [
     {
@@ -117,19 +142,11 @@ export default function ShippingReturn({
         <tbody>
           <tr>
             <th>반품배송비</th>
-            <td>
-              {deals.shipping.returnShipExpense === 0
-                ? `무료`
-                : `${deals.shipping.returnShipExpense.toLocaleString()} 원`}
-            </td>
+            <td>{getPolicyHelper(deals, 'return')}</td>
           </tr>
           <tr>
             <th>교환배송비</th>
-            <td>
-              {deals.shipping.exchangeShipExpense === 0
-                ? `무료`
-                : `${deals.shipping.exchangeShipExpense.toLocaleString()} 원`}
-            </td>
+            <td>{getPolicyHelper(deals, 'exchange')}</td>
           </tr>
           <tr>
             <th>보내실 곳</th>
