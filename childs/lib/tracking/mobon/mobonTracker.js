@@ -34,7 +34,7 @@ const mobonTracker = {
         imageUrls,
         tag,
       } = deals;
-      const category = tag.split('/');
+      const category = tag?.length ? tag.split('/') : [];
 
       // const shoppingCartBtnSelector = '[class^=shoppingCart__btn]';
       // const likeBtnSelector = '[class^=like__btn]';
