@@ -29,7 +29,7 @@ export default class LukcyDrawStore {
       return;
     }
     const data = {
-      eventTitle: 'lucky_popup',
+      // eventTitle: 'lucky_popup',
       imgUrl: '/static/event/lucky_popup.png',
     };
     this.luckyEventData = data;
