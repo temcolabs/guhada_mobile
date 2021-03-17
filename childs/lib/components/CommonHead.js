@@ -87,12 +87,18 @@ export default function CommonHead({
             name: '구하다',
             url: 'https://www.guhada.com',
             sameAs: [
-              'https://www.instagram.com/guhada.official',
+              'https://www.instagram.com/official.guhada',
               'https://play.google.com/store/apps/details?id=io.temco.guhada&hl=ko',
               'https://itunes.apple.com/kr/app/id1478120259',
             ],
           }),
         }}
+      />
+
+      {/* Facebook verification */}
+      <meta
+        name="facebook-domain-verification"
+        content="ymaahkzdrzvb83oyg4a6sa658bg9yv"
       />
       {children}
     </Head>

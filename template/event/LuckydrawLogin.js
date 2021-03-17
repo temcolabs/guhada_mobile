@@ -25,10 +25,10 @@ class LuckydrawLogin extends Component {
   }
 
   componentDidMount() {
-    let { form } = this.props;
-    if (this.state.checkSaveId) {
-      form.$('email').set(userId);
-    }
+    // let { form } = this.props;
+    // if (this.state.checkSaveId) {
+    //   form.$('email').set(userId);
+    // }
   }
 
   onChangeSaveId = e => {

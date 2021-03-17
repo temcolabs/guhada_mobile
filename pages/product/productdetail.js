@@ -6,6 +6,7 @@ import Loading from '../../components/common/loading/Loading';
 import Router, { withRouter } from 'next/router';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
 import criteoTracker from 'childs/lib/tracking/criteo/criteoTracker';
+import mobonTracker from 'childs/lib/tracking/mobon/mobonTracker';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
 import API from 'childs/lib/API';
 import _ from 'lodash';
@@ -57,9 +58,9 @@ class ProductDetailPage extends React.Component {
     const { productdetail, productDetailLike, user } = this.props;
     let dealId = getParameterByName('deals');
     const pid = getParameterByName('pid');
-    if(pid && dealId){
+    if (pid && dealId) {
       sessionStorage.set('pid', pid);
-      sessionStorage.set('dealIdByPid', parseInt(dealId));      
+      sessionStorage.set('dealIdByPid', parseInt(dealId));
     }
     productdetail.getDeals(dealId);
     productDetailLike.getUserLike();
@@ -67,11 +68,18 @@ class ProductDetailPage extends React.Component {
     // 상품 정보 가져오기
     productdetail.getDeals(dealId);
 
-    // 크리테오 트래커
-    criteoTracker.productDetail({
-      email: user.userInfo?.email,
-      dealId: dealId,
-    });
+    if (isBrowser) {
+      // 크리테오 트래커
+      criteoTracker.productDetail({
+        email: user.userInfo?.email,
+        dealId: dealId,
+      });
+
+      // 모비온 트래커
+      if (productdetail.deals) {
+        mobonTracker.productDetail(productdetail.deals);
+      }
+    }
   }
 
   componentDidUpdate(prevProps) {
