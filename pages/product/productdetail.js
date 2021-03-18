@@ -7,6 +7,7 @@ import Router, { withRouter } from 'next/router';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
 import criteoTracker from 'childs/lib/tracking/criteo/criteoTracker';
 import mobonTracker from 'childs/lib/tracking/mobon/mobonTracker';
+import { beusableTracker } from 'childs/lib/tracking/beusable/tracker';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
 import API from 'childs/lib/API';
 import _ from 'lodash';
@@ -79,6 +80,9 @@ class ProductDetailPage extends React.Component {
       if (productdetail.deals) {
         mobonTracker.productDetail(productdetail.deals);
       }
+
+      // beusable 트래커
+      beusableTracker();
     }
   }
 
