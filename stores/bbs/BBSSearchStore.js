@@ -176,8 +176,6 @@ export default class SearchStore {
       });
       this.bbsList = this.bbsList.concat(this.mapBBSList(data.data?.bbs) || []);
       this.totalCount = data.data?.totalCount;
-
-      console.log(data, 'data');
     } catch (e) {
       console.error(e);
     } finally {

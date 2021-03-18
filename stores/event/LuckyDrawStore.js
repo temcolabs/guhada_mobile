@@ -125,7 +125,6 @@ export default class LukcyDrawStore {
 
         // 이메일 인증 바인딩
         if (!!emailVerified) {
-          console.log('disabled');
           form.$('email').set('disabled', true);
         }
 

@@ -74,7 +74,6 @@ export default class CommunityDefaultEditor extends React.Component {
               uploadPath: ['COMMUNITY', 'BBS'],
             }).then(({ url }) => {
               this.summernote.summernote('insertImage', url, function($image) {
-                console.log($image, '$image');
                 $image.attr('src', url);
               });
             });

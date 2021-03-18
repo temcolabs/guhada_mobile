@@ -105,8 +105,6 @@ export default function RefundAccountInfoForm({
 
   // const isAccountVerified = values[fields.isRefundAccountChecked];
 
-  console.log(`isRefundAccountFormVisible`, isRefundAccountFormVisible);
-
   return (
     <div>
       {isRefundAccountFormVisible && (

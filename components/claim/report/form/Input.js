@@ -31,7 +31,6 @@ function Input({
     onChange,
     formatter,
   });
-  console.log(value, 'value');
   return (
     <div
       className={cn(css.wrap, css[status], {
