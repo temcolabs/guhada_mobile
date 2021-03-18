@@ -110,7 +110,7 @@ export default class LoginStore {
       this.decodeLoginData(accessToken);
       this.setLoginStatus(loginStatus.LOGIN_DONE);
       if (isDev) {
-        console.log(`Bearer ${accessToken}`);
+        // console.log(`Bearer ${accessToken}`);
       }
     } catch (e) {
       // this.logout();

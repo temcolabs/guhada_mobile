@@ -177,7 +177,6 @@ class ArticleStore {
   }) => {
     // API 호출에 사용할 데이터
     const postBody = _.merge({}, this.articleBodyForRegister, body);
-    console.log(postBody, body, 'postBody body');
     try {
       await API.bbs.post(`/bbses`, postBody);
       onSuccess();

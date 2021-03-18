@@ -15,7 +15,6 @@ class OrderInfo extends Component {
   render() {
     let { orderpaymentsuccess } = this.props;
     let { orderSuccessShipping, successInfo } = orderpaymentsuccess;
-    console.log(successInfo, 'successInfo');
     return (
       <div className={css.wrap}>
         <div className={css.orderInfoSection}>

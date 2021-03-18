@@ -31,8 +31,6 @@ class NaverLoginCheckPassword extends React.Component {
         naverLogin.init();
 
         naverLogin.getLoginStatus(status => {
-          console.log('status', status);
-          console.log('naverLogin', naverLogin);
           if (status) {
             var email = naverLogin.user.getEmail();
             if (email === undefined || email === null) {

@@ -299,8 +299,6 @@ class MypageAddressModal extends Component {
     const { mypageAddress } = this.props;
     const { orderAddress } = mypageAddress;
 
-    console.log(`orderAddress`, orderAddress);
-
     return (
       <div className={css.modal}>
         <div className={css.modal__top}>

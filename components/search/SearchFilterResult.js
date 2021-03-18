@@ -20,7 +20,6 @@ const enhancer = compose(
 function SearchFilterResult({ searchitem, router, seller }) {
   const [isVisible, setIsVisible] = useState(false);
   let searchFilterList = toJS(searchitem.searchFilterList);
-  console.log(searchFilterList, 'searchFilterList');
   let brand = searchFilterList?.brand.length > 0 ? true : false;
   let filter = searchFilterList?.filter.length > 0 ? true : false;
   let subcategory = searchFilterList?.subcategory.length > 0 ? true : false;

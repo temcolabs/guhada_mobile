@@ -338,7 +338,6 @@ function BBSEditor({ router }) {
    */
   const validateContentsRequiresImage = useCallback(
     (values = {}) => {
-      console.log(`values`, values);
       const { contents, categoryId } = values;
 
       if (contents && categoryId) {
@@ -451,7 +450,6 @@ function BBSEditor({ router }) {
           let categorySelected = categoryStore.getCategoryById(
             values[fields.categoryId]
           );
-          console.log(categorySelected, 'categorySelected');
           return (
             <form onSubmit={handleSubmit}>
               <CommunityContentWrap>
