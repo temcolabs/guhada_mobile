@@ -16,7 +16,7 @@ export default {
     loadScript(`${GTAG_TRACKER_URL}?id=${GTAG_ID}`, {
       async: true,
       id: scriptIds.GTAG_TRACKER,
-      replaceExitsing: true,
+      replaceExisting: true,
       onLoad: () => {
         window.dataLayer = window.dataLayer || [];
         function gtag() {
