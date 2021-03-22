@@ -67,8 +67,23 @@ export default {
       }
     }
   },
-  purchaseComplete: () => {
+  purchaseComplete: successInfo => {
     if (isBrowser) {
+      const gtagObj = {
+        transaction_id: `${successInfo.orderNumber}`,
+        value: successInfo.totalPaymentPrice,
+        currency: 'KRW',
+        items: successInfo.orderList.map(
+          ({ productId, prodName, quantity, orderPrice }) => ({
+            id: `${productId}`,
+            name: prodName,
+            quantity: quantity,
+            price: orderPrice,
+          })
+        ),
+      };
+      gtag('event', 'purchase', gtagObj);
+
       if (getDeviceType() === 'web') {
         gtag('event', 'conversion', {
           send_to: `${GTAG_ID}/F0coCPmVhrkBEK3b1tgC`,

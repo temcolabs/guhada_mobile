@@ -52,7 +52,7 @@ class index extends React.Component {
     momentTracker.purchaseComplete();
 
     // gtag 트래커
-    gtagTracker.purchaseComplete();
+    gtagTracker.purchaseComplete(successInfo);
 
     // 크리테오 트래커
     criteoTracker.purchaseComplete({
