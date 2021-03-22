@@ -350,7 +350,11 @@ export default class ShoppingCartStore {
         }
       }
       for (let x = 0; x < tempArray.length; x++) {
-        tempAttribute += tempArray[x] + ' ';
+        if (x === 0) {
+          tempAttribute += tempArray[x];
+        } else {
+          tempAttribute += ' , ' + tempArray[x];
+        }
       }
 
       tempAttribute = tempAttribute.substr(0, tempAttribute.length);
