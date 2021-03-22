@@ -12,6 +12,8 @@ import ReactPixel from 'react-facebook-pixel';
 import gtagTracker from 'childs/lib/tracking/google/gtagTracker';
 import criteoTracker from 'childs/lib/tracking/criteo/criteoTracker';
 import sessionStorage from 'childs/lib/common/sessionStorage';
+import qs from 'querystring';
+
 export default {
   onInit(form) {
     // devLog('-> onInit Form HOOK');
@@ -32,41 +34,55 @@ export default {
     };
 
     // feedID 추가
-    let feedId = sessionStorage.getInt('pid');
+    let feedId = sessionStorage.get('pid');
     if (!feedService.verifyFeedId(feedId)) {
       feedId = '';
     }
 
-    const header = {
+    const headers = {
       'ACCEPT-VERSION': '1.1',
     };
 
     API.user
-      .post('/signUpUser', signUpData, { headers: header })
+      .post('/signUpUser', signUpData, { headers })
       .then(function(res) {
-        devLog(res.data);
         let data = res.data.data;
-        naverShoppingTrakers.signup();
-        daumTracker.signup();
-        momentTracker.signup();
-        ReactPixel.track('CompleteRegistration', res.data);
-        gtagTracker.signup('/');
-        criteoTracker.signUpUser(loginData.email);
-        sessionStorage.set('signup', data.savedPointResponse);
-        Router.push('/');
 
         // feedId post
         let userId = data.userId;
         if (userId && feedId) {
           API.user
-            .post(`/feeds/${userId}`, {
-              userId,
-              feedId,
-            })
+            .post(
+              `/feeds/${userId}`,
+              qs.stringify({
+                userId,
+                feedId,
+              }),
+              {
+                headers: {
+                  'content-type': 'application/x-www-form-urlencoded',
+                },
+              }
+            )
             .catch(() => {
               console.error('[ERROR] error sending feedId');
             });
         }
+
+        sessionStorage.set('signup', data.savedPointResponse);
+
+        try {
+          naverShoppingTrakers.signup();
+          daumTracker.signup();
+          momentTracker.signup();
+          ReactPixel.track('CompleteRegistration', res.data);
+          gtagTracker.signup('/');
+          criteoTracker.signUpUser(loginData.email);
+        } catch (error) {
+          console.error('[tracker]', error.message);
+        }
+
+        Router.push('/');
       })
       .catch(e => {
         let data = _.get(e, 'data');
