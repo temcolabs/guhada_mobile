@@ -1,13 +1,31 @@
 import React from 'react';
 import css from './ProductTable.module.scss';
 import cn from 'classnames';
-import { autoHypenTele } from 'utils';
 import _ from 'lodash';
 import checkNullAndEmpty from 'childs/lib/common/checkNullAndEmpty';
 
 const getPolicyHelper = (deals, policyKey) => {
   const { shipping } = deals;
   if (shipping && shipping.claimShipExpenseType === 'PAID') {
+    if (shipping[`${policyKey}ShipExpense`] === 0) {
+      if (typeof shipping[`${policyKey}Policy`] === 'string') {
+        if (shipping[`${policyKey}Policy`].length) {
+          return `(${shipping[`${policyKey}Policy`]})`;
+        }
+        return policyKey === 'return' ? '(반품 불가)' : '(교환 불가)';
+      }
+    } else {
+      if (
+        typeof shipping[`${policyKey}Policy`] === 'string' &&
+        shipping[`${policyKey}Policy`].length
+      ) {
+        return `${shipping[`${policyKey}ShipExpense`].toLocaleString()}원 (${
+          shipping[`${policyKey}Policy`]
+        })`;
+      }
+      return `${shipping[`${policyKey}ShipExpense`].toLocaleString()}원`;
+    }
+  } else {
     if (shipping[`${policyKey}ShipExpense`] === 0) {
       if (typeof shipping[`${policyKey}Policy`] === 'string') {
         if (shipping[`${policyKey}Policy`].length) {
