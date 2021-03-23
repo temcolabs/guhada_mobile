@@ -168,7 +168,7 @@ export default function ReviewModifyItem({
           <div>
             <div className={css.detailButtonWrap}>
               <div className={css.detailButton}>
-                <div>사이즈</div>
+                <div>{productReview.reviewQuestions[0]?.type || '사이즈'}</div>
                 <div className={css.detailLine} />
                 <div className={css.detailText}>
                   {productReview.reviewTexts.size}
@@ -177,7 +177,7 @@ export default function ReviewModifyItem({
             </div>
             <div className={css.detailButtonWrap}>
               <div className={css.detailButton}>
-                <div>컬러</div>
+                <div>{productReview.reviewQuestions[1]?.type || '컬러'}</div>
                 <div className={css.detailLine} />
                 <div className={css.detailText}>
                   {productReview.reviewTexts.color}
@@ -186,7 +186,7 @@ export default function ReviewModifyItem({
             </div>
             <div className={css.detailButtonWrap}>
               <div className={css.detailButton}>
-                <div>길이감</div>
+                <div>{productReview.reviewQuestions[2]?.type || '길이감'}</div>
                 <div className={css.detailLine} />
                 <div className={css.detailText}>
                   {productReview.reviewTexts.length}
