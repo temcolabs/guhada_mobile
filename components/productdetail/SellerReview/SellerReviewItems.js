@@ -133,17 +133,17 @@ class SellerReviewItems extends Component {
         </div>
         <div className={css.sizeWrap}>
           <div className={css.itemWrap}>
-            <div>사이즈</div>
+            <div>{item.reviewQuestions[0].type || '사이즈'}</div>
             <div className={css.line} />
             <div className={css.colored}>{item.reviewTexts.size}</div>
           </div>
           <div className={css.itemWrap}>
-            <div>컬러</div>
+            <div>{item.reviewQuestions[1].type || '컬러'}</div>
             <div className={css.line} />
             <div className={css.colored}>{item.reviewTexts.color}</div>
           </div>
           <div className={css.itemWrap}>
-            <div>길이감</div>
+            <div>{item.reviewQuestions[2].type || '길이감'}</div>
             <div className={css.line} />
             <div className={css.colored}>{item.reviewTexts.length}</div>
           </div>
@@ -179,7 +179,7 @@ class SellerReviewItems extends Component {
             <div>
               <img
                 className={css.reviewPhotos}
-                src={`${item.reviewPhotos[0].reviewPhotoUrl + "?w=375"}`}
+                src={`${item.reviewPhotos[0].reviewPhotoUrl + '?w=375'}`}
                 alt={`reviewPhoto`}
               />
             </div>

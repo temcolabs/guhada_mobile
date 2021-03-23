@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import css from './ReviewSummary.module.scss';
 import cn from 'classnames';
 import StarItem from '../StarItem';
+import _ from 'lodash';
 
 export default function ReviewSummary({
+  review,
   reviewSummary = {
     averageReviewsRating: 0,
     satisfactionSummary: {
@@ -81,7 +83,11 @@ export default function ReviewSummary({
                     key={index}
                   >
                     <div className={css.itemWrap}>
-                      <div className={css.itemLabel}>{`${summary.label}`}</div>
+                      <div className={css.itemLabel}>
+                        {(review?.content &&
+                          review.content[0].reviewQuestions[index].type) ||
+                          summary.label}
+                      </div>
                       <div className={css.valueWrap}>
                         {reviewSummary.satisfactionSummary[summary.value].map(
                           (data, dataIndex) => {
@@ -93,7 +99,9 @@ export default function ReviewSummary({
                                 key={`${dataIndex}data`}
                               >
                                 <div className={css.valueLabel}>
-                                  {data.description}
+                                  {review?.content &&
+                                    review.content[0].reviewQuestions[index]
+                                      .answerList[dataIndex].answer}
                                 </div>
                                 <div className={css.valueGraph}>
                                   <div
@@ -125,7 +133,10 @@ export default function ReviewSummary({
                                 key={`${dataIndex}data`}
                               >
                                 <div className={css.valueLabel}>
-                                  {data.description}
+                                  {(data.reviewQuestion &&
+                                    data.reviewQuestion.answerList[dataIndex]
+                                      .answer) ||
+                                    data.description}
                                 </div>
                                 <div className={css.valueGraph}>
                                   <div

@@ -20,7 +20,11 @@ class ProductReview extends Component {
       review.totalPages === productreview.reviewPage + 1 ? true : false;
     return (
       <SectionWrap>
-        <ReviewSummary reviewSummary={reviewSummary} tabRefMap={tabRefMap} />
+        <ReviewSummary
+          review={review}
+          reviewSummary={reviewSummary}
+          tabRefMap={tabRefMap}
+        />
         <ReviewTab
           totalElements={review.totalElements}
           setReviewTab={productreview.setReviewTab}

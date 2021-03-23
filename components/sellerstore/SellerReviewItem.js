@@ -47,8 +47,10 @@ function SellerReviewItem(props) {
             <div className={css.reviewRating}>
               {StarItem(reviewItem.review.productRating)}
             </div>
-            {reviewItem.productOption && reviewItem.productOption.color !== '' ||
-            reviewItem.productOption && reviewItem.productOption.size !== '' ? (
+            {(reviewItem.productOption &&
+              reviewItem.productOption.color !== '') ||
+            (reviewItem.productOption &&
+              reviewItem.productOption.size !== '') ? (
               <div className={css.reviewProductOption}>
                 <div className={css.itemLabel}>구매옵션</div>
                 <div className={css.itemValue}>
@@ -66,17 +68,23 @@ function SellerReviewItem(props) {
           </div>
           <div className={css.reviewTag}>
             <div className={css.reviewTagItem}>
-              <div className={css.itemLabel}>사이즈</div>
+              <div className={css.itemLabel}>
+                {reviewItem.reviewQuestions[0].type || '사이즈'}
+              </div>
               <div className={css.itemValue}>{reviewItem.reviewTexts.size}</div>
             </div>
             <div className={css.reviewTagItem}>
-              <div className={css.itemLabel}>컬러</div>
+              <div className={css.itemLabel}>
+                {reviewItem.reviewQuestions[1].type || '컬러'}
+              </div>
               <div className={css.itemValue}>
                 {reviewItem.reviewTexts.color}
               </div>
             </div>
             <div className={css.reviewTagItem}>
-              <div className={css.itemLabel}>길이감</div>
+              <div className={css.itemLabel}>
+                {reviewItem.reviewQuestions[2].type || '길이감'}
+              </div>
               <div className={css.itemValue}>
                 {reviewItem.reviewTexts.length}
               </div>
@@ -85,7 +93,7 @@ function SellerReviewItem(props) {
           <div className={css.reviewInfo}>
             <div>
               <div className={css.reviewText}>
-                {reviewItem.review.textReview}                
+                {reviewItem.review.textReview}
               </div>
               <div className={css.reviewBottom}>
                 <div className={css.reviewLikeWrap}>
@@ -122,7 +130,8 @@ function SellerReviewItem(props) {
                     <div
                       className={css.photo}
                       style={{
-                        backgroundImage: `url(${photo.reviewPhotoUrl + "?w=375"})`,
+                        backgroundImage: `url(${photo.reviewPhotoUrl +
+                          '?w=375'})`,
                       }}
                       key={index}
                     />
