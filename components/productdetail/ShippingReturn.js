@@ -4,46 +4,30 @@ import cn from 'classnames';
 import _ from 'lodash';
 import checkNullAndEmpty from 'childs/lib/common/checkNullAndEmpty';
 
+// type PolicyKey = 'return' | 'exchange'
 const getPolicyHelper = (deals, policyKey) => {
   const { shipping } = deals;
-  if (shipping && shipping.claimShipExpenseType === 'PAID') {
-    if (shipping[`${policyKey}ShipExpense`] === 0) {
-      if (typeof shipping[`${policyKey}Policy`] === 'string') {
-        if (shipping[`${policyKey}Policy`].length) {
-          return `(${shipping[`${policyKey}Policy`]})`;
-        }
-        return policyKey === 'return' ? '(반품 불가)' : '(교환 불가)';
-      }
-    } else {
-      if (
-        typeof shipping[`${policyKey}Policy`] === 'string' &&
-        shipping[`${policyKey}Policy`].length
-      ) {
-        return `${shipping[`${policyKey}ShipExpense`].toLocaleString()}원 (${
-          shipping[`${policyKey}Policy`]
-        })`;
-      }
-      return `${shipping[`${policyKey}ShipExpense`].toLocaleString()}원`;
+  if (!shipping) return '';
+
+  if (shipping[`${policyKey}ShipExpense`] === 0) {
+    if (
+      typeof shipping[`${policyKey}Policy`] === 'string' &&
+      shipping[`${policyKey}Policy`].length
+    ) {
+      return `(${shipping[`${policyKey}Policy`]})`;
+    } else if (shipping.claimShipExpenseType === 'PAID') {
+      return policyKey === 'return' ? '(반품 불가)' : '(교환 불가)';
     }
   } else {
-    if (shipping[`${policyKey}ShipExpense`] === 0) {
-      if (typeof shipping[`${policyKey}Policy`] === 'string') {
-        if (shipping[`${policyKey}Policy`].length) {
-          return `(${shipping[`${policyKey}Policy`]})`;
-        }
-        return policyKey === 'return' ? '(반품 불가)' : '(교환 불가)';
-      }
-    } else {
-      if (
-        typeof shipping[`${policyKey}Policy`] === 'string' &&
-        shipping[`${policyKey}Policy`].length
-      ) {
-        return `${shipping[`${policyKey}ShipExpense`].toLocaleString()}원 (${
-          shipping[`${policyKey}Policy`]
-        })`;
-      }
-      return `${shipping[`${policyKey}ShipExpense`].toLocaleString()}원`;
+    if (
+      typeof shipping[`${policyKey}Policy`] === 'string' &&
+      shipping[`${policyKey}Policy`].length
+    ) {
+      return `${shipping[`${policyKey}ShipExpense`].toLocaleString()}원 (${
+        shipping[`${policyKey}Policy`]
+      })`;
     }
+    return `${shipping[`${policyKey}ShipExpense`].toLocaleString()}원`;
   }
   return '무료';
 };
