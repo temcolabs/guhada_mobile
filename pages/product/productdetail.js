@@ -70,20 +70,15 @@ class ProductDetailPage extends React.Component {
     productdetail.getDeals(dealId);
 
     if (isBrowser) {
-      // 크리테오 트래커
       criteoTracker.productDetail({
         email: user.userInfo?.email,
         dealId: dealId,
       });
 
-      // 모비온 트래커
-      if (productdetail.deals) {
-        mobonTracker.productDetail(productdetail.deals);
-      }
-
-      // beusable 트래커
       beusableTracker();
     }
+
+    this._ismount = true;
   }
 
   componentDidUpdate(prevProps) {
@@ -93,6 +88,11 @@ class ProductDetailPage extends React.Component {
       let dealsId = getParameterByName('deals');
       productdetail.getDeals(dealsId);
       window.scrollTo(0, 0);
+    }
+
+    if (this._ismount) {
+      mobonTracker.productDetail(productdetail.deals);
+      this._ismount = false;
     }
   }
 
