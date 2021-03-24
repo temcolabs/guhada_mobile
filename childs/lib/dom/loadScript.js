@@ -5,7 +5,7 @@
  * @param {*} option.onload 스크립트가 로드된 후 실행할 콜백. 로드되었다면 바로 실행한다.
  * @param {*} option.id script 태그 id
  * @param {*} option.async 비동기 로드
- * @param {*} option.replaceExitsing id와 매칭되는 것이 있으면 기존의 스크립트는 대체
+ * @param {*} option.replaceExisting id와 매칭되는 것이 있으면 기존의 스크립트는 대체
  * @param {*} option.innerText
  * @param {*} option.innerHTML
  */
@@ -18,7 +18,7 @@ const loadScript = (
     onLoad = () => {},
     id,
     async = false,
-    replaceExitsing = false,
+    replaceExisting = false,
   } = {}
 ) => {
   const existingTag = document.getElementById(id);
@@ -60,7 +60,7 @@ const loadScript = (
   };
 
   // 기존의 태그 제거
-  if (existingTag && replaceExitsing) {
+  if (existingTag && replaceExisting) {
     existingTag.parentNode.removeChild(existingTag);
     // existingTag.remove();
   }

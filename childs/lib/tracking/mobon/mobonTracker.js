@@ -22,9 +22,8 @@ const mobonTracker = {
    * 상품 상세
    */
   productDetail: deals => {
-    devLog(`[mobonTracker.productDetail]`, deals, device);
-
-    if (isBrowser) {
+    console.log('mobonTracker', deals);
+    if (isBrowser && !!deals) {
       const {
         dealId,
         name,
@@ -81,22 +80,31 @@ const mobonTracker = {
             t = g.getElementsByTagName(e)[0];
             t.parentNode.insertBefore(n, t);
           })(window, document, 'script');
-
-          /* 상품수집 */
-          enp('create', 'collect', 'guhada9', { device: '${device}' });
-
-          /* 장바구니 버튼 타겟팅 (이용하지 않는 경우 삭제) */
-          enp('create', 'cart', 'guhada9', { 
-            device: '${device}', 
-            btnSelector: '.${shoppingCartBtnSelector}'
-          });
-
-          /* 찜 버튼 타겟팅 (이용하지 않는 경우 삭제) */
-          enp('create', 'wish', 'guhada9', {
-            device: '${device}',
-            btnSelector: '.${likeBtnSelector}'
-          });
         `,
+      });
+
+      devLog(
+        `[mobonTracker.productDetail]`,
+        device,
+        deals,
+        category,
+        shoppingCartBtnSelector,
+        likeBtnSelector
+      );
+
+      /* 상품수집 */
+      window.enp('create', 'collect', 'guhada9', { device });
+
+      /* 장바구니 버튼 타겟팅 (이용하지 않는 경우 삭제) */
+      window.enp('create', 'cart', 'guhada9', {
+        device,
+        btnSelector: `.${shoppingCartBtnSelector}`,
+      });
+
+      /* 찜 버튼 타겟팅 (이용하지 않는 경우 삭제) */
+      window.enp('create', 'wish', 'guhada9', {
+        device,
+        btnSelector: `.${likeBtnSelector}`,
       });
     }
   },
@@ -105,8 +113,6 @@ const mobonTracker = {
    * 장바구니
    */
   shoppingCart: cartData => {
-    devLog(`[mobonTracker.shoppingCart]`, cartData);
-
     if (isBrowser) {
       const { totalPaymentPrice, cartItemResponseList } = cartData;
       const products = cartItemResponseList.map(item => ({
@@ -141,12 +147,14 @@ const mobonTracker = {
             t = g.getElementsByTagName(e)[0];
             t.parentNode.insertBefore(n, t);
           })(window, document, 'script');
-
-          enp('create', 'conversion', 'guhada9', {
-            device: '${device}',
-            paySys: 'naverPay',
-          });
         `,
+      });
+
+      devLog(`[mobonTracker.shoppingCart]`, device, cartData, products);
+
+      window.enp('create', 'conversion', 'guhada9', {
+        device: `${device}`,
+        paySys: 'naverPay',
       });
     }
   },
@@ -155,8 +163,6 @@ const mobonTracker = {
    * 주문 완료
    */
   purchaseComplete: successInfo => {
-    devLog(`[mobonTracker.purchaseComplete]`, successInfo);
-
     if (isBrowser) {
       const { orderNumber, totalOrderPrice, orderList } = successInfo;
       const products = orderList.map(order => ({
@@ -175,9 +181,9 @@ const mobonTracker = {
             products
           )} } };
 
-          ENP_VAR.conversion.ordCode = '${orderNumber}';
-          ENP_VAR.conversion.totalPrice = '${totalOrderPrice}';
-          ENP_VAR.conversion.totalQty = '${orderList.length}';
+          ENP_VAR.conversion.ordCode = ${orderNumber};
+          ENP_VAR.conversion.totalPrice = ${totalOrderPrice};
+          ENP_VAR.conversion.totalQty = ${orderList.length};
 
           (function(a, g, e, n, t) {
             a.enp =
@@ -193,11 +199,13 @@ const mobonTracker = {
             t = g.getElementsByTagName(e)[0];
             t.parentNode.insertBefore(n, t);
           })(window, document, 'script');
-
-          enp('create', 'conversion', 'guhada9', { device: '${device}' });
-          enp('send', 'conversion', 'guhada9');
         `,
       });
+
+      devLog(`[mobonTracker.purchaseComplete]`, device, successInfo, products);
+
+      window.enp('create', 'conversion', 'guhada9', { device });
+      window.enp('send', 'conversion', 'guhada9');
     }
   },
 };
