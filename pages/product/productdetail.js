@@ -74,6 +74,8 @@ class ProductDetailPage extends React.Component {
         email: user.userInfo?.email,
         dealId: dealId,
       });
+
+      beusableTracker();
     }
 
     this._ismount = true;
