@@ -15,7 +15,7 @@ export const beusableTracker = () => {
     loadScript(null, {
       innerHTML: script,
       id: scriptIds.BEUSABLE_TRACKER,
-      replaceExitsing: true,
+      replaceExisting: true,
     });
   }
 };
