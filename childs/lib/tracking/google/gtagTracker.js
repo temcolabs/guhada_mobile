@@ -16,7 +16,7 @@ export default {
     loadScript(`${GTAG_TRACKER_URL}?id=${GTAG_ID}`, {
       async: true,
       id: scriptIds.GTAG_TRACKER,
-      replaceExitsing: true,
+      replaceExisting: true,
       onLoad: () => {
         window.dataLayer = window.dataLayer || [];
         function gtag() {
@@ -41,13 +41,11 @@ export default {
       if (getDeviceType() === 'web') {
         gtag('event', 'conversion', {
           send_to: `${GTAG_ID}/-rrECP2WhrkBEK3b1tgC`,
-          transaction_id: '',
           event_callback: callback,
         });
       } else {
         gtag('event', 'conversion', {
           send_to: `${GTAG_ID}/-vLUCPrjlrkBEK3b1tgC`,
-          transaction_id: '',
           event_callback: callback,
         });
       }
@@ -67,16 +65,35 @@ export default {
       }
     }
   },
-  purchaseComplete: () => {
+  purchaseComplete: successInfo => {
     if (isBrowser) {
+      const gtagObj = {
+        transaction_id: `${successInfo.orderNumber}`,
+        value: successInfo.totalPaymentPrice,
+        currency: 'KRW',
+        items: successInfo.orderList.map(
+          ({ productId, prodName, quantity, orderPrice }) => ({
+            id: `${productId}`,
+            name: prodName,
+            quantity: quantity,
+            price: orderPrice,
+          })
+        ),
+      };
+      gtag('event', 'purchase', gtagObj);
+
       if (getDeviceType() === 'web') {
         gtag('event', 'conversion', {
           send_to: `${GTAG_ID}/F0coCPmVhrkBEK3b1tgC`,
+          value: 1.0,
+          currency: 'KRW',
           transaction_id: '',
         });
       } else {
         gtag('event', 'conversion', {
           send_to: `${GTAG_ID}/PIJaCJuTobkBEK3b1tgC`,
+          value: 1.0,
+          currency: 'KRW',
           transaction_id: '',
         });
       }

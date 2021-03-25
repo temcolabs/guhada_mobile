@@ -18,10 +18,11 @@ import SubmitButton, {
 } from 'components/mypage/form/SubmitButton';
 import DealOrdered from '../DealOrdered';
 import TextArea from 'components/mypage/form/TextArea';
+import API from 'childs/lib/API';
 
-const color = ['BRIGHTER', 'SAME', 'DARKER'];
-const length = ['SHORT', 'REGULAR', 'LONG'];
-const size = ['SMALL', 'JUST_FIT', 'LARGE'];
+// const color = ['BRIGHTER', 'SAME', 'DARKER'];
+// const length = ['SHORT', 'REGULAR', 'LONG'];
+// const size = ['SMALL', 'JUST_FIT', 'LARGE'];
 const rating = [
   'HALF',
   'ONE',
@@ -40,6 +41,7 @@ export const reviewModalType = {
   MODIFY: 'Modify',
 };
 const maxByte = 1000;
+
 /**
  * 리뷰작성을 하기 위해서는 modalData props로
  * orderProdGroupId, productId 를 넘겨야 합니다.
@@ -84,9 +86,12 @@ class ReviewWriteModal extends Component {
   };
 
   static defaultReviewData = {
-    sizeSatisfaction: 'JUST_FIT',
-    colorSatisfaction: 'SAME',
-    lengthSatisfaction: 'REGULAR',
+    // sizeSatisfaction: 'JUST_FIT',
+    // colorSatisfaction: 'SAME',
+    // lengthSatisfaction: 'REGULAR',
+    sizeSatisfaction: '',
+    colorSatisfaction: '',
+    lengthSatisfaction: '',
     createdAt: '',
     id: 0,
     bookmarkCount: 0,
@@ -105,28 +110,112 @@ class ReviewWriteModal extends Component {
     imageFile: [],
     reviewData: Object.assign({}, ReviewWriteModal.defaultReviewData),
     isMySizeModalOpen: false,
+    reviewQuestion: [],
+    questionIsLoading: 0,
   };
 
-  componentDidMount(){
+  componentDidMount() {
     const { productreview } = this.props;
     productreview.getProductReviewPoint();
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { isOpen } = this.props;
-    let { reviewData } = this.props;
-    this.initReviewForm(isOpen, reviewData, this.state.isMySizeModalOpen);
+    const { isOpen, reviewData, modalData, status } = this.props;
+    this.initReviewForm(
+      isOpen,
+      reviewData,
+      modalData,
+      status,
+      this.state.isMySizeModalOpen
+    );
   }
 
   /**
    * 리뷰 입력 데이터 초기화
    * isOpen, reviewData 값이 바뀔때 실행된다
    */
-  initReviewForm = memoize((isOpen, reviewData, isMySizeModalOpen) => {
+  initReviewForm = memoize((isOpen, reviewData, modalData, status) => {
     const { mypagereview } = this.props;
     if (isOpen) {
       mypagereview.checkUserSize();
+
+      API.user
+        .get(`/products/${modalData.productId}/review-question`)
+        .then(({ data }) => {
+          const reviewQuestion = data.data?.reviewQuestionList;
+
+          if (!reviewQuestion || reviewQuestion.length !== 3) {
+            throw new Error('[ERROR] review-question fetch');
+          }
+
+          if (status === reviewModalType.WRITE) {
+            this.setState(prevState => ({
+              reviewData: {
+                ...prevState.reviewData,
+                sizeSatisfaction: reviewQuestion[0].answerList[1].code,
+                colorSatisfaction: reviewQuestion[1].answerList[1].code,
+                lengthSatisfaction: reviewQuestion[2].answerList[1].code,
+              },
+              reviewQuestion,
+              questionIsLoading: 1,
+            }));
+          } else {
+            this.setState({
+              reviewQuestion,
+              questionIsLoading: 1,
+            });
+          }
+        })
+        .catch(err => {
+          console.error(err.message);
+
+          const reviewQuestion = [
+            {
+              question: '사이즈는 어떤가요?',
+              answerList: [
+                { code: 'SMALL', answer: '작아요' },
+                { code: 'JUST_FIT', answer: '정사이즈에요' },
+                { code: 'LARGE', answer: '생각보다 커요' },
+              ],
+            },
+            {
+              question: '컬러는 어떤가요?',
+              answerList: [
+                { code: 'BRIGHTER', answer: '화면보다 밝아요' },
+                { code: 'SAME', answer: '화면과 같아요' },
+                { code: 'DARKER', answer: '화면보다 어두워요' },
+              ],
+            },
+            {
+              question: '길이는 어떤가요?',
+              answerList: [
+                { code: 'SHORT', answer: '짧아요' },
+                { code: 'REGULAR', answer: '적당해요' },
+                { code: 'LONG', answer: '길어요' },
+              ],
+            },
+          ];
+
+          if (status === reviewModalType.WRITE) {
+            this.setState(prevState => ({
+              reviewData: {
+                ...prevState.reviewData,
+                sizeSatisfaction: reviewQuestion[0].answerList[1].code,
+                colorSatisfaction: reviewQuestion[1].answerList[1].code,
+                lengthSatisfaction: reviewQuestion[2].answerList[1].code,
+              },
+              reviewQuestion,
+              questionIsLoading: -1,
+            }));
+          } else {
+            this.setState({
+              reviewQuestion,
+              questionIsLoading: -1,
+            });
+          }
+        });
     }
+
     if (isOpen && !_.isNil(toJS(reviewData))) {
       // 기존의 리뷰 데이터로 입력 폼 초기화
       this.setState({
@@ -378,10 +467,11 @@ class ReviewWriteModal extends Component {
                 <div className={css.sizeIconWrapper}>
                   <span
                     className={css.sizeAddButton}
-                    onClick={() => this.toggleMySizeModal()}>
+                    onClick={() => this.toggleMySizeModal()}
+                  >
                     내 사이즈 등록
                   </span>
-                </div>                
+                </div>
               </div>
             </div>
           )}
@@ -400,27 +490,44 @@ class ReviewWriteModal extends Component {
             <div className={css.starHeader}>상품은 만족하시나요?</div>
             <div>{this.renderStars()}</div>
           </div>
-          <ReviewWriteModalScore
-            header="사이즈는 어떤가요?"
-            score={this.state.reviewData.sizeSatisfaction}
-            items={size}
-            itemsText={['작아요', '정사이즈에요', '커요']}
-            onChangeScore={this.onChangeSize}
-          />
-          <ReviewWriteModalScore
-            header="컬러는 어떤가요?"
-            score={this.state.reviewData.colorSatisfaction}
-            items={color}
-            itemsText={['밝아요', '화면과 같아요', '어두워요']}
-            onChangeScore={this.onChangeColor}
-          />
-          <ReviewWriteModalScore
-            header="길이는 어떤가요?"
-            score={this.state.reviewData.lengthSatisfaction}
-            items={length}
-            itemsText={['짧아요', '적당해요', '길어요']}
-            onChangeScore={this.onChangeLength}
-          />
+
+          {this.state.questionIsLoading && (
+            <>
+              <ReviewWriteModalScore
+                header={this.state.reviewQuestion[0].question}
+                score={this.state.reviewData.sizeSatisfaction}
+                items={this.state.reviewQuestion[0].answerList.map(
+                  item => item.code
+                )}
+                itemsText={this.state.reviewQuestion[0].answerList.map(
+                  item => item.answer
+                )}
+                onChangeScore={this.onChangeSize}
+              />
+              <ReviewWriteModalScore
+                header={this.state.reviewQuestion[1].question}
+                score={this.state.reviewData.colorSatisfaction}
+                items={this.state.reviewQuestion[1].answerList.map(
+                  item => item.code
+                )}
+                itemsText={this.state.reviewQuestion[1].answerList.map(
+                  item => item.answer
+                )}
+                onChangeScore={this.onChangeColor}
+              />
+              <ReviewWriteModalScore
+                header={this.state.reviewQuestion[2].question}
+                score={this.state.reviewData.lengthSatisfaction}
+                items={this.state.reviewQuestion[2].answerList.map(
+                  item => item.code
+                )}
+                itemsText={this.state.reviewQuestion[2].answerList.map(
+                  item => item.answer
+                )}
+                onChangeScore={this.onChangeLength}
+              />
+            </>
+          )}
 
           {/* ! UI가 API에 영향을 미치지 않으므로 숨김. 추후 작성 옵션이 늘어난다면 다시 추가 */}
           {/* <ReviewWriteOption /> */}
@@ -428,7 +535,9 @@ class ReviewWriteModal extends Component {
             <TextArea
               onChange={this.onChangeTextarea}
               // maxLength={1000}
-              placeholder={`어떤 점이 좋으셨나요?\n사진과 함께 리뷰 작성 시 ${productreview.maximumPoint}P 적립!\n상품에 대한 솔직한 리뷰를 작성해주세요.`}
+              placeholder={`어떤 점이 좋으셨나요?\n사진과 함께 리뷰 작성 시 ${
+                productreview.maximumPoint
+              }P 적립!\n상품에 대한 솔직한 리뷰를 작성해주세요.`}
               initialValue={this.state.reviewData?.textReview || ''}
             />
           </div>

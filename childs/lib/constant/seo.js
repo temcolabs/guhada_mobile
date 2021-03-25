@@ -4,7 +4,7 @@ const sns = require('./sns');
 module.exports = {
   TITLE: '구하다',
   DESCRIPTION:
-    '원하는 명품이 여기 다! 매주 이어지는 타임딜 특가. 220% 정품 보장. 초저가 럭키드로우까지. 명품 쇼핑의 정석 구하다',
+    '유럽 부티크 신상이 실시간 업데이트되는 블록체인 기반의 똑똑한 명품 직구 플랫폼',
 
   // window.location.origin에 해당하는 값
   BASE_URL: process.env.BASE_URL,

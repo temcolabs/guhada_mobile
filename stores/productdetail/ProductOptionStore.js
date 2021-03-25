@@ -38,15 +38,20 @@ export default class ProductOptionStore {
     } else {
       this.setProductOptionInit();
       for (let i = 0; i < options.length; i++) {
-        tempAttribute = '';
         tempArray = [];
         for (let key in options[i]) {
           if (key.indexOf('attribute') !== -1) {
             tempArray.push(options[i][key]);
           }
         }
+
+        tempAttribute = '';
         for (let x = 0; x < tempArray.length; x++) {
-          tempAttribute += tempArray[x] + ' ';
+          if (x === 0) {
+            tempAttribute += tempArray[x];
+          } else {
+            tempAttribute += ' , ' + tempArray[x];
+          }
         }
 
         tempAttribute = tempAttribute.substr(0, tempAttribute.length);

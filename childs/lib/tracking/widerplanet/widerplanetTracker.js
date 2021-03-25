@@ -67,7 +67,7 @@ export default {
       loadScript(null, {
         id: scriptIds.WIDERPLANET_TRACKER + `_JOIN_COMPLETE_CONVERSION`,
         async: false,
-        replaceExitsing: true,
+        replaceExisting: true,
         innerHTML: `
             var wptg_tagscript_vars = wptg_tagscript_vars || [];
             wptg_tagscript_vars.push(
@@ -111,7 +111,7 @@ export default {
       loadScript(null, {
         id: scriptIds.WIDERPLANET_TRACKER + `_SIGNIN_COMPLETE_CONVERSION`,
         async: false,
-        replaceExitsing: true,
+        replaceExisting: true,
         innerHTML: `
             var wptg_tagscript_vars = wptg_tagscript_vars || [];
             wptg_tagscript_vars.push(
@@ -193,7 +193,7 @@ export default {
       loadScript(null, {
         id: scriptIds.WIDERPLANET_TRACKER + `_PRODUCDETAIL_CONVERSION`,
         async: false,
-        replaceExitsing: true,
+        replaceExisting: true,
         innerHTML: `
             var wptg_tagscript_vars = wptg_tagscript_vars || [];
             wptg_tagscript_vars.push(
@@ -232,7 +232,7 @@ export default {
       loadScript(null, {
         id: scriptIds.WIDERPLANET_TRACKER + `_CART_CONVERSION`,
         async: false,
-        replaceExitsing: true,
+        replaceExisting: true,
         innerHTML: `
             var wptg_tagscript_vars = wptg_tagscript_vars || [];
             wptg_tagscript_vars.push(
@@ -276,7 +276,7 @@ export default {
       loadScript(null, {
         id: scriptIds.WIDERPLANET_TRACKER + `_PURCHASE_COMPLETE_CONVERSION`,
         async: false,
-        replaceExitsing: true,
+        replaceExisting: true,
         innerHTML: `
             var wptg_tagscript_vars = wptg_tagscript_vars || [];
             wptg_tagscript_vars.push(
@@ -318,7 +318,7 @@ export default {
       loadScript(null, {
         id: scriptIds.WIDERPLANET_TRACKER + `_APPLICATION_COMPLETE_CONVERSION`,
         async: false,
-        replaceExitsing: true,
+        replaceExisting: true,
         innerHTML: `
             var wptg_tagscript_vars = wptg_tagscript_vars || [];
             wptg_tagscript_vars.push(
@@ -346,7 +346,7 @@ export default {
       loadScript(WIDER_PLANET_TRACKER_URL, {
         async: true,
         id: scriptIds.WIDERPLANET_TRACKER,
-        replaceExitsing: true,
+        replaceExisting: true,
         onLoad: () => {
           devLog(`WIDERPLANET_TRACKER onLoad`, window.wptg_tagscript_vars);
           window.wptg_tagscript.exec();

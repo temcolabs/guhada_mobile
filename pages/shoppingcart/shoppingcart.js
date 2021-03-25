@@ -10,6 +10,7 @@ import HeadForSEO from 'childs/lib/components/HeadForSEO';
 import momentTracker from 'childs/lib/tracking/kakaomoment/momentTracker';
 import gtagTracker from 'childs/lib/tracking/google/gtagTracker';
 import mobonTracker from 'childs/lib/tracking/mobon/mobonTracker';
+import { beusableTracker } from 'childs/lib/tracking/beusable/tracker';
 
 @inject('shoppingcart', 'user')
 @observer
@@ -28,6 +29,7 @@ class shoppingcart extends React.Component {
         });
         momentTracker.shoppingCart();
         gtagTracker.shoppingCart();
+        beusableTracker();
       }
     } catch (e) {
       console.error(e);

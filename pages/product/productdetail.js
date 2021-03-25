@@ -7,6 +7,7 @@ import Router, { withRouter } from 'next/router';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
 import criteoTracker from 'childs/lib/tracking/criteo/criteoTracker';
 import mobonTracker from 'childs/lib/tracking/mobon/mobonTracker';
+import { beusableTracker } from 'childs/lib/tracking/beusable/tracker';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
 import API from 'childs/lib/API';
 import _ from 'lodash';
@@ -69,17 +70,15 @@ class ProductDetailPage extends React.Component {
     productdetail.getDeals(dealId);
 
     if (isBrowser) {
-      // 크리테오 트래커
       criteoTracker.productDetail({
         email: user.userInfo?.email,
         dealId: dealId,
       });
 
-      // 모비온 트래커
-      if (productdetail.deals) {
-        mobonTracker.productDetail(productdetail.deals);
-      }
+      beusableTracker();
     }
+
+    this._ismount = true;
   }
 
   componentDidUpdate(prevProps) {
@@ -89,6 +88,11 @@ class ProductDetailPage extends React.Component {
       let dealsId = getParameterByName('deals');
       productdetail.getDeals(dealsId);
       window.scrollTo(0, 0);
+    }
+
+    if (this._ismount) {
+      mobonTracker.productDetail(productdetail.deals);
+      this._ismount = false;
     }
   }
 
