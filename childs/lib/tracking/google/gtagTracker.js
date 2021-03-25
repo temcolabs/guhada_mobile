@@ -41,13 +41,11 @@ export default {
       if (getDeviceType() === 'web') {
         gtag('event', 'conversion', {
           send_to: `${GTAG_ID}/-rrECP2WhrkBEK3b1tgC`,
-          transaction_id: '',
           event_callback: callback,
         });
       } else {
         gtag('event', 'conversion', {
           send_to: `${GTAG_ID}/-vLUCPrjlrkBEK3b1tgC`,
-          transaction_id: '',
           event_callback: callback,
         });
       }
@@ -87,11 +85,15 @@ export default {
       if (getDeviceType() === 'web') {
         gtag('event', 'conversion', {
           send_to: `${GTAG_ID}/F0coCPmVhrkBEK3b1tgC`,
+          value: 1.0,
+          currency: 'KRW',
           transaction_id: '',
         });
       } else {
         gtag('event', 'conversion', {
           send_to: `${GTAG_ID}/PIJaCJuTobkBEK3b1tgC`,
+          value: 1.0,
+          currency: 'KRW',
           transaction_id: '',
         });
       }
