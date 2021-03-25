@@ -22,7 +22,6 @@ const mobonTracker = {
    * 상품 상세
    */
   productDetail: deals => {
-    console.log('mobonTracker', deals);
     if (isBrowser && !!deals) {
       const {
         dealId,
