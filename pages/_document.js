@@ -146,6 +146,23 @@ class MyDocument extends Document {
 
           {/* widerplanet */}
           <div id="wp_tg_cts" style={{ display: 'none' }} />
+
+          {/* beusable */}
+          <script
+            language="javascript"
+            dangerouslySetInnerHTML={{
+              __html: `
+              (function(w, d, a){
+                w.__beusablerumclient__ = {
+                    load : function(src){
+                        var b = d.createElement("script");
+                        b.src = src; b.async=true; b.type = "text/javascript";
+                        d.getElementsByTagName("head")[0].appendChild(b);
+                    }
+                };w.__beusablerumclient__.load(a);
+              })(window, document, "//rum.beusable.net/script/b210310e150402u581/f1b987dd0b");`,
+            }}
+          />
         </body>
       </Html>
     );

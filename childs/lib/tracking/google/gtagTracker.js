@@ -85,14 +85,14 @@ export default {
       if (getDeviceType() === 'web') {
         gtag('event', 'conversion', {
           send_to: `${GTAG_ID}/F0coCPmVhrkBEK3b1tgC`,
-          value: 1.0,
+          value: successInfo.totalPaymentPrice,
           currency: 'KRW',
           transaction_id: '',
         });
       } else {
         gtag('event', 'conversion', {
           send_to: `${GTAG_ID}/PIJaCJuTobkBEK3b1tgC`,
-          value: 1.0,
+          value: successInfo.totalPaymentPrice,
           currency: 'KRW',
           transaction_id: '',
         });
