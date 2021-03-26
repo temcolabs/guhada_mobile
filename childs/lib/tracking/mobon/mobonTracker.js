@@ -163,7 +163,7 @@ const mobonTracker = {
    */
   purchaseComplete: successInfo => {
     if (isBrowser) {
-      const { orderNumber, totalOrderPrice, orderList } = successInfo;
+      const { orderNumber, totalPaymentPrice, orderList } = successInfo;
       const products = orderList.map(order => ({
         productCode: order.dealId?.toString(),
         productName: order.prodName,
@@ -181,7 +181,7 @@ const mobonTracker = {
           )} } };
 
           ENP_VAR.conversion.ordCode = ${orderNumber};
-          ENP_VAR.conversion.totalPrice = ${totalOrderPrice};
+          ENP_VAR.conversion.totalPrice = ${totalPaymentPrice};
           ENP_VAR.conversion.totalQty = ${orderList.length};
 
           (function(a, g, e, n, t) {
