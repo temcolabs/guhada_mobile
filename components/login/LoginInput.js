@@ -6,13 +6,32 @@ import { observer } from 'mobx-react';
 @observer
 class LoginInput extends Component {
   clearError = () => {
-    const { field } = this.props;
+    const { field, check } = this.props;
     field.set('value', '');
     field.validate();
+    check && check.set('value', '');
   };
+
+  renderErrorComponents = (field, check) => {
+    if (check && check.value && this.props.successMessage) {
+      if (check.value === 'loading') {
+        return <div className={css.loadingSpinner} />;
+      }
+      return <div className={css.success}>{check.value}</div>;
+    } else if (field.error) {
+      return (
+        <>
+          <div className={css.errorBtn} onClick={() => this.clearError()} />
+          <div className={css.error}>{field.error}</div>
+        </>
+      );
+    }
+  };
+
   render() {
     const {
       field,
+      check,
       style,
       countDown,
       maxLength,
@@ -47,14 +66,8 @@ class LoginInput extends Component {
             }}
           />
         ) : null}
-        {field.error !== null && (
-          <div className={css.errorBtn} onClick={() => this.clearError()} />
-        )}
-
         {countDown ? <div className={css.countDown}>{countDown}</div> : null}
-        {field.error !== null ? (
-          <div className={css.error}>{field.error}</div>
-        ) : null}
+        {this.renderErrorComponents(field, check)}
       </div>
     );
   }
