@@ -11,8 +11,8 @@ export class SearchPlaceholderStore {
   @action
   getPlaceholder = () => {
     placeholderService.getSearchPlaceholder().then(res => {
-      this.placeholderData = res.data;
-      this.placeHolderClone = res.data.placeholder;
+      this.placeholderData = res.data?.data;
+      this.placeHolderClone = res.data?.data.placeholder;
     });
   };
 }
