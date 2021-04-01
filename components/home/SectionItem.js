@@ -57,8 +57,12 @@ export default function SectionItem({
             </div>
           )
         ) : null}
+        {item.soldOut && <div className={css.soldOut}>SOLDOUT</div>}
         <LazyLoad>
-          <img src={item.productImage.url + "?w=375"} alt={item.productImage.name} />
+          <img
+            src={item.productImage.url + '?w=375'}
+            alt={item.productImage.name}
+          />
         </LazyLoad>
         {isTruthy(likeItemDelete) && (
           <div
