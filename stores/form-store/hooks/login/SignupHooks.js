@@ -45,7 +45,7 @@ export default {
 
     API.user
       .post('/signUpUser', signUpData, { headers })
-      .then(function(res) {
+      .then(res => {
         let data = res.data.data;
 
         // feedId post
@@ -71,18 +71,20 @@ export default {
 
         sessionStorage.set('signup', data.savedPointResponse);
 
-        try {
-          naverShoppingTrakers.signup();
-          daumTracker.signup();
-          momentTracker.signup();
-          ReactPixel.track('CompleteRegistration', res.data);
-          gtagTracker.signup('/');
-          criteoTracker.signUpUser(loginData.email);
-        } catch (error) {
-          console.error('[tracker]', error.message);
-        }
+        // try {
+        //   naverShoppingTrakers.signup();
+        //   daumTracker.signup();
+        //   momentTracker.signup();
+        //   ReactPixel.track('CompleteRegistration', res.data);
+        //   gtagTracker.signup(); // gtagTracker.signup('/');
+        //   criteoTracker.signUpUser(loginData.email);
+        // } catch (error) {
+        //   console.error('[tracker]', error.message);
+        // }
 
-        Router.push('/');
+        root.login.signUpData = res.data;
+
+        Router.push('/login/signupsuccess');
       })
       .catch(e => {
         let data = _.get(e, 'data');
