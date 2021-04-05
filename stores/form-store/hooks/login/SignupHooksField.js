@@ -91,6 +91,22 @@ export default {
       });
     }
 
+    if (field.path === 'password') {
+      debounceValidate(() => {
+        const errorMessage = passwordValidMessage(field.value);
+        if (errorMessage) {
+          field.invalidate(errorMessage);
+        } else {
+          field.validate({ showErrors: true });
+        }
+      });
+    }
+    if (field.path === 'passwordConfirm') {
+      debounceValidate(() => {
+        field.validate({ showErrors: true });
+      });
+    }
+
     function allAgreement(bool) {
       form.$('requireAgree').set(bool);
       form.$('agreePurchaseTos').set(bool);
