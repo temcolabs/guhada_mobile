@@ -12,7 +12,8 @@ import css from './ReviewWriteItem.module.scss';
   'mypagereview',
   'mypagePoint',
   'mypageDashboard',
-  'alert'
+  'alert',
+  'searchitem'
 )
 @observer
 class ReviewWrite extends Component {
@@ -53,7 +54,10 @@ class ReviewWrite extends Component {
   };
 
   render() {
-    const { mypagereview: mypageReviewStore } = this.props;
+    const {
+      mypagereview: mypageReviewStore,
+      searchitem: searchItemStore,
+    } = this.props;
     const {
       availableReview,
       orderItemList,
@@ -72,6 +76,7 @@ class ReviewWrite extends Component {
                   onClickReviewButton={this.handleClickWriteReviewButton}
                   orderItem={item}
                   key={index}
+                  onSearch={searchItemStore.toSearch}
                 />
               );
             })

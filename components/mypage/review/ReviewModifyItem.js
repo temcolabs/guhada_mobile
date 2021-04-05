@@ -10,6 +10,7 @@ import { pushRoute } from 'childs/lib/router';
 import cn from 'classnames';
 import isTruthy from 'childs/lib/common/isTruthy';
 import ReviewReply from 'components/productdetail/ReviewReply';
+import API from 'childs/lib/API';
 export default function ReviewModifyItem({
   productReview = {
     // 내가 작성한 리뷰
@@ -64,6 +65,7 @@ export default function ReviewModifyItem({
   },
   onClickReviewButton = () => {},
   onClickDeleteButton = () => {},
+  onSearch,
 }) {
   const currencyUnit = '원';
   const eaUnit = '개';
@@ -105,6 +107,19 @@ export default function ReviewModifyItem({
       break;
   }
 
+  const handleBrandNameClick = async () => {
+    const { data } = await API.product.get(
+      `/products/${productReview.order.productId}`
+    );
+    const productData = data.data;
+    if (productData) {
+      onSearch({
+        brand: productData.brandId,
+        enter: 'brand',
+      });
+    }
+  };
+
   return (
     <div className={css.itemWrap}>
       <div className={css.reviewWrap}>
@@ -116,8 +131,15 @@ export default function ReviewModifyItem({
           }
         />
         <div className={css.productInfo}>
-          <div className={css.brandName}>{productReview.order?.brandName}</div>
-          <div className={css.prodName}>
+          <div className={css.brandName} onClick={handleBrandNameClick}>
+            {productReview.order?.brandName}
+          </div>
+          <div
+            className={css.prodName}
+            onClick={() =>
+              pushRoute(`/productdetail?deals=${productReview.order?.dealId}`)
+            }
+          >
             <span>
               {productReview.order?.season ? productReview.order?.season : ''}
             </span>
