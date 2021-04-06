@@ -29,7 +29,7 @@ export default {
         agreeCollectPersonalInfoTos: value.agreeCollectPersonalInfoTos,
         agreeEmailReception: value.agreeEmailReception,
         agreePurchaseTos: value.agreePurchaseTos,
-        agreeSaleTos: value.agreeSaleTos,
+        // agreeSaleTos: value.agreeSaleTos,
         agreeSmsReception: value.agreeSmsReception,
         email: value.email,
         profileJson: login.profileJson,

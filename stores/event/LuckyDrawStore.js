@@ -82,16 +82,16 @@ export default class LukcyDrawStore {
       let identityVerify = this.user.identityVerify;
       let handleModify = false;
       let acceptTerms = this.user.acceptTerms;
-      let agreeSaleTos = acceptTerms.agreeSaleTos;
+      // let agreeSaleTos = acceptTerms.agreeSaleTos;
       let agreeEmailReception = acceptTerms.agreeEmailReception;
       let agreeSmsReception = acceptTerms.agreeSmsReception;
       let emailVerified = this.user.emailVerified;
       let validEmail = this.user.validEmail;
 
       if (
-        agreeSaleTos === true &&
         agreeEmailReception === true &&
         agreeSmsReception === true &&
+        // agreeSaleTos === true &&
         !!validEmail &&
         identityVerify?.identityVerifyMethod === 'MOBILE'
       ) {
@@ -119,7 +119,7 @@ export default class LukcyDrawStore {
 
         // 약관 동의 바인딩
 
-        form.$('agreeSaleTos').set('value', agreeSaleTos);
+        // form.$('agreeSaleTos').set('value', agreeSaleTos);
         form.$('agreeEmailReception').set('value', agreeEmailReception);
         form.$('agreeSmsReception').set('value', agreeSmsReception);
 

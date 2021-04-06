@@ -148,26 +148,26 @@ export default {
       form.$('emailCheck').clear();
     }
 
-    function optionalAgree(bool) {
-      form.$('agreeSaleTos').set(bool);
-      form.$('agreeEmailReception').set(bool);
-      form.$('agreeSmsReception').set(bool);
-    }
+    // function optionalAgree(bool) {
+    //   // form.$('agreeSaleTos').set(bool);
+    //   form.$('agreeEmailReception').set(bool);
+    //   form.$('agreeSmsReception').set(bool);
+    // }
 
     function allAgreement(bool) {
-      form.$('requireAgree').set(bool);
+      // form.$('requireAgree').set(bool);
       form.$('agreePurchaseTos').set(bool);
-      form.$('agreeSaleTos').set(bool);
-      form.$('optionalAgree').set(bool);
+      // form.$('agreeSaleTos').set(bool);
+      // form.$('optionalAgree').set(bool);
       form.$('agreeCollectPersonalInfoTos').set(bool);
       form.$('agreeEmailReception').set(bool);
       form.$('agreeSmsReception').set(bool);
     }
 
-    function requireAgree(bool) {
-      form.$('agreePurchaseTos').set(bool);
-      form.$('agreeCollectPersonalInfoTos').set(bool);
-    }
+    // function requireAgree(bool) {
+    //   form.$('agreePurchaseTos').set(bool);
+    //   form.$('agreeCollectPersonalInfoTos').set(bool);
+    // }
 
     if (field.path === 'allagree_term')
       if (field.path === 'allagree_term' && field.value === true) {
@@ -178,23 +178,23 @@ export default {
         form.$('allagree_term').set(false);
       }
 
-    if (field.path === 'requireAgree')
-      if (field.path === 'requireAgree' && field.value === true) {
-        requireAgree(true);
-      } else if (field.path === 'requireAgree' && field.value === false) {
-        requireAgree(false);
-      } else {
-        form.$('requireAgree').set(false);
-      }
+    // if (field.path === 'requireAgree')
+    //   if (field.path === 'requireAgree' && field.value === true) {
+    //     requireAgree(true);
+    //   } else if (field.path === 'requireAgree' && field.value === false) {
+    //     requireAgree(false);
+    //   } else {
+    //     form.$('requireAgree').set(false);
+    //   }
 
-    if (field.path === 'optionalAgree')
-      if (field.path === 'optionalAgree' && field.value === true) {
-        optionalAgree(true);
-      } else if (field.path === 'optionalAgree' && field.value === false) {
-        optionalAgree(false);
-      } else {
-        form.$('optionalAgree').set(false);
-      }
+    // if (field.path === 'optionalAgree')
+    //   if (field.path === 'optionalAgree' && field.value === true) {
+    //     optionalAgree(true);
+    //   } else if (field.path === 'optionalAgree' && field.value === false) {
+    //     optionalAgree(false);
+    //   } else {
+    //     form.$('optionalAgree').set(false);
+    //   }
   },
 
   onBlur: field => {
