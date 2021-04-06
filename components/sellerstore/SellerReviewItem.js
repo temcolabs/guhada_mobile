@@ -101,8 +101,7 @@ function SellerReviewItem(props) {
                     <div
                       className={css.photo}
                       style={{
-                        backgroundImage: `url(${photo.reviewPhotoUrl +
-                          '?w=375'})`,
+                        backgroundImage: `url("${photo.reviewPhotoUrl}?w=375")`,
                       }}
                       key={index}
                     />

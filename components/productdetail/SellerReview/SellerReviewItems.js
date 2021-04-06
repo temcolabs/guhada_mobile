@@ -12,6 +12,8 @@ import ReviewReply from 'components/productdetail/ReviewReply';
 import ReportModal from 'components/claim/report/ReportModal';
 import reportTarget from 'childs/lib/constant/reportTarget';
 import Link from 'next/link';
+import { toJS } from 'mobx';
+
 @inject('sellerReview', 'login', 'alert', 'searchitem')
 @observer
 class SellerReviewItems extends Component {
@@ -175,15 +177,18 @@ class SellerReviewItems extends Component {
         </div>
 
         <div className={css.imageWrap}>
-          {!_.isNil(item.reviewPhotos) ? (
-            <div>
-              <img
-                className={css.reviewPhotos}
-                src={`${item.reviewPhotos[0].reviewPhotoUrl + '?w=375'}`}
-                alt={`reviewPhoto`}
-              />
-            </div>
-          ) : null}
+          {Array.isArray(toJS(item.reviewPhotos)) &&
+            item.reviewPhotos.map((photo, index) => {
+              return (
+                <div
+                  className={css.photo}
+                  style={{
+                    backgroundImage: `url("${photo.reviewPhotoUrl}?w=375")`,
+                  }}
+                  key={index}
+                />
+              );
+            })}
         </div>
         <div className={css.likeCommentWrap}>
           {login.loginStatus === loginStatus.LOGIN_DONE ? (
