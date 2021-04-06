@@ -19,6 +19,7 @@ import SubmitButton, {
 import DealOrdered from '../DealOrdered';
 import TextArea from 'components/mypage/form/TextArea';
 import API from 'childs/lib/API';
+import pointProcessService from 'childs/lib/API/benefit/pointProcessService';
 
 // const color = ['BRIGHTER', 'SAME', 'DARKER'];
 // const length = ['SHORT', 'REGULAR', 'LONG'];
@@ -112,11 +113,23 @@ class ReviewWriteModal extends Component {
     isMySizeModalOpen: false,
     reviewQuestion: [],
     questionIsLoading: 0,
+    totalDueSave: 0,
   };
 
   componentDidMount() {
     const { productreview } = this.props;
     productreview.getProductReviewPoint();
+
+    if (this.state.totalDueSave <= 0) {
+      pointProcessService.getTotalDueSave().then(res => {
+        if (res.data.data && res.data.data.dueSavePointList.length) {
+          const dueSavePoint = res.data.data.dueSavePointList[0];
+          if (dueSavePoint.dueSaveType === 'MY_SIZE') {
+            this.setState({ totalDueSave: dueSavePoint.totalPoint });
+          }
+        }
+      });
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -458,12 +471,15 @@ class ReviewWriteModal extends Component {
         onClose={this.props.handleModalClose}
       >
         <div className={css.modalWrap}>
-          {/* TODO: */}
           {mypagereview.isPossibleSetUserSize === true && (
             <div className={css.sizeAddWrap}>
               <div className={css.sizeAddContents}>
                 <div className={css.sizeAddIcon}>!</div>
-                <span>내 사이즈 등록하면 적립금 1,000원 적립!</span>
+                <span>
+                  {this.state.totalDueSave > 0
+                    ? `내 사이즈 등록하면 적립금 ${this.state.totalDueSave.toLocaleString()}원 적립!`
+                    : '내 사이즈를 등록해주세요!'}
+                </span>
                 <div className={css.sizeIconWrapper}>
                   <span
                     className={css.sizeAddButton}

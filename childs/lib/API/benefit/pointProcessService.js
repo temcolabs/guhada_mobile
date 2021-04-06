@@ -19,6 +19,12 @@ export default {
       ],
     };
    */
+  getTotalDueSave: () => {
+    return API.benefit.post(`/process/total-due-save`, {
+      pointType: 'MY_SIZE',
+      serviceType: 'FRONT',
+    });
+  },
   getConfirmDueSave: ({ orderProdGroupId } = {}) => {
     return API.benefit.get(
       `/process/product-confirm/due-save/${orderProdGroupId}`
