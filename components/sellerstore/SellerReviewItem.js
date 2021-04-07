@@ -95,18 +95,23 @@ function SellerReviewItem(props) {
               <div className={css.reviewText}>
                 {reviewItem.review.textReview}
               </div>
-              <div class={css.photoWrapper}>
-                {Array.isArray(toJS(reviewItem.reviewPhotos)) &&
-                  reviewItem.reviewPhotos.map((photo, index) => (
-                    <div
-                      className={css.photo}
-                      style={{
-                        backgroundImage: `url("${photo.reviewPhotoUrl}?w=375")`,
-                      }}
-                      key={index}
-                    />
-                  ))}
-              </div>
+
+              {Array.isArray(toJS(reviewItem.reviewPhotos)) &&
+                reviewItem.reviewPhotos.length && (
+                  <div class={css.photoWrapper}>
+                    {reviewItem.reviewPhotos.map((photo, index) => (
+                      <div
+                        className={css.photo}
+                        style={{
+                          backgroundImage: `url("${
+                            photo.reviewPhotoUrl
+                          }?w=375")`,
+                        }}
+                        key={index}
+                      />
+                    ))}
+                  </div>
+                )}
               <div className={css.reviewBottom}>
                 <div className={css.reviewLikeWrap}>
                   <div>도움되었어요 {`${reviewItem.review.bookmarkCount}`}</div>

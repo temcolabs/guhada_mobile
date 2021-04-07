@@ -176,20 +176,19 @@ class SellerReviewItems extends Component {
           </div>
         </div>
 
-        <div className={css.imageWrap}>
-          {Array.isArray(toJS(item.reviewPhotos)) &&
-            item.reviewPhotos.map((photo, index) => {
-              return (
-                <div
-                  className={css.photo}
-                  style={{
-                    backgroundImage: `url("${photo.reviewPhotoUrl}?w=375")`,
-                  }}
-                  key={index}
-                />
-              );
-            })}
-        </div>
+        {Array.isArray(toJS(item.reviewPhotos)) && item.reviewPhotos.length && (
+          <div className={css.imageWrap}>
+            {item.reviewPhotos.map((photo, index) => (
+              <div
+                className={css.photo}
+                style={{
+                  backgroundImage: `url("${photo.reviewPhotoUrl}?w=375")`,
+                }}
+                key={index}
+              />
+            ))}
+          </div>
+        )}
         <div className={css.likeCommentWrap}>
           {login.loginStatus === loginStatus.LOGIN_DONE ? (
             _.isNil(checkBookmarks) === true ? (
