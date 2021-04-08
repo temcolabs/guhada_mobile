@@ -42,7 +42,11 @@ class Signup extends Component {
         <LoginWrapper>
           <div className={css.wrap}>
             <div>
-              <LoginInput field={form.$('email')} />
+              <LoginInput
+                field={form.$('email')}
+                check={form.$('emailCheck')}
+                successMessage={'사용 가능한 이메일입니다.'}
+              />
               <LoginInput
                 field={form.$('password')}
                 type={this.state.currentType}

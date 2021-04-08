@@ -3,6 +3,8 @@ import css from './ReviewWriteItem.module.scss';
 import addCommaToNum from 'childs/lib/common/addCommaToNum';
 import moment from 'moment';
 import { dateFormat } from 'childs/lib/constant';
+import { pushRoute } from 'childs/lib/router';
+import API from 'childs/lib/API';
 
 export default function ReviewWriteItem({
   orderItem = {
@@ -32,21 +34,39 @@ export default function ReviewWriteItem({
     orderProdId: 0,
   },
   onClickReviewButton = () => {},
+  onSearch,
 }) {
   const item = orderItem;
 
   const currencyUnit = '원';
   const eaUnit = '개';
 
+  const handleBrandNameClick = async () => {
+    const { data } = await API.product.get(`/products/${orderItem.productId}`);
+    const productData = data.data;
+    if (productData) {
+      onSearch({
+        brand: productData.brandId,
+        enter: 'brand',
+      });
+    }
+  };
+
   return (
     <div className={css.itemWrap}>
       <div
         className={css.productImageBox}
         style={{ backgroundImage: `url(${item.imageUrl})` }}
+        onClick={() => pushRoute(`productdetail?deals=${item.dealId}`)}
       />
       <div className={css.productInfo}>
-        <div className={css.brandName}>{item.brandName}</div>
-        <div className={css.prodName}>
+        <div className={css.brandName} onClick={handleBrandNameClick}>
+          {item.brandName}
+        </div>
+        <div
+          className={css.prodName}
+          onClick={() => pushRoute(`productdetail?deals=${item.dealId}`)}
+        >
           <span>{item.season ? item.season : ''} </span>
           <span>{` ` + item.prodName}</span>
         </div>

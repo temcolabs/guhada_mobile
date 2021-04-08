@@ -155,11 +155,30 @@
 
   & .imageWrap {
     margin-bottom: 16px;
+    margin-top: 20px;
+    margin-right: -20px;
+    padding-right: 20px;
+    width: auto;
+    height: 132px;
+    overflow: auto;
+    white-space: nowrap;
 
-    & .reviewPhotos {
-      width: 100%;
-      height: calc(100vw - 40px);
-      object-fit: contain;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    & .photo {
+      display: inline-block;
+      margin-left: 5px;
+      min-width: 130px;
+      min-height: 130px;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+
+      &:first-child {
+        margin-left: 0;
+      }
     }
   }
 

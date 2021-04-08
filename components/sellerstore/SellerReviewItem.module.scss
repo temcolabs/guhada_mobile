@@ -77,13 +77,41 @@
 }
 
 .reviewInfo {
-  display: flex;
-  justify-content: space-between;
+  // display: flex;
+  // justify-content: space-between;
   padding: 20px 0 0;
   div {
     .reviewText {
       color: #444;
       font-size: 13px;
+    }
+
+    .photoWrapper {
+      margin-top: 20px;
+      margin-right: -20px;
+      padding-right: 20px;
+      width: auto;
+      height: 142px;
+      overflow: auto;
+      white-space: nowrap;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      .photo {
+        display: inline-block;
+        margin-left: 5px;
+        min-width: 130px;
+        min-height: 130px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+
+        &:first-child {
+          margin-left: 0;
+        }
+      }
     }
 
     .reviewBottom {
@@ -108,14 +136,5 @@
         color: #777;
       }
     }
-  }
-
-  .photo {
-    margin-left: 16px;
-    min-width: 80px;
-    min-height: 80px;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
   }
 }

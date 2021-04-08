@@ -1,0 +1,60 @@
+.sizeGuide {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  height: 100vh;
+  overflow: auto;
+  background: #fff;
+  padding: 10px;
+  padding-top: 20px;
+
+  &__header {
+    border-bottom: 2px solid #eee;
+    padding-bottom: 15px;
+    margin-bottom: 10px;
+
+    &--title {
+      font-size: 20px;
+      font-weight: 500;
+      text-align: center;
+    }
+    &--closeBtn {
+      cursor: pointer;
+      position: absolute;
+      right: 17px;
+      top: 17px;
+      width: 30px;
+      height: 30px;
+      opacity: 0.3;
+
+      &:hover {
+        opacity: 1;
+      }
+
+      &:before,
+      &:after {
+        position: absolute;
+        left: 20px;
+        content: ' ';
+        height: 25px;
+        width: 2px;
+        background-color: #333;
+      }
+      &:before {
+        transform: rotate(45deg);
+      }
+      &:after {
+        transform: rotate(-45deg);
+      }
+    }
+  }
+
+  &__content {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 95vw;
+    height: 80vh;
+  }
+}

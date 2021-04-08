@@ -24,7 +24,7 @@ export default function MainHotKeyword({
               onClick={() =>
                 searchitem.toSearch({
                   enter: 'keyword',
-                  keyword: hot.keyword,
+                  keyword: hot.searchKeyword || hot.keyword,
                 })
               }
               key={hot.id}

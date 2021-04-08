@@ -11,6 +11,7 @@ import cn from 'classnames';
 import ReviewReply from 'components/productdetail/ReviewReply';
 import ReportModal from 'components/claim/report/ReportModal';
 import reportTarget from 'childs/lib/constant/reportTarget';
+import { toJS } from 'mobx';
 @inject('productreview', 'login', 'alert')
 @observer
 class ProductReviewItems extends Component {
@@ -169,17 +170,19 @@ class ProductReviewItems extends Component {
           </div>
         </div>
 
-        <div className={css.imageWrap}>
-          {!_.isNil(item.reviewPhotos) ? (
-            <div>
-              <img
-                className={css.reviewPhotos}
-                src={`${item.reviewPhotos[0].reviewPhotoUrl + '?w=375'}`}
-                alt={`reviewPhoto`}
+        {Array.isArray(toJS(item.reviewPhotos)) && item.reviewPhotos.length && (
+          <div className={css.imageWrap}>
+            {item.reviewPhotos.map((photo, index) => (
+              <div
+                className={css.photo}
+                style={{
+                  backgroundImage: `url("${photo.reviewPhotoUrl}?w=375")`,
+                }}
+                key={index}
               />
-            </div>
-          ) : null}
-        </div>
+            ))}
+          </div>
+        )}
         <div className={css.likeCommentWrap}>
           {login.loginStatus === loginStatus.LOGIN_DONE ? (
             _.isNil(checkBookmarks) === true ? (

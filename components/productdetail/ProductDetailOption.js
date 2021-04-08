@@ -4,9 +4,14 @@ import { inject, observer } from 'mobx-react';
 import ProductDetailOptionSelectbox from './ProductDetailOptionSelectbox';
 import OptionQuantity from './OptionQuantity';
 import ProductOptionModal from './ProductOptionModal';
+import SizeGuideModal from './SizeGuideModal';
+
 @inject('productdetail', 'productoption', 'cartAndPurchase')
 @observer
 class ProductDetailOption extends Component {
+  state = {
+    sizeGuideModalOpen: false,
+  };
   modalCloseHandler() {
     this.props.cartAndPurchase.isProductOptionModal = false;
   }
@@ -25,7 +30,13 @@ class ProductDetailOption extends Component {
         ) : null}
 
         <div className={css.optionQuantityBox}>
-          <OptionQuantity productoption={productoption} />
+          <OptionQuantity
+            productoption={productoption}
+            sizeGuideModalOpenhandler={() =>
+              this.setState({ sizeGuideModalOpen: true })
+            }
+            sizeImageUrl={productdetail.deals.sizeImageUrl}
+          />
         </div>
 
         <ProductOptionModal
@@ -34,6 +45,12 @@ class ProductDetailOption extends Component {
             this.modalCloseHandler();
           }}
           productoption={productoption}
+        />
+
+        <SizeGuideModal
+          isOpen={this.state.sizeGuideModalOpen}
+          sizeImageUrl={productdetail.deals.sizeImageUrl}
+          onClose={() => this.setState({ sizeGuideModalOpen: false })}
         />
       </div>
     );

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './CategoryDepth.module.scss';
 import cn from 'classnames';
+import SearchEnum from 'childs/lib/constant/filter/SearchEnum';
 
 @inject('category', 'searchitem')
 @observer
@@ -44,6 +45,7 @@ class CategoryDepth extends Component {
     searchitem.toSearch({
       category: category,
       subcategory: subcategory,
+      searchSourceFrom: SearchEnum.GLOBAL_SEARCH_INPUT,
     });
     onCloseMenu();
     onClose();

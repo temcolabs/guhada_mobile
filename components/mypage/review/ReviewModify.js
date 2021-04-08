@@ -15,7 +15,7 @@ import isTruthy from 'childs/lib/common/isTruthy';
 /**
  * 내가 작성한 리뷰
  */
-@inject('mypagereview', 'orderCompleteList')
+@inject('mypagereview', 'orderCompleteList', 'searchitem')
 @observer
 class ReviewModify extends Component {
   state = {
@@ -50,7 +50,10 @@ class ReviewModify extends Component {
   };
 
   render() {
-    const { mypagereview: mypageReviewStore } = this.props;
+    const {
+      mypagereview: mypageReviewStore,
+      searchitem: searchItemStore,
+    } = this.props;
     const { myReviews, myReviewPage, myReivewsItemList } = mypageReviewStore;
     devLog(`toJs(myReviews)`, toJS(myReviews));
 
@@ -66,6 +69,7 @@ class ReviewModify extends Component {
                   onClickReviewButton={this.handleClickWriteReviewButton}
                   onClickDeleteButton={this.handleClickDeleteReviewButton}
                   productReview={review}
+                  onSearch={searchItemStore.toSearch}
                   key={index}
                 />
               );

@@ -3,6 +3,8 @@ import { inject, observer } from 'mobx-react';
 import css from './Category.module.scss';
 import cn from 'classnames';
 import { toJS } from 'mobx';
+import SearchEnum from 'childs/lib/constant/filter/SearchEnum';
+
 @inject('category', 'searchitem')
 @observer
 class Category extends Component {
@@ -40,7 +42,11 @@ class Category extends Component {
 
   toSearch = category => {
     let { searchitem, onClose } = this.props;
-    searchitem.toSearch({ category: category, enter: 'category' });
+    searchitem.toSearch({
+      category: category,
+      enter: 'category',
+      searchSourceFrom: SearchEnum.GLOBAL_SEARCH_INPUT,
+    });
     onClose();
   };
 

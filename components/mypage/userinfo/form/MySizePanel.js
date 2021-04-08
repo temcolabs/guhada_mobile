@@ -7,7 +7,7 @@ import MySizeModal from './MySizeModal';
 import FormButton, {
   formButtonColors,
 } from 'components/mypage/form/FormButton';
-
+import pointProcessService from 'childs/lib/API/benefit/pointProcessService';
 import PointSavingModal, {
   pointSavingTypes,
 } from 'components/mypage/point/PointSavingModal';
@@ -19,7 +19,17 @@ class MySizePanel extends Component {
     super(props);
     this.state = {
       isMySizeModalOpen: false,
+      totalDueSave: 0,
     };
+
+    pointProcessService.getTotalDueSave().then(res => {
+      if (res.data.data && res.data.data.dueSavePointList.length) {
+        const dueSavePoint = res.data.data.dueSavePointList[0];
+        if (dueSavePoint.dueSaveType === 'MY_SIZE') {
+          this.setState({ totalDueSave: dueSavePoint.totalPoint });
+        }
+      }
+    });
   }
 
   componentDidMount() {
@@ -66,8 +76,11 @@ class MySizePanel extends Component {
         </div>
         <div className={cn(css.description)}>
           <div>
-            ・키, 몸무게, 허리, 체형을 모두 입력하시면 1회에 한해 1000 포인트를
-            드립니다.
+            ・
+            {this.state.totalDueSave > 0
+              ? `키, 몸무게, 허리, 체형을 모두 입력하시면 1회에 한해 ${this.state.totalDueSave.toLocaleString()} 포인트를
+                    드립니다.`
+              : '키, 몸무게, 허리, 체형을 입력해주세요.'}
           </div>
           <div>
             ・입력하신 사이즈는 통계 자료로 활용되며, 사이즈 추천받기 및
@@ -97,8 +110,11 @@ class MySizePanel extends Component {
         </FormButton>
         <div className={cn(css.description)}>
           <div>
-            ・키, 몸무게, 허리, 체형을 모두 입력하시면 1회에 한해 1000 포인트를
-            드립니다.
+            ・
+            {this.state.totalDueSave > 0
+              ? `키, 몸무게, 허리, 체형을 모두 입력하시면 1회에 한해 ${this.state.totalDueSave.toLocaleString()} 포인트를
+                    드립니다.`
+              : '키, 몸무게, 허리, 체형을 입력해주세요.'}
           </div>
           <div>
             ・입력하신 사이즈는 통계 자료로 활용되며, 사이즈 추천받기 및

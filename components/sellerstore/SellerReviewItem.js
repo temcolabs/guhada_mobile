@@ -95,6 +95,23 @@ function SellerReviewItem(props) {
               <div className={css.reviewText}>
                 {reviewItem.review.textReview}
               </div>
+
+              {Array.isArray(toJS(reviewItem.reviewPhotos)) &&
+                reviewItem.reviewPhotos.length && (
+                  <div class={css.photoWrapper}>
+                    {reviewItem.reviewPhotos.map((photo, index) => (
+                      <div
+                        className={css.photo}
+                        style={{
+                          backgroundImage: `url("${
+                            photo.reviewPhotoUrl
+                          }?w=375")`,
+                        }}
+                        key={index}
+                      />
+                    ))}
+                  </div>
+                )}
               <div className={css.reviewBottom}>
                 <div className={css.reviewLikeWrap}>
                   <div>도움되었어요 {`${reviewItem.review.bookmarkCount}`}</div>
@@ -121,28 +138,6 @@ function SellerReviewItem(props) {
                 </div>
               </div>
             </div>
-
-            {Array.isArray(toJS(reviewItem.reviewPhotos))
-              ? reviewItem.reviewPhotos
-                  .filter(p => p.photoOrder === 0)
-                  .slice(0, 1)
-                  .map((photo, index) => (
-                    <div
-                      className={css.photo}
-                      style={{
-                        backgroundImage: `url(${photo.reviewPhotoUrl +
-                          '?w=375'})`,
-                      }}
-                      key={index}
-                    />
-                  ))
-              : // 레이아웃 조정을 위해 빈 박스를 렌더링함
-                // <div className="review__item__profile-productphoto" />
-                // 상품 리뷰의 경우에는 더보기 형태가 아닌 처음부터 전체 TEXT를 바인딩 하는 구조로 되어있습니다.
-                // 그렇기에 __contentswrap ... css를 제거하고 height를 auto로 바꾸었습니다.
-                // 추가로 빈 박스 렌더링 구조를 null로 변경하였습니다.
-
-                null}
           </div>
           {reviewItem.review.replied && isSellerReplied ? (
             <ReviewReply

@@ -1,15 +1,34 @@
+import _ from 'lodash';
+import API from 'childs/lib/API';
 import Form from '../../_.forms';
 import { devLog } from 'childs/lib/common/devLog';
 import { passwordValidMessage } from 'childs/lib/string/isValidPasswordStr';
+
+const debounceCheckEmail = _.debounce(async (email, initiation, callback) => {
+  initiation();
+  try {
+    const { data } = await API.user.get(`/isEmailExist/${email}`);
+    if (data.result === 'SUCCESS') {
+      callback(true);
+    } else {
+      callback(false, data.message || '다시 시도해주세요.');
+    }
+  } catch (error) {
+    callback(false, (error.data && error.data.message) || '다시 시도해주세요.');
+  }
+}, 400);
+
+const debounceValidate = _.debounce(validateFunc => {
+  validateFunc();
+}, 500);
 
 export default {
   onInit() {
     // override default bindings for all text inputs
     this.name === 'Register Material' &&
-      this.each(
-        field =>
-          field.type === 'text' && field.set('bindings', 'MaterialTextField')
-      );
+      this.each(field => {
+        field.type === 'text' && field.set('bindings', 'MaterialTextField');
+      });
   },
 
   onSuccess(form) {
@@ -40,8 +59,53 @@ export default {
   },
 
   onChange(field) {
-    devLog('-> onChange HOOK -', field.path, field.value);
     let form = Form.signUp;
+
+    if (field.path === 'email') {
+      form.$('emailCheck').set('value', '');
+      field.validate({ showErrors: false }).then(field => {
+        if (field.value.length === 0) {
+          debounceCheckEmail.cancel();
+          field.validate({ showErrors: true });
+        }
+        if (!field.errorSync) {
+          debounceCheckEmail(
+            field.value,
+            () => {
+              form.$('emailCheck').set('value', 'loading');
+            },
+            (pass, message) => {
+              if (pass) {
+                form.$('emailCheck').set('value', '사용 가능한 이메일입니다.');
+                field.validate({ showErrors: false });
+              } else {
+                form.$('emailCheck').set('value', '');
+                field.invalidate(message);
+              }
+            }
+          );
+        } else {
+          debounceCheckEmail.cancel();
+          debounceValidate(() => field.validate({ showErrors: true }));
+        }
+      });
+    }
+
+    if (field.path === 'password') {
+      debounceValidate(() => {
+        const errorMessage = passwordValidMessage(field.value);
+        if (errorMessage) {
+          field.invalidate(errorMessage);
+        } else {
+          field.validate({ showErrors: true });
+        }
+      });
+    }
+    if (field.path === 'passwordConfirm') {
+      debounceValidate(() => {
+        field.validate({ showErrors: true });
+      });
+    }
 
     function allAgreement(bool) {
       form.$('requireAgree').set(bool);
@@ -94,7 +158,7 @@ export default {
 
   onBlur(field) {
     if (
-      field.path === 'email' ||
+      // field.path === 'email' ||
       field.path === 'password' ||
       field.path === 'passwordConfirm'
     ) {

@@ -42,6 +42,35 @@
     right: 12px;
   }
 
+  & .loadingSpinner {
+    position: absolute;
+    width: 17px;
+    height: 17px;
+    top: 14px;
+    right: 12px;
+
+    &:after {
+      content: ' ';
+      display: block;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      border-top-color: #8470f8;
+      border-bottom-color: #8470f8;
+      animation: spin 0.5s linear infinite;
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  }
+
   & .countDown {
     position: absolute;
     top: 15px;
@@ -60,6 +89,12 @@
 .error {
   margin-top: 7px;
   color: #ce2525;
+  font-size: 12px;
+}
+
+.success {
+  margin-top: 7px;
+  color: #55a9f8;
   font-size: 12px;
 }
 
