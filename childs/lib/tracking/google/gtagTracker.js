@@ -1,6 +1,10 @@
 import loadScript, { scriptIds } from '../../dom/loadScript';
 import { isBrowser } from '../../common/isServer';
 import detectDevice from '../../common/detectDevice';
+import {
+  gtagUtmSave,
+  gtagUtmGet,
+} from 'childs/lib/tracking/google/gtagUtmService';
 
 const GTAG_ID = 'AW-722841005';
 const GTAG_TRACKER_URL = '//www.googletagmanager.com/gtag/js';
@@ -13,6 +17,7 @@ const getDeviceType = () => {
 };
 export default {
   visit: () => {
+    gtagUtmSave();
     loadScript(`${GTAG_TRACKER_URL}?id=${GTAG_ID}`, {
       async: true,
       id: scriptIds.GTAG_TRACKER,
@@ -24,7 +29,18 @@ export default {
         }
         gtag('js', new Date());
 
-        gtag('config', GTAG_ID);
+        const { utm_source, utm_medium, utm_campaign } = gtagUtmGet();
+        if (utm_source || utm_medium || utm_campaign) {
+          gtag('config', GTAG_ID, {
+            campaign: {
+              source: utm_source,
+              medium: utm_medium,
+              name: utm_campaign,
+            },
+          });
+        } else {
+          gtag('config', GTAG_ID);
+        }
       },
     });
   },
@@ -80,6 +96,19 @@ export default {
           })
         ),
       };
+
+      const { utm_source, utm_medium, utm_campaign } = gtagUtmGet();
+      if (utm_source || utm_medium || utm_campaign) {
+        const campaign = Object.assign(
+          {},
+          { source: utm_source, medium: utm_medium, name: utm_campaign }
+        );
+        Object.assign(gtagObj, { campaign });
+        gtag('config', GTAG_ID, {
+          campaign,
+        });
+      }
+
       gtag('event', 'purchase', gtagObj);
 
       if (getDeviceType() === 'web') {
