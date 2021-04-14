@@ -127,8 +127,8 @@ export default {
     devLog('-> onChange HOOK -', field.path, field.value);
     let form = Form.modifyLuckydraw;
 
-    function optionalAgree(bool) {
-      form.$('agreeSaleTos').set(bool);
+    function allAgreement(bool) {
+      // form.$('agreeSaleTos').set(bool);
       form.$('agreeEmailReception').set(bool);
       form.$('agreeSmsReception').set(bool);
     }
@@ -138,14 +138,14 @@ export default {
       form.$('emailCheck').clear();
     }
 
-    if (field.path === 'optionalAgree')
-      if (field.path === 'optionalAgree' && field.value === true) {
-        optionalAgree(true);
-      } else if (field.path === 'optionalAgree' && field.value === false) {
-        optionalAgree(false);
-      } else {
-        form.$('optionalAgree').set(false);
-      }
+    // if (field.path === 'allagree_term')
+    //   if (field.path === 'allagree_term' && field.value === true) {
+    //     allAgreement(true);
+    //   } else if (field.path === 'allagree_term' && field.value === false) {
+    //     allAgreement(false);
+    //   } else {
+    //     form.$('allagree_term').set(false);
+    //   }
   },
 
   onBlur: field => {

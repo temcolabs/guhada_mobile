@@ -8,17 +8,10 @@ import { inject } from 'mobx-react';
 import { observer } from 'mobx-react';
 import SignupInputButtonChange from 'components/login/SignupInputButtonChange';
 import _ from 'lodash';
+
 @inject('login', 'authmobile')
 @observer
 class LuckydrawSignup extends Component {
-  state = {
-    optionalAgree: false,
-  };
-
-  handleOptionalAgree = () => {
-    this.setState({ optionalAgree: true });
-  };
-
   render() {
     const { login } = this.props;
     let form =
@@ -94,10 +87,17 @@ class LuckydrawSignup extends Component {
               />
             </div>
             <div className={css.borderBottom}>
-              <LoginCheckBox
-                field={form.$('requireAgree')}
-                className={'wrap'}
-              />
+              <div
+                style={{
+                  fontSize: '16px',
+                  fontWeight: 500,
+                  color: '#111111',
+                  paddingTop: '15px',
+                  paddingBottom: '10px',
+                }}
+              >
+                필수약관
+              </div>
               <LoginCheckBox
                 field={form.$('agreePurchaseTos')}
                 className={'termOption'}
@@ -108,53 +108,29 @@ class LuckydrawSignup extends Component {
                 className={'termOption'}
                 href={`${process.env.HOSTNAME}/terms/personal`}
               />
-            </div>
-            <div
-              className={cn(css.optionalAgree, {
-                [css.openOptional]: this.state.optionalAgree === true,
-              })}
-              onClick={() => this.handleOptionalAgree()}
-            >
-              <LoginCheckBox
-                field={form.$('optionalAgree')}
-                className={'wrap'}
-              />
-              <div
-                style={
-                  this.state.optionalAgree === false
-                    ? { display: 'none' }
-                    : { display: 'block' }
-                }
-              >
+              <div>
                 <LoginCheckBox
-                  field={form.$('agreeSaleTos')}
-                  className={'termOption'}
-                  href={`${process.env.HOSTNAME}/terms/sale`}
+                  field={form.$('agreeEmailReception')}
+                  className={'emailsms'}
                 />
-                <div>
-                  <LoginCheckBox
-                    field={form.$('agreeEmailReception')}
-                    className={'emailsms'}
-                  />
-                  <LoginCheckBox
-                    field={form.$('agreeSmsReception')}
-                    className={'emailsms'}
-                  />
-                </div>
+                <LoginCheckBox
+                  field={form.$('agreeSmsReception')}
+                  className={'emailsms'}
+                />
               </div>
             </div>
             <div className={css.eventTextWarp}>
               <div className={css.eventText}>
-                ※ 이벤트 참여는 본인인증 및 선택약관 전체동의 시 이용
-                가능합니다.
+                ※ 이벤트 참여는 본인인증 및 마케팅 수신(이메일, 문자) 동의
+                시에만 이용 가능합니다.
               </div>
               <div className={css.eventText}>
-                ※ 선택약관 전체동의 시 이벤트 참여 및 할인 정보 등 마케팅 정보에
-                사용됩니다.
+                ※ 마케팅 수신에 동의한 개인 정보는 이벤트 정보 안내 및 이벤트
+                이용에만 활용됩니다.
               </div>
               <div className={css.eventText}>
-                ※ 결제/교환/환불 등과 관련된 내용은 거래 안전 을 위하여 수신동의
-                여부와 관계없이 발송됩니다.
+                ※ 결제/교환/환불 등과 관련된 내용은 거래 안전을 위하여 수신
+                동의와 관계없이 발송됩니다.
               </div>
             </div>
             <div>
@@ -163,7 +139,6 @@ class LuckydrawSignup extends Component {
                   !(
                     value.agreePurchaseTos &&
                     value.agreeCollectPersonalInfoTos &&
-                    value.agreeSaleTos === true &&
                     value.agreeEmailReception === true &&
                     value.agreeSmsReception === true &&
                     value.emailCheck === 'complete' &&
@@ -177,7 +152,6 @@ class LuckydrawSignup extends Component {
                   !(
                     value.agreePurchaseTos &&
                     value.agreeCollectPersonalInfoTos &&
-                    value.agreeSaleTos === true &&
                     value.agreeEmailReception === true &&
                     value.agreeSmsReception === true &&
                     value.emailCheck === 'complete' &&
