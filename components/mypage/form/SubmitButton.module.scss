@@ -34,7 +34,7 @@
   &.responsive {
     @include clearfix;
 
-    &>button {
+    & > button {
       font-size: 13px;
       font-weight: 500;
       flex: 0 0 50%;

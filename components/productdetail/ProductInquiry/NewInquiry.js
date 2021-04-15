@@ -37,7 +37,7 @@ function NewInquiry({ isVisible, onClose, productdetail }) {
                 className={css.inquiryText}
                 placeholder="문의하실 내용을 입력하세요"
                 value={content}
-                onChange={e => {
+                onChange={(e) => {
                   setContentText(e);
                 }}
               />
@@ -50,7 +50,7 @@ function NewInquiry({ isVisible, onClose, productdetail }) {
                 <input
                   type="checkbox"
                   id="privateInquiry"
-                  onChange={e =>
+                  onChange={(e) =>
                     e.target.checked === true
                       ? productdetail.setSecretInquiry(true)
                       : productdetail.setSecretInquiry(false)
@@ -65,7 +65,7 @@ function NewInquiry({ isVisible, onClose, productdetail }) {
                 {`문의하신 내용에 대한 답변은 해당 상품의 상세페이지 또는 `}
                 <span className={css.colored}>
                   <br />
-                  마이페이지 > 상품문의
+                  마이페이지 &gt; 상품문의
                 </span>
                 에서 확인하실 수 있습니다.
               </div>

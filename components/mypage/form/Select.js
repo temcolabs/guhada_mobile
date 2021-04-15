@@ -17,6 +17,7 @@ const customStyles = {
     '&:hover': {
       borderColor: '#eeeeee',
     },
+    borderTop: 'none',
   }),
   singleValue: (base, state) => {
     const opacity = state.isDisabled ? 0.5 : 1;
@@ -38,14 +39,14 @@ const customStyles = {
       },
     };
   },
-  placeholder: base => ({
+  placeholder: (base) => ({
     ...base,
   }),
-  indicatorSeparator: base => ({
+  indicatorSeparator: (base) => ({
     ...base,
     backgroundColor: 'none',
   }),
-  menu: base => ({
+  menu: (base) => ({
     ...base,
     zIndex: 30,
   }),
@@ -70,7 +71,7 @@ export default class SingleSelect extends React.Component {
     placeholder: '선택해주세요.',
     className: 'reactSelect--single',
     value: null, // 기본 선택 옵션 { label: string, value: any }
-    onChange: option => devLog(option),
+    onChange: (option) => devLog(option),
     isSearchable: false,
     isClearable: false,
     isDisabled: false,

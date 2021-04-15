@@ -1,6 +1,6 @@
 .wrap {
   position: relative;
-  border: 1px solid #eeeeee;
+  border-bottom: 1px solid #eeeeee;
   width: 100%;
   padding: 12px 15px;
   font-size: 13px;
@@ -39,6 +39,12 @@
     position: absolute;
     right: 0;
     bottom: -30px;
+  }
+
+  &.bottomRight {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
   }
 }
 

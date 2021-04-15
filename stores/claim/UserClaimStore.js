@@ -1,7 +1,6 @@
-import { observable, action, computed } from 'mobx';
+import { observable, action, computed, runInAction } from 'mobx';
 import userClaimService from 'childs/lib/API/claim/userClaimService';
 import { isBrowser } from 'childs/lib/common/isServer';
-import { pushRoute } from 'childs/lib/router';
 
 /**
  * 구하다 문의하기 관련
@@ -20,7 +19,7 @@ export default class UserClaimStore {
   selectedClaimCategoryCode = null;
 
   @action
-  handleChangeClaimCategory = code => {
+  handleChangeClaimCategory = (code) => {
     this.selectedClaimCategoryCode = code;
   };
 
@@ -30,7 +29,7 @@ export default class UserClaimStore {
    */
   @computed
   get userClaimCategoryOptions() {
-    return this.userClaimTypes.map(category => ({
+    return this.userClaimTypes.map((category) => ({
       label: category.description,
       value: category.code,
     }));
@@ -43,8 +42,8 @@ export default class UserClaimStore {
   @computed
   get userClaimCodeOptions() {
     return this.userClaimTypes
-      .find(category => category.code === this.selectedClaimCategoryCode)
-      ?.children?.map(childType => ({
+      .find((category) => category.code === this.selectedClaimCategoryCode)
+      ?.children?.map((childType) => ({
         label: childType.description,
         value: childType.code,
       }));
@@ -63,7 +62,7 @@ export default class UserClaimStore {
   };
 
   @action
-  createUserClaim = async ({
+  createUserClaim = ({
     body = {
       title: '',
       content: '',
@@ -71,16 +70,9 @@ export default class UserClaimStore {
       typeCode: null, // 클레임 타입 데이터에서 code
     },
   }) => {
-    await userClaimService.createUserClaim({
+    return userClaimService.createUserClaim({
       userId: this.root.user?.userId,
       body,
-    });
-
-    this.root.alert.showAlert({
-      content: '문의가 등록되었습니다.',
-      onConfirm: () => {
-        pushRoute('/');
-      },
     });
   };
 }
