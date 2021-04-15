@@ -12,6 +12,7 @@ import ReactPixel from 'react-facebook-pixel';
 import gtagTracker from 'childs/lib/tracking/google/gtagTracker';
 import criteoTracker from 'childs/lib/tracking/criteo/criteoTracker';
 import sessionStorage from 'childs/lib/common/sessionStorage';
+import { setCookie } from 'childs/lib/common/cookieUtils';
 import qs from 'querystring';
 
 export default {
@@ -71,18 +72,18 @@ export default {
 
         sessionStorage.set('signup', data.savedPointResponse);
 
-        // try {
-        //   naverShoppingTrakers.signup();
-        //   daumTracker.signup();
-        //   momentTracker.signup();
-        //   ReactPixel.track('CompleteRegistration', res.data);
-        //   gtagTracker.signup(); // gtagTracker.signup('/');
-        //   criteoTracker.signUpUser(loginData.email);
-        // } catch (error) {
-        //   console.error('[tracker]', error.message);
-        // }
+        setCookie('signupemail', res.data.data.email, 10);
 
-        root.login.signUpData = res.data;
+        try {
+          naverShoppingTrakers.signup();
+          daumTracker.signup();
+          momentTracker.signup();
+          ReactPixel.track('CompleteRegistration', res.data);
+          criteoTracker.signUpUser(loginData.email);
+          gtagTracker.signup('/login/signupsuccess'); // gtagTracker.signup('/');
+        } catch (error) {
+          console.error('[tracker]', error.message);
+        }
 
         Router.push('/login/signupsuccess');
       })
