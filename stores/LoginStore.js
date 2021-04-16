@@ -32,8 +32,6 @@ export default class LoginStore {
     );
   }
 
-  @observable signUpData = {};
-
   /**
    * 로그인, 로그아웃 여부를 결정하는 과정이 완료되었는데.
    * 로그인/로그아웃 버튼처럼 로그인 여부에 따라 상태가 바뀌는 버튼은 로그인 과정이 모두 완료된 후 보여줘야 한다.
