@@ -258,14 +258,16 @@ export default class SearchItemStore {
   saveSearchKeyword = (keyword = '') => {
     devLog('[SearchItemStore] - saveSearchKeyword called.');
 
-    API.settle.get('/search/word', {
-      params: {
-        agent: 'MWEB',
-        word: keyword        
-      }
-    }).then(res => {
-      // do nothing
-    });
+    API.settle
+      .get('/search/word', {
+        params: {
+          agent: 'MWEB',
+          word: keyword,
+        },
+      })
+      .then(res => {
+        // do nothing
+      });
   };
 
   @action
@@ -306,8 +308,8 @@ export default class SearchItemStore {
       keyword = '';
     }
 
-    // 유저 키워드 서치 stat으로 저장 
-    if(keyword.length > 1){
+    // 유저 키워드 서치 stat으로 저장
+    if (keyword.length > 1) {
       this.saveSearchKeyword(keyword);
     }
 
@@ -457,7 +459,13 @@ export default class SearchItemStore {
                 );
 
               // SearchCategory init key 값 설정
-              if (categoryIds && data && data.data && data.data.categories && data.data.categories.length !== 0)
+              if (
+                categoryIds &&
+                data &&
+                data.data &&
+                data.data.categories &&
+                data.data.categories.length !== 0
+              )
                 this.setExpandedKeys(
                   getCategory(data.data.categories, categoryIds).key
                 );
@@ -714,7 +722,7 @@ export default class SearchItemStore {
     return toJS(this.categoryTreeData);
   }
 
-  @computed get getExpandedKeys() { 
+  @computed get getExpandedKeys() {
     devLog('getExpandedKeys called. this.expandedKeys : ' + this.expandedKeys);
     return this.expandedKeys.slice().filter(x => x);
   }
@@ -742,7 +750,10 @@ export default class SearchItemStore {
   @observable categoryquery;
 
   @computed get getCheckedKeys() {
-    devLog('[SearchItemStore] - getCheckedKeys called. this.checkedKeys : ' + this.checkedKeys);
+    devLog(
+      '[SearchItemStore] - getCheckedKeys called. this.checkedKeys : ' +
+        this.checkedKeys
+    );
     return this.checkedKeys.slice();
   }
 
@@ -780,22 +791,52 @@ export default class SearchItemStore {
   };
   @observable selectCategory;
 
-  
-  @action 
+  /**
+   * 상세 검색 > 카테고리 > 드롭다운 선택 초기화 
+   *  1-1) hierarchies ID를 통해 부모 노드 반환
+   *  1-2) 부모가 Root인 경우, 초기값 반환
+   */
+  checkDuplicatedSelectedKeys() {
+    let tempCategory = this.item?.categories;
+    const category = this.selectCategory.hierarchies
+      .slice(0, this.selectCategory.hierarchies.length - 1)
+      .reduce((acc, v, i) => {
+        acc = tempCategory.find(ele => ele.id === v);
+        tempCategory = acc?.children;
+        return acc;
+      }, {});
+    
+    return {
+      category : Object.keys(category).length ? category : {},
+      keys : Object.keys(category).length ? category.key : []
+    }
+  }
+
+  @action
   onSelect = (selectedKeys, info) => {
     devLog('[SearchItemStore] - onSelect called.');
+    let category = info.node.props;
     let classNames = info.node.props.className;
 
+    // 체크박스 중복체크
     if (classNames === 'ableCheckbox') {
       this.checkDuplicatedCheckedKeys(info);
-    } else if (selectedKeys.length === 0) {
     } else {
+      // 드롭다운 중복체크
+      if (this.selectCategory?.id === info.node.props?.id) {
+        if (this.selectCategory?.hierarchies.length) {
+          const selected = this.checkDuplicatedSelectedKeys();
+
+          category = selected.category;
+          selectedKeys = selected.keys;
+        }
+      }
+      // 선택 초기화
       this.setExpandedKeys(selectedKeys);
-      this.selectCategory = info.node.props;
+      this.selectCategory = selectedKeys.length ? category : {};
       this.initCheckedKeys();
     }
   };
-  
 
   @action
   initFilter = () => {
@@ -810,17 +851,16 @@ export default class SearchItemStore {
         }
       });
     });
-    
+
     let query = Router.router.query;
     this.productCondition = query.productCondition;
     this.shippingCondition = query.shippingCondition;
     this.minPrice = query.minPrice;
     this.maxPrice = query.maxPrice;
-    this.resultKeyword = '';    
+    this.resultKeyword = '';
     query.category = '';
     query.brand = '';
     query.conditionValue = '';
-
   };
 
   @action
@@ -919,7 +959,7 @@ export default class SearchItemStore {
         maxPrice: this.maxPrice,
         sellerIds: this.root.seller.sellerId || '',
         eventIds: this.root.special.eventId || '',
-      });      
+      });
     } else {
       this.toSearch({
         category: category,
@@ -1070,27 +1110,51 @@ export default class SearchItemStore {
     maxPrice = '',
     sellerIds = this.root.seller.sellerId || '',
     eventIds = this.root.special.eventId || '',
-    searchSourceFrom = ''
+    searchSourceFrom = '',
   }) => {
-    devLog("[toSearch function] Search button clicked. searchSourceFrom : " + searchSourceFrom);  
-    if(searchSourceFrom === SearchEnum.GLOBAL_SEARCH_INPUT)
-      this.initFilter();
+    devLog(
+      '[toSearch function] Search button clicked. searchSourceFrom : ' +
+        searchSourceFrom
+    );
+    if (searchSourceFrom === SearchEnum.GLOBAL_SEARCH_INPUT) this.initFilter();
     let query = Router.router.query;
-    this.productCondition = productCondition; 
+    this.productCondition = productCondition;
     this.shippingCondition = shippingCondition;
 
-    let categoryValue = category === '' && !(_.isEmpty(query) || query === undefined) ? query.category : category;
-    let brandValue = brand === '' && !(_.isEmpty(query) || query === undefined) ? query.brand : brand;
-    let keywordValue = keyword === '' && !(_.isEmpty(query) || query === undefined) ? query.keyword : keyword;
-    let conditionValue = condition === '' && !(_.isEmpty(query) || query === undefined) ? query.condition : condition;
-    let enterValue = enter === '' && !(_.isEmpty(query) || query === undefined) ? query.enter : enter;
+    let categoryValue =
+      category === '' && !(_.isEmpty(query) || query === undefined)
+        ? query.category
+        : category;
+    let brandValue =
+      brand === '' && !(_.isEmpty(query) || query === undefined)
+        ? query.brand
+        : brand;
+    let keywordValue =
+      keyword === '' && !(_.isEmpty(query) || query === undefined)
+        ? query.keyword
+        : keyword;
+    let conditionValue =
+      condition === '' && !(_.isEmpty(query) || query === undefined)
+        ? query.condition
+        : condition;
+    let enterValue =
+      enter === '' && !(_.isEmpty(query) || query === undefined)
+        ? query.enter
+        : enter;
 
-    let queryStringify = qs.stringify({      
+    let queryStringify = qs.stringify({
       category: categoryValue,
       brand: brandValue,
       page: page,
-      unitPerPage: searchSourceFrom === (SearchEnum.SELLER_STORE || SearchEnum.PROMOTION_PAGE) ? SearchEnum.DEFAULT_SELLER_STORE_UNIT_PER_PAGE : SearchEnum.DEFAULT_GLOBAL_SEARCH_UNIT_PER_PAGE,
-      order: order === null || order === '' ? SearchEnum.DEFAULT_SEARCH_ORDER : order,
+      unitPerPage:
+        searchSourceFrom ===
+        (SearchEnum.SELLER_STORE || SearchEnum.PROMOTION_PAGE)
+          ? SearchEnum.DEFAULT_SELLER_STORE_UNIT_PER_PAGE
+          : SearchEnum.DEFAULT_GLOBAL_SEARCH_UNIT_PER_PAGE,
+      order:
+        order === null || order === ''
+          ? SearchEnum.DEFAULT_SEARCH_ORDER
+          : order,
       filter: filter,
       subcategory: subcategory,
       enter: enterValue,
@@ -1103,17 +1167,19 @@ export default class SearchItemStore {
       minPrice: minPrice,
       maxPrice: maxPrice,
     });
-    devLog("query string : " + queryStringify.toString());
-    if(searchSourceFrom === SearchEnum.GLOBAL_SEARCH_INPUT){
+    devLog('query string : ' + queryStringify.toString());
+    if (searchSourceFrom === SearchEnum.GLOBAL_SEARCH_INPUT) {
       pushRoute(`/search?${queryStringify}`);
-    }else if(searchSourceFrom === SearchEnum.SELLER_STORE || sellerIds){
+    } else if (searchSourceFrom === SearchEnum.SELLER_STORE || sellerIds) {
       pushRoute(`/store/${this.root.seller.nickname}?${queryStringify}`);
-    }else if(eventIds){
-      pushRoute(`/event/special/${this.root.special.eventId}?${queryStringify}`);
-    }else{
-      pushRoute(`/search?${queryStringify}`);      
+    } else if (eventIds) {
+      pushRoute(
+        `/event/special/${this.root.special.eventId}?${queryStringify}`
+      );
+    } else {
+      pushRoute(`/search?${queryStringify}`);
     }
-    
+
     if (this.preUrl !== Router.asPath) this.deals = [];
   };
 
@@ -1138,7 +1204,7 @@ export default class SearchItemStore {
     sellerIds = this.root.seller.sellerId || '',
     eventIds = this.root.special.eventId || '',
   }) => {
-    devLog("[toSearchStayPosition function]Search button clicked." )
+    devLog('[toSearchStayPosition function]Search button clicked.');
     let query = Router.router.query;
     this.productCondition = productCondition;
     this.shippingCondition = shippingCondition;
