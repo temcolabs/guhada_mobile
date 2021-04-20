@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
-import css from './Styles.scss';
+import css from './Styles.module.scss';
 
 import setScrollability from 'childs/lib/dom/setScrollability';
 
