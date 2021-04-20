@@ -5,6 +5,7 @@ const webpack = require('webpack');
 const path = require('path');
 const loaderUtils = require('loader-utils');
 const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
+const SpritesmithPlugin = require('webpack-spritesmith');
 
 module.exports = withBundleAnalyzer(
   withSass({
@@ -21,6 +22,18 @@ module.exports = withBundleAnalyzer(
         },
       });
 
+      config.module.rules.push({
+        test: /\.(png|jpe?g|gif|svg)$/,
+        use: {
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]',
+            outputPath: 'static/icons',
+            publicPath: '../static/icons/',
+          }
+        }
+      });
+
       // config.plugins.push(
       //   new webpack.ProvidePlugin({
       //     $: 'jquery',
@@ -31,6 +44,22 @@ module.exports = withBundleAnalyzer(
       config.plugins.push(
         new FilterWarningsPlugin({
           exclude: /mini-css-extract-plugin[^]*Conflicting order between:/,
+        })
+      );
+
+      config.plugins.push(
+        new SpritesmithPlugin({
+          src: {
+            cwd: path.resolve(__dirname, 'static', 'icons'),
+            glob: '**/*.png'
+          },
+          target: {
+            image: path.resolve(__dirname, 'static/sprite.png'),
+            css: path.resolve(__dirname, 'styles/sprite.scss')
+          },
+          apiOptions: {
+            cssImageRef: '/static/sprite.png'
+          }
         })
       );
 

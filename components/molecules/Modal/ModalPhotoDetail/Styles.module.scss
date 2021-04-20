@@ -1,0 +1,84 @@
+@import '../../../../styles/sprite.scss';
+
+.container {
+  display: flex;
+  justify-content: center;
+  flex-flow : row wrap;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+}
+.box {
+  display: flex;
+  width: 100%;
+  &_empty {
+    height: 26.666%;
+    &_close {
+      flex-flow: row wrap;
+      justify-content: flex-end;
+    }
+  }
+  &_content {
+    flex-flow: row wrap;
+    height: 46.666%;
+  }
+}
+
+// TODO : 포토 상세 리뷰 이미지 이슈 발생 시, 수정
+.photo {
+  width: 100%;
+  height: 100%;
+}
+
+.close__btn {
+  margin-top: 15px;
+  margin-right: 10px;
+  &__small {
+    @include sprite($close-btn-small);
+  }
+  &__medium {
+    @include sprite($close-btn-small-2x);
+  }
+  &__large {
+    @include sprite($close-btn-small-3x);
+  }
+}
+
+.next__btn {
+  position: absolute;
+  margin: auto;
+  top:0;
+  bottom: 0;
+  right: 0;
+  
+  &__small {
+    @include sprite($photo-arrow-next-small);
+  }
+  &__medium {
+    @include sprite($photo-arrow-next-small-2x);
+  }
+  &__large {
+    @include sprite($photo-arrow-next-small-3x);
+  }
+}
+
+.prev__btn {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+
+  &__small {
+    @include sprite($photo-arrow-prev-small);
+  }
+  &__medium {
+    @include sprite($photo-arrow-prev-small-2x);
+  }
+  &__large {
+    @include sprite($photo-arrow-prev-small-3x);
+  }
+}
+
+
+

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import dynamic from 'next/dynamic';
 import css from './SellerReviewItems.module.scss';
 import _ from 'lodash';
 import StarItem from '../StarItem';
@@ -14,12 +15,20 @@ import reportTarget from 'childs/lib/constant/reportTarget';
 import Link from 'next/link';
 import { toJS } from 'mobx';
 
+/**
+ * 이미지 확대 모달
+ * @returns { React.Component } ModalPhotoDetail
+ */
+const ModalPhotoDetail = dynamic(() =>
+  import('../../molecules/Modal/ModalPhotoDetail')
+);
 @inject('sellerReview', 'login', 'alert', 'searchitem')
 @observer
 class SellerReviewItems extends Component {
   state = {
     reviewReply: false,
     isReportModalOpen: false,
+    isActivePhotoDetail: false,
   };
 
   handleReviewReply = () => {
@@ -101,199 +110,211 @@ class SellerReviewItems extends Component {
       }
     }
     return (
-      <div className={css.wrap}>
-        <div className={css.profileWrap}>
-          <div>
-            <div className={cn(css.levelWrap, css.fullWidth)}>
-              <div
-                className={css.brand}
-                onClick={() => {
-                  searchitem.toSearch({
-                    brand: item.review.brandId,
-                    enter: 'brand',
-                  });
-                }}
-              >
-                {item.review.brandName}
-              </div>
-              <div className={css.line} />
-              <div className={css.title}>
-                <Link href={`/productdetail?deals=${item.review.dealId}`}>
-                  {item.review.dealName}
-                </Link>
-              </div>
-            </div>
-            <div className={css.levelWrap}>
-              <div>{StarItem(item.review.productRating)}</div>
-              {!_.isNil(item.productOption) ? (
-                <div className={cn(css.profileSize, css.option)}>
-                  {renderProductoption}
-                </div>
-              ) : null}
-            </div>
-          </div>
-        </div>
-        <div className={css.sizeWrap}>
-          <div className={css.itemWrap}>
-            <div>{item.reviewQuestions[0].type || '사이즈'}</div>
-            <div className={css.line} />
-            <div className={css.colored}>{item.reviewTexts.size}</div>
-          </div>
-          <div className={css.itemWrap}>
-            <div>{item.reviewQuestions[1].type || '컬러'}</div>
-            <div className={css.line} />
-            <div className={css.colored}>{item.reviewTexts.color}</div>
-          </div>
-          <div className={css.itemWrap}>
-            <div>{item.reviewQuestions[2].type || '길이감'}</div>
-            <div className={css.line} />
-            <div className={css.colored}>{item.reviewTexts.length}</div>
-          </div>
-        </div>
-        <div className={css.profileWrap}>
-          <div className={css.levelWrap}>
-            <div className={css.userNickname}>{item.review.userNickname}</div>
-            {/* 유저 사이즈 */}
-            {renderUserSize}
-          </div>
-        </div>
-        <div className={css.contentWrap}>{item.review.textReview}</div>
-        <div className={css.dateWithReportWrap}>
-          <div className={css.dateWrap}>
-            {moment(item.review.createdAtTimestamp).format(
-              dateFormat.YYYYMMDD_UI
-            )}
-            {` `}
-            {moment(item.review.createdAtTimestamp).format(dateFormat.HHMM)}
-          </div>
-          <div
-            className={css.reportButton}
-            onClick={() => {
-              this.handleReportModal();
-            }}
-          >
-            신고
-          </div>
-        </div>
-
-        {Array.isArray(toJS(item.reviewPhotos)) && item.reviewPhotos.length && (
-          <div className={css.imageWrap}>
-            {item.reviewPhotos.map((photo, index) => (
-              <div
-                className={css.photo}
-                style={{
-                  backgroundImage: `url("${photo.reviewPhotoUrl}?w=375")`,
-                }}
-                key={index}
-              />
-            ))}
-          </div>
+      <>
+        {this.state.isActivePhotoDetail && (
+          <ModalPhotoDetail
+            isOpen={this.state.isActivePhotoDetail}
+            photos={toJS(item.reviewPhotos)}
+            onClickClose={() => this.setState({ isActivePhotoDetail: false })}
+          />
         )}
-        <div className={css.likeCommentWrap}>
-          {login.loginStatus === loginStatus.LOGIN_DONE ? (
-            _.isNil(checkBookmarks) === true ? (
-              <div
-                className={css.likeWrap}
-                onClick={() => {
-                  sellerReview.setProductReviewBookmarks(item.review.id);
-                  item.review.bookmarkCount++;
-                }}
-              >
+        <div className={css.wrap}>
+          <div className={css.profileWrap}>
+            <div>
+              <div className={cn(css.levelWrap, css.fullWidth)}>
+                <div
+                  className={css.brand}
+                  onClick={() => {
+                    searchitem.toSearch({
+                      brand: item.review.brandId,
+                      enter: 'brand',
+                    });
+                  }}
+                >
+                  {item.review.brandName}
+                </div>
+                <div className={css.line} />
+                <div className={css.title}>
+                  <Link href={`/productdetail?deals=${item.review.dealId}`}>
+                    {item.review.dealName}
+                  </Link>
+                </div>
+              </div>
+              <div className={css.levelWrap}>
+                <div>{StarItem(item.review.productRating)}</div>
+                {!_.isNil(item.productOption) ? (
+                  <div className={cn(css.profileSize, css.option)}>
+                    {renderProductoption}
+                  </div>
+                ) : null}
+              </div>
+            </div>
+          </div>
+          <div className={css.sizeWrap}>
+            <div className={css.itemWrap}>
+              <div>{item.reviewQuestions[0].type || '사이즈'}</div>
+              <div className={css.line} />
+              <div className={css.colored}>{item.reviewTexts.size}</div>
+            </div>
+            <div className={css.itemWrap}>
+              <div>{item.reviewQuestions[1].type || '컬러'}</div>
+              <div className={css.line} />
+              <div className={css.colored}>{item.reviewTexts.color}</div>
+            </div>
+            <div className={css.itemWrap}>
+              <div>{item.reviewQuestions[2].type || '길이감'}</div>
+              <div className={css.line} />
+              <div className={css.colored}>{item.reviewTexts.length}</div>
+            </div>
+          </div>
+          <div className={css.profileWrap}>
+            <div className={css.levelWrap}>
+              <div className={css.userNickname}>{item.review.userNickname}</div>
+              {/* 유저 사이즈 */}
+              {renderUserSize}
+            </div>
+          </div>
+          <div className={css.contentWrap}>{item.review.textReview}</div>
+          <div className={css.dateWithReportWrap}>
+            <div className={css.dateWrap}>
+              {moment(item.review.createdAtTimestamp).format(
+                dateFormat.YYYYMMDD_UI
+              )}
+              {` `}
+              {moment(item.review.createdAtTimestamp).format(dateFormat.HHMM)}
+            </div>
+            <div
+              className={css.reportButton}
+              onClick={() => {
+                this.handleReportModal();
+              }}
+            >
+              신고
+            </div>
+          </div>
+
+          {Array.isArray(toJS(item.reviewPhotos)) && item.reviewPhotos.length && (
+            <div className={css.imageWrap}>
+              {item.reviewPhotos.map((photo, index) => (
+                <div
+                  className={css.photo}
+                  style={{
+                    backgroundImage: `url("${photo.reviewPhotoUrl}?w=375")`,
+                  }}
+                  key={index}
+                  onClick={() => this.setState({ isActivePhotoDetail: true })}
+                />
+              ))}
+            </div>
+          )}
+          <div className={css.likeCommentWrap}>
+            {login.loginStatus === loginStatus.LOGIN_DONE ? (
+              _.isNil(checkBookmarks) === true ? (
+                <div
+                  className={css.likeWrap}
+                  onClick={() => {
+                    sellerReview.setProductReviewBookmarks(item.review.id);
+                    item.review.bookmarkCount++;
+                  }}
+                >
+                  <div>도움되었어요</div>
+                  <div className={css.likeIcon} />
+                  <div className={css.bookmarkCount}>{`${
+                    item.review.bookmarkCount
+                  }`}</div>
+                </div>
+              ) : (
+                <div
+                  className={css.likeWrap}
+                  onClick={() => {
+                    sellerReview.delProductReviewBookmarks(item.review.id);
+                    item.review.bookmarkCount--;
+                  }}
+                >
+                  <div>도움되었어요</div>
+                  <div className={css.unLikeIcon} />
+                  <div className={css.bookmarkCount}>{`${
+                    item.review.bookmarkCount
+                  }`}</div>
+                </div>
+              )
+            ) : (
+              <div className={css.likeWrap} onClick={() => sendBackToLogin()}>
                 <div>도움되었어요</div>
                 <div className={css.likeIcon} />
                 <div className={css.bookmarkCount}>{`${
                   item.review.bookmarkCount
                 }`}</div>
               </div>
-            ) : (
+            )}
+
+            <div className={css.commentWrap}>
+              {/* <div>{`-댓글 6개`}</div> */}
+              {/* <div className={css.line} /> */}
+              {/* <div></div>신고</div> */}
+            </div>
+            {item.review.replied ? (
               <div
-                className={css.likeWrap}
+                className={css.commentWrap}
                 onClick={() => {
-                  sellerReview.delProductReviewBookmarks(item.review.id);
-                  item.review.bookmarkCount--;
+                  this.handleReviewReply();
                 }}
               >
-                <div>도움되었어요</div>
-                <div className={css.unLikeIcon} />
-                <div className={css.bookmarkCount}>{`${
-                  item.review.bookmarkCount
-                }`}</div>
+                <div
+                  className={
+                    this.state.reviewReply ? css.replyOn : css.replyOff
+                  }
+                >
+                  셀러 댓글 1
+                </div>
+                <div
+                  className={css.arrow}
+                  style={
+                    this.state.reviewReply
+                      ? {
+                          backgroundImage: `url('/static/icon/detail-icon-down-color@3x.png')`,
+                        }
+                      : {
+                          backgroundImage: `url('/static/icon/detail-icon-arrow-open@3x.png')`,
+                        }
+                  }
+                />
               </div>
-            )
-          ) : (
-            <div className={css.likeWrap} onClick={() => sendBackToLogin()}>
-              <div>도움되었어요</div>
-              <div className={css.likeIcon} />
-              <div className={css.bookmarkCount}>{`${
-                item.review.bookmarkCount
-              }`}</div>
-            </div>
-          )}
-
-          <div className={css.commentWrap}>
-            {/* <div>{`-댓글 6개`}</div> */}
-            {/* <div className={css.line} /> */}
-            {/* <div></div>신고</div> */}
+            ) : null}
           </div>
-          {item.review.replied ? (
-            <div
-              className={css.commentWrap}
-              onClick={() => {
-                this.handleReviewReply();
-              }}
-            >
-              <div
-                className={this.state.reviewReply ? css.replyOn : css.replyOff}
-              >
-                셀러 댓글 1
-              </div>
-              <div
-                className={css.arrow}
-                style={
-                  this.state.reviewReply
-                    ? {
-                        backgroundImage: `url('/static/icon/detail-icon-down-color@3x.png')`,
-                      }
-                    : {
-                        backgroundImage: `url('/static/icon/detail-icon-arrow-open@3x.png')`,
-                      }
-                }
-              />
-            </div>
+          {item.review.replied && this.state.reviewReply ? (
+            <ReviewReply
+              reviewItem={item}
+              key={item.review.id}
+              wrapStyle={{ marginTop: '16px' }}
+            />
           ) : null}
-        </div>
-        {item.review.replied && this.state.reviewReply ? (
-          <ReviewReply
-            reviewItem={item}
-            key={item.review.id}
-            wrapStyle={{ marginTop: '16px' }}
-          />
-        ) : null}
 
-        {/* 신고 모달 */}
-        <ReportModal
-          isOpen={this.state.isReportModalOpen}
-          onClose={this.handleCloseReportModal}
-          reportData={{
-            reportTarget: reportTarget.REVIEW,
-            targetId: item.review.id,
-          }}
-          relatedData={[
-            {
-              label: '상품',
-              value: item.review.dealName,
-            },
-            {
-              label: '리뷰 내용',
-              value: item.review.textReview,
-            },
-            {
-              label: '작성자',
-              value: item.review.userNickname,
-            },
-          ]}
-        />
-      </div>
+          {/* 신고 모달 */}
+          <ReportModal
+            isOpen={this.state.isReportModalOpen}
+            onClose={this.handleCloseReportModal}
+            reportData={{
+              reportTarget: reportTarget.REVIEW,
+              targetId: item.review.id,
+            }}
+            relatedData={[
+              {
+                label: '상품',
+                value: item.review.dealName,
+              },
+              {
+                label: '리뷰 내용',
+                value: item.review.textReview,
+              },
+              {
+                label: '작성자',
+                value: item.review.userNickname,
+              },
+            ]}
+          />
+        </div>
+      </>
     );
   }
 }

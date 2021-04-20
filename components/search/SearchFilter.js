@@ -42,7 +42,7 @@ class SearchFilter extends Component {
           <button className={css.close} onClick={onClose} />
           <div className={css.header}>상세검색</div>
           <div className={css.itemWrap}>
-            <SearchCategory itmeStore={searchitem} />
+            <SearchCategory itemStore={searchitem} />
             <SearchBrand />
 
             <TextButtonCondition

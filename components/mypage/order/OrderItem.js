@@ -26,6 +26,9 @@ class OrderItem extends React.Component {
       order = {
         brandName: '', // 브랜드명 ,
         discountPrice: 0, // 할인된 가격 ,
+        delayDeadlineTimestamp: 0, // 발송지연 데드라인 ,
+        delayReason: '', // 발송지연 정보 ,
+        delayReasonDetail: '', // 발송지연 상세정보 ,
         expireDate: '', // 무통장 입금시 입금기한(무통장이 아니면경우 null) ,
         imageName: '', // 대표 이미지 파일명 ,
         imageUrl: '', // 대표 이미지 URL ,
@@ -37,12 +40,13 @@ class OrderItem extends React.Component {
         originalPrice: 0, // 원래 가격 ,
         prodName: '', // 상품명 ,
         purchaseId: 0, // 구매 데이터의 아이디 ,
-        purchaseStatus: '', //
+        purchaseStatus: '', // 주문의 상태값
         purchaseStatusText: '', // 주문의 상태값 ,
         quantity: 0, // 구매수량 ,
         season: '', // 시즌 ,
         sellerId: 0, // 판매자의 아이디 ,
         sellerName: '', // 판매자의 이름 ,
+        shipDelayNotificationTimestamp: null, // 배송지연 알림 설정 시간 ,
         shipPrice: 0, // 배송비 ,
         statusMessage: '', // 상태의 따른 메세지
       },

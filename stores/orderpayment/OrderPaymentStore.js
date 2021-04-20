@@ -1193,9 +1193,9 @@ export default class OrderPaymentStore {
       })
       .catch(err => {
         devLog(err);
-        // this.root.alert.showAlert({
-        //   content: `${_.get(err, 'data.message') || '결제 오류'}`,
-        // });
+        this.root.alert.showAlert({
+          content: `${_.get(err, 'data.message') || '결제 오류'}`,
+        });
         this.status.paymentProceed = false;
       });
   };
