@@ -46,7 +46,7 @@ export default {
 
     API.user
       .post('/signUpUser', signUpData, { headers })
-      .then(res => {
+      .then((res) => {
         let data = res.data.data;
 
         // feedId post
@@ -82,12 +82,11 @@ export default {
           criteoTracker.signUpUser(loginData.email);
           gtagTracker.signup('/login/signupsuccess'); // gtagTracker.signup('/');
         } catch (error) {
-          console.error('[tracker]', error.message);
+          Router.push('/login/signupsuccess');
+          // console.error('[tracker]', error.message);
         }
-
-        Router.push('/login/signupsuccess');
       })
-      .catch(e => {
+      .catch((e) => {
         let data = _.get(e, 'data');
         if (data.resultCode === 6001) {
           root.toast.getToast(data.message);
@@ -127,7 +126,7 @@ export default {
   //   devLog('-> onFocus HOOK -', field.path, field.value);
   // },
 
-  onBlur: field => {
+  onBlur: (field) => {
     devLog('-> onBlur HOOK -', field.path, field.value);
 
     // 모바일 번호 입력시
