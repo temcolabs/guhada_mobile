@@ -1,0 +1,143 @@
+$guhadaMainHeaderHeight: 60px;
+$buttonHeight: 60px;
+$errorColor: #ce2525;
+
+.wrap {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  bottom: 0;
+  left: 0;
+  background-color: #fff;
+
+  .header {
+    height: $guhadaMainHeaderHeight;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #eeeeee;
+
+    &__backIcon {
+      width: 30px;
+      height: 30px;
+      position: absolute;
+      left: 10px;
+      background-size: 30px;
+      background-image: url('/static/icon/btn-prevpage.png');
+    }
+
+    &__text {
+      font-size: 16px;
+      font-weight: 500;
+      font-style: normal;
+      letter-spacing: 0.48px;
+      text-align: center;
+      color: #111111;
+      margin: 0 auto;
+    }
+  }
+
+  .form {
+    &__wrapper {
+      overflow-y: auto;
+      height: calc(100vh - #{$guhadaMainHeaderHeight} - #{$buttonHeight});
+    }
+
+    .image {
+      min-height: 44px;
+      padding: 7px 0 7px 13px;
+      border-bottom: 1px solid #eeeeee;
+
+      &__header {
+        display: flex;
+        align-items: center;
+        height: 100%;
+
+        &__icon {
+          background-image: url('/static/icon/com-btn-photo@3x.png');
+          width: 30px;
+          height: 30px;
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center;
+          margin-right: 5px;
+        }
+
+        &__text {
+          font-size: 13px;
+          font-weight: 500;
+          color: #444;
+        }
+      }
+
+      &__container {
+        width: auto;
+        height: 97px;
+        overflow-x: auto;
+        white-space: auto;
+        white-space: nowrap;
+        margin-top: 7px;
+        margin-bottom: 7px;
+        padding-right: 13px;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+
+        .image__item {
+          position: relative;
+          display: inline-block;
+          margin-left: 6px;
+          width: 95px;
+          height: 95px;
+          background-color: #f5f5f5;
+          background-size: cover;
+          background-repeat: no-repeat;
+          background-position: center;
+
+          &:first-child {
+            margin-left: 0;
+          }
+
+          button {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 25px;
+            height: 25px;
+            background-color: rgba(0, 0, 0, 0.6);
+            &::before {
+              content: '\00d7';
+              display: block;
+              color: white;
+              font-size: 15px;
+            }
+          }
+        }
+      }
+    }
+
+    &__agree {
+      position: relative;
+      padding: 10px 15px;
+      color: '#111';
+      size: 12px;
+      line-height: 1.5;
+
+      div[data-name='error'] {
+        position: absolute;
+        right: 15px;
+        bottom: 20px;
+        color: $errorColor;
+        font-size: 12px;
+      }
+    }
+
+    &__error {
+      color: $errorColor;
+
+      & ::placeholder {
+        color: $errorColor;
+      }
+    }
+  }
+}

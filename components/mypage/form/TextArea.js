@@ -25,14 +25,16 @@ export default function TextArea({
         className={cn({ [css.isNoResize]: isResizable })}
         style={textAreaStyle}
         value={value}
-        onChange={e => handleChange(e.target.value)}
+        onChange={(e) => handleChange(e.target.value)}
         placeholder={placeholder}
       />
 
       {isInputSizeVisible && (
         <div
           className={cn(css.inputSize, {
-            [css.outsideBottomRight]: 'OUTSIDE_BOTTOM_RIGHT',
+            [css.outsideBottomRight]:
+              inputSizePosition === 'OUTSIDE_BOTTOM_RIGHT',
+            [css.bottomRight]: inputSizePosition === 'BOTTOM_RIGHT',
           })}
         >
           <span className={css.inputSize__current}>

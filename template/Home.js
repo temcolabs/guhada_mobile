@@ -10,7 +10,7 @@ import MainSlideBanner from 'components/home/MainSlideBanner';
 import HomeItemDefault from 'components/home/HomeItemDefault';
 import MainHotKeyword from 'components/home/MainHotKeyword';
 import Router from 'next/router';
-import SignupSuccessModal from './signin/SignupSuccessModal';
+// import SignupSuccessModal from './signin/SignupSuccessModal';
 import Footer from 'components/footer/Footer';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
 import { pushRoute } from 'childs/lib/router';
@@ -47,7 +47,7 @@ class Home extends React.Component {
     const { main } = this.props;
 
     let asPath = Router.router.asPath;
-    const category = mainCategory.item.find(item => {
+    const category = mainCategory.item.find((item) => {
       return item.href === asPath;
     });
 
@@ -102,7 +102,7 @@ class Home extends React.Component {
     window.removeEventListener('scroll', this.scrollDirection);
   }
 
-  scrollDirection = _.debounce(e => {
+  scrollDirection = _.debounce((e) => {
     var st = window.pageYOffset || document.documentElement.scrollTop;
     if (st > this.state.lastScrollTop) {
       this.setState({ scrollDirection: 'down' });
@@ -112,11 +112,12 @@ class Home extends React.Component {
     this.setState({ lastScrollTop: st <= 0 ? 0 : st });
   }, 10);
 
-  handleModal = value => {
-    this.setState({
-      signupModal: value,
-    });
-  };
+  // handleModal = (value) => {
+  //   this.setState({
+  //     signupModal: value,
+  //   });
+
+  // };
 
   render() {
     const { main, searchitem, eventpopup } = this.props;

@@ -15,7 +15,7 @@ class ClaimType extends Component {
       valueContainer: () => ({
         padding: '0',
       }),
-      control: provided => ({
+      control: (provided) => ({
         ...provided,
         height: 50,
         borderRadius: 'none',
@@ -23,7 +23,7 @@ class ClaimType extends Component {
         boxShadow: 0,
         padding: '0 20px',
       }),
-      placeholder: provided => ({
+      placeholder: (provided) => ({
         ...provided,
         color: '#ccc',
         fontSize: 15,
@@ -66,7 +66,7 @@ class ClaimType extends Component {
         placeholder={'문의 유형 선택'}
         options={sellerClaim.sellerClaimTypeOptions}
         isSearchable={false}
-        onChange={value => {
+        onChange={(value) => {
           setClaimTypeHandler(value);
         }}
         value={value}

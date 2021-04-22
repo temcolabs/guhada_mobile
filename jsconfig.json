@@ -11,6 +11,9 @@
       "stores/*": ["./stores/*"],
       "styles/*": ["./styles/*"],
       "template/*": ["./template/*"]
-    }
+    },
+    "target": "es6",
+    "module": "commonjs",
+    "jsx": "react"
   }
 }

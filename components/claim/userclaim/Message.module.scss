@@ -1,0 +1,50 @@
+.message {
+  // min-height: 186px;
+  padding: 20px 46px 26px;
+  border-bottom: 1px solid #eeeeee;
+  background-color: #f9f9fa;
+
+  &__title {
+    position: relative;
+
+    &__icon {
+      position: absolute;
+      display: inline-block;
+      width: 17px;
+      color: #ffffff;
+      background-color: #5d2ed1;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 17px;
+      font-size: 11px;
+      margin-left: -23px;
+      margin-top: 3px;
+    }
+
+    display: inline-block;
+    margin-bottom: 7px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 22px;
+
+    span {
+      color: #5d2ed1;
+    }
+  }
+
+  &__text {
+    color: #777777;
+    font-size: 12px;
+    li {
+      position: relative;
+      list-style: none;
+      line-height: 17px;
+      margin-top: 8px;
+    }
+    li:before {
+      position: absolute;
+      content: '\2022';
+      left: -10px;
+    }
+  }
+}

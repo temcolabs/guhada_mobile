@@ -54,6 +54,7 @@ import KeywordStore from './home/KeywordStore';
 import AddressStore from './address/AddressStore';
 import SellerStore from './SellerStore';
 import SellerClaimStore from './claim/SellerClaimStore';
+import UserClaimStore from './claim/UserClaimStore';
 import CardInterestStore from './CardInterestStore';
 
 import EventMainStore from './event/EventMainStore';
@@ -155,12 +156,10 @@ class RootStore {
 
     this.address = new AddressStore(this, initialState);
 
-    //판매자 문의하기
-    this.sellerClaim = new SellerClaimStore(this, initialState);
-    /**
-     * 신고하기
-     */
-    this.report = new ReportStore(this, initialState);
+    this.sellerClaim = new SellerClaimStore(this, initialState); // 판매자 문의하기
+    this.userClaim = new UserClaimStore(this, initialState); // 유저 문의하기
+    this.report = new ReportStore(this, initialState); // 신고하기
+
     //무이자정보
     this.cardinterest = new CardInterestStore(this, initialState);
 

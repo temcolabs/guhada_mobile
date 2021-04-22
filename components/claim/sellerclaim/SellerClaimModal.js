@@ -21,7 +21,7 @@ function SellerClaimModal({ isOpen = false, sellerId, onClose = () => {} }) {
   const attachFileInputRef = useRef();
 
   const setMyDealHandler = useCallback(
-    value => {
+    (value) => {
       setMyDeal(value);
       sellerClaim.setOrderGroupId(value);
     },
@@ -29,19 +29,19 @@ function SellerClaimModal({ isOpen = false, sellerId, onClose = () => {} }) {
   );
 
   const setClaimTypeHandler = useCallback(
-    value => {
+    (value) => {
       setClaimType(value);
       sellerClaim.setClaimType(value);
     },
     [sellerClaim]
   );
 
-  const setTitleHandler = useCallback(e => {
+  const setTitleHandler = useCallback((e) => {
     setTitle(e.target.value);
   }, []);
 
   const setClaimHandler = useCallback(
-    e => {
+    (e) => {
       claim.length <= 1000
         ? setClaim(e.target.value)
         : setClaim(claim.substring(0, 1000));
@@ -50,7 +50,7 @@ function SellerClaimModal({ isOpen = false, sellerId, onClose = () => {} }) {
   );
 
   const setAttachImageArray = useCallback(
-    data => {
+    (data) => {
       let arr = attachImage;
       arr.push(data);
       setAttachImage([...arr]);
@@ -147,7 +147,7 @@ function SellerClaimModal({ isOpen = false, sellerId, onClose = () => {} }) {
               <input
                 type="text"
                 value={title}
-                onChange={e => {
+                onChange={(e) => {
                   setTitleHandler(e);
                 }}
                 placeholder="제목을 입력하세요."
@@ -160,10 +160,10 @@ function SellerClaimModal({ isOpen = false, sellerId, onClose = () => {} }) {
             <div className={css.textArea}>
               <textarea
                 placeholder="문의하실 내용을 입력하세요"
-                onChange={e => {
+                onChange={(e) => {
                   setClaimHandler(e);
                 }}
-                onBlur={e => {
+                onBlur={(e) => {
                   setClaimHandler(e);
                 }}
                 value={claim}
@@ -193,7 +193,7 @@ function SellerClaimModal({ isOpen = false, sellerId, onClose = () => {} }) {
                 style={{ display: 'none' }}
                 type="file"
                 ref={attachFileInputRef}
-                onChange={e => {
+                onChange={(e) => {
                   sellerClaim.uploadImage(e, setAttachImageArray);
                 }}
               />
@@ -245,7 +245,7 @@ function SellerClaimModal({ isOpen = false, sellerId, onClose = () => {} }) {
   ));
 }
 
-export const withSellerClaimModal = BaseComponent => {
+export const withSellerClaimModal = (BaseComponent) => {
   @inject('sellerClaim')
   @observer
   class wrappedComponent extends React.Component {

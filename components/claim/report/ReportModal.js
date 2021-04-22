@@ -137,8 +137,8 @@ export default function ReportModal({
           <Select
             placeholder="신고 유형 선택"
             options={reportState.reportTypeOptions}
-            onChange={option => handleChangeReportType(option.value)}
-            value={reportState.reportTypeOptions.find(o =>
+            onChange={(option) => handleChangeReportType(option.value)}
+            value={reportState.reportTypeOptions.find((o) =>
               _.isEqual(o.value, reportState.editing.reportType)
             )}
           />

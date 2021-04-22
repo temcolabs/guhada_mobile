@@ -11,6 +11,8 @@ import { toJS } from 'mobx';
 import { getCategory } from 'utils';
 import addCommaToArray from 'childs/lib/string/addCommaToArray';
 import { isArray } from 'util';
+import { devLog } from 'childs/lib/common/devLog';
+import { priceOption } from 'childs/lib/constant/filter/price';
 
 const enhancer = compose(
   inject('searchitem', 'seller'),
@@ -20,7 +22,6 @@ const enhancer = compose(
 function SearchFilterResult({ searchitem, router, seller }) {
   const [isVisible, setIsVisible] = useState(false);
   let searchFilterList = toJS(searchitem.searchFilterList);
-  console.log(searchFilterList, 'searchFilterList');
   let brand = searchFilterList?.brand.length > 0 ? true : false;
   let filter = searchFilterList?.filter.length > 0 ? true : false;
   let subcategory = searchFilterList?.subcategory.length > 0 ? true : false;
@@ -29,6 +30,8 @@ function SearchFilterResult({ searchitem, router, seller }) {
     searchFilterList?.category[0]?.id !== ''
       ? true
       : false;
+
+  const maxPrice = router.query.maxPrice;
 
   useEffect(() => {
     switch (true) {
@@ -221,6 +224,18 @@ function SearchFilterResult({ searchitem, router, seller }) {
                   </button>
                 );
               })}
+
+            {/* 
+              * 가격 태그
+              * - query, searchItem.maxPrice 값비교
+              * - TODO : 상단 컴포넌트들은 API 응답 값으로 사용
+            */}
+            {maxPrice && maxPrice === searchitem.maxPrice &&
+              <button
+                onClick={() => toSearch({})}>
+                {priceOption.find(o => o.max === parseInt(maxPrice))?.label}
+              </button>
+            }
             <img
               src={'/static/icon/btn_filter_reset@3x.png'}
               width={93}
