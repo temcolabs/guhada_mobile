@@ -39,7 +39,7 @@
     "jquery": "^3.3.1",
     "js-cookie": "^2.2.0",
     "less": "^3.9.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "memoize-one": "^5.0.4",
     "mobx": "^4.9.2",
     "mobx-react": "^6.1.3",
