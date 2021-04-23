@@ -202,8 +202,7 @@ export default class OrderPaymentStore {
         this.orderProductInfo.forEach(data => {
           if (data.orderValidStatus !== 'VALID') {
             this.root.alert.showAlert({
-              content:
-                '구매에 유효하지 않은 상품이 있습니다, 장바구니 로 돌아갑니다.',
+              content: data.orderValidMessage,
               onConfirm: () => {
                 pushRoute('/shoppingcart');
               },
