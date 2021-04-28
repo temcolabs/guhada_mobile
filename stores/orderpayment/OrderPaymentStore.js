@@ -150,7 +150,7 @@ export default class OrderPaymentStore {
     NAVER : {label : '네이버페이', iconUrl: '/static/icon/payment/order_payment_naverpay.png', width : '78px'},
     KAKAO : {label : '카카오페이', iconUrl: '/static/icon/payment/order_payment_kakaopay.png', width : '57px'},
     PAYCO : {label : '페이코페이', iconUrl: '/static/icon/payment/payco_icon.png', width : '60px'},
-    SAMSUNGPAY : {label : '삼성페이', iconUrl: '/static/icon/payment/samsungpay_icon_01.png', width : '117px'},
+    SAMSUNG : {label : '삼성페이', iconUrl: '/static/icon/payment/samsungpay_icon_01.png', width : '117px'},
     LPAY : {label : 'L.페이', iconUrl: '/static/icon/payment/lpay_icon.png', width : '51px'},
     SSGPAY : {label : 'SSG페이', iconUrl: '/static/icon/payment/ssgpay_icon.png', width : '67px'},
     TOSS : {label : '토스', iconUrl: '/static/icon/payment/toss_icon.png', width : '59px'}    
