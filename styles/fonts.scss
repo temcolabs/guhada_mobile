@@ -1,0 +1,38 @@
+// TODO : Styled-components로 전환
+
+// BebasNeue
+@font-face {
+  font-family: BebasNeue-Book;
+  src: local('BeabasNeue-Book'), 
+      url('/static/fonts/BebasNeue/BebasNeue-Book/BebasNeue-Book.ttf') format("truetype"),
+      url('/static/fonts/BebasNeue/BebasNeue-Book/BebasNeue-Book.otf') format("opentype");
+}
+
+@font-face {
+  font-family: BebasNeue-Light;
+  src: local('BeabasNeue-Light'),
+      url('/static/fonts/BebasNeue/BebasNeue-Light/BebasNeue-Light.ttf') format("truetype"),
+      url('/static/fonts/BebasNeue/BebasNeue-Light/BebasNeue-Light.otf') format("opentype"),
+}
+
+@font-face {
+  font-family: BebasNeue-Regular;
+  src: local('BeabasNeue-Regular'),
+      url('/static/fonts/BebasNeue/BebasNeue-Regular/BebasNeue-Regular.ttf') format("truetype"),
+      url('/static/fonts/BebasNeue/BebasNeue-Regular/BebasNeue-Regular.otf') format("opentype"),
+}
+
+@font-face {
+  font-family: BebasNeue-Thin;
+  src: local('BeabasNeue-Thin'),
+      url('/static/fonts/BebasNeue/BebasNeue-Thin/BebasNeue-Thin.ttf') format("truetype"),
+      url('/static/fonts/BebasNeue/BebasNeue-Thin/BebasNeue-Thin.otf') format("opentype"),
+}
+
+@font-face {
+  font-family: BebasNeue-Bold;
+  src: local('BeabasNeue-Bold'),
+      url('/static/fonts/BebasNeue/BebasNeue-Bold/BebasNeue-Bold.ttf') format("truetype"),
+      url('/static/fonts/BebasNeue/BebasNeue-Bold/BebasNeue-Bold.otf') format("opentype"),
+}
+

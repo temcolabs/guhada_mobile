@@ -1,15 +1,21 @@
 import React, { Component, Fragment } from 'react';
+import { inject, observer } from 'mobx-react';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
-import LuckyDraw from 'template/event/LuckyDraw';
+import LuckyDraw from 'template/event/_LuckyDraw';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
 
 @withScrollToTopOnMount
+@inject('luckyDraw')
+@observer
 class LuckyDrawPage extends Component {
-  static async getInitialProps({ req }) {
-    return {};
+  componentDidMount() {
+    this.props.luckyDraw.getLuckyDrawList();
+    this.props.luckyDraw.initLuckyEventData();
   }
 
   render() {
+    const { luckyDraw } = this.props;
+
     return (
       <Fragment>
         <HeadForSEO
@@ -18,7 +24,7 @@ class LuckyDrawPage extends Component {
             process.env.API_CLOUD
           }/images/thumbnail/luckydraw/thumbnail_luckydraw.png`}
         />
-        <LuckyDraw />
+        {luckyDraw?.luckyDrawData && <LuckyDraw luckyDraw={luckyDraw} />}
       </Fragment>
     );
   }

@@ -1,0 +1,55 @@
+@import 'styles/mixins/index';
+@import 'styles/var';
+
+.wrap {
+  max-width: 1330px;
+  margin: 120px auto 0;
+
+  & .header {
+    font-size: 30px;
+    font-weight: normal;
+    color: black;
+    margin-bottom: 30px;
+  }
+
+  & .image {
+    width: 205px;
+    height: 205px;
+    background: no-repeat center;
+    background-size: 205px;
+
+    @include mediaMD {
+      width: 196px;
+      height: 196px;
+      background-size: 196px;
+
+    }
+  }
+
+  & .item {
+    display: inline-block;
+    cursor: pointer;
+    margin-right: 20px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    @include mediaMD {
+      &:nth-child(5) {
+        margin-right: 0;
+      }
+
+      &:nth-child(6) {
+        display: none;
+      }
+    }
+  }
+
+  & .keyword {
+    font-size: 16px;
+    font-weight: normal;
+    color: #111;
+    margin-top: 20px;
+  }
+}
