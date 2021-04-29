@@ -52,6 +52,7 @@ import RouteHistoryStore from './RouteHistoryStore';
 import MainStore from './MainStore';
 import KeywordStore from './home/KeywordStore';
 import AddressStore from './address/AddressStore';
+import GiftStore from './GiftStore';
 import SellerStore from './SellerStore';
 import SellerClaimStore from './claim/SellerClaimStore';
 import UserClaimStore from './claim/UserClaimStore';
@@ -105,6 +106,7 @@ class RootStore {
     this.sellerfollow = new SellerFollowStore(this, initialState);
 
     this.seller = new SellerStore(this, initialState);
+    this.gift = new GiftStore(this, initialState);
     this.alert = new AlertStore(this, initialState);
     this.bookmark = new BookMarkStore(this, initialState);
     this.authmobile = new AuthMobileStore(this, initialState);

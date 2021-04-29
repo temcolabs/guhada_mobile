@@ -1,0 +1,59 @@
+.gift {
+  margin-top: 44px;
+  width: 100%;
+  height: 100%;
+
+  &__header {
+    margin-bottom: 58px;
+
+    .header__banner {
+      width: 100%;
+      background-repeat: no-repeat;
+      background-position: center;
+      overflow: hidden;
+
+      &.banner--main {
+        min-height: 230px;
+        background-color: #a5b2bc;
+        background-image: url('/static/gift/gift_main_banner_mob.png');
+        background-size: cover;
+        margin-bottom: 8px;
+
+        @media screen and (min-width: 370px) {
+          background-image: url('/static/gift/gift_main_banner_tab.png');
+        }
+        @media screen and (min-width: 500px) {
+          min-height: 400px;
+        }
+      }
+
+      &.banner--sub {
+        min-height: 55px;
+        background-color: #f0d8c8;
+        background-image: url('/static/gift/gift_banner_mob.png');
+        background-size: cover;
+
+        @media screen and (min-width: 370px) {
+          min-height: 75px;
+          background-size: contain;
+        }
+        @media screen and (min-width: 500px) {
+          background-image: url('/static/gift/gift_banner_tab.png');
+        }
+      }
+    }
+  }
+}
+
+.modalClose {
+  position: fixed !important;
+  right: 15px;
+  top: 15px;
+  z-index: 999;
+  width: 30px;
+  height: 30px;
+  background-image: url('/static/icon/btn-close.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
