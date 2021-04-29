@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  height: 398px;
+  height: 246px;
   position: relative;
   text-align: center;
 `;
@@ -15,14 +15,13 @@ export const Section = styled.div`
 
 export const Title = styled.div`
   font-family: BebasNeue-Bold;
-  font-size: 48px;
+  font-size: 38px;
   font-weight: bold;
   color: #232323;
 `;
 
 export const Contents = styled.div`
-  font-family: 'Noto Sans KR';
-  font-size: 14px;
+  font-family: 'Roboto';
+  font-size: 13px;
   color: #222222;
 `;
-

@@ -28,7 +28,6 @@ export const SectionFormHeader = styled.div`
   flex-flow: column wrap;
   justify-content: space-between;
   font-family: Roboto;
-  height: 46px;
   text-align: left;
   color: #222222;
 

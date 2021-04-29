@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { compose } from 'lodash/fp';
 import { withRouter } from 'next/router';
+import dynamic from 'next/dynamic';
 import { useObserver } from 'mobx-react-lite';
 
 import copy from 'copy-to-clipboard';
@@ -13,14 +14,19 @@ import LuckyDrawTop from 'components/molecules/Banners/LuckyDrawTop';
 import LuckyDrawEmpty from 'components/molecules/Banners/LuckyDrawEmpty';
 import LuckyDrawBottomInfo from 'components/molecules/Banners/LuckyDrawBottomInfo';
 
-// molecules > modals
-// TODO : Lazy...
-import LuckyDrawWarnModal from 'components/molecules/Modal/LuckyDrawWarnModal';
-import LuckyDrawModal from 'components/molecules/Modal/LuckyDrawModal';
-
 // organisms
 import LuckyDrawCard from 'components/organisms/Cards/LuckyDrawCard';
 import LuckyDrawHistory from 'components/organisms/Sliders/LuckyDrawHistory';
+
+// Modals
+const LuckyDrawWarnModal = dynamic(
+  () => import('components/molecules/Modal/LuckyDrawWarnModal'),
+  { ssr: false }
+);
+const LuckyDrawModal = dynamic(
+  () => import('components/molecules/Modal/LuckyDrawModal'),
+  { ssr: false }
+);
 
 const enhancer = compose(withRouter);
 const initialStateLuckyDrawModal = {
@@ -38,7 +44,7 @@ function LuckyDrawTemplate({ router, luckyDraw }) {
   /**
    * states
    */
-  const { luckyDrawList, titleList } = luckyDraw?.luckyDrawData;
+  const { luckyDrawList } = luckyDraw?.luckyDrawData;
   const [luckyDrawModalProps, setLuckyDrawModalProps] = useState({
     ...initialStateLuckyDrawModal,
   }); // 럭키드로우 모달 상태값 State
@@ -104,31 +110,39 @@ function LuckyDrawTemplate({ router, luckyDraw }) {
    */
 
   /**
-   * 럭키드로우 응모 가능한 리스트
+   * 럭키드로우 Active List
    */
-  const activeList =
-    titleList &&
-    titleList.length &&
-    titleList.map((o1) =>
-      luckyDrawList.find(
-        (o2) => o1.requestFromAt === o2.requestFromAt && o1.title === o2.title
-      )
-    );
+  const activeList = useMemo(
+    () =>
+      luckyDrawList &&
+      luckyDrawList.length &&
+      luckyDrawList.filter(
+        (o) =>
+          o.statusCode === 'NORMAL' ||
+          o.statusCode === 'READY' ||
+          o.statusCode === 'START' ||
+          o.statusCode === 'REQUESTED'
+      ),
+    [luckyDrawList]
+  );
 
   /**
-   * 럭키드로우 Draw History List
+   * 럭키드로우 Winner List
    */
-  const winnerList =
-    luckyDrawList &&
-    luckyDrawList.length &&
-    luckyDrawList
-      .filter((o) => o.statusCode === 'WINNER_ANNOUNCEMENT')
-      .map((obj, i) => {
-        if (i % 8 === 0) obj = { ...obj, bgColor: '#004ba9' };
-        else if (i % 4 === 0) obj = { ...obj, bgColor: '#00b549' };
-        else obj = { ...obj, bgColor: 'white' };
-        return obj;
-      });
+  const winnerList = useMemo(
+    () =>
+      luckyDrawList &&
+      luckyDrawList.length &&
+      luckyDrawList
+        .filter((o) => o.statusCode === 'WINNER_ANNOUNCEMENT')
+        .map((obj, i) => {
+          if (i % 8 === 0) obj = { ...obj, bgColor: '#004ba9' };
+          else if (i % 4 === 0) obj = { ...obj, bgColor: '#00b549' };
+          else obj = { ...obj, bgColor: 'white' };
+          return obj;
+        }),
+    [luckyDrawList]
+  );
 
   /**
    * render
@@ -159,25 +173,25 @@ function LuckyDrawTemplate({ router, luckyDraw }) {
         <LuckyDrawTop />
 
         {/* LuckyDraw Cards */}
-        {activeList && activeList.length
-          ? activeList.map((o) => (
+        {activeList && activeList.length ? (
+          activeList.map((o) => {
+            return (
               <LuckyDrawCard
                 {...o}
                 key={`luckydraw-${o.dealId}`}
                 onClickRequestLuckyDraw={onClickRequestLuckyDraw}
               />
-            ))
-          : ''}
-
-        {titleList && !titleList.length && <LuckyDrawEmpty />}
+            );
+          })
+        ) : (
+          <LuckyDrawEmpty />
+        )}
 
         {/* Draw History */}
-        {winnerList && winnerList.length && (
-          <LuckyDrawHistory
-            winnerList={winnerList}
-            onClickHistory={onClickHistroy}
-          />
-        )}
+        <LuckyDrawHistory
+          winnerList={winnerList}
+          onClickHistory={onClickHistroy}
+        />
 
         {/* Bottom Info */}
         <LuckyDrawBottomInfo

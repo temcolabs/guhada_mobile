@@ -6,6 +6,7 @@ import {
   SectionContents,
   SectionInfo,
   CloseButton,
+  CloseButtonSection,
   SectionStatus,
   SectionStatusIcon,
   SectionTitle,
@@ -39,12 +40,12 @@ function LuckyDrawModal({ isOpen, status, contents, onClose }) {
     <ModalWrapper isOpen={isOpen} onClose={onClose}>
       <Wrapper isBigModal={isBigModal}>
         <SectionContents isBigModal={isBigModal}>
-          {isBigModal && (
+          <CloseButtonSection>
             <CloseButton
               imageUrl={'/static/icon/modal_close.png'}
               onClick={onClose}
             />
-          )}
+          </CloseButtonSection>
           <SectionInfo>
             {isBigModal && (
               <SectionStatus>

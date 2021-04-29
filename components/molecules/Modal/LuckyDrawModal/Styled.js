@@ -3,24 +3,27 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   font-family: 'Noto Sans KR', sans-serif;
   text-align: center;
-  width: 400px;
-  height: ${(props) => (props.isBigModal ? '321px' : '203px')};
+  height: ${(props) => (props.isBigModal ? '305px' : '205px')};
 `;
 
 export const SectionContents = styled.div`
   position: relative;
-  width: 400px;
-  height: ${(props) => (props.isBigModal ? '258px' : '140px')};
+  height: ${(props) => (props.isBigModal ? '249px' : '149px')};
+`;
+
+export const CloseButtonSection = styled.div`
+  display: flex;
+  justify-content: flex-end;
 `;
 
 export const CloseButton = styled.button`
-  width: 29px;
-  height: 29px;
+  width: 20px;
+  height: 20px;
   background-image: url(${(props) => props.imageUrl});
   background-size: contain;
   position: absolute;
-  top: 30px;
-  left: 341px;
+  top: 20px;
+  right: 20px;
 `;
 
 export const SectionInfo = styled.div`
@@ -60,7 +63,6 @@ export const SectionDescriptions = styled.div`
 `;
 
 export const SectionButton = styled.div`
-  width: 400px;
   height: 63px;
   padding: 19px 171px 20px;
   background-color: ${(props) => (props.isActive ? '#232323' : '#ccc')};

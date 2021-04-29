@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 import LuckyDrawHistoryItem from 'components/molecules/Items/LuckyDrawHistory';
@@ -31,21 +31,24 @@ function LuckyDrawHistory({ winnerList, onClickHistory }) {
   /**
    * helpers
    */
-  const createScrollMenuData = (winnerList) => {
-    const result = [];
-    if (winnerList && winnerList.length) {
-      winnerList.map((o, i) =>
-        result.push(
-          <LuckyDrawHistoryItem
-            key={`LuckyDrawHistoryItem-${i}`}
-            item={o}
-            onClickHistory={() => onClickHistory(o.dealId)}
-          />
-        )
-      );
-    }
-    setScrollMenuData(result);
-  };
+  const createScrollMenuData = useCallback(
+    (winnerList) => {
+      const result = [];
+      if (winnerList && winnerList.length) {
+        winnerList.forEach((o, i) =>
+          result.push(
+            <LuckyDrawHistoryItem
+              key={`LuckyDrawHistoryItem-${i}`}
+              item={o}
+              onClickHistory={() => onClickHistory(o.dealId)}
+            />
+          )
+        );
+      }
+      setScrollMenuData(result);
+    },
+    [winnerList]
+  );
 
   /**
    * render
@@ -69,4 +72,4 @@ LuckyDrawHistory.propTypes = {
   onClickHistory: PropTypes.func.isRequired,
 };
 
-export default React.memo(LuckyDrawHistory);
+export default LuckyDrawHistory;
