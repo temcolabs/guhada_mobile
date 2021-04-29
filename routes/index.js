@@ -34,6 +34,13 @@ module.exports = [
   },
 
   {
+    // 선뭃하기
+    pagePath: '/gift',
+    asPath: '/gift',
+    name: '선물하기',
+  },
+
+  {
     // 타임딜
     pagePath: '/home/timedeal',
     asPath: '/event/timedeal',
