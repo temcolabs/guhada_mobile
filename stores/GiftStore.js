@@ -8,18 +8,20 @@ export default class GiftStore {
 
   @action
   fetchDeals = async () => {
-    try {
-      const { data } = await API.search('/ps/main-home/deals/guhada-gift');
-      const dealsArray = data.data;
+    if (!this.recommendDeals.length || !this.bestDeals.length) {
+      try {
+        const { data } = await API.search('/ps/main-home/deals/guhada-gift');
+        const dealsArray = data.data;
 
-      if (dealsArray.length) {
-        this.recommendDeals = dealsArray[0].deals;
-        if (dealsArray.length >= 2) {
-          this.bestDeals = dealsArray[1].deals;
+        if (dealsArray.length) {
+          this.recommendDeals = dealsArray[0].deals;
+          if (dealsArray.length >= 2) {
+            this.bestDeals = dealsArray[1].deals;
+          }
         }
+      } catch (error) {
+        console.error(error.message);
       }
-    } catch (error) {
-      console.error(error.message);
     }
   };
 }

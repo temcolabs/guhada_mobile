@@ -1,33 +1,27 @@
-import css from './Gift.module.scss';
+import css from './Ranking.module.scss';
 import { useState, useEffect, useCallback } from 'react';
 import { observer } from 'mobx-react';
-import dynamic from 'next/dynamic';
 import _ from 'lodash';
 
 import useStores from 'stores/useStores';
 import { mainCategory } from 'childs/lib/constant/category';
 
 import DefaultLayout from 'components/layout/DefaultLayout';
-import CategorySlider from 'components/common/CategorySlider';
 import Footer from 'components/footer/Footer';
-import GiftHeader from './GiftHeader';
-import DealSection from './DealSection';
+import CategorySlider from 'components/common/CategorySlider';
+import RankingHeader from './RankingHeader';
+import RankingSection from './RankingSection';
+import FilterModal from './FilterModal';
 
-const DynamicScrollableImageModal = dynamic(
-  () => import('./ScrollableImageModal'),
-  {
-    ssr: false,
-  }
-);
-
-function Gift() {
+function Ranking() {
   /**
    * states
    */
-  const { main: mainStore, gift: giftStore } = useStores();
+  const { main: mainStore, ranking: rankingStore } = useStores();
   const [scrollDirection, setScrollDirection] = useState('up');
   let lastScrollTop = 0;
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedFilter, setSelectedFilter] = useState({});
 
   /**
    * handlers
@@ -45,6 +39,11 @@ function Gift() {
     []
   );
 
+  const handleFilterModalOpen = (filterData) => {
+    setSelectedFilter(filterData);
+    setIsModalOpen(true);
+  };
+
   /**
    * side effects
    */
@@ -54,8 +53,8 @@ function Gift() {
   }, [handleScrollDirection]);
 
   useEffect(() => {
-    giftStore.fetchDeals();
-  }, [giftStore]);
+    rankingStore.fetchRanking();
+  }, [rankingStore]);
 
   return (
     <>
@@ -70,26 +69,22 @@ function Gift() {
           scrollDirection={scrollDirection}
         />
 
-        <div className={css.gift}>
-          <GiftHeader handleOpenModal={() => setIsModalOpen(true)} />
-          <DealSection
-            header={'추천 기프트'}
-            deals={giftStore.recommendDeals}
-            horizontal
-          />
-          <DealSection
-            header={'베스트 기프트'}
-            deals={giftStore.bestDeals}
-          />
+        <div className={css.ranking}>
+          <RankingHeader handleFilterModalOpen={handleFilterModalOpen} />
+          <RankingSection ranks={rankingStore.ranking.rank} />
         </div>
 
         <Footer />
       </DefaultLayout>
 
       {isModalOpen && (
-        <DynamicScrollableImageModal
-          imgSrc={'/static/gift/gift_detail_mob.jpg'}
+        <FilterModal
           isModalOpen={isModalOpen}
+          filterMap={rankingStore.filterMap[selectedFilter.filter]}
+          selectedFilter={rankingStore.rankingFilters[selectedFilter.idx]}
+          selectedFilterIdx={selectedFilter.idx}
+          setFilter={rankingStore.setRankingFilter}
+          resetFilter={rankingStore.resetRankingFilter}
           handleCloseModal={() => setIsModalOpen(false)}
         />
       )}
@@ -97,4 +92,4 @@ function Gift() {
   );
 }
 
-export default observer(Gift);
+export default observer(Ranking);

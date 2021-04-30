@@ -1,0 +1,11 @@
+.filter-modal {
+  &__reset {
+  }
+
+  &__list {
+    .list-item {
+      &--dirty {
+      }
+    }
+  }
+}
