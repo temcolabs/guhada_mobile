@@ -38,7 +38,7 @@ export const rankShape = PropTypes.shape({
   id: PropTypes.oneOfType(PropTypes.string, PropTypes.number),
 });
 
-RankingSectionItem.propTypes = {
+RankItem.propTypes = {
   rank: rankShape.isRequired,
   idx: PropTypes.number.isRequired,
 };

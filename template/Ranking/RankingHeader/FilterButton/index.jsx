@@ -4,7 +4,6 @@ import cn from 'classnames';
 
 const FilterButton = ({ dirty, onClick, children }) => (
   <button
-    key={filter}
     className={cn(css['filter__button'], dirty && css['button--dirty'])}
     onClick={onClick}
   >

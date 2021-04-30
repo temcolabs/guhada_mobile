@@ -33,15 +33,17 @@ const RankingHeader = ({ handleFilterModalOpen }) => {
         </div>
       </div>
       <div className={css['header__filter']}>
-        {rankingStore.rankingFilters.map(({ filter, initial, dirty }, idx) => (
-          <FilterButton
-            key={filter}
-            dirty={dirty}
-            onClick={() => handleFilterModalOpen({ filter, idx })}
-          >
-            {rankingStore.filterMap[filter].get(dirty || initial)}
-          </FilterButton>
-        ))}
+        {rankingStore.rankingFilters.map(
+          ({ filter, name, value, dirty }, idx) => (
+            <FilterButton
+              key={filter}
+              dirty={dirty}
+              onClick={() => handleFilterModalOpen({ filter, idx })}
+            >
+              {dirty ? rankingStore.filterMap[filter].get(value) : name}
+            </FilterButton>
+          )
+        )}
       </div>
     </div>
   );

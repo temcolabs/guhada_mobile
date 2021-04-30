@@ -15,24 +15,24 @@ const FilterModal = ({
       <div
         className={css['filter-modal__reset']}
         onClick={() => {
-          resetFilter();
+          resetFilter(selectedFilterIdx);
           handleCloseModal();
         }}
       />
       <div className={css['filter-modal__list']}>
-        {filterMap.map(({ key, value }) => (
+        {filterMap.map(({ key: enValue, value: koValue }) => (
           <div
             key={key}
             className={cn(
               css['list-item'],
-              selectedFilter.dirty === value && css['list-item--dirty']
+              selectedFilter.value === enValue && css['list-item--selected']
             )}
             onClick={() => {
-              setFilter(selectedFilterIdx, key);
+              setFilter(selectedFilterIdx, enValue);
               handleCloseModal();
             }}
           >
-            {value}
+            {koValue}
           </div>
         ))}
       </div>

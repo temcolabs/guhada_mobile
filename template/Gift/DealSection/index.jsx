@@ -8,11 +8,11 @@ import { LinkRoute } from 'childs/lib/router';
 import DealItem, { dealShape } from './DealItem';
 
 const DealSection = ({ header, deals, horizontal = false }) => (
-  <div className={css['deal-item-section']}>
-    <div className={css['deal-item-section__name']}>{header}</div>
+  <div className={css['deal-section']}>
+    <div className={css['deal-section__name']}>{header}</div>
     <div
       className={cn(
-        css['deal-item-section__items'],
+        css['deal-section__items'],
         horizontal && css['items--horizontal']
       )}
     >

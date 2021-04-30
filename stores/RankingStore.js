@@ -5,8 +5,7 @@ const arraysEqual = (a, b) => {
   if (a === b) return true;
   if (a == null || b == null) return false;
   if (a.length !== b.length) return false;
-
-  for (var i = 0; i < a.length; ++i) {
+  for (let i = 0; i < a.length; ++i) {
     if (a[i] !== b[i]) return false;
   }
   return true;
@@ -18,12 +17,9 @@ class Ranking {
    */
   filterMap = {
     sort: new Map([
-      ['all', '전체'],
-      ['clothing', '의류'],
-      ['bags', '가방'],
-      ['shoes', '신발'],
-      ['accessories', '악세사리'],
-      ['wallets', '지갑'],
+      ['best', '인기 브랜드'],
+      ['sell', '판매량 인기'],
+      ['view', '브랜드 조회수'],
     ]),
     topCat: new Map([
       ['all', '전체'],
@@ -31,9 +27,12 @@ class Ranking {
       ['men', '남성'],
     ]),
     cat: new Map([
-      ['best', '인기 브랜드'],
-      ['sell', '판매량 인기'],
-      ['view', '브랜드 조회수'],
+      ['all', '전체'],
+      ['clothing', '의류'],
+      ['bags', '가방'],
+      ['shoes', '신발'],
+      ['accessories', '악세사리'],
+      ['wallets', '지갑'],
     ]),
     interval: new Map([
       ['year', '연간'],
@@ -49,7 +48,7 @@ class Ranking {
   getWordRankingUrl = (interval) =>
     `/ps/rank/word?sort=all&interval=${interval}`;
 
-  rankingFilterValues() {
+  getRankingFilterArray() {
     let rawFilters;
     switch (this.selectedRanking) {
       case 'brand':
@@ -61,10 +60,7 @@ class Ranking {
       default:
         return [];
     }
-    const parsedFilters = [];
-    rawFilters.forEach(({ filter, initial, dirty }) =>
-      parsedFilters.push(dirty ? dirty : initial)
-    );
+    const parsedFilters = rawFilters.map(({ value }) => value);
 
     return parsedFilters;
   }
@@ -86,12 +82,36 @@ class Ranking {
   };
 
   @observable brandRankingFilters = [
-    { filter: 'topCat', initial: 'all', dirty: '' },
-    { filter: 'cat', initial: 'all', dirty: '' },
-    { filter: 'interval', initial: 'day', dirty: '' },
+    {
+      filter: 'topCat',
+      name: '성별',
+      initial: 'all',
+      value: 'all',
+      dirty: false,
+    },
+    {
+      filter: 'cat',
+      name: '카테고리',
+      initial: 'all',
+      value: 'all',
+      dirty: false,
+    },
+    {
+      filter: 'interval',
+      name: '기간',
+      initial: 'day',
+      value: 'day',
+      dirty: false,
+    },
   ];
   @observable wordRankingFilters = [
-    { filter: 'interval', initial: 'day', dirty: '' },
+    {
+      filter: 'interval',
+      name: '기간',
+      initial: 'day',
+      value: 'day',
+      dirty: false,
+    },
   ];
 
   /**
@@ -154,11 +174,7 @@ class Ranking {
         return;
     }
 
-    if (rankingFilters[idx].initial === value) {
-      rankingFilters[idx].dirty = '';
-    } else {
-      rankingFilters[idx].dirty = value;
-    }
+    rankingFilters[idx] = { ...rankingFilters[idx], value, dirty: true };
     this.fetchRanking();
   }
 
@@ -176,14 +192,18 @@ class Ranking {
         return;
     }
 
-    rankingFilters[idx].dirty = '';
+    rankingFilters[idx] = {
+      ...rankingFilters[idx],
+      value: rankingFilters[idx].initial,
+      dirty: false,
+    };
     this.fetchRanking();
   }
 
   @action
   async fetchRanking() {
     console.log('yoman ACTION fetchRanking');
-    const newRankingFilterArray = this.rankingFilterValues();
+    const newRankingFilterArray = this.getRankingFilterArray();
     if (arraysEqual(newRankingFilterArray, this.rankingFilterArray)) {
       return;
     }
