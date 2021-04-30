@@ -34,7 +34,7 @@
         background-size: cover;
 
         @media screen and (min-width: 370px) {
-          min-height: 75px;
+          min-height: 70px;
           background-size: contain;
         }
         @media screen and (min-width: 500px) {
@@ -43,17 +43,4 @@
       }
     }
   }
-}
-
-.modalClose {
-  position: fixed !important;
-  right: 15px;
-  top: 15px;
-  z-index: 999;
-  width: 30px;
-  height: 30px;
-  background-image: url('/static/icon/btn-close.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  cursor: pointer;
 }

@@ -105,13 +105,11 @@ export default class LoginStore {
   /**
    * access token 가져오기 성공. 토큰에서 로그인 정보를 추출하고 유저 정보를 가져온다.
    */
-  handleSuccessGetAccessToken = async accessToken => {
+  handleSuccessGetAccessToken = async (accessToken) => {
     try {
       this.decodeLoginData(accessToken);
       this.setLoginStatus(loginStatus.LOGIN_DONE);
-      if (isDev) {
-        console.log(`Bearer ${accessToken}`);
-      }
+      // devLog(`Bearer ${accessToken}`);
     } catch (e) {
       // this.logout();
       console.error(e);
@@ -121,7 +119,7 @@ export default class LoginStore {
   };
 
   @action
-  setLoginStatus = status => {
+  setLoginStatus = (status) => {
     this.loginStatus = status;
   };
 
@@ -132,7 +130,7 @@ export default class LoginStore {
    * @returns {object} loginInfo
    */
   @action
-  decodeLoginData = accessToken => {
+  decodeLoginData = (accessToken) => {
     let loginInfoKey;
 
     if (accessToken) {
@@ -193,7 +191,7 @@ export default class LoginStore {
   /**
    * 페이스북 로그인 성공 결과에서 데이터 추출
    */
-  extractFacebookLoginParams = data => {
+  extractFacebookLoginParams = (data) => {
     return {
       email: data.email,
       profileJson: data,
@@ -203,7 +201,7 @@ export default class LoginStore {
   };
 
   @action
-  responseFacebook = response => {
+  responseFacebook = (response) => {
     let data = response;
     let login = this;
 
@@ -233,7 +231,7 @@ export default class LoginStore {
           login.loginFacebook();
         }
       })
-      .catch(e => {
+      .catch((e) => {
         console.error(e);
         devLog('e.status', e.status);
         if (e.status === 200) {
@@ -284,7 +282,7 @@ export default class LoginStore {
           pushRoute(Router.query.redirectTo || '/');
         }
       })
-      .catch(e => {
+      .catch((e) => {
         devLog('e', e);
       });
   };
@@ -292,7 +290,7 @@ export default class LoginStore {
   /**
    * 구글 로그인 성공 결과에서 데이터 추출
    */
-  extractGoogleLoginParams = data => {
+  extractGoogleLoginParams = (data) => {
     return {
       email: data.profileObj?.email,
       profileJson: data.profileObj,
@@ -302,7 +300,7 @@ export default class LoginStore {
   };
 
   @action
-  responseGoogle = response => {
+  responseGoogle = (response) => {
     devLog('google', response);
     let data = response;
     let login = this;
@@ -333,7 +331,7 @@ export default class LoginStore {
           login.loginGoogle();
         }
       })
-      .catch(e => {
+      .catch((e) => {
         console.error(e);
         devLog('e.status', e.status);
         if (e.status === 200) {
@@ -382,7 +380,7 @@ export default class LoginStore {
           pushRoute(Router.query.redirectTo || '/');
         }
       })
-      .catch(e => {
+      .catch((e) => {
         devLog('e', e);
       });
   };
@@ -390,7 +388,7 @@ export default class LoginStore {
   /**
    * 카카오 로그인 성공 결과에서 데이터 추출
    */
-  extractKakaoLoginParams = data => {
+  extractKakaoLoginParams = (data) => {
     return {
       email: data.profile?.kakao_account?.email,
       profileJson: data.profile?.properties,
@@ -400,7 +398,7 @@ export default class LoginStore {
   };
 
   @action
-  responseKakao = response => {
+  responseKakao = (response) => {
     devLog('kakao', response);
     let data = response;
     let login = this;
@@ -428,7 +426,7 @@ export default class LoginStore {
           login.loginKakao();
         }
       })
-      .catch(e => {
+      .catch((e) => {
         if (e.status === 200) {
           if (_.get(e, 'data.resultCode') === 5004) {
             if (login.loginPosition === 'luckydrawSNS') {
@@ -475,7 +473,7 @@ export default class LoginStore {
           pushRoute(Router.query.redirectTo || '/');
         }
       })
-      .catch(e => {
+      .catch((e) => {
         devLog('e', e);
       });
   };
@@ -483,7 +481,7 @@ export default class LoginStore {
   /**
    * 네이버 로그인 성공 결과에서 데이터 추출
    */
-  extractNaverLoginParams = data => {
+  extractNaverLoginParams = (data) => {
     return {
       email: data.user.email,
       profileJson: data.user,
@@ -493,7 +491,7 @@ export default class LoginStore {
   };
 
   @action
-  responseNaver = response => {
+  responseNaver = (response) => {
     devLog('naver', response);
     let data = response;
     let login = this;
@@ -521,7 +519,7 @@ export default class LoginStore {
           login.loginNaver();
         }
       })
-      .catch(e => {
+      .catch((e) => {
         if (e.status === 200) {
           if (_.get(e, 'data.resultCode') === 5004) {
             if (login.loginPosition === 'luckydrawSNS') {
@@ -572,7 +570,7 @@ export default class LoginStore {
           pushRoute(Router.query.redirectTo || '/');
         }
       })
-      .catch(e => {
+      .catch((e) => {
         devLog('e', e);
       });
   };
