@@ -34,7 +34,14 @@ module.exports = [
   },
 
   {
-    // 선뭃하기
+    // 리뷰
+    pagePath: '/review',
+    asPath: '/review',
+    name: '리뷰',
+  },
+
+  {
+    // 선물하기
     pagePath: '/gift',
     asPath: '/gift',
     name: '선물하기',
