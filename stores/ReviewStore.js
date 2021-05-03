@@ -2,24 +2,53 @@ import { observable, action } from 'mobx';
 import API from 'childs/lib/API';
 
 export default class ReviewStore {
-  @observable recommendDeals = [];
+  // Observable
+  @observable reviewBannerList = [];
+  @observable reviewHashtagList = [];
+  @observable reviewList = [];
 
-  @observable bestDeals = [];
+  // computed
 
+  // actions
   @action
-  fetchDeals = async () => {
+  getReviewBannerList = async () => {
     try {
-      const { data } = await API.search('/ps/main-home/deals/guhada-gift');
-      const dealsArray = data.data;
+      const { data } = await API.user('/event/banner?bannerType=REVIEW');
+      const result = data.data;
 
-      if (dealsArray.length) {
-        this.recommendDeals = dealsArray[0].deals;
-        if (dealsArray.length >= 2) {
-          this.bestDeals = dealsArray[1].deals;
-        }
+      if (result.length) {
+        this.reviewBannerList = result.deals;
       }
     } catch (error) {
       console.error(error.message);
     }
   };
+
+  @action
+  getReviewPopularHashTag = async () => {
+    try {
+      const { data } = await API.user('/reviews/popularity/hashtag');
+      const result = data.data;
+
+      if (result.length) {
+        this.reviewHashtagList = result;
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+
+  @action
+  getReviewList = async ({page = 1, }) => {
+    try {
+      const { data } = await API.search('/event/banner?bannerType=REVIEW');
+      const result = data.data;
+
+      if (result.length) {
+        this.reviewBannerList = result.deals;
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
 }
