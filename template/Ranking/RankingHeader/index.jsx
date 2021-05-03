@@ -17,7 +17,6 @@ const RankingHeader = ({ handleFilterModalOpen }) => {
         <div className={css['header__main__title']}>
           <div className={css['title--name']}>랭킹</div>
           <div className={css['title--time']}>
-            {/* check moment locale and importing smaller package */}
             {moment(rankingStore.ranking.updatedAt).format('MM. DD HH:mm')} 기준
           </div>
         </div>

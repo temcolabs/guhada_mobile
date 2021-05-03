@@ -1,8 +1,27 @@
+@import 'styles/sprite.scss';
+
 .filter-button {
-  &.button--dirty {
+  height: 40px;
+  padding: 5px 10px 5px 20px;
+  margin-right: 10px;
+  border: 1px solid #eee;
+  border-radius: 100px;
+  color: #777;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+
+  @media screen and (max-width: 370px) {
+    padding: 4px 3px 4px 13px;
+    font-size: 12px;
   }
 
-  &::after {
-    // arrow
+  &.button--dirty {
+    border-color: #111;
+  }
+
+  .button__dropdown {
+    margin-left: 5px;
+    @include sprite($icon-selectbox);
   }
 }

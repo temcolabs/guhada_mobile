@@ -1,15 +1,6 @@
-import { observable, action, computed, toJS } from 'mobx';
+import { observable, action, computed } from 'mobx';
+import _ from 'lodash';
 import API from 'childs/lib/API';
-
-const arraysEqual = (a, b) => {
-  if (a === b) return true;
-  if (a == null || b == null) return false;
-  if (a.length !== b.length) return false;
-  for (let i = 0; i < a.length; ++i) {
-    if (a[i] !== b[i]) return false;
-  }
-  return true;
-};
 
 class Ranking {
   /**
@@ -21,11 +12,7 @@ class Ranking {
       ['sell', '판매량 인기'],
       ['view', '브랜드 조회수'],
     ]),
-    topCat: new Map([
-      ['all', '전체'],
-      ['women', '여성'],
-      ['men', '남성'],
-    ]),
+    topCat: new Map([['all', '전체'], ['women', '여성'], ['men', '남성']]),
     cat: new Map([
       ['all', '전체'],
       ['clothing', '의류'],
@@ -48,7 +35,7 @@ class Ranking {
   getWordRankingUrl = (interval) =>
     `/ps/rank/word?sort=all&interval=${interval}`;
 
-  getRankingFilterArray() {
+  createRankingFilterArray() {
     let rawFilters;
     switch (this.selectedRanking) {
       case 'brand':
@@ -60,12 +47,35 @@ class Ranking {
       default:
         return [];
     }
-    const parsedFilters = rawFilters.map(({ value }) => value);
+    const newRankingFilterArray = rawFilters.map(({ value }) => value);
 
-    return parsedFilters;
+    return newRankingFilterArray;
   }
 
-  rankingFilterArray = [];
+  brandRankingFilterArray = [];
+  wordRankingFilterArray = [];
+
+  get rankingFilterArray() {
+    switch (this.selectedRanking) {
+      case 'brand':
+        return this.brandRankingFilterArray;
+      case 'word':
+        return this.wordRankingFilterArray;
+      default:
+        return [];
+    }
+  }
+
+  set rankingFilterArray(newArray) {
+    switch (this.selectedRanking) {
+      case 'brand':
+        return (this.brandRankingFilterArray = newArray);
+      case 'word':
+        return (this.wordRankingFilterArray = newArray);
+      default:
+        return false;
+    }
+  }
 
   /**
    * observables
@@ -118,12 +128,6 @@ class Ranking {
    * computeds
    */
   @computed get ranking() {
-    console.log(
-      'yoman COMPUTED ranking',
-      this.selectedRanking,
-      toJS(this.brandRanking),
-      toJS(this.wordRanking)
-    );
     switch (this.selectedRanking) {
       case 'brand':
         return this.brandRanking;
@@ -135,12 +139,6 @@ class Ranking {
   }
 
   @computed get rankingFilters() {
-    console.log(
-      'yoman COMPUTED rankingFilters',
-      this.selectedRanking,
-      toJS(this.brandRankingFilters),
-      toJS(this.wordRankingFilters)
-    );
     switch (this.selectedRanking) {
       case 'brand':
         return this.brandRankingFilters;
@@ -155,13 +153,11 @@ class Ranking {
    * actions
    */
   @action setSelectedRanking(name) {
-    console.log('yoman ACTION setSelectedRanking', name);
     this.selectedRanking = name;
     this.fetchRanking();
   }
 
   @action setRankingFilter(idx, value) {
-    console.log('yoman ACTION setRankingFilter', idx, value);
     let rankingFilters;
     switch (this.selectedRanking) {
       case 'brand':
@@ -179,7 +175,6 @@ class Ranking {
   }
 
   @action resetRankingFilter(idx) {
-    console.log('yoman ACTION resetRankingFilter', idx);
     let rankingFilters;
     switch (this.selectedRanking) {
       case 'brand':
@@ -202,9 +197,8 @@ class Ranking {
 
   @action
   async fetchRanking() {
-    console.log('yoman ACTION fetchRanking');
-    const newRankingFilterArray = this.getRankingFilterArray();
-    if (arraysEqual(newRankingFilterArray, this.rankingFilterArray)) {
+    const newRankingFilterArray = this.createRankingFilterArray();
+    if (_.isEqual(newRankingFilterArray, this.rankingFilterArray)) {
       return;
     }
 
@@ -229,7 +223,6 @@ class Ranking {
       const { data } = await API.search(rankingUrl);
       const { updatedAt, rank } = data.data;
 
-      console.log('yoman ACTION fetchRanking complete', toJS(ranking));
       Object.assign(ranking, { updatedAt, rank });
     } catch (error) {
       console.error(error.message);

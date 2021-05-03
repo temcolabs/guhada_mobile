@@ -14,6 +14,7 @@ const BwSelectionButton = ({
     <button
       className={cn(
         css['selection-button'],
+        css['button--left'],
         leftSelected && css['button--selected']
       )}
       onClick={leftOnClick}
@@ -23,6 +24,7 @@ const BwSelectionButton = ({
     <button
       className={cn(
         css['selection-button'],
+        css['button--right'],
         rightSelected && css['button--selected']
       )}
       onClick={rightOnClick}

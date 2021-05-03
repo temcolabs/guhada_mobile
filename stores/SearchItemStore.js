@@ -36,7 +36,7 @@ export default class SearchItemStore {
   @observable deals = [];
 
   @action
-  toggleHover = i => {
+  toggleHover = (i) => {
     let hoversState = this.hover;
     hoversState[i] = true;
 
@@ -137,7 +137,7 @@ export default class SearchItemStore {
   };
 
   @action
-  setItem = item => {
+  setItem = (item) => {
     let newDeals = this.deals;
 
     this.deals = newDeals.concat(item.deals);
@@ -149,7 +149,7 @@ export default class SearchItemStore {
 
   @action
   getTreeDataForFilter = () => {
-    API.search.get('/ps/search/all').then(res => {
+    API.search.get('/ps/search/all').then((res) => {
       let data = res.data;
       if (data.resultCode === 200) {
         this.treeDataForFilter = data.data.categories;
@@ -159,7 +159,7 @@ export default class SearchItemStore {
 
   @action
   getItem = () => {
-    API.product.get('/deals').then(res => {
+    API.product.get('/deals').then((res) => {
       let data = res.data;
       if (data.resultCode === 200) {
         this.setItem(data.data);
@@ -170,8 +170,8 @@ export default class SearchItemStore {
   };
 
   @action
-  getsearchitem = query => {
-    API.search.get('/ps/search?searchQuery=' + query).then(res => {
+  getsearchitem = (query) => {
+    API.search.get('/ps/search?searchQuery=' + query).then((res) => {
       let data = res.data;
       if (data.resultCode === 200) {
         this.setItem(data.data);
@@ -187,7 +187,7 @@ export default class SearchItemStore {
 
   @action
   getSearchByBrandId = (brandId, unitPerPage) => {
-    API.search.get('/ps/search/brand/' + brandId).then(res => {
+    API.search.get('/ps/search/brand/' + brandId).then((res) => {
       let data = res.data;
       if (data.resultCode === 200) {
         this.setItem(data.data);
@@ -201,7 +201,7 @@ export default class SearchItemStore {
   @observable searchOrderFilter = 'DATE';
 
   @action
-  setSearchOrderFilter = order => {
+  setSearchOrderFilter = (order) => {
     this.searchOrderFilter = order;
   };
 
@@ -210,14 +210,14 @@ export default class SearchItemStore {
   @observable locationGuide = [];
   @observable locationKey = [];
   @action
-  LocationGuide = value => {
+  LocationGuide = (value) => {
     this.locationKey = [];
     let key = toJS(this.locationHierarchy.key);
     this.locationKey = key.split('-').map(Number);
     this.locationGuide = [];
     let firstLocationFilter = [];
 
-    this.locationFilter.map(locationFilter => {
+    this.locationFilter.map((locationFilter) => {
       let titleEnglish = '';
 
       switch (locationFilter.title) {
@@ -265,7 +265,7 @@ export default class SearchItemStore {
           word: keyword,
         },
       })
-      .then(res => {
+      .then((res) => {
         // do nothing
       });
   };
@@ -317,7 +317,7 @@ export default class SearchItemStore {
     this.setSearchOrderFilter(order);
 
     // 일반적인 카테고리 검색을 위해서 전체 카테고리 값을 불러오기 위한 api 콜
-    API.search.get('/ps/search/all').then(async res => {
+    API.search.get('/ps/search/all').then(async (res) => {
       let data = res.data;
       if (data.resultCode === 200) {
         this.locationFilter = data.data.categories;
@@ -332,7 +332,7 @@ export default class SearchItemStore {
         let brandList = [];
         if (brandIds) {
           if (brandIds.length > 0 && brandIds[0] != null) {
-            brandIds.map(brand => {
+            brandIds.map((brand) => {
               if (brand.id) brandList.push(brand.id);
               else brandList.push(brand);
             });
@@ -367,7 +367,7 @@ export default class SearchItemStore {
         let filterCount = JSON.parse('[' + filterData + ']');
 
         if (Array.isArray(toJS(filterCount))) {
-          filterCount.map(filter => {
+          filterCount.map((filter) => {
             filterList.push({ filterAttributeId: filter });
           });
         }
@@ -407,14 +407,14 @@ export default class SearchItemStore {
               eventIds: eventIds === '' ? null : [eventIds],
             }
           )
-          .then(res => {
+          .then((res) => {
             let data = res.data;
 
             // 카테고리의 checkedKey 값을 검색하기 위한 기능
             this.checkedKeys = [];
             this.checkedKeysId = [];
 
-            categoryList.map(category => {
+            categoryList.map((category) => {
               this.checkedKeys.push(
                 getCategoryKey(data.data.categories, category)
               );
@@ -430,7 +430,7 @@ export default class SearchItemStore {
               if (deals.length >= 3) {
                 criteoTracker.searchResults({
                   email: this.root.user.userInfo?.email,
-                  dealIds: deals?.slice(0, 3).map(deal => deal.dealId),
+                  dealIds: deals?.slice(0, 3).map((deal) => deal.dealId),
                 });
               }
 
@@ -473,7 +473,7 @@ export default class SearchItemStore {
               if (enter === 'all') {
                 let keyArray;
 
-                this.treeDataForFilter.map(treeData => {
+                this.treeDataForFilter.map((treeData) => {
                   if (treeData.id === hierarchy[0]) {
                     keyArray = treeData.key.split('-');
                   }
@@ -500,7 +500,7 @@ export default class SearchItemStore {
                         { label: 'NEW IN', value: 'NEW' },
                       ];
 
-                      condition.map(c => {
+                      condition.map((c) => {
                         if (c.value === query.condition) {
                           return this.setTitle(c.label);
                         }
@@ -532,7 +532,7 @@ export default class SearchItemStore {
                         { label: 'NEW IN', value: 'NEW' },
                       ];
 
-                      condition.map(c => {
+                      condition.map((c) => {
                         if (c.value === query.condition) {
                           return this.setTitle(c.label);
                         }
@@ -563,7 +563,7 @@ export default class SearchItemStore {
                         { label: 'NEW IN', value: 'NEW' },
                       ];
 
-                      condition.map(c => {
+                      condition.map((c) => {
                         if (c.value === query.condition) {
                           return this.setTitle(c.label);
                         }
@@ -595,7 +595,7 @@ export default class SearchItemStore {
               }
 
               this.filterData = data.data.filters;
-              filterList.map(value => {
+              filterList.map((value) => {
                 this.filterData.map((data, dataKey) => {
                   data.attributes.map((attributes, attributesKey) => {
                     if (attributes.id === value.filterAttributeId) {
@@ -633,12 +633,12 @@ export default class SearchItemStore {
   };
 
   @action
-  toGetBrandFilter = categoryList => {
+  toGetBrandFilter = (categoryList) => {
     API.search
       .post('/ps/search/filter', {
         categoryIds: categoryList,
       })
-      .then(res => {
+      .then((res) => {
         let data = res.data;
         if (data.resultCode === 200) {
           this.root.brands.brandsByCategoryFilter = data.data.brands;
@@ -669,7 +669,7 @@ export default class SearchItemStore {
 
   @observable headerCategory;
   @action
-  setHeaderCategory = key => {
+  setHeaderCategory = (key) => {
     let filterCategory = this.treeDataForFilter;
     let category = toJS(getCategory(filterCategory, key)).children;
     let hierarchies = category[0].hierarchies;
@@ -704,17 +704,17 @@ export default class SearchItemStore {
   };
 
   @action
-  setCurrentCategory = currentCategory => {
+  setCurrentCategory = (currentCategory) => {
     this.currentCategory = currentCategory;
   };
 
   @action
-  setCategory = data => {
+  setCategory = (data) => {
     this.category = data;
   };
 
   @action
-  setKeyArray = data => {
+  setKeyArray = (data) => {
     this.keyArray = data;
   };
 
@@ -724,10 +724,10 @@ export default class SearchItemStore {
 
   @computed get getExpandedKeys() {
     devLog('getExpandedKeys called. this.expandedKeys : ' + this.expandedKeys);
-    return this.expandedKeys.slice().filter(x => x);
+    return this.expandedKeys.slice().filter((x) => x);
   }
   @action
-  setExpandedKeys = expandedKeys => {
+  setExpandedKeys = (expandedKeys) => {
     devLog('setExpandedKeys called. setExpandedKeys : ' + expandedKeys);
     if (expandedKeys == null) expandedKeys = '';
 
@@ -743,7 +743,7 @@ export default class SearchItemStore {
   }
 
   @action
-  setTitle = data => {
+  setTitle = (data) => {
     this.title = data;
   };
 
@@ -792,7 +792,7 @@ export default class SearchItemStore {
   @observable selectCategory;
 
   /**
-   * 상세 검색 > 카테고리 > 드롭다운 선택 초기화 
+   * 상세 검색 > 카테고리 > 드롭다운 선택 초기화
    *  1-1) hierarchies ID를 통해 부모 노드 반환
    *  1-2) 부모가 Root인 경우, 초기값 반환
    */
@@ -801,15 +801,15 @@ export default class SearchItemStore {
     const category = this.selectCategory.hierarchies
       .slice(0, this.selectCategory.hierarchies.length - 1)
       .reduce((acc, v, i) => {
-        acc = tempCategory.find(ele => ele.id === v);
+        acc = tempCategory.find((ele) => ele.id === v);
         tempCategory = acc?.children;
         return acc;
       }, {});
-    
+
     return {
-      category : Object.keys(category).length ? category : {},
-      keys : Object.keys(category).length ? category.key : []
-    }
+      category: Object.keys(category).length ? category : {},
+      keys: Object.keys(category).length ? category.key : [],
+    };
   }
 
   @action
@@ -891,8 +891,8 @@ export default class SearchItemStore {
 
     // filter list push
     if (Array.isArray(toJS(this.filterData))) {
-      this.filterData.map(filter => {
-        filter.attributes.map(attr => {
+      this.filterData.map((filter) => {
+        filter.attributes.map((attr) => {
           if (attr.filter) {
             filterList.push(attr.id);
             filterListTitle.push(attr);
@@ -907,7 +907,7 @@ export default class SearchItemStore {
 
     // brand list push
     if (Array.isArray(toJS(this.filterBrand))) {
-      this.filterBrand.map(brand => {
+      this.filterBrand.map((brand) => {
         brandList.push(brand.id);
         brandListTitle.push(brand);
       });
@@ -915,7 +915,7 @@ export default class SearchItemStore {
 
     // subcategory list push
     if (Array.isArray(toJS(this.checkedKeysId))) {
-      this.checkedKeysId.map(subcategory => {
+      this.checkedKeysId.map((subcategory) => {
         subCategoryListTitle.push({
           title: getCategoryTitle(this.locationFilter, subcategory),
           id: subcategory,
@@ -998,7 +998,7 @@ export default class SearchItemStore {
   };
 
   @observable filterBrand = [];
-  setFilterBrand = brand => {
+  setFilterBrand = (brand) => {
     const idx = this.filterBrand.findIndex(function(item) {
       return item.id === brand.id;
     });
@@ -1038,15 +1038,15 @@ export default class SearchItemStore {
     let filterList = [];
 
     if (Array.isArray(toJS(this.filterData))) {
-      this.filterData.map(filter => {
-        filter.attributes.map(attr => {
+      this.filterData.map((filter) => {
+        filter.attributes.map((attr) => {
           if (attr.filter) filterList.push(attr.id);
         });
       });
     }
 
     filterList = filterList
-      .map(e => {
+      .map((e) => {
         return e;
       })
       .join(',');
@@ -1084,7 +1084,7 @@ export default class SearchItemStore {
   };
 
   @observable resultKeyword = '';
-  setResultSearchFilter = value => {
+  setResultSearchFilter = (value) => {
     this.resultKeyword = value;
   };
 
@@ -1278,7 +1278,7 @@ export default class SearchItemStore {
 
   @observable thumbnail = 'list4';
   @action
-  setThumbnailStyle = style => {
+  setThumbnailStyle = (style) => {
     this.thumbnail = style;
   };
 }

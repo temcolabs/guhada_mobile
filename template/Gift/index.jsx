@@ -1,11 +1,11 @@
 import css from './Gift.module.scss';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import dynamic from 'next/dynamic';
-import _ from 'lodash';
 
 import useStores from 'stores/useStores';
 import { mainCategory } from 'childs/lib/constant/category';
+import { useScrollDirection } from 'hooks';
 
 import DefaultLayout from 'components/layout/DefaultLayout';
 import CategorySlider from 'components/common/CategorySlider';
@@ -25,66 +25,37 @@ function Gift() {
    * states
    */
   const { main: mainStore, gift: giftStore } = useStores();
-  const [scrollDirection, setScrollDirection] = useState('up');
-  let lastScrollTop = 0;
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  /**
-   * handlers
-   */
-  const handleScrollDirection = useCallback(
-    _.debounce((e) => {
-      let st = window.pageYOffset || document.documentElement.scrollTop;
-      if (st > lastScrollTop) {
-        setScrollDirection('down');
-      } else {
-        setScrollDirection('up');
-      }
-      lastScrollTop = st <= 0 ? 0 : st;
-    }, 10),
-    []
-  );
+  const scrollDirection = useScrollDirection();
 
   /**
    * side effects
    */
   useEffect(() => {
-    window.addEventListener('scroll', handleScrollDirection);
-    return () => window.removeEventListener('scroll', handleScrollDirection);
-  }, [handleScrollDirection]);
-
-  useEffect(() => {
     giftStore.fetchDeals();
   }, [giftStore]);
 
   return (
-    <>
-      <DefaultLayout
-        title={null}
-        topLayout={'main'}
+    <DefaultLayout
+      title={null}
+      topLayout={'main'}
+      scrollDirection={scrollDirection}
+    >
+      <CategorySlider
+        categoryList={mainCategory.item}
+        setNavDealId={mainStore.setNavDealId}
         scrollDirection={scrollDirection}
-      >
-        <CategorySlider
-          categoryList={mainCategory.item}
-          setNavDealId={mainStore.setNavDealId}
-          scrollDirection={scrollDirection}
+      />
+
+      <div className={css.gift}>
+        <GiftHeader handleOpenModal={() => setIsModalOpen(true)} />
+        <DealSection
+          header={'추천 기프트'}
+          deals={giftStore.recommendDeals}
+          horizontal
         />
-
-        <div className={css.gift}>
-          <GiftHeader handleOpenModal={() => setIsModalOpen(true)} />
-          <DealSection
-            header={'추천 기프트'}
-            deals={giftStore.recommendDeals}
-            horizontal
-          />
-          <DealSection
-            header={'베스트 기프트'}
-            deals={giftStore.bestDeals}
-          />
-        </div>
-
-        <Footer />
-      </DefaultLayout>
+        <DealSection header={'베스트 기프트'} deals={giftStore.bestDeals} />
+      </div>
 
       {isModalOpen && (
         <DynamicScrollableImageModal
@@ -93,7 +64,8 @@ function Gift() {
           handleCloseModal={() => setIsModalOpen(false)}
         />
       )}
-    </>
+      <Footer />
+    </DefaultLayout>
   );
 }
 

@@ -1,26 +1,21 @@
 import css from './RankingSection.module.scss';
 import PropTypes from 'prop-types';
-import { observer } from 'mobx-react';
-
-import { LinkRoute } from 'childs/lib/router';
 
 import RankItem, { rankShape } from './RankItem';
 
-const RankingSection = ({ ranks }) => (
+const RankingSection = ({ ranks, toSearch }) => (
   <div className={css['ranking__section']}>
     {ranks.map((rank, idx) => (
-      <LinkRoute
+      <RankItem
         key={rank.word}
-        href={
+        rank={rank}
+        idx={idx}
+        onClick={
           rank.id
-            ? `/adfgfdgafdg?asdf=${rank.id}`
-            : `/adgfdgfda?qwrqwr=${rank.word}`
+            ? () => toSearch({ brand: rank.id, enter: 'brand' })
+            : () => toSearch({ keyword: rank.word, enter: 'keyword' })
         }
-      >
-        <a>
-          <RankItem rank={rank} idx={idx} />
-        </a>
-      </LinkRoute>
+      />
     ))}
   </div>
 );
@@ -29,4 +24,4 @@ RankingSection.propTypes = {
   ranks: PropTypes.arrayOf(rankShape).isRequired,
 };
 
-export default observer(RankingSection);
+export default RankingSection;
