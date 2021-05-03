@@ -1,53 +1,69 @@
 import css from './FilterModal.module.scss';
+import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
-const FilterModal = ({
-  isModalOpen,
-  filterMap,
-  selectedFilter,
-  selectedFilterIdx,
-  setFilter,
-  resetFilter,
-  handleCloseModal,
-}) => {
+import useStores from 'stores/useStores';
+
+import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
+
+const arrayFromMap = (map) =>
+  map instanceof Map && Array.from(map, ([key, value]) => ({ key, value }));
+
+const FilterModal = ({ isModalOpen, selectedFilter, handleCloseModal }) => {
+  const { ranking: rankingStore } = useStores();
+  const filterMap = rankingStore.filterMaps[selectedFilter.filter];
+
   return (
-    <div className={css['filter-modal']}>
-      <div
-        className={css['filter-modal__reset']}
-        onClick={() => {
-          resetFilter(selectedFilterIdx);
-          handleCloseModal();
-        }}
-      />
-      <div className={css['filter-modal__list']}>
-        {filterMap.map(({ key: enValue, value: koValue }) => (
+    <SlideIn direction={slideDirection.BOTTOM} isVisible={isModalOpen}>
+      <div className={css['filter-modal']}>
+        <div className={css['close-button']} onClick={handleCloseModal} />
+        <div className={css['modal__header']}>
+          <div className={css['modal__header__name']}>
+            {selectedFilter.name}
+          </div>
           <div
-            key={key}
-            className={cn(
-              css['list-item'],
-              selectedFilter.value === enValue && css['list-item--selected']
-            )}
+            className={css['modal__header__reset']}
             onClick={() => {
-              setFilter(selectedFilterIdx, enValue);
+              rankingStore.resetRankingFilter(selectedFilter.idx);
               handleCloseModal();
             }}
           >
-            {koValue}
+            <div className={css['reset-button']} /> 초기화
           </div>
-        ))}
+        </div>
+        <div className={css['modal__list']}>
+          {filterMap &&
+            arrayFromMap(filterMap).map(({ key: enValue, value: koValue }) => (
+              <div
+                key={enValue}
+                className={cn(
+                  css['list-item'],
+                  selectedFilter.value === enValue && css['list-item--selected']
+                )}
+                onClick={() => {
+                  rankingStore.setRankingFilter(selectedFilter.idx, enValue);
+                  handleCloseModal();
+                }}
+              >
+                {koValue}
+              </div>
+            ))}
+        </div>
       </div>
-    </div>
+    </SlideIn>
   );
 };
 
 FilterModal.propTypes = {
   isModalOpen: PropTypes.bool.isRequired,
-  filterMap: PropTypes.instanceOf(Map).isRequired,
-  selectedFilter: PropTypes.object.isRequired,
-  selectedFilterIdx: PropTypes.number.isRequired,
-  setFilter: PropTypes.func.isRequired,
-  resetFilter: PropTypes.func.isRequired,
+  selectedFilter: PropTypes.shape({
+    filter: PropTypes.string,
+    name: PropTypes.string,
+    value: PropTypes.string,
+    idx: PropTypes.number,
+  }).isRequired,
   handleCloseModal: PropTypes.func.isRequired,
 };
 
-export default FilterModal;
+export default observer(FilterModal);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, memo } from 'react';
 import Router from 'next/router';
 import css from './Header.module.scss';
 import HeaderMenu from './HeaderMenu';
@@ -70,7 +70,7 @@ function Header({
           headerShape === 'BBSArticleView' ||
           headerShape === 'special' ||
           (headerShape === 'address' && urlHistory !== '') ? (
-            <button className={css.backButton} onClick={() => Router.back() } />
+            <button className={css.backButton} onClick={() => Router.back()} />
           ) : null}
 
           {headerShape === 'detailPage' ||
@@ -167,4 +167,4 @@ function Header({
     </>
   ));
 }
-export default Header;
+export default memo(Header);

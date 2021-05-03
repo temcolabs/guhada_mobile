@@ -1,4 +1,4 @@
-import { observable, action, computed } from 'mobx';
+import { observable, action, computed, toJS } from 'mobx';
 import _ from 'lodash';
 import API from 'childs/lib/API';
 
@@ -6,7 +6,7 @@ class Ranking {
   /**
    * statics
    */
-  filterMap = {
+  filterMaps = {
     sort: new Map([
       ['best', '인기 브랜드'],
       ['sell', '판매량 인기'],
@@ -130,9 +130,9 @@ class Ranking {
   @computed get ranking() {
     switch (this.selectedRanking) {
       case 'brand':
-        return this.brandRanking;
+        return toJS(this.brandRanking);
       case 'word':
-        return this.wordRanking;
+        return toJS(this.wordRanking);
       default:
         return {};
     }
@@ -195,8 +195,7 @@ class Ranking {
     this.fetchRanking();
   }
 
-  @action
-  async fetchRanking() {
+  @action async fetchRanking() {
     const newRankingFilterArray = this.createRankingFilterArray();
     if (_.isEqual(newRankingFilterArray, this.rankingFilterArray)) {
       return;

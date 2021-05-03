@@ -1,27 +1,36 @@
+import { memo } from 'react';
 import css from './RankingSection.module.scss';
 import PropTypes from 'prop-types';
 
 import RankItem, { rankShape } from './RankItem';
+import Loading from 'components/common/loading/Loading';
 
-const RankingSection = ({ ranks, toSearch }) => (
-  <div className={css['ranking__section']}>
-    {ranks.map((rank, idx) => (
-      <RankItem
-        key={rank.word}
-        rank={rank}
-        idx={idx}
-        onClick={
-          rank.id
-            ? () => toSearch({ brand: rank.id, enter: 'brand' })
-            : () => toSearch({ keyword: rank.word, enter: 'keyword' })
-        }
-      />
-    ))}
-  </div>
-);
-
-RankingSection.propTypes = {
-  ranks: PropTypes.arrayOf(rankShape).isRequired,
+const RankingSection = ({ rank, handleSearch }) => {
+  return (
+    <div className={css['ranking__section']}>
+      {rank.length ? (
+        rank
+          .slice(0, 100)
+          .map((rankItem, idx) => (
+            <RankItem
+              key={rankItem.word}
+              rank={rankItem}
+              idx={idx}
+              handleClick={() => handleSearch(rankItem)}
+            />
+          ))
+      ) : (
+        <Loading />
+      )}
+    </div>
+  );
 };
 
-export default RankingSection;
+RankingSection.propTypes = {
+  rank: PropTypes.arrayOf(rankShape).isRequired,
+  handleSearch: PropTypes.func,
+};
+
+export default memo(RankingSection, (prevProps, nextProps) => {
+  return prevProps.rank === nextProps.rank;
+});

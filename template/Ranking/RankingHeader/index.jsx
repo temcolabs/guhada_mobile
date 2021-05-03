@@ -37,9 +37,11 @@ const RankingHeader = ({ handleFilterModalOpen }) => {
             <FilterButton
               key={filter}
               dirty={dirty}
-              onClick={() => handleFilterModalOpen({ filter, idx })}
+              onClick={() =>
+                handleFilterModalOpen({ filter, name, value, dirty, idx })
+              }
             >
-              {dirty ? rankingStore.filterMap[filter].get(value) : name}
+              {dirty ? rankingStore.filterMaps[filter].get(value) : name}
             </FilterButton>
           )
         )}

@@ -29,10 +29,15 @@ function Ranking() {
   /**
    * handlers
    */
-
   const handleFilterModalOpen = (filterData) => {
     setSelectedFilter(filterData);
     setIsModalOpen(true);
+  };
+
+  const handleSearch = ({ id, word }) => {
+    id
+      ? searchItemStore.toSearch({ brand: id, enter: 'brand' })
+      : searchItemStore.toSearch({ keyword: word, enter: 'keyword' });
   };
 
   /**
@@ -43,39 +48,36 @@ function Ranking() {
   }, [rankingStore]);
 
   return (
-    <DefaultLayout
-      title={null}
-      topLayout={'main'}
-      scrollDirection={scrollDirection}
-    >
-      <CategorySlider
-        categoryList={mainCategory.item}
-        setNavDealId={mainStore.setNavDealId}
+    <>
+      <DefaultLayout
+        title={null}
+        topLayout={'main'}
         scrollDirection={scrollDirection}
+      >
+        <CategorySlider
+          categoryList={mainCategory.item}
+          setNavDealId={mainStore.setNavDealId}
+          scrollDirection={scrollDirection}
+        />
+
+        <div className={css.ranking}>
+          <RankingHeader handleFilterModalOpen={handleFilterModalOpen} />
+          <RankingSection
+            rank={rankingStore.ranking.rank}
+            toSearch={searchItemStore.toSearch}
+            handleSearch={handleSearch}
+          />
+        </div>
+
+        <Footer />
+      </DefaultLayout>
+
+      <FilterModal
+        isModalOpen={isModalOpen}
+        selectedFilter={selectedFilter}
+        handleCloseModal={() => setIsModalOpen(false)}
       />
-
-      <div className={css.ranking}>
-        <RankingHeader handleFilterModalOpen={handleFilterModalOpen} />
-        <RankingSection
-          ranks={rankingStore.ranking.rank}
-          toSearch={searchItemStore.toSearch}
-        />
-      </div>
-
-      {isModalOpen && (
-        <FilterModal
-          isModalOpen={isModalOpen}
-          filterMap={rankingStore.filterMap[selectedFilter.filter]}
-          selectedFilter={rankingStore.rankingFilters[selectedFilter.idx]}
-          selectedFilterIdx={selectedFilter.idx}
-          setFilter={rankingStore.setRankingFilter}
-          resetFilter={rankingStore.resetRankingFilter}
-          handleCloseModal={() => setIsModalOpen(false)}
-        />
-      )}
-
-      <Footer />
-    </DefaultLayout>
+    </>
   );
 }
 

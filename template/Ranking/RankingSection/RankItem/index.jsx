@@ -17,14 +17,18 @@ const RankChangeIcon = ({ rankChange }) => {
         <div className={css['icon-down']} />
       </div>
     );
-  } else if (rankChange === 0) {
+  } else if (rankChange === '0') {
     return <div className={css['keep']} />;
   }
   return <div className={cn(css['change'], css['change--up'])}>NEW</div>;
 };
 
-const RankItem = ({ rank, idx, onClick }) => (
-  <div className={css['rank-item']} onClick={onClick}>
+RankChangeIcon.propTypes = {
+  rankChange: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+};
+
+const RankItem = ({ rank, idx, handleClick }) => (
+  <div className={css['rank-item']} onClick={handleClick}>
     <div className={cn(css['text--idx'], idx < 3 && css['text--top'])}>
       {idx + 1}
     </div>
@@ -35,14 +39,15 @@ const RankItem = ({ rank, idx, onClick }) => (
 
 export const rankShape = PropTypes.shape({
   word: PropTypes.string.isRequired,
-  rankChange: PropTypes.oneOfType(PropTypes.string, PropTypes.number)
+  rankChange: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
     .isRequired,
-  id: PropTypes.oneOfType(PropTypes.string, PropTypes.number),
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 });
 
 RankItem.propTypes = {
   rank: rankShape.isRequired,
   idx: PropTypes.number.isRequired,
+  handleClick: PropTypes.func,
 };
 
 export default RankItem;

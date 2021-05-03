@@ -50,5 +50,6 @@
   }
   .keep {
     @include sprite($icon-keep);
+    margin-left: auto;
   }
 }
