@@ -72,7 +72,6 @@ export const dealShape = PropTypes.shape({
 DealItem.propTypes = {
   deal: dealShape.isRequired,
   small: PropTypes.bool,
-  handleRoute: PropTypes.func.isRequired,
 };
 
 export default DealItem;
