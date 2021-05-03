@@ -5,8 +5,10 @@ import dynamic from 'next/dynamic';
 import { useObserver } from 'mobx-react-lite';
 
 import copy from 'copy-to-clipboard';
+import { mainCategory } from 'childs/lib/constant/category';
 
 // layout
+import CategorySlider from 'components/common/CategorySlider';
 import DefaultLayout from 'components/layout/DefaultLayout';
 
 // molecules
@@ -40,7 +42,7 @@ const initialStateLuckyDrawModal = {
  * @param {Object} luckyDraw LuckyDrawStore
  * @returns LuckyDraw
  */
-function LuckyDrawTemplate({ router, luckyDraw }) {
+function LuckyDrawTemplate({ router, luckyDraw, main }) {
   /**
    * states
    */
@@ -169,6 +171,12 @@ function LuckyDrawTemplate({ router, luckyDraw }) {
         />
       )}
       <DefaultLayout>
+        {/* Nav Category */}
+        <CategorySlider
+          categoryList={mainCategory.item}
+          setNavDealId={main.setNavDealId}
+        />
+
         {/* Top Banner */}
         <LuckyDrawTop />
 
@@ -188,10 +196,14 @@ function LuckyDrawTemplate({ router, luckyDraw }) {
         )}
 
         {/* Draw History */}
-        <LuckyDrawHistory
-          winnerList={winnerList}
-          onClickHistory={onClickHistroy}
-        />
+        {winnerList && winnerList.length ? (
+          <LuckyDrawHistory
+            winnerList={winnerList}
+            onClickHistory={onClickHistroy}
+          />
+        ) : (
+          ''
+        )}
 
         {/* Bottom Info */}
         <LuckyDrawBottomInfo
