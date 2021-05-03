@@ -196,10 +196,14 @@ function LuckyDrawTemplate({ router, luckyDraw, main }) {
         )}
 
         {/* Draw History */}
-        <LuckyDrawHistory
-          winnerList={winnerList}
-          onClickHistory={onClickHistroy}
-        />
+        {winnerList && winnerList.length ? (
+          <LuckyDrawHistory
+            winnerList={winnerList}
+            onClickHistory={onClickHistroy}
+          />
+        ) : (
+          ''
+        )}
 
         {/* Bottom Info */}
         <LuckyDrawBottomInfo

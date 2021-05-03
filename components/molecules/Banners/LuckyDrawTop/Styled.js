@@ -6,9 +6,5 @@ export const LuckyDrawTopBannerSection = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   height: 230px;
-<<<<<<< HEAD
-  margin-top: 60px;
-=======
   margin-top: 104px;
->>>>>>> TECH-6789
 `;
