@@ -99,6 +99,15 @@ function Footer() {
                   <img src="/static/icon/sns-blog.png" />
                 </a>
               </li>
+              <li>
+                <a
+                  href="https://post.naver.com/guhada401"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img src="/static/icon/sns-post.png" />
+                </a>
+              </li>
             </ul>
           </div>
           <div className={css.storeItem}>
