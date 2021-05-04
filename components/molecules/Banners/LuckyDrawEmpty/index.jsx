@@ -11,7 +11,8 @@ function LuckyDrawEmpty() {
       <Section>
         <Title>Comming Soon</Title>
         <Contents>
-          더욱 풍성한 제품을 준비중입니다. 다음 럭키드로우를 기대해주세요!
+          <p>더욱 풍성한 제품을 준비중입니다.</p>
+          <p>다음 럭키드로우를 기대해주세요!</p>
         </Contents>
       </Section>
     </Wrapper>

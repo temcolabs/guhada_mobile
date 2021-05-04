@@ -250,6 +250,7 @@ export default class LukcyDrawStore {
       // TODO: 확인 모달 연결
       this.isResultModal = true;
       this.resultData = data.data;
+      return data.data;
     } catch (e) {
       this.root.alert.showAlert(e.data?.message || '오류가 발생했습니다.');
       console.error(e);

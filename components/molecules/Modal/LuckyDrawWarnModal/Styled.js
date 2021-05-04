@@ -37,7 +37,7 @@ export const SectionInfoContents = styled.div`
 
 export const SectionButton = styled.div`
   height: 63px;
-  padding: 19px 171px 20px;
+  padding: 19px;
   background-color: ${(props) => (props.isActive ? '#232323' : '#ccc')};
   color: #fff;
   cursor: pointer;

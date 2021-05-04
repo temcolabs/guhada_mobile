@@ -33,8 +33,8 @@ function LuckyDrawHistory({ winnerList, onClickHistory }) {
    */
   const createScrollMenuData = useCallback(
     (winnerList) => {
-      const result = [];
       if (winnerList && winnerList.length) {
+        const result = [];
         winnerList.forEach((o, i) =>
           result.push(
             <LuckyDrawHistoryItem
@@ -44,8 +44,8 @@ function LuckyDrawHistory({ winnerList, onClickHistory }) {
             />
           )
         );
+        setScrollMenuData(result);
       }
-      setScrollMenuData(result);
     },
     [winnerList]
   );
@@ -59,7 +59,7 @@ function LuckyDrawHistory({ winnerList, onClickHistory }) {
       {/* 럭키드로우 아이템 슬라이더 */}
       <SliderSection>
         {scrollMenuData && scrollMenuData.length && (
-          <ScrollMenu data={scrollMenuData} wheel={false} />
+          <ScrollMenu data={scrollMenuData} wheel={false} selected={5} />
         )}
       </SliderSection>
       {/* TODO : 럭키드로우 아이템 스크롤 */}
@@ -68,7 +68,7 @@ function LuckyDrawHistory({ winnerList, onClickHistory }) {
 }
 
 LuckyDrawHistory.propTypes = {
-  winnerList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  winnerList: PropTypes.arrayOf(PropTypes.object),
   onClickHistory: PropTypes.func.isRequired,
 };
 

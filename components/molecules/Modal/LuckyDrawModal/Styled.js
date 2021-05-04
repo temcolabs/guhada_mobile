@@ -36,8 +36,13 @@ export const SectionInfo = styled.div`
 
 export const SectionStatus = styled.div`
   height: 130px;
-  margin-bottom: 10px;
   position: relative;
+`;
+
+export const SectionStatusIconSection = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
 `;
 
 export const SectionStatusIcon = styled.div`
@@ -45,12 +50,11 @@ export const SectionStatusIcon = styled.div`
   height: 70px;
   background-image: url(${(props) => props.imageUrl});
   background-size: contain;
-  position: relative;
-  left: 165px;
-  right: 165px;
-  margin-bottom: 20px;
 `;
+
 export const SectionTitle = styled.div`
+  display: flex;
+  justify-content: center;
   font-size: 27px;
   font-weight: bold;
   height: 40px;
@@ -64,7 +68,7 @@ export const SectionDescriptions = styled.div`
 
 export const SectionButton = styled.div`
   height: 63px;
-  padding: 19px 171px 20px;
+  padding: 19px;
   background-color: ${(props) => (props.isActive ? '#232323' : '#ccc')};
   color: #fff;
   cursor: pointer;

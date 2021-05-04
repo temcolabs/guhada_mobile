@@ -108,6 +108,23 @@ function LuckyDrawTemplate({ router, luckyDraw, main }) {
   };
 
   /**
+   * 럭키드로우 모달 닫기
+   */
+  const onCloseLuckyDrawModal = () => {
+    document.documentElement.style.overflow = 'initial';
+    setLuckyDrawModalProps({ ...initialStateLuckyDrawModal });
+    setIsActiveLuckyDrawModal(false);
+  }
+
+  /**
+   * 럭키드로우 유의사항 모달 닫기
+   */
+  const onCloseLuckyDrawWarnModal = () => {
+    document.documentElement.style.overflow = 'initial';
+    setIsActiveWarnModal(false);
+  }
+
+  /**
    * helpers
    */
 
@@ -155,7 +172,7 @@ function LuckyDrawTemplate({ router, luckyDraw, main }) {
       {isActiveWarnModal && (
         <LuckyDrawWarnModal
           isOpen={isActiveWarnModal}
-          onClose={() => setIsActiveWarnModal(false)}
+          onClose={() => onCloseLuckyDrawWarnModal()}
         />
       )}
       {/* 럭키드로우 공통 모달 */}
@@ -164,10 +181,7 @@ function LuckyDrawTemplate({ router, luckyDraw, main }) {
           isOpen={isActiveLuckyDrawModal}
           status={luckyDrawModalProps.status}
           contents={luckyDrawModalProps.contents}
-          onClose={() => {
-            setLuckyDrawModalProps({ ...initialStateLuckyDrawModal });
-            setIsActiveLuckyDrawModal(false);
-          }}
+          onClose={() => onCloseLuckyDrawModal()}
         />
       )}
       <DefaultLayout>
@@ -181,7 +195,10 @@ function LuckyDrawTemplate({ router, luckyDraw, main }) {
         <LuckyDrawTop />
 
         {/* LuckyDraw Cards */}
-        {activeList && activeList.length ? (
+        {luckyDrawList &&
+        luckyDrawList.length &&
+        activeList &&
+        activeList.length ? (
           activeList.map((o) => {
             return (
               <LuckyDrawCard
