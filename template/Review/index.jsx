@@ -13,6 +13,8 @@ import DefaultLayout from 'components/layout/DefaultLayout';
 import Footer from 'components/footer/Footer';
 import CategorySlider from 'components/common/CategorySlider';
 
+import { REVIEW_CATEGORY_LIST } from './_constants';
+
 import { toJS } from 'mobx';
 
 function ReviewTemplate() {
@@ -72,12 +74,15 @@ function ReviewTemplate() {
       />
 
       <div className={css['review']}>
+        {/* 리뷰 > 배너 */}
         <div className={css['review-banner']} />
         {reviewStore.reviewBannerList && reviewStore.reviewBannerList.length ? (
           <div className={css['review-banner']} />
         ) : (
           ''
         )}
+
+        {/* 리뷰 > 해시태그 */}
         {reviewStore.reviewHashtagList &&
         reviewStore.reviewHashtagList.length ? (
           <div className={css['review-hashtag']}>
@@ -97,10 +102,42 @@ function ReviewTemplate() {
           ''
         )}
 
-        {/* reviewStore.reviewHashTagList.map((o) => (
-              
-            ))
-          : ''} */}
+        {/* 리뷰 > 카테고리 */}
+        {REVIEW_CATEGORY_LIST && REVIEW_CATEGORY_LIST.length ? (
+          <div className={css['review-category']}>
+            <div className={css['review-category-header']}>
+              <div className={css['review-category-header__title']} />
+            </div>
+            <div className={css['review-category-section']}>
+              {REVIEW_CATEGORY_LIST.map((o) => (
+                <div className={css['review-category-section__card']}>
+                  <div
+                    className={cn(
+                      css[`review-category-section__card--category-img`],
+                      css[
+                        `${
+                          o.isSelect
+                            ? `${o.categoryImageOn}`
+                            : `${o.categoryImageOff}`
+                        }`
+                      ]
+                    )}
+                  />
+                  <div
+                    className={cn(
+                      css[`review-category-section__card--category-text`],
+                      css[`${o.isSelect ? 'active' : 'inActive'}`]
+                    )}
+                  >
+                    {o.categoryName}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          ''
+        )}
       </div>
 
       <Footer />
