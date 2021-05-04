@@ -138,6 +138,8 @@ function ReviewTemplate() {
         ) : (
           ''
         )}
+
+        {/* 리뷰 > 카드 */}
       </div>
 
       <Footer />
