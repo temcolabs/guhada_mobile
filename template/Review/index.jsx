@@ -22,6 +22,9 @@ function ReviewTemplate() {
    * states
    */
   const { main: mainStore, review: reviewStore } = useStores();
+  const [reviewCategoryList, setReviewCategoryList] = useState(
+    REVIEW_CATEGORY_LIST
+  );
   const [scrollDirection, setScrollDirection] = useState('up');
   let lastScrollTop = 0;
 
@@ -42,6 +45,14 @@ function ReviewTemplate() {
   /**
    * handlers
    */
+  const onClickReviewCategoryCard = (idx) => {
+    setReviewCategoryList(
+      reviewCategoryList.map((o, i) =>
+        idx === i ? { ...o, isSelect: true } : { ...o, isSelect: false }
+      )
+    );
+  }
+    
   // TODO : Hooks 사용
   const handleScrollDirection = useCallback(
     _.debounce((e) => {
@@ -91,10 +102,11 @@ function ReviewTemplate() {
               <div className={css['review-hashtag-header__emoji']} />
             </div>
             <div className={css['review-hashtag-section']}>
+              {/* TODO : 해시태그 기능 구현 */}
               {reviewStore.reviewHashtagList.map((o) => (
-                <div className={css['review-hashtag-section--label']}>
+                <button className={css['review-hashtag-section--label']}>
                   # {o.hashtag}
-                </div>
+                </button>
               ))}
             </div>
           </div>
@@ -103,14 +115,18 @@ function ReviewTemplate() {
         )}
 
         {/* 리뷰 > 카테고리 */}
-        {REVIEW_CATEGORY_LIST && REVIEW_CATEGORY_LIST.length ? (
+        {reviewCategoryList && reviewCategoryList.length ? (
           <div className={css['review-category']}>
             <div className={css['review-category-header']}>
               <div className={css['review-category-header__title']} />
             </div>
             <div className={css['review-category-section']}>
-              {REVIEW_CATEGORY_LIST.map((o) => (
-                <div className={css['review-category-section__card']}>
+              {/* TODO : 카테고리 조회 구현 */}
+              {reviewCategoryList.map((o, i) => (
+                <div
+                  className={css['review-category-section__card']}
+                  onClick={() => onClickReviewCategoryCard(i)}
+                >
                   <div
                     className={cn(
                       css[`review-category-section__card--category-img`],

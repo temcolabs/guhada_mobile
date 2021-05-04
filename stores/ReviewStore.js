@@ -5,7 +5,9 @@ export default class ReviewStore {
   // Observable
   @observable reviewBannerList = [];
   @observable reviewHashtagList = [];
-  @observable reviewList = [];
+  @observable reviewList = {
+    
+  };
 
   // computed
 
@@ -36,10 +38,10 @@ export default class ReviewStore {
     } catch (error) {
       console.error(error.message);
     }
-  }
+  };
 
   @action
-  getReviewList = async ({page = 1, }) => {
+  getReviewList = async ({ page = 1, unitPerPage = 20, categoryName }) => {
     try {
       const { data } = await API.search('/event/banner?bannerType=REVIEW');
       const result = data.data;
@@ -50,5 +52,5 @@ export default class ReviewStore {
     } catch (error) {
       console.error(error.message);
     }
-  }
+  };
 }
