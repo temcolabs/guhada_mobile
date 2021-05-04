@@ -32,10 +32,9 @@ const DealSection = ({ header, deals, horizontal = false }) => (
 
 DealSection.propTypes = {
   header: PropTypes.string.isRequired,
-  items: PropTypes.arrayOf(dealShape).isRequired,
+  items: PropTypes.arrayOf(dealShape),
   horoizontal: PropTypes.bool,
   small: PropTypes.bool,
-  handleRoute: PropTypes.func.isRequired,
 };
 
 export default memo(DealSection);

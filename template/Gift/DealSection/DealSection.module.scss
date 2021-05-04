@@ -13,6 +13,9 @@
   }
 
   &__items {
+    padding-left: 6px;
+    padding-right: 6px;
+
     &.items--horizontal {
       width: auto;
       overflow-x: auto;
