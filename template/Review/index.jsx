@@ -1,5 +1,6 @@
 import css from './Review.module.scss';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
+
 import Proptypes from 'prop-types';
 import { observer } from 'mobx-react';
 import dynamic from 'next/dynamic';
@@ -14,8 +15,22 @@ import Footer from 'components/footer/Footer';
 import CategorySlider from 'components/common/CategorySlider';
 
 import { REVIEW_CATEGORY_LIST } from './_constants';
+import { Image } from 'components/atoms';
+import { Slider } from 'components/molecules';
+
+// TODO : 컴포넌트 옮기기
+import StarItem from 'components/mypage/review/StarItem';
 
 import { toJS } from 'mobx';
+
+const settings = {
+  arrows: false,
+  dots: false,
+  infinite: false,
+  speed: 500,
+  slidesToShow: 1,
+  variableWidth: true,
+};
 
 function ReviewTemplate() {
   /**
@@ -26,15 +41,43 @@ function ReviewTemplate() {
     REVIEW_CATEGORY_LIST
   );
   const [scrollDirection, setScrollDirection] = useState('up');
+
+  const sliderRef = useRef(null);
+
   let lastScrollTop = 0;
 
   /**
    * side effects
    */
+
+  /**
+   * 초기화
+   */
   useEffect(() => {
     reviewStore.getReviewBannerList();
     reviewStore.getReviewPopularHashTag();
+    reviewStore.getProductReviewBookmarks();
   }, [reviewStore]);
+
+  /**
+   * 카테고리 변경
+   */
+  useEffect(() => {
+    const activeCategory = reviewCategoryList.find((o) => o.isSelect);
+    reviewStore.getReviewList(1, 20, activeCategory.categoryName);
+  }, [reviewCategoryList]);
+
+  /**
+   * React-slick, 간격 수정
+   */
+  useEffect(() => {
+    let slickSlides = document.querySelectorAll('.slick-slide');
+    if (slickSlides && slickSlides.length) {
+      slickSlides.forEach((o, i) => {
+        o.style.marginRight = '7px';
+      });
+    }
+  }, [sliderRef.current]);
 
   // TODO : Hooks 사용
   useEffect(() => {
@@ -43,16 +86,22 @@ function ReviewTemplate() {
   }, [handleScrollDirection]);
 
   /**
+   * 1. 스토어 확인
+   * 2. last : false
+   * 3. 임계점, 호출
+   */
+
+  /**
    * handlers
    */
-  const onClickReviewCategoryCard = (idx) => {
+  const onClickReviewCategory = (idx) => {
     setReviewCategoryList(
       reviewCategoryList.map((o, i) =>
         idx === i ? { ...o, isSelect: true } : { ...o, isSelect: false }
       )
     );
-  }
-    
+  };
+
   // TODO : Hooks 사용
   const handleScrollDirection = useCallback(
     _.debounce((e) => {
@@ -67,10 +116,23 @@ function ReviewTemplate() {
     []
   );
 
-  console.log(
-    'reviewStore.reviewHashtagList : ',
-    toJS(reviewStore.reviewHashtagList)
-  );
+  /**
+   * helpers
+   */
+  const createReviewImages = (list) => {
+    return list && list.length
+      ? list.map((src) => (
+          <div
+            style={{ width: '320px' }}
+            className={css['review-list-item__image--item']}
+          >
+            <Image src={src} width={'auto'} height={'320px'} />
+          </div>
+        ))
+      : '';
+  };
+
+  console.log('reviewStore.reviewItems : ', toJS(reviewStore.reviewItems));
 
   return (
     <DefaultLayout
@@ -86,7 +148,6 @@ function ReviewTemplate() {
 
       <div className={css['review']}>
         {/* 리뷰 > 배너 */}
-        <div className={css['review-banner']} />
         {reviewStore.reviewBannerList && reviewStore.reviewBannerList.length ? (
           <div className={css['review-banner']} />
         ) : (
@@ -125,7 +186,7 @@ function ReviewTemplate() {
               {reviewCategoryList.map((o, i) => (
                 <div
                   className={css['review-category-section__card']}
-                  onClick={() => onClickReviewCategoryCard(i)}
+                  onClick={() => onClickReviewCategory(i)}
                 >
                   <div
                     className={cn(
@@ -156,6 +217,67 @@ function ReviewTemplate() {
         )}
 
         {/* 리뷰 > 카드 */}
+        {reviewStore.reviewItems && reviewStore.reviewItems.length ? (
+          <div className={css['review-list']}>
+            {reviewStore.reviewItems.map((item) => (
+              <div className={css['review-list-item']}>
+                {/* 리뷰 > 카드 > 이미지 */}
+                <div
+                  key={`review-item-${item?.id}`}
+                  className={css['review-list-item__image']}
+                >
+                  {item?.reviewImageList.length <= 1 ? (
+                    <div className={css['review-list-item__image--item']}>
+                      <Image
+                        src={item.reviewImageList[0]}
+                        width={'auto'}
+                        height={'320px'}
+                      />
+                    </div>
+                  ) : (
+                    <Slider
+                      ref={sliderRef}
+                      children={createReviewImages(item?.reviewImageList)}
+                      settings={settings}
+                    />
+                  )}
+                </div>
+                {/* 좋아요, 댓글, 별  */}
+                <div className={css['review-list-item__info']}>
+                  {/* 좋아요, 댓글 */}
+                  <div
+                    className={css['review-list-item__info--like-and-comment']}
+                  >
+                    {/* 좋아요 */}
+                    <div>
+                      <div
+                        className={cn(
+                          css[`review-list-item__info--like-and-comment`],
+                          css[`like-off`]
+                        )}
+                      />
+                      {item?.bookmarkCount}
+                    </div>
+                    {/* 댓글 */}
+                    <div>
+                      <div
+                        className={cn(
+                          css[`review-list-item__info--like-and-comment`],
+                          css[`comment`]
+                        )}
+                      />
+                      {item?.commentCount}
+                    </div>
+                  </div>
+                  {/* 별 */}
+                  <div>{StarItem(item?.rating)}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          ''
+        )}
       </div>
 
       <Footer />

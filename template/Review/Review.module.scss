@@ -1,4 +1,5 @@
 @import '../../styles/sprite.scss';
+@import 'styles/mixins/scrolls/x-scroll.scss';
 
 @mixin review-header {
   display: flex;
@@ -77,15 +78,8 @@
     }
 
     .review-category-section {
-      display: flex;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      scroll-snap-type: x mandatory;
+      @include flexboxScroll;
       margin-bottom: 30px;
-
-      &::-webkit-scrollbar {
-        display: none;
-      }
 
       &__card {
         width: 54px;
@@ -146,6 +140,64 @@
             color: #777;
           }
         }
+      }
+    }
+  }
+
+  // Meun > Review > Review list
+  .review-list {
+    .review-list-item {
+      margin-bottom: 20px;
+
+      &__image {
+        height: 320px;
+        &--item {
+          margin: 0 20px;
+        }
+      }
+      &__info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+        height: 56px;
+        border: 1px solid black;
+
+        > div {
+          width: 50%;
+        }
+
+        > div:last-child {
+          display: flex;
+          justify-content: flex-end;
+        }
+
+        &--like-and-comment {
+          display: flex;
+          font-size: 12px;
+          font-weight: 600;
+
+          > div {
+            display: flex;
+            margin-right: 7px;
+          }
+
+          &.like-on {
+            margin-right: 7px;
+            @include sprite($like-on);
+          }
+
+          &.like-off {
+            margin-right: 7px;
+            @include sprite($like-off);
+          }
+
+          &.comment {
+            margin-right: 7px;
+            @include sprite($comment);
+          }
+        }
+
       }
     }
   }
