@@ -53,6 +53,12 @@ export default class ReviewStore {
     }
   };
 
+  /**
+   * 리뷰 전체 조회
+   * @param {Number} page : 리뷰 페이지
+   * @param {Number} unitPerPage : 리뷰 페이지 컨텐츠
+   * @param {String} categoryName : 리뷰 종류
+   */
   @action
   getReviewList = async (page = 1, unitPerPage = 20, categoryName = '전체') => {
     try {
@@ -68,6 +74,9 @@ export default class ReviewStore {
     }
   };
 
+  /**
+   * 사용자 북마크 조회
+   */
   @action
   getProductReviewBookmarks = () => {
     const userId = this.root.user.userInfo.id;
