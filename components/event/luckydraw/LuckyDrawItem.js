@@ -8,7 +8,6 @@ import anime from 'animejs';
 import addCommaToNum from 'childs/lib/common/addCommaToNum';
 import { luckyDrawStatus } from 'childs/lib/API/product/luckyDrawService';
 import { loginStatus } from 'childs/lib/constant';
-import gtagTracker from 'childs/lib/tracking/google/gtagTracker';
 
 /**
   * 데이터 바인딩 가이드는 zeplin 참조
@@ -50,8 +49,6 @@ export default function LuckyDrawItem({
   const { statusCode } = data;
 
   const handleClickRequestButton = useCallback(() => {
-    gtagTracker.gaEvent.luckyDrawRequest();
-
     luckyDrawStore.luckydrawDealId = data?.dealId;
 
     switch (statusCode) {

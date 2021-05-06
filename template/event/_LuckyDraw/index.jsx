@@ -7,6 +7,7 @@ import { observer } from 'mobx-react-lite';
 import copy from 'copy-to-clipboard';
 import { mainCategory } from 'childs/lib/constant/category';
 import { loginStatus } from 'childs/lib/constant';
+import gtagTracker from 'childs/lib/tracking/google/gtagTracker';
 
 // layout
 import CategorySlider from 'components/common/CategorySlider';
@@ -36,9 +37,12 @@ const LuckydrawLogin = dynamic(() => import('template/event/LuckydrawLogin'), {
 });
 
 // TODO : 모달 > 컴포넌트화
-const LuckydrawSignup = dynamic(() => import('template/event/LuckydrawSignup'), {
-  ssr: false,
-});
+const LuckydrawSignup = dynamic(
+  () => import('template/event/LuckydrawSignup'),
+  {
+    ssr: false,
+  }
+);
 
 const enhancer = compose(withRouter);
 const initialStateLuckyDrawModal = {
@@ -118,6 +122,7 @@ function LuckyDrawTemplate({ router, luckyDraw, login, main }) {
    * @param {Number}} dealId
    */
   const onClickRequestLuckyDraw = async (dealId) => {
+    gtagTracker.gaEvent.luckyDrawRequest(); // ga 트래커
     if (login.loginStatus !== loginStatus.LOGIN_DONE) {
       luckyDraw.setLuckydrawLoginModal(true);
     } else {
@@ -160,7 +165,7 @@ function LuckyDrawTemplate({ router, luckyDraw, login, main }) {
   /**
    * 럭키드로우 회원가입 모달 닫기
    */
-   const onCloseLuckyDrawSignupModal = () => {
+  const onCloseLuckyDrawSignupModal = () => {
     console.log('onCloseLuckyDrawSignupModal');
     document.documentElement.style.overflow = 'initial';
     luckyDraw.setLuckydrawSignupModal(false);
