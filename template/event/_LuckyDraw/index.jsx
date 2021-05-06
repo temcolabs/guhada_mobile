@@ -6,6 +6,7 @@ import { useObserver } from 'mobx-react-lite';
 
 import copy from 'copy-to-clipboard';
 import { mainCategory } from 'childs/lib/constant/category';
+import { loginStatus } from 'childs/lib/constant';
 
 // layout
 import CategorySlider from 'components/common/CategorySlider';
@@ -29,6 +30,10 @@ const LuckyDrawModal = dynamic(
   () => import('components/molecules/Modal/LuckyDrawModal'),
   { ssr: false }
 );
+// TODO : 모달 > 컴포넌트화
+const LuckydrawLogin = dynamic(() => import('template/event/LuckydrawLogin'), {
+  ssr: false,
+});
 
 const enhancer = compose(withRouter);
 const initialStateLuckyDrawModal = {
@@ -42,7 +47,7 @@ const initialStateLuckyDrawModal = {
  * @param {Object} luckyDraw LuckyDrawStore
  * @returns LuckyDraw
  */
-function LuckyDrawTemplate({ router, luckyDraw, main }) {
+function LuckyDrawTemplate({ router, luckyDraw, login, main }) {
   /**
    * states
    */
@@ -53,6 +58,7 @@ function LuckyDrawTemplate({ router, luckyDraw, main }) {
 
   const [isActiveLuckyDrawModal, setIsActiveLuckyDrawModal] = useState(false); // 럭키드로우 모달 Flag
   const [isActiveWarnModal, setIsActiveWarnModal] = useState(false); // 럭키드로우 유의사항 모달 Flag
+  const [isActiveLoginModal, setIsActiveLoginModal] = useState(false); // 럭키드로우 로그인 모달
 
   /** side effects **/
 
@@ -97,13 +103,17 @@ function LuckyDrawTemplate({ router, luckyDraw, main }) {
    * @param {Number}} dealId
    */
   const onClickRequestLuckyDraw = async (dealId) => {
-    const requestLuckyDraw = await luckyDraw.requestLuckyDraws({ dealId });
-    if (requestLuckyDraw) {
-      setLuckyDrawModalProps({
-        status: 'START',
-        contents: '럭키드로우 응모가 완료되었습니다.',
-      });
-      setIsActiveLuckyDrawModal(true);
+    if (login.loginStatus !== loginStatus.LOGIN_DONE) {
+      setIsActiveLoginModal(true);
+    } else {
+      const requestLuckyDraw = await luckyDraw.requestLuckyDraws({ dealId });
+      if (requestLuckyDraw) {
+        setLuckyDrawModalProps({
+          status: 'START',
+          contents: '럭키드로우 응모가 완료되었습니다.',
+        });
+        setIsActiveLuckyDrawModal(true);
+      }
     }
   };
 
@@ -114,7 +124,7 @@ function LuckyDrawTemplate({ router, luckyDraw, main }) {
     document.documentElement.style.overflow = 'initial';
     setLuckyDrawModalProps({ ...initialStateLuckyDrawModal });
     setIsActiveLuckyDrawModal(false);
-  }
+  };
 
   /**
    * 럭키드로우 유의사항 모달 닫기
@@ -122,7 +132,15 @@ function LuckyDrawTemplate({ router, luckyDraw, main }) {
   const onCloseLuckyDrawWarnModal = () => {
     document.documentElement.style.overflow = 'initial';
     setIsActiveWarnModal(false);
-  }
+  };
+
+  /**
+   * 럭키드로우 로그인 모달 닫기
+   */
+   const onCloseLuckyDrawLoginModal = () => {
+    document.documentElement.style.overflow = 'initial';
+    setIsActiveLoginModal(false);
+  };
 
   /**
    * helpers
@@ -182,6 +200,12 @@ function LuckyDrawTemplate({ router, luckyDraw, main }) {
           status={luckyDrawModalProps.status}
           contents={luckyDrawModalProps.contents}
           onClose={() => onCloseLuckyDrawModal()}
+        />
+      )}
+      {isActiveLoginModal && (
+        <LuckydrawLogin
+          isOpen={isActiveLoginModal}
+          closeModal={() => onCloseLuckyDrawLoginModal(false)}
         />
       )}
       <DefaultLayout>

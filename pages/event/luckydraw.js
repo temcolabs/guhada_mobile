@@ -5,7 +5,7 @@ import LuckyDraw from 'template/event/_LuckyDraw';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
 
 @withScrollToTopOnMount
-@inject('luckyDraw', 'main')
+@inject('luckyDraw', 'main', 'login')
 @observer
 class LuckyDrawPage extends Component {
   componentDidMount() {
@@ -14,7 +14,7 @@ class LuckyDrawPage extends Component {
   }
 
   render() {
-    const { luckyDraw, main } = this.props;
+    const { luckyDraw, main, login } = this.props;
 
     return (
       <Fragment>
@@ -25,7 +25,7 @@ class LuckyDrawPage extends Component {
           }/images/thumbnail/luckydraw/thumbnail_luckydraw.png`}
         />
         {luckyDraw?.luckyDrawData && (
-          <LuckyDraw luckyDraw={luckyDraw} main={main} />
+          <LuckyDraw luckyDraw={luckyDraw} login={login} main={main} />
         )}
       </Fragment>
     );
