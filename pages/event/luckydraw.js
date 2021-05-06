@@ -9,8 +9,13 @@ import HeadForSEO from 'childs/lib/components/HeadForSEO';
 @observer
 class LuckyDrawPage extends Component {
   componentDidMount() {
-    this.props.luckyDraw.getLuckyDrawList();
-    this.props.luckyDraw.initLuckyEventData();
+    this.initLuckyDraw();
+  }
+
+  initLuckyDraw() {
+    const { luckyDraw: luckyDrawStore } = this.props;
+    luckyDrawStore.getLuckyDrawList();
+    luckyDrawStore.initLuckyEventData();
   }
 
   render() {

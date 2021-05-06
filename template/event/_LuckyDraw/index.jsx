@@ -1,8 +1,8 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { compose } from 'lodash/fp';
 import { withRouter } from 'next/router';
 import dynamic from 'next/dynamic';
-import { useObserver } from 'mobx-react-lite';
+import { observer } from 'mobx-react-lite';
 
 import copy from 'copy-to-clipboard';
 import { mainCategory } from 'childs/lib/constant/category';
@@ -35,6 +35,11 @@ const LuckydrawLogin = dynamic(() => import('template/event/LuckydrawLogin'), {
   ssr: false,
 });
 
+// TODO : 모달 > 컴포넌트화
+const LuckydrawSignup = dynamic(() => import('template/event/LuckydrawSignup'), {
+  ssr: false,
+});
+
 const enhancer = compose(withRouter);
 const initialStateLuckyDrawModal = {
   status: '',
@@ -58,9 +63,19 @@ function LuckyDrawTemplate({ router, luckyDraw, login, main }) {
 
   const [isActiveLuckyDrawModal, setIsActiveLuckyDrawModal] = useState(false); // 럭키드로우 모달 Flag
   const [isActiveWarnModal, setIsActiveWarnModal] = useState(false); // 럭키드로우 유의사항 모달 Flag
-  const [isActiveLoginModal, setIsActiveLoginModal] = useState(false); // 럭키드로우 로그인 모달
 
-  /** side effects **/
+  /**
+   * side effects
+   */
+
+  /**
+   * 럭키드로우 로그인 / 비로그인 데이터 처리
+   */
+  useEffect(() => {
+    document.documentElement.style.overflow = 'initial';
+    luckyDraw.getLuckyDrawList();
+    luckyDraw.initLuckyEventData();
+  }, [login.isLoggedIn]);
 
   /**
    * handlers
@@ -104,7 +119,7 @@ function LuckyDrawTemplate({ router, luckyDraw, login, main }) {
    */
   const onClickRequestLuckyDraw = async (dealId) => {
     if (login.loginStatus !== loginStatus.LOGIN_DONE) {
-      setIsActiveLoginModal(true);
+      luckyDraw.setLuckydrawLoginModal(true);
     } else {
       const requestLuckyDraw = await luckyDraw.requestLuckyDraws({ dealId });
       if (requestLuckyDraw) {
@@ -137,9 +152,18 @@ function LuckyDrawTemplate({ router, luckyDraw, login, main }) {
   /**
    * 럭키드로우 로그인 모달 닫기
    */
-   const onCloseLuckyDrawLoginModal = () => {
+  const onCloseLuckyDrawLoginModal = () => {
     document.documentElement.style.overflow = 'initial';
-    setIsActiveLoginModal(false);
+    luckyDraw.setLuckydrawLoginModal(false);
+  };
+
+  /**
+   * 럭키드로우 회원가입 모달 닫기
+   */
+   const onCloseLuckyDrawSignupModal = () => {
+    console.log('onCloseLuckyDrawSignupModal');
+    document.documentElement.style.overflow = 'initial';
+    luckyDraw.setLuckydrawSignupModal(false);
   };
 
   /**
@@ -181,10 +205,12 @@ function LuckyDrawTemplate({ router, luckyDraw, login, main }) {
     [luckyDrawList]
   );
 
+  const MemoLuckyDrawCard = React.memo(LuckyDrawCard);
+
   /**
    * render
    */
-  return useObserver(() => (
+  return (
     <>
       {/* 럭키드로우 유의사항 모달 */}
       {isActiveWarnModal && (
@@ -202,10 +228,18 @@ function LuckyDrawTemplate({ router, luckyDraw, login, main }) {
           onClose={() => onCloseLuckyDrawModal()}
         />
       )}
-      {isActiveLoginModal && (
+      {/* 럭키드로우 로그인 모달 */}
+      {luckyDraw.luckydrawLoginModal && (
         <LuckydrawLogin
-          isOpen={isActiveLoginModal}
-          closeModal={() => onCloseLuckyDrawLoginModal(false)}
+          isOpen={luckyDraw.luckydrawLoginModal}
+          closeModal={() => onCloseLuckyDrawLoginModal()}
+        />
+      )}
+      {/* 럭키드로우 회원가입 모달 */}
+      {luckyDraw.luckydrawSignupModal && (
+        <LuckydrawSignup
+          isOpen={luckyDraw.luckydrawSignupModal}
+          closeModal={() => onCloseLuckyDrawSignupModal()}
         />
       )}
       <DefaultLayout>
@@ -225,7 +259,7 @@ function LuckyDrawTemplate({ router, luckyDraw, login, main }) {
         activeList.length ? (
           activeList.map((o) => {
             return (
-              <LuckyDrawCard
+              <MemoLuckyDrawCard
                 {...o}
                 key={`luckydraw-${o.dealId}`}
                 onClickRequestLuckyDraw={onClickRequestLuckyDraw}
@@ -253,7 +287,7 @@ function LuckyDrawTemplate({ router, luckyDraw, login, main }) {
         />
       </DefaultLayout>
     </>
-  ));
+  );
 }
 
-export default enhancer(LuckyDrawTemplate);
+export default enhancer(observer(LuckyDrawTemplate));

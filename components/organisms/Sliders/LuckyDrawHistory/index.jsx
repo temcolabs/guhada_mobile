@@ -59,7 +59,7 @@ function LuckyDrawHistory({ winnerList, onClickHistory }) {
       {/* 럭키드로우 아이템 슬라이더 */}
       <SliderSection>
         {scrollMenuData && scrollMenuData.length && (
-          <ScrollMenu data={scrollMenuData} wheel={false} selected={5} />
+          <ScrollMenu data={scrollMenuData} wheel={false} />
         )}
       </SliderSection>
       {/* TODO : 럭키드로우 아이템 스크롤 */}
