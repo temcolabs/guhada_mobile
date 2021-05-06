@@ -64,7 +64,6 @@ function Ranking() {
           <RankingHeader handleFilterModalOpen={handleFilterModalOpen} />
           <RankingSection
             rank={rankingStore.ranking.rank}
-            toSearch={searchItemStore.toSearch}
             handleSearch={handleSearch}
           />
         </div>
