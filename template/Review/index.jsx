@@ -56,7 +56,6 @@ function ReviewTemplate() {
   useEffect(() => {
     reviewStore.getReviewBannerList();
     reviewStore.getReviewPopularHashTag();
-    reviewStore.getProductReviewBookmarks();
   }, [reviewStore]);
 
   /**
@@ -102,6 +101,10 @@ function ReviewTemplate() {
     );
   };
 
+  const onClickLikeReview = (id) => {
+    const 
+  }
+
   // TODO : Hooks 사용
   const handleScrollDirection = useCallback(
     _.debounce((e) => {
@@ -131,8 +134,6 @@ function ReviewTemplate() {
         ))
       : '';
   };
-
-  console.log('reviewStore.reviewItems : ', toJS(reviewStore.reviewItems));
 
   return (
     <DefaultLayout
@@ -253,8 +254,11 @@ function ReviewTemplate() {
                       <div
                         className={cn(
                           css[`review-list-item__info--like-and-comment`],
-                          css[`like-off`]
+                          css[
+                            `${item?.myBookmarkReview ? 'like-on' : 'like-off'}`
+                          ]
                         )}
+                        onClick={() => onClickBookMark(item.id)}
                       />
                       {item?.bookmarkCount}
                     </div>

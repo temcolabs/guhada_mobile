@@ -9,6 +9,8 @@ export default class ReviewStore {
     if (!isServer) this.root = root;
   }
 
+  @observable searchReview
+
   // Observable
   @observable reviewBannerList = [];
   @observable reviewHashtagList = [];
@@ -18,6 +20,7 @@ export default class ReviewStore {
 
   // computed
   @computed get reviewItems() {
+    console.log('this.reviewBookMarkList : ', toJS(this.reviewBookMarkList));
     console.log('this.reviewPage : ', toJS(this.reviewPage));
     return this.reviewPage.empty
       ? this.reviewList
@@ -75,21 +78,43 @@ export default class ReviewStore {
   };
 
   /**
-   * 사용자 북마크 조회
+   * 사용자 북마크 추가 (좋아요)
+   * @param {Number} id 
    */
   @action
-  getProductReviewBookmarks = () => {
-    const userId = this.root.user.userInfo.id;
+  setProductReviewBookmarks = id => {
     API.user
-      .get(`/users/${userId}/bookmarks`, {
+      .post(`/users/bookmarks`, {
+        target: bookmarkTarget.REVIEW,
+        targetId: id,
+      })
+      .then(res => {
+        if (this.root.login.loginStatus === 'LOGIN_DONE')
+          this.getProductReviewBookmarks();
+      })
+      .catch(e => {
+        console.error('e', e);
+      });
+  };
+
+  /**
+   * 사용자 북마크 삭제 (좋아요 취소)
+   * @param {Number} id 
+   */
+  @action
+  delProductReviewBookmarks = id => {
+    API.user
+      .delete(`/users/bookmarks`, {
         params: {
           target: bookmarkTarget.REVIEW,
+          targetId: id,
         },
       })
-      .then((res) => {
-        this.reviewBookMarkList = res.data.data.content;
+      .then(res => {
+        if (this.root.login.loginStatus === 'LOGIN_DONE')
+          this.getProductReviewBookmarks();
       })
-      .catch((e) => {
+      .catch(e => {
         console.error('e', e);
       });
   };

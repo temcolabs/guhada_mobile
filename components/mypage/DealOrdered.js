@@ -9,8 +9,9 @@ import { ORDER_LIST_ITEM_SAMPLE } from 'childs/lib/constant/order/orderModel';
 // import DeliveryDelayModal from '../molecules/Modal/DeliveryDelay';
 
 /** 발송지연 상세 모달 */
-const DeliveryDelayModal = dynamic(() =>
-  import('../molecules/Modal/DeliveryDelay')
+const DeliveryDelayModal = dynamic(
+  () => import('../molecules/Modal/DeliveryDelay'),
+  { ssr: false }
 );
 
 /**
