@@ -105,8 +105,6 @@ export default function RefundAccountInfoForm({
 
   // const isAccountVerified = values[fields.isRefundAccountChecked];
 
-  console.log(`isRefundAccountFormVisible`, isRefundAccountFormVisible);
-
   return (
     <div>
       {isRefundAccountFormVisible && (
@@ -291,7 +289,7 @@ export default function RefundAccountInfoForm({
             <div className={claimFormCSS.field__value}>
               {
                 orderClaimForm.bankCodeOptions.find(
-                  o => o.value === claimData?.refundBankCode
+                  (o) => o.value === claimData?.refundBankCode
                 )?.label
               }
             </div>

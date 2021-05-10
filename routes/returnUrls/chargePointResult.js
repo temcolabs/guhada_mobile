@@ -8,7 +8,6 @@ module.exports = {
     const authData = req.body;
 
     if (authData.resultCode !== '0000') {
-      console.log(authData, 'authData', authData.resultMsg, 'message');
       res.redirect('/mypage/point?resultMsg=' + authData.resultMsg);
       return false;
     }
@@ -70,13 +69,12 @@ module.exports = {
           },
         }
       )
-      .then(response => {
+      .then((response) => {
         let data = response.data.data;
 
         if (response.data.resultCode === 200) {
           res.redirect('/mypage/point?resultMsg=chargesuccess');
         } else {
-          console.log(data, 'pg 통과후 문제');
           res.redirect('/mypage/point');
         }
       });

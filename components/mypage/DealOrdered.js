@@ -37,9 +37,9 @@ export default function DealOrdered({
 
   // 발송지연 상태 Flag
   const isDelayStatusVisible =
-    (order?.shipDelayNotificationTimestamp &&
-      order?.purchaseStatus === 'COMPLETE_PAYMENT') ||
-    order?.purchaseStatus === 'PREPARE_PRODUCT';
+    order?.shipDelayNotificationTimestamp &&
+    (order?.purchaseStatus === 'COMPLETE_PAYMENT' ||
+      order?.purchaseStatus === 'PREPARE_PRODUCT');
 
   // 발송지연 데드라인 기한
   const delayDeadlineDate = order?.delayDeadlineTimestamp

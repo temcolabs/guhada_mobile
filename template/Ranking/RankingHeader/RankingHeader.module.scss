@@ -1,0 +1,29 @@
+.ranking__header {
+  .header__main {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+
+    &__title {
+      .title--name {
+        font-size: 17px;
+        line-height: 24px;
+        font-weight: 500;
+      }
+
+      .title--time {
+        font-size: 12.5px;
+        line-height: 17px;
+        color: #aaa;
+      }
+    }
+
+    &__selection {
+      margin-left: auto;
+    }
+  }
+
+  .header__filter {
+    display: flex;
+  }
+}

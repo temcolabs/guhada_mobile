@@ -13,6 +13,7 @@ import Cookies from 'js-cookie';
 import { observer, inject } from 'mobx-react';
 import NaverLogin from 'components/login/NaverLogin';
 import _ from 'lodash';
+import gtagTracker from 'childs/lib/tracking/google/gtagTracker';
 
 let userId = Cookies.get('userId');
 
@@ -31,7 +32,7 @@ class LuckydrawLogin extends Component {
     // }
   }
 
-  onChangeSaveId = e => {
+  onChangeSaveId = (e) => {
     this.setState({
       checkSaveId: !this.state.checkSaveId,
     });
@@ -102,7 +103,10 @@ class LuckydrawLogin extends Component {
                   className={
                     !(value.email && value.password) ? 'isGray' : 'isColored'
                   }
-                  onClick={form.onSubmit}
+                  onClick={(e) => {
+                    gtagTracker.gaEvent.luckyDrawLogin();
+                    form.onSubmit(e);
+                  }}
                   disabled={!(value.email && value.password)}
                 >
                   로그인
@@ -110,6 +114,7 @@ class LuckydrawLogin extends Component {
 
                 <LoginButton
                   onClick={() => {
+                    gtagTracker.gaEvent.luckyDrawSignup();
                     closeModal();
                     luckyDraw.setLuckydrawSignupModal(true);
                   }}
@@ -119,17 +124,21 @@ class LuckydrawLogin extends Component {
               </div>
               <div className={css.socialHeader}>간편 로그인</div>
               <div className={css.socialWrap}>
-                <NaverLogin luckydrawSNS={true} />
+                <NaverLogin
+                  onClick={gtagTracker.gaEvent.luckyDrawNaverSignup}
+                  luckydrawSNS={true}
+                />
                 <KakaoLogin
                   jsKey={snsAppKey.KAKAO}
                   onSuccess={login.responseKakao}
                   onFailure={login.responseKakao}
                   getProfile={true}
-                  render={props => (
+                  render={(props) => (
                     <div
                       className={css.social}
-                      onClick={e => {
+                      onClick={(e) => {
                         e.preventDefault();
+                        gtagTracker.gaEvent.luckyDrawKakaoSignup();
                         props.onClick();
                         login.loginPosition = 'luckydrawSNS';
                       }}
@@ -158,10 +167,11 @@ class LuckydrawLogin extends Component {
                   xfbml={true}
                   isMobile={true}
                   disableMobileRedirect={true}
-                  render={renderProps => (
+                  render={(renderProps) => (
                     <div
                       className={css.social}
                       onClick={() => {
+                        gtagTracker.gaEvent.luckyDrawFacebookSignup();
                         renderProps.onClick();
                         login.loginPosition = 'luckydrawSNS';
                       }}
@@ -183,10 +193,11 @@ class LuckydrawLogin extends Component {
                 />
                 <GoogleLogin
                   clientId={snsAppKey.GOOGLE}
-                  render={renderProps => (
+                  render={(renderProps) => (
                     <div
                       className={css.social}
                       onClick={() => {
+                        gtagTracker.gaEvent.luckyDrawGoogleSignup();
                         renderProps.onClick();
                         login.loginPosition = 'luckydrawSNS';
                       }}

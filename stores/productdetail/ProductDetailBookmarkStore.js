@@ -14,19 +14,19 @@ export default class ProductDetailLikeStore {
   @observable bookMarkAdd = false;
   @observable userId;
   @action
-  getBookMark = targetId => {
+  getBookMark = (targetId) => {
     this.userId = this.root.user.userInfo.id;
     if (this.userId) {
       API.user
         .get(
           `/users/${this.userId}/bookmarks?target=PRODUCT&targetId=${targetId}`
         )
-        .then(res => {
+        .then((res) => {
           if (!res.data.data.empty) {
             this.bookMarkStatus = true;
           }
         })
-        .catch(err => {
+        .catch((err) => {
           devLog(err);
           // this.root.alert.showAlert({
           //   content: `${_.get(err, 'data.message') || '오류가 발생했습니다.'}`,
@@ -36,23 +36,23 @@ export default class ProductDetailLikeStore {
   };
 
   @action
-  saveBookmark = id => {
+  saveBookmark = (id) => {
     if (!this.bookMarkStatus) {
       API.user
         .post(`/users/bookmarks`, {
           target: 'PRODUCT',
           targetId: id,
         })
-        .then(res => {
+        .then((res) => {
           this.bookMarkStatus = true;
           this.bookMarkAdd = 'on';
           // this.root.alert.showAlert({
           //   content: '해당상품을 북마크에 저장 했습니다.',
           // });
         })
-        .catch(err => {
+        .catch((err) => {
           let resultCode = _.get(err, 'data.resultCode');
-          console.log(err, resultCode);
+          console.error(err, resultCode);
 
           if (resultCode === 6017) {
             sendBackToLogin();
@@ -65,7 +65,7 @@ export default class ProductDetailLikeStore {
     } else {
       API.user
         .delete(`/users/bookmarks?target=PRODUCT&targetId=${id}`)
-        .then(res => {
+        .then((res) => {
           // this.root.alert.showAlert({
           //   content: '해당상품을 북마크 해제 했습니다.',
           //   confirmText: '확인',
@@ -73,9 +73,9 @@ export default class ProductDetailLikeStore {
           this.bookMarkStatus = false;
           this.bookMarkAdd = 'off';
         })
-        .catch(err => {
+        .catch((err) => {
           let resultCode = _.get(err, 'data.resultCode');
-          console.log(err, resultCode);
+          console.error(err, resultCode);
 
           if (resultCode === 6017) {
             sendBackToLogin();

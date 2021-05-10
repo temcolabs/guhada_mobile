@@ -37,7 +37,7 @@ export default class MypageCouponStore {
           this.itemsCountPerPage
         }`
       )
-      .then(res => {
+      .then((res) => {
         let data = res.data.data;
         this.validCouponList = data.content;
         this.validTotalItem = data.totalElements;
@@ -46,7 +46,7 @@ export default class MypageCouponStore {
 
         devLog(toJS(this.validCouponList), 'this.validCouponList');
       })
-      .catch(err => {
+      .catch((err) => {
         // this.root.alert.showAlert({
         //   content: `${_.get(err, 'data.message') || 'err.message'}`,
         // });
@@ -60,7 +60,7 @@ export default class MypageCouponStore {
         `/coupon/wallet?isAvailable=true&page=${this.validCouponPage +
           1}&unitPerPage=${this.itemsCountPerPage}`
       )
-      .then(res => {
+      .then((res) => {
         this.validCouponList = this.validCouponList.concat(
           res.data.data.content
         );
@@ -69,8 +69,8 @@ export default class MypageCouponStore {
         this.validCouponPage = this.validCouponPage + 1;
         devLog(res, 'this.validCouponList');
       })
-      .catch(err => {
-        console.log(err);
+      .catch((err) => {
+        console.error(err);
         // this.root.alert.showAlert({
         //   content: `${_.get(err, 'data.message') || 'ERROR'}`,
         // });
@@ -85,7 +85,7 @@ export default class MypageCouponStore {
           this.itemsCountPerPage
         }`
       )
-      .then(res => {
+      .then((res) => {
         let data = res.data.data;
         this.invalidCouponList = data.content;
         this.invalidTotalItem = data.totalElements;
@@ -94,7 +94,7 @@ export default class MypageCouponStore {
 
         devLog(res, 'this.invalidCouponList');
       })
-      .catch(err => {
+      .catch((err) => {
         // this.root.alert.showAlert({
         //   content: `${_.get(err, 'data.message') || 'err.message'}`,
         // });
@@ -108,7 +108,7 @@ export default class MypageCouponStore {
         `/coupon/wallet?isAvailable=false&page=${this.invalidCouponPage +
           1}&unitPerPage=${this.itemsCountPerPage}`
       )
-      .then(res => {
+      .then((res) => {
         this.invalidCouponList = this.invalidCouponList.concat(
           res.data.data.content
         );
@@ -117,8 +117,8 @@ export default class MypageCouponStore {
         this.invalidCouponPage = this.invalidCouponPage + 1;
         devLog(res, 'this.invalidCouponList');
       })
-      .catch(err => {
-        console.log(err);
+      .catch((err) => {
+        console.error(err);
         // this.root.alert.showAlert({
         //   content: `${_.get(err, 'data.message') || 'ERROR'}`,
         // });
@@ -126,13 +126,13 @@ export default class MypageCouponStore {
   };
 
   @action
-  deleteCoupon = couponNumber => {
+  deleteCoupon = (couponNumber) => {
     this.root.alert.showConfirm({
       content: '쿠폰을 삭제 하시겠습니까?',
       onConfirm: () => {
         API.benefit
           .delete(`/coupon/wallet/${couponNumber}`)
-          .then(res => {
+          .then((res) => {
             if (this.activeTab) {
               for (let i = 0; i < this.validCouponList.length; i++) {
                 if (this.validCouponList[i].couponNumber === couponNumber) {
@@ -154,7 +154,7 @@ export default class MypageCouponStore {
 
             // this.root.alert.showAlert('쿠폰이 삭제 되었습니다.');
           })
-          .catch(err => {
+          .catch((err) => {
             console.error(err, 'coupon delete error');
             // this.root.alert.showAlert({
             //   content: `${_.get(err, 'data.message') || 'err.message'}`,
@@ -165,7 +165,7 @@ export default class MypageCouponStore {
   };
 
   @action
-  couponRegisterHandle = num => {
+  couponRegisterHandle = (num) => {
     this.conponRegisterNum = num;
   };
   @action

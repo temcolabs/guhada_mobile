@@ -6,7 +6,7 @@ import copy from 'copy-to-clipboard';
 @inject('orderpaymentsuccess', 'user', 'alert')
 @observer
 class OrderInfo extends Component {
-  copyAccountToClipboard = vbankNo => {
+  copyAccountToClipboard = (vbankNo) => {
     copy(vbankNo);
 
     this.props.alert.showAlert('계좌번호가 복사되었습니다.');
@@ -15,7 +15,7 @@ class OrderInfo extends Component {
   render() {
     let { orderpaymentsuccess } = this.props;
     let { orderSuccessShipping, successInfo } = orderpaymentsuccess;
-    console.log(successInfo, 'successInfo');
+
     return (
       <div className={css.wrap}>
         <div className={css.orderInfoSection}>

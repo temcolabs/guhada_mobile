@@ -101,8 +101,6 @@ export default class CommentsStore {
       });
 
       this.data.content = this.data.content.concat(data.data.content);
-
-      console.log(this.list, 'this.list');
     } catch (e) {
       console.error(e);
     }

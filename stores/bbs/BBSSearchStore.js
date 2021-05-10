@@ -45,7 +45,7 @@ export default class SearchStore {
    */
   @action
   mapBBSList = (list = []) => {
-    return list.map(bbs =>
+    return list.map((bbs) =>
       _.merge(bbs, {
         // 신규 글 여부
         newlyCreated: this.getIsNewlyCreated({
@@ -60,7 +60,7 @@ export default class SearchStore {
    * GET /bbs/search
    */
   @action
-  searchWithGet = async searchQuery => {
+  searchWithGet = async (searchQuery) => {
     if (_.isNil(searchQuery.query)) {
       console.error('검색어를 입력해야 합니다.');
     } else {
@@ -95,7 +95,7 @@ export default class SearchStore {
 
     const filterUnvalid = _.partialRight(
       _.omitBy,
-      v => _.isNil(v) || _.isNaN(v) || v === ''
+      (v) => _.isNil(v) || _.isNaN(v) || v === ''
     );
 
     const searchBody = filterUnvalid({
@@ -147,7 +147,7 @@ export default class SearchStore {
 
     const filterUnvalid = _.partialRight(
       _.omitBy,
-      v => _.isNil(v) || _.isNaN(v) || v === ''
+      (v) => _.isNil(v) || _.isNaN(v) || v === ''
     );
 
     const searchBody = filterUnvalid({
@@ -176,10 +176,8 @@ export default class SearchStore {
       });
       this.bbsList = this.bbsList.concat(this.mapBBSList(data.data?.bbs) || []);
       this.totalCount = data.data?.totalCount;
-
-      console.log(data, 'data');
     } catch (e) {
-      console.error(e);
+      // console.error(e);
     } finally {
       this.isFetching = false;
       devGroupEnd(`searchWithPost`);

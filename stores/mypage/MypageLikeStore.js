@@ -44,7 +44,7 @@ export default class MypageLikeStore {
           this.itemsCountPerPage
         }&page=${pageNo}&target=PRODUCT`
       )
-      .then(res => {
+      .then((res) => {
         this.likeProductList = [];
         this.pageNo = pageNo;
         this.likeProductList = res.data.data.deals;
@@ -55,8 +55,8 @@ export default class MypageLikeStore {
 
         devLog(this.likeProductList, '찜한상품 리스트');
       })
-      .catch(err => {
-        console.log(err);
+      .catch((err) => {
+        console.error(err);
         this.likeProductList = [];
         this.totalItemsCount = 0;
         this.itemsCountPerPage = this.itemsCountPerPage;
@@ -75,7 +75,7 @@ export default class MypageLikeStore {
     e.stopPropagation();
     API.product
       .get(`/order-deals/${dealId}/options`)
-      .then(res => {
+      .then((res) => {
         let data = res.data;
         this.likeItemTempOptions = data.data;
         this.getLikeProductModalItem(dealId);
@@ -83,8 +83,8 @@ export default class MypageLikeStore {
 
         this.immediatePurchaseApiCall();
       })
-      .catch(err => {
-        console.log(err);
+      .catch((err) => {
+        console.error(err);
         // this.root.alert.showAlert({
         //   content: `${_.get(err, 'data.message') || err.message}`,
         // });
@@ -94,7 +94,7 @@ export default class MypageLikeStore {
   likeModalOpen = (dealId, type) => {
     API.product
       .get(`/order-deals/${dealId}/options`)
-      .then(res => {
+      .then((res) => {
         let data = res.data;
         this.likeItemTempOptions = data.data;
         this.getLikeProductModalItem(dealId);
@@ -106,15 +106,15 @@ export default class MypageLikeStore {
           this.optionModalPurchase = true;
         }
       })
-      .catch(err => {
-        console.log(err);
+      .catch((err) => {
+        console.error(err);
         // this.root.alert.showAlert({
         //   content: `${_.get(err, 'data.message') || err.message}`,
         // });
       });
   };
 
-  getLikeProductModalItem = dealId => {
+  getLikeProductModalItem = (dealId) => {
     for (let i = 0; i < this.likeProductList.length; i++) {
       if (this.likeProductList[i].dealId === dealId) {
         this.likeOptionModalItem = { ...this.likeProductList[i] };
@@ -216,7 +216,7 @@ export default class MypageLikeStore {
   };
 
   @action
-  selectOption = value => {
+  selectOption = (value) => {
     if (value.label === '선택안함') {
       this.selectedOption = null;
       this.selectedOptionPrice = 0;
@@ -324,7 +324,7 @@ export default class MypageLikeStore {
   };
 
   @action
-  quantityChange = e => {
+  quantityChange = (e) => {
     let value = e.target.value;
     value = parseInt(value);
     if (isNaN(value)) {
@@ -360,7 +360,7 @@ export default class MypageLikeStore {
   };
 
   @action
-  quantityChangeOutFocus = e => {
+  quantityChangeOutFocus = (e) => {
     let value = e.target.value;
     value = parseInt(value);
     if (isNaN(value) || value <= 0) {
@@ -372,7 +372,7 @@ export default class MypageLikeStore {
   };
 
   @action
-  likeSortChange = sort => {
+  likeSortChange = (sort) => {
     if (sort.value === 'ASC') {
       this.reverseList = true;
     } else {
@@ -410,7 +410,7 @@ export default class MypageLikeStore {
         dealOptionId: this.selectedOption.id,
         quantity: this.selectedQuantity,
       })
-      .then(res => {
+      .then((res) => {
         this.root.shoppingcart.globalGetUserShoppingCartList();
         API.product
           .get(
@@ -418,7 +418,7 @@ export default class MypageLikeStore {
               this.likeOptionModalItem.brandId
             }&pageIndex=0&unitPerPage=3`
           )
-          .then(res => {
+          .then((res) => {
             let data = res.data;
             this.optionModalClose();
 
@@ -426,8 +426,8 @@ export default class MypageLikeStore {
             this.root.associatedProductModal.shoppingCartSuccess = true;
           });
       })
-      .catch(err => {
-        console.log(err);
+      .catch((err) => {
+        console.error(err);
         // this.root.alert.showAlert({
         //   content: `${_.get(err, 'data.message') || err.message}`,
         // });
@@ -441,7 +441,7 @@ export default class MypageLikeStore {
         dealOptionId: this.selectedOption.id,
         quantity: this.selectedQuantity,
       })
-      .then(res => {
+      .then((res) => {
         this.root.shoppingcart.globalGetUserShoppingCartList();
         let data = res.data;
         Router.push({
@@ -452,8 +452,8 @@ export default class MypageLikeStore {
         });
         this.optionModalClose();
       })
-      .catch(err => {
-        console.log(err);
+      .catch((err) => {
+        console.error(err);
         // this.root.alert.showAlert({
         //   content: `${_.get(err, 'data.message') || err.message}`,
         // });
@@ -478,10 +478,10 @@ export default class MypageLikeStore {
     this.likeItemDeleteApiCall(id);
   };
 
-  likeItemDeleteApiCall = id => {
+  likeItemDeleteApiCall = (id) => {
     API.user
       .delete(`/users/bookmarks?target=PRODUCT&targetId=${id}`)
-      .then(res => {
+      .then((res) => {
         this.root.alert.showAlert({
           content: '해당상품이 삭제 되었습니다.',
           confirmText: '확인',
@@ -495,8 +495,8 @@ export default class MypageLikeStore {
 
         this.likeProductList = temp;
       })
-      .catch(err => {
-        console.log(err);
+      .catch((err) => {
+        console.error(err);
         // this.root.alert.showAlert({
         //   content: `${_.get(err, 'data.message') || 'ERROR'}`,
         // });
@@ -504,7 +504,7 @@ export default class MypageLikeStore {
   };
 
   @action
-  goProduct = id => {
+  goProduct = (id) => {
     Router.push(`/productdetail?deals=${id}`);
   };
 
@@ -512,7 +512,7 @@ export default class MypageLikeStore {
   totalDelete = () => {
     API.user
       .delete(`/users/bookmarks?target=PRODUCT`)
-      .then(res => {
+      .then((res) => {
         this.root.alert.showAlert({
           content: '전체삭제 되었습니다.',
           confirmText: '확인',
@@ -520,8 +520,8 @@ export default class MypageLikeStore {
 
         this.likeProductList = [];
       })
-      .catch(err => {
-        console.log(err);
+      .catch((err) => {
+        console.error(err);
         // this.root.alert.showAlert({
         //   content: `${_.get(err, 'data.message') || 'ERROR'}`,
         // });

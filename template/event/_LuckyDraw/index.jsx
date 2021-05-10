@@ -36,9 +36,12 @@ const LuckydrawLogin = dynamic(() => import('template/event/LuckydrawLogin'), {
 });
 
 // TODO : 모달 > 컴포넌트화
-const LuckydrawSignup = dynamic(() => import('template/event/LuckydrawSignup'), {
-  ssr: false,
-});
+const LuckydrawSignup = dynamic(
+  () => import('template/event/LuckydrawSignup'),
+  {
+    ssr: false,
+  }
+);
 
 const enhancer = compose(withRouter);
 const initialStateLuckyDrawModal = {
@@ -80,7 +83,7 @@ function LuckyDrawTemplate({ router, luckyDraw, login, main }) {
   /**
    * 럭키드로우 응모완료 모달 제어
    */
-   useEffect(() => {
+  useEffect(() => {
     setLuckyDrawModalProps(
       luckyDraw.isRequestModal
         ? {
@@ -172,7 +175,7 @@ function LuckyDrawTemplate({ router, luckyDraw, login, main }) {
   /**
    * 럭키드로우 회원가입 모달 닫기
    */
-   const onCloseLuckyDrawSignupModal = () => {
+  const onCloseLuckyDrawSignupModal = () => {
     document.documentElement.style.overflow = 'initial';
     luckyDraw.setLuckydrawSignupModal(false);
   };
