@@ -23,6 +23,9 @@ import StarItem from 'components/mypage/review/StarItem';
 
 import { toJS } from 'mobx';
 
+import { Wrapper } from './Styled';
+import { ReviewBanner } from './components';
+
 const settings = {
   arrows: false,
   dots: false,
@@ -32,7 +35,7 @@ const settings = {
   variableWidth: true,
 };
 
-function ReviewTemplate() {
+function ReviewTemplate({ banners }) {
   /**
    * states
    */
@@ -54,7 +57,6 @@ function ReviewTemplate() {
    * 초기화
    */
   useEffect(() => {
-    reviewStore.getReviewBannerList();
     reviewStore.getReviewPopularHashTag();
   }, [reviewStore]);
 
@@ -101,9 +103,7 @@ function ReviewTemplate() {
     );
   };
 
-  const onClickLikeReview = (id) => {
-     
-  }
+  const onClickLikeReview = (id) => {};
 
   // TODO : Hooks 사용
   const handleScrollDirection = useCallback(
@@ -147,13 +147,9 @@ function ReviewTemplate() {
         scrollDirection={scrollDirection}
       />
 
-      <div className={css['review']}>
+      <Wrapper>
         {/* 리뷰 > 배너 */}
-        {reviewStore.reviewBannerList && reviewStore.reviewBannerList.length ? (
-          <div className={css['review-banner']} />
-        ) : (
-          ''
-        )}
+        {banners && banners.length ? <ReviewBanner banners={banners} /> : ''}
 
         {/* 리뷰 > 해시태그 */}
         {reviewStore.reviewHashtagList &&
@@ -282,7 +278,7 @@ function ReviewTemplate() {
         ) : (
           ''
         )}
-      </div>
+      </Wrapper>
 
       <Footer />
     </DefaultLayout>
