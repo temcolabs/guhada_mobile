@@ -65,7 +65,7 @@ class ArticleStore {
       const category = _.get(this.root, 'bbs.category');
 
       const articleCategory = category.allCategories.find(
-        c => c.id === this.data.categoryId
+        (c) => c.id === this.data.categoryId
       );
 
       return articleCategory ? articleCategory.name : '';
@@ -177,7 +177,6 @@ class ArticleStore {
   }) => {
     // API 호출에 사용할 데이터
     const postBody = _.merge({}, this.articleBodyForRegister, body);
-    console.log(postBody, body, 'postBody body');
     try {
       await API.bbs.post(`/bbses`, postBody);
       onSuccess();

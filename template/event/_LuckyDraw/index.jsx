@@ -166,7 +166,6 @@ function LuckyDrawTemplate({ router, luckyDraw, login, main }) {
    * 럭키드로우 회원가입 모달 닫기
    */
   const onCloseLuckyDrawSignupModal = () => {
-    console.log('onCloseLuckyDrawSignupModal');
     document.documentElement.style.overflow = 'initial';
     luckyDraw.setLuckydrawSignupModal(false);
   };

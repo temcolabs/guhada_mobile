@@ -1077,8 +1077,6 @@ export default class SearchItemStore {
 
   @action
   setPriceFilter = ({ min, max }) => {
-    console.log('min', min);
-    console.log('max', max);
     this.minPrice = min;
     this.maxPrice = max;
   };
