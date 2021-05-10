@@ -37,7 +37,7 @@ class MypageAddressModal extends Component {
               <div className={css.value}>
                 <input
                   type="text"
-                  onChange={e => {
+                  onChange={(e) => {
                     mypageAddress.setEditAddress(e, 'shippingName');
                   }}
                   value={mypageAddress.editAddress.shippingName || ''}
@@ -85,7 +85,7 @@ class MypageAddressModal extends Component {
                 <input
                   type="text"
                   value={mypageAddress.editAddress.detailAddress || ''}
-                  onChange={e => {
+                  onChange={(e) => {
                     mypageAddress.setEditAddress(e, 'detailAddress');
                   }}
                 />
@@ -96,7 +96,7 @@ class MypageAddressModal extends Component {
                 <input
                   type="text"
                   value={mypageAddress.editAddress.recipientName || ''}
-                  onChange={e => {
+                  onChange={(e) => {
                     mypageAddress.setEditAddress(e, 'recipientName');
                   }}
                 />
@@ -112,7 +112,7 @@ class MypageAddressModal extends Component {
                       mypageAddress.editAddress.recipientMobile
                     ) || ''
                   }
-                  onChange={e => {
+                  onChange={(e) => {
                     mypageAddress.setEditAddress(e, 'recipientMobile');
                   }}
                   maxLength="13"
@@ -124,7 +124,7 @@ class MypageAddressModal extends Component {
               <label>
                 <input
                   type="checkbox"
-                  onChange={e => {
+                  onChange={(e) => {
                     mypageAddress.setEditAddress(e, 'defaultCheck');
                   }}
                   checked={mypageAddress.defaultAddress}
@@ -175,7 +175,7 @@ class MypageAddressModal extends Component {
                 <input
                   type="text"
                   placeholder="배송지명을 입력해주세요"
-                  onChange={e => {
+                  onChange={(e) => {
                     mypageAddress.setNewAddress(e, 'shippingName');
                   }}
                   value={mypageAddress.newAddress.shippingName || ''}
@@ -225,7 +225,7 @@ class MypageAddressModal extends Component {
                 <input
                   type="text"
                   placeholder="상세주소를 입력해주세요"
-                  onChange={e => {
+                  onChange={(e) => {
                     mypageAddress.setNewAddress(e, 'detailAddress');
                   }}
                   value={mypageAddress.newAddress.detailAddress || ''}
@@ -237,7 +237,7 @@ class MypageAddressModal extends Component {
                 <input
                   type="text"
                   placeholder="수령인을 입력해주세요."
-                  onChange={e => {
+                  onChange={(e) => {
                     mypageAddress.setNewAddress(e, 'recipientName');
                   }}
                   value={mypageAddress.newAddress.recipientName || ''}
@@ -250,7 +250,7 @@ class MypageAddressModal extends Component {
                 <input
                   type="text"
                   placeholder="연락처를 입력해주세요."
-                  onChange={e => {
+                  onChange={(e) => {
                     mypageAddress.setNewAddress(e, 'recipientMobile');
                   }}
                   maxLength="13"
@@ -267,7 +267,7 @@ class MypageAddressModal extends Component {
               <label>
                 <input
                   type="checkbox"
-                  onChange={e => {
+                  onChange={(e) => {
                     mypageAddress.setNewAddress(e, 'defaultCheck');
                   }}
                   checked={mypageAddress.defaultAddress}
@@ -298,8 +298,6 @@ class MypageAddressModal extends Component {
   renderEditOrderAdress() {
     const { mypageAddress } = this.props;
     const { orderAddress } = mypageAddress;
-
-    console.log(`orderAddress`, orderAddress);
 
     return (
       <div className={css.modal}>
@@ -377,7 +375,7 @@ class MypageAddressModal extends Component {
                 <input
                   type="text"
                   placeholder="상세주소를 입력해주세요"
-                  onChange={e => {
+                  onChange={(e) => {
                     mypageAddress.setOrderAddress(
                       e.target.value,
                       'addressDetail'
@@ -392,7 +390,7 @@ class MypageAddressModal extends Component {
                 <input
                   type="text"
                   placeholder="수령인을 입력해주세요."
-                  onChange={e => {
+                  onChange={(e) => {
                     mypageAddress.setOrderAddress(
                       e.target.value,
                       'receiverName'
@@ -408,7 +406,7 @@ class MypageAddressModal extends Component {
                 <input
                   type="text"
                   placeholder="연락처를 입력해주세요."
-                  onChange={e => {
+                  onChange={(e) => {
                     mypageAddress.setOrderAddress(e.target.value, 'phone');
                   }}
                   maxLength="13"

@@ -45,7 +45,7 @@ class KeywordMenu extends Component {
     }
   }
 
-  onChange = event => {
+  onChange = (event) => {
     const { keyword } = this.props;
 
     if (event.key === 'Enter') {
@@ -67,7 +67,7 @@ class KeywordMenu extends Component {
     }
   };
 
-  onChangeValue = e => {
+  onChangeValue = (e) => {
     this.setState({ inputValue: e.target.value });
   };
 
@@ -84,12 +84,12 @@ class KeywordMenu extends Component {
   onBlur = () => {
     this.setState({ displayContent: '' });
     const { field, searchHolder } = this.props;
-    if(field && field.value && field.value.length === 0){
+    if (field && field.value && field.value.length === 0) {
       searchHolder.placeholderData.placeholder = searchHolder.placeHolderClone;
     }
   };
 
-  changeKeyword = header => {
+  changeKeyword = (header) => {
     this.setState({ keywordTab: header });
   };
 
@@ -98,23 +98,29 @@ class KeywordMenu extends Component {
     const { searchitem, keyword, alert, searchHolder } = this.props;
     let keywordValue = value;
 
-    if (keywordValue.length === 0 || this.isKeywordPlaceholder(keywordValue)) {      
-      if(searchHolder.placeholderData.hasOwnProperty('placeholderLink') 
-        && searchHolder.placeholderData.placeholderLink && searchHolder.placeholderData.placeholderLink.length > 0)
+    if (keywordValue.length === 0 || this.isKeywordPlaceholder(keywordValue)) {
+      if (
+        searchHolder.placeholderData.hasOwnProperty('placeholderLink') &&
+        searchHolder.placeholderData.placeholderLink &&
+        searchHolder.placeholderData.placeholderLink.length > 0
+      )
         pushRoute(searchHolder.placeholderData.placeholderLink);
-    }else{
+    } else {
       keyword.addItem(value);
-      searchitem.toSearch({ enter: 'keyword', keyword: value, searchSourceFrom: SearchEnum.GLOBAL_SEARCH_INPUT });
+      searchitem.toSearch({
+        enter: 'keyword',
+        keyword: value,
+        searchSourceFrom: SearchEnum.GLOBAL_SEARCH_INPUT,
+      });
       this.setState({ displayContent: '', inputValue: value });
     }
   };
 
   isKeywordPlaceholder = (keyword = '') => {
     const { searchHolder } = this.props;
-    if(keyword === searchHolder.placeholderData.placeholder)
-      return true;
+    if (keyword === searchHolder.placeholderData.placeholder) return true;
     return false;
-  }
+  };
 
   render() {
     const { keyword, onClose, isSearchVisible, searchHolder } = this.props;
@@ -133,7 +139,7 @@ class KeywordMenu extends Component {
                 this.state.displayContent === 'autoComplete')
                 ? this.onBlur()
                 : query.enter === 'keyword' && this.state.displayContent === ''
-                ? pushRoute('/')
+                ? Router.back()
                 : onClose()
             }
           />
@@ -189,7 +195,7 @@ class KeywordMenu extends Component {
               <>
                 <div className={css.contentsWrap}>
                   {recentKeywordList.length > 0 ? (
-                    recentKeywordList.map(recentKeyword => {
+                    recentKeywordList.map((recentKeyword) => {
                       return (
                         <div key={recentKeyword.name}>
                           <RecentItem

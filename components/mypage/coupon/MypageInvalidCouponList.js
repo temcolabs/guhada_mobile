@@ -40,7 +40,10 @@ class MypageInvalidCouponList extends React.Component {
                     </div>
 
                     <div className={css.coupon__number}>
-                      {`쿠폰번호 ${data.couponNumber}`}
+                      <div>{`쿠폰번호 ${data.couponNumber}`}</div>
+                      {data.benefitId && (
+                        <div>{`정책번호 ${data.benefitId}`}</div>
+                      )}
                     </div>
                   </div>
                   <div className={css.coupon__seller}>

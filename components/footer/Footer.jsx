@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import css from './Footer.module.scss';
 import openPopupCenter from 'childs/lib/common/openPopupCenter';
 import dynamic from 'next/dynamic';
@@ -15,7 +15,7 @@ const DynamicUserClaimModal = dynamic(
   }
 );
 
-export default function Footer() {
+function Footer() {
   const [userClaimModalOpen, setUserClaimModalOpen] = useState(false);
 
   return (
@@ -99,6 +99,15 @@ export default function Footer() {
                   <img src="/static/icon/sns-blog.png" />
                 </a>
               </li>
+              <li>
+                <a
+                  href="https://post.naver.com/guhada401"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img src="/static/icon/sns-post.png" />
+                </a>
+              </li>
             </ul>
           </div>
           <div className={css.storeItem}>
@@ -158,3 +167,5 @@ export default function Footer() {
     </div>
   );
 }
+
+export default memo(Footer);

@@ -63,7 +63,7 @@ function BBSEditor({ router }) {
   const isUpdate = isTruthy(articleId);
 
   const toggleIsPreviewModalOpen = () => {
-    setIsPreviewModalOpen(isOpen => !isOpen);
+    setIsPreviewModalOpen((isOpen) => !isOpen);
   };
 
   const defaultInitialValues = useMemo(
@@ -116,7 +116,7 @@ function BBSEditor({ router }) {
 
       // 본문
       contents: ({ category }) => {
-        return composeValidators(c => notEmptyString(striptags(c, ['img'])));
+        return composeValidators((c) => notEmptyString(striptags(c, ['img'])));
       },
 
       brandName: ({ isRequired }) => {
@@ -198,7 +198,7 @@ function BBSEditor({ router }) {
           });
         }
 
-        setInitialValues(prevInit => ({
+        setInitialValues((prevInit) => ({
           ...prevInit,
           ...initialValuesOnMount,
         }));
@@ -254,7 +254,7 @@ function BBSEditor({ router }) {
     devLog('handleClickTempArticle', data);
 
     // 저장된 값으로 초기화
-    setInitialValues(prevInitial => ({
+    setInitialValues((prevInitial) => ({
       ...prevInitial,
       title: data.title,
       contents: data.contents,
@@ -305,7 +305,7 @@ function BBSEditor({ router }) {
   /**
    * 임시글 목록에서 삭제
    */
-  const handleShowDeleteTempArticleConfirm = id => {
+  const handleShowDeleteTempArticleConfirm = (id) => {
     alertStore.showConfirm({
       content: '임시 저장된 글을 삭제하시겠습니까?',
       onConfirm: () => {
@@ -320,7 +320,7 @@ function BBSEditor({ router }) {
    * 작성 과정에서 사용한 임시글 삭제
    */
   const deleteTempArticleUsed = useCallback(
-    id => {
+    (id) => {
       if (id) {
         tempArticleStore.deleteTempArticle({
           id,
@@ -338,7 +338,6 @@ function BBSEditor({ router }) {
    */
   const validateContentsRequiresImage = useCallback(
     (values = {}) => {
-      console.log(`values`, values);
       const { contents, categoryId } = values;
 
       if (contents && categoryId) {
@@ -376,7 +375,7 @@ function BBSEditor({ router }) {
 
   // 폼 submit
   const handleSubmit = useCallback(
-    values => {
+    (values) => {
       // 에러 모달을 표시할 밸리데이터를 실행한다.
       const hasNoWarningModal = !validateContentsRequiresImage(values);
 
@@ -426,7 +425,7 @@ function BBSEditor({ router }) {
     ]
   );
 
-  const printFormLog = _.debounce(formApi => {
+  const printFormLog = _.debounce((formApi) => {
     const { values, initialValues, errors } = formApi.getState();
 
     devGroup('BBSEditor');
@@ -451,7 +450,7 @@ function BBSEditor({ router }) {
           let categorySelected = categoryStore.getCategoryById(
             values[fields.categoryId]
           );
-          console.log(categorySelected, 'categorySelected');
+
           return (
             <form onSubmit={handleSubmit}>
               <CommunityContentWrap>
@@ -482,7 +481,7 @@ function BBSEditor({ router }) {
                       <BoardSelector
                         initialValue={meta.initial}
                         options={allCategoryOptions}
-                        onChange={value => {
+                        onChange={(value) => {
                           handleChangeCategory({ categoryId: value, formApi });
                         }}
                       />

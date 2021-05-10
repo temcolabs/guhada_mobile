@@ -54,7 +54,11 @@ class NaverLogin extends React.Component {
         {this.props.render ? (
           this.props.render
         ) : (
-          <div className={css.social} id="naverIdLogin_loginButton">
+          <div
+            className={css.social}
+            id="naverIdLogin_loginButton"
+            onClick={this.props.onClick}
+          >
             <div
               id="naverIdLogin"
               className={css.icon}

@@ -34,12 +34,12 @@ export default class MypagePointStore {
   getPointSummary = () => {
     API.benefit
       .get(`/summary`)
-      .then(res => {
+      .then((res) => {
         this.pointSummary = res.data.data;
         devLog(this.pointSummary, 'this.pointSummary');
       })
-      .catch(err => {
-        console.log(err);
+      .catch((err) => {
+        console.error(err);
       });
   };
 
@@ -51,7 +51,7 @@ export default class MypagePointStore {
   }) => {
     API.benefit
       .get(`/histories?fromAt=${startDate}&toAt=${endDate}&page=${pageNo}`)
-      .then(res => {
+      .then((res) => {
         this.period.startDate = startDate;
         this.period.endDate = endDate;
         this.pointHistory = res.data.data.content;
@@ -60,8 +60,8 @@ export default class MypagePointStore {
         this.page = pageNo;
         devLog(res.data, '포인트 히스토리');
       })
-      .catch(err => {
-        console.log(err);
+      .catch((err) => {
+        console.error(err);
         // this.root.alert.showAlert({
         //   content: `${_.get(err, 'data.message') || 'ERROR'}`,
         // });
@@ -96,15 +96,15 @@ export default class MypagePointStore {
           this.period.endDate
         }&page=${this.page + 1}`
       )
-      .then(res => {
+      .then((res) => {
         this.pointHistory = this.pointHistory.concat(res.data.data.content);
         this.totalItemsCount = res.data.data.totalElements;
         this.totalItemsPage = res.data.data.totalPages;
         this.page = this.page + 1;
         devLog(res.data, '포인트 히스토리');
       })
-      .catch(err => {
-        console.log(err);
+      .catch((err) => {
+        console.error(err);
         // this.root.alert.showAlert({
         //   content: `${_.get(err, 'data.message') || 'ERROR'}`,
         // });
@@ -122,13 +122,13 @@ export default class MypagePointStore {
   //   };
 
   @action
-  pointDelete = id => {
+  pointDelete = (id) => {
     this.root.alert.showConfirm({
       content: '포인트 내역을 삭제 하시겠습니까?',
       onConfirm: () => {
         API.benefit
           .delete(`/histories/${id}`)
-          .then(res => {
+          .then((res) => {
             if (res.status === 200) {
               this.root.alert.showAlert({
                 content: '포인트가 삭제 되었습니다.',
@@ -143,8 +143,8 @@ export default class MypagePointStore {
               devLog(this.pointHistory, 'this.pointHistory');
             }
           })
-          .catch(err => {
-            console.log(err);
+          .catch((err) => {
+            console.error(err);
             // this.root.alert.showAlert({
             //   content: `${_.get(err, 'data.message') || 'ERROR'}`,
             // });

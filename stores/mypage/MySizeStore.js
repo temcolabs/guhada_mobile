@@ -36,7 +36,6 @@ export default class MySizeStore {
 
   submitMySize = ({ mySize } = {}) => {
     devLog('submitMySize', mySize);
-    console.log(`this.isMySizeRegistered`, this.isMySizeRegistered);
 
     if (this.isMySizeRegistered) {
       this.updateMySize({

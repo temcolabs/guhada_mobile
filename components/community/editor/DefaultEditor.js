@@ -16,7 +16,7 @@ export default class CommunityDefaultEditor extends React.Component {
   static defaultProps = {
     id: 'summernote-community-default',
     initialContents: '<p></p>',
-    onChange: contents => {}, // 에디터 컨텐츠 내용 변경
+    onChange: (contents) => {}, // 에디터 컨텐츠 내용 변경
     onImageUpload: () => {}, // 이미지 업로드
     wrapperStyle: {},
   };
@@ -37,7 +37,7 @@ export default class CommunityDefaultEditor extends React.Component {
   /**
    * summernote 초기화
    */
-  initSummernote = el => {
+  initSummernote = (el) => {
     if (isBrowser && !!el) {
       this.summernote.summernote({
         lang: 'ko-KR', // default: 'en-US'
@@ -67,14 +67,13 @@ export default class CommunityDefaultEditor extends React.Component {
           '64',
         ],
         callbacks: {
-          onImageUpload: files => {
+          onImageUpload: (files) => {
             // cdn에 이미지 업로드 후 url 받아옴
             uploadImageFile({
               file: files[0],
               uploadPath: ['COMMUNITY', 'BBS'],
             }).then(({ url }) => {
               this.summernote.summernote('insertImage', url, function($image) {
-                console.log($image, '$image');
                 $image.attr('src', url);
               });
             });
@@ -92,7 +91,7 @@ export default class CommunityDefaultEditor extends React.Component {
   /**
    * 에디터 컨텐츠 초기화
    */
-  initEditorContents = memoize(initialContents => {
+  initEditorContents = memoize((initialContents) => {
     // 마크업 형태로 넣어야 하기 때문에 'code' 명령어를 사용한다
     this.summernote.summernote('code', initialContents);
   });

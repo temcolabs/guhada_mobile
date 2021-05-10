@@ -43,7 +43,7 @@ const defaultPosition = {
 const slideAnimation = {
   // 왼쪽
   [slideDirection.LEFT]: {
-    onEnter: node => {
+    onEnter: (node) => {
       anime({
         targets: node,
         left: 0,
@@ -54,7 +54,7 @@ const slideAnimation = {
         },
       });
     },
-    onExit: node => {
+    onExit: (node) => {
       anime({
         targets: node,
         left: '-100vw',
@@ -68,7 +68,7 @@ const slideAnimation = {
   },
   // 오른쪽
   [slideDirection.RIGHT]: {
-    onEnter: node => {
+    onEnter: (node) => {
       anime({
         targets: node,
         left: 0,
@@ -79,7 +79,7 @@ const slideAnimation = {
         },
       });
     },
-    onExit: node => {
+    onExit: (node) => {
       anime({
         targets: node,
         left: '100vw',
@@ -92,7 +92,7 @@ const slideAnimation = {
     },
   },
   [slideDirection.TOP]: {
-    onEnter: node => {
+    onEnter: (node) => {
       anime({
         targets: node,
         bottom: '0',
@@ -103,7 +103,7 @@ const slideAnimation = {
         },
       });
     },
-    onExit: node => {
+    onExit: (node) => {
       anime({
         targets: node,
         bottom: '100vh',
@@ -116,7 +116,7 @@ const slideAnimation = {
     },
   },
   [slideDirection.BOTTOM]: {
-    onEnter: node => {
+    onEnter: (node) => {
       anime({
         targets: node,
         top: '0',
@@ -127,7 +127,7 @@ const slideAnimation = {
         },
       });
     },
-    onExit: node => {
+    onExit: (node) => {
       anime({
         targets: node,
         top: '100vh',
@@ -148,7 +148,6 @@ export default function SlideIn({
   zIndex, // css.wrap 클래스에 선언된 SlideIn의 기본 z-index는 201.
   wrapperStyle = {}, // css.wrap 클래스의 스타일을 덮어씌움
 }) {
-  
   if (isBrowser) {
     const bodyEl = document.documentElement.getElementsByTagName('body')[0];
 
@@ -168,7 +167,7 @@ export default function SlideIn({
           onExit={animation.onExit}
           timeout={DURATION}
         >
-          {state => {
+          {(state) => {
             return (
               <div className={css.wrap} style={style}>
                 {children}

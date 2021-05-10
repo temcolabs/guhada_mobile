@@ -4,6 +4,7 @@
 .communityMain {
   @include clearfix;
   margin-top: 100px;
+  overflow-x: hidden;
 }
 
 .breadcrumbWrap {

@@ -1,5 +1,6 @@
 import { computed, observable, action, toJS } from 'mobx';
 import API from 'childs/lib/API';
+import detectDevice from 'childs/lib/common/detectDevice';
 
 export default class MainStore {
   @observable unitPerPage = 60;
@@ -20,7 +21,7 @@ export default class MainStore {
   // }
 
   @action
-  setNavDealId = id => {
+  setNavDealId = (id) => {
     this.navDealId = id;
   };
   @action
@@ -31,7 +32,7 @@ export default class MainStore {
           unitPerPage: this.unitPerPage,
         },
       })
-      .then(res => {
+      .then((res) => {
         if (res.data.resultCode === 200) {
           this.plusItem = res.data.data;
         }
@@ -46,7 +47,7 @@ export default class MainStore {
           unitPerPage: this.unitPerPage,
         },
       })
-      .then(res => {
+      .then((res) => {
         if (res.data.resultCode === 200) {
           this.newArrivals = res.data.data;
         }
@@ -61,7 +62,7 @@ export default class MainStore {
           unitPerPage: this.unitPerPage,
         },
       })
-      .then(res => {
+      .then((res) => {
         if (res.data.resultCode === 200) {
           this.hits = res.data.data;
         }
@@ -70,23 +71,25 @@ export default class MainStore {
 
   @action
   getHotKeyword = () => {
-    API.product.get('/main-home/hot-keyword', {}).then(res => {
+    API.product.get('/main-home/hot-keyword', {}).then((res) => {
       this.hotKeyword = res.data.data;
     });
   };
 
   @action
   getMainBannner = () => {
-    API.settle.get(`selectMainBanner`).then(res => {
-      this.bannerInfo = res.data;
-    });
+    API.settle
+      .get(`selectMainBanner?agent=${detectDevice().device}`)
+      .then((res) => {
+        this.bannerInfo = res.data;
+      });
   };
 
   @action
   getBestReview = () => {
     API.user
       .get(`/main-best-reviews`, { params: { unitPerPage: 5 } })
-      .then(res => {
+      .then((res) => {
         this.bestReview = res.data.data;
       });
   };

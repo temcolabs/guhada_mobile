@@ -65,7 +65,7 @@ export default class MypageRecentlySeenStore {
       console.error('[addItem] dealsId가 없습니다.');
     } else {
       const isDuplicate =
-        this.list.findIndex(item => item.dealsId === deals.dealsId) > -1;
+        this.list.findIndex((item) => item.dealsId === deals.dealsId) > -1;
 
       if (!isDuplicate) {
         const listItem = Object.assign({}, toJS(deals));
@@ -83,7 +83,7 @@ export default class MypageRecentlySeenStore {
   @action
   removeItem = (e, dealsId = '') => {
     e.stopPropagation();
-    const targetIndex = this.list.findIndex(item => item.dealsId === dealsId);
+    const targetIndex = this.list.findIndex((item) => item.dealsId === dealsId);
 
     if (targetIndex > -1) {
       this.list.splice(targetIndex, 1);
@@ -133,7 +133,7 @@ export default class MypageRecentlySeenStore {
 
     API.product
       .get(`/order-deals/${dealId}/options`)
-      .then(res => {
+      .then((res) => {
         let data = res.data;
         this.recentlySeenItemTempOptions = data.data;
         this.getLikeProductModalItem(dealId);
@@ -141,8 +141,8 @@ export default class MypageRecentlySeenStore {
 
         this.immediatePurchaseApiCall();
       })
-      .catch(err => {
-        console.log(err);
+      .catch((err) => {
+        console.error(err);
         // this.root.alert.showAlert({
         //   content: `${_.get(err, 'data.message') || err.message}`,
         // });
@@ -152,7 +152,7 @@ export default class MypageRecentlySeenStore {
   likeModalOpen = (dealId, type) => {
     API.product
       .get(`/order-deals/${dealId}/options`)
-      .then(res => {
+      .then((res) => {
         let data = res.data;
         this.recentlySeenItemTempOptions = data.data;
         this.getLikeProductModalItem(dealId);
@@ -164,16 +164,16 @@ export default class MypageRecentlySeenStore {
           this.optionModalPurchase = true;
         }
       })
-      .catch(err => {
-        console.log(err);
+      .catch((err) => {
+        console.error(err);
         // this.root.alert.showAlert({
         //   content: `${_.get(err, 'data.message') || err.message}`,
         // });
       });
   };
 
-  getLikeProductModalItem = dealId => {
-    this.list.forEach(data => {
+  getLikeProductModalItem = (dealId) => {
+    this.list.forEach((data) => {
       if (data.dealsId === dealId) {
         this.recentlySeenOptionModalItem = { ...data };
       }
@@ -272,7 +272,7 @@ export default class MypageRecentlySeenStore {
   };
 
   @action
-  selectOption = value => {
+  selectOption = (value) => {
     if (value.label === '선택안함') {
       this.selectedOption = null;
       this.selectedOptionPrice = 0;
@@ -380,7 +380,7 @@ export default class MypageRecentlySeenStore {
   };
 
   @action
-  quantityChange = e => {
+  quantityChange = (e) => {
     let value = e.target.value;
     value = parseInt(value);
     if (isNaN(value)) {
@@ -416,7 +416,7 @@ export default class MypageRecentlySeenStore {
   };
 
   @action
-  quantityChangeOutFocus = e => {
+  quantityChangeOutFocus = (e) => {
     let value = e.target.value;
     value = parseInt(value);
     if (isNaN(value) || value <= 0) {
@@ -465,15 +465,15 @@ export default class MypageRecentlySeenStore {
               this.recentlySeenOptionModalItem.brandId
             }&pageIndex=0&unitPerPage=3`
           )
-          .then(res => {
+          .then((res) => {
             let data = res.data;
             this.optionModalClose();
 
             this.root.associatedProductModal.associatedProduct = data.data;
             this.root.associatedProductModal.shoppingCartSuccess = true;
           })
-          .catch(err => {
-            console.log(err);
+          .catch((err) => {
+            console.error(err);
             // this.root.alert.showAlert({
             //   content: `${_.get(err, 'data.message') || err.message}`,
             // });
@@ -488,7 +488,7 @@ export default class MypageRecentlySeenStore {
         dealOptionId: this.selectedOption.id,
         quantity: this.selectedQuantity,
       })
-      .then(res => {
+      .then((res) => {
         this.root.shoppingcart.getUserShoppingCartList();
         let data = res.data;
         Router.push({
@@ -499,8 +499,8 @@ export default class MypageRecentlySeenStore {
         });
         this.optionModalClose();
       })
-      .catch(err => {
-        console.log(err);
+      .catch((err) => {
+        console.error(err);
         // this.root.alert.showAlert({
         //   content: `${_.get(err, 'data.message') || err.message}`,
         // });
@@ -519,7 +519,7 @@ export default class MypageRecentlySeenStore {
   };
 
   @action
-  goProduct = id => {
+  goProduct = (id) => {
     Router.push(`/productdetail?deals=${id}`);
   };
 }
