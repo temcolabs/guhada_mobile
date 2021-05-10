@@ -164,16 +164,20 @@ $icon-up-total-height: 546px;
 $icon-up-image: '/static/sprite.png';
 $icon-up: (478px, 460px, -478px, -460px, 18px, 18px, 624px, 546px, '/static/sprite.png', 'icon_up', );
 $photo-arrow-next-small-2x-name: 'photo_arrow_next_small_2x';
-$photo-arrow-next-small-2x-x: 0px;
+$photo-arrow-next-small-2x-x: 96px;
 $photo-arrow-next-small-2x-y: 400px;
-$photo-arrow-next-small-2x-offset-x: 0px;
+$photo-arrow-next-small-2x-offset-x: -96px;
 $photo-arrow-next-small-2x-offset-y: -400px;
 $photo-arrow-next-small-2x-width: 96px;
 $photo-arrow-next-small-2x-height: 96px;
 $photo-arrow-next-small-2x-total-width: 624px;
 $photo-arrow-next-small-2x-total-height: 546px;
 $photo-arrow-next-small-2x-image: '/static/sprite.png';
+<<<<<<< HEAD
 $photo-arrow-next-small-2x: (0px, 400px, 0px, -400px, 96px, 96px, 624px, 546px, '/static/sprite.png', 'photo_arrow_next_small_2x', );
+=======
+$photo-arrow-next-small-2x: (96px, 400px, -96px, -400px, 96px, 96px, 624px, 544px, '/static/sprite.png', 'photo_arrow_next_small_2x', );
+>>>>>>> 51d56202 (TECH-6789, 럭키드로우 비로그인 유저 처리, 모달 추가)
 $photo-arrow-next-small-3x-name: 'photo_arrow_next_small_3x';
 $photo-arrow-next-small-3x-x: 480px;
 $photo-arrow-next-small-3x-y: 0px;
@@ -208,16 +212,20 @@ $photo-arrow-next-2x-total-height: 546px;
 $photo-arrow-next-2x-image: '/static/sprite.png';
 $photo-arrow-next-2x: (0px, 240px, 0px, -240px, 160px, 160px, 624px, 546px, '/static/sprite.png', 'photo_arrow_next_2x', );
 $photo-arrow-next-3x-name: 'photo_arrow_next_3x';
-$photo-arrow-next-3x-x: 0px;
+$photo-arrow-next-3x-x: 240px;
 $photo-arrow-next-3x-y: 0px;
-$photo-arrow-next-3x-offset-x: 0px;
+$photo-arrow-next-3x-offset-x: -240px;
 $photo-arrow-next-3x-offset-y: 0px;
 $photo-arrow-next-3x-width: 240px;
 $photo-arrow-next-3x-height: 240px;
 $photo-arrow-next-3x-total-width: 624px;
 $photo-arrow-next-3x-total-height: 546px;
 $photo-arrow-next-3x-image: '/static/sprite.png';
+<<<<<<< HEAD
 $photo-arrow-next-3x: (0px, 0px, 0px, 0px, 240px, 240px, 624px, 546px, '/static/sprite.png', 'photo_arrow_next_3x', );
+=======
+$photo-arrow-next-3x: (240px, 0px, -240px, 0px, 240px, 240px, 624px, 544px, '/static/sprite.png', 'photo_arrow_next_3x', );
+>>>>>>> 51d56202 (TECH-6789, 럭키드로우 비로그인 유저 처리, 모달 추가)
 $photo-arrow-next-name: 'photo_arrow_next';
 $photo-arrow-next-x: 282px;
 $photo-arrow-next-y: 400px;
@@ -230,16 +238,20 @@ $photo-arrow-next-total-height: 546px;
 $photo-arrow-next-image: '/static/sprite.png';
 $photo-arrow-next: (282px, 400px, -282px, -400px, 80px, 80px, 624px, 546px, '/static/sprite.png', 'photo_arrow_next', );
 $photo-arrow-prev-small-2x-name: 'photo_arrow_prev_small_2x';
-$photo-arrow-prev-small-2x-x: 96px;
+$photo-arrow-prev-small-2x-x: 0px;
 $photo-arrow-prev-small-2x-y: 400px;
-$photo-arrow-prev-small-2x-offset-x: -96px;
+$photo-arrow-prev-small-2x-offset-x: 0px;
 $photo-arrow-prev-small-2x-offset-y: -400px;
 $photo-arrow-prev-small-2x-width: 96px;
 $photo-arrow-prev-small-2x-height: 96px;
 $photo-arrow-prev-small-2x-total-width: 624px;
 $photo-arrow-prev-small-2x-total-height: 546px;
 $photo-arrow-prev-small-2x-image: '/static/sprite.png';
+<<<<<<< HEAD
 $photo-arrow-prev-small-2x: (96px, 400px, -96px, -400px, 96px, 96px, 624px, 546px, '/static/sprite.png', 'photo_arrow_prev_small_2x', );
+=======
+$photo-arrow-prev-small-2x: (0px, 400px, 0px, -400px, 96px, 96px, 624px, 544px, '/static/sprite.png', 'photo_arrow_prev_small_2x', );
+>>>>>>> 51d56202 (TECH-6789, 럭키드로우 비로그인 유저 처리, 모달 추가)
 $photo-arrow-prev-small-3x-name: 'photo_arrow_prev_small_3x';
 $photo-arrow-prev-small-3x-x: 480px;
 $photo-arrow-prev-small-3x-y: 144px;
@@ -274,16 +286,20 @@ $photo-arrow-prev-2x-total-height: 546px;
 $photo-arrow-prev-2x-image: '/static/sprite.png';
 $photo-arrow-prev-2x: (160px, 240px, -160px, -240px, 160px, 160px, 624px, 546px, '/static/sprite.png', 'photo_arrow_prev_2x', );
 $photo-arrow-prev-3x-name: 'photo_arrow_prev_3x';
-$photo-arrow-prev-3x-x: 240px;
+$photo-arrow-prev-3x-x: 0px;
 $photo-arrow-prev-3x-y: 0px;
-$photo-arrow-prev-3x-offset-x: -240px;
+$photo-arrow-prev-3x-offset-x: 0px;
 $photo-arrow-prev-3x-offset-y: 0px;
 $photo-arrow-prev-3x-width: 240px;
 $photo-arrow-prev-3x-height: 240px;
 $photo-arrow-prev-3x-total-width: 624px;
 $photo-arrow-prev-3x-total-height: 546px;
 $photo-arrow-prev-3x-image: '/static/sprite.png';
+<<<<<<< HEAD
 $photo-arrow-prev-3x: (240px, 0px, -240px, 0px, 240px, 240px, 624px, 546px, '/static/sprite.png', 'photo_arrow_prev_3x', );
+=======
+$photo-arrow-prev-3x: (0px, 0px, 0px, 0px, 240px, 240px, 624px, 544px, '/static/sprite.png', 'photo_arrow_prev_3x', );
+>>>>>>> 51d56202 (TECH-6789, 럭키드로우 비로그인 유저 처리, 모달 추가)
 $photo-arrow-prev-name: 'photo_arrow_prev';
 $photo-arrow-prev-x: 362px;
 $photo-arrow-prev-y: 400px;

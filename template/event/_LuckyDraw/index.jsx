@@ -7,7 +7,6 @@ import { observer } from 'mobx-react-lite';
 import copy from 'copy-to-clipboard';
 import { mainCategory } from 'childs/lib/constant/category';
 import { loginStatus } from 'childs/lib/constant';
-import gtagTracker from 'childs/lib/tracking/google/gtagTracker';
 
 // layout
 import CategorySlider from 'components/common/CategorySlider';
@@ -82,6 +81,25 @@ function LuckyDrawTemplate({ router, luckyDraw, login, main }) {
   }, [login.isLoggedIn]);
 
   /**
+   * 럭키드로우 응모완료 모달 제어
+   */
+  useEffect(() => {
+    setLuckyDrawModalProps(
+      luckyDraw.isRequestModal
+        ? {
+            status: 'START',
+            contents: '럭키드로우 응모가 완료되었습니다.',
+          }
+        : initialStateLuckyDrawModal
+    );
+    setIsActiveLuckyDrawModal(luckyDraw.isRequestModal);
+    return () => {
+      setLuckyDrawModalProps(initialStateLuckyDrawModal);
+      setIsActiveLuckyDrawModal(false);
+    };
+  }, [luckyDraw.isRequestModal]);
+
+  /**
    * handlers
    */
 
@@ -122,18 +140,11 @@ function LuckyDrawTemplate({ router, luckyDraw, login, main }) {
    * @param {Number}} dealId
    */
   const onClickRequestLuckyDraw = async (dealId) => {
-    gtagTracker.gaEvent.luckyDrawRequest(); // ga 트래커
     if (login.loginStatus !== loginStatus.LOGIN_DONE) {
       luckyDraw.setLuckydrawLoginModal(true);
+      luckyDraw.luckydrawDealId = dealId;
     } else {
-      const requestLuckyDraw = await luckyDraw.requestLuckyDraws({ dealId });
-      if (requestLuckyDraw) {
-        setLuckyDrawModalProps({
-          status: 'START',
-          contents: '럭키드로우 응모가 완료되었습니다.',
-        });
-        setIsActiveLuckyDrawModal(true);
-      }
+      await luckyDraw.requestLuckyDraws({ dealId });
     }
   };
 
@@ -142,8 +153,7 @@ function LuckyDrawTemplate({ router, luckyDraw, login, main }) {
    */
   const onCloseLuckyDrawModal = () => {
     document.documentElement.style.overflow = 'initial';
-    setLuckyDrawModalProps({ ...initialStateLuckyDrawModal });
-    setIsActiveLuckyDrawModal(false);
+    luckyDraw.closeModal();
   };
 
   /**
