@@ -4,56 +4,31 @@ import bookmarkTarget from 'childs/lib/constant/user/bookmarkTarget';
 
 import { toJS } from 'mobx';
 const isServer = typeof window === 'undefined';
+const initialSearchForm = {
+  page: 1,
+  unitPerPage: 20,
+  categoryName: '전체',
+};
 export default class ReviewStore {
   constructor(root) {
     if (!isServer) this.root = root;
   }
 
-  @observable searchReview
-
   // Observable
-  @observable reviewBannerList = [];
-  @observable reviewHashtagList = [];
-  @observable reviewBookMarkList = [];
   @observable reviewPage = {};
   @observable reviewList = [];
-
-  // computed
-  @computed get reviewItems() {
-    console.log('this.reviewBookMarkList : ', toJS(this.reviewBookMarkList));
-    console.log('this.reviewPage : ', toJS(this.reviewPage));
-    return this.reviewPage.empty
-      ? this.reviewList
-      : this.reviewList.concat(this.reviewPage.content);
-  }
+  @observable searchForm = { ...initialSearchForm };
 
   // actions
   @action
-  getReviewBannerList = async () => {
-    try {
-      const { data } = await API.user('/event/banner?bannerType=REVIEW');
-      const result = data.data;
-
-      if (result.length) {
-        this.reviewBannerList = result.deals;
-      }
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
-
+  initReviewPage = () => (this.reviewPage = {});
   @action
-  getReviewPopularHashTag = async () => {
-    try {
-      const { data } = await API.user('/reviews/popularity/hashtag');
-      const result = data.data;
-
-      if (result.length) {
-        this.reviewHashtagList = result;
-      }
-    } catch (error) {
-      console.error(error.message);
-    }
+  initReviewList = () => (this.reviewList = []);
+  @action
+  initSearchForm = () => (this.searchForm = {...initialSearchForm});
+  @action
+  setSearchForm = (search) => {
+    this.searchForm = search;
   };
 
   /**
@@ -63,15 +38,20 @@ export default class ReviewStore {
    * @param {String} categoryName : 리뷰 종류
    */
   @action
-  getReviewList = async (page = 1, unitPerPage = 20, categoryName = '전체') => {
+  getReviewList = async ({
+    page = 1,
+    unitPerPage = 20,
+    categoryName = '전체',
+  }) => {
     try {
       const { data } = await API.user(
         `/reviews/all?page=${page}&unitPerPage=${unitPerPage}&categoryName=${categoryName}`
       );
       const result = data.data;
-      if (Object.keys(result)) {
-        this.reviewPage = result?.userProductReviewResponsePage;
+      if (Object.keys(result).length) {
+        this.reviewPage = result.userProductReviewResponsePage;
       }
+      return result;
     } catch (error) {
       console.error(error.message);
     }
@@ -79,30 +59,31 @@ export default class ReviewStore {
 
   /**
    * 사용자 북마크 추가 (좋아요)
-   * @param {Number} id 
+   * @param {Number} id
    */
   @action
-  setProductReviewBookmarks = id => {
+  setProductReviewBookmarks = (id) => {
     API.user
       .post(`/users/bookmarks`, {
         target: bookmarkTarget.REVIEW,
         targetId: id,
       })
-      .then(res => {
+      .then((res) => {
+        // object active 수정
         if (this.root.login.loginStatus === 'LOGIN_DONE')
           this.getProductReviewBookmarks();
       })
-      .catch(e => {
+      .catch((e) => {
         console.error('e', e);
       });
   };
 
   /**
    * 사용자 북마크 삭제 (좋아요 취소)
-   * @param {Number} id 
+   * @param {Number} id
    */
   @action
-  delProductReviewBookmarks = id => {
+  delProductReviewBookmarks = (id) => {
     API.user
       .delete(`/users/bookmarks`, {
         params: {
@@ -110,11 +91,12 @@ export default class ReviewStore {
           targetId: id,
         },
       })
-      .then(res => {
+      .then((res) => {
+        // object active 수정
         if (this.root.login.loginStatus === 'LOGIN_DONE')
           this.getProductReviewBookmarks();
       })
-      .catch(e => {
+      .catch((e) => {
         console.error('e', e);
       });
   };
