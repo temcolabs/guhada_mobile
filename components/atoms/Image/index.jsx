@@ -1,4 +1,6 @@
 import React from 'react';
+import LazyLoad from 'react-lazyload';
+
 import PropTypes from 'prop-types';
 import { ImageDiv } from './Styled';
 
@@ -14,8 +16,10 @@ import { ImageDiv } from './Styled';
 function Image({ type, src, size, width, height }) {
   return (
     <>
-      {/* TODO : image 태그 형태 필요하면, 만들기 */}
-      <ImageDiv style={{ width, height }} src={src} size={size} />
+      <LazyLoad>
+        {/* TODO : image 태그 형태 필요하면, 만들기 */}
+        <ImageDiv style={{ width, height }} src={src} size={size} />
+      </LazyLoad>
     </>
   );
 }

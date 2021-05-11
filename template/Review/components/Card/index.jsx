@@ -71,8 +71,8 @@ function ReviewCard({ review }) {
    */
   const createReviewImages = (list) => {
     return list && list.length
-      ? list.map((src) => (
-          <div style={{ width: '320px' }}>
+      ? list.map((src, i) => (
+          <div key={`createReviewImages-${i}`} style={{ width: '320px' }}>
             <Image src={src} width={'auto'} height={'320px'} />
           </div>
         ))

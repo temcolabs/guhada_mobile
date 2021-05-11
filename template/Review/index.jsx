@@ -47,7 +47,7 @@ function ReviewTemplate({ banners, hashTags }) {
    */
 
   useEffect(() => {
-    initReviewPage();
+    return () => initReviewPage();
   }, []);
 
   useEffect(() => {
@@ -69,13 +69,36 @@ function ReviewTemplate({ banners, hashTags }) {
     }
   }, [sliderRef.current]);
 
+  useEffect(() => {
+    reviewStore.getReviewList(reviewStore.searchForm);
+    console.log('reviewStore.searchForm : ', toJS(reviewStore.searchForm));
+  }, [reviewStore.searchForm]);
+
+  useEffect(() => {
+    console.log('reviewStore.reviewPage : ', toJS(reviewStore.reviewPage));
+  }, [reviewStore.reviewPage]);
+
+  useEffect(() => {
+    console.log('reviewStore.reviewList : ', toJS(reviewStore.reviewList));
+  }, [reviewStore.reviewList]);
+
+  /**
+   * Handlers
+   * @param {String} categoryName
+   */
+  const onClickCategory = (categoryName) => {
+    reviewStore.initReviewPage();
+    reviewStore.initReviewList();
+    reviewStore.setSearchForm({ ...reviewStore.searchForm, categoryName });
+  };
+
   /**
    * Helpers
    */
-  const initReviewPage = async () => {
-    reviewStore.initReviewPage();
+  const initReviewPage = () => {
     reviewStore.initSearchForm();
-    await reviewStore.getReviewList(reviewStore.searchForm);
+    reviewStore.initReviewPage();
+    reviewStore.initReviewList();
   };
 
   /**
@@ -118,13 +141,16 @@ function ReviewTemplate({ banners, hashTags }) {
         {hashTags?.length ? <ReviewHashTag hashTags={hashTags} /> : ''}
 
         {/* 리뷰 > 카테고리 */}
-        <ReviewCategories categories={REVIEW_CATEGORY_LIST} />
+        <ReviewCategories
+          categories={REVIEW_CATEGORY_LIST}
+          onClickCategory={onClickCategory}
+        />
 
         {/* 리뷰 > 카드 */}
         {reviews && reviews.length ? (
           <div>
-            {reviews.map((review) => (
-              <ReviewCard key={review.id} review={review} />
+            {reviews.map((review, i) => (
+              <ReviewCard key={`ReviewCard-${i}`} review={review} />
             ))}
           </div>
         ) : (

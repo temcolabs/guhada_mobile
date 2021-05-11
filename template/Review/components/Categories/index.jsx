@@ -17,7 +17,7 @@ const IMAGE_PATH = {
   emoji: '/static/icons/emoji/emoji_finger_fire/emoji_finger_fire.png',
 };
 
-function ReviewCategories({ categories }) {
+function ReviewCategories({ categories, onClickCategory }) {
   /**
    * State
    */
@@ -34,11 +34,14 @@ function ReviewCategories({ categories }) {
   /**
    * Handlers
    */
-  const onClickCategoryItem = (idx) => {
+  const _onClickCategory = (categoryName) => {
     // TODO : ReviewStore > Search
+    onClickCategory(categoryName);
     setList(
-      list.map((o, i) =>
-        idx === i ? { ...o, isSelect: true } : { ...o, isSelect: false }
+      list.map((o) =>
+        categoryName === o.categoryName
+          ? { ...o, isSelect: true }
+          : { ...o, isSelect: false }
       )
     );
   };
@@ -53,7 +56,10 @@ function ReviewCategories({ categories }) {
       </Title>
       <Contents>
         {list?.map((o, i) => (
-          <ContentItem key={o.id} onClick={() => onClickCategoryItem(i)}>
+          <ContentItem
+            key={`ReviewCategories-${i}`}
+            onClick={() => _onClickCategory(o.categoryName)}
+          >
             <CategoryImage>
               <Image
                 src={o.isSelect ? o.categoryImageOn : o.categoryImageOff}
