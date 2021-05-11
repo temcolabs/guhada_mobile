@@ -21,7 +21,7 @@ function Image({ type, src, size, width, height }) {
 }
 
 Image.propTypes = {
-  type: PropTypes.string.isRequired,
+  type: PropTypes.string,
   src: PropTypes.string.isRequired,
   width: PropTypes.string,
   height: PropTypes.string,

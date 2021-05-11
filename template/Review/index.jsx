@@ -24,7 +24,7 @@ import StarItem from 'components/mypage/review/StarItem';
 import { toJS } from 'mobx';
 
 import { Wrapper } from './Styled';
-import { ReviewBanner } from './components';
+import { ReviewBanner, ReviewHashTag } from './components';
 
 const settings = {
   arrows: false,
@@ -35,7 +35,7 @@ const settings = {
   variableWidth: true,
 };
 
-function ReviewTemplate({ banners }) {
+function ReviewTemplate({ banners, hashTags }) {
   /**
    * states
    */
@@ -150,6 +150,13 @@ function ReviewTemplate({ banners }) {
       <Wrapper>
         {/* 리뷰 > 배너 */}
         {banners && banners.length ? <ReviewBanner banners={banners} /> : ''}
+
+        {/* 리뷰 > 인기 해시태그 */}
+        {hashTags && hashTags.length ? (
+          <ReviewHashTag hashTags={hashTags} />
+        ) : (
+          ''
+        )}
 
         {/* 리뷰 > 해시태그 */}
         {reviewStore.reviewHashtagList &&
