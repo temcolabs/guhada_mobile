@@ -41,6 +41,13 @@ module.exports = [
   },
 
   {
+    // 랭킹
+    pagePath: '/ranking',
+    asPath: '/ranking',
+    name: '랭킹',
+  },
+
+  {
     // 선물하기
     pagePath: '/gift',
     asPath: '/gift',

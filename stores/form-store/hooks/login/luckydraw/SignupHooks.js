@@ -1,10 +1,6 @@
-import Router from 'next/router';
-import Form from 'stores/form-store/_.forms';
 import API from 'childs/lib/API';
 import _ from 'lodash';
 import { devLog, devGroup, devGroupEnd } from 'childs/lib/common/devLog';
-import naverShoppingTrakers from 'childs/lib/tracking/navershopping/naverShoppingTrakers';
-import daumTracker from 'childs/lib/tracking/daum/daumTracker';
 import { root } from 'store';
 
 export default {
@@ -35,7 +31,7 @@ export default {
     };
     API.user
       .post(`/event/users`, body)
-      .then(res => {
+      .then((res) => {
         API.user
           .post(
             `/loginUser`,
@@ -66,7 +62,7 @@ export default {
             // root.alert.showAlert('럭키드로우 시도');
             root.luckyDraw.getEventUser();
           })
-          .catch(e => {
+          .catch((e) => {
             const data = _.get(e, 'data') || {};
 
             switch (data?.resultCode) {
@@ -90,7 +86,7 @@ export default {
             }
           });
       })
-      .catch(err => {
+      .catch((err) => {
         let resultCode = _.get(err, 'data.resultCode');
         let message = _.get(err, 'data.message');
         devLog(resultCode, message, 'message', 'resultCode');
@@ -120,7 +116,7 @@ export default {
     );
   },
 
-  onBlur: field => {
+  onBlur: (field) => {
     devLog('-> onBlur HOOK -', field.path, field.value, field);
     field.validate({ showErrors: true });
   },

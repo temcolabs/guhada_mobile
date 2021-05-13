@@ -8,7 +8,6 @@ import anime from 'animejs';
 import addCommaToNum from 'childs/lib/common/addCommaToNum';
 import { luckyDrawStatus } from 'childs/lib/API/product/luckyDrawService';
 import { loginStatus } from 'childs/lib/constant';
-import { devLog } from 'childs/lib/common/devLog';
 
 /**
   * 데이터 바인딩 가이드는 zeplin 참조
@@ -50,7 +49,6 @@ export default function LuckyDrawItem({
   const { statusCode } = data;
 
   const handleClickRequestButton = useCallback(() => {
-    devLog(`statusCode`, statusCode);
     luckyDrawStore.luckydrawDealId = data?.dealId;
 
     switch (statusCode) {
@@ -135,7 +133,7 @@ export default function LuckyDrawItem({
             [css.isRequestGuideVisible]: isRequestGuideVisible,
           })}
           onClick={() => {
-            setIsRequestGuideVisible(current => !current);
+            setIsRequestGuideVisible((current) => !current);
           }}
         >
           응모안내
@@ -144,32 +142,32 @@ export default function LuckyDrawItem({
         <Transition
           in={isRequestGuideVisible}
           timeout={400}
-          onEnter={node => {
+          onEnter={(node) => {
             anime({
               targets: node,
               easing: 'easeInOutQuad',
               duration: 400,
               opacity: 1,
               // display: 'block',
-              begin: anim => {
+              begin: (anim) => {
                 node.style.display = 'block';
                 node.style.opacity = 0;
               },
             });
           }}
-          onExit={node => {
+          onExit={(node) => {
             anime({
               targets: node,
               easing: 'easeInOutQuad',
               duration: 200,
               opacity: 0,
-              complete: anim => {
+              complete: (anim) => {
                 node.style.display = 'none';
               },
             });
           }}
         >
-          {state => (
+          {(state) => (
             <div className={cn(css.requestGuide__collapsingArea)}>
               <div className={css.requestGuide__table}>
                 <div className={css.requestGuide__field}>

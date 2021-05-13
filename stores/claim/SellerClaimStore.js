@@ -87,7 +87,7 @@ export default class SellerClaimStore {
         isFunction(onImpossible) && onImpossible();
       }
     } catch (err) {
-      console.log(err, '판매자문의하기 조회 err');
+      console.error(err, '판매자문의하기 조회 err');
       this.resetSellerClaimData();
       isFunction(onImpossible) && onImpossible();
     }
@@ -102,12 +102,12 @@ export default class SellerClaimStore {
   };
 
   @action
-  setOrderGroupId = value => {
+  setOrderGroupId = (value) => {
     this.orderProdGroupId = value.value.orderProdGroupId;
   };
 
   @action
-  setClaimType = value => {
+  setClaimType = (value) => {
     this.claimType = value.value;
   };
 
@@ -134,7 +134,7 @@ export default class SellerClaimStore {
 
   @computed
   get sellerClaimTypeOptions() {
-    return this.sellerClaimTypes?.map(claimType => ({
+    return this.sellerClaimTypes?.map((claimType) => ({
       label: claimType.description,
       value: claimType.name,
     }));
@@ -148,28 +148,28 @@ export default class SellerClaimStore {
         file: files[0],
         uploadPath: ['USER_SELLER_CLAIM'],
       })
-        .then(res => {
+        .then((res) => {
           setAttachImageArray(res.url);
         })
-        .catch(e => {
+        .catch((e) => {
           console.error(e);
         });
     }
   };
 
   @action
-  deleteImage = url => {
+  deleteImage = (url) => {
     API.gateway
       .delete(`/upload/image`, {
         params: {
           imgUrl: url,
         },
       })
-      .then(res => {
+      .then((res) => {
         devLog(res, 'delete image');
       })
-      .catch(err => {
-        console.log(err);
+      .catch((err) => {
+        console.error(err);
       });
   };
 

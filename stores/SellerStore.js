@@ -22,7 +22,7 @@ export default class SellerStore {
   @observable seller = {};
 
   @action getSellerDetail = (sellerId = -1) => {
-    API.user.get(`/sellers/${sellerId}`).then(res => {
+    API.user.get(`/sellers/${sellerId}`).then((res) => {
       const { data } = res;
       this.seller = data.data;
     });
@@ -75,7 +75,7 @@ export default class SellerStore {
   getSellerId = () => {
     API.user
       .get(`users/nickname/${this.nickname}`)
-      .then(res => {
+      .then((res) => {
         let data = res.data;
         this.sellerId = data.data.id;
 
@@ -86,8 +86,8 @@ export default class SellerStore {
         if (this.root.login.loginStatus === loginStatus.LOGIN_DONE)
           this.getFollowSellerStore(this.sellerId);
       })
-      .catch(e => {
-        console.log(e);
+      .catch((e) => {
+        console.error(e);
       });
   };
 
@@ -95,11 +95,11 @@ export default class SellerStore {
   getSellerStore = () => {
     API.user
       .get(`sellers/${this.sellerId}/store`)
-      .then(res => {
+      .then((res) => {
         let data = res.data;
         this.sellerStore = data.data;
       })
-      .catch(e => {
+      .catch((e) => {
         devLog('getSellerStore', e);
       });
   };
@@ -183,13 +183,13 @@ export default class SellerStore {
   };
 
   @action
-  setSellerStoreItem = item => {
+  setSellerStoreItem = (item) => {
     let newDeals = this.dealsOfSellerStore;
     this.dealsOfSellerStore = newDeals.concat(item);
   };
 
   @action
-  getFollowSellerStore = id => {
+  getFollowSellerStore = (id) => {
     const userId = this.root.login.loginInfo.userId;
     API.user
       .get(`/users/${userId}/bookmarks`, {
@@ -197,11 +197,11 @@ export default class SellerStore {
           target: bookmarkTarget.SELLER,
         },
       })
-      .then(res => {
+      .then((res) => {
         this.sellerStoreFollow = res.data.data.content;
 
         let checkFollow = this.sellerStoreFollow.findIndex(
-          i => i.targetId.toString() === id.toString()
+          (i) => i.targetId.toString() === id.toString()
         );
         if (checkFollow === -1) {
           this.storeFollowBool = false;
@@ -209,23 +209,23 @@ export default class SellerStore {
           this.storeFollowBool = true;
         }
       })
-      .catch(e => {
+      .catch((e) => {
         console.error(e);
       });
   };
 
   @action
-  setFollowSellerStore = id => {
+  setFollowSellerStore = (id) => {
     API.user
       .post(`/users/bookmarks`, {
         target: bookmarkTarget.SELLER,
         targetId: id,
       })
-      .then(res => {
+      .then((res) => {
         this.getFollowSellerStore(id);
         this.getSellerStore();
       })
-      .catch(e => {
+      .catch((e) => {
         let resultCode = _.get(e, 'data.resultCode');
         let message = _.get(e, 'data.message');
         if (resultCode === 6017) this.root.alert.showAlert(message);
@@ -233,7 +233,7 @@ export default class SellerStore {
   };
 
   @action
-  delFollowSellerStore = id => {
+  delFollowSellerStore = (id) => {
     API.user
       .delete(`/users/bookmarks`, {
         params: {
@@ -241,11 +241,11 @@ export default class SellerStore {
           targetId: id,
         },
       })
-      .then(res => {
+      .then((res) => {
         this.getFollowSellerStore(id);
         this.getSellerStore();
       })
-      .catch(e => {
+      .catch((e) => {
         let resultCode = _.get(e, 'data.resultCode');
         let message = _.get(e, 'data.message');
         if (resultCode === 6017) this.root.alert.showAlert(message);

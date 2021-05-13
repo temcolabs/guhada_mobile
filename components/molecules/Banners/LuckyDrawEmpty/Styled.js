@@ -2,26 +2,31 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   height: 246px;
-  position: relative;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const Section = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
 `;
 
 export const Title = styled.div`
+  color: #232323;
   font-family: BebasNeue-Bold;
   font-size: 38px;
   font-weight: bold;
-  color: #232323;
+  margin-bottom: 10px;
 `;
 
-export const Contents = styled.div`
-  font-family: 'Roboto';
-  font-size: 13px;
+export const Contents = styled.span`
+  font-family: Roboto;
+  font-size: 12px;
   color: #222222;
+
+  > p:first-child {
+    margin-bottom: 5px;
+  }
 `;

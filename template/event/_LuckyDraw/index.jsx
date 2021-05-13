@@ -1,11 +1,12 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { compose } from 'lodash/fp';
 import { withRouter } from 'next/router';
 import dynamic from 'next/dynamic';
-import { useObserver } from 'mobx-react-lite';
+import { observer } from 'mobx-react-lite';
 
 import copy from 'copy-to-clipboard';
 import { mainCategory } from 'childs/lib/constant/category';
+import { loginStatus } from 'childs/lib/constant';
 
 // layout
 import CategorySlider from 'components/common/CategorySlider';
@@ -29,6 +30,18 @@ const LuckyDrawModal = dynamic(
   () => import('components/molecules/Modal/LuckyDrawModal'),
   { ssr: false }
 );
+// TODO : 모달 > 컴포넌트화
+const LuckydrawLogin = dynamic(() => import('template/event/LuckydrawLogin'), {
+  ssr: false,
+});
+
+// TODO : 모달 > 컴포넌트화
+const LuckydrawSignup = dynamic(
+  () => import('template/event/LuckydrawSignup'),
+  {
+    ssr: false,
+  }
+);
 
 const enhancer = compose(withRouter);
 const initialStateLuckyDrawModal = {
@@ -42,7 +55,7 @@ const initialStateLuckyDrawModal = {
  * @param {Object} luckyDraw LuckyDrawStore
  * @returns LuckyDraw
  */
-function LuckyDrawTemplate({ router, luckyDraw, main }) {
+function LuckyDrawTemplate({ router, luckyDraw, login, main }) {
   /**
    * states
    */
@@ -54,7 +67,37 @@ function LuckyDrawTemplate({ router, luckyDraw, main }) {
   const [isActiveLuckyDrawModal, setIsActiveLuckyDrawModal] = useState(false); // 럭키드로우 모달 Flag
   const [isActiveWarnModal, setIsActiveWarnModal] = useState(false); // 럭키드로우 유의사항 모달 Flag
 
-  /** side effects **/
+  /**
+   * side effects
+   */
+
+  /**
+   * 럭키드로우 로그인 / 비로그인 데이터 처리
+   */
+  useEffect(() => {
+    document.documentElement.style.overflow = 'initial';
+    luckyDraw.getLuckyDrawList();
+    luckyDraw.initLuckyEventData();
+  }, [login.isLoggedIn]);
+
+  /**
+   * 럭키드로우 응모완료 모달 제어
+   */
+  useEffect(() => {
+    setLuckyDrawModalProps(
+      luckyDraw.isRequestModal
+        ? {
+            status: 'START',
+            contents: '럭키드로우 응모가 완료되었습니다.',
+          }
+        : initialStateLuckyDrawModal
+    );
+    setIsActiveLuckyDrawModal(luckyDraw.isRequestModal);
+    return () => {
+      setLuckyDrawModalProps(initialStateLuckyDrawModal);
+      setIsActiveLuckyDrawModal(false);
+    };
+  }, [luckyDraw.isRequestModal]);
 
   /**
    * handlers
@@ -97,14 +140,44 @@ function LuckyDrawTemplate({ router, luckyDraw, main }) {
    * @param {Number}} dealId
    */
   const onClickRequestLuckyDraw = async (dealId) => {
-    const requestLuckyDraw = await luckyDraw.requestLuckyDraws({ dealId });
-    if (requestLuckyDraw) {
-      setLuckyDrawModalProps({
-        status: 'START',
-        contents: '럭키드로우 응모가 완료되었습니다.',
-      });
-      setIsActiveLuckyDrawModal(true);
+    if (login.loginStatus !== loginStatus.LOGIN_DONE) {
+      luckyDraw.setLuckydrawLoginModal(true);
+      luckyDraw.luckydrawDealId = dealId;
+    } else {
+      await luckyDraw.requestLuckyDraws({ dealId });
     }
+  };
+
+  /**
+   * 럭키드로우 모달 닫기
+   */
+  const onCloseLuckyDrawModal = () => {
+    document.documentElement.style.overflow = 'initial';
+    luckyDraw.closeModal();
+  };
+
+  /**
+   * 럭키드로우 유의사항 모달 닫기
+   */
+  const onCloseLuckyDrawWarnModal = () => {
+    document.documentElement.style.overflow = 'initial';
+    setIsActiveWarnModal(false);
+  };
+
+  /**
+   * 럭키드로우 로그인 모달 닫기
+   */
+  const onCloseLuckyDrawLoginModal = () => {
+    document.documentElement.style.overflow = 'initial';
+    luckyDraw.setLuckydrawLoginModal(false);
+  };
+
+  /**
+   * 럭키드로우 회원가입 모달 닫기
+   */
+  const onCloseLuckyDrawSignupModal = () => {
+    document.documentElement.style.overflow = 'initial';
+    luckyDraw.setLuckydrawSignupModal(false);
   };
 
   /**
@@ -146,16 +219,18 @@ function LuckyDrawTemplate({ router, luckyDraw, main }) {
     [luckyDrawList]
   );
 
+  const MemoLuckyDrawCard = React.memo(LuckyDrawCard);
+
   /**
    * render
    */
-  return useObserver(() => (
+  return (
     <>
       {/* 럭키드로우 유의사항 모달 */}
       {isActiveWarnModal && (
         <LuckyDrawWarnModal
           isOpen={isActiveWarnModal}
-          onClose={() => setIsActiveWarnModal(false)}
+          onClose={() => onCloseLuckyDrawWarnModal()}
         />
       )}
       {/* 럭키드로우 공통 모달 */}
@@ -164,10 +239,21 @@ function LuckyDrawTemplate({ router, luckyDraw, main }) {
           isOpen={isActiveLuckyDrawModal}
           status={luckyDrawModalProps.status}
           contents={luckyDrawModalProps.contents}
-          onClose={() => {
-            setLuckyDrawModalProps({ ...initialStateLuckyDrawModal });
-            setIsActiveLuckyDrawModal(false);
-          }}
+          onClose={() => onCloseLuckyDrawModal()}
+        />
+      )}
+      {/* 럭키드로우 로그인 모달 */}
+      {luckyDraw.luckydrawLoginModal && (
+        <LuckydrawLogin
+          isOpen={luckyDraw.luckydrawLoginModal}
+          closeModal={() => onCloseLuckyDrawLoginModal()}
+        />
+      )}
+      {/* 럭키드로우 회원가입 모달 */}
+      {luckyDraw.luckydrawSignupModal && (
+        <LuckydrawSignup
+          isOpen={luckyDraw.luckydrawSignupModal}
+          closeModal={() => onCloseLuckyDrawSignupModal()}
         />
       )}
       <DefaultLayout>
@@ -181,10 +267,13 @@ function LuckyDrawTemplate({ router, luckyDraw, main }) {
         <LuckyDrawTop />
 
         {/* LuckyDraw Cards */}
-        {activeList && activeList.length ? (
+        {luckyDrawList &&
+        luckyDrawList.length &&
+        activeList &&
+        activeList.length ? (
           activeList.map((o) => {
             return (
-              <LuckyDrawCard
+              <MemoLuckyDrawCard
                 {...o}
                 key={`luckydraw-${o.dealId}`}
                 onClickRequestLuckyDraw={onClickRequestLuckyDraw}
@@ -212,7 +301,7 @@ function LuckyDrawTemplate({ router, luckyDraw, main }) {
         />
       </DefaultLayout>
     </>
-  ));
+  );
 }
 
-export default enhancer(LuckyDrawTemplate);
+export default enhancer(observer(LuckyDrawTemplate));

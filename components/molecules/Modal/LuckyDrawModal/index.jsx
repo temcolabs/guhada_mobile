@@ -8,6 +8,7 @@ import {
   CloseButton,
   CloseButtonSection,
   SectionStatus,
+  SectionStatusIconSection,
   SectionStatusIcon,
   SectionTitle,
   SectionDescriptions,
@@ -49,7 +50,9 @@ function LuckyDrawModal({ isOpen, status, contents, onClose }) {
           <SectionInfo>
             {isBigModal && (
               <SectionStatus>
-                <SectionStatusIcon imageUrl={STATUS_RESPONSES[status].icon} />
+                <SectionStatusIconSection>
+                  <SectionStatusIcon imageUrl={STATUS_RESPONSES[status].icon} />
+                </SectionStatusIconSection>
                 <SectionTitle>{STATUS_RESPONSES[status].text}</SectionTitle>
               </SectionStatus>
             )}

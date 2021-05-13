@@ -64,7 +64,7 @@ export default class OrderPaymentStore {
       shippingMessage: false,
     },
     isAddShippingAddress: false, // 결제 완료후 배송지 정보 처리
-    otherRequest: null, // 다른 문의 사항    
+    otherRequest: null, // 다른 문의 사항
   };
 
   // 해외 통관 부호 값
@@ -99,7 +99,7 @@ export default class OrderPaymentStore {
     loadingStatus: false,
     VBank: false,
     refundBankAccount: false,
-    EasyPayment: false
+    EasyPayment: false,
   };
 
   @observable cashReceiptUsage = 'PERSONAL';
@@ -147,22 +147,50 @@ export default class OrderPaymentStore {
   @observable easyPaymentList = [];
 
   @observable easyPaymentMap = {
-    NAVER : {label : '네이버페이', iconUrl: '/static/icon/payment/order_payment_naverpay.png', width : '78px'},
-    KAKAO : {label : '카카오페이', iconUrl: '/static/icon/payment/order_payment_kakaopay.png', width : '57px'},
-    PAYCO : {label : '페이코페이', iconUrl: '/static/icon/payment/payco_icon.png', width : '60px'},
-    SAMSUNG : {label : '삼성페이', iconUrl: '/static/icon/payment/samsungpay_icon_01.png', width : '117px'},
-    LPAY : {label : 'L.페이', iconUrl: '/static/icon/payment/lpay_icon.png', width : '51px'},
-    SSGPAY : {label : 'SSG페이', iconUrl: '/static/icon/payment/ssgpay_icon.png', width : '67px'},
-    TOSS : {label : '토스', iconUrl: '/static/icon/payment/toss_icon.png', width : '59px'}    
+    NAVER: {
+      label: '네이버페이',
+      iconUrl: '/static/icon/payment/order_payment_naverpay.png',
+      width: '78px',
+    },
+    KAKAO: {
+      label: '카카오페이',
+      iconUrl: '/static/icon/payment/order_payment_kakaopay.png',
+      width: '57px',
+    },
+    PAYCO: {
+      label: '페이코페이',
+      iconUrl: '/static/icon/payment/payco_icon.png',
+      width: '60px',
+    },
+    SAMSUNG: {
+      label: '삼성페이',
+      iconUrl: '/static/icon/payment/samsungpay_icon_01.png',
+      width: '117px',
+    },
+    LPAY: {
+      label: 'L.페이',
+      iconUrl: '/static/icon/payment/lpay_icon.png',
+      width: '51px',
+    },
+    SSGPAY: {
+      label: 'SSG페이',
+      iconUrl: '/static/icon/payment/ssgpay_icon.png',
+      width: '67px',
+    },
+    TOSS: {
+      label: '토스',
+      iconUrl: '/static/icon/payment/toss_icon.png',
+      width: '59px',
+    },
   };
 
   //--------------------- 주문페이지 토탈 데이터 최초 바인딩 ---------------------
   @action
-  getOrderItems = cartList => {
+  getOrderItems = (cartList) => {
     this.cartList = cartList;
     API.order
       .get(`/order/orderForm?cartItemIdList=${this.cartList}`)
-      .then(res => {
+      .then((res) => {
         let data = res.data.data;
         this.orderInfo = data;
         this.orderProductInfo = data.orderItemList;
@@ -184,12 +212,11 @@ export default class OrderPaymentStore {
 
         this.easyPaymentList = [];
 
-        this.orderInfo.paymentsMethod.forEach(paymentMethod => {
-          if(paymentMethod.methodCode === 'EASY'){
-              paymentMethod.easyPayList.forEach(easyPay => {
-                this.easyPaymentList.push(easyPay);
-              }
-            );
+        this.orderInfo.paymentsMethod.forEach((paymentMethod) => {
+          if (paymentMethod.methodCode === 'EASY') {
+            paymentMethod.easyPayList.forEach((easyPay) => {
+              this.easyPaymentList.push(easyPay);
+            });
           }
         });
 
@@ -199,7 +226,7 @@ export default class OrderPaymentStore {
          * 주문 상품정보 체크
          * orderValidStatus 값이 false 라면 장바구니로 라우팅
          */
-        this.orderProductInfo.forEach(data => {
+        this.orderProductInfo.forEach((data) => {
           if (data.orderValidStatus !== 'VALID') {
             this.root.alert.showAlert({
               content: data.orderValidMessage,
@@ -261,7 +288,10 @@ export default class OrderPaymentStore {
             .orderPaymentAgreement;
         }
 
-        if(this.orderInfo.shippingPassNumber === true && this.orderInfo.personalPassNumber != null){                  
+        if (
+          this.orderInfo.shippingPassNumber === true &&
+          this.orderInfo.personalPassNumber != null
+        ) {
           this.customIdNumber = this.orderInfo.personalPassNumber;
         }
 
@@ -272,7 +302,7 @@ export default class OrderPaymentStore {
           `orderpayment?cartList=${this.cartList}`
         );
       })
-      .catch(err => {
+      .catch((err) => {
         devLog(err, 'err');
       });
   };
@@ -285,7 +315,7 @@ export default class OrderPaymentStore {
   getPaymentInfo = (closeCouponModal = true) => {
     devLog('[OrderPaymentStore] - getPaymentInfo called.');
     let cartItemPayments = [];
-    cartItemPayments = this.tempSelectedCouponList.map(data => {
+    cartItemPayments = this.tempSelectedCouponList.map((data) => {
       return {
         cartItemId: Number(data.cartId),
         couponNumber: data.couponNumber,
@@ -296,7 +326,7 @@ export default class OrderPaymentStore {
         cartItemPayments,
         consumptionPoint: this.usePoint,
       })
-      .then(res => {
+      .then((res) => {
         let data = res;
         this.orderSidetabTotalInfo = data.data.data;
         if (this.status.loadingStatus) {
@@ -308,8 +338,8 @@ export default class OrderPaymentStore {
         }
         devLog(toJS(this.orderSidetabTotalInfo), '결제정보창');
       })
-      .catch(err => {
-        console.log(err);
+      .catch((err) => {
+        console.error(err);
         let message = _.get(err, 'data.message');
         if (message) {
           this.root.alert.showAlert({
@@ -326,7 +356,6 @@ export default class OrderPaymentStore {
     daum.postcode.load(function() {
       new daum.Postcode({
         oncomplete: function(data) {
-          console.log(data, '배송지 주소');
           switch (path) {
             case '주문페이지-신규':
               setNewShippingAddress(null, 'address', data);
@@ -381,7 +410,7 @@ export default class OrderPaymentStore {
 
   //--------------------- 신규주소 focusing check ---------------------
   @action
-  newShippingAddressFocusingCheck = target => {
+  newShippingAddressFocusingCheck = (target) => {
     this.status.newShippingName = false;
     this.status.newAddress = false;
     this.status.newDetail = false;
@@ -449,7 +478,7 @@ export default class OrderPaymentStore {
 
   //--------------------- 결제방법변경 ---------------------
   @action
-  setPaymentMethod = targetMethod => {
+  setPaymentMethod = (targetMethod) => {
     devLog('target payment method : ' + targetMethod);
     this.paymentMethod = targetMethod;
     this.methodChange();
@@ -480,12 +509,12 @@ export default class OrderPaymentStore {
       case 'NAVER':
       case 'SAMSUNGPAY':
       case 'LPAY':
-      case 'SSGPAY':      
+      case 'SSGPAY':
       case 'TOSS':
       case 'KAKAO':
-      case 'PAYCO':  
+      case 'PAYCO':
         this.status.EasyPayment = true;
-        break;  
+        break;
       default:
         break;
     }
@@ -502,11 +531,11 @@ export default class OrderPaymentStore {
   shippingListModal = () => {
     API.user
       .get(`/users/${this.orderUserInfo.id}/shipping-addresses`)
-      .then(res => {
+      .then((res) => {
         let data = res.data;
         this.orderShippingList.list = data.data;
 
-        this.orderShippingList.list.forEach(data => {
+        this.orderShippingList.list.forEach((data) => {
           data.recipientMobile = autoHypenPhone(data.recipientMobile);
           if (data.defaultAddress) {
             this.orderShippingList.currentUseAddressId = data.id;
@@ -514,7 +543,7 @@ export default class OrderPaymentStore {
         });
         this.status.shppingListModalStatus = true;
       })
-      .catch(err => {
+      .catch((err) => {
         devLog(err);
         this.status.shppingListModalStatus = true;
         this.status.addressSelf = true;
@@ -522,7 +551,7 @@ export default class OrderPaymentStore {
   };
   //--------------------- 배송지목록 선택 변경(로컬) ---------------------
   @action
-  shippingAddressChange = changeValue => {
+  shippingAddressChange = (changeValue) => {
     this.orderShippingList.currentUseAddressId = changeValue;
     devLog(
       this.orderShippingList.currentUseAddressId,
@@ -539,7 +568,7 @@ export default class OrderPaymentStore {
         content: '수정중인 주소지를 저장해주세요.',
       });
     } else {
-      this.orderShippingList.list.forEach(data => {
+      this.orderShippingList.list.forEach((data) => {
         if (data.id === this.orderShippingList.currentUseAddressId) {
           this.orderShippingList.defaultAddress.address = data.address;
           this.orderShippingList.defaultAddress.detailAddress =
@@ -572,11 +601,11 @@ export default class OrderPaymentStore {
 
   //--------------------- 배송지 목록 수정 데이터 설정(Local) ---------------------
   @action
-  addressEdit = id => {
+  addressEdit = (id) => {
     this.orderShippingList.currentUseAddressId = id;
     this.orderShippingList.currentEditAddressId = id;
 
-    this.orderShippingList.list.forEach(data => {
+    this.orderShippingList.list.forEach((data) => {
       if (data.id === id) {
         this.orderShippingList.tempEditAddress = { ...data };
       }
@@ -622,7 +651,7 @@ export default class OrderPaymentStore {
 
   //--------------------- 배송지 목록 수정 저장(DB) ---------------------
   @action
-  addressEditSave = id => {
+  addressEditSave = (id) => {
     this.orderShippingList.currentEditAddressId = 0;
     let targetId = id;
     let data = this.orderShippingList.tempEditAddress;
@@ -634,7 +663,7 @@ export default class OrderPaymentStore {
         }/shipping-addresses?shippingAddressId=${targetId}`,
         data
       )
-      .then(res => {
+      .then((res) => {
         if (res.data.resultCode === 200) {
           this.orderShippingList.list.forEach((list, index) => {
             if (list.id === data.id) {
@@ -659,7 +688,7 @@ export default class OrderPaymentStore {
 
   //--------------------- 배송지 목록 삭제(DB) ---------------------
   @action
-  addressDeleteConfirm = id => {
+  addressDeleteConfirm = (id) => {
     let targetId = id;
 
     this.root.alert.showConfirm({
@@ -672,14 +701,14 @@ export default class OrderPaymentStore {
     });
   };
 
-  addressDelete = targetId => {
+  addressDelete = (targetId) => {
     API.user
       .delete(
         `/users/${
           this.orderUserInfo.id
         }/shipping-addresses?shippingAddressId=${targetId}`
       )
-      .then(res => {
+      .then((res) => {
         this.root.alert.showAlert({
           content: '배송지 삭제완료.',
         });
@@ -699,7 +728,7 @@ export default class OrderPaymentStore {
           }
         });
       })
-      .catch(err => {
+      .catch((err) => {
         this.root.alert.showAlert({
           content: `${_.get(err, 'data.message') || 'error'}`,
         });
@@ -773,12 +802,12 @@ export default class OrderPaymentStore {
     this.shippingListModalClose();
   };
   @action
-  setCashReceiptHandler = value => {
+  setCashReceiptHandler = (value) => {
     this.status.cashReceiptRequest = value;
   };
 
   @action
-  setCashReceiptUsage = value => {
+  setCashReceiptUsage = (value) => {
     this.cashReceiptUsage = value;
   };
 
@@ -855,20 +884,20 @@ export default class OrderPaymentStore {
   };
 
   @action
-  addOtherRequest = e => {
+  addOtherRequest = (e) => {
     this.orderShippingList.otherRequest = e.target.value;
 
     // devLog(this.orderShippingList.otherRequest, '기타요청사항');
   };
 
   @action
-  customIdNumberChangeHandler = customIdValue => {            
-    this.customIdNumber = customIdValue;    
+  customIdNumberChangeHandler = (customIdValue) => {
+    this.customIdNumber = customIdValue;
   };
 
   @action
-  customIdNumberAgreeChangeHandler = isChecked => {            
-    this.customIdNumberAgreed = isChecked;    
+  customIdNumberAgreeChangeHandler = (isChecked) => {
+    this.customIdNumberAgreed = isChecked;
   };
 
   //--------------------- 결제요청 ---------------------
@@ -1018,13 +1047,12 @@ export default class OrderPaymentStore {
     /**
      * 결제수단이 간편 결제일때 간편 결제 방법(네이버, 카카오등을) 선택하지 않았을때
      */
-    if (this.paymentMethod === 'EASY') {      
+    if (this.paymentMethod === 'EASY') {
       this.root.alert.showAlert({
         content: '간편 결제를 선택해주세요.',
       });
-      return false;      
+      return false;
     }
-
 
     /**
      * 결제수단이 가상계좌일때 환불계좌 정보 체크
@@ -1041,31 +1069,29 @@ export default class OrderPaymentStore {
     /**
      * 통관번호 입력 validation
      */
-    if(this.orderInfo.shippingPassNumber === true){
-
-      if(this.customIdNumber === null || this.customIdNumber.length === 0){
+    if (this.orderInfo.shippingPassNumber === true) {
+      if (this.customIdNumber === null || this.customIdNumber.length === 0) {
         this.root.alert.showAlert({
           content: '신속한 통관처리를 위해 개인 통관 고유번호를 입력해주세요',
         });
         return false;
-      }else if(this.customIdNumber.length > 13){
+      } else if (this.customIdNumber.length > 13) {
         this.root.alert.showAlert({
           content: '개인통관 번호는 13자 이하까지 입력 가능합니다',
         });
         return false;
       }
 
-      if(this.customIdNumberAgreed === false){
+      if (this.customIdNumberAgreed === false) {
         this.root.alert.showAlert({
           content: '개인 통관 번호 수집 동의가 필요합니다',
         });
         return false;
-      }      
+      }
     }
 
-
     let cartItemPayments = [];
-    cartItemPayments = this.selectedCouponList.map(data => {
+    cartItemPayments = this.selectedCouponList.map((data) => {
       return {
         cartItemId: Number(data.cartId),
         couponNumber: data.couponNumber,
@@ -1128,17 +1154,21 @@ export default class OrderPaymentStore {
     }
     devLog(forms, 'forms');
 
-    // handle pid by direct_payment or indirect_payment    
-    if(sessionStorage.getItem('pid')){      
-      let directPayment = 0;    
-      this.orderProductInfo.forEach(element => element.dealId === parseInt(sessionStorage.getItem('dealIdByPid')) ? directPayment = 1 : directPayment = 0);
+    // handle pid by direct_payment or indirect_payment
+    if (sessionStorage.getItem('pid')) {
+      let directPayment = 0;
+      this.orderProductInfo.forEach((element) =>
+        element.dealId === parseInt(sessionStorage.getItem('dealIdByPid'))
+          ? (directPayment = 1)
+          : (directPayment = 0)
+      );
       forms.affiliateExtraId = JSON.parse(sessionStorage.getItem('pid'));
-      forms.directOrder = directPayment;      
-    }        
+      forms.directOrder = directPayment;
+    }
 
     API.order
       .post(`/order/requestOrder`, forms)
-      .then(res => {
+      .then((res) => {
         let data = res.data.data;
         const query = qs.stringify({
           cartList: cartList,
@@ -1155,7 +1185,7 @@ export default class OrderPaymentStore {
 
         devLog(nextUrl, 'nextUrl');
 
-        devLog(data, 'requestOrder return data');        
+        devLog(data, 'requestOrder return data');
 
         this.paymentForm = {
           version: data.version,
@@ -1190,7 +1220,7 @@ export default class OrderPaymentStore {
 
         forms.wScroll = window.scrollY;
       })
-      .catch(err => {
+      .catch((err) => {
         devLog(err);
         this.root.alert.showAlert({
           content: `${_.get(err, 'data.message') || '결제 오류'}`,
@@ -1206,7 +1236,7 @@ export default class OrderPaymentStore {
     this.status.paymentProceed = true;
     sessionStorage.setItem('paymentInfo', this.status.paymentProceed);
     let form = document.getElementById('paymentForm');
-    form.action = this.paymentForm.jsUrl;    
+    form.action = this.paymentForm.jsUrl;
     form.submit();
   };
 
@@ -1302,13 +1332,13 @@ export default class OrderPaymentStore {
   @action
   getShippingMessageOption = () => {
     this.shippingMessageOption = this.shippingMessageOption
-      .map(data => {
+      .map((data) => {
         return {
           value: data.message === '배송 메시지를 입력해주세요.' ? true : false,
           label: data.message,
         };
       })
-      .filter(opt => opt.value !== 'NONE');
+      .filter((opt) => opt.value !== 'NONE');
   };
 
   @action
@@ -1334,7 +1364,7 @@ export default class OrderPaymentStore {
   };
 
   @action
-  emailValidCheck = email => {
+  emailValidCheck = (email) => {
     if (isEmailString(email) === false) {
       this.root.customerauthentication.emailValid = false;
     } else {
@@ -1347,28 +1377,28 @@ export default class OrderPaymentStore {
   userAuthenticationCheck = () => {
     API.user
       .get(`/users/${this.orderUserInfo.id}`)
-      .then(res => {
+      .then((res) => {
         this.root.customerauthentication.userVerify =
           res.data.data.userDetail.diCode;
       })
-      .catch(err => {
-        console.log(err);
+      .catch((err) => {
+        console.error(err);
       });
   };
 
   @action
-  getCouponInfo = cartList => {
+  getCouponInfo = (cartList) => {
     API.gateway
       .get(`/benefits/order/coupon?cartItemIdSet=${cartList}`)
-      .then(res => {
+      .then((res) => {
         this.orderCouponInfo = res.data.data;
 
         devLog(toJS(this.orderCouponInfo), 'orderCouponInfo');
         this.setInitCouponInfo();
         this.getPaymentInfo();
       })
-      .catch(err => {
-        console.log(err);
+      .catch((err) => {
+        console.error(err);
       });
   };
   @action
@@ -1508,7 +1538,7 @@ export default class OrderPaymentStore {
                     .benefitProductCouponResponseList[j].disable === true
                 ) {
                   let check = this.tempSelectedCouponList.findIndex(
-                    data =>
+                    (data) =>
                       data.couponNumber ===
                       tempArr.benefitSellerResponseList[i]
                         .benefitOrderProductResponseList[z]
@@ -1541,7 +1571,7 @@ export default class OrderPaymentStore {
    */
   setInitCouponInfo = () => {
     this.selectedCouponList = [];
-    this.selectedCouponList = this.orderProductInfo.map(data => {
+    this.selectedCouponList = this.orderProductInfo.map((data) => {
       return {
         cartId: data.cartItemId,
         sellerId: 0,
@@ -1551,7 +1581,7 @@ export default class OrderPaymentStore {
     });
 
     this.tempSelectedCouponList = [];
-    this.tempSelectedCouponList = this.orderProductInfo.map(data => {
+    this.tempSelectedCouponList = this.orderProductInfo.map((data) => {
       return {
         cartId: data.cartItemId,
         sellerId: 0,
@@ -1636,9 +1666,11 @@ export default class OrderPaymentStore {
 
     let appliedCouponPriceSum = 0;
     let appliedCouponCount = 0;
-    if(this.orderSidetabTotalInfo.discountInfoResponseList){
-      this.orderSidetabTotalInfo.discountInfoResponseList.forEach(function (element){
-        if(element.discountType === 'COUPON_DISCOUNT'){
+    if (this.orderSidetabTotalInfo.discountInfoResponseList) {
+      this.orderSidetabTotalInfo.discountInfoResponseList.forEach(function(
+        element
+      ) {
+        if (element.discountType === 'COUPON_DISCOUNT') {
           appliedCouponPriceSum += element.discountPrice;
           appliedCouponCount++;
         }
@@ -1647,9 +1679,10 @@ export default class OrderPaymentStore {
 
     this.totalCouponDiscount = appliedCouponPriceSum;
     this.totalCouponUsedCount = appliedCouponCount;
-    
-    this.totalDiscountPrice = this.orderCouponInfo.totalProductPrice - this.totalCouponDiscount;
-  }; 
+
+    this.totalDiscountPrice =
+      this.orderCouponInfo.totalProductPrice - this.totalCouponDiscount;
+  };
 
   @action
   couponApply = (closeCouponModal = true) => {
@@ -1663,28 +1696,27 @@ export default class OrderPaymentStore {
     devLog('[OrderPaymentStore] - updateCouponInfo called.');
     API.gateway
       .get(`/benefits/order/coupon?cartItemIdSet=${cartList}`)
-      .then(res => {
+      .then((res) => {
         this.orderCouponInfo = res.data.data;
         devLog(this.orderCouponInfo, 'update');
-        if(closeCouponModal)
-          this.couponModalClose();
+        if (closeCouponModal) this.couponModalClose();
         this.couponDiscountCalculator();
         this.status.loadingStatus = false;
       })
-      .catch(err => {
-        console.log(err);
+      .catch((err) => {
+        console.error(err);
       });
   };
 
   @action
-  bankNameSelect = value => {
+  bankNameSelect = (value) => {
     this.orderUserInfo.refundBankName = value.label;
     this.orderUserInfo.refundBankCode = value.value;
     this.status.refundBankAccount = false;
   };
 
   @action
-  setAccountInfo = e => {
+  setAccountInfo = (e) => {
     this.status.refundBankAccount = false;
     if (e.target.name === 'bankAccount') {
       this.orderUserInfo.refundBankAccountNumber = e.target.value;
@@ -1723,7 +1755,7 @@ export default class OrderPaymentStore {
 
           this.status.loadingStatus = false;
         })
-        .catch(e => {
+        .catch((e) => {
           console.error(e);
           this.root.alert.showAlert({
             content: e.data.message,

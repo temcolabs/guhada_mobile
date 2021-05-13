@@ -23,7 +23,7 @@ export default class MypageFollowStore {
       this.userId = this.root.user.userId;
       API.user
         .get(`users/${this.userId}/followings`)
-        .then(res => {
+        .then((res) => {
           devLog(res, 'following list');
           this.followList = [];
           this.pageNo = pageNo;
@@ -36,8 +36,8 @@ export default class MypageFollowStore {
           // this.itemsCountPerPage = this.itemsCountPerPage;
           this.pageStatus = true;
         })
-        .catch(err => {
-          console.log(err);
+        .catch((err) => {
+          console.error(err);
           this.followList = [];
           // this.totalItemsCount = 0;
           // this.itemsCountPerPage = this.itemsCountPerPage;
@@ -47,7 +47,7 @@ export default class MypageFollowStore {
     this.root.user.pushJobForUserInfo(action);
   };
 
-  likeSortChange = sort => {
+  likeSortChange = (sort) => {
     if (sort.value === 'ASC') {
       this.reverseList = true;
     } else {
@@ -56,13 +56,13 @@ export default class MypageFollowStore {
   };
 
   @action
-  setSellerFollow = id => {
+  setSellerFollow = (id) => {
     API.user
       .post(`/users/bookmarks`, {
         target: 'SELLER',
         targetId: id,
       })
-      .then(res => {
+      .then((res) => {
         for (let i = 0; i < this.followList.length; i++) {
           if (this.followList[i].sellerId === id) {
             this.followList[i].status = true;
@@ -70,8 +70,8 @@ export default class MypageFollowStore {
         }
         this.root.sellerfollow.follows = true;
       })
-      .catch(err => {
-        console.log(err);
+      .catch((err) => {
+        console.error(err);
         // this.root.alert.showAlert({
         //   content: `${_.get(err, 'data.message') || '스토어 팔로우 ERROR'}`,
         // });
@@ -79,10 +79,10 @@ export default class MypageFollowStore {
   };
 
   @action
-  deleteSellerFollow = id => {
+  deleteSellerFollow = (id) => {
     API.user
       .delete(`/users/bookmarks?target=SELLER&targetId=${id}`)
-      .then(res => {
+      .then((res) => {
         for (let i = 0; i < this.followList.length; i++) {
           if (this.followList[i].sellerId === id) {
             this.followList[i].status = false;
@@ -90,8 +90,8 @@ export default class MypageFollowStore {
         }
         this.root.sellerfollow.follows = false;
       })
-      .catch(err => {
-        console.log(err);
+      .catch((err) => {
+        console.error(err);
         // this.root.alert.showAlert({
         //   content: `${_.get(err, 'data.message') || '스토어 팔로우 ERROR'}`,
         // });

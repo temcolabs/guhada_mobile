@@ -52,7 +52,7 @@ export default class MypageReviewStore {
     this.availableReview = [];
     this.availableReviewPage = [];
     this.myReivewsItemList = [];
-  }
+  };
 
   @action async getReviewData({ productId, reviewId }) {
     try {
@@ -100,17 +100,17 @@ export default class MypageReviewStore {
   };
 
   @action
-  deletedImages = images => {
+  deletedImages = (images) => {
     this.deletedReviewPhotos = images;
   };
 
   @action
-  deletedFile = files => {
+  deletedFile = (files) => {
     this.deletedImagesFile = files;
   };
 
   @action
-  setReviewPhotos = reviewPhotos => {
+  setReviewPhotos = (reviewPhotos) => {
     let orderPhotos = reviewPhotos;
 
     orderPhotos.map((data, index) => {
@@ -121,7 +121,7 @@ export default class MypageReviewStore {
   };
 
   @action
-  setReviewPhotosFile = imageFile => {
+  setReviewPhotosFile = (imageFile) => {
     this.reviewPhotosFile = imageFile;
   };
 
@@ -129,14 +129,14 @@ export default class MypageReviewStore {
   getAvailableReview = (page = 1) => {
     API.order
       .get(`/order-review/available-review-order/${page}`)
-      .then(res => {
+      .then((res) => {
         // this.availableReview = this.availableReview.concat(res.data.data);
         this.availableReview = res.data.data;
         this.orderItemList = this.orderItemList.concat(
           res.data?.data?.orderItemList
         );
       })
-      .catch(e => {
+      .catch((e) => {
         this.availableReview = [];
       });
   };
@@ -156,12 +156,12 @@ export default class MypageReviewStore {
 
     API.user
       .get(`/products/reviews/image-upload-url`)
-      .then(res => {
+      .then((res) => {
         let ImageUploadUrl = res.data.data;
 
         if (this.newReviewPhotos !== []) {
           let networkRequestPromises = this.reviewPhotosFile.map(
-            reviewPhotosFile => {
+            (reviewPhotosFile) => {
               if (reviewPhotosFile.name) {
                 return uploadImagePath({
                   file: reviewPhotosFile,
@@ -170,7 +170,7 @@ export default class MypageReviewStore {
                   .then(({ url }) => {
                     return { url };
                   })
-                  .catch(e => {
+                  .catch((e) => {
                     console.error(e);
                   });
               } else {
@@ -180,7 +180,7 @@ export default class MypageReviewStore {
           );
 
           Promise.all(networkRequestPromises)
-            .then(urls => {
+            .then((urls) => {
               urls.map((urls, i) => {
                 return reviewPhotos.push({
                   imageStatus: this.newReviewPhotos[i].imageStatus,
@@ -200,21 +200,21 @@ export default class MypageReviewStore {
                   sizeSatisfaction: reviewData.sizeSatisfaction,
                   textReview: reviewData.textReview,
                 })
-                .then(res => {
+                .then((res) => {
                   if (isFunction(onSuccess)) {
                     onSuccess({ data: res.data?.data });
                   }
                 })
-                .catch(e => {
+                .catch((e) => {
                   this.root.alert.showAlert(_.get(e, 'res.data.message'));
                 });
             })
-            .catch(e => {
-              console.log(e);
+            .catch((e) => {
+              console.error(e);
             });
         }
       })
-      .catch(e => {
+      .catch((e) => {
         this.root.alert.showAlert(
           _.get(e, 'data.result') || '오류가 발생했습니다'
         );
@@ -231,30 +231,32 @@ export default class MypageReviewStore {
   }) => {
     let reviewPhotos = [];
 
-    API.user.get(`/products/reviews/image-upload-url`).then(res => {
+    API.user.get(`/products/reviews/image-upload-url`).then((res) => {
       let ImageUploadUrl = res.data.data;
       let networkRequestPromises;
 
       if (this.reviewPhotosFile !== []) {
-        networkRequestPromises = this.reviewPhotosFile.map(reviewPhotosFile => {
-          if (reviewPhotosFile.name) {
-            return uploadImagePath({
-              file: reviewPhotosFile,
-              uploadPath: ImageUploadUrl,
-            })
-              .then(({ url }) => {
-                return { url };
+        networkRequestPromises = this.reviewPhotosFile.map(
+          (reviewPhotosFile) => {
+            if (reviewPhotosFile.name) {
+              return uploadImagePath({
+                file: reviewPhotosFile,
+                uploadPath: ImageUploadUrl,
               })
-              .catch(e => {
-                console.error(e);
-              });
-          } else {
+                .then(({ url }) => {
+                  return { url };
+                })
+                .catch((e) => {
+                  console.error(e);
+                });
+            } else {
+            }
           }
-        });
+        );
       }
 
       Promise.all(networkRequestPromises)
-        .then(urls => {
+        .then((urls) => {
           urls.map((urls, i) => {
             return reviewPhotos.push({
               id:
@@ -292,18 +294,18 @@ export default class MypageReviewStore {
               sizeSatisfaction: reviewData.sizeSatisfaction,
               textReview: reviewData.textReview,
             })
-            .then(res => {
+            .then((res) => {
               if (isFunction(onSuccess)) {
                 onSuccess({ data: res.data?.data });
                 this.getMyReviews();
               }
             })
-            .catch(e => {
+            .catch((e) => {
               this.root.alert.showAlert(_.get(e, 'res.data.message'));
             });
         })
-        .catch(e => {
-          console.log(e);
+        .catch((e) => {
+          console.error(e);
         });
     });
   };
@@ -312,7 +314,7 @@ export default class MypageReviewStore {
     let review = reviewdata.review;
     API.user
       .delete(`/products/${review.productId}/reviews/${review.id}`)
-      .then(res => {
+      .then((res) => {
         closeModal();
         this.getMyReviews();
         this.getAvailableReview();
@@ -326,13 +328,14 @@ export default class MypageReviewStore {
       .get(
         `/users/my-page/reviews?page=${page - 1}&size=${this.myReviewsPageSize}`
       )
-      .then(res => {
+      .then((res) => {
         this.myReviews = res.data.data;
-        this.myReivewsItemList = this.myReivewsItemList.concat(
-          res.data?.data?.content
-        ).slice().reverse();
+        this.myReivewsItemList = this.myReivewsItemList
+          .concat(res.data?.data?.content)
+          .slice()
+          .reverse();
       })
-      .catch(e => {
+      .catch((e) => {
         this.myReviews = [];
       });
   };
@@ -381,10 +384,10 @@ export default class MypageReviewStore {
     if (this.isPossibleSetUserSize !== false) {
       API.user
         .get(`users/user-size`)
-        .then(res => {
+        .then((res) => {
           this.isPossibleSetUserSize = false;
         })
-        .catch(e => {
+        .catch((e) => {
           if (_.get(e, 'data.resultCode') === 5004) {
             this.isPossibleSetUserSize = true;
           }

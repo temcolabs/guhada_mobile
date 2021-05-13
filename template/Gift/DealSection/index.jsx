@@ -1,4 +1,4 @@
-import css from './DealItemSection.module.scss';
+import css from './DealSection.module.scss';
 import { memo } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
@@ -7,12 +7,12 @@ import { LinkRoute } from 'childs/lib/router';
 
 import DealItem, { dealShape } from './DealItem';
 
-const DealItemSection = ({ header, deals, horizontal = false }) => (
-  <div className={css['deal-item-section']}>
-    <div className={css['deal-item-section__name']}>{header}</div>
+const DealSection = ({ header, deals, horizontal = false }) => (
+  <div className={css['deal-section']}>
+    <div className={css['deal-section__name']}>{header}</div>
     <div
       className={cn(
-        css['deal-item-section__items'],
+        css['deal-section__items'],
         horizontal && css['items--horizontal']
       )}
     >
@@ -30,12 +30,11 @@ const DealItemSection = ({ header, deals, horizontal = false }) => (
   </div>
 );
 
-DealItemSection.propType = {
+DealSection.propTypes = {
   header: PropTypes.string.isRequired,
-  items: PropTypes.arrayOf(dealShape).isRequired,
+  items: PropTypes.arrayOf(dealShape),
   horoizontal: PropTypes.bool,
   small: PropTypes.bool,
-  handleRoute: PropTypes.func.isRequired,
 };
 
-export default memo(DealItemSection);
+export default memo(DealSection);
