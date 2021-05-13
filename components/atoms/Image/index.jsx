@@ -1,4 +1,4 @@
-import React from 'react';
+import { memo } from 'react';
 import LazyLoad from 'react-lazyload';
 
 import PropTypes from 'prop-types';
@@ -6,6 +6,7 @@ import { ImageDiv } from './Styled';
 
 /**
  * 이미지 태그
+ * @param {Object} customStyle : Custom styles
  * @param {String} type : block, image
  * @param {String} src : Image URL
  * @param {String} size : background size
@@ -13,12 +14,18 @@ import { ImageDiv } from './Styled';
  * @param {String} height : Image Height
  * @returns
  */
-function Image({ type, src, size, width, height }) {
+function Image({ customStyle, type, src, size, width, height }) {
   return (
     <>
       <LazyLoad>
         {/* TODO : image 태그 형태 필요하면, 만들기 */}
-        <ImageDiv style={{ width, height }} src={src} size={size} />
+        <ImageDiv
+          style={customStyle}
+          width={width}
+          height={height}
+          src={src}
+          size={size}
+        />
       </LazyLoad>
     </>
   );
@@ -31,4 +38,4 @@ Image.propTypes = {
   height: PropTypes.string,
 };
 
-export default Image;
+export default memo(Image);

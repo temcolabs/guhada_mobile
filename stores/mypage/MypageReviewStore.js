@@ -195,6 +195,7 @@ export default class MypageReviewStore {
                   lengthSatisfaction: reviewData.lengthSatisfaction,
                   orderProductGroupId: orderProdGroupId,
                   productRating: reviewData.productRating,
+                  reviewHashtagList: reviewData.reviewHashtagList,
                   reviewPhotos: reviewPhotos,
                   sellerId: sellerId,
                   sizeSatisfaction: reviewData.sizeSatisfaction,

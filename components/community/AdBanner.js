@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { memo, Component } from 'react';
+import { toJS } from 'mobx';
 import css from './AdBanner.module.scss';
 import './AdBanner.scss';
 import cn from 'classnames';
@@ -26,8 +27,9 @@ class AdBanner extends Component {
     this.props.main.getMainBannner();
   }
   render() {
+    const { main, dots } = this.props;
     const settings = {
-      dots: true,
+      dots: dots !== undefined ? dots : true,
       infinite: true,
       speed: 500,
       slidesToShow: 1,
@@ -40,12 +42,12 @@ class AdBanner extends Component {
       prevArrow: <PrevArrow />,
       // beforeChange: this.onBeforeChange,
     };
-    const { main } = this.props;
+
     return (
       <div className={css.wrap}>
         <Slider {...settings}>
           {main.bannerInfo.map((banner, index) => {
-            if (isTruthy(banner.mediumImageUrl))
+            if (isTruthy(banner.communityPlusImageUrl))
               return (
                 <div key={index}>
                   <div
@@ -69,4 +71,4 @@ class AdBanner extends Component {
   }
 }
 
-export default AdBanner;
+export default memo(AdBanner);

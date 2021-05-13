@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { memo, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
   Wrapper,
@@ -79,6 +79,7 @@ function ReviewCategories({ categories, onClickCategory }) {
 
 ReviewCategories.propTypes = {
   categories: PropTypes.array.isRequired,
+  onClickCategory: PropTypes.func.isRequired,
 };
 
-export default ReviewCategories;
+export default memo(ReviewCategories);

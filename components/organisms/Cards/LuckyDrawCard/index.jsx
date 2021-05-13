@@ -19,7 +19,7 @@ import {
 
 import LuckyDrawButton from 'components/atoms/Button/LuckyDrawButton';
 import addCommaToNum from 'childs/lib/common/addCommaToNum';
-import getTimeDiff from 'childs/lib/common/getTimeDiff';
+import { getTimeDiff } from 'childs/lib/common/getTimeDiff';
 import moment from 'moment';
 
 /**

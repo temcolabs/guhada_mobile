@@ -11,7 +11,7 @@ import DefaultLayout from 'components/layout/DefaultLayout';
 import CategorySlider from 'components/common/CategorySlider';
 import Footer from 'components/footer/Footer';
 import GiftHeader from './GiftHeader';
-import DealSection from './DealSection';
+import DealSection from 'components/organisms/DealSection';
 
 const DynamicScrollableImageModal = dynamic(
   () => import('./ScrollableImageModal'),

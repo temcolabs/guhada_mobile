@@ -1,38 +1,42 @@
-import React from 'react';
+import { memo } from 'react';
 import PropTypes from 'prop-types';
-import { Image } from 'components/atoms';
-import { Wrapper, Title, Contents, HashTagItem } from './Styled';
+import { stringify } from 'qs';
 
-// TODO : Styled-components Sprite
-const IMAGE_PATH = {
-  title: '/static/icons/text/text_favorite_hashtag/text_favorite_hashtag.png',
-  emoji: '/static/icons/emoji/emoji_finger_fire/emoji_finger_fire.png',
-};
+import HashtagFavoriteHeading from '../Atoms/Heading/HashtagFavorite';
+import HashTagItem from '../Atoms/Label/HashtagItem';
+import { Wrapper, Contents } from './Styled';
+
+import { pushRoute } from 'childs/lib/router';
 
 /**
  * ReviewHashtag
- * @param {Array} hashTags
+ * @param {Array} hashTags : 해시태그 리스트
  * @returns
  */
 function ReviewHashtag({ hashTags }) {
-  const onClickHashTagItem = () => {
-    // TODO : 해시태그 상세 조회
-    console.log('aaa');
-  };
   return (
-    <Wrapper>
-      <Title>
-        <Image src={IMAGE_PATH.title} width={'87px'} />
-        <Image src={IMAGE_PATH.emoji} width={'37px'} />
-      </Title>
-      <Contents>
-        {hashTags?.map((o) => (
-          <HashTagItem key={o.id} onClick={() => onClickHashTagItem()}>
-            # {o.hashtag}
-          </HashTagItem>
-        ))}
-      </Contents>
-    </Wrapper>
+    <>
+      {hashTags?.length ? (
+        <Wrapper>
+          <HashtagFavoriteHeading />
+          <Contents>
+            {hashTags?.map((o) => (
+              <HashTagItem
+                key={o.id}
+                hashtag={o.hashtag}
+                onClickHashtag={() =>
+                  pushRoute(
+                    `/review/hashtag?${stringify({ hashtag: o.hashtag })}`
+                  )
+                }
+              />
+            ))}
+          </Contents>
+        </Wrapper>
+      ) : (
+        ''
+      )}
+    </>
   );
 }
 
@@ -40,4 +44,4 @@ ReviewHashtag.propTypes = {
   hashTags: PropTypes.array.isRequired,
 };
 
-export default ReviewHashtag;
+export default memo(ReviewHashtag);
