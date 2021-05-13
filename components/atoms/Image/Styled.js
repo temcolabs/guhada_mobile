@@ -5,6 +5,6 @@ export const ImageDiv = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   background-size: ${(props) => (props.size ? props.size : 'cover')};
-  width: 100%;
-  height: 100%;
+  width: ${(props) => props.width ? props.width : '100%'};
+  height: ${(props) => props.height ? props.height : '100%'};
 `;

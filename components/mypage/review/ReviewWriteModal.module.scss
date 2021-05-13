@@ -1,5 +1,6 @@
 @import 'styles/mixins/index';
 @import 'styles/mixins/centered.scss';
+@import 'styles/sprite.scss';
 
 .modalWrap {
   width: 100%;
@@ -211,8 +212,32 @@
 }
 
 .textareaWrap {
+  border: 1px solid #eeeeee;
   width: 100%;
   margin-top: 40px;
+}
+
+.hashtagWrap {
+  border: 1px solid #eeeeee;
+  width: 100%;
+  margin-top: 12px;
+  min-height: 120px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-content: center;
+
+  > div:first-child {
+    @include sprite($tag-plus);
+    margin-bottom: 10px;
+  }
+
+  > div:last-child {
+    font-family: Roboto;
+    font-size: 13px;
+    text-align: center;
+    width: 100%;
+  }
 }
 
 .photoWrap {

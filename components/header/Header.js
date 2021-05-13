@@ -51,6 +51,7 @@ function Header({
                 headerShape === 'orderpayment' ||
                 headerShape === 'shoppingcart' ||
                 headerShape === 'brand' ||
+                headerShape === 'review' ||
                 headerShape === 'eventmain' ||
                 headerShape === 'BBSArticleView',
             },
@@ -69,14 +70,23 @@ function Header({
           headerShape === 'eventmain' ||
           headerShape === 'BBSArticleView' ||
           headerShape === 'special' ||
+          headerShape === 'review' ||
           (headerShape === 'address' && urlHistory !== '') ? (
-            <button className={css.backButton} onClick={() => Router.back()} />
+            <button
+              className={css.backButton}
+              onClick={() =>
+                headerShape === 'review'
+                  ? Router.push('/review')
+                  : Router.back()
+              }
+            />
           ) : null}
 
           {headerShape === 'detailPage' ||
           headerShape === 'shoppingcart' ||
           headerShape === 'orderpayment' ||
           headerShape === 'ordersuccess' ||
+          headerShape === 'review' ||
           headerShape === 'BBSArticleView' ? null : (
             <button
               className={css.menuButton}
@@ -102,6 +112,7 @@ function Header({
           {headerShape === 'detailPage' ||
           headerShape === 'shoppingcart' ||
           headerShape === 'orderpayment' ||
+          headerShape === 'review' ||
           headerShape === 'ordersuccess' ? null : (
             <button
               className={cn(css.searchButton, {
@@ -114,6 +125,7 @@ function Header({
           {headerShape === 'detailPage' ||
           headerShape === 'shoppingcart' ||
           headerShape === 'orderpayment' ||
+          headerShape === 'review' ||
           headerShape === 'ordersuccess' ? null : (
             <LinkRoute href="/shoppingcart">
               <div className={css.cartButton}>

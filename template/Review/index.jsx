@@ -1,165 +1,145 @@
-import css from './Review.module.scss';
-import { useState, useEffect, useCallback, useRef } from 'react';
-
+import { memo, useEffect } from 'react';
 import Proptypes from 'prop-types';
+import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
-import dynamic from 'next/dynamic';
-import { debounce } from 'lodash';
-
 import useStores from 'stores/useStores';
-import { mainCategory } from 'childs/lib/constant/category';
 
+import CategorySlider from 'components/common/CategorySlider';
 import DefaultLayout from 'components/layout/DefaultLayout';
 import Footer from 'components/footer/Footer';
-import CategorySlider from 'components/common/CategorySlider';
+import { ReviewHashTag, ReviewCategories } from './components';
+import ReviewSection from 'components/organisms/ReviewSection';
+
+import { mainCategory } from 'childs/lib/constant/category';
+import { useScrollDirection, useScrollPosition } from 'hooks';
 
 import { REVIEW_CATEGORY_LIST } from './_constants';
-import { Image } from 'components/atoms';
-
-import { toJS } from 'mobx';
-
 import { Wrapper } from './Styled';
-import {
-  ReviewBanner,
-  ReviewHashTag,
-  ReviewCategories,
-  ReviewCard,
-} from './components';
 
-function ReviewTemplate({ banners, hashTags }) {
+/**
+ * ReviewTemplate
+ * @returns
+ */
+function ReviewTemplate() {
   /**
    * states
    */
-  const { main: mainStore, review: reviewStore } = useStores();
-  const [reviews, setReviews] = useState([]);
-  const [scrollDirection, setScrollDirection] = useState('up');
+  const {
+    main: mainStore,
+    review: reviewStore,
+    login: loginStore,
+  } = useStores();
+  const { reviewList: reviews } = reviewStore;
 
-  const sliderRef = useRef(null);
-
-  let lastScrollTop = 0;
+  const scrollDirection = useScrollDirection();
+  const scrollPosition = useScrollPosition();
 
   /**
    * side effects
    */
-
-  /**
-   * 초기화
-   */
-
   useEffect(() => {
-    return () => initReviewPage();
+    reviewStore.getReviewList(reviewStore?.searchForm);
+    reviewStore.getReviewHashtags();
+    return () => {
+      reviewStore.initReviewStore();
+    };
   }, []);
 
+  // Review data imported in infinite scrolls
   useEffect(() => {
-    const content = toJS(reviewStore?.reviewPage?.content);
-    if (content && content.length) {
-      setReviews([...reviews, ...content]);
+    if (scrollPosition > 0.7) {
+      getReviewList();
     }
-  }, [reviewStore.reviewPage]);
 
-  /**
-   * React-slick, 간격 수정
-   */
-  useEffect(() => {
-    let slickSlides = document.querySelectorAll('.slick-slide');
-    if (slickSlides && slickSlides.length) {
-      slickSlides.forEach((o, i) => {
-        o.style.marginRight = '7px';
-      });
+    async function getReviewList() {
+      const reviewPage = reviewStore?.reviewPage;
+      if (!reviewPage.last) {
+        document.documentElement.style.overflow = 'hidden';
+        const searchForm = reviewStore?.searchForm;
+        const search = { ...searchForm, page: searchForm.page + 1 };
+
+        await reviewStore.getReviewList(search);
+        reviewStore.setSearchForm(search);
+        document.documentElement.style.overflow = 'initial';
+      }
     }
-  }, [sliderRef.current]);
-
-  useEffect(() => {
-    reviewStore.getReviewList(reviewStore.searchForm);
-    console.log('reviewStore.searchForm : ', toJS(reviewStore.searchForm));
-  }, [reviewStore.searchForm]);
-
-  useEffect(() => {
-    console.log('reviewStore.reviewPage : ', toJS(reviewStore.reviewPage));
-  }, [reviewStore.reviewPage]);
-
-  useEffect(() => {
-    console.log('reviewStore.reviewList : ', toJS(reviewStore.reviewList));
-  }, [reviewStore.reviewList]);
+  }, [reviewStore, scrollPosition]);
 
   /**
    * Handlers
-   * @param {String} categoryName
    */
-  const onClickCategory = (categoryName) => {
-    reviewStore.initReviewPage();
-    reviewStore.initReviewList();
-    reviewStore.setSearchForm({ ...reviewStore.searchForm, categoryName });
+  // Clicked category item
+  const onClickCategory = async (categoryName) => {
+    reviewStore.initReviewStore();
+    const search = { ...reviewStore.searchForm, categoryName };
+    await reviewStore.getReviewList(search);
+    reviewStore.setSearchForm(search);
   };
 
-  /**
-   * Helpers
-   */
-  const initReviewPage = () => {
-    reviewStore.initSearchForm();
-    reviewStore.initReviewPage();
-    reviewStore.initReviewList();
-  };
-
-  /**
-   * 1. 스토어 확인
-   * 2. last : false
-   * 3. 임계점, 호출
-   */
-
-  // TODO : Hooks 사용
-  const handleScrollDirection = useCallback(
-    debounce((e) => {
-      let st = window.pageYOffset || document.documentElement.scrollTop;
-      if (st > lastScrollTop) {
-        setScrollDirection('down');
+  // Clicked like button
+  const onClickLike = async (review) => {
+    if (loginStore.loginStatus === 'LOGIN_DONE') {
+      const isLike = review?.myBookmarkReview;
+      if (isLike) {
+        await reviewStore.delProductReviewBookmarks(review);
       } else {
-        setScrollDirection('up');
+        await reviewStore.setProductReviewBookmarks(review);
       }
-      lastScrollTop = st <= 0 ? 0 : st;
-    }, 10),
-    []
-  );
+    } else {
+      alert.showAlert('로그인이 필요한 서비스입니다.');
+    }
+  };
 
   return (
-    <DefaultLayout
-      title={null}
-      topLayout={'main'}
-      scrollDirection={scrollDirection}
-    >
-      <CategorySlider
-        categoryList={mainCategory.item}
-        setNavDealId={mainStore.setNavDealId}
+    <>
+      <DefaultLayout
+        title={null}
+        topLayout={'main'}
         scrollDirection={scrollDirection}
-      />
-
-      <Wrapper>
-        {/* 리뷰 > 배너 */}
-        {banners?.length ? <ReviewBanner banners={banners} /> : ''}
-
-        {/* 리뷰 > 인기 해시태그 */}
-        {hashTags?.length ? <ReviewHashTag hashTags={hashTags} /> : ''}
-
-        {/* 리뷰 > 카테고리 */}
-        <ReviewCategories
-          categories={REVIEW_CATEGORY_LIST}
-          onClickCategory={onClickCategory}
+      >
+        <CategorySlider
+          categoryList={mainCategory.item}
+          setNavDealId={mainStore.setNavDealId}
+          scrollDirection={scrollDirection}
         />
 
-        {/* 리뷰 > 카드 */}
-        {reviews && reviews.length ? (
-          <div>
-            {reviews.map((review, i) => (
-              <ReviewCard key={`ReviewCard-${i}`} review={review} />
-            ))}
-          </div>
-        ) : (
-          ''
-        )}
-      </Wrapper>
-      <Footer />
-    </DefaultLayout>
+        <Wrapper>
+          {/* 리뷰 > 배너 */}
+          {/* <ReviewBanner /> */}
+
+          {/* 리뷰 > 인기 해시태그 */}
+          <ReviewHashTag hashTags={toJS(reviewStore?.reviewHashtagList)} />
+
+          {/* 리뷰 > 카테고리 */}
+          <ReviewCategories
+            categories={REVIEW_CATEGORY_LIST}
+            onClickCategory={onClickCategory}
+          />
+
+          {/* 리뷰 > 카드 */}
+          {reviews && reviews.length ? (
+            <div>
+              {reviews.map((review, i) => (
+                <ReviewSection
+                  key={`ReviewSection-${i}`}
+                  review={review}
+                  onClickLike={onClickLike}
+                />
+              ))}
+            </div>
+          ) : (
+            ''
+          )}
+        </Wrapper>
+        <Footer />
+      </DefaultLayout>
+    </>
   );
 }
 
-export default observer(ReviewTemplate);
+ReviewTemplate.propTypes = {
+  banners: Proptypes.array,
+  hashTags: Proptypes.array,
+};
+
+export default memo(observer(ReviewTemplate));

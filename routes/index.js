@@ -39,7 +39,12 @@ module.exports = [
     asPath: '/review',
     name: '리뷰',
   },
-
+  {
+    // 리뷰 해시태그 리스트
+    pagePath: '/review/hashtag',
+    asPath: '/review/hashtag',
+    name: '리뷰 상세',
+  },
   {
     // 랭킹
     pagePath: '/ranking',
