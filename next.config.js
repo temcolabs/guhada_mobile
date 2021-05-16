@@ -55,7 +55,10 @@ module.exports = withBundleAnalyzer(
           },
           target: {
             image: path.resolve(__dirname, 'static/sprite.png'),
-            css: path.resolve(__dirname, 'styles/sprite.scss')
+            css: [
+              path.resolve(__dirname, 'styles/sprite.scss'),
+              path.resolve(__dirname, 'styles/sprite.json')
+            ]
           },
           apiOptions: {
             cssImageRef: '/static/sprite.png'
