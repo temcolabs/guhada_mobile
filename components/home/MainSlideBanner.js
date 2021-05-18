@@ -15,9 +15,10 @@ class MainSlideBanner extends Component {
 
   componentDidMount() {
     const { imageFile } = this.props;
-    let imageLength = imageFile.filter(image => image.mainUse === true).length;
+    let imageLength = imageFile.filter((image) => image.mainUse === true)
+      .length;
 
-    if(document.querySelector('.slickDots')){
+    if (document.querySelector('.slickDots')) {
       let li = document.querySelector('.slickDots').childNodes;
 
       for (let i = 0; i < imageLength; i++) {
@@ -27,13 +28,12 @@ class MainSlideBanner extends Component {
           imageFile[i].eventIds = eventIds;
         }
       }
-    }    
+    }
   }
 
   componentDidUpdate(prevProps) {
     const { imageFile } = this.props;
     if (prevProps.imageFile !== this.props.imageFile) {
-      console.log('update');
       for (let i = 0; i < imageFile.length; i++) {
         if (imageFile[i].link.includes('special')) {
           let eventIds = imageFile[i].link.replace(/[^0-9]/g, '');
@@ -84,7 +84,7 @@ class MainSlideBanner extends Component {
           })}
         </Slider>
         <div className={css.counter}>{`${this.state.index + 1}/${
-          imageFile.filter(image => image.mainUse === true).length
+          imageFile.filter((image) => image.mainUse === true).length
         }`}</div>
       </div>
     );

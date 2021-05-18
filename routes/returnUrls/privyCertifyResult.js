@@ -10,7 +10,7 @@ module.exports = {
     let para = req.url;
     let oid = para.substring(para.indexOf('?') + 1, para.lastIndexOf('&'));
     let cartList = para.substring(para.indexOf('=') + 1, para.length);
-    console.log(authData, 'authData');
+
     if (authData.P_STATUS !== '00') {
       if (cartList) {
         res.redirect(
@@ -39,27 +39,32 @@ module.exports = {
         pgTidSample: authData.P_TID,
         web: false,
       })
-      .then(response => {
-        let data = response.data.data;        
+      .then((response) => {
+        let data = response.data.data;
         res.redirect('/orderpaymentsuccess?id=' + data);
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(`privyCertifyResult err ${err}`);
-        if (err.status === 200) {          
-          if(err && err.data && err.data.message){            
+        if (err.status === 200) {
+          if (err && err.data && err.data.message) {
             if (req.query.cartList) {
-              res.redirect('/orderpayment?cartList=' + req.query.cartList + '&resultMsg=' + err.data.message);
+              res.redirect(
+                '/orderpayment?cartList=' +
+                  req.query.cartList +
+                  '&resultMsg=' +
+                  err.data.message
+              );
             } else {
               res.redirect('/');
             }
-          }else{
+          } else {
             if (req.query.cartList) {
               res.redirect(`/orderpayment?cartList=${req.query.cartList}`);
             } else {
               res.redirect('/');
             }
-          }          
-        } else {                    
+          }
+        } else {
           res.redirect(
             '/orderpayment?cartList=' +
               cartList +
@@ -67,7 +72,6 @@ module.exports = {
               authData.P_RMESG1
           );
         }
-        
       });
   },
 };

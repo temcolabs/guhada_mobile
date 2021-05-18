@@ -36,7 +36,7 @@ export default class LukcyDrawStore {
   };
 
   @action
-  handleLuckyPopupClose = stop => {
+  handleLuckyPopupClose = (stop) => {
     if (stop) {
       localStorage.setItem('lucky-popup', 'stop');
     }
@@ -44,7 +44,7 @@ export default class LukcyDrawStore {
   };
 
   @action
-  setLuckydrawLoginModal = bool => {
+  setLuckydrawLoginModal = (bool) => {
     if (bool === true) {
       this.root.login.loginPosition = '';
     }
@@ -52,7 +52,7 @@ export default class LukcyDrawStore {
   };
 
   @action
-  setLuckydrawSignupModal = bool => {
+  setLuckydrawSignupModal = (bool) => {
     if (bool !== true) {
       this.root.login.loginPosition = '';
     }
@@ -61,7 +61,7 @@ export default class LukcyDrawStore {
   };
 
   @action
-  setLuckydrawModifyModal = bool => {
+  setLuckydrawModifyModal = (bool) => {
     if (bool !== true) {
       this.root.login.loginPosition = '';
     }
@@ -76,7 +76,7 @@ export default class LukcyDrawStore {
     form.$('emailCheck').set('label', '중복확인');
     form.$('authMobileButton').set('label', '본인인증');
 
-    API.user.get(`/event/users`).then(res => {
+    API.user.get(`/event/users`).then((res) => {
       this.user = res.data.data;
       devLog('toJS(this.user)', toJS(this.user));
       let identityVerify = this.user.identityVerify;
@@ -125,7 +125,6 @@ export default class LukcyDrawStore {
 
         // 이메일 인증 바인딩
         if (!!emailVerified) {
-          console.log('disabled');
           form.$('email').set('disabled', true);
         }
 
@@ -250,6 +249,7 @@ export default class LukcyDrawStore {
       // TODO: 확인 모달 연결
       this.isResultModal = true;
       this.resultData = data.data;
+      return data.data;
     } catch (e) {
       this.root.alert.showAlert(e.data?.message || '오류가 발생했습니다.');
       console.error(e);
@@ -264,7 +264,5 @@ export default class LukcyDrawStore {
     this.isRequestModal
       ? (this.isRequestModal = false)
       : (this.isResultModal = false);
-
-    console.log(this.isRequestModal, this.isResultModal, 'this.isResultModal ');
   };
 }

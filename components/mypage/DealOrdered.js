@@ -37,9 +37,9 @@ export default function DealOrdered({
 
   // 발송지연 상태 Flag
   const isDelayStatusVisible =
-    (order?.shipDelayNotificationTimestamp &&
-      order?.purchaseStatus === 'COMPLETE_PAYMENT') ||
-    order?.purchaseStatus === 'PREPARE_PRODUCT';
+    order?.shipDelayNotificationTimestamp &&
+    (order?.purchaseStatus === 'COMPLETE_PAYMENT' ||
+      order?.purchaseStatus === 'PREPARE_PRODUCT');
 
   // 발송지연 데드라인 기한
   const delayDeadlineDate = order?.delayDeadlineTimestamp
@@ -48,6 +48,11 @@ export default function DealOrdered({
 
   // 발송지연 on / off state
   const [isDeliveryDelayModalOpen, setDeliveryDelayModalOpen] = useState(false);
+  
+  const onCloseDelayModal = () => {
+    setDeliveryDelayModalOpen(false);
+    document.documentElement.style.overflow = 'initial';
+  };
 
   return (
     <>
@@ -55,7 +60,7 @@ export default function DealOrdered({
       {isDeliveryDelayModalOpen && (
         <DeliveryDelayModal
           isOpen={isDeliveryDelayModalOpen}
-          onClose={() => setDeliveryDelayModalOpen(false)}
+          onClose={() => onCloseDelayModal()}
           order={order}
         />
       )}

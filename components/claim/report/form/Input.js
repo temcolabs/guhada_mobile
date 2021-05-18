@@ -13,7 +13,7 @@ export const inputStatTypes = {
 function Input({
   initialValue,
   formatter, // 입력값 변환 함수
-  onChange = value => {},
+  onChange = (value) => {},
   style, // css style
   wrapperStyle,
   iconUrl, // 아이콘 타입
@@ -31,7 +31,7 @@ function Input({
     onChange,
     formatter,
   });
-  console.log(value, 'value');
+
   return (
     <div
       className={cn(css.wrap, css[status], {
@@ -49,7 +49,7 @@ function Input({
 
       <input
         value={nilToEmptyStr(value) || ''}
-        onChange={e => handleChange(e.target.value)}
+        onChange={(e) => handleChange(e.target.value)}
         disabled={disabled}
         type={type}
         placeholder={placeholder}

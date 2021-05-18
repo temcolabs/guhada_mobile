@@ -1,0 +1,30 @@
+.bw-selection-button {
+  width: 165px;
+  height: 40px;
+  font-size: 14px;
+
+  .selection-button {
+    width: 50%;
+    height: 100%;
+    display: inline-block;
+
+    &.button--selected {
+      background-color: #000;
+      color: #fff;
+    }
+
+    &.button--left {
+      border: 1px solid #eee;
+      border-right: 0;
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+    }
+
+    &.button--right {
+      border: 1px solid #eee;
+      border-left: 0;
+      border-top-right-radius: 6px;
+      border-bottom-right-radius: 6px;
+    }
+  }
+}

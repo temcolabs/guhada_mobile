@@ -17,7 +17,7 @@ export default class EventPopupStore {
   appEventPopupOpen = () => {
     API.settle
       .get(`/event/main/popup`)
-      .then(res => {
+      .then((res) => {
         let data = res.data.data;
         const isMobile = /Mobile|iP(hone|od)|BlackBerry|IEMobile|Kindle|NetFront|Silk-Accelerated|(hpw|web)OS|Fennec|Minimo|Opera M(obi|ini)|Blazer|Dolfin|Dolphin|Skyfire|Zune/.test(
           window.navigator.userAgent
@@ -48,8 +48,8 @@ export default class EventPopupStore {
         this.popupList = [...data];
         devLog(this.popupList, 'eventPopupList');
       })
-      .catch(err => {
-        console.log(err, 'settle popup err');
+      .catch((err) => {
+        console.error(err, 'settle popup err');
       });
   };
 
@@ -70,7 +70,7 @@ export default class EventPopupStore {
     // });
   };
 
-  setPopupLocalStorage = name => {
+  setPopupLocalStorage = (name) => {
     let data = {
       name: name,
       setDate: +moment().startOf('second'),
@@ -78,7 +78,7 @@ export default class EventPopupStore {
     localStorage.setItem(name, JSON.stringify(data));
   };
 
-  setAppDownLink = data => {
+  setAppDownLink = (data) => {
     if (isIOS() && data.eventTitle === '앱다운로드') {
       data.appDownLink = 'https://apps.apple.com/app/id1478120259';
     } else if (isAndroid() && data.eventTitle === '앱다운로드') {

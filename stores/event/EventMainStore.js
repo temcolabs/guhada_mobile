@@ -23,49 +23,49 @@ export default class EventMainStore {
   };
 
   @action
-  getEventList = value => {
+  getEventList = (value) => {
     if (!value?.value) {
       API.settle
         .get(`/event/list?eventProgress=PROGRESS`)
-        .then(res => {
+        .then((res) => {
           this.eventList = res.data.data;
           this.status.page = true;
         })
-        .catch(err => {
-          console.log(err, 'event list get error');
+        .catch((err) => {
+          console.error(err, 'event list get error');
           this.eventList = [];
         });
     } else {
       API.settle
         .get(`/event/list?eventProgress=${value.value}`)
-        .then(res => {
+        .then((res) => {
           this.eventList = [...res.data.data];
           this.status.page = true;
           devLog(toJS(this.eventList), 'event list');
         })
-        .catch(err => {
-          console.log(err, 'event list get error');
+        .catch((err) => {
+          console.error(err, 'event list get error');
           this.eventList = [];
         });
     }
   };
 
   @action
-  getEventDetail = id => {
+  getEventDetail = (id) => {
     API.settle
       .get(`/event/list/detail`, {
         params: {
           eventId: id,
         },
       })
-      .then(res => {
+      .then((res) => {
         this.eventDetail = res.data.data;
         devLog(this.eventDetail, 'event detail');
         this.getUrl();
         this.status.detailPage = true;
       })
-      .catch(err => {
-        console.log(err, 'event detail get error');
+      .catch((err) => {
+        console.error(err, 'event detail get error');
         this.eventDetail = {};
       });
   };

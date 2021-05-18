@@ -1,10 +1,6 @@
-import Router from 'next/router';
-import Form from 'stores/form-store/_.forms';
 import API from 'childs/lib/API';
 import _ from 'lodash';
 import { devLog, devGroup, devGroupEnd } from 'childs/lib/common/devLog';
-import naverShoppingTrakers from 'childs/lib/tracking/navershopping/naverShoppingTrakers';
-import daumTracker from 'childs/lib/tracking/daum/daumTracker';
 import { root } from 'store';
 
 export default {
@@ -43,7 +39,7 @@ export default {
         root.luckyDraw.setLuckydrawLoginModal(false);
         root.luckyDraw.getEventUser();
       })
-      .catch(e => {
+      .catch((e) => {
         const data = _.get(e, 'data') || {};
 
         switch (data?.resultCode) {

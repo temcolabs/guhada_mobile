@@ -34,30 +34,30 @@ export default class SpecialStore {
   @observable productCondition = 'ANY';
   @observable shippingCondition = 'ANY';
   @action
-  getSpecialList = value => {
+  getSpecialList = (value) => {
     if (!value?.value) {
       API.settle
         .get(`/plan/list?eventProgress=PROGRESS`)
-        .then(res => {
+        .then((res) => {
           this.specialListMain = res.data.data;
           this.specialList = res.data.data;
           this.status.page = true;
           devLog(toJS(this.specialList), 'special list');
         })
-        .catch(err => {
-          console.log(err, 'special list get error');
+        .catch((err) => {
+          console.error(err, 'special list get error');
           this.specialList = [];
         });
     } else {
       API.settle
         .get(`/plan/list?eventProgress=${value.value}`)
-        .then(res => {
+        .then((res) => {
           this.specialList = [...res.data.data];
           this.status.page = true;
           devLog(toJS(this.specialList), 'special list');
         })
-        .catch(err => {
-          console.log(err, 'special list get error');
+        .catch((err) => {
+          console.error(err, 'special list get error');
           this.specialList = [];
         });
     }
@@ -74,7 +74,7 @@ export default class SpecialStore {
           searchProgress: order,
         },
       })
-      .then(res => {
+      .then((res) => {
         this.specialDetail = res.data.data;
 
         devLog(toJS(this.specialDetail), 'special detail');
@@ -92,8 +92,8 @@ export default class SpecialStore {
         //   });
         // }
       })
-      .catch(err => {
-        console.log(err, 'special detail get error');
+      .catch((err) => {
+        console.error(err, 'special detail get error');
         this.specialDetail = [];
       });
   };

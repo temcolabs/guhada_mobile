@@ -5,6 +5,7 @@ import sessionStorage from 'childs/lib/common/sessionStorage';
 import { gtagUtmSave } from 'childs/lib/tracking/google/gtagUtmHelper';
 
 const GTAG_ID = 'AW-722841005';
+const UA_GTAG_ID = 'UA-145072876-1';
 const GTAG_TRACKER_URL = '//www.googletagmanager.com/gtag/js';
 
 const getDeviceType = () => {
@@ -33,10 +34,13 @@ export default {
         } else {
           gtag('config', GTAG_ID);
         }
+
+        window.ga('create', UA_GTAG_ID, 'auto');
+        window.ga('send', 'pageview');
       },
     });
   },
-  signup: url => {
+  signup: (url) => {
     if (isBrowser) {
       let signupUrl = window.location.origin + url;
 
@@ -73,7 +77,7 @@ export default {
       }
     }
   },
-  purchaseComplete: successInfo => {
+  purchaseComplete: (successInfo) => {
     if (isBrowser) {
       const gtagObj = {
         transaction_id: `${successInfo.orderNumber}`,
@@ -113,5 +117,28 @@ export default {
         });
       }
     }
+  },
+  gaEvent: {
+    luckyDrawRequest() {
+      window.ga('send', 'event', 'Mobile', 'Mobile_bt1');
+    },
+    luckyDrawLogin() {
+      window.ga('send', 'event', 'Mobile', 'Mobile_bt2');
+    },
+    luckyDrawSignup() {
+      window.ga('send', 'event', 'Mobile', 'Mobile_bt3');
+    },
+    luckyDrawNaverSignup() {
+      window.ga('send', 'event', 'Mobile', 'Mobile_bt4');
+    },
+    luckyDrawKakaoSignup() {
+      window.ga('send', 'event', 'Mobile', 'Mobile_bt5');
+    },
+    luckyDrawFacebookSignup() {
+      window.ga('send', 'event', 'Mobile', 'Mobile_bt6');
+    },
+    luckyDrawGoogleSignup() {
+      window.ga('send', 'event', 'Mobile', 'Mobile_bt7');
+    },
   },
 };

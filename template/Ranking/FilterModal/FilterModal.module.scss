@@ -1,0 +1,64 @@
+@import 'styles/sprite.scss';
+
+$modalOffset: 300px;
+$modalOffsetMin: 100px;
+
+.filter-modal {
+  width: 100%;
+  height: calc(100vh - #{$modalOffset});
+  background-color: #fff;
+  margin-top: $modalOffset;
+  @media screen and (max-height: 650px) {
+    height: calc(100vh - #{$modalOffsetMin});
+    margin-top: $modalOffsetMin;
+  }
+  position: relative;
+  color: #111;
+
+  .close-button {
+    @include sprite($btn-tool-close);
+    position: absolute;
+    top: -45px;
+    right: 15px;
+    margin-bottom: 100px;
+  }
+
+  .modal__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+
+    border-bottom: 1px solid #eee;
+
+    &__name {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    &__reset {
+      display: flex;
+      align-items: center;
+      font-size: 13px;
+      color: #777;
+
+      .reset-button {
+        @include sprite($filter-icon-reset-w);
+      }
+    }
+  }
+
+  .modal__list {
+    color: #111;
+    font-weight: 500;
+    font-size: 16px;
+
+    .list-item {
+      padding: 22px 30px;
+
+      &--selected {
+        color: #5d2ed1;
+      }
+    }
+  }
+}
