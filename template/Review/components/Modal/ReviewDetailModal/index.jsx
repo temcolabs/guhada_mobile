@@ -28,7 +28,11 @@ import ReviewSection from 'components/organisms/ReviewSection';
 import CommentSection from 'components/organisms/CommentSection';
 
 function ReviewDetailModal({ reviewId, isModalOpen, onCloseModal }) {
-  const { review: reviewStore, login: loginStore } = useStores();
+  const {
+    review: reviewStore,
+    login: loginStore,
+    alert: alertStore,
+  } = useStores();
   const { reviewDetail: review } = reviewStore;
   const { reviewDetailComments: comment } = reviewStore;
 
@@ -60,13 +64,18 @@ function ReviewDetailModal({ reviewId, isModalOpen, onCloseModal }) {
         reviewStore.setProductReviewBookmarks(review);
       }
     } else {
-      alert.showAlert('로그인이 필요한 서비스입니다.');
+      alertStore.showAlert('로그인이 필요한 서비스입니다.');
     }
   };
 
   // 댓글 기능...
   const onClickComment = () => {};
-  const onClickCommentSubmit = () => {};
+  const onClickCommentSubmit = (text) => {
+    /**
+     * 1. text 쏘기
+     * 2. Rerendering
+     */
+  };
   const onClickReport = () => {};
   const onClickDelete = () => {};
 
@@ -124,7 +133,10 @@ function ReviewDetailModal({ reviewId, isModalOpen, onCloseModal }) {
           <AdBanner dots={false} />
 
           {/* 댓글 */}
-          <CommentSection comment={comment} />
+          <CommentSection
+            comment={comment}
+            onClickCommentSubmit={onClickCommentSubmit}
+          />
 
           {/* 구분선 */}
           <BigDivider />

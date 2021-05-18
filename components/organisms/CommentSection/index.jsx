@@ -13,7 +13,7 @@ import { CommentListSection, CommentWriteSection, Divider } from './Styled';
  * @param {Object} comment, /reviews/${reviewId}/comments
  * @returns
  */
-function CommentSection({ comment }) {
+function CommentSection({ comment, onClickCommentSubmit }) {
   const { user: userStore } = useStores();
 
   const userId = userStore?.userInfo?.id;
@@ -32,7 +32,7 @@ function CommentSection({ comment }) {
       {/* 댓글 작성 */}
       <Divider />
       <CommentWriteSection>
-        <CommentWrite />
+        <CommentWrite onClickCommentSubmit={onClickCommentSubmit} />
       </CommentWriteSection>
     </>
   );

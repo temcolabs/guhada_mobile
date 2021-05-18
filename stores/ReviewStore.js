@@ -38,7 +38,7 @@ export default class ReviewStore {
   @observable searchForm = this.DEFAULT_SEARCH_FORM; // 검색 Object
   @observable reviewList = []; // 리뷰 List
   @observable reviewRecommendList = []; // 추천 리뷰 List
-  
+
   // 상세 리뷰
   @observable reviewDetail = null; // 상세 리뷰
   @observable reviewDetailComments = null; // 상세 리뷰 댓글
@@ -70,7 +70,7 @@ export default class ReviewStore {
   initReviewHashtag = () => {
     this.reviewHashtagDetail = null;
     this.reviewHashtagDetailList = [];
-  }
+  };
   @action
   setSearchForm = (search) => (this.searchForm = search);
 
@@ -282,6 +282,32 @@ export default class ReviewStore {
         this.reviewRecommendList = result.slice(0, 6);
       }
       return result;
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  /**
+   * 리뷰 댓글 작성
+   * @param {Number} reviewId
+   * @param {Object} param0 
+   * @returns 
+   */
+  @action
+  createReviewComments = async ({
+    reviewId,
+    param = {
+      comment: '',
+      id: 0,
+      mentionUserId: 0,
+    },
+  }) => {
+    try {
+      const { data } = await API.user.post(
+        `/reviews/${reviewId}/comments`,
+        param
+      );
+      return data;
     } catch (error) {
       console.error(error.message);
     }

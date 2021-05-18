@@ -23,6 +23,7 @@ import { LoadingSpinner } from 'components/common/loading/Loading';
 import API from 'childs/lib/API';
 import pointProcessService from 'childs/lib/API/benefit/pointProcessService';
 import ReviewHashtagModal from 'template/Review/components/Modal/HashtagModal';
+import FilterModal from 'template/Ranking/FilterModal';
 
 // const color = ['BRIGHTER', 'SAME', 'DARKER'];
 // const length = ['SHORT', 'REGULAR', 'LONG'];
@@ -478,153 +479,148 @@ class ReviewWriteModal extends Component {
 
     return (
       <>
-        {this.state.isOpenHashtagModal ? (
-          <ReviewHashtagModal isModalOpen={this.state.isOpenHashtagModal} />
-        ) : (
-          <ModalLayout
-            pageTitle={isCreate ? '리뷰 등록' : '리뷰 수정'}
-            isOpen={isModalOpen}
-            onClose={this.props.handleModalClose}
-          >
-            <div className={css.modalWrap}>
-              {mypagereview.isPossibleSetUserSize === true && (
-                <div className={css.sizeAddWrap}>
-                  <div className={css.sizeAddContents}>
-                    <div className={css.sizeAddIcon}>!</div>
-                    <span>
-                      {this.state.totalDueSave > 0
-                        ? `내 사이즈 등록하면 적립금 ${this.state.totalDueSave.toLocaleString()}원 적립!`
-                        : '내 사이즈를 등록해주세요!'}
+        <ModalLayout
+          pageTitle={isCreate ? '리뷰 등록' : '리뷰 수정'}
+          isOpen={isModalOpen}
+          onClose={this.props.handleModalClose}
+        >
+          <div className={css.modalWrap}>
+            {mypagereview.isPossibleSetUserSize === true && (
+              <div className={css.sizeAddWrap}>
+                <div className={css.sizeAddContents}>
+                  <div className={css.sizeAddIcon}>!</div>
+                  <span>
+                    {this.state.totalDueSave > 0
+                      ? `내 사이즈 등록하면 적립금 ${this.state.totalDueSave.toLocaleString()}원 적립!`
+                      : '내 사이즈를 등록해주세요!'}
+                  </span>
+                  <div className={css.sizeIconWrapper}>
+                    <span
+                      className={css.sizeAddButton}
+                      onClick={() => this.toggleMySizeModal()}
+                    >
+                      내 사이즈 등록
                     </span>
-                    <div className={css.sizeIconWrapper}>
-                      <span
-                        className={css.sizeAddButton}
-                        onClick={() => this.toggleMySizeModal()}
-                      >
-                        내 사이즈 등록
-                      </span>
-                    </div>
                   </div>
                 </div>
-              )}
+              </div>
+            )}
 
-              <div className={css.reviewItemWrap}>
-                <DealOrdered
-                  order={item}
-                  isSmallImage={false}
-                  isBrandAndProductInSameLine={false}
-                  hasOptionQuantity={true}
-                  isPurchaseStatusVisible
-                  isPriceVisible
-                />
-              </div>
-              <div className={css.starWrap}>
-                <div className={css.starHeader}>상품은 만족하시나요?</div>
-                <div>{this.renderStars()}</div>
-              </div>
-
-              {this.state.questionIsLoading && (
-                <>
-                  <ReviewWriteModalScore
-                    header={this.state.reviewQuestion[0].question}
-                    score={this.state.reviewData.sizeSatisfaction}
-                    items={this.state.reviewQuestion[0].answerList.map(
-                      (item) => item.code
-                    )}
-                    itemsText={this.state.reviewQuestion[0].answerList.map(
-                      (item) => item.answer
-                    )}
-                    onChangeScore={this.onChangeSize}
-                  />
-                  <ReviewWriteModalScore
-                    header={this.state.reviewQuestion[1].question}
-                    score={this.state.reviewData.colorSatisfaction}
-                    items={this.state.reviewQuestion[1].answerList.map(
-                      (item) => item.code
-                    )}
-                    itemsText={this.state.reviewQuestion[1].answerList.map(
-                      (item) => item.answer
-                    )}
-                    onChangeScore={this.onChangeColor}
-                  />
-                  <ReviewWriteModalScore
-                    header={this.state.reviewQuestion[2].question}
-                    score={this.state.reviewData.lengthSatisfaction}
-                    items={this.state.reviewQuestion[2].answerList.map(
-                      (item) => item.code
-                    )}
-                    itemsText={this.state.reviewQuestion[2].answerList.map(
-                      (item) => item.answer
-                    )}
-                    onChangeScore={this.onChangeLength}
-                  />
-                </>
-              )}
-
-              {/* ! UI가 API에 영향을 미치지 않으므로 숨김. 추후 작성 옵션이 늘어난다면 다시 추가 */}
-              {/* <ReviewWriteOption /> */}
-              <div className={css.textareaWrap}>
-                <TextArea
-                  type={'review'}
-                  onChange={this.onChangeTextarea}
-                  // maxLength={1000}
-                  placeholder={`어떤 점이 좋으셨나요?\n사진과 함께 리뷰 작성 시 ${
-                    productreview.maximumPoint
-                  }P 적립!\n상품에 대한 솔직한 리뷰를 작성해주세요.`}
-                  initialValue={this.state.reviewData?.textReview || ''}
-                />
-              </div>
-              <div className={css.hashtagWrap}>
-                <div onClick={() => this.onClickAddHashtag(true)} />
-                <div>#해시태그를 입력해주세요</div>
-              </div>
-              <div className={css.photoWrap}>
-                <label className={css.photoItemWrap} htmlFor="photo_upload">
-                  <input
-                    type="file"
-                    onChange={this.previewFile}
-                    multiple
-                    id="photo_upload"
-                  />
-                  <div className={css.photoText}>첨부파일</div>
-                </label>
-                {mypagereview.newReviewPhotos.length !== 0 ? (
-                  <ReviewImageUpload />
-                ) : null}
-              </div>
-
-              <div className={css.warning}>
-                <div>
-                  상품과 관련 없는 내용이 포함될 경우, <br />
-                  통보 없이 삭제 및 적립 혜택이 회수될 수 있습니다.
-                </div>
-              </div>
-
-              <SubmitButtonWrapper fixedToBottom>
-                <CancelButton
-                  onClick={() => {
-                    this.props.handleModalClose();
-                    mypagereview.initReviewPhotos();
-                  }}
-                >
-                  취소
-                </CancelButton>
-                <SubmitButton
-                  onClick={isCreate ? this.onSubmit : this.onModify}
-                >
-                  {isCreate ? '등록' : '수정'}
-                </SubmitButton>
-              </SubmitButtonWrapper>
+            <div className={css.reviewItemWrap}>
+              <DealOrdered
+                order={item}
+                isSmallImage={false}
+                isBrandAndProductInSameLine={false}
+                hasOptionQuantity={true}
+                isPurchaseStatusVisible
+                isPriceVisible
+              />
             </div>
-            <MySizeModal
-              // mySize={this.props.mySize.mySize}
-              isOpen={this.state.isMySizeModalOpen}
-              onClose={this.toggleMySizeModal}
-              onSubmitMySize={this.handleSubmitMySize}
-              showAlert={this.props.alert.showAlert}
-            />
-          </ModalLayout>
-        )}
+            <div className={css.starWrap}>
+              <div className={css.starHeader}>상품은 만족하시나요?</div>
+              <div>{this.renderStars()}</div>
+            </div>
+
+            {this.state.questionIsLoading && (
+              <>
+                <ReviewWriteModalScore
+                  header={this.state.reviewQuestion[0].question}
+                  score={this.state.reviewData.sizeSatisfaction}
+                  items={this.state.reviewQuestion[0].answerList.map(
+                    (item) => item.code
+                  )}
+                  itemsText={this.state.reviewQuestion[0].answerList.map(
+                    (item) => item.answer
+                  )}
+                  onChangeScore={this.onChangeSize}
+                />
+                <ReviewWriteModalScore
+                  header={this.state.reviewQuestion[1].question}
+                  score={this.state.reviewData.colorSatisfaction}
+                  items={this.state.reviewQuestion[1].answerList.map(
+                    (item) => item.code
+                  )}
+                  itemsText={this.state.reviewQuestion[1].answerList.map(
+                    (item) => item.answer
+                  )}
+                  onChangeScore={this.onChangeColor}
+                />
+                <ReviewWriteModalScore
+                  header={this.state.reviewQuestion[2].question}
+                  score={this.state.reviewData.lengthSatisfaction}
+                  items={this.state.reviewQuestion[2].answerList.map(
+                    (item) => item.code
+                  )}
+                  itemsText={this.state.reviewQuestion[2].answerList.map(
+                    (item) => item.answer
+                  )}
+                  onChangeScore={this.onChangeLength}
+                />
+              </>
+            )}
+
+            {/* ! UI가 API에 영향을 미치지 않으므로 숨김. 추후 작성 옵션이 늘어난다면 다시 추가 */}
+            {/* <ReviewWriteOption /> */}
+            <div className={css.textareaWrap}>
+              <TextArea
+                type={'review'}
+                onChange={this.onChangeTextarea}
+                // maxLength={1000}
+                placeholder={`어떤 점이 좋으셨나요?\n사진과 함께 리뷰 작성 시 ${
+                  productreview.maximumPoint
+                }P 적립!\n상품에 대한 솔직한 리뷰를 작성해주세요.`}
+                initialValue={this.state.reviewData?.textReview || ''}
+              />
+            </div>
+            {/* TODO : Hash 태그 컴포넌트 추가 */}
+            {/* <div className={css.hashtagWrap}>
+              <div onClick={() => this.onClickAddHashtag(true)} />
+              <div>#해시태그를 입력해주세요</div>
+            </div> */}
+            <div className={css.photoWrap}>
+              <label className={css.photoItemWrap} htmlFor="photo_upload">
+                <input
+                  type="file"
+                  onChange={this.previewFile}
+                  multiple
+                  id="photo_upload"
+                />
+                <div className={css.photoText}>첨부파일</div>
+              </label>
+              {mypagereview.newReviewPhotos.length !== 0 ? (
+                <ReviewImageUpload />
+              ) : null}
+            </div>
+
+            <div className={css.warning}>
+              <div>
+                상품과 관련 없는 내용이 포함될 경우, <br />
+                통보 없이 삭제 및 적립 혜택이 회수될 수 있습니다.
+              </div>
+            </div>
+
+            <SubmitButtonWrapper fixedToBottom>
+              <CancelButton
+                onClick={() => {
+                  this.props.handleModalClose();
+                  mypagereview.initReviewPhotos();
+                }}
+              >
+                취소
+              </CancelButton>
+              <SubmitButton onClick={isCreate ? this.onSubmit : this.onModify}>
+                {isCreate ? '등록' : '수정'}
+              </SubmitButton>
+            </SubmitButtonWrapper>
+          </div>
+          <MySizeModal
+            // mySize={this.props.mySize.mySize}
+            isOpen={this.state.isMySizeModalOpen}
+            onClose={this.toggleMySizeModal}
+            onSubmitMySize={this.handleSubmitMySize}
+            showAlert={this.props.alert.showAlert}
+          />
+        </ModalLayout>
       </>
     );
   }
