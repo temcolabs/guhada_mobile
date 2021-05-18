@@ -32,6 +32,7 @@ function ReviewDetailModal({ reviewId, isModalOpen, onCloseModal }) {
     review: reviewStore,
     login: loginStore,
     alert: alertStore,
+    user: userStore,
   } = useStores();
   const { reviewDetail: review } = reviewStore;
   const { reviewDetailComments: comment } = reviewStore;
@@ -70,14 +71,39 @@ function ReviewDetailModal({ reviewId, isModalOpen, onCloseModal }) {
 
   // 댓글 기능...
   const onClickComment = () => {};
-  const onClickCommentSubmit = (text) => {
-    /**
-     * 1. text 쏘기
-     * 2. Rerendering
-     */
+  
+  /**
+   * 댓글 등록 이벤트
+   * @param {String} comment, 댓글 텍스트
+   */
+  const onClickCommentSubmit = async (comment) => {
+    const userId = userStore?.userInfo?.id;
+    if (!userId) {
+      alertStore.showAlert('로그인이 필요한 서비스입니다.');
+    } else {
+      await reviewStore.createReviewComments({
+        reviewId,
+        param: { comment },
+      });
+      await reviewStore.getReviewComments({ reviewId });
+    }
   };
+
+  /**
+   * 댓글 삭제 이벤트
+   * @param {Number} commentId, 댓글 ID 
+   */
+  const onClickCommentDelete = async (commentId) => {
+    const userId = userStore?.userInfo?.id;
+    if (!userId) {
+      alertStore.showAlert('로그인이 필요한 서비스입니다.');
+    } else {
+      await reviewStore.deleteReviewComments({ commentId });
+      await reviewStore.getReviewComments({ reviewId });
+    }
+  };
+  
   const onClickReport = () => {};
-  const onClickDelete = () => {};
 
   return (
     <>
@@ -136,6 +162,7 @@ function ReviewDetailModal({ reviewId, isModalOpen, onCloseModal }) {
           <CommentSection
             comment={comment}
             onClickCommentSubmit={onClickCommentSubmit}
+            onClickCommentDelete={onClickCommentDelete}
           />
 
           {/* 구분선 */}

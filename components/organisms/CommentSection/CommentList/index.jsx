@@ -15,6 +15,7 @@ import {
   CommentContents,
   CommentInfo,
 } from './Styled';
+import { toJS } from 'mobx';
 
 /**
  * 댓글 리스트
@@ -28,9 +29,10 @@ function CommentList({
   total,
   list,
   onClickComment,
+  onClickCommentDelete,
   onClickReport,
-  onClickDelete,
 }) {
+  console.log('list : ', toJS(list));
   const convertToBoardDate = ({ createdTimestamp, currentTimestamp }) => {
     const timeStamp = getTimeDiff(currentTimestamp, createdTimestamp);
     const time = duration(timeStamp)?._data;
@@ -73,6 +75,9 @@ function CommentList({
                   <span>{convertToBoardDate(o)}</span>
                   <span>{' ㆍ '}댓글달기</span>
                   <span
+                    onClick={() =>
+                      userId === o.createdBy ? onClickCommentDelete(o.id) : onClickReport
+                    }
                     style={{
                       color: userId === o.createdBy ? '#999999' : '#cccccc',
                     }}

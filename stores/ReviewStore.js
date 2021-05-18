@@ -290,16 +290,14 @@ export default class ReviewStore {
   /**
    * 리뷰 댓글 작성
    * @param {Number} reviewId
-   * @param {Object} param0 
-   * @returns 
+   * @param {Object} param0
+   * @returns
    */
   @action
   createReviewComments = async ({
     reviewId,
     param = {
       comment: '',
-      id: 0,
-      mentionUserId: 0,
     },
   }) => {
     try {
@@ -307,6 +305,22 @@ export default class ReviewStore {
         `/reviews/${reviewId}/comments`,
         param
       );
+      return data;
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  /**
+   * 리뷰 댓글 삭제
+   * @param {Number} reviewId
+   * @param {Object} param0
+   * @returns
+   */
+  @action
+  deleteReviewComments = async ({ commentId }) => {
+    try {
+      const { data } = await API.user.delete(`/reviews/comments/${commentId}`);
       return data;
     } catch (error) {
       console.error(error.message);

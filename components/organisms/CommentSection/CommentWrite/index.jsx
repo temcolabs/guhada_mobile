@@ -80,7 +80,14 @@ function CommentWrite({ onClickCommentSubmit }) {
               />
             </TextDiv>
             <SubmitDiv>
-              <Submit onClick={(value) => onClickCommentSubmit(value)}>등록</Submit>
+              <Submit
+                onClick={() => {
+                  setValue('');
+                  onClickCommentSubmit(value);
+                }}
+              >
+                등록
+              </Submit>
             </SubmitDiv>
           </InputWrapper>
         </Form>

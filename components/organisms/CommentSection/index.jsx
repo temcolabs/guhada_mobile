@@ -13,7 +13,7 @@ import { CommentListSection, CommentWriteSection, Divider } from './Styled';
  * @param {Object} comment, /reviews/${reviewId}/comments
  * @returns
  */
-function CommentSection({ comment, onClickCommentSubmit }) {
+function CommentSection({ comment, onClickCommentSubmit, onClickCommentDelete }) {
   const { user: userStore } = useStores();
 
   const userId = userStore?.userInfo?.id;
@@ -27,6 +27,7 @@ function CommentSection({ comment, onClickCommentSubmit }) {
           userId={userId}
           total={comment?.totalElements}
           list={commentList}
+          onClickCommentDelete={onClickCommentDelete}
         />
       </CommentListSection>
       {/* 댓글 작성 */}
