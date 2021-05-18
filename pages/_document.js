@@ -13,6 +13,7 @@ class MyDocument extends Document {
         <Head>
           {/* Global site tag (gtag.js) - Google Analytics */}
           <script
+            id="GTAG_TRACKER"
             async
             src="https://www.googletagmanager.com/gtag/js?id=UA-145072876-1"
           />
