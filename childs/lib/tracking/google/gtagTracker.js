@@ -14,6 +14,7 @@ const getDeviceType = () => {
 
   return deviceType;
 };
+
 export default {
   visit: () => {
     gtagUtmSave();
@@ -35,6 +36,7 @@ export default {
           gtag('config', GTAG_ID);
         }
 
+        gtag('config', UA_GTAG_ID);
         window.ga('create', UA_GTAG_ID, 'auto');
         window.ga('send', 'pageview');
       },

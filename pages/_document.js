@@ -13,6 +13,7 @@ class MyDocument extends Document {
         <Head>
           {/* Global site tag (gtag.js) - Google Analytics */}
           <script
+            id="GTAG_TRACKER"
             async
             src="https://www.googletagmanager.com/gtag/js?id=UA-145072876-1"
           />
@@ -45,16 +46,6 @@ class MyDocument extends Document {
 
           {/* 다음 주소검색 */}
           <script id="daumPostcode" src={urlConstant.daumPostCode} />
-
-          {/* summernote 0.8.12 */}
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js" />
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js" />
-          <link
-            href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css"
-            rel="stylesheet"
-          />
-          {/* https://github.com/summernote/summernote/tree/develop/lang */}
-          <script src="/static/js/summernote-lang/ko-KR.js" />
 
           {/* 네이버 쇼핑 트래커 */}
           <script type="text/javascript" src="//wcs.naver.net/wcslog.js" />
