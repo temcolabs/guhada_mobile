@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { toJS } from 'mobx';
 import useStores from 'stores/useStores';
 import PropTypes from 'prop-types';
@@ -13,11 +13,28 @@ import { CommentListSection, CommentWriteSection, Divider } from './Styled';
  * @param {Object} comment, /reviews/${reviewId}/comments
  * @returns
  */
-function CommentSection({ comment, onClickCommentSubmit, onClickCommentDelete }) {
+function CommentSection({
+  comment,
+  onClickCommentSubmit,
+  onClickCommentDelete,
+}) {
   const { user: userStore } = useStores();
+  const [mention, setMention] = useState('');
+  const [mentionUserId, setMentionUserId] = useState(0);
 
   const userId = userStore?.userInfo?.id;
   const commentList = comment?.content;
+
+  // Submit, Delete
+
+  // Mention event
+  const onClickComment = ({ createdBy, nickname, mentionUserId }) => {
+    setMentionUserId(mentionUserId);
+    setMention(`@${nickname}`);
+  };
+
+  // Clear mentions event
+  const onClearMention = () => setMention('');
 
   return (
     <>
@@ -27,13 +44,18 @@ function CommentSection({ comment, onClickCommentSubmit, onClickCommentDelete })
           userId={userId}
           total={comment?.totalElements}
           list={commentList}
+          onClickComment={onClickComment}
           onClickCommentDelete={onClickCommentDelete}
         />
       </CommentListSection>
       {/* 댓글 작성 */}
       <Divider />
       <CommentWriteSection>
-        <CommentWrite onClickCommentSubmit={onClickCommentSubmit} />
+        <CommentWrite
+          mention={mention}
+          onClearMention={onClearMention}
+          onClickCommentSubmit={onClickCommentSubmit}
+        />
       </CommentWriteSection>
     </>
   );

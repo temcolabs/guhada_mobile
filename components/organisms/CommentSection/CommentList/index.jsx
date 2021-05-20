@@ -32,7 +32,12 @@ function CommentList({
   onClickCommentDelete,
   onClickReport,
 }) {
-  console.log('list : ', toJS(list));
+  /**
+   * 게시글 작성 시간
+   * @param {Number} createdTimestamp
+   * @param {Number} currentTimestamp
+   * @returns
+   */
   const convertToBoardDate = ({ createdTimestamp, currentTimestamp }) => {
     const timeStamp = getTimeDiff(currentTimestamp, createdTimestamp);
     const time = duration(timeStamp)?._data;
@@ -73,16 +78,17 @@ function CommentList({
                         mentionUserNickname: "옹선생님" 
                 */}
                   <span>{convertToBoardDate(o)}</span>
-                  <span>{' ㆍ '}댓글달기</span>
+                  <span onClick={() => onClickComment(o)}>댓글달기</span>
                   <span
                     onClick={() =>
-                      userId === o.createdBy ? onClickCommentDelete(o.id) : onClickReport
+                      userId === o.createdBy
+                        ? onClickCommentDelete(o.id)
+                        : onClickReport
                     }
                     style={{
                       color: userId === o.createdBy ? '#999999' : '#cccccc',
                     }}
                   >
-                    {' ㆍ '}
                     {userId === o.createdBy ? '삭제' : '신고'}
                   </span>
                 </CommentInfo>

@@ -83,7 +83,7 @@ function ReviewDetailModal({ reviewId, isModalOpen, onCloseModal }) {
     } else {
       await reviewStore.createReviewComments({
         reviewId,
-        param: { comment },
+        param: { comment }, // comment, mentionUserId
       });
       await reviewStore.getReviewComments({ reviewId });
     }

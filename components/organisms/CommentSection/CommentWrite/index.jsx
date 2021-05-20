@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import useStores from 'stores/useStores';
@@ -28,12 +28,21 @@ import { REVIEW_EMOJI_LIST } from 'template/Review/_constants';
  * @param {Function} onClickSubmit 등록
  * @returns
  */
-function CommentWrite({ onClickCommentSubmit }) {
+function CommentWrite({ mention, onClearMention, onClickCommentSubmit }) {
   const textarea = useRef(null);
   const [value, setValue] = useState('');
   const { user: userStore } = useStores();
 
   const profileImageUrl = userStore?.userInfo?.productImageUrl;
+  console.log('mention : ', mention);
+
+  useEffect(() => {
+    if (mention) setValue(' ');
+  }, [mention]);
+
+  useEffect(() => {
+    if (!value) onClearMention();
+  }, [value]);
 
   const onClickEmoji = (emoji) => setValue(value + emoji);
   const changeTextarea = (text) => {
