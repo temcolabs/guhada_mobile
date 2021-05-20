@@ -1,7 +1,9 @@
-import { memo } from 'react';
+import { memo, useState } from 'react';
+import dynamic from 'next/dynamic';
 import PropTypes from 'prop-types';
 import moment, { duration } from 'moment';
 import { getTimeDiff } from 'childs/lib/common/getTimeDiff';
+import { default as reportTargetEnum } from 'childs/lib/constant/reportTarget';
 
 import Image from 'components/atoms/Image';
 import {
@@ -15,6 +17,11 @@ import {
   CommentContents,
   CommentInfo,
 } from './Styled';
+
+const ReportModal = dynamic(
+  () => import('components/claim/report/ReportModal'),
+  { ssr: false }
+);
 
 const MENTION_STYLES = {
   color: '#024793',
@@ -36,10 +43,50 @@ function CommentList({
   comment,
   onClickComment,
   onClickCommentDelete,
-  onClickCommentReport,
 }) {
+  // 댓글 신고 모달 오픈 여부
+  const [isCommentReportModalOpen, setIsCommentReportModalOpen] = useState(
+    false
+  );
+
+  // 코멘트 신고 관련 데이터
+  const [commentReportRelatedData, setCommentReportRelatedData] = useState([]);
+
+  // 코멘트 신고 데이터
+  const [commentReportData, setCommentReportData] = useState({
+    reportTarget: reportTargetEnum.COMMENT,
+    targetId: null,
+  });
+
   const total = comment?.totalElements;
   const comments = comment?.content;
+
+  /**
+   * 신고하기 이벤트
+   * @param {Object} item, comment item
+   */
+  const onClickCommentReport = (item) => {
+    setCommentReportData({ ...commentReportData, targetId: item.id });
+    setCommentReportRelatedData([
+      {
+        label: '댓글 번호',
+        value: item?.id,
+      },
+      {
+        label: '댓글 내용',
+        value: item?.comment,
+      },
+      {
+        label: '작성자',
+        value: item?.nickname,
+      },
+    ]);
+    setIsCommentReportModalOpen(true);
+  };
+
+  const handleCloseReportModal = () => {
+    setIsCommentReportModalOpen(false);
+  };
 
   /**
    * 댓글 스타일 수정 (Mention)
@@ -114,7 +161,7 @@ function CommentList({
                     onClick={() =>
                       userId === o.createdBy
                         ? onClickCommentDelete(o.id)
-                        : onClickCommentReport
+                        : onClickCommentReport(o)
                     }
                     style={{
                       color: userId === o.createdBy ? '#999999' : '#cccccc',
@@ -130,6 +177,13 @@ function CommentList({
       ) : (
         ''
       )}
+
+      <ReportModal
+        isOpen={isCommentReportModalOpen}
+        onClose={handleCloseReportModal}
+        reportData={commentReportData}
+        relatedData={commentReportRelatedData}
+      />
     </Wrapper>
   );
 }
