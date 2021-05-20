@@ -15,23 +15,58 @@ import {
   CommentContents,
   CommentInfo,
 } from './Styled';
-import { toJS } from 'mobx';
+
+const MENTION_STYLES = {
+  color: '#024793',
+  fontWeight: 'bold',
+  width: '100%',
+};
 
 /**
  * 댓글 리스트
  * @param {Number} userId, 사용자 ID
- * @param {Number} total, 댓글 갯수
- * @param {Array} list, 댓글 리스트
+ * @param {Object} comment, {totalElements, content}
+ * @param {Array} onClickComment, 댓글 리스트
+ * @param {Array} onClickCommentDelete, 댓글 삭제
+ * @param {Array} onClickCommentReport, 댓글 신고
  * @returns
  */
 function CommentList({
   userId,
-  total,
-  list,
+  comment,
   onClickComment,
   onClickCommentDelete,
-  onClickReport,
+  onClickCommentReport,
 }) {
+  const total = comment?.totalElements;
+  const comments = comment?.content;
+
+  /**
+   * 댓글 스타일 수정 (Mention)
+   * @param {Number} mentionUserId 대댓글 유무
+   * @param {String} comment 댓글
+   * @returns
+   */
+  const convertToComment = ({ mentionUserId, comment }) => {
+    let result = null;
+    if (mentionUserId) {
+      const prefix = comment.indexOf('@');
+      const suffix = comment.indexOf(' ');
+      let target = comment
+        .slice(prefix, suffix)
+        .replace('[', '')
+        .replace(']', '');
+      comment = comment.slice(suffix, comment.length - 1);
+      result = (
+        <>
+          <span style={MENTION_STYLES}>{target}</span>
+          {comment}
+        </>
+      );
+    } else result = comment;
+    return result;
+  };
+
   /**
    * 게시글 작성 시간
    * @param {Number} createdTimestamp
@@ -53,9 +88,9 @@ function CommentList({
   return (
     <Wrapper>
       {total ? <Title>{total}</Title> : ''}
-      {list && list.length ? (
+      {comments && comments.length ? (
         <Contents>
-          {list.map((o) => (
+          {comments.map((o) => (
             <ContentItem>
               <Avatar>
                 <Image
@@ -71,19 +106,15 @@ function CommentList({
               </Avatar>
               <Comment>
                 <CommentName>{o.nickname}</CommentName>
-                <CommentContents>{o.comment}</CommentContents>
+                <CommentContents>{convertToComment(o)}</CommentContents>
                 <CommentInfo>
-                  {/* 
-                        mentionUserId: 142832
-                        mentionUserNickname: "옹선생님" 
-                */}
                   <span>{convertToBoardDate(o)}</span>
                   <span onClick={() => onClickComment(o)}>댓글달기</span>
                   <span
                     onClick={() =>
                       userId === o.createdBy
                         ? onClickCommentDelete(o.id)
-                        : onClickReport
+                        : onClickCommentReport
                     }
                     style={{
                       color: userId === o.createdBy ? '#999999' : '#cccccc',
@@ -105,11 +136,13 @@ function CommentList({
 
 CommentList.propTypes = {
   userId: PropTypes.number.isRequired,
-  total: PropTypes.number.isRequired,
-  list: PropTypes.array.isRequired,
-  onClickComment: PropTypes.func,
-  onClickReport: PropTypes.func,
-  onClickDelete: PropTypes.func,
+  comment: PropTypes.objectOf({
+    totalElements: PropTypes.number,
+    content: PropTypes.object,
+  }),
+  onClickComment: PropTypes.func.isRequired,
+  onClickCommentDelete: PropTypes.func.isRequired,
+  onClickCommentReport: PropTypes.func.isRequired,
 };
 
 export default memo(CommentList);

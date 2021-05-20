@@ -17,24 +17,27 @@ function CommentSection({
   comment,
   onClickCommentSubmit,
   onClickCommentDelete,
+  onClickCommentReport,
 }) {
   const { user: userStore } = useStores();
   const [mention, setMention] = useState('');
-  const [mentionUserId, setMentionUserId] = useState(0);
+  const [mentionUserId, setMentionUserId] = useState(null);
 
   const userId = userStore?.userInfo?.id;
-  const commentList = comment?.content;
 
   // Submit, Delete
 
   // Mention event
-  const onClickComment = ({ createdBy, nickname, mentionUserId }) => {
-    setMentionUserId(mentionUserId);
-    setMention(`@[${nickname}](${createdBy})`);
+  const onClickComment = ({ createdBy, nickname }) => {
+    setMentionUserId(createdBy);
+    setMention(`@[${nickname}]`);
   };
 
   // Clear mentions event
-  const onClearMention = () => setMention('');
+  const onClearMention = () => {
+    setMentionUserId(null);
+    setMention('');
+  };
 
   return (
     <>
@@ -43,10 +46,10 @@ function CommentSection({
         <CommentListSection>
           <CommentList
             userId={userId}
-            total={comment?.totalElements}
-            list={commentList}
+            comment={comment}
             onClickComment={onClickComment}
             onClickCommentDelete={onClickCommentDelete}
+            onClickCommentReport={onClickCommentReport}
           />
         </CommentListSection>
         {/* 댓글 작성 */}
@@ -54,6 +57,7 @@ function CommentSection({
         <CommentWriteSection>
           <CommentWrite
             mention={mention}
+            mentionUserId={mentionUserId}
             onClearMention={onClearMention}
             onClickCommentSubmit={onClickCommentSubmit}
           />

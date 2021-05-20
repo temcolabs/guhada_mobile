@@ -42,7 +42,12 @@ const MENTION_STYLES = {
  * @param {Function} onClickSubmit 등록
  * @returns
  */
-function CommentWrite({ mention, onClearMention, onClickCommentSubmit }) {
+function CommentWrite({
+  mention,
+  mentionUserId,
+  onClearMention,
+  onClickCommentSubmit,
+}) {
   const textarea = useRef(null);
   const [value, setValue] = useState(''); // Textarea values
   const { user: userStore } = useStores();
@@ -67,8 +72,6 @@ function CommentWrite({ mention, onClearMention, onClickCommentSubmit }) {
 
   // Update text area values
   const changeTextarea = (e) => setValue(e.target.value);
-
-  console.log('textarea : ', textarea);
 
   return (
     <Wrapper>
@@ -109,6 +112,7 @@ function CommentWrite({ mention, onClearMention, onClickCommentSubmit }) {
               >
                 <Mention
                   trigger="@"
+                  markup={`@[__display__]`}
                   appendSpaceOnAdd={true}
                   displayTransform={(id, display) => `@${display}`}
                   style={MENTION_STYLES}
@@ -120,7 +124,7 @@ function CommentWrite({ mention, onClearMention, onClickCommentSubmit }) {
               <Submit
                 onClick={() => {
                   setValue('');
-                  onClickCommentSubmit(value);
+                  onClickCommentSubmit(mentionUserId, value);
                 }}
               >
                 등록
