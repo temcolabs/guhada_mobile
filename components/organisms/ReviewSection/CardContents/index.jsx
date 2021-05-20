@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import { Wrapper, Title, Contents } from './Styled';
 
 function CardContents({ title, contents }) {
@@ -12,4 +11,4 @@ function CardContents({ title, contents }) {
 
 CardContents.propTypes = {};
 
-export default memo(CardContents);
+export default CardContents;

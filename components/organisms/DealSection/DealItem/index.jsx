@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 import LazyLoad from 'react-lazyload';
 
-const DealItem = ({ deal, horizontal = false }) => (
+const DealItem = ({ isLazy = true, deal, horizontal = false }) => (
   <div
     className={cn(css['deal-item'], horizontal && css['deal-item--horizontal'])}
   >
@@ -13,12 +13,19 @@ const DealItem = ({ deal, horizontal = false }) => (
         deal.soldOut && css['image--soldout']
       )}
     >
-      <LazyLoad>
+      {isLazy ? (
+        <LazyLoad>
+          <img
+            src={`${deal.productImage.url}?w=375`}
+            alt={deal.productImage.name}
+          />
+        </LazyLoad>
+      ) : (
         <img
           src={`${deal.productImage.url}?w=375`}
           alt={deal.productImage.name}
         />
-      </LazyLoad>
+      )}
     </div>
     <div className={css['deal-item__description']}>
       <div className={css['deal-item__brand']}>{deal.brandName}</div>

@@ -47,6 +47,7 @@ export default class ReviewStore {
   @observable reviewHashtagList = []; // Popularty 해시태그 List
   @observable reviewHashtagDetail = null; // 해시태그 상세
   @observable reviewHashtagDetailList = []; // 해시태그 상세 리스트
+  @observable reviewAutoCompleteList = []; // 해시태그 자동완성
 
   // 추천 상품
   @observable dealsOfSameBrand = []; // 유사한 상품
@@ -70,7 +71,9 @@ export default class ReviewStore {
   initReviewHashtag = () => {
     this.reviewHashtagDetail = null;
     this.reviewHashtagDetailList = [];
+    this.reviewAutoCompleteList = [];
   };
+  
   @action
   setSearchForm = (search) => (this.searchForm = search);
 
@@ -280,6 +283,22 @@ export default class ReviewStore {
       const result = data.data;
       if (Object.keys(result).length) {
         this.reviewRecommendList = result.slice(0, 6);
+      }
+      return result;
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  @action
+  getReviewAutoComplete = async ({ hashtag }) => {
+    try {
+      const { data } = await API.user.get(
+        `/reviews/autocomplete/hashtag?hashtag=${hashtag}`
+      );
+      const result = data.data;
+      if (result && result.length) {
+        this.reviewAutoCompleteList = result;
       }
       return result;
     } catch (error) {

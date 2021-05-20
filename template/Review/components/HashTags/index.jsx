@@ -1,34 +1,28 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
-import { stringify } from 'qs';
 
 import HashtagFavoriteHeading from '../Atoms/Heading/HashtagFavorite';
 import HashTagItem from '../Atoms/Label/HashtagItem';
 import { Wrapper, Contents } from './Styled';
 
-import { pushRoute } from 'childs/lib/router';
-
 /**
  * ReviewHashtag
  * @param {Array} hashTags : 해시태그 리스트
+ * @param {Function} onClickHashtag: 아이템 클릭 핸들러ㄴ
  * @returns
  */
-function ReviewHashtag({ hashTags }) {
+function ReviewHashtag({ hashtags, onClickHashtag }) {
   return (
     <>
-      {hashTags?.length ? (
+      {hashtags?.length ? (
         <Wrapper>
           <HashtagFavoriteHeading />
           <Contents>
-            {hashTags?.map((o) => (
+            {hashtags?.map((o) => (
               <HashTagItem
                 key={o.id}
                 hashtag={o.hashtag}
-                onClickHashtag={() =>
-                  pushRoute(
-                    `/review/hashtag?${stringify({ hashtag: o.hashtag })}`
-                  )
-                }
+                onClickHashtag={() => onClickHashtag(o.hashtag)}
               />
             ))}
           </Contents>
@@ -41,7 +35,8 @@ function ReviewHashtag({ hashTags }) {
 }
 
 ReviewHashtag.propTypes = {
-  hashTags: PropTypes.array.isRequired,
+  hashTags: PropTypes.array,
+  onClickHashtag: PropTypes.func,
 };
 
 export default memo(ReviewHashtag);

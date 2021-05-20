@@ -5,10 +5,11 @@ import useStores from 'stores/useStores';
 import moment from 'moment';
 
 import AdBanner from 'components/community/AdBanner';
-import CardImage from 'template/Review/components/Card/CardImage';
-import CardRating from 'template/Review/components/Card/CardRating';
+
+import CardImage from 'components/organisms/ReviewSection/CardImage';
+import CardRating from 'components/organisms/ReviewSection/CardRating';
+import CardProdInfo from 'components/organisms/ReviewSection/CardProdInfo';
 import CardLabels from 'template/Review/components/Label';
-import CardProdInfo from 'template/Review/components/Card/CardProdInfo';
 
 import HashtagItem from 'template/Review/components/Atoms/Label/HashtagItem';
 
@@ -69,29 +70,28 @@ function ReviewDetailModal({ reviewId, isModalOpen, onCloseModal }) {
     }
   };
 
-  // 댓글 기능...
-  const onClickComment = () => {};
-  
   /**
    * 댓글 등록 이벤트
    * @param {String} comment, 댓글 텍스트
    */
-  const onClickCommentSubmit = async (comment) => {
+  const onClickCommentSubmit = async (mentionUserId, comment) => {
     const userId = userStore?.userInfo?.id;
     if (!userId) {
       alertStore.showAlert('로그인이 필요한 서비스입니다.');
     } else {
-      await reviewStore.createReviewComments({
-        reviewId,
-        param: { comment },
-      });
-      await reviewStore.getReviewComments({ reviewId });
+      if (comment) {
+        await reviewStore.createReviewComments({
+          reviewId,
+          param: { comment, mentionUserId },
+        });
+        await reviewStore.getReviewComments({ reviewId });
+      }
     }
   };
 
   /**
    * 댓글 삭제 이벤트
-   * @param {Number} commentId, 댓글 ID 
+   * @param {Number} commentId, 댓글 ID
    */
   const onClickCommentDelete = async (commentId) => {
     const userId = userStore?.userInfo?.id;
@@ -102,8 +102,6 @@ function ReviewDetailModal({ reviewId, isModalOpen, onCloseModal }) {
       await reviewStore.getReviewComments({ reviewId });
     }
   };
-  
-  const onClickReport = () => {};
 
   return (
     <>
@@ -117,7 +115,7 @@ function ReviewDetailModal({ reviewId, isModalOpen, onCloseModal }) {
           {/* ReviewDetail Section으로 분리 */}
           <Wrapper>
             {/* 메인 이미지 */}
-            <CardImage images={review?.reviewImageList} type={'detail'} />
+            <CardImage images={toJS(review.reviewImageList)} type={'detail'} />
             {/* 좋아요, 댓글, 별점 카운팅 */}
             <CardRating review={review} onClickLike={onClickLike} />
 
@@ -137,8 +135,8 @@ function ReviewDetailModal({ reviewId, isModalOpen, onCloseModal }) {
               {/* 해시태그 리스트 */}
               {review.hashtagList ? (
                 <HashTagSection>
-                  {review.hashtagList.map((v) => (
-                    <HashtagItem hashtag={v} />
+                  {review.hashtagList.map((v, i) => (
+                    <HashtagItem key={`${v}-${i}`} hashtag={v} />
                   ))}
                 </HashTagSection>
               ) : (
@@ -171,6 +169,7 @@ function ReviewDetailModal({ reviewId, isModalOpen, onCloseModal }) {
           {/* 상품 추천 */}
           {reviewStore?.dealsOfSameBrand && (
             <DealSection
+              isLazy={false}
               horizontal
               header={'비슷한 상품'}
               headerStyles={{
@@ -185,6 +184,7 @@ function ReviewDetailModal({ reviewId, isModalOpen, onCloseModal }) {
           )}
           {reviewStore?.dealsOfRecommend && (
             <DealSection
+              isLazy={false}
               horizontal
               header={'추천 상품'}
               headerStyles={{

@@ -1,7 +1,7 @@
 import { memo, useEffect } from 'react';
 import Proptypes from 'prop-types';
-import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
+import { stringify } from 'qs';
 import useStores from 'stores/useStores';
 
 import CategorySlider from 'components/common/CategorySlider';
@@ -10,6 +10,7 @@ import Footer from 'components/footer/Footer';
 import { ReviewHashTag, ReviewCategories } from './components';
 import ReviewSection from 'components/organisms/ReviewSection';
 
+import { pushRoute } from 'childs/lib/router';
 import { mainCategory } from 'childs/lib/constant/category';
 import { useScrollDirection, useScrollPosition } from 'hooks';
 
@@ -90,6 +91,12 @@ function ReviewTemplate() {
     }
   };
 
+  const onClickProduct = (dealId) =>
+    pushRoute(`/productdetail?deals=${dealId}`);
+
+  const onClickHashtag = (hashtag) =>
+    pushRoute(`/review/hashtag?${stringify({ hashtag })}`);
+
   return (
     <>
       <DefaultLayout
@@ -108,7 +115,10 @@ function ReviewTemplate() {
           {/* <ReviewBanner /> */}
 
           {/* 리뷰 > 인기 해시태그 */}
-          <ReviewHashTag hashTags={toJS(reviewStore?.reviewHashtagList)} />
+          <ReviewHashTag
+            hashtags={reviewStore.reviewHashtagList}
+            onClickHashtag={onClickHashtag}
+          />
 
           {/* 리뷰 > 카테고리 */}
           <ReviewCategories
@@ -121,9 +131,11 @@ function ReviewTemplate() {
             <div>
               {reviews.map((review, i) => (
                 <ReviewSection
+                  isLazy={true}
                   key={`ReviewSection-${i}`}
                   review={review}
                   onClickLike={onClickLike}
+                  onClickProduct={onClickProduct}
                 />
               ))}
             </div>

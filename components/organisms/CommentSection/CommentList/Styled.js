@@ -54,4 +54,10 @@ export const CommentContents = styled.div`
 export const CommentInfo = styled.div`
   color: #999999;
   font-size: 12px;
+  > span::before {
+    content: ' ㆍ ';
+  }
+  > span:first-child::before {
+    content: '';
+  }
 `;

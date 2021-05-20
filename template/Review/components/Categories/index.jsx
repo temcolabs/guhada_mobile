@@ -1,4 +1,5 @@
 import { memo, useState, useEffect } from 'react';
+import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import {
   Wrapper,
@@ -54,25 +55,29 @@ function ReviewCategories({ categories, onClickCategory }) {
       <Title>
         <Image src={IMAGE_PATH.title} width={'55px'} />
       </Title>
-      <Contents>
-        {list?.map((o, i) => (
-          <ContentItem
-            key={`ReviewCategories-${i}`}
-            onClick={() => _onClickCategory(o.categoryName)}
-          >
-            <CategoryImage>
-              <Image
-                src={o.isSelect ? o.categoryImageOn : o.categoryImageOff}
-                width={'54px'}
-                height={'54px'}
-              />
-            </CategoryImage>
-            <CategoryText className={o.isSelect ? 'active' : 'inActive'}>
-              {o.categoryName}
-            </CategoryText>
-          </ContentItem>
-        ))}
-      </Contents>
+      {list && list.length ? (
+        <Contents>
+          {list?.map((o, i) => (
+            <ContentItem
+              key={`ReviewCategories-${i}`}
+              onClick={() => _onClickCategory(o.categoryName)}
+            >
+              <CategoryImage>
+                <Image
+                  src={o.isSelect ? o.categoryImageOn : o.categoryImageOff}
+                  width={'55px'}
+                  height={'55px'}
+                />
+              </CategoryImage>
+              <CategoryText className={o.isSelect ? 'active' : 'inActive'}>
+                {o.categoryName}
+              </CategoryText>
+            </ContentItem>
+          ))}
+        </Contents>
+      ) : (
+        ''
+      )}
     </Wrapper>
   );
 }
@@ -82,4 +87,4 @@ ReviewCategories.propTypes = {
   onClickCategory: PropTypes.func.isRequired,
 };
 
-export default memo(ReviewCategories);
+export default memo(observer(ReviewCategories));

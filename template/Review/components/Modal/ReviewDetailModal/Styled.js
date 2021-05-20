@@ -22,6 +22,8 @@ export const ContentDate = styled.div`
 `;
 
 export const HashTagSection = styled.div`
+  display: flex;
+  flex-flow: row wrap;
   margin-top: 25px;
   margin-bottom: 15px;
 `;

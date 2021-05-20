@@ -22,9 +22,10 @@ const DynamicReviewDeatailModal = dynamic(
  * Review Section
  * @param {Object} review, review item
  * @param {Function} onClickLike, Clicked like
+ * @param {Function} onClickProduct, Clicked Product
  * @returns
  */
-function ReviewSection({ review, onClickLike }) {
+function ReviewSection({ isLazy, review, onClickLike, onClickProduct }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -41,7 +42,7 @@ function ReviewSection({ review, onClickLike }) {
       )}
       <Wrapper onClick={() => setIsModalOpen(true)}>
         {/* 이미지 */}
-        <CardImage images={toJS(review?.reviewImageList)} />
+        <CardImage isLazy={isLazy} images={review.reviewImageList} />
 
         {/* 컨텐츠 */}
         <CardInfoSection>
@@ -57,6 +58,7 @@ function ReviewSection({ review, onClickLike }) {
             imageUrl={review?.productImageUrl}
             title={review?.brandName}
             contents={review?.dealName}
+            onClickProduct={onClickProduct}
           />
         </CardInfoSection>
       </Wrapper>
@@ -68,6 +70,7 @@ function ReviewSection({ review, onClickLike }) {
 ReviewSection.propTypes = {
   review: PropTypes.object.isRequired,
   onClickLike: PropTypes.func.isRequired,
+  onClickProduct: PropTypes.func.isRequired,
 };
 
 export default memo(observer(ReviewSection));
