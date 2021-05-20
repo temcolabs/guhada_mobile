@@ -1,4 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { MentionsInput, Mention } from 'react-mentions';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import useStores from 'stores/useStores';
@@ -22,34 +23,55 @@ import {
 
 import { REVIEW_EMOJI_LIST } from 'template/Review/_constants';
 
+import defaultStyle from './lib/defaultStyle';
+
+const MENTION_STYLES = {
+  position: 'relative',
+  bottom: '1px',
+  border: 'none',
+  backgroundColor: 'white',
+  color: '#024793',
+  fontWeight: 'bold',
+  width: '100%',
+  zIndex: 1,
+};
+
 /**
  * 댓글 작성 폼
  * @param {Object} styles 커스텀 스타일링
  * @param {Function} onClickSubmit 등록
  * @returns
  */
-function CommentWrite({ mention, onClearMention, onClickCommentSubmit }) {
+function CommentWrite({
+  mention,
+  mentionUserId,
+  onClearMention,
+  onClickCommentSubmit,
+}) {
   const textarea = useRef(null);
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState(''); // Textarea values
   const { user: userStore } = useStores();
 
   const profileImageUrl = userStore?.userInfo?.productImageUrl;
-  console.log('mention : ', mention);
 
+  // Set mention
   useEffect(() => {
-    if (mention) setValue(' ');
+    if (mention) {
+      setValue(`${mention} `);
+      textarea.current.focus();
+    }
   }, [mention]);
 
+  // Clear mention
   useEffect(() => {
     if (!value) onClearMention();
   }, [value]);
 
+  // Set emoji
   const onClickEmoji = (emoji) => setValue(value + emoji);
-  const changeTextarea = (text) => {
-    setValue(text);
-    textarea.current.style.height = '17px';
-    textarea.current.style.height = textarea.current.scrollHeight + 'px';
-  };
+
+  // Update text area values
+  const changeTextarea = (e) => setValue(e.target.value);
 
   return (
     <Wrapper>
@@ -79,20 +101,30 @@ function CommentWrite({ mention, onClearMention, onClickCommentSubmit }) {
         {/* 입력 */}
         <Form>
           <InputWrapper>
+            {/* 입력 Textarea */}
             <TextDiv>
-              <Text
-                ref={textarea}
-                wrap={'physical'}
-                placeholder={'댓글을 입력해주세요.'}
-                onChange={(e) => changeTextarea(e.target.value)}
+              <MentionsInput
+                inputRef={textarea}
+                placeholder={'검색어를 입력해주세요'}
                 value={value}
-              />
+                onChange={changeTextarea}
+                style={defaultStyle}
+              >
+                <Mention
+                  trigger="@"
+                  markup={`@[__display__]`}
+                  appendSpaceOnAdd={true}
+                  displayTransform={(id, display) => `@${display}`}
+                  style={MENTION_STYLES}
+                />
+              </MentionsInput>
             </TextDiv>
+            {/* 리뷰 쓰기 Submit */}
             <SubmitDiv>
               <Submit
                 onClick={() => {
                   setValue('');
-                  onClickCommentSubmit(value);
+                  onClickCommentSubmit(mentionUserId, value);
                 }}
               >
                 등록

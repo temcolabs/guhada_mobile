@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import { stringify } from 'qs';
 
@@ -44,4 +45,4 @@ ReviewHashtag.propTypes = {
   hashTags: PropTypes.array.isRequired,
 };
 
-export default memo(ReviewHashtag);
+export default memo(observer(ReviewHashtag));

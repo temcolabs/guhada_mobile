@@ -9,7 +9,7 @@ export const useModalLayoutState = ({
   const [isModalLayoutOpen, setIsModalLayoutOpen] = useState(false);
 
   const handleChangeVisibility = useCallback(
-    isOpen => {
+    (isOpen) => {
       setIsModalLayoutOpen(isOpen);
 
       // 닫힘 기능외에 추가로 실행할 콜백 호출
@@ -51,6 +51,7 @@ function ModalLayout({
   onClose,
   zIndex,
   wrapperStyle = {},
+  wrapperChildStyle = {}, // css.wrap 커스텀 스타일
   direction = slideDirection.RIGHT,
 }) {
   return (
@@ -60,7 +61,10 @@ function ModalLayout({
       wrapperStyle={wrapperStyle}
       zIndex={zIndex}
     >
-      <div className={css.wrap} style={wrapperStyle}>
+      <div
+        className={css.wrap}
+        style={{ ...wrapperStyle, ...wrapperChildStyle }}
+      >
         <div className={css.header}>
           <div className={css.title}>{pageTitle || ''}</div>
           <div className={css.close} onClick={onClose} />
