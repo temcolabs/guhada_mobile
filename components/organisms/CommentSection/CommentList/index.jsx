@@ -44,7 +44,7 @@ function CommentList({
     const boardDate =
       (time.years > 0 && moment(createdTimestamp).format('YYYY년 MM월 dd일')) ||
       (time.days > 0 && moment(createdTimestamp).format('MM월 DD일')) ||
-      (time.hours > 0 && moment(time).format('HH시간 전')) ||
+      (time.hours > 0 && moment(time).format('H시간 전')) ||
       (time.minutes > 0 && moment(time).format('m분 전')) ||
       '방금 전';
     return boardDate;

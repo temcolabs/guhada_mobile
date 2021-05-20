@@ -30,7 +30,7 @@ function CommentSection({
   // Mention event
   const onClickComment = ({ createdBy, nickname, mentionUserId }) => {
     setMentionUserId(mentionUserId);
-    setMention(`@${nickname}`);
+    setMention(`@[${nickname}](${createdBy})`);
   };
 
   // Clear mentions event
@@ -38,25 +38,27 @@ function CommentSection({
 
   return (
     <>
-      {/* 댓글 리스트 */}
-      <CommentListSection>
-        <CommentList
-          userId={userId}
-          total={comment?.totalElements}
-          list={commentList}
-          onClickComment={onClickComment}
-          onClickCommentDelete={onClickCommentDelete}
-        />
-      </CommentListSection>
-      {/* 댓글 작성 */}
-      <Divider />
-      <CommentWriteSection>
-        <CommentWrite
-          mention={mention}
-          onClearMention={onClearMention}
-          onClickCommentSubmit={onClickCommentSubmit}
-        />
-      </CommentWriteSection>
+      <div>
+        {/* 댓글 리스트 */}
+        <CommentListSection>
+          <CommentList
+            userId={userId}
+            total={comment?.totalElements}
+            list={commentList}
+            onClickComment={onClickComment}
+            onClickCommentDelete={onClickCommentDelete}
+          />
+        </CommentListSection>
+        {/* 댓글 작성 */}
+        <Divider />
+        <CommentWriteSection>
+          <CommentWrite
+            mention={mention}
+            onClearMention={onClearMention}
+            onClickCommentSubmit={onClickCommentSubmit}
+          />
+        </CommentWriteSection>
+      </div>
     </>
   );
 }
