@@ -1,7 +1,7 @@
-.deal-section {
+.deal-items {
   margin-bottom: 20px;
 
-  &__name {
+  &__title {
     line-height: 22px;
     text-align: center;
     font-family: 'NanumSquare';
@@ -12,9 +12,9 @@
     margin-bottom: 30px;
   }
 
-  &__items {
-    padding-left: 6px;
-    padding-right: 6px;
+  &__wrapper {
+    padding-left: 8px;
+    padding-right: 8px;
 
     &.items--horizontal {
       width: auto;

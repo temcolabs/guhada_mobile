@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import useStores from 'stores/useStores';
-import { inject } from 'mobx-react';
 import css from './SpecialDetail.module.scss';
 import DefaultLayout from 'components/layout/DefaultLayout';
-import Link from 'next/link';
 import SectionItem from 'components/home/SectionItem';
 import { LinkRoute } from 'childs/lib/router';
 import Router from 'next/router';
@@ -19,7 +17,7 @@ import MoreButton from 'components/common/MoreButton';
 import DataEmpty from 'components/common/DataEmpty';
 const enhancer = compose(withRouter);
 
-const SpecialDetail = enhancer(props => {
+const SpecialDetail = enhancer((props) => {
   const { special, alert, searchitem } = useStores();
 
   const [orderHover, setOrderHover] = useState(false);
@@ -29,7 +27,7 @@ const SpecialDetail = enhancer(props => {
     { label: '낮은가격순', value: 'PRICE_ASC' },
     { label: '높은가격순', value: 'PRICE_DESC' },
   ];
-  const orderLabel = orderList.map(order => {
+  const orderLabel = orderList.map((order) => {
     return order.value === special.order ? order.label : '';
   });
   const copyUrlToClipboard = () => {
@@ -154,7 +152,7 @@ const SpecialDetail = enhancer(props => {
             </div>
             <div
               className={css.filterWrap}
-              onClick={e => {
+              onClick={(e) => {
                 setIsFilterVisible(true);
               }}
             >

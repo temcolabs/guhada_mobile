@@ -10,6 +10,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import { dateFormat } from 'childs/lib/constant';
 import { isBrowser } from 'childs/lib/common/isServer';
+
 @inject('special', 'searchitem')
 @observer
 class specialdetail extends Component {

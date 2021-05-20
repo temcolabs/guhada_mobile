@@ -3,7 +3,13 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 import LazyLoad from 'react-lazyload';
 
-const DealItem = ({ isLazy = true, deal, horizontal = false }) => (
+const DealItem = ({
+  deal,
+  horizontal = false,
+  displaySeller = false,
+  displayTags = true,
+  isLazy = true,
+}) => (
   <div
     className={cn(css['deal-item'], horizontal && css['deal-item--horizontal'])}
   >
@@ -28,9 +34,9 @@ const DealItem = ({ isLazy = true, deal, horizontal = false }) => (
       )}
     </div>
     <div className={css['deal-item__description']}>
-      <div className={css['deal-item__brand']}>{deal.brandName}</div>
-      <div className={css['deal-item__name']}>{deal.dealName}</div>
-      <div className={css['deal-item__price']}>
+      <div className={css['description__brand']}>{deal.brandName}</div>
+      <div className={css['description__name']}>{deal.dealName}</div>
+      <div className={css['description__price']}>
         {deal.setDiscount ? (
           <>
             <div className={css['price--discount-price']}>
@@ -49,8 +55,17 @@ const DealItem = ({ isLazy = true, deal, horizontal = false }) => (
           </div>
         )}
       </div>
-      {!horizontal && (
-        <div className={css['deal-item__seller']}>{deal.sellerName}</div>
+      {!horizontal && displaySeller && (
+        <div className={css['description__seller']}>{deal.sellerName}</div>
+      )}
+      {!horizontal && displayTags && (
+        <div className={css['description__tags']}>
+          {deal.internationalShipping && (
+            <span className={css['tag']}>해외배송</span>
+          )}
+          {!deal.freeShipping && <span className={css['tag']}>유료배송</span>}
+          {!deal.brandNew && <span className={css['tag']}>빈티지</span>}
+        </div>
       )}
     </div>
   </div>
@@ -74,11 +89,16 @@ export const dealShape = PropTypes.shape({
   discountPrice: PropTypes.number,
   discountRate: PropTypes.number,
   soldOut: PropTypes.bool,
+  internationalShipping: PropTypes.bool,
+  freeShipping: PropTypes.bool,
+  brandNew: PropTypes.bool,
 });
 
 DealItem.propTypes = {
   deal: dealShape.isRequired,
-  small: PropTypes.bool,
+  horizontal: PropTypes.bool,
+  displaySeller: PropTypes.bool,
+  displayTags: PropTypes.bool,
 };
 
 export default DealItem;

@@ -1,0 +1,35 @@
+.filter-buttons {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 20px;
+  padding-left: 20px;
+  margin-bottom: 40px;
+
+  .filter-button {
+    &.button--order {
+      .order-icon {
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 8px;
+        width: 13px;
+        height: 13px;
+        background: url('/static/icon/list_select_arrow_open.png') no-repeat;
+        background-size: cover;
+        background-position: center;
+      }
+    }
+
+    &.button--options {
+      .options-icon {
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 10px;
+        width: 14px;
+        height: 16px;
+        background: url('/static/icon/list_icon_filter.png') no-repeat;
+        background-size: cover;
+        background-position: center;
+      }
+    }
+  }
+}

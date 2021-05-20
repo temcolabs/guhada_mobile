@@ -1,3 +1,7 @@
+// refactored stores
+import { SearchByFilterStore, SearchByAllStore } from './SearchStore';
+import NewSpecialStore from './event/NewSpecialStore';
+
 import UserStore from './UserStore';
 import UiStatus from './UiStatus';
 import LoginStore from './LoginStore';
@@ -75,6 +79,11 @@ import ReportStore from './claim/ReportStore';
 
 class RootStore {
   constructor(isServer, initialState) {
+    // refactored stores
+    this.searchByFilter = new SearchByFilterStore(this, initialState);
+
+    this.newSpecial = new NewSpecialStore(this, initialState);
+
     this.user = new UserStore(this, initialState);
     this.uistatus = new UiStatus(this, initialState);
     this.login = new LoginStore(this, initialState);
