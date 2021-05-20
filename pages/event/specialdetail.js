@@ -16,8 +16,7 @@ class specialdetail extends Component {
   static async getInitialProps(ctx) {
     const { req, query } = ctx;
     try {
-      // const eventId = isServer ? req.params?.id : Router.query.id;
-      const eventId = isServer ? req.query?.id : query.id;
+      const eventId = isServer ? req.params?.id : query.id;
       const { data } = await API.settle.get(`/plan/list/detail?`, {
         params: {
           eventId,

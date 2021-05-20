@@ -24,6 +24,5 @@ yarn-error.log*W
 # 쉘스크립트로 배포 환경마다 크롤링 설정을 다르게 함.
 robots.txt
 
-# dynamically created static files
-static/sprite.png
-styles/sprite.scss
+# dynamically generated files
+sprite.*

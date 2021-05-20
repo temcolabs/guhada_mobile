@@ -154,6 +154,7 @@ function LuckyDrawTemplate({ router, luckyDraw, login, main }) {
   const onCloseLuckyDrawModal = () => {
     document.documentElement.style.overflow = 'initial';
     luckyDraw.closeModal();
+    setIsActiveLuckyDrawModal(false);
   };
 
   /**

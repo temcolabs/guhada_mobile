@@ -4,6 +4,21 @@ import memoize from 'memoize-one';
 import css from './DefaultEditor.module.scss';
 import { isBrowser } from 'childs/lib/common/isServer';
 import { uploadImageFile } from 'childs/lib/API/gateway/fileUploadService';
+import loadScript from 'childs/lib/dom/loadScript';
+import loadLink from 'childs/lib/dom/loadLink';
+
+const summernoteLink = [
+  'summernote-css',
+  'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css',
+];
+const summernoteScriptsList = [
+  ['jquery', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js'],
+  [
+    'summernote',
+    'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js',
+  ],
+  ['summernote-lang', '/static/js/summernote-lang/ko-KR.js'],
+];
 
 /**
  * 커뮤니티(BBS에서 사용할 기본 에디터)
@@ -21,13 +36,36 @@ export default class CommunityDefaultEditor extends React.Component {
     wrapperStyle: {},
   };
 
+  state = {
+    scriptHasLoaded: false,
+  };
+
+  constructor(props) {
+    super(props);
+
+    loadLink(...summernoteLink);
+    summernoteScriptsList.forEach(([id, src], idx) => {
+      if (idx === summernoteScriptsList.length - 1) {
+        loadScript(src, {
+          id,
+          replaceExisting: true,
+          onLoad: () => this.setState({ scriptHasLoaded: true }),
+        });
+      } else {
+        loadScript(src, { id, replaceExisting: true });
+      }
+    });
+  }
+
   get summernote() {
     return typeof window.$ === 'function' ? $(`#${this.props.id}`) : {};
   }
 
   componentDidUpdate(nextProps) {
     // 비동기로 전달받은 초기값도 적용
-    this.initEditorContents(this.props.initialContents);
+    if (this.state.scriptHasLoaded) {
+      this.initEditorContents(this.props.initialContents);
+    }
   }
 
   componentWillUnmount() {
@@ -106,7 +144,9 @@ export default class CommunityDefaultEditor extends React.Component {
   render() {
     return (
       <div className={css.defaultEditor} style={this.props.wrapperStyle}>
-        <div id={this.props.id} ref={this.initSummernote} />
+        {this.state.scriptHasLoaded && (
+          <div id={this.props.id} ref={this.initSummernote} />
+        )}
       </div>
     );
   }
