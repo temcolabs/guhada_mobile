@@ -23,7 +23,6 @@ import { LoadingSpinner } from 'components/common/loading/Loading';
 import API from 'childs/lib/API';
 import pointProcessService from 'childs/lib/API/benefit/pointProcessService';
 import ReviewHashtagModal from 'template/Review/components/Modal/HashtagModal';
-import FilterModal from 'template/Ranking/FilterModal';
 
 // const color = ['BRIGHTER', 'SAME', 'DARKER'];
 // const length = ['SHORT', 'REGULAR', 'LONG'];
@@ -116,7 +115,7 @@ class ReviewWriteModal extends Component {
     imageFile: [],
     reviewData: Object.assign({}, ReviewWriteModal.defaultReviewData),
     isMySizeModalOpen: false,
-    isOpenHashtagModal: false,
+    isHashtagModalOpen: false,
     reviewQuestion: [],
     questionIsLoading: 0,
     totalDueSave: 0,
@@ -397,13 +396,6 @@ class ReviewWriteModal extends Component {
       });
   };
 
-  onClickAddHashtag = (isOpenHashtagModal) => {
-    this.setState({
-      ...this.state,
-      isOpenHashtagModal,
-    });
-  };
-
   renderStars = (startCount) => {
     let starCount = rating.indexOf(this.state.reviewData.productRating) + 1;
     let starItems = [];
@@ -460,6 +452,10 @@ class ReviewWriteModal extends Component {
   toggleMySizeModal = () => {
     this.props.mypagereview.closeReviewModal();
     this.setState({ isMySizeModalOpen: !this.state.isMySizeModalOpen });
+  };
+
+  toggleHashtagModal = () => {
+    this.setState({ isHashtagModalOpen: !this.state.isHashtagModalOpen });
   };
 
   handleSubmitMySize = (mySize) => {
@@ -573,10 +569,10 @@ class ReviewWriteModal extends Component {
               />
             </div>
             {/* TODO : Hash 태그 컴포넌트 추가 */}
-            {/* <div className={css.hashtagWrap}>
-              <div onClick={() => this.onClickAddHashtag(true)} />
+            <div className={css.hashtagWrap}>
+              <div onClick={this.toggleHashtagModal} />
               <div>#해시태그를 입력해주세요</div>
-            </div> */}
+            </div>
             <div className={css.photoWrap}>
               <label className={css.photoItemWrap} htmlFor="photo_upload">
                 <input
@@ -613,6 +609,10 @@ class ReviewWriteModal extends Component {
               </SubmitButton>
             </SubmitButtonWrapper>
           </div>
+          <ReviewHashtagModal
+            isOpen={this.state.isHashtagModalOpen}
+            onClose={this.toggleHashtagModal}
+          />
           <MySizeModal
             // mySize={this.props.mySize.mySize}
             isOpen={this.state.isMySizeModalOpen}

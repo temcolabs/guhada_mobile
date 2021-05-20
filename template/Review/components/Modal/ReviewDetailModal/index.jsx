@@ -1,5 +1,4 @@
 import React, { useEffect, memo } from 'react';
-import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
 import useStores from 'stores/useStores';
 import moment from 'moment';
@@ -69,9 +68,6 @@ function ReviewDetailModal({ reviewId, isModalOpen, onCloseModal }) {
     }
   };
 
-  // 댓글 기능...
-  const onClickComment = () => {};
-
   /**
    * 댓글 등록 이벤트
    * @param {String} comment, 댓글 텍스트
@@ -104,8 +100,6 @@ function ReviewDetailModal({ reviewId, isModalOpen, onCloseModal }) {
       await reviewStore.getReviewComments({ reviewId });
     }
   };
-
-  const onClickReport = () => {};
 
   return (
     <>

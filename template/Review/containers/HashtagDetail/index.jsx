@@ -23,6 +23,10 @@ const initialSearch = {
   unitPerPage: 15,
 };
 
+/**
+ * 해시태그 > 상세 리스트 (연관)
+ * @returns
+ */
 function ReviewHashtagDetail() {
   const { review: reviewStore } = useStores();
   const [isModalOpen, setIsModalOpen] = useState(false);
