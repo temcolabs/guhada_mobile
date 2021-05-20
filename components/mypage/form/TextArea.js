@@ -38,7 +38,6 @@ export default function TextArea({
               inputSizePosition === 'OUTSIDE_BOTTOM_RIGHT',
             [css.bottomRight]: inputSizePosition === 'BOTTOM_RIGHT',
           })}
-          style={type === 'review' && { bottom: '-162px' }}
         >
           <span className={css.inputSize__current}>
             {_.isNil(value) ? 0 : parseInt(value.length, 10)}

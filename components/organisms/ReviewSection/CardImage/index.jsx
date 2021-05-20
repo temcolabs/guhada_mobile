@@ -5,6 +5,7 @@ import Image from 'components/atoms/Image';
 import Slider from 'components/molecules/Slider';
 
 import { Wrapper, ImageSection } from './Styled';
+import React from 'react';
 
 const settings = {
   arrows: false,
@@ -16,11 +17,11 @@ const settings = {
 
 /**
  * 리뷰 > 이미지 Section
- * @param {Array} images, 이미지 리스트
  * @param {String} type, list, detail
+ * @param {Array} images, 이미지 리스트
  * @returns
  */
-function CardImage({ images, type = 'list' }) {
+function CardImage({ isLazy = false, type = 'list', images }) {
   /**
    * states
    */
@@ -80,9 +81,14 @@ function CardImage({ images, type = 'list' }) {
         ? images.map((src, i) => (
             <div
               key={`createReviewImages-${i}`}
-              style={type === 'list' && { width: '320px' }}
+              style={{ width: type === 'list' ? '320px' : 'inherit' }}
             >
-              <Image src={src} width={'auto'} height={'320px'} />
+              <Image
+                isLazy={isLazy}
+                src={src}
+                width={'auto'}
+                height={'320px'}
+              />
             </div>
           ))
         : '';
@@ -94,7 +100,12 @@ function CardImage({ images, type = 'list' }) {
     <Wrapper>
       {images?.length < 2 ? (
         <ImageSection type={type}>
-          <Image src={images[0]} width={'auto'} height={'320px'} />
+          <Image
+            isLazy={isLazy}
+            src={images[0]}
+            width={'auto'}
+            height={'320px'}
+          />
         </ImageSection>
       ) : (
         <div ref={sliderRef}>

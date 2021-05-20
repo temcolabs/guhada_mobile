@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import dynamic from 'next/dynamic';
 import css from './ReviewWriteModal.module.scss';
 // import ReviewWriteOption from './ReviewWriteOption';
@@ -23,7 +23,7 @@ import { LoadingSpinner } from 'components/common/loading/Loading';
 import API from 'childs/lib/API';
 import pointProcessService from 'childs/lib/API/benefit/pointProcessService';
 import ReviewHashtagModal from 'template/Review/components/Modal/HashtagModal';
-import FilterModal from 'template/Ranking/FilterModal';
+import HashtagItem from 'template/Review/components/Atoms/Label/HashtagItem';
 
 // const color = ['BRIGHTER', 'SAME', 'DARKER'];
 // const length = ['SHORT', 'REGULAR', 'LONG'];
@@ -107,7 +107,7 @@ class ReviewWriteModal extends Component {
     textReview: '',
     userId: 0,
     userNickname: '',
-    reviewHashtagList: null,
+    reviewHashtagList: [],
   };
 
   state = {
@@ -116,7 +116,8 @@ class ReviewWriteModal extends Component {
     imageFile: [],
     reviewData: Object.assign({}, ReviewWriteModal.defaultReviewData),
     isMySizeModalOpen: false,
-    isOpenHashtagModal: false,
+    isHashtagModalOpen: false,
+    delHashtag: [],
     reviewQuestion: [],
     questionIsLoading: 0,
     totalDueSave: 0,
@@ -397,13 +398,6 @@ class ReviewWriteModal extends Component {
       });
   };
 
-  onClickAddHashtag = (isOpenHashtagModal) => {
-    this.setState({
-      ...this.state,
-      isOpenHashtagModal,
-    });
-  };
-
   renderStars = (startCount) => {
     let starCount = rating.indexOf(this.state.reviewData.productRating) + 1;
     let starItems = [];
@@ -462,12 +456,35 @@ class ReviewWriteModal extends Component {
     this.setState({ isMySizeModalOpen: !this.state.isMySizeModalOpen });
   };
 
+  toggleHashtagModal = (flag, hashtags) => {
+    this.setState({
+      isHashtagModalOpen: flag,
+      reviewData: {
+        ...this.state.reviewData,
+        reviewHashtagList: hashtags,
+      },
+    });
+  };
+
   handleSubmitMySize = (mySize) => {
     this.props.mySize.submitMySize({
       mySize,
       onComplete: this.toggleMySizeModal,
     });
     this.toggleMySizeModal();
+  };
+
+  handleHashtagItem = (hashtag) => {
+    const hashtags = this.state.reviewData.reviewHashtagList.filter(
+      (v) => v !== hashtag
+    );
+    this.setState({
+      delHashtag: hashtag,
+      reviewData: {
+        ...this.state.reviewData,
+        reviewHashtagList: hashtags,
+      },
+    });
   };
 
   render() {
@@ -570,13 +587,29 @@ class ReviewWriteModal extends Component {
                   productreview.maximumPoint
                 }P 적립!\n상품에 대한 솔직한 리뷰를 작성해주세요.`}
                 initialValue={this.state.reviewData?.textReview || ''}
+                isInputSizeVisible={false}
               />
             </div>
             {/* TODO : Hash 태그 컴포넌트 추가 */}
-            {/* <div className={css.hashtagWrap}>
-              <div onClick={() => this.onClickAddHashtag(true)} />
-              <div>#해시태그를 입력해주세요</div>
-            </div> */}
+            <div className={css.hashtagWrap}>
+              {/* 해시태그 리스트가 있는 경우 */}
+              <div>
+                {this.state.reviewData.reviewHashtagList &&
+                this.state.reviewData.reviewHashtagList.length
+                  ? this.state.reviewData.reviewHashtagList.map((hashtag) => (
+                      <HashtagItem
+                        isClose={true}
+                        hashtag={hashtag}
+                        onClickHashtag={() => this.handleHashtagItem(hashtag)}
+                      />
+                    ))
+                  : ''}{' '}
+              </div>
+              <div>
+                <div onClick={() => this.toggleHashtagModal(true, [])} />
+                <div>#해시태그를 입력해주세요</div>
+              </div>
+            </div>
             <div className={css.photoWrap}>
               <label className={css.photoItemWrap} htmlFor="photo_upload">
                 <input
@@ -613,6 +646,12 @@ class ReviewWriteModal extends Component {
               </SubmitButton>
             </SubmitButtonWrapper>
           </div>
+          {/* 해시태그 등록 모달 */}
+          <ReviewHashtagModal
+            isOpen={this.state.isHashtagModalOpen}
+            onClose={(hashtags) => this.toggleHashtagModal(false, hashtags)}
+            delHashtag={this.state.delHashtag}
+          />
           <MySizeModal
             // mySize={this.props.mySize.mySize}
             isOpen={this.state.isMySizeModalOpen}

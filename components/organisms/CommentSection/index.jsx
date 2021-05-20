@@ -1,5 +1,5 @@
-import React from 'react';
-import { toJS } from 'mobx';
+import React, { useState } from 'react';
+import { observer } from 'mobx-react';
 import useStores from 'stores/useStores';
 import PropTypes from 'prop-types';
 
@@ -13,28 +13,54 @@ import { CommentListSection, CommentWriteSection, Divider } from './Styled';
  * @param {Object} comment, /reviews/${reviewId}/comments
  * @returns
  */
-function CommentSection({ comment, onClickCommentSubmit, onClickCommentDelete }) {
+function CommentSection({
+  comment,
+  onClickCommentSubmit,
+  onClickCommentDelete,
+}) {
   const { user: userStore } = useStores();
+  const [mention, setMention] = useState('');
+  const [mentionUserId, setMentionUserId] = useState(null);
 
   const userId = userStore?.userInfo?.id;
-  const commentList = comment?.content;
+
+  // Submit, Delete
+
+  // Mention event
+  const onClickComment = ({ createdBy, nickname }) => {
+    setMentionUserId(createdBy);
+    setMention(`@[${nickname}]`);
+  };
+
+  // Clear mentions event
+  const onClearMention = () => {
+    setMentionUserId(null);
+    setMention('');
+  };
 
   return (
     <>
-      {/* 댓글 리스트 */}
-      <CommentListSection>
-        <CommentList
-          userId={userId}
-          total={comment?.totalElements}
-          list={commentList}
-          onClickCommentDelete={onClickCommentDelete}
-        />
-      </CommentListSection>
-      {/* 댓글 작성 */}
-      <Divider />
-      <CommentWriteSection>
-        <CommentWrite onClickCommentSubmit={onClickCommentSubmit} />
-      </CommentWriteSection>
+      <div>
+        {/* 댓글 리스트 */}
+        <CommentListSection>
+          <CommentList
+            userId={userId}
+            comment={comment}
+            onClickComment={onClickComment}
+            onClickCommentDelete={onClickCommentDelete}
+          />
+        </CommentListSection>
+        {/* 댓글 작성 */}
+        <Divider />
+        <CommentWriteSection>
+          <CommentWrite
+            mention={mention}
+            mentionUserId={mentionUserId}
+            onClearMention={onClearMention}
+            onClickCommentSubmit={onClickCommentSubmit}
+          />
+        </CommentWriteSection>
+      </div>
     </>
   );
 }
@@ -43,4 +69,4 @@ CommentSection.propTypes = {
   comment: PropTypes.object.isRequired,
 };
 
-export default CommentSection;
+export default observer(CommentSection);

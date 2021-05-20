@@ -5,7 +5,6 @@ export const Wrapper = styled.div`
   display: flex;
   flex-flow: row wrap;
   width: 100%;
-  height: 118px;
 `;
 
 // Sections

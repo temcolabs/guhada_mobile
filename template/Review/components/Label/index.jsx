@@ -7,14 +7,14 @@ import { Wrapper, Item } from './Styled';
  * 리뷰 > 상세 > Label
  * @param {Array} answers
  * @param {Array} questions
- * @returns 
+ * @returns
  */
 function ReviewLabels({ answers, questions }) {
   return (
     <Wrapper>
       {questions && questions.length
         ? questions.map((o, i) => (
-            <Item>
+            <Item key={`${o.type}-${i}`}>
               <div>{o.type}</div>
               <div>{answers[i].answer}</div>
             </Item>

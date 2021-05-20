@@ -6,6 +6,7 @@ import { ImageDiv } from './Styled';
 
 /**
  * 이미지 태그
+ * @param {Boolean} isLazy : Lazy load
  * @param {Object} customStyle : Custom styles
  * @param {String} type : block, image
  * @param {String} src : Image URL
@@ -14,11 +15,20 @@ import { ImageDiv } from './Styled';
  * @param {String} height : Image Height
  * @returns
  */
-function Image({ customStyle, type, src, size, width, height }) {
+function Image({ isLazy, customStyle, type, src, size, width, height }) {
   return (
     <>
-      <LazyLoad>
-        {/* TODO : image 태그 형태 필요하면, 만들기 */}
+      {isLazy ? (
+        <LazyLoad>
+          <ImageDiv
+            style={customStyle}
+            width={width}
+            height={height}
+            src={src}
+            size={size}
+          />
+        </LazyLoad>
+      ) : (
         <ImageDiv
           style={customStyle}
           width={width}
@@ -26,7 +36,7 @@ function Image({ customStyle, type, src, size, width, height }) {
           src={src}
           size={size}
         />
-      </LazyLoad>
+      )}
     </>
   );
 }

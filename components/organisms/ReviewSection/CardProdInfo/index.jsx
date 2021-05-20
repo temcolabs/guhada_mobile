@@ -20,9 +20,14 @@ import {
  * @param {String} contents, 상품 설명
  * @returns
  */
-function CardProdInfo({ dealId, imageUrl, title, contents }) {
+function CardProdInfo({ dealId, imageUrl, title, contents, onClickProduct }) {
   return (
-    <Wrapper onClick={() => pushRoute(`/productdetail?deals=${dealId}`)}>
+    <Wrapper
+      onClick={(e) => {
+        e.stopPropagation();
+        onClickProduct(dealId);
+      }}
+    >
       <ImageSection>
         <Image src={imageUrl} width={'50px'} height={'50px'} />
       </ImageSection>

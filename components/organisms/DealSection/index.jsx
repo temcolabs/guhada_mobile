@@ -13,9 +13,15 @@ import DealItem, { dealShape } from './DealItem';
  * @param {Object} headerStyles, Custom header styling
  * @param {Array} deals, Deal list
  * @param {Boolean} horizontal, 스크롤 방향
- * @returns 
+ * @returns
  */
-const DealSection = ({ header, headerStyles, deals, horizontal = false }) => (
+const DealSection = ({
+  isLazy,
+  header,
+  headerStyles,
+  deals,
+  horizontal = false,
+}) => (
   <div className={css['deal-section']}>
     <div
       style={headerStyles && { ...headerStyles }}
@@ -35,7 +41,7 @@ const DealSection = ({ header, headerStyles, deals, horizontal = false }) => (
           href={`/productdetail?deals=${deal.dealId}`}
         >
           <a>
-            <DealItem deal={deal} horizontal={horizontal} />
+            <DealItem isLazy={isLazy} deal={deal} horizontal={horizontal} />
           </a>
         </LinkRoute>
       ))}

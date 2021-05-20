@@ -81,7 +81,7 @@
   }
 }
 
-.sizeIconWrapper{
+.sizeIconWrapper {
   display: inline-flex;
   padding-top: 10px;
 }
@@ -226,17 +226,31 @@
   flex-flow: row wrap;
   justify-content: center;
   align-content: center;
+  padding: 15px 15px 30px 15px;
 
   > div:first-child {
-    @include sprite($tag-plus);
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
     margin-bottom: 10px;
   }
 
   > div:last-child {
-    font-family: Roboto;
-    font-size: 13px;
-    text-align: center;
-    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+
+    > div:first-child {
+      @include sprite($tag-plus);
+      margin-bottom: 10px;
+    }
+
+    > div:last-child {
+      font-family: Roboto;
+      font-size: 13px;
+      text-align: center;
+      width: 100%;
+    }
   }
 }
 

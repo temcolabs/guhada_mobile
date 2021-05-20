@@ -56,7 +56,7 @@ function HeaderModalWrapper({
 
 HeaderModalWrapper.propTypes = {
   isModalOpen: PropTypes.bool,
-  headerStatus: PropTypes.objectOf({
+  headerStatus: PropTypes.shape({
     title: PropTypes.string,
     back: PropTypes.bool,
     close: PropTypes.bool,

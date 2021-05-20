@@ -10,5 +10,6 @@ export const Wrapper = styled.button`
   font-size: 13px;
   line-height: 1.29;
   height: 30px;
+  margin-top: 7px;
   margin-right: 7px;
 `;

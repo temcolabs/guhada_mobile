@@ -63,8 +63,8 @@ function ReviewCategories({ categories, onClickCategory }) {
             <CategoryImage>
               <Image
                 src={o.isSelect ? o.categoryImageOn : o.categoryImageOff}
-                width={'54px'}
-                height={'54px'}
+                width={'55px'}
+                height={'55px'}
               />
             </CategoryImage>
             <CategoryText className={o.isSelect ? 'active' : 'inActive'}>
