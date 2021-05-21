@@ -278,7 +278,7 @@ function LuckyDrawTemplate({ router, luckyDraw, login, main }) {
               );
             })
           ) : (
-            ''
+            <LuckyDrawEmpty />
           )
         ) : (
           <LuckyDrawEmpty />
