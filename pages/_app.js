@@ -151,15 +151,15 @@ class GuhadaMobileWeb extends App {
     if (isBrowser) {
       const isLocationHasConversion =
         locationHasConversion
-          .map(regex => regex.test(window.location.pathname))
-          .findIndex(result => result === true) > -1;
+          .map((regex) => regex.test(window.location.pathname))
+          .findIndex((result) => result === true) > -1;
 
       if (isLocationHasConversion) {
         return;
       } else {
         if (Cookies.get(key.ACCESS_TOKEN)) {
           // 회원정보 가져와서 실행
-          this.mobxStore.user.pushJobForUserInfo(userInfo => {
+          this.mobxStore.user.pushJobForUserInfo((userInfo) => {
             // 공통
             widerplanetTracker.common({
               userId: userInfo?.id,
@@ -181,7 +181,7 @@ class GuhadaMobileWeb extends App {
     wcs_do(_nasa);
   };
 
-  static aceCouterTracker = asPath => {
+  static aceCouterTracker = (asPath) => {
     if (typeof window.AM_PL !== 'undefined') {
       window.AM_PL(asPath);
     }
