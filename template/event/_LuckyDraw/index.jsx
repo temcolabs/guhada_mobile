@@ -220,8 +220,6 @@ function LuckyDrawTemplate({ router, luckyDraw, login, main }) {
     [luckyDrawList]
   );
 
-  const MemoLuckyDrawCard = React.memo(LuckyDrawCard);
-
   /**
    * render
    */
@@ -268,19 +266,20 @@ function LuckyDrawTemplate({ router, luckyDraw, login, main }) {
         <LuckyDrawTop />
 
         {/* LuckyDraw Cards */}
-        {luckyDrawList &&
-        luckyDrawList.length &&
-        activeList &&
-        activeList.length ? (
-          activeList.map((o) => {
-            return (
-              <MemoLuckyDrawCard
-                {...o}
-                key={`luckydraw-${o.dealId}`}
-                onClickRequestLuckyDraw={onClickRequestLuckyDraw}
-              />
-            );
-          })
+        {luckyDrawList && luckyDrawList.length ? (
+          activeList && activeList.length ? (
+            activeList.map((o) => {
+              return (
+                <LuckyDrawCard
+                  {...o}
+                  key={`luckydraw-${o.dealId}`}
+                  onClickRequestLuckyDraw={onClickRequestLuckyDraw}
+                />
+              );
+            })
+          ) : (
+            <LuckyDrawEmpty />
+          )
         ) : (
           <LuckyDrawEmpty />
         )}
