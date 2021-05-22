@@ -27,6 +27,7 @@ function ReviewTemplate() {
    * states
    */
   const {
+    alert: alertStore,
     main: mainStore,
     review: reviewStore,
     login: loginStore,
@@ -88,7 +89,7 @@ function ReviewTemplate() {
         await reviewStore.setProductReviewBookmarks(review);
       }
     } else {
-      alert.showAlert('로그인이 필요한 서비스입니다.');
+      alertStore.showAlert('로그인이 필요한 서비스입니다.');
     }
   };
 
@@ -116,10 +117,14 @@ function ReviewTemplate() {
           {/* <ReviewBanner /> */}
 
           {/* 리뷰 > 인기 해시태그 */}
+<<<<<<< HEAD
           <ReviewHashTag
             hashtags={reviewStore.reviewHashtagList}
             onClickHashtag={onClickHashtag}
           />
+=======
+          <ReviewHashTag hashTags={reviewStore.reviewHashtagList} />
+>>>>>>> TECH-8212
 
           {/* 리뷰 > 카테고리 */}
           <ReviewCategories
