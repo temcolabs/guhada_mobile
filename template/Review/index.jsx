@@ -117,14 +117,10 @@ function ReviewTemplate() {
           {/* <ReviewBanner /> */}
 
           {/* 리뷰 > 인기 해시태그 */}
-<<<<<<< HEAD
           <ReviewHashTag
             hashtags={reviewStore.reviewHashtagList}
             onClickHashtag={onClickHashtag}
           />
-=======
-          <ReviewHashTag hashTags={reviewStore.reviewHashtagList} />
->>>>>>> TECH-8212
 
           {/* 리뷰 > 카테고리 */}
           <ReviewCategories
