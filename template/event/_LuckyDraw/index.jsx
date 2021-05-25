@@ -76,7 +76,6 @@ function LuckyDrawTemplate({ router, luckyDraw, login, main }) {
    */
   useEffect(() => {
     document.documentElement.style.overflow = 'initial';
-    luckyDraw.getLuckyDrawList();
     luckyDraw.initLuckyEventData();
   }, [login.isLoggedIn]);
 
@@ -266,8 +265,9 @@ function LuckyDrawTemplate({ router, luckyDraw, login, main }) {
         <LuckyDrawTop />
 
         {/* LuckyDraw Cards */}
-        {luckyDrawList && luckyDrawList.length ? (
-          activeList && activeList.length ? (
+        {luckyDrawList &&
+          luckyDrawList.length &&
+          (activeList && activeList.length ? (
             activeList.map((o) => {
               return (
                 <LuckyDrawCard
@@ -279,10 +279,7 @@ function LuckyDrawTemplate({ router, luckyDraw, login, main }) {
             })
           ) : (
             <LuckyDrawEmpty />
-          )
-        ) : (
-          <LuckyDrawEmpty />
-        )}
+          ))}
 
         {/* Draw History */}
         {winnerList && winnerList.length ? (
