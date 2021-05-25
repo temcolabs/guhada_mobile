@@ -1,4 +1,5 @@
 import { memo, useEffect } from 'react';
+import { toJS } from 'mobx';
 import Proptypes from 'prop-types';
 import { observer } from 'mobx-react';
 import { stringify } from 'qs';
@@ -71,9 +72,11 @@ function ReviewTemplate() {
    */
   // Clicked category item
   const onClickCategory = async (categoryName) => {
-    reviewStore.initReviewStore();
     const search = { ...reviewStore.searchForm, categoryName };
-    await reviewStore.getReviewList(search);
+
+    reviewStore.initReviewStore();
+    reviewStore.getReviewList(search);
+    reviewStore.getReviewHashtags();
     reviewStore.setSearchForm(search);
   };
 
@@ -96,6 +99,11 @@ function ReviewTemplate() {
 
   const onClickHashtag = (hashtag) =>
     pushRoute(`/review/hashtag?${stringify({ hashtag })}`);
+
+  console.log(
+    'reviewStore.reviewHashtagList : ',
+    toJS(reviewStore.reviewHashtagList)
+  );
 
   return (
     <>

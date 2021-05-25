@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 
 import HashtagFavoriteHeading from '../Atoms/Heading/HashtagFavorite';
@@ -39,4 +40,4 @@ ReviewHashtag.propTypes = {
   onClickHashtag: PropTypes.func,
 };
 
-export default memo(ReviewHashtag);
+export default memo(observer(ReviewHashtag));
