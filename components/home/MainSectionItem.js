@@ -34,8 +34,6 @@ function MainSectionItem({
     }
   }, [user.userInfo.gender]);
 
-  console.log('mainSectionCategory : ', mainSectionCategory);
-
   return (
     <>
       <div className={cn(css.wrap, { [css.wrapNotHome]: categoryId !== 0 })}>

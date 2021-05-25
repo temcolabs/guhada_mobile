@@ -45,6 +45,7 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
+    console.log('mount');
     let query = Router.router.query;
     const { main } = this.props;
 
@@ -124,8 +125,6 @@ class Home extends React.Component {
   render() {
     const { main, searchitem, eventpopup, searchHolder } = this.props;
 
-    console.log('searchHolder : ', toJS(searchHolder));
-
     return (
       <DefaultLayout
         title={null}
@@ -159,11 +158,13 @@ class Home extends React.Component {
         />
         <div>
           {/* Focus on items */}
-          <MainSideBanner
-            title={'FOCUS ON'}
-            type={'FOCUS_ON'}
-            list={searchHolder.mainImageSetOneSetList}
-          />
+          {main.navDealId === 0 && (
+            <MainSideBanner
+              title={'FOCUS ON'}
+              type={'FOCUS_ON'}
+              list={searchHolder.mainImageSetOneSetList}
+            />
+          )}
 
           {/* Premium Item */}
           <MainSectionItem
@@ -175,14 +176,19 @@ class Home extends React.Component {
           />
 
           {/* 상품 홍보 Large */}
-          <MainSideBanner list={searchHolder.mainImageSetTwoSetList} />
+          {main.navDealId === 0 && (
+            <MainSideBanner list={searchHolder.mainImageSetTwoSetList} />
+          )}
 
-          <HomeItemDefault header={'HOT KEYWORD'}>
-            <MainHotKeyword
-              hotKeyword={main.hotKeyword}
-              searchitem={searchitem}
-            />
-          </HomeItemDefault>
+          {/* Hok keyword > main */}
+          {main.navDealId === 0 && (
+            <HomeItemDefault header={'HOT KEYWORD'}>
+              <MainHotKeyword
+                hotKeyword={main.hotKeyword}
+                searchitem={searchitem}
+              />
+            </HomeItemDefault>
+          )}
 
           <MainSectionItem
             title={'BEST ITEM'}
@@ -192,12 +198,16 @@ class Home extends React.Component {
             condition={'BEST'}
           />
 
-          <HomeItemDefault header={'BEST REVIEW'}>
-            <BestReview />
-          </HomeItemDefault>
+          {main.navDealId === 0 && (
+            <HomeItemDefault header={'BEST REVIEW'}>
+              <BestReview />
+            </HomeItemDefault>
+          )}
 
           {/* 상품 홍보 Small */}
-          <MainSideBanner list={searchHolder.mainImageSetThreeList} />
+          {main.navDealId === 0 && (
+            <MainSideBanner list={searchHolder.mainImageSetThreeList} />
+          )}
 
           <MainSectionItem
             title={'NEW IN'}
@@ -206,10 +216,22 @@ class Home extends React.Component {
             toSearch={searchitem.toSearch}
             condition={'NEW'}
           />
+
+          {/* Hok keyword > main */}
+          {main.navDealId !== 0 && (
+            <HomeItemDefault header={'HOT KEYWORD'}>
+              <MainHotKeyword
+                hotKeyword={main.hotKeyword}
+                searchitem={searchitem}
+              />
+            </HomeItemDefault>
+          )}
         </div>
 
         {/* 앱 로그인 혜택 배너 */}
-        <MainSideBanner list={searchHolder.mainImageSetFourList} />
+        {main.navDealId === 0 && (
+          <MainSideBanner list={searchHolder.mainImageSetFourList} />
+        )}
 
         {eventpopup.popupList.length > 0
           ? eventpopup.popupList.map((data, index) => {
