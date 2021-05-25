@@ -1,5 +1,4 @@
 import React, { useEffect, memo } from 'react';
-import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
 import useStores from 'stores/useStores';
 import moment from 'moment';
