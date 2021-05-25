@@ -71,7 +71,8 @@ class SearchItem6 extends Component {
                   />
                 </div>
                 <div className={css.detailWrap}>
-                  {_.isEmpty(deal.brandNew) && (
+                  {/* AS-IS: 해외 배송 */}
+                  {/* {_.isEmpty(deal.brandNew) && (
                     <div className={css.conditionWrap}>
                       {deal.internationalShipping && (
                         <>
@@ -92,7 +93,7 @@ class SearchItem6 extends Component {
                         {deal.brandNew ? '' : brandNew.USED}
                       </div>
                     </div>
-                  )}
+                  )} */}
                   <div className={css.brandName}>{deal.brandName}</div>
                   <div className={css.dealName}>{deal.dealName}</div>
                   {deal.discountRate > 0 ? (

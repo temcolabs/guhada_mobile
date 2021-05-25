@@ -2,143 +2,139 @@
 @import 'styles/var';
 
 .wrap {
-    width: calc(100% / 3 - 10px / 3);
-    float: left;
+  font-family: Roboto;
+  width: calc(100% / 3 - 10px / 3);
+  float: left;
+  overflow: hidden;
+  margin-right: 5px;
+  margin-bottom: 30px;
+
+  &:nth-child(3n) {
+    margin-right: 0;
+  }
+
+  & .imageWrap {
+    position: relative;
+    width: 100%;
+    height: 0;
     overflow: hidden;
-    margin-right: 5px;
-    margin-bottom: 30px;
+    padding-bottom: 100%;
+  }
 
-    &:nth-child(3n) {
-        margin-right: 0;
+  & .color {
+    display: flex;
+    align-content: flex-start;
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 50px;
+    height: 100px;
+    justify-content: flex-end;
+    z-index: 100;
+
+    & .box {
+      width: 9px;
+      height: 9px;
+      margin-right: 5px;
+      margin-top: 5px;
+      border-radius: 12px;
+      border: 1px solid #ddd;
+    }
+  }
+
+  & .imageUrl {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  & .detailWrap {
+    // height: 87px;
+    padding: 12px 0 0 8px;
+  }
+
+  .conditionWrap {
+    height: 25px;
+    font-size: 11px;
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+
+    & .brandNew {
+      color: #b58c44;
+      float: left;
+
+      &.new {
+        color: #5e24d1;
+      }
     }
 
-    & .imageWrap {
-        position: relative;
-        width: 100%;
-        height: 0;
-        overflow: hidden;
-        padding-bottom: 100%;
+    & .betweenLine {
+      width: 10px;
+      height: inherit;
+      float: left;
     }
 
-    & .color {
-        display: flex;
-        align-content: flex-start;
-        position: absolute;
-        bottom: 5px;
-        left: 5px;
-        flex-direction: column;
-        flex-wrap: wrap;
-        width: 50px;
-        height: 100px;
-        justify-content: flex-end;
-        z-index: 100;
+    & .internationalShipping {
+      float: left;
+      color: #111111;
+      padding-left: 13px;
+      background: url('/static/icon/airplane_icon@3x.png') no-repeat left center;
+      background-size: 8px;
+    }
+  }
 
-        & .box {
-            width: 9px;
-            height: 9px;
-            margin-right: 5px;
-            margin-top: 5px;
-            border-radius: 12px;
-            border: 1px solid #ddd;
-        }
+  & .brandName {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.6;
+    text-align: left;
+    color: #999999;
+    @include textEllipsis;
+  }
+
+  & .dealName {
+    height: 33px;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 1.5;
+    text-align: left;
+    color: #111;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    margin-top: 5px;
+  }
+
+  & .priceWrap {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    line-height: 1;
+
+    & .discountWrap {
+      display: flex;
+      align-items: center;
     }
 
-    & .imageUrl {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
+    & .sellPrice {
+      font-size: 13px;
+      font-weight: 500;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.15;
+      letter-spacing: normal;
+      text-align: left;
+      color: #111111;
     }
-
-    & .detailWrap {
-        // height: 87px;
-        padding: 0 0 0 8px;
-
-    }
-
-    .conditionWrap {
-        height: 25px;
-        font-size: 11px;
-        font-weight: normal;
-        display: flex;
-        align-items: center;
-
-        & .brandNew {
-            color: #b58c44;
-            float: left;
-
-            &.new {
-                color: #5e24d1;
-            }
-        }
-
-        & .betweenLine {
-            width: 10px;
-            height: inherit;
-            float: left;
-        }
-
-        & .internationalShipping {
-            float: left;
-            color: #111111;
-            padding-left: 13px;
-            background: url('/static/icon/airplane_icon@3x.png') no-repeat left center;
-            background-size: 8px;
-
-
-        }
-    }
-
-    & .brandName {
-        font-size: 13px;
-        font-weight: 500;
-        line-height: 1.4;
-        text-align: left;
-        color: #111111;
-        @include textEllipsis;
-    }
-
-    & .dealName {
-        height: 29px;
-        font-size: 12px;
-        font-weight: normal;
-        line-height: 1.17;
-        text-align: left;
-        color: #111;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: normal;
-        word-wrap: break-word;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        margin-top: 5px;
-    }
-
-    & .priceWrap {
-        margin-top: 10px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        line-height: 1;
-
-        & .discountWrap {
-            display: flex;
-            align-items: center;
-        }
-
-        & .sellPrice {
-            font-size: 12px;
-            font-weight: bold;
-            font-style: normal;
-            font-stretch: normal;
-            line-height: 1.25;
-            letter-spacing: normal;
-            text-align: left;
-            color: #111111;
-        }
-
-
-    }
+  }
 }

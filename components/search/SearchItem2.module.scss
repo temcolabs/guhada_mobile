@@ -1,216 +1,233 @@
 .wrap {
-    width: 100%;
+  font-family: Roboto;
+  width: 100%;
+  float: left;
+  overflow: hidden;
+  margin-bottom: 10px;
+
+  &:nth-child(2n) {
+    margin-right: 0;
+  }
+
+  & .imageWrap {
+    position: relative;
+    width: 130px;
+    height: 130px;
     float: left;
+  }
+
+  & .freeShipping {
+    width: 30px;
+    height: 30px;
+    background-color: #5d2ed1;
+    font-size: 10px;
+    font-weight: 500;
+    color: white;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 100;
+    text-align: left;
+    line-height: 1.1;
+    letter-spacing: 1.6px;
+    padding-top: 3px;
+    padding-left: 5px;
+  }
+
+  & .color {
+    display: flex;
+    align-content: flex-start;
+    position: absolute;
+    bottom: 6px;
+    left: 3px;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 100px;
+    height: 100px;
+    justify-content: flex-end;
+    z-index: 100;
+
+    & .box {
+      width: 9px;
+      height: 9px;
+      margin-right: 5px;
+      margin-top: 5px;
+      border-radius: 12px;
+      border: 1px solid #ddd;
+    }
+  }
+
+  & .imageUrl {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  & .detailWrap {
+    width: calc(100% - 130px);
+    padding: 10px 10px 13px 20px;
+    display: inline-block;
+  }
+
+  .conditionWrap {
+    height: 26px;
+    font-size: 11px;
+    font-weight: normal;
+
+    & .brandNew {
+      color: #b58c44;
+      float: left;
+
+      &.new {
+        color: #5e24d1;
+      }
+    }
+
+    & .betweenLine {
+      width: 10px;
+      height: inherit;
+      float: left;
+    }
+
+    & .internationalShipping {
+      float: left;
+      color: #111111;
+      padding-left: 13px;
+      background: url('/static/icon/airplane_icon@3x.png') no-repeat left center;
+      background-size: 8px;
+    }
+  }
+
+  & .brandWrap {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.37;
+    text-align: left;
+    color: #111111;
+    display: flex;
+    align-items: center;
+
+    & .brandName {
+      color: #999999;
+      line-height: 1.6;
+      display: inline-block;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    & .productSeason {
+      font-size: 11px;
+      font-weight: normal;
+      color: #777777;
+      margin-left: 5px;
+    }
+  }
+
+  & .productName {
+    height: 33px;
+    font-size: 12px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-align: left;
+    color: #111111;
+    margin-top: 3px;
     overflow: hidden;
-    margin-bottom: 10px;
+  }
 
-    &:nth-child(2n) {
+  & .priceWrap {
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    line-height: 1;
+
+    & .discountWrap {
+      display: flex;
+      align-items: center;
+    }
+
+    & .sellPrice {
+      font-size: 13px;
+      font-weight: 500;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.15;
+      letter-spacing: normal;
+      text-align: left;
+      color: #111111;
+      margin-right: 10px;
+    }
+
+    & .discountPrice {
+      font-size: 11px;
+      font-weight: normal;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.36;
+      letter-spacing: -0.44px;
+      text-align: left;
+      color: #999999;
+      text-decoration-line: line-through;
+    }
+
+    & .discountRate {
+      font-size: 13px;
+      font-weight: 500;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.15;
+      letter-spacing: normal;
+      text-align: left;
+      color: #5d2ed1;
+    }
+  }
+
+  & .textOption {
+    margin-top: 10px;
+    display: flex;
+
+    & .sizeItem {
+      font-size: 9px;
+      font-weight: normal;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.33;
+      letter-spacing: normal;
+      text-align: left;
+      color: #111111;
+      margin-right: 6px;
+
+      &:last-child {
         margin-right: 0;
+      }
+    }
+  }
+
+  & .shipWrap {
+    margin-top: 16px;
+
+    .shipItem {
+      border: 1px solid #eeeeee;
+      color: #777777;
+      font-size: 10px;
+      margin-right: 4px;
+      padding: 4px 5px 3px;
     }
 
-    & .imageWrap {
-        position: relative;
-        width: 130px;
-        height: 130px;
-        float: left;
+    > .shipItem:last-child {
+      margin-right: 0;
     }
+  }
 
-    & .freeShipping {
-        width: 30px;
-        height: 30px;
-        background-color: #5d2ed1;
-        font-size: 10px;
-        font-weight: 500;
-        color: white;
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        z-index: 100;
-        text-align: left;
-        line-height: 1.1;
-        letter-spacing: 1.6px;
-        padding-top: 3px;
-        padding-left: 5px;
-    }
-
-    & .color {
-        display: flex;
-        align-content: flex-start;
-        position: absolute;
-        bottom: 6px;
-        left: 3px;
-        flex-direction: column;
-        flex-wrap: wrap;
-        width: 100px;
-        height: 100px;
-        justify-content: flex-end;
-        z-index: 100;
-
-        & .box {
-            width: 9px;
-            height: 9px;
-            margin-right: 5px;
-            margin-top: 5px;
-            border-radius: 12px;
-            border: 1px solid #ddd;
-        }
-    }
-
-    & .imageUrl {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-    }
-
-    & .detailWrap {
-        width: calc(100% - 130px);
-        padding: 0 0 0 20px;
-        display: inline-block;
-    }
-
-    .conditionWrap {
-        height: 26px;
-        font-size: 11px;
-        font-weight: normal;
-
-        & .brandNew {
-            color: #b58c44;
-            float: left;
-
-            &.new {
-                color: #5e24d1;
-            }
-        }
-
-        & .betweenLine {
-            width: 10px;
-            height: inherit;
-            float: left;
-        }
-
-        & .internationalShipping {
-            float: left;
-            color: #111111;
-            padding-left: 13px;
-            background: url('/static/icon/airplane_icon@3x.png') no-repeat left center;
-            background-size: 8px;
-
-
-        }
-    }
-
-    & .brandWrap {
-        font-size: 13px;
-        font-weight: 500;
-        line-height: 1.37;
-        text-align: left;
-        color: #111111;
-        display: flex;
-        align-items: center;
-
-        & .brandName {
-            display: inline-block;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-        }
-
-        & .productSeason {
-            font-size: 11px;
-            font-weight: normal;
-            color: #777777;
-            margin-left: 5px;
-        }
-    }
-
-    & .productName {
-        height: 28px;
-        font-size: 12px;
-        font-weight: normal;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: 1.17;
-        letter-spacing: normal;
-        text-align: left;
-        color: #111111;
-        margin-top: 6px;
-        overflow: hidden;
-    }
-
-    & .priceWrap {
-        margin-top: 10px;
-        display: flex;
-        align-items: center;
-        line-height: 1;
-
-        & .discountWrap {
-            display: flex;
-            align-items: center;
-        }
-
-        & .sellPrice {
-            font-size: 16px;
-            font-weight: 500;
-            font-style: normal;
-            font-stretch: normal;
-            line-height: 1;
-            letter-spacing: normal;
-            text-align: left;
-            color: #111111;
-            margin-right: 7px;
-        }
-
-        & .discountPrice {
-            font-size: 13px;
-            font-weight: normal;
-            font-style: normal;
-            font-stretch: normal;
-            line-height: 1.36;
-            letter-spacing: -0.28px;
-            text-align: left;
-            color: #777777;
-            text-decoration-line: line-through;
-            margin-right: 8px;
-        }
-
-        & .discountRate {
-            font-size: 13px;
-            font-weight: bold;
-            font-style: normal;
-            font-stretch: normal;
-            line-height: 1.15;
-            letter-spacing: normal;
-            text-align: left;
-            color: #5d2ed1;
-        }
-    }
-
-    & .textOption {
-        margin-top: 10px;
-        display: flex;
-
-        & .sizeItem {
-            font-size: 9px;
-            font-weight: normal;
-            font-style: normal;
-            font-stretch: normal;
-            line-height: 1.33;
-            letter-spacing: normal;
-            text-align: left;
-            color: #111111;
-            margin-right: 6px;
-
-            &:last-child {
-                margin-right: 0;
-            }
-        }
-    }
-
-    & .sellerName {
-        font-size: 10px;
-        font-weight: normal;
-        color: #444444;
-        margin-top: 8px;
-    }
+  & .sellerName {
+    font-size: 10px;
+    font-weight: normal;
+    color: #444444;
+    margin-top: 8px;
+  }
 }
