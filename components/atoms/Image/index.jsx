@@ -43,6 +43,7 @@ function Image({ isLazy, customStyle, type, src, size, width, height }) {
 
 Image.propTypes = {
   type: PropTypes.string,
+  customStyle: PropTypes.object,
   src: PropTypes.string.isRequired,
   width: PropTypes.string,
   height: PropTypes.string,

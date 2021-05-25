@@ -25,12 +25,10 @@ export default class MainStore {
     this.navDealId = id;
   };
   @action
-  getPlusItem = () => {
+  getPlusItem = ({ unitPerPage = 10 }) => {
     API.search
       .get('/ps/main-home/deals/plus-item', {
-        params: {
-          unitPerPage: this.unitPerPage,
-        },
+        params: { unitPerPage },
       })
       .then((res) => {
         if (res.data.resultCode === 200) {
@@ -40,12 +38,10 @@ export default class MainStore {
   };
 
   @action
-  getNewArrivals = () => {
+  getNewArrivals = ({ unitPerPage = 10 }) => {
     API.search
       .get('/ps/main-home/deals/new-arrivals', {
-        params: {
-          unitPerPage: this.unitPerPage,
-        },
+        params: { unitPerPage },
       })
       .then((res) => {
         if (res.data.resultCode === 200) {
@@ -55,12 +51,10 @@ export default class MainStore {
   };
 
   @action
-  getHits = () => {
+  getHits = ({ unitPerPage = 10 }) => {
     API.search
       .get('/ps/hits/list', {
-        params: {
-          unitPerPage: this.unitPerPage,
-        },
+        params: { unitPerPage },
       })
       .then((res) => {
         if (res.data.resultCode === 200) {
@@ -86,9 +80,9 @@ export default class MainStore {
   };
 
   @action
-  getBestReview = () => {
+  getBestReview = ({ unitPerPage = 10 }) => {
     API.user
-      .get(`/main-best-reviews`, { params: { unitPerPage: 5 } })
+      .get(`/main-best-reviews`, { params: { unitPerPage } })
       .then((res) => {
         this.bestReview = res.data.data;
       });

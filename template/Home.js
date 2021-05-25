@@ -10,6 +10,7 @@ import { mainCategory } from 'childs/lib/constant/category';
 import MainSlideBanner from 'components/home/MainSlideBanner';
 import HomeItemDefault from 'components/home/HomeItemDefault';
 import MainHotKeyword from 'components/home/MainHotKeyword';
+import MainSideBanner from 'components/home/MainSideBanner';
 import Router from 'next/router';
 // import SignupSuccessModal from './signin/SignupSuccessModal';
 import Footer from 'components/footer/Footer';
@@ -27,7 +28,7 @@ import BestReview from 'components/home/BestReview';
 
 @withScrollToTopOnMount
 @withRouter
-@inject('main', 'searchitem', 'eventpopup')
+@inject('main', 'searchitem', 'eventpopup', 'searchHolder')
 @observer
 class Home extends React.Component {
   static propTypes = {};
@@ -91,12 +92,12 @@ class Home extends React.Component {
 
     this.props.eventpopup.appEventPopupOpen();
 
-    main.getPlusItem();
-    main.getNewArrivals();
-    main.getHits();
+    main.getPlusItem({ unitPerPage: 10 });
+    main.getNewArrivals({ unitPerPage: 6 });
+    main.getHits({ unitPerPage: 6 });
     main.getHotKeyword();
     main.getMainBannner();
-    main.getBestReview();
+    main.getBestReview({ unitPerPage: 30 });
   }
 
   componentWillUnmount() {
@@ -121,9 +122,9 @@ class Home extends React.Component {
   // };
 
   render() {
-    const { main, searchitem, eventpopup } = this.props;
+    const { main, searchitem, eventpopup, searchHolder } = this.props;
 
-    console.log('searchitem : ', toJS(searchitem));
+    console.log('searchHolder : ', toJS(searchHolder));
 
     return (
       <DefaultLayout
@@ -157,14 +158,24 @@ class Home extends React.Component {
           }}
         />
         <div>
+          {/* Focus on items */}
+          <MainSideBanner
+            title={'FOCUS ON'}
+            type={'FOCUS_ON'}
+            list={searchHolder.mainImageSetOneSetList}
+          />
+
+          {/* Premium Item */}
           <MainSectionItem
             title={'PREMIUM ITEM'}
             items={main.plusItem}
             categoryId={main.navDealId}
             toSearch={searchitem.toSearch}
             condition={'PLUS'}
-            unitPerPage={10}
           />
+
+          {/* 상품 홍보 Large */}
+          <MainSideBanner list={searchHolder.mainImageSetTwoSetList} />
 
           <HomeItemDefault header={'HOT KEYWORD'}>
             <MainHotKeyword
@@ -179,12 +190,14 @@ class Home extends React.Component {
             categoryId={main.navDealId}
             toSearch={searchitem.toSearch}
             condition={'BEST'}
-            unitPerPage={6}
           />
 
           <HomeItemDefault header={'BEST REVIEW'}>
             <BestReview />
           </HomeItemDefault>
+
+          {/* 상품 홍보 Small */}
+          <MainSideBanner list={searchHolder.mainImageSetThreeList} />
 
           <MainSectionItem
             title={'NEW IN'}
@@ -192,9 +205,11 @@ class Home extends React.Component {
             categoryId={main.navDealId}
             toSearch={searchitem.toSearch}
             condition={'NEW'}
-            unitPerPage={6}
           />
         </div>
+
+        {/* 앱 로그인 혜택 배너 */}
+        <MainSideBanner list={searchHolder.mainImageSetFourList} />
 
         {eventpopup.popupList.length > 0
           ? eventpopup.popupList.map((data, index) => {

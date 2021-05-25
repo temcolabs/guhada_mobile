@@ -14,7 +14,6 @@ function MainSectionItem({
   toSearch = () => {},
   condition,
   user,
-  unitPerPage,
 }) {
   const [isCategory, setIsCategory] = useState('');
   useEffect(() => {
@@ -69,7 +68,7 @@ function MainSectionItem({
                 if (category.id === isCategory)
                   return (
                     _.isNil(items[category.key]) === false &&
-                    items[category.key].slice(0, unitPerPage).map((item) => {
+                    items[category.key].map((item) => {
                       return (
                         <LinkRoute
                           href={`/productdetail?deals=${item.dealId}`}
