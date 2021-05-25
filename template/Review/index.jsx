@@ -27,6 +27,7 @@ function ReviewTemplate() {
    * states
    */
   const {
+    alert: alertStore,
     main: mainStore,
     review: reviewStore,
     login: loginStore,
@@ -90,7 +91,7 @@ function ReviewTemplate() {
         await reviewStore.setProductReviewBookmarks(review);
       }
     } else {
-      alert.showAlert('로그인이 필요한 서비스입니다.');
+      alertStore.showAlert('로그인이 필요한 서비스입니다.');
     }
   };
 
@@ -99,11 +100,6 @@ function ReviewTemplate() {
 
   const onClickHashtag = (hashtag) =>
     pushRoute(`/review/hashtag?${stringify({ hashtag })}`);
-
-  console.log(
-    'reviewStore.reviewHashtagList : ',
-    toJS(reviewStore.reviewHashtagList)
-  );
 
   return (
     <>

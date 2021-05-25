@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useEffect, useState, useRef, memo } from 'react';
 import PropTypes from 'prop-types';
 
 import LuckyDrawTimer from 'components/atoms/Timer/LuckyDrawTimer';
@@ -195,4 +195,4 @@ LuckyDrawCard.propTypes = {
   onClickRequestLuckyDraw: PropTypes.func,
 };
 
-export default LuckyDrawCard;
+export default memo(LuckyDrawCard);

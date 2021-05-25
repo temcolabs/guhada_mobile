@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import { observer } from 'mobx-react';
 import useStores from 'stores/useStores';
 import PropTypes from 'prop-types';
@@ -69,4 +69,4 @@ CommentSection.propTypes = {
   comment: PropTypes.object.isRequired,
 };
 
-export default observer(CommentSection);
+export default memo(observer(CommentSection));

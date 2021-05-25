@@ -57,7 +57,7 @@ class ClaimListSeller extends Component {
     });
   };
 
-  handleChangePage = page => {
+  handleChangePage = (page) => {
     this.setState({ page }, () => {
       this.props.mypageSellerClaim.getSellerClaimList({
         pageNo: this.state.page - 1,
@@ -113,7 +113,7 @@ class ClaimListSeller extends Component {
               <ClaimItemSeller
                 key={index}
                 claim={claim}
-                handleModifyModal={sellerClaim =>
+                handleModifyModal={(sellerClaim) =>
                   this.handleOpenSellerClaimModal({
                     sellerId: sellerClaim?.sellerId,
                   })

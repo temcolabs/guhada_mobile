@@ -5,7 +5,9 @@ import React from 'react';
 import { string, bool, any, func } from 'prop-types';
 import moment from 'moment';
 import omit from 'lodash/omit';
-import { SingleDatePicker, SingleDatePickerPhrases } from 'react-dates';
+// import { SingleDatePicker, SingleDatePickerPhrases } from 'react-dates';
+import SingleDatePicker from 'react-dates/lib/components/SingleDatePicker';
+import { SingleDatePickerPhrases } from 'react-dates/lib/defaultPhrases';
 import { HORIZONTAL_ORIENTATION, ANCHOR_LEFT } from './calendarConstants';
 import './DateRangePickerStyle.scss';
 import memoize from 'memoize-one';
@@ -86,11 +88,11 @@ export class SingleDatePickerWrapper extends React.Component {
     this.setInitialDate(this.props.initialDate);
   }
 
-  setInitialDate = memoize(date => {
+  setInitialDate = memoize((date) => {
     this.setState({ date });
   });
 
-  onDateChange = date => {
+  onDateChange = (date) => {
     this.setState({ date }, () => {
       this.props.onSelect(date);
     });
