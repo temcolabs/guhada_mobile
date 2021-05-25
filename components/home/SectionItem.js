@@ -1,4 +1,5 @@
 import React from 'react';
+import { toJS } from 'mobx';
 import css from './SectionItem.module.scss';
 import cn from 'classnames';
 import isTruthy from 'childs/lib/common/isTruthy';
@@ -48,7 +49,8 @@ export default function SectionItem({
   return (
     <div className={css.wrap}>
       <div className={css.imageWrap}>
-        {item.freeShipping === true || item.freeShippingText === 'FREE' ? (
+        {/* AS-IS : 상단 무료 배송 Label */}
+        {/* {item.freeShipping === true || item.freeShippingText === 'FREE' ? (
           Shape === 'main' ? null : (
             <div className={css.freeShipping}>
               무료
@@ -56,7 +58,7 @@ export default function SectionItem({
               배송
             </div>
           )
-        ) : null}
+        ) : null} */}
         {item.soldOut && <div className={css.soldOut}>SOLDOUT</div>}
         <LazyLoad>
           <img
@@ -67,7 +69,7 @@ export default function SectionItem({
         {isTruthy(likeItemDelete) && (
           <div
             className={css.item__delete__btn}
-            onClick={e => {
+            onClick={(e) => {
               e.preventDefault();
               likeItemDelete(e, item.productId);
             }}
@@ -77,7 +79,8 @@ export default function SectionItem({
       <div className={css.contentWrap}>
         {_.isEmpty(item.brandNew) && (
           <div className={css.conditionWrap}>
-            {item.internationalShipping && (
+            {/* TODO : 해외배송 하단 라벨 */}
+            {/* {item.internationalShipping && (
               <>
                 <div className={css.internationalShipping}>
                   {item.internationalShipping &&
@@ -85,7 +88,7 @@ export default function SectionItem({
                 </div>
                 {!item.brandNew && <div className={css.betweenLine} />}
               </>
-            )}
+            )} */}
 
             <div className={cn(css.brandNew, { [css.new]: item.brandNew })}>
               {item.brandNew ? '' : brandNew.USED}
@@ -94,20 +97,24 @@ export default function SectionItem({
         )}
         <div className={css.brandWrap}>
           <div className={css.brandName}>{item.brandName}</div>
-          <div className={css.productSeason}>{item.productSeason}</div>
+          {/* <div className={css.productSeason}>{item.productSeason}</div> */}
         </div>
         <div className={css.dealName}>{item.dealName}</div>
         {item.discountRate > 0 ? (
           <div className={css.priceWrap}>
-            <span className={css.sellPrice}>
-              {item.discountPrice?.toLocaleString()}
-            </span>
-            <span className={css.discountPrice}>
-              {item.sellPrice !== 0 ? item.sellPrice?.toLocaleString() : null}
-            </span>
-            <span className={css.discountRate}>
-              {item.discountRate !== 0 ? `${item.discountRate}%` : null}
-            </span>
+            <div>
+              <span className={css.sellPrice}>
+                {item.discountPrice?.toLocaleString()}
+              </span>
+              <span className={css.discountPrice}>
+                {item.sellPrice !== 0 ? item.sellPrice?.toLocaleString() : null}
+              </span>
+            </div>
+            <div>
+              <span className={css.discountRate}>
+                {item.discountRate !== 0 ? `${item.discountRate}%` : null}
+              </span>
+            </div>
           </div>
         ) : (
           <div className={css.priceWrap}>
@@ -116,14 +123,23 @@ export default function SectionItem({
             </span>
           </div>
         )}
-        {sellerStore === false && (
+        <div className={css.shipWrap}>
+          <span className={css.shipItem}>
+            {item.internationalShipping ? '해외배송' : '국내배송'}
+          </span>
+          <span className={css.shipItem}>
+            {item.freeShipping ? '무료배송' : '유료배송'}
+          </span>
+        </div>
+        {/* AS-IS : 셀러 정보 */}
+        {/* {sellerStore === false && (
           <div className={css.sellerWrap}>
-            {/* <div className={css.sellerLevel}>
+            <div className={css.sellerLevel}>
             <div className={css.level}>{1}</div>
-          </div> */}
+          </div>
             <span className={css.sellerName}>{item.sellerName}</span>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );

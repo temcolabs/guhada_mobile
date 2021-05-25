@@ -1,4 +1,5 @@
 import React from 'react';
+import { toJS } from 'mobx';
 import DefaultLayout from 'components/layout/DefaultLayout';
 import { withRouter } from 'next/router';
 import css from './Home.module.scss';
@@ -122,6 +123,8 @@ class Home extends React.Component {
   render() {
     const { main, searchitem, eventpopup } = this.props;
 
+    console.log('searchitem : ', toJS(searchitem));
+
     return (
       <DefaultLayout
         title={null}
@@ -160,10 +163,14 @@ class Home extends React.Component {
             categoryId={main.navDealId}
             toSearch={searchitem.toSearch}
             condition={'PLUS'}
+            unitPerPage={10}
           />
 
-          <HomeItemDefault header={'BEST REVIEW'}>
-            <BestReview />
+          <HomeItemDefault header={'HOT KEYWORD'}>
+            <MainHotKeyword
+              hotKeyword={main.hotKeyword}
+              searchitem={searchitem}
+            />
           </HomeItemDefault>
 
           <MainSectionItem
@@ -172,21 +179,22 @@ class Home extends React.Component {
             categoryId={main.navDealId}
             toSearch={searchitem.toSearch}
             condition={'BEST'}
+            unitPerPage={6}
           />
+
+          <HomeItemDefault header={'BEST REVIEW'}>
+            <BestReview />
+          </HomeItemDefault>
+
           <MainSectionItem
             title={'NEW IN'}
             items={main.newArrivals}
             categoryId={main.navDealId}
             toSearch={searchitem.toSearch}
             condition={'NEW'}
+            unitPerPage={6}
           />
         </div>
-        <HomeItemDefault header={'HOT KEYWORD'}>
-          <MainHotKeyword
-            hotKeyword={main.hotKeyword}
-            searchitem={searchitem}
-          />
-        </HomeItemDefault>
 
         {eventpopup.popupList.length > 0
           ? eventpopup.popupList.map((data, index) => {

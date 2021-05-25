@@ -14,6 +14,7 @@ function MainSectionItem({
   toSearch = () => {},
   condition,
   user,
+  unitPerPage,
 }) {
   const [isCategory, setIsCategory] = useState('');
   useEffect(() => {
@@ -33,6 +34,9 @@ function MainSectionItem({
         break;
     }
   }, [user.userInfo.gender]);
+
+  console.log('mainSectionCategory : ', mainSectionCategory);
+
   return (
     <>
       <div className={cn(css.wrap, { [css.wrapNotHome]: categoryId !== 0 })}>
@@ -61,11 +65,11 @@ function MainSectionItem({
         )}
         <div>
           {items['ALL'] !== undefined
-            ? mainSectionCategory.map(category => {
+            ? mainSectionCategory.map((category) => {
                 if (category.id === isCategory)
                   return (
                     _.isNil(items[category.key]) === false &&
-                    items[category.key].map(item => {
+                    items[category.key].slice(0, unitPerPage).map((item) => {
                       return (
                         <LinkRoute
                           href={`/productdetail?deals=${item.dealId}`}
