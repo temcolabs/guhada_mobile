@@ -1,8 +1,8 @@
 // next.config.js
+const path = require('path');
+const webpack = require('webpack');
 const withSass = require('@zeit/next-sass');
 const withBundleAnalyzer = require('@zeit/next-bundle-analyzer');
-const webpack = require('webpack');
-const path = require('path');
 const loaderUtils = require('loader-utils');
 const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
 const SpritesmithPlugin = require('webpack-spritesmith');
@@ -10,7 +10,7 @@ const SpritesmithPlugin = require('webpack-spritesmith');
 module.exports = withBundleAnalyzer(
   withSass({
     // exptend webpack settings
-    webpack: config => {
+    webpack: (config) => {
       config.module.rules.push({
         test: /\.(eot|woff|woff2|ttf|svg|png|jpg|gif)$/,
         use: {
@@ -30,16 +30,9 @@ module.exports = withBundleAnalyzer(
             name: '[name].[ext]',
             outputPath: 'static/icons',
             publicPath: '../static/icons/',
-          }
-        }
+          },
+        },
       });
-
-      // config.plugins.push(
-      //   new webpack.ProvidePlugin({
-      //     $: 'jquery',
-      //     jQuery: 'jquery',
-      //   })
-      // );
 
       config.plugins.push(
         new FilterWarningsPlugin({
@@ -51,16 +44,26 @@ module.exports = withBundleAnalyzer(
         new SpritesmithPlugin({
           src: {
             cwd: path.resolve(__dirname, 'static', 'icons'),
-            glob: '**/*.png'
+            glob: '**/*.png',
           },
           target: {
             image: path.resolve(__dirname, 'static/sprite.png'),
-            css: path.resolve(__dirname, 'styles/sprite.scss')
+            css: path.resolve(__dirname, 'styles/sprite.scss'),
           },
           apiOptions: {
-            cssImageRef: '/static/sprite.png'
-          }
+            cssImageRef: '/static/sprite.png',
+          },
         })
+      );
+
+      config.plugins.push(
+        new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /ko|en/)
+      );
+      config.plugins.push(
+        new webpack.ContextReplacementPlugin(
+          /validatorjs[/\\]src[/\\]lang/,
+          /ko|en/
+        )
       );
 
       return config;

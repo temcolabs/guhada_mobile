@@ -34,6 +34,18 @@ module.exports = [
   },
 
   {
+    // 리뷰
+    pagePath: '/review',
+    asPath: '/review',
+    name: '리뷰',
+  },
+  {
+    // 리뷰 해시태그 리스트
+    pagePath: '/review/hashtag',
+    asPath: '/review/hashtag',
+    name: '리뷰 상세',
+  },
+  {
     // 랭킹
     pagePath: '/ranking',
     asPath: '/ranking',
@@ -41,7 +53,7 @@ module.exports = [
   },
 
   {
-    // 선뭃하기
+    // 선물하기
     pagePath: '/gift',
     asPath: '/gift',
     name: '선물하기',

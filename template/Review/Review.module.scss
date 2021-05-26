@@ -1,0 +1,202 @@
+@import '../../styles/sprite.scss';
+@import 'styles/mixins/scrolls/x-scroll.scss';
+
+@mixin review-header {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  height: 20px;
+  margin-bottom: 15px;
+}
+
+@mixin review-section {
+  font-family: Roboto;
+  font-weight: 500;
+  margin: 30px 20px;
+  height: 100%;
+}
+
+// Menu > Review
+.review {
+  margin-top: 44px;
+  width: 100%;
+  height: 100%;
+
+  // Menu > Review > Banner
+  .review-banner {
+    width: 100%;
+    height: 68px;
+  }
+
+  // Menu > Review > Hashtag
+  .review-hashtag {
+    @include review-section;
+
+    .review-hashtag-header {
+      @include review-header;
+
+      > div:first-child {
+        margin-right: 7px;
+      }
+      &__title {
+        @include sprite($text-favorite-hashtag);
+      }
+      &__emoji {
+        @include sprite($emoji-finger-fire);
+      }
+    }
+
+    .review-hashtag-section {
+      display: flex;
+      flex-flow: row wrap;
+
+      &--label {
+        background-color: #f9f9fa;
+        color: #777;
+        padding: 7px 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 13px;
+        line-height: 1.29;
+        height: 30px;
+        margin-right: 7px;
+      }
+    }
+  }
+
+  // Menu > Review > Category
+  .review-category {
+    @include review-section;
+
+    .review-category-header {
+      @include review-header;
+      &__title {
+        @include sprite($text-category-kr);
+      }
+    }
+
+    .review-category-section {
+      @include flexboxScroll;
+      margin-bottom: 30px;
+
+      &__card {
+        width: 54px;
+        margin-right: 15px;
+        height: 100%;
+
+        &--category-img {
+          width: 54px;
+          height: 54px;
+          margin-bottom: 15px;
+
+          &.all-on {
+            @include sprite($circle-all-on);
+          }
+          &.all-off {
+            @include sprite($circle-all-off);
+          }
+          &.clothes-on {
+            @include sprite($circle-clothes-on);
+          }
+          &.clothes-off {
+            @include sprite($circle-clothes-off);
+          }
+          &.shoes-on {
+            @include sprite($circle-shoes-on);
+          }
+          &.shoes-off {
+            @include sprite($circle-shoes-off);
+          }
+          &.bag-on {
+            @include sprite($circle-bag-on);
+          }
+          &.bag-off {
+            @include sprite($circle-bag-off);
+          }
+          &.wallet-on {
+            @include sprite($circle-wallet-on);
+          }
+          &.wallet-off {
+            @include sprite($circle-wallet-off);
+          }
+          &.accessory-on {
+            @include sprite($circle-accessory-on);
+          }
+          &.accessory-off {
+            @include sprite($circle-accessory-off);
+          }
+        }
+
+        &--category-text {
+          font-size: 12px;
+          line-height: 1.6;
+          text-align: center;
+          &.active {
+            color: #444;
+          }
+          &.inActive {
+            color: #777;
+          }
+        }
+      }
+    }
+  }
+
+  // Meun > Review > Review list
+  .review-list {
+    .review-list-item {
+      margin-bottom: 20px;
+
+      &__image {
+        height: 320px;
+        &--item {
+          margin: 0 20px;
+        }
+      }
+      &__info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+        height: 56px;
+
+        > div {
+          width: 50%;
+        }
+
+        > div:last-child {
+          display: flex;
+          justify-content: flex-end;
+        }
+
+        &--like-and-comment {
+          display: flex;
+          font-size: 12px;
+          font-weight: 600;
+
+          > div {
+            display: flex;
+            margin-right: 7px;
+          }
+
+          &.like-on {
+            margin-right: 7px;
+            @include sprite($like-on);
+          }
+
+          &.like-off {
+            margin-right: 7px;
+            @include sprite($like-off);
+          }
+
+          &.comment {
+            margin-right: 7px;
+            @include sprite($comment);
+          }
+        }
+
+      }
+    }
+  }
+}

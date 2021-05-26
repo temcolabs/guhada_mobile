@@ -76,7 +76,6 @@ function LuckyDrawTemplate({ router, luckyDraw, login, main }) {
    */
   useEffect(() => {
     document.documentElement.style.overflow = 'initial';
-    luckyDraw.getLuckyDrawList();
     luckyDraw.initLuckyEventData();
   }, [login.isLoggedIn]);
 
@@ -220,8 +219,6 @@ function LuckyDrawTemplate({ router, luckyDraw, login, main }) {
     [luckyDrawList]
   );
 
-  const MemoLuckyDrawCard = React.memo(LuckyDrawCard);
-
   /**
    * render
    */
@@ -269,21 +266,20 @@ function LuckyDrawTemplate({ router, luckyDraw, login, main }) {
 
         {/* LuckyDraw Cards */}
         {luckyDrawList &&
-        luckyDrawList.length &&
-        activeList &&
-        activeList.length ? (
-          activeList.map((o) => {
-            return (
-              <MemoLuckyDrawCard
-                {...o}
-                key={`luckydraw-${o.dealId}`}
-                onClickRequestLuckyDraw={onClickRequestLuckyDraw}
-              />
-            );
-          })
-        ) : (
-          <LuckyDrawEmpty />
-        )}
+          luckyDrawList.length &&
+          (activeList && activeList.length ? (
+            activeList.map((o) => {
+              return (
+                <LuckyDrawCard
+                  {...o}
+                  key={`luckydraw-${o.dealId}`}
+                  onClickRequestLuckyDraw={onClickRequestLuckyDraw}
+                />
+              );
+            })
+          ) : (
+            <LuckyDrawEmpty />
+          ))}
 
         {/* Draw History */}
         {winnerList && winnerList.length ? (

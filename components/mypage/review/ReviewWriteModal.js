@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
+import dynamic from 'next/dynamic';
 import css from './ReviewWriteModal.module.scss';
 // import ReviewWriteOption from './ReviewWriteOption';
 import ReviewWriteModalScore from './ReviewWriteModalScore';
@@ -18,8 +19,11 @@ import SubmitButton, {
 } from 'components/mypage/form/SubmitButton';
 import DealOrdered from '../DealOrdered';
 import TextArea from 'components/mypage/form/TextArea';
+import { LoadingSpinner } from 'components/common/loading/Loading';
 import API from 'childs/lib/API';
 import pointProcessService from 'childs/lib/API/benefit/pointProcessService';
+import ReviewHashtagModal from 'template/Review/components/Modal/HashtagModal';
+import HashtagItem from 'template/Review/components/Atoms/Label/HashtagItem';
 
 // const color = ['BRIGHTER', 'SAME', 'DARKER'];
 // const length = ['SHORT', 'REGULAR', 'LONG'];
@@ -103,6 +107,7 @@ class ReviewWriteModal extends Component {
     textReview: '',
     userId: 0,
     userNickname: '',
+    reviewHashtagList: [],
   };
 
   state = {
@@ -111,6 +116,8 @@ class ReviewWriteModal extends Component {
     imageFile: [],
     reviewData: Object.assign({}, ReviewWriteModal.defaultReviewData),
     isMySizeModalOpen: false,
+    isHashtagModalOpen: false,
+    delHashtag: [],
     reviewQuestion: [],
     questionIsLoading: 0,
     totalDueSave: 0,
@@ -121,7 +128,7 @@ class ReviewWriteModal extends Component {
     productreview.getProductReviewPoint();
 
     if (this.state.totalDueSave <= 0) {
-      pointProcessService.getTotalDueSave().then(res => {
+      pointProcessService.getTotalDueSave().then((res) => {
         if (res.data.data && res.data.data.dueSavePointList.length) {
           const dueSavePoint = res.data.data.dueSavePointList[0];
           if (dueSavePoint.dueSaveType === 'MY_SIZE') {
@@ -162,7 +169,7 @@ class ReviewWriteModal extends Component {
           }
 
           if (status === reviewModalType.WRITE) {
-            this.setState(prevState => ({
+            this.setState((prevState) => ({
               reviewData: {
                 ...prevState.reviewData,
                 sizeSatisfaction: reviewQuestion[0].answerList[1].code,
@@ -179,7 +186,7 @@ class ReviewWriteModal extends Component {
             });
           }
         })
-        .catch(err => {
+        .catch((err) => {
           console.error(err.message);
 
           const reviewQuestion = [
@@ -210,7 +217,7 @@ class ReviewWriteModal extends Component {
           ];
 
           if (status === reviewModalType.WRITE) {
-            this.setState(prevState => ({
+            this.setState((prevState) => ({
               reviewData: {
                 ...prevState.reviewData,
                 sizeSatisfaction: reviewQuestion[0].answerList[1].code,
@@ -256,13 +263,13 @@ class ReviewWriteModal extends Component {
     }
   });
 
-  setStarScore = score => {
-    this.setState(prevState => ({
+  setStarScore = (score) => {
+    this.setState((prevState) => ({
       reviewData: { ...prevState.reviewData, productRating: score },
     }));
   };
 
-  onChangeTextarea = value => {
+  onChangeTextarea = (value) => {
     let totalByte = 0;
     for (let index = 0, length = value.length; index < length; index++) {
       let currentByte = value.charCodeAt(index);
@@ -274,7 +281,7 @@ class ReviewWriteModal extends Component {
       totalByte = maxByte;
     }
 
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       totalByte,
       reviewData: {
         ...prevState.reviewData,
@@ -283,7 +290,7 @@ class ReviewWriteModal extends Component {
     }));
   };
 
-  checkTextarea = textReview => {
+  checkTextarea = (textReview) => {
     let totalByte = 0;
     let message = textReview;
 
@@ -296,8 +303,8 @@ class ReviewWriteModal extends Component {
     });
   };
 
-  onChangeSize = score => {
-    this.setState(prevState => ({
+  onChangeSize = (score) => {
+    this.setState((prevState) => ({
       reviewData: {
         ...prevState.reviewData,
         sizeSatisfaction: score,
@@ -305,8 +312,8 @@ class ReviewWriteModal extends Component {
     }));
   };
 
-  onChangeColor = score => {
-    this.setState(prevState => ({
+  onChangeColor = (score) => {
+    this.setState((prevState) => ({
       reviewData: {
         ...prevState.reviewData,
         colorSatisfaction: score,
@@ -314,8 +321,8 @@ class ReviewWriteModal extends Component {
     }));
   };
 
-  onChangeLength = score => {
-    this.setState(prevState => ({
+  onChangeLength = (score) => {
+    this.setState((prevState) => ({
       reviewData: {
         ...prevState.reviewData,
         lengthSatisfaction: score,
@@ -323,7 +330,7 @@ class ReviewWriteModal extends Component {
     }));
   };
 
-  previewFile = event => {
+  previewFile = (event) => {
     let files = event.target.files;
     const { mypagereview, alert } = this.props;
     const maxPhotoCount = 10;
@@ -333,7 +340,7 @@ class ReviewWriteModal extends Component {
     if (allowPhotoCount > 0) {
       for (var i = 0; i < files.length; i++) {
         let reader = new FileReader();
-        reader.onload = e => {
+        reader.onload = (e) => {
           mypagereview.setReviewPhotos(
             toJS(mypagereview.newReviewPhotos).concat({
               imageStatus: 'ADDED',
@@ -391,7 +398,7 @@ class ReviewWriteModal extends Component {
       });
   };
 
-  renderStars = startCount => {
+  renderStars = (startCount) => {
     let starCount = rating.indexOf(this.state.reviewData.productRating) + 1;
     let starItems = [];
 
@@ -449,12 +456,35 @@ class ReviewWriteModal extends Component {
     this.setState({ isMySizeModalOpen: !this.state.isMySizeModalOpen });
   };
 
-  handleSubmitMySize = mySize => {
+  toggleHashtagModal = (flag, hashtags) => {
+    this.setState({
+      isHashtagModalOpen: flag,
+      reviewData: {
+        ...this.state.reviewData,
+        reviewHashtagList: hashtags,
+      },
+    });
+  };
+
+  handleSubmitMySize = (mySize) => {
     this.props.mySize.submitMySize({
       mySize,
       onComplete: this.toggleMySizeModal,
     });
     this.toggleMySizeModal();
+  };
+
+  handleHashtagItem = (hashtag) => {
+    const hashtags = this.state.reviewData.reviewHashtagList.filter(
+      (v) => v !== hashtag
+    );
+    this.setState({
+      delHashtag: hashtag,
+      reviewData: {
+        ...this.state.reviewData,
+        reviewHashtagList: hashtags,
+      },
+    });
   };
 
   render() {
@@ -465,142 +495,172 @@ class ReviewWriteModal extends Component {
     const isCreate = this.props.status === reviewModalType.WRITE;
 
     return (
-      <ModalLayout
-        pageTitle={isCreate ? '리뷰 등록' : '리뷰 수정'}
-        isOpen={isModalOpen}
-        onClose={this.props.handleModalClose}
-      >
-        <div className={css.modalWrap}>
-          {mypagereview.isPossibleSetUserSize === true && (
-            <div className={css.sizeAddWrap}>
-              <div className={css.sizeAddContents}>
-                <div className={css.sizeAddIcon}>!</div>
-                <span>
-                  {this.state.totalDueSave > 0
-                    ? `내 사이즈 등록하면 적립금 ${this.state.totalDueSave.toLocaleString()}원 적립!`
-                    : '내 사이즈를 등록해주세요!'}
-                </span>
-                <div className={css.sizeIconWrapper}>
-                  <span
-                    className={css.sizeAddButton}
-                    onClick={() => this.toggleMySizeModal()}
-                  >
-                    내 사이즈 등록
+      <>
+        <ModalLayout
+          pageTitle={isCreate ? '리뷰 등록' : '리뷰 수정'}
+          isOpen={isModalOpen}
+          onClose={this.props.handleModalClose}
+        >
+          <div className={css.modalWrap}>
+            {mypagereview.isPossibleSetUserSize === true && (
+              <div className={css.sizeAddWrap}>
+                <div className={css.sizeAddContents}>
+                  <div className={css.sizeAddIcon}>!</div>
+                  <span>
+                    {this.state.totalDueSave > 0
+                      ? `내 사이즈 등록하면 적립금 ${this.state.totalDueSave.toLocaleString()}원 적립!`
+                      : '내 사이즈를 등록해주세요!'}
                   </span>
+                  <div className={css.sizeIconWrapper}>
+                    <span
+                      className={css.sizeAddButton}
+                      onClick={() => this.toggleMySizeModal()}
+                    >
+                      내 사이즈 등록
+                    </span>
+                  </div>
                 </div>
               </div>
+            )}
+
+            <div className={css.reviewItemWrap}>
+              <DealOrdered
+                order={item}
+                isSmallImage={false}
+                isBrandAndProductInSameLine={false}
+                hasOptionQuantity={true}
+                isPurchaseStatusVisible
+                isPriceVisible
+              />
             </div>
-          )}
-
-          <div className={css.reviewItemWrap}>
-            <DealOrdered
-              order={item}
-              isSmallImage={false}
-              isBrandAndProductInSameLine={false}
-              hasOptionQuantity={true}
-              isPurchaseStatusVisible
-              isPriceVisible
-            />
-          </div>
-          <div className={css.starWrap}>
-            <div className={css.starHeader}>상품은 만족하시나요?</div>
-            <div>{this.renderStars()}</div>
-          </div>
-
-          {this.state.questionIsLoading && (
-            <>
-              <ReviewWriteModalScore
-                header={this.state.reviewQuestion[0].question}
-                score={this.state.reviewData.sizeSatisfaction}
-                items={this.state.reviewQuestion[0].answerList.map(
-                  item => item.code
-                )}
-                itemsText={this.state.reviewQuestion[0].answerList.map(
-                  item => item.answer
-                )}
-                onChangeScore={this.onChangeSize}
-              />
-              <ReviewWriteModalScore
-                header={this.state.reviewQuestion[1].question}
-                score={this.state.reviewData.colorSatisfaction}
-                items={this.state.reviewQuestion[1].answerList.map(
-                  item => item.code
-                )}
-                itemsText={this.state.reviewQuestion[1].answerList.map(
-                  item => item.answer
-                )}
-                onChangeScore={this.onChangeColor}
-              />
-              <ReviewWriteModalScore
-                header={this.state.reviewQuestion[2].question}
-                score={this.state.reviewData.lengthSatisfaction}
-                items={this.state.reviewQuestion[2].answerList.map(
-                  item => item.code
-                )}
-                itemsText={this.state.reviewQuestion[2].answerList.map(
-                  item => item.answer
-                )}
-                onChangeScore={this.onChangeLength}
-              />
-            </>
-          )}
-
-          {/* ! UI가 API에 영향을 미치지 않으므로 숨김. 추후 작성 옵션이 늘어난다면 다시 추가 */}
-          {/* <ReviewWriteOption /> */}
-          <div className={css.textareaWrap}>
-            <TextArea
-              onChange={this.onChangeTextarea}
-              // maxLength={1000}
-              placeholder={`어떤 점이 좋으셨나요?\n사진과 함께 리뷰 작성 시 ${
-                productreview.maximumPoint
-              }P 적립!\n상품에 대한 솔직한 리뷰를 작성해주세요.`}
-              initialValue={this.state.reviewData?.textReview || ''}
-            />
-          </div>
-          <div className={css.photoWrap}>
-            <label className={css.photoItemWrap} htmlFor="photo_upload">
-              <input
-                type="file"
-                onChange={this.previewFile}
-                multiple
-                id="photo_upload"
-              />
-              <div className={css.photoText}>첨부파일</div>
-            </label>
-            {mypagereview.newReviewPhotos.length !== 0 ? (
-              <ReviewImageUpload />
-            ) : null}
-          </div>
-
-          <div className={css.warning}>
-            <div>
-              상품과 관련 없는 내용이 포함될 경우, 통보 없이 삭제 및 적립 혜택이
-              회수될 수 있습니다.
+            <div className={css.starWrap}>
+              <div className={css.starHeader}>상품은 만족하시나요?</div>
+              <div>{this.renderStars()}</div>
             </div>
-          </div>
 
-          <SubmitButtonWrapper fixedToBottom>
-            <CancelButton
-              onClick={() => {
-                this.props.handleModalClose();
-                mypagereview.initReviewPhotos();
-              }}
-            >
-              취소
-            </CancelButton>
-            <SubmitButton onClick={isCreate ? this.onSubmit : this.onModify}>
-              {isCreate ? '등록' : '수정'}
-            </SubmitButton>
-          </SubmitButtonWrapper>
-        </div>
-        <MySizeModal
-          // mySize={this.props.mySize.mySize}
-          isOpen={this.state.isMySizeModalOpen}
-          onClose={this.toggleMySizeModal}
-          onSubmitMySize={this.handleSubmitMySize}
-          showAlert={this.props.alert.showAlert}
-        />
-      </ModalLayout>
+            {this.state.questionIsLoading && (
+              <>
+                <ReviewWriteModalScore
+                  header={this.state.reviewQuestion[0].question}
+                  score={this.state.reviewData.sizeSatisfaction}
+                  items={this.state.reviewQuestion[0].answerList.map(
+                    (item) => item.code
+                  )}
+                  itemsText={this.state.reviewQuestion[0].answerList.map(
+                    (item) => item.answer
+                  )}
+                  onChangeScore={this.onChangeSize}
+                />
+                <ReviewWriteModalScore
+                  header={this.state.reviewQuestion[1].question}
+                  score={this.state.reviewData.colorSatisfaction}
+                  items={this.state.reviewQuestion[1].answerList.map(
+                    (item) => item.code
+                  )}
+                  itemsText={this.state.reviewQuestion[1].answerList.map(
+                    (item) => item.answer
+                  )}
+                  onChangeScore={this.onChangeColor}
+                />
+                <ReviewWriteModalScore
+                  header={this.state.reviewQuestion[2].question}
+                  score={this.state.reviewData.lengthSatisfaction}
+                  items={this.state.reviewQuestion[2].answerList.map(
+                    (item) => item.code
+                  )}
+                  itemsText={this.state.reviewQuestion[2].answerList.map(
+                    (item) => item.answer
+                  )}
+                  onChangeScore={this.onChangeLength}
+                />
+              </>
+            )}
+
+            {/* ! UI가 API에 영향을 미치지 않으므로 숨김. 추후 작성 옵션이 늘어난다면 다시 추가 */}
+            {/* <ReviewWriteOption /> */}
+            <div className={css.textareaWrap}>
+              <TextArea
+                type={'review'}
+                onChange={this.onChangeTextarea}
+                // maxLength={1000}
+                placeholder={`어떤 점이 좋으셨나요?\n사진과 함께 리뷰 작성 시 ${
+                  productreview.maximumPoint
+                }P 적립!\n상품에 대한 솔직한 리뷰를 작성해주세요.`}
+                initialValue={this.state.reviewData?.textReview || ''}
+                isInputSizeVisible={false}
+              />
+            </div>
+            {/* TODO : Hash 태그 컴포넌트 추가 */}
+            <div className={css.hashtagWrap}>
+              {/* 해시태그 리스트가 있는 경우 */}
+              <div>
+                {this.state.reviewData.reviewHashtagList &&
+                this.state.reviewData.reviewHashtagList.length
+                  ? this.state.reviewData.reviewHashtagList.map((hashtag) => (
+                      <HashtagItem
+                        isClose={true}
+                        hashtag={hashtag}
+                        onClickHashtag={() => this.handleHashtagItem(hashtag)}
+                      />
+                    ))
+                  : ''}{' '}
+              </div>
+              <div>
+                <div onClick={() => this.toggleHashtagModal(true, [])} />
+                <div>#해시태그를 입력해주세요</div>
+              </div>
+            </div>
+            <div className={css.photoWrap}>
+              <label className={css.photoItemWrap} htmlFor="photo_upload">
+                <input
+                  type="file"
+                  onChange={this.previewFile}
+                  multiple
+                  id="photo_upload"
+                />
+                <div className={css.photoText}>첨부파일</div>
+              </label>
+              {mypagereview.newReviewPhotos.length !== 0 ? (
+                <ReviewImageUpload />
+              ) : null}
+            </div>
+
+            <div className={css.warning}>
+              <div>
+                상품과 관련 없는 내용이 포함될 경우, <br />
+                통보 없이 삭제 및 적립 혜택이 회수될 수 있습니다.
+              </div>
+            </div>
+
+            <SubmitButtonWrapper fixedToBottom>
+              <CancelButton
+                onClick={() => {
+                  this.props.handleModalClose();
+                  mypagereview.initReviewPhotos();
+                }}
+              >
+                취소
+              </CancelButton>
+              <SubmitButton onClick={isCreate ? this.onSubmit : this.onModify}>
+                {isCreate ? '등록' : '수정'}
+              </SubmitButton>
+            </SubmitButtonWrapper>
+          </div>
+          {/* 해시태그 등록 모달 */}
+          <ReviewHashtagModal
+            isOpen={this.state.isHashtagModalOpen}
+            onClose={(hashtags) => this.toggleHashtagModal(false, hashtags)}
+            delHashtag={this.state.delHashtag}
+          />
+          <MySizeModal
+            // mySize={this.props.mySize.mySize}
+            isOpen={this.state.isMySizeModalOpen}
+            onClose={this.toggleMySizeModal}
+            onSubmitMySize={this.handleSubmitMySize}
+            showAlert={this.props.alert.showAlert}
+          />
+        </ModalLayout>
+      </>
     );
   }
 }

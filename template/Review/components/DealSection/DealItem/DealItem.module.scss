@@ -1,0 +1,87 @@
+.deal-item {
+  font-family: Roboto;
+  display: inline-block;
+  width: 50%;
+
+  &.deal-item--horizontal {
+    width: 130px;
+    margin-right: 10px;
+  }
+
+  &__image {
+    width: 130px;
+    height: 130px;
+    position: relative;
+    margin-bottom: 25px;
+
+    &.image--soldout::before {
+      content: 'SOLDOUT';
+      position: absolute;
+      bottom: 7px;
+      left: 7px;
+      width: 55px;
+      height: 15px;
+      background-color: #cccccc;
+      color: #ffffff;
+      font-size: 10px;
+      font-weight: 100;
+      font-style: normal;
+      line-height: 1;
+      letter-spacing: 0.3px;
+      text-align: center;
+      padding-top: 5px;
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  &__brand {
+    line-height: 1.5;
+    color: #999999;
+    font-size: 12px;
+    margin-bottom: 5px;
+  }
+
+  &__name {
+    color: #111111;
+    display: block;
+    width: 100%;
+    height: 34px;
+    margin-bottom: 12px;
+    font-size: 12px;
+    line-height: 17px;
+    overflow: hidden;
+    white-space: normal;
+  }
+
+  &__price {
+    display: flex;
+    align-items: center;
+
+    .price--discount-price {
+      font-size: 15px;
+      font-weight: 500;
+    }
+    .price--sell-price {
+      font-size: 11px;
+      line-height: 15px;
+      color: #999999;
+      text-decoration: line-through;
+      margin-left: 7px;
+    }
+    .price--discount-rate {
+      font-size: 13px;
+      font-weight: 500;
+      color: #5d2ed1;
+      margin-left: auto;
+    }
+  }
+
+  &__seller {
+    font-size: 10px;
+    color: #444444;
+  }
+}

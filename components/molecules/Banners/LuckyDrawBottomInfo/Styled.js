@@ -8,21 +8,21 @@ export const LuckyDrawTopBannerSection = styled.div`
 `;
 
 export const LuckyDrawInfoBanner = styled.div`
-  background-image: url('/static/images/luckydraw/bottom_info/luckydraw_info/luckydraw_info.png');
+  background-image: url('/static/images/luckydraw/bottom_info/luckydraw_info/luckydraw_info@3x.png');
   background-position: center;
   background-repeat: no-repeat;
+  background-size: contain;
   height: 239px;
-  max-width: 100%;
   margin: 0 15px;
   margin-bottom: 60px;
 `;
 
 export const LuckyDrawAttendBanner = styled.div`
-  background-image: url('/static/images/luckydraw/bottom_info/attend_info/attend_info.png');
+  background-image: url('/static/images/luckydraw/bottom_info/attend_info/attend_info@3x.png');
   background-position: center;
   background-repeat: no-repeat;
+  background-size: contain;
   height: 253px;
-  max-width: 100%;
   margin-bottom: 60px;
 `;
 

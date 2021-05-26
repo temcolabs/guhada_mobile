@@ -4,12 +4,14 @@ import css from './TextArea.module.scss';
 import cn from 'classnames';
 import useChangeInput from 'components/hooks/useChangeInput';
 
+// TODO: type 정의, absolute 문제
 export default function TextArea({
   initialValue = '',
   onChange = (v) => {},
   placeholder = '내용을 입력해주세요',
   maxSize = 1000,
   isResizable = true,
+  type = '', // review
   textAreaStyle = {},
   isInputSizeVisible = true,
   inputSizePosition = 'OUTSIDE_BOTTOM_RIGHT',

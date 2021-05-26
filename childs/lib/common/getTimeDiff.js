@@ -6,8 +6,10 @@ import moment from 'moment';
  * @param {Number} t2 빼는 시간
  * @returns {Number} timestamp
  */
-export default function getTimeDiff(t1, t2) {
+export function getTimeDiff(t1, t2) {
   const now = moment(t1);
   const then = moment(t2);
-  return moment(now, 'DD/MM/YYYY HH:mm:ss').diff(moment(then, 'DD/MM/YYYY HH:mm:ss'));
+  return moment(now, 'DD/MM/YYYY HH:mm:ss').diff(
+    moment(then, 'DD/MM/YYYY HH:mm:ss')
+  );
 }
