@@ -134,6 +134,7 @@ export default function ReviewSummary({
                               >
                                 <div className={css.valueLabel}>
                                   {(data.reviewQuestion &&
+                                    data.reviewQuestion.answerList[dataIndex] &&
                                     data.reviewQuestion.answerList[dataIndex]
                                       .answer) ||
                                     data.description}

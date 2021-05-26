@@ -1,6 +1,4 @@
-const { keys } = require('routes');
-
-const getSessionStorageItem = name => {
+const getSessionStorageItem = (name) => {
   if (typeof window === 'object') {
     const value = window.sessionStorage.getItem(name) || '';
     return !!value ? JSON.parse(value) : value;
@@ -14,7 +12,7 @@ const setSessionStorageItem = (name, value) => {
   }
 };
 
-const removeSessionStorageItem = name => {
+const removeSessionStorageItem = (name) => {
   if (typeof window === 'object') {
     window.sessionStorage.removeItem(name);
   }
@@ -24,7 +22,7 @@ const removeSessionStorageItem = name => {
  * Returns the value of existing key in `number` type
  * @param {string} key
  */
-const getIntSessionStorageItem = key => {
+const getIntSessionStorageItem = (key) => {
   if (typeof window === 'object') {
     const value = window.sessionStorage.getItem(key);
     return !!value ? parseInt(value) : NaN;

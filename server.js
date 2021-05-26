@@ -16,7 +16,7 @@ mobxReact.useStaticRendering(true);
  * 라우트 파라미터와 쿼리스트링을 함께 전달
  * @param {*} req
  */
-const getQueryParams = req => {
+const getQueryParams = (req) => {
   const queryParams = Object.assign({}, req.params, req.query);
   return queryParams;
 };
@@ -76,7 +76,7 @@ app
       ];
 
       const isRedirectRequired =
-        ua.isDesktop && pathToIgnore.findIndex(r => r.test(req.path)) < 0;
+        ua.isDesktop && pathToIgnore.findIndex((r) => r.test(req.path)) < 0;
 
       if (isRedirectRequired) {
         console.log('process.env.HOSTNAME', `${process.env.HOSTNAME}`);
@@ -126,7 +126,7 @@ app
       return handle(req, res);
     });
 
-    const listeningServer = server.listen(PORT, '127.0.0.1', err => {
+    const listeningServer = server.listen(PORT, '127.0.0.1', (err) => {
       if (err) throw err;
       console.log(`> Ready on mobile https://localhost:${PORT}`);
 
@@ -149,7 +149,7 @@ app
       });
     });
   })
-  .catch(ex => {
+  .catch((ex) => {
     // console.error(ex.stack);
     process.exit(1);
   });
