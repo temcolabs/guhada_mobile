@@ -45,8 +45,8 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    console.log('mount');
     let query = Router.router.query;
+    
     const { main } = this.props;
 
     let asPath = Router.router.asPath;
@@ -93,12 +93,12 @@ class Home extends React.Component {
 
     this.props.eventpopup.appEventPopupOpen();
 
-    main.getPlusItem({ unitPerPage: 10 });
-    main.getNewArrivals({ unitPerPage: 6 });
-    main.getHits({ unitPerPage: 6 });
+    main.getPlusItem();
+    main.getNewArrivals();
+    main.getHits();
+    main.getBestReview();
     main.getHotKeyword();
     main.getMainBannner();
-    main.getBestReview({ unitPerPage: 30 });
   }
 
   componentWillUnmount() {

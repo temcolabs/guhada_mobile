@@ -3,6 +3,7 @@ import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 
 import Slider from 'components/molecules/Slider';
+import Image from 'components/atoms/Image';
 import { Wrapper, TitleSection, SliderWrapper } from './Styled';
 
 const settings = {
@@ -21,7 +22,6 @@ const settings = {
  * @returns
  */
 function MainSideBanner({ type = 'OTHERS', title, list }) {
-  const [sliderHeight, setSliderHeight] = useState(0);
   const sliderWrapper = useRef(null);
 
   /**
@@ -29,11 +29,12 @@ function MainSideBanner({ type = 'OTHERS', title, list }) {
    */
   useEffect(() => {
     if (sliderWrapper.current && type === 'FOCUS_ON') {
-      const slickDots = sliderWrapper.current.querySelector('.slick-dots');
-      if (slickDots) {
-        const imageHeight = sliderWrapper.current.clientHeight;
-        const dotsHeight = slickDots.clientHeight;
-        setSliderHeight(imageHeight + dotsHeight);
+      let sliders = sliderWrapper.current.querySelectorAll('.slider-wrap');
+
+      if (sliders && sliders.length) {
+        sliders.forEach((o) => {
+          o.style.height = '394px';
+        });
       }
     }
   }, [sliderWrapper.current]);
@@ -41,16 +42,23 @@ function MainSideBanner({ type = 'OTHERS', title, list }) {
   return (
     <Wrapper>
       {title ? <TitleSection>{title}</TitleSection> : ''}
-      <SliderWrapper ref={sliderWrapper} type={type} bottom={sliderHeight}>
+      <SliderWrapper ref={sliderWrapper} type={type}>
         <Slider settings={settings}>
           {list && list.length
             ? list.map((o, i) => (
-                <a key={`focus-on-${i}`} href={o.mainBannerLinkUrl}>
-                  <img
-                    style={{ maxWidth: '100%' }}
-                    alt={'focus on list'}
-                    src={o.mainBannerMobileUrl}
-                  />
+                <a
+                  className={'slider-wrap'}
+                  key={`focus-on-${i}`}
+                  href={o.mainBannerLinkUrl}
+                >
+                  {type === 'FOCUS_ON' && <Image src={o.mainBannerMobileUrl} />}
+                  {type === 'OTHERS' && (
+                    <img
+                      style={{ maxWidth: '100%' }}
+                      alt={'focus on list'}
+                      src={o.mainBannerMobileUrl}
+                    />
+                  )}
                 </a>
               ))
             : ''}

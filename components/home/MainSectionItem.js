@@ -7,6 +7,7 @@ import SectionItem from './SectionItem';
 import { LinkRoute } from 'childs/lib/router';
 import _ from 'lodash';
 import { inject, observer } from 'mobx-react';
+import { toJS } from 'mobx';
 function MainSectionItem({
   title = 'PLUS ITEM',
   items,
@@ -15,10 +16,15 @@ function MainSectionItem({
   condition,
   user,
 }) {
+  const [stateItems, setStateItems] = useState({});
   const [isCategory, setIsCategory] = useState('');
+  console.log('title : ', title);
+  console.log('items : ', toJS(items));
+
   useEffect(() => {
-    if (categoryId === 0) setIsCategory('');
-    else setIsCategory(categoryId);
+    if (categoryId === 0) {
+      setIsCategory('');
+    } else setIsCategory(categoryId);
   }, [categoryId]);
 
   useEffect(() => {
@@ -33,6 +39,22 @@ function MainSectionItem({
         break;
     }
   }, [user.userInfo.gender]);
+
+  // 메인 화면 리스트 분기 처리
+  useEffect(() => {
+    let _stateItems = { ...items };
+    if (categoryId === 0) {
+      const arrEnd = title === 'PREMIUM ITEM' ? 10 : 6;
+      const keys = Object.keys(items);
+      if (keys && keys.length) {
+        for (let i = 0; i < keys.length; i++) {
+          const key = keys[i];
+          _stateItems[key] = _stateItems[key].slice(0, arrEnd);
+        }
+      }
+    }
+    setStateItems(_stateItems);
+  }, [title, items, categoryId]);
 
   return (
     <>
@@ -61,12 +83,12 @@ function MainSectionItem({
           </div>
         )}
         <div>
-          {items['ALL'] !== undefined
+          {stateItems['ALL'] !== undefined
             ? mainSectionCategory.map((category) => {
                 if (category.id === isCategory)
                   return (
-                    _.isNil(items[category.key]) === false &&
-                    items[category.key].map((item) => {
+                    _.isNil(stateItems[category.key]) === false &&
+                    stateItems[category.key].map((item) => {
                       return (
                         <LinkRoute
                           href={`/productdetail?deals=${item.dealId}`}

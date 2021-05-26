@@ -4,13 +4,14 @@ import detectDevice from 'childs/lib/common/detectDevice';
 
 export default class MainStore {
   @observable unitPerPage = 60;
-  @observable plusItem = [];
-  @observable newArrivals = [];
-  @observable hits = [];
   @observable navDealId = 0;
+  @observable plusItem = {};
+  @observable newArrivals = {};
+  @observable hits = {};
   @observable hotKeyword = [];
   @observable bannerInfo = [];
   @observable bestReview = [];
+
   // constructor() {
   //   this.getPlusItem();
   //   this.getNewArrivals();
@@ -24,11 +25,12 @@ export default class MainStore {
   setNavDealId = (id) => {
     this.navDealId = id;
   };
+
   @action
-  getPlusItem = ({ unitPerPage = 10 }) => {
+  getPlusItem = () => {
     API.search
       .get('/ps/main-home/deals/plus-item', {
-        params: { unitPerPage },
+        params: { unitPerPage: this.unitPerPage },
       })
       .then((res) => {
         if (res.data.resultCode === 200) {
@@ -38,10 +40,10 @@ export default class MainStore {
   };
 
   @action
-  getNewArrivals = ({ unitPerPage = 10 }) => {
+  getNewArrivals = () => {
     API.search
       .get('/ps/main-home/deals/new-arrivals', {
-        params: { unitPerPage },
+        params: { unitPerPage: this.unitPerPage },
       })
       .then((res) => {
         if (res.data.resultCode === 200) {
@@ -51,10 +53,10 @@ export default class MainStore {
   };
 
   @action
-  getHits = ({ unitPerPage = 10 }) => {
+  getHits = () => {
     API.search
       .get('/ps/hits/list', {
-        params: { unitPerPage },
+        params: { unitPerPage: this.unitPerPage },
       })
       .then((res) => {
         if (res.data.resultCode === 200) {
@@ -80,9 +82,11 @@ export default class MainStore {
   };
 
   @action
-  getBestReview = ({ unitPerPage = 10 }) => {
+  getBestReview = () => {
     API.user
-      .get(`/main-best-reviews`, { params: { unitPerPage } })
+      .get(`/main-best-reviews`, {
+        params: { unitPerPage: this.unitPerPage },
+      })
       .then((res) => {
         this.bestReview = res.data.data;
       });

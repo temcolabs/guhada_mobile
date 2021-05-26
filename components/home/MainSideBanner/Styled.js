@@ -9,8 +9,7 @@ export const SliderWrapper = styled.div`
     padding: ${(props) => (props.type === 'FOCUS_ON' ? '0 10px' : '')};
   }
   .slick-dots {
-    bottom: ${(props) =>
-      props.type === 'FOCUS_ON' ? props.bottom + 'px' : '0px'};
+    bottom: ${(props) => (props.type === 'FOCUS_ON' ? '420px' : '0px')};
   }
 `;
 
