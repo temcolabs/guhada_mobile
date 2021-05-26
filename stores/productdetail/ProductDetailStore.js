@@ -528,7 +528,7 @@ export default class ProductDetailStore {
   @action
   getSellerStoreDeals = () => {
     API.search
-      .post('/ps/search/filter?page=0&unitPerPage=9', {
+      .post('/ps/search/filter?page=0&unitPerPage=6', {
         sellerIds: [this.deals.sellerId],
       })
       .then(res => {

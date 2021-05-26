@@ -1,235 +1,232 @@
 .wrap {
-    padding: 0 20px;
+  font-family: Roboto;
+  padding: 0 20px;
 
-    & .headerWrap {
-        width: 100%;
-        height: 36px;
+  & .headerWrap {
+    width: 100%;
+    height: 36px;
 
-        & .profileImage {
-            width: 40px;
-            height: 40px;
-            background: url('/static/icon/profile_non_square.png') no-repeat center;
-            background-size: cover;
-            border-radius: 40px;
-            margin-right: 12px;
-            float: left;
-        }
-
-        & .profileWrap {
-
-            float: left;
-
-            & .levelAndName {
-                display: flex;
-                align-items: center;
-                margin-bottom: 6.5px;
-            }
-
-            & .level {
-                width: 21px;
-                height: 13px;
-                border-radius: 6.5px;
-                border: solid 1px #dddddd;
-                background-color: #ffffff;
-                float: left;
-                margin-right: 3.5px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-
-                & .levelText {
-                    font-size: 10px;
-                    font-weight: bold;
-                    line-height: 1.2;
-                    text-align: center;
-                    color: #111111;
-                    transform: scale(0.7);
-                }
-
-
-            }
-
-            & .satisfiedWrap {
-                font-size: 12px;
-                font-weight: 500;
-                font-style: normal;
-                font-stretch: normal;
-                line-height: 1.2;
-                letter-spacing: normal;
-                text-align: left;
-                color: #333333;
-                display: flex;
-                align-items: center;
-
-                & .line {
-                    height: 8px;
-                    border-right: 1px solid #cccccc;
-                    margin: 0 10px;
-                    margin-top: 2px;
-                }
-
-                & .satisfiedLabel {
-                    color: #777777;
-                }
-            }
-
-
-            & .name {
-                font-size: 12px;
-                font-weight: normal;
-                font-style: normal;
-                font-stretch: normal;
-                line-height: 1.4;
-                letter-spacing: normal;
-                text-align: left;
-                color: #333333;
-                float: left;
-            }
-        }
-
-        & .followBtn {
-            width: 100px;
-            height: 36px;
-            background-color: #5d2ed1;
-            float: right;
-            font-size: 14px;
-            font-weight: 400;
-            line-height: 1.11;
-            text-align: center;
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            &.following {
-                border: solid 1px #5d2ed1;
-                background-color: #ffffff;
-                color: #5d2ed1;
-            }
-        }
-
+    & .profileImage {
+      width: 40px;
+      height: 40px;
+      background: url('/static/icon/profile_non_square.png') no-repeat center;
+      background-size: cover;
+      border-radius: 40px;
+      margin-right: 12px;
+      float: left;
     }
 
-    & .sellerItemWrap {
-        width: 100%;
-        display: inline-block;
-        margin-top: -10px;
+    & .profileWrap {
+      float: left;
 
-        & .sellerItem {
-            float: left;
-            width: calc((100% - 20px) / 3);
-            margin-top: 30px;
-            margin-right: 10px;
+      & .levelAndName {
+        display: flex;
+        align-items: center;
+        margin-bottom: 6.5px;
+      }
 
-            &:nth-child(3n) {
-                margin-right: 0;
-            }
+      & .level {
+        width: 21px;
+        height: 13px;
+        border-radius: 6.5px;
+        border: solid 1px #dddddd;
+        background-color: #ffffff;
+        float: left;
+        margin-right: 3.5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
-            & .imageWrap {
-                position: relative;
-                width: 100%;
-                padding-bottom: 100%;
-            }
-
-            & .image {
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                background: no-repeat center;
-                background-size: contain;
-            }
-
-            & .contentsWrap {
-
-                .conditionWrap {
-                    height: 25px;
-                    font-size: 11px;
-                    font-weight: normal;
-                    display: flex;
-                    align-items: center;
-
-                    & .brandNew {
-                        color: #b58c44;
-                        float: left;
-
-                        &.new {
-                            color: #5e24d1;
-                        }
-                    }
-
-                    & .betweenLine {
-                        width: 10px;
-                        height: inherit;
-                        float: left;
-                    }
-
-                    & .internationalShipping {
-                        float: left;
-                        color: #111111;
-                        padding-left: 13px;
-                        background: url('/static/icon/airplane_icon@3x.png') no-repeat left center;
-                        background-size: 8px;
-
-
-                    }
-                }
-
-                & .brandWrap {
-                    width: 100%;
-                    font-size: 13px;
-                    font-weight: 500;
-                    font-style: normal;
-                    font-stretch: normal;
-                    line-height: 1.37;
-                    letter-spacing: normal;
-                    text-align: left;
-                    color: #111111;
-                    margin-bottom: 7px;
-
-                    & .brand {
-                        max-width: calc(100% - 32px);
-                        text-overflow: ellipsis;
-                        white-space: nowrap;
-                        overflow: hidden;
-                        float: left;
-                    }
-
-                    & .season {
-                        font-size: 12px;
-                        display: inline-block;
-                        font-weight: normal;
-                        color: #777777;
-                        margin-left: 4px;
-                    }
-                }
-
-                & .title {
-                    font-size: 12px;
-                    font-weight: normal;
-                    font-style: normal;
-                    font-stretch: normal;
-                    line-height: 1.17;
-                    letter-spacing: normal;
-                    text-align: left;
-                    color: #111111;
-                    width: 100%;
-                    height: 29px;
-                    overflow: hidden;
-                    white-space: normal;
-                    margin-bottom: 12px;
-                }
-
-                & .price {
-                    font-size: 16px;
-                    font-weight: 500;
-                    font-style: normal;
-                    font-stretch: normal;
-                    line-height: 0.94;
-                    letter-spacing: normal;
-                    text-align: left;
-                    color: #111111;
-                }
-            }
+        & .levelText {
+          font-size: 10px;
+          font-weight: bold;
+          line-height: 1.2;
+          text-align: center;
+          color: #111111;
+          transform: scale(0.7);
         }
+      }
+
+      & .satisfiedWrap {
+        font-size: 12px;
+        font-weight: 500;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.2;
+        letter-spacing: normal;
+        text-align: left;
+        color: #333333;
+        display: flex;
+        align-items: center;
+
+        & .line {
+          height: 8px;
+          border-right: 1px solid #cccccc;
+          margin: 0 10px;
+          margin-top: 2px;
+        }
+
+        & .satisfiedLabel {
+          color: #777777;
+        }
+      }
+
+      & .name {
+        font-size: 12px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.4;
+        letter-spacing: normal;
+        text-align: left;
+        color: #333333;
+        float: left;
+      }
     }
+
+    & .followBtn {
+      width: 100px;
+      height: 36px;
+      background-color: #5d2ed1;
+      float: right;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.11;
+      text-align: center;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &.following {
+        border: solid 1px #5d2ed1;
+        background-color: #ffffff;
+        color: #5d2ed1;
+      }
+    }
+  }
+
+  & .sellerItemWrap {
+    width: 100%;
+    display: inline-block;
+    margin-top: -10px;
+    margin-bottom: 60px;
+
+    & .sellerItem {
+      float: left;
+      width: calc((100% - 20px) / 3);
+      margin-top: 30px;
+      margin-right: 10px;
+
+      &:nth-child(3n) {
+        margin-right: 0;
+      }
+
+      & .imageWrap {
+        position: relative;
+        width: 100%;
+        padding-bottom: 100%;
+      }
+
+      & .image {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: no-repeat center;
+        background-size: contain;
+      }
+
+      & .contentsWrap {
+        .conditionWrap {
+          height: 25px;
+          font-size: 11px;
+          font-weight: normal;
+          display: flex;
+          align-items: center;
+
+          & .brandNew {
+            color: #b58c44;
+            float: left;
+
+            &.new {
+              color: #5e24d1;
+            }
+          }
+
+          & .betweenLine {
+            width: 10px;
+            height: inherit;
+            float: left;
+          }
+
+          & .internationalShipping {
+            float: left;
+            color: #111111;
+            padding-left: 13px;
+            background: url('/static/icon/airplane_icon@3x.png') no-repeat left
+              center;
+            background-size: 8px;
+          }
+        }
+
+        & .brandWrap {
+          width: 100%;
+          font-size: 12px;
+          font-weight: 500;
+          font-style: normal;
+          font-stretch: normal;
+          line-height: 1.37;
+          letter-spacing: normal;
+          text-align: left;
+          color: #111111;
+          margin-top: 12px;
+          margin-bottom: 5px;
+
+          & .brand {
+            color: #999999;
+            line-height: 1.6;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+          }
+
+          & .season {
+            font-size: 12px;
+            display: inline-block;
+            font-weight: normal;
+            color: #777777;
+            margin-left: 4px;
+          }
+        }
+
+        & .title {
+          font-size: 12px;
+          font-weight: normal;
+          font-style: normal;
+          font-stretch: normal;
+          line-height: 1.5;
+          letter-spacing: normal;
+          text-align: left;
+          color: #111111;
+          width: 100%;
+          height: 33px;
+          overflow: hidden;
+          white-space: normal;
+          text-overflow: ellipsis;
+          margin-bottom: 12px;
+        }
+
+        & .price {
+          font-size: 13px;
+          font-weight: 500;
+          font-style: normal;
+          font-stretch: normal;
+          line-height: 1.15;
+          letter-spacing: normal;
+          text-align: left;
+          color: #111111;
+        }
+      }
+    }
+  }
 }

@@ -1,4 +1,5 @@
 .wrap {
+  font-family: Roboto;
   padding: 30px 20px 10px 20px;
 
   & .header {
@@ -77,16 +78,15 @@
             float: left;
             color: #111111;
             padding-left: 13px;
-            background: url('/static/icon/airplane_icon@3x.png') no-repeat left center;
+            background: url('/static/icon/airplane_icon@3x.png') no-repeat left
+              center;
             background-size: 8px;
-
-
           }
         }
 
         & .brandWrap {
           width: 100%;
-          font-size: 13px;
+          font-size: 12px;
           font-weight: 500;
           font-style: normal;
           font-stretch: normal;
@@ -94,14 +94,15 @@
           letter-spacing: normal;
           text-align: left;
           color: #111111;
-          margin-bottom: 7px;
+          margin-bottom: 5px;
+          margin-top: 12px;
 
           & .brand {
-            max-width: calc(100% - 40px);
+            color: #999999;
+            line-height: 1.6;
             text-overflow: ellipsis;
             white-space: nowrap;
             overflow: hidden;
-            float: left;
           }
 
           & .season {
@@ -118,23 +119,24 @@
           font-weight: normal;
           font-style: normal;
           font-stretch: normal;
-          line-height: 1.17;
+          line-height: 1.5;
           letter-spacing: normal;
           text-align: left;
           color: #111111;
           width: 113px;
-          height: 29px;
+          height: 33px;
           overflow: hidden;
           white-space: normal;
-          margin-bottom: 11px;
+          text-overflow: ellipsis;
+          margin-bottom: 10px;
         }
 
         & .price {
-          font-size: 16px;
-          font-weight: bold;
+          font-size: 13px;
+          font-weight: 500;
           font-style: normal;
           font-stretch: normal;
-          line-height: 0.94;
+          line-height: 1.15;
           letter-spacing: normal;
           text-align: left;
           color: #111111;

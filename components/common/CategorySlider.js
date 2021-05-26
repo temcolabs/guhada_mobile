@@ -18,7 +18,7 @@ class CategorySlider extends Component {
 
   componentDidMount() {
     let asPath = Router.router.asPath;
-    const category = mainCategory.item.find(item => {
+    const category = mainCategory.item.find((item) => {
       return item.href === asPath;
     });
     if (_.isNil(category) === false) {
@@ -28,7 +28,7 @@ class CategorySlider extends Component {
     }
   }
 
-  setSelected = id => {
+  setSelected = (id) => {
     this.setState({
       selected: id,
     });
@@ -42,15 +42,15 @@ class CategorySlider extends Component {
     this.toScrollTop();
   };
 
-  pushHref = id => {
-    const category = mainCategory.item.find(item => {
+  pushHref = (id) => {
+    const category = mainCategory.item.find((item) => {
       return item.id === id;
     });
     this.setSelected(category.id);
     pushRoute(category.href);
   };
 
-  toSearch = category => {
+  toSearch = (category) => {
     let { searchitem } = this.props;
     searchitem.toSearch({ category: category, enter: 'category' });
   };

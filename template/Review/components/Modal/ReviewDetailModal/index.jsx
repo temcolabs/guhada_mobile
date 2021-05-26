@@ -114,7 +114,7 @@ function ReviewDetailModal({ reviewId, isModalOpen, onCloseModal }) {
           {/* ReviewDetail Section으로 분리 */}
           <Wrapper>
             {/* 메인 이미지 */}
-            <CardImage images={toJS(review.reviewImageList)} type={'detail'} />
+            <CardImage images={review.reviewImageList} type={'detail'} />
             {/* 좋아요, 댓글, 별점 카운팅 */}
             <CardRating review={review} onClickLike={onClickLike} />
 

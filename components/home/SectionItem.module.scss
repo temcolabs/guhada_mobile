@@ -102,7 +102,7 @@ $contentsHeight: 117px;
     font-family: Roboto;
     width: 100%;
     height: $contentsHeight;
-    padding: 12px 0 0 5px;
+    padding: 12px 10px 0 10px;
 
     & .brandWrap {
       display: flex;
@@ -200,9 +200,7 @@ $contentsHeight: 117px;
   }
 
   & .shipWrap {
-    margin-top: 19px;
-    display: flex;
-    align-items: center;
+    margin-top: 15px;
 
     .shipItem {
       border: 1px solid #eeeeee;
