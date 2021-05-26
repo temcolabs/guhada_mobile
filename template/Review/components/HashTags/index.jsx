@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import HashtagFavoriteHeading from '../Atoms/Heading/HashtagFavorite';
 import HashTagItem from '../Atoms/Label/HashtagItem';
-import { Wrapper, Contents } from './Styled';
+import { ReviewHashtagWrapper, Contents } from './Styled';
 
 /**
  * ReviewHashtag
@@ -16,7 +16,7 @@ function ReviewHashtag({ hashtags, onClickHashtag }) {
   return (
     <>
       {hashtags?.length ? (
-        <Wrapper>
+        <ReviewHashtagWrapper>
           <HashtagFavoriteHeading />
           <Contents>
             {hashtags?.map((o) => (
@@ -27,7 +27,7 @@ function ReviewHashtag({ hashtags, onClickHashtag }) {
               />
             ))}
           </Contents>
-        </Wrapper>
+        </ReviewHashtagWrapper>
       ) : (
         ''
       )}

@@ -15,7 +15,7 @@ import { mainCategory } from 'childs/lib/constant/category';
 import { useScrollDirection, useScrollPosition } from 'hooks';
 
 import { REVIEW_CATEGORY_LIST } from './_constants';
-import { Wrapper } from './Styled';
+import { ReviewWrapper, ReviewContents } from './Styled';
 
 /**
  * ReviewTemplate
@@ -113,7 +113,7 @@ function ReviewTemplate() {
           scrollDirection={scrollDirection}
         />
 
-        <Wrapper>
+        <ReviewWrapper>
           {/* 리뷰 > 배너 */}
           {/* TODO : 배너 추가되는 경우, 인기 해시태그 padding 정리 */}
           {/* <ReviewBanner /> */}
@@ -132,7 +132,7 @@ function ReviewTemplate() {
 
           {/* 리뷰 > 카드 */}
           {reviews && reviews.length ? (
-            <div>
+            <ReviewContents>
               {reviews.map((review, i) => (
                 <ReviewSection
                   isLazy={true}
@@ -142,11 +142,11 @@ function ReviewTemplate() {
                   onClickProduct={onClickProduct}
                 />
               ))}
-            </div>
+            </ReviewContents>
           ) : (
             ''
           )}
-        </Wrapper>
+        </ReviewWrapper>
         <Footer />
       </DefaultLayout>
     </>

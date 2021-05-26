@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+export const ReviewHashtagDetailWrapper = styled.div``;
 export const Menus = styled.div`
   display: flex;
   height: 50px;
