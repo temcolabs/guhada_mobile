@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   font-family: Roboto;
   font-weight: 500;
+  padding-top: 20px;
   margin: 30px 20px;
   height: 100%;
 `;

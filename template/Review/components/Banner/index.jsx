@@ -14,11 +14,7 @@ const REVIEW_BANNER_URL = 'static/images/eventBanners/review_event_banner.png';
  * @returns
  */
 function ReviewBanner({ banners }) {
-  return (
-    <Wrppaer>
-      <Image src={REVIEW_BANNER_URL} />
-    </Wrppaer>
-  );
+  return <Wrppaer>{banners && <Image src={REVIEW_BANNER_URL} />}</Wrppaer>;
 }
 
 ReviewBanner.propTypes = {

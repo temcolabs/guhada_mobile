@@ -2,6 +2,7 @@ import React, { useEffect, memo } from 'react';
 import { observer } from 'mobx-react';
 import useStores from 'stores/useStores';
 import moment from 'moment';
+import { sendBackToLogin } from 'childs/lib/router';
 
 import AdBanner from 'components/community/AdBanner';
 
@@ -23,7 +24,7 @@ import {
 } from './Styled';
 
 import HeaderModalWrapper from 'components/molecules/Modal/HeaderModalWrapper';
-import DealSection from 'components/organisms/DealSection';
+import DealSection from 'template/Review/components/DealSection';
 import ReviewSection from 'components/organisms/ReviewSection';
 import CommentSection from 'components/organisms/CommentSection';
 
@@ -65,7 +66,7 @@ function ReviewDetailModal({ reviewId, isModalOpen, onCloseModal }) {
         reviewStore.setProductReviewBookmarks(review);
       }
     } else {
-      alertStore.showAlert('로그인이 필요한 서비스입니다.');
+      sendBackToLogin();
     }
   };
 
@@ -171,7 +172,7 @@ function ReviewDetailModal({ reviewId, isModalOpen, onCloseModal }) {
               isLazy={false}
               horizontal
               header={'비슷한 상품'}
-              headerStyles={{
+              dealSectionStyles={{
                 fontFamily: 'Roboto',
                 fontSize: '16px',
                 textAlign: 'left',

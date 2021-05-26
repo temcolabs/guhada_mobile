@@ -46,7 +46,7 @@ function CardRating({ review, onClickLike }) {
           <Counter>{review?.bookmarkCount}</Counter>
         </LikeSection>
         <CommentSection>
-          <Image src={IMAGE_PATH.comment} width={'15.333px'} height={'16px'} />
+          <Image src={IMAGE_PATH.comment} width={'16px'} height={'16px'} />
           <Counter>{review?.commentCount}</Counter>
         </CommentSection>
       </LikeAndCommentSection>
