@@ -63,6 +63,7 @@ function CardImage({ isLazy = false, type = 'list', images }) {
     let slickDots = sliderRef.current.querySelectorAll('.slick-dots');
     if (slickDots && slickDots.length) {
       slickDots.forEach((o1, i) => {
+        o1.style.zIndex = '-1';
         o1.style.bottom = '-38px';
 
         let li = o1.querySelectorAll('li');
@@ -110,13 +111,14 @@ function CardImage({ isLazy = false, type = 'list', images }) {
       ) : (
         <div ref={sliderRef}>
           <Slider
-            children={createReviewImages(images)}
             settings={{
               ...settings,
               variableWidth: type === 'list' ? true : false,
               dots: type === 'detail' ? true : false,
             }}
-          />
+          >
+            {createReviewImages(images)}
+          </Slider>
         </div>
       )}
     </Wrapper>

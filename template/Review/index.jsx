@@ -1,5 +1,4 @@
 import { memo, useEffect } from 'react';
-import { toJS } from 'mobx';
 import Proptypes from 'prop-types';
 import { observer } from 'mobx-react';
 import { stringify } from 'qs';
@@ -8,10 +7,10 @@ import useStores from 'stores/useStores';
 import CategorySlider from 'components/common/CategorySlider';
 import DefaultLayout from 'components/layout/DefaultLayout';
 import Footer from 'components/footer/Footer';
-import { ReviewHashTag, ReviewCategories } from './components';
+import { ReviewBanner, ReviewHashTag, ReviewCategories } from './components';
 import ReviewSection from 'components/organisms/ReviewSection';
 
-import { pushRoute } from 'childs/lib/router';
+import { pushRoute, sendBackToLogin } from 'childs/lib/router';
 import { mainCategory } from 'childs/lib/constant/category';
 import { useScrollDirection, useScrollPosition } from 'hooks';
 
@@ -91,7 +90,7 @@ function ReviewTemplate() {
         await reviewStore.setProductReviewBookmarks(review);
       }
     } else {
-      alertStore.showAlert('로그인이 필요한 서비스입니다.');
+      sendBackToLogin();
     }
   };
 
@@ -116,6 +115,7 @@ function ReviewTemplate() {
 
         <Wrapper>
           {/* 리뷰 > 배너 */}
+          {/* TODO : 배너 추가되는 경우, 인기 해시태그 padding 정리 */}
           {/* <ReviewBanner /> */}
 
           {/* 리뷰 > 인기 해시태그 */}

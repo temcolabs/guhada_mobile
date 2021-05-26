@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { toJS } from 'mobx';
 import { MentionsInput, Mention } from 'react-mentions';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
@@ -51,7 +52,7 @@ function CommentWrite({
   const [value, setValue] = useState(''); // Textarea values
   const { user: userStore } = useStores();
 
-  const profileImageUrl = userStore?.userInfo?.productImageUrl;
+  const profileImageUrl = userStore?.userInfo?.profileImageUrl;
 
   // Set mention
   useEffect(() => {
@@ -104,7 +105,7 @@ function CommentWrite({
             <TextDiv>
               <MentionsInput
                 inputRef={textarea}
-                placeholder={'검색어를 입력해주세요'}
+                placeholder={'댓글을 입력해주세요'}
                 value={value}
                 onChange={changeTextarea}
                 style={defaultStyle}
