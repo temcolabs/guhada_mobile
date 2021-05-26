@@ -7,13 +7,6 @@ import { LinkRoute } from 'childs/lib/router';
 
 import DealItem, { dealShape } from './DealItem';
 
-/**
- * Deal List
- * @param {String} header, 상단 제목
- * @param {Array} deals, Deal list
- * @param {Boolean} horizontal, 스크롤 방향
- * @returns
- */
 const DealSection = ({ isLazy, header, deals, horizontal = false }) => (
   <div className={css['deal-section']}>
     <div className={css['deal-section__name']}>{header}</div>

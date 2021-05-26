@@ -6,7 +6,13 @@ import useStores from 'stores/useStores';
 
 import Image from 'components/atoms/Image';
 import DefaultLayout from 'components/layout/DefaultLayout';
-import { Menus, MenuItem, Contents, ContentItem } from './Styled';
+import {
+  ReviewHashtagDetailWrapper,
+  Menus,
+  MenuItem,
+  Contents,
+  ContentItem,
+} from './Styled';
 import Router from 'next/router';
 
 const DynamicReviewDeatailModal = dynamic(
@@ -118,26 +124,28 @@ function ReviewHashtagDetail() {
         headerShape={'review'}
         topLayout={'main'}
       >
-        <Menus>
-          <MenuItem active={isMenuToggle} onClick={onClickPopularity}>
-            인기순
-          </MenuItem>
-          <MenuItem active={!isMenuToggle} onClick={onClickCreatedAt}>
-            최신순
-          </MenuItem>
-        </Menus>
-        <Contents>
-          {reviewStore?.reviewHashtagDetailList &&
-            reviewStore.reviewHashtagDetailList.map((o, i) => (
-              <ContentItem
-                key={`${o.id}-${i}`}
-                index={i + 1}
-                onClick={() => onClickHashtagItem(o.id)}
-              >
-                <Image src={o.reviewImageUrl} />
-              </ContentItem>
-            ))}
-        </Contents>
+        <ReviewHashtagDetailWrapper>
+          <Menus>
+            <MenuItem active={isMenuToggle} onClick={onClickPopularity}>
+              인기순
+            </MenuItem>
+            <MenuItem active={!isMenuToggle} onClick={onClickCreatedAt}>
+              최신순
+            </MenuItem>
+          </Menus>
+          <Contents>
+            {reviewStore?.reviewHashtagDetailList &&
+              reviewStore.reviewHashtagDetailList.map((o, i) => (
+                <ContentItem
+                  key={`${o.id}-${i}`}
+                  index={i + 1}
+                  onClick={() => onClickHashtagItem(o.id)}
+                >
+                  <Image src={o.reviewImageUrl} />
+                </ContentItem>
+              ))}
+          </Contents>
+        </ReviewHashtagDetailWrapper>
       </DefaultLayout>
     </>
   );

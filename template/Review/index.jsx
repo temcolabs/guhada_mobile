@@ -1,5 +1,4 @@
 import { memo, useEffect } from 'react';
-import { toJS } from 'mobx';
 import Proptypes from 'prop-types';
 import { observer } from 'mobx-react';
 import { stringify } from 'qs';
@@ -8,15 +7,15 @@ import useStores from 'stores/useStores';
 import CategorySlider from 'components/common/CategorySlider';
 import DefaultLayout from 'components/layout/DefaultLayout';
 import Footer from 'components/footer/Footer';
-import { ReviewHashTag, ReviewCategories } from './components';
+import { ReviewBanner, ReviewHashTag, ReviewCategories } from './components';
 import ReviewSection from 'components/organisms/ReviewSection';
 
-import { pushRoute } from 'childs/lib/router';
+import { pushRoute, sendBackToLogin } from 'childs/lib/router';
 import { mainCategory } from 'childs/lib/constant/category';
 import { useScrollDirection, useScrollPosition } from 'hooks';
 
 import { REVIEW_CATEGORY_LIST } from './_constants';
-import { Wrapper } from './Styled';
+import { ReviewWrapper, ReviewContents } from './Styled';
 
 /**
  * ReviewTemplate
@@ -91,7 +90,7 @@ function ReviewTemplate() {
         await reviewStore.setProductReviewBookmarks(review);
       }
     } else {
-      alertStore.showAlert('로그인이 필요한 서비스입니다.');
+      sendBackToLogin();
     }
   };
 
@@ -114,8 +113,9 @@ function ReviewTemplate() {
           scrollDirection={scrollDirection}
         />
 
-        <Wrapper>
+        <ReviewWrapper>
           {/* 리뷰 > 배너 */}
+          {/* TODO : 배너 추가되는 경우, 인기 해시태그 padding 정리 */}
           {/* <ReviewBanner /> */}
 
           {/* 리뷰 > 인기 해시태그 */}
@@ -132,7 +132,7 @@ function ReviewTemplate() {
 
           {/* 리뷰 > 카드 */}
           {reviews && reviews.length ? (
-            <div>
+            <ReviewContents>
               {reviews.map((review, i) => (
                 <ReviewSection
                   isLazy={true}
@@ -142,11 +142,11 @@ function ReviewTemplate() {
                   onClickProduct={onClickProduct}
                 />
               ))}
-            </div>
+            </ReviewContents>
           ) : (
             ''
           )}
-        </Wrapper>
+        </ReviewWrapper>
         <Footer />
       </DefaultLayout>
     </>

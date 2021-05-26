@@ -24,6 +24,6 @@ export const HeaderIcon = styled.div`
   height: 30px;
 `;
 
-export const Wrapper = styled.div`
+export const HeaderContents = styled.div`
   padding-top: 60px;
 `;

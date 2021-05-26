@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+export const ReviewDetailModalWrapper = styled.div``;
 export const Wrapper = styled.div``;
 export const ContentSection = styled.div`
   padding: 0 20px;
@@ -39,7 +40,7 @@ export const CommentWriteSection = styled.div`
 export const RecommendHeader = styled.div`
   font-family: 'Roboto';
   font-size: 16px;
-  font-weight: bolder;
+  font-weight: 500;
   text-align: left;
   padding-left: 20px;
   margin-bottom: 20px;
