@@ -14,6 +14,7 @@ import CardLabels from 'template/Review/components/Label';
 import HashtagItem from 'template/Review/components/Atoms/Label/HashtagItem';
 
 import {
+  ReviewDetailModalWrapper,
   Wrapper,
   BigDivider,
   ContentSection,
@@ -112,108 +113,110 @@ function ReviewDetailModal({ reviewId, isModalOpen, onCloseModal }) {
           onCloseModal={onCloseModal}
           onClickBackModal={onCloseModal}
         >
-          {/* ReviewDetail Section으로 분리 */}
-          <Wrapper>
-            {/* 메인 이미지 */}
-            <CardImage images={review.reviewImageList} type={'detail'} />
-            {/* 좋아요, 댓글, 별점 카운팅 */}
-            <CardRating review={review} onClickLike={onClickLike} />
+          <ReviewDetailModalWrapper>
+            {/* ReviewDetail Section으로 분리 */}
+            <Wrapper>
+              {/* 메인 이미지 */}
+              <CardImage images={review.reviewImageList} type={'detail'} />
+              {/* 좋아요, 댓글, 별점 카운팅 */}
+              <CardRating review={review} onClickLike={onClickLike} />
 
-            {/* 리뷰 컨텐츠 */}
-            <ContentSection>
-              {/* 사이즈, 컬러, 길이 라벨 */}
-              <CardLabels
-                answers={review?.reviewAnswers}
-                questions={review?.reviewQuestions}
+              {/* 리뷰 컨텐츠 */}
+              <ContentSection>
+                {/* 사이즈, 컬러, 길이 라벨 */}
+                <CardLabels
+                  answers={review?.reviewAnswers}
+                  questions={review?.reviewQuestions}
+                />
+                {/* 본문 */}
+                <Contents>{review?.contents}</Contents>
+                {/* 작성 시간 */}
+                <ContentDate>
+                  {moment(review?.createdTimestamp).format('YY.MM.DD HH:mm')}
+                </ContentDate>
+                {/* 해시태그 리스트 */}
+                {review.hashtagList ? (
+                  <HashTagSection>
+                    {review.hashtagList.map((v, i) => (
+                      <HashtagItem key={`${v}-${i}`} hashtag={v} />
+                    ))}
+                  </HashTagSection>
+                ) : (
+                  ''
+                )}
+              </ContentSection>
+
+              {/* 상품 */}
+              <CardProdInfo
+                dealId={review?.dealId}
+                imageUrl={review?.productImageUrl}
+                title={review?.brandName}
+                contents={review?.dealName}
               />
-              {/* 본문 */}
-              <Contents>{review?.contents}</Contents>
-              {/* 작성 시간 */}
-              <ContentDate>
-                {moment(review?.createdTimestamp).format('YY.MM.DD HH:mm')}
-              </ContentDate>
-              {/* 해시태그 리스트 */}
-              {review.hashtagList ? (
-                <HashTagSection>
-                  {review.hashtagList.map((v, i) => (
-                    <HashtagItem key={`${v}-${i}`} hashtag={v} />
-                  ))}
-                </HashTagSection>
-              ) : (
-                ''
-              )}
-            </ContentSection>
+            </Wrapper>
 
-            {/* 상품 */}
-            <CardProdInfo
-              dealId={review?.dealId}
-              imageUrl={review?.productImageUrl}
-              title={review?.brandName}
-              contents={review?.dealName}
+            {/* 배너 */}
+            <AdBanner dots={false} />
+
+            {/* 댓글 */}
+            <CommentSection
+              comment={comment}
+              onClickCommentSubmit={onClickCommentSubmit}
+              onClickCommentDelete={onClickCommentDelete}
             />
-          </Wrapper>
 
-          {/* 배너 */}
-          <AdBanner dots={false} />
+            {/* 구분선 */}
+            <BigDivider />
 
-          {/* 댓글 */}
-          <CommentSection
-            comment={comment}
-            onClickCommentSubmit={onClickCommentSubmit}
-            onClickCommentDelete={onClickCommentDelete}
-          />
+            {/* 상품 추천 */}
+            {reviewStore?.dealsOfSameBrand && (
+              <DealSection
+                isLazy={false}
+                horizontal
+                header={'비슷한 상품'}
+                dealSectionStyles={{
+                  fontFamily: 'Roboto',
+                  fontSize: '16px',
+                  textAlign: 'left',
+                  paddingLeft: '20px',
+                  marginBottom: '12px',
+                }}
+                deals={reviewStore?.dealsOfSameBrand}
+              />
+            )}
+            {reviewStore?.dealsOfRecommend && (
+              <DealSection
+                isLazy={false}
+                horizontal
+                header={'추천 상품'}
+                headerStyles={{
+                  fontFamily: 'Roboto',
+                  fontSize: '16px',
+                  textAlign: 'left',
+                  paddingLeft: '20px',
+                  marginBottom: '12px',
+                }}
+                deals={reviewStore?.dealsOfRecommend}
+              />
+            )}
 
-          {/* 구분선 */}
-          <BigDivider />
+            {/* 구분선 */}
+            <BigDivider />
 
-          {/* 상품 추천 */}
-          {reviewStore?.dealsOfSameBrand && (
-            <DealSection
-              isLazy={false}
-              horizontal
-              header={'비슷한 상품'}
-              dealSectionStyles={{
-                fontFamily: 'Roboto',
-                fontSize: '16px',
-                textAlign: 'left',
-                paddingLeft: '20px',
-                marginBottom: '12px',
-              }}
-              deals={reviewStore?.dealsOfSameBrand}
-            />
-          )}
-          {reviewStore?.dealsOfRecommend && (
-            <DealSection
-              isLazy={false}
-              horizontal
-              header={'추천 상품'}
-              headerStyles={{
-                fontFamily: 'Roboto',
-                fontSize: '16px',
-                textAlign: 'left',
-                paddingLeft: '20px',
-                marginBottom: '12px',
-              }}
-              deals={reviewStore?.dealsOfRecommend}
-            />
-          )}
-
-          {/* 구분선 */}
-          <BigDivider />
-
-          {/* 추천 리뷰 */}
-          <Wrapper>
-            <RecommendHeader>추천 리뷰</RecommendHeader>
-            {reviewStore?.reviewRecommendList
-              ? reviewStore?.reviewRecommendList.map((review, i) => (
-                  <ReviewSection
-                    key={`ReviewCard-${i}`}
-                    review={review}
-                    onClickLike={onClickLike}
-                  />
-                ))
-              : ''}
-          </Wrapper>
+            {/* 추천 리뷰 */}
+            <Wrapper>
+              <RecommendHeader>추천 리뷰</RecommendHeader>
+              {reviewStore?.reviewRecommendList
+                ? reviewStore?.reviewRecommendList.map((review, i) => (
+                    <ReviewSection
+                      key={`ReviewCard-${i}`}
+                      review={review}
+                      onClickLike={onClickLike}
+                    />
+                  ))
+                : ''}
+            </Wrapper>
+          </ReviewDetailModalWrapper>
         </HeaderModalWrapper>
       ) : (
         ''

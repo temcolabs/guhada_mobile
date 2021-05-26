@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+export const ReviewDetailModalWrapper = styled.div``;
 export const Wrapper = styled.div``;
 export const ContentSection = styled.div`
   padding: 0 20px;

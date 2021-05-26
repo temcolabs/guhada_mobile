@@ -2,7 +2,7 @@ import { memo, useState, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import {
-  Wrapper,
+  ReviewCategoryWrapper,
   Title,
   Contents,
   ContentItem,
@@ -51,7 +51,7 @@ function ReviewCategories({ categories, onClickCategory }) {
    * Render
    */
   return (
-    <Wrapper>
+    <ReviewCategoryWrapper>
       <Title>
         <Image src={IMAGE_PATH.title} width={'55px'} />
       </Title>
@@ -78,7 +78,7 @@ function ReviewCategories({ categories, onClickCategory }) {
       ) : (
         ''
       )}
-    </Wrapper>
+    </ReviewCategoryWrapper>
   );
 }
 

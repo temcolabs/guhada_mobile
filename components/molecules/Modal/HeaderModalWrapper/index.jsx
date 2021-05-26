@@ -4,7 +4,7 @@ import ModalMobileWrapper from 'components/molecules/Modal/ModalMobileWrapper';
 import PropTypes from 'prop-types';
 import Image from 'components/atoms/Image';
 
-import { Header, Wrapper, HeaderTitle, HeaderIcon } from './Styled';
+import { Header, HeaderContents, HeaderTitle, HeaderIcon } from './Styled';
 
 const IMAGE_PATH = {
   back: '/static/icons/btn_top_back/btn_top_back.png',
@@ -49,7 +49,7 @@ function HeaderModalWrapper({
           {headerStatus.close && <Image src={IMAGE_PATH.close} />}
         </div>
       </Header>
-      <Wrapper>{children}</Wrapper>
+      <HeaderContents>{children}</HeaderContents>
     </ModalMobileWrapper>
   );
 }

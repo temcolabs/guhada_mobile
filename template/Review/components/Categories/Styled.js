@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.div`
+export const ReviewCategoryWrapper = styled.div`
   font-family: Roboto;
   font-weight: 500;
   margin: 30px 20px;
