@@ -28,7 +28,7 @@ export const Contents = styled.div`
 `;
 
 export const ContentItem = styled.div`
-  width: 54px;
+  width: 55px;
   margin-right: 15px;
   height: 100%;
   display: flex;
@@ -38,8 +38,6 @@ export const ContentItem = styled.div`
 `;
 
 export const CategoryImage = styled.div`
-  width: 54px;
-  height: 54px;
   margin-bottom: 15px;
 `;
 
