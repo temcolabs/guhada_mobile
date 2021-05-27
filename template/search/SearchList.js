@@ -63,6 +63,7 @@ class SearchList extends Component {
 
   render() {
     const { searchitem, keyword } = this.props;
+
     let isBrand = Router.router.query.enter === 'brand';
     let isCategory = Router.router.query.enter === 'category';
     let isKeyword;

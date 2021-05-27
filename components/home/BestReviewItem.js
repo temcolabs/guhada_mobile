@@ -1,4 +1,5 @@
 import React from 'react';
+import LazyLoad from 'react-lazyload';
 import css from './BestReviewItem.module.scss';
 import StarItem from 'components/mypage/review/StarItem';
 import { observer } from 'mobx-react';
@@ -22,10 +23,12 @@ function BestReviewItem({
       className={css.wrap}
       onClick={() => pushRoute(`/productdetail?deals=${item.dealId}`)}
     >
-      <div
-        className={css.img}
-        style={{ backgroundImage: `url(${item.imageUrl + "?w=375"})` }}
-      />
+      <LazyLoad>
+        <div
+          className={css.img}
+          style={{ backgroundImage: `url(${item.imageUrl + '?w=375'})` }}
+        />
+      </LazyLoad>
       <div className={css.detailWrap}>
         <div className={css.title}>{item.dealName}</div>
         <div className={css.desc}>{item.text}</div>
