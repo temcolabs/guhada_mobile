@@ -18,8 +18,6 @@ function MainSectionItem({
 }) {
   const [stateItems, setStateItems] = useState({});
   const [isCategory, setIsCategory] = useState('');
-  console.log('title : ', title);
-  console.log('items : ', toJS(items));
 
   useEffect(() => {
     if (categoryId === 0) {

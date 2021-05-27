@@ -14,9 +14,9 @@ export const SliderWrapper = styled.div`
 `;
 
 export const TitleSection = styled.div`
-  font-family: NanumSquare-Bold;
+  font-family: 'NanumSquare';
   font-size: 20px;
-  font-weight: bold;
+  font-weight: 800;
   line-height: 1.2;
   letter-spacing: 0.5px;
   display: flex;
