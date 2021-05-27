@@ -16,6 +16,8 @@ class CategorySlider extends Component {
     isVisibleSubCategory: false,
   };
 
+  scrollWrapRef = React.createRef(null);
+
   componentDidMount() {
     let asPath = Router.router.asPath;
     const category = mainCategory.item.find((item) => {
@@ -25,6 +27,20 @@ class CategorySlider extends Component {
       this.setSelected(category.id);
     } else {
       this.setSelected(0);
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    // Moved x position
+    if (
+      prevState.selected === 0 &&
+      prevState.selected !== this.state.selected
+    ) {
+      const wrap = this.scrollWrapRef.current;
+      const target = wrap.childNodes[this.state.selected];
+      const targetX = target.getBoundingClientRect().x;
+      const scrollToWidth = wrap.getBoundingClientRect().width / 2 - 22;
+      wrap.scrollTo(targetX - scrollToWidth, 0);
     }
   }
 
@@ -66,6 +82,7 @@ class CategorySlider extends Component {
     return (
       <>
         <div
+          ref={this.scrollWrapRef}
           className={cn(
             css.wrap,
             {

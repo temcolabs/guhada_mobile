@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from './Styled';
 
@@ -11,9 +11,7 @@ import { Button } from './Styled';
  */
 function LuckyDrawButton({ isActive, contents, onClick }) {
   return (
-    <Button disabled={!isActive} 
-      onClick={onClick} 
-      isActive={isActive}>
+    <Button disabled={!isActive} onClick={onClick} isActive={isActive}>
       {contents}
     </Button>
   );
@@ -22,7 +20,7 @@ function LuckyDrawButton({ isActive, contents, onClick }) {
 LuckyDrawButton.propTypes = {
   isActive: PropTypes.bool,
   contents: PropTypes.string,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
 };
 
-export default LuckyDrawButton;
+export default memo(LuckyDrawButton);

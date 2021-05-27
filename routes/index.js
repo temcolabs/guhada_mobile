@@ -34,6 +34,13 @@ module.exports = [
   },
 
   {
+    // 최근 본 상품
+    pagePath: '/recently',
+    asPath: '/recently',
+    name: '홈 최근 본 상품',
+  },
+
+  {
     // 리뷰
     pagePath: '/review',
     asPath: '/review',
