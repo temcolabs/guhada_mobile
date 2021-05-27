@@ -69,7 +69,7 @@ function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <img src="/static/icon/sns-insta.png" />
+                  <img src="/static/icon/sns-insta@3x.png" />
                 </a>
               </li>
               <li>
@@ -78,7 +78,7 @@ function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <img src="/static/icon/sns-fb.png" />
+                  <img src="/static/icon/sns-fb@3x.png" />
                 </a>
               </li>
               <li>
@@ -87,7 +87,7 @@ function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <img src="/static/icon/sns-youtube.png" />
+                  <img src="/static/icon/sns-youtube@3x.png" />
                 </a>
               </li>
               <li>
@@ -96,7 +96,7 @@ function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <img src="/static/icon/sns-blog.png" />
+                  <img src="/static/icon/sns-blog@3x.png" />
                 </a>
               </li>
               <li>
