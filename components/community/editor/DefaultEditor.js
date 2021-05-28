@@ -12,7 +12,10 @@ const summernoteLink = [
   'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css',
 ];
 const summernoteScriptsList = [
-  ['jquery', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js'],
+  [
+    'jquery',
+    'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js',
+  ],
   [
     'summernote',
     'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js',
