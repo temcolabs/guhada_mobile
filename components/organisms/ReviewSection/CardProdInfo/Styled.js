@@ -20,11 +20,12 @@ export const ContentSection = styled.div`
   height: 35px;
   font-size: 12px;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 
   > div {
     width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 `;
 
