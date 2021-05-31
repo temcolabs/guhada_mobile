@@ -11,7 +11,7 @@ import HashtagItem from 'template/Review/components/Atoms/Label/HashtagItem';
 import Image from 'components/atoms/Image';
 
 import {
-  Wrapper,
+  ReviewHashtagModalWrapper,
   Container,
   Header,
   HeaderFlagSection,
@@ -23,7 +23,7 @@ import {
 } from './Styled';
 
 const IMAGE_PATH = {
-  back: '/static/icons/btn_top_back/btn_top_back.png',
+  back: '/static/icons/btn_top_back/btn_top_back@3x.png',
   delete: '/static/icon/icon_keyword_delete.png',
 };
 
@@ -52,12 +52,15 @@ function HashtagModal({ isOpen, onClose, delHashtag }) {
 
   // Input 초기화
   useEffect(() => {
-    if (!value) reviewStore.initReviewHashtag();
+    if (!value) {
+      console.log('useEffect value : ', value);
+      reviewStore.initReviewHashtag();
+    }
   }, [value]);
 
   // 부모에서 삭제한 해시태그 처리
   useEffect(() => {
-    if (delHashtag) onClickHashtagItem(delHashtag);
+    if (delHashtag) onCloseHashtagItem(delHashtag);
   }, [delHashtag]);
 
   /**
@@ -68,14 +71,16 @@ function HashtagModal({ isOpen, onClose, delHashtag }) {
   const onDebounceChange = (e) => {
     const value = e.target.value;
     setValue(value);
-    debounceSomethingFunc(value);
+    if (value) {
+      debounceSomethingFunc(value);
+    }
   };
 
   // 모달 닫기
   const onCloseModal = () => onClose(hashtags);
 
   // 자동완성 > 해시태그 선택
-  const onClickAutoCompleteTag = (hashtag) => {
+  const onClickHashtagItem = (hashtag) => {
     const checkHashtag = hashtags.find((v) => v === hashtag);
     setValue('');
 
@@ -85,7 +90,7 @@ function HashtagModal({ isOpen, onClose, delHashtag }) {
   };
 
   // 해시태그 > X버튼 클릭
-  const onClickHashtagItem = (hashtag) => {
+  const onCloseHashtagItem = (hashtag) => {
     const _hashtags = hashtags.filter((v) => v !== hashtag);
     setHashtags(_hashtags);
   };
@@ -112,7 +117,7 @@ function HashtagModal({ isOpen, onClose, delHashtag }) {
 
   return (
     <SlideIn isVisible={isOpen} zIndex={9999} direction={slideDirection.BOTTOM}>
-      <Wrapper>
+      <ReviewHashtagModalWrapper>
         <Container>
           {/* Header */}
           <Header>
@@ -131,11 +136,18 @@ function HashtagModal({ isOpen, onClose, delHashtag }) {
                   value={value}
                   onChange={onDebounceChange}
                   onKeyPress={handleInputHashtag}
+                  placeholder={'해시태그를 입력해주세요'}
                 />
               </div>
-              <div onClick={() => setValue('')}>
-                <Image src={IMAGE_PATH.delete} width={'20px'} height={'20px'} />
-              </div>
+              {value && (
+                <div className={'text-delete'} onClick={() => setValue('')}>
+                  <Image
+                    src={IMAGE_PATH.delete}
+                    width={'20px'}
+                    height={'20px'}
+                  />
+                </div>
+              )}
             </HeaderInputSection>
           </Header>
 
@@ -145,35 +157,37 @@ function HashtagModal({ isOpen, onClose, delHashtag }) {
             {reviewAutoCompleteList && reviewAutoCompleteList.length ? (
               reviewAutoCompleteList.map((hashtag) => (
                 <ContentAutoCompleteSection
-                  onClick={() => onClickAutoCompleteTag(hashtag)}
+                  onClick={() => onClickHashtagItem(hashtag)}
                 >
                   # {hashtag}
                 </ContentAutoCompleteSection>
               ))
             ) : (
               <div>
+                {/* 해시태그 입력 리스트 */}
+                {hashtags && hashtags.length ? (
+                  <ContentsInputTagSection>
+                    {hashtags.map((hashtag, i) => (
+                      <HashtagItem
+                        key={`${hashtag}-${i}`}
+                        isClose={true}
+                        hashtag={hashtag}
+                        onClickHashtag={() => onCloseHashtagItem(hashtag)}
+                      />
+                    ))}
+                  </ContentsInputTagSection>
+                ) : (
+                  ''
+                )}
                 {/* 해시태그 인기 리스트 */}
                 {reviewStore.reviewHashtagList &&
                 reviewStore.reviewHashtagList.length ? (
                   <ReviewHashtag
+                    wrapperStyles={{ margin: 0 }}
+                    headingStyles={{ marginBottom: '7px' }}
                     hashtags={toJS(reviewStore?.reviewHashtagList)}
                     onClickHashtag={(hashtag) => onClickHashtagItem(hashtag)}
                   />
-                ) : (
-                  ''
-                )}
-
-                {/* 해시태그 입력 리스트 */}
-                {hashtags && hashtags.length ? (
-                  <ContentsInputTagSection>
-                    {hashtags.map((hashtag) => (
-                      <HashtagItem
-                        isClose={true}
-                        hashtag={hashtag}
-                        onClickHashtag={() => onClickHashtagItem(hashtag)}
-                      />
-                    ))}
-                  </ContentsInputTagSection>
                 ) : (
                   ''
                 )}
@@ -181,7 +195,7 @@ function HashtagModal({ isOpen, onClose, delHashtag }) {
             )}
           </Contents>
         </Container>
-      </Wrapper>
+      </ReviewHashtagModalWrapper>
     </SlideIn>
   );
 }
