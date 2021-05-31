@@ -87,6 +87,7 @@ function Header({
           headerShape === 'orderpayment' ||
           headerShape === 'ordersuccess' ||
           headerShape === 'review' ||
+          headerShape === 'recently' ||
           headerShape === 'BBSArticleView' ? null : (
             <button
               className={css.menuButton}
@@ -97,7 +98,8 @@ function Header({
           {/* 페이지 타이틀 또는 로고 렌더링 */}
           {children || pageTitle ? (
             <h1 className={css.pageTitle}>{children || pageTitle}</h1>
-          ) : headerShape === 'productDetail' ? null : (
+          ) : headerShape === 'productDetail' ||
+            headerShape === 'recently' ? null : (
             <LinkRoute href="/">
               <div className={css.headerLogo} />
             </LinkRoute>
@@ -109,11 +111,13 @@ function Header({
             </LinkRoute>
           ) : null}
 
+          {/* 검색 */}
           {headerShape === 'detailPage' ||
           headerShape === 'shoppingcart' ||
           headerShape === 'orderpayment' ||
           headerShape === 'review' ||
-          headerShape === 'ordersuccess' ? null : (
+          headerShape === 'ordersuccess' ||
+          headerShape === 'recently' ? null : (
             <button
               className={cn(css.searchButton, {
                 [css.leftItemExist]: headerShape === 'productDetail',
@@ -122,11 +126,13 @@ function Header({
             />
           )}
 
+          {/* 장바구니 */}
           {headerShape === 'detailPage' ||
           headerShape === 'shoppingcart' ||
           headerShape === 'orderpayment' ||
           headerShape === 'review' ||
-          headerShape === 'ordersuccess' ? null : (
+          headerShape === 'ordersuccess' ||
+          headerShape === 'recently' ? null : (
             <LinkRoute href="/shoppingcart">
               <div className={css.cartButton}>
                 <button />
@@ -134,8 +140,9 @@ function Header({
               </div>
             </LinkRoute>
           )}
+
           {/* 닫기버튼 */}
-          {headerShape === 'ordersuccess' ? (
+          {headerShape === 'ordersuccess' || headerShape === 'recently' ? (
             <LinkRoute href="/">
               <div className={css.closeButton} />
             </LinkRoute>

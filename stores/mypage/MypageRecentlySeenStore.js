@@ -90,9 +90,9 @@ export default class MypageRecentlySeenStore {
       localStorage.set(key.PRODUCT_RECENTLY_SEEN, toJS(this.list));
       this.totalItemsCount = this.list.length;
 
-      this.root.alert.showAlert({
-        content: '최근 본 상품이 삭제 되었습니다.',
-      });
+      // this.root.alert.showAlert({
+      //   content: '최근 본 상품이 삭제 되었습니다.',
+      // });
     }
   };
 
@@ -101,14 +101,15 @@ export default class MypageRecentlySeenStore {
    */
   @action
   removeItemAll = () => {
-    this.root.alert.showConfirm({
-      content: '최근 본 상품을 모두 삭제하시겠습니까 ?',
-      confirmText: '확인',
-      cancelText: '취소',
-      onConfirm: () => {
-        this.removeItemAllConfirm();
-      },
-    });
+    this.removeItemAllConfirm();
+    // this.root.alert.showConfirm({
+    //   content: '최근 본 상품을 모두 삭제하시겠습니까 ?',
+    //   confirmText: '확인',
+    //   cancelText: '취소',
+    //   onConfirm: () => {
+    //     this.removeItemAllConfirm();
+    //   },
+    // });
   };
 
   removeItemAllConfirm = () => {
@@ -116,9 +117,9 @@ export default class MypageRecentlySeenStore {
     localStorage.remove(key.PRODUCT_RECENTLY_SEEN);
     this.totalItemsCount = 0;
 
-    this.root.alert.showAlert({
-      content: '최근 본 상품이 모두 삭제 되었습니다.',
-    });
+    // this.root.alert.showAlert({
+    //   content: '최근 본 상품이 모두 삭제 되었습니다.',
+    // });
   };
 
   @action

@@ -8,6 +8,8 @@ import memoize from 'memoize-one';
 import openPopupCenter from 'childs/lib/common/openPopupCenter';
 import isTruthy from 'childs/lib/common/isTruthy';
 
+import { pushRoute } from 'childs/lib/router';
+
 const topLayouts = {
   main: 'main',
   category: 'category',
@@ -25,7 +27,7 @@ const topLayouts = {
  * @param {String} topLayout 페이지 레이아웃 형태에 따라서 사용된다. main, category, search 3가지 형태를 정의해두었다.
  * @param {String} pageTitle
  */
-@inject('shoppingcart', 'user', 'category', 'brands')
+@inject('shoppingcart', 'user', 'category', 'brands', 'mypageRecentlySeen')
 @observer
 class DefaultLayout extends Component {
   constructor(props) {
@@ -38,8 +40,9 @@ class DefaultLayout extends Component {
   static defaultProps = {
     wrapperStyle: {},
     toolBar: true,
+    history: false,
     kakaoChat: true,
-    topButton: true
+    topButton: true,
   };
 
   /**
@@ -60,6 +63,16 @@ class DefaultLayout extends Component {
     };
   }
 
+  componentDidMount() {
+    this.shoppingCartAmountCheck();
+    const { category, mypageRecentlySeen } = this.props;
+
+    mypageRecentlySeen.init();
+    if (!isTruthy(category.category)) {
+      category.getCategory();
+    }
+  }
+
   getWrapperStyle = memoize((style, toolBar, topLayout) => {
     return {
       paddingTop: `${this.paddingTopMap[topLayout]}px`,
@@ -67,15 +80,6 @@ class DefaultLayout extends Component {
       ...style,
     };
   });
-
-  componentDidMount() {
-    this.shoppingCartAmountCheck();
-    const { category, brands } = this.props;
-
-    if (!isTruthy(category.category)) {
-      category.getCategory();
-    }
-  }
 
   shoppingCartAmountCheck = () => {
     const job = () => {
@@ -92,49 +96,79 @@ class DefaultLayout extends Component {
       topLayout,
       scrollDirection,
       wrapperStyle,
+      history,
       kakaoChat,
-      topButton
+      topButton,
+      mypageRecentlySeen,
     } = this.props;
 
     let cartAmount = this.props.shoppingcart.cartAmount;
+    const historyCount = mypageRecentlySeen?.list?.length;
 
     return (
-      <div
-        className={css.wrap}
-        style={{
-          ...this.getWrapperStyle(wrapperStyle, toolBar, topLayout),
-        }}
-      >
-        {topLayout === 'keyword' ? null : (
-          <Header
-            headerShape={headerShape}
-            cartAmount={cartAmount}
-            scrollDirection={scrollDirection}
-          >
-            {pageTitle}
-          </Header>
-        )}
-        {this.props.children}
+      <>
+        <div
+          className={css.wrap}
+          style={{
+            ...this.getWrapperStyle(wrapperStyle, toolBar, topLayout),
+          }}
+        >
+          {topLayout === 'keyword' ? null : (
+            <Header
+              headerShape={headerShape}
+              cartAmount={cartAmount}
+              scrollDirection={scrollDirection}
+            >
+              {pageTitle}
+            </Header>
+          )}
+          {this.props.children}
 
-        {toolBar === false ? null : <ToolBar />}
-        {kakaoChat ? (
-          <div
-            className={css.kakaoChat}
-            onClick={() =>
-              openPopupCenter(
-                'https://pf.kakao.com/_yxolxbT/chat',
-                '구하다 채팅하기',
-                500,
-                700
-              )
-            }
-          />
-        ) : null}
-        {topButton ?
-          <div className={css.btnTop} onClick={() => window.scrollTo(0, 0)} />
-          : null
-        }
-      </div>
+          {toolBar === false ? null : <ToolBar />}
+          <div className={css.popupWrap}>
+            {history && historyCount ? (
+              <div className={css.popupWrapItem}>
+                <div className={css.historyWrap}>
+                  <div
+                    className={css.history}
+                    onClick={() => pushRoute('/recently')}
+                  />
+                </div>
+                <div className={css.historyCount}>{historyCount}</div>
+              </div>
+            ) : (
+              ''
+            )}
+            {kakaoChat ? (
+              <div className={css.popupWrapItem}>
+                <div
+                  className={css.kakaoChat}
+                  onClick={() =>
+                    openPopupCenter(
+                      'https://pf.kakao.com/_yxolxbT/chat',
+                      '구하다 채팅하기',
+                      500,
+                      700
+                    )
+                  }
+                />
+              </div>
+            ) : (
+              ''
+            )}
+            {topButton && scrollDirection === 'down' ? (
+              <div className={css.popupWrapItem}>
+                <div
+                  className={css.btnTop}
+                  onClick={() => window.scrollTo(0, 0)}
+                />
+              </div>
+            ) : (
+              ''
+            )}
+          </div>
+        </div>
+      </>
     );
   }
 }

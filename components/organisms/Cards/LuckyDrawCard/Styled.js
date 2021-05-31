@@ -5,7 +5,6 @@ import styled from 'styled-components';
  */
 export const Wrapper = styled.div`
   font-family: 'Noto Sans KR', sans-serif;
-  width: 360px;
   margin: 0 auto;
   margin-top: 70px;
   text-align: center;

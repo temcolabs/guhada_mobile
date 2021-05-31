@@ -129,6 +129,7 @@ class Home extends React.Component {
       <DefaultLayout
         title={null}
         topLayout={'main'}
+        history={true}
         scrollDirection={this.state.scrollDirection}
       >
         {/* TODO :: 카테고리 네비게이터 */}

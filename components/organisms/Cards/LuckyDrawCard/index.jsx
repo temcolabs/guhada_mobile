@@ -96,9 +96,6 @@ function LuckyDrawCard({
     }
   };
 
-  const MemoWrapper = React.memo(Wrapper);
-  const MemoLuckyDrawPhotoFrame = React.memo(LuckyDrawPhotoFrame);
-  const MemoLuckyDrawButton = React.memo(LuckyDrawButton);
   const MemoSectionForm = React.memo(SectionForm);
 
   /**
@@ -106,7 +103,7 @@ function LuckyDrawCard({
    */
   return (
     <>
-      <MemoWrapper>
+      <Wrapper>
         {/* 타이머 헤더 */}
         {deadLine && (statusCode === 'START' || statusCode === 'REQUESTED') && (
           <LuckyDrawTimer day={deadLine.day} date={deadLine.date} />
@@ -117,7 +114,7 @@ function LuckyDrawCard({
         )}
 
         {/* 이미지 영역 */}
-        <MemoLuckyDrawPhotoFrame imageUrl={imageUrl} statusCode={statusCode} />
+        <LuckyDrawPhotoFrame imageUrl={imageUrl} statusCode={statusCode} />
 
         {/* 응모하기 폼 */}
         {/* TODO : 컴포넌트 분리 */}
@@ -140,7 +137,7 @@ function LuckyDrawCard({
               <span>원</span>
             </SectionFromSellPrice>
           </SectionFormPrice>
-          <MemoLuckyDrawButton
+          <LuckyDrawButton
             isActive={statusCode === 'START' ? true : false}
             contents={
               statusCode === 'NORMAL' || statusCode === 'READY'
@@ -177,7 +174,7 @@ function LuckyDrawCard({
           </SectionNotify>
         </MemoSectionForm>
         <WrapperDivder />
-      </MemoWrapper>
+      </Wrapper>
     </>
   );
 }
