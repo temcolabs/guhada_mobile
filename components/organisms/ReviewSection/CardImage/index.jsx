@@ -127,7 +127,7 @@ function CardImage({ isLazy = false, type = 'list', images }) {
 
 CardImage.propTypes = {
   type: PropTypes.string,
-  images: PropTypes.array.isRequired,
+  images: PropTypes.object.isRequired,
 };
 
 export default memo(CardImage);

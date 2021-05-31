@@ -4,7 +4,7 @@ import styled from 'styled-components';
  * Wrapper
  */
 
-export const Wrapper = styled.div`
+export const ReviewHashtagModalWrapper = styled.div`
   width: 100vw;
   height: 100vh;
   background-color: rgba(17, 17, 17, 0.7);

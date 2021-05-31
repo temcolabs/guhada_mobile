@@ -1,5 +1,9 @@
 @import 'styles/mixins/index';
 
+.bannerListContainer {
+  height: 68px;
+}
+
 .boardListContainer {
   position: relative;
   // 데이터를 가져오는 중
