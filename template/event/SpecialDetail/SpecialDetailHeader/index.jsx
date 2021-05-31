@@ -21,8 +21,14 @@ const SpecialDetailHeader = ({ specialDetail, handleCopyUrlToClipboard }) => (
         onClick={handleCopyUrlToClipboard}
       />
     </div>
-    <div className={css['header__image']}>
-      <img src={specialDetail.mobileImageUrl} />
+    <div
+      className={css['header__image']}
+      style={{ height: `${specialDetail._imageHeight}px` }}
+    >
+      <img
+        src={specialDetail.mobileImageUrl}
+        onLoad={(e) => (specialDetail._imageHeight = e.target.height)}
+      />
     </div>
   </div>
 );

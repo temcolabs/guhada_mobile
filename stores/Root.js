@@ -1,4 +1,4 @@
-// refactored stores
+// refactored stores'
 import { SearchByFilterStore, SearchByAllStore } from './SearchStore';
 import NewSpecialStore from './event/NewSpecialStore';
 

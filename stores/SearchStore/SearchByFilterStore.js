@@ -1,6 +1,7 @@
 import { observable, action, computed, toJS } from 'mobx';
 import API from 'childs/lib/API';
 import SearchStore, { ENDPOINT, STATE } from './SearchStore';
+import SearchFilter from 'components/search/SearchFilter';
 
 // 정렬
 export const searchResultOrderMap = new Map([
@@ -135,32 +136,50 @@ export class SearchByFilterStore extends SearchStore {
     }
   };
 
-  /** @param {Params} params */
-  @action setAbstractParams = (params = SearchByFilterStore.initialParams) => {
+  /**
+   * @param {Body} body
+   * @param {Params} params
+   */
+  @action setAbstractFilter = (
+    body = this.defaultBody,
+    params = this.defaultParams
+  ) => {
     Object.assign(this.abstractParams, params);
-  };
-  @action resetAbstractParams = () => {
-    this.abstractParams = this.defaultParams;
-  };
-
-  /** @param {Body} body */
-  @action setAbstractBody = (body = SearchByFilterStore.initialBody) => {
     Object.assign(this.abstractBody, body);
-  };
-  @action resetAbstractBody = () => {
-    this.abstractBody = this.defaultBody;
   };
 
   @action resetAbstractFilter = () => {
-    this.resetAbstractParams();
-    this.resetAbstractBody();
+    this.abstractParams = this.defaultParams;
+    this.abstractBody = this.defaultBody;
   };
 
-  /** apply abstract filter options to concrete filter options then call initial `search` */
+  /**
+   * apply abstract filter options to concrete filter options indirectly
+   * then call initial `search`
+   */
   @action submitAbstractFilter = () => {
     this.resetData();
-    this.body = this.abstractBody;
-    this.params = this.abstractParams;
+    Object.assign(this.body, this.abstractBody);
+    Object.assign(this.params, this.abstractParams);
+    this.updateState(STATE.INITIAL);
+    this.search();
+  };
+
+  /**
+   * apply filter options to concrete filter options directly
+   * then call initial `search`
+   * @param {Body} body
+   * @param {Params} params
+   */
+  @action submitFilter = (
+    body = this.defaultBody,
+    params = this.defaultParams
+  ) => {
+    this.resetData();
+    Object.assign(this.body, body);
+    Object.assign(this.params, params);
+    Object.assign(this.abstractBody, body);
+    Object.assign(this.abstractParams, params);
     this.updateState(STATE.INITIAL);
     this.search();
   };

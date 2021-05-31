@@ -1,38 +1,28 @@
 import css from './FilterButtons.module.scss';
 import { useState, useEffect } from 'react';
-import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
 import cn from 'classnames';
 import useStores from 'stores/useStores';
-import {
-  searchResultOrderMap,
-  shippingConditionMap,
-  productConditionMap,
-} from 'stores/SearchStore/SearchByFilterStore';
+import { searchResultOrderMap } from 'stores/SearchStore/SearchByFilterStore';
 import FilterModal from './FilterModal';
+import AdvancedFilterModal from './AdvancedFilterModal';
 
 const FilterButtons = () => {
   /**
    * states
    */
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+  const [isAdvancedFilterModalOpen, setIsAdvancedFilterModalOpen] = useState(
+    false
+  );
   const { searchByFilter: searchByFilterStore } = useStores();
-
-  /**
-   * side effects
-   */
 
   /**
    * handlers
    */
-  const handleOpenOrderModal = () => {};
-  const handleOpenOptionsModal = () => {};
-  const handleResetFilter = () => {
-    searchByFilterStore.resetAbstractFilter();
-  };
-  const handleSubmitFilter = () => {
-    searchByFilterStore.submitAbstractFilter();
-  };
+  useEffect(() => {
+    setIsAdvancedFilterModalOpen(true);
+  }, []);
 
   /**
    * render
@@ -43,26 +33,40 @@ const FilterButtons = () => {
         <div
           className={cn(css['filter-button'], css['button--order'])}
           onClick={() => {
-            setIsModalOpen(true);
+            setIsFilterModalOpen(true);
           }}
         >
           {searchResultOrderMap.get(searchByFilterStore.body.searchResultOrder)}
-          <div className={css['order-icon']} />
+          <span className={css['order-icon']} />
         </div>
         <div
           className={cn(css['filter-button'], css['button--options'])}
           onClick={() => {
-            setIsModalOpen(true);
+            setIsAdvancedFilterModalOpen(true);
           }}
         >
           상세검색
-          <div className={css['options-icon']} />
+          <span className={css['options-icon']} />
         </div>
       </div>
 
       <FilterModal
-        isModalOpen={isModalOpen}
-        handleCloseModal={() => setIsModalOpen(false)}
+        filterName={'상품정렬'}
+        filterMap={searchResultOrderMap}
+        selectedKey={searchByFilterStore.body.searchResultOrder}
+        isModalOpen={isFilterModalOpen}
+        handleCloseModal={() => setIsFilterModalOpen(false)}
+        handleSetFilter={(key) =>
+          searchByFilterStore.submitFilter({ searchResultOrder: key })
+        }
+        handleResetFilter={() =>
+          searchByFilterStore.submitFilter({ searchResultOrder: 'DATE' })
+        }
+      />
+      <AdvancedFilterModal
+        filterName={'상세검색'}
+        isModalOpen={isAdvancedFilterModalOpen}
+        handleCloseModal={() => setIsAdvancedFilterModalOpen(false)}
       />
     </>
   );

@@ -18,9 +18,55 @@ export const STATE = {
   ERROR: 'ERROR',
 };
 
+/**
+ * @typedef {{
+ *  brandId: number
+ *  brandName: string
+ *  sellerId: number
+ *  sellerName: string
+ *  productId: number
+ *  productName: string
+ *  productSeason: string
+ *  productImage: {
+ *    name: string
+ *    url: string
+ *    width: number
+ *    height: number
+ *  }
+ *  dealId: number
+ *  dealName: string
+ *  sellPrice: number
+ *  discountPrice: number
+ *  setDiscount: boolean
+ *  categoryId: number
+ *  freeShipping: boolean
+ *  options: object[]
+ *  discountRate: number
+ *  isBoldName: boolean
+ *  internationalShipping: boolean
+ *  brandNew: boolean
+ *  soldOut: boolean
+ * }} Deal deal object
+ *
+ * @typedef {{
+ *  id: number
+ *  isFavorite: boolean
+ *  nameDefault: string
+ *  nameEn: string
+ *  nameKo: string
+ * }} Brand brand object
+ *
+ * @typedef {{
+ * }} Category category object
+ *
+ * @typedef {{
+ * }} Filter filter object
+ */
+
 class SearchStore {
   /**
-   * finite state machine - private
+   * finite state machine
+   * @private
    */
   @observable _state = STATE.INITIAL; // singleton state
   @computed get state() {
@@ -56,9 +102,13 @@ class SearchStore {
    */
   // response payload
   @observable countOfDeals = Infinity;
+  /** @type {Deal[]} */
   @observable deals = [];
+  /** @type {Brand[]} */
   @observable brands = [];
+  /** @type {Category[]} */
   @observable categories = [];
+  /** @type {Filter[]} */
   @observable filters = [];
 
   /**
@@ -76,7 +126,7 @@ class SearchStore {
   /**
    * abstract methods
    */
-  /** execute corresponding search method
+  /** execute bound search method
    * @abstract
    */
   search = () => {

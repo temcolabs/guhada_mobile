@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 import { LinkRoute } from 'childs/lib/router';
-
+import DataEmpty from 'components/common/DataEmpty';
 import DealItem, { dealShape } from './DealItem';
 
 const DealItems = ({
@@ -23,22 +23,24 @@ const DealItems = ({
         horizontal && css['items--horizontal']
       )}
     >
-      {deals.map((deal) => (
-        <LinkRoute
-          key={deal.dealId}
-          href={`/productdetail?deals=${deal.dealId}`}
-        >
-          <a>
-            <DealItem
-              deal={deal}
-              horizontal={horizontal}
-              displaySeller={displaySeller}
-              displayTags={displayTags}
-              isLazy={isLazy}
-            />
-          </a>
-        </LinkRoute>
-      ))}
+      {deals.length
+        ? deals.map((deal) => (
+            <LinkRoute
+              key={deal.dealId}
+              href={`/productdetail?deals=${deal.dealId}`}
+            >
+              <a>
+                <DealItem
+                  deal={deal}
+                  horizontal={horizontal}
+                  displaySeller={displaySeller}
+                  displayTags={displayTags}
+                  isLazy={isLazy}
+                />
+              </a>
+            </LinkRoute>
+          ))
+        : !horizontal && <DataEmpty PADDING="50px">결과 없음</DataEmpty>}
     </div>
   </div>
 );
