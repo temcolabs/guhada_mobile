@@ -53,7 +53,6 @@ function HashtagModal({ isOpen, onClose, delHashtag }) {
   // Input 초기화
   useEffect(() => {
     if (!value) {
-      console.log('useEffect value : ', value);
       reviewStore.initReviewHashtag();
     }
   }, [value]);

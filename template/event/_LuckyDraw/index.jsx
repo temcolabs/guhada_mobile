@@ -78,8 +78,6 @@ function LuckyDrawTemplate({ router, luckyDraw, login, main }) {
    * side effects
    */
 
-  console.log('login : ', toJS(login));
-
   /**
    * 럭키드로우 로그인 / 비로그인 데이터 처리
    */
