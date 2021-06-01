@@ -2,7 +2,7 @@ import React, { useEffect, memo } from 'react';
 import { observer } from 'mobx-react';
 import useStores from 'stores/useStores';
 import moment from 'moment';
-import { sendBackToLogin } from 'childs/lib/router';
+import { pushRoute, sendBackToLogin } from 'childs/lib/router';
 
 import AdBanner from 'components/community/AdBanner';
 
@@ -70,6 +70,9 @@ function ReviewDetailModal({ reviewId, isModalOpen, onCloseModal }) {
       sendBackToLogin();
     }
   };
+
+  const onClickProduct = (dealId) =>
+    pushRoute(`/productdetail?deals=${dealId}`);
 
   /**
    * 댓글 등록 이벤트
@@ -152,6 +155,7 @@ function ReviewDetailModal({ reviewId, isModalOpen, onCloseModal }) {
                 imageUrl={review?.productImageUrl}
                 title={review?.brandName}
                 contents={review?.dealName}
+                onClickProduct={onClickProduct}
               />
             </Wrapper>
 
@@ -212,6 +216,7 @@ function ReviewDetailModal({ reviewId, isModalOpen, onCloseModal }) {
                       key={`ReviewCard-${i}`}
                       review={review}
                       onClickLike={onClickLike}
+                      onClickProduct={onClickProduct}
                     />
                   ))
                 : ''}

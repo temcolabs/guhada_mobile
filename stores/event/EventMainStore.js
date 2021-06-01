@@ -16,6 +16,7 @@ export default class EventMainStore {
     }
   }
   @observable eventList = [];
+  @observable eventBannerList = [];
   @observable eventDetail = {};
   @observable status = {
     page: false,
@@ -70,10 +71,24 @@ export default class EventMainStore {
       });
   };
 
+  /**
+   * 배너 가져오기
+   * @param {String} bannerType : COMMUNITY, REVIEW
+   */
+  @action
+  getEventBanner = async (bannerType) => {
+    try {
+      const { data } = await API.user(`/event/banner?bannerType=${bannerType}`);
+      if (data?.data) this.eventBannerList = data.data;
+    } catch (err) {
+      console.error(err, 'event banner list get error');
+    }
+  };
+
   getUrl = () => {
     let url = this.eventDetail.detailPageLink;
-    let start = url.indexOf('com');
-    let query = url.substr(start + 3);
+    let start = url?.indexOf('com');
+    let query = url?.substr(start + 3);
     this.eventDetail.detailPageLink = query;
   };
 

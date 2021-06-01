@@ -10,29 +10,38 @@
   top: $guhadaMainHeaderHeight;
   left: 0;
   width: 100%;
+  height: 44px;
   background-color: #fff;
   border-bottom: 1px solid #eeeeee;
   transition: top 0.1s linear;
   white-space: nowrap;
   display: flex;
-  padding: 10px 20px 13px 0;
 }
 
 // 상위 카테고리
 .category {
   font-size: 15px;
   font-weight: 500;
+  padding-left: 22px;
   &:last-child {
-    padding-right: 20px;
+    padding-right: 22px;
   }
 }
 
-.menuList {
+.dots {
+  border: solid 1px rgba(0, 0, 0, 0);
+  background-color: #5d2ed1;
+  border-radius: 50%;
+  width: 4px;
+  height: 4px;
+  margin: 2.5px auto 4.5px auto;
+
+  &.inActive {
+    background-color: #fff;
+  }
 }
 
 .menuButton {
-  margin-left: 22px;
-
   &.isSelected {
     color: $blue-purple;
     font-weight: bold;
