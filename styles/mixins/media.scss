@@ -59,6 +59,13 @@ $lgBreak: 1600px; // 이하는 일반 데스크탑, 이상은 큰 화면(large d
   }
 }
 
+// samsung gallaxy fold
+@mixin mediaGallaxyFold {
+  @media (max-width: 280px) {
+    @content;
+  }
+}
+
 // iphone5
 @mixin mediaIhpone5 {
   @media (max-width: 320px) {
