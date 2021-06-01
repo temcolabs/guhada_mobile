@@ -34,15 +34,24 @@ class PointHistory extends React.Component {
     });
   };
 
-  handleChangePage = page => {
+  handleChangePage = (page) => {
     this.props.mypagePoint.getPointHistory({ pageNo: page });
   };
 
   render() {
     let { mypagePoint } = this.props;
     return (
-      <DefaultLayout topLayout={'main'} toolBar={false} headerShape={'mypage'}>
-        <MypageLayout>
+      <DefaultLayout
+        topLayout={'main'}
+        toolBar={false}
+        headerShape={'mypage'}
+        kakaoChat={false}
+      >
+        <MypageLayout
+          headerShape={'mypageDetail'}
+          pageTitle={'포인트'}
+          kakaoChat={false}
+        >
           <div className={css.wrap}>
             <PointDashboard props={mypagePoint.pointSummary} />
 

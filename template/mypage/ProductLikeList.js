@@ -21,7 +21,7 @@ class ProductLikeList extends React.Component {
     }
   }
 
-  handleChangePage = pageNo => {
+  handleChangePage = (pageNo) => {
     this.props.mypageLike.getLikeList({ pageNo: pageNo });
   };
 
@@ -30,8 +30,8 @@ class ProductLikeList extends React.Component {
     return (
       <MypageLayout
         topLayout={'main'}
-        // pageTitle={'마이페이지'}
-        headerShape={'mypage'}
+        pageTitle={'찜한상품'}
+        headerShape={'mypageDetail'}
       >
         {/* 찜한상품 대시 보드 */}
         <MypageLikeDashboard />

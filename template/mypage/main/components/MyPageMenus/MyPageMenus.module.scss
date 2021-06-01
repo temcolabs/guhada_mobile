@@ -1,0 +1,33 @@
+@import 'styles/mixins/index';
+
+.myPageMenus {
+  display: flex;
+  flex-flow: row wrap;
+  margin: 0 20px;
+
+  @include mediaIhpone5 {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  & .myPageMenuItem {
+    width: 100%;
+    padding: 23px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    border-bottom: 1px solid #eee;
+
+    & .title {
+      color: #000000;
+      font-size: 15px;
+      line-height: 1.6;
+      letter-spacing: 0.45px;
+    }
+  }
+
+  & .myPageMenuItem:first-child {
+    border-top: 1px solid #eee;
+  }
+}

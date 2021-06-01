@@ -28,6 +28,10 @@ class MypageLayout extends React.Component {
     pageTitle: '마이페이지',
   };
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   render() {
     const {
       isMenuVisibile,
@@ -38,14 +42,7 @@ class MypageLayout extends React.Component {
 
     return (
       <DefaultLayout toolBar wrapperStyle={defaultLayoutStyle} {...rest}>
-        <div
-          className={cn(css.wrap, {
-            [css.isMenuVisible]: isMenuVisibile,
-          })}
-          style={wrapperStyle}
-        >
-          {isMenuVisibile && <MypageMenubar />}
-
+        <div className={cn(css.wrap)} style={wrapperStyle}>
           <div className={css.pageContents}>{this.props.children}</div>
 
           <Footer />

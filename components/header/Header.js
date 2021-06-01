@@ -71,6 +71,7 @@ function Header({
           headerShape === 'BBSArticleView' ||
           headerShape === 'special' ||
           headerShape === 'review' ||
+          headerShape === 'mypageDetail' ||
           (headerShape === 'address' && urlHistory !== '') ? (
             <button
               className={css.backButton}
@@ -82,13 +83,15 @@ function Header({
             />
           ) : null}
 
+          {/* 메뉴 */}
           {headerShape === 'detailPage' ||
           headerShape === 'shoppingcart' ||
           headerShape === 'orderpayment' ||
           headerShape === 'ordersuccess' ||
           headerShape === 'review' ||
           headerShape === 'recently' ||
-          headerShape === 'BBSArticleView' ? null : (
+          headerShape === 'BBSArticleView' ||
+          headerShape === 'mypageDetail' ? null : (
             <button
               className={css.menuButton}
               onClick={() => setIsMenuVisible(true)}

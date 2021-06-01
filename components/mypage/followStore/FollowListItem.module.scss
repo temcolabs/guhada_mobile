@@ -1,21 +1,25 @@
 @import 'styles/mixins/index';
 
 .wrap {
-  margin-bottom: 40px;
+  font-family: Roboto;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
   width: 100%;
-  position: relative;
-  text-align: center;
-  float: left;
   padding: 0 20px;
 
+  @include mediaIhpone5 {
+    padding: 0;
+  }
+
   &:last-child {
-    margin-bottom: 60px;
+    margin-bottom: 40px;
   }
 
   .sellerImage {
-    width: 95px;
-    height: 95px;
-    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -24,9 +28,12 @@
   }
 
   .nosellerImage {
-    width: 95px;
-    height: 95px;
-    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
     background: #ccc;
     line-height: 95px;
     text-align: center;
@@ -34,10 +41,87 @@
     font-size: 13px;
     font-weight: bold;
     cursor: pointer;
-    float: left;
   }
 
-  .sellerName {
+  .sellerInfoSection {
+    display: flex;
+    flex-flow: row wrap;
+    width: 175px;
+    padding: 10px 15px;
+
+    > div {
+      width: 100%;
+    }
+
+    .sellerGreeting {
+      display: flex;
+      align-items: center;
+      color: #111111;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.37;
+      margin-bottom: 8px;
+
+      .sellerName {
+        max-width: 155px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+
+      .sellerRecently {
+        width: 13px;
+        height: 13px;
+        margin-left: 7px;
+      }
+    }
+
+    .sellerInfo {
+      color: #777777;
+      font-size: 12px;
+      line-height: 1.3;
+
+      .sellerDivider {
+        color: #dddddd;
+        margin: 0 7px;
+      }
+    }
+  }
+
+  .followSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    > div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 85px;
+      height: 35px;
+      border-radius: 18px;
+      line-height: 1.15;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .followButton {
+      background: #5d2ed1;
+      color: #fff;
+      border: 1px solid #5d2ed1;
+    }
+
+    .unfollowButton {
+      color: #111111;
+      border: 1px solid #ddd;
+    }
+  }
+}
+
+
+
+  /*.sellerName {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -49,9 +133,9 @@
     font-weight: 500;
     color: #111;
     cursor: pointer;
-  }
+  }*/
 
-  .sellerInfo {
+  /*.sellerInfo {
     @include clearfix;
     font-size: 12px;
     color: #444;
@@ -92,51 +176,4 @@
         content: '';
       }
     }
-  }
-
-  .sellerGreeting {
-    max-width: 100%;
-    height: 32px;
-    margin: 7px 0 0;
-    padding-left: 20px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    word-wrap: break-word;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    text-align: left;
-    font-size: 12px;
-    line-height: 1.4;
-    color: #777;
-    font-weight: normal;
-  }
-
-  .followButton {
-    width: 80px;
-    text-align: center;
-    line-height: 24px;
-    font-size: 13px;
-    font-weight: 500;
-    margin-top: 15px;
-    cursor: pointer;
-    background: #5d2ed1;
-    color: #fff;
-    margin-left: 115px;
-    border: 1px solid #5d2ed1;
-  }
-
-  .unfollowButton {
-    width: 80px;
-    text-align: center;
-    line-height: 24px;
-    font-size: 13px;
-    font-weight: 500;
-    color: #111111;
-    margin-top: 15px;
-    margin-left: 115px;
-    cursor: pointer;
-    border: 1px solid #ccc;
-
-  }
-}
+  }*/
