@@ -8,16 +8,23 @@ import { ReviewHashtagWrapper, Contents } from './Styled';
 
 /**
  * ReviewHashtag
+ * @param {Object} wrapperStyles : Custom styling contents section
+ * @param {Object} headingStyles : Custom styling heading section
  * @param {Array} hashTags : 해시태그 리스트
  * @param {Function} onClickHashtag: 아이템 클릭 핸들러ㄴ
  * @returns
  */
-function ReviewHashtag({ hashtags, onClickHashtag }) {
+function ReviewHashtag({
+  wrapperStyles,
+  headingStyles,
+  hashtags,
+  onClickHashtag,
+}) {
   return (
     <>
       {hashtags?.length ? (
-        <ReviewHashtagWrapper>
-          <HashtagFavoriteHeading />
+        <ReviewHashtagWrapper style={wrapperStyles}>
+          <HashtagFavoriteHeading headingStyles={headingStyles} />
           <Contents>
             {hashtags?.map((o) => (
               <HashTagItem

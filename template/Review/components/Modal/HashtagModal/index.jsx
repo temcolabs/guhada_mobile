@@ -23,7 +23,7 @@ import {
 } from './Styled';
 
 const IMAGE_PATH = {
-  back: '/static/icons/btn_top_back/btn_top_back.png',
+  back: '/static/icons/btn_top_back/btn_top_back@3x.png',
   delete: '/static/icon/icon_keyword_delete.png',
 };
 
@@ -52,7 +52,10 @@ function HashtagModal({ isOpen, onClose, delHashtag }) {
 
   // Input 초기화
   useEffect(() => {
-    if (!value) reviewStore.initReviewHashtag();
+    if (!value) {
+      console.log('useEffect value : ', value);
+      reviewStore.initReviewHashtag();
+    }
   }, [value]);
 
   // 부모에서 삭제한 해시태그 처리
@@ -68,7 +71,9 @@ function HashtagModal({ isOpen, onClose, delHashtag }) {
   const onDebounceChange = (e) => {
     const value = e.target.value;
     setValue(value);
-    debounceSomethingFunc(value);
+    if (value) {
+      debounceSomethingFunc(value);
+    }
   };
 
   // 모달 닫기
@@ -131,11 +136,18 @@ function HashtagModal({ isOpen, onClose, delHashtag }) {
                   value={value}
                   onChange={onDebounceChange}
                   onKeyPress={handleInputHashtag}
+                  placeholder={'해시태그를 입력해주세요'}
                 />
               </div>
-              <div onClick={() => setValue('')}>
-                <Image src={IMAGE_PATH.delete} width={'20px'} height={'20px'} />
-              </div>
+              {value && (
+                <div className={'text-delete'} onClick={() => setValue('')}>
+                  <Image
+                    src={IMAGE_PATH.delete}
+                    width={'20px'}
+                    height={'20px'}
+                  />
+                </div>
+              )}
             </HeaderInputSection>
           </Header>
 
@@ -171,6 +183,8 @@ function HashtagModal({ isOpen, onClose, delHashtag }) {
                 {reviewStore.reviewHashtagList &&
                 reviewStore.reviewHashtagList.length ? (
                   <ReviewHashtag
+                    wrapperStyles={{ margin: 0 }}
+                    headingStyles={{ marginBottom: '7px' }}
                     hashtags={toJS(reviewStore?.reviewHashtagList)}
                     onClickHashtag={(hashtag) => onClickHashtagItem(hashtag)}
                   />
