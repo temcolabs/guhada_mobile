@@ -19,7 +19,11 @@ class AddressManagement extends Component {
     return (
       <>
         {mypageAddress.pageStatus ? (
-          <MypageLayout topLayout={'main'} headerShape={'mypage'}>
+          <MypageLayout
+            topLayout={'main'}
+            pageTitle={'배송지 관리'}
+            headerShape={'mypageDetail'}
+          >
             <div className={css.wrap}>
               {mypageAddress.addressList.length > 0 ? (
                 <>

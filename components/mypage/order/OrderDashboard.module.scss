@@ -1,48 +1,35 @@
 @import 'styles/mixins/index';
 
-.wrap {
-  width: 100%;
-  padding-top: 26px;
-  padding-bottom: 26px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.orderState {
-  width: 47px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-
-.orderState__value {
-  height: 23px;
-  font-family: Roboto;
-  font-size: 19px;
-  font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1;
-  letter-spacing: normal;
-  text-align: center;
+.orderDashboardWrap {
   color: #111111;
-}
+  display: flex;
+  padding: 16px 0;
+  height: 80px;
 
-.orderState__desc {
-  margin-top: 9px;
-  font-family: Roboto;
-  font-size: 12px;
-  letter-spacing: 0;
-}
+  & .orderItem {
+    display: flex;
+    flex-flow: row wrap;
 
-.arrow {
-  width: 15px;
-  height: 15px;
-  background: url('/static/icon/mypage/mypages-orderdashboard-arrow-m@3x.png')
-    no-repeat center;
-  background-size: contain;
-  margin-top: auto;
-  margin-bottom: 21px;
+    > div {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+
+    & .orderItem__value {
+      font-size: 19px;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    & .orderItem__desc {
+      font-size: 12px;
+    }
+  }
+
+  & .orderItem__arrow {
+    display: flex;
+    align-items: flex-end;
+    height: 100%;
+  }
 }

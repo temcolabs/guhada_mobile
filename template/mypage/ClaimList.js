@@ -14,12 +14,16 @@ export default function MyReviewList() {
   };
   const [tab, setTab] = useState(claimTabs.PRODUCT);
 
-  const handleClickTab = useCallback(tab => {
+  const handleClickTab = useCallback((tab) => {
     setTab(tab);
   }, []);
 
   return (
-    <MypageLayout topLayout={'main'} headerShape={'mypage'}>
+    <MypageLayout
+      topLayout={'main'}
+      pageTitle={'문의'}
+      headerShape={'mypageDetail'}
+    >
       <div className={css.wrap} id="claimListWrap">
         <div className={css.tabWrap}>
           <div

@@ -40,8 +40,8 @@ class CouponList extends React.Component {
     return (
       <MypageLayout
         topLayout={'main'}
-        pageTitle={'마이페이지'}
-        headerShape={'mypage'}
+        pageTitle={'쿠폰'}
+        headerShape={'mypageDetail'}
       >
         <div>
           <MypageCouponTab />

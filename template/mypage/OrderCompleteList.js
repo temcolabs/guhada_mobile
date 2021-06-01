@@ -168,7 +168,7 @@ class OrderCompleteList extends Component {
   /**
    * 페이지 선택
    */
-  handleChangePage = page => {
+  handleChangePage = (page) => {
     scrollToTarget({ id: this.dashboardElementId, behavior: 'auto' });
 
     const updatedQuery = {
@@ -202,7 +202,11 @@ class OrderCompleteList extends Component {
     const { orderConfirmModalData } = orderCompleteListStore;
 
     return (
-      <MypageLayout topLayout={'main'} headerShape={'mypage'}>
+      <MypageLayout
+        topLayout={'main'}
+        pageTitle={'주문배송'}
+        headerShape={'mypageDetail'}
+      >
         <PeriodSelector
           initialData={this.state.initialPeriodData}
           defaultTabItems={this.defaultPeriodTabItems}
