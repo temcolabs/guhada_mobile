@@ -1,5 +1,5 @@
 import css from './FilterButtons.module.scss';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { observer } from 'mobx-react';
 import cn from 'classnames';
 import useStores from 'stores/useStores';
@@ -16,13 +16,6 @@ const FilterButtons = () => {
     false
   );
   const { searchByFilter: searchByFilterStore } = useStores();
-
-  /**
-   * handlers
-   */
-  useEffect(() => {
-    setIsAdvancedFilterModalOpen(true);
-  }, []);
 
   /**
    * render

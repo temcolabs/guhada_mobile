@@ -18,7 +18,6 @@ function SpecialDetailPage() {
    * states
    */
   const { newSpecial: newSpecialStore } = useStores();
-  // const headData = initialHeadData || newSpecialStore.headData;
   const headData = newSpecialStore.headData;
   const router = useRouter();
 

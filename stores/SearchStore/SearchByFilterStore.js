@@ -1,7 +1,6 @@
 import { observable, action, computed, toJS } from 'mobx';
 import API from 'childs/lib/API';
 import SearchStore, { ENDPOINT, STATE } from './SearchStore';
-import SearchFilter from 'components/search/SearchFilter';
 
 // 정렬
 export const searchResultOrderMap = new Map([
@@ -20,6 +19,14 @@ export const shippingConditionMap = new Map([
 export const productConditionMap = new Map([
   ['NEW', '새제품'],
   ['USED', '빈티지'],
+]);
+// 가격
+export const priceArrangeMap = new Map([
+  ['모두보기', 0],
+  ['10만원 이하', 100000],
+  ['30만원 이하', 300000],
+  ['50만원 이하', 500000],
+  ['100만원 이하', 1000000],
 ]);
 
 /**
@@ -192,9 +199,15 @@ export class SearchByFilterStore extends SearchStore {
     body = SearchByFilterStore.initialBody,
     params = SearchByFilterStore.initialParams
   ) => {
-    this.defaultBody = body;
-    this.defaultParams = params;
+    this.defaultBody = SearchByFilterStore.initialBody;
+    this.defaultParams = SearchByFilterStore.initialParams;
+    this.body = SearchByFilterStore.initialBody;
+    this.params = SearchByFilterStore.initialParams;
+    this.abstractBody = SearchByFilterStore.initialBody;
+    this.abstractParams = SearchByFilterStore.initialParams;
     this.resetData();
+    Object.assign(this.defaultBody, body);
+    Object.assign(this.defaultParams, params);
     Object.assign(this.body, body);
     Object.assign(this.params, params);
     Object.assign(this.abstractBody, body);

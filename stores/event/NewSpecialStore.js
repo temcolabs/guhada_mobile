@@ -1,4 +1,4 @@
-import { observable, action, computed, toJS } from 'mobx';
+import { observable, action, computed } from 'mobx';
 import API from 'childs/lib/API';
 import { isBrowser } from 'childs/lib/common/isServer';
 import { isEmpty as _isEmpty, get as _get } from 'lodash';
@@ -17,15 +17,10 @@ class SpecialStore {
     }
   }
 
-  @observable isLoading = false;
-
-  /**
-   * statics
-   */
-
   /**
    * observables
    */
+  @observable isLoading = false;
   @observable eventId = NaN;
   @observable specialDetail = {};
 
@@ -84,6 +79,7 @@ class SpecialStore {
   @action resetSpecialData() {
     this.eventId = NaN;
     this.specialDetail = {};
+    this.root.searchByFilter.resetData();
   }
 }
 

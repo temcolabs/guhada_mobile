@@ -1,11 +1,20 @@
 import css from './AdvancedFilterModal.module.scss';
-import { useState, useCallback } from 'react';
+import { useCallback } from 'react';
+import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
-import cn from 'classnames';
 import useStores from 'stores/useStores';
 import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
-import FilterTree from './FilterTree';
+import TreeFilter from './TreeFilter';
+import SearchableTreeFilter from './SearchableTreeFilter';
+import SelectionFilter from './SelectionFilter';
+import PriceFilter from './PriceFilter';
+import SearchInputFilter from './SearchInputFilter';
+import {
+  shippingConditionMap,
+  productConditionMap,
+  priceArrangeMap,
+} from 'stores/SearchStore/SearchByFilterStore';
 
 const AdvancedFilterModal = ({
   filterName = '상세검색',
@@ -16,8 +25,6 @@ const AdvancedFilterModal = ({
    * states
    */
   const { searchByFilter: searchByFilterStore } = useStores();
-  const [searchInputState, setSearchInputState] = useState('');
-  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
 
   /**
    * handlers
@@ -33,6 +40,7 @@ const AdvancedFilterModal = ({
   };
   const handleSubmitAbstractFilter = () => {
     searchByFilterStore.submitAbstractFilter();
+    handleCloseModal();
   };
 
   /**
@@ -44,34 +52,49 @@ const AdvancedFilterModal = ({
         <div className={css['modal__offset']} onClick={handleCloseModal} />
         <div className={css['modal__header']}>{filterName}</div>
         <div className={css['modal__filters']}>
-          <div className={css['filter__category']}>
-            <div
-              className={cn(
-                css['category__header'],
-                isCategoryOpen && css['open']
-              )}
-              onClick={() => setIsCategoryOpen(!isCategoryOpen)}
-            >
-              카테고리
-              <span className={css['category__header__depth']}>
-                {'여성 > 의류 > 바지'}
-              </span>
-            </div>
-            {isCategoryOpen && (
-              <div className={css['category__selection']}>
-                <FilterTree nodeList={searchByFilterStore.categories} />
-              </div>
-            )}
-          </div>
-          <div className={css['filter__search']}>
-            <input
-              type="text"
-              className={css['filter__search__input']}
-              onChange={(e) => setSearchInputState(e.target.value)}
-              value={searchInputState}
-              placeholder="결과 내 재검색"
-            />
-          </div>
+          <TreeFilter
+            title={'카테고리'}
+            dataList={searchByFilterStore.categories}
+            setFilterData={(id) => {
+              handleSetAbstractFilter({
+                categoryIds: [
+                  ...searchByFilterStore.abstractBody.categoryIds,
+                  id,
+                ],
+              });
+            }}
+          />
+          <SearchableTreeFilter title={'브랜드'} />
+          <SelectionFilter
+            title={'배송정보'}
+            mapObject={shippingConditionMap}
+            defaultValue={'ANY'}
+            handleSetSelected={(shippingCondition) =>
+              handleSetAbstractFilter({ shippingCondition })
+            }
+          />
+          <SelectionFilter
+            title={'제품상태'}
+            mapObject={productConditionMap}
+            defaultValue={'ANY'}
+            handleSetSelected={(productCondition) =>
+              handleSetAbstractFilter({ productCondition })
+            }
+          />
+          <PriceFilter
+            title={'가격'}
+            mapObject={priceArrangeMap}
+            handleSetPriceRange={(minPrice, maxPrice) =>
+              handleSetAbstractFilter({ minPrice, maxPrice })
+            }
+          />
+          <SearchInputFilter
+            searchQueries={toJS(searchByFilterStore.abstractBody.searchQueries)}
+            searchQueriesLength={searchByFilterStore.body.searchQueries.length}
+            handleSetSearchInput={(searchQueries) => {
+              handleSetAbstractFilter({ searchQueries });
+            }}
+          />
         </div>
         <div className={css['modal__buttons']}>
           <button
