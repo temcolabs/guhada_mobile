@@ -1,0 +1,67 @@
+@import 'styles/mixins/index';
+
+// 주문 배송
+.myPageOrder {
+  margin-left: 20px;
+  margin-right: 20px;
+  
+  @include mediaIhpone5 {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  & .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+
+    & .title {
+      color: #111111;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.05;
+    }
+
+    & .more {
+      display: flex;
+      align-items: center;
+      color: #444444;
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 1.11;
+      > span:first-child {
+        margin-right: 2px;
+      }
+    }
+  }
+  & .orderItemSection {
+    color: #111111;
+    display: flex;
+    flex-flow: row wrap;
+    padding: 16px 0;
+    height: 80px;
+
+    > div {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      width: 100%;
+    }
+
+    > div:first-child {
+      margin-bottom: 12px;
+    }
+
+    & .orderItem__value {
+      flex-grow: 1;
+      font-size: 19px;
+      font-weight: 500;
+    }
+
+    & .orderItem__desc {
+      flex-grow: 1;
+      font-size: 12px;
+    }
+  }
+}

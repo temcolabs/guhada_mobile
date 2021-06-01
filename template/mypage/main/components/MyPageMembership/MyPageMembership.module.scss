@@ -1,0 +1,43 @@
+@import 'styles/mixins/index';
+
+.myPageMembership {
+  border-radius: 5px;
+  box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  height: 80px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 35px;
+
+  @include mediaIhpone5 {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  
+  & .memberShipItem {
+    width: 33.333%;
+    display: flex;
+    flex-flow: row wrap;
+
+    > div {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    & .counts {
+      color: #111111;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.05;
+      margin-bottom: 5px;
+    }
+
+    & .description {
+      color: #999999;
+      font-size: 13px;
+      line-height: 1.29;
+    }
+  }
+}

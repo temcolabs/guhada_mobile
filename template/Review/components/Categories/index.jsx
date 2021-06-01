@@ -64,6 +64,7 @@ function ReviewCategories({ categories, onClickCategory }) {
               <CategoryImage>
                 <Image
                   src={o.isSelect ? o.categoryImageOn : o.categoryImageOff}
+                  size={'contain'}
                   width={'55px'}
                   height={'55px'}
                 />
