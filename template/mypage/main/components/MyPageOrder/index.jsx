@@ -6,6 +6,7 @@ import cn from 'classnames';
 
 import { pushRoute } from 'childs/lib/router';
 import Image from 'components/atoms/Image';
+import OrderDashboard from 'components/mypage/order/OrderDashboard';
 
 const IMAGE_PATH = {
   linkArrow: '/static/icon/payment_link_arrow.png',
@@ -26,14 +27,6 @@ function MyPageOrder({
     deliveryComplete: 0,
   },
 }) {
-  const {
-    waitingPayment,
-    paymentComplete,
-    prepareProduct,
-    sending,
-    deliveryComplete,
-  } = myOrderStatus;
-
   return (
     <div
       className={cn(css.myPageOrder)}
@@ -48,55 +41,7 @@ function MyPageOrder({
           </span>
         </div>
       </div>
-      <div className={cn(css.orderItemSection)}>
-        {/* 입금확인 */}
-        <div className={cn(css.orderItem)}>
-          <div className={cn(css.orderItem__value)}>
-            {Number.isInteger(waitingPayment) ? waitingPayment : '-'}
-          </div>
-          <div className={cn(css.orderItem__desc)}>입금확인</div>
-        </div>
-        <div className={cn(css.orderItem__arrow)}>
-          <Image src={IMAGE_PATH.mypageArrow} width={'15px'} height={'15px'} />
-        </div>
-        {/* 결제완료 */}
-        <div className={cn(css.orderItem)}>
-          <div className={cn(css.orderItem__value)}>
-            {Number.isInteger(paymentComplete) ? paymentComplete : '-'}
-          </div>
-          <div className={cn(css.orderItem__desc)}>결제완료</div>
-        </div>
-        <div className={cn(css.orderItem__arrow)}>
-          <Image src={IMAGE_PATH.mypageArrow} width={'15px'} height={'15px'} />
-        </div>
-        {/* 상품준비 */}
-        <div className={cn(css.orderItem)}>
-          <div className={cn(css.orderItem__value)}>
-            {Number.isInteger(prepareProduct) ? prepareProduct : '-'}
-          </div>
-          <div className={cn(css.orderItem__desc)}>상품준비</div>
-        </div>
-        <div className={cn(css.orderItem__arrow)}>
-          <Image src={IMAGE_PATH.mypageArrow} width={'15px'} height={'15px'} />
-        </div>
-        {/* 배송중 */}
-        <div className={cn(css.orderItem)}>
-          <div className={cn(css.orderItem__value)}>
-            {Number.isInteger(sending) ? sending : '-'}
-          </div>
-          <div className={cn(css.orderItem__desc)}>배송중</div>
-        </div>
-        <div className={cn(css.orderItem__arrow)}>
-          <Image src={IMAGE_PATH.mypageArrow} width={'15px'} height={'15px'} />
-        </div>
-        {/* 배송완료 */}
-        <div className={cn(css.orderItem)}>
-          <div className={cn(css.orderItem__value)}>
-            {Number.isInteger(deliveryComplete) ? deliveryComplete : '-'}
-          </div>
-          <div className={cn(css.orderItem__desc)}>배송완료</div>
-        </div>
-      </div>
+      <OrderDashboard data={myOrderStatus} />
     </div>
   );
 }

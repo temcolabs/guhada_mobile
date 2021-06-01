@@ -7,7 +7,7 @@ import Image from 'components/atoms/Image';
 
 const IMAGE_PATH = {
   followStore: '/static/icon/followstore_icon.png',
-  like: '/static/icon/like_off.png',
+  like: '/static/icon/like_icon.png',
   review: '/static/icon/review_icon.png',
 };
 
