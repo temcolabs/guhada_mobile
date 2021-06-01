@@ -132,9 +132,7 @@ export default class MypageReviewStore {
       .then((res) => {
         // this.availableReview = this.availableReview.concat(res.data.data);
         this.availableReview = res.data.data;
-        this.orderItemList = this.orderItemList.concat(
-          res.data?.data?.orderItemList
-        );
+        this.orderItemList = res.data?.data?.orderItemList;
       })
       .catch((e) => {
         this.availableReview = [];

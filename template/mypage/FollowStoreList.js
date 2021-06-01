@@ -22,7 +22,11 @@ class FollowStoreList extends Component {
     const { mypageFollow } = this.props;
 
     return (
-      <MypageLayout topLayout={'main'} headerShape={'mypage'}>
+      <MypageLayout
+        topLayout={'main'}
+        pageTitle={'팔로우한 스토어'}
+        headerShape={'mypageDetail'}
+      >
         {/* 팔로우 스토어 총 개수 */}
         <FollowStoreDashboard
           followListLength={mypageFollow?.followList?.length}
