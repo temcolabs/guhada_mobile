@@ -19,7 +19,7 @@ $guhadaColorLight: #8c6ed5;
     background-color: #ddd;
     transition: 0.05s all ease-out;
   }
-  &.checked {
+  &.open {
     &::after {
       background-color: $guhadaColorLight;
       transform: rotate(90deg);

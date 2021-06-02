@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { useInfinteScroll } from 'hooks';
 
 import DealItems from 'components/organisms/DealItems';
-import FilterButtons from './FilterButtons';
+import FilterOption from './FilterOption';
 import LoadMoreButton from './LoadMoreButton';
 
 const DealSection = ({
@@ -24,7 +24,7 @@ const DealSection = ({
   return (
     <div className={css['deal-section']}>
       {title && <div className={css['deal-section__title']}>{title}</div>}
-      {isFilterable && <FilterButtons />}
+      {isFilterable && <FilterOption />}
       <DealItems
         deals={deals}
         displaySeller={displaySeller}

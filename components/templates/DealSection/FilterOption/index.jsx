@@ -1,13 +1,14 @@
-import css from './FilterButtons.module.scss';
+import css from './FilterOption.module.scss';
 import { useState } from 'react';
 import { observer } from 'mobx-react';
 import cn from 'classnames';
 import useStores from 'stores/useStores';
 import { searchResultOrderMap } from 'stores/SearchStore/SearchByFilterStore';
+import FilterTags from './FilterTags';
 import FilterModal from './FilterModal';
 import AdvancedFilterModal from './AdvancedFilterModal';
 
-const FilterButtons = () => {
+const FilterOption = () => {
   /**
    * states
    */
@@ -22,25 +23,30 @@ const FilterButtons = () => {
    */
   return (
     <>
-      <div className={css['filter-buttons']}>
-        <div
-          className={cn(css['filter-button'], css['button--order'])}
-          onClick={() => {
-            setIsFilterModalOpen(true);
-          }}
-        >
-          {searchResultOrderMap.get(searchByFilterStore.body.searchResultOrder)}
-          <span className={css['order-icon']} />
+      <div className={css['filter-option']}>
+        <div className={css['filter-option__buttons']}>
+          <div
+            className={cn(css['filter-button'], css['button--order'])}
+            onClick={() => {
+              setIsFilterModalOpen(true);
+            }}
+          >
+            {searchResultOrderMap.get(
+              searchByFilterStore.body.searchResultOrder
+            )}
+            <span className={css['icon--order']} />
+          </div>
+          <div
+            className={cn(css['filter-button'], css['button--advanced'])}
+            onClick={() => {
+              setIsAdvancedFilterModalOpen(true);
+            }}
+          >
+            상세검색
+            <span className={css['icon--advanced']} />
+          </div>
         </div>
-        <div
-          className={cn(css['filter-button'], css['button--options'])}
-          onClick={() => {
-            setIsAdvancedFilterModalOpen(true);
-          }}
-        >
-          상세검색
-          <span className={css['options-icon']} />
-        </div>
+        <FilterTags />
       </div>
 
       <FilterModal
@@ -65,4 +71,4 @@ const FilterButtons = () => {
   );
 };
 
-export default observer(FilterButtons);
+export default observer(FilterOption);

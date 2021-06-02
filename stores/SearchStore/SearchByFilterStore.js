@@ -1,5 +1,6 @@
 import { observable, action, computed, toJS } from 'mobx';
 import API from 'childs/lib/API';
+import { isEqual as _isEqual } from 'lodash';
 import SearchStore, { ENDPOINT, STATE } from './SearchStore';
 
 // 정렬
@@ -22,7 +23,7 @@ export const productConditionMap = new Map([
 ]);
 // 가격
 export const priceArrangeMap = new Map([
-  ['모두보기', 0],
+  ['전체', 0],
   ['10만원 이하', 100000],
   ['30만원 이하', 300000],
   ['50만원 이하', 500000],
@@ -65,11 +66,11 @@ export class SearchByFilterStore extends SearchStore {
     sellerIds: [],
     filters: [],
     searchQueries: [],
-    minPrice: '',
-    maxPrice: '',
+    minPrice: 0,
+    maxPrice: 0,
     searchResultOrder: 'DATE',
-    productCondition: 'ANY',
     shippingCondition: 'ANY',
+    productCondition: 'ANY',
   };
 
   /**
@@ -94,8 +95,14 @@ export class SearchByFilterStore extends SearchStore {
   /**
    * computeds
    */
+  /** Check if there are more resource to search for */
   @computed get moreToLoad() {
     return this.params.page * this.params.unitPerPage < this.countOfDeals;
+  }
+
+  /** Check if search result is filtered */
+  @computed get isFiltered() {
+    return !_isEqual(toJS(this.body), toJS(this.defaultBody));
   }
 
   /**
@@ -190,6 +197,8 @@ export class SearchByFilterStore extends SearchStore {
     this.updateState(STATE.INITIAL);
     this.search();
   };
+  /** apply default filter options and call search */
+  @action resetFilter = () => this.submitFilter();
 
   /**
    * @param {Body} body initial body

@@ -1,5 +1,5 @@
 import css from './PriceFilter.module.scss';
-import { useState, memo } from 'react';
+import { useState, memo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
@@ -17,7 +17,7 @@ const parseValue = (value) => {
   return parseInt(number);
 };
 
-const PriceFilter = ({ title, mapObject, handleSetPriceRange }) => {
+const PriceFilter = ({ title, mapObject, isInitial, handleSetPriceRange }) => {
   /**
    * states
    */
@@ -28,6 +28,23 @@ const PriceFilter = ({ title, mapObject, handleSetPriceRange }) => {
   /**
    * handlers
    */
+  const handleSubmitPriceRange = () => {
+    handleSetPriceRange(minPriceValue, maxPriceValue);
+  };
+
+  /**
+   * side effects
+   */
+  useEffect(() => {
+    if (isInitial) {
+      handleSetMaxPriceValue(0, 0);
+    }
+  }, [isInitial]);
+
+  useEffect(() => {
+    handleSubmitPriceRange();
+  }, [minPriceValue, maxPriceValue]);
+
   const handleSetMaxPriceValue = (value, idx) => {
     setMinPriceValue(0);
     setMaxPriceValue(value);
@@ -46,13 +63,13 @@ const PriceFilter = ({ title, mapObject, handleSetPriceRange }) => {
   };
   const handleMaxPriceValueChange = (e) => {
     const value = parseValue(e.target.value);
+    if (value < maxPriceValue) {
+      setMaxPriceValue(value);
+    }
     setMaxPriceValue(value);
     if (selectedRange >= 0) {
       setSelectedRange(-1);
     }
-  };
-  const handleSubmitPriceRange = () => {
-    handleSetPriceRange(minPriceValue, maxPriceValue);
   };
 
   /**
@@ -93,7 +110,7 @@ const PriceFilter = ({ title, mapObject, handleSetPriceRange }) => {
           onChange={handleMaxPriceValueChange}
         />
         <span>원</span>
-        <button onClick={handleSubmitPriceRange}>적용</button>
+        {/* <button onClick={handleSubmitPriceRange}>적용</button> */}
       </div>
     </div>
   );

@@ -55,14 +55,8 @@ const AdvancedFilterModal = ({
           <TreeFilter
             title={'카테고리'}
             dataList={searchByFilterStore.categories}
-            setFilterData={(id) => {
-              handleSetAbstractFilter({
-                categoryIds: [
-                  ...searchByFilterStore.abstractBody.categoryIds,
-                  id,
-                ],
-              });
-            }}
+            currentIds={searchByFilterStore.abstractBody.categoryIds}
+            setIds={(categoryIds) => handleSetAbstractFilter({ categoryIds })}
           />
           <SearchableTreeFilter title={'브랜드'} />
           <SelectionFilter
@@ -84,6 +78,10 @@ const AdvancedFilterModal = ({
           <PriceFilter
             title={'가격'}
             mapObject={priceArrangeMap}
+            isInitial={
+              searchByFilterStore.body.minPrice === 0 &&
+              searchByFilterStore.body.maxPrice === 0
+            }
             handleSetPriceRange={(minPrice, maxPrice) =>
               handleSetAbstractFilter({ minPrice, maxPrice })
             }

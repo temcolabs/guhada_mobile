@@ -1,8 +1,8 @@
 .deal-item {
   display: inline-block;
   width: 50%;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: 6px;
+  padding-right: 6px;
   margin-bottom: 40px;
 
   &__image {
@@ -42,6 +42,9 @@
     padding-right: 8px;
 
     .description__brand {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       line-height: 1.5;
       color: #999999;
       font-size: 12px;
