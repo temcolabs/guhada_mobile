@@ -1,5 +1,5 @@
 import css from './FilterOption.module.scss';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import cn from 'classnames';
 import useStores from 'stores/useStores';
@@ -17,6 +17,12 @@ const FilterOption = () => {
     false
   );
   const { searchByFilter: searchByFilterStore } = useStores();
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsAdvancedFilterModalOpen(true);
+    }, 1000);
+  }, []);
 
   /**
    * render

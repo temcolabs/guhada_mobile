@@ -3,19 +3,12 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-const TreeNode = ({
-  title,
-  id,
-  children,
-  handleSetId,
-  handleRemoveId,
-  checked,
-}) => {
+const TreeNode = ({ title, id, children, handleSetId, handleRemoveId }) => {
   /**
    * states
    */
   const [isOpen, setIsOpen] = useState(false);
-  const [isChecked, setIsChecked] = useState(checked);
+  const [isChecked, setIsChecked] = useState(false);
 
   /**
    * handlers
@@ -62,7 +55,6 @@ TreeNode.propTypes = {
   children: PropTypes.any,
   handleSetId: PropTypes.func,
   handleRemoveId: PropTypes.func,
-  checked: PropTypes.bool,
 };
 
 export default TreeNode;

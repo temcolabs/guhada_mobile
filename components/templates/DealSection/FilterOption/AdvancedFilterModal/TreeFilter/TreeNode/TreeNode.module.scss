@@ -38,14 +38,13 @@ $guhadaColorLight: #8c6ed5;
     justify-content: space-between;
 
     &__title {
-      width: 85%;
+      width: 90%;
       display: flex;
       align-items: center;
       font-size: 14px;
       font-weight: 400;
       line-height: 40px;
       color: #111;
-      padding-right: 20px;
 
       &::before {
         content: '';
@@ -63,7 +62,7 @@ $guhadaColorLight: #8c6ed5;
     }
 
     &__open {
-      width: 15%;
+      width: 10%;
       position: relative;
       height: 40px;
       @include filterable-item;

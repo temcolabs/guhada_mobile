@@ -58,7 +58,12 @@ const AdvancedFilterModal = ({
             currentIds={searchByFilterStore.abstractBody.categoryIds}
             setIds={(categoryIds) => handleSetAbstractFilter({ categoryIds })}
           />
-          <SearchableTreeFilter title={'브랜드'} />
+          <SearchableTreeFilter
+            title={'브랜드'}
+            dataList={searchByFilterStore.brands}
+            currentIds={searchByFilterStore.abstractBody.brandIds}
+            setIds={(brandIds) => handleSetAbstractFilter({ brandIds })}
+          />
           <SelectionFilter
             title={'배송정보'}
             mapObject={shippingConditionMap}

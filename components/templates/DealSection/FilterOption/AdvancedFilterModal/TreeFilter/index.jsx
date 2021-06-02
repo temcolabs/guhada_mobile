@@ -1,15 +1,10 @@
 import css from './TreeFilter.module.scss';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, memo } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 import TreeNode from './TreeNode';
 
-const TraversibleNode = ({
-  children,
-  currentIds,
-  handleSetId,
-  handleRemoveId,
-}) => {
+const TraversibleNode = ({ children, handleSetId, handleRemoveId }) => {
   return children.map((child) => {
     const {
       children,
@@ -19,21 +14,17 @@ const TraversibleNode = ({
       id,
       // title,
     } = child;
-    const checked = currentIds.includes(id);
 
     if (!!children) {
       return (
         <TreeNode
           key={id}
-          currentIds={currentIds}
           handleSetId={handleSetId}
           handleRemoveId={handleRemoveId}
-          checked={checked}
           {...child}
         >
           <TraversibleNode
             children={children}
-            currentIds={currentIds}
             handleSetId={handleSetId}
             handleRemoveId={handleRemoveId}
           />
@@ -43,10 +34,8 @@ const TraversibleNode = ({
     return (
       <TreeNode
         key={id}
-        currentIds={currentIds}
         handleSetId={handleSetId}
         handleRemoveId={handleRemoveId}
-        checked={checked}
         {...child}
       />
     );
@@ -55,7 +44,6 @@ const TraversibleNode = ({
 
 TraversibleNode.propTypes = {
   dataList: PropTypes.any,
-  currentIds: PropTypes.arrayOf(PropTypes.number),
   handleSetId: PropTypes.func,
   handleRemoveId: PropTypes.func,
 };
@@ -106,7 +94,6 @@ const TreeFilter = ({ title, dataList, currentIds, setIds }) => {
       {isFilterOpen && (
         <TraversibleNode
           children={dataList}
-          currentIds={currentIds}
           handleSetId={handleSetId}
           handleRemoveId={handleRemoveId}
         />
@@ -122,4 +109,4 @@ TreeFilter.propTypes = {
   setIds: PropTypes.func,
 };
 
-export default TreeFilter;
+export default memo(TreeFilter);
