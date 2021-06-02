@@ -87,7 +87,7 @@ class OrderClaimList extends Component {
     return `최근 내역이 없습니다`;
   }
 
-  initClaimOrdersWithQuery = query => {
+  initClaimOrdersWithQuery = (query) => {
     const { initialPeriodData } = this.state;
 
     const {
@@ -166,7 +166,7 @@ class OrderClaimList extends Component {
     this.pushRouteToGetList(updatedQuery);
   };
 
-  handleChangePage = page => {
+  handleChangePage = (page) => {
     scrollToTarget({ id: this.dashboardElementId, behavior: 'auto' });
 
     const updatedQuery = {
@@ -228,8 +228,8 @@ class OrderClaimList extends Component {
     return (
       <MypageLayout
         topLayout={'main'}
-        pageTitle={'마이페이지'}
-        headerShape={'mypage'}
+        pageTitle={'취소・교환・반품'}
+        headerShape={'mypageDetail'}
       >
         <PeriodSelector
           initialData={this.state.initialPeriodData}
@@ -312,13 +312,15 @@ class OrderClaimList extends Component {
 
         {/* 구매확정 모달 */}
         <OrderConfirmModal
-          isOpen={orderClaimList.isOrderConfirmModalOpen}          
-          order={orderConfirmModalData?.order}   
+          isOpen={orderClaimList.isOrderConfirmModalOpen}
+          order={orderConfirmModalData?.order}
           onConfirm={orderConfirmModalData?.onConfirm}
           onClose={orderConfirmModalData?.onClose}
           dueSavePointOnConfirm={orderConfirmModalData.dueSavePointOnConfirm}
           dueSavePointOnReview={orderConfirmModalData.dueSavePointOnReview}
-          dueSavePointOnFirstPurchase={orderConfirmModalData.dueSavePointOnFirstPurchase}      
+          dueSavePointOnFirstPurchase={
+            orderConfirmModalData.dueSavePointOnFirstPurchase
+          }
         />
 
         {/* 구매확정시 포인트 지급 모달  */}
@@ -328,7 +330,6 @@ class OrderClaimList extends Component {
           onClose={mypagePointStore.closePointSavingModalOpen}
           savedPointResponse={mypagePointStore.savedPointResponse}
         />
-
       </MypageLayout>
     );
   }
