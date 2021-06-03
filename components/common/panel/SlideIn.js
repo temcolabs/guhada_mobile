@@ -16,7 +16,7 @@ export const slideDirection = {
   BOTTOM: 'bottom',
 };
 
-const DURATION = 400; // 애니메이션 시간
+const DURATION = 300; // 애니메이션 시간
 
 /**
  * 기본 포지션. 진입 방향에 따라 달라진다.

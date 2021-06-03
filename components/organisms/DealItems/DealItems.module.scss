@@ -1,0 +1,31 @@
+.deal-items {
+  margin-bottom: 20px;
+
+  &__title {
+    line-height: 22px;
+    text-align: center;
+    font-family: 'NanumSquare';
+    font-size: 20px;
+    font-weight: 600;
+    color: #111;
+    letter-spacing: 0.5px;
+    margin-bottom: 30px;
+  }
+
+  &__wrapper {
+    padding-left: 8px;
+    padding-right: 8px;
+
+    &.items--horizontal {
+      width: auto;
+      overflow-x: auto;
+      white-space: nowrap;
+      padding-left: 10px;
+      padding-right: 20px;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  }
+}

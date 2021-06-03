@@ -4,7 +4,7 @@ import LoadingPortal from 'components/common/loading/Loading';
 import { observer, inject } from 'mobx-react';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
 
-@inject('special')
+@inject('special', 'newSpecial', 'searchByFilter')
 @observer
 class special extends Component {
   static async getInitialProps({ req }) {
@@ -12,6 +12,9 @@ class special extends Component {
   }
 
   componentDidMount() {
+    const { newSpecial: newSpecialStore } = this.props;
+    newSpecialStore.resetSpecialData();
+
     this.props.special.getSpecialList();
   }
 
