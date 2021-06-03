@@ -4,7 +4,6 @@
 .myPageOrder {
   margin-left: 20px;
   margin-right: 20px;
-  
   @include mediaIhpone5 {
     margin-left: 10px;
     margin-right: 10px;
@@ -38,30 +37,34 @@
   & .orderItemSection {
     color: #111111;
     display: flex;
-    flex-flow: row wrap;
     padding: 16px 0;
     height: 80px;
 
-    > div {
+    & .orderItem {
       display: flex;
-      align-items: center;
-      text-align: center;
-      width: 100%;
+      flex-flow: row wrap;
+
+      > div {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+      }
+
+      & .orderItem__value {
+        font-size: 19px;
+        font-weight: 500;
+        margin-bottom: 12px;
+      }
+
+      & .orderItem__desc {
+        font-size: 12px;
+      }
     }
 
-    > div:first-child {
-      margin-bottom: 12px;
-    }
-
-    & .orderItem__value {
-      flex-grow: 1;
-      font-size: 19px;
-      font-weight: 500;
-    }
-
-    & .orderItem__desc {
-      flex-grow: 1;
-      font-size: 12px;
+    & .orderItem__arrow {
+      display: flex;
+      align-items: flex-end;
+      height: 100%;
     }
   }
 }

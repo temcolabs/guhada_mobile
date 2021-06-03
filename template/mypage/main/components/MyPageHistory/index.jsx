@@ -7,7 +7,7 @@ import Image from 'components/atoms/Image';
 
 const IMAGE_PATH = {
   followStore: '/static/icon/followstore_icon.png',
-  like: '/static/icon/m_like_btn_off.png',
+  like: '/static/icon/like_off.png',
   review: '/static/icon/review_icon.png',
 };
 
@@ -42,7 +42,12 @@ function MyPageHistory() {
           onClick={() => pushRoute(path)}
         >
           <div className={cn(css.myPageHistoryItem__icon)}>
-            <Image src={imageUrl} width={'25px'} height={'25px'} />
+            <Image
+              src={imageUrl}
+              width={'25px'}
+              height={'25px'}
+              size={'contain'}
+            />
           </div>
           <div className={cn(css.myPageHistoryItem__desc)}>{value}</div>
         </div>

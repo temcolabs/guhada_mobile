@@ -49,32 +49,51 @@ function MyPageOrder({
         </div>
       </div>
       <div className={cn(css.orderItemSection)}>
-        <div>
+        {/* 입금확인 */}
+        <div className={cn(css.orderItem)}>
           <div className={cn(css.orderItem__value)}>
             {Number.isInteger(waitingPayment) ? waitingPayment : '-'}
           </div>
+          <div className={cn(css.orderItem__desc)}>입금확인</div>
+        </div>
+        <div className={cn(css.orderItem__arrow)}>
+          <Image src={IMAGE_PATH.mypageArrow} width={'15px'} height={'15px'} />
+        </div>
+        {/* 결제완료 */}
+        <div className={cn(css.orderItem)}>
           <div className={cn(css.orderItem__value)}>
             {Number.isInteger(paymentComplete) ? paymentComplete : '-'}
           </div>
+          <div className={cn(css.orderItem__desc)}>결제완료</div>
+        </div>
+        <div className={cn(css.orderItem__arrow)}>
+          <Image src={IMAGE_PATH.mypageArrow} width={'15px'} height={'15px'} />
+        </div>
+        {/* 상품준비 */}
+        <div className={cn(css.orderItem)}>
           <div className={cn(css.orderItem__value)}>
             {Number.isInteger(prepareProduct) ? prepareProduct : '-'}
           </div>
+          <div className={cn(css.orderItem__desc)}>상품준비</div>
+        </div>
+        <div className={cn(css.orderItem__arrow)}>
+          <Image src={IMAGE_PATH.mypageArrow} width={'15px'} height={'15px'} />
+        </div>
+        {/* 배송중 */}
+        <div className={cn(css.orderItem)}>
           <div className={cn(css.orderItem__value)}>
             {Number.isInteger(sending) ? sending : '-'}
           </div>
+          <div className={cn(css.orderItem__desc)}>배송중</div>
+        </div>
+        <div className={cn(css.orderItem__arrow)}>
+          <Image src={IMAGE_PATH.mypageArrow} width={'15px'} height={'15px'} />
+        </div>
+        {/* 배송완료 */}
+        <div className={cn(css.orderItem)}>
           <div className={cn(css.orderItem__value)}>
             {Number.isInteger(deliveryComplete) ? deliveryComplete : '-'}
           </div>
-        </div>
-        <div>
-          <div className={cn(css.orderItem__desc)}>입금확인</div>
-          <Image src={IMAGE_PATH.mypageArrow} width={'15px'} height={'15px'} />
-          <div className={cn(css.orderItem__desc)}>결제완료</div>
-          <Image src={IMAGE_PATH.mypageArrow} width={'15px'} height={'15px'} />
-          <div className={cn(css.orderItem__desc)}>상품준비</div>
-          <Image src={IMAGE_PATH.mypageArrow} width={'15px'} height={'15px'} />
-          <div className={cn(css.orderItem__desc)}>배송중</div>
-          <Image src={IMAGE_PATH.mypageArrow} width={'15px'} height={'15px'} />
           <div className={cn(css.orderItem__desc)}>배송완료</div>
         </div>
       </div>
