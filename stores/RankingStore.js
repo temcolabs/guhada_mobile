@@ -1,5 +1,5 @@
 import { observable, action, computed, toJS } from 'mobx';
-import _ from 'lodash';
+import { isEqual as _isEqual } from 'lodash';
 import API from 'childs/lib/API';
 
 class Ranking {
@@ -197,7 +197,7 @@ class Ranking {
 
   @action async fetchRanking() {
     const newRankingFilterArray = this.createRankingFilterArray();
-    if (_.isEqual(newRankingFilterArray, this.rankingFilterArray)) {
+    if (_isEqual(newRankingFilterArray, this.rankingFilterArray)) {
       return;
     }
 

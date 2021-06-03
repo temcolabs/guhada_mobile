@@ -1,0 +1,45 @@
+.load-more-button {
+  border-top: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  font-size: 14px;
+  font-weight: 500;
+
+  .plus-icon {
+    display: inline-block;
+    margin-left: 4px;
+    background: url('/static/icon/detail_btn_more_open.png') no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 16px;
+    height: 16px;
+  }
+
+  .loading-icon {
+    width: 17px;
+    height: 17px;
+
+    &:after {
+      content: ' ';
+      display: block;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      border-top-color: #777;
+      border-bottom-color: #777;
+      animation: spin 0.5s linear infinite;
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  }
+}

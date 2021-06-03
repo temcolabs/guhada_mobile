@@ -17,7 +17,7 @@ function SellerReviewItem(props) {
   if (login.loginStatus === 'LOGIN_DONE') {
     checkBookmarks =
       _.isNil(reviewBookMarks) === false &&
-      reviewBookMarks.find(bookmark => {
+      reviewBookMarks.find((bookmark) => {
         return bookmark.targetId === reviewItem.review.id;
       });
   }
@@ -98,7 +98,7 @@ function SellerReviewItem(props) {
 
               {Array.isArray(toJS(reviewItem.reviewPhotos)) &&
                 reviewItem.reviewPhotos.length && (
-                  <div class={css.photoWrapper}>
+                  <div className={css.photoWrapper}>
                     {reviewItem.reviewPhotos.map((photo, index) => (
                       <div
                         className={css.photo}
