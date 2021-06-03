@@ -1,8 +1,8 @@
 import css from './FilterTags.module.scss';
+import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import useStores from 'stores/useStores';
 import {
-  searchResultOrderMap,
   shippingConditionMap,
   productConditionMap,
 } from 'stores/SearchStore/SearchByFilterStore';
@@ -18,7 +18,9 @@ const FilterTags = () => {
    */
   const body = searchByFilterStore.body;
   const submitFilter = searchByFilterStore.submitFilter;
-  const resetFilter = searchByFilterStore.resetFilter;
+  const resetFilter = () => {
+    searchByFilterStore.resetFilter();
+  };
 
   /**
    * render

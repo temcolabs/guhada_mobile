@@ -18,12 +18,6 @@ const FilterOption = () => {
   );
   const { searchByFilter: searchByFilterStore } = useStores();
 
-  useEffect(() => {
-    setTimeout(() => {
-      setIsAdvancedFilterModalOpen(true);
-    }, 1000);
-  }, []);
-
   /**
    * render
    */

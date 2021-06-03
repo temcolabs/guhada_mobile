@@ -1,12 +1,9 @@
 import css from './SearchInputFilter.module.scss';
 import { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
+import { debounce as _debounce } from 'lodash';
 
-const SearchInputFilter = ({
-  searchQueries,
-  searchQueriesLength,
-  handleSetSearchInput,
-}) => {
+const SearchInputFilter = ({ searchQueries, handleSetSearchQuery }) => {
   /**
    * states
    */
@@ -16,26 +13,30 @@ const SearchInputFilter = ({
    * side effects
    */
   useEffect(() => {
-    setInputValue('');
-  }, [searchQueriesLength]);
+    if (searchQueries.length === 0) {
+      setInputValue('');
+    }
+  }, [searchQueries]);
 
   /**
    * handlers
    */
-  const handleSearchInputChange = useCallback(
-    (e) => {
-      const value = e.target.value;
-      setInputValue(value);
-
-      if (searchQueriesLength !== searchQueries.length) {
-        searchQueries[searchQueries.length - 1] = value;
+  const debouncedSetSearchQuery = useCallback(
+    _debounce((value) => {
+      if (value === '') {
+        handleSetSearchQuery([]);
       } else {
-        searchQueries.push(value);
+        handleSetSearchQuery(value);
       }
-      handleSetSearchInput(searchQueries);
-    },
-    [searchQueries, handleSetSearchInput, searchQueriesLength]
+    }, 200)
   );
+
+  const handleSearchInputChange = (e) => {
+    const value = e.target.value;
+    // TODO: serializer
+    setInputValue(value);
+    debouncedSetSearchQuery(value);
+  };
 
   return (
     <div className={css['search']}>
@@ -51,9 +52,8 @@ const SearchInputFilter = ({
 };
 
 SearchInputFilter.propTypes = {
-  searchQueries: PropTypes.arrayOf(PropTypes.string),
-  searchQueriesLength: PropTypes.number,
-  handleSetSearchInput: PropTypes.func,
+  searchQueries: PropTypes.any,
+  handleSetSearchQuery: PropTypes.func,
 };
 
 export default SearchInputFilter;

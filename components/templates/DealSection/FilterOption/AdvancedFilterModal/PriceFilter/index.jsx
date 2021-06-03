@@ -17,59 +17,54 @@ const parseValue = (value) => {
   return parseInt(number);
 };
 
-const PriceFilter = ({ title, mapObject, isInitial, handleSetPriceRange }) => {
+const PriceFilter = ({
+  title,
+  mapObject,
+  minPrice,
+  maxPrice,
+  handleSetMinPrice,
+  handleSetMaxPrice,
+  handleSetPriceRange,
+}) => {
   /**
    * states
    */
-  const [selectedRange, setSelectedRange] = useState(0);
-  const [minPriceValue, setMinPriceValue] = useState(0);
-  const [maxPriceValue, setMaxPriceValue] = useState(0);
-
-  /**
-   * handlers
-   */
-  const handleSubmitPriceRange = () => {
-    handleSetPriceRange(minPriceValue, maxPriceValue);
-  };
+  const [selectedOption, setSelectedOption] = useState(0);
 
   /**
    * side effects
    */
   useEffect(() => {
-    if (isInitial) {
-      handleSetMaxPriceValue(0, 0);
+    if (minPrice === 0 && maxPrice === 0) {
+      setSelectedOption(0);
     }
-  }, [isInitial]);
+  }, [minPrice, maxPrice]);
 
-  useEffect(() => {
-    handleSubmitPriceRange();
-  }, [minPriceValue, maxPriceValue]);
+  /**
+   * handlers
+   */
+  const handleMinPriceChange = (e) => {
+    const price = parseValue(e.target.value);
+    if (price > maxPrice) {
+      handleSetPriceRange(price, price);
+    } else {
+      handleSetMinPrice(price);
+    }
+    if (selectedOption > -1) {
+      setSelectedOption(-1);
+    }
+  };
+  const handleMaxPriceChange = (e) => {
+    const price = parseValue(e.target.value);
+    handleSetMaxPrice(price);
+    if (selectedOption > -1) {
+      setSelectedOption(-1);
+    }
+  };
 
-  const handleSetMaxPriceValue = (value, idx) => {
-    setMinPriceValue(0);
-    setMaxPriceValue(value);
-    setSelectedRange(idx);
+  const handleSetPriceOption = (value, idx) => {
     handleSetPriceRange(0, value);
-  };
-  const handleMinPriceValueChange = (e) => {
-    const value = parseValue(e.target.value);
-    if (value > maxPriceValue) {
-      setMaxPriceValue(value);
-    }
-    setMinPriceValue(value);
-    if (selectedRange >= 0) {
-      setSelectedRange(-1);
-    }
-  };
-  const handleMaxPriceValueChange = (e) => {
-    const value = parseValue(e.target.value);
-    if (value < maxPriceValue) {
-      setMaxPriceValue(value);
-    }
-    setMaxPriceValue(value);
-    if (selectedRange >= 0) {
-      setSelectedRange(-1);
-    }
+    setSelectedOption(idx);
   };
 
   /**
@@ -83,12 +78,12 @@ const PriceFilter = ({ title, mapObject, isInitial, handleSetPriceRange }) => {
           <div
             key={key}
             className={css['item']}
-            onClick={() => handleSetMaxPriceValue(value, idx)}
+            onClick={() => handleSetPriceOption(value, idx)}
           >
             <span
               className={cn(
                 css['item__check'],
-                idx === selectedRange && css['checked']
+                idx === selectedOption && css['checked']
               )}
             />
             {key}
@@ -99,18 +94,18 @@ const PriceFilter = ({ title, mapObject, isInitial, handleSetPriceRange }) => {
         <input
           type="number"
           placeholder={'최소가격'}
-          value={minPriceValue ? minPriceValue : ''}
-          onChange={handleMinPriceValueChange}
+          value={minPrice ? minPrice : ''}
+          onChange={handleMinPriceChange}
         />
         <span>~</span>
         <input
           type="number"
           placeholder={'최대가격'}
-          value={maxPriceValue ? maxPriceValue : ''}
-          onChange={handleMaxPriceValueChange}
+          value={maxPrice ? maxPrice : ''}
+          onChange={handleMaxPriceChange}
         />
         <span>원</span>
-        {/* <button onClick={handleSubmitPriceRange}>적용</button> */}
+        {/* <button onClick={() => {})}>적용</button> */}
       </div>
     </div>
   );
@@ -119,6 +114,10 @@ const PriceFilter = ({ title, mapObject, isInitial, handleSetPriceRange }) => {
 PriceFilter.propTypes = {
   title: PropTypes.string,
   mapObject: PropTypes.instanceOf(Map),
+  minPrice: PropTypes.number,
+  maxPrice: PropTypes.number,
+  handleSetMinPrice: PropTypes.func,
+  handleSetMaxPrice: PropTypes.func,
   handleSetPriceRange: PropTypes.func,
 };
 

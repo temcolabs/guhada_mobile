@@ -1,14 +1,14 @@
 import css from './DictionaryNode.module.scss';
-import { useState } from 'react';
 import PropTypes from 'prop-types';
-import cn from 'classNames';
+import cn from 'classnames';
 
-const DictionaryNode = ({ title, id, handleSetId, handleRemoveId }) => {
-  /**
-   * states
-   */
-  const [isChecked, setIsChecked] = useState(false);
-
+const DictionaryNode = ({
+  title,
+  id,
+  isChecked,
+  handleSetId,
+  handleRemoveId,
+}) => {
   /**
    * handlers
    */
@@ -18,7 +18,6 @@ const DictionaryNode = ({ title, id, handleSetId, handleRemoveId }) => {
     } else {
       handleSetId(id);
     }
-    setIsChecked(!isChecked);
   };
 
   return (

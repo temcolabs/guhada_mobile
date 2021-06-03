@@ -1,24 +1,22 @@
 import css from './SelectionFilter.module.scss';
-import { useState } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-const SelectionFilter = ({ title, mapObject, handleSetSelected }) => {
-  /**
-   * states
-   */
-  const [selectedKey, setSelectedKey] = useState('');
-
+const SelectionFilter = ({
+  title,
+  mapObject,
+  selectedKey,
+  handleSetSelected,
+}) => {
   /**
    * handlers
    */
   const handleSetSelectedKey = (key) => {
     if (selectedKey === key) {
-      handleSetSelected(Array.from(mapObject)[0][0]);
-      setSelectedKey('');
+      // handleSetSelected(Array.from(mapObject)[0][0]);
+      handleSetSelected('ANY');
     } else {
       handleSetSelected(key);
-      setSelectedKey(key);
     }
   };
 
@@ -52,6 +50,7 @@ const SelectionFilter = ({ title, mapObject, handleSetSelected }) => {
 SelectionFilter.propTypes = {
   title: PropTypes.string,
   mapObject: PropTypes.instanceOf(Map),
+  selectedKey: PropTypes.string,
   handleSelect: PropTypes.func,
 };
 

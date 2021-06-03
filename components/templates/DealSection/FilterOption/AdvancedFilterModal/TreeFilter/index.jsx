@@ -1,45 +1,58 @@
 import css from './TreeFilter.module.scss';
-import { useState, useCallback, memo } from 'react';
+import { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
+import { observer } from 'mobx-react';
 import cn from 'classnames';
 import TreeNode from './TreeNode';
 
-const TraversibleNode = ({ children, handleSetId, handleRemoveId }) => {
-  return children.map((child) => {
-    const {
-      children,
-      // fullDepthName,
-      // hierarchies,
-      // hierarchy,
-      id,
-      // title,
-    } = child;
+const TraversibleNode = ({
+  children,
+  currentIds,
+  handleSetId,
+  handleRemoveId,
+}) => {
+  return (
+    <>
+      {children.map((child) => {
+        const {
+          children,
+          // fullDepthName,
+          // hierarchies,
+          // hierarchy,
+          id,
+          // title,
+        } = child;
 
-    if (!!children) {
-      return (
-        <TreeNode
-          key={id}
-          handleSetId={handleSetId}
-          handleRemoveId={handleRemoveId}
-          {...child}
-        >
-          <TraversibleNode
-            children={children}
+        if (!!children) {
+          return (
+            <TreeNode
+              key={id}
+              isChecked={currentIds.includes(id)}
+              handleSetId={handleSetId}
+              handleRemoveId={handleRemoveId}
+              {...child}
+            >
+              <TraversibleNode
+                children={children}
+                currentIds={currentIds}
+                handleSetId={handleSetId}
+                handleRemoveId={handleRemoveId}
+              />
+            </TreeNode>
+          );
+        }
+        return (
+          <TreeNode
+            key={id}
+            isChecked={currentIds.includes(id)}
             handleSetId={handleSetId}
             handleRemoveId={handleRemoveId}
+            {...child}
           />
-        </TreeNode>
-      );
-    }
-    return (
-      <TreeNode
-        key={id}
-        handleSetId={handleSetId}
-        handleRemoveId={handleRemoveId}
-        {...child}
-      />
-    );
-  });
+        );
+      })}
+    </>
+  );
 };
 
 TraversibleNode.propTypes = {
@@ -94,6 +107,7 @@ const TreeFilter = ({ title, dataList, currentIds, setIds }) => {
       {isFilterOpen && (
         <TraversibleNode
           children={dataList}
+          currentIds={currentIds}
           handleSetId={handleSetId}
           handleRemoveId={handleRemoveId}
         />
@@ -105,8 +119,8 @@ const TreeFilter = ({ title, dataList, currentIds, setIds }) => {
 TreeFilter.propTypes = {
   title: PropTypes.string,
   dataList: PropTypes.any,
-  initialIds: PropTypes.any,
+  currentIds: PropTypes.any,
   setIds: PropTypes.func,
 };
 
-export default memo(TreeFilter);
+export default observer(TreeFilter);

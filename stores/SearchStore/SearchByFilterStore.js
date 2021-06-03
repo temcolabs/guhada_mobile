@@ -100,9 +100,11 @@ export class SearchByFilterStore extends SearchStore {
     return this.params.page * this.params.unitPerPage < this.countOfDeals;
   }
 
-  /** Check if search result is filtered */
+  /** Check if search result is filtered (without searchResultorder) */
   @computed get isFiltered() {
-    return !_isEqual(toJS(this.body), toJS(this.defaultBody));
+    const { searchResultOrder: s, ...copiedBody } = toJS(this.body);
+    const { searchResultOrder, ...copiedDefaultBody } = toJS(this.defaultBody);
+    return !_isEqual(copiedBody, copiedDefaultBody);
   }
 
   /**
@@ -222,6 +224,8 @@ export class SearchByFilterStore extends SearchStore {
     Object.assign(this.abstractBody, body);
     Object.assign(this.abstractParams, params);
     this.updateState(STATE.INITIAL);
-    this.search();
+    this.search().then(() => {
+      this.unfungibleCategories = toJS(this.categories);
+    });
   };
 }

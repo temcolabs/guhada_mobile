@@ -1,12 +1,11 @@
 import css from './AdvancedFilterModal.module.scss';
 import { useCallback } from 'react';
-import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import useStores from 'stores/useStores';
 import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 import TreeFilter from './TreeFilter';
-import SearchableTreeFilter from './SearchableTreeFilter';
+import DictionaryFilter from './DictionaryFilter';
 import SelectionFilter from './SelectionFilter';
 import PriceFilter from './PriceFilter';
 import SearchInputFilter from './SearchInputFilter';
@@ -54,11 +53,11 @@ const AdvancedFilterModal = ({
         <div className={css['modal__filters']}>
           <TreeFilter
             title={'카테고리'}
-            dataList={searchByFilterStore.categories}
+            dataList={searchByFilterStore.unfungibleCategories}
             currentIds={searchByFilterStore.abstractBody.categoryIds}
             setIds={(categoryIds) => handleSetAbstractFilter({ categoryIds })}
           />
-          <SearchableTreeFilter
+          <DictionaryFilter
             title={'브랜드'}
             dataList={searchByFilterStore.brands}
             currentIds={searchByFilterStore.abstractBody.brandIds}
@@ -67,7 +66,7 @@ const AdvancedFilterModal = ({
           <SelectionFilter
             title={'배송정보'}
             mapObject={shippingConditionMap}
-            defaultValue={'ANY'}
+            selectedKey={searchByFilterStore.abstractBody.shippingCondition}
             handleSetSelected={(shippingCondition) =>
               handleSetAbstractFilter({ shippingCondition })
             }
@@ -75,7 +74,7 @@ const AdvancedFilterModal = ({
           <SelectionFilter
             title={'제품상태'}
             mapObject={productConditionMap}
-            defaultValue={'ANY'}
+            selectedKey={searchByFilterStore.abstractBody.productCondition}
             handleSetSelected={(productCondition) =>
               handleSetAbstractFilter({ productCondition })
             }
@@ -83,19 +82,22 @@ const AdvancedFilterModal = ({
           <PriceFilter
             title={'가격'}
             mapObject={priceArrangeMap}
-            isInitial={
-              searchByFilterStore.body.minPrice === 0 &&
-              searchByFilterStore.body.maxPrice === 0
+            minPrice={searchByFilterStore.abstractBody.minPrice}
+            maxPrice={searchByFilterStore.abstractBody.maxPrice}
+            handleSetMinPrice={(minPrice) =>
+              handleSetAbstractFilter({ minPrice })
+            }
+            handleSetMaxPrice={(maxPrice) =>
+              handleSetAbstractFilter({ maxPrice })
             }
             handleSetPriceRange={(minPrice, maxPrice) =>
               handleSetAbstractFilter({ minPrice, maxPrice })
             }
           />
           <SearchInputFilter
-            searchQueries={toJS(searchByFilterStore.abstractBody.searchQueries)}
-            searchQueriesLength={searchByFilterStore.body.searchQueries.length}
-            handleSetSearchInput={(searchQueries) => {
-              handleSetAbstractFilter({ searchQueries });
+            searchQueries={searchByFilterStore.abstractBody.searchQueries}
+            handleSetSearchQuery={(searchQuery) => {
+              handleSetAbstractFilter({ searchQueries: [searchQuery] });
             }}
           />
         </div>
