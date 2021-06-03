@@ -1158,12 +1158,12 @@ export default class OrderPaymentStore {
     }
 
     // TEMPORARY REVERT
-    // /**
-    //  * NAVER_PAY 치환 업데이트
-    //  */
-    // if (forms.parentMethodCd === 'NAVER') {
-    //   forms.parentMethodCd = 'DIRECT_NAVER';
-    // }
+    /**
+     * NAVER_PAY 치환 업데이트
+     */
+    if (forms.parentMethodCd === 'NAVER') {
+      forms.parentMethodCd = 'DIRECT_NAVER';
+    }
     // TEMPORARY REVERT
 
     devLog(forms, 'forms');
@@ -1231,8 +1231,8 @@ export default class OrderPaymentStore {
           nextUrl: nextUrl,
           vbankdt: data.expireDate,
           // TEMPORARY REVERT
-          // /* items below are for NAVER_PAY */
-          // pgKind: data.pgKind,
+          /* items below are for NAVER_PAY */
+          pgKind: data.pgKind,
           // TEMPORARY REVERT
         };
 
@@ -1255,83 +1255,83 @@ export default class OrderPaymentStore {
     let form = document.getElementById('paymentForm');
 
     // TEMPORARY REVERT
-    // /**
-    //  * NAVER_PAY 전용 분기
-    //  */
-    // if (
-    //   this.paymentForm.gopaymethod === 'NAVER' ||
-    //   this.paymentForm.gopaymethod === 'DIRECT_NAVER'
-    // ) {
-    //   const cartList = this.getCartList();
-    //   const query = qs.stringify({
-    //     cartList: typeof cartList === 'object' ? cartList.join(',') : cartList,
-    //   });
-    //   const returnUrl = `${HOSTNAME}/returnUrl/directPrivyCertify?` + query;
+    /**
+     * NAVER_PAY 전용 분기
+     */
+    if (
+      this.paymentForm.gopaymethod === 'NAVER' ||
+      this.paymentForm.gopaymethod === 'DIRECT_NAVER'
+    ) {
+      const cartList = this.getCartList();
+      const query = qs.stringify({
+        cartList: typeof cartList === 'object' ? cartList.join(',') : cartList,
+      });
+      const returnUrl = `${HOSTNAME}/returnUrl/directPrivyCertify?` + query;
 
-    //   const mode =
-    //     isDev || HOSTNAME !== 'https://m.guhada.com'
-    //       ? 'development'
-    //       : 'production';
-    //   const pgMid = this.paymentForm.mid;
-    //   const pgOid = this.paymentForm.oid;
-    //   const prodNm = this.paymentForm.goodname;
-    //   const today = moment(this.paymentForm.timestamp, 'x').format('YYYYMMDD');
-    //   const amount = this.paymentForm.price;
+      const mode =
+        isDev || HOSTNAME !== 'https://m.guhada.com'
+          ? 'development'
+          : 'production';
+      const pgMid = this.paymentForm.mid;
+      const pgOid = this.paymentForm.oid;
+      const prodNm = this.paymentForm.goodname;
+      const today = moment(this.paymentForm.timestamp, 'x').format('YYYYMMDD');
+      const amount = this.paymentForm.price;
 
-    //   // 네이버 페이 결제 완료 후 결제 정보 DirectPrivyCertifyPage로 전달하기 위한 용도
-    //   const approvalData = {
-    //     resultCode: '00',
-    //     // resultMsg,
-    //     // cno,
-    //     pgKind: this.paymentForm.pgKind,
-    //     pgMid,
-    //     pgOid,
-    //     pgAmount: amount,
-    //     // returnUrl,
-    //     parentMethodCd: 'DIRECT_NAVER',
-    //     purchaseEmail: this.paymentForm.buyeremail,
-    //     purchaseUserName: this.paymentForm.buyername,
-    //     purchasePhone: this.paymentForm.buyertel,
-    //     productName: prodNm,
-    //     web: false,
-    //   };
+      // 네이버 페이 결제 완료 후 결제 정보 DirectPrivyCertifyPage로 전달하기 위한 용도
+      const approvalData = {
+        resultCode: '00',
+        // resultMsg,
+        // cno,
+        pgKind: this.paymentForm.pgKind,
+        pgMid,
+        pgOid,
+        pgAmount: amount,
+        // returnUrl,
+        parentMethodCd: 'DIRECT_NAVER',
+        purchaseEmail: this.paymentForm.buyeremail,
+        purchaseUserName: this.paymentForm.buyername,
+        purchasePhone: this.paymentForm.buyertel,
+        productName: prodNm,
+        web: false,
+      };
 
-    //   function executeNaverPay() {
-    //     try {
-    //       const oPay = Naver.Pay.create({
-    //         mode,
-    //         clientId: 'sQuFDcxgUfyPvUSX7j4W',
-    //         useNaverAppLogin: true,
-    //       });
+      function executeNaverPay() {
+        try {
+          const oPay = Naver.Pay.create({
+            mode,
+            clientId: 'sQuFDcxgUfyPvUSX7j4W',
+            useNaverAppLogin: true,
+          });
 
-    //       sessionStorageImpl.set('approvalData', approvalData);
+          sessionStorageImpl.set('approvalData', approvalData);
 
-    //       oPay.open({
-    //         merchantUserKey: pgMid,
-    //         merchantPayKey: pgOid,
-    //         productName: prodNm,
-    //         useCfmYmdt: today,
-    //         totalPayAmount: amount,
-    //         taxScopeAmount: amount,
-    //         taxExScopeAmount: 0,
-    //         returnUrl: returnUrl,
-    //       });
-    //     } catch (error) {
-    //       if (sessionStorageImpl.get('approvalData')) {
-    //         sessionStorageImpl.remove('approvalData');
-    //       }
-    //       console.error(error.message);
-    //     }
-    //   }
+          oPay.open({
+            merchantUserKey: pgMid,
+            merchantPayKey: pgOid,
+            productName: prodNm,
+            useCfmYmdt: today,
+            totalPayAmount: amount,
+            taxScopeAmount: amount,
+            taxExScopeAmount: 0,
+            returnUrl: returnUrl,
+          });
+        } catch (error) {
+          if (sessionStorageImpl.get('approvalData')) {
+            sessionStorageImpl.remove('approvalData');
+          }
+          console.error(error.message);
+        }
+      }
 
-    //   loadScript('https://nsp.pay.naver.com/sdk/js/naverpay.min.js', {
-    //     id: 'NAVER_PAY',
-    //     replaceExisting: true,
-    //     onLoad: executeNaverPay,
-    //   });
+      loadScript('https://nsp.pay.naver.com/sdk/js/naverpay.min.js', {
+        id: 'NAVER_PAY',
+        replaceExisting: true,
+        onLoad: executeNaverPay,
+      });
 
-    //   return;
-    // }
+      return;
+    }
     // TEMPORARY REVERT
 
     form.action = this.paymentForm.jsUrl;
