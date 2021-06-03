@@ -6,6 +6,7 @@ import { useInfinteScroll } from 'hooks';
 import DealItems from 'components/organisms/DealItems';
 import FilterOption from './FilterOption';
 import LoadMoreButton from './LoadMoreButton';
+import Spinner from 'components/atoms/Misc/Spinner';
 
 const DealSection = ({
   title,
@@ -25,12 +26,16 @@ const DealSection = ({
     <div className={css['deal-section']}>
       {title && <div className={css['deal-section__title']}>{title}</div>}
       {isFilterable && <FilterOption />}
-      <DealItems
-        deals={deals}
-        displaySeller={displaySeller}
-        displayTags={displayTags}
-        isLazy={isLazy}
-      />
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <DealItems
+          deals={deals}
+          displaySeller={displaySeller}
+          displayTags={displayTags}
+          isLazy={isLazy}
+        />
+      )}
       {isInfiniteScroll ? (
         <div ref={handleInfiniteScroll} />
       ) : (

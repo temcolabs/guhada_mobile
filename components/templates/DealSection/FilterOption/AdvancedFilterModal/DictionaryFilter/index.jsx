@@ -9,7 +9,13 @@ const DictionaryFilter = ({ title, dataList, currentIds, setIds }) => {
   /**
    * states
    */
-  const initialDataList = useMemo(() => toJS(dataList), [dataList]);
+  const initialDataList = useMemo(() => {
+    const copiedDataList = toJS(dataList);
+    copiedDataList.forEach(
+      (item) => (item.nameEnCap = item.nameEn.toUpperCase())
+    );
+    return copiedDataList;
+  }, [dataList]);
 
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');

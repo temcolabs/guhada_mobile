@@ -48,7 +48,7 @@ function SpecialDetail() {
           <DealSection
             title={'기획전 ITEM'}
             deals={searchByFilterStore.deals}
-            isLoading={searchByFilterStore.isLoading}
+            isLoading={searchByFilterStore.countOfDeals === Infinity}
             moreToLoad={searchByFilterStore.moreToLoad}
             handleLoadMore={() => searchByFilterStore.search(true)}
             isFilterable

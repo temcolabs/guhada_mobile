@@ -39,8 +39,12 @@ const Dictionary = ({
    */
   const debouncedSetDataListCopy = useCallback(
     _debounce((value) => {
-      const regex = new RegExp(`^${value}| ${value}`);
-      setDataListCopy(initialDataList.filter((item) => regex.test(item[prop])));
+      const upperCasedValue = value.toUpperCase();
+      const regex = new RegExp(`^${upperCasedValue}| ${upperCasedValue}`);
+      const accessor = code === 'En' ? 'nameEnCap' : prop;
+      setDataListCopy(
+        initialDataList.filter((item) => regex.test(item[accessor]))
+      );
     }, 300),
     [code]
   );
