@@ -36,7 +36,7 @@ function SpecialDetail() {
    * render
    */
   return (
-    <DefaultLayout headerShape={'eventmain'} pageTitle={'기획전'}>
+    <DefaultLayout headerShape={'special'} pageTitle={'기획전'}>
       {newSpecialStore.isLoading ? (
         <Loading />
       ) : (

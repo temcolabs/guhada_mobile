@@ -1,4 +1,4 @@
-import React, { memo, useRef, useEffect, useState } from 'react';
+import React, { memo, useRef, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 
@@ -46,11 +46,7 @@ function MainSideBanner({ type = 'OTHERS', title, list }) {
         <Slider settings={settings}>
           {list && list.length
             ? list.map((o, i) => (
-                <a
-                  className={'slider-wrap'}
-                  key={`focus-on-${i}`}
-                  href={o.mainBannerLinkUrl}
-                >
+                <div className={'slider-wrap'} key={`focus-on-${i}`}>
                   {type === 'FOCUS_ON' && <Image src={o.mainBannerMobileUrl} />}
                   {type === 'OTHERS' && (
                     <img
@@ -59,7 +55,7 @@ function MainSideBanner({ type = 'OTHERS', title, list }) {
                       src={o.mainBannerMobileUrl}
                     />
                   )}
-                </a>
+                </div>
               ))
             : ''}
         </Slider>
