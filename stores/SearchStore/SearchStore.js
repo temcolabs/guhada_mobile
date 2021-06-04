@@ -1,5 +1,6 @@
 import { observable, computed, action } from 'mobx';
 
+/** API endpoint enum */
 export const ENDPOINT = {
   ALL: '/ps/search/all',
   FILTER: '/ps/search/filter',
@@ -10,6 +11,7 @@ export const ENDPOINT = {
   AUTOCOMPLETE: '/ps/search/autocomplete',
 };
 
+/** state enum */
 export const STATE = {
   INITIAL: 'INITIAL',
   LOADING: 'LOADING',
@@ -17,8 +19,9 @@ export const STATE = {
   LOADED: 'LOADED',
   ERROR: 'ERROR',
 };
-
 /**
+ * JSDoc typedefs
+ *
  * @typedef {{
  *  brandId: number
  *  brandName: string
@@ -66,14 +69,17 @@ export const STATE = {
 class SearchStore {
   /**
    * finite state machine
-   * @private
+   * @private singleton state
    */
-  @observable _state = STATE.INITIAL; // singleton state
+  @observable _state = STATE.INITIAL;
   @computed get state() {
     return SearchStore.instance._state;
   }
 
-  /** @param {STATE} state */
+  /**
+   * Updates current store's state
+   * @param {STATE} state
+   */
   @action updateState(state) {
     SearchStore.instance._state = state;
   }
@@ -90,7 +96,8 @@ class SearchStore {
     return SearchStore.instance._state === STATE.ERROR;
   }
 
-  static instance; // singleton instance for shared FSM state
+  /** singleton instance for shared FSM state */
+  static instance;
   constructor() {
     if (!SearchStore.instance) {
       SearchStore.instance = this;
@@ -108,8 +115,8 @@ class SearchStore {
   @observable brands = [];
   /** @type {Category[]} */
   @observable categories = [];
-  /** @type {Category[]} */
-  @observable unfungibleCategories = []; // categories object from initial search
+  /** @type {Category[]} categories list from initial search */
+  @observable unfungibleCategories = [];
   /** @type {Filter[]} */
   @observable filters = [];
 
@@ -128,7 +135,8 @@ class SearchStore {
   /**
    * abstract methods
    */
-  /** execute bound search method
+  /**
+   * the actual executor for bound search endpoint
    * @abstract
    */
   search = () => {
@@ -136,9 +144,9 @@ class SearchStore {
   };
 
   /**
-   * need to call this method in order to seemlessly start searching
+   * need to call this method first in order to seemlessly start searching
    * @abstract
-   * */
+   */
   initializeSearch = () => {
     console.error('not allowed');
   };
