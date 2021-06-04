@@ -52,6 +52,7 @@ function Header({
                 headerShape === 'shoppingcart' ||
                 headerShape === 'brand' ||
                 headerShape === 'reviewHashtagDetail' ||
+                headerShape === 'special' ||
                 headerShape === 'eventmain' ||
                 headerShape === 'BBSArticleView',
             },
@@ -75,11 +76,21 @@ function Header({
           (headerShape === 'address' && urlHistory !== '') ? (
             <button
               className={css.backButton}
-              onClick={() =>
-                headerShape === 'reviewHashtagDetail'
-                  ? Router.push('/review')
-                  : Router.back()
-              }
+              onClick={() => {
+                if (urlHistory === '') {
+                  switch (headerShape) {
+                    case 'eventmain':
+                      return Router.push('/event');
+                    case 'special':
+                      return Router.push('/event/special');
+                    case 'reviewHashtagDetail':
+                      return Router.push('/review');
+                    default:
+                      return Router.push('/');
+                  }
+                }
+                return Router.back();
+              }}
             />
           ) : null}
 
