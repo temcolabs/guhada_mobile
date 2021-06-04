@@ -1,144 +1,164 @@
 $topPosition: 60px;
-$toolbarHeader:55px;
+$toolbarHeader: 55px;
 $brandHeader: 70px;
 $browserTool: 70px;
 
 .headerWrap {
+  width: 100%;
+  height: 70px;
+  padding: 0 20px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  background-color: #ffffff;
+  z-index: 100;
+
+  > div {
     width: 100%;
-    height: 70px;
-    padding: 15px 5px 0 20px;
+  }
+
+  & .input {
+    margin-bottom: 12px;
+  }
+
+  input[type='text'] {
+    width: 100%;
+    height: 33px;
+    font-size: 13px;
+    border-bottom: 1px solid #111111;
+    background-image: url('/static/icon/zoom-icon.png');
+    background-size: 16px;
+    background-repeat: no-repeat;
+    background-position: right center;
+
+    &::placeholder {
+      color: #aaaaaa;
+    }
+  }
+
+  & .headerAlphabet {
     display: flex;
-    justify-content: space-between;
-    background-color: #ffffff;
-    z-index: 100;
+    justify-content: flex-end;
+    align-items: center;
+    height: 30px;
 
-    input[type='text'] {
-        width: 205px;
-        height: 33px;
-        font-size: 13px;
-        border-bottom: 1px solid #111111;
-        background-image: url('/static/icon/zoom-icon.png');
-        background-size: 16px;
-        background-repeat: no-repeat;
-        background-position: right center;
+    & .alphabetItem {
+      width: 60px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: bold;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.15;
+      text-align: left;
+      color: #cccccc;
+      letter-spacing: 1px;
 
-        &::placeholder {
-            color: #aaaaaa;
-        }
-    }
-
-    & .headerAlphabet {
-        display: flex;
-        align-items: center;
-        height: 30px;
-
-        & .alphabetItem {
-            width: 60px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 13px;
-            font-weight: bold;
-            font-style: normal;
-            font-stretch: normal;
-            line-height: 1.15;
-            text-align: left;
-            color: #cccccc;
-            letter-spacing: 1px;
-
-            &.selected {
-                letter-spacing: 3px;
-                color: #333333;
-            }
-        }
-
-        & .alphabetLine {
-            height: 10px;
-            border-left: solid 1px #d9dde0;
-        }
-    }
-}
-
-.brandWrap {
-    display: inline-block;
-    position: relative;
-    width: calc(100% - 33px);
-    height: calc(100vh - #{$topPosition} - #{$toolbarHeader} - #{$brandHeader});
-    overflow-y: auto;
-
-    &.fromHeaderMenu {
-        height: calc(100vh - 125px);
-    }
-
-    & .brand {
-        padding-left: 20px;
-        width: calc(100% - 18px - 8px);
-    }
-
-    & .languageIndex {
-        height: 36px;
-        padding-top: 5px;
-        font-size: 18px;
-        font-weight: 500;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: 1.17;
-        letter-spacing: normal;
-        text-align: left;
-        border-bottom: 1px dashed #eee;
-        color: #5d2ed1;
-    }
-
-    & .languageItem {
-        display: flex;
-        align-items: center;
-        height: 37px;
-        font-size: 14px;
-        font-weight: normal;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: 1.14;
-        letter-spacing: normal;
-        text-align: left;
+      &.selected {
+        letter-spacing: 3px;
         color: #333333;
-        padding-left: 10px;
-
-        &:last-child {
-            margin-bottom: $browserTool;
-        }
+      }
     }
-}
 
-.filter {
-    width: 18px;
-    margin-right: 14px;
-    position: relative;
-    float: right;
-    height: calc(100vh - #{$topPosition} - #{$toolbarHeader} - #{$brandHeader});
-    overflow-y: auto;
+    & .alphabetLine {
+      height: 10px;
+      border-left: solid 1px #d9dde0;
+    }
 
-    & .item {
-        width: 19px;
-        height: 18px;
-        font-size: 10px;
-        font-weight: 500;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: 1.9;
-        letter-spacing: normal;
-        text-align: center;
-        color: #dddddd;
+    & .favoriteItem {
+        border: 1px solid #eeeeee;
+        border-radius: 17px;
         display: flex;
         align-items: center;
         justify-content: center;
-
-        &:last-child {
-            margin-bottom: $browserTool;
-        }
-
-        &.selected {
-            color: #5d2ed1;
-        }
+        width: 45px;
+        height: 34px;
     }
+  }
+}
+
+.brandWrap {
+  display: inline-block;
+  position: relative;
+  width: calc(100% - 33px);
+  height: calc(100vh - #{$topPosition} - #{$toolbarHeader} - #{$brandHeader});
+  overflow-y: auto;
+
+  &.fromHeaderMenu {
+    height: calc(100vh - 125px);
+  }
+
+  & .brand {
+    padding-left: 20px;
+    width: calc(100% - 18px - 8px);
+  }
+
+  & .languageIndex {
+    height: 36px;
+    padding-top: 5px;
+    font-size: 18px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.17;
+    letter-spacing: normal;
+    text-align: left;
+    border-bottom: 1px dashed #eee;
+    color: #5d2ed1;
+  }
+
+  & .languageItem {
+    display: flex;
+    align-items: center;
+    height: 37px;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.14;
+    letter-spacing: normal;
+    text-align: left;
+    color: #333333;
+    padding-left: 10px;
+
+    &:last-child {
+      margin-bottom: $browserTool;
+    }
+  }
+}
+
+.filter {
+  width: 18px;
+  margin-right: 14px;
+  position: relative;
+  float: right;
+  height: calc(100vh - #{$topPosition} - #{$toolbarHeader} - #{$brandHeader});
+  overflow-y: auto;
+
+  & .item {
+    width: 19px;
+    height: 18px;
+    font-size: 10px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.9;
+    letter-spacing: normal;
+    text-align: center;
+    color: #dddddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:last-child {
+      margin-bottom: $browserTool;
+    }
+
+    &.selected {
+      color: #5d2ed1;
+    }
+  }
 }

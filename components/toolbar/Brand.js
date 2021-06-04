@@ -4,6 +4,13 @@ import css from './Brand.module.scss';
 import cn from 'classnames';
 import _ from 'lodash';
 
+import Image from 'components/atoms/Image';
+
+const IMAGE_PATH = {
+  starOn: '/static/icon/gnb_star_icon.png',
+  starOff: '/static/icon/gnb_greystar_icon.png',
+};
+
 @inject('brands', 'searchitem')
 @observer
 class Brand extends Component {
@@ -11,7 +18,7 @@ class Brand extends Component {
     brandLabel: 'A',
   };
 
-  toScroll = label => {
+  toScroll = (label) => {
     const target =
       this.props.fromHeader === true
         ? document.getElementById(`brand${label}fromHeader`)
@@ -32,7 +39,7 @@ class Brand extends Component {
     this.setState({ brandLabel: label });
   };
 
-  handleFilterLabel = filter => {
+  handleFilterLabel = (filter) => {
     if (filter === 'en') {
       this.setState({ brandLabel: 'A' });
     } else {
@@ -40,7 +47,7 @@ class Brand extends Component {
     }
   };
 
-  toSearch = id => {
+  toSearch = (id) => {
     let { searchitem, onClose, fromHeader, onCloseMenu } = this.props;
     onClose();
     if (!!fromHeader) onCloseMenu();
@@ -57,7 +64,7 @@ class Brand extends Component {
             <input
               type="text"
               placeholder="브랜드명을 검색해주세요."
-              onChange={e => brands.searchBrand(e.target.value)}
+              onChange={(e) => brands.searchBrand(e.target.value)}
               value={brands.searchBrandText}
             />
           </div>
@@ -86,6 +93,9 @@ class Brand extends Component {
               }}
             >
               ㄱㄴㄷ
+            </div>
+            <div className={cn(css.favoriteItem)}>
+              <Image src={IMAGE_PATH.starOff} width={'18px'} height={'18px'} />
             </div>
           </div>
         </div>
