@@ -17,20 +17,32 @@ export const setScrollability = ({
   const isMobile = checkIsMobile();
 
   if (canUseDOM()) {
+    let root = document.documentElement;
+    const scrollPosition = window.pageYOffset;
+
     if (isLockScroll) {
       // Disable scrolling.
       if (isMobile && isLockTouchmove) {
-        document.ontouchmove = e => {
+        document.ontouchmove = (e) => {
           e.preventDefault();
         };
+      } else {
+        root.style.overflow = 'hidden';
+        root.style.position = 'fixed';
+        root.style.top = `-${scrollPosition}px`;
+        root.style.width = '100%';
       }
-      document.documentElement.style.overflow = 'hidden';
     } else if (!isLockScroll) {
       // Enable scrolling.
-      if (isMobile) {
+      if (isMobile && isLockTouchmove) {
         document.ontouchmove = () => true;
+      } else {
+        root.style.removeProperty('overflow');
+        root.style.removeProperty('position');
+        root.style.removeProperty('top');
+        root.style.removeProperty('width');
+        window.scrollTo(0, scrollPosition);
       }
-      document.documentElement.style.overflow = 'initial';
     }
   }
 };

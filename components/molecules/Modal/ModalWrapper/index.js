@@ -41,14 +41,19 @@ class ModalWrapper extends React.Component {
     lockScroll: true,
   };
 
+  // TODO : ModalWrapper 통합
   componentDidMount() {
-    this.updateScrollabilty();
+    if (this.isLockScrollEnabled) {
+      const scrollPosition = window.pageYOffset;
+      this.setState({ scrollPosition });
+      setScrollability({ isLockScroll: true, scrollPosition });
+    }
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.props.isOpen !== prevProps.isOpen) {
-      this.updateScrollabilty();
-    }
+  componentWillUnmount() {
+    const scrollPosition = this.state.scrollPosition;
+    setScrollability({ isLockScroll: false, scrollPosition });
+    this.setState({ scrollPosition: 0 });
   }
 
   get overlayStyle() {

@@ -647,18 +647,22 @@ class ReviewWriteModal extends Component {
             </SubmitButtonWrapper>
           </div>
           {/* 해시태그 등록 모달 */}
-          <ReviewHashtagModal
-            isOpen={this.state.isHashtagModalOpen}
-            onClose={(hashtags) => this.toggleHashtagModal(false, hashtags)}
-            delHashtag={this.state.delHashtag}
-          />
-          <MySizeModal
-            // mySize={this.props.mySize.mySize}
-            isOpen={this.state.isMySizeModalOpen}
-            onClose={this.toggleMySizeModal}
-            onSubmitMySize={this.handleSubmitMySize}
-            showAlert={this.props.alert.showAlert}
-          />
+          {this.state.isHashtagModalOpen && (
+            <ReviewHashtagModal
+              isOpen={this.state.isHashtagModalOpen}
+              onClose={(hashtags) => this.toggleHashtagModal(false, hashtags)}
+              delHashtag={this.state.delHashtag}
+            />
+          )}
+          {this.state.isMySizeModalOpen && (
+            <MySizeModal
+              // mySize={this.props.mySize.mySize}
+              isOpen={this.state.isMySizeModalOpen}
+              onClose={this.toggleMySizeModal}
+              onSubmitMySize={this.handleSubmitMySize}
+              showAlert={this.props.alert.showAlert}
+            />
+          )}
         </ModalLayout>
       </>
     );

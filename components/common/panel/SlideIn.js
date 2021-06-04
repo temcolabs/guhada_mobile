@@ -5,6 +5,7 @@ import { Transition } from 'react-transition-group';
 import anime from 'animejs';
 import { isBrowser } from 'childs/lib/common/isServer';
 import Mask from '../modal/Mask';
+import setScrollability from 'childs/lib/dom/setScrollability';
 
 /**
  * 진입 방향
@@ -148,6 +149,12 @@ export default function SlideIn({
   zIndex, // css.wrap 클래스에 선언된 SlideIn의 기본 z-index는 201.
   wrapperStyle = {}, // css.wrap 클래스의 스타일을 덮어씌움
 }) {
+  // 스크롤 방지
+  useEffect(() => {
+    if (isVisible) setScrollability({ isLockScroll: true });
+    else setScrollability({ isLockScroll: false });
+  }, [isVisible]);
+
   if (isBrowser) {
     const bodyEl = document.documentElement.getElementsByTagName('body')[0];
 

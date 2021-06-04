@@ -20,6 +20,10 @@ export const ModalContentWrap = ({ children }) => (
  * 컨텐츠를 전달할 수 있는 모달 컨테이너
  */
 class ModalWrapper extends React.Component {
+  state = {
+    scrollPosition: 0,
+  };
+
   static propTypes = {
     isOpen: bool.isRequired, // 표시 여부
     isOverflow: bool, // 내부 컨텐츠 Overflow control
@@ -40,14 +44,19 @@ class ModalWrapper extends React.Component {
     lockScroll: true,
   };
 
+  // TODO : ModalWrapper 통합
   componentDidMount() {
-    this.updateScrollabilty();
+    if (this.isLockScrollEnabled) {
+      const scrollPosition = window.pageYOffset;
+      this.setState({ scrollPosition });
+      setScrollability({ isLockScroll: true, scrollPosition });
+    }
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.props.isOpen !== prevProps.isOpen) {
-      this.updateScrollabilty();
-    }
+  componentWillUnmount() {
+    const scrollPosition = this.state.scrollPosition;
+    setScrollability({ isLockScroll: false, scrollPosition });
+    this.setState({ scrollPosition: 0 });
   }
 
   get overlayStyle() {
@@ -85,15 +94,19 @@ class ModalWrapper extends React.Component {
     return this.props.isBigModal ? false : this.props.lockScroll;
   }
 
-  updateScrollabilty = () => {
+  /* updateScrollabilty = () => {
     if (this.isLockScrollEnabled) {
       if (this.props.isOpen) {
-        setScrollability({ isLockScroll: this.props.lockScroll && true }); // 스크롤 방지
+        setScrollability({
+          isLockScroll: this.props.lockScroll && true,
+        }); // 스크롤 방지
       } else {
-        setScrollability({ isLockScroll: this.props.lockScroll && false }); // 스크롤 허용
+        setScrollability({
+          isLockScroll: this.props.lockScroll && false,
+        }); // 스크롤 허용
       }
     }
-  };
+  };*/
 
   render() {
     const {
