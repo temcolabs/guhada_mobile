@@ -4,11 +4,11 @@ import ModalMobileWrapper from 'components/molecules/Modal/ModalMobileWrapper';
 import PropTypes from 'prop-types';
 import Image from 'components/atoms/Image';
 
-import { Header, HeaderContents, HeaderTitle, HeaderIcon } from './Styled';
+import { Header, HeaderContents, HeaderTitle } from './Styled';
 
 const IMAGE_PATH = {
-  back: '/static/icons/btn_top_back/btn_top_back.png',
-  close: '/static/icons/btn_top_close/btn_top_close.png',
+  back: '/static/icons/btn_top_back/btn_top_back@3x.png',
+  close: '/static/icons/btn_top_close/btn_top_close@3x.png',
 };
 
 /**
