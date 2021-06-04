@@ -3,7 +3,7 @@ import API from 'childs/lib/API';
 import { isEqual as _isEqual } from 'lodash';
 import SearchStore, { ENDPOINT, STATE } from './SearchStore';
 
-// 정렬
+/** 정렬 */
 export const searchResultOrderMap = new Map([
   ['DATE', '신상품순'],
   ['SCORE', '평점순'],
@@ -11,17 +11,17 @@ export const searchResultOrderMap = new Map([
   ['PRICE_ASC', '낮은가격순'],
   ['DISCOUNT', '할인율순'],
 ]);
-// 배송정보
+/** 배송정보 */
 export const shippingConditionMap = new Map([
   ['NATIONAL', '국내배송'],
   ['INTERNATIONAL', '해외배송'],
 ]);
-// 제품상태
+/** 제품상태 */
 export const productConditionMap = new Map([
   ['NEW', '새제품'],
   ['USED', '빈티지'],
 ]);
-// 가격
+/** 가격 범위 */
 export const priceArrangeMap = new Map([
   ['전체', 0],
   ['10만원 이하', 100000],
@@ -31,6 +31,8 @@ export const priceArrangeMap = new Map([
 ]);
 
 /**
+ * JSDoc typedefs
+ *
  * @typedef {{
  *  page: number
  *  unitPerPage: number
@@ -110,7 +112,7 @@ export class SearchByFilterStore extends SearchStore {
   /**
    * actions
    */
-  /** @param {boolean} concat flag for creating new `deals` or concat on existing one on executing search - default is false */
+  /** @param {boolean} concat flag for creating new `deals` or concat on existing one on executing search - default = false */
   @action search = async (concat = false) => {
     if (this.hasError) {
       console.error('API jammed!'); // TODO: error clearing logic needed
@@ -153,8 +155,9 @@ export class SearchByFilterStore extends SearchStore {
   };
 
   /**
-   * @param {Body} body
-   * @param {Params} params
+   * apply abstract filter options (does not call search)
+   * @param {Body} body default = this.defaultBody
+   * @param {Params} params default = this.defaultParams
    */
   @action setAbstractFilter = (
     body = this.defaultBody,
@@ -164,10 +167,8 @@ export class SearchByFilterStore extends SearchStore {
     Object.assign(this.abstractBody, body);
   };
 
-  @action resetAbstractFilter = () => {
-    this.abstractParams = this.defaultParams;
-    this.abstractBody = this.defaultBody;
-  };
+  /** reset current abstract filter options (does not call search) */
+  @action resetAbstractFilter = () => this.setAbstractFilter();
 
   /**
    * apply abstract filter options to concrete filter options indirectly
@@ -184,8 +185,8 @@ export class SearchByFilterStore extends SearchStore {
   /**
    * apply filter options to concrete filter options directly
    * then call initial `search`
-   * @param {Body} body
-   * @param {Params} params
+   * @param {Body} body default = this.defaultBody
+   * @param {Params} params default = this.defaultParams
    */
   @action submitFilter = (
     body = this.defaultBody,
@@ -203,8 +204,8 @@ export class SearchByFilterStore extends SearchStore {
   @action resetFilter = () => this.submitFilter();
 
   /**
-   * @param {Body} body initial body
-   * @param {Params} params initial params
+   * @param {Body} body initial body - default = SearchByFilterStore.initialBody
+   * @param {Params} params initial params - default = SearchByFilterStore.initialParams
    */
   @action initializeSearch = (
     body = SearchByFilterStore.initialBody,
