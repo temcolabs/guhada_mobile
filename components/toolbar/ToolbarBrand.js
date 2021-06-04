@@ -16,7 +16,7 @@ function ToolbarBrand({ isVisible, onClose, brands }) {
               brands.searchBrandText = '';
             }}
           />
-          <div className={css.header}>브랜드bb</div>
+          <div className={css.header}>브랜드</div>
           <div className={css.itemWrap}>
             <Brand onClose={onClose} />
           </div>

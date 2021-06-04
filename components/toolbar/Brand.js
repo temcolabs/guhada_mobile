@@ -16,6 +16,7 @@ const IMAGE_PATH = {
 class Brand extends Component {
   state = {
     brandLabel: 'A',
+    isFavorite: false,
   };
 
   toScroll = (label) => {
@@ -47,6 +48,13 @@ class Brand extends Component {
     }
   };
 
+  handleFavoriteMenu = () => {
+    this.setState({
+      ...this.state,
+      isFavorite: !this.state.isFavorite,
+    });
+  };
+
   toSearch = (id) => {
     let { searchitem, onClose, fromHeader, onCloseMenu } = this.props;
     onClose();
@@ -57,6 +65,7 @@ class Brand extends Component {
 
   render() {
     let { brands, fromHeader } = this.props;
+
     return (
       <>
         <div className={css.headerWrap}>
@@ -94,8 +103,17 @@ class Brand extends Component {
             >
               ㄱㄴㄷ
             </div>
-            <div className={cn(css.favoriteItem)}>
-              <Image src={IMAGE_PATH.starOff} width={'18px'} height={'18px'} />
+            <div
+              className={cn(css.favoriteItem)}
+              onClick={() => this.handleFavoriteMenu()}
+            >
+              <Image
+                src={
+                  this.state.isFavorite ? IMAGE_PATH.starOn : IMAGE_PATH.starOff
+                }
+                width={'18px'}
+                height={'18px'}
+              />
             </div>
           </div>
         </div>
