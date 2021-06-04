@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { toJS } from 'mobx';
 import { inject, observer } from 'mobx-react';
 import css from './Brand.module.scss';
 import cn from 'classnames';
@@ -11,7 +12,7 @@ const IMAGE_PATH = {
   starOff: '/static/icon/gnb_greystar_icon.png',
 };
 
-@inject('brands', 'searchitem')
+@inject('login', 'brands', 'searchitem')
 @observer
 class Brand extends Component {
   state = {
@@ -49,10 +50,31 @@ class Brand extends Component {
   };
 
   handleFavoriteMenu = () => {
+    this.props.brands.setSelectedLanguage('favorite');
     this.setState({
       ...this.state,
       isFavorite: !this.state.isFavorite,
     });
+  };
+
+  handleFavoriteItem = async ({ brandId, isFavorite }) => {
+    const { brands, login } = this.props;
+    const userId = login?.loginInfo?.userId;
+
+    const resultCode = isFavorite
+      ? await brands.deleteUserBrandFavorite(userId, brandId)
+      : await brands.createUserBrandFavorite(userId, brandId);
+
+    if (resultCode === 200) {
+      const index = brands.selectedBrands.findIndex((o) => o.id === brandId);
+      console.log('brands.selectedBrands : ', toJS(brands.selectedBrands));
+      console.log('index : ', index);
+      if (index !== -1) {
+        let selectedBrands = brands.selectedBrands;
+        selectedBrands[index].isFavorite = !isFavorite;
+        brands.setBrands(brands.brands, selectedBrands);
+      }
+    }
   };
 
   toSearch = (id) => {
@@ -148,7 +170,28 @@ class Brand extends Component {
                                   className={css.languageItem}
                                   onClick={() => this.toSearch(brand.id)}
                                 >
-                                  {brand.nameEn}
+                                  <span
+                                    className={css.favoriteBtn}
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      this.handleFavoriteItem({
+                                        brandId: brand.id,
+                                        isFavorite: brand.isFavorite,
+                                      });
+                                    }}
+                                  >
+                                    <Image
+                                      src={
+                                        brand.isFavorite
+                                          ? IMAGE_PATH.starOn
+                                          : IMAGE_PATH.starOff
+                                      }
+                                      width={'14px'}
+                                      height={'13px'}
+                                      size={'contain'}
+                                    />
+                                  </span>
+                                  <span>{brand.nameEn}</span>
                                 </div>
                               );
                             })
@@ -191,6 +234,7 @@ class Brand extends Component {
                 })}
           </div>
         </div>
+        {/*
         <div className={css.filter}>
           {brands.selectedLanguage === 'english'
             ? brands.enFilter.map((en, enIndex) => {
@@ -220,6 +264,9 @@ class Brand extends Component {
                 );
               })}
         </div>
+        
+        
+        */}
       </>
     );
   }

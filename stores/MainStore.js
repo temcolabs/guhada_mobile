@@ -68,7 +68,7 @@ export default class MainStore {
   @action
   getHotKeyword = () => {
     API.product.get('/main-home/hot-keyword', {}).then((res) => {
-      this.hotKeyword = res.data.data;
+      this.hotKeyword = res?.data?.data;
     });
   };
 
@@ -77,7 +77,7 @@ export default class MainStore {
     API.settle
       .get(`selectMainBanner?agent=${detectDevice().device}`)
       .then((res) => {
-        this.bannerInfo = res.data;
+        this.bannerInfo = res?.data;
       });
   };
 
@@ -88,7 +88,7 @@ export default class MainStore {
         params: { unitPerPage: this.unitPerPage },
       })
       .then((res) => {
-        this.bestReview = res.data.data;
+        this.bestReview = res?.data?.data;
       });
   };
 }

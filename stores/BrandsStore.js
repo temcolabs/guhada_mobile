@@ -36,7 +36,7 @@ export default class BrandsStore {
   }
 
   @action
-  setSelectedLanguage = language => {
+  setSelectedLanguage = (language) => {
     this.selectedLanguage = language;
   };
 
@@ -47,28 +47,28 @@ export default class BrandsStore {
   };
 
   @action
-  setFilter = selectedFilter => {
+  setFilter = (selectedFilter) => {
     this.selectedFilter = selectedFilter;
   };
 
   @action
-  setFilterId = id => {
+  setFilterId = (id) => {
     this.filterId = id;
   };
 
   @action
-  setBrandId = id => {
+  setBrandId = (id) => {
     this.brandId = id;
   };
 
   @action
-  setProductAddBrand = brand => {
+  setProductAddBrand = (brand) => {
     this.productAddSelectedBrand = brand;
   };
 
   @action
-  getBrands = brand => {
-    API.product.get(`/brands?viewType=GROUP`).then(res => {
+  getBrands = (brand) => {
+    API.product.get(`/brands?viewType=GROUP`).then((res) => {
       let data = res.data;
       if (Object.keys(data).length !== 0) {
         this.setBrands(data.data, data.data['ALL']);
@@ -81,14 +81,14 @@ export default class BrandsStore {
     });
   };
 
-  setBrandsFromFilter = brands => {
+  setBrandsFromFilter = (brands) => {
     this.brands = brands;
     this.setGroupBrandList(brands);
   };
 
   @action
   getFavoriteBrands = () => {
-    API.product.get('/brands?filters=favorites').then(res => {
+    API.product.get('/brands?filters=favorites').then((res) => {
       let data = res.data;
       if (data.resultCode === 200) {
         this.setBrands(this.brands, data.data.brands);
@@ -99,7 +99,7 @@ export default class BrandsStore {
 
   @action
   getPopularityBrands = () => {
-    API.product.get('/brands?sort=popularity').then(res => {
+    API.product.get('/brands?sort=popularity').then((res) => {
       let data = res.data;
       if (data.resultCode === 200) {
         this.setBrands(this.brands, data.data.brands);
@@ -109,7 +109,7 @@ export default class BrandsStore {
   };
 
   @action
-  filterBrand = filter => {
+  filterBrand = (filter) => {
     let selectedBrands = [];
     let checkFilter;
     if (filter === 'No.') {
@@ -140,7 +140,7 @@ export default class BrandsStore {
    * 모바일 브랜드 검색을 위한 function
    */
   @action
-  searchBrand = search => {
+  searchBrand = (search) => {
     let selectedBrands = {};
     let searchText = search;
     var regKorean = /^[\가-\힣+]*$/;
@@ -154,17 +154,20 @@ export default class BrandsStore {
     }
 
     if (is_hangul_char(search)) {
-      this.koFilter.forEach(element => {
+      if (this.headerBrandLanguage !== 'favorite') {
+        this.setSelectedLanguage('korean');
+      }
+
+      this.koFilter.forEach((element) => {
         selectedBrands[element] = [];
       });
 
-      this.setSelectedLanguage('korean');
       if (!regKorean.test(searchText)) {
         searchText = searchText.substring(0, searchText.length - 1);
       }
 
-      this.koFilter.forEach(kobind => {
-        this.originalKoList[kobind].forEach(element => {
+      this.koFilter.forEach((kobind) => {
+        this.originalKoList[kobind].forEach((element) => {
           if (element['nameKo'].indexOf(searchText) !== -1) {
             selectedBrands[kobind].push(element);
           }
@@ -173,13 +176,16 @@ export default class BrandsStore {
 
       this.koList = selectedBrands;
     } else {
-      this.enFilter.forEach(element => {
+      if (this.headerBrandLanguage !== 'favorite') {
+        this.setSelectedLanguage('english');
+      }
+
+      this.enFilter.forEach((element) => {
         selectedBrands[element] = [];
       });
 
-      this.setSelectedLanguage('english');
-      this.enFilter.forEach(enbind => {
-        this.originalEnList[enbind].forEach(element => {
+      this.enFilter.forEach((enbind) => {
+        this.originalEnList[enbind].forEach((element) => {
           if (
             element['nameEn'].toLowerCase().indexOf(searchText.toLowerCase()) !=
             -1
@@ -193,19 +199,19 @@ export default class BrandsStore {
     }
   };
 
-  @action getTitle = id => {
+  @action getTitle = (id) => {
     return getBrandTitle(toJS(this.brands['ALL']), id);
   };
 
-  @action getSelectedTitle = id => {
+  @action getSelectedTitle = (id) => {
     this.selectedTitle = getBrandTitle(toJS(this.selectedBrands), id);
   };
 
   @action
-  getBrandsByCategory = categoryId => {
+  getBrandsByCategory = (categoryId) => {
     API.product
       .get('/brands?categoryId=' + categoryId + '&viewType=GROUP')
-      .then(res => {
+      .then((res) => {
         let data = res.data;
         if (data.resultCode === 200) {
           // this.brandsByCategory = data.data['ALL'];
@@ -244,13 +250,13 @@ export default class BrandsStore {
   setBrandFilterList = (brands, flags) => {
     let englishList = {};
 
-    this.enFilter.map(english => {
+    this.enFilter.map((english) => {
       englishList[english] = [];
     });
 
     let koreanList = {};
 
-    this.koFilter.map(korean => {
+    this.koFilter.map((korean) => {
       koreanList[korean] = [];
     });
 
@@ -259,7 +265,7 @@ export default class BrandsStore {
       koreanList['ALL'] = [];
     }
 
-    brands.map(brand => {
+    brands.map((brand) => {
       let pattern_eng = /[A-Z]/;
       let brandEng = brand.nameEn.substring(0, 1).toUpperCase();
       if (flags === 'category') {
@@ -281,7 +287,7 @@ export default class BrandsStore {
       return x < y ? -1 : x > y ? 1 : 0;
     });
 
-    koreanBrands.map(brand => {
+    koreanBrands.map((brand) => {
       let pattern_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
       let brandKor;
       if (!_.isNil(brand.nameKo)) {
@@ -308,13 +314,13 @@ export default class BrandsStore {
   };
 
   @action
-  setEnList = list => {
+  setEnList = (list) => {
     this.enList = list;
     this.originalEnList = list;
   };
 
   @action
-  setKoList = list => {
+  setKoList = (list) => {
     this.koList = list;
     this.originalKoList = list;
   };
@@ -329,38 +335,38 @@ export default class BrandsStore {
   @observable headerBrandLanguage = 'english';
 
   @action
-  setHeaderBrandLanguage = language => {
+  setHeaderBrandLanguage = (language) => {
     this.headerBrandLanguage = language;
   };
 
   @action
-  setCategoryEnList = list => {
+  setCategoryEnList = (list) => {
     this.categoryEnList = list;
     this.filterBrandList = list['ALL'];
   };
 
   @action
-  setFilterEnList = flag => {
+  setFilterEnList = (flag) => {
     this.filterBrandList = this.categoryEnList[flag];
   };
 
   @action
-  setCategoryKoList = list => {
+  setCategoryKoList = (list) => {
     this.categoryKoList = list;
   };
 
   @action
-  setFilterKoList = flag => {
+  setFilterKoList = (flag) => {
     this.filterBrandList = this.categoryKoList[flag];
   };
 
   @action
-  setGroupBrandList = brands => {
+  setGroupBrandList = (brands) => {
     this.setBrandFilterList(brands, 'search');
   };
 
   @action
-  searchBrandsByCategory = search => {
+  searchBrandsByCategory = (search) => {
     let selectedBrands = [];
     let searchText = search;
     var regKorean = /^[\가-\힣+]*$/;
@@ -384,14 +390,14 @@ export default class BrandsStore {
         return a.nameKo < a.nameKo ? -1 : a.nameKo > b.nameKo ? 1 : 0;
       });
 
-      this.categoryKoList['ALL'].forEach(element => {
+      this.categoryKoList['ALL'].forEach((element) => {
         if (element['nameKo'].indexOf(searchText) != -1) {
           selectedBrands.push(element);
         }
       });
     } else {
       this.setHeaderBrandLanguage('english');
-      this.categoryEnList['ALL'].forEach(element => {
+      this.categoryEnList['ALL'].forEach((element) => {
         if (
           element['nameEn'].toLowerCase().indexOf(searchText.toLowerCase()) !=
           -1
@@ -431,7 +437,7 @@ export default class BrandsStore {
   };
 
   @action
-  searchBrandKeyTrue = id => {
+  searchBrandKeyTrue = (id) => {
     let iconBool = false;
     for (let x = 0; x < this.selectedBrandsKey.length; x++) {
       if (id === this.selectedBrandsKey[x].id) iconBool = true;
@@ -443,12 +449,12 @@ export default class BrandsStore {
   @computed
   get getSelectedBrandsKey() {
     let brandkeylist = [];
-    this.selectedBrandsKey.map(brandkey => {
+    this.selectedBrandsKey.map((brandkey) => {
       brandkeylist.push(brandkey.id);
     });
 
     brandkeylist = brandkeylist
-      .map(e => {
+      .map((e) => {
         return e;
       })
       .join(',');
@@ -456,13 +462,14 @@ export default class BrandsStore {
     return brandkeylist;
   }
   @action
-  setFilterLanguage = language => {
+  setFilterLanguage = (language) => {
     this.filterLanguage = language;
 
     let selectedBrands = [];
 
+    // 한글 정렬
     if (language === 'ko') {
-      this.brands['ALL'].forEach(element => {
+      this.brands['ALL'].forEach((element) => {
         selectedBrands.push(element);
       });
 
@@ -471,8 +478,24 @@ export default class BrandsStore {
         var y = b.nameKo.toLowerCase();
         return x < y ? -1 : x > y ? 1 : 0;
       });
-    } else {
-      this.brands['ALL'].forEach(element => {
+    }
+    // 카테고리 정렬
+    else if (language === 'favorite') {
+      this.brands['ALL'].forEach((element) => {
+        if (element.isFavorite) {
+          selectedBrands.push(element);
+        }
+      });
+
+      selectedBrands.sort(function(a, b) {
+        var x = a.nameDefault.toLowerCase();
+        var y = b.nameDefault.toLowerCase();
+        return x < y ? -1 : x > y ? 1 : 0;
+      });
+    }
+    // 카테고리 정렬
+    else {
+      this.brands['ALL'].forEach((element) => {
         selectedBrands.push(element);
       });
 
@@ -485,5 +508,25 @@ export default class BrandsStore {
 
     this.setFilter('ALL');
     this.setBrands(this.brands, selectedBrands);
+  };
+
+  @action
+  createUserBrandFavorite = (userId, brandId) => {
+    return API.user
+      .post(`/users/${userId}/brand/favorites`, { brandId })
+      .then((res) => {
+        let data = res?.data?.resultCode;
+        return data;
+      });
+  };
+
+  @action
+  deleteUserBrandFavorite = (userId, brandId) => {
+    return API.user
+      .delete(`/users/${userId}/brand/favorites/${brandId}`)
+      .then((res) => {
+        let data = res?.data?.resultCode;
+        return data;
+      });
   };
 }
