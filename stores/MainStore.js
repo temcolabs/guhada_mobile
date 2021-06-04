@@ -4,13 +4,14 @@ import detectDevice from 'childs/lib/common/detectDevice';
 
 export default class MainStore {
   @observable unitPerPage = 60;
-  @observable plusItem = [];
-  @observable newArrivals = [];
-  @observable hits = [];
   @observable navDealId = 0;
+  @observable plusItem = {};
+  @observable newArrivals = {};
+  @observable hits = {};
   @observable hotKeyword = [];
   @observable bannerInfo = [];
   @observable bestReview = [];
+
   // constructor() {
   //   this.getPlusItem();
   //   this.getNewArrivals();
@@ -24,13 +25,12 @@ export default class MainStore {
   setNavDealId = (id) => {
     this.navDealId = id;
   };
+
   @action
   getPlusItem = () => {
     API.search
       .get('/ps/main-home/deals/plus-item', {
-        params: {
-          unitPerPage: this.unitPerPage,
-        },
+        params: { unitPerPage: this.unitPerPage },
       })
       .then((res) => {
         if (res.data.resultCode === 200) {
@@ -43,9 +43,7 @@ export default class MainStore {
   getNewArrivals = () => {
     API.search
       .get('/ps/main-home/deals/new-arrivals', {
-        params: {
-          unitPerPage: this.unitPerPage,
-        },
+        params: { unitPerPage: this.unitPerPage },
       })
       .then((res) => {
         if (res.data.resultCode === 200) {
@@ -58,9 +56,7 @@ export default class MainStore {
   getHits = () => {
     API.search
       .get('/ps/hits/list', {
-        params: {
-          unitPerPage: this.unitPerPage,
-        },
+        params: { unitPerPage: this.unitPerPage },
       })
       .then((res) => {
         if (res.data.resultCode === 200) {
@@ -88,7 +84,9 @@ export default class MainStore {
   @action
   getBestReview = () => {
     API.user
-      .get(`/main-best-reviews`, { params: { unitPerPage: 5 } })
+      .get(`/main-best-reviews`, {
+        params: { unitPerPage: this.unitPerPage },
+      })
       .then((res) => {
         this.bestReview = res.data.data;
       });

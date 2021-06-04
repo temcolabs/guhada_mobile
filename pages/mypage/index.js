@@ -1,6 +1,7 @@
 import React from 'react';
 import { pushRoute } from 'childs/lib/router';
 import withAuth from 'components/common/hoc/withAuth';
+import MyPageTemplate from 'template/mypage/main';
 
 /**
  * /mypage 라우트
@@ -13,12 +14,12 @@ class MypageIndex extends React.Component {
     return {};
   }
 
-  componentDidMount() {
+  /*componentDidMount() {
     pushRoute(`/mypage/orders/complete/list`, { replace: true });
-  }
+  }*/
 
   render() {
-    return <div />;
+    return <MyPageTemplate />;
   }
 }
 

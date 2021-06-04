@@ -3,24 +3,22 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 const RankChangeIcon = ({ rankChange }) => {
-  if (rankChange > 0) {
+  if (parseInt(rankChange) > 0) {
     return (
       <div className={cn(css['change'], css['change--up'])}>
         {Math.abs(rankChange)}
-        <div className={css['icon-up']} />
       </div>
     );
-  } else if (rankChange < 0) {
+  } else if (parseInt(rankChange) < 0) {
     return (
       <div className={cn(css['change'], css['change--down'])}>
         {Math.abs(rankChange)}
-        <div className={css['icon-down']} />
       </div>
     );
-  } else if (rankChange === '0') {
+  } else if (parseInt(rankChange) === 0) {
     return <div className={css['keep']} />;
   }
-  return <div className={cn(css['change'], css['change--up'])}>NEW</div>;
+  return <div className={css['change']}>NEW</div>;
 };
 
 RankChangeIcon.propTypes = {

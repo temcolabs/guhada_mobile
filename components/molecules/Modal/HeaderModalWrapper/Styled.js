@@ -14,7 +14,7 @@ export const HeaderTitle = styled.div`
   color: #111111;
   font-family: Roboto;
   font-size: 17px;
-  font-weight: bolder;
+  font-weight: 500;
   line-height: 2.94;
   letter-spacing: 0.51px;
 `;

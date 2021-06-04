@@ -179,7 +179,7 @@ export default function useBBSSearchState({ query, asPath } = {}) {
    */
   const handleChangeCategory = useCallback(
     categoryId => {
-      scrollToTarget(scrollUpTargetId);
+      // scrollToTarget(scrollUpTargetId);
 
       pushRouteToSearch(
         {

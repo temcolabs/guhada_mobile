@@ -15,9 +15,9 @@ import {
 } from './Styled';
 
 const IMAGE_PATH = {
-  comment: '/static/icons/button/comment/comment.png',
-  likeOn: '/static/icons/button/like_on/like_on.png',
-  likeOff: '/static/icons/button/like_off/like_off.png',
+  comment: '/static/icons/button/comment/comment@3x.png',
+  likeOn: '/static/icons/button/like_on/like_on@3x.png',
+  likeOff: '/static/icons/button/like_off/like_off@3x.png',
 };
 
 /**

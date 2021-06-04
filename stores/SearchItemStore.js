@@ -16,7 +16,6 @@ import { devLog } from 'childs/lib/common/devLog.js';
 import isTruthy from 'childs/lib/common/isTruthy.js';
 import addCommaToArray from 'childs/lib/string/addCommaToArray.js';
 import { conditionOption } from 'childs/lib/constant/filter/condition.js';
-import KeywordMenu from 'components/header/keyword/KeywordMenu.js';
 import SearchEnum from 'childs/lib/constant/filter/SearchEnum.js';
 
 const isServer = typeof window === 'undefined';

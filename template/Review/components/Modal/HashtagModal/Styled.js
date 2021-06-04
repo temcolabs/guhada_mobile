@@ -4,7 +4,7 @@ import styled from 'styled-components';
  * Wrapper
  */
 
-export const Wrapper = styled.div`
+export const ReviewHashtagModalWrapper = styled.div`
   width: 100vw;
   height: 100vh;
   background-color: rgba(17, 17, 17, 0.7);
@@ -26,6 +26,7 @@ export const Container = styled.div`
  */
 
 export const Header = styled.div`
+  border-bottom: 1px solid #eeeeee;
   display: flex;
   align-items: center;
   width: 100%;
@@ -56,7 +57,7 @@ export const HeaderInputSection = styled.div`
     flex-grow: 1;
   }
 
-  > div:last-child {
+  & .text-delete {
     padding: 0 20px;
   }
 `;
@@ -64,9 +65,11 @@ export const HeaderInputSection = styled.div`
 export const HeaderInput = styled.input.attrs({ type: 'text' })`
   font-size: 15px;
   font-weight: 500;
-  line-height: 1.07;
-  letter-spacing: 0.45px;
   width: 100%;
+
+  ::placeholder {
+    color: #dddddd;
+  }
 `;
 
 /**
@@ -74,7 +77,7 @@ export const HeaderInput = styled.input.attrs({ type: 'text' })`
  */
 
 export const Contents = styled.div`
-  padding: 20px 20px;
+  padding: 30px 20px;
 `;
 
 export const ContentAutoCompleteSection = styled.div`

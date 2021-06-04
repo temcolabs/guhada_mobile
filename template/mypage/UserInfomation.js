@@ -268,8 +268,8 @@ class UserInfomation extends Component {
     this.props.user.pushJobForUserInfo(job);
   };
 
-  updateInitialValues = values => {
-    this.setState(state => ({
+  updateInitialValues = (values) => {
+    this.setState((state) => ({
       initialValues: {
         ...state.initialValues,
         ...values,
@@ -359,7 +359,7 @@ class UserInfomation extends Component {
   /**
    * 비밀번호 1회 더 확인
    */
-  handleSubmitPasswordCheck = async password => {
+  handleSubmitPasswordCheck = async (password) => {
     try {
       await entryService.loginUser({
         email: this.props.user.userInfo?.email,
@@ -387,7 +387,7 @@ class UserInfomation extends Component {
     }
   };
 
-  printFormLog = _.debounce(formApi => {
+  printFormLog = _.debounce((formApi) => {
     const { values, initialValues, errors } = formApi.getState();
     devGroup('UserInfomation');
     devLog('form values', values);
@@ -408,13 +408,17 @@ class UserInfomation extends Component {
     }
   };
 
-  runAfterFormInit = fn => v => {
+  runAfterFormInit = (fn) => (v) => {
     return !this.state.isFormInitiated ? undefined : fn(v);
   };
 
   render() {
     return (
-      <MyPageLayout topLayout={'main'} headerShape={'mypage'}>
+      <MyPageLayout
+        topLayout={'main'}
+        pageTitle={'회원정보 수정'}
+        headerShape={'mypageDetail'}
+      >
         {/* NOTE: 개발 중에 사용하기 위해 비밀번호 확인 여부를 재설정함*/}
         {isDev && (
           <CancelButton

@@ -14,8 +14,7 @@ import { Image } from 'components/atoms';
 
 // TODO : Styled-components Sprite
 const IMAGE_PATH = {
-  title: '/static/icons/text/text_category/text_category_kr.png',
-  emoji: '/static/icons/emoji/emoji_finger_fire/emoji_finger_fire.png',
+  title: '/static/icons/text/text_category/text_category_kr@3x.png',
 };
 
 function ReviewCategories({ categories, onClickCategory }) {
@@ -65,6 +64,7 @@ function ReviewCategories({ categories, onClickCategory }) {
               <CategoryImage>
                 <Image
                   src={o.isSelect ? o.categoryImageOn : o.categoryImageOff}
+                  size={'contain'}
                   width={'55px'}
                   height={'55px'}
                 />

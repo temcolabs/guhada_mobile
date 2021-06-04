@@ -15,7 +15,7 @@ class MyReviewList extends Component {
     selection: 'write',
   };
 
-  setSelection = selection => {
+  setSelection = (selection) => {
     this.setState({
       selection: selection,
     });
@@ -29,17 +29,20 @@ class MyReviewList extends Component {
     productreview.getProductReviewPoint();
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     const { mypagereview, productreview } = this.props;
-    if(mypagereview)
-      mypagereview.initialize();
+    if (mypagereview) mypagereview.initialize();
   }
 
   render() {
     const { mypagereview } = this.props;
 
     return (
-      <MypageLayout topLayout={'main'} headerShape={'mypage'}>
+      <MypageLayout
+        topLayout={'main'}
+        pageTitle={'나의리뷰'}
+        headerShape={'mypageDetail'}
+      >
         <MypageReviewHeading
           setSelection={this.setSelection}
           selection={this.state.selection}

@@ -88,7 +88,8 @@ export default function RelatedAndRecommend({
                     }}
                   />
                   <div className={css.contentsWrap}>
-                    {_.isEmpty(deal.brandNew) && (
+                    {/* AS-IS: 해외 배송 */}
+                    {/* {_.isEmpty(deal.brandNew) && (
                       <div className={css.conditionWrap}>
                         {deal.internationalShipping && (
                           <>
@@ -109,10 +110,11 @@ export default function RelatedAndRecommend({
                           {deal.brandNew ? '' : brandNew.USED}
                         </div>
                       </div>
-                    )}
+                    )} */}
                     <div className={css.brandWrap}>
                       <div className={css.brand}>{deal.brandName}</div>
-                      <div className={css.season}>{deal.productSeason}</div>
+                      {/* AS-IS: 시즌 */}
+                      {/* <div className={css.season}>{deal.productSeason}</div> */}
                     </div>
                     <div className={css.title}>{deal.dealName}</div>
                     <div className={css.price}>
@@ -147,7 +149,8 @@ export default function RelatedAndRecommend({
                     }}
                   />
                   <div className={css.contentsWrap}>
-                    {_.isEmpty(deal.brandNew) && (
+                    {/* AS-IS: 해외 배송 */}
+                    {/* {_.isEmpty(deal.brandNew) && (
                       <div className={css.conditionWrap}>
                         {deal.internationalShipping && (
                           <>
@@ -168,10 +171,11 @@ export default function RelatedAndRecommend({
                           {deal.brandNew ? '' : brandNew.USED}
                         </div>
                       </div>
-                    )}
+                    )} */}
                     <div className={css.brandWrap}>
                       <div className={css.brand}>{deal.brandName}</div>
-                      <div className={css.season}>{deal.productSeason}</div>
+                      {/* AS-IS: 시즌 */}
+                      {/* <div className={css.season}>{deal.productSeason}</div> */}
                     </div>
                     <div className={css.title}>{deal.dealName}</div>
                     <div className={css.price}>

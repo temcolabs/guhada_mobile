@@ -1,0 +1,34 @@
+@import 'styles/mixins/index';
+
+.myPageUserInfo {
+  display: flex;
+  font-family: Roboto;
+  padding: 30px 20px 30px 20px;
+
+  @include mediaIhpone5 {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  & .avatar {
+    width: 60px;
+    height: 60px;
+    border: solid 1px #dddddd;
+    border-radius: 50%;
+  }
+
+  & .userInfo {
+    margin-left: 18px;
+    padding: 9px 0;
+
+    & .userEmail {
+      color: #000000;
+      font-size: 18px;
+      line-height: 1.67;
+      margin-bottom: 6px;
+    }
+
+    & .userGrade {
+    }
+  }
+}

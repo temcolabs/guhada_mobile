@@ -1,0 +1,39 @@
+.dictionary {
+  display: flex;
+  justify-content: space-between;
+
+  &__list {
+    overflow-y: auto;
+    max-height: 486px;
+    width: 100%;
+    padding-left: 5px;
+
+    .list-set {
+      &__index {
+        font-size: 17px;
+        line-height: 30px;
+        color: #5d2ed1;
+        font-weight: 500;
+      }
+
+      &__items {
+      }
+    }
+  }
+
+  &__alphabets {
+    width: 16px;
+
+    div {
+      text-align: center;
+      font-size: 10px;
+      font-weight: 500;
+      line-height: 18px;
+      color: #ccc;
+
+      &.intersected {
+        color: #5d2ed1;
+      }
+    }
+  }
+}

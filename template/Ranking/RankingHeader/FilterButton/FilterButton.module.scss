@@ -1,8 +1,6 @@
-@import 'styles/sprite.scss';
-
 .filter-button {
   height: 40px;
-  padding: 5px 10px 5px 20px;
+  padding: 5px 10px 5px 17px;
   margin-right: 10px;
   border: 1px solid #eee;
   border-radius: 100px;
@@ -12,16 +10,20 @@
   align-items: center;
 
   @media screen and (max-width: 370px) {
-    padding: 4px 3px 4px 13px;
-    font-size: 12px;
+    padding: 4px 3px 4px 8px;
+    font-size: 11px;
   }
 
   &.button--dirty {
     border-color: #111;
+    color: #111;
   }
 
-  .button__dropdown {
-    margin-left: 5px;
-    @include sprite($icon-selectbox);
+  &::after {
+    content: '';
+    width: 23px;
+    height: 11px;
+    background: url('/static/icon/list_select_arrow_open.png') no-repeat center;
+    background-size: 11px;
   }
 }

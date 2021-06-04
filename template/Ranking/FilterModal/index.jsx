@@ -17,7 +17,7 @@ const FilterModal = ({ isModalOpen, selectedFilter, handleCloseModal }) => {
   return (
     <SlideIn direction={slideDirection.BOTTOM} isVisible={isModalOpen}>
       <div className={css['filter-modal']}>
-        <div className={css['close-button']} onClick={handleCloseModal} />
+        <div className={css['modal__offset']} onClick={handleCloseModal} />
         <div className={css['modal__header']}>
           <div className={css['modal__header__name']}>
             {selectedFilter.name}
@@ -29,7 +29,7 @@ const FilterModal = ({ isModalOpen, selectedFilter, handleCloseModal }) => {
               handleCloseModal();
             }}
           >
-            <div className={css['reset-button']} /> 초기화
+            초기화
           </div>
         </div>
         <div className={css['modal__list']}>

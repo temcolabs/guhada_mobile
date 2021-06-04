@@ -7,11 +7,27 @@
   display: block;
   padding-bottom: 57px;
 
-  .kakaoChat {
+  .popupWrap {
     position: fixed;
-    z-index: 10;
     right: 15px;
-    bottom: 119px;
+    bottom: 72px;
+    display: flex;
+    flex-flow: column nowrap;
+    width: 41px;
+
+    & .popupWrapItem {
+      width: 41px;
+      height: 41px;
+      margin-top: 7px;
+    }
+
+    & .popupWrapItem:first-child {
+      margin-top: 0;
+    }
+  }
+
+  .kakaoChat {
+    z-index: 10;
     width: 41px;
     height: 41px;
     border-radius: 50%;
@@ -20,14 +36,46 @@
     cursor: pointer;
   }
 
+  .historyWrap {
+    background-color: #111111;
+    border-radius: 50%;
+    width: 41px;
+    height: 41px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & .history {
+      z-index: 10;
+      width: 24px;
+      height: 24px;
+      background: url('/static/icon/time_icon.png') no-repeat center;
+      background-size: cover;
+      cursor: pointer;
+    }
+  }
+
+  & .historyCount {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    bottom: 40px;
+    left: 30px;
+    color: #ffffff;
+    font-size: 7px;
+    width: 17px;
+    height: 17px;
+    background-color: #5d2ed1;
+    border-radius: 50%;
+  }
+
   & .btnTop {
     z-index: 10;
     width: 41px;
     height: 41px;
     background: url('/static/icon/btn-top.png') no-repeat;
     background-size: 41px;
-    position: fixed;
-    right: 15px;
-    bottom: 70px;
+    cursor: pointer;
   }
 }

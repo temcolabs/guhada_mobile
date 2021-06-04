@@ -16,9 +16,11 @@ class CategorySlider extends Component {
     isVisibleSubCategory: false,
   };
 
+  scrollWrapRef = React.createRef(null);
+
   componentDidMount() {
     let asPath = Router.router.asPath;
-    const category = mainCategory.item.find(item => {
+    const category = mainCategory.item.find((item) => {
       return item.href === asPath;
     });
     if (_.isNil(category) === false) {
@@ -28,7 +30,21 @@ class CategorySlider extends Component {
     }
   }
 
-  setSelected = id => {
+  componentDidUpdate(prevProps, prevState) {
+    // Moved x position
+    if (
+      prevState.selected === 0 &&
+      prevState.selected !== this.state.selected
+    ) {
+      const wrap = this.scrollWrapRef.current;
+      const target = wrap.childNodes[this.state.selected];
+      const targetX = target.getBoundingClientRect().x;
+      const scrollToWidth = wrap.getBoundingClientRect().width / 2 - 22;
+      wrap.scrollTo(targetX - scrollToWidth, 0);
+    }
+  }
+
+  setSelected = (id) => {
     this.setState({
       selected: id,
     });
@@ -42,15 +58,15 @@ class CategorySlider extends Component {
     this.toScrollTop();
   };
 
-  pushHref = id => {
-    const category = mainCategory.item.find(item => {
+  pushHref = (id) => {
+    const category = mainCategory.item.find((item) => {
       return item.id === id;
     });
     this.setSelected(category.id);
     pushRoute(category.href);
   };
 
-  toSearch = category => {
+  toSearch = (category) => {
     let { searchitem } = this.props;
     searchitem.toSearch({ category: category, enter: 'category' });
   };
@@ -66,6 +82,7 @@ class CategorySlider extends Component {
     return (
       <>
         <div
+          ref={this.scrollWrapRef}
           className={cn(
             css.wrap,
             {

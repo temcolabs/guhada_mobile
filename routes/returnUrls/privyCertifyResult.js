@@ -4,7 +4,6 @@ const API = require('../../childs/lib/API');
 module.exports = {
   method: 'post',
   url: '/privyCertifyResult',
-
   handler: function(req, res) {
     const authData = req.body;
     let para = req.url;

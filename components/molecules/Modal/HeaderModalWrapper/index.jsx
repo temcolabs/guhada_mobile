@@ -15,7 +15,7 @@ const IMAGE_PATH = {
  *
  * @param {*} isModalOpen
  * @param {*} headerStatus, title, back, close
- * @param {*} handleCloseModal
+ * @param {*} onCloseModal
  * @param {*} children
  * @returns
  */

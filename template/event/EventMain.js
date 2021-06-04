@@ -1,14 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { inject } from 'mobx-react';
 import css from './EventMain.module.scss';
+import useStores from 'stores/useStores';
+import { mainCategory } from 'childs/lib/constant/category';
+import CategorySlider from 'components/common/CategorySlider';
 import DefaultLayout from 'components/layout/DefaultLayout';
 import ListItem from 'components/event/eventmain/ListItem';
 import Filter from 'components/event/eventmain/Filter';
+import { useScrollDirection } from 'hooks';
 import { useObserver } from 'mobx-react-lite';
 
 function EventMain({ eventmain }) {
+  const { main } = useStores();
+  const scrollDirection = useScrollDirection();
+
   return useObserver(() => (
-    <DefaultLayout headerShape={'eventmain'} pageTitle={'이벤트'}>
+    <DefaultLayout
+      title={null}
+      topLayout={'main'}
+      scrollDirection={scrollDirection}
+    >
+      <CategorySlider
+        categoryList={mainCategory.item}
+        setNavDealId={main.setNavDealId}
+        scrollDirection={scrollDirection}
+      />
       <div className={css.wrap}>
         <div className={css.dashBoard}>
           <div className={css.totalCount}>
@@ -16,7 +32,7 @@ function EventMain({ eventmain }) {
           </div>
           <div className={css.filter}>
             <Filter
-              onChange={value => {
+              onChange={(value) => {
                 eventmain.getEventList(value);
               }}
             />

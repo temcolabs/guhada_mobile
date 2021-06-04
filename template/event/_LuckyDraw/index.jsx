@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
+import { toJS } from 'mobx';
 import { compose } from 'lodash/fp';
 import { withRouter } from 'next/router';
 import dynamic from 'next/dynamic';
@@ -30,14 +31,20 @@ const LuckyDrawModal = dynamic(
   () => import('components/molecules/Modal/LuckyDrawModal'),
   { ssr: false }
 );
-// TODO : 모달 > 컴포넌트화
+
 const LuckydrawLogin = dynamic(() => import('template/event/LuckydrawLogin'), {
   ssr: false,
 });
 
-// TODO : 모달 > 컴포넌트화
 const LuckydrawSignup = dynamic(
   () => import('template/event/LuckydrawSignup'),
+  {
+    ssr: false,
+  }
+);
+
+const LuckydrawModify = dynamic(
+  () => import('template/event/LuckydrawModify'),
   {
     ssr: false,
   }
@@ -143,7 +150,8 @@ function LuckyDrawTemplate({ router, luckyDraw, login, main }) {
       luckyDraw.setLuckydrawLoginModal(true);
       luckyDraw.luckydrawDealId = dealId;
     } else {
-      await luckyDraw.requestLuckyDraws({ dealId });
+      luckyDraw.luckydrawDealId = dealId;
+      luckyDraw.getEventUser();
     }
   };
 
@@ -178,6 +186,14 @@ function LuckyDrawTemplate({ router, luckyDraw, login, main }) {
   const onCloseLuckyDrawSignupModal = () => {
     document.documentElement.style.overflow = 'initial';
     luckyDraw.setLuckydrawSignupModal(false);
+  };
+
+  /**
+   * 럭키드로우 회원가입 모달 닫기
+   */
+  const onCloseLuckyDrawModifyModal = () => {
+    document.documentElement.style.overflow = 'initial';
+    luckyDraw.setLuckydrawModifyModal(false);
   };
 
   /**
@@ -254,6 +270,14 @@ function LuckyDrawTemplate({ router, luckyDraw, login, main }) {
           closeModal={() => onCloseLuckyDrawSignupModal()}
         />
       )}
+      {/* 럭키드로우 인증 수정 모달 */}
+      {luckyDraw.luckydrawModifyModal && (
+        <LuckydrawModify
+          isOpen={luckyDraw.luckydrawModifyModal}
+          closeModal={() => onCloseLuckyDrawModifyModal()}
+        />
+      )}
+
       <DefaultLayout>
         {/* Nav Category */}
         <CategorySlider

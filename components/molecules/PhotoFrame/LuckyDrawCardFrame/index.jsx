@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
 import { Wrapper, SectionImage, SectionBg } from './Styled';
@@ -29,4 +29,4 @@ LuckyDrawCardFrame.propTypes = {
   statusCode: PropTypes.string,
 };
 
-export default LuckyDrawCardFrame;
+export default memo(LuckyDrawCardFrame);
