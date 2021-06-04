@@ -47,7 +47,11 @@ class ProductDetail extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { isInternationalPopup: false, isInternationalSubmit: '',  cartAndPurchaseVisible: true};
+    this.state = {
+      isInternationalPopup: false,
+      isInternationalSubmit: '',
+      cartAndPurchaseVisible: true,
+    };
     this.tabRefMap = {
       detailTab: React.createRef(),
       inquiryTab: React.createRef(),
@@ -81,13 +85,13 @@ class ProductDetail extends React.Component {
     }
   };
 
-  handleInternationalPopup = bool => {
+  handleInternationalPopup = (bool) => {
     this.setState({
       isInternationalPopup: bool,
     });
   };
 
-  isInternationalSubmit = text => {
+  isInternationalSubmit = (text) => {
     this.setState({ isInternationalSubmit: text });
   };
 
@@ -106,11 +110,11 @@ class ProductDetail extends React.Component {
   /**
    * handle cart and pucrach button visible or not from 상품 문의 visible or not
    */
-  CartAndPurchaseButtonHandler = (value) => {    
+  CartAndPurchaseButtonHandler = (value) => {
     this.setState({
-        cartAndPurchaseVisible : !value
-      })
-  }
+      cartAndPurchaseVisible: !value,
+    });
+  };
 
   render() {
     const {
@@ -130,7 +134,7 @@ class ProductDetail extends React.Component {
       login,
       alert,
       searchitem,
-      shoppingCartSuccessModal
+      shoppingCartSuccessModal,
     } = this.props;
 
     return (
@@ -189,7 +193,10 @@ class ProductDetail extends React.Component {
 
         {/* 상품 문의 */}
         <SectionWrap>
-          <ProductInquiry tabRefMap={this.tabRefMap} isNewInquiryVisible={this.CartAndPurchaseButtonHandler}  />
+          <ProductInquiry
+            tabRefMap={this.tabRefMap}
+            isNewInquiryVisible={this.CartAndPurchaseButtonHandler}
+          />
         </SectionWrap>
         {SeparateLine}
 
@@ -236,27 +243,31 @@ class ProductDetail extends React.Component {
         </SectionWrap>
 
         {/* 상품 상세 장바구니 , 구매하기 버튼 */}
-        {this.state.cartAndPurchaseVisible === true && !shoppingCartSuccessModal.isOpen? 
-          <CartAndPurchaseButton isVisible = {false}
-          handleInternationalPopup={this.handleInternationalPopup}
-          isInternationalSubmit={this.isInternationalSubmit}
-          />  : null
-        }
-        
-        <CommonPopup 
-          isOpen={this.state.isInternationalPopup}
-          backgroundImage={`${
-            process.env.API_CLOUD
-          }/images/web/common/notice_delivery@3x.png`}
-          cancelButtonText={'취소'}
-          submitButtonText={'동의'}
-          onCancel={() => {
-            this.handleInternationalPopup(false);
-          }}
-          onSubmit={() => {
-            this.submitInternationalPopup();
-          }}
-        />
+        {this.state.cartAndPurchaseVisible === true &&
+        !shoppingCartSuccessModal.isOpen ? (
+          <CartAndPurchaseButton
+            isVisible={false}
+            handleInternationalPopup={this.handleInternationalPopup}
+            isInternationalSubmit={this.isInternationalSubmit}
+          />
+        ) : null}
+
+        {this.state.isInternationalPopup && (
+          <CommonPopup
+            isOpen={this.state.isInternationalPopup}
+            backgroundImage={`${
+              process.env.API_CLOUD
+            }/images/web/common/notice_delivery@3x.png`}
+            cancelButtonText={'취소'}
+            submitButtonText={'동의'}
+            onCancel={() => {
+              this.handleInternationalPopup(false);
+            }}
+            onSubmit={() => {
+              this.submitInternationalPopup();
+            }}
+          />
+        )}
 
         {this.props.cartAndPurchase.addCartStatus ? <LoadingPortal /> : null}
       </DefaultLayout>

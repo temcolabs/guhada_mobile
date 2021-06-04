@@ -37,70 +37,76 @@ class AssociatedProduct extends React.Component {
     const { isOpen } = shoppingCartSuccessModal;
 
     return (
-      <ModalWrapper
-        isOpen={isOpen}
-        contentLabel={contentLabel}
-        onClose={onConfirm || onCancel}
-        zIndex={zIndex}
-        confirmText={confirmText}
-        contentStyle={contentStyle}
-        onConfirm={onConfirm}
-      >
-        <div className={css.modal}>
-          <div className={css.modal__inner}>
-            <div className={css.modal__top}>
-              <div className={css.wrapTitle}>
-                상품이 장바구니에 <br />
-                추가되었습니다.
+      <>
+        {isOpen && (
+          <ModalWrapper
+            isOpen={isOpen}
+            contentLabel={contentLabel}
+            onClose={onConfirm || onCancel}
+            zIndex={zIndex}
+            confirmText={confirmText}
+            contentStyle={contentStyle}
+            onConfirm={onConfirm}
+          >
+            <div className={css.modal}>
+              <div className={css.modal__inner}>
+                <div className={css.modal__top}>
+                  <div className={css.wrapTitle}>
+                    상품이 장바구니에 <br />
+                    추가되었습니다.
+                  </div>
+                  <div
+                    className={css.modalClose}
+                    onClick={() => {
+                      shoppingCartSuccessModal.hide();
+                    }}
+                  >
+                    <img
+                      src="/static/icon/modal_close.png"
+                      alt="장바구니 모달창 닫기"
+                    />
+                  </div>
+                </div>
+                <div className={css.associatedProduct}>
+                  <div className={css.associatedProductTitle}>
+                    이 상품과 함께 많이 구매한 상품
+                  </div>
+                  <ul>
+                    {cartAndPurchase.associatedProduct
+                      .slice(0, 3)
+                      .map((data, index) => {
+                        return (
+                          <li
+                            className={css.associatedItem}
+                            key={index}
+                            onClick={() => {
+                              shoppingCartSuccessModal.goProduct(data.dealId);
+                            }}
+                          >
+                            <div
+                              className={css.associatedItemImage}
+                              style={{
+                                backgroundImage: `url(${data.imageUrl})`,
+                              }}
+                            />
+                            <div className={css.brandName}>
+                              <span>{data.brandName}</span>
+                              {/* <span>{data.productSeason}</span> */}
+                            </div>
+                            <div className={css.productName}>
+                              {data.productName}
+                            </div>
+                          </li>
+                        );
+                      })}
+                  </ul>
+                </div>
               </div>
-              <div
-                className={css.modalClose}
-                onClick={() => {
-                  shoppingCartSuccessModal.hide();
-                }}
-              >
-                <img
-                  src="/static/icon/modal_close.png"
-                  alt="장바구니 모달창 닫기"
-                />
-              </div>
+              <AlertBtns confirmText={confirmText} onConfirm={onConfirm} />
             </div>
-            <div className={css.associatedProduct}>
-              <div className={css.associatedProductTitle}>
-                이 상품과 함께 많이 구매한 상품
-              </div>
-              <ul>
-                {cartAndPurchase.associatedProduct
-                  .slice(0, 3)
-                  .map((data, index) => {
-                    return (
-                      <li
-                        className={css.associatedItem}
-                        key={index}
-                        onClick={() => {
-                          shoppingCartSuccessModal.goProduct(data.dealId);
-                        }}
-                      >
-                        <div
-                          className={css.associatedItemImage}
-                          style={{ backgroundImage: `url(${data.imageUrl})` }}
-                        />
-                        <div className={css.brandName}>
-                          <span>{data.brandName}</span>
-                          {/* <span>{data.productSeason}</span> */}
-                        </div>
-                        <div className={css.productName}>
-                          {data.productName}
-                        </div>
-                      </li>
-                    );
-                  })}
-              </ul>
-            </div>
-          </div>
-          <AlertBtns confirmText={confirmText} onConfirm={onConfirm} />
-        </div>
-      </ModalWrapper>
+          </ModalWrapper>
+        )}
+      </>
     );
   }
 }

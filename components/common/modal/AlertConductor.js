@@ -11,11 +11,15 @@ class AlertConductor extends Component {
   render() {
     const { alert } = this.props;
     return (
-      <Alert
-        {...alert.props}
-        isOpen={alert.isOpen}
-        isConfirm={alert.props.isConfirm}
-      />
+      <>
+        {alert.isOpen && (
+          <Alert
+            {...alert.props}
+            isOpen={alert.isOpen}
+            isConfirm={alert.props.isConfirm}
+          />
+        )}
+      </>
     );
   }
 }

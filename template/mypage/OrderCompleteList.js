@@ -275,12 +275,14 @@ class OrderCompleteList extends Component {
         />
 
         {/* 구매확정시 포인트 지급 모달  */}
-        <PointSavingModal
-          pointSavingType={pointSavingTypes.CONFIRM_PURCHASE}
-          isOpen={mypagePointStore.isPointSavingModalOpen}
-          onClose={mypagePointStore.closePointSavingModalOpen}
-          savedPointResponse={mypagePointStore.savedPointResponse}
-        />
+        {mypagePointStore.isPointSavingModalOpen && (
+          <PointSavingModal
+            pointSavingType={pointSavingTypes.CONFIRM_PURCHASE}
+            isOpen={mypagePointStore.isPointSavingModalOpen}
+            onClose={mypagePointStore.closePointSavingModalOpen}
+            savedPointResponse={mypagePointStore.savedPointResponse}
+          />
+        )}
 
         {/* 구매확정 모달 */}
         <OrderConfirmModal

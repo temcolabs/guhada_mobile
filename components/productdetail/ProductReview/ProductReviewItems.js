@@ -54,7 +54,7 @@ class ProductReviewItems extends Component {
     if (login.loginStatus === 'LOGIN_DONE') {
       checkBookmarks =
         _.isNil(reviewBookMarks) === false &&
-        reviewBookMarks.find(bookmark => {
+        reviewBookMarks.find((bookmark) => {
           return bookmark.targetId === item.review.id;
         });
     }
@@ -281,28 +281,30 @@ class ProductReviewItems extends Component {
           ) : null}
 
           {/* 신고 모달 */}
-          <ReportModal
-            isOpen={this.state.isReportModalOpen}
-            onClose={this.handleCloseReportModal}
-            reportData={{
-              reportTarget: reportTarget.REVIEW,
-              targetId: item.review.id,
-            }}
-            relatedData={[
-              {
-                label: '상품',
-                value: item.review.dealName,
-              },
-              {
-                label: '리뷰 내용',
-                value: item.review.textReview,
-              },
-              {
-                label: '작성자',
-                value: item.review.userNickname,
-              },
-            ]}
-          />
+          {this.state.isReportModalOpen && (
+            <ReportModal
+              isOpen={this.state.isReportModalOpen}
+              onClose={this.handleCloseReportModal}
+              reportData={{
+                reportTarget: reportTarget.REVIEW,
+                targetId: item.review.id,
+              }}
+              relatedData={[
+                {
+                  label: '상품',
+                  value: item.review.dealName,
+                },
+                {
+                  label: '리뷰 내용',
+                  value: item.review.textReview,
+                },
+                {
+                  label: '작성자',
+                  value: item.review.userNickname,
+                },
+              ]}
+            />
+          )}
         </div>
       </>
     );
