@@ -32,7 +32,6 @@ class ModalWrapper extends React.Component {
     closeTimeoutMS: number, // 모달 닫힘 딜레이. transition을 위한 시간
     lockScroll: bool, // 오픈되었을 때 스크롤을 막을 것인지
     isBigModal: bool, // 브라우저 높이를 넘어서는 큰 사이즈 모달 여부
-
     modalTitle: string,
   };
 
