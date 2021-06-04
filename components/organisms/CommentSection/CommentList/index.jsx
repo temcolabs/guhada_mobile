@@ -177,12 +177,14 @@ function CommentList({
         ''
       )}
 
-      <ReportModal
-        isOpen={isCommentReportModalOpen}
-        onClose={handleCloseReportModal}
-        reportData={commentReportData}
-        relatedData={commentReportRelatedData}
-      />
+      {isCommentReportModalOpen && (
+        <ReportModal
+          isOpen={isCommentReportModalOpen}
+          onClose={handleCloseReportModal}
+          reportData={commentReportData}
+          relatedData={commentReportRelatedData}
+        />
+      )}
     </Wrapper>
   );
 }

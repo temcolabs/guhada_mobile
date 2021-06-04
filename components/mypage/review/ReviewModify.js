@@ -29,7 +29,7 @@ class ReviewModify extends Component {
     this.props.orderCompleteList.handleClickEditReviewButton(orderItem);
   };
 
-  handleClickDeleteReviewButton = reivewItem => {
+  handleClickDeleteReviewButton = (reivewItem) => {
     this.setState({
       isDeleteModalOpen: true,
       reviewData: reivewItem,
@@ -40,7 +40,7 @@ class ReviewModify extends Component {
     this.setState({ isDeleteModalOpen: false });
   };
 
-  handleChangePage = page => {
+  handleChangePage = (page) => {
     const { mypagereview: mypageReviewStore } = this.props;
 
     mypageReviewStore.myReviewPage += 1;
@@ -97,12 +97,14 @@ class ReviewModify extends Component {
           totalItemsCount={myReviews.totalElements || 1}
         /> */}
 
-        <ReviewDeleteModal
-          isDeleteOpen={this.state.isDeleteModalOpen}
-          handleDeleteModalClose={this.handleDeleteModalClose}
-          modalData={this.state.modalData}
-          reviewData={this.state.reviewData}
-        />
+        {this.state.isDeleteModalOpen && (
+          <ReviewDeleteModal
+            isDeleteOpen={this.state.isDeleteModalOpen}
+            handleDeleteModalClose={this.handleDeleteModalClose}
+            modalData={this.state.modalData}
+            reviewData={this.state.reviewData}
+          />
+        )}
       </>
     );
   }

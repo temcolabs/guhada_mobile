@@ -7,29 +7,41 @@ const checkIsMobile = () =>
  * 스크롤 방지
  * @param {*} isLock
  * @param {*} isLockTouchmove 터치 이벤트를 막는다. 모달에 스크롤되는 컨텐츠가 있을 경우 스크롤이 불가능해짐.
+ * @param {*} scrollPosition
  */
 export default function setScrollability({
   isLockScroll = false,
   isLockTouchmove = false,
+  scrollPosition = 0,
 }) {
+  console.log('setScrollability');
   const isMobile = checkIsMobile();
 
   if (canUseDOM()) {
+    let root = document.documentElement;
+
     if (isLockScroll) {
       // Disable scrolling.
       if (isMobile && isLockTouchmove) {
-        document.ontouchmove = e => {
+        document.ontouchmove = (e) => {
           e.preventDefault();
         };
       } else {
-        document.documentElement.style.overflow = 'hidden';
+        root.style.overflow = 'hidden';
+        root.style.position = 'fixed';
+        root.style.top = `-${scrollPosition}px`;
+        root.style.width = '100%';
       }
     } else if (!isLockScroll) {
       // Enable scrolling.
       if (isMobile && isLockTouchmove) {
         document.ontouchmove = () => true;
       } else {
-        document.documentElement.style.overflow = 'initial';
+        root.style.removeProperty('overflow');
+        root.style.removeProperty('position');
+        root.style.removeProperty('top');
+        root.style.removeProperty('width');
+        window.scrollTo(0, scrollPosition);
       }
     }
   }

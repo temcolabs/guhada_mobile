@@ -34,13 +34,23 @@ class ModalWrapper extends React.Component {
     lockScroll: true,
   };
 
+  // TODO : ModalWrapper 통합
   componentDidMount() {
-    this.updateScrollabilty();
+    console.log('bbb');
+    if (this.isLockScrollEnabled) {
+      const scrollPosition = window.pageYOffset;
+      this.setState({ scrollPosition });
+      setScrollability({ isLockScroll: true, scrollPosition });
+    }
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.props.isOpen !== prevProps.isOpen) {
-      this.updateScrollabilty();
+  componentWillUnmount() {
+    const isOpenPortal = document.getElementsByClassName('ReactModalPortal');
+    // 마지막 모달 Close시, active body scroll
+    if (isOpenPortal && isOpenPortal.length === 1) {
+      const scrollPosition = this.state.scrollPosition;
+      setScrollability({ isLockScroll: false, scrollPosition });
+      this.setState({ scrollPosition: 0 });
     }
   }
 
