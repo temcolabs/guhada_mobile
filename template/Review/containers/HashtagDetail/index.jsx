@@ -121,7 +121,7 @@ function ReviewHashtagDetail() {
         topButton={false}
         toolBar={false}
         pageTitle={`테스트`}
-        headerShape={'review'}
+        headerShape={'reviewHashtagDetail'}
         topLayout={'main'}
       >
         <ReviewHashtagDetailWrapper>

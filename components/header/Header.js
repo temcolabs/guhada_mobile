@@ -51,7 +51,7 @@ function Header({
                 headerShape === 'orderpayment' ||
                 headerShape === 'shoppingcart' ||
                 headerShape === 'brand' ||
-                headerShape === 'review' ||
+                headerShape === 'reviewHashtagDetail' ||
                 headerShape === 'eventmain' ||
                 headerShape === 'BBSArticleView',
             },
@@ -70,13 +70,13 @@ function Header({
           headerShape === 'eventmain' ||
           headerShape === 'BBSArticleView' ||
           headerShape === 'special' ||
-          headerShape === 'review' ||
+          headerShape === 'reviewHashtagDetail' ||
           headerShape === 'mypageDetail' ||
           (headerShape === 'address' && urlHistory !== '') ? (
             <button
               className={css.backButton}
               onClick={() =>
-                headerShape === 'review'
+                headerShape === 'reviewHashtagDetail'
                   ? Router.push('/review')
                   : Router.back()
               }
@@ -88,7 +88,7 @@ function Header({
           headerShape === 'shoppingcart' ||
           headerShape === 'orderpayment' ||
           headerShape === 'ordersuccess' ||
-          headerShape === 'review' ||
+          headerShape === 'reviewHashtagDetail' ||
           headerShape === 'recently' ||
           headerShape === 'BBSArticleView' ||
           headerShape === 'mypageDetail' ? null : (
@@ -118,7 +118,7 @@ function Header({
           {headerShape === 'detailPage' ||
           headerShape === 'shoppingcart' ||
           headerShape === 'orderpayment' ||
-          headerShape === 'review' ||
+          headerShape === 'reviewHashtagDetail' ||
           headerShape === 'ordersuccess' ||
           headerShape === 'recently' ? null : (
             <button
@@ -133,7 +133,7 @@ function Header({
           {headerShape === 'detailPage' ||
           headerShape === 'shoppingcart' ||
           headerShape === 'orderpayment' ||
-          headerShape === 'review' ||
+          headerShape === 'reviewHashtagDetail' ||
           headerShape === 'ordersuccess' ||
           headerShape === 'recently' ? null : (
             <LinkRoute href="/shoppingcart">
