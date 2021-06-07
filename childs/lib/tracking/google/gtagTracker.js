@@ -142,5 +142,8 @@ export default {
     luckyDrawGoogleSignup() {
       window.ga('send', 'event', 'Mobile', 'Mobile_bt7');
     },
+    addShoppingCart() {
+      window.ga('send', 'event', 'Mobile', 'Mobile_bt8');
+    },
   },
 };
