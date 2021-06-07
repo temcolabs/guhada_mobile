@@ -19,6 +19,15 @@ export const STATE = {
   LOADED: 'LOADED',
   ERROR: 'ERROR',
 };
+
+/** display thumbnail enum */
+export const THUMBNAIL = {
+  HORIZONTAL: -1,
+  QUAD: 0,
+  DOUBLE: 1,
+  HEX: 2,
+};
+
 /**
  * JSDoc typedefs
  *
@@ -119,6 +128,9 @@ class SearchStore {
   @observable unfungibleCategories = [];
   /** @type {Filter[]} */
   @observable filters = [];
+
+  /** deal items thumbnail display */
+  @observable thumbnail = THUMBNAIL.QUAD;
 
   /**
    * actions

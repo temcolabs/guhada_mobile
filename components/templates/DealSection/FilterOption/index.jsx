@@ -1,9 +1,10 @@
 import css from './FilterOption.module.scss';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { observer } from 'mobx-react';
 import cn from 'classnames';
 import useStores from 'stores/useStores';
 import { searchResultOrderMap } from 'stores/SearchStore/SearchByFilterStore';
+import ThumbnailButton from './ThumbnailButton';
 import FilterTags from './FilterTags';
 import FilterModal from './FilterModal';
 import AdvancedFilterModal from './AdvancedFilterModal';
@@ -34,8 +35,11 @@ const FilterOption = () => {
             {searchResultOrderMap.get(
               searchByFilterStore.body.searchResultOrder
             )}
-            <span className={css['icon--order']} />
           </div>
+          <ThumbnailButton
+            thumbnail={searchByFilterStore.thumbnail}
+            setThumbnail={(idx) => (searchByFilterStore.thumbnail = idx)}
+          />
           <div
             className={cn(css['filter-button'], css['button--advanced'])}
             onClick={() => {
@@ -43,7 +47,6 @@ const FilterOption = () => {
             }}
           >
             상세검색
-            <span className={css['icon--advanced']} />
           </div>
         </div>
         <FilterTags />

@@ -52,7 +52,7 @@ function Gift() {
         <DealItems
           title={'추천 기프트'}
           deals={giftStore.recommendDeals}
-          horizontal
+          thumbnail={-1}
         />
         <DealItems title={'베스트 기프트'} deals={giftStore.bestDeals} />
       </div>

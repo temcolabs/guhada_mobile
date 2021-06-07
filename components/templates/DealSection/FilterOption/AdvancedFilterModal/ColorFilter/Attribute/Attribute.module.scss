@@ -1,0 +1,22 @@
+.item {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: solid 1px #e5e5e5;
+  margin-bottom: 15px;
+
+  margin-right: calc(((100% - (25px * 7)) / 6));
+  &:nth-child(7n) {
+    margin-right: 0;
+  }
+
+  &--checked {
+    background: url('/static/icon/filter_btn_check_w@3x.png') no-repeat center;
+    background-size: 16px;
+
+    &.item--fff {
+      background: url('/static/icon/filter_btn_check_b@3x.png') no-repeat center;
+      background-size: 16px;
+    }
+  }
+}

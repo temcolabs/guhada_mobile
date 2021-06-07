@@ -7,6 +7,8 @@ import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 import TreeFilter from './TreeFilter';
 import DictionaryFilter from './DictionaryFilter';
 import SelectionFilter from './SelectionFilter';
+import ColorFilter from './ColorFilter';
+import AttributeFilter from './AttributeFilter';
 import PriceFilter from './PriceFilter';
 import SearchInputFilter from './SearchInputFilter';
 import {
@@ -79,6 +81,32 @@ const AdvancedFilterModal = ({
               handleSetAbstractFilter({ productCondition })
             }
           />
+          {searchByFilterStore.filters.map(
+            ({ id, name, viewType, attributes }) => {
+              if (viewType === 'RGB_BUTTON') {
+                return (
+                  <ColorFilter
+                    key={id}
+                    title={name}
+                    attributes={attributes}
+                    currentFilters={searchByFilterStore.abstractBody.filters}
+                    setFilters={(filters) =>
+                      handleSetAbstractFilter({ filters })
+                    }
+                  />
+                );
+              }
+              return (
+                <AttributeFilter
+                  key={id}
+                  title={name}
+                  attributes={attributes}
+                  currentFilters={searchByFilterStore.abstractBody.filters}
+                  setFilters={(filters) => handleSetAbstractFilter({ filters })}
+                />
+              );
+            }
+          )}
           <PriceFilter
             title={'가격'}
             mapObject={priceArrangeMap}

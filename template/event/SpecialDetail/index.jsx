@@ -51,6 +51,7 @@ function SpecialDetail() {
             isLoading={searchByFilterStore.countOfDeals === Infinity}
             moreToLoad={searchByFilterStore.moreToLoad}
             handleLoadMore={() => searchByFilterStore.search(true)}
+            thumbnail={searchByFilterStore.thumbnail}
             isFilterable
           />
         </div>

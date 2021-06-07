@@ -1,11 +1,12 @@
 import css from './FilterTags.module.scss';
-import PropTypes from 'prop-types';
+import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
 import useStores from 'stores/useStores';
 import {
   shippingConditionMap,
   productConditionMap,
 } from 'stores/SearchStore/SearchByFilterStore';
+import TagFactory from './TagFactory';
 
 const FilterTags = () => {
   /**
@@ -59,6 +60,12 @@ const FilterTags = () => {
             <button onClick={() => submitFilter({ searchQueries: [] })}>
               키워드
             </button>
+          )}
+          {body.filters.length !== 0 && (
+            <TagFactory
+              filters={toJS(body.filters)}
+              submitFilter={submitFilter}
+            />
           )}
         </div>
         <button className={css['reset']} onClick={resetFilter}>
