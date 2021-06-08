@@ -239,11 +239,11 @@ class Home extends React.Component {
         {eventpopup.popupList.length > 0
           ? eventpopup.popupList.map((data, index) => {
               return (
-                <AppEventPopup
-                  isOpen={data.popupStatus}
-                  data={data}
-                  key={index}
-                />
+                <React.Fragment key={index}>
+                  {data.popupStatus && (
+                    <AppEventPopup isOpen={data.popupStatus} data={data} />
+                  )}
+                </React.Fragment>
               );
             })
           : null}

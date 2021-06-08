@@ -14,6 +14,7 @@ export default function setScrollability({
   isLockTouchmove = false,
   scrollPosition = 0,
 }) {
+  console.log('setScrollability');
   const isMobile = checkIsMobile();
 
   if (canUseDOM()) {
