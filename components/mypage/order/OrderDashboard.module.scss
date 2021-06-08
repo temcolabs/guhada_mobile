@@ -1,6 +1,7 @@
 @import 'styles/mixins/index';
 
 .orderDashboardWrap {
+  font-family: Roboto;
   color: #111111;
   display: flex;
   padding: 16px 0;
@@ -9,6 +10,7 @@
   & .orderItem {
     display: flex;
     flex-flow: row wrap;
+    flex-grow: 1;
 
     > div {
       display: flex;

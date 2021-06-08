@@ -34,37 +34,4 @@
       }
     }
   }
-  & .orderItemSection {
-    color: #111111;
-    display: flex;
-    padding: 16px 0;
-    height: 80px;
-
-    & .orderItem {
-      display: flex;
-      flex-flow: row wrap;
-
-      > div {
-        display: flex;
-        justify-content: center;
-        width: 100%;
-      }
-
-      & .orderItem__value {
-        font-size: 19px;
-        font-weight: 500;
-        margin-bottom: 12px;
-      }
-
-      & .orderItem__desc {
-        font-size: 12px;
-      }
-    }
-
-    & .orderItem__arrow {
-      display: flex;
-      align-items: flex-end;
-      height: 100%;
-    }
-  }
 }
