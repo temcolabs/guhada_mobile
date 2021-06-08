@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDom from 'react-dom';
 import css from './SlideIn.module.scss';
 import { Transition } from 'react-transition-group';
@@ -6,6 +6,7 @@ import anime from 'animejs';
 import { isBrowser } from 'childs/lib/common/isServer';
 import Mask from '../modal/Mask';
 import setScrollability from 'childs/lib/dom/setScrollability';
+import { useScrollPosition } from 'hooks';
 
 /**
  * 진입 방향
@@ -149,11 +150,16 @@ export default function SlideIn({
   zIndex, // css.wrap 클래스에 선언된 SlideIn의 기본 z-index는 201.
   wrapperStyle = {}, // css.wrap 클래스의 스타일을 덮어씌움
 }) {
-  // 스크롤 방지
+  // 부모 컴포넌트 스크롤 방지
+  const { scrollTop } = useScrollPosition();
   useEffect(() => {
-    if (isVisible) setScrollability({ isLockScroll: true });
-    else setScrollability({ isLockScroll: false });
-  }, [isVisible]);
+    if (isVisible) {
+      setScrollability({
+        isLockScroll: true,
+        scrollPosition: scrollTop,
+      });
+    }
+  }, [isVisible, scrollTop]);
 
   if (isBrowser) {
     const bodyEl = document.documentElement.getElementsByTagName('body')[0];

@@ -26,10 +26,8 @@ export default function setScrollability({
           e.preventDefault();
         };
       } else {
+        // TODO : IOS 처리
         root.style.overflow = 'hidden';
-        root.style.position = 'fixed';
-        root.style.top = `-${scrollPosition}px`;
-        root.style.width = '100%';
       }
     } else if (!isLockScroll) {
       // Enable scrolling.
@@ -37,9 +35,6 @@ export default function setScrollability({
         document.ontouchmove = () => true;
       } else {
         root.style.removeProperty('overflow');
-        root.style.removeProperty('position');
-        root.style.removeProperty('top');
-        root.style.removeProperty('width');
         window.scrollTo(0, scrollPosition);
       }
     }

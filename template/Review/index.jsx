@@ -34,7 +34,7 @@ function ReviewTemplate() {
   const { reviewList: reviews } = reviewStore;
 
   const scrollDirection = useScrollDirection();
-  const scrollPosition = useScrollPosition();
+  const { scrollPosition } = useScrollPosition();
 
   /**
    * side effects
