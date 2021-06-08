@@ -39,7 +39,7 @@ const ScrollableImageModal = ({
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         contentStyle={{ overflowY: 'scroll' }}
-        lockScroll={false}
+        lockScroll={true}
       >
         {loaded ? (
           <img style={{ width: '100vw' }} src={imgSrc} />

@@ -46,7 +46,7 @@ class Home extends React.Component {
 
   componentDidMount() {
     let query = Router.router.query;
-    
+
     const { main } = this.props;
 
     let asPath = Router.router.asPath;
@@ -149,14 +149,16 @@ class Home extends React.Component {
           email={this.state.email}
         /> */}
 
-        <PointSavingModal
-          isOpen={this.state.signupModal}
-          pointSavingType={pointSavingTypes.SIGNUP}
-          savedPointResponse={this.state.savedPointResponse}
-          onClose={() => {
-            this.setState({ signupModal: false });
-          }}
-        />
+        {this.state.signupModal && (
+          <PointSavingModal
+            isOpen={this.state.signupModal}
+            pointSavingType={pointSavingTypes.SIGNUP}
+            savedPointResponse={this.state.savedPointResponse}
+            onClose={() => {
+              this.setState({ signupModal: false });
+            }}
+          />
+        )}
         <div>
           {/* Focus on items */}
           {main.navDealId === 0 && (

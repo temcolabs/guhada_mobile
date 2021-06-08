@@ -56,7 +56,7 @@ const CommentsList = ({ commentCount }) => {
    * 페이지 클릭
    * @param {} page
    */
-  const handleClickPage = page => {
+  const handleClickPage = (page) => {
     setCurrentPage(page);
     jumpToAnchor(listElementId);
   };
@@ -135,12 +135,14 @@ const CommentsList = ({ commentCount }) => {
         />
       ) : null}
 
-      <ReportModal
-        isOpen={isCommentReportModalOpen}
-        onClose={handleCloseReportModal}
-        reportData={commentReportData}
-        relatedData={commentReportRelatedData}
-      />
+      {isCommentReportModalOpen && (
+        <ReportModal
+          isOpen={isCommentReportModalOpen}
+          onClose={handleCloseReportModal}
+          reportData={commentReportData}
+          relatedData={commentReportRelatedData}
+        />
+      )}
     </div>
   ));
 };

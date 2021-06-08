@@ -34,7 +34,7 @@ function ReviewSection({ isLazy, review, onClickLike, onClickProduct }) {
           reviewId={review?.id}
           isModalOpen={isModalOpen}
           onCloseModal={() => {
-            document.documentElement.style.overflow = 'initial';
+            // document.documentElement.style.overflow = 'initial';
             setIsModalOpen(false);
           }}
         />
