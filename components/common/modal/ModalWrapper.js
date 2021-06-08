@@ -36,7 +36,6 @@ class ModalWrapper extends React.Component {
 
   // TODO : ModalWrapper 통합
   componentDidMount() {
-    console.log('bbb');
     if (this.isLockScrollEnabled) {
       const scrollPosition = window.pageYOffset;
       this.setState({ scrollPosition });

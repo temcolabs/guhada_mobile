@@ -1,12 +1,36 @@
 @import '../../../../styles/sprite.scss';
 
-.container {
+.modalPhotoDetailWrap {
   display: flex;
   justify-content: center;
-  flex-flow : row wrap;
+  align-items: center;
   width: 100%;
-  height: calc(100% - 60px);
+  height: 100%;
   background-color: black;
+
+  & .closeBtn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+  }
+
+  & .contents {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+
+    & .prevBtn {
+      position: absolute;
+      left: 0;
+    }
+  
+    & .nextBtn {
+      position: absolute;
+      right: 0;
+    }
+  }
 }
 .box {
   display: flex;
@@ -47,10 +71,10 @@
 .next__btn {
   position: absolute;
   margin: auto;
-  top:0;
+  top: 0;
   bottom: 0;
   right: 0;
-  
+
   &__small {
     @include sprite($photo-arrow-next-small);
   }
@@ -79,6 +103,3 @@
     @include sprite($photo-arrow-prev-small-3x);
   }
 }
-
-
-
