@@ -18,7 +18,7 @@ function ToolbarBrand({ isVisible, onClose, brands }) {
           />
           <div className={css.header}>브랜드</div>
           <div className={css.itemWrap}>
-            <Brand onClose={onClose} />
+            <Brand isVisible={isVisible} onClose={onClose} />
           </div>
         </div>
       </SlideIn>

@@ -16,7 +16,7 @@ import { internationalShippingOptions } from 'childs/lib/constant/filter/interna
 import { brandNewOptions } from 'childs/lib/constant/filter/brandNew';
 import PriceFilter from './PriceFilter';
 import ResultSearchFilter from 'components/search/ResultSearchFilter';
-@inject('brands', 'searchitem')
+@inject('login', 'brands', 'searchitem')
 @observer
 class SearchFilter extends Component {
   componentDidUpdate(prevProps, prevState) {
@@ -27,7 +27,8 @@ class SearchFilter extends Component {
     const { brands, searchitem } = this.props;
     if (isVisible === false) {
       //searchitem.initFilter();
-      brands.getBrands();
+      const userId = this.props.login?.loginInfo?.userId;
+      brands.getBrands({userId});
     } else {
       brands.setBrandsFromFilter(searchitem.item?.brands);
     }

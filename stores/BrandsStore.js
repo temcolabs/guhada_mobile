@@ -32,7 +32,6 @@ export default class BrandsStore {
     if (!isServer) this.root = root;
 
     this.setFilterLabel();
-    this.getBrands();
   }
 
   @action
@@ -67,8 +66,9 @@ export default class BrandsStore {
   };
 
   @action
-  getBrands = (brand) => {
-    API.product.get(`/brands?viewType=GROUP`).then((res) => {
+  getBrands = ({ brand, userId }) => {
+    const headers = userId ? { 'x-guhada-user-id': userId } : {};
+    API.product.get(`/brands?viewType=GROUP`, { headers }).then((res) => {
       let data = res.data;
       if (Object.keys(data).length !== 0) {
         this.setBrands(data.data, data.data['ALL']);

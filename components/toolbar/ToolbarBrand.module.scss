@@ -8,7 +8,7 @@ $toolbarHeader: 55px;
   left: 0;
   height: calc(100vh - #{$topPosition});
   background: #fff;
-  overflow: scroll;
+  overflow: hidden;
   margin-top: $topPosition;
 
   & .header {

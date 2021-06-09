@@ -18,6 +18,7 @@ function BrandContainer({ isVisible, onClose, brands, onCloseMenu }) {
         <div className={css.header}>브랜드</div>
         <div className={css.itemWrap}>
           <Brand
+            isVisible={isVisible}
             fromHeader={true}
             onClose={onClose}
             onCloseMenu={onCloseMenu}
