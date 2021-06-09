@@ -161,6 +161,7 @@
     width: auto;
     height: 132px;
     overflow: auto;
+    overflow-y: hidden;
     white-space: nowrap;
 
     &::-webkit-scrollbar {
