@@ -15,6 +15,7 @@ const IMAGE_PATH = {
 @inject('login', 'brands', 'searchitem')
 @observer
 class Brand extends Component {
+  brandRef = createRef(null);
   state = {
     brandLabel: 'A',
     isFavorite: false,
@@ -24,9 +25,33 @@ class Brand extends Component {
     const { brands } = this.props;
     const userId = this.props.login?.loginInfo?.userId;
     brands.getBrands({ userId });
+    // this.refs.brandScroll.addEventListener(
+    //   'scroll',
+    //   _.debounce((e) => {
+    //     this.toScroll(this.state.brandLabel);
+    //   }, 10)
+    // );
   }
 
-  toScroll = (label) => {
+  componentDidUpdate(prevProps) {
+    if (prevProps.isVisible !== this.props.isVisible) {
+      if (this.props.isVisible) {
+        this.refs.brandScroll.addEventListener(
+          'scroll',
+          this.toScrollFilterLabel
+        );
+      } else {
+        this.refs.brandScroll.removeEventListener(
+          'scroll',
+          this.toScrollFilterLabel
+        );
+      }
+    }
+  }
+
+  handleScrollBrandWrap = () => {};
+
+  handleFilterItem = (label) => {
     const target =
       this.props.fromHeader === true
         ? document.getElementById(`brand${label}fromHeader`)
@@ -47,14 +72,6 @@ class Brand extends Component {
     this.setState({ brandLabel: label });
   };
 
-  handleFilterLabel = (filter) => {
-    if (filter === 'en') {
-      this.setState({ brandLabel: 'A' });
-    } else {
-      this.setState({ brandLabel: 'ㄱ' });
-    }
-  };
-
   /**
    * 브랜드 > 언어 선택
    * @param {String} lang, 'en', 'ko'
@@ -64,7 +81,7 @@ class Brand extends Component {
       (lang === 'en' && 'english') || (lang === 'ko' && 'korean') || 'english';
     this.props.brands.setSelectedLanguage(langauge);
     this.refs.brandScroll.scrollTo(0, 0);
-    this.handleFilterLabel(lang);
+    this.toFilterLabel(lang);
     this.handleFavoriteMenu(false);
   };
 
@@ -111,6 +128,41 @@ class Brand extends Component {
 
     searchitem.toSearch({ brand: id, enter: 'brand' });
   };
+
+  toFilterLabel = (filter) => {
+    if (filter === 'en') {
+      this.setState({ brandLabel: 'A' });
+    } else {
+      this.setState({ brandLabel: 'ㄱ' });
+    }
+  };
+
+  toScrollFilterLabel = _.debounce((e) => {
+    const findTarget = (idx) => {
+      if (targetList.length - 1 < idx) return false;
+      const curTarget = targetList[idx];
+      const nextTarget = targetList[idx + 1];
+      return nextTarget?.offsetTop < this.refs.brandScroll.scrollTop
+        ? nextTarget?.id // next Label
+        : curTarget?.id; // current Label
+    };
+
+    const { brandLabel } = this.state;
+    const currentLabel = `brand${brandLabel}`;
+    const targetList = [].filter.call(
+      this.brandRef.current.childNodes,
+      (e) => e.id
+    );
+
+    if (targetList && targetList.length) {
+      const targetIndex = targetList.findIndex((e) => e.id === currentLabel);
+      if (targetIndex !== -1) {
+        const targetLabel = findTarget(targetIndex).replace('brand', '');
+        if (brandLabel !== targetLabel)
+          this.setState({ ...this.state, brandLabel: targetLabel });
+      }
+    }
+  }, 10);
 
   render() {
     let { brands, fromHeader } = this.props;
@@ -170,7 +222,7 @@ class Brand extends Component {
             })}
             ref="brandScroll"
           >
-            <div className={css.brand}>
+            <div className={css.brand} ref={this.brandRef}>
               {brands.selectedLanguage === 'english'
                 ? brands.enFilter.map((enbind, enIndex) => {
                     if (
@@ -292,7 +344,7 @@ class Brand extends Component {
                           [css.selected]: this.state.brandLabel === en,
                         })}
                         key={enIndex}
-                        onClick={() => this.toScroll(`${en}`)}
+                        onClick={() => this.handleFilterItem(`${en}`)}
                       >
                         {en}
                       </div>
@@ -305,7 +357,7 @@ class Brand extends Component {
                           [css.selected]: this.state.brandLabel === ko,
                         })}
                         key={koIndex}
-                        onClick={() => this.toScroll(`${ko}`)}
+                        onClick={() => this.handleFilterItem(`${ko}`)}
                       >
                         {ko}
                       </div>

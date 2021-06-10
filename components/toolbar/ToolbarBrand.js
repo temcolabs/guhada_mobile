@@ -1,7 +1,7 @@
 import React from 'react';
 import css from './ToolbarBrand.module.scss';
 import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
-import Brand from './Brand';
+import Brand from './_Brand';
 import { inject } from 'mobx-react';
 function ToolbarBrand({ isVisible, onClose, brands }) {
   return (
