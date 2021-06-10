@@ -17,20 +17,18 @@ function SearchLayout({
    * render
    */
   return (
-    <>
-      <div className={css['layout']}>
-        <Header
-          title={title}
-          back={back}
-          home={home}
-          category={category}
-          isScrollDown={isScrollDown}
-        />
-        {children}
-        <Navigation />
-      </div>
+    <div className={css['layout']}>
+      <Header
+        title={title}
+        back={back}
+        home={home}
+        category={category}
+        isScrollDown={isScrollDown}
+      />
+      {children}
+      <Navigation />
       <PluginButtons plugins={plugins} />
-    </>
+    </div>
   );
 }
 

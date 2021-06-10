@@ -5,7 +5,6 @@ import copy from 'copy-to-clipboard';
 import useStores from 'stores/useStores';
 import SpecialDetailHeader from './SpecialDetailHeader';
 import DealSection from 'components/templates/DealSection';
-import MountLoading from 'components/atoms/Misc/MountLoading';
 
 function SpecialDetail() {
   /**
@@ -34,7 +33,6 @@ function SpecialDetail() {
    */
   return (
     <div className={css['special-detail']}>
-      {newSpecialStore.isLoading && <MountLoading />}
       <SpecialDetailHeader
         specialDetail={newSpecialStore.specialDetail}
         handleCopyUrlToClipboard={handleCopyUrlToClipboard}

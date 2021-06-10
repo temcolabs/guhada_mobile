@@ -18,7 +18,6 @@ const DealSection = ({
   isInfiniteScroll = true,
   displaySeller = false,
   displayTags = true,
-  scrollDirection,
   isLazy = true,
 }) => {
   /**
@@ -32,7 +31,7 @@ const DealSection = ({
   return (
     <div className={css['deal-section']}>
       {title && <div className={css['deal-section__title']}>{title}</div>}
-      {isFilterable && <FilterOption scrollDirection={scrollDirection} />}
+      {isFilterable && <FilterOption />}
       {isLoading ? (
         <Spinner />
       ) : (
@@ -67,7 +66,6 @@ DealSection.propTypes = {
   isInfiniteScroll: PropTypes.bool,
   displaySeller: PropTypes.bool,
   displayTags: PropTypes.bool,
-  scrollDirection: PropTypes.string,
   isLazy: PropTypes.bool,
 };
 

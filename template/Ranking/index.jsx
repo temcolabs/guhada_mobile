@@ -36,13 +36,13 @@ function Ranking() {
           rank={rankingStore.ranking.rank}
           handleSearch={handleSearch}
         />
-      </div>
 
-      <FilterModal
-        isModalOpen={isModalOpen}
-        selectedFilter={selectedFilter}
-        handleCloseModal={() => setIsModalOpen(false)}
-      />
+        <FilterModal
+          isModalOpen={isModalOpen}
+          selectedFilter={selectedFilter}
+          handleCloseModal={() => setIsModalOpen(false)}
+        />
+      </div>
     </>
   );
 }

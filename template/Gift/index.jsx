@@ -15,17 +15,15 @@ function Gift() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <>
-      <div className={css.gift}>
-        {giftStore.isLoading && <MountLoading />}
-        <GiftHeader handleOpenModal={() => setIsModalOpen(true)} />
-        <DealItems
-          title={'추천 기프트'}
-          deals={giftStore.recommendDeals}
-          thumbnail={-1}
-        />
-        <DealItems title={'베스트 기프트'} deals={giftStore.bestDeals} />
-      </div>
+    <div className={css.gift}>
+      {giftStore.isLoading && <MountLoading />}
+      <GiftHeader handleOpenModal={() => setIsModalOpen(true)} />
+      <DealItems
+        title={'추천 기프트'}
+        deals={giftStore.recommendDeals}
+        thumbnail={-1}
+      />
+      <DealItems title={'베스트 기프트'} deals={giftStore.bestDeals} />
 
       {isModalOpen && (
         <ScrollableImageModal
@@ -34,7 +32,7 @@ function Gift() {
           handleCloseModal={() => setIsModalOpen(false)}
         />
       )}
-    </>
+    </div>
   );
 }
 

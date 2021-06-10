@@ -12,6 +12,7 @@ import { useScrollDirection } from 'hooks';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
 import DefaultLayout from 'components/layout/DefaultLayout';
 import SpecialDetail from 'template/event/SpecialDetail';
+import MountLoading from 'components/atoms/Misc/MountLoading';
 
 function SpecialDetailPage() {
   /**
@@ -34,18 +35,21 @@ function SpecialDetailPage() {
    * render
    */
   return (
-    <DefaultLayout
-      headerShape={'special'}
-      pageTitle={'기획전'}
-      scrollDirection={scrollDirection}
-    >
+    <>
       <HeadForSEO
         pageName={headData.pageName || '기획전'}
         description={headData.description}
         image={headData.image}
       />
-      <SpecialDetail />
-    </DefaultLayout>
+      <DefaultLayout
+        headerShape={'special'}
+        pageTitle={'기획전'}
+        scrollDirection={scrollDirection}
+      >
+        {newSpecialStore.isLoading && <MountLoading />}
+        <SpecialDetail />
+      </DefaultLayout>
+    </>
   );
 }
 
