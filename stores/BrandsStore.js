@@ -6,7 +6,30 @@ import findChoKorean from 'childs/lib/common/findChoKorean';
 import _ from 'lodash';
 const isServer = typeof window === 'undefined';
 
-export default class BrandsStore {
+class newBrandsStore {
+  // 불 필요한 복잡도를 줄인 스토어
+  // 툴바 > 브랜드
+  // 메뉴 > 브랜드
+
+  /**
+   * observables
+   */
+  @observable isFavorite = false;
+  @observable language = 'en'; // en, ko
+  @observable enBrands = {};
+  @observable koBrands = {};
+
+  /**
+   * computeds
+   */
+  @computed get getLanguageFilter() {}
+  @computed get getFavoriteFilter() {}
+
+  /**
+   * actions
+   */
+}
+export default class BrandsStore extends newBrandsStore {
   @observable brands = [];
   @observable selectedBrands = [];
   @observable selectedFilter = 'ALL';
@@ -29,6 +52,7 @@ export default class BrandsStore {
   @observable selectedLanguage = 'english';
 
   constructor(root) {
+    super(root);
     if (!isServer) this.root = root;
 
     this.setFilterLabel();
@@ -140,7 +164,7 @@ export default class BrandsStore {
    * 모바일 브랜드 검색을 위한 function
    */
   @action
-  searchBrand = (search) => {
+  searchBrand = (search, isFavorite) => {
     let selectedBrands = {};
     let searchText = search;
     var regKorean = /^[\가-\힣+]*$/;
@@ -154,9 +178,7 @@ export default class BrandsStore {
     }
 
     if (is_hangul_char(search)) {
-      if (this.headerBrandLanguage !== 'favorite') {
-        this.setSelectedLanguage('korean');
-      }
+      this.setSelectedLanguage('korean');
 
       this.koFilter.forEach((element) => {
         selectedBrands[element] = [];
@@ -169,16 +191,18 @@ export default class BrandsStore {
       this.koFilter.forEach((kobind) => {
         this.originalKoList[kobind].forEach((element) => {
           if (element['nameKo'].indexOf(searchText) !== -1) {
-            selectedBrands[kobind].push(element);
+            if (isFavorite) {
+              if (element.isFavorite) selectedBrands[kobind].push(element);
+            } else {
+              selectedBrands[kobind].push(element);
+            }
           }
         });
       });
 
       this.koList = selectedBrands;
     } else {
-      if (this.headerBrandLanguage !== 'favorite') {
-        this.setSelectedLanguage('english');
-      }
+      this.setSelectedLanguage('english');
 
       this.enFilter.forEach((element) => {
         selectedBrands[element] = [];
@@ -190,7 +214,11 @@ export default class BrandsStore {
             element['nameEn'].toLowerCase().indexOf(searchText.toLowerCase()) !=
             -1
           ) {
-            selectedBrands[enbind].push(element);
+            if (isFavorite) {
+              if (element.isFavorite) selectedBrands[enbind].push(element);
+            } else {
+              selectedBrands[enbind].push(element);
+            }
           }
         });
       });
@@ -474,27 +502,11 @@ export default class BrandsStore {
       });
 
       selectedBrands.sort(function(a, b) {
-        var x = a.nameKo.toLowerCase();
-        var y = b.nameKo.toLowerCase();
+        var x = a.nameKo;
+        var y = b.nameKo;
         return x < y ? -1 : x > y ? 1 : 0;
       });
-    }
-    // 카테고리 정렬
-    else if (language === 'favorite') {
-      this.brands['ALL'].forEach((element) => {
-        if (element.isFavorite) {
-          selectedBrands.push(element);
-        }
-      });
-
-      selectedBrands.sort(function(a, b) {
-        var x = a.nameDefault.toLowerCase();
-        var y = b.nameDefault.toLowerCase();
-        return x < y ? -1 : x > y ? 1 : 0;
-      });
-    }
-    // 카테고리 정렬
-    else {
+    } else {
       this.brands['ALL'].forEach((element) => {
         selectedBrands.push(element);
       });
@@ -509,6 +521,29 @@ export default class BrandsStore {
     this.setFilter('ALL');
     this.setBrands(this.brands, selectedBrands);
   };
+
+  @action
+  setFilterFavorite(isFavorite) {
+    if (this.selectedLanguage === 'english') {
+      this.enList = isFavorite
+        ? this.convertToFavoriteObj(this.enList)
+        : this.originalEnList;
+    } else {
+      this.koList = isFavorite
+        ? this.convertToFavoriteObj(this.koList)
+        : this.originalKoList;
+    }
+  }
+
+  convertToFavoriteObj(obj) {
+    return Object.keys(obj).reduce((acc, key, i) => {
+      const arr = obj[key].filter((o) => o.isFavorite);
+      return { ...acc, [key]: arr };
+    }, {});
+  }
+
+  @action
+  setFilterFavoriteItem() {}
 
   @action
   createUserBrandFavorite = (userId, brandId) => {
