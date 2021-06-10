@@ -51,7 +51,8 @@ function Header({
                 headerShape === 'orderpayment' ||
                 headerShape === 'shoppingcart' ||
                 headerShape === 'brand' ||
-                headerShape === 'review' ||
+                headerShape === 'reviewHashtagDetail' ||
+                headerShape === 'special' ||
                 headerShape === 'eventmain' ||
                 headerShape === 'BBSArticleView',
             },
@@ -70,16 +71,26 @@ function Header({
           headerShape === 'eventmain' ||
           headerShape === 'BBSArticleView' ||
           headerShape === 'special' ||
-          headerShape === 'review' ||
+          headerShape === 'reviewHashtagDetail' ||
           headerShape === 'mypageDetail' ||
           (headerShape === 'address' && urlHistory !== '') ? (
             <button
               className={css.backButton}
-              onClick={() =>
-                headerShape === 'review'
-                  ? Router.push('/review')
-                  : Router.back()
-              }
+              onClick={() => {
+                if (urlHistory === '') {
+                  switch (headerShape) {
+                    case 'eventmain':
+                      return Router.push('/event');
+                    case 'special':
+                      return Router.push('/event/special');
+                    case 'reviewHashtagDetail':
+                      return Router.push('/review');
+                    default:
+                      return Router.push('/');
+                  }
+                }
+                return Router.back();
+              }}
             />
           ) : null}
 
@@ -88,7 +99,7 @@ function Header({
           headerShape === 'shoppingcart' ||
           headerShape === 'orderpayment' ||
           headerShape === 'ordersuccess' ||
-          headerShape === 'review' ||
+          headerShape === 'reviewHashtagDetail' ||
           headerShape === 'recently' ||
           headerShape === 'BBSArticleView' ||
           headerShape === 'mypageDetail' ? null : (
@@ -118,7 +129,7 @@ function Header({
           {headerShape === 'detailPage' ||
           headerShape === 'shoppingcart' ||
           headerShape === 'orderpayment' ||
-          headerShape === 'review' ||
+          headerShape === 'reviewHashtagDetail' ||
           headerShape === 'ordersuccess' ||
           headerShape === 'recently' ? null : (
             <button
@@ -133,7 +144,7 @@ function Header({
           {headerShape === 'detailPage' ||
           headerShape === 'shoppingcart' ||
           headerShape === 'orderpayment' ||
-          headerShape === 'review' ||
+          headerShape === 'reviewHashtagDetail' ||
           headerShape === 'ordersuccess' ||
           headerShape === 'recently' ? null : (
             <LinkRoute href="/shoppingcart">

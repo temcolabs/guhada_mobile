@@ -40,7 +40,7 @@ function ReviewHashtagDetail() {
   const [reviewId, setReviewId] = useState(0);
   const [search, setSearch] = useState(initialSearch);
 
-  const scrollPosition = useScrollPosition();
+  const { scrollPosition } = useScrollPosition();
 
   // 페이지 초기화
   useEffect(() => {
@@ -121,7 +121,7 @@ function ReviewHashtagDetail() {
         topButton={false}
         toolBar={false}
         pageTitle={`테스트`}
-        headerShape={'review'}
+        headerShape={'reviewHashtagDetail'}
         topLayout={'main'}
       >
         <ReviewHashtagDetailWrapper>

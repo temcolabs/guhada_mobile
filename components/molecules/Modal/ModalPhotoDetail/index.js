@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import dynamic from 'next/dynamic';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 import css from './Styles.module.scss';
-
 import setScrollability from 'childs/lib/dom/setScrollability';
 
-const ModalWrapper = dynamic(() => import('../ModalMobileWrapper'));
+import ModalWrapper from '../ModalMobileWrapper';
+import Image from 'components/atoms/Image';
+
+const IMAGE_PATH = {
+  closeBtn: '/static/icons/button/close_btn_small/close_btn_small_3x.png',
+  prevBtn:
+    '/static/icons/arrow/photo_arrow_prev_small/photo_arrow_prev_small_3x.png',
+  nextBtn:
+    '/static/icons/arrow/photo_arrow_next_small/photo_arrow_next_small_3x.png',
+};
 
 /**
  * 포토 리뷰 상세 모달 컴포넌트
@@ -33,44 +40,48 @@ function ModalPhotoDetail({ isOpen, photos, onClickClose }) {
     <>
       <ModalWrapper
         isOpen={isOpen}
+        zIndex={9999}
         children={
-          <div className={css.container}>
-            {/* Empty, Close Button 영역 */}
-            <div className={cn(css.box, css.box_empty, css.box_empty_close)}>
-              <button
-                className={cn(css.close__btn, css.close__btn__small)}
-                onClick={() => {
-                  onClickClose();
-                  setScrollability({ isLockScroll: false });
-                }}
-              />
+          <div className={css.modalPhotoDetailWrap}>
+            {/* Close Button */}
+            <div
+              className={css.closeBtn}
+              onClick={() => {
+                onClickClose();
+                setScrollability({ isLockScroll: false });
+              }}
+            >
+              <Image src={IMAGE_PATH.closeBtn} width={'30px'} height={'30px'} />
             </div>
 
             {/* 컨텐츠 영역 */}
-            <div className={cn(css.box, css.box_content)}>
-              {/* 이전 사진 버튼 */}
-              {currentIndex !== photos.length - 1 && (
-                <button
-                  className={cn(css.next__btn, css.next__btn__small)}
-                  onClick={() => onClickNext()}
-                />
-              )}
-              {/* 다음 사진 버튼  */}
+            <div className={cn(css.contents)}>
+              {/* 이전 사진 버튼  */}
               {currentIndex !== 0 && (
-                <button
-                  className={cn(css.prev__btn, css.prev__btn__small)}
-                  onClick={() => onClickPrev()}
-                />
+                <div className={cn(css.prevBtn)} onClick={() => onClickPrev()}>
+                  <Image
+                    src={IMAGE_PATH.prevBtn}
+                    width={'48px'}
+                    height={'48px'}
+                  />
+                </div>
+              )}
+              {/* 다음 사진 버튼 */}
+              {currentIndex !== photos.length - 1 && (
+                <div className={cn(css.nextBtn)} onClick={() => onClickNext()}>
+                  <Image
+                    src={IMAGE_PATH.nextBtn}
+                    width={'48px'}
+                    height={'48px'}
+                  />
+                </div>
               )}
               {/* 이미지 */}
-              <img
-                className={css.photo}
+              <Image
                 src={photos[currentIndex].reviewPhotoUrl || ''}
-                alt={'포토리뷰'}
+                size={'contain'}
               />
             </div>
-            {/* Empty 영역 */}
-            <div className={cn(css.box, css.box_empty)} />
           </div>
         }
       />

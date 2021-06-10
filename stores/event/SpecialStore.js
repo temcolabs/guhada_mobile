@@ -120,23 +120,24 @@ export default class SpecialStore {
     let query = Router.router.query;
 
     pushRoute(
-      `/event/special/${eventIds}?${qs.stringify({
-        category: category,
-        brand: brand,
-        page: page,
-        unitPerPage: unitPerPage,
-        order: order === null || order === '' ? 'DATE' : order,
-        filter: filter,
-        subcategory: subcategory,
-        enter: 'store',
-        keyword: keyword,
-        resultKeyword: resultKeyword,
-        condition: condition === '' ? query.condition : condition,
-        productCondition: this.productCondition,
-        shippingCondition: this.shippingCondition,
-        minPrice: minPrice,
-        maxPrice: maxPrice,
-      })}`
+      `/event/special/${eventIds}`
+      // `/event/special/${eventIds}?${qs.stringify({
+      //   category: category,
+      //   brand: brand,
+      //   page: page,
+      //   unitPerPage: unitPerPage,
+      //   order: order === null || order === '' ? 'DATE' : order,
+      //   filter: filter,
+      //   subcategory: subcategory,
+      //   enter: 'store',
+      //   keyword: keyword,
+      //   resultKeyword: resultKeyword,
+      //   condition: condition === '' ? query.condition : condition,
+      //   productCondition: this.productCondition,
+      //   shippingCondition: this.shippingCondition,
+      //   minPrice: minPrice,
+      //   maxPrice: maxPrice,
+      // })}`
     );
     if (this.preUrl !== Router.asPath) this.deals = [];
   };

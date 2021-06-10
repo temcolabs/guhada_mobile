@@ -23,7 +23,7 @@ class SearchFilter extends Component {
     this.setBrandData(this.props.isVisible);
   }
   // isVisible
-  setBrandData = memoize(isVisible => {
+  setBrandData = memoize((isVisible) => {
     const { brands, searchitem } = this.props;
     if (isVisible === false) {
       //searchitem.initFilter();

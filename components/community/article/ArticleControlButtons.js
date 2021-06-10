@@ -118,32 +118,34 @@ function ArticleControlButtons({ router, isModifyEnabled = true }) {
       </div>
 
       {/* 신고 모달 */}
-      <ReportModal
-        isOpen={isReportModalOpen}
-        onClose={handleCloseReportModal}
-        reportData={{
-          reportTarget: reportTarget.BOARD,
-          targetId: articleData.id,
-        }}
-        relatedData={[
-          {
-            label: '게시글번호',
-            value: articleData.id,
-          },
-          {
-            label: '게시글제목',
-            value: articleData.title,
-          },
-          {
-            label: '게시글 내용',
-            value: trimmedContents,
-          },
-          {
-            label: '작성자',
-            value: articleData.createUserInfo?.nickname,
-          },
-        ]}
-      />
+      {isReportModalOpen && (
+        <ReportModal
+          isOpen={isReportModalOpen}
+          onClose={handleCloseReportModal}
+          reportData={{
+            reportTarget: reportTarget.BOARD,
+            targetId: articleData.id,
+          }}
+          relatedData={[
+            {
+              label: '게시글번호',
+              value: articleData.id,
+            },
+            {
+              label: '게시글제목',
+              value: articleData.title,
+            },
+            {
+              label: '게시글 내용',
+              value: trimmedContents,
+            },
+            {
+              label: '작성자',
+              value: articleData.createUserInfo?.nickname,
+            },
+          ]}
+        />
+      )}
     </div>
   ));
 }

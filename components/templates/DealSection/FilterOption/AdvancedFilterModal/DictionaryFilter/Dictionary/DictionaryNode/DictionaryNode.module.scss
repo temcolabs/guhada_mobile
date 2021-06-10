@@ -1,0 +1,26 @@
+.node {
+  display: flex;
+  align-items: center;
+  height: 30px;
+  min-width: 30px;
+  font-size: 13px;
+  font-weight: 400;
+  color: #333;
+  padding-left: 5px;
+
+  &::before {
+    content: '';
+    padding-right: 5px;
+    width: 16px;
+    height: 16px;
+    background-image: url('/static/icon/filter_checkbox_inactive.png');
+    background-size: 16px;
+    background-repeat: no-repeat;
+  }
+
+  &.checked {
+    &::before {
+      background-image: url('/static/icon/filter_checkbox_selected.png');
+    }
+  }
+}

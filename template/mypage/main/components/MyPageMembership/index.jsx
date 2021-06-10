@@ -19,7 +19,6 @@ function MyPageMembership({
     token: 0,
   },
 }) {
-
   const handleMembershipTab = (key) => {
     if (key === 'couponCount') pushRoute('/mypage/coupon');
     else if (key === 'point') pushRoute('/mypage/point');
@@ -37,8 +36,8 @@ function MyPageMembership({
               onClick={() => handleMembershipTab(key)}
             >
               <div className={cn(css.counts)}>
-                {key === 'couponCount' && mypageDashboard[key]}
-                {key === 'point' && addCommaToNum(mypageDashboard[key])}
+                {key === 'couponCount' && mypageDashboard[key] + ' 개'}
+                {key === 'point' && addCommaToNum(mypageDashboard[key] + 'P')}
                 {key === 'token' && '-'}
               </div>
               <div className={cn(css.description)}>

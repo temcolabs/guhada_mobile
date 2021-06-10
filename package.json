@@ -1,6 +1,6 @@
 {
   "name": "guhada_web_mobile",
-  "version": "v1.42.0",
+  "version": "v1.43.0",
   "scripts": {
     "dev": "nodemon --watch server.js --watch routes server.js",
     "build": "npm run clean && next build",
@@ -67,7 +67,7 @@
     "react-horizontal-scrolling-menu": "^0.7.10",
     "react-js-pagination": "^3.0.2",
     "react-kakao-login": "^1.1.0",
-    "react-lazyload": "^2.6.5",
+    "react-lazyload": "^3.2.0",
     "react-mentions": "4.1.1",
     "react-modal": "^3.8.1",
     "react-moment-proptypes": "^1.6.0",

@@ -34,7 +34,7 @@ export default class MainStore {
       })
       .then((res) => {
         if (res.data.resultCode === 200) {
-          this.plusItem = res.data.data;
+          this.plusItem = res?.data?.data;
         }
       });
   };
@@ -47,7 +47,7 @@ export default class MainStore {
       })
       .then((res) => {
         if (res.data.resultCode === 200) {
-          this.newArrivals = res.data.data;
+          this.newArrivals = res?.data?.data;
         }
       });
   };
@@ -60,7 +60,7 @@ export default class MainStore {
       })
       .then((res) => {
         if (res.data.resultCode === 200) {
-          this.hits = res.data.data;
+          this.hits = res?.data?.data;
         }
       });
   };

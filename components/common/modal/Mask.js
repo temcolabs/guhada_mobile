@@ -12,21 +12,25 @@ export default function Mask({
   ...rest
 }) {
   return (
-    <ModalWrapper
-      {...rest}
-      isOpen={isOpen}
-      zIndex={zIndex}
-      closeTimeout={0}
-      overlayStyle={{
-        backgroundColor: 'rgba(0,0,0,0.8)',
-        transition: 'none',
-        ...overlayStyle,
-      }}
-    />
+    <>
+      {isOpen && (
+        <ModalWrapper
+          {...rest}
+          isOpen={isOpen}
+          zIndex={zIndex}
+          closeTimeout={0}
+          overlayStyle={{
+            backgroundColor: 'rgba(0,0,0,0.8)',
+            transition: 'none',
+            ...overlayStyle,
+          }}
+        />
+      )}
+    </>
   );
 }
 
-export const WhiteMask = props => {
+export const WhiteMask = (props) => {
   return (
     <Mask
       {...props}

@@ -22,7 +22,7 @@ class MySizePanel extends Component {
       totalDueSave: 0,
     };
 
-    pointProcessService.getTotalDueSave().then(res => {
+    pointProcessService.getTotalDueSave().then((res) => {
       if (res.data.data && res.data.data.dueSavePointList.length) {
         const dueSavePoint = res.data.data.dueSavePointList[0];
         if (dueSavePoint.dueSaveType === 'MY_SIZE') {
@@ -138,25 +138,29 @@ class MySizePanel extends Component {
 
     return (
       <>
-        <MySizeModal
-          mySize={this.props.mySize.mySize}
-          isOpen={this.state.isMySizeModalOpen}
-          onClose={this.toggleMySizeModal}
-          showAlert={this.props.alert.showAlert}
-          onSubmitMySize={this.handleSubmitMySize}
-        />
+        {this.state.isMySizeModalOpen && (
+          <MySizeModal
+            mySize={this.props.mySize.mySize}
+            isOpen={this.state.isMySizeModalOpen}
+            onClose={this.toggleMySizeModal}
+            showAlert={this.props.alert.showAlert}
+            onSubmitMySize={this.handleSubmitMySize}
+          />
+        )}
 
         {_.isNil(this.props.mySize.mySize)
           ? this.renderRegisterMySize()
           : this.renderMySize()}
 
         {/* 포인트 적립 안내 모달 */}
-        <PointSavingModal
-          pointSavingType={pointSavingTypes.REGISTER_MYSIZE}
-          isOpen={mypagePointStore.isPointSavingModalOpen}
-          onClose={mypagePointStore.closePointSavingModalOpen}
-          savedPointResponse={mypagePointStore.savedPointResponse}
-        />
+        {mypagePointStore.isPointSavingModalOpen && (
+          <PointSavingModal
+            pointSavingType={pointSavingTypes.REGISTER_MYSIZE}
+            isOpen={mypagePointStore.isPointSavingModalOpen}
+            onClose={mypagePointStore.closePointSavingModalOpen}
+            savedPointResponse={mypagePointStore.savedPointResponse}
+          />
+        )}
       </>
     );
   }

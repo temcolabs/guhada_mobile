@@ -102,8 +102,13 @@ function ReviewDetailModal({ reviewId, isModalOpen, onCloseModal }) {
     if (!userId) {
       alertStore.showAlert('로그인이 필요한 서비스입니다.');
     } else {
-      await reviewStore.deleteReviewComments({ commentId });
-      await reviewStore.getReviewComments({ reviewId });
+      alertStore.showConfirm({
+        content: '삭제하시겠습니까?',
+        onConfirm: async () => {
+          await reviewStore.deleteReviewComments({ commentId });
+          await reviewStore.getReviewComments({ reviewId });
+        },
+      });
     }
   };
 

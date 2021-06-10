@@ -11,7 +11,7 @@ import DefaultLayout from 'components/layout/DefaultLayout';
 import CategorySlider from 'components/common/CategorySlider';
 import Footer from 'components/footer/Footer';
 import GiftHeader from './GiftHeader';
-import DealSection from 'template/Gift/DealSection';
+import DealItems from 'components/organisms/DealItems';
 
 const DynamicScrollableImageModal = dynamic(
   () => import('./ScrollableImageModal'),
@@ -49,12 +49,12 @@ function Gift() {
 
       <div className={css.gift}>
         <GiftHeader handleOpenModal={() => setIsModalOpen(true)} />
-        <DealSection
-          header={'추천 기프트'}
+        <DealItems
+          title={'추천 기프트'}
           deals={giftStore.recommendDeals}
           horizontal
         />
-        <DealSection header={'베스트 기프트'} deals={giftStore.bestDeals} />
+        <DealItems title={'베스트 기프트'} deals={giftStore.bestDeals} />
       </div>
 
       {isModalOpen && (

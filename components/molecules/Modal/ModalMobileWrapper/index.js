@@ -20,6 +20,10 @@ export const ModalContentWrap = ({ children }) => (
  * 컨텐츠를 전달할 수 있는 모달 컨테이너
  */
 class ModalWrapper extends React.Component {
+  state = {
+    scrollPosition: 0,
+  };
+
   static propTypes = {
     isOpen: bool.isRequired, // 표시 여부
     isOverflow: bool, // 내부 컨텐츠 Overflow control
@@ -32,7 +36,6 @@ class ModalWrapper extends React.Component {
     closeTimeoutMS: number, // 모달 닫힘 딜레이. transition을 위한 시간
     lockScroll: bool, // 오픈되었을 때 스크롤을 막을 것인지
     isBigModal: bool, // 브라우저 높이를 넘어서는 큰 사이즈 모달 여부
-
     modalTitle: string,
   };
 
@@ -40,13 +43,22 @@ class ModalWrapper extends React.Component {
     lockScroll: true,
   };
 
+  // TODO : ModalWrapper 통합
   componentDidMount() {
-    this.updateScrollabilty();
+    if (this.isLockScrollEnabled) {
+      const scrollPosition = window.pageYOffset;
+      this.setState({ scrollPosition });
+      setScrollability({ isLockScroll: true, scrollPosition });
+    }
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.props.isOpen !== prevProps.isOpen) {
-      this.updateScrollabilty();
+  componentWillUnmount() {
+    const isOpenPortal = document.getElementsByClassName('ReactModalPortal');
+    // 마지막 모달 Close시, active body scroll
+    if (isOpenPortal && isOpenPortal.length === 1) {
+      const scrollPosition = this.state.scrollPosition;
+      setScrollability({ isLockScroll: false, scrollPosition });
+      this.setState({ scrollPosition: 0 });
     }
   }
 
@@ -85,15 +97,19 @@ class ModalWrapper extends React.Component {
     return this.props.isBigModal ? false : this.props.lockScroll;
   }
 
-  updateScrollabilty = () => {
+  /* updateScrollabilty = () => {
     if (this.isLockScrollEnabled) {
       if (this.props.isOpen) {
-        setScrollability({ isLockScroll: this.props.lockScroll && true }); // 스크롤 방지
+        setScrollability({
+          isLockScroll: this.props.lockScroll && true,
+        }); // 스크롤 방지
       } else {
-        setScrollability({ isLockScroll: this.props.lockScroll && false }); // 스크롤 허용
+        setScrollability({
+          isLockScroll: this.props.lockScroll && false,
+        }); // 스크롤 허용
       }
     }
-  };
+  };*/
 
   render() {
     const {

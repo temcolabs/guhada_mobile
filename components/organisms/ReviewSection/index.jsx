@@ -1,6 +1,5 @@
 import { memo, useState } from 'react';
 import dynamic from 'next/dynamic';
-import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 
@@ -35,7 +34,7 @@ function ReviewSection({ isLazy, review, onClickLike, onClickProduct }) {
           reviewId={review?.id}
           isModalOpen={isModalOpen}
           onCloseModal={() => {
-            document.documentElement.style.overflow = 'initial';
+            // document.documentElement.style.overflow = 'initial';
             setIsModalOpen(false);
           }}
         />
