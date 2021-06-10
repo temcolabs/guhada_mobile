@@ -1,5 +1,5 @@
 $topPosition: 60px;
-$toolbarHeader: 55px;
+$toolbarHeader: 60px;
 $brandHeader: 70px;
 $browserTool: 70px;
 
@@ -86,7 +86,7 @@ $browserTool: 70px;
   & .brandSection {
     display: inline-block;
     position: relative;
-    width: calc(100% - 56px);
+    width: calc(100% - 60px);
     height: calc(100vh - #{$topPosition} - #{$toolbarHeader} - #{$brandHeader});
     overflow-y: auto;
 
@@ -152,24 +152,23 @@ $browserTool: 70px;
     display: flex;
     justify-content: center;
     padding-top: 15px;
-    width: 56px;
+    width: 60px;
 
     & .filter {
-      position: relative;
-      float: right;
+      display: flex;
+      flex-flow: column wrap;
+      justify-content: space-around;
       height: calc(
         100vh - #{$topPosition} - #{$toolbarHeader} - #{$brandHeader}
       );
       overflow-y: hidden;
 
       & .item {
-        width: 19px;
-        height: 18px;
+        width: 20px;
         font-size: 10px;
         font-weight: 500;
         font-style: normal;
         font-stretch: normal;
-        line-height: 1.9;
         letter-spacing: normal;
         text-align: center;
         color: #dddddd;

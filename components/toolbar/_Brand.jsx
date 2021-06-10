@@ -1,12 +1,11 @@
-import { Fragment, useRef, useState, useEffect, useCallback } from 'react';
+import { Fragment, useRef, useState, useEffect } from 'react';
 import { toJS } from 'mobx';
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 import css from './Brand.module.scss';
 import cn from 'classnames';
 import { isNil, debounce } from 'lodash';
 
 import useStores from 'stores/useStores';
-import { useScrollDirection } from 'hooks';
 import Image from 'components/atoms/Image';
 
 const IMAGE_PATH = {
@@ -82,7 +81,11 @@ function _Brand({ isVisible, fromHeader, onClose, onCloseMenu }) {
    * @param {Boolean} isFavorite
    */
   const handleFavoriteMenu = (isFavorite) => {
-    if (isFavorite) brands.setSelectedLanguage('favorite');
+    const langauge =
+      (brands.selectedLanguage === 'english' && 'en') ||
+      (brands.selectedLanguage === 'korean' && 'ko') ||
+      'english';
+    brands.setFilterLanguage(isFavorite ? 'favorite' : langauge);
     setIsFavorite(isFavorite);
   };
 
@@ -119,17 +122,20 @@ function _Brand({ isVisible, fromHeader, onClose, onCloseMenu }) {
 
   /**
    * [Listener] Scrolling brand section
+   * Case1 : target < scrollTop < nextTarget
+   * Case2 : scrollTop < target
+   * Case3 : nextTarget < scrollTop
    */
   const toScrollFilterLabel = debounce(
     (e) =>
-      setBrandLabel((prevState) => {
+      setBrandLabel((prevLabel) => {
+        const curLabel = `brand${prevLabel}`;
         const scrollTop = brandScrollRef.current.scrollTop;
-        const currentLabel = `brand${prevState}`;
         const targetList = [].filter.call(
           brandRef.current.childNodes,
           (e) => e.id
         );
-        const targetIdx = targetList.findIndex((e) => e.id === currentLabel);
+        const targetIdx = targetList.findIndex((e) => e.id === curLabel);
         if (targetIdx !== -1) {
           const curTop = targetList[targetIdx].offsetTop;
           const nextIdx =
@@ -137,19 +143,19 @@ function _Brand({ isVisible, fromHeader, onClose, onCloseMenu }) {
               ? targetList.length - 1
               : targetIdx + 1;
           const nextTarget = targetList[nextIdx];
-          const prevIdx = targetIdx - 1 > 0 ? targetIdx - 1 : 0;
-          const prevTarget = targetList[prevIdx];
 
           if (curTop < scrollTop && nextTarget.offsetTop > scrollTop) {
-            return prevState;
+            return prevLabel;
           } else {
             if (curTop > scrollTop) {
-              return prevTarget?.id?.replace('brand', '');
+              const prevIdx = targetIdx - 1 > 0 ? targetIdx - 1 : 0;
+              const prevTarget = targetList[prevIdx];
+              return prevTarget.id?.replace('brand', '');
             } else {
-              return nextTarget?.id?.replace('brand', '');
+              return nextTarget.id?.replace('brand', '');
             }
           }
-        } else return currentLabel;
+        } else return prevLabel;
       }),
     50
   );
