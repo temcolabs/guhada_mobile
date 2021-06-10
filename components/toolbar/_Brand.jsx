@@ -1,10 +1,9 @@
 import { Fragment, useRef, useState, useEffect } from 'react';
-import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
 import css from './Brand.module.scss';
 import cn from 'classnames';
 import { isNil, debounce } from 'lodash';
-
+import { sendBackToLogin } from 'childs/lib/router';
 import useStores from 'stores/useStores';
 import Image from 'components/atoms/Image';
 
@@ -13,6 +12,14 @@ const IMAGE_PATH = {
   starOff: '/static/icon/gnb_greystar_icon.png',
 };
 
+/**
+ * 함수형, 최신 Brand component
+ * @param {Boolean} isVisible
+ * @param {Boolean} fromHeader
+ * @param {Function} onClose
+ * @param {Function} onCloseMenu
+ * @returns
+ */
 function _Brand({ isVisible, fromHeader, onClose, onCloseMenu }) {
   const brandScrollRef = useRef(null); // Brand section
   const brandRef = useRef(null); // Brand items
@@ -71,9 +78,9 @@ function _Brand({ isVisible, fromHeader, onClose, onCloseMenu }) {
     const langauge =
       (lang === 'en' && 'english') || (lang === 'ko' && 'korean') || 'english';
     brands.setSelectedLanguage(langauge);
+    brands.setFilterFavorite(isFavorite);
     brandScrollRef.current.scrollTo(0, 0);
     toFilterLabel(lang);
-    handleFavoriteMenu(false);
   };
 
   /**
@@ -81,11 +88,8 @@ function _Brand({ isVisible, fromHeader, onClose, onCloseMenu }) {
    * @param {Boolean} isFavorite
    */
   const handleFavoriteMenu = (isFavorite) => {
-    const langauge =
-      (brands.selectedLanguage === 'english' && 'en') ||
-      (brands.selectedLanguage === 'korean' && 'ko') ||
-      'english';
-    brands.setFilterLanguage(isFavorite ? 'favorite' : langauge);
+    brands.setFilterFavorite(isFavorite);
+    brandScrollRef.current.scrollTo(0, 0);
     setIsFavorite(isFavorite);
   };
 
@@ -101,13 +105,16 @@ function _Brand({ isVisible, fromHeader, onClose, onCloseMenu }) {
         : await brands.createUserBrandFavorite(userId, brandId);
 
       if (resultCode === 200) {
-        const index = brands.selectedBrands.findIndex((o) => o.id === brandId);
+        let target =
+          (brands.selectedLanguage === 'english' && brands.enList) ||
+          (brands.selectedLanguage === 'korean' && brands.koList);
+        const index = target[brandLabel].findIndex((o) => o.id === brandId);
         if (index !== -1) {
-          let selectedBrands = brands.selectedBrands;
-          selectedBrands[index].isFavorite = !isFavorite;
-          brands.setBrands(brands.brands, selectedBrands);
+          target[brandLabel][index].isFavorite = !isFavorite;
         }
       }
+    } else {
+      sendBackToLogin();
     }
   };
 
@@ -169,7 +176,7 @@ function _Brand({ isVisible, fromHeader, onClose, onCloseMenu }) {
             <input
               type="text"
               placeholder="브랜드명을 검색해주세요."
-              onChange={(e) => brands.searchBrand(e.target.value)}
+              onChange={(e) => brands.searchBrand(e.target.value, isFavorite)}
               value={brands.searchBrandText}
             />
           </div>
