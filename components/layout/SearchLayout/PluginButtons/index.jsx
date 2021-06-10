@@ -5,22 +5,20 @@ import cn from 'classnames';
 import { pushRoute } from 'childs/lib/router';
 import openPopupCenter from 'childs/lib/common/openPopupCenter';
 
-const PluginButtons = ({ top, kakao, history }) => (
+const PluginButtons = ({ isScrollDown, recentCount, top, kakao, recent }) => (
   <div className={css['plugin-buttons']}>
-    {top && (
+    {top && isScrollDown && (
       <div
         className={cn(css['button'], css['button--top'])}
         onClick={() => window.scrollTo(0, 0)}
       />
     )}
-    {history && (
+    {recent && recentCount > 0 && (
       <div
-        className={cn(css['button'], css['button--history'])}
+        className={cn(css['button'], css['button--recent'])}
         onClick={() => pushRoute('/recently')}
       >
-        {history.count > 0 && (
-          <div className={css['history__count']}>{history.count}</div>
-        )}
+        <div className={css['recent__count']}>{recentCount}</div>
       </div>
     )}
     {kakao && (
@@ -40,11 +38,11 @@ const PluginButtons = ({ top, kakao, history }) => (
 );
 
 PluginButtons.propTypes = {
+  isScrollDown: PropTypes.bool,
+  recentCount: PropTypes.number,
   top: PropTypes.bool,
   kakao: PropTypes.bool,
-  history: PropTypes.shape({
-    count: PropTypes.number,
-  }),
+  recent: PropTypes.bool,
 };
 
 export default memo(PluginButtons);

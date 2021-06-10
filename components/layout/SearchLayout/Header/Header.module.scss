@@ -2,73 +2,76 @@
   position: fixed;
   top: 0;
   align-items: center;
-  padding-left: 10px;
-  padding-right: 10px;
   background-color: #fff;
   width: 100%;
   z-index: 102;
-  border-bottom: 1px solid #eee;
   transition: transform 0.1s linear;
 
   &.scroll-down {
     transform: translateY(-60px);
   }
 
-  &__nav {
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  &__tabs {
+    border-bottom: 1px solid #eee;
+    padding-left: 10px;
+    padding-right: 10px;
 
-    .nav__section {
+    .nav-tab {
+      height: 60px;
       display: flex;
       align-items: center;
+      justify-content: space-between;
 
-      .header-button {
-        width: 30px;
-        height: 30px;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: contain;
-        margin-right: 5px;
-        cursor: pointer;
-        &:last-child {
-          margin-right: 0;
-        }
+      .tab__buttons {
+        display: flex;
+        align-items: center;
 
-        &.button--logo {
-          width: 110px;
-          background-image: url('/static/Guhada-LOGO.png');
-        }
+        .button {
+          width: 30px;
+          height: 30px;
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: contain;
+          margin-right: 5px;
+          cursor: pointer;
+          &:last-child {
+            margin-right: 0;
+          }
 
-        &.button--back {
-          background-image: url('/static/icon/btn-prevpage.png');
-        }
+          &.button--logo {
+            width: 110px;
+            background-image: url('/static/Guhada-LOGO.png');
+          }
 
-        &.button--burger {
-          background-image: url('/static/icon/top_btn_menu.png');
-        }
+          &.button--back {
+            background-image: url('/static/icon/btn-prevpage.png');
+          }
 
-        &.button--home {
-          background-image: url('/static/icon/btn-home.png');
-        }
+          &.button--burger {
+            background-image: url('/static/icon/top_btn_menu.png');
+          }
 
-        &.button--search {
-          background-image: url('/static/icon/header-search.png');
-        }
+          &.button--home {
+            background-image: url('/static/icon/btn-home.png');
+          }
 
-        &.button--cart {
-          background-image: url('/static/icon/header-shoppinBag.png');
+          &.button--search {
+            background-image: url('/static/icon/header-search.png');
+          }
+
+          &.button--cart {
+            background-image: url('/static/icon/header-shoppinBag.png');
+          }
         }
       }
-    }
 
-    .nav__title {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 17px;
-      font-weight: 500;
+      .tab__title {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 17px;
+        font-weight: 500;
+      }
     }
   }
 }

@@ -20,7 +20,7 @@ function Search() {
         moreToLoad={searchByFilterStore.moreToLoad}
         handleLoadMore={() => searchByFilterStore.search(true)}
         thumbnail={searchByFilterStore.thumbnail}
-        isFilterable
+        filterTags
       />
     </div>
   );

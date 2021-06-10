@@ -128,6 +128,8 @@ class SearchStore {
   @observable deals = [];
   /** @type {Brand[]} */
   @observable brands = [];
+  /** @type {Brand[]} brands list from initial search */
+  @observable unfungibleBrands = [];
   /** @type {Category[]} */
   @observable categories = [];
   /** @type {Category[]} categories list from initial search */

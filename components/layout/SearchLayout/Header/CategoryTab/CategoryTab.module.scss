@@ -5,7 +5,6 @@
   overflow-x: auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   padding-left: 10px;
   padding-right: 10px;
 
@@ -17,8 +16,8 @@
     letter-spacing: 0.45px;
     color: #111;
     cursor: pointer;
-    margin-left: 11px;
-    margin-right: 11px;
+    margin-left: 10px;
+    margin-right: 10px;
     height: 100%;
 
     &:first-of-type {
@@ -50,8 +49,8 @@
     padding-right: 10px;
     width: 30px;
     height: 43px;
-    background: no-repeat center 2px;
-    background-size: 35px;
+    background: no-repeat center;
+    background-size: contain;
 
     &.arrow--left {
       left: 0;

@@ -44,7 +44,8 @@ function SpecialDetail() {
         moreToLoad={searchByFilterStore.moreToLoad}
         handleLoadMore={() => searchByFilterStore.search(true)}
         thumbnail={searchByFilterStore.thumbnail}
-        isFilterable
+        filter
+        filterTags
       />
     </div>
   );

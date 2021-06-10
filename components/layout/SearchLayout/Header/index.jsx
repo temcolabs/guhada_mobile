@@ -6,47 +6,57 @@ import { pushRoute } from 'childs/lib/router';
 import CategoryTab from './CategoryTab';
 import SearchModal from 'components/header/SearchMenu';
 import BurgerModal from 'components/header/HeaderMenu';
+import FilterOption from 'components/templates/DealSection/FilterOption';
 
-const Header = ({ logo, title, back, home, category, isScrollDown }) => {
+const Header = ({
+  logo,
+  title,
+  back,
+  home,
+  category,
+  filter,
+  isScrollDown,
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(0);
 
   return (
     <header className={cn(css['header'], isScrollDown && css['scroll-down'])}>
-      <nav className={css['header__nav']}>
-        <div className={css['nav__section']}>
-          {back && (
-            <div className={cn(css['header-button'], css['button--back'])} />
-          )}
-          <div
-            className={cn(css['header-button'], css['button--burger'])}
-            onClick={() => setIsModalOpen(2)}
-          />
-          {logo && (
+      <nav className={css['header__tabs']}>
+        <div className={css['nav-tab']}>
+          <div className={css['tab__buttons']}>
+            {back && <div className={cn(css['button'], css['button--back'])} />}
             <div
-              className={cn(css['header-button'], css['button--logo'])}
-              onClick={() => pushRoute('/?home=0')}
+              className={cn(css['button'], css['button--burger'])}
+              onClick={() => setIsModalOpen(2)}
             />
-          )}
-        </div>
-        {title && <div className={css['header__title']}>{title}</div>}
-        <div className={css['nav__section']}>
-          {home && (
+            {logo && (
+              <div
+                className={cn(css['button'], css['button--logo'])}
+                onClick={() => pushRoute('/?home=0')}
+              />
+            )}
+          </div>
+          {title && <div className={css['tab__title']}>{title}</div>}
+          <div className={css['tab__buttons']}>
+            {home && (
+              <div
+                className={cn(css['button'], css['button--home'])}
+                onClick={() => pushRoute('/?home=0')}
+              />
+            )}
             <div
-              className={cn(css['header-button'], css['button--home'])}
-              onClick={() => pushRoute('/?home=0')}
+              className={cn(css['button'], css['button--search'])}
+              onClick={() => setIsModalOpen(1)}
             />
-          )}
-          <div
-            className={cn(css['header-button'], css['button--search'])}
-            onClick={() => setIsModalOpen(1)}
-          />
-          <div
-            className={cn(css['header-button'], css['button--cart'])}
-            onClick={() => pushRoute('/shoppingcart')}
-          />
+            <div
+              className={cn(css['button'], css['button--cart'])}
+              onClick={() => pushRoute('/shoppingcart')}
+            />
+          </div>
         </div>
+        {category && <CategoryTab />}
       </nav>
-      {category && <CategoryTab />}
+      {filter && <FilterOption />}
 
       <SearchModal
         isVisible={isModalOpen === 1}
@@ -62,10 +72,10 @@ const Header = ({ logo, title, back, home, category, isScrollDown }) => {
 
 Header.propTypes = {
   logo: PropTypes.bool,
-  title: PropTypes.string,
+  title: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   back: PropTypes.bool,
   home: PropTypes.bool,
-  category: PropTypes.bool,
+  filter: PropTypes.bool,
   isScrollDown: PropTypes.bool,
 };
 

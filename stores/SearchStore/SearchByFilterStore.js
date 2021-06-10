@@ -109,24 +109,6 @@ export class SearchByFilterStore extends SearchStore {
     return !_isEqual(copiedBody, copiedDefaultBody);
   }
 
-  /** @type {string} search title getter (breadth-first-search) */
-  @computed get searchTitle() {
-    if (this.defaultBody.categoryIds) {
-      const categoryId = parseInt(
-        this.defaultBody.categoryIds[this.defaultBody.categoryIds.length - 1]
-      );
-      const stack = toJS(this.unfungibleCategories);
-      while (stack.length > 0) {
-        const { id, title, children } = stack.pop();
-        if (id === categoryId) {
-          return title;
-        }
-        stack.push.apply(stack, children);
-      }
-    }
-    return '';
-  }
-
   /**
    * actions
    */
@@ -261,6 +243,47 @@ export class SearchByFilterStore extends SearchStore {
     this.updateState(STATE.INITIAL);
     this.search().then(() => {
       this.unfungibleCategories = toJS(this.categories);
+      this.unfungibleBrands = toJS(this.brands);
     });
+  };
+
+  /**
+   * DANGER: `initializeSearch` is more preferable than this
+   *
+   * fetch search results from query params - no need to `initializeSearch` if this is called
+   * @param {object} query
+   * @param {string[]} comparedBodyProps body props to compare with `defaultBody` to check if initializing is needed
+   */
+  @action fetchSearchResults = (query = {}, comparedBodyProps = []) => {
+    const { category, subcategory, brand, keyword, page, unitPerPage } = query;
+
+    const categoryIds = [];
+    const brandIds = [];
+    const searchQueries = [];
+
+    if (category) {
+      categoryIds.push(category);
+    }
+    if (subcategory) {
+      categoryIds.push(subcategory);
+    }
+    if (brand) {
+      brandIds.push(brand);
+    }
+    if (keyword) {
+      searchQueries.push(keyword);
+    }
+
+    const body = { categoryIds, brandIds, searchQueries };
+    const params = { page: page || 1, unitPerPage: unitPerPage || 24 };
+
+    const defaultBodyObj = toJS(this.defaultBody);
+    if (
+      !comparedBodyProps.every((prop) =>
+        _isEqual(defaultBodyObj[prop], body[prop])
+      )
+    ) {
+      this.initializeSearch(body, params);
+    }
   };
 }

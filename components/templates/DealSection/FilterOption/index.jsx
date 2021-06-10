@@ -5,7 +5,6 @@ import cn from 'classnames';
 import useStores from 'stores/useStores';
 import { searchResultOrderMap } from 'stores/SearchStore/SearchByFilterStore';
 import ThumbnailButton from './ThumbnailButton';
-import FilterTags from './FilterTags';
 import FilterModal from './FilterModal';
 import AdvancedFilterModal from './AdvancedFilterModal';
 
@@ -21,7 +20,7 @@ const FilterOption = () => {
    */
   return (
     <div className={css['filter-option']}>
-      <div className={cn(css['filter-option__buttons'], css['hang'])}>
+      <div className={css['filter-option__buttons']}>
         <div
           className={cn(css['filter-button'], css['button--order'])}
           onClick={() => setIsModalOpen(1)}
@@ -39,7 +38,6 @@ const FilterOption = () => {
           상세검색
         </div>
       </div>
-      <FilterTags />
 
       <FilterModal
         filterName={'상품정렬'}

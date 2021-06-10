@@ -6,54 +6,22 @@ import HeadForSEO from 'childs/lib/components/HeadForSEO';
 import SearchLayout from 'components/layout/SearchLayout';
 import Search from 'template/Search';
 import MountLoading from 'components/atoms/Misc/MountLoading';
-import { useScrollDown } from 'hooks';
+
+/** body props to compare with `defaultBody` to check if initializing is needed */
+const comparedBodyProps = ['categoryIds', 'brandIds', 'searchQueries'];
 
 function SearchPage() {
   /**
    * states
    */
-  const {
-    searchByFilter: searchByFilterStore,
-    mypageRecentlySeen: mypageRecentlySeenStore,
-  } = useStores();
+  const { searchByFilter: searchByFilterStore } = useStores();
   const router = useRouter();
-  const isScrollDown = useScrollDown(60);
 
   /**
    * side effects
    */
   useEffect(() => {
-    const {
-      category,
-      subcategory,
-      brand,
-      keyword,
-      page,
-      unitPerPage,
-    } = router.query;
-    const categoryIds = [];
-    const brandIds = [];
-    const searchQueries = [];
-    const _page = page || 1;
-    const _unitPerPage = unitPerPage || 24;
-
-    if (category) {
-      categoryIds.push(category);
-    }
-    if (subcategory) {
-      categoryIds.push(subcategory);
-    }
-    if (brand) {
-      brandIds.push(brand);
-    }
-    if (keyword) {
-      searchQueries.push(keyword);
-    }
-
-    searchByFilterStore.initializeSearch(
-      { categoryIds, brandIds, searchQueries },
-      { page: _page, unitPerPage: _unitPerPage }
-    );
+    searchByFilterStore.fetchSearchResults(router.query, comparedBodyProps);
   }, [searchByFilterStore, router]);
 
   /**
@@ -62,17 +30,7 @@ function SearchPage() {
   return (
     <>
       <HeadForSEO pageName={'검색 결과'} />
-      <SearchLayout
-        title={searchByFilterStore.searchTitle}
-        back
-        category
-        isScrollDown={isScrollDown}
-        plugins={{
-          top: isScrollDown,
-          kakao: true,
-          history: { count: mypageRecentlySeenStore.list.length },
-        }}
-      >
+      <SearchLayout type={'search'}>
         {searchByFilterStore.isInitial && <MountLoading />}
         <Search />
       </SearchLayout>

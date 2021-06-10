@@ -6,6 +6,7 @@ import DealItems from 'components/organisms/DealItems';
 import FilterOption from './FilterOption';
 import LoadMoreButton from './LoadMoreButton';
 import Spinner, { SpinnerDiv } from 'components/atoms/Misc/Spinner';
+import FilterTags from './FilterTags';
 
 const DealSection = ({
   title,
@@ -14,7 +15,8 @@ const DealSection = ({
   moreToLoad,
   handleLoadMore,
   thumbnail = 0,
-  isFilterable = false,
+  filter = false,
+  filterTags = false,
   isInfiniteScroll = true,
   displaySeller = false,
   displayTags = true,
@@ -31,7 +33,8 @@ const DealSection = ({
   return (
     <div className={css['deal-section']}>
       {title && <div className={css['deal-section__title']}>{title}</div>}
-      {isFilterable && <FilterOption />}
+      {filter && <FilterOption />}
+      {filterTags && <FilterTags />}
       {isLoading ? (
         <Spinner />
       ) : (
@@ -62,7 +65,8 @@ DealSection.propTypes = {
   moreToLoad: PropTypes.bool,
   handleLoadMore: PropTypes.func,
   thumbnail: PropTypes.number,
-  isFilterable: PropTypes.bool,
+  filter: PropTypes.bool,
+  filterTags: PropTypes.bool,
   isInfiniteScroll: PropTypes.bool,
   displaySeller: PropTypes.bool,
   displayTags: PropTypes.bool,
