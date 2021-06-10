@@ -150,12 +150,21 @@
 
   &.deal-item--hex {
     width: 33.333333%;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     padding-left: 5px;
     padding-right: 5px;
 
+    .deal-item__image {
+      margin-bottom: 3px;
+    }
+
+    .description__brand {
+      margin-bottom: 0;
+    }
+
     .description__name {
       text-overflow: ellipsis;
+      margin-bottom: 3px;
     }
 
     .description__price {

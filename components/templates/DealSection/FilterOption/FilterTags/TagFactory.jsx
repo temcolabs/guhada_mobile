@@ -5,6 +5,7 @@ const TagFactory = ({ filters, submitFilter }) => {
 
   return Array.from(titleSet).map((uniqueTitle) => (
     <button
+      key={uniqueTitle}
       onClick={() =>
         submitFilter({
           filters: filters.filter(({ title }) => title !== uniqueTitle),

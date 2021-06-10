@@ -1,5 +1,5 @@
 import css from './Header.module.scss';
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 import { pushRoute } from 'childs/lib/router';
@@ -7,7 +7,7 @@ import CategoryTab from './CategoryTab';
 import SearchModal from 'components/header/SearchMenu';
 import BurgerModal from 'components/header/HeaderMenu';
 
-const Header = ({ title, back, home, category, isScrollDown }) => {
+const Header = ({ logo, title, back, home, category, isScrollDown }) => {
   const [isModalOpen, setIsModalOpen] = useState(0);
 
   return (
@@ -21,7 +21,7 @@ const Header = ({ title, back, home, category, isScrollDown }) => {
             className={cn(css['header-button'], css['button--burger'])}
             onClick={() => setIsModalOpen(2)}
           />
-          {!title && (
+          {logo && (
             <div
               className={cn(css['header-button'], css['button--logo'])}
               onClick={() => pushRoute('/?home=0')}
@@ -61,6 +61,7 @@ const Header = ({ title, back, home, category, isScrollDown }) => {
 };
 
 Header.propTypes = {
+  logo: PropTypes.bool,
   title: PropTypes.string,
   back: PropTypes.bool,
   home: PropTypes.bool,
@@ -68,4 +69,4 @@ Header.propTypes = {
   isScrollDown: PropTypes.bool,
 };
 
-export default Header;
+export default memo(Header);

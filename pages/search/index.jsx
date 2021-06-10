@@ -17,7 +17,7 @@ function SearchPage() {
     mypageRecentlySeen: mypageRecentlySeenStore,
   } = useStores();
   const router = useRouter();
-  const isScrollDown = useScrollDown();
+  const isScrollDown = useScrollDown(60);
 
   /**
    * side effects
@@ -68,7 +68,7 @@ function SearchPage() {
         category
         isScrollDown={isScrollDown}
         plugins={{
-          top: true,
+          top: isScrollDown,
           kakao: true,
           history: { count: mypageRecentlySeenStore.list.length },
         }}

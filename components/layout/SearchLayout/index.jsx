@@ -5,6 +5,7 @@ import Navigation from './Navigation';
 import PluginButtons from './PluginButtons';
 
 function SearchLayout({
+  logo,
   title,
   back,
   home,
@@ -19,20 +20,22 @@ function SearchLayout({
   return (
     <div className={css['layout']}>
       <Header
+        logo={logo}
         title={title}
         back={back}
         home={home}
         category={category}
         isScrollDown={isScrollDown}
       />
-      {children}
+      <section className={css['content']}>{children}</section>
       <Navigation />
-      <PluginButtons plugins={plugins} />
+      <PluginButtons {...plugins} />
     </div>
   );
 }
 
 SearchLayout.propTypes = {
+  logo: PropTypes.bool,
   title: PropTypes.string,
   back: PropTypes.bool,
   home: PropTypes.bool,

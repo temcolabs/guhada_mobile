@@ -1,5 +1,5 @@
 import css from './Navigation.module.scss';
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import cn from 'classnames';
 import { pushRoute } from 'childs/lib/router';
 import { useRouter } from 'next/router';
@@ -83,4 +83,4 @@ const Navigation = () => {
   );
 };
 
-export default Navigation;
+export default memo(Navigation);

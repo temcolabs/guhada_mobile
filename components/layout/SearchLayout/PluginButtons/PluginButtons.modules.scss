@@ -25,11 +25,8 @@
       background-image: url('/static/icon/btn-top.png');
     }
 
-    &.button--kakao {
-      background-image: url('/static/icon/kakao_chat.png');
-    }
-
     &.button--history {
+      opacity: 90%;
       background-image: url('/static/icon/time_icon.png');
       background-color: #111;
       position: relative;
@@ -46,6 +43,10 @@
         background-color: #5d2ed1;
         border-radius: 50%;
       }
+    }
+
+    &.button--kakao {
+      background-image: url('/static/icon/kakao_chat.png');
     }
   }
 }

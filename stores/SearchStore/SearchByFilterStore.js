@@ -124,7 +124,7 @@ export class SearchByFilterStore extends SearchStore {
         stack.push.apply(stack, children);
       }
     }
-    return ' ';
+    return '';
   }
 
   /**
