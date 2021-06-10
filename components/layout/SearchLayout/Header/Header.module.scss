@@ -1,0 +1,71 @@
+@import 'styles/var';
+
+.header {
+  position: fixed;
+  top: 0;
+  align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: #fff;
+  width: 100%;
+  z-index: 102;
+  border-bottom: 1px solid #eee;
+
+  &__nav {
+    height: $guhadaMainHeaderHeight;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .nav__section {
+      display: flex;
+      align-items: center;
+
+      .header-button {
+        width: 30px;
+        height: 30px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        margin-right: 5px;
+        cursor: pointer;
+        &:last-child {
+          margin-right: 0;
+        }
+
+        &.button--logo {
+          width: 110px;
+          background-image: url('/static/Guhada-LOGO.png');
+        }
+
+        &.button--back {
+          background-image: url('/static/icon/btn-prevpage.png');
+        }
+
+        &.button--burger {
+          background-image: url('/static/icon/top_btn_menu.png');
+        }
+
+        &.button--home {
+          background-image: url('/static/icon/btn-home.png');
+        }
+
+        &.button--search {
+          background-image: url('/static/icon/header-search.png');
+        }
+
+        &.button--cart {
+          background-image: url('/static/icon/header-shoppinBag.png');
+        }
+      }
+    }
+
+    .nav__title {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 17px;
+      font-weight: 500;
+    }
+  }
+}

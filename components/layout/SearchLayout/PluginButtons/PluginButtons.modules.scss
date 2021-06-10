@@ -1,0 +1,51 @@
+.plugin-buttons {
+  position: fixed;
+  width: 41px;
+  right: 15px;
+  bottom: 72px;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+
+  .button {
+    width: 41px;
+    height: 41px;
+    cursor: pointer;
+    margin-top: 7px;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &.button--top {
+      background-image: url('/static/icon/btn-top.png');
+    }
+
+    &.button--kakao {
+      background-image: url('/static/icon/kakao_chat.png');
+    }
+
+    &.button--history {
+      background-image: url('/static/icon/time_icon.png');
+      background-color: #111;
+      position: relative;
+
+      .history__count {
+        position: absolute;
+        right: -5px;
+        font-size: 7px;
+        text-align: center;
+        line-height: 17px;
+        color: #fff;
+        width: 17px;
+        height: 17px;
+        background-color: #5d2ed1;
+        border-radius: 50%;
+      }
+    }
+  }
+}

@@ -90,9 +90,9 @@ export class SearchByFilterStore extends SearchStore {
   @observable body = SearchByFilterStore.initialBody;
 
   /** @type {Params} default params for initial request */
-  defaultParams = {};
+  @observable defaultParams = SearchByFilterStore.initialParams;
   /** @type {Body} default body for iniital request */
-  defaultBody = {};
+  @observable defaultBody = SearchByFilterStore.initialBody;
 
   /**
    * computeds
@@ -107,6 +107,24 @@ export class SearchByFilterStore extends SearchStore {
     const { searchResultOrder: s, ...copiedBody } = toJS(this.body);
     const { searchResultOrder, ...copiedDefaultBody } = toJS(this.defaultBody);
     return !_isEqual(copiedBody, copiedDefaultBody);
+  }
+
+  /** @type {string} search title getter (breadth-first-search) */
+  @computed get searchTitle() {
+    if (this.defaultBody.categoryIds) {
+      const categoryId = parseInt(
+        this.defaultBody.categoryIds[this.defaultBody.categoryIds.length - 1]
+      );
+      const stack = toJS(this.unfungibleCategories);
+      while (stack.length > 0) {
+        const { id, title, children } = stack.pop();
+        if (id === categoryId) {
+          return title;
+        }
+        stack.push.apply(stack, children);
+      }
+    }
+    return ' ';
   }
 
   /**
@@ -202,6 +220,22 @@ export class SearchByFilterStore extends SearchStore {
   };
   /** apply default filter options and call search */
   @action resetFilter = () => this.submitFilter();
+
+  /**
+   * reset specific body property(s) and call search
+   * @param args Body object property(s)
+   */
+  @action resetBodyProp = (...args) => {
+    this.resetData();
+    args.forEach((prop) => {
+      Object.assign(this.body, { [prop]: this.defaultBody[prop] });
+      Object.assign(this.abstractBody, { [prop]: this.defaultBody[prop] });
+    });
+    Object.assign(this.params, this.defaultParams);
+    Object.assign(this.abstractParams, this.defaultParams);
+    this.updateState(STATE.INITIAL);
+    this.search();
+  };
 
   /**
    * @param {Body} body initial body - default = SearchByFilterStore.initialBody

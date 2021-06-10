@@ -13,15 +13,13 @@ const FilterTags = () => {
    * states
    */
   const { searchByFilter: searchByFilterStore } = useStores();
-
-  /**
-   * handlers
-   */
-  const body = searchByFilterStore.body;
-  const submitFilter = searchByFilterStore.submitFilter;
-  const resetFilter = () => {
-    searchByFilterStore.resetFilter();
-  };
+  const {
+    body,
+    defaultBody,
+    submitFilter,
+    resetFilter,
+    resetBodyProp,
+  } = searchByFilterStore;
 
   /**
    * render
@@ -30,34 +28,33 @@ const FilterTags = () => {
     searchByFilterStore.isFiltered && (
       <div className={css['filter-tags']}>
         <div className={css['tags']}>
-          {body.categoryIds.length !== 0 && (
-            <button onClick={() => submitFilter({ categoryIds: [] })}>
+          {body.categoryIds.length !== defaultBody.categoryIds.length && (
+            <button onClick={() => resetBodyProp('categoryIds')}>
               카테고리
             </button>
           )}
 
-          {body.brandIds.length !== 0 && (
-            <button onClick={() => submitFilter({ brandIds: [] })}>
-              브랜드
-            </button>
+          {body.brandIds.length !== defaultBody.brandIds.length && (
+            <button onClick={() => resetBodyProp('brandIds')}>브랜드</button>
           )}
-          {body.shippingCondition !== 'ANY' && (
-            <button onClick={() => submitFilter({ shippingCondition: 'ANY' })}>
+          {body.shippingCondition !== defaultBody.shippingCondition && (
+            <button onClick={() => resetBodyProp('shippingCondition')}>
               {shippingConditionMap.get(body.shippingCondition)}
             </button>
           )}
-          {body.productCondition !== 'ANY' && (
-            <button onClick={() => submitFilter({ productCondition: 'ANY' })}>
+          {body.productCondition !== defaultBody.productCondition && (
+            <button onClick={() => resetBodyProp('productCondition')}>
               {productConditionMap.get(body.productCondition)}
             </button>
           )}
-          {(body.minPrice !== 0 || body.maxPrice !== 0) && (
-            <button onClick={() => submitFilter({ minPrice: 0, maxPrice: 0 })}>
+          {(body.minPrice !== defaultBody.minPrice ||
+            body.maxPrice !== defaultBody.maxPrice) && (
+            <button onClick={() => resetBodyProp('minPrice', 'maxPrice')}>
               가격
             </button>
           )}
-          {body.searchQueries.length !== 0 && (
-            <button onClick={() => submitFilter({ searchQueries: [] })}>
+          {body.searchQueries.length !== defaultBody.searchQueries.length && (
+            <button onClick={() => resetBodyProp('searchQueries')}>
               키워드
             </button>
           )}

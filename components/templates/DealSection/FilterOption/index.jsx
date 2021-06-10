@@ -1,5 +1,6 @@
 import css from './FilterOption.module.scss';
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import cn from 'classnames';
 import useStores from 'stores/useStores';
@@ -9,7 +10,7 @@ import FilterTags from './FilterTags';
 import FilterModal from './FilterModal';
 import AdvancedFilterModal from './AdvancedFilterModal';
 
-const FilterOption = () => {
+const FilterOption = ({ scrollDirection }) => {
   /**
    * states
    */
@@ -25,7 +26,7 @@ const FilterOption = () => {
   return (
     <>
       <div className={css['filter-option']}>
-        <div className={css['filter-option__buttons']}>
+        <div className={cn(css['filter-option__buttons'], css['hang'])}>
           <div
             className={cn(css['filter-button'], css['button--order'])}
             onClick={() => {
@@ -72,6 +73,10 @@ const FilterOption = () => {
       />
     </>
   );
+};
+
+FilterOption.propTypes = {
+  scrollDirection: PropTypes.string,
 };
 
 export default observer(FilterOption);

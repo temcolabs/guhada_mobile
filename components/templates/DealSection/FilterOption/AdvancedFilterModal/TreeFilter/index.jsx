@@ -84,7 +84,7 @@ const TraversibleNode = ({
 TraversibleNode.propTypes = {
   children: PropTypes.any,
   id: PropTypes.number,
-  currentIds: PropTypes.array,
+  currentIds: PropTypes.any,
   handleSetIds: PropTypes.func,
   handleRemoveIds: PropTypes.func,
 };

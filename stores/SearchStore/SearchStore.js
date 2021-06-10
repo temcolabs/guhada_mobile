@@ -92,16 +92,22 @@ class SearchStore {
   @action updateState(state) {
     SearchStore.instance._state = state;
   }
-  get isLoading() {
+  @computed get isInitial() {
+    return (
+      this.countOfDeals === Infinity ||
+      SearchStore.instance._state === STATE.INITIAL
+    );
+  }
+  @computed get isLoading() {
     return SearchStore.instance._state === STATE.LOADING;
   }
-  get isLoadable() {
+  @computed get isLoadable() {
     return (
       SearchStore.instance._state === STATE.INITIAL ||
       SearchStore.instance._state === STATE.LOADABLE
     );
   }
-  get hasError() {
+  @computed get hasError() {
     return SearchStore.instance._state === STATE.ERROR;
   }
 
