@@ -1,10 +1,9 @@
 import { Fragment, useRef, useState, useEffect } from 'react';
-import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
 import css from './Brand.module.scss';
 import cn from 'classnames';
 import { isNil, debounce } from 'lodash';
-
+import { sendBackToLogin } from 'childs/lib/router';
 import useStores from 'stores/useStores';
 import Image from 'components/atoms/Image';
 
@@ -114,6 +113,8 @@ function _Brand({ isVisible, fromHeader, onClose, onCloseMenu }) {
           target[brandLabel][index].isFavorite = !isFavorite;
         }
       }
+    } else {
+      sendBackToLogin();
     }
   };
 
