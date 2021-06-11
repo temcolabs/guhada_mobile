@@ -104,18 +104,8 @@ function _Brand({ isVisible, fromHeader, onClose, onCloseMenu }) {
         ? await brands.deleteUserBrandFavorite(userId, brandId)
         : await brands.createUserBrandFavorite(userId, brandId);
 
-      if (resultCode === 200) {
-        let target =
-          (brands.selectedLanguage === 'english' && brands.enList) ||
-          (brands.selectedLanguage === 'korean' && brands.koList);
-        const index = target[brandLabel].findIndex((o) => o.id === brandId);
-        if (index !== -1) {
-          target[brandLabel][index].isFavorite = !isFavorite;
-        }
-      }
-    } else {
-      sendBackToLogin();
-    }
+      if (resultCode === 200) await brands.getBrands({ userId });
+    } else sendBackToLogin();
   };
 
   const toSearch = (id) => {
