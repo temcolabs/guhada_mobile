@@ -1,16 +1,15 @@
 import css from './Navigation.module.scss';
 import { useState, memo } from 'react';
+import PropTypes from 'prop-types';
 import cn from 'classnames';
 import { pushRoute } from 'childs/lib/router';
-import { useRouter } from 'next/router';
 import ToolbarCategory from 'components/toolbar/ToolbarCategory';
 import ToolbarBrand from 'components/toolbar/ToolbarBrand';
 
-const Navigation = () => {
+const Navigation = ({ type }) => {
   /**
    * states
    */
-  const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(0);
 
   /**
@@ -22,7 +21,7 @@ const Navigation = () => {
         className={cn(
           css['nav-button'],
           css['button--category'],
-          router.route === '/search' && router.query.category && css['selected']
+          type === 'category' && css['selected']
         )}
         onClick={() => setIsModalOpen(1)}
       >
@@ -32,10 +31,7 @@ const Navigation = () => {
         className={cn(
           css['nav-button'],
           css['button--brand'],
-          router.route === '/search' &&
-            !router.query.category &&
-            router.query.brand &&
-            css['selected']
+          type === 'brand' && css['selected']
         )}
         onClick={() => setIsModalOpen(2)}
       >
@@ -45,7 +41,7 @@ const Navigation = () => {
         className={cn(
           css['nav-button'],
           css['button--home'],
-          router.route === '/' && css['selected']
+          (type === 'home' || type === 'default') && css['selected']
         )}
         onClick={() => pushRoute('/?home=0')}
       >
@@ -55,7 +51,7 @@ const Navigation = () => {
         className={cn(
           css['nav-button'],
           css['button--community'],
-          router.route === '/community' && css['selected']
+          type === 'community' && css['selected']
         )}
         onClick={() => pushRoute('/community')}
       >
@@ -65,8 +61,9 @@ const Navigation = () => {
         className={cn(
           css['nav-button'],
           css['button--mypage'],
-          router.route === '/mypage' && css['selected']
+          type === 'mypage' && css['selected']
         )}
+        onClick={() => pushRoute('/mypage')}
       >
         마이페이지
       </div>
@@ -81,6 +78,10 @@ const Navigation = () => {
       />
     </nav>
   );
+};
+
+Navigation.propTypes = {
+  type: PropTypes.string,
 };
 
 export default memo(Navigation);

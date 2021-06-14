@@ -5,30 +5,37 @@ import { observer } from 'mobx-react';
 import useStores from 'stores/useStores';
 import { useHorizontalArrows } from 'hooks';
 
-import { useEffect } from 'react';
-
 const CategoryTab = () => {
   /**
    * states
    */
-  const [scrollRef, arrowLeft, arrowRight] = useHorizontalArrows();
   const {
     layout: layoutStore,
     searchByFilter: searchByFilterStore,
   } = useStores();
   const { category } = layoutStore.headerInfo;
+  const [scrollRef, arrowLeft, arrowRight] = useHorizontalArrows([category]);
 
   /**
    * handlers
    */
-  const handleClick = (id) => {
-    layoutStore.pushHistory();
-    searchByFilterStore.initializeSearch({
-      categoryIds: [...searchByFilterStore.defaultBody.categoryIds, id], // TODO
-    });
+  const handleClick = (id, target) => {
+    if (id) {
+      new Promise((res) =>
+        res(
+          searchByFilterStore.initializeSearch(
+            { categoryIds: [id] },
+            undefined,
+            false
+          )
+        )
+      ).then(() => {
+        if (target) {
+          scrollRef.current.scrollTo(target.offsetLeft - 30, 0);
+        }
+      });
+    }
   };
-
-  useEffect(() => {});
 
   /**
    * render
@@ -37,17 +44,12 @@ const CategoryTab = () => {
     <div className={css['category-tab']} ref={scrollRef}>
       {category.children ? (
         <>
-          <div
-            className={cn(css['tab-item'], css['selected'])}
-            onClick={() => handleClick(category.id)}
-          >
-            전체보기
-          </div>
+          <div className={cn(css['tab-item'], css['selected'])}>전체보기</div>
           {category.children.map(({ id, title }) => (
             <div
               key={id}
               className={css['tab-item']}
-              onClick={() => handleClick(id)}
+              onClick={(e) => handleClick(id, e.target)}
             >
               {title}
             </div>
@@ -57,18 +59,18 @@ const CategoryTab = () => {
         <>
           <div
             className={css['tab-item']}
-            onClick={() => handleClick(category.parentId)}
+            onClick={() => handleClick(category.parent.id)}
           >
             전체보기
           </div>
-          {category.siblings.map(({ id, title }) => (
+          {category.parent.children.map(({ id, title }) => (
             <div
               key={id}
               className={cn(
                 css['tab-item'],
                 category.id === id && css['selected']
               )}
-              onClick={() => handleClick(id)}
+              onClick={(e) => handleClick(id, e.target)}
             >
               {title}
             </div>
@@ -76,10 +78,16 @@ const CategoryTab = () => {
         </>
       )}
       {arrowLeft && (
-        <span className={cn(css['tab-arrow'], css['arrow--left'])} />
+        <span
+          className={cn(css['tab-arrow'], css['arrow--left'])}
+          onClick={() => (scrollRef.current.scrollLeft -= 300)}
+        />
       )}
       {arrowRight && (
-        <span className={cn(css['tab-arrow'], css['arrow--right'])} />
+        <span
+          className={cn(css['tab-arrow'], css['arrow--right'])}
+          onClick={() => (scrollRef.current.scrollLeft += 300)}
+        />
       )}
     </div>
   );

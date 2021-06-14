@@ -10,8 +10,9 @@ import FilterOption from 'components/templates/DealSection/FilterOption';
 
 const Header = ({
   logo,
-  title,
+  title = '검색 결과',
   back,
+  popHistory,
   home,
   category,
   filter,
@@ -24,7 +25,12 @@ const Header = ({
       <nav className={css['header__tabs']}>
         <div className={css['nav-tab']}>
           <div className={css['tab__buttons']}>
-            {back && <div className={cn(css['button'], css['button--back'])} />}
+            {back && (
+              <div
+                className={cn(css['button'], css['button--back'])}
+                onClick={popHistory}
+              />
+            )}
             <div
               className={cn(css['button'], css['button--burger'])}
               onClick={() => setIsModalOpen(2)}
@@ -74,6 +80,7 @@ Header.propTypes = {
   logo: PropTypes.bool,
   title: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   back: PropTypes.bool,
+  popHistory: PropTypes.func,
   home: PropTypes.bool,
   filter: PropTypes.bool,
   isScrollDown: PropTypes.bool,

@@ -1,10 +1,12 @@
 .header {
-  position: fixed;
+  position: -webkit-sticky;
+  position: sticky;
   top: 0;
   align-items: center;
   background-color: #fff;
   width: 100%;
   z-index: 102;
+  will-change: transform;
   transition: transform 0.1s linear;
 
   &.scroll-down {

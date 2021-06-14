@@ -222,10 +222,12 @@ export class SearchByFilterStore extends SearchStore {
   /**
    * @param {Body} body initial body - default = SearchByFilterStore.initialBody
    * @param {Params} params initial params - default = SearchByFilterStore.initialParams
+   * @param {boolean} resetUnfungibles flag to reset unfungible datas - default = true
    */
   @action initializeSearch = (
     body = SearchByFilterStore.initialBody,
-    params = SearchByFilterStore.initialParams
+    params = SearchByFilterStore.initialParams,
+    resetUnfungibles = true
   ) => {
     this.defaultBody = SearchByFilterStore.initialBody;
     this.defaultParams = SearchByFilterStore.initialParams;
@@ -242,8 +244,11 @@ export class SearchByFilterStore extends SearchStore {
     Object.assign(this.abstractParams, params);
     this.updateState(STATE.INITIAL);
     this.search().then(() => {
-      this.unfungibleCategories = toJS(this.categories);
-      this.unfungibleBrands = toJS(this.brands);
+      if (resetUnfungibles) {
+        console.log('yoman');
+        this.unfungibleCategories = toJS(this.categories);
+        this.unfungibleBrands = toJS(this.brands);
+      }
     });
   };
 
@@ -253,8 +258,13 @@ export class SearchByFilterStore extends SearchStore {
    * fetch search results from query params - no need to `initializeSearch` if this is called
    * @param {object} query
    * @param {string[]} comparedBodyProps body props to compare with `defaultBody` to check if initializing is needed
+   * @param {boolean} resetUnfungibles flag to reset unfungible datas - defualt = true
    */
-  @action fetchSearchResults = (query = {}, comparedBodyProps = []) => {
+  @action fetchSearchResults = (
+    query = {},
+    comparedBodyProps = [],
+    resetUnfungibles = true
+  ) => {
     const { category, subcategory, brand, keyword, page, unitPerPage } = query;
 
     const categoryIds = [];
@@ -283,7 +293,7 @@ export class SearchByFilterStore extends SearchStore {
         _isEqual(defaultBodyObj[prop], body[prop])
       )
     ) {
-      this.initializeSearch(body, params);
+      this.initializeSearch(body, params, resetUnfungibles);
     }
   };
 }

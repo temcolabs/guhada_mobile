@@ -1,6 +1,4 @@
 import css from './SearchLayout.module.scss';
-import { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import useStores from 'stores/useStores';
 import { useScrollDown } from 'hooks';
@@ -8,19 +6,12 @@ import Header from './Header';
 import Navigation from './Navigation';
 import PluginButtons from './PluginButtons';
 
-function SearchLayout({ type = 'default', children }) {
+function SearchLayout({ children }) {
   /**
    * states
    */
   const { layout: layoutStore } = useStores();
-  const isScrollDown = useScrollDown();
-
-  /**
-   * side effects
-   */
-  useEffect(() => {
-    layoutStore.initialize(type);
-  }, [layoutStore, type]);
+  const isScrollDown = useScrollDown(60);
 
   /**
    * render
@@ -31,15 +22,16 @@ function SearchLayout({ type = 'default', children }) {
         logo={layoutStore.headerFlags.logo}
         title={layoutStore.headerFlags.title && layoutStore.headerInfo.title}
         back={layoutStore.headerFlags.back}
+        popHistory={layoutStore.popHistory}
         home={layoutStore.headerFlags.home}
         category={
           layoutStore.headerFlags.category && !!layoutStore.headerInfo.category
         }
         filter={layoutStore.headerFlags.filter}
-        isScrollDown={!layoutStore.headerFlags.fixed && isScrollDown}
+        isScrollDown={layoutStore.headerFlags.slide && isScrollDown}
       />
       <section className={css['content']}>{children}</section>
-      <Navigation />
+      <Navigation type={layoutStore.type} />
       <PluginButtons
         isScrollDown={isScrollDown}
         recentCount={layoutStore.recentCount}
@@ -48,9 +40,5 @@ function SearchLayout({ type = 'default', children }) {
     </div>
   );
 }
-
-SearchLayout.propTypes = {
-  type: PropTypes.string,
-};
 
 export default observer(SearchLayout);

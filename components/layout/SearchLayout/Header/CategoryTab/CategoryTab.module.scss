@@ -1,12 +1,13 @@
 .category-tab {
   width: 100%;
-  height: 43px;
+  height: 45px;
   white-space: nowrap;
   overflow-x: auto;
   display: flex;
   align-items: center;
   padding-left: 10px;
   padding-right: 10px;
+  scroll-behavior: smooth;
 
   .tab-item {
     display: flex;

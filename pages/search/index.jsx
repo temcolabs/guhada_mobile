@@ -14,7 +14,10 @@ function SearchPage() {
   /**
    * states
    */
-  const { searchByFilter: searchByFilterStore } = useStores();
+  const {
+    searchByFilter: searchByFilterStore,
+    layout: layoutStore,
+  } = useStores();
   const router = useRouter();
 
   /**
@@ -22,7 +25,18 @@ function SearchPage() {
    */
   useEffect(() => {
     searchByFilterStore.fetchSearchResults(router.query, comparedBodyProps);
-  }, [searchByFilterStore, router]);
+
+    const { category, brand, keyword } = router.query;
+    let type;
+    if (keyword) {
+      type = 'keyword';
+    } else if (brand) {
+      type = 'brand';
+    } else if (category) {
+      type = 'category';
+    }
+    layoutStore.initialize(type);
+  }, [searchByFilterStore, layoutStore, router]);
 
   /**
    * render
@@ -30,7 +44,7 @@ function SearchPage() {
   return (
     <>
       <HeadForSEO pageName={'검색 결과'} />
-      <SearchLayout type={'search'}>
+      <SearchLayout>
         {searchByFilterStore.isInitial && <MountLoading />}
         <Search />
       </SearchLayout>

@@ -2,13 +2,14 @@ import { useState, useEffect, useRef } from 'react';
 
 /**
  * returns left-right flag to check if an horizontal element is scrollable
+ * @param {Array} deps dependancy list
  * @param {number} offset scrollability checking offset
  * @returns {[any, boolean, boolean]} [scrollRef, arrowLeft, arrowRight]
  * `scrollRef` to use as a ref object on scrollable element
  * `arrowLeft` to check if element is scrollable to the left
  * `arrowRight` to check if element is scrollable to the right
  */
-export const useHorizontalArrows = (offset = 15) => {
+export const useHorizontalArrows = (deps, offset = 15) => {
   const scrollRef = useRef();
   const [arrowLeft, setArrowLeft] = useState(false);
   const [arrowRight, setArrowRight] = useState(false);
@@ -39,7 +40,7 @@ export const useHorizontalArrows = (offset = 15) => {
       }
       tab.addEventListener('scroll', handler);
     }
-  }, []);
+  }, deps);
 
   return [scrollRef, arrowLeft, arrowRight];
 };
