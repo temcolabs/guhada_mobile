@@ -20,6 +20,7 @@ import _ from 'lodash';
 import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
 import isTruthy from 'childs/lib/common/isTruthy';
 import AppEventPopup from 'components/event/popup/AppEventPopup';
+import DeepLinkPopup from 'components/event/popup/DeepLinkPopup';
 import PointSavingModal, {
   pointSavingTypes,
 } from 'components/mypage/point/PointSavingModal';
@@ -36,6 +37,7 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      isDeepLinkModal: true,
       signupModal: false,
       email: '',
       scrollDirection: 'up',
@@ -247,6 +249,15 @@ class Home extends React.Component {
               );
             })
           : null}
+
+        {this.state.isDeepLinkModal && (
+          <DeepLinkPopup
+            isOpen={this.state.isDeepLinkModal}
+            onClose={() =>
+              this.setState({ ...this.state, isDeepLinkModal: false })
+            }
+          />
+        )}
 
         <Footer />
       </DefaultLayout>
