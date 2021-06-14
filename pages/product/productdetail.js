@@ -65,9 +65,6 @@ class ProductDetailPage extends React.Component {
     productdetail.getDeals(dealId);
     productDetailLike.getUserLike();
 
-    // 상품 정보 가져오기
-    productdetail.getDeals(dealId);
-
     if (isBrowser) {
       criteoTracker.productDetail({
         email: user.userInfo?.email,

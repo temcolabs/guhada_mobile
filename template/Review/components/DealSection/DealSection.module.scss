@@ -20,6 +20,7 @@
     &.items--horizontal {
       width: auto;
       overflow-x: auto;
+      overflow-y: hidden;
       white-space: nowrap;
       padding-left: 20px;
       padding-right: 20px;

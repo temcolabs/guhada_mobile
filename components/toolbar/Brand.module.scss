@@ -1,131 +1,174 @@
 $topPosition: 60px;
-$toolbarHeader:55px;
+$toolbarHeader: 60px;
 $brandHeader: 70px;
 $browserTool: 70px;
 
-.headerWrap {
+.brandWrap {
+  font-family: 'Roboto';
+
+  & .headerSection {
     width: 100%;
     height: 70px;
-    padding: 15px 5px 0 20px;
+    padding: 0 20px;
     display: flex;
+    flex-flow: row wrap;
     justify-content: space-between;
     background-color: #ffffff;
     z-index: 100;
 
-    input[type='text'] {
-        width: 205px;
-        height: 33px;
-        font-size: 13px;
-        border-bottom: 1px solid #111111;
-        background-image: url('/static/icon/zoom-icon.png');
-        background-size: 16px;
-        background-repeat: no-repeat;
-        background-position: right center;
+    > div {
+      width: 100%;
+    }
 
-        &::placeholder {
-            color: #aaaaaa;
-        }
+    & .input {
+      margin-bottom: 12px;
+    }
+
+    input[type='text'] {
+      width: 100%;
+      height: 33px;
+      font-size: 13px;
+      border-bottom: 1px solid #111111;
+      background-image: url('/static/icon/zoom-icon.png');
+      background-size: 16px;
+      background-repeat: no-repeat;
+      background-position: right center;
+
+      &::placeholder {
+        color: #aaaaaa;
+      }
     }
 
     & .headerAlphabet {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      height: 30px;
+
+      & .alphabetItem {
+        width: 60px;
+        height: 30px;
         display: flex;
         align-items: center;
-        height: 30px;
+        justify-content: center;
+        font-size: 13px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.15;
+        text-align: left;
+        color: #cccccc;
+        letter-spacing: 1px;
 
-        & .alphabetItem {
-            width: 60px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 13px;
-            font-weight: bold;
-            font-style: normal;
-            font-stretch: normal;
-            line-height: 1.15;
-            text-align: left;
-            color: #cccccc;
-            letter-spacing: 1px;
-
-            &.selected {
-                letter-spacing: 3px;
-                color: #333333;
-            }
+        &.selected {
+          letter-spacing: 3px;
+          color: #333333;
         }
+      }
 
-        & .alphabetLine {
-            height: 10px;
-            border-left: solid 1px #d9dde0;
-        }
+      & .alphabetLine {
+        height: 10px;
+        border-left: solid 1px #d9dde0;
+      }
+
+      & .favoriteItem {
+        border: 1px solid #eeeeee;
+        border-radius: 17px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 45px;
+        height: 34px;
+      }
     }
-}
+  }
 
-.brandWrap {
+  & .brandSection {
     display: inline-block;
     position: relative;
-    width: calc(100% - 33px);
+    width: calc(100% - 60px);
     height: calc(100vh - #{$topPosition} - #{$toolbarHeader} - #{$brandHeader});
     overflow-y: auto;
 
     &.fromHeaderMenu {
-        height: calc(100vh - 125px);
+      height: calc(100vh - 125px);
     }
 
     & .brand {
-        padding-left: 20px;
-        width: calc(100% - 18px - 8px);
-    }
-
-    & .languageIndex {
-        height: 36px;
-        padding-top: 5px;
-        font-size: 18px;
-        font-weight: 500;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: 1.17;
-        letter-spacing: normal;
-        text-align: left;
-        border-bottom: 1px dashed #eee;
-        color: #5d2ed1;
-    }
-
-    & .languageItem {
+      > div {
         display: flex;
         align-items: center;
         height: 37px;
+      }
+
+      & .languageIndex {
+        padding-left: 20px;
+        margin: 5px 0;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 1.17;
+        border-bottom: 1px dashed #eee;
+        color: #5d2ed1;
+      }
+
+      & .languageItem {
         font-size: 14px;
-        font-weight: normal;
-        font-style: normal;
-        font-stretch: normal;
         line-height: 1.14;
-        letter-spacing: normal;
-        text-align: left;
         color: #333333;
-        padding-left: 10px;
+        padding-left: 12px;
 
-        &:last-child {
-            margin-bottom: $browserTool;
+        & .favoriteBtn {
+          width: 30px;
+          height: 30px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
+      }
     }
-}
 
-.filter {
-    width: 18px;
-    margin-right: 14px;
-    position: relative;
+    & .languageItem {
+      display: flex;
+      align-items: center;
+      height: 37px;
+      font-size: 14px;
+      font-weight: normal;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.14;
+      letter-spacing: normal;
+      text-align: left;
+      color: #333333;
+      padding-left: 10px;
+
+      &:last-child {
+        margin-bottom: $browserTool;
+      }
+    }
+  }
+
+  & .filterSection {
     float: right;
-    height: calc(100vh - #{$topPosition} - #{$toolbarHeader} - #{$brandHeader});
-    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    padding-top: 15px;
+    width: 60px;
 
-    & .item {
-        width: 19px;
-        height: 18px;
+    & .filter {
+      display: flex;
+      flex-flow: column wrap;
+      justify-content: space-around;
+      height: calc(
+        100vh - #{$topPosition} - #{$toolbarHeader} - #{$brandHeader}
+      );
+      overflow-y: hidden;
+
+      & .item {
+        width: 20px;
         font-size: 10px;
         font-weight: 500;
         font-style: normal;
         font-stretch: normal;
-        line-height: 1.9;
         letter-spacing: normal;
         text-align: center;
         color: #dddddd;
@@ -134,11 +177,13 @@ $browserTool: 70px;
         justify-content: center;
 
         &:last-child {
-            margin-bottom: $browserTool;
+          margin-bottom: $browserTool;
         }
 
         &.selected {
-            color: #5d2ed1;
+          color: #5d2ed1;
         }
+      }
     }
+  }
 }

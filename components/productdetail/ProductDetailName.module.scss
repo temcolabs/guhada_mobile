@@ -62,40 +62,43 @@
         font-weight: 600;
         color: #111;
       }
-
-      .product__sell__price {
-        margin-left: 12px;
-        font-size: 11px;
-        color: #777;
-        text-decoration: line-through;
-      }
-
-      .product__discount__rate {
-        margin-left: 12px;
-        color: #5d2ed1;
-        font-size: 14px;
-        font-weight: bold;
-      }
     }
 
     .utility__wrap {
       display: flex;
 
-      .share__btn {
-        margin-right: 12px;
+      > div {
+        margin-right: 10px;
 
-        img {
+        > img {
           width: 30px;
           height: 30px;
         }
       }
 
-      .like__btn {
-        img {
-          width: 30px;
-          height: 30px;
-        }
+      > div:last-child {
+        margin-right: 0;
       }
+    }
+  }
+
+  .inner__discounts {
+    display: flex;
+    margin-top: 5px;
+
+    .product__sell__price {
+      color: #777;
+      font-size: 14px;
+      line-height: 1.43;
+      text-decoration: line-through;
+      margin-right: 8px;
+    }
+
+    .product__discount__rate {
+      color: #5d2ed1;
+      font-size: 14px;
+      font-weight: bold;
+      line-height: 1.5;
     }
   }
 }

@@ -67,21 +67,23 @@ class ProductDetailName extends Component {
 
         <div className={css.inner__bottom}>
           <div className={css.product__price__wrap}>
+            {/* Price */}
             <div className={css.product__discount__price}>
               {deals.discountPrice.toLocaleString()}
             </div>
-            {deals.discountPrice === deals.sellPrice ? null : (
-              <div className={css.product__sell__price}>
-                {deals.sellPrice.toLocaleString()}
-              </div>
-            )}
-            {deals.discountPrice === deals.sellPrice ? null : (
-              <div className={css.product__discount__rate}>
-                {`${deals.discountRate}%`}
-              </div>
-            )}
           </div>
+          {/* Icons */}
           <div className={css.utility__wrap}>
+            {deals.trackRecords && deals.trackRecords.length ? (
+              <div>
+                <img
+                  src="/static/icon/icon_blockchain_link_black.png"
+                  alt="블록체인정보"
+                />
+              </div>
+            ) : (
+              ''
+            )}
             <div className={css.share__btn} onClick={this.copyUrlToClipboard}>
               <img src="/static/icon/m_share_btn.png" alt="공유하기" />
             </div>
@@ -102,6 +104,19 @@ class ProductDetailName extends Component {
               )}
             </div>
           </div>
+        </div>
+        {/* Discounts info */}
+        <div className={css.inner__discounts}>
+          {deals.discountPrice === deals.sellPrice ? null : (
+            <div className={css.product__sell__price}>
+              {deals.sellPrice.toLocaleString()}
+            </div>
+          )}
+          {deals.discountPrice === deals.sellPrice ? null : (
+            <div className={css.product__discount__rate}>
+              {`${deals.discountRate}%`}
+            </div>
+          )}
         </div>
       </div>
     );

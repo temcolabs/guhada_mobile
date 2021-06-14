@@ -4,6 +4,7 @@ import LazyLoad from 'react-lazyload';
 import PropTypes from 'prop-types';
 import { ImageDiv } from './Styled';
 
+// TODO : 혹시나... 웹 접근성 이슈 있으면 수정 (alt)
 /**
  * 이미지 태그
  * @param {Boolean} isLazy : Lazy load

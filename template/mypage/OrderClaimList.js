@@ -324,12 +324,14 @@ class OrderClaimList extends Component {
         />
 
         {/* 구매확정시 포인트 지급 모달  */}
-        <PointSavingModal
-          pointSavingType={pointSavingTypes.CONFIRM_PURCHASE}
-          isOpen={mypagePointStore.isPointSavingModalOpen}
-          onClose={mypagePointStore.closePointSavingModalOpen}
-          savedPointResponse={mypagePointStore.savedPointResponse}
-        />
+        {mypagePointStore.isPointSavingModalOpen && (
+          <PointSavingModal
+            pointSavingType={pointSavingTypes.CONFIRM_PURCHASE}
+            isOpen={mypagePointStore.isPointSavingModalOpen}
+            onClose={mypagePointStore.closePointSavingModalOpen}
+            savedPointResponse={mypagePointStore.savedPointResponse}
+          />
+        )}
       </MypageLayout>
     );
   }

@@ -1,7 +1,7 @@
 import React from 'react';
 import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 import css from './BrandContainer.module.scss';
-import Brand from 'components/toolbar/Brand';
+import Brand from 'components/toolbar/_Brand';
 import { inject } from 'mobx-react';
 function BrandContainer({ isVisible, onClose, brands, onCloseMenu }) {
   return (
@@ -18,6 +18,7 @@ function BrandContainer({ isVisible, onClose, brands, onCloseMenu }) {
         <div className={css.header}>브랜드</div>
         <div className={css.itemWrap}>
           <Brand
+            isVisible={isVisible}
             fromHeader={true}
             onClose={onClose}
             onCloseMenu={onCloseMenu}

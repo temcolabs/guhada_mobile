@@ -82,7 +82,6 @@ function LuckyDrawTemplate({ router, luckyDraw, login, main }) {
    * 럭키드로우 로그인 / 비로그인 데이터 처리
    */
   useEffect(() => {
-    document.documentElement.style.overflow = 'initial';
     luckyDraw.initLuckyEventData();
   }, [login.isLoggedIn]);
 
@@ -159,7 +158,6 @@ function LuckyDrawTemplate({ router, luckyDraw, login, main }) {
    * 럭키드로우 모달 닫기
    */
   const onCloseLuckyDrawModal = () => {
-    document.documentElement.style.overflow = 'initial';
     luckyDraw.closeModal();
     setIsActiveLuckyDrawModal(false);
   };
@@ -168,7 +166,6 @@ function LuckyDrawTemplate({ router, luckyDraw, login, main }) {
    * 럭키드로우 유의사항 모달 닫기
    */
   const onCloseLuckyDrawWarnModal = () => {
-    document.documentElement.style.overflow = 'initial';
     setIsActiveWarnModal(false);
   };
 
@@ -176,7 +173,6 @@ function LuckyDrawTemplate({ router, luckyDraw, login, main }) {
    * 럭키드로우 로그인 모달 닫기
    */
   const onCloseLuckyDrawLoginModal = () => {
-    document.documentElement.style.overflow = 'initial';
     luckyDraw.setLuckydrawLoginModal(false);
   };
 
@@ -184,7 +180,6 @@ function LuckyDrawTemplate({ router, luckyDraw, login, main }) {
    * 럭키드로우 회원가입 모달 닫기
    */
   const onCloseLuckyDrawSignupModal = () => {
-    document.documentElement.style.overflow = 'initial';
     luckyDraw.setLuckydrawSignupModal(false);
   };
 
@@ -192,7 +187,6 @@ function LuckyDrawTemplate({ router, luckyDraw, login, main }) {
    * 럭키드로우 회원가입 모달 닫기
    */
   const onCloseLuckyDrawModifyModal = () => {
-    document.documentElement.style.overflow = 'initial';
     luckyDraw.setLuckydrawModifyModal(false);
   };
 
