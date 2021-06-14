@@ -3,7 +3,21 @@ import API from 'childs/lib/API';
 import { isEqual as _isEqual } from 'lodash';
 import SearchStore, { ENDPOINT, STATE } from './SearchStore';
 
-/** 정렬 */
+/** body props to compare with `defaultBody` to check if initializing is needed */
+const defaultComparedBodyProps = [
+  'categoryIds',
+  'brandIds',
+  'searchQueries',
+  'searchCondition',
+];
+
+/* 종류 */
+export const searchConditionMap = new Map([
+  ['PLUS', 'PREMIUM ITEM'],
+  ['BEST', 'BEST ITEM'],
+  ['NEW', 'NEW IN'],
+]);
+/* 정렬 */
 export const searchResultOrderMap = new Map([
   ['DATE', '신상품순'],
   ['SCORE', '평점순'],
@@ -11,17 +25,17 @@ export const searchResultOrderMap = new Map([
   ['PRICE_ASC', '낮은가격순'],
   ['DISCOUNT', '할인율순'],
 ]);
-/** 배송정보 */
+/* 배송정보 */
 export const shippingConditionMap = new Map([
   ['NATIONAL', '국내배송'],
   ['INTERNATIONAL', '해외배송'],
 ]);
-/** 제품상태 */
+/* 제품상태 */
 export const productConditionMap = new Map([
   ['NEW', '새제품'],
   ['USED', '빈티지'],
 ]);
-/** 가격 범위 */
+/* 가격 범위 */
 export const priceArrangeMap = new Map([
   ['전체', 0],
   ['10만원 이하', 100000],
@@ -47,9 +61,10 @@ export const priceArrangeMap = new Map([
  *  searchQueries: string[]
  *  minPrice: string|number
  *  maxPrice: string|number
- *  searchResultOrder: searchResultOrder
- *  shippingCondition: shippingCondition
- *  productCondition: productCondition
+ *  searchResultOrder: searchResultOrderMap
+ *  shippingCondition: shippingConditionMap
+ *  productCondition: productConditionMap
+ *  searchCondition: searchConditionMap
  * }} Body request body
  */
 
@@ -245,7 +260,6 @@ export class SearchByFilterStore extends SearchStore {
     this.updateState(STATE.INITIAL);
     this.search().then(() => {
       if (resetUnfungibles) {
-        console.log('yoman');
         this.unfungibleCategories = toJS(this.categories);
         this.unfungibleBrands = toJS(this.brands);
       }
@@ -262,14 +276,24 @@ export class SearchByFilterStore extends SearchStore {
    */
   @action fetchSearchResults = (
     query = {},
-    comparedBodyProps = [],
+    comparedBodyProps = defaultComparedBodyProps,
     resetUnfungibles = true
   ) => {
-    const { category, subcategory, brand, keyword, page, unitPerPage } = query;
+    const {
+      category,
+      subcategory,
+      brand,
+      keyword,
+      page,
+      unitPerPage,
+      condition,
+    } = query;
 
     const categoryIds = [];
     const brandIds = [];
     const searchQueries = [];
+
+    const body = { categoryIds, brandIds, searchQueries };
 
     if (category) {
       categoryIds.push(category);
@@ -283,8 +307,10 @@ export class SearchByFilterStore extends SearchStore {
     if (keyword) {
       searchQueries.push(keyword);
     }
+    if (condition) {
+      body.searchCondition = condition;
+    }
 
-    const body = { categoryIds, brandIds, searchQueries };
     const params = { page: page || 1, unitPerPage: unitPerPage || 24 };
 
     const defaultBodyObj = toJS(this.defaultBody);

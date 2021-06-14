@@ -45,6 +45,19 @@ export const layouts = {
       },
     },
   },
+  search: {
+    headerFlags: {
+      title: true,
+      back: true,
+      filter: true,
+      slide: true,
+      plugins: {
+        top: true,
+        kakao: true,
+        recent: true,
+      },
+    },
+  },
   category: {
     headerFlags: {
       title: true,
@@ -63,9 +76,7 @@ export const layouts = {
     headerFlags: {
       title: true,
       back: true,
-      category: true,
       filter: true,
-      search: true,
       slide: true,
       plugins: {
         top: true,
@@ -79,6 +90,7 @@ export const layouts = {
       back: true,
       filter: true,
       slide: true,
+      search: true,
       plugins: {
         top: true,
         kakao: true,

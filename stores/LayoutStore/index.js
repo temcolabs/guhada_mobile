@@ -2,6 +2,7 @@ import { isBrowser } from 'childs/lib/common/isServer';
 import { pushRoute } from 'childs/lib/router';
 import { observable, computed, action, toJS } from 'mobx';
 import { LAYOUT_TYPE, layouts } from './constants';
+import { searchConditionMap } from '../SearchStore/SearchByFilterStore';
 
 /**
  * JSDoc typedefs
@@ -104,6 +105,11 @@ class LayoutStore {
     },
     keyword: () => {
       return {};
+    },
+    search: () => {
+      const { searchByFilter: that } = this.root;
+      const title = searchConditionMap.get(that.defaultBody.searchCondition);
+      return { title };
     },
   };
 

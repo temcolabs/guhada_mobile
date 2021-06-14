@@ -9,6 +9,10 @@
   padding-right: 10px;
   scroll-behavior: smooth;
 
+  &::--webkit-scrollbar {
+    display: none;
+  }
+
   .tab-item {
     display: flex;
     align-items: center;

@@ -8,7 +8,12 @@ import Search from 'template/Search';
 import MountLoading from 'components/atoms/Misc/MountLoading';
 
 /** body props to compare with `defaultBody` to check if initializing is needed */
-const comparedBodyProps = ['categoryIds', 'brandIds', 'searchQueries'];
+const comparedBodyProps = [
+  'categoryIds',
+  'brandIds',
+  'searchQueries',
+  'searchCondition',
+];
 
 function SearchPage() {
   /**
@@ -27,7 +32,7 @@ function SearchPage() {
     searchByFilterStore.fetchSearchResults(router.query, comparedBodyProps);
 
     const { category, brand, keyword } = router.query;
-    let type;
+    let type = 'search';
     if (keyword) {
       type = 'keyword';
     } else if (brand) {
