@@ -114,11 +114,7 @@ class DefaultLayout extends Component {
           }}
         >
           {topLayout === 'keyword' ? null : (
-            <Header
-              headerShape={headerShape}
-              cartAmount={cartAmount}
-              scrollDirection={scrollDirection}
-            >
+            <Header headerShape={headerShape} cartAmount={cartAmount}>
               {pageTitle}
             </Header>
           )}

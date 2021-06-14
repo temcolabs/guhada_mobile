@@ -1,10 +1,10 @@
 import css from './FilterOption.module.scss';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { observer } from 'mobx-react';
 import cn from 'classnames';
 import useStores from 'stores/useStores';
 import { searchResultOrderMap } from 'stores/SearchStore/SearchByFilterStore';
-import FilterTags from './FilterTags';
+import ThumbnailButton from './ThumbnailButton';
 import FilterModal from './FilterModal';
 import AdvancedFilterModal from './AdvancedFilterModal';
 
@@ -12,49 +12,39 @@ const FilterOption = () => {
   /**
    * states
    */
-  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
-  const [isAdvancedFilterModalOpen, setIsAdvancedFilterModalOpen] = useState(
-    false
-  );
+  const [isModalOpen, setIsModalOpen] = useState(0);
   const { searchByFilter: searchByFilterStore } = useStores();
 
   /**
    * render
    */
   return (
-    <>
-      <div className={css['filter-option']}>
-        <div className={css['filter-option__buttons']}>
-          <div
-            className={cn(css['filter-button'], css['button--order'])}
-            onClick={() => {
-              setIsFilterModalOpen(true);
-            }}
-          >
-            {searchResultOrderMap.get(
-              searchByFilterStore.body.searchResultOrder
-            )}
-            <span className={css['icon--order']} />
-          </div>
-          <div
-            className={cn(css['filter-button'], css['button--advanced'])}
-            onClick={() => {
-              setIsAdvancedFilterModalOpen(true);
-            }}
-          >
-            상세검색
-            <span className={css['icon--advanced']} />
-          </div>
+    <div className={css['filter-option']}>
+      <div className={css['filter-option__buttons']}>
+        <div
+          className={cn(css['filter-button'], css['button--order'])}
+          onClick={() => setIsModalOpen(1)}
+        >
+          {searchResultOrderMap.get(searchByFilterStore.body.searchResultOrder)}
         </div>
-        <FilterTags />
+        <ThumbnailButton
+          thumbnail={searchByFilterStore.thumbnail}
+          setThumbnail={(idx) => (searchByFilterStore.thumbnail = idx)}
+        />
+        <div
+          className={cn(css['filter-button'], css['button--advanced'])}
+          onClick={() => setIsModalOpen(2)}
+        >
+          상세검색
+        </div>
       </div>
 
       <FilterModal
         filterName={'상품정렬'}
         filterMap={searchResultOrderMap}
         selectedKey={searchByFilterStore.body.searchResultOrder}
-        isModalOpen={isFilterModalOpen}
-        handleCloseModal={() => setIsFilterModalOpen(false)}
+        isModalOpen={isModalOpen === 1}
+        handleCloseModal={() => setIsModalOpen(0)}
         handleSetFilter={(key) =>
           searchByFilterStore.submitFilter({ searchResultOrder: key })
         }
@@ -64,10 +54,10 @@ const FilterOption = () => {
       />
       <AdvancedFilterModal
         filterName={'상세검색'}
-        isModalOpen={isAdvancedFilterModalOpen}
-        handleCloseModal={() => setIsAdvancedFilterModalOpen(false)}
+        isModalOpen={isModalOpen === 2}
+        handleCloseModal={() => setIsModalOpen(0)}
       />
-    </>
+    </div>
   );
 };
 

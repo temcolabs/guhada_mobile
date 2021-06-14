@@ -1,15 +1,14 @@
 import css from './Dictionary.module.scss';
-import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, memo } from 'react';
 import PropTypes from 'prop-types';
-import { observer } from 'mobx-react';
 import { debounce as _debounce } from 'lodash';
+import { useMountAndUpdate } from 'hooks';
 import DictionaryNode from './DictionaryNode';
-import { sortFactory, reduceFactory } from './helpers';
 
 const Dictionary = ({
-  code,
-  initialDataList,
+  prop,
   inputValue,
+  initialDictMap,
   currentIds,
   setIds,
 }) => {
@@ -17,37 +16,25 @@ const Dictionary = ({
    * states
    */
   const scrollRef = useRef();
-  const [dataListCopy, setDataListCopy] = useState(initialDataList);
+  const [dictMap, setDictMap] = useState(initialDictMap);
   // const [intersectedIndex, setIntersectedIndex] = useState(null);
-
-  const prop = `name${code}`;
-  const alphabets = useMemo(() => {
-    const sortedDataList = dataListCopy.sort(sortFactory(code));
-    const dictArray = sortedDataList.reduce(reduceFactory[code], []);
-    return dictArray;
-  }, [dataListCopy, code]);
-
-  /**
-   * side effects
-   */
-  useEffect(() => {
-    scrollRef.current.scrollTop = 0;
-  }, [code]);
 
   /**
    * handlers
    */
-  const debouncedSetDataListCopy = useCallback(
-    _debounce((value) => {
-      const upperCasedValue = value.toUpperCase();
-      const regex = new RegExp(`^${upperCasedValue}| ${upperCasedValue}`);
-      const accessor = code === 'En' ? 'nameEnCap' : prop;
-      setDataListCopy(
-        initialDataList.filter((item) => regex.test(item[accessor]))
-      );
-    }, 300),
-    [code]
-  );
+  const debouncedSetDictMap = _debounce((value) => {
+    const upperCasedValue = value.toUpperCase();
+    const regex = new RegExp(`^${upperCasedValue}| ${upperCasedValue}`);
+    const accessor = prop === 'nameEn' ? 'nameEnCap' : prop;
+
+    const filteredDictMap = new Map(
+      Array.from(initialDictMap).map(([letter, items]) => {
+        return [letter, items.filter((item) => regex.test(item[accessor]))];
+      })
+    );
+
+    setDictMap(filteredDictMap);
+  }, 300);
 
   const handleSetId = (id) => {
     if (!currentIds.includes(id)) {
@@ -69,8 +56,16 @@ const Dictionary = ({
    * side effects
    */
   useEffect(() => {
-    debouncedSetDataListCopy(inputValue);
-  }, [inputValue, debouncedSetDataListCopy]);
+    scrollRef.current.scrollTop = 0;
+  }, [prop]);
+
+  useMountAndUpdate(
+    () => {},
+    () => {
+      debouncedSetDictMap(inputValue);
+    },
+    [inputValue]
+  );
 
   /**
    * render
@@ -78,23 +73,28 @@ const Dictionary = ({
   return (
     <div className={css['dictionary']}>
       <div ref={scrollRef} className={css['dictionary__list']}>
-        {alphabets.map(([index, ...rest]) => (
-          <div key={index} className={css['list-set']}>
-            <div className={css['list-set__index']}>{index}</div>
-            <div className={css['list-set__items']}>
-              {rest.map((item) => (
-                <DictionaryNode
-                  key={item.id}
-                  title={item[prop]}
-                  id={item.id}
-                  isChecked={currentIds.includes(item.id)}
-                  handleSetId={handleSetId}
-                  handleRemoveId={handleRemoveId}
-                />
-              ))}
-            </div>
-          </div>
-        ))}
+        {Array.from(dictMap).map(([letter, items]) => {
+          if (items.length > 0) {
+            return (
+              <div key={letter} className={css['list-set']}>
+                <div className={css['list-set__index']}>{letter}</div>
+                <div className={css['list-set__items']}>
+                  {items.map((item) => (
+                    <DictionaryNode
+                      key={item.id}
+                      title={item[prop]}
+                      id={item.id}
+                      isChecked={currentIds.includes(item.id)}
+                      handleSetId={handleSetId}
+                      handleRemoveId={handleRemoveId}
+                    />
+                  ))}
+                </div>
+              </div>
+            );
+          }
+          return null;
+        })}
       </div>
       {/* <div className={css['dictionary__alphabets']}>
         {alphabets.map(([index]) => (
@@ -113,9 +113,9 @@ const Dictionary = ({
 Dictionary.propTypes = {
   code: PropTypes.string,
   inputValue: PropTypes.string,
-  initialDataList: PropTypes.array,
+  initialDictMap: PropTypes.instanceOf(Map),
   currentIds: PropTypes.any,
   setIds: PropTypes.func,
 };
 
-export default observer(Dictionary);
+export default memo(Dictionary);

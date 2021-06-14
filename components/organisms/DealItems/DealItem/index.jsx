@@ -5,13 +5,18 @@ import LazyLoad from 'react-lazyload';
 
 const DealItem = ({
   deal,
-  horizontal = false,
+  thumbnail = 0,
   displaySeller = false,
   displayTags = true,
   isLazy = true,
 }) => (
   <div
-    className={cn(css['deal-item'], horizontal && css['deal-item--horizontal'])}
+    className={cn(
+      css['deal-item'],
+      thumbnail === -1 && css['deal-item--horizontal'],
+      thumbnail === 1 && css['deal-item--double'],
+      thumbnail === 2 && css['deal-item--hex']
+    )}
   >
     <div
       className={cn(
@@ -55,10 +60,10 @@ const DealItem = ({
           </div>
         )}
       </div>
-      {!horizontal && displaySeller && (
+      {thumbnail > -1 && displaySeller && (
         <div className={css['description__seller']}>{deal.sellerName}</div>
       )}
-      {!horizontal && displayTags && (
+      {thumbnail > -1 && thumbnail !== 2 && displayTags && (
         <div className={css['description__tags']}>
           {deal.internationalShipping && (
             <span className={css['tag']}>해외배송</span>
@@ -96,9 +101,10 @@ export const dealShape = PropTypes.shape({
 
 DealItem.propTypes = {
   deal: dealShape.isRequired,
-  horizontal: PropTypes.bool,
+  thumbnail: PropTypes.number,
   displaySeller: PropTypes.bool,
   displayTags: PropTypes.bool,
+  isLazy: PropTypes.bool,
 };
 
 export default DealItem;

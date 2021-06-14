@@ -3,14 +3,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-const TreeNode = ({
-  title,
-  id,
-  children,
-  isChecked,
-  handleSetId,
-  handleRemoveId,
-}) => {
+const TreeNode = ({ children, title, isChecked, handleToggleIsChecked }) => {
   /**
    * states
    */
@@ -19,14 +12,6 @@ const TreeNode = ({
   /**
    * handlers
    */
-  const handleToggleIsChecked = () => {
-    if (isChecked) {
-      handleRemoveId(id);
-    } else {
-      handleSetId(id);
-    }
-  };
-
   const handleToggleIsOpen = () => {
     if (isOpen) {
       setIsOpen(false);
@@ -60,12 +45,10 @@ const TreeNode = ({
 };
 
 TreeNode.propTypes = {
-  title: PropTypes.string,
-  id: PropTypes.number,
   children: PropTypes.any,
+  title: PropTypes.string,
   isChecked: PropTypes.bool,
-  handleSetId: PropTypes.func,
-  handleRemoveId: PropTypes.func,
+  handleToggleIsChecked: PropTypes.func,
 };
 
 export default TreeNode;
