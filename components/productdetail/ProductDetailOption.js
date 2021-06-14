@@ -4,7 +4,7 @@ import { inject, observer } from 'mobx-react';
 import ProductDetailOptionSelectbox from './ProductDetailOptionSelectbox';
 import OptionQuantity from './OptionQuantity';
 import ProductOptionModal from './ProductOptionModal';
-import SizeGuideModal from './SizeGuideModal';
+import { SizeGuideModal } from './Modals';
 
 @inject('productdetail', 'productoption', 'cartAndPurchase')
 @observer
