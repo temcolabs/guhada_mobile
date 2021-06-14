@@ -21,6 +21,7 @@ function Search() {
         handleLoadMore={() => searchByFilterStore.search(true)}
         thumbnail={searchByFilterStore.thumbnail}
         filterTags
+        isLazy={false}
       />
     </div>
   );

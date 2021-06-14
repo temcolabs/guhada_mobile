@@ -1,4 +1,5 @@
 import css from './ThumbnailButton.module.scss';
+import { memo } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 
@@ -33,4 +34,4 @@ ThumbnailButton.propTypes = {
   setThumbnail: PropTypes.func,
 };
 
-export default ThumbnailButton;
+export default memo(ThumbnailButton);

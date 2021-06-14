@@ -125,7 +125,12 @@ const AdvancedFilterModal = ({
           <SearchInputFilter
             searchQueries={searchByFilterStore.abstractBody.searchQueries}
             handleSetSearchQuery={(searchQuery) => {
-              handleSetAbstractFilter({ searchQueries: [searchQuery] });
+              handleSetAbstractFilter({
+                searchQueries: [
+                  ...searchByFilterStore.defaultBody.searchQueries,
+                  searchQuery,
+                ],
+              });
             }}
           />
         </div>
