@@ -5,13 +5,29 @@ import { observer } from 'mobx-react-lite';
 
 import ModalWrapper from 'components/common/modal/ModalWrapper';
 import StarItem from 'components/mypage/review/StarItem';
+import { isIOS } from 'childs/lib/common/detectMobileEnv';
 
 const IMAGE_PATH = {
   homeIcon: '/static/icon/home_icon.png',
   shareBtn: '/static/icon/event/sharing-arrow-r-line@2x.png',
 };
 
-function DeepLinkPopup({ isOpen, onClose }) {
+const APP_STORES = {
+  android: 'https://play.google.com/store/apps/details?id=io.temco.guhada',
+  ios:
+    'https://apps.apple.com/kr/app/%EA%B5%AC%ED%95%98%EB%8B%A4-%EB%AA%85%ED%92%88-%EC%87%BC%ED%95%91-%ED%95%84%EC%88%98%EC%95%B1/id1478120259',
+};
+
+function DeepLinkPopup({ isOpen, onClose, deepLink }) {
+  const handleDeepLink = () => {
+    console.log('deepLink : ', deepLink);
+    if (deepLink) {
+      setTimeout(function() {
+        window.open(isIOS() ? APP_STORES.ios : APP_STORES.android);
+      }, 1500);
+      window.location = deepLink;
+    }
+  };
   return (
     <ModalWrapper
       isOpen={isOpen}
@@ -33,7 +49,7 @@ function DeepLinkPopup({ isOpen, onClose }) {
             </div>
           </div>
         </div>
-        <div className={css.deeplink__btn} onClick={onClose}>
+        <div className={css.deeplink__btn} onClick={handleDeepLink}>
           구하다앱으로 보기
           <img src={IMAGE_PATH.shareBtn} alt={'앱으로 보기 버튼'} />
         </div>
