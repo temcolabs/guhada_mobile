@@ -102,9 +102,7 @@ class ProductDetail extends React.Component {
 
   createDeepLink = () => {
     const { query } = Router.router;
-    const checkedDevice = isIOS() ? 'ios' : isAndroid() ? 'android' : '';
-    console.log('checkedDevice : ', checkedDevice);
-    if (checkedDevice) {
+    if (isIOS() || isAndroid()) {
       this.setState({
         ...this.state,
         isDeepLinkModal: true,
