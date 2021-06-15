@@ -1,0 +1,25 @@
+.item {
+  display: inline-flex;
+  width: 50%;
+  font-size: 14px;
+  font-weight: 400;
+  color: #111;
+  padding-left: 23px;
+  padding-right: 10px;
+  height: 40px;
+
+  div {
+    display: flex;
+    align-items: center;
+    word-break: keep-all;
+    line-height: 18px;
+  }
+
+  background: url('/static/icon/filter_checkbox_inactive.png') no-repeat center
+    left;
+  background-size: 16px;
+
+  &--checked {
+    background-image: url('/static/icon/filter_checkbox_selected.png');
+  }
+}

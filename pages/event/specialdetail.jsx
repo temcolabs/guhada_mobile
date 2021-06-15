@@ -4,14 +4,15 @@ import { observer } from 'mobx-react';
 import { useRouter } from 'next/router';
 import { get as _get } from 'lodash';
 import moment from 'moment';
-
 import useStores from 'stores/useStores';
 import API from 'childs/lib/API';
 import isServer from 'childs/lib/common/isServer';
 import { dateFormat } from 'childs/lib/constant';
-
+import { useScrollDirection } from 'hooks';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
+import DefaultLayout from 'components/layout/DefaultLayout';
 import SpecialDetail from 'template/event/SpecialDetail';
+import MountLoading from 'components/atoms/Misc/MountLoading';
 
 function SpecialDetailPage() {
   /**
@@ -20,6 +21,7 @@ function SpecialDetailPage() {
   const { newSpecial: newSpecialStore } = useStores();
   const headData = newSpecialStore.headData;
   const router = useRouter();
+  const scrollDirection = useScrollDirection();
 
   /**
    * side effects
@@ -39,7 +41,14 @@ function SpecialDetailPage() {
         description={headData.description}
         image={headData.image}
       />
-      <SpecialDetail />
+      <DefaultLayout
+        headerShape={'special'}
+        pageTitle={'기획전'}
+        scrollDirection={scrollDirection}
+      >
+        {newSpecialStore.isLoading && <MountLoading />}
+        <SpecialDetail />
+      </DefaultLayout>
     </>
   );
 }

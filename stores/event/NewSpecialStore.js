@@ -20,7 +20,7 @@ class SpecialStore {
   /**
    * observables
    */
-  @observable isLoading = false;
+  @observable isLoading = true;
   @observable eventId = NaN;
   @observable specialDetail = {};
 

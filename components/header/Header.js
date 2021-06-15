@@ -8,23 +8,13 @@ import { LinkRoute } from 'childs/lib/router';
 import cn from 'classnames';
 import SearchMenu from './SearchMenu';
 import BrandContainer from './item/BrandContainer';
-import useStores from 'stores/useStores';
 import { useObserver } from 'mobx-react-lite';
 
 /**
- *
  * @param {string} headerShape
  * productDetail 일때 layout 변경
  */
-function Header({
-  children,
-  pageTitle,
-  headerShape,
-  cartAmount,
-  scrollDirection,
-}) {
-  // eslint-disable-next-line
-  const { history } = useStores();
+function Header({ children, pageTitle, headerShape, cartAmount }) {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isCategoryVisible, setIsCategoryVisible] = useState(false);
   const [categoryId, setCategoryId] = useState(0);
@@ -40,25 +30,20 @@ function Header({
       ) : (
         // 헤더의 보더
         <div
-          className={cn(
-            css.wrap,
-            {
-              [css.borderBottom]:
-                headerShape === 'detailPage' ||
-                headerShape === 'sellerStore' ||
-                headerShape === 'productDetail' ||
-                headerShape === 'ordersuccess' ||
-                headerShape === 'orderpayment' ||
-                headerShape === 'shoppingcart' ||
-                headerShape === 'brand' ||
-                headerShape === 'reviewHashtagDetail' ||
-                headerShape === 'special' ||
-                headerShape === 'eventmain' ||
-                headerShape === 'BBSArticleView',
-            },
-            { [css.scrollDown]: scrollDirection === 'down' }
-          )}
-          // style={scrollDirection === 'down' ? { display: 'none' } : null}
+          className={cn(css.wrap, {
+            [css.borderBottom]:
+              headerShape === 'detailPage' ||
+              headerShape === 'sellerStore' ||
+              headerShape === 'productDetail' ||
+              headerShape === 'ordersuccess' ||
+              headerShape === 'orderpayment' ||
+              headerShape === 'shoppingcart' ||
+              headerShape === 'brand' ||
+              headerShape === 'reviewHashtagDetail' ||
+              headerShape === 'special' ||
+              headerShape === 'eventmain' ||
+              headerShape === 'BBSArticleView',
+          })}
         >
           {/* 백버튼 */}
           {headerShape === 'detailPage' ||

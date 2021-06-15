@@ -1,5 +1,6 @@
-// refactored stores'
-import { SearchByFilterStore, SearchByAllStore } from './SearchStore';
+// refactored stores
+import LayoutStore from './LayoutStore';
+import { SearchByFilterStore } from './SearchStore';
 import NewSpecialStore from './event/NewSpecialStore';
 
 import UserStore from './UserStore';
@@ -80,8 +81,8 @@ import ReportStore from './claim/ReportStore';
 class RootStore {
   constructor(isServer, initialState) {
     // refactored stores
+    this.layout = new LayoutStore(this, initialState);
     this.searchByFilter = new SearchByFilterStore(this, initialState);
-
     this.newSpecial = new NewSpecialStore(this, initialState);
 
     this.user = new UserStore(this, initialState);

@@ -155,7 +155,7 @@ module.exports = [
 
   // 검색 결과
   {
-    pagePath: '/search/search',
+    pagePath: '/search',
     asPath: '/search',
     name: '검색 결과',
   },

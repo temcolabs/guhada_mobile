@@ -1,19 +1,21 @@
 .filter-tags {
   display: flex;
   justify-content: space-between;
+  padding-left: 20px;
+  padding-right: 20px;
 
   .tags {
-    margin-top: -5px;
+    margin-top: -3px;
 
     button {
-      margin-top: 5px;
+      margin-right: 3px;
+      margin-bottom: 3px;
       height: 26px;
-      padding: 0 29px 0 12px;
+      padding-left: 7px;
+      padding-right: 20px;
       border: 1px solid #5d2ed1;
       border-radius: 15px;
-      margin-right: 3px;
       position: relative;
-
       color: #5d2ed1;
       font-size: 12px;
       line-height: 14px;
@@ -21,7 +23,7 @@
       &::before {
         position: absolute;
         top: 7px;
-        right: 15px;
+        right: 12px;
         content: '';
         height: 10px;
         width: 1px;
@@ -31,7 +33,7 @@
       &::after {
         position: absolute;
         top: 7px;
-        right: 15px;
+        right: 12px;
         content: '';
         height: 10px;
         width: 1px;
@@ -42,7 +44,6 @@
   }
 
   .reset {
-    margin-top: 3px;
     line-height: 20px;
     display: flex;
     font-size: 13px;

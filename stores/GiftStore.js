@@ -2,13 +2,21 @@ import { observable, action } from 'mobx';
 import API from 'childs/lib/API';
 
 export default class GiftStore {
+  /**
+   * observables
+   */
+  @observable isLoading = true;
+
   @observable recommendDeals = [];
 
   @observable bestDeals = [];
 
-  @action
-  fetchDeals = async () => {
+  /**
+   * actions
+   */
+  @action fetchDeals = async () => {
     if (!this.recommendDeals.length || !this.bestDeals.length) {
+      this.isLoading = true;
       try {
         const { data } = await API.search('/ps/main-home/deals/guhada-gift');
         const dealsArray = data.data;
@@ -22,6 +30,7 @@ export default class GiftStore {
       } catch (error) {
         console.error(error.message);
       }
+      this.isLoading = false;
     }
   };
 }

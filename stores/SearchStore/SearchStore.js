@@ -19,6 +19,15 @@ export const STATE = {
   LOADED: 'LOADED',
   ERROR: 'ERROR',
 };
+
+/** display thumbnail enum */
+export const THUMBNAIL = {
+  HORIZONTAL: -1,
+  QUAD: 0,
+  DOUBLE: 1,
+  HEX: 2,
+};
+
 /**
  * JSDoc typedefs
  *
@@ -83,16 +92,22 @@ class SearchStore {
   @action updateState(state) {
     SearchStore.instance._state = state;
   }
-  get isLoading() {
+  @computed get isInitial() {
+    return (
+      this.countOfDeals === Infinity ||
+      SearchStore.instance._state === STATE.INITIAL
+    );
+  }
+  @computed get isLoading() {
     return SearchStore.instance._state === STATE.LOADING;
   }
-  get isLoadable() {
+  @computed get isLoadable() {
     return (
       SearchStore.instance._state === STATE.INITIAL ||
       SearchStore.instance._state === STATE.LOADABLE
     );
   }
-  get hasError() {
+  @computed get hasError() {
     return SearchStore.instance._state === STATE.ERROR;
   }
 
@@ -113,12 +128,17 @@ class SearchStore {
   @observable deals = [];
   /** @type {Brand[]} */
   @observable brands = [];
+  /** @type {Brand[]} brands list from initial search */
+  @observable unfungibleBrands = [];
   /** @type {Category[]} */
   @observable categories = [];
   /** @type {Category[]} categories list from initial search */
   @observable unfungibleCategories = [];
   /** @type {Filter[]} */
   @observable filters = [];
+
+  /** deal items thumbnail display */
+  @observable thumbnail = THUMBNAIL.QUAD;
 
   /**
    * actions

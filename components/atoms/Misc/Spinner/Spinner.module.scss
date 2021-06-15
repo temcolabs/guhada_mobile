@@ -2,24 +2,32 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 190px;
+  height: 250px;
   padding-top: 50px;
   padding-bottom: 50px;
+}
+
+.spinnerDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  padding-bottom: 20px;
 }
 
 .spinner {
   &,
   &:after {
     border-radius: 50%;
-    width: 4em;
-    height: 4em;
+    width: 30px;
+    height: 30px;
   }
 
   color: transparent;
-  border-top: 1em solid rgba(#5d2ed1, 0.2);
-  border-right: 1em solid rgba(#5d2ed1, 0.2);
-  border-bottom: 1em solid rgba(#5d2ed1, 0.2);
-  border-left: 1em solid #5d2ed1;
+  border-top: 5px solid rgba(#5d2ed1, 0.2);
+  border-right: 5px solid rgba(#5d2ed1, 0.2);
+  border-bottom: 5px solid rgba(#5d2ed1, 0.2);
+  border-left: 5px solid #5d2ed1;
   -webkit-transform: translateZ(0);
   -ms-transform: translateZ(0);
   transform: translateZ(0);
