@@ -26,7 +26,7 @@ function _Brand({ isVisible, fromHeader, onClose, onCloseMenu }) {
 
   const [brandLabel, setBrandLabel] = useState('A'); // Current brand label
   const [isFavorite, setIsFavorite] = useState(false); // Favorite menu Active / InActive\
-  const { login, brands, searchItem } = useStores();
+  const { login, brands, searchitem } = useStores();
 
   const userId = login?.loginInfo?.userId;
 
@@ -111,7 +111,7 @@ function _Brand({ isVisible, fromHeader, onClose, onCloseMenu }) {
   const toSearch = (id) => {
     onClose();
     if (!!fromHeader) onCloseMenu();
-    searchItem.toSearch({ brand: id, enter: 'brand' });
+    searchitem.toSearch({ brand: id, enter: 'brand' });
   };
 
   const toFilterLabel = (filter) =>
