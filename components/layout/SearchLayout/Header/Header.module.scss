@@ -5,7 +5,7 @@
   align-items: center;
   background-color: #fff;
   width: 100%;
-  z-index: 102;
+  z-index: 101;
   will-change: transform;
   transition: transform 0.1s linear;
 
@@ -18,52 +18,62 @@
     padding-left: 10px;
     padding-right: 10px;
 
-    .nav-tab {
+    .tab {
       height: 60px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+    }
 
-      .tab__buttons {
-        display: flex;
-        align-items: center;
+    .tab__buttons {
+      display: flex;
+      align-items: center;
 
-        .button {
-          width: 30px;
-          height: 30px;
-          background-repeat: no-repeat;
-          background-position: center;
-          background-size: contain;
-          margin-right: 5px;
-          cursor: pointer;
-          &:last-child {
-            margin-right: 0;
-          }
+      .button {
+        width: 30px;
+        height: 30px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        margin-right: 5px;
+        cursor: pointer;
+        &:last-child {
+          margin-right: 0;
+        }
 
-          &.button--logo {
-            width: 110px;
-            background-image: url('/static/Guhada-LOGO.png');
-          }
+        &.button--logo {
+          width: 110px;
+          background-image: url('/static/Guhada-LOGO.png');
+        }
 
-          &.button--back {
-            background-image: url('/static/icon/btn-prevpage.png');
-          }
+        &.button--back {
+          background-image: url('/static/icons/btn_top_back/btn_top_back@3x.png');
+        }
 
-          &.button--burger {
-            background-image: url('/static/icon/top_btn_menu.png');
-          }
+        &.button--burger {
+          background-image: url('/static/icon/top_btn_menu.png');
+        }
 
-          &.button--home {
-            background-image: url('/static/icon/btn-home.png');
-          }
+        &.button--home {
+          background-image: url('/static/icon/btn-home.png');
+        }
 
-          &.button--search {
-            background-image: url('/static/icon/header-search.png');
-          }
+        &.button--search {
+          background-image: url('/static/icon/header-search.png');
+        }
 
-          &.button--cart {
-            background-image: url('/static/icon/header-shoppinBag.png');
-          }
+        &.button--cart {
+          background-image: url('/static/icon/header-shoppinBag.png');
+        }
+
+        &.button--delete {
+          background-image: url('/static/icon/icon_keyword_delete.png');
+          background-size: 20px;
+        }
+
+        &.button--search {
+          background-image: url('/static/icon/btn-search@3x.png');
+          background-size: 35px;
         }
       }
 

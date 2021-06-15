@@ -27,8 +27,11 @@ export const LAYOUT_TYPE = {
  * }} HeaderFlags
  */
 
+/**
+ * layout properties
+ */
 export const layouts = {
-  default: {
+  main: {
     headerFlags: {
       logo: true,
       title: false,
@@ -38,6 +41,7 @@ export const layouts = {
       category: false,
       filter: false,
       slide: false,
+      searchbox: false,
       plugins: {
         top: true,
         kakao: true,
@@ -45,12 +49,12 @@ export const layouts = {
       },
     },
   },
-  search: {
+  default: {
     headerFlags: {
       title: true,
       back: true,
       filter: true,
-      slide: true,
+      slide: false,
       plugins: {
         top: true,
         kakao: true,
@@ -77,7 +81,7 @@ export const layouts = {
       title: true,
       back: true,
       filter: true,
-      slide: true,
+      slide: false,
       plugins: {
         top: true,
         kakao: true,
@@ -87,10 +91,9 @@ export const layouts = {
   },
   keyword: {
     headerFlags: {
-      back: true,
       filter: true,
-      slide: true,
-      search: true,
+      slide: false,
+      searchbox: true,
       plugins: {
         top: true,
         kakao: true,

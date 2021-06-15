@@ -5,12 +5,13 @@ import useStores from 'stores/useStores';
 import RankingHeader from './RankingHeader';
 import RankingSection from './RankingSection';
 import FilterModal from './FilterModal';
+import { pushRoute } from 'childs/lib/router';
 
 function Ranking() {
   /**
    * states
    */
-  const { ranking: rankingStore, searchitem: searchItemStore } = useStores();
+  const { ranking: rankingStore } = useStores();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState({});
 
@@ -22,12 +23,12 @@ function Ranking() {
     setIsModalOpen(true);
   };
 
-  const handleSearch = ({ id, word }) => {
-    id
-      ? searchItemStore.toSearch({ brand: id, enter: 'brand' })
-      : searchItemStore.toSearch({ keyword: word, enter: 'keyword' });
-  };
+  const handleSearch = ({ id, word }) =>
+    pushRoute(`/search?brand=${id}&keyword=${word}`);
 
+  /**
+   * render
+   */
   return (
     <>
       <div className={css.ranking}>

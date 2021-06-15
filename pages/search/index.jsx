@@ -32,7 +32,7 @@ function SearchPage() {
     searchByFilterStore.fetchSearchResults(router.query, comparedBodyProps);
 
     const { category, brand, keyword } = router.query;
-    let type = 'search';
+    let type = 'default';
     if (keyword) {
       type = 'keyword';
     } else if (brand) {

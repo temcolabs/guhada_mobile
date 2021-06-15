@@ -1,6 +1,7 @@
 import { observable, action, computed, toJS } from 'mobx';
 import API from 'childs/lib/API';
-import { isEqual as _isEqual } from 'lodash';
+import { escape as _escape, isEqual as _isEqual } from 'lodash';
+import { getEscapedBody } from 'childs/lib/common/getEscapedBody';
 import SearchStore, { ENDPOINT, STATE } from './SearchStore';
 
 /** body props to compare with `defaultBody` to check if initializing is needed */
@@ -244,6 +245,8 @@ export class SearchByFilterStore extends SearchStore {
     params = SearchByFilterStore.initialParams,
     resetUnfungibles = true
   ) => {
+    getEscapedBody(body);
+
     this.defaultBody = SearchByFilterStore.initialBody;
     this.defaultParams = SearchByFilterStore.initialParams;
     this.body = SearchByFilterStore.initialBody;
@@ -251,6 +254,7 @@ export class SearchByFilterStore extends SearchStore {
     this.abstractBody = SearchByFilterStore.initialBody;
     this.abstractParams = SearchByFilterStore.initialParams;
     this.resetData();
+
     Object.assign(this.defaultBody, body);
     Object.assign(this.defaultParams, params);
     Object.assign(this.body, body);
@@ -296,19 +300,19 @@ export class SearchByFilterStore extends SearchStore {
     const body = { categoryIds, brandIds, searchQueries };
 
     if (category) {
-      categoryIds.push(category);
+      categoryIds.push(_escape(category));
     }
     if (subcategory) {
-      categoryIds.push(subcategory);
+      categoryIds.push(_escape(subcategory));
     }
     if (brand) {
-      brandIds.push(brand);
+      brandIds.push(_escape(brand));
     }
     if (keyword) {
-      searchQueries.push(keyword);
+      searchQueries.push(_escape(keyword));
     }
     if (condition) {
-      body.searchCondition = condition;
+      body.searchCondition = _escape(condition);
     }
 
     const params = { page: page || 1, unitPerPage: unitPerPage || 24 };

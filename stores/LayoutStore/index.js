@@ -57,6 +57,11 @@ class LayoutStore {
     return {};
   }
   handleHeaderInfo = {
+    default: () => {
+      const { searchByFilter: that } = this.root;
+      const title = searchConditionMap.get(that.defaultBody.searchCondition);
+      return { title };
+    },
     category: () => {
       const { searchByFilter: that } = this.root;
 
@@ -105,11 +110,6 @@ class LayoutStore {
     },
     keyword: () => {
       return {};
-    },
-    search: () => {
-      const { searchByFilter: that } = this.root;
-      const title = searchConditionMap.get(that.defaultBody.searchCondition);
-      return { title };
     },
   };
 

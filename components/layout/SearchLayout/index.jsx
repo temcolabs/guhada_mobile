@@ -1,4 +1,5 @@
 import css from './SearchLayout.module.scss';
+import cn from 'classnames';
 import { observer } from 'mobx-react';
 import useStores from 'stores/useStores';
 import { useScrollDown } from 'hooks';
@@ -28,9 +29,18 @@ function SearchLayout({ children }) {
           layoutStore.headerFlags.category && !!layoutStore.headerInfo.category
         }
         filter={layoutStore.headerFlags.filter}
-        isScrollDown={layoutStore.headerFlags.slide && isScrollDown}
+        slide={layoutStore.headerFlags.slide}
+        searchbox={layoutStore.headerFlags.searchbox}
+        isScrollDown={isScrollDown}
       />
-      <section className={css['content']}>{children}</section>
+      <section
+        className={cn(
+          css['content'],
+          layoutStore.headerFlags.filter && css['filter-gutter']
+        )}
+      >
+        {children}
+      </section>
       <Navigation type={layoutStore.type} />
       <PluginButtons
         isScrollDown={isScrollDown}

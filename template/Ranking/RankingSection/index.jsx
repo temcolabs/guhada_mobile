@@ -5,12 +5,12 @@ import PropTypes from 'prop-types';
 import RankItem, { rankShape } from './RankItem';
 import Loading from 'components/common/loading/Loading';
 
-const RankingSection = ({ rank, handleSearch }) => {
+const RankingSection = ({ rank, handleSearch, count = 50 }) => {
   return (
     <div className={css['ranking__section']}>
-      {rank.length ? (
+      {rank.length > 0 ? (
         rank
-          .slice(0, 100)
+          .slice(0, count)
           .map((rankItem, idx) => (
             <RankItem
               key={rankItem.word}
@@ -29,6 +29,7 @@ const RankingSection = ({ rank, handleSearch }) => {
 RankingSection.propTypes = {
   rank: PropTypes.arrayOf(rankShape).isRequired,
   handleSearch: PropTypes.func,
+  count: PropTypes.number,
 };
 
 export default memo(RankingSection, (prevProps, nextProps) => {

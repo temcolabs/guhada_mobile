@@ -1,5 +1,6 @@
 import css from './FilterOption.module.scss';
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import cn from 'classnames';
 import useStores from 'stores/useStores';
@@ -8,7 +9,7 @@ import ThumbnailButton from './ThumbnailButton';
 import FilterModal from './FilterModal';
 import AdvancedFilterModal from './AdvancedFilterModal';
 
-const FilterOption = () => {
+const FilterOption = ({ hide, float }) => {
   /**
    * states
    */
@@ -19,7 +20,13 @@ const FilterOption = () => {
    * render
    */
   return (
-    <div className={css['filter-option']}>
+    <div
+      className={cn(
+        css['filter-option'],
+        float && css['float'],
+        hide && css['hide']
+      )}
+    >
       <div className={css['filter-option__buttons']}>
         <div
           className={cn(css['filter-button'], css['button--order'])}
@@ -59,6 +66,11 @@ const FilterOption = () => {
       />
     </div>
   );
+};
+
+FilterOption.propTypes = {
+  hide: PropTypes.bool,
+  float: PropTypes.bool,
 };
 
 export default observer(FilterOption);

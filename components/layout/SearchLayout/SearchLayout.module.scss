@@ -2,5 +2,9 @@
   .content {
     padding-bottom: 60px;
     overflow-x: hidden;
+
+    &.filter-gutter {
+      padding-top: 45px;
+    }
   }
 }
