@@ -1,29 +1,25 @@
 import React from 'react';
-import { toJS } from 'mobx';
-import DefaultLayout from 'components/layout/DefaultLayout';
-import { withRouter } from 'next/router';
-import css from './Home.module.scss';
-import MainSectionItem from 'components/home/MainSectionItem';
+import Router, { withRouter } from 'next/router';
 import { inject, observer } from 'mobx-react';
-import CategorySlider from 'components/common/CategorySlider';
+import _ from 'lodash';
 import { mainCategory } from 'childs/lib/constant/category';
+import sessionStorage from 'childs/lib/common/sessionStorage';
+import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
+import isTruthy from 'childs/lib/common/isTruthy';
+import { pushRoute } from 'childs/lib/router';
+import DefaultLayout from 'components/layout/DefaultLayout';
+import MainSectionItem from 'components/home/MainSectionItem';
+import CategorySlider from 'components/common/CategorySlider';
 import MainSlideBanner from 'components/home/MainSlideBanner';
 import HomeItemDefault from 'components/home/HomeItemDefault';
 import MainHotKeyword from 'components/home/MainHotKeyword';
 import MainSideBanner from 'components/home/MainSideBanner';
-import Router from 'next/router';
-// import SignupSuccessModal from './signin/SignupSuccessModal';
 import Footer from 'components/footer/Footer';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
-import { pushRoute } from 'childs/lib/router';
-import _ from 'lodash';
-import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
-import isTruthy from 'childs/lib/common/isTruthy';
 import AppEventPopup from 'components/event/popup/AppEventPopup';
 import PointSavingModal, {
   pointSavingTypes,
 } from 'components/mypage/point/PointSavingModal';
-import sessionStorage from 'childs/lib/common/sessionStorage';
 import BestReview from 'components/home/BestReview';
 
 @withScrollToTopOnMount
@@ -45,11 +41,8 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    let query = Router.router.query;
-
+    let { query, asPath } = Router.router;
     const { main } = this.props;
-
-    let asPath = Router.router.asPath;
     const category = mainCategory.item.find((item) => {
       return item.href === asPath;
     });
@@ -236,6 +229,7 @@ class Home extends React.Component {
           <MainSideBanner list={searchHolder.mainImageSetFourList} />
         )}
 
+        {/* Banners */}
         {eventpopup.popupList.length > 0
           ? eventpopup.popupList.map((data, index) => {
               return (
