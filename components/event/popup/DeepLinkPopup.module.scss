@@ -47,10 +47,11 @@
   }
 
   .deeplink__btn {
+    border-radius: 5px;
+    background-color: $blue-purple;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: $blue-purple;
     font-size: 18px;
     text-align: center;
     width: 100%;

@@ -1,30 +1,29 @@
 import React from 'react';
-import { toJS } from 'mobx';
-import DefaultLayout from 'components/layout/DefaultLayout';
-import { withRouter } from 'next/router';
-import css from './Home.module.scss';
-import MainSectionItem from 'components/home/MainSectionItem';
+import Router, { withRouter } from 'next/router';
 import { inject, observer } from 'mobx-react';
-import CategorySlider from 'components/common/CategorySlider';
+import _ from 'lodash';
+
+import { isIOS, isAndroid } from 'childs/lib/common/detectMobileEnv';
 import { mainCategory } from 'childs/lib/constant/category';
+import sessionStorage from 'childs/lib/common/sessionStorage';
+import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
+import isTruthy from 'childs/lib/common/isTruthy';
+import { pushRoute } from 'childs/lib/router';
+
+import DefaultLayout from 'components/layout/DefaultLayout';
+import MainSectionItem from 'components/home/MainSectionItem';
+import CategorySlider from 'components/common/CategorySlider';
 import MainSlideBanner from 'components/home/MainSlideBanner';
 import HomeItemDefault from 'components/home/HomeItemDefault';
 import MainHotKeyword from 'components/home/MainHotKeyword';
 import MainSideBanner from 'components/home/MainSideBanner';
-import Router from 'next/router';
-// import SignupSuccessModal from './signin/SignupSuccessModal';
 import Footer from 'components/footer/Footer';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
-import { pushRoute } from 'childs/lib/router';
-import _ from 'lodash';
-import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
-import isTruthy from 'childs/lib/common/isTruthy';
 import AppEventPopup from 'components/event/popup/AppEventPopup';
 import DeepLinkPopup from 'components/event/popup/DeepLinkPopup';
 import PointSavingModal, {
   pointSavingTypes,
 } from 'components/mypage/point/PointSavingModal';
-import sessionStorage from 'childs/lib/common/sessionStorage';
 import BestReview from 'components/home/BestReview';
 
 @withScrollToTopOnMount
@@ -106,6 +105,15 @@ class Home extends React.Component {
   componentWillUnmount() {
     window.removeEventListener('scroll', this.scrollDirection);
   }
+
+  checkedDeepLink = () => {
+    /**
+     * 1. Android, IOS 체크
+     * 2. 구하다 App 체크
+     *  2-1) App 다운로드로 이동
+     *  2-2) deepLink로 이동
+     */
+  };
 
   scrollDirection = _.debounce((e) => {
     var st = window.pageYOffset || document.documentElement.scrollTop;
@@ -238,6 +246,17 @@ class Home extends React.Component {
           <MainSideBanner list={searchHolder.mainImageSetFourList} />
         )}
 
+        {/* App > DeepLink */}
+        {this.state.isDeepLinkModal && (
+          <DeepLinkPopup
+            isOpen={this.state.isDeepLinkModal}
+            onClose={() =>
+              this.setState({ ...this.state, isDeepLinkModal: false })
+            }
+          />
+        )}
+
+        {/* Banners */}
         {eventpopup.popupList.length > 0
           ? eventpopup.popupList.map((data, index) => {
               return (
@@ -249,15 +268,6 @@ class Home extends React.Component {
               );
             })
           : null}
-
-        {this.state.isDeepLinkModal && (
-          <DeepLinkPopup
-            isOpen={this.state.isDeepLinkModal}
-            onClose={() =>
-              this.setState({ ...this.state, isDeepLinkModal: false })
-            }
-          />
-        )}
 
         <Footer />
       </DefaultLayout>
