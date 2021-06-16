@@ -1,18 +1,19 @@
-import { memo, useEffect } from 'react';
-import Proptypes from 'prop-types';
+import React, { memo, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { stringify } from 'qs';
 import useStores from 'stores/useStores';
+import { pushRoute, sendBackToLogin } from 'childs/lib/router';
+import { mainCategory } from 'childs/lib/constant/category';
+import { useScrollDirection, useScrollPosition } from 'hooks';
 
 import CategorySlider from 'components/common/CategorySlider';
 import DefaultLayout from 'components/layout/DefaultLayout';
 import Footer from 'components/footer/Footer';
-import { ReviewBanner, ReviewHashTag, ReviewCategories } from './components';
-import ReviewSection from 'components/organisms/ReviewSection';
-
-import { pushRoute, sendBackToLogin } from 'childs/lib/router';
-import { mainCategory } from 'childs/lib/constant/category';
-import { useScrollDirection, useScrollPosition } from 'hooks';
+import {
+  ReviewCategories,
+  ReviewFavoriteHashtagList,
+} from 'template/Review/components/molecules';
+import { ReviewCardSection } from 'template/Review/components/organisms';
 
 import { REVIEW_CATEGORY_LIST } from './_constants';
 import { ReviewWrapper, ReviewContents } from './Styled';
@@ -26,7 +27,6 @@ function ReviewTemplate() {
    * states
    */
   const {
-    alert: alertStore,
     main: mainStore,
     review: reviewStore,
     login: loginStore,
@@ -119,7 +119,7 @@ function ReviewTemplate() {
           {/* <ReviewBanner /> */}
 
           {/* 리뷰 > 인기 해시태그 */}
-          <ReviewHashTag
+          <ReviewFavoriteHashtagList
             hashtags={reviewStore.reviewHashtagList}
             onClickHashtag={onClickHashtag}
           />
@@ -134,7 +134,7 @@ function ReviewTemplate() {
           {reviews && reviews.length ? (
             <ReviewContents>
               {reviews.map((review, i) => (
-                <ReviewSection
+                <ReviewCardSection
                   isLazy={true}
                   key={`ReviewSection-${i}`}
                   review={review}
@@ -152,10 +152,4 @@ function ReviewTemplate() {
     </>
   );
 }
-
-ReviewTemplate.propTypes = {
-  banners: Proptypes.array,
-  hashTags: Proptypes.array,
-};
-
 export default memo(observer(ReviewTemplate));

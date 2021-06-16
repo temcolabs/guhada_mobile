@@ -1,5 +1,4 @@
-import React, { Component, createRef } from 'react';
-import dynamic from 'next/dynamic';
+import React, { Component } from 'react';
 import css from './ReviewWriteModal.module.scss';
 // import ReviewWriteOption from './ReviewWriteOption';
 import ReviewWriteModalScore from './ReviewWriteModalScore';
@@ -19,11 +18,10 @@ import SubmitButton, {
 } from 'components/mypage/form/SubmitButton';
 import DealOrdered from '../DealOrdered';
 import TextArea from 'components/mypage/form/TextArea';
-import { LoadingSpinner } from 'components/common/loading/Loading';
 import API from 'childs/lib/API';
 import pointProcessService from 'childs/lib/API/benefit/pointProcessService';
-import ReviewHashtagModal from 'template/Review/components/Modal/HashtagModal';
-import HashtagItem from 'template/Review/components/Atoms/Label/HashtagItem';
+import { ReviewWriteHashtagModal } from 'template/Review/components/organisms';
+import { HashtagLabel } from 'template/Review/components/atoms';
 
 // const color = ['BRIGHTER', 'SAME', 'DARKER'];
 // const length = ['SHORT', 'REGULAR', 'LONG'];
@@ -597,7 +595,7 @@ class ReviewWriteModal extends Component {
                 {this.state.reviewData.reviewHashtagList &&
                 this.state.reviewData.reviewHashtagList.length
                   ? this.state.reviewData.reviewHashtagList.map((hashtag) => (
-                      <HashtagItem
+                      <HashtagLabel
                         isClose={true}
                         hashtag={hashtag}
                         onClickHashtag={() => this.handleHashtagItem(hashtag)}
@@ -648,7 +646,7 @@ class ReviewWriteModal extends Component {
           </div>
           {/* 해시태그 등록 모달 */}
           {this.state.isHashtagModalOpen && (
-            <ReviewHashtagModal
+            <ReviewWriteHashtagModal
               isOpen={this.state.isHashtagModalOpen}
               onClose={(hashtags) => this.toggleHashtagModal(false, hashtags)}
               delHashtag={this.state.delHashtag}

@@ -1,4 +1,5 @@
-import { useState, useEffect, memo } from 'react';
+import React, { useState, useEffect, useMemo, memo } from 'react';
+import Router from 'next/router';
 import dynamic from 'next/dynamic';
 import { observer } from 'mobx-react';
 import { useScrollPosition } from 'hooks';
@@ -13,10 +14,9 @@ import {
   Contents,
   ContentItem,
 } from './Styled';
-import Router from 'next/router';
 
 const DynamicReviewDeatailModal = dynamic(
-  () => import('template/Review/components/Modal/ReviewDetailModal'),
+  () => import('template/Review/components/organisms/Modals/ReviewDetailModal'),
   {
     ssr: false,
   }
@@ -41,10 +41,10 @@ function ReviewHashtagDetail() {
   const [search, setSearch] = useState(initialSearch);
 
   const { scrollPosition } = useScrollPosition();
+  const hashtag = Router?.router?.query?.hashtag;
 
   // 페이지 초기화
   useEffect(() => {
-    const hashtag = Router?.router?.query?.hashtag;
     reviewStore.getSearchReviewHashtags({ ...search, hashtag });
     setSearch({ ...search, hashtag });
     return () => {
@@ -120,7 +120,7 @@ function ReviewHashtagDetail() {
         kakaoChat={false}
         topButton={false}
         toolBar={false}
-        pageTitle={`테스트`}
+        pageTitle={hashtag}
         headerShape={'reviewHashtagDetail'}
         topLayout={'main'}
       >

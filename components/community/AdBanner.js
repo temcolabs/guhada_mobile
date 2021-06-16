@@ -1,5 +1,4 @@
 import React, { memo, Component } from 'react';
-import { toJS } from 'mobx';
 import css from './AdBanner.module.scss';
 import './AdBanner.scss';
 import cn from 'classnames';
@@ -7,7 +6,6 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.scss';
 import 'slick-carousel/slick/slick-theme.scss';
 import { pushRoute } from 'childs/lib/router';
-import _ from 'lodash';
 import { inject, observer } from 'mobx-react';
 import isTruthy from 'childs/lib/common/isTruthy';
 

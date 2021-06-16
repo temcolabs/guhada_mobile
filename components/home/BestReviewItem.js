@@ -6,7 +6,7 @@ import StarItem from 'components/mypage/review/StarItem';
 import { observer } from 'mobx-react';
 
 const DynamicReviewDeatailModal = dynamic(
-  () => import('template/Review/components/Modal/ReviewDetailModal'),
+  () => import('template/Review/components/organisms/Modals/ReviewDetailModal'),
   {
     ssr: false,
   }

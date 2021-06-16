@@ -16,10 +16,10 @@ import { toJS } from 'mobx';
 
 /**
  * 이미지 확대 모달
- * @returns { React.Component } ModalPhotoDetail
+ * @returns { React.Component } PhotoDetailModal
  */
-const ModalPhotoDetail = dynamic(() =>
-  import('../../molecules/Modal/ModalPhotoDetail')
+ const PhotoDetailModal = dynamic(() =>
+ import('components/organisms/Modals/PhotoDetailModal')
 );
 @inject('productreview', 'login', 'alert')
 @observer
@@ -110,7 +110,7 @@ class ProductReviewItems extends Component {
     return (
       <>
         {this.state.isActivePhotoDetail && (
-          <ModalPhotoDetail
+          <PhotoDetailModal
             isOpen={this.state.isActivePhotoDetail}
             photos={toJS(item.reviewPhotos)}
             onClickClose={() => this.setState({ isActivePhotoDetail: false })}

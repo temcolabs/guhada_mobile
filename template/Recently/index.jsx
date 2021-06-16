@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { observer } from 'mobx-react';
 import { toJS } from 'mobx';
 import useStores from 'stores/useStores';

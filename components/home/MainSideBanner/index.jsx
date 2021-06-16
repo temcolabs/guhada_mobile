@@ -1,4 +1,6 @@
 import React, { memo, useRef, useEffect } from 'react';
+import { toJS } from 'mobx';
+import { pushRoute } from 'childs/lib/router';
 import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 
@@ -23,7 +25,6 @@ const settings = {
  */
 function MainSideBanner({ type = 'OTHERS', title, list }) {
   const sliderWrapper = useRef(null);
-
   /**
    * Changed slider dots position
    */
@@ -39,6 +40,10 @@ function MainSideBanner({ type = 'OTHERS', title, list }) {
     }
   }, [sliderWrapper.current]);
 
+  const onClickImage = (mainBannerLinkUrl) => {
+    if (mainBannerLinkUrl) window.location = mainBannerLinkUrl;
+  };
+
   return (
     <Wrapper>
       {title ? <TitleSection>{title}</TitleSection> : ''}
@@ -46,7 +51,11 @@ function MainSideBanner({ type = 'OTHERS', title, list }) {
         <Slider settings={settings}>
           {list && list.length
             ? list.map((o, i) => (
-                <div className={'slider-wrap'} key={`focus-on-${i}`}>
+                <div
+                  className={'slider-wrap'}
+                  key={`focus-on-${i}`}
+                  onClick={() => onClickImage(o.mainBannerLinkUrl)}
+                >
                   {type === 'FOCUS_ON' && <Image src={o.mainBannerMobileUrl} />}
                   {type === 'OTHERS' && (
                     <img

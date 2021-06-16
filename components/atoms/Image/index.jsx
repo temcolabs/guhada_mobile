@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import React, { memo } from 'react';
 import LazyLoad from 'react-lazyload';
 
 import PropTypes from 'prop-types';
@@ -9,14 +9,13 @@ import { ImageDiv } from './Styled';
  * 이미지 태그
  * @param {Boolean} isLazy : Lazy load
  * @param {Object} customStyle : Custom styles
- * @param {String} type : block, image
  * @param {String} src : Image URL
  * @param {String} size : background size
  * @param {String} width : Image Width
  * @param {String} height : Image Height
  * @returns
  */
-function Image({ isLazy, customStyle, type, src, size, width, height }) {
+function Image({ isLazy, customStyle, src, size, width, height }) {
   return (
     <>
       {isLazy ? (
@@ -44,9 +43,9 @@ function Image({ isLazy, customStyle, type, src, size, width, height }) {
 
 Image.propTypes = {
   isLazy: PropTypes.bool,
-  type: PropTypes.string,
   customStyle: PropTypes.object,
   src: PropTypes.string.isRequired,
+  size: PropTypes.string,
   width: PropTypes.string,
   height: PropTypes.string,
 };

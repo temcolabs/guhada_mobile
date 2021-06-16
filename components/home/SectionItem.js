@@ -60,12 +60,14 @@ export default function SectionItem({
           )
         ) : null} */}
         {item.soldOut && <div className={css.soldOut}>SOLDOUT</div>}
-        <LazyLoad>
-          <img
-            src={item.productImage.url + '?w=375'}
-            alt={item.productImage.name}
-          />
-        </LazyLoad>
+        {item?.productImage?.url && (
+          <LazyLoad>
+            <img
+              src={item.productImage.url + '?w=375'}
+              alt={item.productImage.name}
+            />
+          </LazyLoad>
+        )}
         {isTruthy(likeItemDelete) && (
           <div
             className={css.item__delete__btn}
