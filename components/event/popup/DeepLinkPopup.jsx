@@ -1,12 +1,9 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import PropTypes from 'prop-types';
+import React from 'react';
 import css from './DeepLinkPopup.module.scss';
-import { observer } from 'mobx-react-lite';
 
 import ModalWrapper from 'components/common/modal/ModalWrapper';
 import StarItem from 'components/mypage/review/StarItem';
-import { isAndroid, isIOS } from 'childs/lib/common/detectMobileEnv';
+import { isIOS } from 'childs/lib/common/detectMobileEnv';
 
 const STORE_PATH = {
   ios:

@@ -65,7 +65,7 @@ class ModalWrapper extends React.Component {
   handleScrollBody(target) {
     const scrollTop = target.scrollTop;
     const height = target.scrollHeight - target.clientHeight;
-    this.props.scrollTop(scrollTop / height);
+    if (this.props.scrollTop) this.props.scrollTop(scrollTop / height);
   }
 
   get overlayStyle() {

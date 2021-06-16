@@ -1,4 +1,4 @@
-import { Fragment, useRef, useState, useEffect } from 'react';
+import React, { Fragment, useRef, useState, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import css from './Brand.module.scss';
 import cn from 'classnames';

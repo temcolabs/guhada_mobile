@@ -44,11 +44,7 @@ class ProductDetailName extends Component {
   }
 
   handleBlockChainModal = () => {
-    if (this.props.login?.isLoggedIn) {
-      this.setState({ isBlockChainModal: true });
-    } else {
-      sendBackToLogin();
-    }
+    this.setState({ isBlockChainModal: true });
   };
 
   copyUrlToClipboard = () => {

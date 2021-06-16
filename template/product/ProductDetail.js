@@ -65,9 +65,9 @@ class ProductDetail extends React.Component {
     };
   }
 
-  componentDidMount() {
-    this.createDeepLink();
-  }
+  // componentDidMount() {
+  //   this.createDeepLink();
+  // }
 
   componentDidUpdate(prevProps, prevState) {
     //  최근 본 상품에 현재 아이템 추가
@@ -100,16 +100,16 @@ class ProductDetail extends React.Component {
     });
   };
 
-  createDeepLink = () => {
-    const { query } = Router.router;
-    if (isIOS() || isAndroid()) {
-      this.setState({
-        ...this.state,
-        isDeepLinkModal: true,
-        deepLink: `guhada://DEAL?dealid=${query?.deals}`,
-      });
-    }
-  };
+  // createDeepLink = () => {
+  //   const { query } = Router.router;
+  //   if (isIOS() || isAndroid()) {
+  //     this.setState({
+  //       ...this.state,
+  //       isDeepLinkModal: true,
+  //       deepLink: `guhada://DEAL?dealid=${query?.deals}`,
+  //     });
+  //   }
+  // };
 
   isInternationalSubmit = (text) => {
     this.setState({ isInternationalSubmit: text });
@@ -160,7 +160,7 @@ class ProductDetail extends React.Component {
     return (
       <>
         {/* App > DeepLink */}
-        {this.state.isDeepLinkModal && (
+        {/* {this.state.isDeepLinkModal && (
           <DeepLinkPopup
             isOpen={this.state.isDeepLinkModal}
             onClose={() =>
@@ -168,7 +168,7 @@ class ProductDetail extends React.Component {
             }
             deepLink={this.state.deepLink}
           />
-        )}
+        )} */}
         <DefaultLayout
           topLayout={'main'}
           pageTitle={null}

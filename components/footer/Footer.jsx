@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import React, { memo, useState } from 'react';
 import css from './Footer.module.scss';
 import openPopupCenter from 'childs/lib/common/openPopupCenter';
 import dynamic from 'next/dynamic';

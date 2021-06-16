@@ -1,4 +1,4 @@
-import { useState, memo } from 'react';
+import React, { useState, memo } from 'react';
 import Router from 'next/router';
 import css from './Header.module.scss';
 import HeaderMenu from './HeaderMenu';
