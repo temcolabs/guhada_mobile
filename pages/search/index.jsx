@@ -7,41 +7,19 @@ import SearchLayout from 'components/layout/SearchLayout';
 import Search from 'template/Search';
 import MountLoading from 'components/atoms/Misc/MountLoading';
 
-/** body props to compare with `defaultBody` to check if initializing is needed */
-const comparedBodyProps = [
-  'categoryIds',
-  'brandIds',
-  'searchQueries',
-  'searchCondition',
-];
-
 function SearchPage() {
   /**
    * states
    */
-  const {
-    searchByFilter: searchByFilterStore,
-    layout: layoutStore,
-  } = useStores();
+  const { searchByFilter: searchByFilterStore } = useStores();
   const router = useRouter();
 
   /**
    * side effects
    */
   useEffect(() => {
-    searchByFilterStore.fetchSearchResults(router.query, comparedBodyProps);
-
-    const { category, brand, keyword } = router.query;
-    let type = 'default';
-    if (keyword) {
-      type = 'keyword';
-    } else if (brand) {
-      type = 'brand';
-    } else if (category) {
-      type = 'category';
-    }
-    layoutStore.initialize(type);
-  }, [searchByFilterStore, layoutStore, router]);
+    searchByFilterStore.initializePage(router.query);
+  }, []);
 
   /**
    * render

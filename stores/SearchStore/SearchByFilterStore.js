@@ -12,13 +12,13 @@ const defaultComparedBodyProps = [
   'searchCondition',
 ];
 
-/* 종류 */
+/** 종류 */
 export const searchConditionMap = new Map([
   ['PLUS', 'PREMIUM ITEM'],
   ['BEST', 'BEST ITEM'],
   ['NEW', 'NEW IN'],
 ]);
-/* 정렬 */
+/** 정렬 */
 export const searchResultOrderMap = new Map([
   ['DATE', '신상품순'],
   ['SCORE', '평점순'],
@@ -26,17 +26,17 @@ export const searchResultOrderMap = new Map([
   ['PRICE_ASC', '낮은가격순'],
   ['DISCOUNT', '할인율순'],
 ]);
-/* 배송정보 */
+/** 배송정보 */
 export const shippingConditionMap = new Map([
   ['NATIONAL', '국내배송'],
   ['INTERNATIONAL', '해외배송'],
 ]);
-/* 제품상태 */
+/** 제품상태 */
 export const productConditionMap = new Map([
   ['NEW', '새제품'],
   ['USED', '빈티지'],
 ]);
-/* 가격 범위 */
+/** 가격 범위 */
 export const priceArrangeMap = new Map([
   ['전체', 0],
   ['10만원 이하', 100000],
@@ -145,7 +145,7 @@ export class SearchByFilterStore extends SearchStore {
           `${ENDPOINT.FILTER}?page=${this.params.page}&unitPerPage=${
             this.params.unitPerPage
           }`,
-          this.body
+          { ...this.body, cancelToken: this.cancelTokenSource.token }
         );
 
         this.deals = concat ? this.deals.concat(data.deals) : data.deals;
@@ -245,6 +245,9 @@ export class SearchByFilterStore extends SearchStore {
     params = SearchByFilterStore.initialParams,
     resetUnfungibles = true
   ) => {
+    this.resetData();
+    this.cancelTokenSource.cancel();
+
     getEscapedBody(body);
 
     this.defaultBody = SearchByFilterStore.initialBody;
@@ -253,7 +256,6 @@ export class SearchByFilterStore extends SearchStore {
     this.params = SearchByFilterStore.initialParams;
     this.abstractBody = SearchByFilterStore.initialBody;
     this.abstractParams = SearchByFilterStore.initialParams;
-    this.resetData();
 
     Object.assign(this.defaultBody, body);
     Object.assign(this.defaultParams, params);
@@ -262,6 +264,7 @@ export class SearchByFilterStore extends SearchStore {
     Object.assign(this.abstractBody, body);
     Object.assign(this.abstractParams, params);
     this.updateState(STATE.INITIAL);
+
     this.search().then(() => {
       if (resetUnfungibles) {
         this.unfungibleCategories = toJS(this.categories);

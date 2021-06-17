@@ -11,9 +11,8 @@ import SearchTab from './SearchTab';
 
 const Header = ({
   logo,
-  title = '검색 결과',
+  title,
   back,
-  popHistory,
   home,
   category,
   filter,
@@ -35,14 +34,14 @@ const Header = ({
     >
       <nav className={css['header__tabs']}>
         {searchbox ? (
-          <SearchTab popHistory={popHistory} />
+          <SearchTab />
         ) : (
           <div className={css['tab']}>
             <div className={css['tab__buttons']}>
               {back && (
                 <div
                   className={cn(css['button'], css['button--back'])}
-                  onClick={popHistory}
+                  onClick={() => window && window.history.back()}
                 />
               )}
               <div
@@ -97,8 +96,8 @@ Header.propTypes = {
   logo: PropTypes.bool,
   title: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   back: PropTypes.bool,
-  popHistory: PropTypes.func,
   home: PropTypes.bool,
+  category: PropTypes.bool,
   filter: PropTypes.bool,
   slide: PropTypes.bool,
   isScrollDown: PropTypes.bool,
