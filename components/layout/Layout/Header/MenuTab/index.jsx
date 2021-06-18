@@ -1,5 +1,6 @@
 import css from './MenuTab.module.scss';
 import { useState, useEffect, memo, useRef, createRef } from 'react';
+import { useRouter } from 'next/router';
 import cn from 'classnames';
 import { useHorizontalArrows } from 'hooks';
 import Link from 'next/link';
@@ -7,7 +8,7 @@ import Link from 'next/link';
 const menuList = [
   ['홈', '/'],
   ['여성', '/home/women'],
-  ['남성', '/home/women'],
+  ['남성', '/home/men'],
   ['키즈', '/home/kids'],
   ['리뷰', '/review'],
   ['랭킹', '/ranking'],
@@ -18,65 +19,75 @@ const menuList = [
   ['이벤트', '/event'],
 ];
 
-const staticSelectedRef = createRef();
+// const staticSelectedRef = createRef();
 
 function MenuTab() {
   /**
    * states
    */
-  const [selected, setSelected] = useState(
-    window ? window.location.pathname : ''
-  );
+  // const [selected, setSelected] = useState(() => {
+  //   if (typeof window === 'object') {
+  //     return window.location.pathname;
+  //   }
+  //   return '';
+  // });
   const selectedRef = useRef();
   const [scrollRef, arrowLeft, arrowRight] = useHorizontalArrows();
+  const router = useRouter();
 
   /**
    * handlers
    */
   const handleClick = (target, path) => {
-    const left =
-      target.offsetLeft +
-      target.clientWidth / 2 -
-      scrollRef.current.clientWidth / 2 -
-      10;
-
-    scrollRef.current.scrollTo({
-      left,
-      behavior: 'smooth',
-    });
-
-    if (path) {
-      setSelected(path);
-      if (!staticSelectedRef.current) {
-        staticSelectedRef.current = { prevLeft: left };
-      }
-      staticSelectedRef.current.left = scrollRef.current.scrollLeft;
-    }
+    // let left =
+    //   target.offsetLeft +
+    //   target.clientWidth / 2 -
+    //   scrollRef.current.clientWidth / 2 -
+    //   10;
+    // scrollRef.current.scrollTo({
+    //   left,
+    //   behavior: 'smooth',
+    // });
+    // if (path) {
+    //   setSelected(path);
+    //   if (!staticSelectedRef.current) {
+    //     staticSelectedRef.current = { prevLeft: left };
+    //   }
+    //   staticSelectedRef.current.left = scrollRef.current.scrollLeft;
+    // }
   };
 
   /**
    * side effect
    */
   useEffect(() => {
-    const scrollLeft =
-      selectedRef.current.offsetLeft +
-      selectedRef.current.clientWidth / 2 -
-      scrollRef.current.clientWidth / 2 -
-      10;
+    if (selectedRef.current) {
+      scrollRef.current.scrollLeft =
+        selectedRef.current.offsetLeft +
+        selectedRef.current.clientWidth / 2 -
+        scrollRef.current.clientWidth / 2 -
+        10;
 
-    if (staticSelectedRef.current) {
-      if (staticSelectedRef.current.prevLeft) {
-        scrollRef.current.scrollLeft = staticSelectedRef.current.prevLeft;
-        staticSelectedRef.current.prevLeft = null;
-      } else {
-        scrollRef.current.scrollLeft = staticSelectedRef.current.left;
-        scrollRef.current.scrollTo({
-          left: scrollLeft,
-          behavior: 'smooth',
-        });
-      }
-    } else {
-      scrollRef.current.scrollLeft = scrollLeft;
+      // const scrollLeft =
+      //   selectedRef.current.offsetLeft +
+      //   selectedRef.current.clientWidth / 2 -
+      //   scrollRef.current.clientWidth / 2 -
+      //   10;
+
+      // if (staticSelectedRef.current) {
+      //   if (staticSelectedRef.current.prevLeft) {
+      //     scrollRef.current.scrollLeft = staticSelectedRef.current.prevLeft;
+      //     staticSelectedRef.current.prevLeft = null;
+      //   } else {
+      //     scrollRef.current.scrollLeft = staticSelectedRef.current.left;
+      //     scrollRef.current.scrollTo({
+      //       left: scrollLeft,
+      //       behavior: 'smooth',
+      //     });
+      //   }
+      // } else {
+      //   scrollRef.current.scrollLeft = scrollLeft;
+      // }
     }
   }, []);
 
@@ -84,9 +95,9 @@ function MenuTab() {
    * render
    */
   return (
-    <div className={css['menu-tab']} id="menu-tab" ref={scrollRef}>
+    <div className={css['menu-tab']} ref={scrollRef}>
       {menuList.map(([name, path]) =>
-        selected === path ? (
+        router.pathname === path ? (
           <div
             key={name}
             className={cn(

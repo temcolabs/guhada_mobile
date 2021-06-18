@@ -42,6 +42,7 @@ export const LAYOUT_TYPE = {
  */
 export const layouts = {
   main: {
+    type: 'main',
     headerFlags: {
       logo: true,
       burger: true,
@@ -57,11 +58,14 @@ export const layouts = {
     },
   },
   default: {
+    type: 'default',
     headerFlags: {
-      back: true,
+      logo: true,
       burger: true,
       search: true,
       cart: true,
+      menu: true,
+      slide: true,
       plugins: {
         top: true,
         kakao: true,
@@ -70,6 +74,7 @@ export const layouts = {
     },
   },
   specialdetail: {
+    type: 'specialdetail',
     headerFlags: {
       title: true,
       burger: true,
@@ -84,6 +89,7 @@ export const layouts = {
     },
   },
   category: {
+    type: 'category',
     headerFlags: {
       title: true,
       back: true,
@@ -100,6 +106,7 @@ export const layouts = {
     },
   },
   brand: {
+    type: 'brand',
     headerFlags: {
       title: true,
       back: true,
@@ -115,6 +122,7 @@ export const layouts = {
     },
   },
   keyword: {
+    type: 'keyword',
     headerFlags: {
       filter: true,
       searchbox: true,
@@ -126,6 +134,7 @@ export const layouts = {
     },
   },
   condition: {
+    type: 'condition',
     headerFlags: {
       title: true,
       back: true,

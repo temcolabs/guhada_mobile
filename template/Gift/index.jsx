@@ -5,7 +5,6 @@ import useStores from 'stores/useStores';
 import GiftHeader from './GiftHeader';
 import DealItems from 'components/organisms/DealItems';
 import ScrollableImageModal from './ScrollableImageModal';
-import MountLoading from 'components/atoms/Misc/MountLoading';
 
 function Gift() {
   /**
@@ -19,7 +18,6 @@ function Gift() {
    */
   return (
     <div className={css.gift}>
-      {giftStore.isLoading && <MountLoading />}
       <GiftHeader handleOpenModal={() => setIsModalOpen(true)} />
       <DealItems
         title={'추천 기프트'}

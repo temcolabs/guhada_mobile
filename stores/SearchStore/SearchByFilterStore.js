@@ -4,6 +4,8 @@ import { escape as _escape, isEqual as _isEqual } from 'lodash';
 import { getEscapedBody } from 'childs/lib/common/getEscapedBody';
 import SearchStore, { ENDPOINT, STATE } from './SearchStore';
 
+import axios from 'axios';
+
 /** body props to compare with `defaultBody` to check if initializing is needed */
 const defaultComparedBodyProps = [
   'categoryIds',
@@ -145,7 +147,8 @@ export class SearchByFilterStore extends SearchStore {
           `${ENDPOINT.FILTER}?page=${this.params.page}&unitPerPage=${
             this.params.unitPerPage
           }`,
-          { ...this.body, cancelToken: this.cancelTokenSource.token }
+          this.body
+          // { cancelToken: this.cancelTokenSource.token }
         );
 
         this.deals = concat ? this.deals.concat(data.deals) : data.deals;

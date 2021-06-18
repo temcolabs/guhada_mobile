@@ -25,18 +25,23 @@ import qs from 'querystring';
  */
 
 class LayoutStore {
-  constructor(root) {
+  constructor(root, initialState) {
     if (isBrowser) {
       this.root = root;
+    }
+
+    if (initialState.layout) {
+      this.type = initialState.layout.type;
+      this.headerFlags = initialState.layout.headerFlags;
     }
   }
 
   /**
    * observables
    */
-  @observable type = LAYOUT_TYPE.default;
+  @observable type = '';
 
-  @observable headerFlags = layouts.default.headerFlags;
+  @observable headerFlags = {};
 
   /**
    * computeds
@@ -51,7 +56,7 @@ class LayoutStore {
 
   /** @type {{title: string, category: object}} header info getter (depth-first-search) */
   @computed get headerInfo() {
-    if (this.handleHeaderInfo[this.type]) {
+    if (isBrowser && this.handleHeaderInfo[this.type]) {
       return this.handleHeaderInfo[this.type]();
     }
     return this.handleHeaderInfo.default();
@@ -183,35 +188,39 @@ class LayoutStore {
    * @param {string} type
    */
   @action initialize = ({ pathname, query }) => {
-    const dirs = pathname.split('/');
-    const path = dirs[dirs.length - 1] || 'default';
-
-    const { category, brand, keyword, condition } = query;
-
-    let subtype;
-    if (path === 'search') {
-      if (condition) {
-        subtype = 'condition';
-      } else if (keyword) {
-        subtype = 'keyword';
-      } else if (brand) {
-        subtype = 'brand';
-      } else if (category) {
-        subtype = 'category';
-      }
-    }
-
-    let type = LAYOUT_TYPE[path] || 'main';
-    if (subtype && typeof type === 'object') {
-      type = LAYOUT_TYPE[path][subtype] || 'default';
-    }
+    const { type, headerFlags } = getLayoutInfo({ pathname, query });
 
     if (this.type !== type) {
       this.type = type;
-      const { headerFlags } = layouts[type];
       this.headerFlags = headerFlags;
     }
   };
+}
+
+export function getLayoutInfo({ pathname, query }) {
+  const dirs = pathname.split('/');
+  const path = dirs[dirs.length - 1] || 'default';
+
+  const { category, brand, keyword, condition } = query;
+
+  let subtype;
+  if (path === 'search') {
+    if (condition) {
+      subtype = 'condition';
+    } else if (keyword) {
+      subtype = 'keyword';
+    } else if (brand) {
+      subtype = 'brand';
+    } else if (category) {
+      subtype = 'category';
+    }
+  }
+
+  let type = LAYOUT_TYPE[path] || 'main';
+  if (subtype && typeof type === 'object') {
+    type = LAYOUT_TYPE[path][subtype] || 'default';
+  }
+  return layouts[type];
 }
 
 export default LayoutStore;

@@ -30,21 +30,19 @@ function Ranking() {
    * render
    */
   return (
-    <>
-      <div className={css.ranking}>
-        <RankingHeader handleFilterModalOpen={handleFilterModalOpen} />
-        <RankingSection
-          rank={rankingStore.ranking.rank}
-          handleSearch={handleSearch}
-        />
+    <div className={css.ranking}>
+      <RankingHeader handleFilterModalOpen={handleFilterModalOpen} />
+      <RankingSection
+        rank={rankingStore.ranking.rank}
+        handleSearch={handleSearch}
+      />
 
-        <FilterModal
-          isModalOpen={isModalOpen}
-          selectedFilter={selectedFilter}
-          handleCloseModal={() => setIsModalOpen(false)}
-        />
-      </div>
-    </>
+      <FilterModal
+        isModalOpen={isModalOpen}
+        selectedFilter={selectedFilter}
+        handleCloseModal={() => setIsModalOpen(false)}
+      />
+    </div>
   );
 }
 

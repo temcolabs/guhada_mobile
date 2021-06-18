@@ -1,6 +1,7 @@
 import css from './Layout.module.scss';
-import cn from 'classnames';
 import { useEffect } from 'react';
+import cn from 'classnames';
+import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import { useRouter } from 'next/router';
 import useStores from 'stores/useStores';
@@ -57,5 +58,9 @@ function Layout({ title, children }) {
     </div>
   );
 }
+
+Layout.propTypes = {
+  title: PropTypes.string,
+};
 
 export default observer(Layout);

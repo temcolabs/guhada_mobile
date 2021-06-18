@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { useRouter } from 'next/router';
 import useStores from 'stores/useStores';
+import isServer from 'childs/lib/common/isServer';
+import { getLayoutInfo } from 'stores/LayoutStore';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
 import Layout from 'components/layout/Layout';
 import Search from 'template/Search';
@@ -35,18 +37,19 @@ function SearchPage() {
   );
 }
 
-// SearchPage.getInitialProps = async function({ req, query }) {
-//   if (isServer) {
-//     try {
-//       return {
-//         initialState: {},
-//       };
-//     } catch (error) {
-//       console.error(error.message);
-//       return {};
-//     }
-//   }
-//   return {};
-// };
+SearchPage.getInitialProps = function({ pathname, query }) {
+  if (isServer) {
+    const { type, headerFlags } = getLayoutInfo({ pathname, query });
+    return {
+      initialState: {
+        layout: {
+          type,
+          headerFlags,
+        },
+      },
+    };
+  }
+  return {};
+};
 
 export default observer(SearchPage);

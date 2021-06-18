@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { get as _get } from 'lodash';
 import moment from 'moment';
 import useStores from 'stores/useStores';
+import { getLayoutInfo } from 'stores/LayoutStore';
 import API from 'childs/lib/API';
 import isServer from 'childs/lib/common/isServer';
 import { dateFormat } from 'childs/lib/constant';
@@ -47,7 +48,7 @@ function SpecialDetailPage() {
   );
 }
 
-SpecialDetailPage.getInitialProps = async function({ req, query }) {
+SpecialDetailPage.getInitialProps = async function({ req, pathname, query }) {
   if (isServer) {
     try {
       const eventId = query.id || req.query.id;
@@ -75,12 +76,21 @@ SpecialDetailPage.getInitialProps = async function({ req, query }) {
         image: _get(specialDetail, 'mediumImageUrl'),
       };
 
+      const { type, headerFlags } = getLayoutInfo({
+        pathname,
+        query,
+      });
+
       return {
         initialHeadData,
         initialState: {
           newSpecial: {
             eventId,
             specialDetail,
+          },
+          layout: {
+            type,
+            headerFlags,
           },
         },
       };
