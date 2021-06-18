@@ -41,7 +41,7 @@ const Navigation = ({ type }) => {
         className={cn(
           css['nav-button'],
           css['button--home'],
-          (type === 'home' || type === 'default') && css['selected']
+          type === 'main' && css['selected']
         )}
         onClick={() => pushRoute('/')}
       >

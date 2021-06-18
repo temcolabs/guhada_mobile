@@ -61,7 +61,7 @@ const CategoryTab = () => {
           <>
             <div
               className={css['tab-item']}
-              onClick={(e) => handleClick(category.parent.id, e.target, true)}
+              onClick={(e) => handleClick(category.parent.id, e.target)}
             >
               전체보기
             </div>

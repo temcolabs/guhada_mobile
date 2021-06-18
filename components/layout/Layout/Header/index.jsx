@@ -58,7 +58,7 @@ const Header = ({
               {logo && (
                 <div
                   className={cn(css['button'], css['button--logo'])}
-                  onClick={() => pushRoute('/?home=0')}
+                  onClick={() => pushRoute('/')}
                 />
               )}
             </div>
@@ -67,7 +67,7 @@ const Header = ({
               {home && (
                 <div
                   className={cn(css['button'], css['button--home'])}
-                  onClick={() => pushRoute('/?home=0')}
+                  onClick={() => pushRoute('/')}
                 />
               )}
               {search && (

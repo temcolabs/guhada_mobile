@@ -5,8 +5,6 @@
   overflow-x: auto;
   display: flex;
   align-items: center;
-  padding-left: 10px;
-  padding-right: 10px;
   // scroll-behavior: smooth;
 
   &::-webkit-scrollbar {
@@ -21,16 +19,9 @@
     letter-spacing: 0.45px;
     color: #111;
     cursor: pointer;
-    margin-left: 10px;
-    margin-right: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
     height: 100%;
-
-    &:first-of-type {
-      margin-left: 0;
-    }
-    &:last-of-type {
-      margin-right: 0;
-    }
 
     &.selected {
       position: relative;
