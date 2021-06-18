@@ -1,33 +1,58 @@
-import React, { Component } from 'react';
-import SpecialList from 'template/event/SpecialList';
-import LoadingPortal from 'components/common/loading/Loading';
-import { observer, inject } from 'mobx-react';
+import { useEffect } from 'react';
+import { observer } from 'mobx-react';
+import useStores from 'stores/useStores';
+import isServer from 'childs/lib/common/isServer';
+import { getLayoutInfo } from 'stores/LayoutStore';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
+import Layout from 'components/layout/Layout';
+import MountLoading from 'components/atoms/Misc/MountLoading';
+import Footer from 'components/footer/Footer';
+import SpecialList from 'template/event/SpecialList';
 
-@inject('special', 'newSpecial', 'searchByFilter')
-@observer
-class special extends Component {
-  static async getInitialProps({ req }) {
-    return {};
-  }
+function SpecialPage() {
+  /**
+   * states
+   */
+  const { special: specialStore, newSpecial: newSpecialStore } = useStores();
 
-  componentDidMount() {
-    const { newSpecial: newSpecialStore } = this.props;
+  /**
+   * side effects
+   */
+  useEffect(() => {
     newSpecialStore.resetSpecialData();
+    if (specialStore.specialList.length === 0) {
+      specialStore.getSpecialList();
+    }
+  }, []);
 
-    this.props.special.getSpecialList();
-  }
-
-  render() {
-    const { special } = this.props;
-
-    return (
-      <>
-        <HeadForSEO pageName="기획전" />
-        <div>{special.status.page ? <SpecialList /> : <LoadingPortal />}</div>
-      </>
-    );
-  }
+  /**
+   * render
+   */
+  return (
+    <>
+      <HeadForSEO />
+      <Layout>
+        {specialStore.specialList.length === 0 && <MountLoading />}
+        <SpecialList />
+        <Footer />
+      </Layout>
+    </>
+  );
 }
 
-export default special;
+SpecialPage.getInitialProps = function({ pathname, query }) {
+  if (isServer) {
+    const { type, headerFlags } = getLayoutInfo({ pathname, query });
+    return {
+      initialState: {
+        layout: {
+          type,
+          headerFlags,
+        },
+      },
+    };
+  }
+  return {};
+};
+
+export default observer(SpecialPage);

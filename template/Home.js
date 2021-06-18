@@ -1,20 +1,18 @@
-import React from 'react';
+import css from './Home.module.scss';
+import { Component, Fragment } from 'react';
 import Router, { withRouter } from 'next/router';
 import { inject, observer } from 'mobx-react';
-import _ from 'lodash';
+import { isNil as _isNil } from 'lodash';
 import { mainCategory } from 'childs/lib/constant/category';
 import sessionStorage from 'childs/lib/common/sessionStorage';
 import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
 import isTruthy from 'childs/lib/common/isTruthy';
 import { pushRoute } from 'childs/lib/router';
-import DefaultLayout from 'components/layout/DefaultLayout';
 import MainSectionItem from 'components/home/MainSectionItem';
-import CategorySlider from 'components/common/CategorySlider';
 import MainSlideBanner from 'components/home/MainSlideBanner';
 import HomeItemDefault from 'components/home/HomeItemDefault';
 import MainHotKeyword from 'components/home/MainHotKeyword';
 import MainSideBanner from 'components/home/MainSideBanner';
-import Footer from 'components/footer/Footer';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
 import AppEventPopup from 'components/event/popup/AppEventPopup';
 import PointSavingModal, {
@@ -26,16 +24,12 @@ import BestReview from 'components/home/BestReview';
 @withRouter
 @inject('main', 'searchitem', 'eventpopup', 'searchHolder')
 @observer
-class Home extends React.Component {
-  static propTypes = {};
-
+class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
       signupModal: false,
       email: '',
-      scrollDirection: 'up',
-      lastScrollTop: 0,
       savedPointResponse: {},
     };
   }
@@ -47,7 +41,7 @@ class Home extends React.Component {
       return item.href === asPath;
     });
 
-    if (_.isNil(category) === false) {
+    if (_isNil(category) === false) {
       main.setNavDealId(category.id);
     } else {
       main.setNavDealId(0);
@@ -71,17 +65,6 @@ class Home extends React.Component {
       widerplanetTracker.signUp({});
     }
 
-    // // 회원가입 성공 모달 표시
-    // if (query.signupsuccess) {
-    //   this.setState({
-    //     signupModal: true,
-    //     email: query.email,
-    //   });
-
-    //   // 회원가입 전환. 로그인한 상태가 아니어서 유저 아이디를 전달할 수 없다.
-    //   widerplanetTracker.signUp({});
-    // }
-    window.addEventListener('scroll', this.scrollDirection);
     // let cookie = Cookies.get(key.ACCESS_TOKEN);
 
     this.props.eventpopup.appEventPopupOpen();
@@ -94,53 +77,86 @@ class Home extends React.Component {
     main.getMainBannner();
   }
 
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.scrollDirection);
-  }
-
-  scrollDirection = _.debounce((e) => {
-    var st = window.pageYOffset || document.documentElement.scrollTop;
-    if (st > this.state.lastScrollTop) {
-      this.setState({ scrollDirection: 'down' });
-    } else {
-      this.setState({ scrollDirection: 'up' });
-    }
-    this.setState({ lastScrollTop: st <= 0 ? 0 : st });
-  }, 10);
-
-  // handleModal = (value) => {
-  //   this.setState({
-  //     signupModal: value,
-  //   });
-
-  // };
-
   render() {
     const { main, searchitem, eventpopup, searchHolder } = this.props;
 
     return (
-      <DefaultLayout
-        title={null}
-        topLayout={'main'}
-        history={true}
-        scrollDirection={this.state.scrollDirection}
-      >
-        {/* TODO :: 카테고리 네비게이터 */}
-        <CategorySlider
-          categoryList={mainCategory.item}
-          setNavDealId={main.setNavDealId}
-          scrollDirection={this.state.scrollDirection}
+      <div className={css['wrapper']}>
+        <MainSlideBanner imageFile={main.bannerInfo} />
+
+        {/* Focus on items */}
+        <MainSideBanner
+          title={'FOCUS ON'}
+          type={'FOCUS_ON'}
+          list={searchHolder.mainImageSetOneSetList}
         />
 
-        {main.navDealId === 0 && !!isTruthy(main.bannerInfo) && (
-          <MainSlideBanner imageFile={main.bannerInfo} />
-        )}
+        {/* Premium Item */}
+        <MainSectionItem
+          title={'PREMIUM ITEM'}
+          items={main.plusItem}
+          categoryId={main.navDealId}
+          toSearch={searchitem.toSearch}
+          condition={'PLUS'}
+        />
 
-        {/* <SignupSuccessModal
-          isOpen={this.state.signupModal}
-          isHandleModal={this.handleModal}
-          email={this.state.email}
-        /> */}
+        {/* 상품 홍보 Large */}
+        <MainSideBanner list={searchHolder.mainImageSetTwoSetList} />
+
+        {/* Hok keyword > main */}
+        <HomeItemDefault header={'HOT KEYWORD'}>
+          <MainHotKeyword
+            hotKeyword={main.hotKeyword}
+            searchitem={searchitem}
+          />
+        </HomeItemDefault>
+
+        <MainSectionItem
+          title={'BEST ITEM'}
+          items={main.hits}
+          categoryId={main.navDealId}
+          toSearch={searchitem.toSearch}
+          condition={'BEST'}
+        />
+
+        <HomeItemDefault header={'BEST REVIEW'}>
+          <BestReview />
+        </HomeItemDefault>
+
+        {/* 상품 홍보 Small */}
+        <MainSideBanner list={searchHolder.mainImageSetThreeList} />
+
+        <MainSectionItem
+          title={'NEW IN'}
+          items={main.newArrivals}
+          categoryId={main.navDealId}
+          toSearch={searchitem.toSearch}
+          condition={'NEW'}
+        />
+
+        {/* Hok keyword > main */}
+        <HomeItemDefault header={'HOT KEYWORD'}>
+          <MainHotKeyword
+            hotKeyword={main.hotKeyword}
+            searchitem={searchitem}
+          />
+        </HomeItemDefault>
+
+        {/* 앱 로그인 혜택 배너 */}
+        <MainSideBanner list={searchHolder.mainImageSetFourList} />
+
+        {/* Banners */}
+        {eventpopup.popupList.length > 0
+          ? eventpopup.popupList.map((data, index) => {
+              return (
+                <Fragment key={index}>
+                  {data.popupStatus && (
+                    <AppEventPopup isOpen={data.popupStatus} data={data} />
+                  )}
+                </Fragment>
+              );
+            })
+          : null}
 
         {this.state.signupModal && (
           <PointSavingModal
@@ -152,98 +168,7 @@ class Home extends React.Component {
             }}
           />
         )}
-        <div>
-          {/* Focus on items */}
-          {main.navDealId === 0 && (
-            <MainSideBanner
-              title={'FOCUS ON'}
-              type={'FOCUS_ON'}
-              list={searchHolder.mainImageSetOneSetList}
-            />
-          )}
-
-          {/* Premium Item */}
-          <MainSectionItem
-            title={'PREMIUM ITEM'}
-            items={main.plusItem}
-            categoryId={main.navDealId}
-            toSearch={searchitem.toSearch}
-            condition={'PLUS'}
-          />
-
-          {/* 상품 홍보 Large */}
-          {main.navDealId === 0 && (
-            <MainSideBanner list={searchHolder.mainImageSetTwoSetList} />
-          )}
-
-          {/* Hok keyword > main */}
-          {main.navDealId === 0 && (
-            <HomeItemDefault header={'HOT KEYWORD'}>
-              <MainHotKeyword
-                hotKeyword={main.hotKeyword}
-                searchitem={searchitem}
-              />
-            </HomeItemDefault>
-          )}
-
-          <MainSectionItem
-            title={'BEST ITEM'}
-            items={main.hits}
-            categoryId={main.navDealId}
-            toSearch={searchitem.toSearch}
-            condition={'BEST'}
-          />
-
-          {main.navDealId === 0 && (
-            <HomeItemDefault header={'BEST REVIEW'}>
-              <BestReview />
-            </HomeItemDefault>
-          )}
-
-          {/* 상품 홍보 Small */}
-          {main.navDealId === 0 && (
-            <MainSideBanner list={searchHolder.mainImageSetThreeList} />
-          )}
-
-          <MainSectionItem
-            title={'NEW IN'}
-            items={main.newArrivals}
-            categoryId={main.navDealId}
-            toSearch={searchitem.toSearch}
-            condition={'NEW'}
-          />
-
-          {/* Hok keyword > main */}
-          {main.navDealId !== 0 && (
-            <HomeItemDefault header={'HOT KEYWORD'}>
-              <MainHotKeyword
-                hotKeyword={main.hotKeyword}
-                searchitem={searchitem}
-              />
-            </HomeItemDefault>
-          )}
-        </div>
-
-        {/* 앱 로그인 혜택 배너 */}
-        {main.navDealId === 0 && (
-          <MainSideBanner list={searchHolder.mainImageSetFourList} />
-        )}
-
-        {/* Banners */}
-        {eventpopup.popupList.length > 0
-          ? eventpopup.popupList.map((data, index) => {
-              return (
-                <React.Fragment key={index}>
-                  {data.popupStatus && (
-                    <AppEventPopup isOpen={data.popupStatus} data={data} />
-                  )}
-                </React.Fragment>
-              );
-            })
-          : null}
-
-        <Footer />
-      </DefaultLayout>
+      </div>
     );
   }
 }

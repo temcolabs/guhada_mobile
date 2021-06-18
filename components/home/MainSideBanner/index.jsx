@@ -1,6 +1,4 @@
 import React, { memo, useRef, useEffect } from 'react';
-import { toJS } from 'mobx';
-import { pushRoute } from 'childs/lib/router';
 import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 
@@ -56,7 +54,9 @@ function MainSideBanner({ type = 'OTHERS', title, list }) {
                   key={`focus-on-${i}`}
                   onClick={() => onClickImage(o.mainBannerLinkUrl)}
                 >
-                  {type === 'FOCUS_ON' && <Image src={o.mainBannerMobileUrl} />}
+                  {type === 'FOCUS_ON' && (
+                    <Image src={o.mainBannerMobileUrl} isLazy={false} />
+                  )}
                   {type === 'OTHERS' && (
                     <img
                       style={{ maxWidth: '100%' }}

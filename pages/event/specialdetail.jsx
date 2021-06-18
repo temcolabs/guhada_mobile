@@ -26,6 +26,9 @@ function SpecialDetailPage() {
    * side effects
    */
   useEffect(() => {
+    if (typeof window === 'object') {
+      window.scrollTo(0, 0);
+    }
     const eventId = router.query.id;
     newSpecialStore.fetchSpecialDetail(eventId);
   }, [newSpecialStore, router]);

@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import css from './ListItem.module.scss';
 import moment from 'moment';
-import useStores from 'stores/useStores';
+import { pushRoute } from 'childs/lib/router';
 
 function ListItem({ data }) {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-
-  const { special } = useStores();
 
   useEffect(() => {
     data.eventStartDate
@@ -25,7 +23,7 @@ function ListItem({ data }) {
           data.detailPageUrl || data.detailPageLink ? css.detailTrue : null
         }
         onClick={() => {
-          special.toSearch({ eventIds: data.id });
+          pushRoute(`/event/special/${data.id}`);
         }}
       >
         <div

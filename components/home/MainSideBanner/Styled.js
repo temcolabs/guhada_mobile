@@ -11,6 +11,10 @@ export const SliderWrapper = styled.div`
   .slick-dots {
     bottom: ${(props) => (props.type === 'FOCUS_ON' ? '420px' : '0px')};
   }
+
+  .slider-wrap {
+    height: 100%;
+  }
 `;
 
 export const TitleSection = styled.div`

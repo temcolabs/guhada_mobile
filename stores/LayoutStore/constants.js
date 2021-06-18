@@ -98,6 +98,7 @@ export const layouts = {
       cart: true,
       category: true,
       filter: true,
+      slide: true,
       plugins: {
         top: true,
         kakao: true,
@@ -114,6 +115,7 @@ export const layouts = {
       search: true,
       cart: true,
       filter: true,
+      slide: true,
       plugins: {
         top: true,
         kakao: true,
@@ -126,6 +128,7 @@ export const layouts = {
     headerFlags: {
       filter: true,
       searchbox: true,
+      slide: true,
       plugins: {
         top: true,
         kakao: true,
@@ -142,6 +145,7 @@ export const layouts = {
       search: true,
       cart: true,
       filter: true,
+      slide: true,
       plugins: {
         top: true,
         kakao: true,
