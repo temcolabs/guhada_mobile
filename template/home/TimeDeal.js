@@ -22,22 +22,28 @@ class TimeDeal extends Component {
           setNavDealId={main.setNavDealId}
         />
         <div className={css.wrap}>
-          <div
-            className={css.bg}
-            style={{
-              backgroundImage: `url(${
-                process.env.API_CLOUD
-              }/images/background/timedeal/time_deal_bg_mobile.png)`,
-            }}
-          >
-            {timedeal.timeDeal.map((deal, index) => {
-              return (
-                <div key={index}>
-                  <TimeDealItem deal={deal} />
-                </div>
-              );
-            })}
-          </div>
+          {timedeal.timeDeal.length ? (
+            <div
+              className={css.bg}
+              style={{
+                backgroundImage: `url(${
+                  process.env.API_CLOUD
+                }/images/background/timedeal/time_deal_bg_mobile.png)`,
+              }}
+            >
+              {timedeal.timeDeal.map((deal, index) => {
+                return (
+                  <div key={index}>
+                    <TimeDealItem deal={deal} />
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div className={css.empty}>
+              진행 중인 타임딜이 없습니다.
+            </div>
+          )}
         </div>
       </DefaultLayout>
     );

@@ -10,4 +10,15 @@
     height: 100%;
     padding-top: 89%;
   }
+
+  & .empty {
+    color: #fff;
+    font-family: Roboto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: calc(100vh - 161px);
+    font-size: 1.2rem;
+  }
 }
