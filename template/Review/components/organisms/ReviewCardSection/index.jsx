@@ -28,16 +28,18 @@ const DynamicReviewDeatailModal = dynamic(
 function ReviewCardSection({ isLazy, review, onClickLike, onClickProduct }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const onCloseModal = () => {
+    document.documentElement.style.overflow = 'initial';
+    setIsModalOpen(false);
+  };
+
   return (
     <>
       {isModalOpen && (
         <DynamicReviewDeatailModal
           reviewId={review?.id}
           isModalOpen={isModalOpen}
-          onCloseModal={() => {
-            // document.documentElement.style.overflow = 'initial';
-            setIsModalOpen(false);
-          }}
+          onCloseModal={onCloseModal}
         />
       )}
       <Wrapper onClick={() => setIsModalOpen(true)}>
