@@ -1,4 +1,4 @@
-import css from './SearchLayout.module.scss';
+import css from './Layout.module.scss';
 import cn from 'classnames';
 import { useEffect } from 'react';
 import { observer } from 'mobx-react';
@@ -9,16 +9,16 @@ import Header from './Header';
 import Navigation from './Navigation';
 import PluginButtons from './PluginButtons';
 
-function SearchLayout({ children }) {
+function Layout({ title, children }) {
   /**
    * states
    */
   const { layout: layoutStore } = useStores();
   const router = useRouter();
-  const isScrollDown = useScrollDown(60);
+  const isScrollDown = useScrollDown(40);
 
   useEffect(() => {
-    layoutStore.initialize(router.query);
+    layoutStore.initialize(router);
 
     window && window.addEventListener('popstate', layoutStore.popState);
 
@@ -33,14 +33,11 @@ function SearchLayout({ children }) {
   return (
     <div className={css['layout']}>
       <Header
-        logo={layoutStore.headerFlags.logo}
-        title={layoutStore.headerFlags.title && layoutStore.headerInfo.title}
-        back={layoutStore.headerFlags.back}
-        home={layoutStore.headerFlags.home}
-        category={layoutStore.headerFlags.category}
-        filter={layoutStore.headerFlags.filter}
-        slide={layoutStore.headerFlags.slide}
-        searchbox={layoutStore.headerFlags.searchbox}
+        {...layoutStore.headerFlags}
+        title={
+          layoutStore.headerFlags.title &&
+          (title || layoutStore.headerInfo.title)
+        }
         isScrollDown={isScrollDown}
       />
       <section
@@ -61,4 +58,4 @@ function SearchLayout({ children }) {
   );
 }
 
-export default observer(SearchLayout);
+export default observer(Layout);

@@ -245,8 +245,8 @@ export class SearchByFilterStore extends SearchStore {
     params = SearchByFilterStore.initialParams,
     resetUnfungibles = true
   ) => {
-    this.resetData();
     this.cancelTokenSource.cancel();
+    this.resetData();
 
     getEscapedBody(body);
 

@@ -3,6 +3,7 @@ import { useState, memo } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 import { pushRoute } from 'childs/lib/router';
+import MenuTab from './MenuTab';
 import CategoryTab from './CategoryTab';
 import BurgerModal from 'components/header/HeaderMenu';
 import SearchModal from 'components/header/SearchMenu';
@@ -10,15 +11,19 @@ import FilterOption from 'components/templates/DealSection/FilterOption';
 import SearchTab from './SearchTab';
 
 const Header = ({
-  logo,
   title,
+  logo,
+  burger,
   back,
   home,
+  search,
+  cart,
+  menu,
   category,
   filter,
   slide,
-  isScrollDown,
   searchbox,
+  isScrollDown,
 }) => {
   /**
    * states
@@ -44,10 +49,12 @@ const Header = ({
                   onClick={() => window && window.history.back()}
                 />
               )}
-              <div
-                className={cn(css['button'], css['button--burger'])}
-                onClick={() => setIsModalOpen(2)}
-              />
+              {burger && (
+                <div
+                  className={cn(css['button'], css['button--burger'])}
+                  onClick={() => setIsModalOpen(2)}
+                />
+              )}
               {logo && (
                 <div
                   className={cn(css['button'], css['button--logo'])}
@@ -63,17 +70,22 @@ const Header = ({
                   onClick={() => pushRoute('/?home=0')}
                 />
               )}
-              <div
-                className={cn(css['button'], css['button--search'])}
-                onClick={() => setIsModalOpen(1)}
-              />
-              <div
-                className={cn(css['button'], css['button--cart'])}
-                onClick={() => pushRoute('/shoppingcart')}
-              />
+              {search && (
+                <div
+                  className={cn(css['button'], css['button--search'])}
+                  onClick={() => setIsModalOpen(1)}
+                />
+              )}
+              {cart && (
+                <div
+                  className={cn(css['button'], css['button--cart'])}
+                  onClick={() => pushRoute('/shoppingcart')}
+                />
+              )}
             </div>
           </div>
         )}
+        {menu && <MenuTab />}
         {category && <CategoryTab />}
       </nav>
       {filter && <FilterOption hide={isScrollDown} float />}
@@ -84,24 +96,30 @@ const Header = ({
           onClose={() => setIsModalOpen(0)}
         />
       )}
-      <BurgerModal
-        isVisible={isModalOpen === 2}
-        onClose={() => setIsModalOpen(0)}
-      />
+      {burger && (
+        <BurgerModal
+          isVisible={isModalOpen === 2}
+          onClose={() => setIsModalOpen(0)}
+        />
+      )}
     </header>
   );
 };
 
 Header.propTypes = {
-  logo: PropTypes.bool,
   title: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  logo: PropTypes.bool,
+  burger: PropTypes.bool,
   back: PropTypes.bool,
   home: PropTypes.bool,
+  search: PropTypes.bool,
+  cart: PropTypes.bool,
+  menu: PropTypes.bool,
   category: PropTypes.bool,
   filter: PropTypes.bool,
   slide: PropTypes.bool,
-  isScrollDown: PropTypes.bool,
   searchbox: PropTypes.bool,
+  isScrollDown: PropTypes.bool,
 };
 
 export default memo(Header);

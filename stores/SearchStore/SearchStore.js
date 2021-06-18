@@ -2,9 +2,6 @@ import { observable, computed, action } from 'mobx';
 import { isBrowser } from 'childs/lib/common/isServer';
 import { CancelToken } from 'axios';
 
-/** props name to compare with to check if replacement of history state is needed */
-export const comparedStateProps = ['category', 'brand', 'keyword', 'condition'];
-
 /** API endpoint enum */
 export const ENDPOINT = {
   ALL: '/ps/search/all',
@@ -191,9 +188,6 @@ class SearchStore {
    */
   /** @param {object} query  */
   @action initializePage(query) {
-    // if (comparedStateProps.every((prop) => query[prop])) {
-    //   return;
-    // }
     const state = Object.assign(window.history.state, { query });
     this.root.layout.handlePushState.default(state, true);
   }

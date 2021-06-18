@@ -1,24 +1,34 @@
 export const LAYOUT_TYPE = {
-  /* index page */
-  DEFAULT: 'default',
-  /* search page */
-  CATEGORY: 'category',
-  BRAND: 'brand',
-  KEYWORD: 'keyword',
+  /* index */
+  main: 'main',
+  default: 'default',
+  /* specialdetail */
+  specialdetail: 'specialdetail',
+  /* search */
+  search: {
+    category: 'category',
+    brand: 'brand',
+    keyword: 'keyword',
+    condition: 'condition',
+  },
 };
 
 /**
  * JSDoc typedefs
  *
  * @typedef {{
- *  logo: boolean,
  *  title: boolean,
+ *  logo: boolean,
+ *  burger: boolean,
  *  back: boolean,
  *  home: boolean,
  *  search: boolean,
+ *  cart: boolean,
+ *  menu: boolean,
  *  category: boolean,
  *  filter: boolean,
  *  slide: boolean,
+ *  searchbox: boolean,
  *  plugins: {
  *    top: boolean,
  *    kakao: boolean,
@@ -34,14 +44,11 @@ export const layouts = {
   main: {
     headerFlags: {
       logo: true,
-      title: false,
-      back: false,
-      home: false,
-      search: false,
-      category: false,
-      filter: false,
-      slide: false,
-      searchbox: false,
+      burger: true,
+      search: true,
+      cart: true,
+      menu: true,
+      slide: true,
       plugins: {
         top: true,
         kakao: true,
@@ -51,10 +58,24 @@ export const layouts = {
   },
   default: {
     headerFlags: {
-      title: true,
       back: true,
-      filter: true,
-      slide: false,
+      burger: true,
+      search: true,
+      cart: true,
+      plugins: {
+        top: true,
+        kakao: true,
+        recent: true,
+      },
+    },
+  },
+  specialdetail: {
+    headerFlags: {
+      title: true,
+      burger: true,
+      back: true,
+      search: true,
+      cart: true,
       plugins: {
         top: true,
         kakao: true,
@@ -66,9 +87,11 @@ export const layouts = {
     headerFlags: {
       title: true,
       back: true,
+      burger: true,
+      search: true,
+      cart: true,
       category: true,
       filter: true,
-      slide: true,
       plugins: {
         top: true,
         kakao: true,
@@ -80,8 +103,10 @@ export const layouts = {
     headerFlags: {
       title: true,
       back: true,
+      burger: true,
+      search: true,
+      cart: true,
       filter: true,
-      slide: false,
       plugins: {
         top: true,
         kakao: true,
@@ -92,8 +117,22 @@ export const layouts = {
   keyword: {
     headerFlags: {
       filter: true,
-      slide: false,
       searchbox: true,
+      plugins: {
+        top: true,
+        kakao: true,
+        recent: true,
+      },
+    },
+  },
+  condition: {
+    headerFlags: {
+      title: true,
+      back: true,
+      burger: true,
+      search: true,
+      cart: true,
+      filter: true,
       plugins: {
         top: true,
         kakao: true,

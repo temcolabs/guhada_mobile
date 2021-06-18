@@ -1,21 +1,17 @@
 import { useEffect } from 'react';
 import { observer } from 'mobx-react';
 import useStores from 'stores/useStores';
-import { useScrollDirection } from 'hooks';
-import { mainCategory } from 'childs/lib/constant/category';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
-import DefaultLayout from 'components/layout/DefaultLayout';
+import Layout from 'components/layout/Layout';
 import Footer from 'components/footer/Footer';
-import CategorySlider from 'components/common/CategorySlider';
 import Ranking from 'template/Ranking';
 
 function RankingPage() {
   /**
    * states
    */
-  const { main: mainStore, ranking: rankingStore } = useStores();
-  const scrollDirection = useScrollDirection();
+  const { ranking: rankingStore } = useStores();
 
   /**
    * side effects
@@ -24,22 +20,16 @@ function RankingPage() {
     rankingStore.fetchRanking();
   }, [rankingStore]);
 
+  /**
+   * render
+   */
   return (
     <>
       <HeadForSEO pageName="랭킹" />
-      <DefaultLayout
-        pageTitle={null}
-        topLayout={'main'}
-        scrollDirection={scrollDirection}
-      >
-        <CategorySlider
-          categoryList={mainCategory.item}
-          setNavDealId={mainStore.setNavDealId}
-          scrollDirection={scrollDirection}
-        />
+      <Layout>
         <Ranking />
         <Footer />
-      </DefaultLayout>
+      </Layout>
     </>
   );
 }

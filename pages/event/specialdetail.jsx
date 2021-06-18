@@ -8,9 +8,8 @@ import useStores from 'stores/useStores';
 import API from 'childs/lib/API';
 import isServer from 'childs/lib/common/isServer';
 import { dateFormat } from 'childs/lib/constant';
-import { useScrollDirection } from 'hooks';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
-import DefaultLayout from 'components/layout/DefaultLayout';
+import Layout from 'components/layout/Layout';
 import SpecialDetail from 'template/event/SpecialDetail';
 import MountLoading from 'components/atoms/Misc/MountLoading';
 
@@ -21,7 +20,6 @@ function SpecialDetailPage() {
   const { newSpecial: newSpecialStore } = useStores();
   const headData = newSpecialStore.headData;
   const router = useRouter();
-  const scrollDirection = useScrollDirection();
 
   /**
    * side effects
@@ -41,14 +39,10 @@ function SpecialDetailPage() {
         description={headData.description}
         image={headData.image}
       />
-      <DefaultLayout
-        headerShape={'special'}
-        pageTitle={'기획전'}
-        scrollDirection={scrollDirection}
-      >
+      <Layout title={'기획전'}>
         {newSpecialStore.isLoading && <MountLoading />}
         <SpecialDetail />
-      </DefaultLayout>
+      </Layout>
     </>
   );
 }

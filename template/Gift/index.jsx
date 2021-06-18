@@ -14,6 +14,9 @@ function Gift() {
   const { gift: giftStore } = useStores();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  /**
+   * render
+   */
   return (
     <div className={css.gift}>
       {giftStore.isLoading && <MountLoading />}
@@ -22,8 +25,13 @@ function Gift() {
         title={'추천 기프트'}
         deals={giftStore.recommendDeals}
         thumbnail={-1}
+        isLazy={false}
       />
-      <DealItems title={'베스트 기프트'} deals={giftStore.bestDeals} />
+      <DealItems
+        title={'베스트 기프트'}
+        deals={giftStore.bestDeals}
+        isLazy={false}
+      />
 
       {isModalOpen && (
         <ScrollableImageModal

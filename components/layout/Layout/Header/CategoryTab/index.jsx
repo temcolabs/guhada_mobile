@@ -1,5 +1,4 @@
 import css from './CategoryTab.module.scss';
-import PropTypes from 'prop-types';
 import cn from 'classnames';
 import { observer } from 'mobx-react';
 import useStores from 'stores/useStores';
@@ -30,16 +29,14 @@ const CategoryTab = () => {
             replace
           )
       )
-    ).then(
-      () => target && scrollRef.current.scrollTo(target.offsetLeft - 30, 0)
-    );
+    ).then(() => scrollRef.current.scrollTo(target.offsetLeft - 30, 0));
   };
 
   /**
    * render
    */
   return (
-    <div className={css['category-tab']} id="category-tab" ref={scrollRef}>
+    <div className={css['category-tab']} ref={scrollRef}>
       {category &&
         (category.children ? (
           <>
@@ -96,15 +93,6 @@ const CategoryTab = () => {
       )}
     </div>
   );
-};
-
-CategoryTab.propTypes = {
-  category: PropTypes.shape({
-    id: PropTypes.number,
-    parentId: PropTypes.number,
-    siblings: PropTypes.array,
-    children: PropTypes.array,
-  }),
 };
 
 export default observer(CategoryTab);

@@ -34,7 +34,7 @@ class LayoutStore {
   /**
    * observables
    */
-  @observable type = LAYOUT_TYPE.DEFAULT;
+  @observable type = LAYOUT_TYPE.default;
 
   @observable headerFlags = layouts.default.headerFlags;
 
@@ -51,17 +51,15 @@ class LayoutStore {
 
   /** @type {{title: string, category: object}} header info getter (depth-first-search) */
   @computed get headerInfo() {
-    if (isBrowser) {
+    if (this.handleHeaderInfo[this.type]) {
       return this.handleHeaderInfo[this.type]();
     }
-    return {};
+    return this.handleHeaderInfo.default();
   }
 
   handleHeaderInfo = {
     default: () => {
-      const { searchByFilter: that } = this.root;
-      const title = searchConditionMap.get(that.defaultBody.searchCondition);
-      return { title };
+      return {};
     },
     category: () => {
       const { searchByFilter: that } = this.root;
@@ -109,8 +107,10 @@ class LayoutStore {
 
       return {};
     },
-    keyword: () => {
-      return {};
+    condition: () => {
+      const { searchByFilter: that } = this.root;
+      const title = searchConditionMap.get(that.defaultBody.searchCondition);
+      return { title };
     },
   };
 
@@ -182,21 +182,35 @@ class LayoutStore {
    * initialize layout with required information
    * @param {string} type
    */
-  @action initialize = (query) => {
-    const { category, brand, keyword } = query;
+  @action initialize = ({ pathname, query }) => {
+    const dirs = pathname.split('/');
+    const path = dirs[dirs.length - 1] || 'default';
 
-    let type = 'default';
-    if (keyword) {
-      type = 'keyword';
-    } else if (brand) {
-      type = 'brand';
-    } else if (category) {
-      type = 'category';
+    const { category, brand, keyword, condition } = query;
+
+    let subtype;
+    if (path === 'search') {
+      if (condition) {
+        subtype = 'condition';
+      } else if (keyword) {
+        subtype = 'keyword';
+      } else if (brand) {
+        subtype = 'brand';
+      } else if (category) {
+        subtype = 'category';
+      }
     }
 
-    const { headerFlags } = layouts[type];
-    this.type = type;
-    this.headerFlags = headerFlags;
+    let type = LAYOUT_TYPE[path] || 'main';
+    if (subtype && typeof type === 'object') {
+      type = LAYOUT_TYPE[path][subtype] || 'default';
+    }
+
+    if (this.type !== type) {
+      this.type = type;
+      const { headerFlags } = layouts[type];
+      this.headerFlags = headerFlags;
+    }
   };
 }
 

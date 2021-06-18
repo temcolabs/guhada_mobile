@@ -9,7 +9,7 @@ import { useState, useEffect, useRef } from 'react';
  * `arrowLeft` to check if element is scrollable to the left
  * `arrowRight` to check if element is scrollable to the right
  */
-export const useHorizontalArrows = (deps, offset = 15) => {
+export const useHorizontalArrows = (deps = [], offset = 15) => {
   const scrollRef = useRef();
   const [arrowLeft, setArrowLeft] = useState(false);
   const [arrowRight, setArrowRight] = useState(false);
