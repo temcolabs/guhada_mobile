@@ -1,13 +1,12 @@
 import css from './SearchTab.module.scss';
 import { useState, useEffect, useCallback } from 'react';
-import PropTypes from 'prop-types';
 import cn from 'classnames';
 import { observer } from 'mobx-react';
 import useStores from 'stores/useStores';
 import SearchMenu from './SearchMenu';
 import AutocompleteSearchMenu from './AutocompleteSearchMenu';
 
-const SearchTab = ({ popHistory }) => {
+const SearchTab = () => {
   /**
    * states
    */
@@ -33,7 +32,7 @@ const SearchTab = ({ popHistory }) => {
     if (isExpand) {
       setIsExpand(0);
     } else {
-      popHistory();
+      window.history.back();
     }
   };
 
@@ -123,10 +122,6 @@ const SearchTab = ({ popHistory }) => {
       )}
     </div>
   );
-};
-
-SearchTab.propTypes = {
-  popHistory: PropTypes.func,
 };
 
 export default observer(SearchTab);

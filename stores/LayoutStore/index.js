@@ -1,8 +1,8 @@
 import { isBrowser } from 'childs/lib/common/isServer';
-import { pushRoute } from 'childs/lib/router';
 import { observable, computed, action, toJS } from 'mobx';
 import { LAYOUT_TYPE, layouts } from './constants';
 import { searchConditionMap } from '../SearchStore/SearchByFilterStore';
+import qs from 'querystring';
 
 /**
  * JSDoc typedefs
@@ -56,6 +56,7 @@ class LayoutStore {
     }
     return {};
   }
+
   handleHeaderInfo = {
     default: () => {
       const { searchByFilter: that } = this.root;
@@ -116,32 +117,63 @@ class LayoutStore {
   /**
    * actions
    */
-  @action popHistory = () => {
-    if (this.handlePopHistory[this.type]) {
-      this.handlePopHistory[this.type]();
+  @action pushState = (state, replace = false) => {
+    if (this.handlePushState[this.type]) {
+      this.handlePushState[this.type](state, replace);
     } else {
-      this.handlePopHistory.default();
+      this.handlePushState.default(state, replace);
     }
   };
-  handlePopHistory = {
-    default: () => {
-      if (isBrowser) {
-        if (document.referrer.split('/')[2] !== window.location.host) {
-          return pushRoute('/');
+  handlePushState = {
+    default: (state, replace) => {
+      const { query } = state;
+      const queryString = qs.stringify(query);
+      if (replace) {
+        window.history.replaceState(state, '', `?${queryString}`);
+      } else {
+        window.history.pushState(state, '', `?${queryString}`);
+      }
+      this.root.searchByFilter.fetchSearchResults(query);
+    },
+    category: (state, replace) => {
+      const { query } = state;
+      if (query?.category) {
+        if (replace) {
+          window.history.replaceState(state, '', `?category=${query.category}`);
+        } else {
+          window.history.pushState(state, '', `?category=${query.category}`);
         }
-        window.history.back();
+
+        this.root.searchByFilter.initializeSearch(
+          { categoryIds: [query.category] },
+          undefined,
+          false
+        );
       }
     },
-    category: () => {
-      const { category } = this.headerInfo;
-      if (category.parent) {
+  };
+
+  @action popState = (e) => {
+    const state = e.state;
+    if (this.handlePopState[this.type]) {
+      this.handlePopState[this.type](state);
+    } else {
+      this.handlePopState.default(state);
+    }
+  };
+  handlePopState = {
+    default: (state) => {},
+    category: (state) => {
+      const { query } = state;
+      if (query?.category) {
+        window.history.replaceState(state, '', `?category=${query.category}`);
         this.root.searchByFilter.initializeSearch(
-          { categoryIds: [category.parent.id] },
+          { categoryIds: [query.category] },
           undefined,
           false
         );
       } else {
-        this.handlePopHistory.default();
+        this.handlePopState.default(state);
       }
     },
   };
@@ -150,11 +182,21 @@ class LayoutStore {
    * initialize layout with required information
    * @param {string} type
    */
-  @action initialize = (type = 'default') => {
+  @action initialize = (query) => {
+    const { category, brand, keyword } = query;
+
+    let type = 'default';
+    if (keyword) {
+      type = 'keyword';
+    } else if (brand) {
+      type = 'brand';
+    } else if (category) {
+      type = 'category';
+    }
+
     const { headerFlags } = layouts[type];
     this.type = type;
     this.headerFlags = headerFlags;
-    this.layoutHistory = [];
   };
 }
 

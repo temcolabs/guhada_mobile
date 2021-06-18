@@ -43,7 +43,7 @@ const Navigation = ({ type }) => {
           css['button--home'],
           (type === 'home' || type === 'default') && css['selected']
         )}
-        onClick={() => pushRoute('/?home=0')}
+        onClick={() => pushRoute('/')}
       >
         홈
       </div>
