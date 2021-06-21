@@ -2,7 +2,7 @@ import css from './Navigation.module.scss';
 import { useState, memo } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
-import { pushRoute } from 'childs/lib/router';
+import { useRouter } from 'next/router';
 import ToolbarCategory from 'components/toolbar/ToolbarCategory';
 import ToolbarBrand from 'components/toolbar/ToolbarBrand';
 
@@ -10,7 +10,19 @@ const Navigation = ({ type }) => {
   /**
    * states
    */
+  const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(0);
+
+  /**
+   * handlers
+   */
+  const handleClick = (id, route) => {
+    if (type === id) {
+      window.scrollTo(0, 0);
+    } else {
+      router.push(route);
+    }
+  };
 
   /**
    * render
@@ -41,9 +53,9 @@ const Navigation = ({ type }) => {
         className={cn(
           css['nav-button'],
           css['button--home'],
-          type === 'main' && css['selected']
+          type === 'home' && css['selected']
         )}
-        onClick={() => pushRoute('/')}
+        onClick={() => handleClick('home', '/')}
       >
         홈
       </div>
@@ -53,7 +65,7 @@ const Navigation = ({ type }) => {
           css['button--community'],
           type === 'community' && css['selected']
         )}
-        onClick={() => pushRoute('/community')}
+        onClick={() => handleClick('community', '/community')}
       >
         커뮤니티
       </div>
@@ -63,7 +75,7 @@ const Navigation = ({ type }) => {
           css['button--mypage'],
           type === 'mypage' && css['selected']
         )}
-        onClick={() => pushRoute('/mypage')}
+        onClick={() => handleClick('mypage', '/mypage')}
       >
         마이페이지
       </div>

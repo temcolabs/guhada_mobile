@@ -52,6 +52,20 @@ const AdvancedFilterModal = ({
       <div className={css['filter-modal']}>
         <div className={css['modal__offset']} onClick={handleCloseModal} />
         <div className={css['modal__header']}>{filterName}</div>
+        <div className={css['modal__buttons']}>
+          <button
+            className={css['button--reset']}
+            onClick={handleResetAbstractFilter}
+          >
+            초기화
+          </button>
+          <button
+            className={css['button--submit']}
+            onClick={handleSubmitAbstractFilter}
+          >
+            검색결과 보기
+          </button>
+        </div>
         <div className={css['modal__filters']}>
           <TreeFilter
             title={'카테고리'}
@@ -133,20 +147,6 @@ const AdvancedFilterModal = ({
               });
             }}
           />
-        </div>
-        <div className={css['modal__buttons']}>
-          <button
-            className={css['button--reset']}
-            onClick={handleResetAbstractFilter}
-          >
-            초기화
-          </button>
-          <button
-            className={css['button--submit']}
-            onClick={handleSubmitAbstractFilter}
-          >
-            검색결과 보기
-          </button>
         </div>
       </div>
     </SlideIn>

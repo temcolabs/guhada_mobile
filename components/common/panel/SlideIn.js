@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import ReactDom from 'react-dom';
 import css from './SlideIn.module.scss';
 import { Transition } from 'react-transition-group';
@@ -18,7 +18,7 @@ export const slideDirection = {
   BOTTOM: 'bottom',
 };
 
-const DURATION = 300; // 애니메이션 시간
+const DURATION = 150; // 애니메이션 시간
 
 /**
  * 기본 포지션. 진입 방향에 따라 달라진다.

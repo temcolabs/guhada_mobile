@@ -1,11 +1,30 @@
 export const LAYOUT_TYPE = {
-  /* index */
-  main: 'main',
+  /**
+   * DEFAULT
+   */
   default: 'default',
-  /* specialdetail */
-  specialdetail: 'specialdetail',
-  /* search */
+  /**
+   * HOME
+   */
+  home: {
+    default: 'home',
+    women: 'submenu',
+    men: 'submenu',
+    kids: 'submenu',
+  },
+  /**
+   * EVENT
+   */
+  event: {
+    default: 'default',
+    specialdetail: 'detail',
+    eventdetail: 'detail',
+  },
+  /**
+   * SEARCH
+   */
   search: {
+    default: 'title',
     category: 'category',
     brand: 'brand',
     keyword: 'keyword',
@@ -25,6 +44,7 @@ export const LAYOUT_TYPE = {
  *  search: boolean,
  *  cart: boolean,
  *  menu: boolean,
+ *  submenu: boolean,
  *  category: boolean,
  *  filter: boolean,
  *  slide: boolean,
@@ -41,22 +61,9 @@ export const LAYOUT_TYPE = {
  * layout properties
  */
 export const layouts = {
-  main: {
-    type: 'main',
-    headerFlags: {
-      logo: true,
-      burger: true,
-      search: true,
-      cart: true,
-      menu: true,
-      slide: true,
-      plugins: {
-        top: true,
-        kakao: true,
-        recent: true,
-      },
-    },
-  },
+  /**
+   * DEFAULT
+   */
   default: {
     type: 'default',
     headerFlags: {
@@ -73,8 +80,47 @@ export const layouts = {
       },
     },
   },
-  specialdetail: {
-    type: 'specialdetail',
+  /**
+   * HOME
+   */
+  home: {
+    type: 'home',
+    headerFlags: {
+      logo: true,
+      burger: true,
+      search: true,
+      cart: true,
+      menu: true,
+      slide: true,
+      plugins: {
+        top: true,
+        kakao: true,
+        recent: true,
+      },
+    },
+  },
+  submenu: {
+    type: 'submenu',
+    headerFlags: {
+      logo: true,
+      burger: true,
+      search: true,
+      cart: true,
+      menu: true,
+      submenu: true,
+      slide: true,
+      plugins: {
+        top: true,
+        kakao: true,
+        recent: true,
+      },
+    },
+  },
+  /**
+   * DETAIL
+   */
+  detail: {
+    type: 'detail',
     headerFlags: {
       title: true,
       burger: true,
@@ -88,15 +134,17 @@ export const layouts = {
       },
     },
   },
-  category: {
-    type: 'category',
+  /**
+   * SEARCH
+   */
+  condition: {
+    type: 'condition',
     headerFlags: {
       title: true,
       back: true,
       burger: true,
       search: true,
       cart: true,
-      category: true,
       filter: true,
       slide: true,
       plugins: {
@@ -123,11 +171,16 @@ export const layouts = {
       },
     },
   },
-  keyword: {
-    type: 'keyword',
+  category: {
+    type: 'category',
     headerFlags: {
+      title: true,
+      back: true,
+      burger: true,
+      search: true,
+      cart: true,
+      category: true,
       filter: true,
-      searchbox: true,
       slide: true,
       plugins: {
         top: true,
@@ -136,15 +189,11 @@ export const layouts = {
       },
     },
   },
-  condition: {
-    type: 'condition',
+  keyword: {
+    type: 'keyword',
     headerFlags: {
-      title: true,
-      back: true,
-      burger: true,
-      search: true,
-      cart: true,
       filter: true,
+      searchbox: true,
       slide: true,
       plugins: {
         top: true,

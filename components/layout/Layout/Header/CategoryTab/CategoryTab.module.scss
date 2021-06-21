@@ -30,7 +30,7 @@
       &::after {
         position: absolute;
         top: 7px;
-        left: 50%;
+        left: calc(50% - 2px);
         background-color: #5d2ed1;
         content: '';
         width: 3px;

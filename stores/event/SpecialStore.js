@@ -42,7 +42,6 @@ export default class SpecialStore {
           this.specialListMain = res.data.data;
           this.specialList = res.data.data;
           this.status.page = true;
-          devLog(toJS(this.specialList), 'special list');
         })
         .catch((err) => {
           console.error(err, 'special list get error');
@@ -54,7 +53,6 @@ export default class SpecialStore {
         .then((res) => {
           this.specialList = [...res.data.data];
           this.status.page = true;
-          devLog(toJS(this.specialList), 'special list');
         })
         .catch((err) => {
           console.error(err, 'special list get error');

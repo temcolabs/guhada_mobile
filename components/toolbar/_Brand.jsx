@@ -2,7 +2,7 @@ import React, { Fragment, useRef, useState, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import css from './Brand.module.scss';
 import cn from 'classnames';
-import { isNil, debounce } from 'lodash';
+import { isNil as _isNil, debounce as _debounce } from 'lodash';
 import { sendBackToLogin } from 'childs/lib/router';
 import useStores from 'stores/useStores';
 import Image from 'components/atoms/Image';
@@ -26,7 +26,7 @@ function _Brand({ isVisible, fromHeader, onClose, onCloseMenu }) {
 
   const [brandLabel, setBrandLabel] = useState('A'); // Current brand label
   const [isFavorite, setIsFavorite] = useState(false); // Favorite menu Active / InActive\
-  const { login, brands, searchitem } = useStores();
+  const { login, brands, searchByFilter: searchByFilterStore } = useStores();
 
   const userId = login?.loginInfo?.userId;
 
@@ -59,7 +59,7 @@ function _Brand({ isVisible, fromHeader, onClose, onCloseMenu }) {
     const brandHeader = 70;
     const _fromHeader = fromHeader === true ? 0 : 60;
 
-    if (isNil(target) === false) {
+    if (_isNil(target) === false) {
       const clientRect = target.getBoundingClientRect(); // DomRect 구하기 (각종 좌표값이 들어있는 객체)
       const relativeTop = clientRect.top; // Viewport의 시작지점을 기준으로한 상대좌표 Y 값.
       const scrolledTopLength = brandScrollRef.current.scrollTop; // 스크롤된 길이
@@ -111,7 +111,7 @@ function _Brand({ isVisible, fromHeader, onClose, onCloseMenu }) {
   const toSearch = (id) => {
     onClose();
     if (!!fromHeader) onCloseMenu();
-    searchitem.toSearch({ brand: id, enter: 'brand' });
+    searchByFilterStore.initializeSearch({ brandIds: [id] });
   };
 
   const toFilterLabel = (filter) =>
@@ -123,7 +123,7 @@ function _Brand({ isVisible, fromHeader, onClose, onCloseMenu }) {
    * Case2 : scrollTop < target
    * Case3 : nextTarget < scrollTop
    */
-  const toScrollFilterLabel = debounce(
+  const toScrollFilterLabel = _debounce(
     (e) =>
       setBrandLabel((prevLabel) => {
         const curLabel = `brand${prevLabel}`;
@@ -212,7 +212,7 @@ function _Brand({ isVisible, fromHeader, onClose, onCloseMenu }) {
             {brands.selectedLanguage === 'english'
               ? brands.enFilter.map((enbind, enIndex) => {
                   if (
-                    isNil(brands.enList[enbind]) === false &&
+                    _isNil(brands.enList[enbind]) === false &&
                     brands.enList[enbind].length > 0
                   )
                     return (
@@ -265,7 +265,7 @@ function _Brand({ isVisible, fromHeader, onClose, onCloseMenu }) {
                 })
               : brands.koFilter.map((kobind, koIndex) => {
                   if (
-                    isNil(brands.koList[kobind]) === false &&
+                    _isNil(brands.koList[kobind]) === false &&
                     brands.koList[kobind].length > 0
                   )
                     return (

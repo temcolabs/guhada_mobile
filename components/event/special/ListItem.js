@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import css from './ListItem.module.scss';
 import moment from 'moment';
 import { pushRoute } from 'childs/lib/router';
@@ -16,11 +16,12 @@ function ListItem({ data }) {
       ? setEndDate(moment(data.eventEndDate).format('YYYY. MM. DD'))
       : setEndDate(null);
   }, [data]);
+
   return (
     <div className={css.eventItem}>
       <div
         className={
-          data.detailPageUrl || data.detailPageLink ? css.detailTrue : null
+          (data.detailPageUrl || data.detailPageLink) && css.detailTrue
         }
         onClick={() => {
           pushRoute(`/event/special/${data.id}`);

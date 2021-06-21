@@ -16,7 +16,7 @@ const menuList = [
   ['타임딜', '/event/timedeal'],
   ['럭키드로우', '/event/luckydraw'],
   ['기획전', '/event/special'],
-  ['이벤트', '/event'],
+  ['이벤트', '/event/eventmain'],
 ];
 
 function MenuTab() {
@@ -75,7 +75,6 @@ function MenuTab() {
             className={cn(
               css['tab-item'],
               css['selected'],
-
               (name === '타임딜' || name === '럭키드로우') && css['event']
             )}
             ref={selectedRef}
@@ -88,7 +87,6 @@ function MenuTab() {
             key={name}
             className={cn(
               css['tab-item'],
-
               (name === '타임딜' || name === '럭키드로우') && css['event']
             )}
           >

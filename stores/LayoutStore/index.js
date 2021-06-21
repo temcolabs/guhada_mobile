@@ -198,28 +198,29 @@ class LayoutStore {
 }
 
 export function getLayoutInfo({ pathname, query }) {
-  const dirs = pathname.split('/');
-  const path = dirs[dirs.length - 1] || 'default';
+  let [path, subpath] = pathname.split('/').slice(1);
+  if (!path) {
+    path = 'home';
+  }
 
   const { category, brand, keyword, condition } = query;
-
-  let subtype;
   if (path === 'search') {
     if (condition) {
-      subtype = 'condition';
+      subpath = 'condition';
     } else if (keyword) {
-      subtype = 'keyword';
+      subpath = 'keyword';
     } else if (brand) {
-      subtype = 'brand';
+      subpath = 'brand';
     } else if (category) {
-      subtype = 'category';
+      subpath = 'category';
     }
   }
 
-  let type = LAYOUT_TYPE[path] || 'main';
-  if (subtype && typeof type === 'object') {
-    type = LAYOUT_TYPE[path][subtype] || 'default';
+  let type = LAYOUT_TYPE[path] || 'default';
+  if (typeof type === 'object') {
+    type = LAYOUT_TYPE[path][subpath] || LAYOUT_TYPE[path].default;
   }
+
   return layouts[type];
 }
 

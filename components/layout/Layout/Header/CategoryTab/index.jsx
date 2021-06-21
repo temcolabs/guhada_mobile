@@ -3,11 +3,13 @@ import cn from 'classnames';
 import { observer } from 'mobx-react';
 import useStores from 'stores/useStores';
 import { useHorizontalArrows } from 'hooks';
+import { useRouter } from 'next/router';
 
 const CategoryTab = () => {
   /**
    * states
    */
+  const router = useRouter();
   const { layout: layoutStore } = useStores();
   const { category } = layoutStore.headerInfo;
   const [scrollRef, arrowLeft, arrowRight] = useHorizontalArrows([category]);
@@ -61,7 +63,8 @@ const CategoryTab = () => {
           <>
             <div
               className={css['tab-item']}
-              onClick={(e) => handleClick(category.parent.id, e.target)}
+              // onClick={(e) => handleClick(category.parent.id, e.target, true)}
+              onClick={router.back}
             >
               전체보기
             </div>

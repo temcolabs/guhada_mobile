@@ -7,15 +7,15 @@ import API from 'childs/lib/API';
 import isServer, { isBrowser } from 'childs/lib/common/isServer';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
 import Layout from 'components/layout/Layout';
-import SpecialDetail from 'template/event/SpecialDetail';
+import EventDetail from 'template/event/EventDetail';
 import MountLoading from 'components/atoms/Misc/MountLoading';
 
-function SpecialDetailPage() {
+function EventDetailPage() {
   /**
    * states
    */
-  const { newSpecial: newSpecialStore } = useStores();
-  const headData = newSpecialStore.headData;
+  const { newEvent: newEventStore } = useStores();
+  const headData = newEventStore.headData;
   const router = useRouter();
 
   /**
@@ -26,7 +26,7 @@ function SpecialDetailPage() {
       window.scrollTo(0, 0);
     }
     const eventId = router.query.id;
-    newSpecialStore.fetchSpecialDetail(eventId);
+    newEventStore.fetchEventDetail(eventId);
   }, []);
 
   /**
@@ -35,31 +35,31 @@ function SpecialDetailPage() {
   return (
     <>
       <HeadForSEO
-        pageName={headData.pageName || '기획전'}
+        pageName={headData.pageName || '이벤트'}
         description={headData.description}
         image={headData.image}
       />
-      <Layout title={'기획전'}>
-        {newSpecialStore.isLoading && <MountLoading />}
-        <SpecialDetail />
+      <Layout title={'이벤트'}>
+        {newEventStore.isLoading && <MountLoading />}
+        <EventDetail />
       </Layout>
     </>
   );
 }
 
-SpecialDetailPage.getInitialProps = async function({ req, pathname, query }) {
+EventDetailPage.getInitialProps = async function({ req, pathname, query }) {
   if (isServer) {
     try {
       const eventId = query.id || req.query.id;
       if (!eventId) {
-        throw new Error('Invalid request - eventId not found');
+        throw new Error('Invalid requet - eventId not found');
       }
 
       const { data } = await API.settle.get(
-        `/plan/list/detail?eventId=${eventId}`
+        `/event/list/detail?eventId=${eventId}`
       );
 
-      const specialDetail = data.data;
+      const eventDetail = data.data;
 
       const { type, headerFlags } = getLayoutInfo({
         pathname,
@@ -68,14 +68,14 @@ SpecialDetailPage.getInitialProps = async function({ req, pathname, query }) {
 
       return {
         initialState: {
-          newSpecial: {
+          eventmain: {
             eventId,
-            specialDetail,
+            eventDetail,
           },
-          layout: {
-            type,
-            headerFlags,
-          },
+        },
+        layout: {
+          type,
+          headerFlags,
         },
       };
     } catch (error) {
@@ -86,4 +86,4 @@ SpecialDetailPage.getInitialProps = async function({ req, pathname, query }) {
   return {};
 };
 
-export default observer(SpecialDetailPage);
+export default observer(EventDetailPage);

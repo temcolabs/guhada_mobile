@@ -2,8 +2,9 @@ import css from './Header.module.scss';
 import { useState, memo } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
-import { pushRoute } from 'childs/lib/router';
+import { useRouter } from 'next/router';
 import MenuTab from './MenuTab';
+import SubmenuTab from './SubmenuTab';
 import CategoryTab from './CategoryTab';
 import BurgerModal from 'components/header/HeaderMenu';
 import SearchModal from 'components/header/SearchMenu';
@@ -19,6 +20,7 @@ const Header = ({
   search,
   cart,
   menu,
+  submenu,
   category,
   filter,
   slide,
@@ -28,6 +30,7 @@ const Header = ({
   /**
    * states
    */
+  const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(0);
 
   /**
@@ -46,7 +49,7 @@ const Header = ({
               {back && (
                 <div
                   className={cn(css['button'], css['button--back'])}
-                  onClick={() => window && window.history.back()}
+                  onClick={router.back}
                 />
               )}
               {burger && (
@@ -58,7 +61,7 @@ const Header = ({
               {logo && (
                 <div
                   className={cn(css['button'], css['button--logo'])}
-                  onClick={() => pushRoute('/')}
+                  onClick={() => router.push('/')}
                 />
               )}
             </div>
@@ -67,7 +70,7 @@ const Header = ({
               {home && (
                 <div
                   className={cn(css['button'], css['button--home'])}
-                  onClick={() => pushRoute('/')}
+                  onClick={() => router.push('/')}
                 />
               )}
               {search && (
@@ -79,13 +82,14 @@ const Header = ({
               {cart && (
                 <div
                   className={cn(css['button'], css['button--cart'])}
-                  onClick={() => pushRoute('/shoppingcart')}
+                  onClick={() => router.push('/shoppingcart')}
                 />
               )}
             </div>
           </div>
         )}
         {menu && <MenuTab />}
+        {submenu && <SubmenuTab />}
         {category && <CategoryTab />}
       </nav>
       {filter && <FilterOption hide={isScrollDown} float />}
@@ -115,6 +119,7 @@ Header.propTypes = {
   search: PropTypes.bool,
   cart: PropTypes.bool,
   menu: PropTypes.bool,
+  submenu: PropTypes.bool,
   category: PropTypes.bool,
   filter: PropTypes.bool,
   slide: PropTypes.bool,

@@ -7,21 +7,21 @@ import HeadForSEO from 'childs/lib/components/HeadForSEO';
 import Layout from 'components/layout/Layout';
 import MountLoading from 'components/atoms/Misc/MountLoading';
 import Footer from 'components/footer/Footer';
-import SpecialList from 'template/event/SpecialList';
+import EventMain from 'template/event/EventMain';
 
-function SpecialPage() {
+function EventMainPage() {
   /**
    * states
    */
-  const { special: specialStore, newSpecial: newSpecialStore } = useStores();
+  const { eventmain: eventMainStore, newEvent: newEventStore } = useStores();
 
   /**
    * side effects
    */
   useEffect(() => {
-    newSpecialStore.resetSpecialData();
-    if (specialStore.specialList.length === 0) {
-      specialStore.getSpecialList();
+    newEventStore.resetEventData();
+    if (eventMainStore.eventList.length === 0) {
+      eventMainStore.getEventList();
     }
   }, []);
 
@@ -30,17 +30,17 @@ function SpecialPage() {
    */
   return (
     <>
-      <HeadForSEO />
+      <HeadForSEO pageName="이벤트" />
       <Layout>
-        {specialStore.specialList.length === 0 && <MountLoading />}
-        <SpecialList />
+        {eventMainStore.eventList.length === 0 && <MountLoading />}
+        <EventMain />
         <Footer />
       </Layout>
     </>
   );
 }
 
-SpecialPage.getInitialProps = function({ pathname, query }) {
+EventMainPage.getInitialProps = function({ pathname, query }) {
   if (isServer) {
     const { type, headerFlags } = getLayoutInfo({ pathname, query });
     return {
@@ -55,4 +55,4 @@ SpecialPage.getInitialProps = function({ pathname, query }) {
   return {};
 };
 
-export default observer(SpecialPage);
+export default observer(EventMainPage);

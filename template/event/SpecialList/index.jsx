@@ -1,12 +1,18 @@
-import { observer } from 'mobx-react';
 import css from './SpecialList.module.scss';
+import { observer } from 'mobx-react';
 import ListItem from 'components/event/special/ListItem';
 import Filter from 'components/event/special/Filter';
 import useStores from 'stores/useStores';
 
 function SpecialList() {
+  /**
+   * states
+   */
   const { special: specialStore } = useStores();
 
+  /**
+   * render
+   */
   return (
     <div className={css.wrap}>
       <div className={css.dashBoard}>
@@ -24,7 +30,7 @@ function SpecialList() {
 
       {specialStore.specialList?.length > 0 && (
         <div className={css.specialListWrap}>
-          {specialStore.specialList?.map((data, index) => {
+          {specialStore.specialList.map((data, index) => {
             return <ListItem key={index} data={data} />;
           })}
         </div>
