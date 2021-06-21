@@ -40,9 +40,7 @@ class TimeDeal extends Component {
               })}
             </div>
           ) : (
-            <div className={css.empty}>
-              진행 중인 타임딜이 없습니다.
-            </div>
+            <div className={css.empty}>진행 중인 타임딜이 없습니다.</div>
           )}
         </div>
       </DefaultLayout>
