@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import TimeDeal from 'template/home/TimeDeal';
+import TimeDeal from 'template/Home/TimeDeal';
 import LoadingPortal from 'components/common/loading/Loading';
 import { observer, inject } from 'mobx-react';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';

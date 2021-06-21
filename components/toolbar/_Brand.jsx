@@ -20,7 +20,7 @@ const IMAGE_PATH = {
  * @param {Function} onCloseMenu
  * @returns
  */
-function _Brand({ isVisible, fromHeader, onClose, onCloseMenu }) {
+function _Brand({ isVisible, fromHeader, onClose, onCloseMenu, routerPush }) {
   const brandScrollRef = useRef(null); // Brand section
   const brandRef = useRef(null); // Brand items
 
@@ -111,7 +111,7 @@ function _Brand({ isVisible, fromHeader, onClose, onCloseMenu }) {
   const toSearch = (id) => {
     onClose();
     if (!!fromHeader) onCloseMenu();
-    searchByFilterStore.initializeSearch({ brandIds: [id] });
+    routerPush(`/search?brand=${id}`);
   };
 
   const toFilterLabel = (filter) =>

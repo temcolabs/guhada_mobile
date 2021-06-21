@@ -1,8 +1,7 @@
-import React from 'react';
 import css from './Error.module.scss';
 import { pushRoute } from 'childs/lib/router';
 
-export default function Error() {
+function Error() {
   return (
     <div className={css.wrap}>
       <div className={css.errorImg} />
@@ -19,3 +18,5 @@ export default function Error() {
     </div>
   );
 }
+
+export default Error;

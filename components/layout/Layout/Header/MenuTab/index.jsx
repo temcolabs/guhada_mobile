@@ -16,7 +16,7 @@ const menuList = [
   ['타임딜', '/event/timedeal'],
   ['럭키드로우', '/event/luckydraw'],
   ['기획전', '/event/special'],
-  ['이벤트', '/event/eventmain'],
+  ['이벤트', '/event'],
 ];
 
 function MenuTab() {
@@ -69,7 +69,7 @@ function MenuTab() {
   return (
     <div className={css['menu-tab']} ref={scrollRef}>
       {menuList.map(([name, path]) =>
-        router.pathname === path ? (
+        router.asPath === path ? (
           <div
             key={name}
             className={cn(

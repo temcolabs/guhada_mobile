@@ -42,7 +42,7 @@ const DealItem = ({
       <div className={css['description__brand']}>{deal.brandName}</div>
       <div className={css['description__name']}>{deal.dealName}</div>
       <div className={css['description__price']}>
-        {deal.setDiscount ? (
+        {deal.setDiscount || deal.discountPrice ? (
           <>
             <div className={css['price--discount-price']}>
               {deal.discountPrice.toLocaleString()}
@@ -65,10 +65,12 @@ const DealItem = ({
       )}
       {thumbnail > -1 && thumbnail !== 2 && displayTags && (
         <div className={css['description__tags']}>
-          {deal.internationalShipping && (
+          {deal.internationalShipping ? (
             <span className={css['tag']}>해외배송</span>
+          ) : (
+            <span className={css['tag']}>국내배송</span>
           )}
-          {!deal.freeShipping && <span className={css['tag']}>유료배송</span>}
+          {deal.freeShipping && <span className={css['tag']}>무료배송</span>}
           {!deal.brandNew && <span className={css['tag']}>빈티지</span>}
         </div>
       )}
