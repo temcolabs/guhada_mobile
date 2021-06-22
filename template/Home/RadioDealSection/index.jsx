@@ -1,4 +1,5 @@
 import css from './RadioDealSection.module.scss';
+import cn from 'classnames';
 import { useState, memo } from 'react';
 import PropTypes from 'prop-types';
 import DealItems from 'components/organisms/DealItems';
@@ -27,7 +28,7 @@ const RadioDealSection = ({
         {options.map(({ name, koName }) => (
           <div
             key={name}
-            className={selected === name && css['selected']}
+            className={cn(selected === name && css['selected'])}
             checked={selected === name}
             onClick={() => setSelected(name)}
           >
@@ -39,6 +40,7 @@ const RadioDealSection = ({
         return (
           selected === name && (
             <DealItems
+              key={name}
               deals={dealObject[name].slice(0, count)}
               isLazy={isLazy}
             />

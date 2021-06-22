@@ -2,15 +2,14 @@ import css from './Navigation.module.scss';
 import { useState, memo } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
-import { useRouter } from 'next/router';
 import ToolbarCategory from 'components/toolbar/ToolbarCategory';
 import ToolbarBrand from 'components/toolbar/ToolbarBrand';
+import { pushRoute } from 'childs/lib/router';
 
 const Navigation = ({ type }) => {
   /**
    * states
    */
-  const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(0);
 
   /**
@@ -20,7 +19,7 @@ const Navigation = ({ type }) => {
     if (type === id) {
       window.scrollTo(0, 0);
     } else {
-      router.push(route);
+      pushRoute(route);
     }
   };
 
@@ -53,9 +52,9 @@ const Navigation = ({ type }) => {
         className={cn(
           css['nav-button'],
           css['button--home'],
-          type === 'home' && css['selected']
+          type === 'index' && css['selected']
         )}
-        onClick={() => handleClick('home', '/')}
+        onClick={() => handleClick('index', '/')}
       >
         홈
       </div>

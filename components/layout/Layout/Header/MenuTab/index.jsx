@@ -3,7 +3,7 @@ import { useEffect, memo, useRef } from 'react';
 import { useRouter } from 'next/router';
 import cn from 'classnames';
 import { useHorizontalArrows } from 'hooks';
-import Link from 'next/link';
+import { pushRoute } from 'childs/lib/router';
 
 const menuList = [
   ['홈', '/'],
@@ -27,6 +27,9 @@ function MenuTab() {
   /**
    * handlers
    */
+  const handleClick = (path) => {
+    pushRoute(path);
+  };
   const handleClickSelected = () => {
     scrollRef.current.scrollTo({
       left:
@@ -54,6 +57,7 @@ function MenuTab() {
    * side effect
    */
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (selectedRef.current) {
       scrollRef.current.scrollLeft =
         selectedRef.current.offsetLeft +
@@ -89,10 +93,9 @@ function MenuTab() {
               css['tab-item'],
               (name === '타임딜' || name === '럭키드로우') && css['event']
             )}
+            onClick={() => handleClick(path)}
           >
-            <Link href={path}>
-              <a>{name}</a>
-            </Link>
+            {name}
           </div>
         )
       )}

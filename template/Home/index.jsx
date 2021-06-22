@@ -86,7 +86,7 @@ function Home() {
   return (
     <div className={css['home']}>
       {/* TOP SLIDE BANNER */}
-      {/* <SlideBanner imageFile={mainData.mainBannerList} /> */}
+      <SlideBanner />
 
       {/* FOCUS ON */}
       {/* <MainSideBanner
@@ -112,7 +112,11 @@ function Home() {
       {/* HOT KEYWORD */}
       <SlideSection header={'HOT KEYWORD'}>
         {hotKeyword.map((item) => (
-          <HotKeywordItem item={item} handleClick={handleKeywordItemClick} />
+          <HotKeywordItem
+            key={item.id}
+            item={item}
+            handleClick={handleKeywordItemClick}
+          />
         ))}
       </SlideSection>
 
@@ -133,7 +137,7 @@ function Home() {
       {/* BEST REVIEW */}
       <SlideSection header={'BEST REVIEW'}>
         {bestReview.map((item) => (
-          <BestReviewItem item={item} />
+          <BestReviewItem key={item.id} item={item} />
         ))}
       </SlideSection>
 

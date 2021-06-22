@@ -38,7 +38,11 @@ const Header = ({
    */
   return (
     <header
-      className={cn(css['header'], slide && isScrollDown && css['scroll-down'])}
+      className={cn(
+        css['header'],
+        slide && isScrollDown && css['scroll-down'],
+        typeof window === 'object' && window.scrollY > 50 && css['sticky']
+      )}
     >
       <nav className={css['header__tabs']}>
         {searchbox ? (

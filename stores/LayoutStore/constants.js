@@ -6,8 +6,8 @@ export const LAYOUT_TYPE = {
   /**
    * HOME
    */
-  home: {
-    default: 'home',
+  index: {
+    default: 'index',
     women: 'submenu',
     men: 'submenu',
     kids: 'submenu',
@@ -83,8 +83,8 @@ export const layouts = {
   /**
    * HOME
    */
-  home: {
-    type: 'home',
+  index: {
+    type: 'index',
     headerFlags: {
       logo: true,
       burger: true,

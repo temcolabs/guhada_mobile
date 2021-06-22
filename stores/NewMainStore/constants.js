@@ -1,8 +1,8 @@
 import detectDevice from 'childs/lib/common/detectDevice';
 
 export const pageTypes = {
-  home: {
-    type: 'home',
+  index: {
+    type: 'index',
     name: 'ALL',
     koName: '전체',
     unitPerPage: {

@@ -21,7 +21,7 @@ class MainStore {
   /**
    * observables
    */
-  @observable pageType = pageTypes.home;
+  @observable pageType = pageTypes.index;
   @observable initial = {
     /* search */
     premiumItem: true,
@@ -78,7 +78,7 @@ class MainStore {
   }
 
   @action initialize() {
-    this.setPageType('home');
+    this.setPageType('index');
 
     if (this.loadable) {
       services.forEach((service) => {

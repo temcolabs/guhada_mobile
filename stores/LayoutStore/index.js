@@ -200,7 +200,7 @@ class LayoutStore {
 export function getLayoutInfo({ pathname, query }) {
   let [path, subpath] = pathname.split('/').slice(1);
   if (!path) {
-    path = 'home';
+    path = 'index';
   }
 
   const { category, brand, keyword, condition } = query;
@@ -216,7 +216,7 @@ export function getLayoutInfo({ pathname, query }) {
     }
   }
 
-  let type = LAYOUT_TYPE[path] || 'default';
+  let type = LAYOUT_TYPE[path] || LAYOUT_TYPE.default;
   if (typeof type === 'object') {
     type = LAYOUT_TYPE[path][subpath] || LAYOUT_TYPE[path].default;
   }

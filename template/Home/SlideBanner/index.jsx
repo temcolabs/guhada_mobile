@@ -1,93 +1,85 @@
-import React, { Component } from 'react';
 import css from './SlideBanner.module.scss';
+import './SlideBannerSlick.scss';
+import { useState, useEffect } from 'react';
+import { observer } from 'mobx-react';
 import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.scss';
 import 'slick-carousel/slick/slick-theme.scss';
+import 'slick-carousel/slick/slick.scss';
+import useStores from 'stores/useStores';
 import { pushRoute } from 'childs/lib/router';
-import { inject } from 'mobx-react';
 
-@inject('special')
-class SlideBanner extends Component {
-  state = {
-    index: 0,
-  };
+function SlideBanner() {
+  /**
+   * states
+   */
+  const [index, setIndex] = useState(0);
+  const { newMain: newMainStore, special: specialStore } = useStores();
+  const mainBannerList = newMainStore.mainData.mainBannerList;
 
-  componentDidMount() {
-    const { imageFile } = this.props;
-    let imageLength = imageFile.filter((image) => image.mainUse === true)
-      .length;
+  /**
+   * side effects
+   */
+  useEffect(() => {
+    const slickDots = document.querySelector('.slickDots');
 
-    if (document.querySelector('.slickDots')) {
-      let li = document.querySelector('.slickDots').childNodes;
-
-      for (let i = 0; i < imageLength; i++) {
-        li[i].style.width = `calc((100% - 38px) / ${imageLength})`;
-        if (imageFile[i].link.includes('special')) {
-          let eventIds = imageFile[i].link.replace(/[^0-9]/g, '');
-          imageFile[i].eventIds = eventIds;
+    if (slickDots) {
+      for (let i = 0; i < mainBannerList.length; ++i) {
+        slickDots.childNodes[i].style.width = `calc((100% - 38px) / ${
+          mainBannerList.length
+        })`;
+        if (mainBannerList[i].link.includes('special')) {
+          const eventIds = mainBannerList[i].link.replace(/[^0-9]/g, '');
+          mainBannerList[i].eventIds = eventIds;
         }
       }
     }
-  }
+  }, [mainBannerList]);
 
-  componentDidUpdate(prevProps) {
-    const { imageFile } = this.props;
-    if (prevProps.imageFile !== this.props.imageFile) {
-      for (let i = 0; i < imageFile.length; i++) {
-        if (imageFile[i].link.includes('special')) {
-          let eventIds = imageFile[i].link.replace(/[^0-9]/g, '');
-          imageFile[i].eventIds = eventIds;
-        }
-      }
-    }
-  }
-
-  onBeforeChange = (oldIndex, newIndex) => {
-    this.setState({ index: newIndex });
+  /**
+   * handlers
+   */
+  const handleBeforeChange = (prevIndex, currIndex) => {
+    setIndex(currIndex);
   };
 
-  render() {
-    const settings = {
-      dots: true,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      autoplay: true,
-      autoplaySpeed: 3000,
-      cssEase: 'linear',
-      dotsClass: 'slickDots',
-      beforeChange: this.onBeforeChange,
-    };
-    const { imageFile, special } = this.props;
+  const handleClick = (image) => {
+    image.eventIds
+      ? specialStore.toSearch({ eventIds: image.eventIds })
+      : pushRoute(image.link);
+  };
 
-    return (
-      <div className={css.wrap}>
-        <Slider {...settings}>
-          {imageFile.map((image, index) => {
-            if (image.mainUse)
-              return (
-                <img
-                  className={css.dummyImage}
-                  src={image.mobileImageUrl}
-                  key={index}
-                  alt={`banner${index}`}
-                  onClick={
-                    image.eventIds
-                      ? () => special.toSearch({ eventIds: image.eventIds })
-                      : () => pushRoute(image.link)
-                  }
-                />
-              );
-            else return null;
-          })}
-        </Slider>
-        <div className={css.counter}>{`${this.state.index + 1}/${
-          imageFile.filter((image) => image.mainUse === true).length
-        }`}</div>
-      </div>
-    );
-  }
+  /**
+   * render
+   */
+  return (
+    <div className={css.wrap}>
+      <Slider
+        dots
+        dotsClass={'slickDots'}
+        infinite
+        speed={800}
+        autoplay
+        autoplaySpeed={4000}
+        beforeChange={handleBeforeChange}
+      >
+        {mainBannerList.map(
+          (image) =>
+            image.mainUse && (
+              <img
+                className={css.dummyImage}
+                src={image.mobileImageUrl}
+                key={image.id}
+                alt={image.id}
+                onClick={() => handleClick(image)}
+              />
+            )
+        )}
+      </Slider>
+      <div className={css.counter}>{`${index + 1}/${
+        mainBannerList.filter((image) => image.mainUse).length
+      }`}</div>
+    </div>
+  );
 }
 
-export default SlideBanner;
+export default observer(SlideBanner);

@@ -1,6 +1,4 @@
 .header {
-  position: -webkit-sticky;
-  position: sticky;
   top: 0;
   align-items: center;
   background-color: #fff;
@@ -13,13 +11,17 @@
     transform: translateY(-60px);
   }
 
+  &.sticky {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+
   &__tabs {
     border-bottom: 1px solid #eee;
     padding-left: 10px;
     padding-right: 10px;
 
     .tab {
-      padding-top: 2px;
       height: 58px;
       display: flex;
       align-items: center;
