@@ -1,5 +1,4 @@
 .search-menu {
-  position: fixed;
   left: 0;
   top: 61px;
   z-index: 111;
@@ -7,6 +6,10 @@
   width: 100%;
   height: calc(100vh - 60px);
   background-color: #fff;
+
+  &.fixed {
+    position: fixed;
+  }
 
   .menu__selection {
     display: flex;

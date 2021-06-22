@@ -13,23 +13,20 @@ const SearchTab = () => {
    * states
    */
   const {
+    newMain: newMainStore,
     searchByFilter: searchByFilterStore,
     keyword: keywordStore,
-    searchHolder: searchHolderStore,
   } = useStores();
   const [isExpand, setIsExpand] = useState(0);
-
-  const searchInput =
-    searchByFilterStore.abstractBody.searchQueries.length > 0
-      ? searchByFilterStore.abstractBody.searchQueries[0]
-      : '';
+  const [searchInput, setSearchInput] = useState(() =>
+    searchByFilterStore.body.searchQueries.length > 0
+      ? searchByFilterStore.body.searchQueries[0]
+      : ''
+  );
 
   /**
    * handlers
    */
-  const setSearchInput = (value) => {
-    searchByFilterStore.setAbstractFilter({ searchQueries: [value] });
-  };
   const handleBackClick = () => {
     if (isExpand) {
       setIsExpand(0);
@@ -97,7 +94,7 @@ const SearchTab = () => {
       <input
         type="text"
         value={searchInput}
-        placeholder={searchHolderStore.placeholderData?.placeholder}
+        placeholder={newMainStore.mainData.placeholder || '검색하기'}
         onKeyUp={handleKeyUp}
         onChange={(e) => setSearchInput(e.target.value)}
         onFocus={() => setIsExpand(1)}
@@ -118,11 +115,12 @@ const SearchTab = () => {
       {isExpand > 0 &&
         createPortal(
           <>
-            {isExpand === 1 && <SearchMenu handleSearch={handleSearch} />}
+            {isExpand === 1 && <SearchMenu handleSearch={handleSearch} fixed />}
             {isExpand === 2 && (
               <AutocompleteSearchMenu
                 list={keywordStore.autoCompleteList}
                 handleSearch={handleSearch}
+                fixed
               />
             )}
           </>,

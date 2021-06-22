@@ -65,7 +65,7 @@ function MenuTab() {
         scrollRef.current.clientWidth / 2 -
         10;
     }
-  }, []);
+  }, [selectedRef.current]);
 
   /**
    * render

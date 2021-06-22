@@ -7,7 +7,8 @@ import MenuTab from './MenuTab';
 import SubmenuTab from './SubmenuTab';
 import CategoryTab from './CategoryTab';
 import BurgerModal from 'components/header/HeaderMenu';
-import SearchModal from 'components/header/SearchMenu';
+// import SearchModal from 'components/header/SearchMenu';
+import SearchModal from './SearchModal';
 import FilterOption from 'components/templates/DealSection/FilterOption';
 import SearchTab from './SearchTab';
 
@@ -100,8 +101,8 @@ const Header = ({
 
       {!searchbox && (
         <SearchModal
-          isVisible={isModalOpen === 1}
-          onClose={() => setIsModalOpen(0)}
+          isModalOpen={isModalOpen === 1}
+          handleClose={() => setIsModalOpen(0)}
         />
       )}
       {burger && (

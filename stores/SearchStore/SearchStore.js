@@ -105,8 +105,9 @@ class SearchStore {
   }
   @computed get isLoadable() {
     return (
-      SearchStore.instance._state === STATE.INITIAL ||
-      SearchStore.instance._state === STATE.LOADABLE
+      SearchStore.instance._state !== STATE.LOADING &&
+      (SearchStore.instance._state === STATE.INITIAL ||
+        SearchStore.instance._state === STATE.LOADABLE)
     );
   }
   @computed get hasError() {

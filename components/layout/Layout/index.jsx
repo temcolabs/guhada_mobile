@@ -14,12 +14,13 @@ function Layout({ title, children }) {
   /**
    * states
    */
-  const { layout: layoutStore } = useStores();
+  const { layout: layoutStore, newMain: newMainStore } = useStores();
   const router = useRouter();
   const isScrollDown = useScrollDown(40);
 
   useEffect(() => {
     layoutStore.initialize(router);
+    newMainStore.initialize();
 
     window && window.addEventListener('popstate', layoutStore.popState);
 

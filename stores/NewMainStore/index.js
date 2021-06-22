@@ -61,6 +61,9 @@ class MainStore {
     mainImageSetTwoSetList: [],
     mainImageSetThreeList: [],
     mainImageSetFourList: [],
+    placeholder: '',
+    placeholderLink: '',
+    placeholderLinkMobile: '',
   };
 
   /**

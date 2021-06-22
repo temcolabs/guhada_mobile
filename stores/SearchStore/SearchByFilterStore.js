@@ -4,8 +4,6 @@ import { escape as _escape, isEqual as _isEqual } from 'lodash';
 import { getEscapedBody } from 'childs/lib/common/getEscapedBody';
 import SearchStore, { ENDPOINT, STATE } from './SearchStore';
 
-import axios from 'axios';
-
 /** body props to compare with `defaultBody` to check if initializing is needed */
 const defaultComparedBodyProps = [
   'categoryIds',
@@ -134,6 +132,8 @@ export class SearchByFilterStore extends SearchStore {
   @action search = async (concat = false) => {
     if (this.hasError) {
       console.error('API jammed!'); // TODO: error clearing logic needed
+      this.cancelTokenSource.cancel();
+      this.root.alert.showAlert('검색 오류! 다시 시도해주세요.');
       this.updateState(STATE.LOADABLE);
       return;
     }
@@ -248,7 +248,10 @@ export class SearchByFilterStore extends SearchStore {
     params = SearchByFilterStore.initialParams,
     resetUnfungibles = true
   ) => {
-    this.cancelTokenSource.cancel();
+    if (!this.isLoadable) {
+      return;
+    }
+
     this.resetData();
 
     getEscapedBody(body);

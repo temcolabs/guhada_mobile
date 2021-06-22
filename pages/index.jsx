@@ -13,13 +13,12 @@ function IndexPage() {
   /**
    * states
    */
-  const { user: userStore, newMain: newMainStore } = useStores();
+  const { user: userStore } = useStores();
 
   /**
    * side effects
    */
   useEffect(() => {
-    newMainStore.initialize();
     criteoTracker.homepage({
       email: userStore.userInfo?.email,
     });

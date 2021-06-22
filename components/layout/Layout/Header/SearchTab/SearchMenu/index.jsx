@@ -7,7 +7,7 @@ import useStores from 'stores/useStores';
 import KeywordSection from './KeywordSection';
 import RankingSection from 'template/Ranking/RankingSection';
 
-const SearchMenu = ({ handleSearch }) => {
+const SearchMenu = ({ handleSearch, fixed }) => {
   /**
    * states
    */
@@ -30,7 +30,7 @@ const SearchMenu = ({ handleSearch }) => {
    * render
    */
   return (
-    <div className={css['search-menu']}>
+    <div className={cn(css['search-menu'], fixed && css['fixed'])}>
       <div className={css['menu__selection']}>
         <div
           className={cn(
@@ -94,6 +94,7 @@ const SearchMenu = ({ handleSearch }) => {
 
 SearchMenu.propTypes = {
   handleSearch: PropTypes.func,
+  fixed: PropTypes.bool,
 };
 
 export default observer(SearchMenu);

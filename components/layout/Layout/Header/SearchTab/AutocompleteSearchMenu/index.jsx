@@ -1,9 +1,10 @@
 import css from './AutocompleteSearchMenu.module.scss';
+import cn from 'classnames';
 import PropTypes from 'prop-types';
 
-const AutocompleteSearchMenu = ({ list, handleSearch }) => {
+const AutocompleteSearchMenu = ({ list, handleSearch, fixed }) => {
   return (
-    <div className={css['search-menu']}>
+    <div className={cn(css['search-menu'], fixed && css['fixed'])}>
       {list.length > 0 &&
         list.map((text) => (
           <div
@@ -21,6 +22,7 @@ const AutocompleteSearchMenu = ({ list, handleSearch }) => {
 AutocompleteSearchMenu.propTypes = {
   list: PropTypes.any,
   handleSearch: PropTypes.func,
+  fixed: PropTypes.bool,
 };
 
 export default AutocompleteSearchMenu;
