@@ -15,12 +15,18 @@
   }
 
   &__content {
-    width: 100%;
     margin-top: 35px;
     white-space: nowrap;
     overflow-x: auto;
     overflow-y: hidden;
     padding-left: 20px;
     padding-right: 20px;
+
+    &.responsive {
+      @media screen and (min-width: 835px) {
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
   }
 }

@@ -41,7 +41,7 @@ const Header = ({
       className={cn(
         css['header'],
         slide && isScrollDown && css['scroll-down'],
-        typeof window === 'object' && window.scrollY > 50 && css['sticky']
+        typeof window === 'object' && window.scrollY > 10 && css['sticky']
       )}
     >
       <nav className={css['header__tabs']}>

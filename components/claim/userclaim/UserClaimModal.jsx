@@ -76,9 +76,6 @@ function UserClaimModal({ setUserClaimModalOpen }) {
         setUserClaimModalOpen(false);
       },
     });
-    // } else {
-    //   setUserClaimModalOpen(false);
-    // }
   };
 
   const handleSubmit = useCallback(

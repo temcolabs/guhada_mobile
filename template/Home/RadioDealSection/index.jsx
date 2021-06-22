@@ -3,6 +3,7 @@ import cn from 'classnames';
 import { useState, memo } from 'react';
 import PropTypes from 'prop-types';
 import DealItems from 'components/organisms/DealItems';
+import Spinner from 'components/atoms/Misc/Spinner';
 
 const RadioDealSection = ({
   header,
@@ -11,6 +12,7 @@ const RadioDealSection = ({
   dealObject,
   handleMoreClick,
   count,
+  isLoading,
   isLazy,
 }) => {
   /**
@@ -36,17 +38,20 @@ const RadioDealSection = ({
           </div>
         ))}
       </div>
-      {options.map(({ name }) => {
-        return (
-          selected === name && (
-            <DealItems
-              key={name}
-              deals={dealObject[name].slice(0, count)}
-              isLazy={isLazy}
-            />
-          )
-        );
-      })}
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        options.map(
+          ({ name }) =>
+            selected === name && (
+              <DealItems
+                key={name}
+                deals={dealObject[name].slice(0, count)}
+                isLazy={isLazy}
+              />
+            )
+        )
+      )}
       <button
         className={css['section__button']}
         onClick={() => handleMoreClick(selected)}
@@ -68,6 +73,7 @@ RadioDealSection.propTypes = {
   initialSelected: PropTypes.string,
   handleMoreClick: PropTypes.func,
   dealObject: PropTypes.any,
+  isLoading: PropTypes.bool,
   isLazy: PropTypes.bool,
 };
 

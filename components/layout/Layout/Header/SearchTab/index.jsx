@@ -1,10 +1,12 @@
 import css from './SearchTab.module.scss';
 import { useState, useEffect, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import cn from 'classnames';
 import { observer } from 'mobx-react';
 import useStores from 'stores/useStores';
 import SearchMenu from './SearchMenu';
 import AutocompleteSearchMenu from './AutocompleteSearchMenu';
+import { pushRoute } from 'childs/lib/router';
 
 const SearchTab = () => {
   /**
@@ -52,8 +54,8 @@ const SearchTab = () => {
 
   const handleSearch = useCallback((input) => {
     if (typeof input === 'object' && input.word) {
-      searchByFilterStore.initializeSearch({ searchQueries: [input.word] });
       keywordStore.addItem(input.word);
+      pushRoute(`/search?keyword=${input.word}`);
       setIsExpand(0);
       return;
     }
@@ -63,7 +65,7 @@ const SearchTab = () => {
     }
     setIsExpand(0);
     keywordStore.addItem(input);
-    searchByFilterStore.initializeSearch({ searchQueries: [input] });
+    pushRoute(`/search?keyword=${input}`);
   }, []);
 
   const handleDelete = () => {
@@ -113,13 +115,19 @@ const SearchTab = () => {
           onClick={() => handleSearch(searchInput)}
         />
       </div>
-      {isExpand === 1 && <SearchMenu handleSearch={handleSearch} />}
-      {isExpand === 2 && (
-        <AutocompleteSearchMenu
-          list={keywordStore.autoCompleteList}
-          handleSearch={handleSearch}
-        />
-      )}
+      {isExpand > 0 &&
+        createPortal(
+          <>
+            {isExpand === 1 && <SearchMenu handleSearch={handleSearch} />}
+            {isExpand === 2 && (
+              <AutocompleteSearchMenu
+                list={keywordStore.autoCompleteList}
+                handleSearch={handleSearch}
+              />
+            )}
+          </>,
+          document.getElementsByTagName('body')[0]
+        )}
     </div>
   );
 };

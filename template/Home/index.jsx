@@ -16,7 +16,6 @@ import PointSavingModal, {
 
 import { dealOptions } from 'stores/NewMainStore';
 import SlideBanner from './SlideBanner';
-// import FocusBanner from './FocusBanner';
 import MainSideBanner from 'components/home/MainSideBanner';
 import RadioDealSection from './RadioDealSection';
 import Banner from './Banner';
@@ -89,11 +88,11 @@ function Home() {
       <SlideBanner />
 
       {/* FOCUS ON */}
-      {/* <MainSideBanner
-        title={'FOCUS ON'}
+      <MainSideBanner
         type={'FOCUS_ON'}
-        list={mainData.mainImageSetOneSetList}
-      /> */}
+        title={'FOCUS ON'}
+        list={newMainStore.mainData.mainImageSetOneSetList}
+      />
 
       {/* PREMIUM ITEM */}
       <RadioDealSection
@@ -103,14 +102,15 @@ function Home() {
         dealObject={premiumItem}
         handleMoreClick={(value) => handleMoreClick('PLUS', value)}
         count={10}
+        isLoading={premiumItem[name].length === 0}
         isLazy={false}
       />
 
       {/* BANNER */}
-      <Banner dataList={mainData.mainImageSetTwoSetList} />
+      <MainSideBanner list={mainData.mainImageSetTwoSetList} />
 
       {/* HOT KEYWORD */}
-      <SlideSection header={'HOT KEYWORD'}>
+      <SlideSection header={'HOT KEYWORD'} responsive>
         {hotKeyword.map((item) => (
           <HotKeywordItem
             key={item.id}
@@ -130,6 +130,7 @@ function Home() {
         dealObject={bestItem}
         handleMoreClick={(value) => handleMoreClick('BEST', value)}
         count={6}
+        isLoading={bestItem[name].length === 0}
       />
 
       <div className={css['gutter']} />
@@ -142,7 +143,7 @@ function Home() {
       </SlideSection>
 
       {/* BANNER */}
-      <Banner dataList={mainData.mainImageSetThreeList} />
+      <MainSideBanner list={mainData.mainImageSetThreeList} />
 
       {/* BEST ITEM */}
       <RadioDealSection
@@ -152,10 +153,11 @@ function Home() {
         dealObject={newIn}
         handleMoreClick={(name) => handleMoreClick('NEW', name)}
         count={6}
+        isLoading={newIn[name].length === 0}
       />
 
-      {/* EVENT BANNER */}
-      <Banner dataList={mainData.mainImageSetFourList} />
+      {/* BENEFITS BANNER */}
+      <MainSideBanner list={newMainStore.mainData.mainImageSetFourList} />
 
       {/* MODALS */}
       {eventPopupStore.popupList.length > 0 &&

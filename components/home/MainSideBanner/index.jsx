@@ -1,7 +1,5 @@
 import React, { memo, useRef, useEffect } from 'react';
-import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
-
 import Slider from 'components/molecules/Slider';
 import Image from 'components/atoms/Image';
 import { Wrapper, TitleSection, SliderWrapper } from './Styled';
@@ -32,7 +30,7 @@ function MainSideBanner({ type = 'OTHERS', title, list }) {
 
       if (sliders && sliders.length) {
         sliders.forEach((o) => {
-          o.style.height = '394px';
+          o.style.height = 'calc((16 / 15) * 100vw)';
         });
       }
     }
@@ -77,4 +75,4 @@ MainSideBanner.propTypes = {
   list: PropTypes.object,
 };
 
-export default memo(observer(MainSideBanner));
+export default memo(MainSideBanner);

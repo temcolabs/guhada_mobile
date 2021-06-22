@@ -5,15 +5,22 @@ export const Wrapper = styled.div`
 `;
 
 export const SliderWrapper = styled.div`
+  ${(props) => props.type === 'FOCUS_ON' && 'height: calc((16 / 15) * 100vw);'}
+
   .slick-slide {
-    padding: ${(props) => (props.type === 'FOCUS_ON' ? '0 10px' : '')};
+    ${(props) => props.type === 'FOCUS_ON' && 'padding: 0 10px;'}
   }
   .slick-dots {
-    bottom: ${(props) => (props.type === 'FOCUS_ON' ? '420px' : '0px')};
+    ${(props) => props.type === 'FOCUS_ON' && 'bottom: 420px;'}
   }
 
   .slider-wrap {
     height: 100%;
+
+    img {
+      display: block;
+      margin: 0 auto;
+    }
   }
 `;
 

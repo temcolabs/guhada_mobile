@@ -1,8 +1,8 @@
 import css from './SlideBanner.module.scss';
-import './SlideBannerSlick.scss';
 import { useState, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import Slider from 'react-slick';
+import './SlideBannerSlick.scss';
 import 'slick-carousel/slick/slick-theme.scss';
 import 'slick-carousel/slick/slick.scss';
 import useStores from 'stores/useStores';
@@ -14,7 +14,7 @@ function SlideBanner() {
    */
   const [index, setIndex] = useState(0);
   const { newMain: newMainStore, special: specialStore } = useStores();
-  const mainBannerList = newMainStore.mainData.mainBannerList;
+  const imageList = newMainStore.mainData.mainBannerList;
 
   /**
    * side effects
@@ -23,17 +23,17 @@ function SlideBanner() {
     const slickDots = document.querySelector('.slickDots');
 
     if (slickDots) {
-      for (let i = 0; i < mainBannerList.length; ++i) {
+      for (let i = 0; i < imageList.length; ++i) {
         slickDots.childNodes[i].style.width = `calc((100% - 38px) / ${
-          mainBannerList.length
+          imageList.length
         })`;
-        if (mainBannerList[i].link.includes('special')) {
-          const eventIds = mainBannerList[i].link.replace(/[^0-9]/g, '');
-          mainBannerList[i].eventIds = eventIds;
+        if (imageList[i].link.includes('special')) {
+          const eventIds = imageList[i].link.replace(/[^0-9]/g, '');
+          imageList[i].eventIds = eventIds;
         }
       }
     }
-  }, [mainBannerList]);
+  }, [imageList]);
 
   /**
    * handlers
@@ -62,7 +62,7 @@ function SlideBanner() {
         autoplaySpeed={4000}
         beforeChange={handleBeforeChange}
       >
-        {mainBannerList.map(
+        {imageList.map(
           (image) =>
             image.mainUse && (
               <img
@@ -76,7 +76,7 @@ function SlideBanner() {
         )}
       </Slider>
       <div className={css.counter}>{`${index + 1}/${
-        mainBannerList.filter((image) => image.mainUse).length
+        imageList.filter((image) => image.mainUse).length
       }`}</div>
     </div>
   );
