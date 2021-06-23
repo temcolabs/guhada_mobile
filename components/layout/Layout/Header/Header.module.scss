@@ -1,7 +1,7 @@
 .header {
-  top: 0;
-  position: -webkit-sticky;
   position: sticky;
+  position: -webkit-sticky;
+  top: 0;
   align-items: center;
   background-color: #fff;
   width: 100%;
@@ -19,7 +19,7 @@
     padding-right: 10px;
 
     .tab {
-      height: 58px;
+      height: 60px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -72,6 +72,19 @@
 
         &.button--cart {
           background-image: url('/static/icon/header-shoppinBag.png');
+          position: relative;
+          .cart__count {
+            position: absolute;
+            right: -3px;
+            font-size: 7px;
+            text-align: center;
+            color: #fff;
+            line-height: 14px;
+            width: 15px;
+            height: 15px;
+            background-color: #5d2ed1;
+            border-radius: 50%;
+          }
         }
 
         &.button--delete {

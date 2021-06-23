@@ -1,44 +1,27 @@
-import { useEffect } from 'react';
 import { observer } from 'mobx-react';
-import useStores from 'stores/useStores';
 import isServer from 'childs/lib/common/isServer';
 import { getLayoutInfo } from 'stores/LayoutStore';
-import criteoTracker from 'childs/lib/tracking/criteo/criteoTracker';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
 import Layout from 'components/layout/Layout';
 import Footer from 'components/footer/Footer';
-import Home from 'template/Home';
+import Home from 'template/Home/Home';
 
-function IndexPage() {
-  /**
-   * states
-   */
-  const { user: userStore } = useStores();
-
-  /**
-   * side effects
-   */
-  useEffect(() => {
-    criteoTracker.homepage({
-      email: userStore.userInfo?.email,
-    });
-  }, []);
-
+function HomePage() {
   /**
    * render
    */
   return (
     <>
-      <HeadForSEO />
+      <HeadForSEO pageName={'남성'} />
       <Layout>
-        <Home />
+        <Home name={'MEN'} />
         <Footer />
       </Layout>
     </>
   );
 }
 
-IndexPage.getInitialProps = function({ pathname, query }) {
+HomePage.getInitialProps = function({ pathname, query }) {
   if (isServer) {
     const { type, headerFlags } = getLayoutInfo({ pathname, query });
     return {
@@ -50,7 +33,8 @@ IndexPage.getInitialProps = function({ pathname, query }) {
       },
     };
   }
+
   return {};
 };
 
-export default observer(IndexPage);
+export default observer(HomePage);

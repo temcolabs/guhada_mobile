@@ -1,6 +1,5 @@
 import css from './Layout.module.scss';
 import { useEffect } from 'react';
-import cn from 'classnames';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import { useRouter } from 'next/router';
@@ -14,7 +13,15 @@ function Layout({ title, children }) {
   /**
    * states
    */
-  const { layout: layoutStore, newMain: newMainStore } = useStores();
+  const {
+    layout: layoutStore,
+    newMain: newMainStore,
+    /* TODO */
+    shoppingcart: shoppingcartStore,
+    user,
+    category,
+    mypageRecentlySeen,
+  } = useStores();
   const router = useRouter();
   const isScrollDown = useScrollDown(40);
 
@@ -23,6 +30,12 @@ function Layout({ title, children }) {
     newMainStore.initialize();
 
     window && window.addEventListener('popstate', layoutStore.popState);
+
+    /* TODO */
+    const job = () => shoppingcartStore.globalGetUserShoppingCartList();
+    user.pushJobForUserInfo(job);
+    mypageRecentlySeen.init();
+    category.getCategory();
 
     return () => {
       window && window.removeEventListener('popstate', layoutStore.popState);
@@ -40,16 +53,10 @@ function Layout({ title, children }) {
           layoutStore.headerFlags.title &&
           (title || layoutStore.headerInfo.title)
         }
+        cart={shoppingcartStore.cartList.length || layoutStore.headerFlags.cart}
         isScrollDown={isScrollDown}
       />
-      <section
-        className={cn(
-          css['content'],
-          layoutStore.headerFlags.filter && css['filter-gutter']
-        )}
-      >
-        {children}
-      </section>
+      <section className={css['content']}>{children}</section>
       <Navigation type={layoutStore.type} />
       <PluginButtons
         isScrollDown={isScrollDown}

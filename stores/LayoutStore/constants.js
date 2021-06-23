@@ -6,7 +6,7 @@ export const LAYOUT_TYPE = {
   /**
    * HOME
    */
-  index: {
+  home: {
     default: 'index',
     women: 'submenu',
     men: 'submenu',

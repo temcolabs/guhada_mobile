@@ -13,11 +13,11 @@ import { loginStatus } from 'childs/lib/constant';
 function HeaderMenu({
   isVisible,
   onClose,
-  setIsCategoryVisible,
-  setCategoryId,
-  setCategoryTitle,
+  setIsCategoryVisible = () => {},
+  setCategoryId = () => {},
+  setCategoryTitle = () => {},
   login,
-  setIsBrandVisible,
+  setIsBrandVisible = () => {},
 }) {
   return (
     <SlideIn isVisible={isVisible} direction={slideDirection.LEFT}>

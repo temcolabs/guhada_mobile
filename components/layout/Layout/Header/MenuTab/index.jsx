@@ -20,6 +20,9 @@ const menuList = [
 ];
 
 function MenuTab() {
+  /**
+   * states
+   */
   const selectedRef = useRef();
   const [scrollRef, arrowLeft, arrowRight] = useHorizontalArrows();
   const router = useRouter();
@@ -58,6 +61,8 @@ function MenuTab() {
    */
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, []);
+  useEffect(() => {
     if (selectedRef.current) {
       scrollRef.current.scrollLeft =
         selectedRef.current.offsetLeft +

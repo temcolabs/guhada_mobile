@@ -14,12 +14,14 @@ function Search() {
    */
   return (
     <div className={css['search-wrapper']}>
+      {/* <FilterOption hide={isScrollDown} sticky /> */}
       <DealSection
         deals={searchByFilterStore.deals}
         isLoading={searchByFilterStore.isInitial}
         moreToLoad={searchByFilterStore.moreToLoad}
         handleLoadMore={() => searchByFilterStore.search(true)}
         thumbnail={searchByFilterStore.thumbnail}
+        filter
         filterTags
         isLazy={false}
       />

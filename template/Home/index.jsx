@@ -8,21 +8,18 @@ import sessionStorage from 'childs/lib/common/sessionStorage';
 import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
 import isTruthy from 'childs/lib/common/isTruthy';
 import { pushRoute } from 'childs/lib/router';
+import { dealOptions } from 'stores/NewMainStore';
+import SlideBanner from './SlideBanner';
+import MainSideBanner from 'components/home/MainSideBanner';
+import RadioDealSection from './RadioDealSection';
+import SlideSection from './SlideSection';
+import BestReviewItem from './BestReviewItem';
+import HotKeywordItem from './HotKeywordItem';
 
 import AppEventPopup from 'components/event/popup/AppEventPopup';
 import PointSavingModal, {
   pointSavingTypes,
 } from 'components/mypage/point/PointSavingModal';
-
-import { dealOptions } from 'stores/NewMainStore';
-import SlideBanner from './SlideBanner';
-import MainSideBanner from 'components/home/MainSideBanner';
-import RadioDealSection from './RadioDealSection';
-import Banner from './Banner';
-import SlideSection from './SlideSection';
-
-import BestReviewItem from './BestReviewItem';
-import HotKeywordItem from './HotKeywordItem';
 
 function Home() {
   /**
@@ -47,10 +44,11 @@ function Home() {
    * side effects
    */
   useEffect(() => {
-    const { query, asPath } = router;
+    const { query } = router;
     if (query.home) {
       pushRoute('/');
     }
+
     const signupSavedPointResponse = sessionStorage.get('signup');
     // 회원가입 성공 모달 표시
     if (isTruthy(signupSavedPointResponse)) {
@@ -144,7 +142,7 @@ function Home() {
       {/* BANNER */}
       <MainSideBanner list={mainData.mainImageSetThreeList} />
 
-      {/* BEST ITEM */}
+      {/* NEW IN */}
       <RadioDealSection
         header={'NEW IN'}
         options={dealOptions}

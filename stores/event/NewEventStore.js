@@ -20,7 +20,8 @@ class EventStore {
   /**
    * observables
    */
-  @observable isLoading = true;
+  @observable isLoading = false;
+  @observable isInitial = true;
   @observable eventId = NaN;
   @observable eventDetail = {};
 
@@ -51,6 +52,7 @@ class EventStore {
       return;
     }
 
+    this.isInitial = false;
     this.isLoading = true;
 
     this.eventId = eventId;
@@ -70,6 +72,7 @@ class EventStore {
   }
 
   @action resetEventData() {
+    this.isInitial = true;
     this.eventId = NaN;
     this.eventDetail = {};
   }

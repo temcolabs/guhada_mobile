@@ -83,7 +83,11 @@ const Header = ({
                 <div
                   className={cn(css['button'], css['button--cart'])}
                   onClick={() => router.push('/shoppingcart')}
-                />
+                >
+                  {typeof cart === 'number' && (
+                    <div className={css['cart__count']}>{cart}</div>
+                  )}
+                </div>
               )}
             </div>
           </div>
@@ -117,7 +121,7 @@ Header.propTypes = {
   back: PropTypes.bool,
   home: PropTypes.bool,
   search: PropTypes.bool,
-  cart: PropTypes.bool,
+  cart: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
   menu: PropTypes.bool,
   submenu: PropTypes.bool,
   category: PropTypes.bool,

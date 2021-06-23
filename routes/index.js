@@ -11,24 +11,27 @@ module.exports = [
     asPath: '/',
     name: '구하다 홈',
   },
-
+  {
+    pagePath: '/index',
+    asPath: '/home',
+    name: '구하다 홈',
+  },
   {
     // 홈 여성
-    pagePath: '/index',
+    pagePath: '/home/women',
     asPath: '/home/women',
     name: '홈 여성',
   },
-
   {
     // 홈 남성
-    pagePath: '/index',
+    pagePath: '/home/men',
     asPath: '/home/men',
     name: '홈 남성',
   },
 
   {
     // 홈 키즈
-    pagePath: '/index',
+    pagePath: '/home/kids',
     asPath: '/home/kids',
     name: '홈 키즈',
   },

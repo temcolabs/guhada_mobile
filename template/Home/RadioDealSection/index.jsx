@@ -1,11 +1,12 @@
 import css from './RadioDealSection.module.scss';
 import cn from 'classnames';
-import { useState, memo } from 'react';
+import { useState, useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
 import DealItems from 'components/organisms/DealItems';
 import Spinner from 'components/atoms/Misc/Spinner';
 
 const RadioDealSection = ({
+  radio = true,
   header,
   options,
   initialSelected,
@@ -20,24 +21,30 @@ const RadioDealSection = ({
    */
   const [selected, setSelected] = useState(initialSelected);
 
+  useEffect(() => {
+    setSelected(initialSelected);
+  }, [initialSelected]);
+
   /**
    * render
    */
   return (
     <section className={css['section']}>
       <h2 className={css['section__header']}>{header}</h2>
-      <div className={css['section__radio']}>
-        {options.map(({ name, koName }) => (
-          <div
-            key={name}
-            className={cn(selected === name && css['selected'])}
-            checked={selected === name}
-            onClick={() => setSelected(name)}
-          >
-            {koName}
-          </div>
-        ))}
-      </div>
+      {radio && (
+        <div className={css['section__radio']}>
+          {options.map(({ name, koName }) => (
+            <div
+              key={name}
+              className={cn(selected === name && css['selected'])}
+              checked={selected === name}
+              onClick={() => setSelected(name)}
+            >
+              {koName}
+            </div>
+          ))}
+        </div>
+      )}
       {isLoading ? (
         <Spinner />
       ) : (
@@ -63,6 +70,7 @@ const RadioDealSection = ({
 };
 
 RadioDealSection.propTypes = {
+  radio: PropTypes.bool,
   header: PropTypes.string,
   options: PropTypes.arrayOf(
     PropTypes.shape({

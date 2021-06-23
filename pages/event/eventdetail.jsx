@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import useStores from 'stores/useStores';
 import { getLayoutInfo } from 'stores/LayoutStore';
 import API from 'childs/lib/API';
-import isServer, { isBrowser } from 'childs/lib/common/isServer';
+import isServer from 'childs/lib/common/isServer';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
 import Layout from 'components/layout/Layout';
 import EventDetail from 'template/event/EventDetail';
@@ -22,7 +22,7 @@ function EventDetailPage() {
    * side effects
    */
   useEffect(() => {
-    if (isBrowser) {
+    if (newEventStore.isInitial) {
       window.scrollTo(0, 0);
     }
     const eventId = router.query.id;
@@ -40,7 +40,9 @@ function EventDetailPage() {
         image={headData.image}
       />
       <Layout title={'이벤트'}>
-        {newEventStore.isLoading && <MountLoading />}
+        {(newEventStore.isInitial || newEventStore.isLoading) && (
+          <MountLoading gutter />
+        )}
         <EventDetail />
       </Layout>
     </>

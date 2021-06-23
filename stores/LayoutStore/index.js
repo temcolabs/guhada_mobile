@@ -44,6 +44,8 @@ class LayoutStore {
   /**
    * observables
    */
+  @observable isInitial = true;
+
   @observable type = '';
 
   @observable headerFlags = {};
@@ -193,6 +195,11 @@ class LayoutStore {
    * @param {string} type
    */
   @action initialize = ({ pathname, query }) => {
+    if (this.isInitial) {
+      this.isInitial = false;
+      return;
+    }
+
     const { type, headerFlags } = getLayoutInfo({ pathname, query });
 
     if (this.type !== type) {
@@ -205,7 +212,7 @@ class LayoutStore {
 export function getLayoutInfo({ pathname, query }) {
   let [path, subpath] = pathname.split('/').slice(1);
   if (!path) {
-    path = 'index';
+    path = 'home';
   }
 
   const { category, brand, keyword, condition } = query;
