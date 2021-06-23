@@ -53,7 +53,7 @@ function Layout({ title, children }) {
           layoutStore.headerFlags.title &&
           (title || layoutStore.headerInfo.title)
         }
-        cart={shoppingcartStore.cartList.length || layoutStore.headerFlags.cart}
+        cart={shoppingcartStore.cartAmount || layoutStore.headerFlags.cart}
         isScrollDown={isScrollDown}
       />
       <section className={css['content']}>{children}</section>

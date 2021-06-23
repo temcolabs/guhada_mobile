@@ -197,7 +197,7 @@ class LayoutStore {
   @action initialize = ({ pathname, query }) => {
     if (this.isInitial) {
       this.isInitial = false;
-      return;
+      // return;
     }
 
     const { type, headerFlags } = getLayoutInfo({ pathname, query });
