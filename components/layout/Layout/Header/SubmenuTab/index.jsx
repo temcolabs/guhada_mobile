@@ -44,24 +44,24 @@ function SubmenuTab() {
    * render
    */
   return (
-    <div className={css['menu-tab']} ref={scrollRef}>
+    <ul className={css['menu-tab']} ref={scrollRef}>
       {categoryList && (
         <>
-          <div
+          <li
             key={categoryList.id}
             className={cn(css['tab-item'])}
             onClick={() => handleClick(categoryList.id)}
           >
             전체보기
-          </div>
+          </li>
           {categoryList.children.map((item) => (
-            <div
+            <li
               key={item.id}
               className={cn(css['tab-item'])}
               onClick={() => handleClick(item.id)}
             >
               {item.title}
-            </div>
+            </li>
           ))}
         </>
       )}
@@ -77,7 +77,7 @@ function SubmenuTab() {
           onClick={handleScrollRight}
         />
       )}
-    </div>
+    </ul>
   );
 }
 

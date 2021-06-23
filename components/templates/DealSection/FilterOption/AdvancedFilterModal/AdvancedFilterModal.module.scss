@@ -1,22 +1,18 @@
-$modalOffset: 60px;
 $guhadaColor: #5d2ed1;
 $guhadaColorLight: #8c6ed5;
 
 .filter-modal {
-  position: absolute;
   width: 100%;
-  bottom: 0;
-  left: 0;
-  height: calc(100vh - #{$modalOffset});
+  height: calc(100vh - 60px);
   background: #fff;
-  padding-bottom: 60px;
-  overflow: scroll;
+  margin-top: 60px;
+  overflow-y: scroll;
 
   .modal__offset {
     position: fixed;
     top: 0;
     width: 100%;
-    height: $modalOffset;
+    height: 60px;
 
     &::before {
       position: absolute;
@@ -41,16 +37,23 @@ $guhadaColorLight: #8c6ed5;
   }
 
   .modal__header {
-    position: sticky;
     font-size: 18px;
     font-weight: 500;
+    height: 60px;
     padding: 20px;
     border-bottom: 1px solid #eee;
   }
 
+  .modal__filters {
+    padding: 0 20px;
+    overflow-y: scroll;
+    height: calc(100vh - 180px);
+    padding-bottom: 120px;
+  }
+
   .modal__buttons {
-    position: fixed;
     display: flex;
+    position: fixed;
     width: 100%;
     height: 60px;
     font-size: 13px;
@@ -83,9 +86,5 @@ $guhadaColorLight: #8c6ed5;
       background-color: $guhadaColor;
       color: #fff;
     }
-  }
-
-  .modal__filters {
-    padding: 0 20px 40px;
   }
 }

@@ -12,6 +12,7 @@
   }
 
   .tab-item {
+    -webkit-tap-highlight-color: transparent;
     display: flex;
     align-items: center;
     font-size: 15px;

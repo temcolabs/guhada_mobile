@@ -46,7 +46,7 @@ function Layout({ title, children }) {
    * render
    */
   return (
-    <div className={css['layout']}>
+    <main className={css['layout']}>
       <Header
         {...layoutStore.headerFlags}
         title={
@@ -63,7 +63,7 @@ function Layout({ title, children }) {
         recentCount={layoutStore.recentCount}
         {...layoutStore.headerFlags.plugins}
       />
-    </div>
+    </main>
   );
 }
 

@@ -38,38 +38,38 @@ const CategoryTab = () => {
    * render
    */
   return (
-    <div className={css['category-tab']} ref={scrollRef}>
+    <ul className={css['category-tab']} ref={scrollRef}>
       {category &&
         (category.children ? (
           <>
-            <div
+            <li
               className={cn(css['tab-item'], css['selected'])}
               onClick={(e) => handleClick(undefined, e.target)}
               ref={() => scrollRef.current && scrollRef.current.scrollTo(0, 0)}
             >
               전체보기
-            </div>
+            </li>
             {category.children.map(({ id, title }) => (
-              <div
+              <li
                 key={id}
                 className={css['tab-item']}
                 onClick={(e) => handleClick(id, e.target)}
               >
                 {title}
-              </div>
+              </li>
             ))}
           </>
         ) : (
           <>
-            <div
+            <li
               className={css['tab-item']}
               // onClick={(e) => handleClick(category.parent.id, e.target, true)}
               onClick={router.back}
             >
               전체보기
-            </div>
+            </li>
             {category.parent.children.map(({ id, title, children }) => (
-              <div
+              <li
                 key={id}
                 className={cn(
                   css['tab-item'],
@@ -78,7 +78,7 @@ const CategoryTab = () => {
                 onClick={(e) => handleClick(id, e.target, !children)}
               >
                 {title}
-              </div>
+              </li>
             ))}
           </>
         ))}
@@ -94,7 +94,7 @@ const CategoryTab = () => {
           onClick={() => (scrollRef.current.scrollLeft += 300)}
         />
       )}
-    </div>
+    </ul>
   );
 };
 

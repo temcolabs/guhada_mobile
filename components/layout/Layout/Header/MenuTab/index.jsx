@@ -76,19 +76,19 @@ function MenuTab() {
    * render
    */
   return (
-    <div className={css['menu-tab']} ref={scrollRef}>
+    <ul className={css['menu-tab']} ref={scrollRef}>
       {menuList.map(([name, path]) =>
         router.asPath === path ? (
-          <div
+          <li
             key={name}
             className={cn(css['tab-item'], css['selected'])}
             ref={selectedRef}
             onClick={handleClickSelected}
           >
             {name}
-          </div>
+          </li>
         ) : (
-          <div
+          <li
             key={name}
             className={cn(
               css['tab-item'],
@@ -97,7 +97,7 @@ function MenuTab() {
             onClick={() => handleClick(path)}
           >
             {name}
-          </div>
+          </li>
         )
       )}
       {arrowLeft && (
@@ -112,7 +112,7 @@ function MenuTab() {
           onClick={handleScrollRight}
         />
       )}
-    </div>
+    </ul>
   );
 }
 
