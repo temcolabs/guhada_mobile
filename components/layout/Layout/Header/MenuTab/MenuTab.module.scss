@@ -45,7 +45,7 @@
 
     &.event {
       position: relative;
-      &::after {
+      &::before {
         position: absolute;
         top: 12px;
         right: 7px;

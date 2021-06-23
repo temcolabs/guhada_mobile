@@ -81,11 +81,7 @@ function MenuTab() {
         router.asPath === path ? (
           <div
             key={name}
-            className={cn(
-              css['tab-item'],
-              css['selected'],
-              (name === '타임딜' || name === '럭키드로우') && css['event']
-            )}
+            className={cn(css['tab-item'], css['selected'])}
             ref={selectedRef}
             onClick={handleClickSelected}
           >

@@ -4,13 +4,7 @@ import { compose } from 'lodash/fp';
 import { withRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import { observer } from 'mobx-react-lite';
-
-import { mainCategory } from 'childs/lib/constant/category';
 import { loginStatus } from 'childs/lib/constant';
-
-// layout
-import CategorySlider from 'components/common/CategorySlider';
-import DefaultLayout from 'components/layout/DefaultLayout';
 
 // molecules
 import {
@@ -60,21 +54,13 @@ function LuckyDrawTemplate() {
   /**
    * states
    */
-  const { luckyDraw, login, main } = useStores();
+  const { luckyDraw, login } = useStores();
   const { luckyDrawList } = luckyDraw?.luckyDrawData;
   const [luckyDrawModalProps, setLuckyDrawModalProps] = useState({
     ...initialStateLuckyDrawModal,
   }); // 럭키드로우 모달 상태값 State
 
   const [isActiveLuckyDrawModal, setIsActiveLuckyDrawModal] = useState(false); // 럭키드로우 모달 Flag
-
-  /**
-   * side effects
-   */
-  useEffect(() => {
-    luckyDraw.getLuckyDrawList();
-    luckyDraw.initLuckyEventData();
-  }, []);
 
   /**
    * 럭키드로우 응모완료 모달 제어
@@ -234,46 +220,38 @@ function LuckyDrawTemplate() {
         />
       )}
 
-      <DefaultLayout>
-        {/* Nav Category */}
-        <CategorySlider
-          categoryList={mainCategory.item}
-          setNavDealId={main.setNavDealId}
-        />
+      {/* Top Banner */}
+      <LuckyDrawTop />
 
-        {/* Top Banner */}
-        <LuckyDrawTop />
-
-        {/* LuckyDraw Cards */}
-        {luckyDrawList &&
-          luckyDrawList.length &&
-          (activeList && activeList.length ? (
-            activeList.map((o) => {
-              return (
-                <LuckyDrawCard
-                  {...o}
-                  key={`luckydraw-${o.dealId}`}
-                  onClickRequestLuckyDraw={onClickRequestLuckyDraw}
-                />
-              );
-            })
-          ) : (
-            <LuckyDrawEmpty />
-          ))}
-
-        {/* Draw History */}
-        {winnerList && winnerList.length ? (
-          <LuckyDrawHistory
-            winnerList={winnerList}
-            onClickHistory={onClickHistroy}
-          />
+      {/* LuckyDraw Cards */}
+      {luckyDrawList &&
+        luckyDrawList.length &&
+        (activeList && activeList.length ? (
+          activeList.map((o) => {
+            return (
+              <LuckyDrawCard
+                {...o}
+                key={`luckydraw-${o.dealId}`}
+                onClickRequestLuckyDraw={onClickRequestLuckyDraw}
+              />
+            );
+          })
         ) : (
-          ''
-        )}
+          <LuckyDrawEmpty />
+        ))}
 
-        {/* Bottom Info */}
-        <LuckyDrawBottomInfo />
-      </DefaultLayout>
+      {/* Draw History */}
+      {winnerList && winnerList.length ? (
+        <LuckyDrawHistory
+          winnerList={winnerList}
+          onClickHistory={onClickHistroy}
+        />
+      ) : (
+        ''
+      )}
+
+      {/* Bottom Info */}
+      <LuckyDrawBottomInfo />
     </>
   );
 }

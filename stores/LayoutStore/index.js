@@ -211,7 +211,7 @@ class LayoutStore {
 
 export function getLayoutInfo({ pathname, query }) {
   let [path, subpath] = pathname.split('/').slice(1);
-  if (!path) {
+  if (!path || path === 'index') {
     path = 'home';
   }
 

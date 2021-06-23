@@ -71,7 +71,7 @@ module.exports = [
 
   {
     // 타임딜
-    pagePath: '/home/timedeal',
+    pagePath: '/event/timedeal',
     asPath: '/event/timedeal',
     name: '타임딜',
   },

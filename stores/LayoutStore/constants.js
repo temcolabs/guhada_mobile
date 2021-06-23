@@ -30,6 +30,12 @@ export const LAYOUT_TYPE = {
     keyword: 'keyword',
     condition: 'condition',
   },
+  /**
+   * MYPAGE
+   */
+  mypage: {
+    default: 'mypage',
+  },
 };
 
 /**
@@ -197,6 +203,21 @@ export const layouts = {
         top: true,
         kakao: true,
         recent: true,
+      },
+    },
+  },
+  /**
+   * MYPAGE
+   */
+  mypage: {
+    type: 'mypage',
+    headerFlags: {
+      title: true,
+      search: true,
+      cart: true,
+      burger: true,
+      plugins: {
+        top: true,
       },
     },
   },
