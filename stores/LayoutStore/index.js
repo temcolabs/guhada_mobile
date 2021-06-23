@@ -2,6 +2,7 @@ import { isBrowser } from 'childs/lib/common/isServer';
 import { observable, computed, action, toJS } from 'mobx';
 import { LAYOUT_TYPE, layouts } from './constants';
 import { searchConditionMap } from '../SearchStore/SearchByFilterStore';
+import { isEmpty as _isEmpty } from 'lodash';
 import qs from 'querystring';
 
 /**
@@ -31,8 +32,12 @@ class LayoutStore {
     }
 
     if (initialState.layout) {
-      this.type = initialState.layout.type;
-      this.headerFlags = initialState.layout.headerFlags;
+      if (this.type.length === 0) {
+        this.type = initialState.layout.type;
+      }
+      if (_isEmpty(this.headerFlags)) {
+        this.headerFlags = initialState.layout.headerFlags;
+      }
     }
   }
 
@@ -221,7 +226,7 @@ export function getLayoutInfo({ pathname, query }) {
     type = LAYOUT_TYPE[path][subpath] || LAYOUT_TYPE[path].default;
   }
 
-  return layouts[type];
+  return layouts[type] || layouts.default;
 }
 
 export default LayoutStore;

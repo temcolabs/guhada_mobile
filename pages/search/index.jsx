@@ -21,6 +21,7 @@ function SearchPage() {
    */
   useEffect(() => {
     searchByFilterStore.initializePage(router.query);
+    searchByFilterStore.fetchSearchResults(router.query);
   }, []);
 
   /**

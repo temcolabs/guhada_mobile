@@ -104,11 +104,7 @@ class SearchStore {
     return SearchStore.instance._state === STATE.LOADING;
   }
   @computed get isLoadable() {
-    return (
-      SearchStore.instance._state !== STATE.LOADING &&
-      (SearchStore.instance._state === STATE.INITIAL ||
-        SearchStore.instance._state === STATE.LOADABLE)
-    );
+    return SearchStore.instance._state === STATE.LOADABLE;
   }
   @computed get hasError() {
     return SearchStore.instance._state === STATE.ERROR;
@@ -183,15 +179,6 @@ class SearchStore {
   initializeSearch = () => {
     console.error('not allowed');
   };
-
-  /**
-   * SEARCH PAGE RELATED OBSERVABLES
-   */
-  /** @param {object} query  */
-  @action initializePage(query) {
-    const state = Object.assign(window.history.state, { query });
-    this.root.layout.handlePushState.default(state, true);
-  }
 }
 
 export default SearchStore;

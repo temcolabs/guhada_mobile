@@ -7,7 +7,6 @@ import MenuTab from './MenuTab';
 import SubmenuTab from './SubmenuTab';
 import CategoryTab from './CategoryTab';
 import BurgerModal from 'components/header/HeaderMenu';
-// import SearchModal from 'components/header/SearchMenu';
 import SearchModal from './SearchModal';
 import FilterOption from 'components/templates/DealSection/FilterOption';
 import SearchTab from './SearchTab';
@@ -39,11 +38,7 @@ const Header = ({
    */
   return (
     <header
-      className={cn(
-        css['header'],
-        slide && isScrollDown && css['scroll-down'],
-        typeof window === 'object' && window.scrollY > 10 && css['sticky']
-      )}
+      className={cn(css['header'], slide && isScrollDown && css['scroll-down'])}
     >
       <nav className={css['header__tabs']}>
         {searchbox ? (

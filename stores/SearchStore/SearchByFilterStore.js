@@ -18,6 +18,7 @@ export const searchConditionMap = new Map([
   ['BEST', 'BEST ITEM'],
   ['NEW', 'NEW IN'],
 ]);
+export const searchConditions = ['PLUS', 'BEST', 'NEW'];
 /** 정렬 */
 export const searchResultOrderMap = new Map([
   ['DATE', '신상품순'],
@@ -197,7 +198,7 @@ export class SearchByFilterStore extends SearchStore {
     this.resetData();
     Object.assign(this.body, this.abstractBody);
     Object.assign(this.params, this.abstractParams);
-    this.updateState(STATE.INITIAL);
+    this.updateState(STATE.LOADABLE);
     this.search();
   };
 
@@ -216,7 +217,7 @@ export class SearchByFilterStore extends SearchStore {
     Object.assign(this.params, params);
     Object.assign(this.abstractBody, body);
     Object.assign(this.abstractParams, params);
-    this.updateState(STATE.INITIAL);
+    this.updateState(STATE.LOADABLE);
     this.search();
   };
   /** apply default filter options and call search */
@@ -234,7 +235,7 @@ export class SearchByFilterStore extends SearchStore {
     });
     Object.assign(this.params, this.defaultParams);
     Object.assign(this.abstractParams, this.defaultParams);
-    this.updateState(STATE.INITIAL);
+    this.updateState(STATE.LOADABLE);
     this.search();
   };
 
@@ -248,10 +249,6 @@ export class SearchByFilterStore extends SearchStore {
     params = SearchByFilterStore.initialParams,
     resetUnfungibles = true
   ) => {
-    if (!this.isLoadable) {
-      return;
-    }
-
     this.resetData();
 
     getEscapedBody(body);
@@ -269,7 +266,7 @@ export class SearchByFilterStore extends SearchStore {
     Object.assign(this.params, params);
     Object.assign(this.abstractBody, body);
     Object.assign(this.abstractParams, params);
-    this.updateState(STATE.INITIAL);
+    this.updateState(STATE.LOADABLE);
 
     this.search().then(() => {
       if (resetUnfungibles) {
@@ -309,24 +306,25 @@ export class SearchByFilterStore extends SearchStore {
     const body = { categoryIds, brandIds, searchQueries };
 
     if (category) {
-      categoryIds.push(_escape(category));
+      categoryIds.push(...category.split(','));
     }
     if (subcategory) {
-      categoryIds.push(_escape(subcategory));
+      categoryIds.push(...subcategory.split(','));
     }
     if (brand) {
-      brandIds.push(_escape(brand));
+      brandIds.push(...brand.split(','));
     }
     if (keyword) {
-      searchQueries.push(_escape(keyword));
+      searchQueries.push(...keyword.split(','));
     }
-    if (condition) {
-      body.searchCondition = _escape(condition);
+    if (searchConditions.includes(condition)) {
+      body.searchCondition = condition;
     }
 
     const params = { page: page || 1, unitPerPage: unitPerPage || 24 };
 
     const defaultBodyObj = toJS(this.defaultBody);
+
     if (
       !comparedBodyProps.every((prop) =>
         _isEqual(defaultBodyObj[prop], body[prop])
@@ -335,4 +333,13 @@ export class SearchByFilterStore extends SearchStore {
       this.initializeSearch(body, params, resetUnfungibles);
     }
   };
+
+  /**
+   * SEARCH PAGE RELATED OBSERVABLES
+   */
+  /** @param {object} query  */
+  @action initializePage(query) {
+    const state = Object.assign(window.history.state, { query });
+    this.root.layout.handlePushState.default(state, true);
+  }
 }

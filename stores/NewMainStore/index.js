@@ -81,14 +81,12 @@ class MainStore {
   }
 
   @action initialize() {
-    this.setPageType('index');
-
     if (this.loadable) {
-      services.forEach((service) => {
-        API_ENDPOINT[service].forEach(([dataName, endpoint]) =>
+      services.map((service) =>
+        API_ENDPOINT[service].map(([dataName, endpoint]) =>
           this.fetchData(service, dataName, endpoint)
-        );
-      });
+        )
+      );
     }
   }
 

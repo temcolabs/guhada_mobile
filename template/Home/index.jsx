@@ -41,7 +41,6 @@ function Home() {
     hotKeyword,
     bestReview,
     mainData,
-    loadable,
   } = newMainStore;
 
   /**

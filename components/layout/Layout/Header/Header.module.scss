@@ -1,5 +1,7 @@
 .header {
   top: 0;
+  position: -webkit-sticky;
+  position: sticky;
   align-items: center;
   background-color: #fff;
   width: 100%;
@@ -9,11 +11,6 @@
 
   &.scroll-down {
     transform: translateY(-60px);
-  }
-
-  &.sticky {
-    position: -webkit-sticky;
-    position: sticky;
   }
 
   &__tabs {

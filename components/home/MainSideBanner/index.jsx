@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Slider from 'components/molecules/Slider';
 import Image from 'components/atoms/Image';
 import { Wrapper, TitleSection, SliderWrapper } from './Styled';
+import { pushRoute } from 'childs/lib/router';
 
 const settings = {
   dots: true,
@@ -19,7 +20,7 @@ const settings = {
  * @param {Array} list, 슬라이드 리스트
  * @returns
  */
-function MainSideBanner({ type = 'OTHERS', title, list }) {
+function MainSideBanner({ type = 'OTHERS', title, list = [] }) {
   const sliderWrapper = useRef(null);
   /**
    * Changed slider dots position
@@ -36,8 +37,10 @@ function MainSideBanner({ type = 'OTHERS', title, list }) {
     }
   }, [sliderWrapper.current]);
 
-  const onClickImage = (mainBannerLinkUrl) => {
-    if (mainBannerLinkUrl) window.location = mainBannerLinkUrl;
+  const onClickImage = (image) => {
+    if (image.mainBannerLinkUrl) {
+      window.location = image.mainBannerLinkUrl;
+    }
   };
 
   return (
@@ -46,20 +49,20 @@ function MainSideBanner({ type = 'OTHERS', title, list }) {
       <SliderWrapper ref={sliderWrapper} type={type}>
         <Slider settings={settings}>
           {list && list.length
-            ? list.map((o, i) => (
+            ? list.map((image) => (
                 <div
                   className={'slider-wrap'}
-                  key={`focus-on-${i}`}
-                  onClick={() => onClickImage(o.mainBannerLinkUrl)}
+                  key={image.createdAt}
+                  onClick={() => onClickImage(image)}
                 >
                   {type === 'FOCUS_ON' && (
-                    <Image src={o.mainBannerMobileUrl} isLazy={false} />
+                    <Image src={image.mainBannerMobileUrl} isLazy={false} />
                   )}
                   {type === 'OTHERS' && (
                     <img
                       style={{ maxWidth: '100%' }}
                       alt={'focus on list'}
-                      src={o.mainBannerMobileUrl}
+                      src={image.mainBannerMobileUrl}
                     />
                   )}
                 </div>
@@ -72,6 +75,8 @@ function MainSideBanner({ type = 'OTHERS', title, list }) {
 }
 
 MainSideBanner.propTypes = {
+  type: PropTypes.string,
+  title: PropTypes.string,
   list: PropTypes.object,
 };
 
