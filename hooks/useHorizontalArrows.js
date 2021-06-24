@@ -12,7 +12,7 @@ import { useState, useEffect, useRef } from 'react';
 export const useHorizontalArrows = (deps = [], offset = 15) => {
   const scrollRef = useRef();
   const [arrowLeft, setArrowLeft] = useState(false);
-  const [arrowRight, setArrowRight] = useState(false);
+  const [arrowRight, setArrowRight] = useState(true);
 
   const handler = (e) => {
     if (e.target.scrollLeft > 10) {

@@ -306,13 +306,13 @@ export class SearchByFilterStore extends SearchStore {
     const body = { categoryIds, brandIds, searchQueries };
 
     if (category) {
-      categoryIds.push(...category.split(','));
+      categoryIds.push(...category.split(',').map(Number));
     }
     if (subcategory) {
-      categoryIds.push(...subcategory.split(','));
+      categoryIds.push(...subcategory.split(',').map(Number));
     }
     if (brand) {
-      brandIds.push(...brand.split(','));
+      brandIds.push(...brand.split(',')).map(Number);
     }
     if (keyword) {
       searchQueries.push(...keyword.split(','));

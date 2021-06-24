@@ -1,37 +1,62 @@
 import css from './TreeFilter.module.scss';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
 import cn from 'classnames';
 import TreeNode from './TreeNode';
 
 const TraversibleNode = ({
   children,
-  id: parentId,
+  id,
   currentIds,
   handleSetIds,
   handleRemoveIds,
 }) => {
   const handleToggleIsChecked = (id, hierarchy, isChecked, childrenIds) => {
+    const parentIds = hierarchy.split(',').map(Number);
     if (isChecked) {
-      const parentIds = hierarchy.split(',').map(Number);
       if (childrenIds) {
         handleRemoveIds([id, ...parentIds, ...childrenIds]);
       } else {
         handleRemoveIds([id, ...parentIds]);
       }
+      // if (childrenIds) {
+      //   handleRemoveIds([id, ...parentIds, ...childrenIds]);
+      // } else {
+      //   handleRemoveIds([id, ...parentIds]);
+      // }
     } else {
       if (childrenIds) {
-        handleSetIds([id, ...childrenIds]);
+        handleRemoveIds([...parentIds, ...childrenIds]);
       } else {
-        handleSetIds([id]);
+        handleRemoveIds([...parentIds]);
       }
+      handleSetIds([id]);
+      // if (childrenIds) {
+      //   handleSetIds([id, ...childrenIds]);
+      // } else {
+      //   handleSetIds([id]);
+      // }
     }
   };
 
+  const sortedChildren = toJS(children).sort((a, b) => {
+    if (a.title === '기타') {
+      return 1;
+    } else if (b.title === '기타') {
+      return -1;
+    } else if (a.title < b.title) {
+      return -1;
+    } else if (a.title > b.title) {
+      return 1;
+    }
+    return 0;
+  });
+
   return (
     <>
-      {children.map((child) => {
+      {sortedChildren.map((child) => {
         const {
           children,
           id,
@@ -40,8 +65,9 @@ const TraversibleNode = ({
           hierarchy,
           // title,
         } = child;
-        const isChecked =
-          currentIds.includes(parentId) || currentIds.includes(id);
+        const isChecked = currentIds.includes(id);
+        // const isChecked =
+        //   currentIds.includes(parentId) || currentIds.includes(id);
 
         if (!!children) {
           const childrenIds = child.children.map(({ id }) => id);

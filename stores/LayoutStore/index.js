@@ -85,11 +85,25 @@ class LayoutStore {
           const curr = stack.pop();
           if (curr.id === categoryId) {
             const { id, title, children, parent } = curr;
+
+            const sortedChildren = children?.sort((a, b) => {
+              if (a.title === '기타') {
+                return 1;
+              } else if (b.title === '기타') {
+                return -1;
+              } else if (a.title < b.title) {
+                return -1;
+              } else if (a.title > b.title) {
+                return 1;
+              }
+              return 0;
+            });
+
             return {
               title,
               category: {
                 id,
-                children,
+                children: sortedChildren,
                 parent,
               },
             };

@@ -9,10 +9,10 @@ const CategoryTab = () => {
   /**
    * states
    */
-  const router = useRouter();
   const { layout: layoutStore } = useStores();
   const { category } = layoutStore.headerInfo;
   const [scrollRef, arrowLeft, arrowRight] = useHorizontalArrows([category]);
+  const router = useRouter();
 
   /**
    * handlers
@@ -34,6 +34,19 @@ const CategoryTab = () => {
     ).then(() => scrollRef.current.scrollTo(target.offsetLeft - 30, 0));
   };
 
+  const handleScrollLeft = () => {
+    scrollRef.current.scrollTo({
+      left: scrollRef.current.scrollLeft - 330,
+      behavior: 'smooth',
+    });
+  };
+  const handleScrollRight = () => {
+    scrollRef.current.scrollTo({
+      left: scrollRef.current.scrollLeft + 330,
+      behavior: 'smooth',
+    });
+  };
+
   /**
    * render
    */
@@ -45,7 +58,6 @@ const CategoryTab = () => {
             <li
               className={cn(css['tab-item'], css['selected'])}
               onClick={(e) => handleClick(undefined, e.target)}
-              ref={() => scrollRef.current && scrollRef.current.scrollTo(0, 0)}
             >
               전체보기
             </li>
@@ -85,13 +97,13 @@ const CategoryTab = () => {
       {arrowLeft && (
         <span
           className={cn(css['tab-arrow'], css['arrow--left'])}
-          onClick={() => (scrollRef.current.scrollLeft -= 300)}
+          onClick={handleScrollLeft}
         />
       )}
       {arrowRight && (
         <span
           className={cn(css['tab-arrow'], css['arrow--right'])}
-          onClick={() => (scrollRef.current.scrollLeft += 300)}
+          onClick={handleScrollRight}
         />
       )}
     </ul>

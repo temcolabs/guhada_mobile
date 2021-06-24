@@ -83,6 +83,18 @@
         color: #5d2ed1;
         margin-left: auto;
       }
+
+      @media screen and (max-width: 355px) {
+        .price--discount-price {
+          font-size: 11px;
+        }
+        .price--sell-price {
+          font-size: 10px;
+        }
+        .price--discount-rate {
+          font-size: 11px;
+        }
+      }
     }
 
     .description__seller {

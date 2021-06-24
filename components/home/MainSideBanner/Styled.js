@@ -5,6 +5,7 @@ export const Wrapper = styled.div`
 `;
 
 export const SliderWrapper = styled.div`
+  position: relative;
   ${(props) => props.type === 'FOCUS_ON' && 'height: calc((16 / 15) * 100vw);'}
 
   .slick-slide {
@@ -12,7 +13,8 @@ export const SliderWrapper = styled.div`
   }
   .slick-dots {
     position: absolute;
-    bottom: ${(props) => (props.type === 'FOCUS_ON' ? '420px' : '5px')};
+    height: 30px;
+    ${(props) => (props.type === 'FOCUS_ON' ? 'top: -45px' : 'bottom: 0')};
   }
 
   .slider-wrap {

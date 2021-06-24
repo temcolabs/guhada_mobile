@@ -6,7 +6,7 @@ import {
   shippingConditionMap,
   productConditionMap,
 } from 'stores/SearchStore/SearchByFilterStore';
-import TagFactory from './TagFactory';
+import TagFactory, { CategorySearchTag } from './TagFactory';
 
 const FilterTags = () => {
   /**
@@ -30,7 +30,13 @@ const FilterTags = () => {
         <div className={css['tags']}>
           {body.categoryIds.length !== defaultBody.categoryIds.length && (
             <button onClick={() => resetBodyProp('categoryIds')}>
-              카테고리
+              {body.categoryIds.length <= 2 ? (
+                <CategorySearchTag
+                  categoryId={body.categoryIds[body.categoryIds.length - 1]}
+                />
+              ) : (
+                '카테고리'
+              )}
             </button>
           )}
 
