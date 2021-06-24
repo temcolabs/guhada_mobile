@@ -36,6 +36,21 @@ export const LAYOUT_TYPE = {
   mypage: {
     default: 'mypage',
   },
+  /**
+   * PRODUCT
+   */
+  product: {
+    productdetail: 'productdetail',
+  },
+  /**
+   * COMMUNITY
+   */
+  community: 'community',
+  /**
+   * NONAV
+   */
+  shoppingcart: 'noNav',
+  orderpayment: 'noNav',
 };
 
 /**
@@ -55,6 +70,7 @@ export const LAYOUT_TYPE = {
  *  filter: boolean,
  *  slide: boolean,
  *  searchbox: boolean,
+ *  noNav: boolean,
  *  plugins: {
  *    top: boolean,
  *    kakao: boolean,
@@ -217,7 +233,53 @@ export const layouts = {
       cart: true,
       burger: true,
       plugins: {
+        kakao: true,
+      },
+    },
+  },
+  /**
+   * PRODUCTDETAIL
+   */
+  productdetail: {
+    type: 'productdetail',
+    headerFlags: {
+      back: true,
+      burger: true,
+      home: true,
+      search: true,
+      cart: true,
+      noNav: true,
+      plugins: {
         top: true,
+        kakao: true,
+        recent: true,
+      },
+    },
+  },
+  /**
+   * COMMUNITY
+   */
+  community: {
+    type: 'community',
+    headerFlags: {
+      burger: true,
+      title: true,
+      search: true,
+      cart: true,
+      menu: true,
+    },
+  },
+  /**
+   * NONAV
+   */
+  noNav: {
+    type: 'noNav',
+    headerFlags: {
+      title: true,
+      back: true,
+      noNav: true,
+      plugins: {
+        kakao: true,
       },
     },
   },

@@ -28,13 +28,7 @@ class OrderPayment extends React.Component {
   render() {
     let { orderpayment } = this.props;
     return (
-      <DefaultLayout
-        pageTitle={'주문 결제'}
-        headerShape={'orderpayment'}
-        kakaoChat={false}
-        toolBar={false}
-        topButton={false}
-      >
+      <>
         <Controller />
 
         {orderpayment.status.orderProductOnOffStatus ? (
@@ -58,7 +52,9 @@ class OrderPayment extends React.Component {
         <ShippingAddress />
 
         {/* 통관 고유 번호 */}
-        {orderpayment.orderInfo.shippingPassNumber ? <InternationalShippingInput /> : null}
+        {orderpayment.orderInfo.shippingPassNumber ? (
+          <InternationalShippingInput />
+        ) : null}
 
         {/* 기타 요청 사항 */}
         <OtherRequest request={orderpayment?.orderShippingList?.otherRequest} />
@@ -79,9 +75,9 @@ class OrderPayment extends React.Component {
         {orderpayment.status.VBank ? <RefundAccount /> : null}
 
         {/* 간편 계좌 정보 */}
-        
+
         {orderpayment.status.EasyPayment ? <EasyPayment /> : null}
-        
+
         {/* 결제 동의 */}
         <PaymentAgreement />
 
@@ -89,7 +85,7 @@ class OrderPayment extends React.Component {
         <PaymentButton />
 
         <PaymentLoading isVisible={orderpayment.status.paymentProceed} />
-      </DefaultLayout>
+      </>
     );
   }
 }

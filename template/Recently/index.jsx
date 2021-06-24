@@ -2,12 +2,13 @@ import React, { useMemo } from 'react';
 import { observer } from 'mobx-react';
 import { toJS } from 'mobx';
 import useStores from 'stores/useStores';
+import css from './Recently.module.scss';
 
 import Image from 'components/atoms/Image';
-import DefaultLayout from 'components/layout/DefaultLayout';
 
 import { pushRoute } from 'childs/lib/router';
-import { useScrollDirection, useWindowSize } from 'hooks';
+import { useWindowSize } from 'hooks';
+import ModalPortal from 'components/templates/ModalPortal';
 
 import {
   RecentlyWrapper,
@@ -27,10 +28,9 @@ const IMAGE_PATH = {
   NO_DATA: '/static/icon/icon_no_data.png',
 };
 
-function RecentlyTemplate() {
+function RecentlyTemplate({ handleClose }) {
   const { mypageRecentlySeen } = useStores();
   const { width: windowWidth } = useWindowSize();
-  const scrollDirecton = useScrollDirection();
 
   const histoyItems = toJS(mypageRecentlySeen.list);
 
@@ -59,14 +59,12 @@ function RecentlyTemplate() {
   ]);
 
   return (
-    <DefaultLayout
-      pageTitle={'최근 본 상품'}
-      topLayout={'main'}
-      headerShape={'recently'}
-      kakaoChat={false}
-      scrollDirection={scrollDirecton}
-    >
+    <ModalPortal>
       <RecentlyWrapper>
+        <div className={css['header']}>
+          <div className={css['header__title']}>최근 본 상품</div>
+          <div className={css['header__close']} onClick={handleClose} />
+        </div>
         {/* 상단 메뉴 */}
         <MenuSection>
           <MenuCounts>총 {histoyItems?.length}개</MenuCounts>
@@ -114,7 +112,7 @@ function RecentlyTemplate() {
           </ContentEmpty>
         )}
       </RecentlyWrapper>
-    </DefaultLayout>
+    </ModalPortal>
   );
 }
 

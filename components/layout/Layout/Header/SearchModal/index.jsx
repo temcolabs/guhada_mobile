@@ -3,12 +3,13 @@ import { useState, useCallback } from 'react';
 import cn from 'classnames';
 import { observer } from 'mobx-react';
 import useStores from 'stores/useStores';
-import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
+// import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
+import ModalPortal from 'components/templates/ModalPortal';
 import SearchMenu from '../SearchTab/SearchMenu';
 import AutocompleteSearchMenu from '../SearchTab/AutocompleteSearchMenu';
 import { pushRoute } from 'childs/lib/router';
 
-const SearchModal = ({ isModalOpen, handleClose }) => {
+const SearchModal = ({ handleClose }) => {
   /**
    * states
    */
@@ -63,7 +64,7 @@ const SearchModal = ({ isModalOpen, handleClose }) => {
    * render
    */
   return (
-    <SlideIn isVisible={isModalOpen} direction={slideDirection.RIGHT}>
+    <ModalPortal handleClose={handleClose} slide={3}>
       <div className={css['wrapper']}>
         <div className={css['tab']}>
           <div className={css['tab__buttons']}>
@@ -102,7 +103,7 @@ const SearchModal = ({ isModalOpen, handleClose }) => {
           )}
         </div>
       </div>
-    </SlideIn>
+    </ModalPortal>
   );
 };
 

@@ -19,6 +19,7 @@ const Header = ({
   home,
   search,
   cart,
+  cartCount,
   menu,
   submenu,
   category,
@@ -26,6 +27,7 @@ const Header = ({
   slide,
   searchbox,
   isScrollDown,
+  menuList,
 }) => {
   /**
    * states
@@ -84,27 +86,24 @@ const Header = ({
                   className={cn(css['button'], css['button--cart'])}
                   onClick={() => router.push('/shoppingcart')}
                 >
-                  {typeof cart === 'number' && (
-                    <div className={css['cart__count']}>{cart}</div>
+                  {cartCount > 0 && (
+                    <div className={css['cart__count']}>{cartCount}</div>
                   )}
                 </div>
               )}
             </div>
           </div>
         )}
-        {menu && <MenuTab />}
+        {menu && <MenuTab menuList={menuList} />}
         {submenu && <SubmenuTab />}
         {category && <CategoryTab />}
       </nav>
       {filter && <FilterOption hide={isScrollDown} float />}
 
-      {!searchbox && (
-        <SearchModal
-          isModalOpen={isModalOpen === 1}
-          handleClose={() => setIsModalOpen(0)}
-        />
+      {!searchbox && isModalOpen === 1 && (
+        <SearchModal handleClose={() => setIsModalOpen(0)} />
       )}
-      {burger && (
+      {burger && isModalOpen === 2 && (
         <BurgerModal
           isVisible={isModalOpen === 2}
           onClose={() => setIsModalOpen(0)}
@@ -121,13 +120,15 @@ Header.propTypes = {
   back: PropTypes.bool,
   home: PropTypes.bool,
   search: PropTypes.bool,
-  cart: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
+  cart: PropTypes.bool,
+  cartCount: PropTypes.number,
   menu: PropTypes.bool,
   submenu: PropTypes.bool,
   category: PropTypes.bool,
   filter: PropTypes.bool,
   slide: PropTypes.bool,
   searchbox: PropTypes.bool,
+  menuList: PropTypes.array,
   isScrollDown: PropTypes.bool,
 };
 

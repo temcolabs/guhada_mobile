@@ -1,20 +1,19 @@
 import React from 'react';
 import css from './ToolbarCategory.module.scss';
-import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
+import ModalPortal from 'components/templates/ModalPortal';
 import Category from './Category';
 
-export default function ToolbarCategory({ isVisible, onClose }) {
+export default function ToolbarCategory({ onClose }) {
   return (
     <div>
-      <SlideIn direction={slideDirection.BOTTOM} isVisible={isVisible}>
+      <ModalPortal handleClose={onClose} slide={1} gutter>
         <div className={css.wrap}>
-          <button className={css.close} onClick={onClose} />
           <div className={css.header}>카테고리</div>
           <div className={css.itemWrap}>
             <Category onClose={onClose} />
           </div>
         </div>
-      </SlideIn>
+      </ModalPortal>
     </div>
   );
 }

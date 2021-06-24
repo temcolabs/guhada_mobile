@@ -10,12 +10,12 @@ import Layout from 'components/layout/Layout';
 import SpecialDetail from 'template/event/SpecialDetail';
 import MountLoading from 'components/atoms/Misc/MountLoading';
 
-function SpecialDetailPage() {
+function SpecialDetailPage({ initialHeadData }) {
   /**
    * states
    */
   const { newSpecial: newSpecialStore } = useStores();
-  const headData = newSpecialStore.headData;
+  const headData = initialHeadData || newSpecialStore.headData;
   const router = useRouter();
 
   /**

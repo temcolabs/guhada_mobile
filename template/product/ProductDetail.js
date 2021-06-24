@@ -1,6 +1,5 @@
 import React from 'react';
-import Router, { withRouter } from 'next/router';
-import DefaultLayout from 'components/layout/DefaultLayout';
+import { withRouter } from 'next/router';
 import Gallery from 'components/productdetail/Gallery';
 import ProductDetailName from 'components/productdetail/ProductDetailName';
 import ProductDetailOption from 'components/productdetail/ProductDetailOption';
@@ -27,8 +26,7 @@ import _ from 'lodash';
 import CommonPopup from 'components/common/modal/CommonPopup';
 import SellerReview from 'components/productdetail/SellerReview/SellerReview';
 import LoadingPortal from 'components/common/loading/Loading';
-import DeepLinkPopup from 'components/event/popup/DeepLinkPopup';
-import { isIOS, isAndroid } from 'childs/lib/common/detectMobileEnv';
+// import { isIOS, isAndroid } from 'childs/lib/common/detectMobileEnv';
 import { sendBackToLogin } from 'childs/lib/router';
 
 @withScrollToTopOnMount
@@ -169,139 +167,132 @@ class ProductDetail extends React.Component {
             deepLink={this.state.deepLink}
           />
         )} */}
-        <DefaultLayout
-          topLayout={'main'}
-          pageTitle={null}
-          toolBar={false}
-          headerShape={'productDetail'}
-        >
-          {/* 상세이미지갤러리 */}
-          <Gallery />
+        {/* 상세이미지갤러리 */}
+        <Gallery />
 
-          {/* 상세 상품 정보 */}
-          <ProductDetailName />
+        {/* 상세 상품 정보 */}
+        <ProductDetailName />
 
-          {/* 쿠폰  */}
-          <Coupon />
+        {/* 쿠폰  */}
+        <Coupon />
 
-          {/* 상세 상품 옵션 */}
-          <ProductDetailOption />
+        {/* 상세 상품 옵션 */}
+        <ProductDetailOption />
 
-          {/* 배송 정보 및 해택, 셀러 기본정보 */}
-          <ShippingBenefit
-            deals={deals}
-            satisfaction={satisfaction}
-            sellerData={seller}
-            shipExpenseType={productoption.shipExpenseType}
+        {/* 배송 정보 및 해택, 셀러 기본정보 */}
+        <ShippingBenefit
+          deals={deals}
+          satisfaction={satisfaction}
+          sellerData={seller}
+          shipExpenseType={productoption.shipExpenseType}
+          tabRefMap={this.tabRefMap}
+          sellerStore={productdetail.sellerStore}
+        />
+
+        {/* 상세정보, 상품문의, 셀러스토어 탭 */}
+        <ProductTab tabRefMap={this.tabRefMap} />
+
+        {/* 상품 상세 내용 */}
+        <ProductDetailContents deals={deals} tabRefMap={this.tabRefMap} />
+
+        {/* 상품 태그 */}
+        <ItemWrapper header={'태그'}>
+          <Tag tags={tags} toSearch={searchitem.toSearch} />
+        </ItemWrapper>
+
+        {/* 상품 정보, 소재 */}
+        <ItemWrapper header={'상품 정보'}>
+          <ProductInfo deals={deals} />
+        </ItemWrapper>
+        {SeparateLine}
+
+        {/* 상품 리뷰 */}
+        <ProductReview tabRefMap={this.tabRefMap} />
+        {SeparateLine}
+
+        {/* 셀러 리뷰 */}
+        <SellerReview />
+        {SeparateLine}
+
+        {/* 상품 문의 */}
+        <SectionWrap>
+          <ProductInquiry
             tabRefMap={this.tabRefMap}
+            isNewInquiryVisible={this.CartAndPurchaseButtonHandler}
+          />
+        </SectionWrap>
+        {SeparateLine}
+
+        {/* 배송/반품/교환정보, 판매자 정보*/}
+        <FoldedWrapper header={'배송/반품/교환정보'}>
+          <ShippingReturn
+            deals={deals}
+            claims={claims}
+            businessSeller={businessSeller}
+            seller={seller}
+            shipExpenseType={productoption.shipExpenseType}
             sellerStore={productdetail.sellerStore}
           />
-
-          {/* 상세정보, 상품문의, 셀러스토어 탭 */}
-          <ProductTab tabRefMap={this.tabRefMap} />
-
-          {/* 상품 상세 내용 */}
-          <ProductDetailContents deals={deals} tabRefMap={this.tabRefMap} />
-
-          {/* 상품 태그 */}
-          <ItemWrapper header={'태그'}>
-            <Tag tags={tags} toSearch={searchitem.toSearch} />
-          </ItemWrapper>
-
-          {/* 상품 정보, 소재 */}
-          <ItemWrapper header={'상품 정보'}>
-            <ProductInfo deals={deals} />
-          </ItemWrapper>
-          {SeparateLine}
-
-          {/* 상품 리뷰 */}
-          <ProductReview tabRefMap={this.tabRefMap} />
-          {SeparateLine}
-
-          {/* 셀러 리뷰 */}
-          <SellerReview />
-          {SeparateLine}
-
-          {/* 상품 문의 */}
-          <SectionWrap>
-            <ProductInquiry
-              tabRefMap={this.tabRefMap}
-              isNewInquiryVisible={this.CartAndPurchaseButtonHandler}
-            />
-          </SectionWrap>
-          {SeparateLine}
-
-          {/* 배송/반품/교환정보, 판매자 정보*/}
-          <FoldedWrapper header={'배송/반품/교환정보'}>
-            <ShippingReturn
-              deals={deals}
-              claims={claims}
-              businessSeller={businessSeller}
-              seller={seller}
-              shipExpenseType={productoption.shipExpenseType}
-              sellerStore={productdetail.sellerStore}
-            />
+        </FoldedWrapper>
+        {SeparateLine}
+        {/* 상품고시정보 */}
+        {deals.productNotifies ? (
+          <FoldedWrapper header={'상품고시정보'} noline={true}>
+            <ProductNotifie productNotifies={deals.productNotifies} />
           </FoldedWrapper>
-          {SeparateLine}
-          {/* 상품고시정보 */}
-          {deals.productNotifies ? (
-            <FoldedWrapper header={'상품고시정보'} noline={true}>
-              <ProductNotifie productNotifies={deals.productNotifies} />
-            </FoldedWrapper>
-          ) : null}
+        ) : null}
 
-          {SeparateLine}
-          {/* 판매자의 연관상품, 추천상품 */}
-          <RelatedAndRecommend
-            dealsOfSameBrand={dealsOfSameBrand}
-            dealsOfRecommend={dealsOfRecommend}
+        {SeparateLine}
+        {/* 판매자의 연관상품, 추천상품 */}
+        <RelatedAndRecommend
+          dealsOfSameBrand={dealsOfSameBrand}
+          dealsOfRecommend={dealsOfRecommend}
+        />
+        {SeparateLine}
+        {/* 셀러스토어 */}
+        <SectionWrap style={{ paddingBottom: '60px' }}>
+          <SellerStoreInfo
+            deals={deals}
+            dealsOfSellerStore={dealsOfSellerStore}
+            followers={followers}
+            sellerData={seller}
+            tabRefMap={this.tabRefMap}
+            handleSellerFollows={this.handleSellerFollows}
+            sellerfollow={sellerfollow}
+            login={login}
+            alert={alert}
+            sellerStore={productdetail.sellerStore}
           />
-          {SeparateLine}
-          {/* 셀러스토어 */}
-          <SectionWrap style={{ paddingBottom: '60px' }}>
-            <SellerStoreInfo
-              deals={deals}
-              dealsOfSellerStore={dealsOfSellerStore}
-              followers={followers}
-              sellerData={seller}
-              tabRefMap={this.tabRefMap}
-              handleSellerFollows={this.handleSellerFollows}
-              sellerfollow={sellerfollow}
-              login={login}
-              alert={alert}
-              sellerStore={productdetail.sellerStore}
-            />
-          </SectionWrap>
+        </SectionWrap>
 
-          {/* 상품 상세 장바구니 , 구매하기 버튼 */}
-          {this.state.cartAndPurchaseVisible === true &&
-          !shoppingCartSuccessModal.isOpen ? (
+        {/* 상품 상세 장바구니 , 구매하기 버튼 */}
+        {this.state.cartAndPurchaseVisible === true &&
+          !shoppingCartSuccessModal.isOpen && (
             <CartAndPurchaseButton
               isVisible={false}
               handleInternationalPopup={this.handleInternationalPopup}
               isInternationalSubmit={this.isInternationalSubmit}
             />
-          ) : null}
-
-          {this.state.isInternationalPopup && (
-            <CommonPopup
-              isOpen={this.state.isInternationalPopup}
-              backgroundImage={`${
-                process.env.API_CLOUD
-              }/images/web/common/notice_delivery@3x.png`}
-              cancelButtonText={'취소'}
-              submitButtonText={'동의'}
-              onCancel={() => {
-                this.handleInternationalPopup(false);
-              }}
-              onSubmit={() => {
-                this.submitInternationalPopup();
-              }}
-            />
           )}
 
-          {this.props.cartAndPurchase.addCartStatus ? <LoadingPortal /> : null}
-        </DefaultLayout>
+        {this.state.isInternationalPopup && (
+          <CommonPopup
+            isOpen={this.state.isInternationalPopup}
+            backgroundImage={`${
+              process.env.API_CLOUD
+            }/images/web/common/notice_delivery@3x.png`}
+            cancelButtonText={'취소'}
+            submitButtonText={'동의'}
+            onCancel={() => {
+              this.handleInternationalPopup(false);
+            }}
+            onSubmit={() => {
+              this.submitInternationalPopup();
+            }}
+          />
+        )}
+
+        {this.props.cartAndPurchase.addCartStatus && <LoadingPortal />}
       </>
     );
   }

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
+import React from 'react';
+import ModalPortal from 'components/templates/ModalPortal';
 import css from './HeaderMenu.module.scss';
 import Category from './item/Category';
 import { LinkRoute } from 'childs/lib/router';
@@ -11,7 +11,6 @@ import { loginStatus } from 'childs/lib/constant';
  * 헤더의 햄버거 버튼 클릭시 표시되는 메뉴
  */
 function HeaderMenu({
-  isVisible,
   onClose,
   setIsCategoryVisible = () => {},
   setCategoryId = () => {},
@@ -20,7 +19,7 @@ function HeaderMenu({
   setIsBrandVisible = () => {},
 }) {
   return (
-    <SlideIn isVisible={isVisible} direction={slideDirection.LEFT}>
+    <ModalPortal handleClose={onClose} slide={2}>
       <div className={css.wrapper}>
         <div className={css.topWrap}>
           {login.loginStatus === loginStatus.LOGIN_DONE && login.userInfo ? (
@@ -67,7 +66,7 @@ function HeaderMenu({
         {/* <div className={css.event}>event 영역</div>
         <div className={css.categoryWrap}>category 영역</div> */}
       </div>
-    </SlideIn>
+    </ModalPortal>
   );
 }
 export default inject('login')(HeaderMenu);

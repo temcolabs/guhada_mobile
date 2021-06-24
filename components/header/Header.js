@@ -8,6 +8,8 @@ import { LinkRoute } from 'childs/lib/router';
 import cn from 'classnames';
 import SearchMenu from './SearchMenu';
 import BrandContainer from './item/BrandContainer';
+import BurgerModal from 'components/header/HeaderMenu';
+import SearchModal from 'components/layout/Layout/Header/SearchModal';
 import { useObserver } from 'mobx-react-lite';
 
 /**
@@ -147,39 +149,15 @@ function Header({ children, pageTitle, headerShape, cartAmount }) {
             </LinkRoute>
           ) : null}
 
-          <HeaderMenu
-            isVisible={isMenuVisible}
-            onClose={() => setIsMenuVisible(false)}
-            setIsCategoryVisible={setIsCategoryVisible}
-            setCategoryId={setCategoryId}
-            setCategoryTitle={setCategoryTitle}
-            setIsBrandVisible={setIsBrandVisible}
-          />
-
-          <CategoryDepthMenu
-            isVisible={isCategoryVisible}
-            onBack={() => setIsCategoryVisible(false)}
-            onClose={() => {
-              setIsMenuVisible(false);
-              setTimeout(() => {
-                setIsCategoryVisible(false);
-              }, 400);
-            }}
-            onCloseMenu={() => setIsMenuVisible(false)}
-            categoryId={categoryId}
-            categoryTitle={categoryTitle}
-          />
-
-          <BrandContainer
-            isVisible={isBrandVisible}
-            onClose={() => setIsBrandVisible(false)}
-            onCloseMenu={() => setIsMenuVisible(false)}
-          />
-
-          <SearchMenu
-            isVisible={isSearchVisible}
-            onClose={() => setIsSearchVisible(false)}
-          />
+          {isSearchVisible && (
+            <SearchModal handleClose={() => setIsSearchVisible(false)} />
+          )}
+          {isMenuVisible && (
+            <BurgerModal
+              isVisible={isMenuVisible}
+              onClose={() => setIsMenuVisible(false)}
+            />
+          )}
         </div>
       )}
     </>

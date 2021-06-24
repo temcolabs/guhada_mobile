@@ -30,7 +30,7 @@ class Gallery extends Component {
     return (
       <div className={css.detail__gallery}>
         <Slider {...settings}>
-          {productdetail.deals.imageUrls.map((data, index) => {
+          {productdetail.deals.imageUrls?.map((data, index) => {
             return (
               <div key={index} className={css.detailImage}>
                 <div style={{ backgroundImage: `url(${data})` }} />
@@ -40,7 +40,7 @@ class Gallery extends Component {
         </Slider>
         <div className={css.index__box}>
           {`${this.state.activeSlide} / ${
-            productdetail.deals.imageUrls.length
+            productdetail.deals.imageUrls?.length
           } `}
         </div>
 

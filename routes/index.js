@@ -324,13 +324,13 @@ module.exports = [
 
   // 장바구니
   {
-    pagePath: '/shoppingcart/shoppingcart',
+    pagePath: '/shoppingcart',
     asPath: '/shoppingcart',
   },
 
   // 주문결제
   {
-    pagePath: '/orderpayment/orderpayment',
+    pagePath: '/orderpayment',
     asPath: '/orderpayment',
   },
 

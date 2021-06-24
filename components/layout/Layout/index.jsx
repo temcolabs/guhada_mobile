@@ -9,7 +9,7 @@ import Header from './Header';
 import Navigation from './Navigation';
 import PluginButtons from './PluginButtons';
 
-function Layout({ title, children }) {
+function Layout({ title, menuList, children }) {
   /**
    * states
    */
@@ -53,11 +53,15 @@ function Layout({ title, children }) {
           layoutStore.headerFlags.title &&
           (title || layoutStore.headerInfo.title)
         }
-        cart={shoppingcartStore.cartAmount || layoutStore.headerFlags.cart}
+        menuList={menuList}
+        cartCount={shoppingcartStore.cartAmount}
         isScrollDown={isScrollDown}
       />
       <section className={css['content']}>{children}</section>
-      <Navigation type={layoutStore.type} />
+      <Navigation
+        type={layoutStore.type}
+        noNav={layoutStore.headerFlags.noNav}
+      />
       <PluginButtons
         isScrollDown={isScrollDown}
         recentCount={layoutStore.recentCount}
@@ -69,6 +73,7 @@ function Layout({ title, children }) {
 
 Layout.propTypes = {
   title: PropTypes.string,
+  menuList: PropTypes.array,
 };
 
 export default observer(Layout);

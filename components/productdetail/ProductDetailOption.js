@@ -5,6 +5,7 @@ import ProductDetailOptionSelectbox from './ProductDetailOptionSelectbox';
 import OptionQuantity from './OptionQuantity';
 import ProductOptionModal from './ProductOptionModal';
 import { SizeGuideModal } from './Modals';
+import ModalPortal from 'components/templates/ModalPortal';
 
 @inject('productdetail', 'productoption', 'cartAndPurchase')
 @observer
@@ -39,13 +40,14 @@ class ProductDetailOption extends Component {
           />
         </div>
 
-        <ProductOptionModal
-          isVisible={cartAndPurchase.isProductOptionModal}
-          onClose={() => {
-            this.modalCloseHandler();
-          }}
-          productoption={productoption}
-        />
+        {cartAndPurchase.isProductOptionModal && (
+          <ProductOptionModal
+            onClose={() => {
+              this.modalCloseHandler();
+            }}
+            productoption={productoption}
+          />
+        )}
 
         <SizeGuideModal
           isOpen={this.state.sizeGuideModalOpen}

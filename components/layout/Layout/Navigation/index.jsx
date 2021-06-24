@@ -6,7 +6,7 @@ import ToolbarCategory from 'components/toolbar/ToolbarCategory';
 import ToolbarBrand from 'components/toolbar/ToolbarBrand';
 import { pushRoute } from 'childs/lib/router';
 
-const Navigation = ({ type }) => {
+const Navigation = ({ type, noNav }) => {
   /**
    * states
    */
@@ -27,7 +27,7 @@ const Navigation = ({ type }) => {
    * render
    */
   return (
-    <nav className={css['nav']}>
+    <nav className={cn(css['nav'], noNav && css['noNav'])}>
       <div
         className={cn(
           css['nav-button'],
@@ -79,20 +79,17 @@ const Navigation = ({ type }) => {
         마이페이지
       </div>
 
-      <ToolbarCategory
-        isVisible={isModalOpen === 1}
-        onClose={() => setIsModalOpen(0)}
-      />
-      <ToolbarBrand
-        isVisible={isModalOpen === 2}
-        onClose={() => setIsModalOpen(0)}
-      />
+      {isModalOpen === 1 && (
+        <ToolbarCategory onClose={() => setIsModalOpen(0)} />
+      )}
+      {isModalOpen === 2 && <ToolbarBrand onClose={() => setIsModalOpen(0)} />}
     </nav>
   );
 };
 
 Navigation.propTypes = {
   type: PropTypes.string,
+  noNav: PropTypes.bool,
 };
 
 export default memo(Navigation);

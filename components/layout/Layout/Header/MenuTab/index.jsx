@@ -1,25 +1,26 @@
 import css from './MenuTab.module.scss';
 import { useEffect, memo, useRef } from 'react';
+import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import cn from 'classnames';
 import { useHorizontalArrows } from 'hooks';
 import { pushRoute } from 'childs/lib/router';
 
-const menuList = [
+const defaultMenuList = [
   ['홈', '/'],
   ['여성', '/home/women'],
   ['남성', '/home/men'],
   ['키즈', '/home/kids'],
   ['리뷰', '/review'],
   ['랭킹', '/ranking'],
-  ['선물하기', '/gift'],
-  ['타임딜', '/event/timedeal'],
   ['럭키드로우', '/event/luckydraw'],
+  ['타임딜', '/event/timedeal'],
   ['기획전', '/event/special'],
   ['이벤트', '/event'],
+  ['선물하기', '/gift'],
 ];
 
-function MenuTab() {
+function MenuTab({ menuList = defaultMenuList }) {
   /**
    * states
    */
@@ -115,5 +116,9 @@ function MenuTab() {
     </ul>
   );
 }
+
+MenuTab.propTypes = {
+  menuList: PropTypes.array,
+};
 
 export default memo(MenuTab);

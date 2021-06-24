@@ -10,7 +10,7 @@ import { pushRoute } from 'childs/lib/router';
 import { devWarn } from 'childs/lib/common/devLog';
 import Footer from 'components/footer/Footer';
 @withRouter
-@inject(store => ({
+@inject((store) => ({
   category: store.bbs.category,
 }))
 @observer

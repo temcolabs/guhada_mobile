@@ -2,9 +2,8 @@ import styled from 'styled-components';
 
 export const RecentlyWrapper = styled.div`
   font-family: Roboto;
-  border-top: 1px solid #eeeeee;
-  display: flex;
-  flex-flow: row wrap;
+  background-color: #fff;
+  height: 100%;
 `;
 
 export const MenuSection = styled.div`
@@ -16,6 +15,7 @@ export const MenuSection = styled.div`
   font-size: 13px;
   font-weight: 500;
   color: #111111;
+  height: 41px;
 `;
 
 export const MenuCounts = styled.div`
@@ -32,8 +32,11 @@ export const MenuDeleteButton = styled.button`
 export const ContentSection = styled.div`
   margin: 0 5px;
   width: 100%;
+  height: calc(100vh - 101px);
   display: flex;
-  flex-flow: row wrap;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  overflow-y: scroll;
 `;
 
 export const ContentItem = styled.div`
@@ -46,6 +49,8 @@ export const ContentDeleteButton = styled.div`
   position: relative;
   bottom: ${(props) => (props.length ? props.length + 'px' : '110px')};
   left: ${(props) => (props.length ? props.length - 26 + 'px' : '110px')};
+  width: 26px;
+  height: 26px;
 `;
 
 export const ContentEmpty = styled.div`
