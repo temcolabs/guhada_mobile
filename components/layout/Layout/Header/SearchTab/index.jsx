@@ -1,9 +1,9 @@
 import css from './SearchTab.module.scss';
 import { useState, useEffect, useCallback } from 'react';
-import { createPortal } from 'react-dom';
 import cn from 'classnames';
 import { observer } from 'mobx-react';
 import useStores from 'stores/useStores';
+import ModalPortal from 'components/templates/ModalPortal';
 import SearchMenu from './SearchMenu';
 import AutocompleteSearchMenu from './AutocompleteSearchMenu';
 import { pushRoute } from 'childs/lib/router';
@@ -112,20 +112,18 @@ const SearchTab = () => {
           onClick={() => handleSearch(searchInput)}
         />
       </div>
-      {isExpand > 0 &&
-        createPortal(
-          <>
-            {isExpand === 1 && <SearchMenu handleSearch={handleSearch} fixed />}
-            {isExpand === 2 && (
-              <AutocompleteSearchMenu
-                list={keywordStore.autoCompleteList}
-                handleSearch={handleSearch}
-                fixed
-              />
-            )}
-          </>,
-          document.getElementsByTagName('body')[0]
-        )}
+      {isExpand > 0 && (
+        <>
+          {isExpand === 1 && <SearchMenu handleSearch={handleSearch} fixed />}
+          {isExpand === 2 && (
+            <AutocompleteSearchMenu
+              list={keywordStore.autoCompleteList}
+              handleSearch={handleSearch}
+              fixed
+            />
+          )}
+        </>
+      )}
     </div>
   );
 };

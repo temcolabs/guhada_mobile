@@ -32,6 +32,7 @@ function Home() {
   const name = 'ALL';
 
   const {
+    initial,
     premiumItem,
     bestItem,
     newIn,
@@ -99,7 +100,7 @@ function Home() {
         dealObject={premiumItem}
         handleMoreClick={(value) => handleMoreClick('PLUS', value)}
         count={10}
-        isLoading={premiumItem[name].length === 0}
+        isLoading={initial.premiumItem}
         isLazy={false}
       />
 
@@ -127,7 +128,7 @@ function Home() {
         dealObject={bestItem}
         handleMoreClick={(value) => handleMoreClick('BEST', value)}
         count={6}
-        isLoading={bestItem[name].length === 0}
+        isLoading={initial.bestItem}
       />
 
       <div className={css['gutter']} />
@@ -150,7 +151,7 @@ function Home() {
         dealObject={newIn}
         handleMoreClick={(name) => handleMoreClick('NEW', name)}
         count={6}
-        isLoading={newIn[name].length === 0}
+        isLoading={initial.newIn}
       />
 
       {/* BENEFITS BANNER */}

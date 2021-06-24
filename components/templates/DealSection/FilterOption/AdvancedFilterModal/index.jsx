@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import useStores from 'stores/useStores';
-import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
+import ModalPortal from 'components/templates/ModalPortal';
 import TreeFilter from './TreeFilter';
 import DictionaryFilter from './DictionaryFilter';
 import SelectionFilter from './SelectionFilter';
@@ -17,11 +17,7 @@ import {
   priceArrangeMap,
 } from 'stores/SearchStore/SearchByFilterStore';
 
-const AdvancedFilterModal = ({
-  filterName = '상세검색',
-  isModalOpen,
-  handleCloseModal,
-}) => {
+const AdvancedFilterModal = ({ filterName = '상세검색', handleCloseModal }) => {
   /**
    * states
    */
@@ -48,9 +44,8 @@ const AdvancedFilterModal = ({
    * render
    */
   return (
-    <SlideIn direction={slideDirection.BOTTOM} isVisible={isModalOpen}>
+    <ModalPortal handleClose={handleCloseModal} slide={1} gutter>
       <div className={css['filter-modal']}>
-        <div className={css['modal__offset']} onClick={handleCloseModal} />
         <div className={css['modal__header']}>{filterName}</div>
         <div className={css['modal__filters']}>
           <TreeFilter
@@ -150,13 +145,12 @@ const AdvancedFilterModal = ({
           </button>
         </div>
       </div>
-    </SlideIn>
+    </ModalPortal>
   );
 };
 
 AdvancedFilterModal.propTypes = {
   filterName: PropTypes.string,
-  isModalOpen: PropTypes.bool,
   handleCloseModal: PropTypes.func,
 };
 

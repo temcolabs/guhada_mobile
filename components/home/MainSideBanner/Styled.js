@@ -11,7 +11,8 @@ export const SliderWrapper = styled.div`
     ${(props) => props.type === 'FOCUS_ON' && 'padding: 0 10px;'}
   }
   .slick-dots {
-    ${(props) => props.type === 'FOCUS_ON' && 'bottom: 420px;'}
+    position: absolute;
+    bottom: ${(props) => (props.type === 'FOCUS_ON' ? '420px' : '5px')};
   }
 
   .slider-wrap {

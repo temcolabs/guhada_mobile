@@ -46,24 +46,26 @@ const FilterOption = ({ hide, float }) => {
         </div>
       </div>
 
-      <FilterModal
-        filterName={'상품정렬'}
-        filterMap={searchResultOrderMap}
-        selectedKey={searchByFilterStore.body.searchResultOrder}
-        isModalOpen={isModalOpen === 1}
-        handleCloseModal={() => setIsModalOpen(0)}
-        handleSetFilter={(key) =>
-          searchByFilterStore.submitFilter({ searchResultOrder: key })
-        }
-        handleResetFilter={() =>
-          searchByFilterStore.submitFilter({ searchResultOrder: 'DATE' })
-        }
-      />
-      <AdvancedFilterModal
-        filterName={'상세검색'}
-        isModalOpen={isModalOpen === 2}
-        handleCloseModal={() => setIsModalOpen(0)}
-      />
+      {isModalOpen === 1 && (
+        <FilterModal
+          filterName={'상품정렬'}
+          filterMap={searchResultOrderMap}
+          selectedKey={searchByFilterStore.body.searchResultOrder}
+          handleCloseModal={() => setIsModalOpen(0)}
+          handleSetFilter={(key) =>
+            searchByFilterStore.submitFilter({ searchResultOrder: key })
+          }
+          handleResetFilter={() =>
+            searchByFilterStore.submitFilter({ searchResultOrder: 'DATE' })
+          }
+        />
+      )}
+      {isModalOpen === 2 && (
+        <AdvancedFilterModal
+          filterName={'상세검색'}
+          handleCloseModal={() => setIsModalOpen(0)}
+        />
+      )}
     </div>
   );
 };

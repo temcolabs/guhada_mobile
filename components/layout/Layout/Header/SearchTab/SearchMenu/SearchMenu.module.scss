@@ -1,6 +1,5 @@
 .search-menu {
-  left: 0;
-  top: 61px;
+  position: relative;
   z-index: 111;
   border-top: 8px solid #f9f9fa;
   width: 100%;
@@ -9,6 +8,8 @@
 
   &.fixed {
     position: fixed;
+    top: 60px;
+    left: 0;
   }
 
   .menu__selection {
@@ -36,7 +37,7 @@
   }
 
   .menu__autocomplete {
-    position: fixed;
+    position: absolute;
     bottom: 0;
     width: 100%;
     height: 42px;

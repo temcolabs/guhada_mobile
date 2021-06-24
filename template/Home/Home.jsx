@@ -13,7 +13,7 @@ function Home({ name }) {
    */
   const router = useRouter();
   const { newMain: newMainStore } = useStores();
-  const { premiumItem, bestItem, newIn, hotKeyword } = newMainStore;
+  const { initial, premiumItem, bestItem, newIn, hotKeyword } = newMainStore;
 
   /**
    * handlers
@@ -43,7 +43,7 @@ function Home({ name }) {
         dealObject={premiumItem}
         handleMoreClick={(value) => handleMoreClick('PLUS', value)}
         count={50}
-        isLoading={premiumItem[name].length === 0}
+        isLoading={initial.premiumItem}
         isLazy={false}
       />
 
@@ -58,7 +58,7 @@ function Home({ name }) {
         dealObject={bestItem}
         handleMoreClick={(value) => handleMoreClick('BEST', value)}
         count={50}
-        isLoading={bestItem[name].length === 0}
+        isLoading={initial.bestItem}
       />
 
       <div className={css['gutter']} />
@@ -72,7 +72,7 @@ function Home({ name }) {
         dealObject={newIn}
         handleMoreClick={(name) => handleMoreClick('NEW', name)}
         count={50}
-        isLoading={newIn[name].length === 0}
+        isLoading={initial.newIn}
       />
 
       <div className={css['gutter']} />

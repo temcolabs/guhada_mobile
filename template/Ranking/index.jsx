@@ -37,11 +37,12 @@ function Ranking() {
         handleSearch={handleSearch}
       />
 
-      <FilterModal
-        isModalOpen={isModalOpen}
-        selectedFilter={selectedFilter}
-        handleCloseModal={() => setIsModalOpen(false)}
-      />
+      {isModalOpen && (
+        <FilterModal
+          selectedFilter={selectedFilter}
+          handleCloseModal={() => setIsModalOpen(false)}
+        />
+      )}
     </div>
   );
 }

@@ -1,41 +1,4 @@
-$guhadaColor: #5d2ed1;
-$guhadaColorLight: #8c6ed5;
-
 .filter-modal {
-  width: 100%;
-  height: calc(100vh - 60px);
-  background: #fff;
-  margin-top: 60px;
-  overflow-y: scroll;
-
-  .modal__offset {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: 60px;
-
-    &::before {
-      position: absolute;
-      top: 20px;
-      right: 28px;
-      content: '';
-      height: 20px;
-      width: 1px;
-      background-color: #fff;
-      transform: rotate(45deg);
-    }
-    &::after {
-      position: absolute;
-      top: 20px;
-      right: 28px;
-      content: '';
-      height: 20px;
-      width: 1px;
-      background-color: #fff;
-      transform: rotate(-45deg);
-    }
-  }
-
   .modal__header {
     font-size: 18px;
     font-weight: 500;
@@ -83,7 +46,7 @@ $guhadaColorLight: #8c6ed5;
     & .button--submit {
       flex: 3;
       height: 100%;
-      background-color: $guhadaColor;
+      background-color: #5d2ed1;
       color: #fff;
     }
   }
