@@ -1,10 +1,13 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import useStores from 'stores/useStores';
-import { compose } from 'lodash/fp';
+import { compose as _compose } from 'lodash/fp';
 import { withRouter } from 'next/router';
-import dynamic from 'next/dynamic';
-import { observer } from 'mobx-react-lite';
+import { observer } from 'mobx-react';
 import { loginStatus } from 'childs/lib/constant';
+import LuckyDrawModal from 'template/LuckyDraw/components/organisms/Modals/LuckyDrawModal';
+import LuckydrawSignup from 'template/event/LuckydrawSignup';
+import LuckydrawLogin from 'template/event/LuckydrawLogin';
+import LuckydrawModify from 'template/event/LuckydrawModify';
 
 // molecules
 import {
@@ -19,26 +22,7 @@ import {
   LuckyDrawHistory,
 } from 'template/LuckyDraw/components/organisms';
 
-// Modals
-const LuckyDrawModal = dynamic(
-  () => import('template/LuckyDraw/components/organisms/Modals/LuckyDrawModal'),
-  { ssr: false }
-);
-const LuckydrawLogin = dynamic(() => import('template/event/LuckydrawLogin'), {
-  ssr: false,
-});
-const LuckydrawSignup = dynamic(
-  () => import('template/event/LuckydrawSignup'),
-  { ssr: false }
-);
-const LuckydrawModify = dynamic(
-  () => import('template/event/LuckydrawModify'),
-  {
-    ssr: false,
-  }
-);
-
-const enhancer = compose(withRouter);
+const enhancer = _compose(withRouter);
 const initialStateLuckyDrawModal = {
   status: '',
   contents: '',
