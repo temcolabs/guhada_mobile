@@ -312,7 +312,7 @@ export class SearchByFilterStore extends SearchStore {
       categoryIds.push(...subcategory.split(',').map(Number));
     }
     if (brand) {
-      brandIds.push(...brand.split(',')).map(Number);
+      brandIds.push(...brand.split(','));
     }
     if (keyword) {
       searchQueries.push(...keyword.split(','));
