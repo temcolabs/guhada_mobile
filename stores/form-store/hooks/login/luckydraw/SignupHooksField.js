@@ -37,7 +37,7 @@ export default {
           } else {
             API.user
               .get(`/isEmailExist/${value.email}`)
-              .then(res => {
+              .then((res) => {
                 form.$('emailCheck').set('label', '확인완료');
                 form.$('emailCheck').set('value', 'complete');
                 // form.$('emailVerifiedUpdated').set('value', true);
@@ -94,8 +94,22 @@ export default {
     //     });
     // }
     else if (field.path === 'authMobileButton') {
-      const childWindow = window.open('', 'popupChk');
-      root.authmobile.getCertKey('luckydrawSignup', childWindow);
+      if (!root.authmobile.access) {
+        root.authmobile.access = true;
+
+        try {
+          const childWindow = window.open('', 'popupChk');
+          childWindow.focus();
+          if (!childWindow) {
+            throw new Error('');
+          }
+          root.authmobile.getCertKey('luckydrawSignup', childWindow);
+          return;
+        } catch (e) {
+          root.authmobile.access = false;
+          root.alert.showAlert('브라우저 또는 구하다 앱에서 이용해주세요!');
+        }
+      }
     }
   },
 
@@ -197,7 +211,7 @@ export default {
     //   }
   },
 
-  onBlur: field => {
+  onBlur: (field) => {
     devLog('-> onBlur HOOK -', field.path, field.value);
     field.validate({ showErrors: true });
   },
