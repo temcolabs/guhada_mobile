@@ -21,4 +21,4 @@ fi
 echo $RELEASE_VERSION
 
 # 서버 접속 후 테스트 앱 시작
-ssh -i ~/.ssh/guhada.pem $USER@$HOST "cd $DEST_REPO && git reset --hard && git remote update --prune && git checkout $RELEASE_VERSION && git pull && npm install && npm run build && pm2 flush && APP_NAME=$APP_NAME npm run reload-pm2 && ./scripts/delete-old-builds.sh && ./scripts/etc/createRobotsDisallowed.sh"
+ssh -i ~/.ssh/guhada.pem $USER@$HOST "cd $DEST_REPO && git reset --hard && git remote update --prune && git checkout $RELEASE_VERSION && git pull && npm ci && npm run build && pm2 flush && APP_NAME=$APP_NAME npm run reload-pm2 && ./scripts/delete-old-builds.sh && ./scripts/etc/createRobotsDisallowed.sh"
