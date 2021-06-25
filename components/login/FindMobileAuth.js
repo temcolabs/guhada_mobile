@@ -4,7 +4,7 @@ import LoginButton from './LoginButton';
 
 export default class FindMobileAuth extends Component {
   render() {
-    const { authmobile } = this.props;
+    const { authmobile, alert } = this.props;
     return (
       <div>
         <div className={css.header}>
@@ -13,8 +13,20 @@ export default class FindMobileAuth extends Component {
         <LoginButton
           className="isColored"
           onClick={() => {
-            const childWindow = window.open('', 'popupChk');
-            authmobile.getCertKey('findid', childWindow);
+            if (!authmobile.access) {
+              authmobile.access = true;
+
+              try {
+                const childWindow = window.open('', 'popupChk');
+                if (!childWindow) {
+                  throw new Error();
+                }
+                authmobile.getCertKey('findid', childWindow);
+              } catch (e) {
+                authmobile.access = false;
+                alert.showAlert('브라우저 또는 구하다 앱에서 이용해주세요!');
+              }
+            }
           }}
         >
           본인 명의 휴대폰으로 인증

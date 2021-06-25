@@ -5,7 +5,12 @@ import css from './ProductOptionModal.module.scss';
 import ModalPortal from 'components/templates/ModalPortal';
 function ProductOptionModal({ onClose, productoption }) {
   return (
-    <ModalPortal slide={1} handleClose={onClose} closeButton={false}>
+    <ModalPortal
+      slide={1}
+      handleClose={onClose}
+      transparent
+      closeButton={false}
+    >
       <div className={css.wrap}>
         <div className={css.innerWrap}>
           <div className={css.header}>

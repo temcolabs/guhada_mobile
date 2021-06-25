@@ -40,6 +40,10 @@
   height: 100%;
   background-color: #fff;
 
+  &.transparent {
+    background-color: unset;
+  }
+
   &.gutter {
     top: 60px;
     height: calc(100vh - 60px);

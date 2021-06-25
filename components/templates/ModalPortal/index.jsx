@@ -8,6 +8,7 @@ function ModalPortal({
   children,
   selectorId = 'modal-portal',
   handleClose = () => {},
+  transparent = false,
   gutter,
   closeButton = true,
   slide,
@@ -35,11 +36,16 @@ function ModalPortal({
           onClick={handleClose}
         />
         <div
-          className={cn(css['modal'], gutter && css['gutter'], {
-            [css['slideUp']]: slide === 1,
-            [css['slideLeft']]: slide === 2,
-            [css['slideRight']]: slide === 3,
-          })}
+          className={cn(
+            css['modal'],
+            transparent && css['transparent'],
+            gutter && css['gutter'],
+            {
+              [css['slideUp']]: slide === 1,
+              [css['slideLeft']]: slide === 2,
+              [css['slideRight']]: slide === 3,
+            }
+          )}
         >
           {children}
         </div>

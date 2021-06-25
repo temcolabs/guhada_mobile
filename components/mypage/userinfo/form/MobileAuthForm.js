@@ -21,7 +21,7 @@ import { mustBeBoolean } from 'childs/lib/common/finalFormValidators';
  * 본인 인증저보와 휴대폰 번호를 저장한다.
  */
 export default function MobileAuthForm() {
-  const { authmobile: authMobileStore } = useStores();
+  const { authmobile: authMobileStore, alert: alertStore } = useStores();
   const {
     fields,
     values,
@@ -37,66 +37,77 @@ export default function MobileAuthForm() {
    */
   const handleRequestMobileAuth = () => {
     // TODO: 모바일 인증코드 발송 API 호출
-    const childWindow = window.open('', 'popupChk');
-    authMobileStore.getCertKey(
-      authLocations.EDIT_USERINFO,
-      childWindow,
-      async (
-        verifyParams = {
-          // sample data
-          birth: '1900-01-01',
-          diCode: '098345oiuweroiu',
-          gender: 'MALE',
-          identityVerifyMethod: 'MOBILE',
-          mobile: '01012341234',
-          name: '구하다',
+    if (!authMobileStore.access) {
+      try {
+        const childWindow = window.open('', 'popupChk');
+        if (!childWindow) {
+          throw new Error();
         }
-      ) => {
-        devLog(`verifyParams`, verifyParams);
 
-        // NOTE: 본인인증 후 인증 데이터를 즉시 저장. UI에는 저장되었다고 알리진 않음.
-        const isSuccess = await handleSubmitForm(
-          {
-            ...values,
-            verifiedIdentity: true, // 본인인증 재인증 여부
-            // 본인 인증 정보
-            diCode: verifyParams.diCode,
-            birth: verifyParams.birth,
-            identityVerifyMethod: verifyParams.identityVerifyMethod,
-            name: verifyParams.name,
-            gender: verifyParams.gender,
-            mobile: verifyParams.mobile,
-          },
-          {
-            isShowAlert: false,
-            isInitFormValues: false,
+        authMobileStore.getCertKey(
+          authLocations.EDIT_USERINFO,
+          childWindow,
+          async (
+            verifyParams = {
+              // sample data
+              birth: '1900-01-01',
+              diCode: '098345oiuweroiu',
+              gender: 'MALE',
+              identityVerifyMethod: 'MOBILE',
+              mobile: '01012341234',
+              name: '구하다',
+            }
+          ) => {
+            devLog(`verifyParams`, verifyParams);
+
+            // NOTE: 본인인증 후 인증 데이터를 즉시 저장. UI에는 저장되었다고 알리진 않음.
+            const isSuccess = await handleSubmitForm(
+              {
+                ...values,
+                verifiedIdentity: true, // 본인인증 재인증 여부
+                // 본인 인증 정보
+                diCode: verifyParams.diCode,
+                birth: verifyParams.birth,
+                identityVerifyMethod: verifyParams.identityVerifyMethod,
+                name: verifyParams.name,
+                gender: verifyParams.gender,
+                mobile: verifyParams.mobile,
+              },
+              {
+                isShowAlert: false,
+                isInitFormValues: false,
+              }
+            );
+
+            if (isSuccess) {
+              // 인증에 데이터를 폼에 저장
+              formApi.change(fields.name, verifyParams.name);
+              formApi.change(fields.verifiedIdentity, true);
+              formApi.change(fields.diCode, verifyParams.diCode);
+              formApi.change(
+                fields.identityVerifyMethod,
+                verifyParams.identityVerifyMethod
+              );
+              formApi.change(fields.name, verifyParams.name);
+              // 생일, 성별을 인증받은 데이터로 업데이트한다.
+              formApi.change(fields.gender, verifyParams.gender);
+
+              // 폼 초기값 업데이트. 인증 데이터만 초기값으로 만들어준다.
+              updateInitialValues({
+                name: verifyParams.name,
+                mobile: verifyParams.mobile,
+                verifiedIdentity: true,
+                diCode: verifyParams.diCode, // 본인인증 데이터 - DI 코드.
+                identityVerifyMethod: verifyParams.identityVerifyMethod, // 본인인증 방법.
+              });
+            }
           }
         );
-
-        if (isSuccess) {
-          // 인증에 데이터를 폼에 저장
-          formApi.change(fields.name, verifyParams.name);
-          formApi.change(fields.verifiedIdentity, true);
-          formApi.change(fields.diCode, verifyParams.diCode);
-          formApi.change(
-            fields.identityVerifyMethod,
-            verifyParams.identityVerifyMethod
-          );
-          formApi.change(fields.name, verifyParams.name);
-          // 생일, 성별을 인증받은 데이터로 업데이트한다.
-          formApi.change(fields.gender, verifyParams.gender);
-
-          // 폼 초기값 업데이트. 인증 데이터만 초기값으로 만들어준다.
-          updateInitialValues({
-            name: verifyParams.name,
-            mobile: verifyParams.mobile,
-            verifiedIdentity: true,
-            diCode: verifyParams.diCode, // 본인인증 데이터 - DI 코드.
-            identityVerifyMethod: verifyParams.identityVerifyMethod, // 본인인증 방법.
-          });
-        }
+      } catch (e) {
+        authMobileStore.access = false;
+        alertStore.showAlert('브라우저 또는 구하다 앱에서 이용해주세요!');
       }
-    );
+    }
   };
 
   return useObserver(() => (
@@ -121,7 +132,7 @@ export default function MobileAuthForm() {
                   <Input
                     type={'number'}
                     initialValue={meta.initial}
-                    onChange={v => {
+                    onChange={(v) => {
                       let isAuthed = false;
 
                       // 초기값과 같고 인증받은 이메일이라면

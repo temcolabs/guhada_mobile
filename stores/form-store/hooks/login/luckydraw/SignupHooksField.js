@@ -99,12 +99,10 @@ export default {
 
         try {
           const childWindow = window.open('', 'popupChk');
-          childWindow.focus();
           if (!childWindow) {
-            throw new Error('');
+            throw new Error();
           }
           root.authmobile.getCertKey('luckydrawSignup', childWindow);
-          return;
         } catch (e) {
           root.authmobile.access = false;
           root.alert.showAlert('브라우저 또는 구하다 앱에서 이용해주세요!');

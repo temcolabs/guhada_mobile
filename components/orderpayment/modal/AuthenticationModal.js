@@ -4,12 +4,24 @@ import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 import { inject, observer } from 'mobx-react';
 import CountdownTimer from 'childs/lib/components/CountdownTimer';
 import { devLog } from 'childs/lib/common/devLog';
-@inject('orderpayment', 'authmobile', 'customerauthentication')
+@inject('orderpayment', 'authmobile', 'customerauthentication', 'alert')
 @observer
 class AuthenticationModal extends Component {
-  openWindowHandle = e => {
-    const childWindow = window.open('', 'popupChk');
-    this.props.authmobile.getCertKey('order', childWindow);
+  openWindowHandle = (e) => {
+    if (!this.props.authmobile.access) {
+      this.props.authmobile.access = true;
+
+      try {
+        const childWindow = window.open('', 'popupChk');
+        if (!childWindow) {
+          throw new Error();
+        }
+        this.props.authmobile.getCertKey('order', childWindow);
+      } catch (e) {
+        this.props.authmobile.access = false;
+        this.props.alert.showAlert('브라우저 또는 구하다 앱에서 이용해주세요!');
+      }
+    }
   };
   render() {
     const {
@@ -52,7 +64,7 @@ class AuthenticationModal extends Component {
               ) : (
                 <div
                   className={css.button}
-                  onClick={e => this.openWindowHandle(e)}
+                  onClick={(e) => this.openWindowHandle(e)}
                 >
                   본인 명의 휴대폰으로 인증
                 </div>
@@ -102,7 +114,7 @@ class AuthenticationModal extends Component {
                       type="text"
                       placeholder="이메일을 입력해주세요"
                       value={customerauthentication.email || ''}
-                      onChange={e => {
+                      onChange={(e) => {
                         customerauthentication.emailInput(e);
                       }}
                       onBlur={() => {
