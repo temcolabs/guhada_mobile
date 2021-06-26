@@ -1,5 +1,5 @@
 import css from './Header.module.scss';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import cn from 'classnames';
@@ -34,6 +34,13 @@ const Header = ({
    */
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(0);
+
+  /**
+   * side effects
+   */
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [router]);
 
   /**
    * render

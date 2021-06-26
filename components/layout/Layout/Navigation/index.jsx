@@ -17,7 +17,7 @@ const Navigation = ({ type, noNav }) => {
    */
   const handleClick = (id, route) => {
     if (type === id) {
-      window.scrollTo(0, 0);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       pushRoute(route);
     }

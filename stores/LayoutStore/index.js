@@ -136,25 +136,6 @@ class LayoutStore {
     },
   };
 
-  getTitle = () => {
-    if (isBrowser) {
-      switch (router.pathname) {
-        case '/mypage':
-          return '마이페이지';
-        case '/event/eventdetail':
-          return '이벤트';
-        case '/event/specialdetail':
-          return '기획전';
-        case '/orderpayment':
-          return '주문 결제';
-        case '/shoppingcart':
-          return '장바구니';
-        default:
-          return '';
-      }
-    }
-  };
-
   /**
    * actions
    */

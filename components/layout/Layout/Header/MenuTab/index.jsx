@@ -35,6 +35,8 @@ function MenuTab() {
     if (selected !== path) {
       pushRoute(path);
       setSelected(path);
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
     handleClickSelected(target);
   };
@@ -63,11 +65,12 @@ function MenuTab() {
    * side effect
    */
   useEffect(() => {
-    window.scrollTo(0, 0);
-
-    const target = document.getElementById(selected);
-    handleClickSelected(target, false);
-  }, []);
+    const target = document.getElementById(router.asPath);
+    if (target) {
+      setSelected(router.asPath);
+      handleClickSelected(target, false);
+    }
+  }, [router]);
 
   /**
    * render
