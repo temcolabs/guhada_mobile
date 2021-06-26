@@ -3,7 +3,6 @@ import { observer } from 'mobx-react';
 import { getParameterByName } from '../../utils';
 import useStores from 'stores/useStores';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
-import Layout from 'components/layout/Layout';
 import MountLoading from 'components/atoms/Misc/MountLoading';
 import OrderPayment from 'template/orderpayment/OrderPayment';
 
@@ -27,15 +26,19 @@ function OrderPaymentPage() {
   return (
     <>
       <HeadForSEO pageName="주문 결제" />
-      <Layout title="주문 결제">
-        {orderPaymentStore.status.pageStatus ? (
-          <OrderPayment />
-        ) : (
-          <MountLoading />
-        )}
-      </Layout>
+      {orderPaymentStore.status.pageStatus ? (
+        <OrderPayment />
+      ) : (
+        <MountLoading />
+      )}
     </>
   );
 }
+
+OrderPaymentPage.getInitialProps = function({ pathname, query }) {
+  const initialProps = { layout: { title: '주문 결제' } };
+
+  return initialProps;
+};
 
 export default observer(OrderPaymentPage);

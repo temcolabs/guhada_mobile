@@ -6,7 +6,6 @@ import { getLayoutInfo } from 'stores/LayoutStore';
 import API from 'childs/lib/API';
 import isServer from 'childs/lib/common/isServer';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
-import Layout from 'components/layout/Layout';
 import EventDetail from 'template/event/EventDetail';
 import MountLoading from 'components/atoms/Misc/MountLoading';
 
@@ -39,18 +38,32 @@ function EventDetailPage() {
         description={headData.description}
         image={headData.image}
       />
-      <Layout title={'이벤트'}>
-        {(newEventStore.isInitial || newEventStore.isLoading) && (
-          <MountLoading gutter />
-        )}
-        <EventDetail />
-      </Layout>
+      {(newEventStore.isInitial || newEventStore.isLoading) && (
+        <MountLoading gutter />
+      )}
+      <EventDetail />
     </>
   );
 }
 
 EventDetailPage.getInitialProps = async function({ req, pathname, query }) {
+  const initialProps = { layout: { title: '이벤트' } };
+
   if (isServer) {
+    const initialState = {};
+
+    const { type, headerFlags } = getLayoutInfo({
+      pathname,
+      query,
+    });
+
+    Object.assign(initialState, {
+      layout: {
+        type,
+        headerFlags,
+      },
+    });
+
     try {
       const eventId = query.id || req.query.id;
       if (!eventId) {
@@ -63,29 +76,20 @@ EventDetailPage.getInitialProps = async function({ req, pathname, query }) {
 
       const eventDetail = data.data;
 
-      const { type, headerFlags } = getLayoutInfo({
-        pathname,
-        query,
+      Object.assign(initialState, {
+        eventmain: {
+          eventId,
+          eventDetail,
+        },
       });
-
-      return {
-        initialState: {
-          eventmain: {
-            eventId,
-            eventDetail,
-          },
-        },
-        layout: {
-          type,
-          headerFlags,
-        },
-      };
     } catch (error) {
       console.error(error.message);
-      return {};
     }
+
+    Object.assign(initialProps, { initialState });
   }
-  return {};
+
+  return initialProps;
 };
 
 export default observer(EventDetailPage);

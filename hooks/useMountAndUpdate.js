@@ -7,8 +7,8 @@ import { useEffect, useRef } from 'react';
  * @param {Array} deps
  */
 export const useMountAndUpdate = (
-  componentDidMountCallback,
-  componentDidUpdateCallback,
+  componentDidMountCallback = () => {},
+  componentDidUpdateCallback = () => {},
   deps
 ) => {
   const componentDidMountRef = useRef();

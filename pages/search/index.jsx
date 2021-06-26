@@ -5,7 +5,6 @@ import useStores from 'stores/useStores';
 import isServer from 'childs/lib/common/isServer';
 import { getLayoutInfo } from 'stores/LayoutStore';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
-import Layout from 'components/layout/Layout';
 import Search from 'template/Search';
 import MountLoading from 'components/atoms/Misc/MountLoading';
 
@@ -30,27 +29,28 @@ function SearchPage() {
   return (
     <>
       <HeadForSEO pageName={'검색 결과'} />
-      <Layout>
-        {searchByFilterStore.isInitial && <MountLoading />}
-        <Search />
-      </Layout>
+      {searchByFilterStore.isInitial && <MountLoading />}
+      <Search />
     </>
   );
 }
 
 SearchPage.getInitialProps = function({ pathname, query }) {
+  const initialProps = { layout: {} };
+
   if (isServer) {
     const { type, headerFlags } = getLayoutInfo({ pathname, query });
-    return {
+    Object.assign(initialProps, {
       initialState: {
         layout: {
           type,
           headerFlags,
         },
       },
-    };
+    });
   }
-  return {};
+
+  return initialProps;
 };
 
 export default observer(SearchPage);

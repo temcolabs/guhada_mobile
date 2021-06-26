@@ -4,6 +4,7 @@ import { LAYOUT_TYPE, layouts } from './constants';
 import { searchConditionMap } from '../SearchStore/SearchByFilterStore';
 import { isEmpty as _isEmpty } from 'lodash';
 import qs from 'querystring';
+import router from 'next/router';
 
 /**
  * JSDoc typedefs
@@ -44,10 +45,7 @@ class LayoutStore {
   /**
    * observables
    */
-  @observable isInitial = true;
-
   @observable type = '';
-
   @observable headerFlags = {};
 
   /**
@@ -70,9 +68,7 @@ class LayoutStore {
   }
 
   handleHeaderInfo = {
-    default: () => {
-      return {};
-    },
+    default: () => ({}),
     category: () => {
       const { searchByFilter: that } = this.root;
 
@@ -138,6 +134,25 @@ class LayoutStore {
       const title = searchConditionMap.get(that.defaultBody.searchCondition);
       return { title };
     },
+  };
+
+  getTitle = () => {
+    if (isBrowser) {
+      switch (router.pathname) {
+        case '/mypage':
+          return '마이페이지';
+        case '/event/eventdetail':
+          return '이벤트';
+        case '/event/specialdetail':
+          return '기획전';
+        case '/orderpayment':
+          return '주문 결제';
+        case '/shoppingcart':
+          return '장바구니';
+        default:
+          return '';
+      }
+    }
   };
 
   /**
@@ -209,11 +224,6 @@ class LayoutStore {
    * @param {string} type
    */
   @action initialize = ({ pathname, query }) => {
-    if (this.isInitial) {
-      this.isInitial = false;
-      // return;
-    }
-
     const { type, headerFlags } = getLayoutInfo({ pathname, query });
 
     if (this.type !== type) {

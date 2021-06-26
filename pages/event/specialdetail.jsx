@@ -6,7 +6,6 @@ import { getLayoutInfo } from 'stores/LayoutStore';
 import API from 'childs/lib/API';
 import isServer from 'childs/lib/common/isServer';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
-import Layout from 'components/layout/Layout';
 import SpecialDetail from 'template/event/SpecialDetail';
 import MountLoading from 'components/atoms/Misc/MountLoading';
 
@@ -39,18 +38,32 @@ function SpecialDetailPage({ initialHeadData }) {
         description={headData.description}
         image={headData.image}
       />
-      <Layout title={'기획전'}>
-        {(newSpecialStore.isInitial || newSpecialStore.isLoading) && (
-          <MountLoading gutter />
-        )}
-        <SpecialDetail />
-      </Layout>
+      {(newSpecialStore.isInitial || newSpecialStore.isLoading) && (
+        <MountLoading gutter />
+      )}
+      <SpecialDetail />
     </>
   );
 }
 
 SpecialDetailPage.getInitialProps = async function({ req, pathname, query }) {
+  const initialProps = { layout: { title: '이벤트' } };
+
   if (isServer) {
+    const initialState = {};
+
+    const { type, headerFlags } = getLayoutInfo({
+      pathname,
+      query,
+    });
+
+    Object.assign(initialState, {
+      layout: {
+        type,
+        headerFlags,
+      },
+    });
+
     try {
       const eventId = query.id || req.query.id;
       if (!eventId) {
@@ -63,29 +76,20 @@ SpecialDetailPage.getInitialProps = async function({ req, pathname, query }) {
 
       const specialDetail = data.data;
 
-      const { type, headerFlags } = getLayoutInfo({
-        pathname,
-        query,
-      });
-
-      return {
-        initialState: {
-          newSpecial: {
-            eventId,
-            specialDetail,
-          },
-          layout: {
-            type,
-            headerFlags,
-          },
+      Object.assign(initialState, {
+        newSpecial: {
+          eventId,
+          specialDetail,
         },
-      };
+      });
     } catch (error) {
       console.error(error.message);
-      return {};
     }
+
+    Object.assign(initialProps, { initialState });
   }
-  return {};
+
+  return initialProps;
 };
 
 export default observer(SpecialDetailPage);

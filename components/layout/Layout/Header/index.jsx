@@ -1,6 +1,7 @@
 import css from './Header.module.scss';
-import { useState, memo } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { observer } from 'mobx-react';
 import cn from 'classnames';
 import { useRouter } from 'next/router';
 import MenuTab from './MenuTab';
@@ -27,7 +28,6 @@ const Header = ({
   slide,
   searchbox,
   isScrollDown,
-  menuList,
 }) => {
   /**
    * states
@@ -94,7 +94,7 @@ const Header = ({
             </div>
           </div>
         )}
-        {menu && <MenuTab menuList={menuList} />}
+        {menu && <MenuTab />}
         {submenu && <SubmenuTab />}
         {category && <CategoryTab />}
       </nav>
@@ -128,8 +128,7 @@ Header.propTypes = {
   filter: PropTypes.bool,
   slide: PropTypes.bool,
   searchbox: PropTypes.bool,
-  menuList: PropTypes.array,
   isScrollDown: PropTypes.bool,
 };
 
-export default memo(Header);
+export default observer(Header);

@@ -4,7 +4,6 @@ import useStores from 'stores/useStores';
 import isServer from 'childs/lib/common/isServer';
 import { getLayoutInfo } from 'stores/LayoutStore';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
-import Layout from 'components/layout/Layout';
 import MountLoading from 'components/atoms/Misc/MountLoading';
 import Footer from 'components/footer/Footer';
 import EventMain from 'template/event/EventMain';
@@ -31,28 +30,29 @@ function EventMainPage() {
   return (
     <>
       <HeadForSEO pageName="이벤트" />
-      <Layout>
-        {eventMainStore.eventList.length === 0 && <MountLoading />}
-        <EventMain />
-        <Footer />
-      </Layout>
+      {eventMainStore.eventList.length === 0 && <MountLoading />}
+      <EventMain />
+      <Footer />
     </>
   );
 }
 
 EventMainPage.getInitialProps = function({ pathname, query }) {
+  const initialProps = { layout: {} };
+
   if (isServer) {
     const { type, headerFlags } = getLayoutInfo({ pathname, query });
-    return {
+    Object.assign(initialProps, {
       initialState: {
         layout: {
           type,
           headerFlags,
         },
       },
-    };
+    });
   }
-  return {};
+
+  return initialProps;
 };
 
 export default observer(EventMainPage);

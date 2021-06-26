@@ -5,7 +5,6 @@ import isServer from 'childs/lib/common/isServer';
 import { getLayoutInfo } from 'stores/LayoutStore';
 import { isEmpty as _isEmpty } from 'lodash';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
-import Layout from 'components/layout/Layout';
 import Footer from 'components/footer/Footer';
 import MountLoading from 'components/atoms/Misc/MountLoading';
 import LuckyDraw from 'template/LuckyDraw';
@@ -35,28 +34,29 @@ function LuckyDrawPage() {
           process.env.API_CLOUD
         }/images/thumbnail/luckydraw/thumbnail_luckydraw.png`}
       />
-      <Layout>
-        {_isEmpty(luckyDrawStore.luckyDrawData) && <MountLoading />}
-        <LuckyDraw />
-        <Footer />
-      </Layout>
+      {_isEmpty(luckyDrawStore.luckyDrawData) && <MountLoading />}
+      <LuckyDraw />
+      <Footer />
     </>
   );
 }
 
 LuckyDrawPage.getInitialProps = function({ pathname, query }) {
+  const initialProps = { layout: {} };
+
   if (isServer) {
     const { type, headerFlags } = getLayoutInfo({ pathname, query });
-    return {
+    Object.assign(initialProps, {
       initialState: {
         layout: {
           type,
           headerFlags,
         },
       },
-    };
+    });
   }
-  return {};
+
+  return initialProps;
 };
 
 export default observer(LuckyDrawPage);

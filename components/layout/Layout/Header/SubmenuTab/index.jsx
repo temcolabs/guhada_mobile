@@ -16,8 +16,8 @@ function SubmenuTab() {
    * states
    */
   const router = useRouter();
-  const [scrollRef, arrowLeft, arrowRight] = useHorizontalArrows();
   const { category: categoryStore } = useStores();
+  const [scrollRef, arrowLeft, arrowRight] = useHorizontalArrows();
   const path = router.pathname.split('/');
   const categoryList = categoryStore.category[pathMap[path[path.length - 1]]];
 
@@ -63,19 +63,19 @@ function SubmenuTab() {
               {item.title}
             </li>
           ))}
+          {arrowLeft && (
+            <span
+              className={cn(css['tab-arrow'], css['arrow--left'])}
+              onClick={handleScrollLeft}
+            />
+          )}
+          {arrowRight && (
+            <span
+              className={cn(css['tab-arrow'], css['arrow--right'])}
+              onClick={handleScrollRight}
+            />
+          )}
         </>
-      )}
-      {arrowLeft && (
-        <span
-          className={cn(css['tab-arrow'], css['arrow--left'])}
-          onClick={handleScrollLeft}
-        />
-      )}
-      {arrowRight && (
-        <span
-          className={cn(css['tab-arrow'], css['arrow--right'])}
-          onClick={handleScrollRight}
-        />
       )}
     </ul>
   );

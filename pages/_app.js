@@ -22,6 +22,7 @@ import CommonHead from 'childs/lib/components/CommonHead';
 import momentTracker from 'childs/lib/tracking/kakaomoment/momentTracker';
 import ReactPixel from 'react-facebook-pixel';
 import gtagTracker from 'childs/lib/tracking/google/gtagTracker';
+import Layout from 'components/layout/Layout';
 
 moment.locale('ko');
 
@@ -196,13 +197,7 @@ class GuhadaMobileWeb extends App {
   }
 
   render() {
-    const {
-      Component,
-      initialProps,
-      fullUrl,
-      isProdHost,
-      hostname,
-    } = this.props;
+    const { Component, initialProps, fullUrl, hostname } = this.props;
 
     return (
       <Container>
@@ -220,7 +215,13 @@ class GuhadaMobileWeb extends App {
               </>
             </CommonHead>
 
-            <Component key={this.componentKey} {...initialProps} />
+            {initialProps.layout ? (
+              <Layout title={initialProps.layout.title}>
+                <Component key={this.componentKey} {...initialProps} />
+              </Layout>
+            ) : (
+              <Component key={this.componentKey} {...initialProps} />
+            )}
 
             <AlertConductor />
 

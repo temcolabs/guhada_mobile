@@ -11,7 +11,6 @@ import momentTracker from 'childs/lib/tracking/kakaomoment/momentTracker';
 import gtagTracker from 'childs/lib/tracking/google/gtagTracker';
 import { getLayoutInfo } from 'stores/LayoutStore';
 import ShoppingCart from 'template/shoppingcart/ShoppingCart';
-import Layout from 'components/layout/Layout';
 import MountLoading from 'components/atoms/Misc/MountLoading';
 
 function ShoppingCartPage() {
@@ -63,30 +62,31 @@ function ShoppingCartPage() {
   return (
     <>
       <HeadForSEO pageName="장바구니" />
-      <Layout title="장바구니">
-        {shoppingCartStore.status.pageStatus ? (
-          <ShoppingCart />
-        ) : (
-          <MountLoading />
-        )}
-      </Layout>
+      {shoppingCartStore.status.pageStatus ? (
+        <ShoppingCart />
+      ) : (
+        <MountLoading />
+      )}
     </>
   );
 }
 
 ShoppingCartPage.getInitialProps = function({ pathname, query }) {
+  const initialProps = { layout: { title: '장바구니' } };
+
   if (isServer) {
     const { type, headerFlags } = getLayoutInfo({ pathname, query });
-    return {
+    Object.assign(initialProps, {
       initialState: {
         layout: {
           type,
           headerFlags,
         },
       },
-    };
+    });
   }
-  return {};
+
+  return initialProps;
 };
 
 export default observer(ShoppingCartPage);

@@ -1,12 +1,12 @@
 import css from './MenuTab.module.scss';
-import { useEffect, memo, useRef } from 'react';
+import { useState, useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import cn from 'classnames';
 import { useHorizontalArrows } from 'hooks';
 import { pushRoute } from 'childs/lib/router';
 
-const defaultMenuList = [
+const menuList = [
   ['홈', '/'],
   ['여성', '/home/women'],
   ['남성', '/home/men'],
@@ -20,28 +20,30 @@ const defaultMenuList = [
   ['선물하기', '/gift'],
 ];
 
-function MenuTab({ menuList = defaultMenuList }) {
+function MenuTab() {
   /**
    * states
    */
-  const selectedRef = useRef();
   const [scrollRef, arrowLeft, arrowRight] = useHorizontalArrows();
   const router = useRouter();
+  const [selected, setSelected] = useState(router.asPath);
 
   /**
    * handlers
    */
-  const handleClick = (path) => {
-    pushRoute(path);
+  const handleClick = (path, target) => {
+    if (selected !== path) {
+      pushRoute(path);
+      setSelected(path);
+    }
+    handleClickSelected(target);
   };
-  const handleClickSelected = () => {
-    scrollRef.current.scrollTo({
+  const handleClickSelected = (target, smooth = true) => {
+    const menu = scrollRef.current;
+    menu.scrollTo({
       left:
-        selectedRef.current.offsetLeft +
-        selectedRef.current.clientWidth / 2 -
-        scrollRef.current.clientWidth / 2 -
-        10,
-      behavior: 'smooth',
+        target.offsetLeft + target.clientWidth / 2 - menu.clientWidth / 2 - 10,
+      ...(smooth && { behavior: 'smooth' }),
     });
   };
   const handleScrollLeft = () => {
@@ -62,45 +64,31 @@ function MenuTab({ menuList = defaultMenuList }) {
    */
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    const target = document.getElementById(selected);
+    handleClickSelected(target, false);
   }, []);
-  useEffect(() => {
-    if (selectedRef.current) {
-      scrollRef.current.scrollLeft =
-        selectedRef.current.offsetLeft +
-        selectedRef.current.clientWidth / 2 -
-        scrollRef.current.clientWidth / 2 -
-        10;
-    }
-  }, [selectedRef.current]);
 
   /**
    * render
    */
   return (
     <ul className={css['menu-tab']} ref={scrollRef}>
-      {menuList.map(([name, path]) =>
-        router.asPath === path ? (
-          <li
-            key={name}
-            className={cn(css['tab-item'], css['selected'])}
-            ref={selectedRef}
-            onClick={handleClickSelected}
-          >
-            {name}
-          </li>
-        ) : (
-          <li
-            key={name}
-            className={cn(
-              css['tab-item'],
-              (name === '타임딜' || name === '럭키드로우') && css['event']
-            )}
-            onClick={() => handleClick(path)}
-          >
-            {name}
-          </li>
-        )
-      )}
+      {menuList.map(([name, path]) => (
+        <li
+          id={path}
+          key={name}
+          className={cn(
+            css['tab-item'],
+            selected === path
+              ? css['selected']
+              : (name === '타임딜' || name === '럭키드로우') && css['event']
+          )}
+          onClick={(e) => handleClick(path, e.target)}
+        >
+          {name}
+        </li>
+      ))}
       {arrowLeft && (
         <span
           className={cn(css['tab-arrow'], css['arrow--left'])}

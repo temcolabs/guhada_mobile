@@ -31,28 +31,29 @@ function SpecialPage() {
   return (
     <>
       <HeadForSEO pageName="기획전" />
-      <Layout>
-        {specialStore.specialList.length === 0 && <MountLoading />}
-        <SpecialList />
-        <Footer />
-      </Layout>
+      {specialStore.specialList.length === 0 && <MountLoading />}
+      <SpecialList />
+      <Footer />
     </>
   );
 }
 
 SpecialPage.getInitialProps = function({ pathname, query }) {
+  const initialProps = { layout: {} };
+
   if (isServer) {
     const { type, headerFlags } = getLayoutInfo({ pathname, query });
-    return {
+    Object.assign(initialProps, {
       initialState: {
         layout: {
           type,
           headerFlags,
         },
       },
-    };
+    });
   }
-  return {};
+
+  return initialProps;
 };
 
 export default observer(SpecialPage);

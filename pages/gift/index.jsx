@@ -4,7 +4,6 @@ import useStores from 'stores/useStores';
 import isServer from 'childs/lib/common/isServer';
 import { getLayoutInfo } from 'stores/LayoutStore';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
-import Layout from 'components/layout/Layout';
 import Footer from 'components/footer/Footer';
 import MountLoading from 'components/atoms/Misc/MountLoading';
 import Gift from 'template/Gift';
@@ -28,28 +27,29 @@ function GiftPage() {
   return (
     <>
       <HeadForSEO pageName="선물하기" />
-      <Layout>
-        {giftStore.isLoading && <MountLoading />}
-        <Gift />
-        <Footer />
-      </Layout>
+      {giftStore.isLoading && <MountLoading />}
+      <Gift />
+      <Footer />
     </>
   );
 }
 
 GiftPage.getInitialProps = function({ pathname, query }) {
+  const initialProps = { layout: {} };
+
   if (isServer) {
     const { type, headerFlags } = getLayoutInfo({ pathname, query });
-    return {
+    Object.assign(initialProps, {
       initialState: {
         layout: {
           type,
           headerFlags,
         },
       },
-    };
+    });
   }
-  return {};
+
+  return initialProps;
 };
 
 export default observer(GiftPage);

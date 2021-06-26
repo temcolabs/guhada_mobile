@@ -5,7 +5,6 @@ import isServer from 'childs/lib/common/isServer';
 import { getLayoutInfo } from 'stores/LayoutStore';
 import criteoTracker from 'childs/lib/tracking/criteo/criteoTracker';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
-import Layout from 'components/layout/Layout';
 import Footer from 'components/footer/Footer';
 import Home from 'template/Home';
 
@@ -30,27 +29,28 @@ function IndexPage() {
   return (
     <>
       <HeadForSEO />
-      <Layout>
-        <Home />
-        <Footer />
-      </Layout>
+      <Home />
+      <Footer />
     </>
   );
 }
 
 IndexPage.getInitialProps = function({ pathname, query }) {
+  const initialProps = { layout: {} };
+
   if (isServer) {
     const { type, headerFlags } = getLayoutInfo({ pathname, query });
-    return {
+    Object.assign(initialProps, {
       initialState: {
         layout: {
           type,
           headerFlags,
         },
       },
-    };
+    });
   }
-  return {};
+
+  return initialProps;
 };
 
 export default observer(IndexPage);

@@ -11,7 +11,6 @@ import { getHeadData } from 'stores/productdetail/ProductDetailStore';
 import { getLayoutInfo } from 'stores/LayoutStore';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
 import ProductDetail from 'template/product/ProductDetail';
-import Layout from 'components/layout/Layout';
 import MountLoading from 'components/atoms/Misc/MountLoading';
 
 function ProductDetailPage() {
@@ -81,40 +80,40 @@ function ProductDetailPage() {
         image={headData?.image}
         fullUrl={isBrowser && `${window.location.href}`}
       />
-      <Layout>
-        {productDetailStore.isInitial || productDetailStore.isLoading ? (
-          <MountLoading />
-        ) : (
-          <ProductDetail
-            deals={productDetailStore.deals}
-            claims={productDetailStore.claims}
-            tags={productDetailStore.dealsTag}
-            businessSeller={productDetailStore.businessSeller}
-            seller={productDetailStore.seller}
-            dealsOfSameBrand={productDetailStore.dealsOfSameBrand}
-            dealsOfRecommend={productDetailStore.dealsOfRecommend}
-            dealsOfSellerStore={productDetailStore.dealsOfSellerStore}
-            followers={productDetailStore.followers}
-            satisfaction={productDetailStore.satisfaction}
-          />
-        )}
-      </Layout>
+      {productDetailStore.isInitial || productDetailStore.isLoading ? (
+        <MountLoading />
+      ) : (
+        <ProductDetail
+          deals={productDetailStore.deals}
+          claims={productDetailStore.claims}
+          tags={productDetailStore.dealsTag}
+          businessSeller={productDetailStore.businessSeller}
+          seller={productDetailStore.seller}
+          dealsOfSameBrand={productDetailStore.dealsOfSameBrand}
+          dealsOfRecommend={productDetailStore.dealsOfRecommend}
+          dealsOfSellerStore={productDetailStore.dealsOfSellerStore}
+          followers={productDetailStore.followers}
+          satisfaction={productDetailStore.satisfaction}
+        />
+      )}
     </>
   );
 }
 
 ProductDetailPage.getInitialProps = async function({ pathname, query }) {
+  const initialProps = { layout: {} };
+
   if (isServer) {
+    const initialState = {};
+
     const { type, headerFlags } = getLayoutInfo({ pathname, query });
 
-    const initialProps = {
-      initialState: {
-        layout: {
-          type,
-          headerFlags,
-        },
+    Object.assign(initialState, {
+      layout: {
+        type,
+        headerFlags,
       },
-    };
+    });
 
     const dealsId = query.deals;
     if (dealsId) {
@@ -122,14 +121,15 @@ ProductDetailPage.getInitialProps = async function({ pathname, query }) {
       const deals = data.data;
       const headData = getHeadData(deals);
 
-      Object.assign(initialProps.initialState, {
+      Object.assign(initialState, {
         productdetail: { deals, headData },
       });
     }
 
-    return initialProps;
+    Object.assign(initialProps, { initialState });
   }
-  return {};
+
+  return initialProps;
 };
 
 export default observer(ProductDetailPage);

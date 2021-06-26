@@ -9,38 +9,38 @@ import { useState, useEffect, useRef } from 'react';
  * `arrowLeft` to check if element is scrollable to the left
  * `arrowRight` to check if element is scrollable to the right
  */
-export const useHorizontalArrows = (deps = [], offset = 15) => {
+export const useHorizontalArrows = (deps = [], offset = 10) => {
   const scrollRef = useRef();
-  const [arrowLeft, setArrowLeft] = useState(true);
-  const [arrowRight, setArrowRight] = useState(true);
+  const [arrowLeft, setArrowLeft] = useState(false);
+  const [arrowRight, setArrowRight] = useState(false);
 
   const handler = (e) => {
-    if (e.target.scrollLeft > 10) {
+    if (e.target.scrollLeft > offset) {
       setArrowLeft(true);
     } else {
       setArrowLeft(false);
     }
     if (
-      e.target.scrollLeft >
+      e.target.scrollLeft <
       e.target.scrollWidth - e.target.clientWidth - offset
     ) {
-      setArrowRight(false);
-    } else {
       setArrowRight(true);
+    } else {
+      setArrowRight(false);
     }
   };
 
   useEffect(() => {
     if (scrollRef.current) {
       const tab = scrollRef.current;
-      if (tab.scrollLeft > tab.scrollWidth - tab.clientWidth - offset) {
-        setArrowRight(false);
-      } else {
+      if (tab.scrollLeft < tab.scrollWidth - tab.clientWidth - offset) {
         setArrowRight(true);
+      } else {
+        setArrowRight(false);
       }
       tab.addEventListener('scroll', handler);
     }
-  }, deps);
+  }, [scrollRef.current, ...deps]);
 
   return [scrollRef, arrowLeft, arrowRight];
 };

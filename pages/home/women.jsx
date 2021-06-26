@@ -13,28 +13,28 @@ function HomePage() {
   return (
     <>
       <HeadForSEO pageName={'여성'} />
-      <Layout>
-        <Home name={'WOMEN'} />
-        <Footer />
-      </Layout>
+      <Home name={'WOMEN'} />
+      <Footer />
     </>
   );
 }
 
 HomePage.getInitialProps = function({ pathname, query }) {
+  const initialProps = { layout: {} };
+
   if (isServer) {
     const { type, headerFlags } = getLayoutInfo({ pathname, query });
-    return {
+    Object.assign(initialProps, {
       initialState: {
         layout: {
           type,
           headerFlags,
         },
       },
-    };
+    });
   }
 
-  return {};
+  return initialProps;
 };
 
 export default observer(HomePage);
