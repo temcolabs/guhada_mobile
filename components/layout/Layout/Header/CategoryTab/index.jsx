@@ -18,20 +18,18 @@ const CategoryTab = () => {
    * handlers
    */
   const handleClick = (id, target, replace = false) => {
-    new Promise((res) =>
-      res(
-        id &&
-          id !== category.id &&
-          layoutStore.pushState(
-            Object.assign(window.history.state, {
-              url: `/search?category=${id}`,
-              as: `/search?category=${id}`,
-              query: { category: id },
-            }),
-            replace
-          )
-      )
-    ).then(() => scrollRef.current.scrollTo(target.offsetLeft - 30, 0));
+    new Promise((res) => {
+      if (id && id !== category.id) {
+        layoutStore.pushState(
+          Object.assign(window.history.state, {
+            query: { category: id },
+          }),
+          replace
+        );
+      }
+
+      return res();
+    }).then(() => scrollRef.current.scrollTo(target.offsetLeft - 30, 0));
   };
 
   const handleScrollLeft = () => {
@@ -73,11 +71,7 @@ const CategoryTab = () => {
           </>
         ) : (
           <>
-            <li
-              className={css['tab-item']}
-              // onClick={(e) => handleClick(category.parent.id, e.target, true)}
-              onClick={router.back}
-            >
+            <li className={css['tab-item']} onClick={router.back}>
               전체보기
             </li>
             {category.parent.children.map(({ id, title, children }) => (

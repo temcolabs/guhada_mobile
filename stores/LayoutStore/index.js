@@ -4,7 +4,6 @@ import { LAYOUT_TYPE, layouts } from './constants';
 import { searchConditionMap } from '../SearchStore/SearchByFilterStore';
 import { isEmpty as _isEmpty } from 'lodash';
 import qs from 'querystring';
-import router from 'next/router';
 
 /**
  * JSDoc typedefs
@@ -41,6 +40,11 @@ class LayoutStore {
       }
     }
   }
+
+  /**
+   * statics
+   */
+  scrollMemo = false;
 
   /**
    * observables

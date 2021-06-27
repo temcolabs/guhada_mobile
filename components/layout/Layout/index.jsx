@@ -1,4 +1,5 @@
 import css from './Layout.module.scss';
+import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { useRouter } from 'next/router';
@@ -8,7 +9,7 @@ import Header from './Header';
 import Navigation from './Navigation';
 import PluginButtons from './PluginButtons';
 
-function Layout({ title, children }) {
+function Layout({ title, scrollMemo, children }) {
   /**
    * states
    */
@@ -28,7 +29,7 @@ function Layout({ title, children }) {
     layoutStore.initialize(router);
     newMainStore.initialize();
 
-    window && window.addEventListener('popstate', layoutStore.popState);
+    window.addEventListener('popstate', layoutStore.popState);
 
     /* TODO */
     const job = () => shoppingcartStore.globalGetUserShoppingCartList();
@@ -36,8 +37,16 @@ function Layout({ title, children }) {
     mypageRecentlySeen.init();
     category.getCategory();
 
+    if (scrollMemo) {
+      layoutStore.scrollMemo = true;
+    } else if (layoutStore.scrollMemo) {
+      layoutStore.scrollMemo = false;
+    } else {
+      window.scrollTo(0, 0);
+    }
+
     return () => {
-      window && window.removeEventListener('popstate', layoutStore.popState);
+      window.removeEventListener('popstate', layoutStore.popState);
     };
   }, [router]);
 
@@ -68,5 +77,10 @@ function Layout({ title, children }) {
     </>
   );
 }
+
+Layout.propTypes = {
+  title: PropTypes.string,
+  scrollMemo: PropTypes.bool,
+};
 
 export default observer(Layout);

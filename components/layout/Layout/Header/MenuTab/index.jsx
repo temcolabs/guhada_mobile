@@ -67,10 +67,18 @@ function MenuTab() {
   useEffect(() => {
     const target = document.getElementById(router.asPath);
     if (target) {
-      setSelected(router.asPath);
+      if (selected !== router.asPath) {
+        setSelected(router.asPath);
+        handleClickSelected(target);
+      }
+    }
+  }, [router.asPath]);
+  useEffect(() => {
+    const target = document.getElementById(router.asPath);
+    if (target) {
       handleClickSelected(target, false);
     }
-  }, [router]);
+  }, []);
 
   /**
    * render

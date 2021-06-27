@@ -66,28 +66,26 @@ const SearchMenu = ({ handleSearch, fixed }) => {
           />
         )}
       </div>
-      {selected === 0 && (
-        <div className={css['menu__autocomplete']}>
+      <div className={css['menu__autocomplete']}>
+        <div
+          className={css['auto-text']}
+          onClick={keywordStore.setAutocomplete}
+        >
+          자동완성
           <div
-            className={css['auto-text']}
-            onClick={keywordStore.setAutocomplete}
-          >
-            자동완성
-            <div
-              className={cn(
-                css['auto-toggle'],
-                !keywordStore.autoComplete && css['auto-toggle--off']
-              )}
-            />
-          </div>
-          <div
-            className={css['auto-delete']}
-            onClick={keywordStore.removeItemAll}
-          >
-            전체삭제
-          </div>
+            className={cn(
+              css['auto-toggle'],
+              !keywordStore.autoComplete && css['auto-toggle--off']
+            )}
+          />
         </div>
-      )}
+        <div
+          className={css['auto-delete']}
+          onClick={keywordStore.removeItemAll}
+        >
+          전체삭제
+        </div>
+      </div>
     </div>
   );
 };

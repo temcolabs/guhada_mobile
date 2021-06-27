@@ -65,44 +65,40 @@ const SearchModal = ({ handleClose }) => {
    */
   return (
     <ModalPortal handleClose={handleClose} slide={3}>
-      <div className={css['wrapper']}>
-        <div className={css['tab']}>
-          <div className={css['tab__buttons']}>
-            <div
-              className={cn(css['button'], css['button--back'])}
-              onClick={handleBackClick}
-            />
-          </div>
-          <input
-            type="text"
-            value={searchInput}
-            placeholder={newMainStore.mainData.placeholder || '검색하기'}
-            onKeyUp={handleKeyUp}
-            onChange={(e) => setSearchInput(e.target.value)}
+      <div className={css['tab']}>
+        <div className={css['tab__buttons']}>
+          <div
+            className={cn(css['button'], css['button--back'])}
+            onClick={handleBackClick}
           />
-          <div className={css['tab__buttons']}>
-            {searchInput && (
-              <div
-                className={cn(css['button'], css['button--delete'])}
-                onClick={handleDelete}
-              />
-            )}
-            <div
-              className={cn(css['button'], css['button--search'])}
-              onClick={() => handleSearch(searchInput)}
-            />
-          </div>
         </div>
-        <div className={css['content']}>
-          <SearchMenu handleSearch={handleSearch} />
-          {isExpand === 2 && (
-            <AutocompleteSearchMenu
-              list={keywordStore.autoCompleteList}
-              handleSearch={handleSearch}
+        <input
+          type="text"
+          value={searchInput}
+          placeholder={newMainStore.mainData.placeholder || '검색하기'}
+          onKeyUp={handleKeyUp}
+          onChange={(e) => setSearchInput(e.target.value)}
+        />
+        <div className={css['tab__buttons']}>
+          {searchInput && (
+            <div
+              className={cn(css['button'], css['button--delete'])}
+              onClick={handleDelete}
             />
           )}
+          <div
+            className={cn(css['button'], css['button--search'])}
+            onClick={() => handleSearch(searchInput)}
+          />
         </div>
       </div>
+      <SearchMenu handleSearch={handleSearch} />
+      {isExpand === 2 && (
+        <AutocompleteSearchMenu
+          list={keywordStore.autoCompleteList}
+          handleSearch={handleSearch}
+        />
+      )}
     </ModalPortal>
   );
 };

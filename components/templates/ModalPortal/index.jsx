@@ -8,6 +8,7 @@ function ModalPortal({
   children,
   selectorId = 'modal-portal',
   handleClose = () => {},
+  shade = true,
   transparent = false,
   gutter,
   closeButton = true,
@@ -31,10 +32,12 @@ function ModalPortal({
     typeof document === 'object' &&
     createPortal(
       <>
-        <div
-          className={cn(css['shade'], closeButton && css['close-button'])}
-          onClick={handleClose}
-        />
+        {shade && (
+          <div
+            className={cn(css['shade'], closeButton && css['close-button'])}
+            onClick={handleClose}
+          />
+        )}
         <div
           className={cn(
             css['modal'],

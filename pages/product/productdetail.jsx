@@ -18,6 +18,7 @@ function ProductDetailPage() {
    * states
    */
   const {
+    layout: layoutStore,
     productdetail: productDetailStore,
     productDetailLike: productDetailLikeStore,
     user: userStore,
@@ -30,6 +31,8 @@ function ProductDetailPage() {
    * side effects
    */
   useEffect(() => {
+    layoutStore.scrollTop = false;
+
     if (productDetailStore.isInitial) {
       const { deals: dealId } = router.query;
       productDetailStore.getDeals(dealId);
@@ -101,7 +104,7 @@ function ProductDetailPage() {
 }
 
 ProductDetailPage.getInitialProps = async function({ pathname, query }) {
-  const initialProps = { layout: {} };
+  const initialProps = { layout: { scrollMemo: true } };
 
   if (isServer) {
     const initialState = {};

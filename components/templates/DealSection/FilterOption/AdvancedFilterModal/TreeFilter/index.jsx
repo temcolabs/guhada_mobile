@@ -8,7 +8,6 @@ import TreeNode from './TreeNode';
 
 const TraversibleNode = ({
   children,
-  id,
   currentIds,
   handleSetIds,
   handleRemoveIds,
@@ -41,22 +40,23 @@ const TraversibleNode = ({
     }
   };
 
-  const sortedChildren = toJS(children).sort((a, b) => {
-    if (a.title === '기타') {
-      return 1;
-    } else if (b.title === '기타') {
-      return -1;
-    } else if (a.title < b.title) {
-      return -1;
-    } else if (a.title > b.title) {
-      return 1;
-    }
-    return 0;
-  });
+  const sortChildren = (children) =>
+    toJS(children).sort((a, b) => {
+      if (a.title === '기타') {
+        return 1;
+      } else if (b.title === '기타') {
+        return -1;
+      } else if (a.title < b.title) {
+        return -1;
+      } else if (a.title > b.title) {
+        return 1;
+      }
+      return 0;
+    });
 
   return (
     <>
-      {sortedChildren.map((child) => {
+      {sortChildren(children).map((child) => {
         const {
           children,
           id,
@@ -70,7 +70,8 @@ const TraversibleNode = ({
         //   currentIds.includes(parentId) || currentIds.includes(id);
 
         if (!!children) {
-          const childrenIds = child.children.map(({ id }) => id);
+          const sortedChildren = sortChildren(children);
+          const childrenIds = sortedChildren.map(({ id }) => id);
 
           return (
             <TreeNode
@@ -82,7 +83,7 @@ const TraversibleNode = ({
               {...child}
             >
               <TraversibleNode
-                children={children}
+                children={sortedChildren}
                 currentIds={currentIds}
                 handleSetIds={handleSetIds}
                 handleRemoveIds={handleRemoveIds}

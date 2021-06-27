@@ -216,7 +216,10 @@ class GuhadaMobileWeb extends App {
             </CommonHead>
 
             {initialProps.layout ? (
-              <Layout title={initialProps.layout.title}>
+              <Layout
+                title={initialProps.layout.title}
+                scrollMemo={initialProps.layout.scrollMemo}
+              >
                 <Component key={this.componentKey} {...initialProps} />
               </Layout>
             ) : (

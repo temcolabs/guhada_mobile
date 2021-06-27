@@ -3,10 +3,10 @@ import { useState, useEffect, useCallback } from 'react';
 import cn from 'classnames';
 import { observer } from 'mobx-react';
 import useStores from 'stores/useStores';
-import ModalPortal from 'components/templates/ModalPortal';
 import SearchMenu from './SearchMenu';
 import AutocompleteSearchMenu from './AutocompleteSearchMenu';
 import { pushRoute } from 'childs/lib/router';
+import ModalPortal from 'components/templates/ModalPortal';
 
 const SearchTab = () => {
   /**
@@ -113,8 +113,8 @@ const SearchTab = () => {
         />
       </div>
       {isExpand > 0 && (
-        <>
-          {isExpand === 1 && <SearchMenu handleSearch={handleSearch} fixed />}
+        <ModalPortal shade={false} gutter>
+          <SearchMenu handleSearch={handleSearch} />
           {isExpand === 2 && (
             <AutocompleteSearchMenu
               list={keywordStore.autoCompleteList}
@@ -122,7 +122,7 @@ const SearchTab = () => {
               fixed
             />
           )}
-        </>
+        </ModalPortal>
       )}
     </div>
   );

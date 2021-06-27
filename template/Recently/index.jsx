@@ -80,7 +80,10 @@ function RecentlyTemplate({ handleClose }) {
               <ContentItem
                 key={o.dealId}
                 length={ContentItemLength}
-                onClick={() => onClickSelectItem(o.dealId)}
+                onClick={() => {
+                  onClickSelectItem(o.dealId);
+                  handleClose();
+                }}
               >
                 <Image src={o.imageUrls[0]} size={'contain'} />
                 <ContentDeleteButton
