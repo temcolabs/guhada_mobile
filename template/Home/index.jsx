@@ -11,7 +11,7 @@ import { dealOptions } from 'stores/NewMainStore';
 
 import SlideBanner from './SlideBanner';
 import FocusOnBanner from './FocusOnBanner';
-import MainSideBanner from './SideBanner';
+import SideBanner from './SideBanner';
 import RadioDealSection from './RadioDealSection';
 import SlideSection from './SlideSection';
 import BestReviewItem from './BestReviewItem';
@@ -102,7 +102,7 @@ function Home() {
       />
 
       {/* BANNER */}
-      <MainSideBanner imageList={mainData.mainImageSetTwoSetList} />
+      <SideBanner imageList={mainData.mainImageSetTwoSetList} />
 
       {/* HOT KEYWORD */}
       <SlideSection header={'HOT KEYWORD'} responsive>
@@ -138,7 +138,7 @@ function Home() {
       </SlideSection>
 
       {/* BANNER */}
-      <MainSideBanner imageList={mainData.mainImageSetThreeList} />
+      <SideBanner imageList={mainData.mainImageSetThreeList} />
 
       {/* NEW IN */}
       <RadioDealSection
@@ -152,7 +152,7 @@ function Home() {
       />
 
       {/* BENEFITS BANNER */}
-      <MainSideBanner imageList={newMainStore.mainData.mainImageSetFourList} />
+      <SideBanner imageList={newMainStore.mainData.mainImageSetFourList} />
 
       {/* MODALS */}
       {eventPopupStore.popupList.length > 0 &&

@@ -8,15 +8,13 @@ import ReactModal from 'react-modal';
 import moment from 'moment';
 import AlertConductor from 'components/common/modal/AlertConductor';
 import AssociatedProduct from 'components/common/modal/AssociatedProduct';
-import 'react-dates/initialize'; // react-dates
 import qs from 'qs';
 import { isBrowser, isServer } from 'childs/lib/common/isServer';
-import { devLog } from 'childs/lib/common/devLog';
 import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
 import Cookies from 'js-cookie';
 import key from 'childs/lib/constant/key';
 import getIpAddrress from 'childs/lib/common/getIpAddrress';
-import _ from 'lodash';
+import { merge as _merge } from 'lodash';
 import getIsProdHost from 'childs/lib/tracking/getIsProdHost';
 import CommonHead from 'childs/lib/components/CommonHead';
 import momentTracker from 'childs/lib/tracking/kakaomoment/momentTracker';
@@ -32,11 +30,8 @@ class GuhadaMobileWeb extends App {
     const { req, asPath } = ctx;
 
     if (isBrowser) {
-      devLog(`[_app] getInitialProps: appContext`, appContext);
       GuhadaMobileWeb.naverShoppingTracker();
       GuhadaMobileWeb.aceCouterTracker(ctx.asPath);
-      momentTracker.visit();
-      gtagTracker.visit();
     }
 
     let initialProps = {};
@@ -58,7 +53,7 @@ class GuhadaMobileWeb extends App {
 
     // page 컴포넌트의 getInitialProps에서 리턴한 객체에 initialState가 있다면 병합
     if (initialProps.initialState) {
-      initialState = _.merge(initialState, initialProps.initialState);
+      initialState = _merge(initialState, initialProps.initialState);
     }
 
     // Get or Create the store with `undefined` as initialState

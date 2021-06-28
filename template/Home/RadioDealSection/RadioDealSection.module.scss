@@ -5,7 +5,7 @@
   flex-direction: column;
 
   &__header {
-    font-family: 'NanumSquare';
+    font-family: 'NanumSquare', sans-serif;
     text-align: center;
     font-size: 20px;
     font-weight: 800;
@@ -21,6 +21,7 @@
     height: 14px;
 
     div {
+      -webkit-tap-highlight-color: transparent;
       color: #999;
       font-size: 13px;
       font-weight: 500;

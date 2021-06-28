@@ -8,6 +8,7 @@
   z-index: 10;
 
   .button {
+    -webkit-tap-highlight-color: transparent;
     width: 41px;
     height: 41px;
     cursor: pointer;

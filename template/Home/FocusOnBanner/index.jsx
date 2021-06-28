@@ -1,5 +1,5 @@
 import css from './FocusOnBanner.module.scss';
-import cn from 'classnames';
+import './FocusOnBannerSlick.scss';
 import { observer } from 'mobx-react';
 import Slider from 'react-slick';
 import useStores from 'stores/useStores';
@@ -30,7 +30,7 @@ function FocusOnBanner() {
       <div className={css['section__slider']}>
         <Slider
           dots
-          dotsClass={cn('slick-dots', css['dots'])}
+          dotsClass={'slick-dots focus-on__slick-dots'}
           speed={500}
           slidesToShow={1}
           slidesToScroll={1}

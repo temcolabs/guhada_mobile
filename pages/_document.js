@@ -41,16 +41,6 @@ class MyDocument extends Document {
           />
           <script
             dangerouslySetInnerHTML={{
-              __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-
-              gtag('config', 'UA-145072876-1');`,
-            }}
-          />
-          <script
-            dangerouslySetInnerHTML={{
               __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
               new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
               j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
@@ -60,10 +50,14 @@ class MyDocument extends Document {
           />
 
           {/* 다음 주소검색 */}
-          <script id="daumPostcode" src={urlConstant.daumPostCode} />
+          <script defer id="daumPostcode" src={urlConstant.daumPostCode} />
 
           {/* 네이버 쇼핑 트래커 */}
-          <script type="text/javascript" src="//wcs.naver.net/wcslog.js" />
+          <script
+            async
+            type="text/javascript"
+            src="//wcs.naver.net/wcslog.js"
+          />
 
           {/* 코차바 */}
           <script
@@ -73,6 +67,7 @@ class MyDocument extends Document {
             }}
           />
           <script
+            async
             type="text/javascript"
             charSet="UTF-8"
             src="//t1.daumcdn.net/adfit/static/kp.js"
