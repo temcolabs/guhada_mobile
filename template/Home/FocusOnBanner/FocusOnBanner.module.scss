@@ -3,7 +3,7 @@
   height: 100%;
   margin-bottom: 60px;
   position: relative;
-  overflow-x: hidden;
+  overflow: hidden;
 
   &__header {
     font-family: 'NanumSquare';
@@ -13,6 +13,10 @@
     color: #111;
     height: 25px;
     margin-bottom: 45px;
+  }
+
+  &__slider {
+    height: calc((16 / 15) * 100vw + 2px);
   }
 }
 

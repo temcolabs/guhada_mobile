@@ -1,11 +1,14 @@
 .section {
   width: 100%;
-  height: calc((16 / 15) * 100vw + 2px);
   margin-bottom: 60px;
   position: relative;
   overflow-x: hidden;
 
-  .counter {
+  &__slider {
+    height: calc((16 / 15) * 100vw + 2px);
+  }
+
+  &__counter {
     position: absolute;
     color: #fff;
     font-size: 12px;

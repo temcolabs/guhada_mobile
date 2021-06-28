@@ -1,4 +1,5 @@
 import css from './FilterTags.module.scss';
+import { isEqual as _isEqual } from 'lodash';
 import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
 import useStores from 'stores/useStores';
@@ -28,18 +29,15 @@ const FilterTags = () => {
     searchByFilterStore.isFiltered && (
       <div className={css['filter-tags']}>
         <div className={css['tags']}>
-          {body.categoryIds.length !== defaultBody.categoryIds.length && (
-            <button onClick={() => resetBodyProp('categoryIds')}>
-              {body.categoryIds.length <= 2 ? (
-                <CategorySearchTag
-                  categoryId={body.categoryIds[body.categoryIds.length - 1]}
-                />
-              ) : (
-                '카테고리'
-              )}
-            </button>
-          )}
-
+          {body.categoryIds.length > 0 &&
+            !_isEqual(
+              toJS(body.categoryIds),
+              toJS(defaultBody.categoryIds)
+            ) && (
+              <button onClick={() => resetBodyProp('categoryIds')}>
+                <CategorySearchTag categoryIds={body.categoryIds} />
+              </button>
+            )}
           {body.brandIds.length !== defaultBody.brandIds.length && (
             <button onClick={() => resetBodyProp('brandIds')}>브랜드</button>
           )}

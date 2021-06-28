@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
+import { observer } from 'mobx-react';
 import { toJS } from 'mobx';
 import useStores from 'stores/useStores';
 
@@ -25,11 +26,15 @@ TagFactory.propTypes = {
   submitFilter: PropTypes.func,
 };
 
-export const CategorySearchTag = ({ categoryId }) => {
+export const CategorySearchTag = observer(({ categoryIds }) => {
   const { searchByFilter: searchByFilterStore } = useStores();
   const [title, setTitle] = useState('카테고리');
   useEffect(() => {
-    const id = parseInt(categoryId);
+    if (categoryIds.length > 2) {
+      setTitle('카테고리');
+      return;
+    }
+    const id = parseInt(categoryIds[categoryIds.length - 1]);
     const stack = toJS(searchByFilterStore.unfungibleCategories);
     while (stack.length > 0) {
       const curr = stack.pop();
@@ -40,8 +45,8 @@ export const CategorySearchTag = ({ categoryId }) => {
         stack.push.apply(stack, curr.children);
       }
     }
-  }, []);
+  }, [categoryIds]);
   return <>{title}</>;
-};
+});
 
 export default TagFactory;

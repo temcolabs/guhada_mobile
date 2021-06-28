@@ -3,6 +3,7 @@ import cn from 'classnames';
 import { memo } from 'react';
 import PropTypes from 'prop-types';
 import Slider from 'react-slick';
+import Image from 'components/atoms/Image/HomeImage';
 
 function SideBanner({ imageList = [] }) {
   /**
@@ -28,10 +29,9 @@ function SideBanner({ imageList = [] }) {
         slidesToScroll={1}
       >
         {imageList.map((image) => (
-          <img
+          <Image
+            key={image.orderBy}
             src={image.mainBannerMobileUrl}
-            style={{ maxWidth: '100%' }}
-            key={image.createdAt}
             onClick={() => handleClick(image)}
           />
         ))}

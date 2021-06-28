@@ -117,7 +117,13 @@ class MainStore {
    */
   static initializeStatic = async () => {
     try {
-      const { data } = await API.settle.get('/selectMainData?agent=MWEB');
+      const { data } = await new Promise((res) => {
+        const timer = setTimeout(() => res({ data: {} }), 500);
+        API.settle.get('/selectMainData?agent=MWEB').then((data) => {
+          clearTimeout(timer);
+          res(data);
+        });
+      });
       if (data.resultCode === 200) {
         return { mainData: data.data };
       }

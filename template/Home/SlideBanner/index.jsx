@@ -4,6 +4,7 @@ import { observer } from 'mobx-react';
 import Slider from 'react-slick';
 import './SlideBannerSlick.scss';
 import useStores from 'stores/useStores';
+import Image from 'components/atoms/Image/HomeImage';
 import { pushRoute } from 'childs/lib/router';
 
 function SlideBanner() {
@@ -51,28 +52,30 @@ function SlideBanner() {
    */
   return (
     <section className={css['section']}>
-      <Slider
-        dots
-        dotsClass={'slide-banner__slick-dots'}
-        infinite
-        speed={800}
-        autoplay
-        autoplaySpeed={4000}
-        beforeChange={handleBeforeChange}
-      >
-        {imageList.map(
-          (image) =>
-            image.mainUse && (
-              <img
-                src={image.mobileImageUrl}
-                key={image.id}
-                alt={image.id}
-                onClick={() => handleClick(image)}
-              />
-            )
-        )}
-      </Slider>
-      <div className={css['counter']}>{`${index + 1}/${
+      <div className={css['section__slider']}>
+        <Slider
+          dots
+          dotsClass={'slide-banner__slick-dots'}
+          infinite
+          speed={500}
+          autoplay
+          autoplaySpeed={4000}
+          beforeChange={handleBeforeChange}
+        >
+          {imageList.map(
+            (image) =>
+              image.mainUse && (
+                <Image
+                  key={image.id}
+                  src={image.mobileImageUrl}
+                  backgroundColor={image.backgroundColor}
+                  onClick={() => handleClick(image)}
+                />
+              )
+          )}
+        </Slider>
+      </div>
+      <div className={css['section__counter']}>{`${index + 1}/${
         imageList.filter((image) => image.mainUse).length
       }`}</div>
     </section>

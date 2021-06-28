@@ -3,6 +3,7 @@ import cn from 'classnames';
 import { observer } from 'mobx-react';
 import Slider from 'react-slick';
 import useStores from 'stores/useStores';
+import Image from 'components/atoms/Image/HomeImage';
 
 function FocusOnBanner() {
   /**
@@ -26,23 +27,24 @@ function FocusOnBanner() {
   return (
     <section className={css['section']}>
       <h2 className={css['section__header']}>FOCUS ON</h2>
-      <Slider
-        dots
-        dotsClass={cn('slick-dots', css['dots'])}
-        speed={500}
-        slidesToShow={1}
-        slidesToScroll={1}
-      >
-        {imageList.map((image) => (
-          <img
-            src={image.mainBannerMobileUrl}
-            style={{ maxWidth: '100%' }}
-            className={css['image']}
-            key={image.createdAt}
-            onClick={() => handleClick(image)}
-          />
-        ))}
-      </Slider>
+      <div className={css['section__slider']}>
+        <Slider
+          dots
+          dotsClass={cn('slick-dots', css['dots'])}
+          speed={500}
+          slidesToShow={1}
+          slidesToScroll={1}
+        >
+          {imageList.map((image) => (
+            <Image
+              padding
+              src={image.mainBannerMobileUrl}
+              key={image.orderBy}
+              onClick={() => handleClick(image)}
+            />
+          ))}
+        </Slider>
+      </div>
     </section>
   );
 }
