@@ -5,6 +5,7 @@
   &.fixed-height {
     background: no-repeat center;
     background-size: contain;
+    width: 100vw;
     height: calc((16 / 15) * 100vw);
   }
 
