@@ -22,6 +22,10 @@
     padding-left: 20px;
     padding-right: 20px;
 
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
     &.responsive {
       @media screen and (min-width: 835px) {
         margin-left: auto;

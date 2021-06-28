@@ -42,14 +42,10 @@ EventMainPage.getInitialProps = function({ pathname, query }) {
 
   if (isServer) {
     const { type, headerFlags } = getLayoutInfo({ pathname, query });
-    Object.assign(initialProps, {
-      initialState: {
-        layout: {
-          type,
-          headerFlags,
-        },
-      },
-    });
+
+    initialProps.initialState = {
+      layout: { type, headerFlags },
+    };
   }
 
   return initialProps;

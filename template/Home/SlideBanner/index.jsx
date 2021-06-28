@@ -3,8 +3,6 @@ import { useState, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import Slider from 'react-slick';
 import './SlideBannerSlick.scss';
-import 'slick-carousel/slick/slick-theme.scss';
-import 'slick-carousel/slick/slick.scss';
 import useStores from 'stores/useStores';
 import { pushRoute } from 'childs/lib/router';
 
@@ -20,7 +18,7 @@ function SlideBanner() {
    * side effects
    */
   useEffect(() => {
-    const slickDots = document.querySelector('.slickDots');
+    const slickDots = document.querySelector('.slide-banner__slick-dots');
 
     if (slickDots) {
       for (let i = 0; i < imageList.length; ++i) {
@@ -35,7 +33,7 @@ function SlideBanner() {
     }
   }, [imageList]);
 
-  /**
+  /*
    * handlers
    */
   const handleBeforeChange = (prevIndex, currIndex) => {
@@ -52,10 +50,10 @@ function SlideBanner() {
    * render
    */
   return (
-    <div className={css.wrap}>
+    <section className={css['section']}>
       <Slider
         dots
-        dotsClass={'slickDots'}
+        dotsClass={'slide-banner__slick-dots'}
         infinite
         speed={800}
         autoplay
@@ -66,7 +64,6 @@ function SlideBanner() {
           (image) =>
             image.mainUse && (
               <img
-                className={css.dummyImage}
                 src={image.mobileImageUrl}
                 key={image.id}
                 alt={image.id}
@@ -75,10 +72,10 @@ function SlideBanner() {
             )
         )}
       </Slider>
-      <div className={css.counter}>{`${index + 1}/${
+      <div className={css['counter']}>{`${index + 1}/${
         imageList.filter((image) => image.mainUse).length
       }`}</div>
-    </div>
+    </section>
   );
 }
 

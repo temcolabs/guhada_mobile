@@ -107,16 +107,11 @@ ProductDetailPage.getInitialProps = async function({ pathname, query }) {
   const initialProps = { layout: { scrollMemo: true } };
 
   if (isServer) {
-    const initialState = {};
-
     const { type, headerFlags } = getLayoutInfo({ pathname, query });
 
-    Object.assign(initialState, {
-      layout: {
-        type,
-        headerFlags,
-      },
-    });
+    initialProps.initialState = {
+      layout: { type, headerFlags },
+    };
 
     const dealsId = query.deals;
     if (dealsId) {
@@ -124,12 +119,8 @@ ProductDetailPage.getInitialProps = async function({ pathname, query }) {
       const deals = data.data;
       const headData = getHeadData(deals);
 
-      Object.assign(initialState, {
-        productdetail: { deals, headData },
-      });
+      initialProps.initialState.productdetail = { deals, headData };
     }
-
-    Object.assign(initialProps, { initialState });
   }
 
   return initialProps;

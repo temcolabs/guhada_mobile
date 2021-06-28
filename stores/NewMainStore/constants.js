@@ -55,7 +55,8 @@ export const API_ENDPOINT = {
   settle: [
     [
       'mainData',
-      `/selectMainData?agent=${detectDevice().isMobile ? 'MWEB' : 'WEB'}`,
+      // `/selectMainData?agent=${detectDevice().isMobile ? 'MWEB' : 'WEB'}`,
+      `/selectMainData?agent=MWEB`,
     ],
   ],
   product: [['hotKeyword', '/main-home/hot-keyword']],

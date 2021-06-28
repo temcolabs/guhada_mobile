@@ -1,8 +1,7 @@
-import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { observer } from 'mobx-react';
 import useStores from 'stores/useStores';
 
-import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 import withAuth from 'components/common/hoc/withAuth';
 import UserClaimFormItems from './UserClaimFormItems';
 
@@ -10,10 +9,12 @@ import { Form } from 'react-final-form';
 import { isImageFile } from 'childs/lib/common/isImageFile';
 import { uploadImageFile } from 'childs/lib/API/gateway/fileUploadService';
 
+import ModalPortal from 'components/templates/ModalPortal';
+
 /**
  * 문의하기 모달
  */
-function UserClaimModal({ setUserClaimModalOpen }) {
+function UserClaimModal({ handleClose }) {
   /**
    * initial values
    */
@@ -49,14 +50,10 @@ function UserClaimModal({ setUserClaimModalOpen }) {
   const { userClaim: userClaimStore, alert: alertStore } = rootStore;
 
   const [initialValues, setInitialValues] = useState(defaultFormValues);
-  const [isModalVisible, setIsModalVisible] = useState(false);
 
   /**
    * side effects
    */
-  useEffect(() => {
-    setIsModalVisible(true);
-  });
   useEffect(() => {
     userClaimStore.getUserClaimTypes();
 
@@ -68,46 +65,31 @@ function UserClaimModal({ setUserClaimModalOpen }) {
   /**
    * handlers
    */
-  const handleClose = (formApi) => {
+  const handleBeforeClose = (formApi) => {
     // if (formApi.getState().dirty) {
     alertStore.showConfirm({
       content: '작성중인 항목이 있습니다. 취소하시겠습니까?',
-      onConfirm: () => {
-        setUserClaimModalOpen(false);
-      },
+      onConfirm: handleClose,
     });
   };
 
-  const handleSubmit = useCallback(
-    (values) => {
-      userClaimStore
-        .createUserClaim({
-          body: {
-            title: values[fields.title],
-            content: values[fields.content],
-            imageUrls: values[fields.imageUrls].map((image) => image.url),
-            typeCode: values[fields.typeCode],
-          },
-        })
-        .then(() => {
-          alertStore.showConfirm({
-            content: '문의가 등록되었습니다.',
-            onConfirm: () => {
-              setUserClaimModalOpen(false);
-            },
-          });
+  const handleSubmit = (values) => {
+    userClaimStore
+      .createUserClaim({
+        body: {
+          title: values[fields.title],
+          content: values[fields.content],
+          imageUrls: values[fields.imageUrls].map((image) => image.url),
+          typeCode: values[fields.typeCode],
+        },
+      })
+      .then(() => {
+        alertStore.showConfirm({
+          content: '문의가 등록되었습니다.',
+          onConfirm: handleClose,
         });
-    },
-    [
-      fields.content,
-      fields.imageUrls,
-      fields.title,
-      fields.typeCode,
-      userClaimStore,
-      setUserClaimModalOpen,
-      alertStore,
-    ]
-  );
+      });
+  };
 
   // 이미지 파일 첨부
   const handleChangeImageFile = ({ files, formApi, imageUrls }) => {
@@ -162,7 +144,7 @@ function UserClaimModal({ setUserClaimModalOpen }) {
    * render
    */
   return (
-    <SlideIn direction={slideDirection.RIGHT} isVisible={isModalVisible}>
+    <ModalPortal slide={3}>
       <Form
         initialValues={initialValues}
         onSubmit={handleSubmit}
@@ -170,13 +152,13 @@ function UserClaimModal({ setUserClaimModalOpen }) {
         render={UserClaimFormItems({
           fields,
           attachFileInputRef,
-          handleClose,
+          handleClose: handleBeforeClose,
           handleChangeImageFile,
           handleDeleteImageFile,
           getCodeOptionOfCategory,
         })}
       />
-    </SlideIn>
+    </ModalPortal>
   );
 }
 

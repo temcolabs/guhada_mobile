@@ -234,6 +234,7 @@ const UserClaimFormItemsWithProps = (props) => {
           </div>
           {/* 제출 버튼 */}
           <SubmitButtonWrapper
+            fixedToBottom
             wrapperStyle={{ position: 'absolute', bottom: 0 }}
           >
             <CancelButton onClick={() => handleClose(formApi)}>

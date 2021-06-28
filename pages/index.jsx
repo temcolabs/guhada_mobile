@@ -7,6 +7,7 @@ import criteoTracker from 'childs/lib/tracking/criteo/criteoTracker';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
 import Footer from 'components/footer/Footer';
 import Home from 'template/Home';
+import NewMainStore from 'stores/NewMainStore';
 
 function IndexPage() {
   /**
@@ -35,19 +36,21 @@ function IndexPage() {
   );
 }
 
-IndexPage.getInitialProps = function({ pathname, query }) {
+IndexPage.getInitialProps = async function({ pathname, query }) {
   const initialProps = { layout: {} };
 
+  const { type, headerFlags } = getLayoutInfo({ pathname, query });
+
+  initialProps.initialState = {
+    layout: { type, headerFlags },
+  };
+
   if (isServer) {
-    const { type, headerFlags } = getLayoutInfo({ pathname, query });
-    Object.assign(initialProps, {
-      initialState: {
-        layout: {
-          type,
-          headerFlags,
-        },
-      },
-    });
+    const { mainData } = await NewMainStore.initializeStatic();
+
+    if (mainData) {
+      initialProps.initialState.newMain = { mainData };
+    }
   }
 
   return initialProps;

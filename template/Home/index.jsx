@@ -3,14 +3,15 @@ import { useState, useEffect, Fragment } from 'react';
 import { observer } from 'mobx-react';
 import { useRouter } from 'next/router';
 import useStores from 'stores/useStores';
-
 import sessionStorage from 'childs/lib/common/sessionStorage';
 import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
 import isTruthy from 'childs/lib/common/isTruthy';
 import { pushRoute } from 'childs/lib/router';
 import { dealOptions } from 'stores/NewMainStore';
+
 import SlideBanner from './SlideBanner';
-import MainSideBanner from 'components/home/MainSideBanner';
+import FocusOnBanner from './FocusOnBanner';
+import MainSideBanner from './SideBanner';
 import RadioDealSection from './RadioDealSection';
 import SlideSection from './SlideSection';
 import BestReviewItem from './BestReviewItem';
@@ -86,11 +87,7 @@ function Home() {
       <SlideBanner />
 
       {/* FOCUS ON */}
-      <MainSideBanner
-        type={'FOCUS_ON'}
-        title={'FOCUS ON'}
-        list={newMainStore.mainData.mainImageSetOneSetList}
-      />
+      <FocusOnBanner />
 
       {/* PREMIUM ITEM */}
       <RadioDealSection
@@ -105,7 +102,7 @@ function Home() {
       />
 
       {/* BANNER */}
-      <MainSideBanner list={mainData.mainImageSetTwoSetList} />
+      <MainSideBanner imageList={mainData.mainImageSetTwoSetList} />
 
       {/* HOT KEYWORD */}
       <SlideSection header={'HOT KEYWORD'} responsive>
@@ -141,7 +138,7 @@ function Home() {
       </SlideSection>
 
       {/* BANNER */}
-      <MainSideBanner list={mainData.mainImageSetThreeList} />
+      <MainSideBanner imageList={mainData.mainImageSetThreeList} />
 
       {/* NEW IN */}
       <RadioDealSection
@@ -155,7 +152,7 @@ function Home() {
       />
 
       {/* BENEFITS BANNER */}
-      <MainSideBanner list={newMainStore.mainData.mainImageSetFourList} />
+      <MainSideBanner imageList={newMainStore.mainData.mainImageSetFourList} />
 
       {/* MODALS */}
       {eventPopupStore.popupList.length > 0 &&

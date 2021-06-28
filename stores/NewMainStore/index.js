@@ -10,13 +10,13 @@ class MainStore {
       this.root = root;
     }
 
-    if (initialState.main) {
+    if (initialState.newMain) {
+      if (initialState.newMain.mainData) {
+        this.mainData = initialState.newMain.mainData;
+        this.initial.mainData = false;
+      }
     }
   }
-
-  /**
-   * statics
-   */
 
   /**
    * observables
@@ -76,6 +76,7 @@ class MainStore {
   /**
    * actions
    */
+  /** @param {string} type */
   @action setPageType(type) {
     this.pageType = pageTypes[type];
   }
@@ -84,13 +85,18 @@ class MainStore {
     if (this.loadable) {
       services.map((service) =>
         API_ENDPOINT[service].map(([dataName, endpoint]) =>
-          this.fetchData(service, dataName, endpoint)
+          this.fetchData(service, endpoint, dataName)
         )
       );
     }
   }
 
-  fetchData = async (service, dataName, endpoint) => {
+  /**
+   * @param {string} service
+   * @param {string} dataName
+   * @param {string} endpoint
+   */
+  fetchData = async (service, endpoint, dataName) => {
     if (this.initial[dataName]) {
       try {
         const { data } = await API[service].get(endpoint);
@@ -103,6 +109,53 @@ class MainStore {
         console.error(dataName, error.message);
       }
     }
+    return;
+  };
+
+  /**
+   * statics
+   */
+  static initializeStatic = async () => {
+    try {
+      const { data } = await API.settle.get('/selectMainData?agent=MWEB');
+      if (data.resultCode === 200) {
+        return { mainData: data.data };
+      }
+    } catch (error) {
+      // console.error(error.mesasage);
+    }
+    return {};
+
+    // const initialData = {}
+    // await Promise.all(
+    //   services.map(async (service) => {
+    //     return await Promise.all(
+    //       API_ENDPOINT[service].map(([dataName, endpoint]) =>
+    //         MainStore.fetchDataStatic(service, endpoint, dataName, iniitialData)
+    //       )
+    //     );
+    //   })
+    // );
+    // return iniitialData;
+  };
+
+  /**
+   * @param {string} service
+   * @param {string} endpoint
+   * @param {string} dataName
+   * @param {object} dataObject
+   */
+  static fetchDataStatic = async (service, endpoint, dataName, dataObject) => {
+    try {
+      const { data } = await API[service].get(endpoint);
+
+      if (data.resultCode === 200) {
+        dataObject[dataName] = data.data;
+      }
+    } catch (error) {
+      // console.error(dataName, error.message);
+    }
+    return;
   };
 }
 

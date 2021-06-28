@@ -50,19 +50,11 @@ SpecialDetailPage.getInitialProps = async function({ req, pathname, query }) {
   const initialProps = { layout: { title: '이벤트', scrollMemo: true } };
 
   if (isServer) {
-    const initialState = {};
+    const { type, headerFlags } = getLayoutInfo({ pathname, query });
 
-    const { type, headerFlags } = getLayoutInfo({
-      pathname,
-      query,
-    });
-
-    Object.assign(initialState, {
-      layout: {
-        type,
-        headerFlags,
-      },
-    });
+    initialProps.initialState = {
+      layout: { type, headerFlags },
+    };
 
     try {
       const eventId = query.id || req.query.id;
@@ -76,17 +68,10 @@ SpecialDetailPage.getInitialProps = async function({ req, pathname, query }) {
 
       const specialDetail = data.data;
 
-      Object.assign(initialState, {
-        newSpecial: {
-          eventId,
-          specialDetail,
-        },
-      });
+      initialProps.initialState.newSpecial = { eventId, specialDetail };
     } catch (error) {
       console.error(error.message);
     }
-
-    Object.assign(initialProps, { initialState });
   }
 
   return initialProps;
