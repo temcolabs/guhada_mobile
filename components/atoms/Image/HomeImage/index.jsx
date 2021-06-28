@@ -2,20 +2,19 @@ import css from './Image.module.scss';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 
-const Image = ({ src, backgroundColor, padding, onClick }) => (
+const Image = ({ src, backgroundColor, fixedHeight, onClick }) => (
   <div
-    style={{ backgroundColor }}
-    className={cn(css['image'], padding && css['padding'])}
+    style={{ backgroundColor, backgroundImage: fixedHeight && `url('${src}')` }}
+    className={cn(css['image'], fixedHeight && css['fixed-height'])}
     onClick={onClick}
   >
-    <img src={src} />
+    {!fixedHeight && <img src={src} />}
   </div>
 );
 
 Image.propTypes = {
   src: PropTypes.string,
   backgroundColor: PropTypes.string,
-  padding: PropTypes.bool,
   handleClick: PropTypes.func,
 };
 

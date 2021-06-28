@@ -37,7 +37,7 @@ function FocusOnBanner() {
         >
           {imageList.map((image) => (
             <Image
-              padding
+              fixedHeight
               src={image.mainBannerMobileUrl}
               key={image.orderBy}
               onClick={() => handleClick(image)}

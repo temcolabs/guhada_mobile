@@ -32,7 +32,7 @@ function SlideBanner() {
         }
       }
     }
-  }, [imageList]);
+  }, []);
 
   /*
    * handlers
@@ -69,6 +69,7 @@ function SlideBanner() {
                   key={image.id}
                   src={image.mobileImageUrl}
                   backgroundColor={image.backgroundColor}
+                  fixedHeight
                   onClick={() => handleClick(image)}
                 />
               )
