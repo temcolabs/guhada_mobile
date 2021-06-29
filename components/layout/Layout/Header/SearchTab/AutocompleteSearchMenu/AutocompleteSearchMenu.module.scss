@@ -1,0 +1,27 @@
+.search-menu {
+  position: fixed;
+  left: 0;
+  top: 61px;
+  z-index: 111;
+  width: 100%;
+  height: calc(100vh - 60px);
+  background-color: #fff;
+  padding-left: 20px;
+  padding-right: 20px;
+  color: #444;
+
+  .item {
+    width: 100%;
+    padding-right: 25px;
+    height: 40px;
+    line-height: 40px;
+    vertical-align: middle;
+    font-size: 14px;
+    text-align: left;
+    background: url('/static/icon/icon_search_arrow.png') no-repeat center right;
+    background-size: 18px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

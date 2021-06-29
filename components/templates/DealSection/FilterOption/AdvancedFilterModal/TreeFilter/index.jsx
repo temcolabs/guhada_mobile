@@ -1,6 +1,7 @@
 import css from './TreeFilter.module.scss';
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
 import cn from 'classnames';
 import TreeNode from './TreeNode';
@@ -8,45 +9,97 @@ import TreeNode from './TreeNode';
 const TraversibleNode = ({
   children,
   currentIds,
-  handleSetId,
-  handleRemoveId,
+  handleSetIds,
+  handleRemoveIds,
 }) => {
+  const handleToggleIsChecked = (id, hierarchy, isChecked, childrenIds) => {
+    const parentIds = hierarchy.split(',').map(Number);
+    if (isChecked) {
+      if (childrenIds) {
+        handleRemoveIds([id, ...parentIds, ...childrenIds]);
+      } else {
+        handleRemoveIds([id, ...parentIds]);
+      }
+      // if (childrenIds) {
+      //   handleRemoveIds([id, ...parentIds, ...childrenIds]);
+      // } else {
+      //   handleRemoveIds([id, ...parentIds]);
+      // }
+    } else {
+      if (childrenIds) {
+        handleRemoveIds([...parentIds, ...childrenIds]);
+      } else {
+        handleRemoveIds([...parentIds]);
+      }
+      handleSetIds([id]);
+      // if (childrenIds) {
+      //   handleSetIds([id, ...childrenIds]);
+      // } else {
+      //   handleSetIds([id]);
+      // }
+    }
+  };
+
+  const sortChildren = (children) =>
+    toJS(children).sort((a, b) => {
+      if (a.title === '기타') {
+        return 1;
+      } else if (b.title === '기타') {
+        return -1;
+      } else if (a.title < b.title) {
+        return -1;
+      } else if (a.title > b.title) {
+        return 1;
+      }
+      return 0;
+    });
+
   return (
     <>
-      {children.map((child) => {
+      {sortChildren(children).map((child) => {
         const {
           children,
+          id,
           // fullDepthName,
           // hierarchies,
-          // hierarchy,
-          id,
+          hierarchy,
           // title,
         } = child;
+        const isChecked = currentIds.includes(id);
+        // const isChecked =
+        //   currentIds.includes(parentId) || currentIds.includes(id);
 
         if (!!children) {
+          const sortedChildren = sortChildren(children);
+          const childrenIds = sortedChildren.map(({ id }) => id);
+
           return (
             <TreeNode
               key={id}
-              isChecked={currentIds.includes(id)}
-              handleSetId={handleSetId}
-              handleRemoveId={handleRemoveId}
+              isChecked={isChecked}
+              handleToggleIsChecked={() =>
+                handleToggleIsChecked(id, hierarchy, isChecked, childrenIds)
+              }
               {...child}
             >
               <TraversibleNode
-                children={children}
+                children={sortedChildren}
                 currentIds={currentIds}
-                handleSetId={handleSetId}
-                handleRemoveId={handleRemoveId}
+                handleSetIds={handleSetIds}
+                handleRemoveIds={handleRemoveIds}
+                {...child}
               />
             </TreeNode>
           );
         }
+
         return (
           <TreeNode
             key={id}
-            isChecked={currentIds.includes(id)}
-            handleSetId={handleSetId}
-            handleRemoveId={handleRemoveId}
+            isChecked={isChecked}
+            handleToggleIsChecked={() =>
+              handleToggleIsChecked(id, hierarchy, isChecked)
+            }
             {...child}
           />
         );
@@ -56,9 +109,11 @@ const TraversibleNode = ({
 };
 
 TraversibleNode.propTypes = {
-  dataList: PropTypes.any,
-  handleSetId: PropTypes.func,
-  handleRemoveId: PropTypes.func,
+  children: PropTypes.any,
+  id: PropTypes.number,
+  currentIds: PropTypes.any,
+  handleSetIds: PropTypes.func,
+  handleRemoveIds: PropTypes.func,
 };
 
 const TreeFilter = ({ title, dataList, currentIds, setIds }) => {
@@ -70,27 +125,16 @@ const TreeFilter = ({ title, dataList, currentIds, setIds }) => {
   /**
    * handlers
    */
-  const handleSetId = useCallback(
-    (id) => {
-      if (!currentIds.includes(id)) {
-        const nextIds = [...currentIds, id];
-        setIds(nextIds);
-      }
-    },
-    [currentIds, setIds]
-  );
-  const handleRemoveId = useCallback(
-    (id) => {
-      const idIdx = currentIds.indexOf(id);
-      if (idIdx > -1) {
-        const nextIds = currentIds
-          .slice(0, idIdx)
-          .concat(currentIds.slice(idIdx + 1));
-        setIds(nextIds);
-      }
-    },
-    [currentIds, setIds]
-  );
+  const handleSetIds = (ids) => {
+    const nextIdsSet = new Set([...currentIds, ...ids]);
+    const nextIds = Array.from(nextIdsSet);
+    setIds(nextIds);
+  };
+  const handleRemoveIds = (ids) => {
+    const idsSet = new Set(ids);
+    const nextIds = currentIds.filter((value) => !idsSet.has(value));
+    setIds(nextIds);
+  };
 
   /**
    * render
@@ -108,8 +152,8 @@ const TreeFilter = ({ title, dataList, currentIds, setIds }) => {
         <TraversibleNode
           children={dataList}
           currentIds={currentIds}
-          handleSetId={handleSetId}
-          handleRemoveId={handleRemoveId}
+          handleSetIds={handleSetIds}
+          handleRemoveIds={handleRemoveIds}
         />
       )}
     </div>

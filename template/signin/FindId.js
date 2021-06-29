@@ -13,21 +13,21 @@ import { observer, inject } from 'mobx-react';
 import FindIdMyInfo from 'components/login/findid/FindIdMyInfo';
 import FindMobileAuth from 'components/login/FindMobileAuth';
 
-@inject('authmobile')
+@inject('authmobile', 'alert')
 @observer
 class FindId extends Component {
   state = {
     radioChecked: 'findInfo',
   };
 
-  onChangeRadio = value => {
+  onChangeRadio = (value) => {
     this.setState({
       radioChecked: value,
     });
   };
 
   render() {
-    const { form, authmobile } = this.props;
+    const { form, authmobile, alert } = this.props;
 
     return (
       <LoginLayout pageTitle={'아이디/비밀번호 찾기'}>
@@ -57,7 +57,7 @@ class FindId extends Component {
                 onChangeRadio={this.onChangeRadio}
               />
               {this.state.radioChecked === 'findMobile' ? (
-                <FindMobileAuth authmobile={authmobile} />
+                <FindMobileAuth authmobile={authmobile} alert={alert} />
               ) : null}
             </div>
           </div>

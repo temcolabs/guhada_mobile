@@ -1,33 +1,32 @@
-import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { useRouter } from 'next/router';
-import { get as _get } from 'lodash';
-import moment from 'moment';
-
 import useStores from 'stores/useStores';
+import { getLayoutInfo } from 'stores/LayoutStore';
 import API from 'childs/lib/API';
 import isServer from 'childs/lib/common/isServer';
-import { dateFormat } from 'childs/lib/constant';
-
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
 import SpecialDetail from 'template/event/SpecialDetail';
+import MountLoading from 'components/atoms/Misc/MountLoading';
 
-function SpecialDetailPage() {
+function SpecialDetailPage({ initialHeadData }) {
   /**
    * states
    */
   const { newSpecial: newSpecialStore } = useStores();
-  const headData = newSpecialStore.headData;
+  const headData = initialHeadData || newSpecialStore.headData;
   const router = useRouter();
 
   /**
    * side effects
    */
   useEffect(() => {
+    if (newSpecialStore.isInitial) {
+      window.scrollTo(0, 0);
+    }
     const eventId = router.query.id;
     newSpecialStore.fetchSpecialDetail(eventId);
-  }, [newSpecialStore, router]);
+  }, []);
 
   /**
    * render
@@ -39,13 +38,24 @@ function SpecialDetailPage() {
         description={headData.description}
         image={headData.image}
       />
+      {(newSpecialStore.isInitial || newSpecialStore.isLoading) && (
+        <MountLoading gutter />
+      )}
       <SpecialDetail />
     </>
   );
 }
 
-SpecialDetailPage.getInitialProps = async function({ req, query }) {
+SpecialDetailPage.getInitialProps = async function({ req, pathname, query }) {
+  const initialProps = { layout: { title: '이벤트', scrollMemo: true } };
+
   if (isServer) {
+    const { type, headerFlags } = getLayoutInfo({ pathname, query });
+
+    initialProps.initialState = {
+      layout: { type, headerFlags },
+    };
+
     try {
       const eventId = query.id || req.query.id;
       if (!eventId) {
@@ -58,43 +68,13 @@ SpecialDetailPage.getInitialProps = async function({ req, query }) {
 
       const specialDetail = data.data;
 
-      const initialHeadData = {
-        pageName: specialDetail.detailTitle,
-        description: `구하다 기획전 "${specialDetail.detailTitle}". ${moment(
-          specialDetail.startDate
-        ).format(`${dateFormat.YYYYMMDD_UI} 부터`)} ${
-          !!specialDetail.endDate
-            ? moment(specialDetail.endDate).format(
-                `${dateFormat.YYYYMMDD_UI} 까지`
-              )
-            : ''
-        }`,
-        image: _get(specialDetail, 'mediumImageUrl'),
-      };
-
-      return {
-        initialHeadData,
-        initialState: {
-          newSpecial: {
-            eventId,
-            specialDetail,
-          },
-        },
-      };
+      initialProps.initialState.newSpecial = { eventId, specialDetail };
     } catch (error) {
       console.error(error.message);
-      return {};
     }
   }
-  return {};
-};
 
-SpecialDetailPage.propTypes = {
-  initialHeadData: PropTypes.shape({
-    pageName: PropTypes.string,
-    description: PropTypes.string,
-    image: PropTypes.string,
-  }),
+  return initialProps;
 };
 
 export default observer(SpecialDetailPage);

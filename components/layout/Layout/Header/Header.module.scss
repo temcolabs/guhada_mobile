@@ -1,0 +1,103 @@
+.header {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  align-items: center;
+  background-color: #fff;
+  width: 100%;
+  z-index: 101;
+  will-change: transform;
+  transition: transform 0.1s linear;
+
+  &.scroll-down {
+    transform: translateY(-60px);
+  }
+
+  &__tabs {
+    border-bottom: 1px solid #eee;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    .tab {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .tab__title {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 17px;
+      font-weight: 500;
+    }
+
+    .tab__buttons {
+      display: flex;
+      align-items: center;
+
+      .button {
+        -webkit-tap-highlight-color: transparent;
+        width: 30px;
+        height: 30px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        margin-right: 5px;
+        cursor: pointer;
+        &:last-child {
+          margin-right: 0;
+        }
+
+        &.button--logo {
+          width: 110px;
+          background-image: url('/static/Guhada-LOGO.png');
+        }
+
+        &.button--back {
+          background-image: url('/static/icons/btn_top_back/btn_top_back@3x.png');
+        }
+
+        &.button--burger {
+          background-image: url('/static/icon/top_btn_menu.png');
+        }
+
+        &.button--home {
+          background-image: url('/static/icon/btn-home.png');
+        }
+
+        &.button--search {
+          background-image: url('/static/icon/header-search.png');
+        }
+
+        &.button--cart {
+          background-image: url('/static/icon/header-shoppinBag.png');
+          position: relative;
+          .cart__count {
+            position: absolute;
+            right: -3px;
+            font-size: 7px;
+            text-align: center;
+            color: #fff;
+            line-height: 14px;
+            width: 15px;
+            height: 15px;
+            background-color: #5d2ed1;
+            border-radius: 50%;
+          }
+        }
+
+        &.button--delete {
+          background-image: url('/static/icon/icon_keyword_delete.png');
+          background-size: 20px;
+        }
+
+        &.button--search {
+          background-image: url('/static/icon/btn-search@3x.png');
+          background-size: 35px;
+        }
+      }
+    }
+  }
+}

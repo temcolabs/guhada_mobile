@@ -2,22 +2,19 @@ import css from './FilterModal.module.scss';
 import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
-
 import useStores from 'stores/useStores';
-
-import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
+import ModalPortal from 'components/templates/ModalPortal';
 
 const arrayFromMap = (map) =>
   map instanceof Map && Array.from(map, ([key, value]) => ({ key, value }));
 
-const FilterModal = ({ isModalOpen, selectedFilter, handleCloseModal }) => {
+const FilterModal = ({ selectedFilter, handleCloseModal }) => {
   const { ranking: rankingStore } = useStores();
   const filterMap = rankingStore.filterMaps[selectedFilter.filter];
 
   return (
-    <SlideIn direction={slideDirection.BOTTOM} isVisible={isModalOpen}>
+    <ModalPortal gutter slide={1} handleClose={handleCloseModal}>
       <div className={css['filter-modal']}>
-        <div className={css['modal__offset']} onClick={handleCloseModal} />
         <div className={css['modal__header']}>
           <div className={css['modal__header__name']}>
             {selectedFilter.name}
@@ -51,19 +48,18 @@ const FilterModal = ({ isModalOpen, selectedFilter, handleCloseModal }) => {
             ))}
         </div>
       </div>
-    </SlideIn>
+    </ModalPortal>
   );
 };
 
 FilterModal.propTypes = {
-  isModalOpen: PropTypes.bool.isRequired,
   selectedFilter: PropTypes.shape({
     filter: PropTypes.string,
     name: PropTypes.string,
     value: PropTypes.string,
     idx: PropTypes.number,
-  }).isRequired,
-  handleCloseModal: PropTypes.func.isRequired,
+  }),
+  handleCloseModal: PropTypes.func,
 };
 
 export default observer(FilterModal);

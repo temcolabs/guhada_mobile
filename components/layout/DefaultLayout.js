@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import css from './DefaultLayout.module.scss';
 import Header from 'components/header/Header';
-import ToolBar from 'components/toolbar/ToolBar';
+// import ToolBar from 'components/toolbar/ToolBar';
+import Navigation from './Layout/Navigation';
 import Router from 'next/router';
 import { inject, observer } from 'mobx-react';
 import memoize from 'memoize-one';
@@ -114,17 +115,13 @@ class DefaultLayout extends Component {
           }}
         >
           {topLayout === 'keyword' ? null : (
-            <Header
-              headerShape={headerShape}
-              cartAmount={cartAmount}
-              scrollDirection={scrollDirection}
-            >
+            <Header headerShape={headerShape} cartAmount={cartAmount}>
               {pageTitle}
             </Header>
           )}
           {this.props.children}
 
-          {toolBar === false ? null : <ToolBar />}
+          {toolBar && <Navigation />}
           <div className={css.popupWrap}>
             {history && historyCount ? (
               <div className={css.popupWrapItem}>

@@ -1,9 +1,7 @@
 .wrap {
-  margin-top: 60px;
   background: #fafafa;
-  padding-bottom: 150px;
   width: 100%;
-  border-top: 1px solid #eee;
+  height: calc(100vh - 60px);
 
   .itemWrap {
     margin-top: 0;

@@ -2,7 +2,6 @@ import css from './DealItems.module.scss';
 import { memo } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
-
 import { LinkRoute } from 'childs/lib/router';
 import DataEmpty from 'components/common/DataEmpty';
 import DealItem, { dealShape } from './DealItem';
@@ -10,7 +9,7 @@ import DealItem, { dealShape } from './DealItem';
 const DealItems = ({
   title,
   deals,
-  horizontal = false,
+  thumbnail = 0,
   displaySeller = false,
   displayTags = true,
   isLazy = true,
@@ -20,7 +19,7 @@ const DealItems = ({
     <div
       className={cn(
         css['deal-items__wrapper'],
-        horizontal && css['items--horizontal']
+        thumbnail === -1 && css['items--horizontal']
       )}
     >
       {deals.length
@@ -32,7 +31,7 @@ const DealItems = ({
               <a>
                 <DealItem
                   deal={deal}
-                  horizontal={horizontal}
+                  thumbnail={thumbnail}
                   displaySeller={displaySeller}
                   displayTags={displayTags}
                   isLazy={isLazy}
@@ -40,7 +39,7 @@ const DealItems = ({
               </a>
             </LinkRoute>
           ))
-        : !horizontal && <DataEmpty PADDING="50px">결과 없음</DataEmpty>}
+        : thumbnail > -1 && <DataEmpty PADDING="50px">결과 없음</DataEmpty>}
     </div>
   </div>
 );
@@ -48,7 +47,7 @@ const DealItems = ({
 DealItems.propTypes = {
   title: PropTypes.string,
   deals: PropTypes.oneOfType([PropTypes.arrayOf(dealShape), PropTypes.object]),
-  horoizontal: PropTypes.bool,
+  thumbnail: PropTypes.number,
   displaySeller: PropTypes.bool,
   displayTags: PropTypes.bool,
   isLazy: PropTypes.bool,

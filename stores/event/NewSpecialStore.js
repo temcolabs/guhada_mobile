@@ -21,6 +21,7 @@ class SpecialStore {
    * observables
    */
   @observable isLoading = false;
+  @observable isInitial = true;
   @observable eventId = NaN;
   @observable specialDetail = {};
 
@@ -54,6 +55,7 @@ class SpecialStore {
       return;
     }
 
+    this.isInitial = false;
     this.isLoading = true;
 
     this.root.searchByFilter.initializeSearch({
@@ -77,6 +79,7 @@ class SpecialStore {
   }
 
   @action resetSpecialData() {
+    this.isInitial = true;
     this.eventId = NaN;
     this.specialDetail = {};
     this.root.searchByFilter.resetData();

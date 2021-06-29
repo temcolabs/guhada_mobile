@@ -6,11 +6,10 @@ import moment from 'moment';
 import addCommaToNum from 'childs/lib/common/addCommaToNum';
 import { pushRoute } from 'childs/lib/router';
 import { ORDER_LIST_ITEM_SAMPLE } from 'childs/lib/constant/order/orderModel';
-// import DeliveryDelayModal from '../molecules/Modal/DeliveryDelay';
 
 /** 발송지연 상세 모달 */
 const DeliveryDelayModal = dynamic(
-  () => import('../molecules/Modal/DeliveryDelay'),
+  () => import('components/organisms/Modals/DeliveryDelayModal'),
   { ssr: false }
 );
 
@@ -49,7 +48,7 @@ export default function DealOrdered({
 
   // 발송지연 on / off state
   const [isDeliveryDelayModalOpen, setDeliveryDelayModalOpen] = useState(false);
-  
+
   const onCloseDelayModal = () => {
     setDeliveryDelayModalOpen(false);
     document.documentElement.style.overflow = 'initial';

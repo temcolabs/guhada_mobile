@@ -1,9 +1,9 @@
 import React, { createRef, Component, Fragment } from 'react';
-import { toJS } from 'mobx';
 import { inject, observer } from 'mobx-react';
 import css from './Brand.module.scss';
 import cn from 'classnames';
 import _ from 'lodash';
+import { pushRoute } from 'childs/lib/router';
 
 import Image from 'components/atoms/Image';
 
@@ -245,7 +245,9 @@ class Brand extends Component {
                                   <div
                                     key={i}
                                     className={css.languageItem}
-                                    onClick={() => this.toSearch(brand.id)}
+                                    onClick={() =>
+                                      pushRoute(`/search?brand=${brand.id}`)
+                                    }
                                   >
                                     <span
                                       className={css.favoriteBtn}

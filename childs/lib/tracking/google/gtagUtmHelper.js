@@ -1,14 +1,11 @@
 import sessionStorage from 'childs/lib/common/sessionStorage';
+import qs from 'querystring';
 
 export function gtagUtmSave() {
   const search = window.location.search.substring(1);
+
   if (search.length) {
-    const { utm_source, utm_medium, utm_campaign } = JSON.parse(
-      '{"' + search.replace(/&/g, '","').replace(/=/g, '":"') + '"}',
-      function(key, value) {
-        return key === '' ? value : decodeURIComponent(value);
-      }
-    );
+    const { utm_source, utm_medium, utm_campaign } = qs.parse(search);
 
     const utm = sessionStorage.get('UTM') || {};
 

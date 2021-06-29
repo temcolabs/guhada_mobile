@@ -28,7 +28,7 @@ export default class ShoppingCartStore {
     totalPaymentPrice: 0,
   };
 
-  @observable cartList;
+  @observable cartList = [];
   @observable cartListOptions = [];
 
   @observable realTimePopularityProducts = [];
@@ -52,7 +52,7 @@ export default class ShoppingCartStore {
   getUserShoppingCartList = () => {
     return API.order
       .get(`/cart`)
-      .then(res => {
+      .then((res) => {
         devLog(res, '장바구니 데이터');
         const cartData = res.data.data;
         this.cartList = cartData?.cartItemResponseList;
@@ -69,7 +69,7 @@ export default class ShoppingCartStore {
 
         return cartData;
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
         let data = _.get(err, 'data');
         devLog(err, data, 'message', 'resultCode');
@@ -89,10 +89,10 @@ export default class ShoppingCartStore {
   globalGetUserShoppingCartList = () => {
     API.gateway
       .get(`/common/header/summary`)
-      .then(res => {
+      .then((res) => {
         this.cartAmount = res.data.data.cartCount;
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
       });
   };
@@ -101,7 +101,7 @@ export default class ShoppingCartStore {
   getRealTimePopularityProducts = () => {
     API.product
       .get(`/deals?division=MAIN_NEW_ARRIVALS&unitPerPage=3`)
-      .then(res => {
+      .then((res) => {
         let data = res.data;
         this.realTimePopularityProducts = data.data;
         devLog(
@@ -109,7 +109,7 @@ export default class ShoppingCartStore {
           'this.realTimePopularityProducts'
         );
       })
-      .catch(err => {
+      .catch((err) => {
         devLog(err, 'err');
       });
   };
@@ -117,7 +117,7 @@ export default class ShoppingCartStore {
   //--------------------- 옵션수량 바뀐 장바구니 전체 데이터 가져오기 ---------------------
   @action
   getChangeShoppingCartList = () => {
-    API.order.get(`/cart`).then(res => {
+    API.order.get(`/cart`).then((res) => {
       let data = res.data;
       if (data.resultCode === 200) {
         this.cartList = data?.data?.cartItemResponseList;
@@ -131,7 +131,7 @@ export default class ShoppingCartStore {
   @action
   setTotalItemCheckbox = () => {
     this.status.priorityCheck = true;
-    this.selectedCheck = this.cartList.map(data => {
+    this.selectedCheck = this.cartList.map((data) => {
       if (data.cartValidStatus.status) {
         return data.cartValidStatus.status;
       } else {
@@ -164,7 +164,7 @@ export default class ShoppingCartStore {
   };
 
   @action
-  changeItemCheckbox = targetIndex => {
+  changeItemCheckbox = (targetIndex) => {
     this.status.priorityCheck = false;
     this.selectedCheck[targetIndex] = !this.selectedCheck[targetIndex];
 
@@ -173,7 +173,7 @@ export default class ShoppingCartStore {
   };
 
   getTotalCheckBoxNumber = () => {
-    this.selectedCheckNumber = this.selectedCheck.filter(data => data);
+    this.selectedCheckNumber = this.selectedCheck.filter((data) => data);
   };
   //--------------------- 장바구니 토탈 계산 결과 값 ---------------------
   getTotalResultAmount = () => {
@@ -245,7 +245,7 @@ export default class ShoppingCartStore {
     if (tempQuantity > 0) {
       API.order
         .post(`/cart/changeQuantity?cartItemId=${id}&quantity=${tempQuantity}`)
-        .then(res => {
+        .then((res) => {
           let data = res.data;
           if (data.resultCode === 200) {
             this.getChangeShoppingCartList();
@@ -275,7 +275,7 @@ export default class ShoppingCartStore {
           }
         }
       } else {
-        API.product.get(`/order-deals/${id}/options`).then(res => {
+        API.product.get(`/order-deals/${id}/options`).then((res) => {
           let data = res.data;
           this.cartItemOptions = data.data;
 
@@ -437,7 +437,7 @@ export default class ShoppingCartStore {
 
   //--------------------- 장바구니 옵션 변경할 옵션 아이디 값 바인딩 ---------------------
   @action
-  setChangeItemData = value => {
+  setChangeItemData = (value) => {
     let currentDealOptionId = this.cartChangeOptions
       .currentChangeSelectDealOption.dealOptionSelectId;
     if (value.id === currentDealOptionId) {
@@ -463,7 +463,7 @@ export default class ShoppingCartStore {
             this.cartChangeOptions.willChangeCartItemId
           }&quantity=${this.cartChangeOptions.willChangeQuantity}`
         )
-        .then(res => {
+        .then((res) => {
           this.getChangeShoppingCartList();
           this.shoppingCartModalClose();
         });
@@ -479,7 +479,7 @@ export default class ShoppingCartStore {
               this.cartChangeOptions.willChangeSelectDealOptionId
             }`
           )
-          .then(res => {
+          .then((res) => {
             let data = res.data;
             this.getChangeShoppingCartList();
             this.shoppingCartModalClose();
@@ -499,7 +499,7 @@ export default class ShoppingCartStore {
 
   //--------------------- 장바구니 아이템 삭제하기 ---------------------
   @action
-  ShoppingCartItemDelete = id => {
+  ShoppingCartItemDelete = (id) => {
     this.root.alert.showConfirm({
       content: '해당 상품을 삭제하시겠습니까?',
       confirmText: '확인',
@@ -563,10 +563,10 @@ export default class ShoppingCartStore {
     }
   };
 
-  unSoldDeleteApiCall = selectIdList => {
+  unSoldDeleteApiCall = (selectIdList) => {
     API.order
       .post(`/cart/removeCartItem?cartItemIdList=${selectIdList}`)
-      .then(res => {
+      .then((res) => {
         this.getUserShoppingCartList();
       });
   };

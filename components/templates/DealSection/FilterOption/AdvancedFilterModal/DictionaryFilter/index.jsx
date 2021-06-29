@@ -4,11 +4,22 @@ import PropTypes from 'prop-types';
 import { toJS } from 'mobx';
 import cn from 'classnames';
 import Dictionary from './Dictionary';
+import {
+  enRegex,
+  koRegex,
+  findEnLetter,
+  findKoLetter,
+  sortFactory,
+} from './helpers';
 
 const DictionaryFilter = ({ title, dataList, currentIds, setIds }) => {
   /**
    * states
    */
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [inputValue, setInputValue] = useState('');
+  const [code, setCode] = useState('En');
+
   const initialDataList = useMemo(() => {
     const copiedDataList = toJS(dataList);
     copiedDataList.forEach(
@@ -17,9 +28,50 @@ const DictionaryFilter = ({ title, dataList, currentIds, setIds }) => {
     return copiedDataList;
   }, [dataList]);
 
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [inputValue, setInputValue] = useState('');
-  const [code, setCode] = useState('En');
+  const enInitialDictMap = useMemo(() => {
+    const enSortFactory = sortFactory['En'];
+    const sortedDataList = initialDataList.sort(enSortFactory);
+    const dictMap = new Map([['No.', []]]);
+
+    const callback = (item) => {
+      let firstLetter = findEnLetter(item.nameEnCap);
+      if (firstLetter) {
+        if (!enRegex.test(firstLetter)) {
+          firstLetter = 'No.';
+        }
+        if (dictMap.has(firstLetter)) {
+          dictMap.get(firstLetter).push(item);
+        } else {
+          dictMap.set(firstLetter, [item]);
+        }
+      }
+    };
+    sortedDataList.forEach(callback);
+
+    return dictMap;
+  }, [initialDataList]);
+  const koInitialDictMap = useMemo(() => {
+    const koSortFactory = sortFactory['Ko'];
+    const sortedDataList = initialDataList.sort(koSortFactory);
+    const dictMap = new Map([['No.', []]]);
+
+    const callback = (item) => {
+      let firstLetter = findKoLetter(item.nameKo);
+      if (firstLetter) {
+        if (!koRegex.test(firstLetter)) {
+          firstLetter = 'No.';
+        }
+        if (dictMap.has(firstLetter)) {
+          dictMap.get(firstLetter).push(item);
+        } else {
+          dictMap.set(firstLetter, [item]);
+        }
+      }
+    };
+    sortedDataList.forEach(callback);
+
+    return dictMap;
+  }, [initialDataList]);
 
   /**
    * side effects
@@ -73,13 +125,24 @@ const DictionaryFilter = ({ title, dataList, currentIds, setIds }) => {
               </button>
             </div>
           </div>
-          <Dictionary
-            code={code}
-            inputValue={inputValue}
-            initialDataList={initialDataList}
-            currentIds={currentIds}
-            setIds={setIds}
-          />
+          {code === 'En' && (
+            <Dictionary
+              prop={'nameEn'}
+              inputValue={inputValue}
+              initialDictMap={enInitialDictMap}
+              currentIds={currentIds}
+              setIds={setIds}
+            />
+          )}
+          {code === 'Ko' && (
+            <Dictionary
+              prop={'nameKo'}
+              inputValue={inputValue}
+              initialDictMap={koInitialDictMap}
+              currentIds={currentIds}
+              setIds={setIds}
+            />
+          )}
         </div>
       )}
     </div>

@@ -12,7 +12,7 @@ export default class KeywordStore {
   }
   @observable MAX_ITEM = 10;
   @observable list = [];
-  @observable autoComplete;
+  @observable autoComplete = true;
   @observable popularList = [];
 
   @action
@@ -43,7 +43,8 @@ export default class KeywordStore {
 
   @action
   addItem = (keyword = '') => {
-    const isDuplicate = this.list.findIndex(item => item.name === keyword) > -1;
+    const isDuplicate =
+      this.list.findIndex((item) => item.name === keyword) > -1;
 
     let keywordList = { name: keyword, date: this.mmdd() };
 
@@ -65,7 +66,7 @@ export default class KeywordStore {
 
   @action
   removeItem = (keyword = '') => {
-    const targetItem = this.list.findIndex(item => item.name === keyword);
+    const targetItem = this.list.findIndex((item) => item.name === keyword);
 
     if (targetItem > -1) {
       this.list.splice(targetItem, 1);
@@ -100,21 +101,23 @@ export default class KeywordStore {
 
   @action
   getPopularList = () => {
-    API.search.get('/ps/keyword/popular', { params: { top: 10 } }).then(res => {
-      let data = res.data;
-      this.popularList = data.data.keywords;
-    });
+    API.search
+      .get('/ps/keyword/popular', { params: { top: 10 } })
+      .then((res) => {
+        let data = res.data;
+        this.popularList = data.data.keywords;
+      });
   };
 
   @observable autoCompleteList = [];
 
   @action
-  getAutoComplete = value => {
+  getAutoComplete = (value) => {
     let reg = /^[가-힣|a-z|A-Z|0-9|" "|\*]+$/;
     if (reg.test(value)) {
       API.search
         .get('/ps/search/autoComplete', { params: { searchQuery: value } })
-        .then(res => {
+        .then((res) => {
           let data = res.data;
           this.autoCompleteList = data.data.name;
         });

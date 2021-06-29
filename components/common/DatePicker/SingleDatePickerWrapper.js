@@ -5,7 +5,7 @@ import React from 'react';
 import { string, bool, any, func } from 'prop-types';
 import moment from 'moment';
 import omit from 'lodash/omit';
-// import { SingleDatePicker, SingleDatePickerPhrases } from 'react-dates';
+import 'react-dates/initialize'; // react-dates
 import SingleDatePicker from 'react-dates/lib/components/SingleDatePicker';
 import { SingleDatePickerPhrases } from 'react-dates/lib/defaultPhrases';
 import { HORIZONTAL_ORIENTATION, ANCHOR_LEFT } from './calendarConstants';

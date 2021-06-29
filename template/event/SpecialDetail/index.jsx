@@ -1,14 +1,10 @@
 import css from './SpecialDetail.module.scss';
 import { observer } from 'mobx-react';
 import { useRouter } from 'next/router';
-
 import copy from 'copy-to-clipboard';
 import useStores from 'stores/useStores';
-
-import DefaultLayout from 'components/layout/DefaultLayout';
 import SpecialDetailHeader from './SpecialDetailHeader';
 import DealSection from 'components/templates/DealSection';
-import Loading from 'components/common/loading/Loading';
 
 function SpecialDetail() {
   /**
@@ -36,26 +32,22 @@ function SpecialDetail() {
    * render
    */
   return (
-    <DefaultLayout headerShape={'special'} pageTitle={'기획전'}>
-      {newSpecialStore.isLoading ? (
-        <Loading />
-      ) : (
-        <div className={css['special-detail']}>
-          <SpecialDetailHeader
-            specialDetail={newSpecialStore.specialDetail}
-            handleCopyUrlToClipboard={handleCopyUrlToClipboard}
-          />
-          <DealSection
-            title={'기획전 ITEM'}
-            deals={searchByFilterStore.deals}
-            isLoading={searchByFilterStore.countOfDeals === Infinity}
-            moreToLoad={searchByFilterStore.moreToLoad}
-            handleLoadMore={() => searchByFilterStore.search(true)}
-            isFilterable
-          />
-        </div>
-      )}
-    </DefaultLayout>
+    <div className={css['special-detail']}>
+      <SpecialDetailHeader
+        specialDetail={newSpecialStore.specialDetail}
+        handleCopyUrlToClipboard={handleCopyUrlToClipboard}
+      />
+      <DealSection
+        title={'기획전 ITEM'}
+        deals={searchByFilterStore.deals}
+        isLoading={searchByFilterStore.isInitial}
+        moreToLoad={searchByFilterStore.moreToLoad}
+        handleLoadMore={() => searchByFilterStore.search(true)}
+        thumbnail={searchByFilterStore.thumbnail}
+        filter
+        filterTags
+      />
+    </div>
   );
 }
 

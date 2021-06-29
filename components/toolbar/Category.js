@@ -3,11 +3,12 @@ import css from './Category.module.scss';
 import { inject, observer } from 'mobx-react';
 import { toJS } from 'mobx';
 import cn from 'classnames';
+import { pushRoute } from 'childs/lib/router';
 
 /**
  * toolbar에서 category 클릭 시 나오는 데이터
  */
-@inject('category', 'searchitem')
+@inject('category', 'searchByFilter')
 @observer
 class Category extends Component {
   grow(params) {
@@ -27,22 +28,21 @@ class Category extends Component {
   }
 
   toSearch = ({ category = '', subcategory = '' }) => {
-    let { searchitem, onClose } = this.props;
-    searchitem.toSearch({
-      category: category,
-      subcategory: subcategory,
-      enter: 'category',
-    });
+    let { onClose } = this.props;
+    pushRoute(
+      `/search?category=${category}${subcategory &&
+        `&subcategory=${subcategory}`}`
+    );
     onClose();
   };
 
   render() {
-    const { category, searchitem } = this.props;
+    const { category } = this.props;
     let categoryList = toJS(category.category);
 
     return (
       <ul className={css.tree}>
-        {categoryList.map(categoryMain => {
+        {categoryList.map((categoryMain) => {
           return (
             <li key={`${categoryMain.id}categoryMainKey`}>
               <input
@@ -64,7 +64,7 @@ class Category extends Component {
                   >
                     전체보기
                   </li>
-                  {categoryMain.children.map(categoryItem => {
+                  {categoryMain.children.map((categoryItem) => {
                     return (
                       <Fragment key={`${categoryItem.id}categoryItemKey`}>
                         <li>
@@ -99,7 +99,7 @@ class Category extends Component {
                             >
                               전체보기
                             </li>
-                            {categoryItem.children.map(categorySecond => {
+                            {categoryItem.children.map((categorySecond) => {
                               return (
                                 <Fragment
                                   key={`${categorySecond.key}categorySecondKey`}
@@ -149,7 +149,7 @@ class Category extends Component {
                                           전체보기
                                         </li>
                                         {categorySecond.children.map(
-                                          categoryLast => {
+                                          (categoryLast) => {
                                             return (
                                               <li
                                                 className={css.categoryLast}

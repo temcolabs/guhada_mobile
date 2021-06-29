@@ -1,0 +1,26 @@
+.item {
+  margin-right: 5px;
+  width: 130px;
+  display: inline-block;
+  cursor: pointer;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  .image {
+    width: 130px;
+    height: 130px;
+    background: no-repeat center;
+    background-size: 130px;
+  }
+
+  .keyword {
+    font-size: 12px;
+    height: 15px;
+    font-weight: normal;
+    color: #111111;
+    margin-top: 15px;
+    text-align: center;
+  }
+}

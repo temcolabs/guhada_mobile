@@ -1,0 +1,23 @@
+.wrap {
+  width: 100%;
+  background-color: #7339c9;
+  height: 100%;
+
+  & .bg {
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100%;
+    padding-top: 89%;
+  }
+
+  & .empty {
+    color: #fff;
+    font-family: Roboto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: calc(100vh - 161px);
+    font-size: 1.2rem;
+  }
+}

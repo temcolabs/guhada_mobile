@@ -16,7 +16,7 @@ function Slider({ children, settings }) {
 }
 
 Slider.propTypes = {
-  settings: PropTypes.object.isRequired,
+  settings: PropTypes.object,
 };
 
 export default Slider;

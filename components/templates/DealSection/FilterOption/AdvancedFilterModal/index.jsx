@@ -3,10 +3,12 @@ import { useCallback } from 'react';
 import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 import useStores from 'stores/useStores';
-import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
+import ModalPortal from 'components/templates/ModalPortal';
 import TreeFilter from './TreeFilter';
 import DictionaryFilter from './DictionaryFilter';
 import SelectionFilter from './SelectionFilter';
+import ColorFilter from './ColorFilter';
+import AttributeFilter from './AttributeFilter';
 import PriceFilter from './PriceFilter';
 import SearchInputFilter from './SearchInputFilter';
 import {
@@ -15,11 +17,7 @@ import {
   priceArrangeMap,
 } from 'stores/SearchStore/SearchByFilterStore';
 
-const AdvancedFilterModal = ({
-  filterName = '상세검색',
-  isModalOpen,
-  handleCloseModal,
-}) => {
+const AdvancedFilterModal = ({ filterName = '상세검색', handleCloseModal }) => {
   /**
    * states
    */
@@ -46,9 +44,8 @@ const AdvancedFilterModal = ({
    * render
    */
   return (
-    <SlideIn direction={slideDirection.BOTTOM} isVisible={isModalOpen}>
+    <ModalPortal handleClose={handleCloseModal} slide={1} gutter>
       <div className={css['filter-modal']}>
-        <div className={css['modal__offset']} onClick={handleCloseModal} />
         <div className={css['modal__header']}>{filterName}</div>
         <div className={css['modal__filters']}>
           <TreeFilter
@@ -79,6 +76,32 @@ const AdvancedFilterModal = ({
               handleSetAbstractFilter({ productCondition })
             }
           />
+          {searchByFilterStore.filters.map(
+            ({ id, name, viewType, attributes }) => {
+              if (viewType === 'RGB_BUTTON') {
+                return (
+                  <ColorFilter
+                    key={id}
+                    title={name}
+                    attributes={attributes}
+                    currentFilters={searchByFilterStore.abstractBody.filters}
+                    setFilters={(filters) =>
+                      handleSetAbstractFilter({ filters })
+                    }
+                  />
+                );
+              }
+              return (
+                <AttributeFilter
+                  key={id}
+                  title={name}
+                  attributes={attributes}
+                  currentFilters={searchByFilterStore.abstractBody.filters}
+                  setFilters={(filters) => handleSetAbstractFilter({ filters })}
+                />
+              );
+            }
+          )}
           <PriceFilter
             title={'가격'}
             mapObject={priceArrangeMap}
@@ -97,10 +120,16 @@ const AdvancedFilterModal = ({
           <SearchInputFilter
             searchQueries={searchByFilterStore.abstractBody.searchQueries}
             handleSetSearchQuery={(searchQuery) => {
-              handleSetAbstractFilter({ searchQueries: [searchQuery] });
+              handleSetAbstractFilter({
+                searchQueries: [
+                  ...searchByFilterStore.defaultBody.searchQueries,
+                  searchQuery,
+                ],
+              });
             }}
           />
         </div>
+        <div className={css['gutter']} />
         <div className={css['modal__buttons']}>
           <button
             className={css['button--reset']}
@@ -116,13 +145,12 @@ const AdvancedFilterModal = ({
           </button>
         </div>
       </div>
-    </SlideIn>
+    </ModalPortal>
   );
 };
 
 AdvancedFilterModal.propTypes = {
   filterName: PropTypes.string,
-  isModalOpen: PropTypes.bool,
   handleCloseModal: PropTypes.func,
 };
 

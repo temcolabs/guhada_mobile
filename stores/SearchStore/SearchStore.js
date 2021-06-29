@@ -1,4 +1,6 @@
 import { observable, computed, action } from 'mobx';
+import { isBrowser } from 'childs/lib/common/isServer';
+import { CancelToken } from 'axios';
 
 /** API endpoint enum */
 export const ENDPOINT = {
@@ -19,6 +21,15 @@ export const STATE = {
   LOADED: 'LOADED',
   ERROR: 'ERROR',
 };
+
+/** display thumbnail enum */
+export const THUMBNAIL = {
+  HORIZONTAL: -1,
+  QUAD: 0,
+  DOUBLE: 1,
+  HEX: 2,
+};
+
 /**
  * JSDoc typedefs
  *
@@ -83,25 +94,32 @@ class SearchStore {
   @action updateState(state) {
     SearchStore.instance._state = state;
   }
-  get isLoading() {
-    return SearchStore.instance._state === STATE.LOADING;
-  }
-  get isLoadable() {
+  @computed get isInitial() {
     return (
-      SearchStore.instance._state === STATE.INITIAL ||
-      SearchStore.instance._state === STATE.LOADABLE
+      this.countOfDeals === Infinity ||
+      SearchStore.instance._state === STATE.INITIAL
     );
   }
-  get hasError() {
+  @computed get isLoading() {
+    return SearchStore.instance._state === STATE.LOADING;
+  }
+  @computed get isLoadable() {
+    return SearchStore.instance._state === STATE.LOADABLE;
+  }
+  @computed get hasError() {
     return SearchStore.instance._state === STATE.ERROR;
   }
 
   /** singleton instance for shared FSM state */
   static instance;
-  constructor() {
+  constructor(root) {
+    if (isBrowser) {
+      this.root = root;
+    }
     if (!SearchStore.instance) {
       SearchStore.instance = this;
     }
+    this.cancelTokenSource = CancelToken.source();
   }
 
   /**
@@ -113,12 +131,17 @@ class SearchStore {
   @observable deals = [];
   /** @type {Brand[]} */
   @observable brands = [];
+  /** @type {Brand[]} brands list from initial search */
+  @observable unfungibleBrands = [];
   /** @type {Category[]} */
   @observable categories = [];
   /** @type {Category[]} categories list from initial search */
   @observable unfungibleCategories = [];
   /** @type {Filter[]} */
   @observable filters = [];
+
+  /** deal items thumbnail display */
+  @observable thumbnail = THUMBNAIL.QUAD;
 
   /**
    * actions
@@ -130,6 +153,12 @@ class SearchStore {
     this.brands = [];
     this.categories = [];
     this.filters = [];
+  }
+
+  /** WARNING - resets unfungible data */
+  @action resetUnfungibles() {
+    this.unfungibleCategories = [];
+    this.unfungibleBrands = [];
   }
 
   /**

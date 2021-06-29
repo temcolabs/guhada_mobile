@@ -1,4 +1,4 @@
-import { useState, memo } from 'react';
+import React, { useState, memo } from 'react';
 import Router from 'next/router';
 import css from './Header.module.scss';
 import HeaderMenu from './HeaderMenu';
@@ -8,23 +8,15 @@ import { LinkRoute } from 'childs/lib/router';
 import cn from 'classnames';
 import SearchMenu from './SearchMenu';
 import BrandContainer from './item/BrandContainer';
-import useStores from 'stores/useStores';
+import BurgerModal from 'components/header/HeaderMenu';
+import SearchModal from 'components/layout/Layout/Header/SearchModal';
 import { useObserver } from 'mobx-react-lite';
 
 /**
- *
  * @param {string} headerShape
  * productDetail 일때 layout 변경
  */
-function Header({
-  children,
-  pageTitle,
-  headerShape,
-  cartAmount,
-  scrollDirection,
-}) {
-  // eslint-disable-next-line
-  const { history } = useStores();
+function Header({ children, pageTitle, headerShape, cartAmount }) {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isCategoryVisible, setIsCategoryVisible] = useState(false);
   const [categoryId, setCategoryId] = useState(0);
@@ -40,25 +32,20 @@ function Header({
       ) : (
         // 헤더의 보더
         <div
-          className={cn(
-            css.wrap,
-            {
-              [css.borderBottom]:
-                headerShape === 'detailPage' ||
-                headerShape === 'sellerStore' ||
-                headerShape === 'productDetail' ||
-                headerShape === 'ordersuccess' ||
-                headerShape === 'orderpayment' ||
-                headerShape === 'shoppingcart' ||
-                headerShape === 'brand' ||
-                headerShape === 'reviewHashtagDetail' ||
-                headerShape === 'special' ||
-                headerShape === 'eventmain' ||
-                headerShape === 'BBSArticleView',
-            },
-            { [css.scrollDown]: scrollDirection === 'down' }
-          )}
-          // style={scrollDirection === 'down' ? { display: 'none' } : null}
+          className={cn(css.wrap, {
+            [css.borderBottom]:
+              headerShape === 'detailPage' ||
+              headerShape === 'sellerStore' ||
+              headerShape === 'productDetail' ||
+              headerShape === 'ordersuccess' ||
+              headerShape === 'orderpayment' ||
+              headerShape === 'shoppingcart' ||
+              headerShape === 'brand' ||
+              headerShape === 'reviewHashtagDetail' ||
+              headerShape === 'special' ||
+              headerShape === 'eventmain' ||
+              headerShape === 'BBSArticleView',
+          })}
         >
           {/* 백버튼 */}
           {headerShape === 'detailPage' ||
@@ -162,39 +149,15 @@ function Header({
             </LinkRoute>
           ) : null}
 
-          <HeaderMenu
-            isVisible={isMenuVisible}
-            onClose={() => setIsMenuVisible(false)}
-            setIsCategoryVisible={setIsCategoryVisible}
-            setCategoryId={setCategoryId}
-            setCategoryTitle={setCategoryTitle}
-            setIsBrandVisible={setIsBrandVisible}
-          />
-
-          <CategoryDepthMenu
-            isVisible={isCategoryVisible}
-            onBack={() => setIsCategoryVisible(false)}
-            onClose={() => {
-              setIsMenuVisible(false);
-              setTimeout(() => {
-                setIsCategoryVisible(false);
-              }, 400);
-            }}
-            onCloseMenu={() => setIsMenuVisible(false)}
-            categoryId={categoryId}
-            categoryTitle={categoryTitle}
-          />
-
-          <BrandContainer
-            isVisible={isBrandVisible}
-            onClose={() => setIsBrandVisible(false)}
-            onCloseMenu={() => setIsMenuVisible(false)}
-          />
-
-          <SearchMenu
-            isVisible={isSearchVisible}
-            onClose={() => setIsSearchVisible(false)}
-          />
+          {isSearchVisible && (
+            <SearchModal handleClose={() => setIsSearchVisible(false)} />
+          )}
+          {isMenuVisible && (
+            <BurgerModal
+              isVisible={isMenuVisible}
+              onClose={() => setIsMenuVisible(false)}
+            />
+          )}
         </div>
       )}
     </>

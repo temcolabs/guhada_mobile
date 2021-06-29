@@ -13,7 +13,6 @@ const SelectionFilter = ({
    */
   const handleSetSelectedKey = (key) => {
     if (selectedKey === key) {
-      // handleSetSelected(Array.from(mapObject)[0][0]);
       handleSetSelected('ANY');
     } else {
       handleSetSelected(key);
@@ -24,22 +23,19 @@ const SelectionFilter = ({
    * render
    */
   return (
-    <div className={css['selection']}>
-      <div className={css['selection__title']}>{title}</div>
-      <div className={css['selection__items']}>
+    <div className={css['selection-filter']}>
+      <div className={css['filter__title']}>{title}</div>
+      <div className={css['filter__items']}>
         {Array.from(mapObject).map(([key, value]) => (
           <div
             key={key}
-            className={css['item']}
+            className={cn(
+              css['item'],
+              selectedKey === key && css['item--checked']
+            )}
             onClick={() => handleSetSelectedKey(key)}
           >
-            <span
-              className={cn(
-                css['item__check'],
-                selectedKey === key && css['checked']
-              )}
-            />
-            {value}
+            <div>{value}</div>
           </div>
         ))}
       </div>

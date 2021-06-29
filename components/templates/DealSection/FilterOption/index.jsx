@@ -1,74 +1,78 @@
 import css from './FilterOption.module.scss';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import cn from 'classnames';
 import useStores from 'stores/useStores';
 import { searchResultOrderMap } from 'stores/SearchStore/SearchByFilterStore';
-import FilterTags from './FilterTags';
+import ThumbnailButton from './ThumbnailButton';
 import FilterModal from './FilterModal';
 import AdvancedFilterModal from './AdvancedFilterModal';
 
-const FilterOption = () => {
+const FilterOption = ({ hide, float }) => {
   /**
    * states
    */
-  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
-  const [isAdvancedFilterModalOpen, setIsAdvancedFilterModalOpen] = useState(
-    false
-  );
+  const [isModalOpen, setIsModalOpen] = useState(0);
   const { searchByFilter: searchByFilterStore } = useStores();
 
   /**
    * render
    */
   return (
-    <>
-      <div className={css['filter-option']}>
-        <div className={css['filter-option__buttons']}>
-          <div
-            className={cn(css['filter-button'], css['button--order'])}
-            onClick={() => {
-              setIsFilterModalOpen(true);
-            }}
-          >
-            {searchResultOrderMap.get(
-              searchByFilterStore.body.searchResultOrder
-            )}
-            <span className={css['icon--order']} />
-          </div>
-          <div
-            className={cn(css['filter-button'], css['button--advanced'])}
-            onClick={() => {
-              setIsAdvancedFilterModalOpen(true);
-            }}
-          >
-            상세검색
-            <span className={css['icon--advanced']} />
-          </div>
+    <div
+      className={cn(
+        css['filter-option'],
+        float && css['float'],
+        hide && css['hide']
+      )}
+    >
+      <div className={css['filter-option__buttons']}>
+        <div
+          className={cn(css['filter-button'], css['button--order'])}
+          onClick={() => setIsModalOpen(1)}
+        >
+          {searchResultOrderMap.get(searchByFilterStore.body.searchResultOrder)}
         </div>
-        <FilterTags />
+        <ThumbnailButton
+          thumbnail={searchByFilterStore.thumbnail}
+          setThumbnail={(idx) => (searchByFilterStore.thumbnail = idx)}
+        />
+        <div
+          className={cn(css['filter-button'], css['button--advanced'])}
+          onClick={() => setIsModalOpen(2)}
+        >
+          상세검색
+        </div>
       </div>
 
-      <FilterModal
-        filterName={'상품정렬'}
-        filterMap={searchResultOrderMap}
-        selectedKey={searchByFilterStore.body.searchResultOrder}
-        isModalOpen={isFilterModalOpen}
-        handleCloseModal={() => setIsFilterModalOpen(false)}
-        handleSetFilter={(key) =>
-          searchByFilterStore.submitFilter({ searchResultOrder: key })
-        }
-        handleResetFilter={() =>
-          searchByFilterStore.submitFilter({ searchResultOrder: 'DATE' })
-        }
-      />
-      <AdvancedFilterModal
-        filterName={'상세검색'}
-        isModalOpen={isAdvancedFilterModalOpen}
-        handleCloseModal={() => setIsAdvancedFilterModalOpen(false)}
-      />
-    </>
+      {isModalOpen === 1 && (
+        <FilterModal
+          filterName={'상품정렬'}
+          filterMap={searchResultOrderMap}
+          selectedKey={searchByFilterStore.body.searchResultOrder}
+          handleCloseModal={() => setIsModalOpen(0)}
+          handleSetFilter={(key) =>
+            searchByFilterStore.submitFilter({ searchResultOrder: key })
+          }
+          handleResetFilter={() =>
+            searchByFilterStore.submitFilter({ searchResultOrder: 'DATE' })
+          }
+        />
+      )}
+      {isModalOpen === 2 && (
+        <AdvancedFilterModal
+          filterName={'상세검색'}
+          handleCloseModal={() => setIsModalOpen(0)}
+        />
+      )}
+    </div>
   );
+};
+
+FilterOption.propTypes = {
+  hide: PropTypes.bool,
+  float: PropTypes.bool,
 };
 
 export default observer(FilterOption);

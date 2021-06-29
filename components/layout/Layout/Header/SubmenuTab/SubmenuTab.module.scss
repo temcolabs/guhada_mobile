@@ -1,0 +1,47 @@
+.menu-tab {
+  width: 100%;
+  height: 43px;
+  white-space: nowrap;
+  overflow-x: auto;
+  display: flex;
+  align-items: center;
+  scroll-behavior: smooth;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tab-item {
+    -webkit-tap-highlight-color: transparent;
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 0.45px;
+    color: #111;
+    cursor: pointer;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 100%;
+  }
+
+  .tab-arrow {
+    position: absolute;
+    padding-right: 10px;
+    width: 30px;
+    height: 43px;
+    background: no-repeat center;
+    background-size: contain;
+
+    &.arrow--left {
+      left: 0;
+      background-image: url('/static/icon/btn-arrow2.png');
+      -webkit-transform: scaleX(-1);
+      transform: scaleX(-1);
+    }
+    &.arrow--right {
+      right: 0;
+      background-image: url('/static/icon/btn-arrow2.png');
+    }
+  }
+}

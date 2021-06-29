@@ -1,5 +1,5 @@
 import React from 'react';
-import DefaultLayout from 'components/layout/DefaultLayout';
+import { withRouter } from 'next/router';
 import Gallery from 'components/productdetail/Gallery';
 import ProductDetailName from 'components/productdetail/ProductDetailName';
 import ProductDetailOption from 'components/productdetail/ProductDetailOption';
@@ -26,8 +26,9 @@ import _ from 'lodash';
 import CommonPopup from 'components/common/modal/CommonPopup';
 import SellerReview from 'components/productdetail/SellerReview/SellerReview';
 import LoadingPortal from 'components/common/loading/Loading';
+// import { isIOS, isAndroid } from 'childs/lib/common/detectMobileEnv';
 import { sendBackToLogin } from 'childs/lib/router';
-import { devLog } from 'childs/lib/common/devLog';
+
 @withScrollToTopOnMount
 @inject(
   'searchitem',
@@ -51,6 +52,8 @@ class ProductDetail extends React.Component {
       isInternationalPopup: false,
       isInternationalSubmit: '',
       cartAndPurchaseVisible: true,
+      isDeepLinkModal: false,
+      deepLink: '',
     };
     this.tabRefMap = {
       detailTab: React.createRef(),
@@ -59,6 +62,10 @@ class ProductDetail extends React.Component {
       reviewTab: React.createRef(),
     };
   }
+
+  // componentDidMount() {
+  //   this.createDeepLink();
+  // }
 
   componentDidUpdate(prevProps, prevState) {
     //  최근 본 상품에 현재 아이템 추가
@@ -90,6 +97,17 @@ class ProductDetail extends React.Component {
       isInternationalPopup: bool,
     });
   };
+
+  // createDeepLink = () => {
+  //   const { query } = Router.router;
+  //   if (isIOS() || isAndroid()) {
+  //     this.setState({
+  //       ...this.state,
+  //       isDeepLinkModal: true,
+  //       deepLink: `guhada://DEAL?dealid=${query?.deals}`,
+  //     });
+  //   }
+  // };
 
   isInternationalSubmit = (text) => {
     this.setState({ isInternationalSubmit: text });
@@ -138,12 +156,17 @@ class ProductDetail extends React.Component {
     } = this.props;
 
     return (
-      <DefaultLayout
-        topLayout={'main'}
-        pageTitle={null}
-        toolBar={false}
-        headerShape={'productDetail'}
-      >
+      <>
+        {/* App > DeepLink */}
+        {/* {this.state.isDeepLinkModal && (
+          <DeepLinkPopup
+            isOpen={this.state.isDeepLinkModal}
+            onClose={() =>
+              this.setState({ ...this.state, isDeepLinkModal: false })
+            }
+            deepLink={this.state.deepLink}
+          />
+        )} */}
         {/* 상세이미지갤러리 */}
         <Gallery />
 
@@ -244,13 +267,13 @@ class ProductDetail extends React.Component {
 
         {/* 상품 상세 장바구니 , 구매하기 버튼 */}
         {this.state.cartAndPurchaseVisible === true &&
-        !shoppingCartSuccessModal.isOpen ? (
-          <CartAndPurchaseButton
-            isVisible={false}
-            handleInternationalPopup={this.handleInternationalPopup}
-            isInternationalSubmit={this.isInternationalSubmit}
-          />
-        ) : null}
+          !shoppingCartSuccessModal.isOpen && (
+            <CartAndPurchaseButton
+              isVisible={false}
+              handleInternationalPopup={this.handleInternationalPopup}
+              isInternationalSubmit={this.isInternationalSubmit}
+            />
+          )}
 
         {this.state.isInternationalPopup && (
           <CommonPopup
@@ -269,10 +292,10 @@ class ProductDetail extends React.Component {
           />
         )}
 
-        {this.props.cartAndPurchase.addCartStatus ? <LoadingPortal /> : null}
-      </DefaultLayout>
+        {this.props.cartAndPurchase.addCartStatus && <LoadingPortal />}
+      </>
     );
   }
 }
 
-export default ProductDetail;
+export default withRouter(ProductDetail);

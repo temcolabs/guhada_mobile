@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import DefaultLayout from 'components/layout/DefaultLayout';
 import Controller from 'components/shoppingcart/Controller';
 import CartItem from 'components/shoppingcart/CartItem';
 import AmountResult from 'components/shoppingcart/AmountResult';
@@ -20,41 +19,33 @@ class ShoppingCart extends React.Component {
   render() {
     let { shoppingcart } = this.props;
     let { cartList } = shoppingcart;
-    return (
-      <DefaultLayout
-        headerShape={'shoppingcart'}
-        toolBar={cartList.length > 0 ? false : true}
-        pageTitle={'장바구니'}
-      >
-        {cartList.length ? (
-          <Fragment>
-            {/* 체크박스 컨트롤 */}
-            <Controller />
+    return cartList.length ? (
+      <>
+        {/* 체크박스 컨트롤 */}
+        <Controller />
 
-            {/* 장바구니 아이템 */}
-            <div className={css.itemWrap}>
-              {cartList.map((data, index) => {
-                return <CartItem data={data} index={index} key={index} />;
-              })}
-            </div>
-            {/* 주문 결과 창 */}
-            <AmountResult />
+        {/* 장바구니 아이템 */}
+        <div className={css.itemWrap}>
+          {cartList.map((data, index) => {
+            return <CartItem data={data} index={index} key={index} />;
+          })}
+        </div>
+        {/* 주문 결과 창 */}
+        <AmountResult />
 
-            {/* 장바구니 NOTICE */}
-            <Notice />
-            {/* 구매버튼 */}
-            <PurchaseButton />
-          </Fragment>
-        ) : (
-          <div className={css.wrap}>
-            {/* 장바구니 데이터 없음 */}
-            <CartEmpty />
+        {/* 장바구니 NOTICE */}
+        <Notice />
+        {/* 구매버튼 */}
+        <PurchaseButton />
+      </>
+    ) : (
+      <div className={css.wrap}>
+        {/* 장바구니 데이터 없음 */}
+        <CartEmpty />
 
-            {/* 실시간 인기상품 */}
-            <RealTimePopularityProducts />
-          </div>
-        )}
-      </DefaultLayout>
+        {/* 실시간 인기상품 */}
+        <RealTimePopularityProducts />
+      </div>
     );
   }
 }

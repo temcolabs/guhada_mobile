@@ -1,43 +1,6 @@
 $modalOffset: 60px;
 
 .filter-modal {
-  position: absolute;
-  width: 100%;
-  bottom: 0;
-  left: 0;
-  height: calc(100vh - #{$modalOffset});
-  background: #fff;
-  overflow: scroll;
-  padding-bottom: 50px;
-
-  .modal__offset {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: $modalOffset;
-
-    &::before {
-      position: absolute;
-      top: 20px;
-      right: 28px;
-      content: '';
-      height: 20px;
-      width: 1px;
-      background-color: #fff;
-      transform: rotate(45deg);
-    }
-    &::after {
-      position: absolute;
-      top: 20px;
-      right: 28px;
-      content: '';
-      height: 20px;
-      width: 1px;
-      background-color: #fff;
-      transform: rotate(-45deg);
-    }
-  }
-
   .modal__header {
     display: flex;
     justify-content: space-between;

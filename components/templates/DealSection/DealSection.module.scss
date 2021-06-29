@@ -7,6 +7,28 @@
     font-weight: 600;
     color: #111;
     letter-spacing: 0.5px;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+  }
+
+  .section-end {
+    text-align: center;
+    color: #5d2ed1;
+    font-size: 12px;
+    animation: opacityControl 4s;
+    opacity: 0;
+    height: 50px;
+    padding-bottom: 20px;
+  }
+}
+
+@keyframes opacityControl {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }

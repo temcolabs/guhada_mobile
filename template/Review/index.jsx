@@ -1,18 +1,15 @@
-import { memo, useEffect } from 'react';
-import Proptypes from 'prop-types';
+import React, { useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { stringify } from 'qs';
 import useStores from 'stores/useStores';
-
-import CategorySlider from 'components/common/CategorySlider';
-import DefaultLayout from 'components/layout/DefaultLayout';
-import Footer from 'components/footer/Footer';
-import { ReviewBanner, ReviewHashTag, ReviewCategories } from './components';
-import ReviewSection from 'components/organisms/ReviewSection';
-
 import { pushRoute, sendBackToLogin } from 'childs/lib/router';
-import { mainCategory } from 'childs/lib/constant/category';
-import { useScrollDirection, useScrollPosition } from 'hooks';
+import { useScrollPosition } from 'hooks';
+
+import {
+  ReviewCategories,
+  ReviewFavoriteHashtagList,
+} from 'template/Review/components/molecules';
+import { ReviewCardSection } from 'template/Review/components/organisms';
 
 import { REVIEW_CATEGORY_LIST } from './_constants';
 import { ReviewWrapper, ReviewContents } from './Styled';
@@ -25,15 +22,9 @@ function ReviewTemplate() {
   /**
    * states
    */
-  const {
-    alert: alertStore,
-    main: mainStore,
-    review: reviewStore,
-    login: loginStore,
-  } = useStores();
+  const { review: reviewStore, login: loginStore } = useStores();
   const { reviewList: reviews } = reviewStore;
 
-  const scrollDirection = useScrollDirection();
   const { scrollPosition } = useScrollPosition();
 
   /**
@@ -101,61 +92,40 @@ function ReviewTemplate() {
     pushRoute(`/review/hashtag?${stringify({ hashtag })}`);
 
   return (
-    <>
-      <DefaultLayout
-        title={null}
-        topLayout={'main'}
-        scrollDirection={scrollDirection}
-      >
-        <CategorySlider
-          categoryList={mainCategory.item}
-          setNavDealId={mainStore.setNavDealId}
-          scrollDirection={scrollDirection}
-        />
+    <ReviewWrapper>
+      {/* 리뷰 > 배너 */}
+      {/* TODO : 배너 추가되는 경우, 인기 해시태그 padding 정리 */}
+      {/* <ReviewBanner /> */}
 
-        <ReviewWrapper>
-          {/* 리뷰 > 배너 */}
-          {/* TODO : 배너 추가되는 경우, 인기 해시태그 padding 정리 */}
-          {/* <ReviewBanner /> */}
+      {/* 리뷰 > 인기 해시태그 */}
+      <ReviewFavoriteHashtagList
+        hashtags={reviewStore.reviewHashtagList}
+        onClickHashtag={onClickHashtag}
+      />
 
-          {/* 리뷰 > 인기 해시태그 */}
-          <ReviewHashTag
-            hashtags={reviewStore.reviewHashtagList}
-            onClickHashtag={onClickHashtag}
-          />
+      {/* 리뷰 > 카테고리 */}
+      <ReviewCategories
+        categories={REVIEW_CATEGORY_LIST}
+        onClickCategory={onClickCategory}
+      />
 
-          {/* 리뷰 > 카테고리 */}
-          <ReviewCategories
-            categories={REVIEW_CATEGORY_LIST}
-            onClickCategory={onClickCategory}
-          />
-
-          {/* 리뷰 > 카드 */}
-          {reviews && reviews.length ? (
-            <ReviewContents>
-              {reviews.map((review, i) => (
-                <ReviewSection
-                  isLazy={true}
-                  key={`ReviewSection-${i}`}
-                  review={review}
-                  onClickLike={onClickLike}
-                  onClickProduct={onClickProduct}
-                />
-              ))}
-            </ReviewContents>
-          ) : (
-            ''
-          )}
-        </ReviewWrapper>
-        <Footer />
-      </DefaultLayout>
-    </>
+      {/* 리뷰 > 카드 */}
+      {reviews && reviews.length ? (
+        <ReviewContents>
+          {reviews.map((review, i) => (
+            <ReviewCardSection
+              isLazy={true}
+              key={`ReviewSection-${i}`}
+              review={review}
+              onClickLike={onClickLike}
+              onClickProduct={onClickProduct}
+            />
+          ))}
+        </ReviewContents>
+      ) : (
+        ''
+      )}
+    </ReviewWrapper>
   );
 }
-
-ReviewTemplate.propTypes = {
-  banners: Proptypes.array,
-  hashTags: Proptypes.array,
-};
-
-export default memo(observer(ReviewTemplate));
+export default observer(ReviewTemplate);

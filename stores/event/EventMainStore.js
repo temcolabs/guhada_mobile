@@ -1,9 +1,9 @@
-import { observable, action, toJS } from 'mobx';
+import { observable, action } from 'mobx';
 import { isBrowser } from 'childs/lib/common/isServer';
 import API from 'childs/lib/API';
 import { devLog } from 'childs/lib/common/devLog';
 import { isIOS, isAndroid } from 'childs/lib/common/detectMobileEnv';
-import moment from 'moment';
+
 export default class EventMainStore {
   constructor(root, initialState) {
     if (isBrowser) {
@@ -15,6 +15,7 @@ export default class EventMainStore {
       this.eventDetail = initialState.eventmain?.eventDetail;
     }
   }
+
   @observable eventList = [];
   @observable eventBannerList = [];
   @observable eventDetail = {};
@@ -42,7 +43,6 @@ export default class EventMainStore {
         .then((res) => {
           this.eventList = [...res.data.data];
           this.status.page = true;
-          devLog(toJS(this.eventList), 'event list');
         })
         .catch((err) => {
           console.error(err, 'event list get error');

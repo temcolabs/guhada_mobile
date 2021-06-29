@@ -1,0 +1,20 @@
+.attribute-filter {
+  border-bottom: 1px dotted #eee;
+  padding-bottom: 10px;
+
+  .filter__title {
+    display: flex;
+    align-items: center;
+    position: relative;
+    font-size: 14px;
+    font-weight: 500;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    color: #111;
+  }
+
+  .filter__items {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}

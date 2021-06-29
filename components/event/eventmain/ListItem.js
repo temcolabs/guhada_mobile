@@ -1,7 +1,7 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import { useState, useEffect } from 'react';
 import css from './ListItem.module.scss';
-import Link from 'next/link';
 import moment from 'moment';
+import { pushRoute } from 'childs/lib/router';
 
 function ListItem({ data }) {
   const [startDate, setStartDate] = useState('');
@@ -16,36 +16,29 @@ function ListItem({ data }) {
       ? setEndDate(moment(data.eventEndDate).format('YYYY. MM. DD'))
       : setEndDate(null);
   }, [data]);
+
   return (
     <div className={css.eventItem}>
-      {data.detailPage === true ? (
-        <Link href={data.detailPageUrl}>
-          <div className={css.detailTrue}>
-            <div
-              className={css.bannerImage}
-              style={{
-                backgroundImage: `url(${data.imgUrlM})`,
-              }}
-            />
+      <div
+        className={
+          (data.detailPageUrl || data.detailPageLink) && css.detailTrue
+        }
+        onClick={() => {
+          pushRoute(data.detailPageUrl);
+        }}
+      >
+        <div
+          className={css.bannerImage}
+          style={{
+            backgroundImage: `url(${data.imgUrlM})`,
+          }}
+        />
 
-            <div className={css.eventTitle}>{data.eventTitle}</div>
-            <div className={css.eventDate}>{`${startDate ? startDate : ''} ~ ${
-              endDate ? endDate : ''
-            }`}</div>
-          </div>
-        </Link>
-      ) : (
-        <Fragment>
-          <div
-            className={css.bannerImage}
-            style={{ backgroundImage: `url(${data.imgUrl})` }}
-          />
-          <div className={css.eventTitle}>{data.eventTitle}</div>
-          <div className={css.eventDate}>{`${startDate ? startDate : ''} ~ ${
-            endDate ? endDate : ''
-          }`}</div>
-        </Fragment>
-      )}
+        <div className={css.eventTitle}>{data.eventTitle}</div>
+        <div className={css.eventDate}>{`${startDate ? startDate : ''} ~ ${
+          endDate ? endDate : ''
+        }`}</div>
+      </div>
     </div>
   );
 }

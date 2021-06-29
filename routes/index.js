@@ -11,24 +11,27 @@ module.exports = [
     asPath: '/',
     name: '구하다 홈',
   },
-
+  {
+    pagePath: '/index',
+    asPath: '/home',
+    name: '구하다 홈',
+  },
   {
     // 홈 여성
-    pagePath: '/index',
+    pagePath: '/home/women',
     asPath: '/home/women',
     name: '홈 여성',
   },
-
   {
     // 홈 남성
-    pagePath: '/index',
+    pagePath: '/home/men',
     asPath: '/home/men',
     name: '홈 남성',
   },
 
   {
     // 홈 키즈
-    pagePath: '/index',
+    pagePath: '/home/kids',
     asPath: '/home/kids',
     name: '홈 키즈',
   },
@@ -68,7 +71,7 @@ module.exports = [
 
   {
     // 타임딜
-    pagePath: '/home/timedeal',
+    pagePath: '/event/timedeal',
     asPath: '/event/timedeal',
     name: '타임딜',
   },
@@ -155,7 +158,7 @@ module.exports = [
 
   // 검색 결과
   {
-    pagePath: '/search/search',
+    pagePath: '/search',
     asPath: '/search',
     name: '검색 결과',
   },
@@ -321,13 +324,13 @@ module.exports = [
 
   // 장바구니
   {
-    pagePath: '/shoppingcart/shoppingcart',
+    pagePath: '/shoppingcart',
     asPath: '/shoppingcart',
   },
 
   // 주문결제
   {
-    pagePath: '/orderpayment/orderpayment',
+    pagePath: '/orderpayment',
     asPath: '/orderpayment',
   },
 

@@ -62,6 +62,12 @@ class ModalWrapper extends React.Component {
     }
   }
 
+  handleScrollBody(target) {
+    const scrollTop = target.scrollTop;
+    const height = target.scrollHeight - target.clientHeight;
+    if (this.props.scrollTop) this.props.scrollTop(scrollTop / height);
+  }
+
   get overlayStyle() {
     if (this.props.isBigModal) {
       return {
@@ -155,6 +161,7 @@ class ModalWrapper extends React.Component {
         closeTimeoutMS={closeTimeoutMS}
       >
         <div
+          onScroll={(e) => this.handleScrollBody(e.target)}
           className={cn(css.childrenWrap, {
             [css.withTitle]: isModalTitleVisible,
           })}

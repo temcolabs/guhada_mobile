@@ -5,13 +5,18 @@ import LazyLoad from 'react-lazyload';
 
 const DealItem = ({
   deal,
-  horizontal = false,
+  thumbnail = 0,
   displaySeller = false,
   displayTags = true,
   isLazy = true,
 }) => (
   <div
-    className={cn(css['deal-item'], horizontal && css['deal-item--horizontal'])}
+    className={cn(
+      css['deal-item'],
+      thumbnail === -1 && css['deal-item--horizontal'],
+      thumbnail === 1 && css['deal-item--double'],
+      thumbnail === 2 && css['deal-item--hex']
+    )}
   >
     <div
       className={cn(
@@ -37,7 +42,7 @@ const DealItem = ({
       <div className={css['description__brand']}>{deal.brandName}</div>
       <div className={css['description__name']}>{deal.dealName}</div>
       <div className={css['description__price']}>
-        {deal.setDiscount ? (
+        {deal.setDiscount || deal.discountPrice ? (
           <>
             <div className={css['price--discount-price']}>
               {deal.discountPrice.toLocaleString()}
@@ -55,15 +60,17 @@ const DealItem = ({
           </div>
         )}
       </div>
-      {!horizontal && displaySeller && (
+      {thumbnail > -1 && displaySeller && (
         <div className={css['description__seller']}>{deal.sellerName}</div>
       )}
-      {!horizontal && displayTags && (
+      {thumbnail > -1 && thumbnail !== 2 && displayTags && (
         <div className={css['description__tags']}>
-          {deal.internationalShipping && (
+          {deal.internationalShipping ? (
             <span className={css['tag']}>해외배송</span>
+          ) : (
+            <span className={css['tag']}>국내배송</span>
           )}
-          {!deal.freeShipping && <span className={css['tag']}>유료배송</span>}
+          {deal.freeShipping && <span className={css['tag']}>무료배송</span>}
           {!deal.brandNew && <span className={css['tag']}>빈티지</span>}
         </div>
       )}
@@ -96,9 +103,10 @@ export const dealShape = PropTypes.shape({
 
 DealItem.propTypes = {
   deal: dealShape.isRequired,
-  horizontal: PropTypes.bool,
+  thumbnail: PropTypes.number,
   displaySeller: PropTypes.bool,
   displayTags: PropTypes.bool,
+  isLazy: PropTypes.bool,
 };
 
 export default DealItem;

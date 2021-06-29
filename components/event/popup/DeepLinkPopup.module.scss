@@ -1,0 +1,77 @@
+@import 'styles/var';
+@import 'styles/mixins/index';
+
+.moveToAppPopupWrap {
+  color: white;
+  font-family: 'Roboto';
+  font-weight: bold;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  padding: 20px;
+  width: calc(100vw - 40px);
+
+  @include mediaIhpone5 {
+    padding: 0;
+  }
+
+  .deeplink__info {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 25px;
+
+    .deeplink__info__logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: white;
+      border-radius: 15px;
+      width: 75px;
+      height: 75px;
+
+      > img {
+        width: 50px;
+        height: 50px;
+      }
+    }
+
+    .deeplink__info__desc {
+      width: calc(100% - 75px);
+      padding-left: 15px;
+      .stars {
+        font-size: 14px;
+        margin-bottom: 10px;
+      }
+
+      .description {
+        font-size: 19px;
+        word-break: break-all;
+      }
+    }
+  }
+
+  .deeplink__btn {
+    color: white;
+    border-radius: 5px;
+    background-color: $blue-purple;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    text-align: center;
+    width: 100%;
+    padding: 20px;
+    margin-bottom: 15px;
+
+    > img {
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  .close__btn {
+    font-size: 12px;
+    text-decoration: underline;
+  }
+}

@@ -42,7 +42,6 @@ export default class SpecialStore {
           this.specialListMain = res.data.data;
           this.specialList = res.data.data;
           this.status.page = true;
-          devLog(toJS(this.specialList), 'special list');
         })
         .catch((err) => {
           console.error(err, 'special list get error');
@@ -54,7 +53,6 @@ export default class SpecialStore {
         .then((res) => {
           this.specialList = [...res.data.data];
           this.status.page = true;
-          devLog(toJS(this.specialList), 'special list');
         })
         .catch((err) => {
           console.error(err, 'special list get error');
@@ -99,46 +97,8 @@ export default class SpecialStore {
   };
 
   @action
-  toSearch = ({
-    category = '',
-    brand = '',
-    page = 1,
-    unitPerPage = this.unitPerPage,
-    order = this.order,
-    filter = '',
-    subcategory = '',
-    enter = '',
-    keyword = '',
-    resultKeyword = '',
-    condition = '',
-    productCondition = 'ANY',
-    shippingCondition = 'ANY',
-    minPrice = '',
-    maxPrice = '',
-    eventIds = '',
-  }) => {
-    let query = Router.router.query;
-
-    pushRoute(
-      `/event/special/${eventIds}`
-      // `/event/special/${eventIds}?${qs.stringify({
-      //   category: category,
-      //   brand: brand,
-      //   page: page,
-      //   unitPerPage: unitPerPage,
-      //   order: order === null || order === '' ? 'DATE' : order,
-      //   filter: filter,
-      //   subcategory: subcategory,
-      //   enter: 'store',
-      //   keyword: keyword,
-      //   resultKeyword: resultKeyword,
-      //   condition: condition === '' ? query.condition : condition,
-      //   productCondition: this.productCondition,
-      //   shippingCondition: this.shippingCondition,
-      //   minPrice: minPrice,
-      //   maxPrice: maxPrice,
-      // })}`
-    );
+  toSearch = ({ eventIds }) => {
+    pushRoute(`/event/special/${eventIds}`);
     if (this.preUrl !== Router.asPath) this.deals = [];
   };
 

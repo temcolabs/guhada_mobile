@@ -1,11 +1,6 @@
-// _document is only rendered on the server side and not on the client side
-// Event handlers like onClick can't be added to this file
-
-// ./pages/_document.js
-import Document, { Html, Head, Main, NextScript } from 'next/document';
 import React from 'react';
+import Document, { Html, Head, Main, NextScript } from 'next/document';
 import urlConstant from 'childs/lib/constant/url';
-
 import { ServerStyleSheet } from 'styled-components';
 
 class MyDocument extends Document {
@@ -46,16 +41,6 @@ class MyDocument extends Document {
           />
           <script
             dangerouslySetInnerHTML={{
-              __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-
-              gtag('config', 'UA-145072876-1');`,
-            }}
-          />
-          <script
-            dangerouslySetInnerHTML={{
               __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
               new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
               j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
@@ -63,19 +48,16 @@ class MyDocument extends Document {
               })(window,document,'script','dataLayer','GTM-PN8SGDH');`,
             }}
           />
-          {/* bootstrap 스타일시트(summernote의 dependency)*/}
-          {/* <link
-            rel="stylesheet"
-            href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-            integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu"
-            crossOrigin="anonymous"
-          /> */}
 
           {/* 다음 주소검색 */}
-          <script id="daumPostcode" src={urlConstant.daumPostCode} />
+          <script defer id="daumPostcode" src={urlConstant.daumPostCode} />
 
           {/* 네이버 쇼핑 트래커 */}
-          <script type="text/javascript" src="//wcs.naver.net/wcslog.js" />
+          <script
+            async
+            type="text/javascript"
+            src="//wcs.naver.net/wcslog.js"
+          />
 
           {/* 코차바 */}
           <script
@@ -85,6 +67,7 @@ class MyDocument extends Document {
             }}
           />
           <script
+            async
             type="text/javascript"
             charSet="UTF-8"
             src="//t1.daumcdn.net/adfit/static/kp.js"
@@ -99,36 +82,12 @@ class MyDocument extends Document {
               `,
             }}
           />
-
-          {/* Facebook Pixel Code */}
-          {/* <script
-            dangerouslySetInnerHTML={{
-              __html: `
-                !function(f,b,e,v,n,t,s)
-                {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-                n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-                if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-                n.queue=[];t=b.createElement(e);t.async=!0;
-                t.src=v;s=b.getElementsByTagName(e)[0];
-                s.parentNode.insertBefore(t,s)}(window, document,'script',
-                'https://connect.facebook.net/en_US/fbevents.js');
-                fbq('init', '140872021235570');
-                fbq('track', 'PageView');`,
-            }}
-          />
-          <noscript
-            dangerouslySetInnerHTML={{
-              __html: `
-                <img height="1" width="1" style="display:none"
-                src="https://www.facebook.com/tr?id=140872021235570&ev=PageView&noscript=1"
-                />`,
-            }}
-          /> */}
-          {/* End Facebook Pixel Code */}
         </Head>
         <body>
           <Main />
+          <div id="modal-portal" />
           <NextScript />
+
           <script
             dangerouslySetInnerHTML={{
               __html: `

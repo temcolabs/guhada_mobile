@@ -1,22 +1,10 @@
-import { memo, useState } from 'react';
 import css from './Footer.module.scss';
+import { memo, useState } from 'react';
 import openPopupCenter from 'childs/lib/common/openPopupCenter';
-import dynamic from 'next/dynamic';
-import { LoadingSpinner } from 'components/common/loading/Loading';
-
-/**
- * Lazy UserClaimModal
- */
-const DynamicUserClaimModal = dynamic(
-  () => import('components/claim/userclaim/UserClaimModal'),
-  {
-    loading: () => <LoadingSpinner />,
-    ssr: false,
-  }
-);
+import UserClaimModal from 'components/claim/userclaim/UserClaimModal';
 
 function Footer() {
-  const [userClaimModalOpen, setUserClaimModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <div className={css.wrap}>
@@ -39,10 +27,7 @@ function Footer() {
             개인정보처리방침
           </div>
 
-          <div
-            className={css.tabItem}
-            onClick={() => setUserClaimModalOpen(true)}
-          >
+          <div className={css.tabItem} onClick={() => setIsModalOpen(true)}>
             문의하기
           </div>
 
@@ -161,8 +146,8 @@ function Footer() {
       </div>
 
       {/* Footer - 문의하기 - UserClaimModal */}
-      {userClaimModalOpen && (
-        <DynamicUserClaimModal setUserClaimModalOpen={setUserClaimModalOpen} />
+      {isModalOpen && (
+        <UserClaimModal handleClose={() => setIsModalOpen(false)} />
       )}
     </div>
   );

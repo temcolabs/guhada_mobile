@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './Category.module.scss';
-import cn from 'classnames';
 import { toJS } from 'mobx';
 import SearchEnum from 'childs/lib/constant/filter/SearchEnum';
 
@@ -24,7 +23,7 @@ class Category extends Component {
       categoryLabel.style.color = `#5d2ed1`;
     }
 
-    categoryList.map(categoryMain => {
+    categoryList.map((categoryMain) => {
       let growDiv = document.getElementById(categoryMain.key);
       let categoryLabel = document.querySelector(
         `.category${categoryMain.key}`
@@ -40,7 +39,7 @@ class Category extends Component {
     });
   }
 
-  toSearch = category => {
+  toSearch = (category) => {
     let { searchitem, onClose } = this.props;
     searchitem.toSearch({
       category: category,
@@ -56,7 +55,7 @@ class Category extends Component {
 
     return (
       <ul className={css.tree}>
-        {categoryList.map(categoryMain => {
+        {categoryList.map((categoryMain) => {
           return (
             <li key={`categoryMain${categoryMain.id}`} className={css.treeLi}>
               <input
@@ -76,7 +75,7 @@ class Category extends Component {
                   <li onClick={() => this.toSearch(categoryMain.id)}>
                     전체보기
                   </li>
-                  {categoryMain.children.map(categoryItem => {
+                  {categoryMain.children.map((categoryItem) => {
                     return (
                       <li
                         key={`categoryItem${categoryItem.id}`}
@@ -96,13 +95,6 @@ class Category extends Component {
             </li>
           );
         })}
-        <label
-          onClick={() => {
-            setIsBrandVisible(true);
-          }}
-        >
-          브랜드
-        </label>
       </ul>
     );
   }

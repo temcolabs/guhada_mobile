@@ -1,8 +1,7 @@
 import { observable, action } from 'mobx';
 import Axios from 'axios';
 import API from 'childs/lib/API';
-import { pushRoute } from 'childs/lib/router';
-import _ from 'lodash';
+import { get as _get, isNil as _isNil } from 'lodash';
 import { devLog } from 'childs/lib/common/devLog';
 import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
 import Cookies from 'js-cookie';
@@ -18,11 +17,16 @@ export default class ProductDetailStore {
     }
 
     // 상품 상세 데이터
-    if (initialState.productdetail?.deals) {
-      this.deals = initialState.productdetail?.deals;
+    if (initialState.productdetail) {
+      this.deals = initialState.productdetail.deals;
+      this.headData = initialState.productdetail.headData;
     }
   }
-  @observable deals;
+
+  @observable isInitial = true;
+  @observable isLoading = false;
+  @observable headData;
+  @observable deals = {};
   @observable dealsStatus = false;
 
   @observable dealsTag = [];
@@ -39,12 +43,16 @@ export default class ProductDetailStore {
 
   actionAfterUserInfoFetched = [];
   @action
-  getDeals = id => {
+  getDeals = (id) => {
+    this.isLoading = true;
     API.product
       .get(`/deals/${id}`)
-      .then(res => {
+      .then((res) => {
         let data = res.data;
         this.deals = data.data;
+
+        this.headData = getHeadData(this.deals);
+
         devLog(data, 'this data');
         this.root.productreview.getProductReviewPoint();
         this.root.productoption.getShipExpenseType();
@@ -95,14 +103,16 @@ export default class ProductDetailStore {
         sessionStorage.removeItem('paymentInfo');
         this.dealsStatus = true;
         ReactPixel.track('ViewContent', this.deals);
+
+        this.isInitial = false;
       })
-      .catch(e => {
-        const data = _.get(e, 'data');
+      .catch((e) => {
+        const data = _get(e, 'data');
 
         if (data?.resultCode === 8404) {
           devLog('object', data.message);
           this.root.alert.showAlert({
-            content: _.get(e, 'data.message'),
+            content: _get(e, 'data.message'),
             onConfirm: () => {
               Router.back();
             },
@@ -119,7 +129,7 @@ export default class ProductDetailStore {
         }
       })
       .finally(() => {
-        const executeTracker = userInfo => {
+        const executeTracker = (userInfo) => {
           widerplanetTracker.productDetail({
             userId: userInfo?.id,
             items: [{ i: id, t: this.deals.name }],
@@ -134,18 +144,20 @@ export default class ProductDetailStore {
         if (this.deals && parseInt(id) === parseInt(this.deals.dealId)) {
           // 와이더플래닛 트래커
           if (isBrowser && Cookies.get(key.ACCESS_TOKEN)) {
-            this.root.user.pushJobForUserInfo(userInfo => {
+            this.root.user.pushJobForUserInfo((userInfo) => {
               executeTracker(userInfo);
             });
           } else {
             executeTracker();
           }
         }
+
+        this.isLoading = false;
       });
   };
 
   @action
-  addFetched = fn => {
+  addFetched = (fn) => {
     this.actionAfterUserInfoFetched = this.actionAfterUserInfoFetched.concat(
       fn
     );
@@ -165,7 +177,7 @@ export default class ProductDetailStore {
       },
     };
 
-    Axios(Header).then(res => {
+    Axios(Header).then((res) => {
       if (res.status === 200) {
         this.blockChainData = res.data;
       }
@@ -195,7 +207,7 @@ export default class ProductDetailStore {
   };
 
   @action
-  setSeletctTab = select => {
+  setSeletctTab = (select) => {
     this.seletctedTab = select;
   };
 
@@ -222,7 +234,7 @@ export default class ProductDetailStore {
   };
 
   @action
-  setAskPageNumber = id => {
+  setAskPageNumber = (id) => {
     this.askPageNumber = id;
   };
 
@@ -239,7 +251,7 @@ export default class ProductDetailStore {
   };
 
   @action
-  tabInfoFixed = e => {
+  tabInfoFixed = (e) => {
     const paymentSide = document.querySelector('.productdetail__tab__lisner');
     if (paymentSide) {
       const paymentSideRect = paymentSide.getBoundingClientRect();
@@ -310,13 +322,13 @@ export default class ProductDetailStore {
           isMyInquiry: this.inquiryMy,
         },
       })
-      .then(res => {
+      .then((res) => {
         let data = res.data;
         if (data.resultCode === 200) {
           this.inquiryList = data.data;
         }
       })
-      .catch(e => {
+      .catch((e) => {
         this.inquiryList = [];
       });
   };
@@ -336,14 +348,14 @@ export default class ProductDetailStore {
           isMyInquiry: this.inquiryMy,
         },
       })
-      .then(res => {
+      .then((res) => {
         let data = res.data;
 
         let newInquiry = this.inquiryList.content;
         this.inquiryList.content = newInquiry.concat(data.data.content);
       })
-      .catch(e => {
-        if (_.get(e, `data.resultCode`) === 5004) {
+      .catch((e) => {
+        if (_get(e, `data.resultCode`) === 5004) {
           this.root.alert.showAlert({
             content: '문의 데이터가 더 이상 존재하지 않습니다.',
           });
@@ -359,7 +371,7 @@ export default class ProductDetailStore {
   @observable seller;
   @action
   getSellerDetail = () => {
-    API.user.get('/sellers/' + this.deals.sellerId).then(res => {
+    API.user.get('/sellers/' + this.deals.sellerId).then((res) => {
       let data = res.data;
       if (data.resultCode === 200) {
         this.seller = data.data;
@@ -371,7 +383,7 @@ export default class ProductDetailStore {
   getInquiryDetail = () => {
     API.user
       .get('/sellers/' + this.deals.sellerId + '/inquiry-details')
-      .then(res => {
+      .then((res) => {
         let data = res.data;
         if (data.resultCode === 200) {
           this.inquiryDetail = data.data;
@@ -390,7 +402,7 @@ export default class ProductDetailStore {
         .get(
           '/sellers/' + this.deals.sellerId + '/followers/' + loginInfo.userId
         )
-        .then(res => {
+        .then((res) => {
           let data = res.data;
           if (data.resultCode === 200) {
             this.followers = data.data;
@@ -404,7 +416,7 @@ export default class ProductDetailStore {
   getSatisfaction = () => {
     API.user
       .get('/sellers/' + this.deals.sellerId + '/purchase-satisfaction')
-      .then(res => {
+      .then((res) => {
         let data = res.data;
         if (data.resultCode === 200) {
           this.satisfaction = data.data;
@@ -428,12 +440,12 @@ export default class ProductDetailStore {
   @observable inquiryContents = '';
 
   @action
-  setInquiryContents = inquiryContents => {
+  setInquiryContents = (inquiryContents) => {
     this.inquiryContents = inquiryContents;
   };
 
   @action
-  setSecretInquiry = secretInquiry => {
+  setSecretInquiry = (secretInquiry) => {
     this.secretInquiry = secretInquiry;
   };
 
@@ -444,7 +456,7 @@ export default class ProductDetailStore {
         content: content,
         privateInquiry: this.secretInquiry,
       })
-      .then(res => {
+      .then((res) => {
         let data = res.data;
 
         if (data.resultCode === 200) {
@@ -463,7 +475,7 @@ export default class ProductDetailStore {
             this.deals.shipping.claimAddressId
           }`
         )
-        .then(res => {
+        .then((res) => {
           let data = res.data;
           if (data.resultCode === 200) {
             this.claims = data.data;
@@ -476,7 +488,7 @@ export default class ProductDetailStore {
   getBusinessSeller = () => {
     API.user
       .get(`/sellers/business-user?seller-id=${this.deals.sellerId}`)
-      .then(res => {
+      .then((res) => {
         let data = res.data;
         if (data.resultCode === 200) {
           this.businessSeller = data.data;
@@ -493,7 +505,7 @@ export default class ProductDetailStore {
         { productId: this.deals.productId },
         { params: { page: 1, unitPerPage: this.brandAndRecommendUnitPerPage } }
       )
-      .then(res => {
+      .then((res) => {
         let data = res.data;
         this.dealsOfSameBrand = data.data.deals;
       });
@@ -507,7 +519,7 @@ export default class ProductDetailStore {
         { productId: this.deals.productId },
         { params: { page: 1, unitPerPage: this.brandAndRecommendUnitPerPage } }
       )
-      .then(res => {
+      .then((res) => {
         let data = res.data;
         this.dealsOfRecommend = data.data.deals;
       });
@@ -517,11 +529,11 @@ export default class ProductDetailStore {
   getSellerStore = () => {
     API.user
       .get(`sellers/${this.deals.sellerId}/store`)
-      .then(res => {
+      .then((res) => {
         let data = res.data;
         this.sellerStore = data.data;
       })
-      .catch(e => {
+      .catch((e) => {
         devLog('getSellerStore', e);
       });
   };
@@ -531,9 +543,21 @@ export default class ProductDetailStore {
       .post('/ps/search/filter?page=0&unitPerPage=6', {
         sellerIds: [this.deals.sellerId],
       })
-      .then(res => {
+      .then((res) => {
         let data = res.data;
         this.dealsOfSellerStore = data.data.deals;
       });
+  };
+}
+
+export function getHeadData(deals) {
+  return {
+    pageName: `${_isNil(deals.season) === false ? `${deals.season} ` : ''}${
+      deals.name
+    }`,
+    description: `${deals.brandName} - ${deals.name} - ${
+      deals.discountPrice
+    }원`,
+    image: _get(deals, 'imageUrls.0'),
   };
 }

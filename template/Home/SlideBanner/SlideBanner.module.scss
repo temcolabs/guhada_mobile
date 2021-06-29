@@ -1,0 +1,20 @@
+.section {
+  width: 100%;
+  margin-bottom: 60px;
+  position: relative;
+  overflow-x: hidden;
+
+  &__slider {
+    height: calc((16 / 15) * 100vw + 2px);
+  }
+
+  &__counter {
+    position: absolute;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.6px;
+    bottom: 17px;
+    right: 20px;
+  }
+}
