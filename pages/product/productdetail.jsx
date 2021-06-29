@@ -31,8 +31,6 @@ function ProductDetailPage() {
    * side effects
    */
   useEffect(() => {
-    layoutStore.scrollTop = false;
-
     if (productDetailStore.isInitial) {
       const { deals: dealId } = router.query;
       productDetailStore.getDeals(dealId);
@@ -104,7 +102,9 @@ function ProductDetailPage() {
 }
 
 ProductDetailPage.getInitialProps = async function({ pathname, query }) {
-  const initialProps = { layout: { scrollMemo: true } };
+  const initialProps = {
+    layout: { scrollMemo: true, keepSearchAlive: true },
+  };
 
   if (isServer) {
     const { type, headerFlags } = getLayoutInfo({ pathname, query });

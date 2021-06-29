@@ -9,7 +9,7 @@ import Header from './Header';
 import Navigation from './Navigation';
 import PluginButtons from './PluginButtons';
 
-function Layout({ title, scrollMemo, children }) {
+function Layout({ title, scrollMemo, keepSearchAlive, children }) {
   /**
    * states
    */
@@ -37,12 +37,27 @@ function Layout({ title, scrollMemo, children }) {
     mypageRecentlySeen.init();
     category.getCategory();
 
+    /**
+     * UI STATES
+     */
     if (scrollMemo) {
       layoutStore.scrollMemo = true;
     } else if (layoutStore.scrollMemo) {
       layoutStore.scrollMemo = false;
+    }
+    if (layoutStore.SCROLL_MEMO) {
+      layoutStore.SCROLL_MEMO = false;
     } else {
       window.scrollTo(0, 0);
+    }
+
+    if (keepSearchAlive) {
+      layoutStore.keepSearchAlive = true;
+    } else if (layoutStore.keepSearchAlive) {
+      layoutStore.keepSearchAlive = false;
+    }
+    if (layoutStore.KEEP_SEARCH_ALIVE) {
+      layoutStore.KEEP_SEARCH_ALIVE = false;
     }
 
     return () => {
@@ -81,6 +96,7 @@ function Layout({ title, scrollMemo, children }) {
 Layout.propTypes = {
   title: PropTypes.string,
   scrollMemo: PropTypes.bool,
+  keepSearchAlive: PropTypes.bool,
 };
 
 export default observer(Layout);

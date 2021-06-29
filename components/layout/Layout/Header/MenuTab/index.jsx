@@ -6,7 +6,7 @@ import cn from 'classnames';
 import { useHorizontalArrows } from 'hooks';
 import { pushRoute } from 'childs/lib/router';
 
-const menuList = [
+const defaultMenuList = [
   ['홈', '/'],
   ['여성', '/home/women'],
   ['남성', '/home/men'],
@@ -20,13 +20,13 @@ const menuList = [
   ['선물하기', '/gift'],
 ];
 
-function MenuTab() {
+function MenuTab({ menuList = defaultMenuList }) {
   /**
    * states
    */
-  const [scrollRef, arrowLeft, arrowRight] = useHorizontalArrows();
   const router = useRouter();
   const [selected, setSelected] = useState(router.asPath);
+  const [scrollRef, arrowLeft, arrowRight] = useHorizontalArrows([menuList]);
 
   /**
    * handlers
@@ -50,13 +50,13 @@ function MenuTab() {
   };
   const handleScrollLeft = () => {
     scrollRef.current.scrollTo({
-      left: scrollRef.current.scrollLeft - 330,
+      left: scrollRef.current.scrollLeft - 350,
       behavior: 'smooth',
     });
   };
   const handleScrollRight = () => {
     scrollRef.current.scrollTo({
-      left: scrollRef.current.scrollLeft + 330,
+      left: scrollRef.current.scrollLeft + 350,
       behavior: 'smooth',
     });
   };
@@ -84,35 +84,37 @@ function MenuTab() {
    * render
    */
   return (
-    <ul className={css['menu-tab']} ref={scrollRef}>
-      {menuList.map(([name, path]) => (
-        <li
-          id={path}
-          key={name}
-          className={cn(
-            css['tab-item'],
-            selected === path
-              ? css['selected']
-              : (name === '타임딜' || name === '럭키드로우') && css['event']
-          )}
-          onClick={(e) => handleClick(path, e.target)}
-        >
-          {name}
-        </li>
-      ))}
-      {arrowLeft && (
-        <span
-          className={cn(css['tab-arrow'], css['arrow--left'])}
-          onClick={handleScrollLeft}
-        />
-      )}
-      {arrowRight && (
-        <span
-          className={cn(css['tab-arrow'], css['arrow--right'])}
-          onClick={handleScrollRight}
-        />
-      )}
-    </ul>
+    <>
+      <ul className={css['menu-tab']} ref={scrollRef}>
+        {menuList.map(([name, path]) => (
+          <li
+            id={path}
+            key={name}
+            className={cn(
+              css['tab-item'],
+              selected === path
+                ? css['selected']
+                : (name === '타임딜' || name === '럭키드로우') && css['event']
+            )}
+            onClick={(e) => handleClick(path, e.target)}
+          >
+            {name}
+          </li>
+        ))}
+        {arrowLeft && (
+          <span
+            className={cn(css['tab-arrow'], css['arrow--left'])}
+            onClick={handleScrollLeft}
+          />
+        )}
+        {arrowRight && (
+          <span
+            className={cn(css['tab-arrow'], css['arrow--right'])}
+            onClick={handleScrollRight}
+          />
+        )}
+      </ul>
+    </>
   );
 }
 

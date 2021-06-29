@@ -12,19 +12,20 @@ function SearchPage() {
   /**
    * states
    */
-  const { searchByFilter: searchByFilterStore } = useStores();
+  const {
+    searchByFilter: searchByFilterStore,
+    layout: layoutStore,
+  } = useStores();
   const router = useRouter();
 
   /**
    * side effects
    */
   useEffect(() => {
-    searchByFilterStore.initializePage(router.query);
-    searchByFilterStore.fetchSearchResults(router.query);
-    return () => {
-      searchByFilterStore.resetUnfungibles();
-      searchByFilterStore.resetData();
-    };
+    if (!layoutStore.KEEP_SEARCH_ALIVE) {
+      searchByFilterStore.initializePage(router.query);
+      searchByFilterStore.fetchSearchResults(router.query);
+    }
   }, []);
 
   /**

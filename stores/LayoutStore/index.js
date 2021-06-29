@@ -45,6 +45,9 @@ class LayoutStore {
    * statics
    */
   scrollMemo = false;
+  SCROLL_MEMO = false;
+  keepSearchAlive = false;
+  KEEP_SEARCH_ALIVE = false;
 
   /**
    * observables
@@ -187,7 +190,14 @@ class LayoutStore {
     }
   };
   handlePopState = {
-    default: (state) => {},
+    default: (state) => {
+      if (this.scrollMemo) {
+        this.SCROLL_MEMO = true;
+      }
+      if (this.keepSearchAlive) {
+        this.KEEP_SEARCH_ALIVE = true;
+      }
+    },
     category: (state) => {
       const { query } = state;
       if (query?.category) {
