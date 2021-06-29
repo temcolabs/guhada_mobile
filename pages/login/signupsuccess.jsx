@@ -1,33 +1,33 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import Router from 'next/router';
 import SignUpSuccess from 'components/login/SignUpSuccess';
 import HeadForSEO from 'childs/lib/components/HeadForSEO';
 import { isBrowser } from 'childs/lib/common/isServer';
 import { getCookie } from 'childs/lib/common/cookieUtils';
 
-function getInitialProps(ctx) {
+function SignUpSuccessPage({ signUpUserEmail }) {
+  return (
+    <>
+      <HeadForSEO pageName="회원가입 완료" />
+      <SignUpSuccess email={signUpUserEmail} />
+    </>
+  );
+}
+SignUpSuccessPage.getInitialProps = function({ req, res }) {
   if (isBrowser) {
     return Router.push('/');
   }
 
-  const { req, res } = ctx;
-
   const signUpUserEmail = getCookie('signupemail', req.headers.cookie);
-  if (signUpUserEmail.length) {
+  if (signUpUserEmail.length > 0) {
     return { signUpUserEmail };
   }
 
   return res.redirect('/error');
-}
+};
 
-function SignUpSuccessPage(props) {
-  return (
-    <>
-      <HeadForSEO pageName="회원가입 완료" />
-      <SignUpSuccess email={props.signUpUserEmail} />
-    </>
-  );
-}
-SignUpSuccessPage.getInitialProps = getInitialProps;
+SignUpSuccessPage.propTypes = {
+  signUpUserEmail: PropTypes.string,
+};
 
 export default SignUpSuccessPage;

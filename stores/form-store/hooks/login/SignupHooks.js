@@ -1,10 +1,9 @@
-import Router from 'next/router';
 import termForm from 'stores/form-store/_.forms';
 import API from 'childs/lib/API';
 import feedService from 'childs/lib/API/user/feedService';
 import { root } from 'store';
 import { devLog } from 'childs/lib/common/devLog';
-import _ from 'lodash';
+import { get as _get } from 'lodash';
 import daumTracker from 'childs/lib/tracking/daum/daumTracker';
 import naverShoppingTrakers from 'childs/lib/tracking/navershopping/naverShoppingTrakers';
 import momentTracker from 'childs/lib/tracking/kakaomoment/momentTracker';
@@ -80,18 +79,21 @@ export default {
           momentTracker.signup();
           ReactPixel.track('CompleteRegistration', res.data);
           criteoTracker.signUpUser(loginData.email);
-          gtagTracker.signup('/login/signupsuccess'); // gtagTracker.signup('/');
+          gtagTracker.signup('/login/signupsuccess');
         } catch (error) {
-          Router.push('/login/signupsuccess');
-          // console.error('[tracker]', error.message);
+          gtagTracker.signup('/login/signupsuccess');
+          console.error('[tracker]', error.message);
         }
       })
       .catch((e) => {
-        let data = _.get(e, 'data');
-        if (data.resultCode === 6001) {
-          root.toast.getToast(data.message);
-        } else if (data.resultCode === 6002) {
-          root.toast.getToast(data.message);
+        let data = _get(e, 'data');
+        if (data) {
+          if (data.resultCode === 6001) {
+            root.toast.getToast(data.message);
+          } else if (data.resultCode === 6002) {
+            root.toast.getToast(data.message);
+          }
+        } else {
         }
       });
   },
