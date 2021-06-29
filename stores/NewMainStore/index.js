@@ -119,12 +119,18 @@ class MainStore {
     try {
       const { data } = await new Promise((res) => {
         const timer = setTimeout(() => res({ data: {} }), 500);
-        API.settle.get('/selectMainData?agent=MWEB').then((data) => {
-          clearTimeout(timer);
-          res(data);
-        });
+        API.settle
+          .get('/selectMainData?agent=MWEB')
+          .then((data) => {
+            clearTimeout(timer);
+            res(data);
+          })
+          .catch(() => {
+            clearTimeout(timer);
+            res({ data: {} });
+          });
       });
-      if (data.resultCode === 200) {
+      if (data && data.resultCode === 200) {
         return { mainData: data.data };
       }
     } catch (error) {

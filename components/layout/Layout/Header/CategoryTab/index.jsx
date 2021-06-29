@@ -1,5 +1,6 @@
 import css from './CategoryTab.module.scss';
 import cn from 'classnames';
+import { useEffect } from 'react';
 import { observer } from 'mobx-react';
 import useStores from 'stores/useStores';
 import { useHorizontalArrows } from 'hooks';
@@ -46,6 +47,16 @@ const CategoryTab = () => {
   };
 
   /**
+   * side effects
+   */
+  useEffect(() => {
+    const target = document.getElementById('category-selected');
+    if (target) {
+      scrollRef.current.scrollTo(target.offsetLeft - 30, 0);
+    }
+  }, []);
+
+  /**
    * render
    */
   return (
@@ -54,6 +65,7 @@ const CategoryTab = () => {
         (category.children ? (
           <>
             <li
+              id="category-selected"
               className={cn(css['tab-item'], css['selected'])}
               onClick={(e) => handleClick(undefined, e.target)}
             >
@@ -77,6 +89,7 @@ const CategoryTab = () => {
             {category.parent.children.map(({ id, title, children }) => (
               <li
                 key={id}
+                id={category.id === id && 'category-selected'}
                 className={cn(
                   css['tab-item'],
                   category.id === id && css['selected']

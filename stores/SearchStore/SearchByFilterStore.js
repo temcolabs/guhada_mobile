@@ -281,14 +281,8 @@ export class SearchByFilterStore extends SearchStore {
    *
    * fetch search results from query params - no need to `initializeSearch` if this is called
    * @param {object} query
-   * @param {string[]} comparedBodyProps body props to compare with `defaultBody` to check if initializing is needed
-   * @param {boolean} resetUnfungibles flag to reset unfungible datas - defualt = true
    */
-  @action fetchSearchResults = (
-    query = {},
-    comparedBodyProps = defaultComparedBodyProps,
-    resetUnfungibles = true
-  ) => {
+  @action fetchSearchResults = (query = {}) => {
     const {
       category,
       subcategory,
@@ -323,15 +317,7 @@ export class SearchByFilterStore extends SearchStore {
 
     const params = { page: page || 1, unitPerPage: unitPerPage || 24 };
 
-    const defaultBodyObj = toJS(this.defaultBody);
-
-    if (
-      !comparedBodyProps.every((prop) =>
-        _isEqual(defaultBodyObj[prop], body[prop])
-      )
-    ) {
-      this.initializeSearch(body, params, resetUnfungibles);
-    }
+    this.initializeSearch(body, params, true);
   };
 
   /**

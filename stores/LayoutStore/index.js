@@ -159,7 +159,6 @@ class LayoutStore {
       } else {
         window.history.pushState(state, '', `?${queryString}`);
       }
-      this.root.searchByFilter.fetchSearchResults(query);
     },
     category: (state, replace) => {
       const { query } = state;
