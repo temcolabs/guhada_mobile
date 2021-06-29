@@ -47,7 +47,7 @@ function EventDetailPage() {
 }
 
 EventDetailPage.getInitialProps = async function({ req, pathname, query }) {
-  const initialProps = { layout: { title: '이벤트', scrollMemo: true } };
+  const initialProps = { layout: { title: '이벤트' } };
 
   if (isServer) {
     const { type, headerFlags } = getLayoutInfo({ pathname, query });
