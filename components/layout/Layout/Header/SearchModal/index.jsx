@@ -1,9 +1,9 @@
 import css from './SearchModal.module.scss';
 import { useState, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import cn from 'classnames';
 import { observer } from 'mobx-react';
 import useStores from 'stores/useStores';
-// import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 import ModalPortal from 'components/templates/ModalPortal';
 import SearchMenu from '../SearchTab/SearchMenu';
 import AutocompleteSearchMenu from '../SearchTab/AutocompleteSearchMenu';
@@ -64,7 +64,7 @@ const SearchModal = ({ handleClose }) => {
    * render
    */
   return (
-    <ModalPortal handleClose={handleClose} slide={3}>
+    <ModalPortal handleClose={handleClose} slide={3} closeButton={false}>
       <div className={css['tab']}>
         <div className={css['tab__buttons']}>
           <div
@@ -101,6 +101,10 @@ const SearchModal = ({ handleClose }) => {
       )}
     </ModalPortal>
   );
+};
+
+SearchModal.propTypes = {
+  handleClose: PropTypes.func,
 };
 
 export default observer(SearchModal);

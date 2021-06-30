@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import MenuTab from './MenuTab';
 import SubmenuTab from './SubmenuTab';
 import CategoryTab from './CategoryTab';
-import BurgerModal from 'components/header/HeaderMenu';
+import BurgerModal from './BurgerModal';
 import SearchModal from './SearchModal';
 import FilterOption from 'components/templates/DealSection/FilterOption';
 import SearchTab from './SearchTab';
@@ -104,10 +104,7 @@ const Header = ({
         <SearchModal handleClose={() => setIsModalOpen(0)} />
       )}
       {burger && isModalOpen === 2 && (
-        <BurgerModal
-          isVisible={isModalOpen === 2}
-          onClose={() => setIsModalOpen(0)}
-        />
+        <BurgerModal handleClose={() => setIsModalOpen(0)} />
       )}
     </header>
   );
