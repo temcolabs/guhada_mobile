@@ -109,7 +109,7 @@ function Footer() {
           <div className={css.guhadaItem}>
             (주)구하다 <br />
             대표이사 : 윤재섭 ㅣ 개인정보보호책임자 :{' '}
-            <a href="mailto:daehoon.choi@temco.io">{`최대훈`}</a> <br />
+            <a href="mailto:hyungjun.woo@temco.io">{`우형준`}</a> <br />
             사업자등록번호: 876-86-01259 <br />
             주소 : 서울특별시 영등포구 의사당대로 83 오투타워 <br />
             통신판매업자신고 : 2020-서울영등포-3486호{' '}
