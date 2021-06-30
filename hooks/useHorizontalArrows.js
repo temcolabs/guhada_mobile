@@ -12,7 +12,7 @@ import { useState, useEffect, useRef } from 'react';
 export const useHorizontalArrows = (deps = [], offset = 10) => {
   const scrollRef = useRef();
   const [arrowLeft, setArrowLeft] = useState(false);
-  const [arrowRight, setArrowRight] = useState(false);
+  const [arrowRight, setArrowRight] = useState(true);
 
   const handler = (e) => {
     if (e.target.scrollLeft > offset) {
@@ -33,7 +33,7 @@ export const useHorizontalArrows = (deps = [], offset = 10) => {
   useEffect(() => {
     if (scrollRef.current) {
       const tab = scrollRef.current;
-      if (tab.scrollLeft < tab.scrollWidth - tab.clientWidth - offset) {
+      if (tab.scrollLeft <= tab.scrollWidth - tab.clientWidth - offset) {
         setArrowRight(true);
       } else {
         setArrowRight(false);

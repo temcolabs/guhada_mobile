@@ -214,6 +214,7 @@ class GuhadaMobileWeb extends App {
               <Layout
                 title={initialProps.layout.title}
                 scrollMemo={initialProps.layout.scrollMemo}
+                keepSearchAlive={initialProps.layout.keepSearchAlive}
               >
                 <Component key={this.componentKey} {...initialProps} />
               </Layout>

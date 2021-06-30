@@ -89,12 +89,12 @@ const CategoryTab = () => {
             {category.parent.children.map(({ id, title, children }) => (
               <li
                 key={id}
-                id={category.id === id && 'category-selected'}
                 className={cn(
                   css['tab-item'],
                   category.id === id && css['selected']
                 )}
                 onClick={(e) => handleClick(id, e.target, !children)}
+                {...category.id === id && { id: 'category-selected' }}
               >
                 {title}
               </li>
