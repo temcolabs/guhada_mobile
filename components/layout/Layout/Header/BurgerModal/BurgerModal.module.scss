@@ -42,6 +42,7 @@
 .modal__section {
   height: calc(100vh - 90px - (7 / 18) * (100vw));
   overflow-y: scroll;
+  position: relative;
 
   &::-webkit-scrollbar {
     display: none;
@@ -55,15 +56,52 @@
 
     li {
       height: 45px;
+      width: 50%;
       line-height: 15px;
       padding: 15px 5px;
       font-size: 15px;
       font-weight: 400;
       color: #000;
+
+      span {
+        &.event {
+          position: relative;
+          &::before {
+            position: absolute;
+            top: 0;
+            right: -5px;
+            background-color: #ce2525;
+            content: '';
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+          }
+        }
+      }
     }
 
     &--border {
       border-bottom: 1px solid #eee;
+    }
+  }
+  .tab-arrow {
+    position: fixed;
+    right: calc(50% - 10px);
+    width: 20px;
+    height: 20px;
+
+    &.arrow--top {
+      top: 65px;
+      background: url('/static/icon/arrow_down_line.png') no-repeat center;
+      background-size: cover;
+      -webkit-transform: scaleY(-1);
+      transform: scaleY(-1);
+    }
+
+    &.arrow--bottom {
+      bottom: calc((7 / 18) * (100vw) + 20px + 10px);
+      background: url('/static/icon/arrow_down_line.png') no-repeat center;
+      background-size: cover;
     }
   }
 }
