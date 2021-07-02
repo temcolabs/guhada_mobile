@@ -1,6 +1,5 @@
 // font
 @import url('https://fonts.googleapis.com/earlyaccess/notosanskr.css');
-@import url('https://fonts.googleapis.com/earlyaccess/notosanskr.css');
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap');
 
 // libraries
@@ -12,4 +11,7 @@
 @import 'styles/grid.scss';
 @import 'styles/normalize.scss';
 
-// component styles (no css module)
+// sprites
+@import 'styles/sprites/icon.scss';
+@import 'styles/sprites/social-icon.scss';
+@import 'styles/sprites/misc.scss';

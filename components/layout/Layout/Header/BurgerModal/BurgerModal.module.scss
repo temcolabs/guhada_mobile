@@ -16,41 +16,24 @@
     position: relative;
     height: 30px;
     line-height: 30px;
-
-    &::after {
-      content: '';
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      top: 5px;
-      background: url('/static/icon/btn-arrow.png') no-repeat right center;
-      background-size: contain;
-    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .header__buttons {
     display: flex;
     align-items: center;
 
-    .button {
+    div {
       -webkit-tap-highlight-color: transparent;
       width: 30px;
       height: 30px;
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: contain;
       margin-right: 5px;
       cursor: pointer;
+
       &:last-child {
         margin-right: 0;
-      }
-
-      &.button--home {
-        background-image: url('/static/icon/btn-home.png');
-      }
-
-      &.button--close {
-        background-image: url('/static/icon/btn-close.png');
       }
     }
   }

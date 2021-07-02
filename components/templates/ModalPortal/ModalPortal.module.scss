@@ -7,27 +7,10 @@
   height: 100%;
   background-color: rgba(#000, 0.5);
 
-  &.close-button {
-    &::before {
-      position: absolute;
-      top: 20px;
-      right: 28px;
-      content: '';
-      height: 20px;
-      width: 1px;
-      background-color: #fff;
-      transform: rotate(45deg);
-    }
-    &::after {
-      position: absolute;
-      top: 20px;
-      right: 28px;
-      content: '';
-      height: 20px;
-      width: 1px;
-      background-color: #fff;
-      transform: rotate(-45deg);
-    }
+  div {
+    position: absolute;
+    top: 15px;
+    right: 15px;
   }
 }
 

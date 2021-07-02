@@ -1,0 +1,125 @@
+.misc {
+  background: url('/static/sprites/misc.png') no-repeat top left;
+  background-size: 131px 110px;
+
+  &.checkbox--large {
+    background-position: 0 0;
+    width: 28px;
+    height: 28px;
+  }
+  &.check--large {
+    background-position: -30px 0;
+    width: 28px;
+    height: 28px;
+  }
+  &.thumbnail-double {
+    background-position: 0 -30px;
+    width: 27px;
+    height: 27px;
+  }
+  &.thumbnail-double--on {
+    background-position: -29px -30px;
+    width: 27px;
+    height: 27px;
+  }
+  &.thumbnail-hex {
+    background-position: -60px 0;
+    width: 27px;
+    height: 27px;
+  }
+  &.thumbnail-hex--on {
+    background-position: -60px -29px;
+    width: 27px;
+    height: 27px;
+  }
+  &.thumbnail-quad {
+    background-position: 0 -59px;
+    width: 27px;
+    height: 27px;
+  }
+  &.thumbnail-quad--on {
+    background-position: -29px -59px;
+    width: 27px;
+    height: 27px;
+  }
+  &.check {
+    background-position: -59px -59px;
+    width: 20px;
+    height: 20px;
+  }
+  &.checkbox {
+    background-position: -89px 0;
+    width: 20px;
+    height: 20px;
+  }
+  &.keyword-delete {
+    background-position: -89px -22px;
+    width: 20px;
+    height: 20px;
+  }
+  &.down {
+    background-position: -89px -44px;
+    width: 19px;
+    height: 19px;
+  }
+  &.menu-arrow {
+    background-position: -89px -65px;
+    width: 19px;
+    height: 19px;
+  }
+  &.menu-minus {
+    background-position: 0 -89px;
+    width: 19px;
+    height: 19px;
+  }
+  &.menu-plus {
+    background-position: -21px -89px;
+    width: 19px;
+    height: 19px;
+  }
+  &.arrow-diagonal {
+    background-position: -43px -89px;
+    width: 18px;
+    height: 18px;
+  }
+  &.arrow-down {
+    background-position: -63px -89px;
+    width: 18px;
+    height: 18px;
+  }
+  &.arrow-up {
+    background-position: -83px -89px;
+    width: 18px;
+    height: 18px;
+  }
+  &.delete {
+    background-position: -111px 0;
+    width: 18px;
+    height: 18px;
+  }
+  &.minus {
+    background-position: -111px -20px;
+    width: 18px;
+    height: 18px;
+  }
+  &.star-grey--left {
+    background-position: -111px -40px;
+    width: 6px;
+    height: 14px;
+  }
+  &.star-grey--right {
+    background-position: -119px -40px;
+    width: 6px;
+    height: 14px;
+  }
+  &.star-yellow--left {
+    background-position: -111px -56px;
+    width: 6px;
+    height: 14px;
+  }
+  &.star-yellow--right {
+    background-position: -119px -56px;
+    width: 6px;
+    height: 14px;
+  }
+}

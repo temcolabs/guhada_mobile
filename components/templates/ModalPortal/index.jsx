@@ -33,10 +33,9 @@ function ModalPortal({
     createPortal(
       <>
         {shade && (
-          <div
-            className={cn(css['shade'], closeButton && css['close-button'])}
-            onClick={handleClose}
-          />
+          <div className={css['shade']} onClick={handleClose}>
+            {closeButton && <div className="icon close--light" />}
+          </div>
         )}
         <div
           className={cn(

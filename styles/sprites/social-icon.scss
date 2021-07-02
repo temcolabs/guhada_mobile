@@ -1,0 +1,95 @@
+.social-icon {
+  background: url('/static/sprites/social-icon.png') no-repeat top left;
+  background-size: 173px 154px;
+
+  &.login-facebook {
+    background-position: 0 0;
+    width: 50px;
+    height: 50px;
+  }
+  &.login-google {
+    background-position: -52px 0;
+    width: 50px;
+    height: 50px;
+  }
+  &.login-kakao {
+    background-position: 0 -52px;
+    width: 50px;
+    height: 50px;
+  }
+  &.login-naver {
+    background-position: -52px -52px;
+    width: 50px;
+    height: 50px;
+  }
+  &.chat {
+    background-position: -104px 0;
+    width: 41px;
+    height: 41px;
+  }
+  &.auth-facebook {
+    background-position: -104px -43px;
+    width: 24px;
+    height: 24px;
+  }
+  &.auth-facebook--off {
+    background-position: -104px -69px;
+    width: 24px;
+    height: 24px;
+  }
+  &.auth-google {
+    background-position: 0 -104px;
+    width: 24px;
+    height: 24px;
+  }
+  &.auth-google--off {
+    background-position: -26px -104px;
+    width: 24px;
+    height: 24px;
+  }
+  &.auth-kakao {
+    background-position: -52px -104px;
+    width: 24px;
+    height: 24px;
+  }
+  &.auth-kakao--off {
+    background-position: -78px -104px;
+    width: 24px;
+    height: 24px;
+  }
+  &.auth-naver {
+    background-position: -104px -104px;
+    width: 24px;
+    height: 24px;
+  }
+  &.auth-naver--off {
+    background-position: -147px 0;
+    width: 24px;
+    height: 24px;
+  }
+  &.sns-youtube {
+    background-position: -147px -26px;
+    width: 23px;
+    height: 22px;
+  }
+  &.sns-blog {
+    background-position: -147px -50px;
+    width: 22px;
+    height: 22px;
+  }
+  &.sns-facebook {
+    background-position: -147px -74px;
+    width: 22px;
+    height: 22px;
+  }
+  &.sns-insta {
+    background-position: -147px -98px;
+    width: 22px;
+    height: 22px;
+  }
+  &.sns-post {
+    background-position: 0 -130px;
+    width: 22px;
+    height: 22px;
+  }
+}

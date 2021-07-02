@@ -32,7 +32,7 @@ const PluginButtons = ({ isScrollDown, recentCount, top, kakao, recent }) => {
       )}
       {kakao && (
         <div
-          className={cn(css['button'], css['button--kakao'])}
+          className={cn(css['button'], 'social-icon chat')}
           onClick={() =>
             openPopupCenter(
               'https://pf.kakao.com/_yxolxbT/chat',

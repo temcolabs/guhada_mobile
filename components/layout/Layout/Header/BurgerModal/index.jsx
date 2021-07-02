@@ -28,19 +28,17 @@ const BurgerModal = ({ handleClose }) => {
       <div className={css['modal__header']}>
         <div className={css['header__login']}>
           {true ? '로그인 해주세요' : '로그아웃'}
+          <div className="icon continue" />
         </div>
         <div className={css['header__buttons']}>
           <div
-            className={cn(css['button'], css['button--home'])}
+            className="icon home"
             onClick={() => {
               router.push('/');
               handleClose();
             }}
           />
-          <div
-            className={cn(css['button'], css['button--close'])}
-            onClick={handleClose}
-          />
+          <div className="icon close" onClick={handleClose} />
         </div>
       </div>
       <div className={css['modal__section']}>

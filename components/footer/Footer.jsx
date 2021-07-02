@@ -48,49 +48,49 @@ function Footer() {
         <div className={css.contentsWrap}>
           <div className={css.snsWrap}>
             <ul>
-              <li>
+              <li className="social-icon sns-insta">
                 <a
                   href="https://www.instagram.com/official.guhada/"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <img src="/static/icon/sns-insta@3x.png" />
+                  .
                 </a>
               </li>
-              <li>
+              <li className="social-icon sns-facebook">
                 <a
                   href="https://www.facebook.com/guhada.official"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <img src="/static/icon/sns-fb@3x.png" />
+                  .
                 </a>
               </li>
-              <li>
+              <li className="social-icon sns-youtube">
                 <a
                   href="https://www.youtube.com/channel/UCFTpZVfGP02a6s-jWfxAoTQ/"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <img src="/static/icon/sns-youtube@3x.png" />
+                  .
                 </a>
               </li>
-              <li>
+              <li className="social-icon sns-blog">
                 <a
                   href="https://blog.naver.com/guhada401"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <img src="/static/icon/sns-blog@3x.png" />
+                  .
                 </a>
               </li>
-              <li>
+              <li className="social-icon sns-post">
                 <a
                   href="https://post.naver.com/guhada401"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <img src="/static/icon/sns-post.png" />
+                  .
                 </a>
               </li>
             </ul>

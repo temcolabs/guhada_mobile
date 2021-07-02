@@ -68,7 +68,7 @@ const SearchModal = ({ handleClose }) => {
       <div className={css['tab']}>
         <div className={css['tab__buttons']}>
           <div
-            className={cn(css['button'], css['button--back'])}
+            className={cn(css['button'], 'icon back')}
             onClick={handleBackClick}
           />
         </div>
@@ -82,12 +82,12 @@ const SearchModal = ({ handleClose }) => {
         <div className={css['tab__buttons']}>
           {searchInput && (
             <div
-              className={cn(css['button'], css['button--delete'])}
+              className={cn(css['button'], 'misc keyword-delete')}
               onClick={handleDelete}
             />
           )}
           <div
-            className={cn(css['button'], css['button--search'])}
+            className={cn(css['button'], 'icon search')}
             onClick={() => handleSearch(searchInput)}
           />
         </div>

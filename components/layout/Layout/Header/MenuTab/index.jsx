@@ -103,13 +103,13 @@ function MenuTab({ menuList = defaultMenuList }) {
         ))}
         {arrowLeft && (
           <span
-            className={cn(css['tab-arrow'], css['arrow--left'])}
+            className={cn(css['tab-arrow'], css['arrow--left'], 'misc slider')}
             onClick={handleScrollLeft}
           />
         )}
         {arrowRight && (
           <span
-            className={cn(css['tab-arrow'], css['arrow--right'])}
+            className={cn(css['tab-arrow'], css['arrow--right'], 'misc slider')}
             onClick={handleScrollRight}
           />
         )}

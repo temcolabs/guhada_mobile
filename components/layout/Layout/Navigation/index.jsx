@@ -31,51 +31,53 @@ const Navigation = ({ type, noNav }) => {
       <div
         className={cn(
           css['nav-button'],
-          css['button--category'],
           type === 'category' && css['selected']
         )}
         onClick={() => setIsModalOpen(1)}
       >
+        <div
+          className={cn(
+            'icon',
+            type === 'category' ? 'category--on' : 'category'
+          )}
+        />
         카테고리
       </div>
       <div
-        className={cn(
-          css['nav-button'],
-          css['button--brand'],
-          type === 'brand' && css['selected']
-        )}
+        className={cn(css['nav-button'], type === 'brand' && css['selected'])}
         onClick={() => setIsModalOpen(2)}
       >
+        <div className={cn('icon', type === 'brand' ? 'brand--on' : 'brand')} />
         브랜드
       </div>
       <div
-        className={cn(
-          css['nav-button'],
-          css['button--home'],
-          type === 'index' && css['selected']
-        )}
+        className={cn(css['nav-button'], type === 'index' && css['selected'])}
         onClick={() => handleClick('index', '/')}
       >
-        홈
+        <div className={cn('icon', type === 'index' ? 'home--on' : 'home')} />홈
       </div>
       <div
         className={cn(
           css['nav-button'],
-          css['button--community'],
           type === 'community' && css['selected']
         )}
         onClick={() => handleClick('community', '/community')}
       >
+        <div
+          className={cn(
+            'icon',
+            type === 'community' ? 'community--on' : 'community'
+          )}
+        />
         커뮤니티
       </div>
       <div
-        className={cn(
-          css['nav-button'],
-          css['button--mypage'],
-          type === 'mypage' && css['selected']
-        )}
+        className={cn(css['nav-button'], type === 'mypage' && css['selected'])}
         onClick={() => handleClick('mypage', '/mypage')}
       >
+        <div
+          className={cn('icon', type === 'mypage' ? 'mypage--on' : 'mypage')}
+        />
         마이페이지
       </div>
 
