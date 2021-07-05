@@ -39,6 +39,10 @@ export const useHorizontalArrows = (deps = [], offset = 10) => {
         setArrowRight(false);
       }
       tab.addEventListener('scroll', handler);
+
+      return () => {
+        tab.removeEventListener('scroll', handler);
+      };
     }
   }, [scrollRef.current, ...deps]);
 

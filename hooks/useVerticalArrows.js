@@ -20,6 +20,7 @@ export const useVerticalArrows = (deps = [], offset = 10) => {
     } else {
       setArrowTop(false);
     }
+
     if (
       e.target.scrollTop <
       e.target.scrollHeight - e.target.clientHeight - offset
@@ -39,6 +40,10 @@ export const useVerticalArrows = (deps = [], offset = 10) => {
         setArrowBottom(false);
       }
       tab.addEventListener('scroll', handler);
+
+      return () => {
+        tab.removeEventListener('scroll', handler);
+      };
     }
   }, [scrollRef.current, ...deps]);
 

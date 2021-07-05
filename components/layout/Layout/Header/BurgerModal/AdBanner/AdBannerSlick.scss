@@ -17,10 +17,19 @@
 }
 
 .ad-banner__slick-dots {
-  bottom: -35px !important;
+  position: relative;
+  bottom: -5px !important;
+  list-style: none;
 
-  li {
-    button {
+  & li {
+    position: relative;
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    margin-right: 4px;
+    cursor: pointer;
+
+    & button {
       &::before {
         content: '';
         width: 6px;
@@ -29,6 +38,5 @@
         border-radius: 50%;
       }
     }
-    margin: 0;
   }
 }

@@ -54,7 +54,7 @@ function AdBanner({ handleBeforeClick }) {
       centerPadding={'20px'}
       speed={500}
       autoplay
-      autoplaySpeed={4000}
+      autoplaySpeed={3000}
       slidesToShow={1}
     >
       {imageList.map(

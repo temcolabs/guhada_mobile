@@ -1,12 +1,12 @@
 import css from './ModalPortal.module.scss';
-import { useEffect } from 'react';
+import { useState, useEffect, cloneElement, Children } from 'react';
 import { createPortal } from 'react-dom';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 
 function ModalPortal({
   children,
-  selectorId = 'modal-portal',
+  selectorId = '__next',
   handleClose = () => {},
   shade = true,
   transparent = false,
@@ -15,12 +15,37 @@ function ModalPortal({
   slide,
 }) {
   /**
+   * states
+   */
+  const [modalHeight, setModalHeight] = useState(window.innerHeight);
+
+  /**
+   * handlers
+   */
+  const resizeHandler = () => {
+    setModalHeight(window.innerHeight);
+  };
+
+  /**
    * side effects
    */
   useEffect(() => {
     document.body.style.overflow = 'hidden';
+    // document.body.style.position = 'fixed';
+    // document.body.style.top = '0';
+    // document.body.style.left = '0';
+    // document.body.style.right = '0';
+    // document.body.style.bottom = '0';
+    window.addEventListener('resize', resizeHandler, true);
+
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = '';
+      // document.body.style.position = '';
+      // document.body.style.top = '';
+      // document.body.style.left = '';
+      // document.body.style.right = '';
+      // document.body.style.bottom = '';
+      window.removeEventListener('resize', resizeHandler, true);
       handleClose();
     };
   }, []);
@@ -38,6 +63,7 @@ function ModalPortal({
           </div>
         )}
         <div
+          style={{ height: `${modalHeight}px` }}
           className={cn(
             css['modal'],
             transparent && css['transparent'],
@@ -49,7 +75,15 @@ function ModalPortal({
             }
           )}
         >
-          {children}
+          <div
+            className={cn(
+              css['background'],
+              gutter && css['background--gutter']
+            )}
+          />
+          {Children.map(children, (child) =>
+            cloneElement(child, { modalHeight })
+          )}
         </div>
       </>,
       document.getElementById(selectorId)
