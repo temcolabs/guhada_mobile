@@ -3,7 +3,7 @@ import css from './AppEventPopup.module.scss';
 import ModalWrapper from 'components/common/modal/ModalWrapper';
 import { inject } from 'mobx-react';
 import { useObserver } from 'mobx-react-lite';
-import Link from 'next/link';
+
 const AppEventPopup = ({ isOpen, eventpopup, data }) => {
   return useObserver(() => (
     <ModalWrapper

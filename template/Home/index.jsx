@@ -1,5 +1,5 @@
 import css from './Home.module.scss';
-import { useState, useEffect, Fragment } from 'react';
+import { useState, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { useRouter } from 'next/router';
 import useStores from 'stores/useStores';
@@ -17,7 +17,7 @@ import SlideSection from './SlideSection';
 import BestReviewItem from './BestReviewItem';
 import HotKeywordItem from './HotKeywordItem';
 
-import AppEventPopup from 'components/event/popup/AppEventPopup';
+import EventPopup from 'components/event/popup/EventPopup';
 import PointSavingModal, {
   pointSavingTypes,
 } from 'components/mypage/point/PointSavingModal';
@@ -156,13 +156,16 @@ function Home() {
 
       {/* MODALS */}
       {eventPopupStore.popupList.length > 0 &&
-        eventPopupStore.popupList.map((data, index) => (
-          <Fragment key={index}>
-            {data.popupStatus && (
-              <AppEventPopup isOpen={data.popupStatus} data={data} />
-            )}
-          </Fragment>
-        ))}
+        eventPopupStore.popupList.map(
+          (data) =>
+            data.popupStatus && (
+              <EventPopup
+                key={data.id}
+                data={data}
+                handleClose={eventPopupStore.appEventPopupClose}
+              />
+            )
+        )}
       {signupModal && (
         <PointSavingModal
           isOpen={signupModal}

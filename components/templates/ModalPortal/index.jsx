@@ -9,7 +9,6 @@ function ModalPortal({
   selectorId = '__next',
   handleClose = () => {},
   shade = true,
-  transparent = false,
   gutter,
   closeButton = true,
   slide,
@@ -67,7 +66,7 @@ function ModalPortal({
           style={{ height: `${height}px` }}
           className={cn(
             css['modal'],
-            transparent && css['transparent'],
+            !background && css['transparent'],
             gutter && css['gutter'],
             {
               [css['slideUp']]: slide === 1,
