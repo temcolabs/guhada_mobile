@@ -9,8 +9,22 @@ import { useRouter } from 'next/router';
 import SubCategoryMenu from './SubCategoryMenu';
 
 const categoryMenuList = [['여성', 1], ['남성', 2], ['키즈', 3]];
+const menuList = [
+  ['리뷰', '/review'],
+  ['랭킹', '/ranking'],
+  ['럭키드로우', '/event/luckydraw'],
+  ['타임딜', '/event/timedeal'],
+  ['기획전', '/event/special'],
+  ['이벤트', '/event'],
+];
 
-const MenuSection = ({ menuList, handlePathClick, handleClose, height }) => {
+const MenuSection = ({
+  handlePathClick,
+  handleClose,
+  large = false,
+  menu = true,
+  height,
+}) => {
   /**
    * states
    */
@@ -42,49 +56,62 @@ const MenuSection = ({ menuList, handlePathClick, handleClose, height }) => {
    */
   return (
     <div
-      style={{ height: `calc(${height}px - (7 / 18) * 100vw - 60px)` }}
+      style={{
+        height: `calc(${height}px - (7 / 18) * 100vw - ${large ? 120 : 60}px)`,
+      }}
       className={css['modal__section']}
       ref={scrollRef}
     >
-      <ul className={cn(css['section__menu'], css['section__menu--border'])}>
+      <ul className={css['section__menu']}>
         {categoryMenuList.map(([title, id]) => (
           <li
-            className={css['section__menu__item']}
+            className={cn(css['section__menu__item'], large && css['large'])}
             key={id}
             onClick={() => handleCategoryClick(id)}
           >
             <div className={selectedCategory === id ? css['on'] : ''}>
               {title}
             </div>
-            <SubCategoryMenu
-              on={selectedCategory === id}
-              id={id}
-              items={categoryList[id - 1].children}
-              handleCategoryItemClick={handleCategoryItemClick}
-            />
+            {categoryList[id - 1] && (
+              <SubCategoryMenu
+                on={selectedCategory === id}
+                id={id}
+                items={categoryList[id - 1].children}
+                handleCategoryItemClick={handleCategoryItemClick}
+              />
+            )}
           </li>
         ))}
       </ul>
-      <ul className={css['section__menu']}>
-        {menuList.map(([name, path]) => (
-          <li
-            className={css['section__menu__item']}
-            key={name}
-            onClick={() => handlePathClick(path)}
-          >
-            <div
-              className={cn(
-                (name === '타임딜' || name === '럭키드로우') && css['event']
-              )}
+      {menu && (
+        <ul
+          className={cn(css['section__menu'], css['section__menu--border-top'])}
+        >
+          {menuList.map(([name, path]) => (
+            <li
+              className={css['section__menu__item']}
+              key={name}
+              onClick={() => handlePathClick(path)}
             >
-              {name}
-            </div>
-          </li>
-        ))}
-      </ul>
+              <div
+                className={cn(
+                  (name === '타임딜' || name === '럭키드로우') && css['event']
+                )}
+              >
+                {name}
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
       {arrowTop && (
         <span
-          className={cn(css['tab-arrow'], css['arrow--top'], 'misc down')}
+          className={cn(
+            css['tab-arrow'],
+            css['arrow--top'],
+            large && css['large'],
+            'misc down'
+          )}
         />
       )}
       {arrowBottom && (
@@ -97,9 +124,10 @@ const MenuSection = ({ menuList, handlePathClick, handleClose, height }) => {
 };
 
 MenuSection.propTypes = {
-  menuList: PropTypes.array,
   handlePathClick: PropTypes.func,
   handleClose: PropTypes.func,
+  large: PropTypes.bool,
+  menu: PropTypes.bool,
   height: PropTypes.number,
 };
 

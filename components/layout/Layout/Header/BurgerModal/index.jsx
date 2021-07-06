@@ -8,15 +8,6 @@ import MenuSection from './MenuSection';
 import AdBanner from './AdBanner';
 import { loginStatus } from 'childs/lib/constant';
 
-const menuList = [
-  ['리뷰', '/review'],
-  ['랭킹', '/ranking'],
-  ['럭키드로우', '/event/luckydraw'],
-  ['타임딜', '/event/timedeal'],
-  ['기획전', '/event/special'],
-  ['이벤트', '/event'],
-];
-
 const BurgerModal = ({ handleClose }) => {
   /**
    * states
@@ -62,7 +53,6 @@ const BurgerModal = ({ handleClose }) => {
         </div>
       </div>
       <MenuSection
-        menuList={menuList}
         handlePathClick={handlePathClick}
         handleClose={handleClose}
       />

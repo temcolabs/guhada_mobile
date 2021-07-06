@@ -1,6 +1,5 @@
 .modal__section {
   position: relative;
-  height: calc(100% - (7 / 18) * 100vw - 60px);
   overflow-y: scroll;
   width: 100%;
 
@@ -13,7 +12,6 @@
     margin-right: 20px;
     padding-top: 10px;
     padding-bottom: 10px;
-
     transition: all 0.2s;
 
     &__item {
@@ -24,6 +22,15 @@
       font-size: 15px;
       font-weight: 400;
       color: #000;
+
+      &.large {
+        font-size: 16px;
+        margin-bottom: 30px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
 
       div {
         padding-top: 15px;
@@ -52,8 +59,8 @@
       }
     }
 
-    &--border {
-      border-bottom: 1px solid #eee;
+    &--border-top {
+      border-top: 1px solid #eee;
     }
   }
   .tab-arrow {
@@ -64,6 +71,10 @@
       top: 70px;
       -webkit-transform: scaleY(-1);
       transform: scaleY(-1);
+
+      &.large {
+        top: 130px;
+      }
     }
 
     &.arrow--bottom {

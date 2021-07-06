@@ -2,7 +2,7 @@ import css from './Navigation.module.scss';
 import { useState, memo } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
-import ToolbarCategory from 'components/toolbar/ToolbarCategory';
+import CategoryModal from './CategoryModal';
 import ToolbarBrand from 'components/toolbar/ToolbarBrand';
 import { pushRoute } from 'childs/lib/router';
 
@@ -27,7 +27,7 @@ const Navigation = ({ type, noNav }) => {
    * render
    */
   return (
-    <nav className={cn(css['nav'], noNav && css['noNav'])}>
+    <nav className={cn(css['nav'], noNav && css['no-nav'])}>
       <div
         className={cn(
           css['nav-button'],
@@ -82,7 +82,7 @@ const Navigation = ({ type, noNav }) => {
       </div>
 
       {isModalOpen === 1 && (
-        <ToolbarCategory onClose={() => setIsModalOpen(0)} />
+        <CategoryModal handleClose={() => setIsModalOpen(0)} />
       )}
       {isModalOpen === 2 && <ToolbarBrand onClose={() => setIsModalOpen(0)} />}
     </nav>
