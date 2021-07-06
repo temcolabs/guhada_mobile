@@ -19,15 +19,8 @@
       margin-top: 0;
     }
 
-    &.button--top {
-      background: url('/static/icon/btn-top.png') no-repeat center;
-      background-size: cover;
-    }
-
     &.button--recent {
       opacity: 90%;
-      background: url('/static/icon/time_icon.png') no-repeat center;
-      background-size: 27px;
       background-color: #111;
       position: relative;
 

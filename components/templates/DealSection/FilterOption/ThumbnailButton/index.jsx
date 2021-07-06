@@ -7,22 +7,22 @@ const ThumbnailButton = ({ thumbnail, setThumbnail }) => (
   <div className={css['thumbnail-button']}>
     <div
       className={cn(
-        css['thumbnail--quad'],
-        thumbnail === 0 && css['thumbnail--selected']
+        'misc',
+        thumbnail === 0 ? 'thumbnail-quad--on' : 'thumbnail-quad'
       )}
       onClick={() => setThumbnail(0)}
     />
     <div
       className={cn(
-        css['thumbnail--double'],
-        thumbnail === 1 && css['thumbnail--selected']
+        'misc',
+        thumbnail === 1 ? 'thumbnail-double--on' : 'thumbnail-double'
       )}
       onClick={() => setThumbnail(1)}
     />
     <div
       className={cn(
-        css['thumbnail--hex'],
-        thumbnail === 2 && css['thumbnail--selected']
+        'misc',
+        thumbnail === 2 ? 'thumbnail-hex--on' : 'thumbnail-hex'
       )}
       onClick={() => setThumbnail(2)}
     />

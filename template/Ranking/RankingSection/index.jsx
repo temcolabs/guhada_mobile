@@ -1,7 +1,6 @@
 import { memo } from 'react';
 import css from './RankingSection.module.scss';
 import PropTypes from 'prop-types';
-
 import RankItem, { rankShape } from './RankItem';
 import Loading from 'components/common/loading/Loading';
 

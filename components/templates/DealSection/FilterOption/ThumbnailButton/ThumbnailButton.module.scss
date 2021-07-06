@@ -1,36 +1,3 @@
 .thumbnail-button {
   display: flex;
-
-  .thumbnail--quad {
-    width: 27px;
-    height: 27px;
-    background: url('/static/icon/search/list_btn_thumbnail01_off.png')
-      no-repeat center;
-    background-size: 27px;
-    &.thumbnail--selected {
-      background-image: url('/static/icon/search/list_btn_thumbnail01_on.png');
-    }
-  }
-
-  .thumbnail--double {
-    width: 27px;
-    height: 27px;
-    background: url('/static/icon/search/list_btn_thumbnail02_off.png')
-      no-repeat center;
-    background-size: 27px;
-    &.thumbnail--selected {
-      background-image: url('/static/icon/search/list_btn_thumbnail02_on.png');
-    }
-  }
-
-  .thumbnail--hex {
-    width: 27px;
-    height: 27px;
-    background: url('/static/icon/search/list_btn_thumbnail03_off.png')
-      no-repeat center;
-    background-size: 27px;
-    &.thumbnail--selected {
-      background-image: url('/static/icon/search/list_btn_thumbnail03_on.png');
-    }
-  }
 }

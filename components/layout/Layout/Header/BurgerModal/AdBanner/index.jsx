@@ -48,7 +48,7 @@ function AdBanner({ handleBeforeClick }) {
     <Slider
       dots
       className={'ad-banner__slick'}
-      dotsClass={'slick-dots ad-banner__slick-dots'}
+      dotsClass={'ad-banner__slick-dots'}
       centerMode
       arrows={false}
       centerPadding={'20px'}

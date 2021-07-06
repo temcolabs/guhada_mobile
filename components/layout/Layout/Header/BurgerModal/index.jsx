@@ -61,7 +61,11 @@ const BurgerModal = ({ handleClose }) => {
           <div className="icon close" onClick={handleClose} />
         </div>
       </div>
-      <MenuSection menuList={menuList} handlePathClick={handlePathClick} />
+      <MenuSection
+        menuList={menuList}
+        handlePathClick={handlePathClick}
+        handleClose={handleClose}
+      />
       <div className={css['modal__ad']}>
         <AdBanner handleBeforeClick={handleClose} />
       </div>

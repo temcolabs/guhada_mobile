@@ -5,18 +5,20 @@ import cn from 'classnames';
 const RankChangeIcon = ({ rankChange }) => {
   if (parseInt(rankChange) > 0) {
     return (
-      <div className={cn(css['change'], css['change--up'])}>
+      <div className={css['change']}>
+        <span className={'misc arrow-up'} />
         {Math.abs(rankChange)}
       </div>
     );
   } else if (parseInt(rankChange) < 0) {
     return (
       <div className={cn(css['change'], css['change--down'])}>
+        <span className={'misc arrow-down'} />
         {Math.abs(rankChange)}
       </div>
     );
   } else if (parseInt(rankChange) === 0) {
-    return <div className={css['keep']} />;
+    return <div className={cn(css['keep'], 'misc minus')} />;
   }
   return <div className={css['change']}>NEW</div>;
 };

@@ -1,4 +1,5 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
+import cn from 'classnames';
 import { observer } from 'mobx-react';
 import { toJS } from 'mobx';
 import useStores from 'stores/useStores';
@@ -63,7 +64,10 @@ function RecentlyTemplate({ handleClose }) {
       <RecentlyWrapper>
         <div className={css['header']}>
           <div className={css['header__title']}>최근 본 상품</div>
-          <div className={css['header__close']} onClick={handleClose} />
+          <div
+            className={cn(css['header__close'], 'icon close')}
+            onClick={handleClose}
+          />
         </div>
         {/* 상단 메뉴 */}
         <MenuSection>

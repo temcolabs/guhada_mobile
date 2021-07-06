@@ -29,6 +29,19 @@ export const useHorizontalArrows = (deps = [], offset = 10) => {
       setArrowRight(false);
     }
   };
+  const transitionHandler = function() {
+    if (this.scrollLeft > offset) {
+      setArrowLeft(true);
+    } else {
+      setArrowLeft(false);
+    }
+
+    if (this.scrollLeft < this.scrollWidth - this.clientWidth - offset) {
+      setArrowRight(true);
+    } else {
+      setArrowRight(false);
+    }
+  };
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -45,6 +58,18 @@ export const useHorizontalArrows = (deps = [], offset = 10) => {
       };
     }
   }, [scrollRef.current, ...deps]);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      const tab = scrollRef.current;
+
+      tab.addEventListener('transitionend', transitionHandler);
+
+      return () => {
+        tab.removeEventListener('transitionend', transitionHandler);
+      };
+    }
+  }, [scrollRef.current]);
 
   return [scrollRef, arrowLeft, arrowRight];
 };

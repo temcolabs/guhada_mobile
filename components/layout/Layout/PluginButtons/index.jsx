@@ -18,13 +18,17 @@ const PluginButtons = ({ isScrollDown, recentCount, top, kakao, recent }) => {
     <div className={css['plugin-buttons']}>
       {top && isScrollDown && (
         <div
-          className={cn(css['button'], css['button--top'])}
+          className={cn(css['button'], 'misc plugin-top')}
           onClick={() => window.scrollTo(0, 0)}
         />
       )}
       {recent && recentCount > 0 && (
         <div
-          className={cn(css['button'], css['button--recent'])}
+          className={cn(
+            css['button'],
+            css['button--recent'],
+            'misc plugin-recent'
+          )}
           onClick={() => setIsModalOpen(1)}
         >
           <div className={css['recent__count']}>{recentCount}</div>

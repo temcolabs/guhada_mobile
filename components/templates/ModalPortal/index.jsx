@@ -13,17 +13,18 @@ function ModalPortal({
   gutter,
   closeButton = true,
   slide,
+  background = true,
 }) {
   /**
    * states
    */
-  const [modalHeight, setModalHeight] = useState(window.innerHeight);
+  const [height, setHeight] = useState(window.innerHeight);
 
   /**
    * handlers
    */
   const resizeHandler = () => {
-    setModalHeight(window.innerHeight);
+    setHeight(window.innerHeight);
   };
 
   /**
@@ -63,7 +64,7 @@ function ModalPortal({
           </div>
         )}
         <div
-          style={{ height: `${modalHeight}px` }}
+          style={{ height: `${height}px` }}
           className={cn(
             css['modal'],
             transparent && css['transparent'],
@@ -75,14 +76,17 @@ function ModalPortal({
             }
           )}
         >
-          <div
-            className={cn(
-              css['background'],
-              gutter && css['background--gutter']
-            )}
-          />
-          {Children.map(children, (child) =>
-            cloneElement(child, { modalHeight })
+          {background && (
+            <div
+              className={cn(
+                css['background'],
+                gutter && css['background--gutter']
+              )}
+            />
+          )}
+          {Children.map(
+            children,
+            (child) => child && cloneElement(child, { height })
           )}
         </div>
       </>,
@@ -97,6 +101,7 @@ ModalPortal.propTypes = {
   gutter: PropTypes.bool,
   closeButton: PropTypes.bool,
   slide: PropTypes.number,
+  background: PropTypes.bool,
 };
 
 export default ModalPortal;

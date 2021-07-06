@@ -6,13 +6,15 @@ import cn from 'classnames';
 import useStores from 'stores/useStores';
 import KeywordSection from './KeywordSection';
 import RankingSection from 'template/Ranking/RankingSection';
+import { useVerticalArrows } from 'hooks';
 
-const SearchMenu = ({ handleSearch, fixed }) => {
+const SearchMenu = ({ handleSearch, fixed, height }) => {
   /**
    * states
    */
   const { keyword: keywordStore, ranking: rankingStore } = useStores();
   const [selected, setSelected] = useState(0);
+  const [scrollRef, arrowTop, arrowBottom] = useVerticalArrows();
 
   /**
    * handlers
@@ -51,7 +53,11 @@ const SearchMenu = ({ handleSearch, fixed }) => {
           인기 검색어
         </div>
       </div>
-      <div className={css['menu__content']}>
+      <div
+        style={{ height: `calc(${height}px - 160px)` }}
+        className={css['menu__content']}
+        ref={scrollRef}
+      >
         {selected === 0 ? (
           <KeywordSection
             list={keywordStore.list}
@@ -63,6 +69,16 @@ const SearchMenu = ({ handleSearch, fixed }) => {
             rank={rankingStore.ranking.rank}
             handleSearch={handleSearch}
             count={10}
+          />
+        )}
+        {arrowTop && (
+          <span
+            className={cn(css['tab-arrow'], css['arrow--top'], 'misc down')}
+          />
+        )}
+        {arrowBottom && (
+          <span
+            className={cn(css['tab-arrow'], css['arrow--bottom'], 'misc down')}
           />
         )}
       </div>
@@ -93,6 +109,7 @@ const SearchMenu = ({ handleSearch, fixed }) => {
 SearchMenu.propTypes = {
   handleSearch: PropTypes.func,
   fixed: PropTypes.bool,
+  height: PropTypes.number,
 };
 
 export default observer(SearchMenu);

@@ -30,6 +30,19 @@ export const useVerticalArrows = (deps = [], offset = 10) => {
       setArrowBottom(false);
     }
   };
+  const transitionHandler = function() {
+    if (this.scrollTop > offset) {
+      setArrowTop(true);
+    } else {
+      setArrowTop(false);
+    }
+
+    if (this.scrollTop < this.scrollHeight - this.clientHeight - offset) {
+      setArrowBottom(true);
+    } else {
+      setArrowBottom(false);
+    }
+  };
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -46,6 +59,18 @@ export const useVerticalArrows = (deps = [], offset = 10) => {
       };
     }
   }, [scrollRef.current, ...deps]);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      const tab = scrollRef.current;
+
+      tab.addEventListener('transitionend', transitionHandler);
+
+      return () => {
+        tab.removeEventListener('transitionend', transitionHandler);
+      };
+    }
+  }, [scrollRef.current]);
 
   return [scrollRef, arrowTop, arrowBottom];
 };

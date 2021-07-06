@@ -45,6 +45,19 @@
         &:last-child {
           margin-right: 0;
         }
+
+        .cart__count {
+          position: absolute;
+          right: 8px;
+          font-size: 7px;
+          text-align: center;
+          color: #fff;
+          line-height: 14px;
+          width: 15px;
+          height: 15px;
+          background-color: #5d2ed1;
+          border-radius: 50%;
+        }
       }
     }
   }

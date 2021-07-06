@@ -1,0 +1,13 @@
+.category-list {
+  transition: height 0.1s;
+  overflow: hidden;
+
+  .category-list__item {
+    font-size: 14px;
+    padding: 9px 0 9px 12px;
+
+    &:last-child {
+      padding-bottom: 0;
+    }
+  }
+}

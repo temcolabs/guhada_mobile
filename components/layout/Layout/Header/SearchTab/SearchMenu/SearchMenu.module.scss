@@ -34,6 +34,22 @@
 
   .menu__content {
     padding: 0 20px;
+    overflow-y: scroll;
+
+    .tab-arrow {
+      position: fixed;
+      right: calc(50% - 10px);
+
+      &.arrow--top {
+        top: 128px;
+        -webkit-transform: scaleY(-1);
+        transform: scaleY(-1);
+      }
+
+      &.arrow--bottom {
+        bottom: 52px;
+      }
+    }
   }
 
   .menu__autocomplete {
