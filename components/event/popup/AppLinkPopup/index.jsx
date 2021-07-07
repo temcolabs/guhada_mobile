@@ -1,27 +1,39 @@
-import css from './DeepLinkPopup.module.scss';
+import css from './AppLinkPopup.module.scss';
 import PropTypes from 'prop-types';
 import StarItem from 'components/mypage/review/StarItem';
-import { isAndroid, isIOS } from 'childs/lib/common/detectMobileEnv';
+import { isIOS, isAndroid } from 'childs/lib/common/detectMobileEnv';
 import ModalPortal from 'components/templates/ModalPortal';
 import localStorage from 'childs/lib/common/localStorage';
+import { useRouter } from 'next/router';
+import { LINK_PATH } from './constants';
 
-const STORE_PATH = {
-  ios:
-    'https://apps.apple.com/kr/app/%EA%B5%AC%ED%95%98%EB%8B%A4-%EB%AA%85%ED%92%88-%EC%87%BC%ED%95%91-%ED%95%84%EC%88%98%EC%95%B1/id1478120259?itsct=apps_box_link&itscg=30200',
-};
+const AppLinkPopup = ({ handleClose }) => {
+  /**
+   * states
+   */
+  const router = useRouter();
+  const dealId = router.query.deals;
 
-const DeepLinkPopup = ({ handleClose, deepLink }) => {
+  const runNativeApp = () => {
+    if (isIOS()) {
+      // window.location.href = LINK_PATH.universalLink(dealId);
+      window.location.href = LINK_PATH.schemeUrl(dealId);
+    } else if (isAndroid()) {
+      window.location.href = LINK_PATH.intent(dealId);
+    } else {
+      alert(`Android 또는 IOS 기기로 이용해주세요.`);
+    }
+  };
+
   /**
    * handlers
    */
-  const handleLinkClick = (link) => {
-    if (link) {
-      window.location = link;
-    }
+  const handleLinkClick = () => {
+    runNativeApp();
     handleClose();
   };
   const handleClosePopup = () => {
-    localStorage.set('deepLink', false, 10080);
+    localStorage.set('isDeepLinkModalOff', true, 10080);
     handleClose();
   };
 
@@ -29,7 +41,12 @@ const DeepLinkPopup = ({ handleClose, deepLink }) => {
    * render
    */
   return (
-    <ModalPortal background={false} handleClose={handleClose}>
+    <ModalPortal
+      background={false}
+      handleClose={handleClose}
+      closeButton={false}
+      center
+    >
       <div className={css['popup']}>
         <div className={css['popup__info']}>
           <div className={css['popup__info__logo']} />
@@ -43,10 +60,7 @@ const DeepLinkPopup = ({ handleClose, deepLink }) => {
             </div>
           </div>
         </div>
-        <div
-          className={css['popup__button']}
-          onClick={() => handleLinkClick(deepLink)}
-        >
+        <div className={css['popup__button']} onClick={handleLinkClick}>
           구하다 앱으로 보기
           <div className={'icon nextnext'} />
         </div>
@@ -58,9 +72,8 @@ const DeepLinkPopup = ({ handleClose, deepLink }) => {
   );
 };
 
-DeepLinkPopup.propTypes = {
+AppLinkPopup.propTypes = {
   handleClose: PropTypes.func,
-  deepLink: PropTypes.string,
 };
 
-export default DeepLinkPopup;
+export default AppLinkPopup;

@@ -145,5 +145,8 @@ export default {
     addShoppingCart() {
       window.ga('send', 'event', 'Mobile', 'Mobile_bt8');
     },
+    luckyDrawAuthButton() {
+      window.ga('send', 'event', 'Mobile', 'Mobile_bt9');
+    },
   },
 };

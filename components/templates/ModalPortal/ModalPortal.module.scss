@@ -32,6 +32,12 @@
     height: calc(100% - 60px);
   }
 
+  &.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   &.slideLeft {
     animation: slideLeft 0.1s linear;
   }

@@ -1,14 +1,12 @@
 .popup {
-  color: white;
+  color: #eee;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 100vw;
-  height: 100vh;
 
   &__info {
-    width: 100%;
+    width: 270px;
     display: flex;
     justify-content: center;
     margin-bottom: 25px;
@@ -21,6 +19,7 @@
     }
 
     &__desc {
+      width: 220px;
       margin-left: 10px;
 
       .desc__star {
@@ -45,7 +44,7 @@
   }
 
   &__button {
-    color: white;
+    color: #eee;
     border-radius: 5px;
     background-color: #5d2ed1;
     display: flex;

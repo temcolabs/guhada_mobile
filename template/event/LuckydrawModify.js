@@ -3,11 +3,11 @@ import ModalWrapper from 'components/common/modal/ModalWrapper';
 import Form from 'stores/form-store/_.forms';
 import css from './LuckydrawModify.module.scss';
 import { LoginInput, LoginCheckBox, LoginButton } from 'components/login';
-import cn from 'classnames';
 import SignupInputButtonChange from 'components/login/SignupInputButtonChange';
 import { observer, inject } from 'mobx-react';
-import _ from 'lodash';
-// @inject('luckydraw', 'countdown', 'authmobile')
+import { isNil as _isNil } from 'lodash';
+import gtagTracker from 'childs/lib/tracking/google/gtagTracker';
+
 @inject('countdown', 'authmobile')
 @observer
 class LuckydrawModify extends Component {
@@ -15,7 +15,7 @@ class LuckydrawModify extends Component {
     const form = Form.modifyLuckydraw;
     let value;
 
-    if (_.isNil(form)) {
+    if (_isNil(form)) {
       return null;
     } else {
       value = form.get('value');
@@ -125,7 +125,8 @@ class LuckydrawModify extends Component {
                     ? 'isGray'
                     : 'isColored'
                 }
-                onClick={e => {
+                onClick={(e) => {
+                  gtagTracker.gaEvent.luckyDrawAuthButton();
                   form.$('email').set('disabled', false);
                   form.onSubmit(e);
                 }}

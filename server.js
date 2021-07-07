@@ -63,6 +63,15 @@ app
       res.status(200).sendFile('sitemap.xml', sitemapOptions)
     );
 
+    // server.get('/apple-app-site-association', (req, res) => {
+    //   res.status(302).sendFile('apple-app-site-association', {
+    //     root: __dirname + '/static/',
+    //     headers: {
+    //       'Content-Type': 'application/json;charset=UTF-8',
+    //     },
+    //   });
+    // });
+
     /**
      * 데스크탑에서 접속하면 데스크탑 웹으로 보낸다
      */
@@ -126,7 +135,7 @@ app
       return handle(req, res);
     });
 
-    const listeningServer = server.listen(PORT, '0.0.0.0', (err) => {
+    const listeningServer = server.listen(PORT, '127.0.0.1', (err) => {
       if (err) throw err;
       console.log(`> Ready on mobile https://localhost:${PORT}`);
 

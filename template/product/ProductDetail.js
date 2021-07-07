@@ -26,10 +26,9 @@ import _ from 'lodash';
 import CommonPopup from 'components/common/modal/CommonPopup';
 import SellerReview from 'components/productdetail/SellerReview/SellerReview';
 import LoadingPortal from 'components/common/loading/Loading';
-import { isIOS, isAndroid } from 'childs/lib/common/detectMobileEnv';
 import { sendBackToLogin } from 'childs/lib/router';
 
-import DeepLinkPopup from 'components/event/popup/DeepLinkPopup';
+import AppLinkPopup from 'components/event/popup/AppLinkPopup';
 import localStorage from 'childs/lib/common/localStorage';
 
 @withScrollToTopOnMount
@@ -55,8 +54,7 @@ class ProductDetail extends React.Component {
       isInternationalPopup: false,
       isInternationalSubmit: '',
       cartAndPurchaseVisible: true,
-      isDeepLinkModal: false,
-      deepLink: '',
+      isDeepLinkModalOn: false,
     };
     this.tabRefMap = {
       detailTab: React.createRef(),
@@ -67,7 +65,9 @@ class ProductDetail extends React.Component {
   }
 
   componentDidMount() {
-    this.createDeepLink();
+    if (!localStorage.get('isDeepLinkModalOff')) {
+      this.setState({ isDeepLinkModalOn: true });
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -99,16 +99,6 @@ class ProductDetail extends React.Component {
     this.setState({
       isInternationalPopup: bool,
     });
-  };
-
-  createDeepLink = () => {
-    if (isIOS() || isAndroid()) {
-      const { query } = this.props.router;
-      this.setState({
-        isDeepLinkModal: true,
-        deepLink: `guhada://DEAL?dealid=${query?.deals}`,
-      });
-    }
   };
 
   isInternationalSubmit = (text) => {
@@ -159,16 +149,6 @@ class ProductDetail extends React.Component {
 
     return (
       <>
-        {/* App > DeepLink */}
-        {/* {this.state.isDeepLinkModal && (
-          <DeepLinkPopup
-            isOpen={this.state.isDeepLinkModal}
-            onClose={() =>
-              this.setState({ ...this.state, isDeepLinkModal: false })
-            }
-            deepLink={this.state.deepLink}
-          />
-        )} */}
         {/* 상세이미지갤러리 */}
         <Gallery />
 
@@ -294,13 +274,11 @@ class ProductDetail extends React.Component {
           />
         )}
 
-        {this.state.isDeepLinkModal &&
-          localStorage.get('deepLink') !== false && (
-            <DeepLinkPopup
-              handleClose={() => this.setState({ isDeepLinkModal: false })}
-              deepLink={this.state.deepLink}
-            />
-          )}
+        {/* {this.state.isDeepLinkModalOn && (
+          <AppLinkPopup
+            handleClose={() => this.setState({ isDeepLinkModalOn: false })}
+          />
+        )} */}
 
         {this.props.cartAndPurchase.addCartStatus && <LoadingPortal />}
       </>

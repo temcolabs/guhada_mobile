@@ -157,9 +157,10 @@ function Home() {
       {/* MODALS */}
       {eventPopupStore.popupList.length > 0 &&
         eventPopupStore.popupList.map(
-          (data) =>
+          (data, idx) =>
             data.popupStatus && (
               <EventPopup
+                shade={idx === 0 ? true : false}
                 key={data.id}
                 data={data}
                 handleClose={eventPopupStore.appEventPopupClose}

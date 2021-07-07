@@ -13,6 +13,7 @@ function ModalPortal({
   closeButton = true,
   slide,
   background = true,
+  center = false,
 }) {
   /**
    * states
@@ -68,12 +69,14 @@ function ModalPortal({
             css['modal'],
             !background && css['transparent'],
             gutter && css['gutter'],
+            center && css['center'],
             {
               [css['slideUp']]: slide === 1,
               [css['slideLeft']]: slide === 2,
               [css['slideRight']]: slide === 3,
             }
           )}
+          {...!background && { onClick: handleClose }}
         >
           {background && (
             <div

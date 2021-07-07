@@ -2,11 +2,13 @@ import css from './EventPopup.module.scss';
 import PropTypes from 'prop-types';
 import ModalPortal from 'components/templates/ModalPortal';
 
-const EventPopup = ({ data, handleClose }) => (
+const EventPopup = ({ shade = false, data, handleClose }) => (
   <ModalPortal
+    shade={shade}
     background={false}
     closeButton={false}
     handleClose={() => handleClose({}, data.eventTitle)}
+    center
   >
     <div className={css['popup']}>
       {data.appDownLink ? (
@@ -49,6 +51,7 @@ const EventPopup = ({ data, handleClose }) => (
 );
 
 EventPopup.propTypes = {
+  shade: PropTypes.bool,
   data: PropTypes.any,
   handleClose: PropTypes.func,
 };
