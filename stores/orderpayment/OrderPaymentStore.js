@@ -517,6 +517,7 @@ export default class OrderPaymentStore {
       case 'EasyPayment':
       case 'NAVER':
       case 'DIRECT_NAVER':
+      case 'SAMSUNG':
       case 'SAMSUNGPAY':
       case 'LPAY':
       case 'SSGPAY':
@@ -1307,7 +1308,7 @@ export default class OrderPaymentStore {
             merchantUserKey: pgMid,
             merchantPayKey: pgOid,
             productName: prodNm,
-            useCfmYmdt: today,
+            // useCfmYmdt: today,
             totalPayAmount: amount,
             taxScopeAmount: amount,
             taxExScopeAmount: 0,

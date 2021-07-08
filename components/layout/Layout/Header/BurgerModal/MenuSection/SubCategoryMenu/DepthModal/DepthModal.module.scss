@@ -36,10 +36,24 @@
     padding: 9px 0 9px 12px;
     position: relative;
 
-    span {
-      position: absolute;
-      right: 0;
-      bottom: 0;
+    div {
+      &.openable {
+        @include openable-item;
+      }
+
+      padding: 0;
+
+      &.open {
+        padding-bottom: 14px;
+        width: 100%;
+        border-bottom: 1px dashed #eee;
+      }
+
+      span {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+      }
     }
   }
 }

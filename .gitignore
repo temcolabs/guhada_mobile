@@ -26,6 +26,3 @@ robots.txt
 
 # dynamically generated files
 sprite.*
-
-# universal link
-static/apple-app-site-association

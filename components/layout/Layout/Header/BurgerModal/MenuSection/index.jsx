@@ -67,14 +67,16 @@ const MenuSection = ({
           <li
             className={cn(css['section__menu__item'], large && css['large'])}
             key={id}
-            onClick={() => handleCategoryClick(id)}
           >
-            <div className={selectedCategory === id ? css['on'] : ''}>
+            <div
+              className={selectedCategory === id ? css['open'] : ''}
+              onClick={() => handleCategoryClick(id)}
+            >
               {title}
             </div>
             {categoryList[id - 1] && (
               <SubCategoryMenu
-                on={selectedCategory === id}
+                open={selectedCategory === id}
                 id={id}
                 items={categoryList[id - 1].children}
                 handleCategoryItemClick={handleCategoryItemClick}

@@ -1,7 +1,7 @@
 import routes from '../../../routes';
 import pathMatch from 'path-match';
 import qs from 'qs';
-import _ from 'lodash';
+import { merge as _merge } from 'lodash';
 
 const pathToRegexp = require('path-to-regexp');
 const match = pathMatch();
@@ -9,7 +9,7 @@ const match = pathMatch();
 /**
  * 매칭되는 커스텀 라우트를 찾을 수 있도록 path-to-regexp 모듈로 만든 객체를 추가
  */
-export const routesWithRegexp = routes.map(route => {
+export const routesWithRegexp = routes.map((route) => {
   return {
     regexp: pathToRegexp(route.asPath),
     asPath: route.asPath,
@@ -17,10 +17,10 @@ export const routesWithRegexp = routes.map(route => {
   };
 });
 
-export const findRoute = url => {
+export const findRoute = (url) => {
   const pathname = url.split('?')[0];
 
-  return routesWithRegexp.find(route => {
+  return routesWithRegexp.find((route) => {
     return route.regexp.exec(pathname) !== null;
   });
 };
@@ -61,7 +61,7 @@ export const addQueryToHref = (
 
     const newQuery = !mergeQuery
       ? qs.stringify(query)
-      : qs.stringify(_.merge(qs.parse(queryString), query));
+      : qs.stringify(_merge(qs.parse(queryString), query));
 
     hrefWithQuery = `${path}?${newQuery}`;
   }

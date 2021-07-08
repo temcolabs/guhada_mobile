@@ -98,7 +98,7 @@ module.exports = [
 
   // 로그인
   {
-    pagePath: '/login/login',
+    pagePath: '/login',
     asPath: '/login',
     name: '로그인',
   },
