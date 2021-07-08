@@ -69,7 +69,10 @@ const MenuSection = ({
             key={id}
           >
             <div
-              className={selectedCategory === id ? css['open'] : ''}
+              className={cn(
+                css['item--category'],
+                selectedCategory === id && css['open']
+              )}
               onClick={() => handleCategoryClick(id)}
             >
               {title}

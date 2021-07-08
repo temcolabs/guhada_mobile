@@ -32,20 +32,10 @@ function ModalPortal({
    */
   useEffect(() => {
     document.body.style.overflow = 'hidden';
-    // document.body.style.position = 'fixed';
-    // document.body.style.top = '0';
-    // document.body.style.left = '0';
-    // document.body.style.right = '0';
-    // document.body.style.bottom = '0';
     window.addEventListener('resize', resizeHandler, true);
 
     return () => {
-      document.body.style.overflow = '';
-      // document.body.style.position = '';
-      // document.body.style.top = '';
-      // document.body.style.left = '';
-      // document.body.style.right = '';
-      // document.body.style.bottom = '';
+      document.body.style.removeProperty('overflow');
       window.removeEventListener('resize', resizeHandler, true);
       handleClose();
     };
@@ -64,6 +54,7 @@ function ModalPortal({
           </div>
         )}
         <div
+          id="modal-portal"
           style={{ height: `${height}px` }}
           className={cn(
             css['modal'],

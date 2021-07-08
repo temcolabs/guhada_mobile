@@ -8,47 +8,56 @@ const SubCategoryMenu = ({ open, id, items, handleCategoryItemClick }) => {
    * states
    */
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState({});
+
+  /**
+   * handlers
+   */
+  const handleClickItem = (item) => {
+    if (item.children) {
+      setSelectedItem(item);
+      setIsModalOpen(true);
+    } else {
+      handleCategoryItemClick(item.id);
+    }
+  };
 
   /**
    * render
    */
   return (
-    <ul
-      style={{
-        height: open ? `${(items.length + 1) * 33}px` : '0',
-      }}
-      className={css['category-list']}
-    >
-      <li
-        className={css['category-list__item']}
-        onClick={() => handleCategoryItemClick(id)}
+    <>
+      <ul
+        style={{
+          height: open ? `${(items.length + 1) * 33}px` : '0',
+        }}
+        className={css['category-list']}
       >
-        전체보기
-      </li>
-      {items.map((item) => (
         <li
           className={css['category-list__item']}
-          key={item.id}
-          onClick={() =>
-            item.children
-              ? setIsModalOpen(item.id)
-              : handleCategoryItemClick(item.id)
-          }
+          onClick={() => handleCategoryItemClick(id)}
         >
-          {item.children && <span className="icon continue" />}
-          {item.title}
+          전체보기
         </li>
-      ))}
-      {isModalOpen > 0 && (
+        {items.map((item) => (
+          <li
+            className={css['category-list__item']}
+            key={item.id}
+            onClick={() => handleClickItem(item)}
+          >
+            {item.children && <span className="icon continue" />}
+            {item.title}
+          </li>
+        ))}
+      </ul>
+      {isModalOpen && (
         <DepthModal
-          open={isModalOpen > 0}
-          id={isModalOpen}
-          items={[]}
+          item={selectedItem}
           handleClose={() => setIsModalOpen(false)}
-          height={'100px'}
+          handleCategoryItemClick={handleCategoryItemClick}
         />
       )}
-    </ul>
+    </>
   );
 };
 

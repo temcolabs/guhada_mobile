@@ -1,0 +1,80 @@
+@mixin openable-item {
+  &::before {
+    position: absolute;
+    right: 0;
+    top: 17px;
+    content: '';
+    width: 16px;
+    height: 2px;
+    background-color: #ddd;
+  }
+  &::after {
+    position: absolute;
+    right: 7px;
+    content: '';
+    width: 2px;
+    height: 16px;
+    background-color: #ddd;
+    transition: 0.05s all ease-out;
+  }
+  &.open {
+    &::after {
+      background-color: #8c6ed5;
+      transform: rotate(90deg);
+      transition: 0.05s all ease-out;
+    }
+  }
+}
+
+.modal__section {
+  position: relative;
+  overflow-y: scroll;
+  width: 100%;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .category-list {
+    margin-left: 24px;
+    margin-right: 24px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    transition: height 0.2s;
+    overflow: hidden;
+
+    .list__item {
+      font-size: 14px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      position: relative;
+
+      div {
+        width: 100%;
+        &.open {
+          padding-bottom: 9px;
+          border-bottom: 1px dashed #eee;
+        }
+
+        .openable {
+          @include openable-item;
+        }
+      }
+    }
+  }
+
+  .tab-arrow {
+    position: fixed;
+    right: calc(50% - 10px);
+
+    &.arrow--top {
+      top: 70px;
+      -webkit-transform: scaleY(-1);
+      transform: scaleY(-1);
+    }
+
+    &.arrow--bottom {
+      bottom: 10px;
+    }
+  }
+}

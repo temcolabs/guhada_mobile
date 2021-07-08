@@ -12,7 +12,7 @@
     margin-right: 20px;
     padding-top: 10px;
     padding-bottom: 10px;
-    transition: all 0.2s;
+    transition: height 0.2s;
 
     &__item {
       min-height: 45px;
@@ -33,6 +33,10 @@
       }
 
       div {
+        &.item--category {
+          width: 100%;
+        }
+
         padding-top: 15px;
         padding-bottom: 15px;
         display: inline-block;
