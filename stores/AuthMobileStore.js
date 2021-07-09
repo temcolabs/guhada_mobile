@@ -32,8 +32,11 @@ export default class AuthMobileStore {
   };
   @observable access = false;
 
+  onAuthSuccess = () => {};
+
   @action
   getCertKey = (location, childWindow, onAuthSuccess = () => {}) => {
+    this.onAuthSuccess = onAuthSuccess;
     API.order
       .get('/mobile/phoneCertification')
       .then((res) => {

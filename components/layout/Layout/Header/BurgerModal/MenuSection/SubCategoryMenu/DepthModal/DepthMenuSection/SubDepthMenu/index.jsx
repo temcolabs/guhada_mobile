@@ -8,11 +8,11 @@ const SubDepthMenu = ({
   handleCategoryItemClick,
 }) => {
   return (
-    <ul
+    <div
       style={{
         height:
           selectedSubcategory === item.id
-            ? `${Math.ceil((item.children.length + 1) / 2) * 38}px`
+            ? `${Math.ceil((item.children.length + 1) / 2) * 42 + 12}px`
             : '0',
       }}
       className={cn(
@@ -20,22 +20,24 @@ const SubDepthMenu = ({
         selectedSubcategory === item.id && css['open']
       )}
     >
-      <li
-        className={css['sub-item']}
-        onClick={() => handleCategoryItemClick(item.id)}
-      >
-        전체보기
-      </li>
-      {item.children.map((item) => (
+      <ul className={css['sub']}>
         <li
-          key={item.id}
-          className={css['sub-item']}
+          className={css['sub__item']}
           onClick={() => handleCategoryItemClick(item.id)}
         >
-          {item.title}
+          전체보기
         </li>
-      ))}
-    </ul>
+        {item.children.map((item) => (
+          <li
+            key={item.id}
+            className={css['sub__item']}
+            onClick={() => handleCategoryItemClick(item.id)}
+          >
+            {item.title}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 
