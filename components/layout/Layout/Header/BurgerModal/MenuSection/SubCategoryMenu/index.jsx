@@ -29,7 +29,7 @@ const SubCategoryMenu = ({ open, id, items, handleCategoryItemClick }) => {
     <>
       <ul
         style={{
-          height: open ? `${(items.length + 1) * 33}px` : '0',
+          height: open ? `${(items.length + 1) * 36}px` : '0',
         }}
         className={css['category-list']}
       >

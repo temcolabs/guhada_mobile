@@ -1,39 +1,11 @@
-@mixin openable-item {
-  &::before {
-    position: absolute;
-    right: 0;
-    top: 15px;
-    content: '';
-    width: 15px;
-    height: 2px;
-    background-color: #ddd;
-  }
-  &::after {
-    position: absolute;
-    right: 7px;
-    content: '';
-    width: 2px;
-    height: 15px;
-    background-color: #ddd;
-    transition: 0.05s all ease-out;
-  }
-  &.open {
-    &::after {
-      background-color: #8c6ed5;
-      transform: rotate(90deg);
-      transition: 0.05s all ease-out;
-    }
-  }
-}
-
 .category-list {
   transition: height 0.1s;
   overflow: hidden;
 
   .category-list__item {
-    height: 33px;
-    font-size: 14px;
-    padding: 9px 0 9px 12px;
+    height: 36px;
+    font-size: 15px;
+    padding: 10px 0 10px 12px;
     position: relative;
 
     span {

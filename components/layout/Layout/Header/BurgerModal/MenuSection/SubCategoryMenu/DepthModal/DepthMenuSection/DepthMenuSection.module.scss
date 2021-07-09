@@ -2,7 +2,7 @@
   &::before {
     position: absolute;
     right: 0;
-    top: 17px;
+    top: 19px;
     content: '';
     width: 16px;
     height: 2px;
@@ -44,9 +44,9 @@
     overflow: hidden;
 
     .list__item {
-      font-size: 14px;
-      padding-top: 10px;
-      padding-bottom: 10px;
+      font-size: 15px;
+      padding-top: 12px;
+      padding-bottom: 12px;
       position: relative;
 
       div {

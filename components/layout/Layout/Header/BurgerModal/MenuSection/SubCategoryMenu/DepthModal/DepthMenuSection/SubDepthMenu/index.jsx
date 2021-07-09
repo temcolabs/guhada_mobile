@@ -12,7 +12,7 @@ const SubDepthMenu = ({
       style={{
         height:
           selectedSubcategory === item.id
-            ? `${Math.ceil(item.children.length / 2) * 35}px`
+            ? `${Math.ceil(item.children.length / 2) * 38}px`
             : '0',
       }}
       className={cn(

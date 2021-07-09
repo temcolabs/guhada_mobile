@@ -1,5 +1,5 @@
 import css from './ModalPortal.module.scss';
-import { useState, useEffect, useRef, cloneElement, Children } from 'react';
+import { useState, useEffect, cloneElement, Children } from 'react';
 import { createPortal } from 'react-dom';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
@@ -19,7 +19,6 @@ function ModalPortal({
    * states
    */
   const [height, setHeight] = useState(window.innerHeight);
-  const historyRef = useRef();
 
   /**
    * handlers
@@ -28,33 +27,14 @@ function ModalPortal({
     setHeight(window.innerHeight);
   };
 
-  const popStateHandler = (e) => {
-    historyRef.current = null;
-    handleClose();
-    window.removeEventListener('popstate', popStateHandler);
-  };
-
   /**
    * side effects
    */
   useEffect(() => {
-    historyRef.current = JSON.stringify(window.history.state);
-    window.history.pushState(
-      JSON.parse(historyRef.current),
-      document.title,
-      '#m'
-    );
-
     document.body.style.overflow = 'hidden';
-    window.addEventListener('popstate', popStateHandler);
     window.addEventListener('resize', resizeHandler, true);
 
     return () => {
-      if (historyRef.current) {
-        window.history.back();
-        historyRef.current = null;
-      }
-
       document.body.style.removeProperty('overflow');
       window.removeEventListener('resize', resizeHandler, true);
     };
