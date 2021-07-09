@@ -12,7 +12,7 @@ const SubDepthMenu = ({
       style={{
         height:
           selectedSubcategory === item.id
-            ? `${Math.ceil(item.children.length / 2) * 38}px`
+            ? `${Math.ceil((item.children.length + 1) / 2) * 38}px`
             : '0',
       }}
       className={cn(
@@ -20,6 +20,12 @@ const SubDepthMenu = ({
         selectedSubcategory === item.id && css['open']
       )}
     >
+      <li
+        className={css['sub-item']}
+        onClick={() => handleCategoryItemClick(item.id)}
+      >
+        전체보기
+      </li>
       {item.children.map((item) => (
         <li
           key={item.id}
