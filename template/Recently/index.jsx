@@ -60,7 +60,7 @@ function RecentlyTemplate({ handleClose }) {
   ]);
 
   return (
-    <ModalPortal>
+    <ModalPortal handleClose={handleClose}>
       <RecentlyWrapper>
         <div className={css['header']}>
           <div className={css['header__title']}>최근 본 상품</div>

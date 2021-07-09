@@ -12,6 +12,8 @@ class niceAuthSuccess extends React.Component {
   }
 
   componentDidMount() {
+    console.log('yoman', this.props.query);
+    console.log('yoman', window.opener);
     if (window.opener) {
       devLog(`[niceAuthSuccess] this.props.query`, this.props.query);
       window.opener.postMessage(this.props.query, '*');

@@ -1,64 +1,59 @@
-.shade {
-  z-index: 221;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(#000, 0.5);
-
-  div {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-  }
-}
-
-.modal {
+.modal-portal {
   z-index: 222;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #fff;
 
-  &.transparent {
-    background-color: unset;
-  }
-
-  &.gutter {
-    top: 60px;
-    height: calc(100% - 60px);
-  }
-
-  &.center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  &.slideLeft {
-    animation: slideLeft 0.1s linear;
-  }
-  &.slideRight {
-    animation: slideRight 0.1s linear;
-  }
-  &.slideUp {
-    animation: slideUp 0.1s linear;
-  }
-
-  .background {
-    position: fixed;
-    z-index: -1;
+  .shade {
+    position: absolute;
+    z-index: 1;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(#000, 0.5);
+
+    div {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+    }
+  }
+
+  .modal {
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background-color: #fff;
 
-    &.background--gutter {
+    &.transparent {
+      background-color: unset;
+    }
+
+    &.gutter {
       top: 60px;
+      height: calc(100% - 60px);
+    }
+
+    &.center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &.slideLeft {
+      animation: slideLeft 0.1s linear;
+    }
+    &.slideRight {
+      animation: slideRight 0.1s linear;
+    }
+    &.slideUp {
+      animation: slideUp 0.1s linear;
     }
   }
 }

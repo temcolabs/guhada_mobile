@@ -1,14 +1,11 @@
 import css from './EventPopup.module.scss';
 import PropTypes from 'prop-types';
-import ModalPortal from 'components/templates/ModalPortal';
+import PopupPortal from 'components/templates/PopupPortal';
 
 const EventPopup = ({ shade = false, data, handleClose }) => (
-  <ModalPortal
+  <PopupPortal
     shade={shade}
-    background={false}
-    closeButton={false}
     handleClose={() => handleClose({}, data.eventTitle)}
-    center
   >
     <div className={css['popup']}>
       {data.appDownLink ? (
@@ -47,7 +44,7 @@ const EventPopup = ({ shade = false, data, handleClose }) => (
         <div onClick={() => handleClose({}, data.eventTitle)}>닫기</div>
       </div>
     </div>
-  </ModalPortal>
+  </PopupPortal>
 );
 
 EventPopup.propTypes = {
