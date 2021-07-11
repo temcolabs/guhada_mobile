@@ -22,7 +22,6 @@
     "npm": "6.14.13"
   },
   "dependencies": {
-    "@zeit/next-sass": "^1.0.1",
     "animejs": "^3.2.1",
     "array-move": "^2.2.2",
     "axios": "^0.18.1",
@@ -43,7 +42,7 @@
     "mobx-react": "^6.3.1",
     "mobx-react-form": "^2.0.9",
     "moment": "^2.29.1",
-    "next": "^8.1.0",
+    "next": "^10.2.3",
     "path-match": "^1.2.4",
     "path-to-regexp": "^3.2.0",
     "prop-types": "^15.7.2",
@@ -68,6 +67,7 @@
     "react-slick": "^0.28.1",
     "react-sortable-hoc": "^1.11.0",
     "react-transition-group": "^4.4.2",
+    "sass": "^1.32.6",
     "slick-carousel": "^1.8.1",
     "striptags": "^3.2.0",
     "styled-components": "^5.3.0",
@@ -99,7 +99,6 @@
     "eslint-plugin-react-hooks": "^1.7.0",
     "loader-utils": "^1.4.0",
     "lodash-webpack-plugin": "^0.11.6",
-    "node-sass": "^6.0.1",
     "nodemon": "^1.19.4",
     "pm2": "^3.5.2",
     "prettier": "^1.19.1",

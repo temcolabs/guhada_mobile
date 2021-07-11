@@ -1,11 +1,11 @@
 // next.config.js
 const path = require('path');
 const webpack = require('webpack');
-const withSass = require('@zeit/next-sass');
+// const withSass = require('@zeit/next-sass');
 const loaderUtils = require('loader-utils');
-const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
+// const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
 
-module.exports = withSass({
+module.exports = {
   // exptend webpack settings
   webpack: (config) => {
     config.module.rules.push({
@@ -31,11 +31,11 @@ module.exports = withSass({
       },
     });
 
-    config.plugins.push(
-      new FilterWarningsPlugin({
-        exclude: /mini-css-extract-plugin[^]*Conflicting order between:/,
-      })
-    );
+    // config.plugins.push(
+    //   new FilterWarningsPlugin({
+    //     exclude: /mini-css-extract-plugin[^]*Conflicting order between:/,
+    //   })
+    // );
 
     config.plugins.push(
       new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /ko|en/)
@@ -101,4 +101,4 @@ module.exports = withSass({
       reportFilename: './bundles/client.html',
     },
   },
-});
+};

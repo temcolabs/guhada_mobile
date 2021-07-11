@@ -1,4 +1,4 @@
-import App, { Container } from 'next/app';
+import App from 'next/app';
 import React from 'react';
 import Router from 'next/router';
 import { initializeStore } from '../store';
@@ -195,39 +195,29 @@ class GuhadaMobileWeb extends App {
     const { Component, initialProps, fullUrl, hostname } = this.props;
 
     return (
-      <Container>
-        <Provider {...this.mobxStore}>
-          <>
-            <CommonHead isRobotAllowed={getIsProdHost(hostname)}>
-              <>
-                {/* canonical url of current page */}
-                {fullUrl && (
-                  <link key="canonical" rel="canonical" href={fullUrl} />
-                )}
-                {fullUrl && (
-                  <meta key="og:url" property="og:url" content={fullUrl} />
-                )}
-              </>
-            </CommonHead>
+      <Provider {...this.mobxStore}>
+        <CommonHead isRobotAllowed={getIsProdHost(hostname)}>
+          {/* canonical url of current page */}
+          {fullUrl && <link key="canonical" rel="canonical" href={fullUrl} />}
+          {fullUrl && <meta key="og:url" property="og:url" content={fullUrl} />}
+        </CommonHead>
 
-            {initialProps.layout ? (
-              <Layout
-                title={initialProps.layout.title}
-                scrollMemo={initialProps.layout.scrollMemo}
-                keepSearchAlive={initialProps.layout.keepSearchAlive}
-              >
-                <Component key={this.componentKey} {...initialProps} />
-              </Layout>
-            ) : (
-              <Component key={this.componentKey} {...initialProps} />
-            )}
+        {initialProps.layout ? (
+          <Layout
+            title={initialProps.layout.title}
+            scrollMemo={initialProps.layout.scrollMemo}
+            keepSearchAlive={initialProps.layout.keepSearchAlive}
+          >
+            <Component key={this.componentKey} {...initialProps} />
+          </Layout>
+        ) : (
+          <Component key={this.componentKey} {...initialProps} />
+        )}
 
-            <AlertConductor />
+        <AlertConductor />
 
-            <AssociatedProduct />
-          </>
-        </Provider>
-      </Container>
+        <AssociatedProduct />
+      </Provider>
     );
   }
 }
