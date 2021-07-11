@@ -9,7 +9,7 @@ import 'react-dates/initialize'; // react-dates
 import SingleDatePicker from 'react-dates/lib/components/SingleDatePicker';
 import { SingleDatePickerPhrases } from 'react-dates/lib/defaultPhrases';
 import { HORIZONTAL_ORIENTATION, ANCHOR_LEFT } from './calendarConstants';
-import './DateRangePickerStyle.scss';
+// import './DateRangePickerStyle.scss';
 import memoize from 'memoize-one';
 
 const propTypes = {

@@ -6,7 +6,7 @@ import openPopupCenter from 'childs/lib/common/openPopupCenter';
 
 @observer
 class LoginCheckBox extends Component {
-  openTermPopup = url => {
+  openTermPopup = (url) => {
     const myWidth = document.documentElement.clientWidth;
     const myHeight = document.documentElement.clientHeight;
 
@@ -27,6 +27,7 @@ class LoginCheckBox extends Component {
       >
         {field ? (
           <input
+            className={css.pureCheck}
             type="checkbox"
             id={id ? id : field.name + 'test'}
             {...field.bind()}

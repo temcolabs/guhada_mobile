@@ -61,29 +61,29 @@
     justify-content: space-between;
     align-items: center;
 
-    :global {
-      .SingleDatePicker {
-        flex: 1;
+    // :global {
+    //   .SingleDatePicker {
+    //     flex: 1;
 
-        .SingleDatePickerInput {
-          display: block;
-          width: 100%;
+    //     .SingleDatePickerInput {
+    //       display: block;
+    //       width: 100%;
 
-          .DateInput {
-            width: 100%;
-          }
+    //       .DateInput {
+    //         width: 100%;
+    //       }
 
-          input {
-            display: block;
-            width: 100%;
-            color: #777777;
-            &:focus {
-              color: #111;
-            }
-          }
-        }
-      }
-    }
+    //       input {
+    //         display: block;
+    //         width: 100%;
+    //         color: #777777;
+    //         &:focus {
+    //           color: #111;
+    //         }
+    //       }
+    //     }
+    // }
+    // }
   }
 
   .applyArea__tilde {
@@ -106,10 +106,10 @@
 }
 
 // react-dates SingleDatePikcerInput 스타일 덮어쓰기
-:global {
-  .SingleDatePickerInput {
-    input#PeriodSelector {
-      height: 38px;
-    }
-  }
-}
+// .SingleDatePickerInput {
+//   :global {
+//     input#PeriodSelector {
+//       height: 38px;
+//     }
+//   }
+// }

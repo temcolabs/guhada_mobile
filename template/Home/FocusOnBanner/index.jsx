@@ -1,5 +1,5 @@
 import css from './FocusOnBanner.module.scss';
-import './FocusOnBannerSlick.scss';
+// import './FocusOnBannerSlick.scss';
 import { observer } from 'mobx-react';
 import Slider from 'react-slick';
 import useStores from 'stores/useStores';

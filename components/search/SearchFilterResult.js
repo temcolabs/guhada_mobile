@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import css from './SearchFilterResult.module.scss';
-import './SearchCategory.scss';
+// import './SearchCategory.scss';
 import cn from 'classnames';
 import { inject } from 'mobx-react';
 import { useObserver } from 'mobx-react';

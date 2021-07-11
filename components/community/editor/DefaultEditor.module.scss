@@ -1,114 +1,114 @@
 @import 'styles/mixins/index';
 
 // 섬머노트 구하다 커스텀 스타일
-.defaultEditor {
-  position: relative;
-  // 여기부터는 summernote에서 선언한 스타일에 덮어씌움
-  :global {
-    .note-editor.note-frame.fullscreen {
-      position: fixed;
-    }
+// .defaultEditor {
+//   position: relative;
+//   // 여기부터는 summernote에서 선언한 스타일에 덮어씌움
+//   :global {
+//     .note-editor.note-frame.fullscreen {
+//       position: fixed;
+//     }
 
-    // 에디터 외곽선
-    .note-editor.note-frame {
-      position: relative;
-      border: none;
+//     // 에디터 외곽선
+//     .note-editor.note-frame {
+//       position: relative;
+//       border: none;
 
-      // padding-top: 41px; // 툴바 영역
+//       // padding-top: 41px; // 툴바 영역
 
-      // &.fullscreen {
-      //   padding-top: 41px; // 툴바 영역
-      // }
+//       // &.fullscreen {
+//       //   padding-top: 41px; // 툴바 영역
+//       // }
 
-      &.panel {
-        border-radius: 2px;
-      }
-    }
+//       &.panel {
+//         border-radius: 2px;
+//       }
+//     }
 
-    // 에디터 툴바
-    .note-toolbar {
-      position: relative !important; // 초기화 과정에서 position이 fixed가 되는 현상이 있음
-      width: 100%;
-      background: #f7f8f9;
-      border-bottom: 1px solid #eaedf2;
-      padding-left: 20px;
-      padding-right: 20px;
-    }
+//     // 에디터 툴바
+//     .note-toolbar {
+//       position: relative !important; // 초기화 과정에서 position이 fixed가 되는 현상이 있음
+//       width: 100%;
+//       background: #f7f8f9;
+//       border-bottom: 1px solid #eaedf2;
+//       padding-left: 20px;
+//       padding-right: 20px;
+//     }
 
-    // 버튼 기본 스타일
-    .btn-default {
-      color: #333;
-      background-color: #fff;
-      border-color: #eee;
-    }
+//     // 버튼 기본 스타일
+//     .btn-default {
+//       color: #333;
+//       background-color: #fff;
+//       border-color: #eee;
+//     }
 
-    // 에디터 상단 패널
-    .panel-default > .panel-heading {
-      background-color: #fff;
-      border-color: #eee;
-    }
+//     // 에디터 상단 패널
+//     .panel-default > .panel-heading {
+//       background-color: #fff;
+//       border-color: #eee;
+//     }
 
-    // 하단 리사이즈바
-    .note-editor.note-frame .note-statusbar {
-      height: 9px;
-      background-color: #f7f8f9;
-    }
+//     // 하단 리사이즈바
+//     .note-editor.note-frame .note-statusbar {
+//       height: 9px;
+//       background-color: #f7f8f9;
+//     }
 
-    // 툴바 버튼
-    .note-btn {
-      font-size: 12px;
-      border: solid 1px #e6eaee;
-      background-color: #ffffff;
-    }
+//     // 툴바 버튼
+//     .note-btn {
+//       font-size: 12px;
+//       border: solid 1px #e6eaee;
+//       background-color: #ffffff;
+//     }
 
-    // // 버튼 radius 값
-    // .note-btn-group > .note-btn:first-child,
-    // .note-btn-group > .note-btn-group:first-child {
-    //   border-bottom-left-radius: 5px;
-    //   border-top-left-radius: 5px;
-    // }
+//     // // 버튼 radius 값
+//     // .note-btn-group > .note-btn:first-child,
+//     // .note-btn-group > .note-btn-group:first-child {
+//     //   border-bottom-left-radius: 5px;
+//     //   border-top-left-radius: 5px;
+//     // }
 
-    // .note-btn-group > .note-btn:last-child:not(.note-dropdown),
-    // .note-btn-group > .note-btn-group:last-child:not(.note-dropdown) {
-    //   border-top-right-radius: 5px;
-    //   border-bottom-right-radius: 5px;
-    // }
+//     // .note-btn-group > .note-btn:last-child:not(.note-dropdown),
+//     // .note-btn-group > .note-btn-group:last-child:not(.note-dropdown) {
+//     //   border-top-right-radius: 5px;
+//     //   border-bottom-right-radius: 5px;
+//     // }
 
-    .note-editor.note-frame .note-editing-area .note-editable {
-      padding: 10px;
+//     .note-editor.note-frame .note-editing-area .note-editable {
+//       padding: 10px;
 
-      ul,
-      ol {
-        margin-left: 1.5em;
-      }
+//       ul,
+//       ol {
+//         margin-left: 1.5em;
+//       }
 
-      ul {
-        list-style: disc;
-        list-style-type: disc;
-        list-style-position: inside; // text-align center에 불릿, 숫자를 가운데로 정렬한다.
-      }
+//       ul {
+//         list-style: disc;
+//         list-style-type: disc;
+//         list-style-position: inside; // text-align center에 불릿, 숫자를 가운데로 정렬한다.
+//       }
 
-      ol {
-        list-style: decimal;
-        list-style-type: decimal;
-        list-style-position: inside;
-      }
+//       ol {
+//         list-style: decimal;
+//         list-style-type: decimal;
+//         list-style-position: inside;
+//       }
 
-      iframe,
-      img {
-        max-width: 100%;
-      }
-    }
-  }
-}
+//       iframe,
+//       img {
+//         max-width: 100%;
+//       }
+//     }
+//   }
+// }
 
 // 에디터 모달
-:global {
-  .note-modal {
-    .note-modal-footer {
-      @include clearfix;
-      height: initial;
-      padding: 10px 30px;
-    }
-  }
-}
+// :global {
+//   .note-modal {
+//     .note-modal-footer {
+//       @include clearfix;
+//       height: initial;
+//       padding: 10px 30px;
+//     }
+//   }
+// }

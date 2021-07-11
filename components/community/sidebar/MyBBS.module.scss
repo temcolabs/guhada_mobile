@@ -16,15 +16,15 @@
   }
 }
 
-// flex박스 지원 브라우저에서는 수직 가운데 정렬을 한다
-:global {
-  html.flexbox {
-    div[class^='myBbsProfileWrapper'] {
-      display: flex;
-      align-items: center;
-    }
-  }
-}
+// // flex박스 지원 브라우저에서는 수직 가운데 정렬을 한다
+// :global {
+//   html.flexbox {
+//     div[class^='myBbsProfileWrapper'] {
+//       display: flex;
+//       align-items: center;
+//     }
+//   }
+// }
 
 .avatar {
   background-size: cover;

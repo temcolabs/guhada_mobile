@@ -71,15 +71,15 @@ $cellHoriPadding: 14px;
     }
 
     // * value 컬럼에 Input, Select가 아닌 텍스트만 넣을 때 이 클래스를 사용한다
-    :global {
-      .textValueCell {
-        min-height: 36px;
-        padding: 8px 0 9px;
-        font-size: 13px;
-        font-weight: 400;
-        color: #444444;
-      }
-    }
+    // :global {
+    //   .textValueCell {
+    //     min-height: 36px;
+    //     padding: 8px 0 9px;
+    //     font-size: 13px;
+    //     font-weight: 400;
+    //     color: #444444;
+    //   }
+    // }
   }
 }
 

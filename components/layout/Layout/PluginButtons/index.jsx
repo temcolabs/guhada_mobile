@@ -1,4 +1,4 @@
-import css from './PluginButtons.modules.scss';
+import css from './PluginButtons.module.scss';
 import { useState, memo } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';

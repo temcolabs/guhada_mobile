@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import css from './ArticleContents.module.scss';
 import { useBBSStore } from 'stores/bbs';
-import loadImage from 'blueimp-load-image';
+import * as loadImage from 'blueimp-load-image';
 
 /**
  * 첨부 이미지 목록
@@ -18,7 +18,7 @@ export default function ArticleImages({ imageList = [], wrapperStyle = {} }) {
   useEffect(() => {
     const listEl = listRef.current;
     if (listEl) {
-      articleStore.bbsImageList.forEach(bbsImage => {
+      articleStore.bbsImageList.forEach((bbsImage) => {
         // NOTE: https://github.com/blueimp/JavaScript-Load-Image#options
         return loadImage(
           bbsImage.url,

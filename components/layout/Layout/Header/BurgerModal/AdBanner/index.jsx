@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import Slider from 'react-slick';
-import './AdBannerSlick.scss';
+// import './AdBannerSlick.scss';
 import useStores from 'stores/useStores';
 import { pushRoute } from 'childs/lib/router';
 

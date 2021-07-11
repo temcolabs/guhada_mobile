@@ -1,5 +1,5 @@
 import css from './SideBanner.module.scss';
-import './SideBannerSlick.scss';
+// import './SideBannerSlick.scss';
 import { memo } from 'react';
 import PropTypes from 'prop-types';
 import Slider from 'react-slick';

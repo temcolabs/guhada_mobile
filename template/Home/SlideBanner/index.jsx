@@ -2,7 +2,7 @@ import css from './SlideBanner.module.scss';
 import { useState, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import Slider from 'react-slick';
-import './SlideBannerSlick.scss';
+// import './SlideBannerSlick.scss';
 import useStores from 'stores/useStores';
 import Image from 'components/atoms/Image/HomeImage';
 import { pushRoute } from 'childs/lib/router';
@@ -23,9 +23,9 @@ function SlideBanner() {
 
     if (slickDots) {
       for (let i = 0; i < imageList.length; ++i) {
-        slickDots.childNodes[i].style.width = `calc((100% - 38px) / ${
-          imageList.length
-        })`;
+        slickDots.childNodes[
+          i
+        ].style.width = `calc((100% - 38px) / ${imageList.length})`;
         if (imageList[i].link.includes('special')) {
           const eventIds = imageList[i].link.replace(/[^0-9]/g, '');
           imageList[i].eventIds = eventIds;
