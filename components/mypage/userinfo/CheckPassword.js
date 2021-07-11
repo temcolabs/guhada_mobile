@@ -14,14 +14,14 @@ import { snsAppKey } from 'childs/lib/constant/sns';
 import { devLog } from 'childs/lib/common/devLog';
 import useStores from 'stores/useStores';
 import entryService from 'childs/lib/API/user/entryService';
-import { observer } from 'mobx-react-lite';
+import { observer } from 'mobx-react';
 import NaverLogin from 'components/login/NaverLogin';
 import NaverLoginCheckPassword from 'components/login/NaverLoginCheckPassword';
 import { key } from 'childs/lib/constant';
 import Cookies from 'js-cookie';
 
 function CheckPassword({
-  onSubmitPassword = password => {},
+  onSubmitPassword = (password) => {},
   checkEditFormVisiblity = () => {}, // 회원정보 수정 양식 표시 확인
 }) {
   const { login: loginStore, user: userStore } = useStores();
@@ -29,7 +29,7 @@ function CheckPassword({
   const { connectedSNS } = userStore;
 
   // 아이디, 패스워드 입력
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     onSubmitPassword(password);
   };
@@ -61,7 +61,7 @@ function CheckPassword({
       <div className={css.pwInputWrap}>
         <input type="text" name="hidden" style={{ display: 'none' }} />
         <Input
-          onChange={value => setPassword(value)}
+          onChange={(value) => setPassword(value)}
           placeholder="비밀번호를 입력해 주세요."
           type="password"
           autoComplete="password"
@@ -106,18 +106,18 @@ function CheckPassword({
         />
         <KakaoLogin
           jsKey={snsAppKey.KAKAO}
-          onSuccess={res => {
+          onSuccess={(res) => {
             entryService
               .kakaoLogin(loginStore.extractKakaoLoginParams(res))
               .then(() => {
                 showEditForm();
               });
           }}
-          onFailure={err => {
+          onFailure={(err) => {
             devLog(`err`, err);
           }}
           getProfile={true}
-          render={props => (
+          render={(props) => (
             <button
               name="kakao"
               type="button"
@@ -134,7 +134,7 @@ function CheckPassword({
           appId={snsAppKey.FACEBOOK}
           autoLoad={false}
           fields="name,email"
-          callback={res => {
+          callback={(res) => {
             entryService
               .facebookLogin(loginStore.extractFacebookLoginParams(res))
               .then(() => {
@@ -143,7 +143,7 @@ function CheckPassword({
           }}
           cookie={true}
           xfbml={true}
-          render={props => (
+          render={(props) => (
             <button
               name="facebook"
               type="button"
@@ -158,7 +158,7 @@ function CheckPassword({
 
         <GoogleLogin
           clientId={snsAppKey.GOOGLE}
-          render={renderProps => (
+          render={(renderProps) => (
             <button
               name="google"
               type="button"
@@ -170,14 +170,14 @@ function CheckPassword({
             </button>
           )}
           buttonText="Login"
-          onSuccess={res => {
+          onSuccess={(res) => {
             entryService
               .googleLogin(loginStore.extractGoogleLoginParams(res))
               .then(() => {
                 showEditForm();
               });
           }}
-          onFailure={res => {
+          onFailure={(res) => {
             devLog(`res`, res);
           }}
         />

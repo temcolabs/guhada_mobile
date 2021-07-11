@@ -3,7 +3,7 @@ import css from './ToolBar.module.scss';
 import cn from 'classnames';
 import ToolbarCategory from './ToolbarCategory';
 import ToolbarBrand from './ToolbarBrand';
-import { useObserver } from 'mobx-react-lite';
+import { useObserver } from 'mobx-react';
 import { pushRoute } from 'childs/lib/router';
 import useStores from 'stores/useStores';
 

@@ -4,7 +4,7 @@ import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 import MyDealSelect from './MyDealSelect';
 import ClaimType from './ClaimType';
 import useStores from 'stores/useStores';
-import { useObserver } from 'mobx-react-lite';
+import { useObserver } from 'mobx-react';
 import memoize from 'memoize-one';
 import { inject, observer } from 'mobx-react';
 

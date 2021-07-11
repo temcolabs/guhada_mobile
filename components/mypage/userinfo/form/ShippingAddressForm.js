@@ -3,7 +3,7 @@ import css from './UserEditForm.module.scss';
 import cn from 'classnames';
 import { UserEditFormContext } from 'template/mypage/UserInfomation';
 import useStores from 'stores/useStores';
-import { useObserver } from 'mobx-react-lite';
+import { useObserver } from 'mobx-react';
 import Text from 'components/mypage/form/Text';
 import { pushRoute } from 'childs/lib/router';
 

@@ -5,7 +5,7 @@ import { default as purchaseStatusType } from 'childs/lib/constant/order/purchas
 import isTruthy from 'childs/lib/common/isTruthy';
 import { ORDER_COMPLETE_SAMPLE } from 'childs/lib/constant/order/orderModel';
 import useStores from 'stores/useStores';
-import { useObserver } from 'mobx-react-lite';
+import { useObserver } from 'mobx-react';
 
 /**
  * 마이페이지에서 사용하는 액션 버튼
@@ -140,14 +140,15 @@ function OrderActionButtonConductor({
     <OrderActionButton
       className={css.isColored}
       onClick={() =>
-        !isClaim ?
-        orderCompleteList.handleClickConfirmOrderButton({
-          order,
-          onSuccess: orderCompleteList.getMyOrders,
-        }) : orderClaimList.handleClickConfirmOrderButton({
-          order,
-          onSuccess: orderClaimList.getMyCancelOrders // 취소목록 새로고침            
-        })
+        !isClaim
+          ? orderCompleteList.handleClickConfirmOrderButton({
+              order,
+              onSuccess: orderCompleteList.getMyOrders,
+            })
+          : orderClaimList.handleClickConfirmOrderButton({
+              order,
+              onSuccess: orderClaimList.getMyCancelOrders, // 취소목록 새로고침
+            })
       }
     >
       구매 확정
@@ -275,7 +276,7 @@ function OrderActionButtonConductor({
       height: '550px',
     };
   } else if (buttonTypes.length > 0) {
-    buttonTypes.forEach(buttonType => {
+    buttonTypes.forEach((buttonType) => {
       // 배열에 지정된 타입의 버튼을 렌더링한다
       switch (buttonType) {
         case actionType.SHOW_ORDER:

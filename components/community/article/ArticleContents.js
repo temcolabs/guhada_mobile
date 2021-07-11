@@ -3,7 +3,7 @@ import jsxTextLineBreak from 'childs/lib/common/jsxTextLineBreak';
 import css from './ArticleContents.module.scss';
 import { useBBSStore } from 'stores/bbs';
 import ArticleImages from './ArticleImages';
-import { useObserver } from 'mobx-react-lite';
+import { useObserver } from 'mobx-react';
 
 /**
  *

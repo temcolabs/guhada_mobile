@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import css from './CommentInput.module.scss';
 import useStores from 'stores/useStores';
-import { useObserver } from 'mobx-react-lite';
+import { useObserver } from 'mobx-react';
 import useChangeInput from 'components/hooks/useChangeInput';
 import { uploadImageFile } from 'childs/lib/API/gateway/fileUploadService';
 import { sendBackToLogin } from 'childs/lib/router';
@@ -36,7 +36,7 @@ export default function CommentInput({
     };
   }, [initialImageList, isUpdate]);
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     if (!login.isLoggedIn) {
       sendBackToLogin();
     } else {
@@ -67,7 +67,7 @@ export default function CommentInput({
    * 첨부파일 선택
    * @param {*} e
    */
-  const handleChangeAttachFileInput = async e => {
+  const handleChangeAttachFileInput = async (e) => {
     if (atthcedImages.length >= 1) {
       alert.showAlert('이미지는 1개까지 첨부 가능합니다.');
     } else {
@@ -85,8 +85,8 @@ export default function CommentInput({
     }
   };
 
-  const handleDeleteImage = index => {
-    setAttachedImages(list => {
+  const handleDeleteImage = (index) => {
+    setAttachedImages((list) => {
       const copiedList = list.slice();
       copiedList.splice(index, 1);
       return copiedList;
@@ -101,7 +101,7 @@ export default function CommentInput({
           className={css.inputBox_input}
           placeholder="댓글을 입력해주세요."
           value={contents || ''}
-          onChange={e => handleChangeContents(e.target.value)}
+          onChange={(e) => handleChangeContents(e.target.value)}
         />
         <button type="submit" className={css.inputBox_registerButton}>
           <span>{isUpdate ? '수정' : '등록'}</span>

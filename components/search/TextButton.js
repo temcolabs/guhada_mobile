@@ -2,7 +2,7 @@ import React from 'react';
 import css from './TextButton.module.scss';
 import cn from 'classnames';
 import { inject } from 'mobx-react';
-import { useObserver } from 'mobx-react-lite';
+import { useObserver } from 'mobx-react';
 
 function TextButton({
   filter = {

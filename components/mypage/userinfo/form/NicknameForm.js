@@ -9,13 +9,13 @@ import {
   validateWithValue,
   delayedValidation,
   validateStringHasLength,
-  nickNameLength
+  nickNameLength,
 } from 'childs/lib/common/finalFormValidators';
 import debouncePromise from 'childs/lib/common/debouncePromise';
 import userService from 'childs/lib/API/user/userService';
 import { UserEditFormContext } from 'template/mypage/UserInfomation';
 // import useStores from 'stores/useStores';
-import { useObserver } from 'mobx-react-lite';
+import { useObserver } from 'mobx-react';
 
 export default function NicknameVerifyForm() {
   const { fields, initialValues, runAfterFormInit } = useContext(
@@ -29,7 +29,7 @@ export default function NicknameVerifyForm() {
    * 닉네임 중복 확인
    */
   const checkIsNicknameDup = useCallback(
-    debouncePromise(async nickname => {
+    debouncePromise(async (nickname) => {
       return await userService.isNicknameExist({ nickname });
     }, 300),
     []
@@ -47,7 +47,7 @@ export default function NicknameVerifyForm() {
 
   const validator = useCallback(
     runAfterFormInit(
-      composeValidators(notEmptyString, async v => {
+      composeValidators(notEmptyString, async (v) => {
         if (lastValue !== v) {
           // 초기값과 같으면 문제없음
           if (initialValues[fields.nickname] === v) {
@@ -72,10 +72,14 @@ export default function NicknameVerifyForm() {
   }, [fields.nickname, initialValues]);
 
   return useObserver(() => (
-    <Field name={fields.nickname} validate={composeValidators(
-      delayedValidation(
-        validateStringHasLength(validateWithValue(nickNameLength))
-      ))}>
+    <Field
+      name={fields.nickname}
+      validate={composeValidators(
+        delayedValidation(
+          validateStringHasLength(validateWithValue(nickNameLength))
+        )
+      )}
+    >
       {({ meta, input }) => {
         return (
           <div className={css.formGroup}>
@@ -83,7 +87,7 @@ export default function NicknameVerifyForm() {
               <input type="text" name="hidden" style={{ display: 'none' }} />
               <Input
                 initialValue={meta.initial}
-                onChange={v => onChange(v, { input, meta })}
+                onChange={(v) => onChange(v, { input, meta })}
                 autoComplete="false"
                 status={meta.error ? inputStatTypes.ERROR : inputStatTypes.OK}
               />

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { withRouter } from 'next/router';
 import { compose } from 'lodash/fp';
-import { useObserver } from 'mobx-react-lite';
+import { useObserver } from 'mobx-react';
 
 import SellerStoreHeader from 'components/sellerstore/SellerStoreHeader';
 import SellerStoreTab from 'components/sellerstore/SellerStoreTab';

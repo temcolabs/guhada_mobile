@@ -15,7 +15,7 @@ import CommunityContentWrap from 'components/community/CommunityContentWrap';
 import { useBBSStore } from 'stores/bbs';
 import useBBSSearchState from 'components/community/list/useBBSSearchState';
 import { ITEMS_PER_PAGE } from 'childs/lib/constant/community/searchQuery';
-import { useObserver } from 'mobx-react-lite';
+import { useObserver } from 'mobx-react';
 import BoardGridItem, {
   BoardGridContainer,
 } from 'components/community/list/BoardGridItem';
@@ -25,10 +25,7 @@ import DataEmpty from 'components/common/DataEmpty.js';
 import Slider from 'components/molecules/Slider';
 import Image from 'components/atoms/Image';
 
-const enhancer = compose(
-  withScrollToTopOnMount,
-  withRouter
-);
+const enhancer = compose(withScrollToTopOnMount, withRouter);
 
 const settings = {
   dots: true,

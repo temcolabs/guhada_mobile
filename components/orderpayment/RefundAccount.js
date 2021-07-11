@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import css from './RefundAccount.module.scss';
 import _ from 'lodash';
-import { useObserver } from 'mobx-react-lite';
+import { useObserver } from 'mobx-react';
 import useStores from 'stores/useStores';
 import RefundAccountBankSelect from './RefundAccountBankSelect';
 

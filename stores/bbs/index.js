@@ -6,7 +6,7 @@ import BBSSearchStore from './BBSSearchStore';
 import MyBBSStore from './MyBBSStore';
 import CategoryFilterStore from './CategoryFilterStore';
 import TempArticleStore from './TempArticleStore';
-import { useObserver } from 'mobx-react-lite';
+import { useObserver } from 'mobx-react';
 
 /**
  * 커뮤니티 관련 스토어.

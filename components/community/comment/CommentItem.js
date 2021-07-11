@@ -7,7 +7,7 @@ import CommentInput from './CommentInput';
 import { useBBSStore } from 'stores/bbs';
 import useStores from 'stores/useStores';
 import { ArticleIdContext } from 'template/community/BBSArticleView';
-import { useObserver } from 'mobx-react-lite';
+import { useObserver } from 'mobx-react';
 
 /**
  * 댓글 1개

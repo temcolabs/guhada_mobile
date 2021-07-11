@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import css from './SellerStoreInfo.module.scss';
 import cn from 'classnames';
 import _ from 'lodash';
-import { useObserver } from 'mobx-react-lite';
+import { useObserver } from 'mobx-react';
 import { pushRoute, sendBackToLogin } from 'childs/lib/router';
 import { loginStatus } from 'childs/lib/constant';
 import isTruthy from 'childs/lib/common/isTruthy';
@@ -93,7 +93,7 @@ function SellerStoreInfo({
             className={cn(css.followBtn, {
               [css.following]: sellerfollow.follows === true,
             })}
-            onClick={e => {
+            onClick={(e) => {
               handleSellerFollows();
               e.stopPropagation();
             }}
@@ -103,7 +103,7 @@ function SellerStoreInfo({
         ) : (
           <button
             className={cn(css.followBtn)}
-            onClick={e => {
+            onClick={(e) => {
               sendBackToLogin();
               e.stopPropagation();
             }}
@@ -113,7 +113,7 @@ function SellerStoreInfo({
         )}
       </div>
       <div className={css.sellerItemWrap}>
-        {dealsOfSellerStore.map(deal => {
+        {dealsOfSellerStore.map((deal) => {
           return (
             <div
               className={css.sellerItem}

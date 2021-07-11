@@ -3,7 +3,7 @@ import css from './SearchFilterResult.module.scss';
 import './SearchCategory.scss';
 import cn from 'classnames';
 import { inject } from 'mobx-react';
-import { useObserver } from 'mobx-react-lite';
+import { useObserver } from 'mobx-react';
 import { compose } from 'lodash/fp';
 import { withRouter } from 'next/router';
 import isTruthy from 'childs/lib/common/isTruthy';
@@ -14,10 +14,7 @@ import { isArray } from 'util';
 import { devLog } from 'childs/lib/common/devLog';
 import { priceOption } from 'childs/lib/constant/filter/price';
 
-const enhancer = compose(
-  inject('searchitem', 'seller'),
-  withRouter
-);
+const enhancer = compose(inject('searchitem', 'seller'), withRouter);
 
 function SearchFilterResult({ searchitem, router, seller }) {
   const [isVisible, setIsVisible] = useState(false);
@@ -225,17 +222,16 @@ function SearchFilterResult({ searchitem, router, seller }) {
                 );
               })}
 
-            {/* 
-              * 가격 태그
-              * - query, searchItem.maxPrice 값비교
-              * - TODO : 상단 컴포넌트들은 API 응답 값으로 사용
-            */}
-            {maxPrice && maxPrice === searchitem.maxPrice &&
-              <button
-                onClick={() => toSearch({})}>
-                {priceOption.find(o => o.max === parseInt(maxPrice))?.label}
+            {/*
+             * 가격 태그
+             * - query, searchItem.maxPrice 값비교
+             * - TODO : 상단 컴포넌트들은 API 응답 값으로 사용
+             */}
+            {maxPrice && maxPrice === searchitem.maxPrice && (
+              <button onClick={() => toSearch({})}>
+                {priceOption.find((o) => o.max === parseInt(maxPrice))?.label}
               </button>
-            }
+            )}
             <img
               src={'/static/icon/btn_filter_reset@3x.png'}
               width={93}

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import css from './SearchCategory.module.scss';
 import cn from 'classnames';
 import { inject } from 'mobx-react';
-import { useObserver } from 'mobx-react-lite';
+import { useObserver } from 'mobx-react';
 import { compose } from 'lodash/fp';
 import { withRouter } from 'next/router';
 import { toJS } from 'mobx';

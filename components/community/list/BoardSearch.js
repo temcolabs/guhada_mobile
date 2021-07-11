@@ -4,7 +4,7 @@ import css from './BoardSearch.module.scss';
 import SearchInputOption from './SearchInputOption';
 import SearchInput from '../form/SearchInput';
 import { searchTypeOptions } from 'childs/lib/constant/community/searchType';
-import { useObserver } from 'mobx-react-lite';
+import { useObserver } from 'mobx-react';
 
 /**
  * 게시판 검색
@@ -18,15 +18,15 @@ export default function BoardSearch({
   const [query, setQuery] = useState(initialQuery);
   const [searchType, setSearchType] = useState(initialSearchType);
 
-  const handleSelectOption = value => {
+  const handleSelectOption = (value) => {
     setSearchType(value);
   };
 
-  const handleChangeQuery = v => {
+  const handleChangeQuery = (v) => {
     setQuery(v);
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     onSubmitSearch({
       searchType,

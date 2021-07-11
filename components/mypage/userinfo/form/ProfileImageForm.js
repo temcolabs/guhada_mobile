@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import css from './ProfileImageForm.module.scss';
 import { UserEditFormContext } from 'template/mypage/UserInfomation';
 import useStores from 'stores/useStores';
-import { useObserver } from 'mobx-react-lite';
+import { useObserver } from 'mobx-react';
 import { isImageFile } from 'childs/lib/common/isImageFile';
 import {
   uploadProfileFile,
@@ -16,7 +16,7 @@ export default function ProfileImageForm() {
   );
   const attachFileInputRef = React.useRef();
 
-  const handleChangeAttachFile = async e => {
+  const handleChangeAttachFile = async (e) => {
     const { files } = e.target;
 
     const uploadFile = files[0];

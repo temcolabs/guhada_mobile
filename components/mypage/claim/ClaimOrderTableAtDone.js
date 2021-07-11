@@ -1,6 +1,6 @@
 import React from 'react';
 import useStores from 'stores/useStores';
-import { useObserver } from 'mobx-react-lite';
+import { useObserver } from 'mobx-react';
 import DealOrdered from '../DealOrdered';
 
 /**

@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import css from './ArticleTitle.module.scss';
 import moment from 'moment';
-import { useObserver } from 'mobx-react-lite';
+import { useObserver } from 'mobx-react';
 
 /**
  * 게시판 글 타이틀 영역

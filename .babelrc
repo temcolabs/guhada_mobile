@@ -42,8 +42,7 @@
           "static": "./static",
           "stores": "./stores",
           "styles": "./styles",
-          "template": "./template",
-          ".storybook": "./.storybook"
+          "template": "./template"
         }
       }
     ]

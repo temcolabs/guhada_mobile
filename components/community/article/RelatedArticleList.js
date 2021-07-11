@@ -3,7 +3,7 @@ import CommunityContentWrap from 'components/community/CommunityContentWrap';
 import { useBBSStore } from 'stores/bbs';
 import useBBSSearchState from 'components/community/list/useBBSSearchState';
 import BoardListItem from '../list/BoardListItem';
-import { useObserver } from 'mobx-react-lite';
+import { useObserver } from 'mobx-react';
 import MoreButton from 'components/common/MoreButton';
 
 /**

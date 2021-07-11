@@ -15,8 +15,8 @@ function Slider({ children, settings }) {
   return <ReactSlider {...settings}>{children}</ReactSlider>;
 }
 
-Slider.propTypes = {
-  settings: PropTypes.object,
-};
+// Slider.propTypes = {
+//   settings: PropTypes.object,
+// };
 
 export default Slider;

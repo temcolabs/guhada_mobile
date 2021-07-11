@@ -2,7 +2,7 @@ import React from 'react';
 import css from './FirstPurchaseReward.module.scss';
 import ModalWrapper from 'components/common/modal/ModalWrapper';
 import { inject } from 'mobx-react';
-import { useObserver } from 'mobx-react-lite';
+import { useObserver } from 'mobx-react';
 
 const FirstPurchaseReward = ({ isOpen, eventmain }) => {
   return useObserver(() => (

@@ -10,7 +10,7 @@ import SearchMenu from './SearchMenu';
 import BrandContainer from './item/BrandContainer';
 import BurgerModal from 'components/header/HeaderMenu';
 import SearchModal from 'components/layout/Layout/Header/SearchModal';
-import { useObserver } from 'mobx-react-lite';
+import { useObserver } from 'mobx-react';
 
 /**
  * @param {string} headerShape

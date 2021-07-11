@@ -10,7 +10,7 @@ import {
   validateStringHasLength,
 } from 'childs/lib/common/finalFormValidators';
 import { UserEditFormContext } from 'template/mypage/UserInfomation';
-import { useObserver } from 'mobx-react-lite';
+import { useObserver } from 'mobx-react';
 import ErrorMessage from 'components/mypage/form/ErrorMessage';
 import isTruthy from 'childs/lib/common/isTruthy';
 
@@ -21,7 +21,7 @@ export default function NewPasswordForm() {
   const { fields, values, formApi } = useContext(UserEditFormContext);
 
   // 입력창 스타일
-  const getInputStatusType = meta => {
+  const getInputStatusType = (meta) => {
     const { password, passwordConfirm } = values;
     const isPasswordSame =
       isTruthy(password) &&
@@ -78,7 +78,7 @@ export default function NewPasswordForm() {
             delayedValidation(
               validateStringHasLength(validateWithValue(mustBePassword))
             ),
-            v => {
+            (v) => {
               // 비밀번호 일치여부 검사
               return v !== values[fields.password]
                 ? '비밀번호가 일치하지 않습니다.'

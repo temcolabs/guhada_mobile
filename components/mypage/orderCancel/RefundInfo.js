@@ -5,7 +5,7 @@ import addCommaToNum from 'childs/lib/common/addCommaToNum';
 import nilToZero from 'childs/lib/common/nilToZero';
 import { paymentMethodOptions } from 'childs/lib/constant/order/paymentMethod';
 import MypageSectionTitle from '../MypageSectionTitle';
-import { observer } from 'mobx-react-lite';
+import { observer } from 'mobx-react';
 import useStores from 'stores/useStores';
 
 /**
@@ -27,7 +27,7 @@ function RefundInfo({
   // 결제 방법이 한글 텍스트가 아닌 enum으로 오는 케이스가 있음(신청 페이지)
   // 옵션에서 찾을 수 있으면 대체하고, 아니면 전달된 값을 그대로 사용한다.
   const paymentMethodTextInView =
-    paymentMethodOptions.find(o => o.value === paymentMethodText)?.label ||
+    paymentMethodOptions.find((o) => o.value === paymentMethodText)?.label ||
     paymentMethodText;
 
   const collapsingName = useMemo(

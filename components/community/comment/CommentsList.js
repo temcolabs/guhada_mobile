@@ -3,7 +3,7 @@ import _ from 'lodash';
 import css from './CommentsList.module.scss';
 import CommentItem from './CommentItem';
 import CommentInput from './CommentInput';
-import { useObserver } from 'mobx-react-lite';
+import { useObserver } from 'mobx-react';
 import { useBBSStore } from 'stores/bbs';
 import jumpToAnchor from 'childs/lib/dom/jumpToAnchor';
 import ReportModal from 'components/claim/report/ReportModal';

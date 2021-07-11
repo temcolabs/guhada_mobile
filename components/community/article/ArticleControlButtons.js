@@ -3,7 +3,7 @@ import css from './ArticleControlButtons.module.scss';
 import ArticleBookmarkButton from 'components/community/article/ArticleBookmarkButton';
 import ArticleMoreButton from 'components/community/article/ArticleMoreButton';
 import ArticleShareButton from 'components/community/article/ArticleShareButton';
-import { useObserver } from 'mobx-react-lite';
+import { useObserver } from 'mobx-react';
 import { useBBSStore } from 'stores/bbs';
 import qs from 'qs';
 import { pushRoute, sendBackToLogin } from 'childs/lib/router';

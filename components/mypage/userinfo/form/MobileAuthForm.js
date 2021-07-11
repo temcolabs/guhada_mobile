@@ -9,7 +9,7 @@ import {
 } from 'childs/lib/common/finalFormValidators';
 import { UserEditFormContext } from 'template/mypage/UserInfomation';
 import useStores from 'stores/useStores';
-import { useObserver } from 'mobx-react-lite';
+import { useObserver } from 'mobx-react';
 import { devLog } from 'childs/lib/common/devLog';
 import { isMobileNum } from 'childs/lib/string/addHyphenToMobile';
 import { authLocations } from 'stores/AuthMobileStore';

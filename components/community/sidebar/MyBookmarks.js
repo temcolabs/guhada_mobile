@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import css from './MyBBS.module.scss';
 import { LinkRoute } from 'childs/lib/router';
 import { useBBSStore } from 'stores/bbs';
-import { useObserver } from 'mobx-react-lite';
+import { useObserver } from 'mobx-react';
 import DeletedMyActivityItem from './myArticles/DeletedMyActivityItem';
 import MyBookmarkItem from './myArticles/MyBookmarkItem';
 import NoMyBookmarks from './myArticles/NoMyBookmarks';

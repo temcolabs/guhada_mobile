@@ -1,6 +1,6 @@
 import React from 'react';
 import css from './UserEditForm.module.scss';
-import { useObserver, observer } from 'mobx-react-lite';
+import { useObserver, observer } from 'mobx-react';
 import Checkbox from 'components/mypage/form/Checkbox';
 import useStores from 'stores/useStores';
 import cn from 'classnames';

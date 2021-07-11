@@ -3,7 +3,7 @@ import css from './MyBBS.module.scss';
 import cn from 'classnames';
 import { LinkRoute } from 'childs/lib/router';
 import { useBBSStore } from 'stores/bbs';
-import { useObserver } from 'mobx-react-lite';
+import { useObserver } from 'mobx-react';
 import DeletedMyActivityItem from './myArticles/DeletedMyActivityItem';
 import MyActivityItem from './myArticles/MyActivityItem';
 import NoMyArticles from './myArticles/NoMyArticles';

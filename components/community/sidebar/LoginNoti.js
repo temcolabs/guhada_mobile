@@ -3,7 +3,7 @@ import css from './MyBBS.module.scss';
 import { LinkRoute } from 'childs/lib/router';
 import qs from 'qs';
 import { withRouter } from 'next/router';
-import { useObserver } from 'mobx-react-lite';
+import { useObserver } from 'mobx-react';
 import { compose } from 'lodash/fp';
 
 const enhancer = compose(withRouter);

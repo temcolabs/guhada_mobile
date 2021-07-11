@@ -17,7 +17,7 @@ import userService from 'childs/lib/API/user/userService';
 import notificationService from 'childs/lib/API/user/notificationService';
 import { UserEditFormContext } from 'template/mypage/UserInfomation';
 import useStores from 'stores/useStores';
-import { useObserver } from 'mobx-react-lite';
+import { useObserver } from 'mobx-react';
 import verifyService from 'childs/lib/API/user/verifyService';
 import { devLog } from 'childs/lib/common/devLog';
 import ErrorMessage from 'components/mypage/form/ErrorMessage';
@@ -50,7 +50,7 @@ export default function EmailVerifyForm() {
   const [lastValue, setLastValue] = useState(null);
 
   const checkIsEmailDup = useCallback(
-    debouncePromise(async email => {
+    debouncePromise(async (email) => {
       return await userService.isEmailExist({ email });
     }, 300),
     []
@@ -109,7 +109,7 @@ export default function EmailVerifyForm() {
           verificationTargetType: 'EMAIL',
         },
       })
-      .then(res => {
+      .then((res) => {
         userService
           .emailVerify({
             verificationNumber: values.emailAuthCode,
@@ -130,7 +130,7 @@ export default function EmailVerifyForm() {
               [fields.emailAuthCode]: '',
             });
           })
-          .catch(e => {
+          .catch((e) => {
             alertStore.showAlert('유효하지 않은 코드입니다.');
           });
       })
@@ -159,7 +159,7 @@ export default function EmailVerifyForm() {
 
   const validator = useCallback(
     runAfterFormInit(
-      composeValidators(mustBeEmail, async v => {
+      composeValidators(mustBeEmail, async (v) => {
         if (lastValue !== v) {
           if (initialValues[fields.email] === v) {
             return undefined;
@@ -221,7 +221,7 @@ export default function EmailVerifyForm() {
                   />
                   <Input
                     initialValue={meta.initial}
-                    onChange={v => onChange(v, meta)}
+                    onChange={(v) => onChange(v, meta)}
                     status={
                       // 인증 번호를 입력해서 인증 받은 상태라면 보라색 체크표시
                       values[fields.isEmailAuthed]

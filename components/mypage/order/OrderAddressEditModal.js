@@ -12,7 +12,7 @@ import {
 import Input from 'components/mypage/form/Input';
 import Checkbox from '../form/Checkbox';
 import openDaumAddressSearch from 'childs/lib/common/openDaumAddressSearch';
-import { useObserver } from 'mobx-react-lite';
+import { useObserver } from 'mobx-react';
 import FormButton from '../form/FormButton';
 import ModalLayout, {
   useModalLayoutState,
@@ -94,7 +94,7 @@ function OrderAddressEditModal({
    * final form onsubmit
    * 주문 배송지 업데이트
    */
-  const handleSubmit = values => {
+  const handleSubmit = (values) => {
     updateShippingAddress({ shippingAddress: values, purchaseId });
   };
 
@@ -125,7 +125,7 @@ function OrderAddressEditModal({
                               notEmptyString
                             )}
                           >
-                            {props => (
+                            {(props) => (
                               <div className={css.inputWrapper}>
                                 <Input
                                   type="text"
@@ -153,7 +153,7 @@ function OrderAddressEditModal({
                             name={fields.zip}
                             validate={composeValidators(required)}
                           >
-                            {props => (
+                            {(props) => (
                               <div className={css.inputWrapper}>
                                 <Input
                                   type="text"
@@ -174,7 +174,8 @@ function OrderAddressEditModal({
                               </div>
                             )}
                           </Field>
-                          <FormButton className={css.shippingAdressFinder}
+                          <FormButton
+                            className={css.shippingAdressFinder}
                             onClick={() =>
                               handleClickAddressSearch({ formApi })
                             }
@@ -196,7 +197,7 @@ function OrderAddressEditModal({
                               notEmptyString
                             )}
                           >
-                            {props => (
+                            {(props) => (
                               <div className={css.inputWrapper}>
                                 <Input
                                   type="text"
@@ -225,7 +226,7 @@ function OrderAddressEditModal({
                               notEmptyString
                             )}
                           >
-                            {props => (
+                            {(props) => (
                               <div className={css.inputWrapper}>
                                 <Input
                                   type="text"
@@ -255,7 +256,7 @@ function OrderAddressEditModal({
                               mustBeMobile
                             )}
                           >
-                            {props => (
+                            {(props) => (
                               <div className={css.inputWrapper}>
                                 <Input
                                   type="text"
@@ -278,7 +279,7 @@ function OrderAddressEditModal({
                       <tr>
                         <td>
                           <Field name={fields.shippingMessage}>
-                            {props => (
+                            {(props) => (
                               <div className={css.inputWrapper}>
                                 <Input
                                   type="text"
@@ -300,7 +301,7 @@ function OrderAddressEditModal({
                             name={fields.defaultAddress}
                             validate={composeValidators(mustBeBoolean)}
                           >
-                            {props => (
+                            {(props) => (
                               <>
                                 <div className={css.inputWrapper}>
                                   <Checkbox
@@ -308,7 +309,7 @@ function OrderAddressEditModal({
                                       initialValues[fields.defaultAddress]
                                     }
                                     name={fields.defaultAddress}
-                                    onChange={checked => {
+                                    onChange={(checked) => {
                                       props.input.onChange(checked);
                                     }}
                                     checked={props.input.value}

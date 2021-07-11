@@ -8,7 +8,7 @@ import LuckyDrawApplyModal from 'components/event/luckydraw/LuckyDrawApplyModal'
 import LuckyDrawResultModal from 'components/event/luckydraw/LuckyDrawResultModal';
 import { compose } from 'lodash/fp';
 import { withRouter } from 'next/router';
-import { useObserver } from 'mobx-react-lite';
+import { useObserver } from 'mobx-react';
 import useStores from 'stores/useStores';
 import copy from 'copy-to-clipboard';
 import { devLog } from 'childs/lib/common/devLog';

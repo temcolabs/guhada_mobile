@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import css from './SellerStoreHeader.module.scss';
 import cn from 'classnames';
 import { loginStatus } from 'childs/lib/constant';
-import { useObserver } from 'mobx-react-lite';
+import { useObserver } from 'mobx-react';
 import checkNullAndEmpty from 'childs/lib/common/checkNullAndEmpty';
 import _ from 'lodash';
 
@@ -36,9 +36,9 @@ export default function SellerStoreHeader({
         style={
           checkNullAndEmpty(sellerStore.offlineStoreImageUrl) === false
             ? {
-              backgroundImage: `url(${sellerStore.offlineStoreImageUrl})`,
-              boxShadow: `inset 0 0 0 180px rgba(17,17,17,0.3)`,
-            }
+                backgroundImage: `url(${sellerStore.offlineStoreImageUrl})`,
+                boxShadow: `inset 0 0 0 180px rgba(17,17,17,0.3)`,
+              }
             : null
         }
       >
@@ -86,21 +86,21 @@ export default function SellerStoreHeader({
               팔로잉
             </button>
           ) : (
-              <button
-                className={cn(css.colored)}
-                onClick={() => seller.setFollowSellerStore(seller.sellerId)}
-              >
-                팔로우
-              </button>
-            )
-        ) : (
             <button
               className={cn(css.colored)}
               onClick={() => seller.setFollowSellerStore(seller.sellerId)}
             >
               팔로우
             </button>
-          )}
+          )
+        ) : (
+          <button
+            className={cn(css.colored)}
+            onClick={() => seller.setFollowSellerStore(seller.sellerId)}
+          >
+            팔로우
+          </button>
+        )}
         <div className={css.satisfactionWrap}>
           <div className={css.satisfactionHeader}>구매자 만족도</div>
           <div>
@@ -124,9 +124,9 @@ export default function SellerStoreHeader({
             >{`불만족 ${sellerStore.badSatisfactionCount.toLocaleString()}명`}</div>
           </div>
         </div>
-        {(_.isNil(sellerStore.offlineStoreAddress.trim()) || sellerStore.offlineStoreAddress.trim() === 'null') ? 
-            null
-            : <Fragment>
+        {_.isNil(sellerStore.offlineStoreAddress.trim()) ||
+        sellerStore.offlineStoreAddress.trim() === 'null' ? null : (
+          <Fragment>
             <div className={css.offlineStoreHeader}>오프라인 스토어</div>
             <div
               className={css.offlineStoreAddress}
@@ -140,7 +140,8 @@ export default function SellerStoreHeader({
               {sellerStore.offlineStoreAddress}
               <div className={css.offlineStoreAddressIcon} />
             </div>
-          </Fragment>}
+          </Fragment>
+        )}
       </div>
     </div>
   ));

@@ -33,11 +33,8 @@ class MySizePanel extends Component {
   }
 
   componentDidMount() {
-    this.props.mySize.getMySize();
-  }
-
-  componentWillMount() {
     this.props.mySize.resetMySize();
+    this.props.mySize.getMySize();
   }
 
   toggleMySizeModal = () => {

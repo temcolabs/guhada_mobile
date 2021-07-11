@@ -5,7 +5,7 @@ import css from './BoardCategoryFilter.module.scss';
 import { withRouter } from 'next/router';
 import useBBSSearchState from 'components/community/list/useBBSSearchState';
 import { useBBSStore } from 'stores/bbs';
-import { useObserver } from 'mobx-react-lite';
+import { useObserver } from 'mobx-react';
 import SlideUpOptions, { slideOptionsPropType } from '../form/SlideUpOptions';
 import useChangeOption from 'components/hooks/useChangeOption';
 import { func } from 'prop-types';

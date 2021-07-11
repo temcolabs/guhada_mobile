@@ -15,7 +15,7 @@ import CategoryFilterSelector from 'components/community/editor/CategoryFilterSe
 import { useBBSStore } from 'stores/bbs';
 import { compose } from 'lodash/fp';
 import { withRouter } from 'next/router';
-import { observer, useObserver } from 'mobx-react-lite';
+import { observer, useObserver } from 'mobx-react';
 import ArticlePreviewModal from 'components/community/article/ArticlePreviewModal';
 import useStores from 'stores/useStores';
 import { Form, Field } from 'react-final-form';
@@ -32,10 +32,7 @@ import striptags from 'striptags';
 import categoryViewType from 'childs/lib/constant/community/categoryViewType';
 import Router from 'next/router';
 
-const enhancer = compose(
-  withRouter,
-  observer
-);
+const enhancer = compose(withRouter, observer);
 
 /**
  * 게시글 작성
