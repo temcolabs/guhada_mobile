@@ -1,7 +1,7 @@
 import css from './DealSection.module.scss';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
-import { useInfinteScroll } from 'hooks';
+import { useInfinteScroll } from 'lib/hooks';
 import DealItems from 'components/organisms/DealItems';
 import FilterOption from './FilterOption';
 import LoadMoreButton from './LoadMoreButton';

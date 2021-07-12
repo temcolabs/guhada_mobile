@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useMemo, memo } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import Router from 'next/router';
 import dynamic from 'next/dynamic';
 import { observer } from 'mobx-react';
-import { useScrollPosition } from 'hooks';
+import { useScrollPosition } from 'lib/hooks';
 import useStores from 'stores/useStores';
 
 import Image from 'components/atoms/Image';

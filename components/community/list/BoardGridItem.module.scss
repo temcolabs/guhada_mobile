@@ -7,7 +7,7 @@
 
 // boardGridItem wrapper
 .gridItem {
-  @include gridColumn(1/2, 10px);
+  @include gridColumn(math.div(1, 2), 10px);
   margin-bottom: 35px;
 }
 

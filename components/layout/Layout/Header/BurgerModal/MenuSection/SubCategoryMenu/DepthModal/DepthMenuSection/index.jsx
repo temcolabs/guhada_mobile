@@ -2,7 +2,7 @@ import css from './DepthMenuSection.module.scss';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { useVerticalArrows } from 'hooks';
+import { useVerticalArrows } from 'lib/hooks';
 import SubDepthMenu from './SubDepthMenu';
 
 const DepthMenuSection = ({

@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import { stringify } from 'qs';
 import useStores from 'stores/useStores';
 import { pushRoute, sendBackToLogin } from 'lib/router';
-import { useScrollPosition } from 'hooks';
+import { useScrollPosition } from 'lib/hooks';
 
 import {
   ReviewCategories,

@@ -34,7 +34,7 @@
 }
 
 // 그리드의 컬럼 박스
-@mixin gridColumn($ratio: 1/2, $gap: 30px) {
+@mixin gridColumn($ratio: math.div(1, 2), $gap: 30px) {
   $sidePadding: 0;
   @if ($gap != 0) {
     $sidePadding: calc(#{$gap} / 2);

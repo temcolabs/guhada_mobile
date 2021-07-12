@@ -8,7 +8,7 @@ import css from './Recently.module.scss';
 import Image from 'components/atoms/Image';
 
 import { pushRoute } from 'lib/router';
-import { useWindowSize } from 'hooks';
+import { useWindowSize } from 'lib/hooks';
 import ModalPortal from 'components/templates/ModalPortal';
 
 import {

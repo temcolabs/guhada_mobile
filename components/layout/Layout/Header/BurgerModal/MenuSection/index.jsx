@@ -4,11 +4,15 @@ import { observer } from 'mobx-react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 import useStores from 'stores/useStores';
-import { useVerticalArrows } from 'hooks';
+import { useVerticalArrows } from 'lib/hooks';
 import { useRouter } from 'next/router';
 import SubCategoryMenu from './SubCategoryMenu';
 
-const categoryMenuList = [['여성', 1], ['남성', 2], ['키즈', 3]];
+const categoryMenuList = [
+  ['여성', 1],
+  ['남성', 2],
+  ['키즈', 3],
+];
 const menuList = [
   ['리뷰', '/review'],
   ['랭킹', '/ranking'],

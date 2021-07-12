@@ -36,9 +36,7 @@
         "root": ["./"],
         "alias": {
           "components": "./components",
-          "js": "./js",
           "lib": "./lib",
-          "hooks": "./hooks",
           "public": "./public",
           "stores": "./stores",
           "styles": "./styles",

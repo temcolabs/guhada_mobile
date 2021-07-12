@@ -7,7 +7,7 @@ import useBBSSearchState from 'components/community/list/useBBSSearchState';
 import { useBBSStore } from 'stores/bbs';
 import { useObserver } from 'mobx-react';
 import SlideUpOptions, { slideOptionsPropType } from '../form/SlideUpOptions';
-import useChangeOption from 'hooks/useChangeOption';
+import useChangeOption from 'lib/hooks/useChangeOption';
 import { func } from 'prop-types';
 
 BoardCategoryFilter.prototype = {

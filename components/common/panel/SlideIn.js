@@ -6,7 +6,7 @@ import anime from 'animejs';
 import { isBrowser } from 'lib/common/isServer';
 import Mask from '../modal/Mask';
 import setScrollability from 'lib/dom/setScrollability';
-import { useScrollPosition } from 'hooks';
+import { useScrollPosition } from 'lib/hooks';
 
 /**
  * 진입 방향

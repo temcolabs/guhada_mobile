@@ -1,8 +1,8 @@
 import css from './Dictionary.module.scss';
-import { useState, useEffect, useRef, useCallback, memo } from 'react';
+import { useState, useEffect, useRef, memo } from 'react';
 import PropTypes from 'prop-types';
 import { debounce as _debounce } from 'lodash';
-import { useMountAndUpdate } from 'hooks';
+import { useMountAndUpdate } from 'lib/hooks';
 import DictionaryNode from './DictionaryNode';
 
 const Dictionary = ({

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import css from './RadioGroup.module.scss';
-import useChangeOption from 'hooks/useChangeOption';
+import useChangeOption from 'lib/hooks/useChangeOption';
 import cn from 'classnames';
 
 export default function RadioGroup({

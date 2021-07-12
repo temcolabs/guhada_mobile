@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { useRouter } from 'next/router';
 import useStores from 'stores/useStores';
-import { useScrollDown } from 'hooks';
+import { useScrollDown } from 'lib/hooks';
 import Header from './Header';
 import Navigation from './Navigation';
 import PluginButtons from './PluginButtons';

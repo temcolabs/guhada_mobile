@@ -2,7 +2,7 @@ import css from './SubmenuTab.module.scss';
 import { observer } from 'mobx-react';
 import cn from 'classnames';
 import useStores from 'stores/useStores';
-import { useHorizontalArrows } from 'hooks';
+import { useHorizontalArrows } from 'lib/hooks';
 import { useRouter } from 'next/router';
 
 const pathMap = {

@@ -6,7 +6,6 @@
       "components/*": ["./components/*"],
       "js/*": ["./js/*"],
       "lib/*": ["./lib/*"],
-      "hooks/*": ["./hooks/*"],
       "pages/*": ["./pages/*"],
       "stores/*": ["./stores/*"],
       "styles/*": ["./styles/*"],

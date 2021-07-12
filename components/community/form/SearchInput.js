@@ -1,6 +1,6 @@
 import React from 'react';
 import css from './TextInput.module.scss';
-import useChangeInput from 'hooks/useChangeInput';
+import useChangeInput from 'lib/hooks/useChangeInput';
 import { nilToEmptyStr } from 'lib/common/nilToZero';
 import cn from 'classnames';
 

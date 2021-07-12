@@ -6,7 +6,7 @@ import cn from 'classnames';
 import useStores from 'stores/useStores';
 import KeywordSection from './KeywordSection';
 import RankingSection from 'template/Ranking/RankingSection';
-import { useVerticalArrows } from 'hooks';
+import { useVerticalArrows } from 'lib/hooks';
 
 const SearchMenu = ({ handleSearch, fixed, height }) => {
   /**

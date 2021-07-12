@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import css from './CommentInput.module.scss';
 import useStores from 'stores/useStores';
 import { useObserver } from 'mobx-react';
-import useChangeInput from 'hooks/useChangeInput';
+import useChangeInput from 'lib/hooks/useChangeInput';
 import { uploadImageFile } from 'lib/API/gateway/fileUploadService';
 import { sendBackToLogin } from 'lib/router';
 

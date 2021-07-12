@@ -33,24 +33,24 @@
 
 // 1/2 단위
 .col_1_2 {
-  @include gridColumn(1/2);
+  @include gridColumn(math.div(1, 2));
 }
 
 // 1/3 단위
 .col_1_3 {
-  @include gridColumn(1/3);
+  @include gridColumn(math.div(1, 3));
 }
 .col_2_3 {
-  @include gridColumn(2/3);
+  @include gridColumn(math.div(2, 3));
 }
 
 // 1/4 단위
 .col_1_4 {
-  @include gridColumn(1/4);
+  @include gridColumn(math.div(1, 4));
 }
 .col_2_4 {
-  @include gridColumn(2/4);
+  @include gridColumn(math.div(2, 4));
 }
 .col_3_4 {
-  @include gridColumn(3/4);
+  @include gridColumn(math.div(3, 4));
 }

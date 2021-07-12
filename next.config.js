@@ -1,11 +1,12 @@
 // next.config.js
 const path = require('path');
 const webpack = require('webpack');
-// const withSass = require('@zeit/next-sass');
 const loaderUtils = require('loader-utils');
+const withBundleAnalyzer = require('@next/bundle-analyzer');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 // const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
 
-module.exports = {
+module.exports = withBundleAnalyzer({
   // exptend webpack settings
   webpack: (config) => {
     config.module.rules.push({
@@ -37,15 +38,17 @@ module.exports = {
     //   })
     // );
 
+    config.plugins;
     config.plugins.push(
-      new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /ko|en/)
+      new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|ko/)
     );
     config.plugins.push(
       new webpack.ContextReplacementPlugin(
-        /validatorjs[/\\]src[/\\]lang/,
-        /ko|en/
+        /validatorjs[\/\\]src[\/\\]lang/,
+        /en|ko/
       )
     );
+    config.plugins.push(new LodashModuleReplacementPlugin());
 
     return config;
   },
@@ -89,16 +92,16 @@ module.exports = {
   },
 
   // webpack bundle analyzer
-  // analyzeServer: ['server', 'both'].includes(process.env.BUNDLE_ANALYZE),
-  // analyzeBrowser: ['browser', 'both'].includes(process.env.BUNDLE_ANALYZE),
-  // bundleAnalyzerConfig: {
-  //   server: {
-  //     analyzerMode: 'static',
-  //     reportFilename: './bundles/server.html',
-  //   },
-  //   browser: {
-  //     analyzerMode: 'static',
-  //     reportFilename: './bundles/client.html',
-  //   },
-  // },
-};
+  analyzeServer: ['server', 'both'].includes(process.env.BUNDLE_ANALYZE),
+  analyzeBrowser: ['browser', 'both'].includes(process.env.BUNDLE_ANALYZE),
+  bundleAnalyzerConfig: {
+    server: {
+      analyzerMode: 'static',
+      reportFilename: './bundles/server.html',
+    },
+    browser: {
+      analyzerMode: 'static',
+      reportFilename: './bundles/client.html',
+    },
+  },
+});

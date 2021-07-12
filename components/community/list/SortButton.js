@@ -2,7 +2,7 @@ import React from 'react';
 import css from './SortButton.module.scss';
 import { func } from 'prop-types';
 import SlideUpOptions, { slideOptionsPropType } from '../form/SlideUpOptions';
-import useChangeOption from 'hooks/useChangeOption';
+import useChangeOption from 'lib/hooks/useChangeOption';
 
 SortButton.prototype = {
   options: slideOptionsPropType,

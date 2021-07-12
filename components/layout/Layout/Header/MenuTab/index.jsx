@@ -3,7 +3,7 @@ import { useState, useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import cn from 'classnames';
-import { useHorizontalArrows } from 'hooks';
+import { useHorizontalArrows } from 'lib/hooks';
 import { pushRoute } from 'lib/router';
 
 const defaultMenuList = [
