@@ -1,19 +1,17 @@
 .ad-banner__slick {
-  .slick-slide {
-    width: 100vw;
-
-    div {
-      position: relative;
-      div {
-        background: no-repeat center;
-        background-size: contain;
-        width: calc(100vw - 50px);
-        height: calc((7 / 18) * (100vw - 50px));
-        border-radius: 4px;
-      }
-      margin-left: 2.5px;
-    }
+  div {
+    position: relative;
   }
+}
+
+.image {
+  position: absolute;
+  left: 5px;
+  height: calc((7 / 18) * (100vw - 50px));
+  width: calc(100vw - 50px);
+  background: no-repeat center;
+  background-size: contain;
+  border-radius: 4px;
 }
 
 .ad-banner__slick-dots {
@@ -59,7 +57,7 @@
       }
     }
 
-    &.slick-active {
+    &[class='slick-active'] {
       & button {
         &::before {
           color: #fff;

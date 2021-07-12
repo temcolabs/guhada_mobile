@@ -34,7 +34,7 @@ export default class Form extends MobxReactForm {
             },
           };
 
-          Object.keys(rules).forEach(key =>
+          Object.keys(rules).forEach((key) =>
             validator.register(key, rules[key].function, rules[key].message)
           );
         },

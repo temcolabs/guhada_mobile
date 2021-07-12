@@ -1,11 +1,11 @@
 import { useCallback, useRef, useState } from 'react';
 
-export default () => {
+const useHandleScrollMyBBS = () => {
   const [isOnScroll, setIsOnScroll] = useState(false);
 
   const scrollTimeout = useRef(false);
 
-  const handleScrollMyBBS = useCallback(e => {
+  const handleScrollMyBBS = useCallback((e) => {
     clearTimeout(scrollTimeout.current);
     setIsOnScroll(true);
     scrollTimeout.current = setTimeout(() => {
@@ -15,3 +15,5 @@ export default () => {
 
   return [isOnScroll, handleScrollMyBBS];
 };
+
+export default useHandleScrollMyBBS;

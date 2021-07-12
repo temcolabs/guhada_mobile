@@ -1,10 +1,7 @@
 import React, { memo, Component } from 'react';
 import css from './AdBanner.module.scss';
-// import './AdBanner.scss';
 import cn from 'classnames';
 import Slider from 'react-slick';
-// import 'slick-carousel/slick/slick.scss';
-// import 'slick-carousel/slick/slick-theme.scss';
 import { pushRoute } from 'lib/router';
 import { inject, observer } from 'mobx-react';
 import isTruthy from 'lib/common/isTruthy';
@@ -35,7 +32,7 @@ class AdBanner extends Component {
       autoplay: true,
       autoplaySpeed: 3000,
       cssEase: 'linear',
-      dotsClass: 'adBannerDot',
+      dotsClass: css.adBannerDot,
       nextArrow: <NextArrow />,
       prevArrow: <PrevArrow />,
       // beforeChange: this.onBeforeChange,

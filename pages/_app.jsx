@@ -1,8 +1,8 @@
+import 'styles/style.scss';
 import App from 'next/app';
 import Router from 'next/router';
 import { initializeStore } from 'stores';
 import { Provider } from 'mobx-react';
-import 'styles/style.scss';
 import ReactModal from 'react-modal';
 import moment from 'moment';
 import AlertConductor from 'components/common/modal/AlertConductor';
@@ -219,5 +219,10 @@ class GuhadaMobileWeb extends App {
       </Provider>
     );
   }
+}
+
+export async function getServerSideProps(context) {
+  console.log('yoman');
+  return {};
 }
 export default GuhadaMobileWeb;

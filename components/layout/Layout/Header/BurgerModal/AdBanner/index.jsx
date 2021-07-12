@@ -1,13 +1,14 @@
+import css from './AdBannerSlick.module.scss';
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import Slider from 'react-slick';
-// import './AdBannerSlick.scss';
 import useStores from 'stores/useStores';
 import { pushRoute } from 'lib/router';
 
 const AdImage = ({ backgroundColor, src, onClick }) => (
   <div
+    className={css['image']}
     style={{ backgroundImage: `url('${src}')`, backgroundColor }}
     onClick={onClick}
   />
@@ -47,8 +48,8 @@ function AdBanner({ handleBeforeClick }) {
   return (
     <Slider
       dots
-      className={'ad-banner__slick'}
-      dotsClass={'ad-banner__slick-dots'}
+      className={css['ad-banner__slick']}
+      dotsClass={css['ad-banner__slick-dots']}
       centerMode
       arrows={false}
       centerPadding={'20px'}

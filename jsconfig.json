@@ -4,7 +4,6 @@
     "baseUrl": ".",
     "paths": {
       "components/*": ["./components/*"],
-      "js/*": ["./js/*"],
       "lib/*": ["./lib/*"],
       "pages/*": ["./pages/*"],
       "stores/*": ["./stores/*"],

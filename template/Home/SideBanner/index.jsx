@@ -1,5 +1,5 @@
 import css from './SideBanner.module.scss';
-// import './SideBannerSlick.scss';
+import cn from 'classnames';
 import { memo } from 'react';
 import PropTypes from 'prop-types';
 import Slider from 'react-slick';
@@ -22,7 +22,7 @@ function SideBanner({ imageList = [] }) {
     <div className={css['section']}>
       <Slider
         dots
-        dotsClass={'slick-dots side-banner__slick-dots'}
+        dotsClass={cn('slick-dots', css['side-banner__slick-dots'])}
         infinite={false}
         speed={500}
         slidesToShow={1}

@@ -2,11 +2,12 @@
 const path = require('path');
 const webpack = require('webpack');
 const loaderUtils = require('loader-utils');
-const withBundleAnalyzer = require('@next/bundle-analyzer');
+// const withBundleAnalyzer = require('@next/bundle-analyzer');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 // const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
 
-module.exports = withBundleAnalyzer({
+module.exports = {
+  enabled: false,
   // exptend webpack settings
   webpack: (config) => {
     config.module.rules.push({
@@ -38,9 +39,15 @@ module.exports = withBundleAnalyzer({
     //   })
     // );
 
-    config.plugins;
+    config.plugins.push(new LodashModuleReplacementPlugin());
     config.plugins.push(
-      new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|ko/)
+      new webpack.ContextReplacementPlugin(/moment[\/\\]locale/, /en|ko/)
+    );
+    config.plugins.push(
+      new webpack.ContextReplacementPlugin(
+        /moment[\/\\]src[\/\\]locale/,
+        /en|ko/
+      )
     );
     config.plugins.push(
       new webpack.ContextReplacementPlugin(
@@ -48,7 +55,12 @@ module.exports = withBundleAnalyzer({
         /en|ko/
       )
     );
-    config.plugins.push(new LodashModuleReplacementPlugin());
+    config.plugins.push(
+      new webpack.IgnorePlugin(
+        /^.\/(?!en|ko)(.+)$/,
+        /validatorjs[\/\\]src[\/\\]lang/
+      )
+    );
 
     return config;
   },
@@ -104,4 +116,4 @@ module.exports = withBundleAnalyzer({
       reportFilename: './bundles/client.html',
     },
   },
-});
+};

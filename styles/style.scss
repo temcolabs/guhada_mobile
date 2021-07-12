@@ -3,7 +3,9 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap');
 
 // libraries
-@import 'js/react-summernote/react-summernote.scss';
+@import 'lib/modules/react-summernote/react-summernote.scss';
+@import '../node_modules/slick-carousel/slick/slick.scss';
+@import '../node_modules/slick-carousel/slick/slick-theme.scss';
 
 // global styles
 @import 'styles/var';

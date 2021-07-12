@@ -1,8 +1,8 @@
 import css from './SlideBanner.module.scss';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { observer } from 'mobx-react';
 import Slider from 'react-slick';
-// import './SlideBannerSlick.scss';
+// import './SlideBannerSlick.mcss';
 import useStores from 'stores/useStores';
 import Image from 'components/atoms/Image/HomeImage';
 import { pushRoute } from 'lib/router';
@@ -19,7 +19,9 @@ function SlideBanner() {
    * side effects
    */
   useEffect(() => {
-    const slickDots = document.querySelector('.slide-banner__slick-dots');
+    const slickDots = document.querySelector(
+      "[class^='SlideBanner_slide-banner__slick-dots']"
+    );
 
     if (slickDots) {
       for (let i = 0; i < imageList.length; ++i) {
@@ -55,7 +57,7 @@ function SlideBanner() {
       <div className={css['section__slider']}>
         <Slider
           dots
-          dotsClass={'slide-banner__slick-dots'}
+          dotsClass={css['slide-banner__slick-dots']}
           infinite
           speed={500}
           autoplay
