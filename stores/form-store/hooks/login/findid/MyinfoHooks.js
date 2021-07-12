@@ -1,9 +1,9 @@
 import _ from 'lodash';
 import Router from 'next/router';
 import API from 'lib/API';
-import { autoHypenTele, autoHypenPhone } from 'utils';
+import { autoHypenTele, autoHypenPhone } from 'lib/utils';
 import { devLog } from 'lib/common/devLog';
-import { root } from 'store';
+import { root } from 'stores';
 import { pushRoute } from 'lib/router';
 
 export default {

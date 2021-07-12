@@ -1,6 +1,6 @@
 import Form from '../../_.forms';
 import API from 'lib/API';
-import { root } from 'store';
+import { root } from 'stores';
 import { snsTypes } from 'lib/constant/sns';
 import { devLog } from 'lib/common/devLog';
 import daumTracker from 'lib/tracking/daum/daumTracker';

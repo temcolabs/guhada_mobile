@@ -1,7 +1,7 @@
-import { observable, action, toJS } from 'mobx';
+import { observable, action } from 'mobx';
 import API from 'lib/API';
 import { isBrowser } from 'lib/common/isServer';
-import { getUserAgent } from '../../utils';
+import { getUserAgent } from 'lib/utils';
 import { dateFormat } from 'lib/constant/date';
 import moment from 'moment';
 import { devLog } from 'lib/common/devLog';

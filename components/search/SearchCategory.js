@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react';
 import css from './SearchCategory.module.scss';
 // import './SearchCategory.scss';
 import cn from 'classnames';
-import { inject } from 'mobx-react';
 import { useObserver } from 'mobx-react';
 import { compose } from 'lodash/fp';
 import { withRouter } from 'next/router';
 import isTruthy from 'lib/common/isTruthy';
-import { getCategory, searchChildrenCheck } from 'utils';
+import { getCategory, searchChildrenCheck } from 'lib/utils';
 import { toJS } from 'mobx';
 import Tree, { TreeNode } from 'rc-tree';
 

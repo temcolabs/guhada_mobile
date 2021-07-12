@@ -1,7 +1,7 @@
 import API from 'lib/API';
 import _ from 'lodash';
 import { devLog, devGroup, devGroupEnd } from 'lib/common/devLog';
-import { root } from 'store';
+import { root } from 'stores';
 
 export default {
   onInit(form) {},

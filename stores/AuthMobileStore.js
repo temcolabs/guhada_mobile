@@ -1,8 +1,8 @@
 import { observable, action, toJS } from 'mobx';
 import API from 'lib/API';
 import Router from 'next/router';
-import Form from '../stores/form-store/_.forms';
-import { root } from 'store';
+import Form from 'stores/form-store/_.forms';
+import { root } from 'stores';
 import { pushRoute } from 'lib/router';
 import { get as _get } from 'lodash';
 

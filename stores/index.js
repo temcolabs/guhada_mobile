@@ -1,5 +1,5 @@
+import Root from './Root';
 import { useStaticRendering } from 'mobx-react';
-import Root from './stores/Root';
 
 const isServer = typeof window === 'undefined';
 useStaticRendering(isServer);
@@ -25,7 +25,7 @@ export const applyInitialData = ({
   const storeInitialData = initialData[storeName];
 
   if (!!storeInitialData) {
-    Object.keys(storeInitialData).forEach(key => {
+    Object.keys(storeInitialData).forEach((key) => {
       store[key] = storeInitialData[key];
     });
   }

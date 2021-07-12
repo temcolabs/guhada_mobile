@@ -73,7 +73,7 @@ class MyDocument extends Document {
           <script
             type="text/javascript"
             charSet="UTF-8"
-            src="//t1.daumcdn.net/adfit/public/kp.js"
+            src="//t1.daumcdn.net/adfit/static/kp.js"
           />
 
           {/* 모비온 - device: 'M' for mobile */}

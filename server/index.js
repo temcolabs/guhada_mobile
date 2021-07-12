@@ -5,9 +5,9 @@ const compression = require('compression');
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
-const routes = require('./routes');
+const routes = require('../routes');
 const PORT = dev ? 8081 : process.env.PORT || 3000;
-const returnUrls = require('./routes/returnUrls');
+const returnUrls = require('../routes/returnUrls');
 const useragent = require('express-useragent');
 
 mobxReact.useStaticRendering(true);
@@ -30,6 +30,7 @@ app
     server.use(express.urlencoded({ extended: false }));
     server.use(express.json());
     server.use(useragent.express());
+    server.use('/public', express.static('public'));
     server.enable('trust proxy', 'loopback');
 
     let isAppGoingToBeClosed = false; // PM@의 SIGINT 시그널을 받았는지 여부. 앱이 곧 종료될 것임을 의미한다.

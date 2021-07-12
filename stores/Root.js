@@ -200,6 +200,4 @@ class RootStore {
   }
 }
 
-export { root } from '../store';
-
 export default RootStore;

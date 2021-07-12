@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { observer } from 'mobx-react';
-import { getParameterByName } from '../../utils';
+import { getParameterByName } from 'lib/utils';
 import useStores from 'stores/useStores';
 import HeadForSEO from 'lib/components/HeadForSEO';
 import MountLoading from 'components/atoms/Misc/MountLoading';

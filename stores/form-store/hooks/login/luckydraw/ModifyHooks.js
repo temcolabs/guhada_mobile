@@ -2,7 +2,7 @@ import Form from 'stores/form-store/_.forms';
 import API from 'lib/API';
 import _ from 'lodash';
 import { devLog } from 'lib/common/devLog';
-import { root } from 'store';
+import { root } from 'stores';
 
 export default {
   onInit(form) {

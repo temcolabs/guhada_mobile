@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import css from './SearchFilterResult.module.scss';
 // import './SearchCategory.scss';
 import cn from 'classnames';
@@ -8,11 +8,10 @@ import { compose } from 'lodash/fp';
 import { withRouter } from 'next/router';
 import isTruthy from 'lib/common/isTruthy';
 import { toJS } from 'mobx';
-import { getCategory } from 'utils';
+import { getCategory } from 'lib/utils';
 import addCommaToArray from 'lib/string/addCommaToArray';
-import { isArray } from 'util';
-import { devLog } from 'lib/common/devLog';
 import { priceOption } from 'lib/constant/filter/price';
+import { isArray } from 'lodash';
 
 const enhancer = compose(inject('searchitem', 'seller'), withRouter);
 

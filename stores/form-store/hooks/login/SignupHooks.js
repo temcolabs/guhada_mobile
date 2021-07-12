@@ -1,7 +1,7 @@
 import termForm from 'stores/form-store/_.forms';
 import API from 'lib/API';
 import feedService from 'lib/API/user/feedService';
-import { root } from 'store';
+import { root } from 'stores';
 import { devLog } from 'lib/common/devLog';
 import { get as _get } from 'lodash';
 import daumTracker from 'lib/tracking/daum/daumTracker';

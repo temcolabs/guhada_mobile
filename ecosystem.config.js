@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: 'guhada-mobile-dev',
-      script: 'server.js',
+      script: 'server',
       args: '',
       instances: 1,
       autorestart: true,
@@ -17,7 +17,7 @@ module.exports = {
     },
     {
       name: 'guhada-mobile-qa',
-      script: 'server.js',
+      script: 'server',
       args: '',
       instances: 1,
       autorestart: true,
@@ -32,7 +32,7 @@ module.exports = {
     },
     {
       name: 'guhada-mobile-stg',
-      script: 'server.js',
+      script: 'server',
       args: '',
       instances: 1,
       autorestart: true,
@@ -47,7 +47,7 @@ module.exports = {
     },
     {
       name: 'guhada-mobile-prod',
-      script: 'server.js',
+      script: 'server',
       instances: 0,
       exec_mode: 'cluster', // NOTE: CPU 수만큼 인스턴스를 만들고 클러스터 모드로 프로세스 실행
       wait_ready: true,

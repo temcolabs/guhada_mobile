@@ -5,7 +5,7 @@ import { snsAppKey } from 'lib/constant/sns';
 import withAuth from 'components/common/hoc/withAuth';
 import { devLog } from 'lib/common/devLog';
 import { HOSTNAME } from 'lib/constant/hostname';
-import { getParameterByName } from 'utils';
+import { getParameterByName } from 'lib/utils';
 
 //TODO
 const client_id = snsAppKey.NAVER;

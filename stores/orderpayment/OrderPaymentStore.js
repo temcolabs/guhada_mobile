@@ -1,10 +1,10 @@
 /* eslint-disable no-undef */
 import { observable, action, toJS } from 'mobx';
-import { autoHypenPhone, getUserAgent } from '../../utils';
+import { autoHypenPhone, getUserAgent } from 'lib/utils';
 import API from 'lib/API';
 import qs from 'qs';
 import moment from 'moment';
-import { getParameterByName } from 'utils';
+import { getParameterByName } from 'lib/utils';
 import { HOSTNAME } from 'lib/constant/hostname';
 import { devLog } from 'lib/common/devLog';
 import { pushRoute } from 'lib/router';

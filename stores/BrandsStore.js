@@ -1,6 +1,5 @@
-import Axios from 'axios';
-import { observable, action, computed, toJS, runInAction } from 'mobx';
-import { getBrandTitle } from '../utils';
+import { observable, action, computed, toJS } from 'mobx';
+import { getBrandTitle } from 'lib/utils';
 import API from 'lib/API';
 import findChoKorean from 'lib/common/findChoKorean';
 import _ from 'lodash';

@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { devLog, devGroup, devGroupEnd } from 'lib/common/devLog';
 import naverShoppingTrakers from 'lib/tracking/navershopping/naverShoppingTrakers';
 import daumTracker from 'lib/tracking/daum/daumTracker';
-import { root } from 'store';
+import { root } from 'stores';
 import { snsTypes } from 'lib/constant/sns';
 
 export default {

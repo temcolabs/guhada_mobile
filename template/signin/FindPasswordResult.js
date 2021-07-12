@@ -6,7 +6,7 @@ import { LinkRoute, pushRoute } from 'lib/router';
 import { observer } from 'mobx-react';
 import API from 'lib/API';
 import { devLog } from 'lib/common/devLog';
-import { root } from 'store';
+import { root } from 'stores';
 import _ from 'lodash';
 
 @observer

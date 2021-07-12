@@ -1,4 +1,4 @@
-import { observable, action, computed, toJS } from 'mobx';
+import { observable, action } from 'mobx';
 import API from 'lib/API';
 import { devLog } from 'lib/common/devLog';
 import bookmarkTarget from 'lib/constant/user/bookmarkTarget';
@@ -8,9 +8,6 @@ import { loginStatus } from 'lib/constant';
 import { pushRoute } from 'lib/router';
 import qs from 'qs';
 import Router from 'next/router';
-import { getCategoryKey, getCategoryTitle } from 'utils';
-import isTruthy from 'lib/common/isTruthy';
-import addCommaToArray from 'lib/string/addCommaToArray';
 
 export default class SellerStore {
   constructor(root) {

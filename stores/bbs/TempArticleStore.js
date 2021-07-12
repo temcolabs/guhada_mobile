@@ -1,7 +1,7 @@
 import { observable, action, computed } from 'mobx';
 import API from 'lib/API';
 import _ from 'lodash';
-import { root } from 'store';
+import { root } from 'stores';
 
 class TempArticleStore {
   @observable list = [];

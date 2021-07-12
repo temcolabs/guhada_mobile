@@ -1,5 +1,5 @@
 import { configure } from '@storybook/react';
-import '../style.scss';
+import 'styles/style.scss';
 import 'react-dates/initialize';
 import moment from 'moment';
 moment.locale('ko');

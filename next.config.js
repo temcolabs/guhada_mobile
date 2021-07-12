@@ -26,7 +26,7 @@ module.exports = {
         options: {
           name: '[name].[ext]',
           outputPath: 'public/icons',
-          publicPath: '../public/icons/',
+          publicPath: './public/icons/',
         },
       },
     });
@@ -51,9 +51,9 @@ module.exports = {
   },
 
   // sass, css loader options
-  sassLoaderOptions: {
-    includePaths: [path.resolve(__dirname, 'node_modules')],
-  },
+  // sassLoaderOptions: {
+  //   includePaths: [path.resolve(__dirname, 'node_modules')],
+  // },
   cssModules: true,
   cssLoaderOptions: {
     localIdentName: '[local]--[hash:base64:6]',
@@ -89,16 +89,16 @@ module.exports = {
   },
 
   // webpack bundle analyzer
-  analyzeServer: ['server', 'both'].includes(process.env.BUNDLE_ANALYZE),
-  analyzeBrowser: ['browser', 'both'].includes(process.env.BUNDLE_ANALYZE),
-  bundleAnalyzerConfig: {
-    server: {
-      analyzerMode: 'static',
-      reportFilename: './bundles/server.html',
-    },
-    browser: {
-      analyzerMode: 'static',
-      reportFilename: './bundles/client.html',
-    },
-  },
+  // analyzeServer: ['server', 'both'].includes(process.env.BUNDLE_ANALYZE),
+  // analyzeBrowser: ['browser', 'both'].includes(process.env.BUNDLE_ANALYZE),
+  // bundleAnalyzerConfig: {
+  //   server: {
+  //     analyzerMode: 'static',
+  //     reportFilename: './bundles/server.html',
+  //   },
+  //   browser: {
+  //     analyzerMode: 'static',
+  //     reportFilename: './bundles/client.html',
+  //   },
+  // },
 };

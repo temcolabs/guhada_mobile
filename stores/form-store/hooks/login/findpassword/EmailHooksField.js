@@ -1,5 +1,5 @@
 import API from 'lib/API';
-import { root } from 'store';
+import { root } from 'stores';
 import Form from '../../../_.forms';
 import { devLog } from 'lib/common/devLog';
 import _ from 'lodash';

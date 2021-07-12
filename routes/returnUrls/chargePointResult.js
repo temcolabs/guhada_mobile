@@ -70,8 +70,6 @@ module.exports = {
         }
       )
       .then((response) => {
-        let data = response.data.data;
-
         if (response.data.resultCode === 200) {
           res.redirect('/mypage/point?resultMsg=chargesuccess');
         } else {

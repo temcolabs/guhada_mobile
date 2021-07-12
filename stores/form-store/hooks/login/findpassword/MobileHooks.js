@@ -1,6 +1,6 @@
 import Router from 'next/router';
 import API from 'lib/API';
-import { root } from 'store';
+import { root } from 'stores';
 import { devLog } from 'lib/common/devLog';
 import _ from 'lodash';
 

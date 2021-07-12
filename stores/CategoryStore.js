@@ -1,5 +1,5 @@
-import { observable, action, toJS } from 'mobx';
-import { searchCategoryName, getCategory } from '../utils';
+import { observable, action } from 'mobx';
+import { searchCategoryName, getCategory } from 'lib/utils';
 import API from 'lib/API';
 
 export default class CategoryStore {

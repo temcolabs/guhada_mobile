@@ -5,7 +5,7 @@ import {
   getCategory,
   getCategoryKey,
   getBrandTitle,
-} from '../utils.js';
+} from 'lib/utils';
 import Router from 'next/router';
 import API from 'lib/API';
 import { pushRoute } from 'lib/router/index.js';

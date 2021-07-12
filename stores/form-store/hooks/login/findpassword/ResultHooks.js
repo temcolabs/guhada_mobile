@@ -1,6 +1,6 @@
 import API from 'lib/API';
 import Form from '../../../_.forms';
-import { root } from 'store';
+import { root } from 'stores';
 import Router from 'next/router';
 import { devLog } from 'lib/common/devLog';
 

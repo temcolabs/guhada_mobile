@@ -1,11 +1,9 @@
 import { observable, action, toJS, computed } from 'mobx';
 import API from 'lib/API';
 import { isBrowser } from 'lib/common/isServer';
-import { autoHypenPhone } from '../../utils';
 import _ from 'lodash';
 import openDaumAddressSearch from 'lib/common/openDaumAddressSearch';
-import { devLog } from 'lib/common/devLog';
-import { applyInitialData } from 'store';
+import { applyInitialData } from 'stores';
 
 export default class MypageAddressStore {
   constructor(root, initialData = {}) {

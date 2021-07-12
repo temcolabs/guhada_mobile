@@ -1,4 +1,4 @@
-import { root } from 'store';
+import { root } from 'stores';
 import API from 'lib/API';
 import qs from 'qs';
 import { pushRoute } from 'lib/router';

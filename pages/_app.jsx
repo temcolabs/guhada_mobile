@@ -1,8 +1,8 @@
 import App from 'next/app';
 import Router from 'next/router';
-import { initializeStore } from '../store';
+import { initializeStore } from 'stores';
 import { Provider } from 'mobx-react';
-import '../style.scss';
+import 'styles/style.scss';
 import ReactModal from 'react-modal';
 import moment from 'moment';
 import AlertConductor from 'components/common/modal/AlertConductor';
