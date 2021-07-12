@@ -1,12 +1,12 @@
 import React from 'react';
 import css from './CategoryFilterSelector.module.scss';
 import SlideUpOptions from '../form/SlideUpOptions';
-import useChangeOption from 'components/hooks/useChangeOption';
+import useChangeOption from 'hooks/useChangeOption';
 import cn from 'classnames';
 
 export default function CategoryFilterSelector({
   initialValue, // 선택한 필터 초기값
-  onChange = value => {},
+  onChange = (value) => {},
   options = [],
   placeholder = '',
 }) {

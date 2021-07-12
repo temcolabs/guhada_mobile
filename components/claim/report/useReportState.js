@@ -62,7 +62,7 @@ export default function useReportState({
     const { type, payload } = action;
 
     devGroup(`reportReducer`);
-    devLog(`action:`, type, payload);
+    // devLog(`action:`, type, payload);
 
     let newState = Object.assign({}, state);
 
@@ -143,7 +143,7 @@ export default function useReportState({
     []
   );
 
-  const updateEditingState = useCallback(editingState => {
+  const updateEditingState = useCallback((editingState) => {
     dispatch({
       type: types.UPDATE_EDITING,
       payload: editingState,
@@ -151,8 +151,8 @@ export default function useReportState({
   }, []);
 
   const updateEditingFactory = useCallback(
-    key =>
-      _.debounce(value => {
+    (key) =>
+      _.debounce((value) => {
         dispatch({
           type: types.UPDATE_EDITING,
           payload: {
@@ -193,7 +193,7 @@ export default function useReportState({
   /**
    * 첨부파일 선택
    */
-  const handleChangeAttachFile = async e => {
+  const handleChangeAttachFile = async (e) => {
     const { files } = e.target;
 
     const uploadFile = files[0];
@@ -257,7 +257,7 @@ export default function useReportState({
 
   // 신고 유형 옵션 업데이트
   const setReportTypeOptions = useCallback(
-    reportTarget => {
+    (reportTarget) => {
       const options = reportStore.getReportTypeOptions(reportTarget);
 
       updateState({

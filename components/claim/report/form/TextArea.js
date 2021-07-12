@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import css from './TextArea.module.scss';
 import cn from 'classnames';
-import useChangeInput from 'components/hooks/useChangeInput';
+import useChangeInput from 'hooks/useChangeInput';
 
 export default function TextArea({
   initialValue = '',
@@ -25,7 +25,7 @@ export default function TextArea({
         className={cn({ [css.isNoResize]: isResizable })}
         style={textAreaStyle}
         value={value}
-        onChange={e => handleChange(e.target.value)}
+        onChange={(e) => handleChange(e.target.value)}
         placeholder={placeholder}
       />
 

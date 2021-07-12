@@ -21,7 +21,7 @@ const mobonTracker = {
   /**
    * 상품 상세
    */
-  productDetail: deals => {
+  productDetail: (deals) => {
     if (isBrowser && !!deals) {
       const {
         dealId,
@@ -82,14 +82,14 @@ const mobonTracker = {
         `,
       });
 
-      devLog(
-        `[mobonTracker.productDetail]`,
-        device,
-        deals,
-        category,
-        shoppingCartBtnSelector,
-        likeBtnSelector
-      );
+      // devLog(
+      //   `[mobonTracker.productDetail]`,
+      //   device,
+      //   deals,
+      //   category,
+      //   shoppingCartBtnSelector,
+      //   likeBtnSelector
+      // );
 
       /* 상품수집 */
       window.enp('create', 'collect', 'guhada9', { device });
@@ -111,10 +111,10 @@ const mobonTracker = {
   /**
    * 장바구니
    */
-  shoppingCart: cartData => {
+  shoppingCart: (cartData) => {
     if (isBrowser) {
       const { totalPaymentPrice, cartItemResponseList } = cartData;
-      const products = cartItemResponseList.map(item => ({
+      const products = cartItemResponseList.map((item) => ({
         productCode: item.dealId?.toString(),
         productName: item.dealName,
         price: item.sellPrice?.toString(),
@@ -149,7 +149,7 @@ const mobonTracker = {
         `,
       });
 
-      devLog(`[mobonTracker.shoppingCart]`, device, cartData, products);
+      // devLog(`[mobonTracker.shoppingCart]`, device, cartData, products);
 
       window.enp('create', 'conversion', 'guhada9', {
         device: `${device}`,
@@ -161,10 +161,10 @@ const mobonTracker = {
   /**
    * 주문 완료
    */
-  purchaseComplete: successInfo => {
+  purchaseComplete: (successInfo) => {
     if (isBrowser) {
       const { orderNumber, totalPaymentPrice, orderList } = successInfo;
-      const products = orderList.map(order => ({
+      const products = orderList.map((order) => ({
         productCode: order.dealId?.toString(),
         productName: order.prodName,
         price: order.orderPrice?.toString(),
@@ -201,7 +201,7 @@ const mobonTracker = {
         `,
       });
 
-      devLog(`[mobonTracker.purchaseComplete]`, device, successInfo, products);
+      // devLog(`[mobonTracker.purchaseComplete]`, device, successInfo, products);
 
       window.enp('create', 'conversion', 'guhada9', { device });
       window.enp('send', 'conversion', 'guhada9');

@@ -2,7 +2,7 @@ import React from 'react';
 import css from './SortButton.module.scss';
 import { func } from 'prop-types';
 import SlideUpOptions, { slideOptionsPropType } from '../form/SlideUpOptions';
-import useChangeOption from 'components/hooks/useChangeOption';
+import useChangeOption from 'hooks/useChangeOption';
 
 SortButton.prototype = {
   options: slideOptionsPropType,
@@ -16,7 +16,7 @@ SortButton.prototype = {
 export default function SortButton({
   placeholder = '정렬',
   options = [], //
-  onChange = value => {},
+  onChange = (value) => {},
   initialValue = null,
   optionsWrapperStyle = { width: '130px' },
 }) {

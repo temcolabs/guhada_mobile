@@ -14,7 +14,7 @@
     "analyze:server": "cross-env BUNDLE_ANALYZE=server npm run build",
     "analyze:browser": "cross-env BUNDLE_ANALYZE=browser npm run build",
     "analyze:both": "cross-env BUNDLE_ANALYZE=both npm run build",
-    "clean": "rimraf node_modules/.cache",
+    "clean": "rimraf .next",
     "test": "jest --watch"
   },
   "engines": {
@@ -89,6 +89,7 @@
     "babel-plugin-module-resolver": "^3.2.0",
     "babel-preset-react": "^6.24.1",
     "compression": "^1.7.4",
+    "core-js": "^3.15.2",
     "cross-env": "^7.0.3",
     "dotenv": "^8.6.0",
     "eslint": "^5.16.0",

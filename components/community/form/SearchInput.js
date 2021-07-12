@@ -1,12 +1,12 @@
 import React from 'react';
 import css from './TextInput.module.scss';
-import useChangeInput from 'components/hooks/useChangeInput';
+import useChangeInput from 'hooks/useChangeInput';
 import { nilToEmptyStr } from 'childs/lib/common/nilToZero';
 import cn from 'classnames';
 
 export default function SearchInput({
   initialValue = '',
-  onChange = v => {},
+  onChange = (v) => {},
   wrapperStyle = {},
   placeholder,
   wrapperClassname,
@@ -20,7 +20,7 @@ export default function SearchInput({
     <div className={cn(css.searchInput, wrapperClassname)} style={wrapperStyle}>
       <input
         value={nilToEmptyStr(value)}
-        onChange={e => {
+        onChange={(e) => {
           handleChange(e.target.value);
         }}
         placeholder={placeholder}

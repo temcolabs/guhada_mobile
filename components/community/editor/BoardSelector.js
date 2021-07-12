@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import SlideUpOptions from '../form/SlideUpOptions';
 import css from './BoardSelector.module.scss';
-import useChangeOption from 'components/hooks/useChangeOption';
+import useChangeOption from 'hooks/useChangeOption';
 import { useBBSStore } from 'stores/bbs';
 
 /**

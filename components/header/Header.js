@@ -1,14 +1,10 @@
-import React, { useState, memo } from 'react';
+import { useState, memo } from 'react';
 import Router from 'next/router';
 import css from './Header.module.scss';
-import HeaderMenu from './HeaderMenu';
-import CategoryDepthMenu from './CategoryDepthMenu';
 import sessionStorage from 'childs/lib/common/sessionStorage';
 import { LinkRoute } from 'childs/lib/router';
 import cn from 'classnames';
-import SearchMenu from './SearchMenu';
-import BrandContainer from './item/BrandContainer';
-import BurgerModal from 'components/header/HeaderMenu';
+import BurgerModal from 'components/layout/Layout/Header/BurgerModal';
 import SearchModal from 'components/layout/Layout/Header/SearchModal';
 import { useObserver } from 'mobx-react';
 
@@ -18,11 +14,7 @@ import { useObserver } from 'mobx-react';
  */
 function Header({ children, pageTitle, headerShape, cartAmount }) {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
-  const [isCategoryVisible, setIsCategoryVisible] = useState(false);
-  const [categoryId, setCategoryId] = useState(0);
-  const [categoryTitle, setCategoryTitle] = useState('');
   const [isSearchVisible, setIsSearchVisible] = useState(false);
-  const [isBrandVisible, setIsBrandVisible] = useState(false);
   let urlHistory = sessionStorage.get('urlHistory');
 
   return useObserver(() => (
@@ -153,10 +145,7 @@ function Header({ children, pageTitle, headerShape, cartAmount }) {
             <SearchModal handleClose={() => setIsSearchVisible(false)} />
           )}
           {isMenuVisible && (
-            <BurgerModal
-              isVisible={isMenuVisible}
-              onClose={() => setIsMenuVisible(false)}
-            />
+            <BurgerModal handleClose={() => setIsMenuVisible(false)} />
           )}
         </div>
       )}

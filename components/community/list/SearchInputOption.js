@@ -2,7 +2,7 @@ import React from 'react';
 import css from './SearchInputOption.module.scss';
 import { func } from 'prop-types';
 import SlideUpOptions, { slideOptionsPropType } from '../form/SlideUpOptions';
-import useChangeOption from 'components/hooks/useChangeOption';
+import useChangeOption from 'hooks/useChangeOption';
 
 SearchInputOption.prototype = {
   options: slideOptionsPropType,
@@ -13,7 +13,7 @@ SearchInputOption.prototype = {
  * 검색 입력 좌측의 옵션
  */
 export default function SearchInputOption({
-  onChange = value => {},
+  onChange = (value) => {},
   options = [],
   initialValue,
 }) {

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 import css from './SearchFilter.module.scss';
-import cn from 'classnames';
 import Router from 'next/router';
 import RgbButton from './RgbButton';
 import TextButton from './TextButton';
@@ -28,7 +27,7 @@ class SearchFilter extends Component {
     if (isVisible === false) {
       //searchitem.initFilter();
       const userId = this.props.login?.loginInfo?.userId;
-      brands.getBrands({userId});
+      brands.getBrands({ userId });
     } else {
       brands.setBrandsFromFilter(searchitem.item?.brands);
     }

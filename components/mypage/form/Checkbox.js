@@ -1,12 +1,12 @@
 import React from 'react';
 import css from './Checkbox.module.scss';
 import cn from 'classnames';
-import useChangeInput from 'components/hooks/useChangeInput';
+import useChangeInput from 'hooks/useChangeInput';
 
 export default function Checkbox({
   initialValue = false,
   name = '',
-  onChange = v => {}, // (v: boolean) => any
+  onChange = (v) => {}, // (v: boolean) => any
   icon = '',
   children,
   disabled = false,
@@ -24,7 +24,7 @@ export default function Checkbox({
         id={id}
         type="checkbox"
         checked={fixed ? initialValue : value}
-        onChange={e => {
+        onChange={(e) => {
           handleChange(e.target.checked);
         }}
         disabled={disabled}

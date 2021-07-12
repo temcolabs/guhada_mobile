@@ -20,7 +20,7 @@ const IMAGE_PATH = {
  * @param {Function} onCloseMenu
  * @returns
  */
-function _Brand({ isVisible, fromHeader, onClose, onCloseMenu, routerPush }) {
+function Brand({ isVisible, fromHeader, onClose, onCloseMenu, routerPush }) {
   const brandScrollRef = useRef(null); // Brand section
   const brandRef = useRef(null); // Brand items
 
@@ -385,4 +385,4 @@ function _Brand({ isVisible, fromHeader, onClose, onCloseMenu, routerPush }) {
   );
 }
 
-export default observer(_Brand);
+export default observer(Brand);

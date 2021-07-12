@@ -1,7 +1,7 @@
 import React from 'react';
 import css from './Input.module.scss';
 import cn from 'classnames';
-import useChangeInput from 'components/hooks/useChangeInput';
+import useChangeInput from 'hooks/useChangeInput';
 import { nilToEmptyStr } from 'childs/lib/common/nilToZero';
 
 export const inputStatTypes = {
@@ -13,7 +13,7 @@ export const inputStatTypes = {
 function Input({
   initialValue,
   formatter, // 입력값 변환 함수
-  onChange = value => {},
+  onChange = (value) => {},
   style, // css style
   wrapperStyle,
   iconUrl, // 아이콘 타입
@@ -49,7 +49,7 @@ function Input({
 
       <input
         value={nilToEmptyStr(value)}
-        onChange={e => handleChange(e.target.value)}
+        onChange={(e) => handleChange(e.target.value)}
         disabled={disabled}
         type={type}
         placeholder={placeholder}

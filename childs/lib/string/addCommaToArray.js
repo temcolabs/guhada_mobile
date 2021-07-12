@@ -1,11 +1,13 @@
 import isTruthy from '../common/isTruthy';
 
-export default v => {
+const addCommaToArray = (v) => {
   if (isTruthy(v))
     return v
-      .map(e => {
+      .map((e) => {
         return e;
       })
       .join(',');
   else return null;
 };
+
+export default addCommaToArray;

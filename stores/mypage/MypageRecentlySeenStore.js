@@ -44,7 +44,7 @@ export default class MypageRecentlySeenStore {
     this.list = storageList || [];
     this.totalItemsCount = this.list.length;
 
-    devLog(toJS(this.list), `thislist`);
+    // devLog(toJS(this.list), `thislist`);
   };
 
   @action

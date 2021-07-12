@@ -9,3 +9,5 @@ export * from './useScrollDown';
 export * from './useHorizontalArrows';
 export * from './useVerticalArrows';
 export * from './useScrolled';
+// export * from './useChangeInput';
+// export * from './useChangeOption';

@@ -1,1 +1,3 @@
-export default () => typeof window !== 'undefined';
+const canUseDOM = () => typeof window !== 'undefined';
+
+export default canUseDOM;

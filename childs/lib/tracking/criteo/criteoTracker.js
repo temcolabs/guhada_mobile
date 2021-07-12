@@ -11,7 +11,7 @@ const getDeviceType = () => {
   const { isTablet, isMobile } = detectDevice();
   const deviceType = isTablet ? 't' : isMobile ? 'm' : 'd';
 
-  devLog('> deviceType for criteo tracker:', deviceType);
+  // devLog('> deviceType for criteo tracker:', deviceType);
   return deviceType;
 };
 
@@ -22,7 +22,7 @@ const CRITEO_ACCOUNT_ID = 65280;
  * 제품 아이디는 문자열이어야 한다.
  * @param {*} id
  */
-const formatProductId = id => {
+const formatProductId = (id) => {
   return !!id ? String(id) : '';
 };
 
@@ -30,14 +30,14 @@ const formatProductId = id => {
  * 가격은 소수점 둘째자리까지
  * @param {*} price
  */
-const formatPrice = price => {
+const formatPrice = (price) => {
   return typeof price === 'number' ? price.toFixed(2) : price;
 };
 
 /**
  * SNS 가입 사용자는 이메일 필드에 다른 데이터가 들어있을 수 있다.
  */
-const formatEmail = email => {
+const formatEmail = (email) => {
   return isEmailString(email) ? email : '';
 };
 
@@ -73,7 +73,7 @@ export default {
           { event: 'viewHome' },
         ];
 
-        devLog(`[CRITEO_TRACKER] viewHome`, ...params);
+        // devLog(`[CRITEO_TRACKER] viewHome`, ...params);
 
         if (getIsProdHost()) {
           window.criteo_q = window.criteo_q || [];
@@ -101,7 +101,7 @@ export default {
           { event: 'setSiteType', type: getDeviceType() },
           {
             event: 'viewList',
-            item: dealIds.map(dealId => formatProductId(dealId)),
+            item: dealIds.map((dealId) => formatProductId(dealId)),
           },
         ];
 
@@ -145,19 +145,22 @@ export default {
 
   /**
    * Sign up user tracker
-   * 
+   *
    * @param trackTransaction : user id
    */
-  signUpUser: ( userId ) => {
+  signUpUser: (userId) => {
     loadScript(CRITEO_TRACKER_URL, {
       id: scriptIds.CRITEO_TRACKER,
       async: true,
       onLoad: () => {
         const params = [
-          { event: 'setAccount', account: CRITEO_ACCOUNT_ID },          
+          { event: 'setAccount', account: CRITEO_ACCOUNT_ID },
           { event: 'setSiteType', type: getDeviceType() },
-          { event: 'trackTransaction', id: userId, item: [
-            {id : "1", price: 1, quantity: 1}]},
+          {
+            event: 'trackTransaction',
+            id: userId,
+            item: [{ id: '1', price: 1, quantity: 1 }],
+          },
         ];
 
         devLog(`[CRITEO_TRACKER] sign up`, ...params);
@@ -196,7 +199,7 @@ export default {
           { event: 'setSiteType', type: getDeviceType() },
           {
             event: 'viewBasket',
-            item: items.map(item => ({
+            item: items.map((item) => ({
               ...item,
               price: formatPrice(item.price),
               id: formatProductId(item.id), // * 아이디는 문자열로 변환되어야 한다
@@ -242,7 +245,7 @@ export default {
           {
             event: 'trackTransaction',
             id: transaction_id,
-            item: items.map(item => ({
+            item: items.map((item) => ({
               ...item,
               price: formatPrice(item.price),
               id: formatProductId(item.id), // * 아이디는 문자열로 변환되어야 한다

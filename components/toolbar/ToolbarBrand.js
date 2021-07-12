@@ -1,6 +1,6 @@
 import React from 'react';
 import css from './ToolbarBrand.module.scss';
-import Brand from './_Brand';
+import Brand from './Brand';
 import { inject } from 'mobx-react';
 import { useRouter } from 'next/router';
 import ModalPortal from 'components/templates/ModalPortal';

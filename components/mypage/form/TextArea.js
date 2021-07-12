@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import css from './TextArea.module.scss';
 import cn from 'classnames';
-import useChangeInput from 'components/hooks/useChangeInput';
+import useChangeInput from 'hooks/useChangeInput';
 
 // TODO: type 정의, absolute 문제
 export default function TextArea({

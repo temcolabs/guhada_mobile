@@ -46,7 +46,7 @@ export default class EventPopupStore {
           }
         }
         this.popupList = [...data];
-        devLog(this.popupList, 'eventPopupList');
+        // devLog(this.popupList, 'eventPopupList');
       })
       .catch((err) => {
         console.error(err, 'settle popup err');

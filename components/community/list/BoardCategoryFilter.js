@@ -7,7 +7,7 @@ import useBBSSearchState from 'components/community/list/useBBSSearchState';
 import { useBBSStore } from 'stores/bbs';
 import { useObserver } from 'mobx-react';
 import SlideUpOptions, { slideOptionsPropType } from '../form/SlideUpOptions';
-import useChangeOption from 'components/hooks/useChangeOption';
+import useChangeOption from 'hooks/useChangeOption';
 import { func } from 'prop-types';
 
 BoardCategoryFilter.prototype = {
@@ -18,7 +18,7 @@ BoardCategoryFilter.prototype = {
 function BoardCategoryFilter({
   router = {},
   options = [], //
-  onChange = value => {},
+  onChange = (value) => {},
   initialValue,
   wrapperStyle = {},
   optionsWrapperStyle = { width: '130px' },
@@ -33,7 +33,7 @@ function BoardCategoryFilter({
   /**
    * 카테고리 필터 선택
    */
-  const handleClickCategory = newFilterId => {
+  const handleClickCategory = (newFilterId) => {
     if (newFilterId !== filterId) {
       setFilterId(newFilterId);
       handleChangeCategoryFilter(newFilterId);

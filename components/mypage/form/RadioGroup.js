@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import css from './RadioGroup.module.scss';
-import useChangeOption from 'components/hooks/useChangeOption';
+import useChangeOption from 'hooks/useChangeOption';
 import cn from 'classnames';
 
 export default function RadioGroup({
@@ -33,7 +33,7 @@ export default function RadioGroup({
               type="radio"
               name={name}
               value={option.value || ''}
-              onChange={e => {
+              onChange={(e) => {
                 handleChange(e.target.value);
               }}
               checked={value === option.value}

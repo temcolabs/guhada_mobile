@@ -43,11 +43,11 @@ const getDeviceType = () => {
   const { isMobile } = detectDevice();
   const deviceType = isMobile ? 'mobile' : 'web';
 
-  devLog('> deviceType for criteo tracker:', deviceType);
+  // devLog('> deviceType for criteo tracker:', deviceType);
   return deviceType;
 };
 
-const convertUserIdForTracker = userId => {
+const convertUserIdForTracker = (userId) => {
   return !!userId ? `"${userId}"` : `""`;
 };
 
@@ -61,7 +61,7 @@ export default {
     회원 가입 페이지의 전환을 체크할 때 삽입합니다.
    */
   signUp: ({ userId } = {}) => {
-    devLog(`[widerplanet - Join] userId`, userId);
+    // devLog(`[widerplanet - Join] userId`, userId);
 
     if (isBrowser) {
       loadScript(null, {
@@ -105,7 +105,7 @@ export default {
     로그인 등으로 전환을 체크할 때 삽입합니다.
    */
   signIn: ({ userId } = {}) => {
-    devLog(`[widerplanet - signIn] userId`, userId);
+    // devLog(`[widerplanet - signIn] userId`, userId);
 
     if (isBrowser) {
       loadScript(null, {
@@ -151,7 +151,7 @@ export default {
 * 공통 태그는 타 태그(아이템, 장바구니, 구매완료, 전환 완료)보다 하단에 위치하여야 합니다.
    */
   common: ({ userId } = {}) => {
-    devLog(`[widerplanet - common] userId`, userId);
+    // devLog(`[widerplanet - common] userId`, userId);
 
     if (isBrowser) {
       loadScript(null, {
@@ -187,7 +187,7 @@ export default {
     상품 상세페이지 하단에 삽입하신 후 '상품 ID', '상품명' 변수를 'i', 't'에 대입합니다.
    */
   productDetail: ({ userId, items = [] } = {}) => {
-    devLog(`[widerplanet - productDetail] userId, items`, userId, items);
+    // devLog(`[widerplanet - productDetail] userId, items`, userId, items);
 
     if (isBrowser) {
       loadScript(null, {
@@ -227,7 +227,7 @@ export default {
     상품 리스트가 나오는 장바구니 페이지에 삽입합니다.
    */
   cart: ({ userId, items = [] } = {}) => {
-    devLog(`[widerplanet - cart] userId, items`, userId, items);
+    // devLog(`[widerplanet - cart] userId, items`, userId, items);
     if (isBrowser) {
       loadScript(null, {
         id: scriptIds.WIDERPLANET_TRACKER + `_CART_CONVERSION`,
@@ -270,7 +270,7 @@ export default {
     (구매 완료 페이지가 존재하지 않고 완료 메시지 창을 띄운 후 다른 페이지로 이동해버리는 경우 전환 완료 트래킹 태그를 설치하여야 합니다.)
    */
   purchaseComplete: ({ userId, items } = {}) => {
-    devLog(`[widerplanet - purchaseComplete] userId, items`, userId, items);
+    // devLog(`[widerplanet - purchaseComplete] userId, items`, userId, items);
 
     if (isBrowser) {
       loadScript(null, {
@@ -312,7 +312,7 @@ export default {
    * 이벤트 응모하기 완료
    */
   applicationComplete: ({ userId } = {}) => {
-    devLog(`[widerplanet - applicationComplete] userId`, userId);
+    // devLog(`[widerplanet - applicationComplete] userId`, userId);
 
     if (isBrowser) {
       loadScript(null, {

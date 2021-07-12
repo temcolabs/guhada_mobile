@@ -105,7 +105,7 @@ export default class UserStore {
     try {
       const { data } = await API.user.get(`/users/${userId}`);
       this.userInfo = data.data;
-      devLog('userInfo', data.data);
+      // devLog('userInfo', data.data);
       localStorage.set(key.GUHADA_USERINFO, toJS(this.userInfo), 60);
 
       this.runJobsForUserInfo(data.data);
@@ -121,7 +121,7 @@ export default class UserStore {
    * 앱이 실행될 시점에는 유저 데이터 없기 때문이다.
    */
   @action
-  pushJobForUserInfo = job => {
+  pushJobForUserInfo = (job) => {
     if (isFunction(job)) {
       if (_.isNil(this.userId)) {
         this.jobForUseInfo.push(job);
@@ -144,7 +144,7 @@ export default class UserStore {
   };
 
   @action
-  addFetched = fn => {
+  addFetched = (fn) => {
     this.jobForUseInfo = this.jobForUseInfo.concat(fn);
   };
 
@@ -187,7 +187,7 @@ export default class UserStore {
   /**
    * 닉네임 중복 확인
    */
-  handleValidateNickname = nickname => {};
+  handleValidateNickname = (nickname) => {};
 
   /**
    * 이메일 중복 확인
