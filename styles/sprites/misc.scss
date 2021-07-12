@@ -1,0 +1,160 @@
+.misc {
+  background: url('/static/sprites/misc.png') no-repeat top left;
+  background-size: 189px 172px;
+
+  &.no-data {
+    background-position: 0 0;
+    width: 60px;
+    height: 60px;
+  }
+  &.plugin-recent {
+    background-position: -62px 0;
+    width: 41px;
+    height: 41px;
+  }
+  &.plugin-top {
+    background-position: 0 -62px;
+    width: 41px;
+    height: 41px;
+  }
+  &.slider {
+    background-position: -105px 0;
+    width: 35px;
+    height: 43px;
+  }
+  &.checkbox--large {
+    background-position: -105px -45px;
+    width: 28px;
+    height: 28px;
+  }
+  &.check--large {
+    background-position: -105px -75px;
+    width: 28px;
+    height: 28px;
+  }
+  &.reset {
+    background-position: -43px -62px;
+    width: 27px;
+    height: 27px;
+  }
+  &.thumbnail-double {
+    background-position: -73px -62px;
+    width: 27px;
+    height: 27px;
+  }
+  &.thumbnail-double--on {
+    background-position: 0 -105px;
+    width: 27px;
+    height: 27px;
+  }
+  &.thumbnail-hex {
+    background-position: -29px -105px;
+    width: 27px;
+    height: 27px;
+  }
+  &.thumbnail-hex--on {
+    background-position: -59px -105px;
+    width: 27px;
+    height: 27px;
+  }
+  &.thumbnail-quad {
+    background-position: -88px -105px;
+    width: 27px;
+    height: 27px;
+  }
+  &.thumbnail-quad--on {
+    background-position: -143px 0;
+    width: 27px;
+    height: 27px;
+  }
+  &.share {
+    background-position: -143px -29px;
+    width: 25px;
+    height: 25px;
+  }
+  &.check {
+    background-position: -143px -57px;
+    width: 20px;
+    height: 20px;
+  }
+  &.checkbox {
+    background-position: -143px -79px;
+    width: 20px;
+    height: 20px;
+  }
+  &.keyword-delete {
+    background-position: -143px -101px;
+    width: 20px;
+    height: 20px;
+  }
+  &.reset--black {
+    background-position: -117px -105px;
+    width: 22px;
+    height: 18px;
+  }
+  &.down {
+    background-position: 0 -135px;
+    width: 19px;
+    height: 19px;
+  }
+  &.menu-arrow {
+    background-position: -21px -135px;
+    width: 19px;
+    height: 19px;
+  }
+  &.menu-minus {
+    background-position: -43px -135px;
+    width: 19px;
+    height: 19px;
+  }
+  &.menu-plus {
+    background-position: -64px -135px;
+    width: 19px;
+    height: 19px;
+  }
+  &.arrow-diagonal {
+    background-position: -85px -135px;
+    width: 18px;
+    height: 18px;
+  }
+  &.arrow-down {
+    background-position: -105px -135px;
+    width: 18px;
+    height: 18px;
+  }
+  &.arrow-up {
+    background-position: -125px -135px;
+    width: 18px;
+    height: 18px;
+  }
+  &.minus {
+    background-position: -145px -135px;
+    width: 18px;
+    height: 18px;
+  }
+  &.check--black {
+    background-position: -62px -43px;
+    width: 16px;
+    height: 16px;
+  }
+  &.check--on {
+    background-position: -80px -43px;
+    width: 16px;
+    height: 16px;
+  }
+  &.delete {
+    background-position: -172px 0;
+    width: 15px;
+    height: 15px;
+  }
+  &.delete--on {
+    background-position: -172px -17px;
+    width: 15px;
+    height: 15px;
+  }
+  &.filter {
+    background-position: 0 -156px;
+    width: 16px;
+    height: 14px;
+  }
+}

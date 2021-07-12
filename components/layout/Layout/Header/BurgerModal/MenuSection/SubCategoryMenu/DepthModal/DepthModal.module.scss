@@ -1,0 +1,14 @@
+.modal__header {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+
+  .header__close {
+    position: absolute;
+    left: 10px;
+    top: 15px;
+  }
+}

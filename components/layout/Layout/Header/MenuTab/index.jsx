@@ -84,37 +84,35 @@ function MenuTab({ menuList = defaultMenuList }) {
    * render
    */
   return (
-    <>
-      <ul className={css['menu-tab']} ref={scrollRef}>
-        {menuList.map(([name, path]) => (
-          <li
-            id={path}
-            key={name}
-            className={cn(
-              css['tab-item'],
-              selected === path
-                ? css['selected']
-                : (name === '타임딜' || name === '럭키드로우') && css['event']
-            )}
-            onClick={(e) => handleClick(path, e.target)}
-          >
-            {name}
-          </li>
-        ))}
-        {arrowLeft && (
-          <span
-            className={cn(css['tab-arrow'], css['arrow--left'])}
-            onClick={handleScrollLeft}
-          />
-        )}
-        {arrowRight && (
-          <span
-            className={cn(css['tab-arrow'], css['arrow--right'])}
-            onClick={handleScrollRight}
-          />
-        )}
-      </ul>
-    </>
+    <ul className={css['menu-tab']} ref={scrollRef}>
+      {menuList.map(([name, path]) => (
+        <li
+          id={path}
+          key={name}
+          className={cn(
+            css['tab-item'],
+            selected === path
+              ? css['selected']
+              : (name === '타임딜' || name === '럭키드로우') && css['event']
+          )}
+          onClick={(e) => handleClick(path, e.target)}
+        >
+          {name}
+        </li>
+      ))}
+      {arrowLeft && (
+        <span
+          className={cn(css['tab-arrow'], css['arrow--left'], 'misc slider')}
+          onClick={handleScrollLeft}
+        />
+      )}
+      {arrowRight && (
+        <span
+          className={cn(css['tab-arrow'], css['arrow--right'], 'misc slider')}
+          onClick={handleScrollRight}
+        />
+      )}
+    </ul>
   );
 }
 

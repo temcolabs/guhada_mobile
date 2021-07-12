@@ -30,28 +30,8 @@
     align-items: center;
     color: #ce2525;
 
-    &.change--up {
-      &::after {
-        content: '';
-        width: 18px;
-        height: 18px;
-        background: url('/static/icon/icon_up.png') no-repeat right;
-        background-size: 18px;
-        padding-left: 2px;
-      }
-    }
-
     &.change--down {
       color: #0058dd;
-
-      &::after {
-        content: '';
-        width: 18px;
-        height: 18px;
-        background: url('/static/icon/icon_down.png') no-repeat right;
-        background-size: 18px;
-        padding-left: 2px;
-      }
     }
   }
 
@@ -59,7 +39,5 @@
     margin-left: auto;
     width: 18px;
     height: 18px;
-    background: url('/static/icon/icon_keep.png') no-repeat right;
-    background-size: 18px;
   }
 }

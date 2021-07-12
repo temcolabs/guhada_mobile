@@ -1,9 +1,9 @@
 import css from './SearchModal.module.scss';
 import { useState, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import cn from 'classnames';
 import { observer } from 'mobx-react';
 import useStores from 'stores/useStores';
-// import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 import ModalPortal from 'components/templates/ModalPortal';
 import SearchMenu from '../SearchTab/SearchMenu';
 import AutocompleteSearchMenu from '../SearchTab/AutocompleteSearchMenu';
@@ -64,11 +64,11 @@ const SearchModal = ({ handleClose }) => {
    * render
    */
   return (
-    <ModalPortal handleClose={handleClose} slide={3}>
+    <ModalPortal handleClose={handleClose} slide={3} closeButton={false}>
       <div className={css['tab']}>
         <div className={css['tab__buttons']}>
           <div
-            className={cn(css['button'], css['button--back'])}
+            className={cn(css['button'], 'icon back')}
             onClick={handleBackClick}
           />
         </div>
@@ -82,12 +82,12 @@ const SearchModal = ({ handleClose }) => {
         <div className={css['tab__buttons']}>
           {searchInput && (
             <div
-              className={cn(css['button'], css['button--delete'])}
+              className={cn(css['button'], 'misc keyword-delete')}
               onClick={handleDelete}
             />
           )}
           <div
-            className={cn(css['button'], css['button--search'])}
+            className={cn(css['button'], 'icon search')}
             onClick={() => handleSearch(searchInput)}
           />
         </div>
@@ -101,6 +101,10 @@ const SearchModal = ({ handleClose }) => {
       )}
     </ModalPortal>
   );
+};
+
+SearchModal.propTypes = {
+  handleClose: PropTypes.func,
 };
 
 export default observer(SearchModal);

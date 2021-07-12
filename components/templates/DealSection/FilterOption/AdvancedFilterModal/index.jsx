@@ -45,54 +45,41 @@ const AdvancedFilterModal = ({ filterName = '상세검색', handleCloseModal }) 
    */
   return (
     <ModalPortal handleClose={handleCloseModal} slide={1} gutter>
-      <div className={css['filter-modal']}>
-        <div className={css['modal__header']}>{filterName}</div>
-        <div className={css['modal__filters']}>
-          <TreeFilter
-            title={'카테고리'}
-            dataList={searchByFilterStore.unfungibleCategories}
-            currentIds={searchByFilterStore.abstractBody.categoryIds}
-            setIds={(categoryIds) => handleSetAbstractFilter({ categoryIds })}
-          />
-          <DictionaryFilter
-            title={'브랜드'}
-            dataList={searchByFilterStore.brands}
-            currentIds={searchByFilterStore.abstractBody.brandIds}
-            setIds={(brandIds) => handleSetAbstractFilter({ brandIds })}
-          />
-          <SelectionFilter
-            title={'배송정보'}
-            mapObject={shippingConditionMap}
-            selectedKey={searchByFilterStore.abstractBody.shippingCondition}
-            handleSetSelected={(shippingCondition) =>
-              handleSetAbstractFilter({ shippingCondition })
-            }
-          />
-          <SelectionFilter
-            title={'제품상태'}
-            mapObject={productConditionMap}
-            selectedKey={searchByFilterStore.abstractBody.productCondition}
-            handleSetSelected={(productCondition) =>
-              handleSetAbstractFilter({ productCondition })
-            }
-          />
-          {searchByFilterStore.filters.map(
-            ({ id, name, viewType, attributes }) => {
-              if (viewType === 'RGB_BUTTON') {
-                return (
-                  <ColorFilter
-                    key={id}
-                    title={name}
-                    attributes={attributes}
-                    currentFilters={searchByFilterStore.abstractBody.filters}
-                    setFilters={(filters) =>
-                      handleSetAbstractFilter({ filters })
-                    }
-                  />
-                );
-              }
+      <div className={css['modal__header']}>{filterName}</div>
+      <div className={css['modal__filters']}>
+        <TreeFilter
+          title={'카테고리'}
+          dataList={searchByFilterStore.unfungibleCategories}
+          currentIds={searchByFilterStore.abstractBody.categoryIds}
+          setIds={(categoryIds) => handleSetAbstractFilter({ categoryIds })}
+        />
+        <DictionaryFilter
+          title={'브랜드'}
+          dataList={searchByFilterStore.brands}
+          currentIds={searchByFilterStore.abstractBody.brandIds}
+          setIds={(brandIds) => handleSetAbstractFilter({ brandIds })}
+        />
+        <SelectionFilter
+          title={'배송정보'}
+          mapObject={shippingConditionMap}
+          selectedKey={searchByFilterStore.abstractBody.shippingCondition}
+          handleSetSelected={(shippingCondition) =>
+            handleSetAbstractFilter({ shippingCondition })
+          }
+        />
+        <SelectionFilter
+          title={'제품상태'}
+          mapObject={productConditionMap}
+          selectedKey={searchByFilterStore.abstractBody.productCondition}
+          handleSetSelected={(productCondition) =>
+            handleSetAbstractFilter({ productCondition })
+          }
+        />
+        {searchByFilterStore.filters.map(
+          ({ id, name, viewType, attributes }) => {
+            if (viewType === 'RGB_BUTTON') {
               return (
-                <AttributeFilter
+                <ColorFilter
                   key={id}
                   title={name}
                   attributes={attributes}
@@ -101,49 +88,58 @@ const AdvancedFilterModal = ({ filterName = '상세검색', handleCloseModal }) 
                 />
               );
             }
-          )}
-          <PriceFilter
-            title={'가격'}
-            mapObject={priceArrangeMap}
-            minPrice={searchByFilterStore.abstractBody.minPrice}
-            maxPrice={searchByFilterStore.abstractBody.maxPrice}
-            handleSetMinPrice={(minPrice) =>
-              handleSetAbstractFilter({ minPrice })
-            }
-            handleSetMaxPrice={(maxPrice) =>
-              handleSetAbstractFilter({ maxPrice })
-            }
-            handleSetPriceRange={(minPrice, maxPrice) =>
-              handleSetAbstractFilter({ minPrice, maxPrice })
-            }
-          />
-          <SearchInputFilter
-            searchQueries={searchByFilterStore.abstractBody.searchQueries}
-            handleSetSearchQuery={(searchQuery) => {
-              handleSetAbstractFilter({
-                searchQueries: [
-                  ...searchByFilterStore.defaultBody.searchQueries,
-                  searchQuery,
-                ],
-              });
-            }}
-          />
-        </div>
-        <div className={css['gutter']} />
-        <div className={css['modal__buttons']}>
-          <button
-            className={css['button--reset']}
-            onClick={handleResetAbstractFilter}
-          >
-            초기화
-          </button>
-          <button
-            className={css['button--submit']}
-            onClick={handleSubmitAbstractFilter}
-          >
-            검색결과 보기
-          </button>
-        </div>
+            return (
+              <AttributeFilter
+                key={id}
+                title={name}
+                attributes={attributes}
+                currentFilters={searchByFilterStore.abstractBody.filters}
+                setFilters={(filters) => handleSetAbstractFilter({ filters })}
+              />
+            );
+          }
+        )}
+        <PriceFilter
+          title={'가격'}
+          mapObject={priceArrangeMap}
+          minPrice={searchByFilterStore.abstractBody.minPrice}
+          maxPrice={searchByFilterStore.abstractBody.maxPrice}
+          handleSetMinPrice={(minPrice) =>
+            handleSetAbstractFilter({ minPrice })
+          }
+          handleSetMaxPrice={(maxPrice) =>
+            handleSetAbstractFilter({ maxPrice })
+          }
+          handleSetPriceRange={(minPrice, maxPrice) =>
+            handleSetAbstractFilter({ minPrice, maxPrice })
+          }
+        />
+        <SearchInputFilter
+          searchQueries={searchByFilterStore.abstractBody.searchQueries}
+          handleSetSearchQuery={(searchQuery) => {
+            handleSetAbstractFilter({
+              searchQueries: [
+                ...searchByFilterStore.defaultBody.searchQueries,
+                searchQuery,
+              ],
+            });
+          }}
+        />
+      </div>
+      <div className={css['gutter']} />
+      <div className={css['modal__buttons']}>
+        <button
+          className={css['button--reset']}
+          onClick={handleResetAbstractFilter}
+        >
+          초기화
+        </button>
+        <button
+          className={css['button--submit']}
+          onClick={handleSubmitAbstractFilter}
+        >
+          검색결과 보기
+        </button>
       </div>
     </ModalPortal>
   );

@@ -4,3 +4,4 @@ export { default as LoginCheckBox } from './LoginCheckBox';
 export { default as LoginInput } from './LoginInput';
 export { default as LoginRadio } from './LoginRadio';
 export { default as LoginInputButton } from './LoginInputButton';
+export { default as SaveIdCheckBox } from './SaveIdCheckBox';

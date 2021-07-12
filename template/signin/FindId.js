@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 import LoginLayout from 'components/layout/LoginLayout';
-import {
-  LoginWrapper,
-  LoginCheckBox,
-  LoginInput,
-  LoginButton,
-} from 'components/login';
+import { LoginWrapper } from 'components/login';
 import css from './FindId.module.scss';
 import FindLoginInfoHeader from 'components/login/FindLoginInfoHeader';
 import LoginRadio from 'components/login/LoginRadio';
@@ -30,7 +25,7 @@ class FindId extends Component {
     const { form, authmobile, alert } = this.props;
 
     return (
-      <LoginLayout pageTitle={'아이디/비밀번호 찾기'}>
+      <LoginLayout back pageTitle={'아이디/비밀번호 찾기'}>
         <LoginWrapper>
           <div className={css.wrap}>
             <FindLoginInfoHeader select={'FindId'} />

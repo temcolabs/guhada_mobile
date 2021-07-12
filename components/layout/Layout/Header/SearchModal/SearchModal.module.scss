@@ -21,29 +21,11 @@
     align-items: center;
 
     .button {
-      width: 30px;
-      height: 30px;
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: contain;
-      margin-right: 5px;
       cursor: pointer;
+      margin-right: 5px;
+
       &:last-child {
         margin-right: 0;
-      }
-
-      &.button--back {
-        background-image: url('/static/icons/btn_top_back/btn_top_back@3x.png');
-      }
-
-      &.button--delete {
-        background-image: url('/static/icon/icon_keyword_delete.png');
-        background-size: 20px;
-      }
-
-      &.button--search {
-        background-image: url('/static/icon/btn-search@3x.png');
-        background-size: 35px;
       }
     }
   }

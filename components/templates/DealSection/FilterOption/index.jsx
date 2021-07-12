@@ -28,21 +28,17 @@ const FilterOption = ({ hide, float }) => {
       )}
     >
       <div className={css['filter-option__buttons']}>
-        <div
-          className={cn(css['filter-button'], css['button--order'])}
-          onClick={() => setIsModalOpen(1)}
-        >
+        <div className={css['filter-button']} onClick={() => setIsModalOpen(1)}>
           {searchResultOrderMap.get(searchByFilterStore.body.searchResultOrder)}
+          <div className={'misc down'} />
         </div>
         <ThumbnailButton
           thumbnail={searchByFilterStore.thumbnail}
           setThumbnail={(idx) => (searchByFilterStore.thumbnail = idx)}
         />
-        <div
-          className={cn(css['filter-button'], css['button--advanced'])}
-          onClick={() => setIsModalOpen(2)}
-        >
+        <div className={css['filter-button']} onClick={() => setIsModalOpen(2)}>
           상세검색
+          <div className={cn(css['filter-button--margin'], 'misc filter')} />
         </div>
       </div>
 

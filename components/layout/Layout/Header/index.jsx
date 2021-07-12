@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import MenuTab from './MenuTab';
 import SubmenuTab from './SubmenuTab';
 import CategoryTab from './CategoryTab';
-import BurgerModal from 'components/header/HeaderMenu';
+import BurgerModal from './BurgerModal';
 import SearchModal from './SearchModal';
 import FilterOption from 'components/templates/DealSection/FilterOption';
 import SearchTab from './SearchTab';
@@ -48,42 +48,31 @@ const Header = ({
         ) : (
           <div className={css['tab']}>
             <div className={css['tab__buttons']}>
-              {back && (
-                <div
-                  className={cn(css['button'], css['button--back'])}
-                  onClick={router.back}
-                />
-              )}
+              {back && <div className={'icon back'} onClick={router.back} />}
               {burger && (
                 <div
-                  className={cn(css['button'], css['button--burger'])}
+                  className={'icon burger'}
                   onClick={() => setIsModalOpen(2)}
                 />
               )}
               {logo && (
-                <div
-                  className={cn(css['button'], css['button--logo'])}
-                  onClick={() => router.push('/')}
-                />
+                <div className={'icon logo'} onClick={() => router.push('/')} />
               )}
             </div>
             {title && <div className={css['tab__title']}>{title}</div>}
             <div className={css['tab__buttons']}>
               {home && (
-                <div
-                  className={cn(css['button'], css['button--home'])}
-                  onClick={() => router.push('/')}
-                />
+                <div className={'icon home'} onClick={() => router.push('/')} />
               )}
               {search && (
                 <div
-                  className={cn(css['button'], css['button--search'])}
+                  className={'icon search'}
                   onClick={() => setIsModalOpen(1)}
                 />
               )}
               {cart && (
                 <div
-                  className={cn(css['button'], css['button--cart'])}
+                  className={'icon cart'}
                   onClick={() => router.push('/shoppingcart')}
                 >
                   {cartCount > 0 && (
@@ -104,10 +93,7 @@ const Header = ({
         <SearchModal handleClose={() => setIsModalOpen(0)} />
       )}
       {burger && isModalOpen === 2 && (
-        <BurgerModal
-          isVisible={isModalOpen === 2}
-          onClose={() => setIsModalOpen(0)}
-        />
+        <BurgerModal handleClose={() => setIsModalOpen(0)} />
       )}
     </header>
   );

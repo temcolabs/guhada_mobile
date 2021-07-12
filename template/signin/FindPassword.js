@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import LoginLayout from 'components/layout/LoginLayout';
 import { LoginWrapper, LoginRadio } from 'components/login';
 import css from './FindId.module.scss';
@@ -7,17 +7,18 @@ import FindPasswordMobile from 'components/login/findpassword/FindPasswordMobile
 import { observer, inject } from 'mobx-react';
 import FindPasswordEmail from 'components/login/findpassword/FindPasswordEmail';
 import FindMobileAuthPassword from 'components/login/FindMobileAuthPassword';
+
 /**
  * formEmail, formMobile
  */
 @inject('authmobile')
 @observer
-export class FindPassword extends Component {
+class FindPassword extends Component {
   state = {
     radioChecked: 'findMobile',
   };
 
-  onChangeRadio = value => {
+  onChangeRadio = (value) => {
     const { formEmail, formMobile } = this.props;
 
     formEmail.update({
@@ -41,7 +42,7 @@ export class FindPassword extends Component {
     const { formEmail, formMobile, authmobile } = this.props;
 
     return (
-      <LoginLayout pageTitle={'아이디/비밀번호 찾기'}>
+      <LoginLayout back pageTitle={'아이디/비밀번호 찾기'}>
         <LoginWrapper>
           <div className={css.wrap}>
             <FindLoginInfoHeader select={'FindPassword'} />

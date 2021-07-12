@@ -79,12 +79,12 @@ class ApiFactory {
 
   get requestInterceptor() {
     return {
-      beforeSent: async config => {
+      beforeSent: async (config) => {
         return merge(config, {
           headers: merge(config.headers, await getGuhadaCustomHeaders()),
         });
       },
-      onError: async config => {
+      onError: async (config) => {
         return merge(config, {
           headers: merge(config.headers, await getGuhadaCustomHeaders()),
         });
@@ -94,7 +94,7 @@ class ApiFactory {
 
   get responseInterceptor() {
     return {
-      onResponse: response => {
+      onResponse: (response) => {
         const guhadaResultCode = _.get(response, 'data.resultCode');
         // resultCode가 있다면 확인한다
         if (!!guhadaResultCode) {
@@ -107,7 +107,7 @@ class ApiFactory {
               if (!!Cookies.get(key.REFRESH_TOKEN)) {
                 console.error('access token expired. refresh starts.');
 
-                this.refreshAccessToken().then(res => {
+                this.refreshAccessToken().then((res) => {
                   // 토큰 재발급에 성공하면 실패한 요청을 다시 호출한다
                   window.location.reload();
                 });
@@ -127,7 +127,7 @@ class ApiFactory {
           return response;
         }
       },
-      onError: error => {
+      onError: (error) => {
         const guhadaResultCode = _.get(error, 'response.data.resultCode');
         const errorStatus = _.get(error, 'response.status');
 
@@ -136,7 +136,7 @@ class ApiFactory {
         // TODO: accessToken 인증 오류 status 코드 확인
         if (guhadaResultCode === 401 || errorStatus === 401) {
           if (!!Cookies.get(key.REFRESH_TOKEN)) {
-            this.refreshAccessToken().then(res => {
+            this.refreshAccessToken().then((res) => {
               // 토큰 재발급에 성공하면 실패한 요청을 다시 호출한다
               return axios.request(error.config);
             });
@@ -240,7 +240,7 @@ class ApiFactory {
             Authorization: 'Basic Z3VoYWRhOmd1aGFkYWNsaWVudHNlY3JldA==',
           },
         })
-        .then(res => {
+        .then((res) => {
           const { data } = res;
           const { access_token, expires_in, refresh_token } = data;
           this.updateAccessToken({
@@ -255,7 +255,7 @@ class ApiFactory {
             expires_in,
           });
         })
-        .catch(err => {
+        .catch((err) => {
           console.error('err', err);
           // 토큰 갱신에 실패했으므로 로그인으로 보낸다.
           // refreshToken도 만료되었다면, 로그인을 다시 해야 한다.
@@ -265,7 +265,6 @@ class ApiFactory {
             console.error('401. redirect to login');
             window.locaion.href = '/login';
           }
-          // Router.push(`/login/login`, '/login');
           reject();
         });
     });

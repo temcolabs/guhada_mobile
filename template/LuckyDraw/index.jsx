@@ -8,6 +8,7 @@ import LuckyDrawModal from 'template/LuckyDraw/components/organisms/Modals/Lucky
 import LuckydrawSignup from 'template/event/LuckydrawSignup';
 import LuckydrawLogin from 'template/event/LuckydrawLogin';
 import LuckydrawModify from 'template/event/LuckydrawModify';
+import EventPopup from 'components/event/popup/EventPopup';
 
 // molecules
 import {
@@ -38,7 +39,7 @@ function LuckyDrawTemplate() {
   /**
    * states
    */
-  const { luckyDraw, login } = useStores();
+  const { luckyDraw, login, eventpopup: eventPopupStore } = useStores();
   const { luckyDrawList } = luckyDraw?.luckyDrawData;
   const [luckyDrawModalProps, setLuckyDrawModalProps] = useState({
     ...initialStateLuckyDrawModal,
@@ -59,6 +60,9 @@ function LuckyDrawTemplate() {
         : initialStateLuckyDrawModal
     );
     setIsActiveLuckyDrawModal(luckyDraw.isRequestModal);
+
+    eventPopupStore.appEventPopupOpen();
+
     return () => {
       setLuckyDrawModalProps(initialStateLuckyDrawModal);
       setIsActiveLuckyDrawModal(false);
@@ -236,6 +240,23 @@ function LuckyDrawTemplate() {
 
       {/* Bottom Info */}
       <LuckyDrawBottomInfo />
+
+      {/* MODALS */}
+      {eventPopupStore.popupList.length > 0 &&
+        eventPopupStore.popupList.map((data) => {
+          return (
+            data.eventProgress === '진행중' &&
+            data.eventTitle === '앱다운로드' &&
+            data.popupStatus && (
+              <EventPopup
+                key={data.id}
+                shade
+                data={data}
+                handleClose={eventPopupStore.appEventPopupClose}
+              />
+            )
+          );
+        })}
     </>
   );
 }

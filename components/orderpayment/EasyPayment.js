@@ -14,41 +14,35 @@ class EasyPayment extends Component {
     let { orderpayment } = this.props;
     return (
       <div className={css.wrap}>
-        {orderpayment.easyPaymentList.map((data) => {
-          const paymentIconStyle = {
-            marginLeft: '15px',
-            marginTop: '3px',
-            width: `${orderpayment.easyPaymentMap[data].width}`,
-            height: '20px',
-            color: 'white',
-            background: `url(${orderpayment.easyPaymentMap[data].iconUrl})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          };
-
-          return (
-            <div className={css.section} key={data}>
-              <div className={css.statusWrap}>
-                <label>
-                  <input
-                    type="radio"
-                    name="receiptStatus"
-                    value={data}
-                    onChange={(e) => {
-                      orderpayment.setPaymentMethod(data);
-                    }}
-                  />
-                  <div className={css.radioBtn} />
-                  <span style={paymentIconStyle} />
-                  <div className={css.radioTxt}>
-                    {orderpayment.easyPaymentMap[data].label}
-                  </div>
-                </label>
-              </div>
+        {orderpayment.easyPaymentList.map((data) => (
+          <div className={css.section} key={data}>
+            <div className={css.statusWrap}>
+              <label>
+                <input
+                  type="radio"
+                  name="receiptStatus"
+                  value={data}
+                  onChange={(e) => {
+                    orderpayment.setPaymentMethod(data);
+                  }}
+                />
+                <div className={css.radioBtn} />
+                <span
+                  className={css.payIcon}
+                  style={{
+                    width: `${orderpayment.easyPaymentMap[data].width}`,
+                    backgroundImage: `url(${
+                      orderpayment.easyPaymentMap[data].iconUrl
+                    })`,
+                  }}
+                />
+                <div className={css.radioTxt}>
+                  {orderpayment.easyPaymentMap[data].label}
+                </div>
+              </label>
             </div>
-          );
-        })}
+          </div>
+        ))}
       </div>
     );
   }

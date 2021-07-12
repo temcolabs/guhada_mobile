@@ -12,43 +12,51 @@ const getDeviceType = () => {
 export default {
   visit: () => {
     if (isBrowser) {
-      if (getDeviceType() === 'web') {
-        kakaoPixel(KAKAO_MOMENT_KEY).pageView('visit_pc');
-      } else {
-        kakaoPixel(KAKAO_MOMENT_KEY).pageView('visit_m');
+      if (kakaoPixel) {
+        if (getDeviceType() === 'web') {
+          kakaoPixel(KAKAO_MOMENT_KEY).pageView('visit_pc');
+        } else {
+          kakaoPixel(KAKAO_MOMENT_KEY).pageView('visit_m');
+        }
       }
     }
   },
   signup: () => {
     if (isBrowser) {
-      if (getDeviceType() === 'web') {
-        kakaoPixel(KAKAO_MOMENT_KEY).pageView();
-        kakaoPixel(KAKAO_MOMENT_KEY).completeRegistration('registration_pc');
-      } else {
-        kakaoPixel(KAKAO_MOMENT_KEY).pageView();
-        kakaoPixel(KAKAO_MOMENT_KEY).completeRegistration('registration_m');
+      if (kakaoPixel) {
+        if (getDeviceType() === 'web') {
+          kakaoPixel(KAKAO_MOMENT_KEY).pageView();
+          kakaoPixel(KAKAO_MOMENT_KEY).completeRegistration('registration_pc');
+        } else {
+          kakaoPixel(KAKAO_MOMENT_KEY).pageView();
+          kakaoPixel(KAKAO_MOMENT_KEY).completeRegistration('registration_m');
+        }
       }
     }
   },
   shoppingCart: () => {
     if (isBrowser) {
-      if (getDeviceType() === 'web') {
-        kakaoPixel(KAKAO_MOMENT_KEY).pageView();
-        kakaoPixel(KAKAO_MOMENT_KEY).viewCart('cart_pc');
-      } else {
-        kakaoPixel(KAKAO_MOMENT_KEY).pageView();
-        kakaoPixel(KAKAO_MOMENT_KEY).viewCart('cart_m');
+      if (kakaoPixel) {
+        if (getDeviceType() === 'web') {
+          kakaoPixel(KAKAO_MOMENT_KEY).pageView();
+          kakaoPixel(KAKAO_MOMENT_KEY).viewCart('cart_pc');
+        } else {
+          kakaoPixel(KAKAO_MOMENT_KEY).pageView();
+          kakaoPixel(KAKAO_MOMENT_KEY).viewCart('cart_m');
+        }
       }
     }
   },
-  purchaseComplete: () => {
+  purchaseComplete: ({ total_quantity, total_price }) => {
     if (isBrowser) {
-      if (getDeviceType() === 'web') {
+      if (kakaoPixel) {
         kakaoPixel(KAKAO_MOMENT_KEY).pageView();
-        kakaoPixel(KAKAO_MOMENT_KEY).purchase('purchase_pc');
-      } else {
-        kakaoPixel(KAKAO_MOMENT_KEY).pageView();
-        kakaoPixel(KAKAO_MOMENT_KEY).purchase('purchase_m');
+        kakaoPixel(KAKAO_MOMENT_KEY).purchase({
+          total_quantity,
+          total_price,
+          currency: 'KRW',
+          tag: 'purchase_m',
+        });
       }
     }
   },

@@ -1,0 +1,19 @@
+.modal__header {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+  height: 60px;
+
+  &__name {
+    font-size: 18px;
+    font-weight: 500;
+  }
+}
+
+.modal__ad {
+  width: 100%;
+  position: fixed;
+  height: calc((7 / 18) * 100vw);
+  bottom: 0;
+}

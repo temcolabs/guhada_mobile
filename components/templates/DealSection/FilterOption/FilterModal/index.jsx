@@ -16,36 +16,34 @@ const FilterModal = ({
   handleResetFilter,
 }) => (
   <ModalPortal handleClose={handleCloseModal} gutter slide={1}>
-    <div className={css['filter-modal']}>
-      <div className={css['modal__header']}>
-        <div className={css['modal__header__name']}>{filterName}</div>
+    <div className={css['modal__header']}>
+      <div className={css['modal__header__name']}>{filterName}</div>
+      <div
+        className={css['modal__header__reset']}
+        onClick={() => {
+          handleResetFilter();
+          handleCloseModal();
+        }}
+      >
+        초기화
+      </div>
+    </div>
+    <div className={css['modal__list']}>
+      {Array.from(filterMap).map(([key, value]) => (
         <div
-          className={css['modal__header__reset']}
+          key={key}
+          className={cn(
+            css['list-item'],
+            selectedKey === key && css['list-item--selected']
+          )}
           onClick={() => {
-            handleResetFilter();
+            handleSetFilter(key);
             handleCloseModal();
           }}
         >
-          초기화
+          {value}
         </div>
-      </div>
-      <div className={css['modal__list']}>
-        {Array.from(filterMap).map(([key, value]) => (
-          <div
-            key={key}
-            className={cn(
-              css['list-item'],
-              selectedKey === key && css['list-item--selected']
-            )}
-            onClick={() => {
-              handleSetFilter(key);
-              handleCloseModal();
-            }}
-          >
-            {value}
-          </div>
-        ))}
-      </div>
+      ))}
     </div>
   </ModalPortal>
 );

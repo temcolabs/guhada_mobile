@@ -1,0 +1,26 @@
+.category-list {
+  transition: height 0.1s;
+  overflow: hidden;
+
+  .category-list__item {
+    height: 40px;
+    font-size: 15px;
+    padding: 15px 0 10px 12px;
+    position: relative;
+
+    &:first-child {
+      height: 41px;
+      border-top: 1px dashed #eee;
+    }
+    &:last-child {
+      height: 45px;
+      padding-bottom: 20px;
+    }
+
+    span {
+      position: absolute;
+      right: 0;
+      top: 8px;
+    }
+  }
+}

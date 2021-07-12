@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { observer } from 'mobx-react';
 import LoginLayout from 'components/layout/LoginLayout';
 import css from './Signup.module.scss';
@@ -38,7 +38,7 @@ class Signup extends Component {
     let value = form.get('value');
     let termAgreeValue = termAgree.get('value');
     return (
-      <LoginLayout pageTitle={'회원가입'}>
+      <LoginLayout back pageTitle={'회원가입'}>
         <LoginWrapper>
           <div className={css.wrap}>
             <div>

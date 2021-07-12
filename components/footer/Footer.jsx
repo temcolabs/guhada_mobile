@@ -48,49 +48,49 @@ function Footer() {
         <div className={css.contentsWrap}>
           <div className={css.snsWrap}>
             <ul>
-              <li>
+              <li className="social-icon sns-insta">
                 <a
                   href="https://www.instagram.com/official.guhada/"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <img src="/static/icon/sns-insta@3x.png" />
+                  .
                 </a>
               </li>
-              <li>
+              <li className="social-icon sns-facebook">
                 <a
                   href="https://www.facebook.com/guhada.official"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <img src="/static/icon/sns-fb@3x.png" />
+                  .
                 </a>
               </li>
-              <li>
+              <li className="social-icon sns-youtube">
                 <a
                   href="https://www.youtube.com/channel/UCFTpZVfGP02a6s-jWfxAoTQ/"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <img src="/static/icon/sns-youtube@3x.png" />
+                  .
                 </a>
               </li>
-              <li>
+              <li className="social-icon sns-blog">
                 <a
                   href="https://blog.naver.com/guhada401"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <img src="/static/icon/sns-blog@3x.png" />
+                  .
                 </a>
               </li>
-              <li>
+              <li className="social-icon sns-post">
                 <a
                   href="https://post.naver.com/guhada401"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <img src="/static/icon/sns-post.png" />
+                  .
                 </a>
               </li>
             </ul>
@@ -109,10 +109,10 @@ function Footer() {
           <div className={css.guhadaItem}>
             (주)구하다 <br />
             대표이사 : 윤재섭 ㅣ 개인정보보호책임자 :{' '}
-            <a href="mailto:daehoon.choi@temco.io">{`최대훈`}</a> <br />
+            <a href="mailto:help@mail.guhada.com">{`우형준`}</a> <br />
             사업자등록번호: 876-86-01259 <br />
-            주소 : 서울특별시 영등포구 의사당대로 83 오투타워 <br />
-            통신판매업자신고 : 2020-서울영등포-3486호{' '}
+            주소 : 서울특별시 강남구 선릉로90길, 70 인텔빌딩 6층 <br />
+            통신판매업자신고 : 2021-서울강남-04204호{' '}
             <a
               href="http://ftc.go.kr/bizCommPop.do?wrkr_no=8768601259"
               target="_blank"

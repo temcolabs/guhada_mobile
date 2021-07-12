@@ -89,7 +89,6 @@ class MyDocument extends Document {
         </Head>
         <body>
           <Main />
-          <div id="modal-portal" />
           <NextScript />
 
           <script

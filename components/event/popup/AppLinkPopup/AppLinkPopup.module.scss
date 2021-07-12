@@ -1,0 +1,64 @@
+.popup {
+  color: #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  &__info {
+    width: 270px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+
+    &__logo {
+      width: 40px;
+      height: 40px;
+      background: url('/static/icon/home_icon.png') no-repeat center;
+      background-size: cover;
+    }
+
+    &__desc {
+      width: 220px;
+      margin-left: 10px;
+
+      .desc__star {
+        display: flex;
+        line-height: 12px;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        font-size: 12px;
+        margin-bottom: 10px;
+
+        span {
+          margin-right: 5px;
+        }
+      }
+
+      .desc__text {
+        font-size: 14px;
+        word-break: break-all;
+      }
+    }
+  }
+
+  &__button {
+    color: #eee;
+    border-radius: 5px;
+    background-color: #5d2ed1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    text-align: center;
+    width: 250px;
+    padding: 10px;
+    margin-bottom: 15px;
+  }
+
+  &__close {
+    font-size: 12px;
+    text-decoration: underline;
+  }
+}

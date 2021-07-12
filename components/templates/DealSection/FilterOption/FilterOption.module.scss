@@ -20,17 +20,11 @@
     font-size: 13px;
 
     .filter-button {
-      &.button--order {
-        padding-right: 16px;
-        background: url('/static/icon/list_select_arrow_open.png') no-repeat
-          right;
-        background-size: 13px;
-      }
+      display: flex;
+      align-items: center;
 
-      &.button--advanced {
-        padding-right: 19px;
-        background: url('/static/icon/list_icon_filter.png') no-repeat right;
-        background-size: 14px;
+      .filter-button--margin {
+        margin-left: 5px;
       }
     }
   }

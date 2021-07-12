@@ -1,27 +1,42 @@
 import css from './ModalPortal.module.scss';
-import { useEffect } from 'react';
+import { useState, useEffect, cloneElement, Children } from 'react';
 import { createPortal } from 'react-dom';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 
 function ModalPortal({
   children,
-  selectorId = 'modal-portal',
+  selectorId = '__next',
   handleClose = () => {},
   shade = true,
-  transparent = false,
   gutter,
   closeButton = true,
   slide,
+  background = true,
+  center = false,
 }) {
+  /**
+   * states
+   */
+  const [height, setHeight] = useState(window.innerHeight);
+
+  /**
+   * handlers
+   */
+  const resizeHandler = () => {
+    setHeight(window.innerHeight);
+  };
+
   /**
    * side effects
    */
   useEffect(() => {
     document.body.style.overflow = 'hidden';
+    window.addEventListener('resize', resizeHandler, true);
+
     return () => {
-      document.body.style.overflow = 'unset';
-      handleClose();
+      document.body.style.removeProperty('overflow');
+      window.removeEventListener('resize', resizeHandler, true);
     };
   }, []);
 
@@ -31,18 +46,19 @@ function ModalPortal({
   return (
     typeof document === 'object' &&
     createPortal(
-      <>
+      <div className={css['modal-portal']}>
         {shade && (
-          <div
-            className={cn(css['shade'], closeButton && css['close-button'])}
-            onClick={handleClose}
-          />
+          <div className={css['shade']} onClick={handleClose}>
+            {closeButton && <div className="icon close--light" />}
+          </div>
         )}
         <div
+          style={{ height: `${height}px` }}
           className={cn(
             css['modal'],
-            transparent && css['transparent'],
+            !background && css['transparent'],
             gutter && css['gutter'],
+            center && css['center'],
             {
               [css['slideUp']]: slide === 1,
               [css['slideLeft']]: slide === 2,
@@ -50,9 +66,12 @@ function ModalPortal({
             }
           )}
         >
-          {children}
+          {Children.map(
+            children,
+            (child) => child && cloneElement(child, { height })
+          )}
         </div>
-      </>,
+      </div>,
       document.getElementById(selectorId)
     )
   );
@@ -64,6 +83,7 @@ ModalPortal.propTypes = {
   gutter: PropTypes.bool,
   closeButton: PropTypes.bool,
   slide: PropTypes.number,
+  background: PropTypes.bool,
 };
 
 export default ModalPortal;

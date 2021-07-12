@@ -1,0 +1,31 @@
+.list__item__sub {
+  border-top: 1px dashed #eee;
+  border-bottom: 1px dashed #eee;
+  transition: height 0.1s;
+  visibility: hidden;
+  &.open {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    visibility: visible;
+  }
+
+  .sub {
+    &__item {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      height: 40px;
+      width: 50%;
+      display: inline-block;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+
+      padding-left: 10px;
+      padding-right: 15px;
+      &:nth-child(2n) {
+        padding-left: 15px;
+        padding-right: 10px;
+      }
+    }
+  }
+}

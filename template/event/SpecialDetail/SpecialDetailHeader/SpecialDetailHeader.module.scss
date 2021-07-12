@@ -25,15 +25,13 @@
     }
 
     &__copy {
-      top: 0;
-      width: 45px;
-      height: 45px;
+      width: 41px;
+      height: 41px;
       border-radius: 50%;
-      background-image: url('/static/icon/community/icon-share.png');
-      background-size: 25px;
-      background-position: center;
-      background-repeat: no-repeat;
       border: solid 1px #eeeeee;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 

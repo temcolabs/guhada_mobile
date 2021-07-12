@@ -10,6 +10,7 @@ function ProductOptionModal({ onClose, productoption }) {
       handleClose={onClose}
       transparent
       closeButton={false}
+      background={false}
     >
       <div className={css.wrap}>
         <div className={css.innerWrap}>

@@ -1,0 +1,131 @@
+.icon {
+  width: 30px;
+  height: 30px;
+  background: url('/static/sprites/icon.png') no-repeat top left;
+  background-size: 240px 224px;
+
+  &.logo {
+    background-position: 0 0;
+    width: 110px;
+  }
+  &.back {
+    background-position: 0 -32px;
+  }
+  &.blockchain {
+    background-position: -32px -32px;
+  }
+  &.bookmark {
+    background-position: -64px -32px;
+  }
+  &.bookmark--on {
+    background-position: 0 -64px;
+  }
+  &.brand {
+    background-position: -32px -64px;
+  }
+  &.brand--on {
+    background-position: -64px -64px;
+  }
+  &.burger {
+    background-position: -112px 0;
+  }
+  &.cart {
+    background-position: -112px -32px;
+  }
+  &.category {
+    background-position: -112px -64px;
+  }
+  &.category--on {
+    background-position: 0 -96px;
+  }
+  &.close {
+    background-position: -32px -96px;
+  }
+  &.close--light {
+    background-position: -64px -96px;
+  }
+  &.community {
+    background-position: -96px -96px;
+  }
+  &.community--on {
+    background-position: -144px 0;
+  }
+  &.continue {
+    background-position: -144px -32px;
+  }
+  &.delete {
+    background-position: -144px -64px;
+  }
+  &.home {
+    background-position: -144px -96px;
+  }
+  &.home--on {
+    background-position: 0 -128px;
+  }
+  &.like {
+    background-position: -32px -128px;
+  }
+  &.like--on {
+    background-position: -64px -128px;
+  }
+  &.more {
+    background-position: -96px -128px;
+  }
+  &.mypage {
+    background-position: -128px -128px;
+  }
+  &.mypage--on {
+    background-position: -176px 0;
+  }
+  &.next {
+    background-position: -176px -32px;
+  }
+  &.nextnext {
+    background-position: -176px -64px;
+  }
+  &.nextnext--on {
+    background-position: -176px -96px;
+  }
+  &.next--on {
+    background-position: -176px -128px;
+  }
+  &.photo {
+    background-position: 0 -160px;
+  }
+  &.prev {
+    background-position: -32px -160px;
+  }
+  &.prev--on {
+    background-position: -64px -160px;
+  }
+  &.prevprev {
+    background-position: -96px -160px;
+  }
+  &.prevprev--on {
+    background-position: -128px -160px;
+  }
+  &.search {
+    background-position: -160px -160px;
+  }
+  &.search--small {
+    background-position: -208px 0;
+  }
+  &.setting {
+    background-position: -208px -32px;
+  }
+  &.share {
+    background-position: -208px -64px;
+  }
+  &.star {
+    background-position: -208px -96px;
+  }
+  &.star--on {
+    background-position: -208px -128px;
+  }
+  &.storage {
+    background-position: -208px -160px;
+  }
+  &.write {
+    background-position: 0 -192px;
+  }
+}

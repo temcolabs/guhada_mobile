@@ -30,7 +30,7 @@ export class SignupSuccessModal extends Component {
           <div className={css.header}>환영합니다!</div>
           <div className={css.contents}>회원님의 아이디</div>
           <div className={css.email}>{this.props.email}</div>
-          <LinkRoute href="/login/login">
+          <LinkRoute href="/login">
             <a className={css.loginLink}>로그인</a>
           </LinkRoute>
         </div>

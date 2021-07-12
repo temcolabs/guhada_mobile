@@ -27,7 +27,7 @@ class index extends React.Component {
       .then((successInfo) /* the whole response */ => {
         // 로그인 상태라면 화원정보를 가져온 후에 트래커 실행. 아니면 그냥 실행
         if (isBrowser && Cookies.get(key.ACCESS_TOKEN)) {
-          this.props.user.pushJobForUserInfo(userInfo => {
+          this.props.user.pushJobForUserInfo((userInfo) => {
             this.executeTracker({ userInfo, successInfo });
           });
         } else {
@@ -49,7 +49,10 @@ class index extends React.Component {
     });
 
     // 카카오 모먼트 트래커
-    momentTracker.purchaseComplete();
+    momentTracker.purchaseComplete({
+      total_quantity: successInfo.orderList?.length,
+      total_price: successInfo.totalOrderPrice,
+    });
 
     // gtag 트래커
     gtagTracker.purchaseComplete(successInfo);
@@ -58,7 +61,7 @@ class index extends React.Component {
     criteoTracker.purchaseComplete({
       email: userInfo?.email,
       transaction_id: successInfo.orderNumber,
-      items: successInfo.orderList?.map(orderItem => ({
+      items: successInfo.orderList?.map((orderItem) => ({
         id: orderItem.dealId,
         price: orderItem.discountPrice,
         quantity: orderItem.quantity,
@@ -67,7 +70,7 @@ class index extends React.Component {
 
     widerplanetTracker.purchaseComplete({
       userId: userInfo?.id,
-      items: successInfo.orderList?.map(orderItem => ({
+      items: successInfo.orderList?.map((orderItem) => ({
         i: orderItem.dealId,
         t: orderItem.prodName,
         p: orderItem.discountPrice,

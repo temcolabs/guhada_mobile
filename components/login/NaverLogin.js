@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
-// import css from './NaverLogin.module.scss';
-import css from '../../template/signin/Login.module.scss';
+import css from '../../template/signin/Login/Login.module.scss';
 import { observer, inject } from 'mobx-react';
 import loadScript from 'childs/lib/dom/loadScript';
 import { snsAppKey } from 'childs/lib/constant/sns';
@@ -59,14 +58,7 @@ class NaverLogin extends React.Component {
             id="naverIdLogin_loginButton"
             onClick={this.props.onClick}
           >
-            <div
-              id="naverIdLogin"
-              className={css.icon}
-              style={{
-                backgroundImage:
-                  "url('/static/icon/social/login_btn_naver.png')",
-              }}
-            />
+            <div id="naverIdLogin" className="social-icon login-naver" />
             <div className={css.text}>
               네이버
               <br />

@@ -14,39 +14,35 @@ const FilterModal = ({ selectedFilter, handleCloseModal }) => {
 
   return (
     <ModalPortal gutter slide={1} handleClose={handleCloseModal}>
-      <div className={css['filter-modal']}>
-        <div className={css['modal__header']}>
-          <div className={css['modal__header__name']}>
-            {selectedFilter.name}
-          </div>
-          <div
-            className={css['modal__header__reset']}
-            onClick={() => {
-              rankingStore.resetRankingFilter(selectedFilter.idx);
-              handleCloseModal();
-            }}
-          >
-            초기화
-          </div>
+      <div className={css['modal__header']}>
+        <div className={css['modal__header__name']}>{selectedFilter.name}</div>
+        <div
+          className={css['modal__header__reset']}
+          onClick={() => {
+            rankingStore.resetRankingFilter(selectedFilter.idx);
+            handleCloseModal();
+          }}
+        >
+          초기화
         </div>
-        <div className={css['modal__list']}>
-          {filterMap &&
-            arrayFromMap(filterMap).map(({ key: enValue, value: koValue }) => (
-              <div
-                key={enValue}
-                className={cn(
-                  css['list-item'],
-                  selectedFilter.value === enValue && css['list-item--selected']
-                )}
-                onClick={() => {
-                  rankingStore.setRankingFilter(selectedFilter.idx, enValue);
-                  handleCloseModal();
-                }}
-              >
-                {koValue}
-              </div>
-            ))}
-        </div>
+      </div>
+      <div className={css['modal__list']}>
+        {filterMap &&
+          arrayFromMap(filterMap).map(({ key: enValue, value: koValue }) => (
+            <div
+              key={enValue}
+              className={cn(
+                css['list-item'],
+                selectedFilter.value === enValue && css['list-item--selected']
+              )}
+              onClick={() => {
+                rankingStore.setRankingFilter(selectedFilter.idx, enValue);
+                handleCloseModal();
+              }}
+            >
+              {koValue}
+            </div>
+          ))}
       </div>
     </ModalPortal>
   );
