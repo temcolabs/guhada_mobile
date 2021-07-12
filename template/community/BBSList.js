@@ -1,5 +1,5 @@
 import React, { useState, useEffect, memo } from 'react';
-import { pushRoute } from 'childs/lib/router';
+import { pushRoute } from 'lib/router';
 import CommunityLayout from 'components/community/CommunityLayout';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
 import css from './BBSList.module.scss';
@@ -14,12 +14,12 @@ import useStores from 'stores/useStores';
 import CommunityContentWrap from 'components/community/CommunityContentWrap';
 import { useBBSStore } from 'stores/bbs';
 import useBBSSearchState from 'components/community/list/useBBSSearchState';
-import { ITEMS_PER_PAGE } from 'childs/lib/constant/community/searchQuery';
+import { ITEMS_PER_PAGE } from 'lib/constant/community/searchQuery';
 import { useObserver } from 'mobx-react';
 import BoardGridItem, {
   BoardGridContainer,
 } from 'components/community/list/BoardGridItem';
-import categoryViewType from 'childs/lib/constant/community/categoryViewType';
+import categoryViewType from 'lib/constant/community/categoryViewType';
 import MoreButton from 'components/common/MoreButton';
 import DataEmpty from 'components/common/DataEmpty.js';
 import Slider from 'components/molecules/Slider';

@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import css from './MyPageMembership.module.scss';
 import cn from 'classnames';
 
-import { pushRoute } from 'childs/lib/router';
-import addCommaToNum from 'childs/lib/common/addCommaToNum';
+import { pushRoute } from 'lib/router';
+import addCommaToNum from 'lib/common/addCommaToNum';
 
 /**
  * 마이페이지 > 쿠폰, 포인트, 토큰

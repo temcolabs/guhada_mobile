@@ -25,8 +25,8 @@ module.exports = {
         loader: 'file-loader',
         options: {
           name: '[name].[ext]',
-          outputPath: 'static/icons',
-          publicPath: '../static/icons/',
+          outputPath: 'public/icons',
+          publicPath: '../public/icons/',
         },
       },
     });

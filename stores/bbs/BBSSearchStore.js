@@ -1,11 +1,11 @@
 import { observable, action, toJS } from 'mobx';
-import { isBrowser } from 'childs/lib/common/isServer';
-import API from 'childs/lib/API';
+import { isBrowser } from 'lib/common/isServer';
+import API from 'lib/API';
 import _ from 'lodash';
-import searchOrder from 'childs/lib/constant/community/searchOrder';
-import filterByKey from 'childs/lib/object/filterObjByKey';
-import { ITEMS_PER_PAGE } from 'childs/lib/constant/community/searchQuery';
-import { devLog, devGroup, devGroupEnd } from 'childs/lib/common/devLog';
+import searchOrder from 'lib/constant/community/searchOrder';
+import filterByKey from 'lib/object/filterObjByKey';
+import { ITEMS_PER_PAGE } from 'lib/constant/community/searchQuery';
+import { devLog, devGroup, devGroupEnd } from 'lib/common/devLog';
 import { POPULAR_CATEGORY_ID } from 'components/community/list/useBBSSearchState';
 
 const DIFF_DAY_IN_MS = 1000 * 60 * 60 * 24;

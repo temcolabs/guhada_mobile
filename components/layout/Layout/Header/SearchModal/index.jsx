@@ -7,7 +7,7 @@ import useStores from 'stores/useStores';
 import ModalPortal from 'components/templates/ModalPortal';
 import SearchMenu from '../SearchTab/SearchMenu';
 import AutocompleteSearchMenu from '../SearchTab/AutocompleteSearchMenu';
-import { pushRoute } from 'childs/lib/router';
+import { pushRoute } from 'lib/router';
 
 const SearchModal = ({ handleClose }) => {
   /**

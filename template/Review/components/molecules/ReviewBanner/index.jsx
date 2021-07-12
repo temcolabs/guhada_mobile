@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import API from 'childs/lib/API';
+import API from 'lib/API';
 
 import Image from 'components/atoms/Image';
 import { Wrppaer } from './Styled';
 
 // TODO : 백엔드에서 데이터 가져오는지 확인
-const REVIEW_BANNER_URL = 'static/images/eventBanners/review_event_banner.png';
+const REVIEW_BANNER_URL = 'public/images/eventBanners/review_event_banner.png';
 
 /**
  * 리뷰 > 상단 배너

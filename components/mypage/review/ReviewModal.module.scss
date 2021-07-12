@@ -1,50 +1,50 @@
 .modalWrap {
-    position: relative;
-    width: 446px;
-    padding: 40px 20px 20px 20px;
+  position: relative;
+  width: 446px;
+  padding: 40px 20px 20px 20px;
 
-    button {
-        width: 140px;
-        height: 40px;
-        background-color: #444444;
-        font-size: 14px;
-        font-weight: 500;
-        font-style: normal;
-        font-stretch: normal;
-        letter-spacing: normal;
-        text-align: center;
-        color: #ffffff;
-        margin-right: 10px;
+  button {
+    width: 140px;
+    height: 40px;
+    background-color: #444444;
+    font-size: 14px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+    margin-right: 10px;
 
-        &.isColored {
-            background-color: #5d2ed1;
-            margin-right: 0;
-        }
+    &.isColored {
+      background-color: #5d2ed1;
+      margin-right: 0;
     }
+  }
 }
 
 .btnWrap {
-    text-align: center;
+  text-align: center;
 }
 
 .close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 29px;
-    height: 29px;
-    background-image: url('/static/icon/modal_close.png');
-    background-size: 29px;
-    background-repeat: no-repeat;
-    background-position: center;
-    cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 29px;
+  height: 29px;
+  background-image: url('/public/icon/modal_close.png');
+  background-size: 29px;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
 }
 
 .text {
-    font-size: 14px;
-    font-weight: normal;
-    line-height: 1.57;
-    text-align: center;
-    color: #111111;
-    margin-bottom: 20px;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.57;
+  text-align: center;
+  color: #111111;
+  margin-bottom: 20px;
 }

@@ -4,8 +4,8 @@ import { inject, observer } from 'mobx-react';
 import { toJS } from 'mobx';
 import cn from 'classnames';
 import Router from 'next/router';
-import { mainCategory } from 'childs/lib/constant/category';
-import { pushRoute } from 'childs/lib/router';
+import { mainCategory } from 'lib/constant/category';
+import { pushRoute } from 'lib/router';
 import _ from 'lodash';
 
 @inject('searchitem', 'category')
@@ -114,7 +114,7 @@ class CategorySlider extends Component {
             );
           })}
           {/* <img
-            src={'/static/icon/btn-arrow2.png'}
+            src={'/public/icon/btn-arrow2.png'}
             className={css.arrowIcon}
             alt=""
           /> */}

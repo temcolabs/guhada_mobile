@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './AddressItem.module.scss';
-import addHyphenToMobile from 'childs/lib/string/addHyphenToMobile';
+import addHyphenToMobile from 'lib/string/addHyphenToMobile';
 @inject('orderpayment')
 @observer
 class AddressItem extends Component {
@@ -35,7 +35,7 @@ class AddressItem extends Component {
                   <input
                     type="text"
                     value={tempEditAddress.shippingName}
-                    onChange={e => {
+                    onChange={(e) => {
                       orderpayment.addressEditing(e, 'shippingName', null);
                     }}
                   />
@@ -121,7 +121,7 @@ class AddressItem extends Component {
             <div className={css.section}>
               <input
                 type="text"
-                onChange={e => {
+                onChange={(e) => {
                   orderpayment.addressEditing(e, 'detailAddress', null);
                 }}
                 value={tempEditAddress.detailAddress}
@@ -131,7 +131,7 @@ class AddressItem extends Component {
             <div className={css.section}>
               <input
                 type="text"
-                onChange={e => {
+                onChange={(e) => {
                   orderpayment.addressEditing(e, 'recipientName', null);
                 }}
                 value={tempEditAddress.recipientName}
@@ -141,7 +141,7 @@ class AddressItem extends Component {
             <div className={css.section}>
               <input
                 type="text"
-                onChange={e => {
+                onChange={(e) => {
                   orderpayment.addressEditing(e, 'recipientMobile', null);
                 }}
                 value={addHyphenToMobile(tempEditAddress.recipientMobile)}

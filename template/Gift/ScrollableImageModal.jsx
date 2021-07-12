@@ -10,7 +10,7 @@ const defaultCloseButtonStyle = {
   zIndex: '999',
   width: '30px',
   height: '30px',
-  backgroundImage: 'url("/static/icon/btn-close.png")',
+  backgroundImage: 'url("/public/icon/btn-close.png")',
   backgroundSize: 'cover',
   cursor: 'pointer',
 };

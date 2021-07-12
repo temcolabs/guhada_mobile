@@ -4,8 +4,8 @@ import StarItem from './StarItem';
 import { inject, observer } from 'mobx-react';
 import _ from 'lodash';
 import cn from 'classnames';
-import { pushRoute, sendBackToLogin } from 'childs/lib/router';
-import { loginStatus } from 'childs/lib/constant';
+import { pushRoute, sendBackToLogin } from 'lib/router';
+import { loginStatus } from 'lib/constant';
 import CardInterestModal from 'components/common/modal/CardInterestModal';
 
 @inject(
@@ -100,10 +100,10 @@ class ShippingBenefit extends Component {
             style={
               this.state.benefitHandle
                 ? {
-                    backgroundImage: 'url("/static/icon/minus_icon_m.png")',
+                    backgroundImage: 'url("/public/icon/minus_icon_m.png")',
                   }
                 : {
-                    backgroundImage: 'url("/static/icon/plus_icon_m.png")',
+                    backgroundImage: 'url("/public/icon/plus_icon_m.png")',
                   }
             }
           />
@@ -192,7 +192,7 @@ class ShippingBenefit extends Component {
                     className={cn({
                       [css.colored]: sellerfollow.follows === true,
                     })}
-                    onClick={e => {
+                    onClick={(e) => {
                       this.handleSellerFollows();
                       e.stopPropagation();
                     }}
@@ -202,7 +202,7 @@ class ShippingBenefit extends Component {
                 ) : (
                   <button
                     className={cn()}
-                    onClick={e => {
+                    onClick={(e) => {
                       sendBackToLogin();
                       e.stopPropagation();
                     }}

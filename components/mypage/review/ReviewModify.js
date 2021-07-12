@@ -6,11 +6,11 @@ import { observer, inject } from 'mobx-react';
 import ReviewDeleteModal from './ReviewDeleteModal';
 import MypageDataEmpty from '../MypageDataEmpty';
 import { toJS } from 'mobx';
-import { scrollToTarget } from 'childs/lib/common/scroll';
-import { devLog } from 'childs/lib/common/devLog';
+import { scrollToTarget } from 'lib/common/scroll';
+import { devLog } from 'lib/common/devLog';
 import _ from 'lodash';
 import css from './ReviewModifyItem.module.scss';
-import isTruthy from 'childs/lib/common/isTruthy';
+import isTruthy from 'lib/common/isTruthy';
 
 /**
  * 내가 작성한 리뷰

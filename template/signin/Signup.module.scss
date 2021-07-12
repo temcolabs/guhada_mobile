@@ -1,29 +1,28 @@
 .wrap {
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 1.14;
-    color: #898989;
-    padding-top: 24px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.14;
+  color: #898989;
+  padding-top: 24px;
 
-    & .optionalAgree {
-        height: 124px;
-        background: url('/static/icon/benefit_btn_plus.png') no-repeat right;
-        background-position-y: 12px;
-        background-size: 16px;
+  & .optionalAgree {
+    height: 124px;
+    background: url('/public/icon/benefit_btn_plus.png') no-repeat right;
+    background-position-y: 12px;
+    background-size: 16px;
 
-        &.openOptional {
-            background: none;
-        }
-
+    &.openOptional {
+      background: none;
     }
+  }
 }
 
 .bigCheckboxWrap {
-    margin-top: 20px;
-    border-bottom: solid 1px #eeeeee;
-    height: 50px;
+  margin-top: 20px;
+  border-bottom: solid 1px #eeeeee;
+  height: 50px;
 }
 
 .borderBottom {
-    border-bottom: solid 1px #eeeeee;
+  border-bottom: solid 1px #eeeeee;
 }

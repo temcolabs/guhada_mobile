@@ -7,8 +7,8 @@ import Image from 'components/atoms/Image';
 import { Header, HeaderContents, HeaderTitle } from './Styled';
 
 const IMAGE_PATH = {
-  back: '/static/icons/btn_top_back/btn_top_back@3x.png',
-  close: '/static/icons/btn_top_close/btn_top_close@3x.png',
+  back: '/public/icons/btn_top_back/btn_top_back@3x.png',
+  close: '/public/icons/btn_top_close/btn_top_close@3x.png',
 };
 
 /**

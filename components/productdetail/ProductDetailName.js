@@ -5,7 +5,7 @@ import { inject, observer } from 'mobx-react';
 import _ from 'lodash';
 import copy from 'copy-to-clipboard';
 import Router from 'next/router';
-import { sendBackToLogin } from 'childs/lib/router';
+import { sendBackToLogin } from 'lib/router';
 import { LoadingSpinner } from 'components/common/loading/Loading';
 
 /**
@@ -48,9 +48,7 @@ class ProductDetailName extends Component {
   };
 
   copyUrlToClipboard = () => {
-    const productUrl = `${window.location.protocol}//${window.location.host}${
-      Router.router.asPath
-    }`;
+    const productUrl = `${window.location.protocol}//${window.location.host}${Router.router.asPath}`;
 
     copy(productUrl);
     this.props.alert.showAlert('상품 URL이 클립보드에 복사되었습니다.');
@@ -109,7 +107,7 @@ class ProductDetailName extends Component {
               {deals.trackRecords && deals.trackRecords.length ? (
                 <div onClick={this.handleBlockChainModal}>
                   <img
-                    src="/static/icon/icon_blockchain_link_black.png"
+                    src="/public/icon/icon_blockchain_link_black.png"
                     alt="블록체인정보"
                   />
                 </div>
@@ -117,7 +115,7 @@ class ProductDetailName extends Component {
                 ''
               )}
               <div className={css.share__btn} onClick={this.copyUrlToClipboard}>
-                <img src="/static/icon/m_share_btn.png" alt="공유하기" />
+                <img src="/public/icon/m_share_btn.png" alt="공유하기" />
               </div>
               <div
                 className={css.like__btn}
@@ -130,9 +128,9 @@ class ProductDetailName extends Component {
                 }}
               >
                 {productDetailBookmark.bookMarkStatus ? (
-                  <img src="/static/icon/m_like_btn_on.png" alt="북마크" />
+                  <img src="/public/icon/m_like_btn_on.png" alt="북마크" />
                 ) : (
-                  <img src="/static/icon/m_like_btn_off.png" alt="북마크" />
+                  <img src="/public/icon/m_like_btn_off.png" alt="북마크" />
                 )}
               </div>
             </div>

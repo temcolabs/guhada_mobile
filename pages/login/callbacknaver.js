@@ -1,10 +1,10 @@
 import { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import loadScript from 'childs/lib/dom/loadScript';
-import { snsAppKey } from 'childs/lib/constant/sns';
+import loadScript from 'lib/dom/loadScript';
+import { snsAppKey } from 'lib/constant/sns';
 import withAuth from 'components/common/hoc/withAuth';
-import { devLog } from 'childs/lib/common/devLog';
-import { HOSTNAME } from 'childs/lib/constant/hostname';
+import { devLog } from 'lib/common/devLog';
+import { HOSTNAME } from 'lib/constant/hostname';
 import { getParameterByName } from 'utils';
 
 //TODO
@@ -33,7 +33,7 @@ class callbacknaver extends Component {
         });
         naverLogin.init();
         window.addEventListener('load', () => {
-          naverLogin.getLoginStatus(status => {
+          naverLogin.getLoginStatus((status) => {
             if (status) {
               var email = naverLogin.user.getEmail();
               if (email === undefined || email === null) {

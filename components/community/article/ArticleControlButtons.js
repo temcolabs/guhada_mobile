@@ -6,10 +6,10 @@ import ArticleShareButton from 'components/community/article/ArticleShareButton'
 import { useObserver } from 'mobx-react';
 import { useBBSStore } from 'stores/bbs';
 import qs from 'qs';
-import { pushRoute, sendBackToLogin } from 'childs/lib/router';
+import { pushRoute, sendBackToLogin } from 'lib/router';
 import useStores from 'stores/useStores';
 import ReportModal from 'components/claim/report/ReportModal';
-import reportTarget from 'childs/lib/constant/reportTarget';
+import reportTarget from 'lib/constant/reportTarget';
 import striptags from 'striptags';
 import { withRouter } from 'next/router';
 import { ArticleIdContext } from 'template/community/BBSArticleView';

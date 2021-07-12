@@ -1,6 +1,6 @@
 import { observable, action } from 'mobx';
-import API from 'childs/lib/API';
-import { isBrowser } from 'childs/lib/common/isServer';
+import API from 'lib/API';
+import { isBrowser } from 'lib/common/isServer';
 
 export default class TimeDealStore {
   constructor(root) {
@@ -15,7 +15,7 @@ export default class TimeDealStore {
   @action
   getTimeDeal = () => {
     this.timeDealStatus = false;
-    API.product.get(`/time-deals`).then(res => {
+    API.product.get(`/time-deals`).then((res) => {
       this.timeDeal = res.data.data;
       this.timeDealStatus = true;
     });

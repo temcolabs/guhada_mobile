@@ -1,6 +1,6 @@
 import React from 'react';
 import css from './MyBBS.module.scss';
-import { LinkRoute } from 'childs/lib/router';
+import { LinkRoute } from 'lib/router';
 import qs from 'qs';
 import { withRouter } from 'next/router';
 import { useObserver } from 'mobx-react';

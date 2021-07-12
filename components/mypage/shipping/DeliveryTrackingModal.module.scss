@@ -22,7 +22,7 @@
   & .delIcon {
     width: 29px;
     height: 29px;
-    background: url('/static/icon/shipping/pc-popup-icon-del.png') center;
+    background: url('/public/icon/shipping/pc-popup-icon-del.png') center;
     background-size: contain;
     float: right;
   }
@@ -87,46 +87,46 @@
 
     &.deliveryIcon0 {
       @include deliveryIconBg;
-      background-image: url('/static/icon/shipping/delivery_icon_01.png');
+      background-image: url('/public/icon/shipping/delivery_icon_01.png');
 
       &.active {
-        background-image: url('/static/icon/shipping/delivery_icon_01_active.png');
+        background-image: url('/public/icon/shipping/delivery_icon_01_active.png');
       }
     }
 
     &.deliveryIcon1 {
       @include deliveryIconBg;
-      background-image: url('/static/icon/shipping/delivery_icon_02.png');
+      background-image: url('/public/icon/shipping/delivery_icon_02.png');
 
       &.active {
-        background-image: url('/static/icon/shipping/delivery_icon_02_active.png');
+        background-image: url('/public/icon/shipping/delivery_icon_02_active.png');
       }
     }
 
     &.deliveryIcon2 {
       @include deliveryIconBg;
-      background-image: url('/static/icon/shipping/delivery_icon_03.png');
+      background-image: url('/public/icon/shipping/delivery_icon_03.png');
 
       &.active {
-        background-image: url('/static/icon/shipping/delivery_icon_03_active.png');
+        background-image: url('/public/icon/shipping/delivery_icon_03_active.png');
       }
     }
 
     &.deliveryIcon3 {
       @include deliveryIconBg;
-      background-image: url('/static/icon/shipping/delivery_icon_04.png');
+      background-image: url('/public/icon/shipping/delivery_icon_04.png');
 
       &.active {
-        background-image: url('/static/icon/shipping/delivery_icon_04_active.png');
+        background-image: url('/public/icon/shipping/delivery_icon_04_active.png');
       }
     }
 
     &.deliveryIcon4 {
       @include deliveryIconBg;
-      background-image: url('/static/icon/shipping/delivery_icon_05.png');
+      background-image: url('/public/icon/shipping/delivery_icon_05.png');
 
       &.active {
-        background-image: url('/static/icon/shipping/delivery_icon_05_active.png');
+        background-image: url('/public/icon/shipping/delivery_icon_05_active.png');
       }
     }
 

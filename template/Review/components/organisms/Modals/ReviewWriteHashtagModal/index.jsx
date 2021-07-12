@@ -23,8 +23,8 @@ import {
 } from './Styled';
 
 const IMAGE_PATH = {
-  back: '/static/icons/btn_top_back/btn_top_back@3x.png',
-  delete: '/static/icon/icon_keyword_delete.png',
+  back: '/public/icons/btn_top_back/btn_top_back@3x.png',
+  delete: '/public/icon/icon_keyword_delete.png',
 };
 
 /**

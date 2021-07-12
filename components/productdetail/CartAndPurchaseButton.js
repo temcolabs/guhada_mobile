@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import css from './CartAndPurchaseButton.module.scss';
 import { inject, observer } from 'mobx-react';
-import { sendBackToLogin } from 'childs/lib/router';
-import gtagTracker from 'childs/lib/tracking/google/gtagTracker';
+import { sendBackToLogin } from 'lib/router';
+import gtagTracker from 'lib/tracking/google/gtagTracker';
 
 @inject('productdetail', 'cartAndPurchase', 'login')
 @observer

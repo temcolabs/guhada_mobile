@@ -1,14 +1,14 @@
 import { observable, action, computed, toJS } from 'mobx';
-import isServer, { isBrowser } from 'childs/lib/common/isServer';
-import sessionStorage from 'childs/lib/common/sessionStorage';
-import key from 'childs/lib/constant/key';
-import API from 'childs/lib/API';
-import localStorage from 'childs/lib/common/localStorage';
+import isServer, { isBrowser } from 'lib/common/isServer';
+import sessionStorage from 'lib/common/sessionStorage';
+import key from 'lib/constant/key';
+import API from 'lib/API';
+import localStorage from 'lib/common/localStorage';
 import _ from 'lodash';
-import isFunction from 'childs/lib/common/isFunction';
-import { snsTypes } from 'childs/lib/constant/sns';
-import { devLog } from 'childs/lib/common/devLog';
-import snsUserService from 'childs/lib/API/user/snsUserService';
+import isFunction from 'lib/common/isFunction';
+import { snsTypes } from 'lib/constant/sns';
+import { devLog } from 'lib/common/devLog';
+import snsUserService from 'lib/API/user/snsUserService';
 
 /**
  * 회원정보 관리

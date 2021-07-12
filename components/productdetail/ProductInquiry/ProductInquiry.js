@@ -8,9 +8,9 @@ import SellerClaimModal, {
   withSellerClaimModal,
 } from 'components/claim/sellerclaim/SellerClaimModal';
 import _ from 'lodash';
-import { loginStatus } from 'childs/lib/constant';
-import { sendBackToLogin } from 'childs/lib/router';
-import inquiryStatus from 'childs/lib/constant/inquiry/inquiryStatus';
+import { loginStatus } from 'lib/constant';
+import { sendBackToLogin } from 'lib/router';
+import inquiryStatus from 'lib/constant/inquiry/inquiryStatus';
 
 @withSellerClaimModal
 @inject('productdetail', 'login', 'alert', 'sellerClaim')
@@ -21,11 +21,11 @@ class ProductInquiry extends Component {
     isNewInquiryVisible: false,
   };
 
-  setTab = tab => {
+  setTab = (tab) => {
     this.setState({ tab });
   };
 
-  setIsNewInquiryVisible = isNewInquiryVisible => {
+  setIsNewInquiryVisible = (isNewInquiryVisible) => {
     this.setState({ isNewInquiryVisible: isNewInquiryVisible });
     this.props.isNewInquiryVisible(isNewInquiryVisible);
   };
@@ -50,7 +50,7 @@ class ProductInquiry extends Component {
                 <input
                   type="checkbox"
                   id="askCheckbox"
-                  onChange={e =>
+                  onChange={(e) =>
                     e.target.checked
                       ? productdetail.getInquiry(0, '', true)
                       : productdetail.getInquiry(0, '', false)
@@ -60,7 +60,7 @@ class ProductInquiry extends Component {
                 <input
                   type="checkbox"
                   id="askCheckbox"
-                  onClick={e => {
+                  onClick={(e) => {
                     e.preventDefault();
                     sendBackToLogin();
                   }}
@@ -119,7 +119,7 @@ class ProductInquiry extends Component {
         </div>
         <div>
           {inquiryList.content ? (
-            inquiryList.content.map(inquiry => {
+            inquiryList.content.map((inquiry) => {
               return <InquiryItem inquiry={inquiry} key={inquiry.id} />;
             })
           ) : (

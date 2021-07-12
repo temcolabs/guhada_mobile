@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, text, boolean } from '@storybook/addon-knobs';
 import ModalWrapper from '.';
-import scrollY from 'childs/lib/dom/scrollY';
+import scrollY from 'lib/dom/scrollY';
 
 const stories = storiesOf('molecules/modal', module);
 

@@ -3,17 +3,14 @@ import css from './DeliveryTrackingModal.module.scss';
 import cn from 'classnames';
 import { observer, inject } from 'mobx-react';
 import moment from 'moment';
-import { dateFormat } from 'childs/lib/constant/date';
+import { dateFormat } from 'lib/constant/date';
 import { statusClassName } from 'stores/mypage/MypageDeliveryStore';
 import { compose } from 'lodash/fp';
 import ModalLayout, {
   useModalLayoutState,
 } from 'components/layout/ModalLayout';
 
-const enhancer = compose(
-  inject('myDelivery'),
-  observer
-);
+const enhancer = compose(inject('myDelivery'), observer);
 
 /**
  * 배송조회 모달

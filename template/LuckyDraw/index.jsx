@@ -3,7 +3,7 @@ import useStores from 'stores/useStores';
 import { compose as _compose } from 'lodash/fp';
 import { withRouter } from 'next/router';
 import { observer } from 'mobx-react';
-import { loginStatus } from 'childs/lib/constant';
+import { loginStatus } from 'lib/constant';
 import LuckyDrawModal from 'template/LuckyDraw/components/organisms/Modals/LuckyDrawModal';
 import LuckydrawSignup from 'template/event/LuckydrawSignup';
 import LuckydrawLogin from 'template/event/LuckydrawLogin';

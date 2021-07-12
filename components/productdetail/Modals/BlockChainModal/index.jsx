@@ -16,7 +16,7 @@ const BLOCKCHAIN_INFO_CONTENTS = [
 ];
 
 const IMAGE_PATH = {
-  closeBtn: '/static/icon/btn-tool-close.png',
+  closeBtn: '/public/icon/btn-tool-close.png',
 };
 
 function BlockChainModal({ isModalOpen, onCloseModal, deals }) {

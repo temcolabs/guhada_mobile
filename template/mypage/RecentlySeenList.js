@@ -6,7 +6,7 @@ import css from './RecentlySeenList.module.scss';
 import MypageRecentlySeenDashboard from '../../components/mypage/recentlySeen/MypageRecentlySeenDashboard';
 import MypageRecentlySeenItem from '../../components/mypage/recentlySeen/MypageRecentlySeenItem';
 import MypageDataEmpty from 'components/mypage/MypageDataEmpty';
-import { LinkRoute } from 'childs/lib/router';
+import { LinkRoute } from 'lib/router';
 import SectionItem from 'components/home/SectionItem';
 
 @withRouter

@@ -2,7 +2,7 @@ import css from './PluginButtons.module.scss';
 import { useState, memo } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
-import openPopupCenter from 'childs/lib/common/openPopupCenter';
+import openPopupCenter from 'lib/common/openPopupCenter';
 import Recently from 'template/Recently';
 
 const PluginButtons = ({ isScrollDown, recentCount, top, kakao, recent }) => {

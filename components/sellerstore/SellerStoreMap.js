@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import loadScript from 'childs/lib/dom/loadScript';
+import loadScript from 'lib/dom/loadScript';
 
 export class SellerStoreMap extends Component {
   componentDidMount() {
@@ -22,7 +22,7 @@ export class SellerStoreMap extends Component {
             getcoder.addressSearch(address, function(result, status) {
               if (status === kakao.maps.services.Status.OK) {
                 var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-                var imageSrc = '/static/icon/seller_icon_locationpin.png', // 마커이미지의 주소입니다
+                var imageSrc = '/public/icon/seller_icon_locationpin.png', // 마커이미지의 주소입니다
                   imageSize = new kakao.maps.Size(32, 48); // 마커이미지의 크기입니다
 
                 // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다

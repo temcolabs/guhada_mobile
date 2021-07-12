@@ -41,7 +41,7 @@
       width: 20px;
       height: 20px;
       content: ' ';
-      background: url('/static/icon/m_radio_btn_off.png') no-repeat center;
+      background: url('/public/icon/m_radio_btn_off.png') no-repeat center;
       background-size: contain;
     }
 
@@ -52,7 +52,7 @@
 
   & > input:checked + label {
     &:before {
-      background-image: url('/static/icon/m_radio_btn_on.png');
+      background-image: url('/public/icon/m_radio_btn_on.png');
     }
   }
 }

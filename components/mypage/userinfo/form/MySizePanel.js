@@ -7,7 +7,7 @@ import MySizeModal from './MySizeModal';
 import FormButton, {
   formButtonColors,
 } from 'components/mypage/form/FormButton';
-import pointProcessService from 'childs/lib/API/benefit/pointProcessService';
+import pointProcessService from 'lib/API/benefit/pointProcessService';
 import PointSavingModal, {
   pointSavingTypes,
 } from 'components/mypage/point/PointSavingModal';

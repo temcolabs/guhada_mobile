@@ -6,7 +6,7 @@ import useStores from 'stores/useStores';
 import ModalPortal from 'components/templates/ModalPortal';
 import MenuSection from './MenuSection';
 import AdBanner from './AdBanner';
-import { loginStatus } from 'childs/lib/constant';
+import { loginStatus } from 'lib/constant';
 
 const BurgerModal = ({ handleClose }) => {
   /**

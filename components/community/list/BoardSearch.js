@@ -3,7 +3,7 @@ import _ from 'lodash';
 import css from './BoardSearch.module.scss';
 import SearchInputOption from './SearchInputOption';
 import SearchInput from '../form/SearchInput';
-import { searchTypeOptions } from 'childs/lib/constant/community/searchType';
+import { searchTypeOptions } from 'lib/constant/community/searchType';
 import { useObserver } from 'mobx-react';
 
 /**

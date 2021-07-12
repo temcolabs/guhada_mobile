@@ -2,7 +2,7 @@ import React, { useEffect, memo } from 'react';
 import { observer } from 'mobx-react';
 import useStores from 'stores/useStores';
 import moment from 'moment';
-import { pushRoute, sendBackToLogin } from 'childs/lib/router';
+import { pushRoute, sendBackToLogin } from 'lib/router';
 
 import AdBanner from 'components/community/AdBanner';
 import HeaderModalWrapper from 'components/molecules/Modal/HeaderModalWrapper';

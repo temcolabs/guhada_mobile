@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
 import css from './SellerStoreHeader.module.scss';
 import cn from 'classnames';
-import { loginStatus } from 'childs/lib/constant';
+import { loginStatus } from 'lib/constant';
 import { useObserver } from 'mobx-react';
-import checkNullAndEmpty from 'childs/lib/common/checkNullAndEmpty';
+import checkNullAndEmpty from 'lib/common/checkNullAndEmpty';
 import _ from 'lodash';
 
 export default function SellerStoreHeader({
@@ -107,19 +107,19 @@ export default function SellerStoreHeader({
             <div
               className={css.satisIcon}
               style={{
-                backgroundImage: `url(/static/icon/grade_good.png)`,
+                backgroundImage: `url(/public/icon/grade_good.png)`,
               }}
             >{`만족 ${sellerStore.goodSatisfactionCount.toLocaleString()}명`}</div>
             <div
               className={css.satisIcon}
               style={{
-                backgroundImage: `url(/static/icon/grade_usual.png)`,
+                backgroundImage: `url(/public/icon/grade_usual.png)`,
               }}
             >{`보통 ${sellerStore.normalSatisfactionCount.toLocaleString()}명`}</div>
             <div
               className={css.satisIcon}
               style={{
-                backgroundImage: `url(/static/icon/grade_bad.png)`,
+                backgroundImage: `url(/public/icon/grade_bad.png)`,
               }}
             >{`불만족 ${sellerStore.badSatisfactionCount.toLocaleString()}명`}</div>
           </div>

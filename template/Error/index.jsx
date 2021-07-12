@@ -1,5 +1,5 @@
 import css from './Error.module.scss';
-import { pushRoute } from 'childs/lib/router';
+import { pushRoute } from 'lib/router';
 
 function Error() {
   return (

@@ -29,7 +29,7 @@
       width: 16px;
       height: 16px;
       content: ' ';
-      background-image: url('/static/icon/checkbox_off.png');
+      background-image: url('/public/icon/checkbox_off.png');
       background-repeat: no-repeat;
       background-position: center;
       background-size: contain;
@@ -39,7 +39,7 @@
   & > input:checked + label {
     color: #444444;
     &:before {
-      background-image: url('/static/icon/checkbox_on.png');
+      background-image: url('/public/icon/checkbox_on.png');
     }
   }
 
@@ -67,13 +67,13 @@
       &:before {
         width: 24px;
         height: 24px;
-        background-image: url('/static/icon/mypage/login-btn-naver-off@3x.png');
+        background-image: url('/public/icon/mypage/login-btn-naver-off@3x.png');
       }
     }
 
     & > input:checked + label {
       &:before {
-        background-image: url('/static/icon/mypage/login-btn-naver-on@3x.png');
+        background-image: url('/public/icon/mypage/login-btn-naver-on@3x.png');
       }
     }
   }
@@ -85,13 +85,13 @@
       &:before {
         width: 24px;
         height: 24px;
-        background-image: url('/static/icon/mypage/login-btn-kakao-off@3x.png');
+        background-image: url('/public/icon/mypage/login-btn-kakao-off@3x.png');
       }
     }
 
     & > input:checked + label {
       &:before {
-        background-image: url('/static/icon/mypage/login-btn-kakao-on@3x.png');
+        background-image: url('/public/icon/mypage/login-btn-kakao-on@3x.png');
       }
     }
   }
@@ -103,13 +103,13 @@
       &:before {
         width: 24px;
         height: 24px;
-        background-image: url('/static/icon/mypage/login-btn-facebook-off@3x.png');
+        background-image: url('/public/icon/mypage/login-btn-facebook-off@3x.png');
       }
     }
 
     & > input:checked + label {
       &:before {
-        background-image: url('/static/icon/mypage/login-btn-facebook-on@3x.png');
+        background-image: url('/public/icon/mypage/login-btn-facebook-on@3x.png');
       }
     }
   }
@@ -121,13 +121,13 @@
       &:before {
         width: 24px;
         height: 24px;
-        background-image: url('/static/icon/mypage/login-btn-google-off@3x.png');
+        background-image: url('/public/icon/mypage/login-btn-google-off@3x.png');
       }
     }
 
     & > input:checked + label {
       &:before {
-        background-image: url('/static/icon/mypage/login-btn-google-on@3x.png');
+        background-image: url('/public/icon/mypage/login-btn-google-on@3x.png');
       }
     }
   }

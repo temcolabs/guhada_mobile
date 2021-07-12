@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import Form from '../../stores/form-store/_.forms';
 import Signup from 'template/signin/Signup';
-import HeadForSEO from 'childs/lib/components/HeadForSEO';
+import HeadForSEO from 'lib/components/HeadForSEO';
 
 @observer
 class signup extends Component {

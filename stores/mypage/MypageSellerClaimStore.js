@@ -1,7 +1,7 @@
 import { observable, action, computed } from 'mobx';
-import { isBrowser } from 'childs/lib/common/isServer';
-import userSellerClaimService from 'childs/lib/API/claim/userSellerClaimService';
-import { devLog } from 'childs/lib/common/devLog';
+import { isBrowser } from 'lib/common/isServer';
+import userSellerClaimService from 'lib/API/claim/userSellerClaimService';
+import { devLog } from 'lib/common/devLog';
 export default class MypageSellerClaimStore {
   constructor(root) {
     if (isBrowser) {

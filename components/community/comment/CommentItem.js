@@ -101,7 +101,7 @@ const CommentItem = ({
         params: {
           isSubComment: !_.isNil(comment.originCommentId),
           contents,
-          imageList: imageList.map(image => ({
+          imageList: imageList.map((image) => ({
             // FIXME: 이미지 업로드 결과에는 fileContentType, 댓글 이미지 데이터는 fileType
             // ! 서버에서 같은 필드명을 사용하도록 수정 요청
             fileContentType: image.fileContentType || image.fileType,
@@ -176,7 +176,7 @@ const CommentItem = ({
             className={css.avatar_image}
             style={{
               backgroundImage: `url('${createUserInfo.profileImageUrl ||
-                '/static/icon/profile_non_square.png'}')`,
+                '/public/icon/profile_non_square.png'}')`,
             }}
           >
             {/* TODO: 등급은 추후 추가 */}

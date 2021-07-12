@@ -3,9 +3,9 @@ import ReactModal from 'react-modal';
 import css from './ModalWrapper.module.scss';
 import cn from 'classnames';
 import { bool, func, object, string, number, any } from 'prop-types';
-import isServer from 'childs/lib/common/isServer';
-import setScrollability from 'childs/lib/dom/setScrollability';
-import documentHeight from 'childs/lib/dom/documentHeight';
+import isServer from 'lib/common/isServer';
+import setScrollability from 'lib/dom/setScrollability';
+import documentHeight from 'lib/dom/documentHeight';
 
 export const ModalContentWrap = ({ children }) => (
   <div className={css.wrap}>{children}</div>

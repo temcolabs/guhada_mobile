@@ -18,7 +18,7 @@
         width: 45px;
         height: 45px;
         border-radius: 50%;
-        background-image: url('/static/icon/community/icon-share.png');
+        background-image: url('/public/icon/community/icon-share.png');
         background-size: 25px;
         background-position: center;
         background-repeat: no-repeat;
@@ -83,14 +83,14 @@
       }
 
       .orderWrap {
-        background: url('/static/icon/list_select_arrow_open.png') no-repeat
+        background: url('/public/icon/list_select_arrow_open.png') no-repeat
           right;
         background-size: 10px 10px;
         width: 95px;
       }
 
       .filterWrap {
-        background: url('/static/icon/fillter_icon.png') no-repeat right;
+        background: url('/public/icon/fillter_icon.png') no-repeat right;
         background-size: 16px 14px;
         width: 85px;
       }

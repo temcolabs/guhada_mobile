@@ -3,7 +3,7 @@ import css from './DealSection.module.scss';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { LinkRoute } from 'childs/lib/router';
+import { LinkRoute } from 'lib/router';
 
 import {
   ReviewDealItem,

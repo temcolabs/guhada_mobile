@@ -5,7 +5,7 @@ import { item } from 'components/event/timedeal/strTimeDealItem';
 function TimeDealSingle() {
   // 할인율 을 계산해서 추가
   function calcDiscountRate() {
-    item.forEach(data => {
+    item.forEach((data) => {
       data.discountRate = Math.round(
         ((data.sellPrice - data.discountPrice) / data.sellPrice) * 100
       );
@@ -22,9 +22,7 @@ function TimeDealSingle() {
       <div
         className={css.bg}
         style={{
-          backgroundImage: `url(${
-            process.env.API_CLOUD
-          }/images/background/timedeal/time_deal_bg_mobile.png)`,
+          backgroundImage: `url(${process.env.API_CLOUD}/images/background/timedeal/time_deal_bg_mobile.png)`,
         }}
       >
         {item.length > 0
@@ -39,7 +37,7 @@ function TimeDealSingle() {
                       <div
                         className={css.image}
                         style={{
-                          backgroundImage: `url(/static/icon/thumbnail/${index +
+                          backgroundImage: `url(/public/icon/thumbnail/${index +
                             1}.png)`,
                         }}
                       />

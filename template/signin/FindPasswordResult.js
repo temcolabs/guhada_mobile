@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import LoginLayout from 'components/layout/LoginLayout';
 import { LoginWrapper, LoginInput, LoginButton } from 'components/login';
 import css from './FindPasswordResult.module.scss';
-import { LinkRoute, pushRoute } from 'childs/lib/router';
+import { LinkRoute, pushRoute } from 'lib/router';
 import { observer } from 'mobx-react';
-import API from 'childs/lib/API';
-import { devLog } from 'childs/lib/common/devLog';
+import API from 'lib/API';
+import { devLog } from 'lib/common/devLog';
 import { root } from 'store';
 import _ from 'lodash';
 
@@ -35,7 +35,7 @@ class FindPasswordResult extends Component {
 
               pushRoute('/login');
             })
-            .catch(e => {
+            .catch((e) => {
               if (_.get(e, 'status') === 200) {
                 root.toast.getToast(_.get(e, 'data.message'));
               }
@@ -52,7 +52,7 @@ class FindPasswordResult extends Component {
             .then(function(res) {
               pushRoute('/login');
             })
-            .catch(e => {
+            .catch((e) => {
               devLog(e);
             });
         }

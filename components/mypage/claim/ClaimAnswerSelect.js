@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import Select from 'react-select';
 import { inject, observer } from 'mobx-react';
-import inquiryStatus from 'childs/lib/constant/inquiry/inquiryStatus';
+import inquiryStatus from 'lib/constant/inquiry/inquiryStatus';
 
 @inject('mypageInquiry')
 @observer
@@ -31,7 +31,7 @@ class ClaimAnswerSelect extends Component {
       valueContainer: () => ({
         padding: 0,
       }),
-      control: provided => ({
+      control: (provided) => ({
         ...provided,
         minHeight: 30,
         border: 'solid 1px #ddd',
@@ -40,7 +40,7 @@ class ClaimAnswerSelect extends Component {
         borderRadius: 'none',
         fontSize: 12,
       }),
-      placeholder: provided => ({
+      placeholder: (provided) => ({
         ...provided,
         color: '#aaa',
         fontWeight: 'normal',

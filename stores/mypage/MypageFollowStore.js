@@ -1,9 +1,9 @@
 import { observable, action, toJS, extendObservable } from 'mobx';
-import API from 'childs/lib/API';
-import { isBrowser } from 'childs/lib/common/isServer';
-import { loginStatus } from 'childs/lib/constant';
+import API from 'lib/API';
+import { isBrowser } from 'lib/common/isServer';
+import { loginStatus } from 'lib/constant';
 import _ from 'lodash';
-import { devLog } from 'childs/lib/common/devLog';
+import { devLog } from 'lib/common/devLog';
 export default class MypageFollowStore {
   constructor(root) {
     if (isBrowser) {

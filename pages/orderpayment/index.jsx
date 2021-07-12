@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { getParameterByName } from '../../utils';
 import useStores from 'stores/useStores';
-import HeadForSEO from 'childs/lib/components/HeadForSEO';
+import HeadForSEO from 'lib/components/HeadForSEO';
 import MountLoading from 'components/atoms/Misc/MountLoading';
 import OrderPayment from 'template/orderpayment/OrderPayment';
 

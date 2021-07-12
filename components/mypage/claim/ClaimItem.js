@@ -2,10 +2,10 @@ import React, { useState, useCallback, useMemo } from 'react';
 import css from './ClaimItem.module.scss';
 import cn from 'classnames';
 import moment from 'moment';
-import { dateFormat } from 'childs/lib/constant';
-import inquiryStatus from 'childs/lib/constant/inquiry/inquiryStatus';
-import { pushRoute } from 'childs/lib/router';
-import isTruthy from 'childs/lib/common/isTruthy';
+import { dateFormat } from 'lib/constant';
+import inquiryStatus from 'lib/constant/inquiry/inquiryStatus';
+import { pushRoute } from 'lib/router';
+import isTruthy from 'lib/common/isTruthy';
 
 function ClaimItem({
   inquiry = {
@@ -49,7 +49,7 @@ function ClaimItem({
   const [isFolded, setFold] = useState(true);
 
   const toggleIsFolded = useCallback(() => {
-    setFold(status => !status);
+    setFold((status) => !status);
   }, []);
 
   const isAnswered = useMemo(() => inquiry.status === inquiryStatus.COMPLETED, [

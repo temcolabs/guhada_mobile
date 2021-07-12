@@ -1,6 +1,6 @@
 import { computed, observable, action, toJS } from 'mobx';
-import API from 'childs/lib/API';
-import detectDevice from 'childs/lib/common/detectDevice';
+import API from 'lib/API';
+import detectDevice from 'lib/common/detectDevice';
 
 export default class MainStore {
   @observable unitPerPage = 60;

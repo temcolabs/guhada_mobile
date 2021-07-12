@@ -7,7 +7,7 @@ import css from './Recently.module.scss';
 
 import Image from 'components/atoms/Image';
 
-import { pushRoute } from 'childs/lib/router';
+import { pushRoute } from 'lib/router';
 import { useWindowSize } from 'hooks';
 import ModalPortal from 'components/templates/ModalPortal';
 
@@ -25,8 +25,8 @@ import {
 } from './Styled';
 
 const IMAGE_PATH = {
-  DELETE_IMAGE: '/static/icon/like_item_delete.png',
-  NO_DATA: '/static/icon/icon_no_data.png',
+  DELETE_IMAGE: '/public/icon/like_item_delete.png',
+  NO_DATA: '/public/icon/icon_no_data.png',
 };
 
 function RecentlyTemplate({ handleClose }) {

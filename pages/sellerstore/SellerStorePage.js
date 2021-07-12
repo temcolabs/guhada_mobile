@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import SellerStore from 'template/sellerstore/SellerStore';
-import { isBrowser } from 'childs/lib/common/isServer';
+import { isBrowser } from 'lib/common/isServer';
 import { inject, observer } from 'mobx-react';
 import Router from 'next/router';
-import HeadForSEO from 'childs/lib/components/HeadForSEO';
+import HeadForSEO from 'lib/components/HeadForSEO';
 
 @inject('seller', 'login', 'searchitem')
 @observer

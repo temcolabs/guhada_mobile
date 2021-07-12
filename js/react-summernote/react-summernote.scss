@@ -2,10 +2,10 @@
   font-family: 'summernote';
   font-style: normal;
   font-weight: normal;
-  src: url('/static/fonts/summernote.eot');
-  src: url('/static/fonts/summernote.eot?#iefix') format('embedded-opentype'),
-    url('/static/fonts/summernote.woff') format('woff'),
-    url('/static/fonts/summernote.ttf') format('truetype');
+  src: url('/public/fonts/summernote.eot');
+  src: url('/public/fonts/summernote.eot?#iefix') format('embedded-opentype'),
+    url('/public/fonts/summernote.woff') format('woff'),
+    url('/public/fonts/summernote.ttf') format('truetype');
 }
 [class^='note-icon-']:before,
 [class*=' note-icon-']:before {

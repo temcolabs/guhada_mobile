@@ -7,12 +7,12 @@ import {
   composeValidators,
   notEmptyString,
   required,
-} from 'childs/lib/common/finalFormValidators';
-import { devLog } from 'childs/lib/common/devLog';
+} from 'lib/common/finalFormValidators';
+import { devLog } from 'lib/common/devLog';
 import FormButton, {
   formButtonColors,
 } from 'components/mypage/form/FormButton';
-import accountService from 'childs/lib/API/order/accountService';
+import accountService from 'lib/API/order/accountService';
 import useStores from 'stores/useStores';
 import claimFormCSS from 'components/mypage/order/OrderClaimForm.module.scss';
 import cn from 'classnames';

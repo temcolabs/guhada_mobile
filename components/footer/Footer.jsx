@@ -1,6 +1,6 @@
 import css from './Footer.module.scss';
 import { memo, useState } from 'react';
-import openPopupCenter from 'childs/lib/common/openPopupCenter';
+import openPopupCenter from 'lib/common/openPopupCenter';
 import UserClaimModal from 'components/claim/userclaim/UserClaimModal';
 
 function Footer() {

@@ -1,9 +1,9 @@
 import React from 'react';
-import { pushRoute } from 'childs/lib/router';
+import { pushRoute } from 'lib/router';
 import { withRouter } from 'next/router';
 import { inject, observer } from 'mobx-react';
-import { loginStatus } from 'childs/lib/constant';
-import { isBrowser } from 'childs/lib/common/isServer';
+import { loginStatus } from 'lib/constant';
+import { isBrowser } from 'lib/common/isServer';
 import Loading from '../loading/Loading';
 import qs from 'qs';
 import _ from 'lodash';
@@ -21,7 +21,7 @@ import _ from 'lodash';
  * @param redirectTo 인증이 되지 않았을 때 이동시킬 페이지
  */
 function withAuth({ isAuthRequired = true, redirectTo } = {}) {
-  return WrappedComponent => {
+  return (WrappedComponent) => {
     @withRouter
     @inject('login')
     @observer

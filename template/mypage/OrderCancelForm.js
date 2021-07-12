@@ -21,12 +21,12 @@ import {
   maxValue,
   required,
   requiredWithMessage,
-} from 'childs/lib/common/finalFormValidators';
-import isDev from 'childs/lib/common/isDev';
-import purchaseStatus from 'childs/lib/constant/order/purchaseStatus';
+} from 'lib/common/finalFormValidators';
+import isDev from 'lib/common/isDev';
+import purchaseStatus from 'lib/constant/order/purchaseStatus';
 import RefundAccountInfoForm from 'components/mypage/orderCancel/RefundAccountInfoForm';
-import { isFalsey } from 'childs/lib/common/isTruthy';
-import { devLog } from 'childs/lib/common/devLog';
+import { isFalsey } from 'lib/common/isTruthy';
+import { devLog } from 'lib/common/devLog';
 import MypageSectionTitle from 'components/mypage/MypageSectionTitle';
 
 /**
@@ -121,7 +121,7 @@ class OrderCancelForm extends Component {
   /**
    * 취소수량 변경
    */
-  handleChangeQuantity = quantity => {
+  handleChangeQuantity = (quantity) => {
     // 취소예샹금액 변경
     this.props.orderClaimForm.getRefundResponse({
       orderProdGroupId: this.orderProdGroupId,
@@ -133,7 +133,7 @@ class OrderCancelForm extends Component {
    * 취소 신청
    * final form의 onSubmit 콜백. 필드에 오류가 있으면 호출되지 않는다.
    */
-  handleSubmit = values => {
+  handleSubmit = (values) => {
     this.props.orderClaimForm.createOrderCancel({
       orderProdGroupId: this.orderProdGroupId,
       cancelReason: values[this.fields.cancelReason],
@@ -208,7 +208,7 @@ class OrderCancelForm extends Component {
                                 maxValue(claimData?.quantity)
                               )}
                             >
-                              {props => {
+                              {(props) => {
                                 return (
                                   <QuantityControl
                                     initialValue={
@@ -217,7 +217,7 @@ class OrderCancelForm extends Component {
                                       ]
                                     }
                                     max={claimData?.quantity}
-                                    onChange={value => {
+                                    onChange={(value) => {
                                       props.input.onChange(value);
                                       this.handleChangeQuantity(value);
                                     }}
@@ -250,7 +250,7 @@ class OrderCancelForm extends Component {
                                 placeholder="취소 사유를 선택해주세요."
                                 options={cancelReasonOptions}
                                 value={cancelReasonOptions.find(
-                                  o =>
+                                  (o) =>
                                     o.value === values[this.fields.cancelReason]
                                 )}
                                 onChange={({ value }) => {

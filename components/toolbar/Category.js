@@ -3,7 +3,7 @@ import css from './Category.module.scss';
 import { inject, observer } from 'mobx-react';
 import { toJS } from 'mobx';
 import cn from 'classnames';
-import { pushRoute } from 'childs/lib/router';
+import { pushRoute } from 'lib/router';
 
 /**
  * toolbar에서 category 클릭 시 나오는 데이터
@@ -87,9 +87,7 @@ class Category extends Component {
                         </li>
                         <ul id={`${categoryItem.key}toolbarGrowCategory`}>
                           <div
-                            className={`toolbarMeasuringWrapper${
-                              categoryItem.key
-                            }`}
+                            className={`toolbarMeasuringWrapper${categoryItem.key}`}
                           >
                             <li
                               className={css.categorySecond}
@@ -129,14 +127,10 @@ class Category extends Component {
                                   </li>
                                   {categorySecond.children ? (
                                     <ul
-                                      id={`${
-                                        categorySecond.key
-                                      }toolbarGrowCategory`}
+                                      id={`${categorySecond.key}toolbarGrowCategory`}
                                     >
                                       <div
-                                        className={`toolbarMeasuringWrapper${
-                                          categorySecond.key
-                                        }`}
+                                        className={`toolbarMeasuringWrapper${categorySecond.key}`}
                                       >
                                         <li
                                           className={css.categoryLast}
@@ -153,9 +147,7 @@ class Category extends Component {
                                             return (
                                               <li
                                                 className={css.categoryLast}
-                                                key={`${
-                                                  categoryLast.id
-                                                }categoryLastKey`}
+                                                key={`${categoryLast.id}categoryLastKey`}
                                                 onClick={() => {
                                                   this.toSearch({
                                                     category: categorySecond.id,

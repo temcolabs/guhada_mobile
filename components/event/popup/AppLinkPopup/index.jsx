@@ -1,9 +1,9 @@
 import css from './AppLinkPopup.module.scss';
 import PropTypes from 'prop-types';
 import StarItem from 'components/mypage/review/StarItem';
-import { isIOS, isAndroid } from 'childs/lib/common/detectMobileEnv';
+import { isIOS, isAndroid } from 'lib/common/detectMobileEnv';
 import ModalPortal from 'components/templates/ModalPortal';
-import localStorage from 'childs/lib/common/localStorage';
+import localStorage from 'lib/common/localStorage';
 import { useRouter } from 'next/router';
 import { LINK_PATH } from './constants';
 

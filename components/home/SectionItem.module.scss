@@ -30,7 +30,7 @@ $contentsHeight: 117px;
       float: left;
       color: #111111;
       padding-left: 13px;
-      background: url('/static/icon/airplane_icon@3x.png') no-repeat left center;
+      background: url('/public/icon/airplane_icon@3x.png') no-repeat left center;
       background-size: 8px;
     }
   }
@@ -56,7 +56,7 @@ $contentsHeight: 117px;
     position: absolute;
     top: 0;
     right: 0;
-    background: url('/static/icon/like_item_delete.png') no-repeat;
+    background: url('/public/icon/like_item_delete.png') no-repeat;
     background-size: cover;
     background-position: center;
     cursor: pointer;

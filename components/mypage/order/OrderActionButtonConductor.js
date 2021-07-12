@@ -1,9 +1,9 @@
 import React from 'react';
 import css from './OrderActionButtonConductor.module.scss';
 import cn from 'classnames';
-import { default as purchaseStatusType } from 'childs/lib/constant/order/purchaseStatus';
-import isTruthy from 'childs/lib/common/isTruthy';
-import { ORDER_COMPLETE_SAMPLE } from 'childs/lib/constant/order/orderModel';
+import { default as purchaseStatusType } from 'lib/constant/order/purchaseStatus';
+import isTruthy from 'lib/common/isTruthy';
+import { ORDER_COMPLETE_SAMPLE } from 'lib/constant/order/orderModel';
 import useStores from 'stores/useStores';
 import { useObserver } from 'mobx-react';
 

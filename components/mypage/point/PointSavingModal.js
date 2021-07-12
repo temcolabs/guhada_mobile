@@ -2,8 +2,8 @@ import React, { useMemo } from 'react';
 import ModalWrapper from 'components/common/modal/ModalWrapper';
 import css from './PointSavingModal.module.scss';
 import cn from 'classnames';
-import addCommaToNum from 'childs/lib/common/addCommaToNum';
-import { pushRoute } from 'childs/lib/router';
+import addCommaToNum from 'lib/common/addCommaToNum';
+import { pushRoute } from 'lib/router';
 
 /**
  * 포인트 적립 형태

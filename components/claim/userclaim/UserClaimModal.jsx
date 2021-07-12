@@ -6,8 +6,8 @@ import withAuth from 'components/common/hoc/withAuth';
 import UserClaimFormItems from './UserClaimFormItems';
 
 import { Form } from 'react-final-form';
-import { isImageFile } from 'childs/lib/common/isImageFile';
-import { uploadImageFile } from 'childs/lib/API/gateway/fileUploadService';
+import { isImageFile } from 'lib/common/isImageFile';
+import { uploadImageFile } from 'lib/API/gateway/fileUploadService';
 
 import ModalPortal from 'components/templates/ModalPortal';
 

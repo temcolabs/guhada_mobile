@@ -4,8 +4,8 @@ import cn from 'classnames';
 import Image from 'components/atoms/Image';
 
 const IMAGE_PATH = {
-  linkArrow: '/static/icon/payment_link_arrow.png',
-  mypageArrow: '/static/icon/mypage/mypages-orderdashboard-arrow-m@3x.png',
+  linkArrow: '/public/icon/payment_link_arrow.png',
+  mypageArrow: '/public/icon/mypage/mypages-orderdashboard-arrow-m@3x.png',
 };
 
 /**

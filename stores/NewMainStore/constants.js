@@ -1,4 +1,4 @@
-import detectDevice from 'childs/lib/common/detectDevice';
+import detectDevice from 'lib/common/detectDevice';
 
 export const pageTypes = {
   index: {

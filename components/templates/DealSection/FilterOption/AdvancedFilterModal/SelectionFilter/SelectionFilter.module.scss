@@ -34,12 +34,12 @@
         line-height: 18px;
       }
 
-      background: url('/static/icon/filter_checkbox_inactive.png') no-repeat
+      background: url('/public/icon/filter_checkbox_inactive.png') no-repeat
         center left;
       background-size: 16px;
 
       &--checked {
-        background-image: url('/static/icon/filter_checkbox_selected.png');
+        background-image: url('/public/icon/filter_checkbox_selected.png');
       }
     }
   }

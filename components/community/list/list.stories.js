@@ -18,7 +18,7 @@ import BoardGridItem, { BoardGridContainer } from './BoardGridItem';
 import SortButton from './SortButton';
 import SearchInputOption from './SearchInputOption';
 import BoardSearch from './BoardSearch';
-import { devLog } from 'childs/lib/common/devLog';
+import { devLog } from 'lib/common/devLog';
 
 const stories = storiesOf('community/list', module);
 // Add the `withKnobs` decorator to add knobs support to your stories.
@@ -44,7 +44,7 @@ stories.add('SortButton', () => {
         { label: '조회순', value: '조회순' },
         { label: '댓글순', value: '댓글순' },
       ]}
-      onChangeOption={o => devLog(`o`, o)}
+      onChangeOption={(o) => devLog(`o`, o)}
       optionsWrapperStyle={{}}
     />
   );
@@ -59,7 +59,7 @@ stories.add('SortButton - bigSize', () => {
         { label: '조회순', value: '조회순' },
         { label: '댓글순', value: '댓글순' },
       ]}
-      onChangeOption={o => devLog(`o`, o)}
+      onChangeOption={(o) => devLog(`o`, o)}
       optionsWrapperStyle={{
         width: '600px',
         left: 0,

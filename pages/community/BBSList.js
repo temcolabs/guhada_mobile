@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import BBSList from 'template/community/BBSList';
-import HeadForSEO from 'childs/lib/components/HeadForSEO';
+import HeadForSEO from 'lib/components/HeadForSEO';
 
 /**
  * 게시판 글 리스트

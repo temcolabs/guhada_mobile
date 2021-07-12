@@ -1,9 +1,9 @@
 import React, { useMemo, useReducer } from 'react';
 import css from './RefundInfo.module.scss';
 import cn from 'classnames';
-import addCommaToNum from 'childs/lib/common/addCommaToNum';
-import nilToZero from 'childs/lib/common/nilToZero';
-import { paymentMethodOptions } from 'childs/lib/constant/order/paymentMethod';
+import addCommaToNum from 'lib/common/addCommaToNum';
+import nilToZero from 'lib/common/nilToZero';
+import { paymentMethodOptions } from 'lib/constant/order/paymentMethod';
 import MypageSectionTitle from '../MypageSectionTitle';
 import { observer } from 'mobx-react';
 import useStores from 'stores/useStores';

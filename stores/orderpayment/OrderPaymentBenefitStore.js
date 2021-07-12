@@ -1,7 +1,7 @@
 import { observable, action } from 'mobx';
-import API from 'childs/lib/API';
+import API from 'lib/API';
 import _ from 'lodash';
-import { devLog } from 'childs/lib/common/devLog';
+import { devLog } from 'lib/common/devLog';
 const isServer = typeof window === 'undefined';
 
 export default class OrderPaymentBenefitStore {
@@ -33,11 +33,11 @@ export default class OrderPaymentBenefitStore {
   getMyPoint = () => {
     API.benefit
       .get(`/summary`)
-      .then(res => {
+      .then((res) => {
         let data = res.data.data;
         this.myPoint = data.totalFreePoint + data.totalPaidPoint;
       })
-      .catch(err => {
+      .catch((err) => {
         this.root.alert.showAlert({
           content: `${_.get(err, 'data.message') || 'ERROR'}`,
         });
@@ -80,7 +80,7 @@ export default class OrderPaymentBenefitStore {
     devLog(bundleData, 'bundleData');
     API.benefit
       .post(`/process/due-save`, bundleData)
-      .then(res => {
+      .then((res) => {
         let data = res.data.data;
         // devLog(res, 'due response');
         this.dueSavePointTotal = 0;
@@ -89,7 +89,7 @@ export default class OrderPaymentBenefitStore {
         }
         this.dueSaveList = data.dueSavePointList;
       })
-      .catch(err => {
+      .catch((err) => {
         // this.root.alert.showAlert({
         //   content: `${_.get(err, 'data.message') || 'ERROR'}`,
         // });
@@ -100,12 +100,12 @@ export default class OrderPaymentBenefitStore {
   getMyCoupon = () => {
     API.benefit
       .get(`/benefits/summary`)
-      .then(res => {
+      .then((res) => {
         devLog(res, 'coupon res');
         let { data } = res.data;
         this.myCoupon = data.totalAvailCoupon;
       })
-      .catch(err => {
+      .catch((err) => {
         devLog(err);
         // this.root.alert.showAlert({
         //   content: `${_.get(err, 'data.message') || 'ERROR'}`,
@@ -113,7 +113,7 @@ export default class OrderPaymentBenefitStore {
       });
   };
   @action
-  setCouponWithProduct = list => {
+  setCouponWithProduct = (list) => {
     this.couponWithProduct = list;
 
     for (let i = 0; i < this.couponWithProduct.length; i++) {
@@ -153,7 +153,7 @@ export default class OrderPaymentBenefitStore {
   };
 
   @action
-  setSelectedCouponInit = n => {
+  setSelectedCouponInit = (n) => {
     let tempArr = [];
     let tempObj = {};
     for (let i = 0; i < this.couponWithProduct.length; i++) {

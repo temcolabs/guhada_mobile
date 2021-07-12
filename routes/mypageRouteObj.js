@@ -1,8 +1,8 @@
 import routes from './index';
-import arrayToObject from 'childs/lib/common/arrayToObject';
+import arrayToObject from 'lib/common/arrayToObject';
 
 const mypageRoutes = routes.filter(
-  route => route.asPath.indexOf('/mypage') === 0
+  (route) => route.asPath.indexOf('/mypage') === 0
 );
 
 /**

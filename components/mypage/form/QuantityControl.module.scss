@@ -34,11 +34,11 @@
 .plus {
   @include icon;
   display: block;
-  background-image: url('/static/icon/quantity_plus_on.png');
+  background-image: url('/public/icon/quantity_plus_on.png');
 }
 
 .minus {
   @include icon;
   display: block;
-  background-image: url('/static/icon/quantity_minus_on.png');
+  background-image: url('/public/icon/quantity_minus_on.png');
 }

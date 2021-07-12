@@ -1,10 +1,10 @@
 import React from 'react';
 import { observable, action, toJS } from 'mobx';
-import { isServer } from 'childs/lib/common/isServer';
-import API from 'childs/lib/API';
-import { devLog } from 'childs/lib/common/devLog';
+import { isServer } from 'lib/common/isServer';
+import API from 'lib/API';
+import { devLog } from 'lib/common/devLog';
 import _ from 'lodash';
-import { pushRoute } from 'childs/lib/router';
+import { pushRoute } from 'lib/router';
 import qs from 'qs';
 import moment from 'moment';
 export default class ProductOptionStore {
@@ -24,8 +24,8 @@ export default class ProductOptionStore {
   @observable benefitToggle = false;
   @observable duesavePointList = [];
   @observable dueSavebenefitCoupon = [];
-  @observable quantityMinusBtn = '/static/icon/quantity_minus_off.png';
-  @observable quantityPlusBtn = '/static/icon/quantity_plus_on.png';
+  @observable quantityMinusBtn = '/public/icon/quantity_minus_off.png';
+  @observable quantityPlusBtn = '/public/icon/quantity_plus_on.png';
   @observable couponIsOpen = false;
 
   @action
@@ -109,7 +109,7 @@ export default class ProductOptionStore {
   };
 
   @action
-  selectOption = value => {
+  selectOption = (value) => {
     if (value.label === '선택안함') {
       this.options.selectedOption = null;
       this.options.selectedOpitonPrice = 0;
@@ -120,13 +120,13 @@ export default class ProductOptionStore {
     if (this.options.selectedOption) {
       if (this.options.selectedOption.id !== value.id) {
         this.options.selectedOption = value;
-        this.quantityMinusBtn = '/static/icon/quantity_minus_off.png';
+        this.quantityMinusBtn = '/public/icon/quantity_minus_off.png';
         this.options.selectedQuantity = 1;
         this.getTotalPrice();
       }
     } else {
       this.options.selectedOption = value;
-      this.quantityMinusBtn = '/static/icon/quantity_minus_off.png';
+      this.quantityMinusBtn = '/public/icon/quantity_minus_off.png';
       this.options.selectedQuantity = 1;
       this.getTotalPrice();
     }
@@ -156,12 +156,12 @@ export default class ProductOptionStore {
   };
 
   @action
-  quantityChangeOutFocus = e => {
+  quantityChangeOutFocus = (e) => {
     let value = e.target.value;
     value = parseInt(value);
     if (isNaN(value) || value <= 0) {
-      this.quantityMinusBtn = '/static/icon/quantity_minus_off.png';
-      this.quantityPlusBtn = '/static/icon/quantity_plus_on.png';
+      this.quantityMinusBtn = '/public/icon/quantity_minus_off.png';
+      this.quantityPlusBtn = '/public/icon/quantity_plus_on.png';
       this.options.selectedQuantity = 1;
       this.getTotalPrice();
     }
@@ -171,15 +171,15 @@ export default class ProductOptionStore {
   quantityMinus = () => {
     if (this.options.selectedQuantity <= 1) {
       this.options.selectedQuantity = 1;
-      this.quantityMinusBtn = '/static/icon/quantity_minus_off.png';
+      this.quantityMinusBtn = '/public/icon/quantity_minus_off.png';
       return false;
     }
 
     if (this.options.selectedQuantity === 2) {
-      this.quantityMinusBtn = '/static/icon/quantity_minus_off.png';
+      this.quantityMinusBtn = '/public/icon/quantity_minus_off.png';
     }
 
-    this.quantityPlusBtn = '/static/icon/quantity_plus_on.png';
+    this.quantityPlusBtn = '/public/icon/quantity_plus_on.png';
     this.options.selectedQuantity = this.options.selectedQuantity - 1;
     this.getTotalPrice();
   };
@@ -196,16 +196,16 @@ export default class ProductOptionStore {
       this.options.selectedQuantity ===
       this.options.selectedOption.stock - 1
     ) {
-      this.quantityPlusBtn = '/static/icon/quantity_plus_off.png';
+      this.quantityPlusBtn = '/public/icon/quantity_plus_off.png';
     }
-    this.quantityMinusBtn = '/static/icon/quantity_minus_on.png';
+    this.quantityMinusBtn = '/public/icon/quantity_minus_on.png';
     this.options.selectedQuantity = this.options.selectedQuantity + 1;
 
     this.getTotalPrice();
   };
 
   @action
-  quantityChange = e => {
+  quantityChange = (e) => {
     let value = e.target.value;
     value = parseInt(value);
     if (isNaN(value)) {
@@ -217,23 +217,23 @@ export default class ProductOptionStore {
       });
       this.options.selectedQuantity = this.options.selectedOption.stock;
       this.getTotalPrice();
-      this.quantityPlusBtn = '/static/icon/quantity_plus_off.png';
-      this.quantityMinusBtn = '/static/icon/quantity_minus_on.png';
+      this.quantityPlusBtn = '/public/icon/quantity_plus_off.png';
+      this.quantityMinusBtn = '/public/icon/quantity_minus_on.png';
       return false;
     } else if (value < 0) {
       return false;
     } else {
       if (value === 0) {
-        this.quantityMinusBtn = '/static/icon/quantity_minus_off.png';
+        this.quantityMinusBtn = '/public/icon/quantity_minus_off.png';
         this.options.selectedQuantity = 1;
         this.getTotalPrice();
         return false;
       }
       value === this.options.selectedOption.stock
-        ? (this.quantityPlusBtn = '/static/icon/quantity_plus_off.png')
-        : (this.quantityPlusBtn = '/static/icon/quantity_plus_on.png');
+        ? (this.quantityPlusBtn = '/public/icon/quantity_plus_off.png')
+        : (this.quantityPlusBtn = '/public/icon/quantity_plus_on.png');
 
-      this.quantityMinusBtn = '/static/icon/quantity_minus_on.png';
+      this.quantityMinusBtn = '/public/icon/quantity_minus_on.png';
       this.options.selectedQuantity = value;
       this.getTotalPrice();
     }
@@ -323,11 +323,11 @@ export default class ProductOptionStore {
     };
     API.benefit
       .post(`/process/total-due-save`, bundleList)
-      .then(res => {
+      .then((res) => {
         const { data } = res;
         this.duesavePointList = data.data.dueSavePointList;
       })
-      .catch(err => {
+      .catch((err) => {
         devLog(err);
         this.duesavePointList = [];
       });
@@ -349,7 +349,7 @@ export default class ProductOptionStore {
     };
     API.benefit
       .get(`/coupons/process/due-save`, { params: param })
-      .then(res => {
+      .then((res) => {
         const { data } = res;
         this.dueSavebenefitCoupon = data.data;
         for (let i = 0; i < this.dueSavebenefitCoupon.length; i++) {
@@ -360,7 +360,7 @@ export default class ProductOptionStore {
           this.dueSavebenefitCoupon[i].expireAt = -duration._data.days;
         }
       })
-      .catch(err => {
+      .catch((err) => {
         // this.root.alert.showAlert({
         //   content: `${_.get(err, 'data.message') || 'ERROR'}`,
         // });
@@ -392,7 +392,7 @@ export default class ProductOptionStore {
         };
         API.benefit
           .post(`/coupons/process/save`, param)
-          .then(res => {
+          .then((res) => {
             const { data } = res;
             devLog(data, 'data coupon');
             this.root.alert.showAlert({
@@ -401,7 +401,7 @@ export default class ProductOptionStore {
             this.dueSavebenefitCoupon[0].alreadySaved = true;
             this.couponDownModalClose();
           })
-          .catch(err => {
+          .catch((err) => {
             console.error(err, ' err');
             // this.root.alert.showAlert({
             //   content: `${_.get(err, 'data.message') || err.message}`,
@@ -411,9 +411,7 @@ export default class ProductOptionStore {
               this.couponDownModalClose();
               pushRoute(
                 `/login?${qs.stringify({
-                  redirectTo: `/productdetail?deals=${
-                    this.root.productdetail.deals.dealsId
-                  }`,
+                  redirectTo: `/productdetail?deals=${this.root.productdetail.deals.dealsId}`,
                 })}`,
                 { isReplace: true }
               );
@@ -453,7 +451,7 @@ export default class ProductOptionStore {
           };
           API.benefit
             .post(`/coupons/process/save`, param)
-            .then(res => {
+            .then((res) => {
               const { data } = res;
               devLog(data, 'data coupon');
               this.root.alert.showAlert({
@@ -462,7 +460,7 @@ export default class ProductOptionStore {
               this.dueSavebenefitCoupon[i].alreadySaved = true;
               this.couponDownModalClose();
             })
-            .catch(err => {
+            .catch((err) => {
               console.error(err, ' err');
               // this.root.alert.showAlert({
               //   content: `${_.get(err, 'data.message') || err.message}`,
@@ -472,9 +470,7 @@ export default class ProductOptionStore {
                 this.couponDownModalClose();
                 pushRoute(
                   `/login?${qs.stringify({
-                    redirectTo: `/productdetail?deals=${
-                      this.root.productdetail.deals.dealsId
-                    }`,
+                    redirectTo: `/productdetail?deals=${this.root.productdetail.deals.dealsId}`,
                   })}`,
                   { isReplace: true }
                 );
@@ -489,7 +485,7 @@ export default class ProductOptionStore {
           target: 'SELLER',
           targetId: this.dueSavebenefitCoupon[0].sellerId,
         })
-        .then(res => {
+        .then((res) => {
           devLog(res, 'res');
 
           for (let i = 0; i < this.dueSavebenefitCoupon.length; i++) {
@@ -509,7 +505,7 @@ export default class ProductOptionStore {
               };
               API.benefit
                 .post(`/coupons/process/save`, param)
-                .then(res => {
+                .then((res) => {
                   const { data } = res;
                   devLog(data, 'data coupon');
                   this.root.alert.showAlert({
@@ -520,7 +516,7 @@ export default class ProductOptionStore {
                   this.couponDownModalClose();
                   this.root.sellerfollow.follows = true;
                 })
-                .catch(err => {
+                .catch((err) => {
                   console.error(err, ' err');
                   // this.root.alert.showAlert({
                   //   content: `${_.get(err, 'data.message') || err.message}`,
@@ -530,9 +526,7 @@ export default class ProductOptionStore {
                     this.couponDownModalClose();
                     pushRoute(
                       `/login?${qs.stringify({
-                        redirectTo: `/productdetail?deals=${
-                          this.root.productdetail.deals.dealsId
-                        }`,
+                        redirectTo: `/productdetail?deals=${this.root.productdetail.deals.dealsId}`,
                       })}`,
                       { isReplace: true }
                     );
@@ -542,7 +536,7 @@ export default class ProductOptionStore {
             }
           }
         })
-        .catch(err => {
+        .catch((err) => {
           console.error(err, ' err');
           // this.root.alert.showAlert({
           //   content: `${_.get(err, 'data.message') || err.message}`,
@@ -552,9 +546,7 @@ export default class ProductOptionStore {
             this.couponDownModalClose();
             pushRoute(
               `/login?${qs.stringify({
-                redirectTo: `/productdetail?deals=${
-                  this.root.productdetail.deals.dealsId
-                }`,
+                redirectTo: `/productdetail?deals=${this.root.productdetail.deals.dealsId}`,
               })}`,
               { isReplace: true }
             );

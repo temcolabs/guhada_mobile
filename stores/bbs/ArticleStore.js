@@ -1,14 +1,14 @@
-import { isBrowser } from 'childs/lib/common/isServer';
+import { isBrowser } from 'lib/common/isServer';
 import { observable, action, computed, toJS } from 'mobx';
-import API from 'childs/lib/API';
+import API from 'lib/API';
 import _ from 'lodash';
 import qs from 'qs';
-import bookmarkTarget from 'childs/lib/constant/user/bookmarkTarget';
-import guhadaClientPlatform from 'childs/lib/constant/guhadaClientPlatform';
-import userLikeService from 'childs/lib/API/user/userLikeService';
-import { sendBackToLogin } from 'childs/lib/router';
-import { bbsTargetTypes } from 'childs/lib/API/user/userLikeService';
-import { devLog } from 'childs/lib/common/devLog';
+import bookmarkTarget from 'lib/constant/user/bookmarkTarget';
+import guhadaClientPlatform from 'lib/constant/guhadaClientPlatform';
+import userLikeService from 'lib/API/user/userLikeService';
+import { sendBackToLogin } from 'lib/router';
+import { bbsTargetTypes } from 'lib/API/user/userLikeService';
+import { devLog } from 'lib/common/devLog';
 class ArticleStore {
   constructor(root, initialState = {}) {
     if (isBrowser) {

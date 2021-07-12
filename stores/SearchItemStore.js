@@ -7,16 +7,16 @@ import {
   getBrandTitle,
 } from '../utils.js';
 import Router from 'next/router';
-import API from 'childs/lib/API';
-import { pushRoute } from 'childs/lib/router/index.js';
+import API from 'lib/API';
+import { pushRoute } from 'lib/router/index.js';
 import qs from 'qs';
 import _ from 'lodash';
-import criteoTracker from 'childs/lib/tracking/criteo/criteoTracker';
-import { devLog } from 'childs/lib/common/devLog.js';
-import isTruthy from 'childs/lib/common/isTruthy.js';
-import addCommaToArray from 'childs/lib/string/addCommaToArray.js';
-import { conditionOption } from 'childs/lib/constant/filter/condition.js';
-import SearchEnum from 'childs/lib/constant/filter/SearchEnum.js';
+import criteoTracker from 'lib/tracking/criteo/criteoTracker';
+import { devLog } from 'lib/common/devLog.js';
+import isTruthy from 'lib/common/isTruthy.js';
+import addCommaToArray from 'lib/string/addCommaToArray.js';
+import { conditionOption } from 'lib/constant/filter/condition.js';
+import SearchEnum from 'lib/constant/filter/SearchEnum.js';
 
 const isServer = typeof window === 'undefined';
 

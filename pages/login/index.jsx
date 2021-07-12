@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { observer } from 'mobx-react';
 import Form from 'stores/form-store/_.forms';
 import withAuth from 'components/common/hoc/withAuth';
-import HeadForSEO from 'childs/lib/components/HeadForSEO';
+import HeadForSEO from 'lib/components/HeadForSEO';
 import Login from 'template/signin/Login';
 
 function LoginPage() {

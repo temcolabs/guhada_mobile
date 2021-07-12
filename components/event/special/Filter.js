@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
-import { SPECIAL_FILTER } from 'childs/lib/constant/event/FilterOption';
+import { SPECIAL_FILTER } from 'lib/constant/event/FilterOption';
 class Filter extends Component {
   render() {
     let selectStyles = {
@@ -11,7 +11,7 @@ class Filter extends Component {
       valueContainer: () => ({
         padding: 0,
       }),
-      control: provided => ({
+      control: (provided) => ({
         ...provided,
         minHeight: 30,
         border: 'none',
@@ -20,7 +20,7 @@ class Filter extends Component {
         fontSize: 13,
         fontWeight: 500,
       }),
-      placeholder: provided => ({
+      placeholder: (provided) => ({
         ...provided,
         color: '#333',
         fontSize: 13,
@@ -54,7 +54,7 @@ class Filter extends Component {
         styles={selectStyles}
         placeholder={`진행중 기획전`}
         options={SPECIAL_FILTER}
-        onChange={value => {
+        onChange={(value) => {
           this.props.onChange(value);
         }}
         isSearchable={false}

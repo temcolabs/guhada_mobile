@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 import CategoryModal from './CategoryModal';
 import ToolbarBrand from 'components/toolbar/ToolbarBrand';
-import { pushRoute } from 'childs/lib/router';
+import { pushRoute } from 'lib/router';
 
 const Navigation = ({ type, noNav }) => {
   /**

@@ -1,9 +1,9 @@
 import { observable, action, toJS } from 'mobx';
-import API from 'childs/lib/API';
-import { isBrowser } from 'childs/lib/common/isServer';
-import { devLog } from 'childs/lib/common/devLog';
+import API from 'lib/API';
+import { isBrowser } from 'lib/common/isServer';
+import { devLog } from 'lib/common/devLog';
 import Router from 'next/router';
-import { pushRoute } from 'childs/lib/router';
+import { pushRoute } from 'lib/router';
 import qs from 'qs';
 
 export default class SpecialStore {

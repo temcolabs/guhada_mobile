@@ -2,8 +2,8 @@ import React, { Component, Fragment } from 'react';
 import css from './AuthenticationModal.module.scss';
 import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 import { inject, observer } from 'mobx-react';
-import CountdownTimer from 'childs/lib/components/CountdownTimer';
-import { devLog } from 'childs/lib/common/devLog';
+import CountdownTimer from 'lib/components/CountdownTimer';
+import { devLog } from 'lib/common/devLog';
 @inject('orderpayment', 'authmobile', 'customerauthentication', 'alert')
 @observer
 class AuthenticationModal extends Component {

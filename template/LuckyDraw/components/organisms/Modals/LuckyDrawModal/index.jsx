@@ -18,11 +18,11 @@ import {
 const STATUS_RESPONSES = {
   START: {
     text: '응모완료',
-    icon: '/static/icon/luckydraw/check_icon.png',
+    icon: '/public/icon/luckydraw/check_icon.png',
   },
   WINNER_ANNOUNCEMENT: {
     text: '당첨자 발표',
-    icon: '/static/icon/luckydraw/gift_icon.png',
+    icon: '/public/icon/luckydraw/gift_icon.png',
   },
 };
 
@@ -43,7 +43,7 @@ function LuckyDrawModal({ isOpen, status, contents, onClose }) {
         <SectionContents isBigModal={isBigModal}>
           <CloseButtonSection>
             <CloseButton
-              imageUrl={'/static/icon/modal_close.png'}
+              imageUrl={'/public/icon/modal_close.png'}
               onClick={onClose}
             />
           </CloseButtonSection>

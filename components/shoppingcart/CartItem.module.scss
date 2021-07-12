@@ -40,7 +40,7 @@
 
           input[type='checkbox']:checked + div {
             border: none;
-            background-image: url('/static/icon/checkbox_checked_20.png');
+            background-image: url('/public/icon/checkbox_checked_20.png');
             background-size: 20px 20px;
             background-position: center;
             background-repeat: no-repeat;
@@ -58,7 +58,7 @@
 
           i {
             display: block;
-            background: url('/static/icon/sold-out@3x.png') no-repeat;
+            background: url('/public/icon/sold-out@3x.png') no-repeat;
             background-size: cover;
             background-position: center;
             width: 15px;
@@ -78,7 +78,7 @@
 
           i {
             display: block;
-            background: url('/static/icon/exclamation-mark@3x.png') no-repeat;
+            background: url('/public/icon/exclamation-mark@3x.png') no-repeat;
             background-size: cover;
             background-position: center;
             width: 15px;
@@ -91,7 +91,7 @@
       .item__delete {
         width: 20px;
         height: 20px;
-        background: url('/static/icon/cart_delete.png') no-repeat;
+        background: url('/public/icon/cart_delete.png') no-repeat;
         background-size: cover;
         background-position: center;
       }

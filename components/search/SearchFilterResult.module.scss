@@ -5,7 +5,6 @@
   font-size: 12px;
   font-weight: 500;
 
-
   & .buttonWrap {
     height: 27px;
     white-space: nowrap;
@@ -25,7 +24,8 @@
     border: 1px solid #5d2ed1;
     margin-right: 3px;
     border-radius: 15px;
-    background: url('/static/icon/filter_search_delete_p@3x.png') no-repeat center right 8px;
+    background: url('/public/icon/filter_search_delete_p@3x.png') no-repeat
+      center right 8px;
     background-size: 15px;
 
     &:last-child {
@@ -34,7 +34,8 @@
 
     &.colored {
       color: white;
-      background: #5d2ed1 url('/static/icon/filter_search_delete_w@3x.png') no-repeat center right 8px;
+      background: #5d2ed1 url('/public/icon/filter_search_delete_w@3x.png')
+        no-repeat center right 8px;
       background-size: 15px;
     }
   }

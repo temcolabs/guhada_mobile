@@ -6,7 +6,7 @@ import { LoginInput, LoginCheckBox, LoginButton } from 'components/login';
 import SignupInputButtonChange from 'components/login/SignupInputButtonChange';
 import { observer, inject } from 'mobx-react';
 import { isNil as _isNil } from 'lodash';
-import gtagTracker from 'childs/lib/tracking/google/gtagTracker';
+import gtagTracker from 'lib/tracking/google/gtagTracker';
 
 @inject('countdown', 'authmobile')
 @observer

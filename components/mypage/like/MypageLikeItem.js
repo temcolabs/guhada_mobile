@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import css from './MypageLikeItem.module.scss';
 import { inject, observer } from 'mobx-react';
-import { LinkRoute } from 'childs/lib/router';
+import { LinkRoute } from 'lib/router';
 
 @inject('mypageLike')
 @observer
@@ -22,14 +22,14 @@ class MypageLikeItem extends React.Component {
           {data.totalStock > 0 ? (
             <div className={css.select__button}>
               <div
-                onClick={e => {
+                onClick={(e) => {
                   mypageLike.modalShoppingCart(e, data.dealId, 'shoppingcart');
                 }}
               >
                 장바구니
               </div>
               <div
-                onClick={e => {
+                onClick={(e) => {
                   data.options.length > 0
                     ? mypageLike.modalShoppingCart(e, data.dealId, 'purchase')
                     : mypageLike.modalImmediatePurchase(e, data.dealId);
@@ -41,7 +41,7 @@ class MypageLikeItem extends React.Component {
           ) : (
             <div
               className={[css.select__button, css.soldOut].join(' ')}
-              onClick={e => {
+              onClick={(e) => {
                 e.stopPropagation();
               }}
             >
@@ -50,7 +50,7 @@ class MypageLikeItem extends React.Component {
           )}
           <div
             className={css.item__delete__btn}
-            onClick={e => {
+            onClick={(e) => {
               mypageLike.likeItemDelete(e, data.productId);
             }}
           />

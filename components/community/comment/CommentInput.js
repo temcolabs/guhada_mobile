@@ -3,8 +3,8 @@ import css from './CommentInput.module.scss';
 import useStores from 'stores/useStores';
 import { useObserver } from 'mobx-react';
 import useChangeInput from 'hooks/useChangeInput';
-import { uploadImageFile } from 'childs/lib/API/gateway/fileUploadService';
-import { sendBackToLogin } from 'childs/lib/router';
+import { uploadImageFile } from 'lib/API/gateway/fileUploadService';
+import { sendBackToLogin } from 'lib/router';
 
 export default function CommentInput({
   commentId = 0,

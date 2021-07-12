@@ -19,8 +19,8 @@ class Controller extends Component {
           }}
           style={
             orderpayment.status.orderProductOnOffStatus
-              ? { backgroundImage: `url(/static/icon/m_off_minus.png)` }
-              : { backgroundImage: `url(/static/icon/m_on_plus.png)` }
+              ? { backgroundImage: `url(/public/icon/m_off_minus.png)` }
+              : { backgroundImage: `url(/public/icon/m_on_plus.png)` }
           }
         />
       </div>

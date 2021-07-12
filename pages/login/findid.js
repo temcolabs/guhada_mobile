@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import Form from '../../stores/form-store/_.forms';
 import FindId from 'template/signin/FindId';
-import HeadForSEO from 'childs/lib/components/HeadForSEO';
+import HeadForSEO from 'lib/components/HeadForSEO';
 
 @observer
 class findid extends Component {

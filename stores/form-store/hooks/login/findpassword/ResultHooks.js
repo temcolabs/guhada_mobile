@@ -1,8 +1,8 @@
-import API from 'childs/lib/API';
+import API from 'lib/API';
 import Form from '../../../_.forms';
 import { root } from 'store';
 import Router from 'next/router';
-import { devLog } from 'childs/lib/common/devLog';
+import { devLog } from 'lib/common/devLog';
 
 export default {
   onInit() {

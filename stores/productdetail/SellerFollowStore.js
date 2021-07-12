@@ -1,7 +1,7 @@
 import { observable, action } from 'mobx';
-import API from 'childs/lib/API';
+import API from 'lib/API';
 import _ from 'lodash';
-import { devLog } from 'childs/lib/common/devLog';
+import { devLog } from 'lib/common/devLog';
 
 const isServer = typeof window === 'undefined';
 
@@ -13,14 +13,14 @@ export default class SellerFollowStore {
   @observable follows = false;
   @observable userId;
   @action
-  getSellerFollow = targetId => {
+  getSellerFollow = (targetId) => {
     this.userId = this.root.user.userInfo.id;
     if (this.userId) {
       API.user
         .get(
           `/users/${this.userId}/bookmarks?target=SELLER&targetId=${targetId}`
         )
-        .then(res => {
+        .then((res) => {
           const { data } = res.data;
           if (data.empty === false) {
             this.follows = true;
@@ -28,26 +28,26 @@ export default class SellerFollowStore {
             this.follows = false;
           }
         })
-        .catch(err => {
+        .catch((err) => {
           devLog('err', err);
         });
     }
   };
 
   @action
-  setSellerFollow = id => {
+  setSellerFollow = (id) => {
     API.user
       .post(`/users/bookmarks`, {
         target: 'SELLER',
         targetId: id,
       })
-      .then(res => {
+      .then((res) => {
         // this.root.alert.showAlert({
         //   content: '스토어 팔로우를 완료 했습니다.',
         // });
         this.follows = true;
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err, '스토어 팔로우 ERROR');
         // this.root.alert.showAlert({
         //   content: `${_.get(err, 'data.message') || '스토어 팔로우 ERROR'}`,
@@ -56,16 +56,16 @@ export default class SellerFollowStore {
   };
 
   @action
-  deleteSellerFollow = id => {
+  deleteSellerFollow = (id) => {
     API.user
       .delete(`/users/bookmarks?target=SELLER&targetId=${id}`)
-      .then(res => {
+      .then((res) => {
         // this.root.alert.showAlert({
         //   content: '스토어 팔로우를 취소 했습니다.',
         // });
         this.follows = false;
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err, '스토어 팔로우 ERROR');
         // this.root.alert.showAlert({
         //   content: `${_.get(err, 'data.message') || '스토어 팔로우 ERROR'}`,

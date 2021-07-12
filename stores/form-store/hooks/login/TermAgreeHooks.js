@@ -1,13 +1,13 @@
 import Form from '../../_.forms';
-import API from 'childs/lib/API';
+import API from 'lib/API';
 import { root } from 'store';
-import { snsTypes } from 'childs/lib/constant/sns';
-import { devLog } from 'childs/lib/common/devLog';
-import daumTracker from 'childs/lib/tracking/daum/daumTracker';
-import naverShoppingTrakers from 'childs/lib/tracking/navershopping/naverShoppingTrakers';
+import { snsTypes } from 'lib/constant/sns';
+import { devLog } from 'lib/common/devLog';
+import daumTracker from 'lib/tracking/daum/daumTracker';
+import naverShoppingTrakers from 'lib/tracking/navershopping/naverShoppingTrakers';
 import ReactPixel from 'react-facebook-pixel';
-import sessionStorage from 'childs/lib/common/sessionStorage';
-import gtagTracker from 'childs/lib/tracking/google/gtagTracker';
+import sessionStorage from 'lib/common/sessionStorage';
+import gtagTracker from 'lib/tracking/google/gtagTracker';
 export default {
   onInit() {},
 
@@ -55,7 +55,7 @@ export default {
             login.loginFacebook(login.email);
           }
         })
-        .catch(e => {
+        .catch((e) => {
           console.error(e);
         });
     }

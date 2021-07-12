@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ModalWrapper from 'components/common/modal/ModalWrapper';
 import { observer, inject } from 'mobx-react';
 import css from '../review/ReviewModal.module.scss';
-import { devLog } from 'childs/lib/common/devLog';
+import { devLog } from 'lib/common/devLog';
 
 @inject('mypageInquiry')
 @observer

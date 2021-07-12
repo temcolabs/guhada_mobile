@@ -4,14 +4,14 @@ import css from './SellerReviewItems.module.scss';
 import _ from 'lodash';
 import StarItem from '../StarItem';
 import moment from 'moment';
-import { dateFormat, loginStatus } from 'childs/lib/constant';
+import { dateFormat, loginStatus } from 'lib/constant';
 import { inject, observer } from 'mobx-react';
-import { pushRoute, sendBackToLogin } from 'childs/lib/router';
-import isTruthy from 'childs/lib/common/isTruthy';
+import { pushRoute, sendBackToLogin } from 'lib/router';
+import isTruthy from 'lib/common/isTruthy';
 import cn from 'classnames';
 import ReviewReply from 'components/productdetail/ReviewReply';
 import ReportModal from 'components/claim/report/ReportModal';
-import reportTarget from 'childs/lib/constant/reportTarget';
+import reportTarget from 'lib/constant/reportTarget';
 import Link from 'next/link';
 import { toJS } from 'mobx';
 
@@ -72,9 +72,7 @@ class SellerReviewItems extends Component {
       ) {
         renderUserSize = (
           <div className={css.profileSize}>
-            {`키 : ${item.userSize.height}cm, 몸무게 : ${
-              item.userSize.weight
-            }kg`}
+            {`키 : ${item.userSize.height}cm, 몸무게 : ${item.userSize.weight}kg`}
           </div>
         );
       } else if (_.isNil(item.userSize.height) === false) {
@@ -100,9 +98,7 @@ class SellerReviewItems extends Component {
         isTruthy(item.productOption.color) &&
         isTruthy(item.productOption.size)
       ) {
-        renderProductoption = `구매옵션 : ${item.productOption.color}, ${
-          item.productOption.size
-        }`;
+        renderProductoption = `구매옵션 : ${item.productOption.color}, ${item.productOption.size}`;
       } else if (isTruthy(item.productOption.color)) {
         renderProductoption = `구매옵션 : ${item.productOption.color}`;
       } else if (isTruthy(item.productOption.size)) {
@@ -219,9 +215,9 @@ class SellerReviewItems extends Component {
                 >
                   <div>도움되었어요</div>
                   <div className={css.likeIcon} />
-                  <div className={css.bookmarkCount}>{`${
-                    item.review.bookmarkCount
-                  }`}</div>
+                  <div
+                    className={css.bookmarkCount}
+                  >{`${item.review.bookmarkCount}`}</div>
                 </div>
               ) : (
                 <div
@@ -233,18 +229,18 @@ class SellerReviewItems extends Component {
                 >
                   <div>도움되었어요</div>
                   <div className={css.unLikeIcon} />
-                  <div className={css.bookmarkCount}>{`${
-                    item.review.bookmarkCount
-                  }`}</div>
+                  <div
+                    className={css.bookmarkCount}
+                  >{`${item.review.bookmarkCount}`}</div>
                 </div>
               )
             ) : (
               <div className={css.likeWrap} onClick={() => sendBackToLogin()}>
                 <div>도움되었어요</div>
                 <div className={css.likeIcon} />
-                <div className={css.bookmarkCount}>{`${
-                  item.review.bookmarkCount
-                }`}</div>
+                <div
+                  className={css.bookmarkCount}
+                >{`${item.review.bookmarkCount}`}</div>
               </div>
             )}
 
@@ -272,10 +268,10 @@ class SellerReviewItems extends Component {
                   style={
                     this.state.reviewReply
                       ? {
-                          backgroundImage: `url('/static/icon/detail-icon-down-color@3x.png')`,
+                          backgroundImage: `url('/public/icon/detail-icon-down-color@3x.png')`,
                         }
                       : {
-                          backgroundImage: `url('/static/icon/detail-icon-arrow-open@3x.png')`,
+                          backgroundImage: `url('/public/icon/detail-icon-arrow-open@3x.png')`,
                         }
                   }
                 />

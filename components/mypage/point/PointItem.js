@@ -1,7 +1,7 @@
 import React from 'react';
 import css from './PointItem.module.scss';
 import moment from 'moment';
-import { dateFormat } from 'childs/lib/constant/date';
+import { dateFormat } from 'lib/constant/date';
 import { withRouter } from 'next/router';
 
 @withRouter
@@ -30,7 +30,7 @@ class PointItem extends React.Component {
             style={{
               backgroundImage: data.imgUrl
                 ? `url(${data.imgUrl})`
-                : `url('/static/icon/mypage/guhada_point@3x.png')`,
+                : `url('/public/icon/mypage/guhada_point@3x.png')`,
               backgroundColor: data.imgUrl ? `#fff` : `#eee`,
             }}
           /> */}

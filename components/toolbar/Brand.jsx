@@ -3,13 +3,13 @@ import { observer } from 'mobx-react';
 import css from './Brand.module.scss';
 import cn from 'classnames';
 import { isNil as _isNil, debounce as _debounce } from 'lodash';
-import { sendBackToLogin } from 'childs/lib/router';
+import { sendBackToLogin } from 'lib/router';
 import useStores from 'stores/useStores';
 import Image from 'components/atoms/Image';
 
 const IMAGE_PATH = {
-  starOn: '/static/icon/gnb_star_icon.png',
-  starOff: '/static/icon/gnb_greystar_icon.png',
+  starOn: '/public/icon/gnb_star_icon.png',
+  starOff: '/public/icon/gnb_greystar_icon.png',
 };
 
 /**

@@ -1,6 +1,5 @@
 @import 'styles/mixins/index';
 
-
 // TODO : 사용되지 않는 CSS 제거
 // TODO : 중복 사용되는 CSS 처리 필요
 .wrap {
@@ -17,7 +16,7 @@
     & .delIcon {
       width: 20px;
       height: 20px;
-      background: url('/static/icon/shipping/pc-popup-icon-del.png') no-repeat
+      background: url('/public/icon/shipping/pc-popup-icon-del.png') no-repeat
         center;
       background-size: contain;
       cursor: pointer;

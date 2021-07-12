@@ -5,7 +5,7 @@ export default function NoMyBookmarks() {
   return (
     <div className={css.wrap}>
       <img
-        src="/static/icon/community/icon-bookmark-non@3x.png"
+        src="/public/icon/community/icon-bookmark-non@3x.png"
         alt="icon-bookmark-non@3x.png"
         className={css.notiImage}
       />

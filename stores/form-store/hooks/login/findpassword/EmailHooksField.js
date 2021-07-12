@@ -1,7 +1,7 @@
-import API from 'childs/lib/API';
+import API from 'lib/API';
 import { root } from 'store';
 import Form from '../../../_.forms';
-import { devLog } from 'childs/lib/common/devLog';
+import { devLog } from 'lib/common/devLog';
 import _ from 'lodash';
 
 export default {
@@ -9,7 +9,7 @@ export default {
     // override default bindings for all text inputs
     this.name === 'Register Material' &&
       this.each(
-        field =>
+        (field) =>
           field.type === 'text' && field.set('bindings', 'MaterialTextField')
       );
   },
@@ -37,7 +37,7 @@ export default {
         } else {
         }
       })
-      .catch(e => {
+      .catch((e) => {
         form.$('email').invalidate(_.get(e, 'data.message'));
         form.$('name').invalidate(' ');
       });
@@ -73,7 +73,7 @@ export default {
   //   devLog('-> onFocus HOOK -', field.path, field.value);
   // },
 
-  onBlur: field => {
+  onBlur: (field) => {
     devLog('-> onBlur HOOK -', field.path, field.value);
 
     // 모바일 번호 입력시

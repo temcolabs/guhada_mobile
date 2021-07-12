@@ -1,8 +1,8 @@
 import React from 'react';
 import css from '../MyBBS.module.scss';
-import { LinkRoute, pushRoute } from 'childs/lib/router';
+import { LinkRoute, pushRoute } from 'lib/router';
 import moment from 'moment';
-import { dateFormat } from 'childs/lib/constant';
+import { dateFormat } from 'lib/constant';
 
 export default function MyActivityItem({ activity }) {
   const {
@@ -51,14 +51,18 @@ export default function MyActivityItem({ activity }) {
           <>
             <span>조회 {viewCount}</span>
             <span>댓글 {commentCount}</span>
-            <span>{moment(createdTimestamp).format(dateFormat.YYYYMMDD_UI)}</span>
+            <span>
+              {moment(createdTimestamp).format(dateFormat.YYYYMMDD_UI)}
+            </span>
           </>
         ) : contentsType === 'COMMENT' ? (
           <>
             <span className={css.myContent_originalContent}>
               원글 : {orgContents}
             </span>
-            <span>{moment(createdTimestamp).format(dateFormat.YYYYMMDD_UI)}</span>
+            <span>
+              {moment(createdTimestamp).format(dateFormat.YYYYMMDD_UI)}
+            </span>
           </>
         ) : null}
       </div>

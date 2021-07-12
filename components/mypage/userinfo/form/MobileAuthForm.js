@@ -6,15 +6,15 @@ import { Field } from 'react-final-form';
 import {
   validateWithValue,
   mustBeMobile,
-} from 'childs/lib/common/finalFormValidators';
+} from 'lib/common/finalFormValidators';
 import { UserEditFormContext } from 'template/mypage/UserInfomation';
 import useStores from 'stores/useStores';
 import { useObserver } from 'mobx-react';
-import { devLog } from 'childs/lib/common/devLog';
-import { isMobileNum } from 'childs/lib/string/addHyphenToMobile';
+import { devLog } from 'lib/common/devLog';
+import { isMobileNum } from 'lib/string/addHyphenToMobile';
 import { authLocations } from 'stores/AuthMobileStore';
 import ErrorMessage from 'components/mypage/form/ErrorMessage';
-import { mustBeBoolean } from 'childs/lib/common/finalFormValidators';
+import { mustBeBoolean } from 'lib/common/finalFormValidators';
 
 /**
  * nice 모바일 본인인증.

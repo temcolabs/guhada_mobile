@@ -28,7 +28,7 @@
     .totalDiscountTitle {
       color: #aa91e6;
       .dropArrowOpacity {
-        background: url('/static/icon/m_payment-btn-discount-open@3x.png')
+        background: url('/public/icon/m_payment-btn-discount-open@3x.png')
           no-repeat;
         width: 14px;
         height: 14px;
@@ -84,7 +84,7 @@
           color: #9a9fa8;
         }
         .minusImage {
-          background: url('/static/icon/m_minus_btn.png') no-repeat;
+          background: url('/public/icon/m_minus_btn.png') no-repeat;
           width: 15px;
           height: 15px;
           background-size: cover;
@@ -125,7 +125,7 @@
           color: #9a9fa8;
         }
         .equalImage {
-          background: url('/static/icon/m_equal_btn.png') no-repeat;
+          background: url('/public/icon/m_equal_btn.png') no-repeat;
           width: 15px;
           height: 15px;
           background-size: cover;
@@ -183,7 +183,7 @@
         align-items: center;
         font-weight: 400;
         .couponChange {
-          background: url('/static/icon/m_coupon_change.png') no-repeat;
+          background: url('/public/icon/m_coupon_change.png') no-repeat;
           background-size: cover;
           background-position: center;
           margin-left: 12px;
@@ -217,7 +217,7 @@
         display: flex;
         align-items: center;
         .dropArrow {
-          background: url('/static/icon/m_drop_arrow.png') no-repeat;
+          background: url('/public/icon/m_drop_arrow.png') no-repeat;
           width: 14px;
           height: 14px;
           background-size: cover;

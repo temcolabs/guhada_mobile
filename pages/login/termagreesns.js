@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Term from 'components/login/Term';
 import Form from '../../stores/form-store/_.forms';
-import HeadForSEO from 'childs/lib/components/HeadForSEO';
+import HeadForSEO from 'lib/components/HeadForSEO';
 
 export class termagreesns extends Component {
   render() {

@@ -5,7 +5,7 @@ import css from './PointHistory.module.scss';
 import MypageLayout from 'components/mypage/MypageLayout';
 import PointDashboard from 'components/mypage/point/PointDashboard';
 import PeriodSelector from 'components/mypage/PeriodSelector';
-import { dateUnit } from 'childs/lib/constant/date';
+import { dateUnit } from 'lib/constant/date';
 import { inject, observer } from 'mobx-react';
 import PointItem from 'components/mypage/point/PointItem';
 
@@ -83,7 +83,7 @@ class PointHistory extends React.Component {
                 <div className={css.pointHistoryNodata}>
                   <div>
                     <img
-                      src="/static/icon/icon-no-data@3x.png"
+                      src="/public/icon/icon-no-data@3x.png"
                       alt="데이터 없음"
                     />
                   </div>

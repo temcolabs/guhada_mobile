@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import Router from 'next/router';
 import SignUpSuccess from 'components/login/SignUpSuccess';
-import HeadForSEO from 'childs/lib/components/HeadForSEO';
-import { isBrowser } from 'childs/lib/common/isServer';
-import { getCookie } from 'childs/lib/common/cookieUtils';
+import HeadForSEO from 'lib/components/HeadForSEO';
+import { isBrowser } from 'lib/common/isServer';
+import { getCookie } from 'lib/common/cookieUtils';
 
 function SignUpSuccessPage({ signUpUserEmail }) {
   return (

@@ -1,5 +1,5 @@
 $topPosition: 60px;
-$toolbarHeader:55px;
+$toolbarHeader: 55px;
 $brandHeader: 70px;
 $browserTool: 70px;
 
@@ -17,7 +17,7 @@ $browserTool: 70px;
     height: 33px;
     font-size: 13px;
     border-bottom: 1px solid #111111;
-    background-image: url('/static/icon/zoom-icon.png');
+    background-image: url('/public/icon/zoom-icon.png');
     background-size: 16px;
     background-repeat: no-repeat;
     background-position: right center;
@@ -98,13 +98,13 @@ $browserTool: 70px;
     text-align: left;
     color: #333333;
     padding-left: 26px;
-    background: url('/static/icon/filter_checkbox_inactive.png');
+    background: url('/public/icon/filter_checkbox_inactive.png');
     background-repeat: no-repeat;
     background-position: left center;
     background-size: 16px;
 
     &.checked {
-      background: url('/static/icon/filter_checkbox_selected.png');
+      background: url('/public/icon/filter_checkbox_selected.png');
       background-repeat: no-repeat;
       background-position: left center;
       background-size: 16px;

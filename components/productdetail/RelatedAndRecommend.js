@@ -1,10 +1,10 @@
 import React from 'react';
 import css from './RelatedAndRecommend.module.scss';
 import cn from 'classnames';
-import { pushRoute } from 'childs/lib/router';
+import { pushRoute } from 'lib/router';
 import _ from 'lodash';
-import internationalShipping from 'childs/lib/constant/filter/internationalShipping';
-import brandNew from 'childs/lib/constant/filter/brandNew';
+import internationalShipping from 'lib/constant/filter/internationalShipping';
+import brandNew from 'lib/constant/filter/brandNew';
 
 export default function RelatedAndRecommend({
   dealsOfSameBrand = [
@@ -72,7 +72,7 @@ export default function RelatedAndRecommend({
         <>
           <div className={css.header}>판매자의 연관상품</div>
           <div className={css.slideWrap}>
-            {dealsOfSameBrand.map(deal => {
+            {dealsOfSameBrand.map((deal) => {
               return (
                 <div
                   className={css.itemWrap}
@@ -84,7 +84,8 @@ export default function RelatedAndRecommend({
                   <div
                     className={css.image}
                     style={{
-                      backgroundImage: `url('${deal.productImage.url + "?w=375"}')` || '',
+                      backgroundImage:
+                        `url('${deal.productImage.url + '?w=375'}')` || '',
                     }}
                   />
                   <div className={css.contentsWrap}>
@@ -133,7 +134,7 @@ export default function RelatedAndRecommend({
         <>
           <div className={cn(css.header)}>추천상품</div>
           <div className={css.slideWrap}>
-            {dealsOfRecommend.map(deal => {
+            {dealsOfRecommend.map((deal) => {
               return (
                 <div
                   className={css.itemWrap}
@@ -145,7 +146,8 @@ export default function RelatedAndRecommend({
                   <div
                     className={css.image}
                     style={{
-                      backgroundImage: `url('${deal.productImage.url + "?w=375"}')` || '',
+                      backgroundImage:
+                        `url('${deal.productImage.url + '?w=375'}')` || '',
                     }}
                   />
                   <div className={css.contentsWrap}>

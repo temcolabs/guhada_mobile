@@ -1,10 +1,10 @@
 import { observable, action, toJS } from 'mobx';
-import API from 'childs/lib/API';
-import { isBrowser } from 'childs/lib/common/isServer';
-import { devLog } from 'childs/lib/common/devLog';
+import API from 'lib/API';
+import { isBrowser } from 'lib/common/isServer';
+import { devLog } from 'lib/common/devLog';
 import Form from 'stores/form-store/_.forms';
-import luckyDrawService from 'childs/lib/API/product/luckyDrawService';
-import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
+import luckyDrawService from 'lib/API/product/luckyDrawService';
+import widerplanetTracker from 'lib/tracking/widerplanet/widerplanetTracker';
 
 export default class LukcyDrawStore {
   constructor(root) {
@@ -30,7 +30,7 @@ export default class LukcyDrawStore {
     }
     const data = {
       // eventTitle: 'lucky_popup',
-      imgUrl: '/static/event/lucky_popup.png',
+      imgUrl: '/public/event/lucky_popup.png',
     };
     this.luckyEventData = data;
   };

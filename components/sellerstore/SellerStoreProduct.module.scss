@@ -13,7 +13,7 @@
 
   & .detail {
     position: relative;
-    background-image: url('/static/icon/fillter_icon.png');
+    background-image: url('/public/icon/fillter_icon.png');
     background-size: 16px 14px;
     background-repeat: no-repeat;
     background-position: right;
@@ -27,7 +27,7 @@
   & .orderWrap {
     position: relative;
     float: left;
-    background-image: url('/static/icon/list_select_arrow_open.png');
+    background-image: url('/public/icon/list_select_arrow_open.png');
     background-repeat: no-repeat;
     background-position: right center;
     background-size: 10px;
@@ -101,7 +101,7 @@
   & .moreIcon {
     width: 16px;
     height: 16px;
-    background: url(/static/icon/detail_btn_more_open.png) no-repeat center;
+    background: url(/public/icon/detail_btn_more_open.png) no-repeat center;
     background-size: 16px;
     display: inline-block;
     position: relative;

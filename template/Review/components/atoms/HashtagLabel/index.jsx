@@ -5,7 +5,7 @@ import Image from 'components/atoms/Image';
 import { Wrapper } from './Styled';
 
 const IMAGE_PATH = {
-  delIcon: '/static/icon/shipping/pc-popup-icon-del.png',
+  delIcon: '/public/icon/shipping/pc-popup-icon-del.png',
 };
 
 /**

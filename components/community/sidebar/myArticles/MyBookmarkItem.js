@@ -1,6 +1,6 @@
 import React from 'react';
 import css from '../MyBBS.module.scss';
-import { pushRoute } from 'childs/lib/router';
+import { pushRoute } from 'lib/router';
 import moment from 'moment';
 
 export default function MyBookmarkItem({ bookmark }) {

@@ -15,30 +15,30 @@ import SubmitButton, {
   SubmitButtonWrapper,
 } from 'components/mypage/form/SubmitButton';
 import RadioGroup from 'components/mypage/form/RadioGroup';
-import addCommaToNum from 'childs/lib/common/addCommaToNum';
+import addCommaToNum from 'lib/common/addCommaToNum';
 import NoInvoiceWarning from 'components/mypage/orderCancel/NoInvoiceWarning';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
-import addHyphenToMobile from 'childs/lib/string/addHyphenToMobile';
+import addHyphenToMobile from 'lib/string/addHyphenToMobile';
 import {
   claimShippingPriceTypes,
   claimShippingPriceOptions,
-} from 'childs/lib/constant/order/claimShippingPrice';
+} from 'lib/constant/order/claimShippingPrice';
 
-import isDev from 'childs/lib/common/isDev';
-import { devLog } from 'childs/lib/common/devLog';
+import isDev from 'lib/common/isDev';
+import { devLog } from 'lib/common/devLog';
 import {
   alreadySentTypes,
   alreadySentOptions,
-} from 'childs/lib/constant/order/alreadySent';
+} from 'lib/constant/order/alreadySent';
 // import SelectMyAddressModal from 'components/common/modal/SelectMyAddressModal';
-import openDaumAddressSearch from 'childs/lib/common/openDaumAddressSearch';
-import { isFalsey } from 'childs/lib/common/isTruthy';
+import openDaumAddressSearch from 'lib/common/openDaumAddressSearch';
+import { isFalsey } from 'lib/common/isTruthy';
 import {
   composeValidators,
   maxValue,
   required,
   requiredWithMessage,
-} from 'childs/lib/common/finalFormValidators';
+} from 'lib/common/finalFormValidators';
 import TextArea from 'components/mypage/form/TextArea';
 import MypageSectionTitle from 'components/mypage/MypageSectionTitle';
 import MypageAddressModal from 'components/mypage/address/MypageAddressModal';
@@ -185,7 +185,7 @@ class OrderExchangeForm extends Component {
     const job = (claimData = {}) => {
       // 서버에 저장된 교환 배송 메시지로 어떤 타입인지 확인한다.
       const shippingMessageTypeSaved = this.props.orderClaimForm.shippingMessageOptions?.find(
-        o => o.label === claimData?.exchangeBuyerShippingMessage
+        (o) => o.label === claimData?.exchangeBuyerShippingMessage
       )?.value;
 
       const initValues = this.getIsCreate()
@@ -216,7 +216,7 @@ class OrderExchangeForm extends Component {
               shippingMessageTypeSaved ||
               // 저장된 타입이 없다면 '직접 입력'으로 저장했다고 판단한다
               this.props.orderClaimForm.shippingMessageOptions?.find(
-                o => o.value === 'SELF'
+                (o) => o.value === 'SELF'
               )?.value,
 
             // API 데이터
@@ -302,7 +302,7 @@ class OrderExchangeForm extends Component {
   /**
    * 배송지 변경 모달 열기
    */
-  openEditOrderAddressModal = formValues => {
+  openEditOrderAddressModal = (formValues) => {
     const { claimData } = this.props.orderClaimForm;
 
     this.props.mypageAddress.openEditOrderAddressModal({
@@ -416,7 +416,7 @@ class OrderExchangeForm extends Component {
       <>
         <div className={css.inputWrapper}>
           <Field name={this.fields.shippingName}>
-            {props => (
+            {(props) => (
               <Input
                 initialValue={props.input.value}
                 onChange={props.input.onChange}
@@ -440,7 +440,7 @@ class OrderExchangeForm extends Component {
             className={css.addressListButton}
             onClick={() =>
               openDaumAddressSearch({
-                onComplete: data =>
+                onComplete: (data) =>
                   this.handleSelectDaumAddressSearchResult({
                     data,
                     formApi,
@@ -454,7 +454,7 @@ class OrderExchangeForm extends Component {
         {/*  상세 주소 */}
         <div className={css.inputWrapper}>
           <Field name={this.fields.detailAddress}>
-            {props => (
+            {(props) => (
               <Input
                 initialValue={props.input.value}
                 onChange={props.input.onChange}
@@ -466,7 +466,7 @@ class OrderExchangeForm extends Component {
         {/* 수령인 */}
         <div className={css.inputWrapper}>
           <Field name={this.fields.recipientName}>
-            {props => (
+            {(props) => (
               <Input
                 placeholder="수령인을 입력해주세요"
                 initialValue={props.input.value}
@@ -478,7 +478,7 @@ class OrderExchangeForm extends Component {
         {/* 연락처 */}
         <div className={css.inputWrapper}>
           <Field name={this.fields.recipientMobile}>
-            {props => (
+            {(props) => (
               <Input
                 placeholder="연락처를 입력해주세요"
                 initialValue={props.input.value}
@@ -546,7 +546,7 @@ class OrderExchangeForm extends Component {
           devLog(`formState errors`, errors);
 
           const exchangeReasonLabel = orderClaimForm.exchangeReasonOptions.find(
-            o => o.value === values[this.fields.exchangeReason]
+            (o) => o.value === values[this.fields.exchangeReason]
           )?.label;
 
           return (
@@ -590,7 +590,7 @@ class OrderExchangeForm extends Component {
                               maxValue(claimData?.quantity)
                             )}
                           >
-                            {props => {
+                            {(props) => {
                               return (
                                 <QuantityControl
                                   initialValue={
@@ -599,7 +599,7 @@ class OrderExchangeForm extends Component {
                                     ]
                                   }
                                   max={claimData?.quantity}
-                                  onChange={value => {
+                                  onChange={(value) => {
                                     props.input.onChange(value);
                                   }}
                                 />
@@ -628,7 +628,7 @@ class OrderExchangeForm extends Component {
                                 placeholder="교환 사유를 선택해주세요."
                                 options={orderClaimForm.exchangeReasonOptions}
                                 value={orderClaimForm.exchangeReasonOptions.find(
-                                  o =>
+                                  (o) =>
                                     o.value ===
                                     values[this.fields.exchangeReason]
                                 )}
@@ -697,12 +697,12 @@ class OrderExchangeForm extends Component {
 
                       <div className={css.radioWrapper}>
                         <Field name={this.fields.isAlreadySent}>
-                          {props => {
+                          {(props) => {
                             return (
                               <RadioGroup
                                 name={this.fields.isAlreadySent}
                                 options={alreadySentOptions}
-                                onChange={value => {
+                                onChange={(value) => {
                                   props.input.onChange(value);
 
                                   this.handleChangeIsAlreadySent({
@@ -732,15 +732,15 @@ class OrderExchangeForm extends Component {
                                   : undefined
                               }
                             >
-                              {props => (
+                              {(props) => (
                                 <Select
                                   placeholder="택배사를 선택해주세요"
                                   options={orderClaimForm.shipCompanyOptions}
-                                  onChange={option => {
+                                  onChange={(option) => {
                                     props.input.onChange(option.value);
                                   }}
                                   value={orderClaimForm.shipCompanyOptions.find(
-                                    o => o.value === props.input.value
+                                    (o) => o.value === props.input.value
                                   )}
                                 />
                               )}
@@ -756,7 +756,7 @@ class OrderExchangeForm extends Component {
                                   : undefined
                               }
                             >
-                              {props => (
+                              {(props) => (
                                 <Input
                                   placeholder="송장번호를 입력해주세요."
                                   type="number"
@@ -812,7 +812,7 @@ class OrderExchangeForm extends Component {
                           name={this.fields.claimShippingPriceType}
                           validate={required}
                         >
-                          {props => (
+                          {(props) => (
                             <RadioGroup
                               name={this.fields.claimShippingPriceType}
                               options={claimShippingPriceOptions}
@@ -851,12 +851,12 @@ class OrderExchangeForm extends Component {
                     {/* 배송 메모 */}
                     <div className={css.reasonSelectWrapper}>
                       <Field name={this.fields.shippingMessage}>
-                        {props => (
+                        {(props) => (
                           <div>
                             <Select
                               placeholder="배송 메모를 선택해주세요."
                               options={orderClaimForm.shippingMessageOptions}
-                              onChange={option => {
+                              onChange={(option) => {
                                 this.handleChangeShippingMessage({
                                   option,
                                   formApi,
@@ -865,7 +865,7 @@ class OrderExchangeForm extends Component {
                               }}
                               // 옵션 기본값
                               value={orderClaimForm.shippingMessageOptions.find(
-                                o =>
+                                (o) =>
                                   o.value ===
                                   values[this.fields.shippingMessageType]
                               )}

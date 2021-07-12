@@ -9,8 +9,8 @@ import memoize from 'memoize-one';
 import _ from 'lodash';
 import ReviewImageUpload from './ReviewImageUpload';
 import MySizeModal from 'components/mypage/userinfo/form/MySizeModal';
-import isTruthy from 'childs/lib/common/isTruthy';
-import cutByLen from 'childs/lib/common/cutByLen';
+import isTruthy from 'lib/common/isTruthy';
+import cutByLen from 'lib/common/cutByLen';
 import ModalLayout from 'components/layout/ModalLayout';
 import SubmitButton, {
   CancelButton,
@@ -18,8 +18,8 @@ import SubmitButton, {
 } from 'components/mypage/form/SubmitButton';
 import DealOrdered from '../DealOrdered';
 import TextArea from 'components/mypage/form/TextArea';
-import API from 'childs/lib/API';
-import pointProcessService from 'childs/lib/API/benefit/pointProcessService';
+import API from 'lib/API';
+import pointProcessService from 'lib/API/benefit/pointProcessService';
 import { ReviewWriteHashtagModal } from 'template/Review/components/organisms';
 import { HashtagLabel } from 'template/Review/components/atoms';
 
@@ -405,7 +405,7 @@ class ReviewWriteModal extends Component {
         if (i % 2 === 0)
           starItems.push(
             <img
-              src="/static/icon/big_star_yellow_half_l.png"
+              src="/public/icon/big_star_yellow_half_l.png"
               width={25}
               height={50}
               key={i}
@@ -415,7 +415,7 @@ class ReviewWriteModal extends Component {
         else
           starItems.push(
             <img
-              src="/static/icon/big_star_yellow_half_r.png"
+              src="/public/icon/big_star_yellow_half_r.png"
               width={25}
               height={50}
               key={i}
@@ -426,7 +426,7 @@ class ReviewWriteModal extends Component {
         if (i % 2 === 0)
           starItems.push(
             <img
-              src="/static/icon/big_star_grey_half_l.png"
+              src="/public/icon/big_star_grey_half_l.png"
               width={25}
               height={50}
               key={i}
@@ -436,7 +436,7 @@ class ReviewWriteModal extends Component {
         else
           starItems.push(
             <img
-              src="/static/icon/big_star_grey_half_r.png"
+              src="/public/icon/big_star_grey_half_r.png"
               width={25}
               height={50}
               key={i}
@@ -581,9 +581,7 @@ class ReviewWriteModal extends Component {
                 type={'review'}
                 onChange={this.onChangeTextarea}
                 // maxLength={1000}
-                placeholder={`어떤 점이 좋으셨나요?\n사진과 함께 리뷰 작성 시 ${
-                  productreview.maximumPoint
-                }P 적립!\n상품에 대한 솔직한 리뷰를 작성해주세요.`}
+                placeholder={`어떤 점이 좋으셨나요?\n사진과 함께 리뷰 작성 시 ${productreview.maximumPoint}P 적립!\n상품에 대한 솔직한 리뷰를 작성해주세요.`}
                 initialValue={this.state.reviewData?.textReview || ''}
                 isInputSizeVisible={false}
               />

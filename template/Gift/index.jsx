@@ -33,7 +33,7 @@ function Gift() {
 
       {isModalOpen && (
         <ScrollableImageModal
-          imgSrc={'/static/gift/gift_detail_mob.jpg'}
+          imgSrc={'/public/gift/gift_detail_mob.jpg'}
           isModalOpen={isModalOpen}
           handleCloseModal={() => setIsModalOpen(false)}
         />

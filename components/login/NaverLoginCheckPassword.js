@@ -2,11 +2,11 @@ import React, { Fragment } from 'react';
 import css from './NaverLogin.module.scss';
 
 import { observer, inject } from 'mobx-react';
-import loadScript from 'childs/lib/dom/loadScript';
-import { snsAppKey } from 'childs/lib/constant/sns';
-import { isBrowser } from 'childs/lib/common/isServer';
-import { HOSTNAME } from 'childs/lib/constant/hostname';
-import { devLog } from 'childs/lib/common/devLog';
+import loadScript from 'lib/dom/loadScript';
+import { snsAppKey } from 'lib/constant/sns';
+import { isBrowser } from 'lib/common/isServer';
+import { HOSTNAME } from 'lib/constant/hostname';
+import { devLog } from 'lib/common/devLog';
 
 const client_id = snsAppKey.NAVER;
 const redirectURI = encodeURI(`${HOSTNAME}/callbacknaver`);

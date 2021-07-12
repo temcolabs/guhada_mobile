@@ -9,7 +9,7 @@
   .item__name {
     color: #444;
     font-size: 14px;
-    background: url('/static/icon/icon_history.png') no-repeat left;
+    background: url('/public/icon/icon_history.png') no-repeat left;
     background-size: 20px;
     padding-left: 28px;
     white-space: nowrap;
@@ -21,7 +21,7 @@
   .item__delete {
     font-size: 13px;
     color: #999;
-    background: url('/static/icon/icon_delete.png') no-repeat right;
+    background: url('/public/icon/icon_delete.png') no-repeat right;
     background-size: 18px;
     padding-right: 26px;
   }

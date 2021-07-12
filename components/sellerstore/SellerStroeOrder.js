@@ -3,9 +3,7 @@ import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 import css from './SellerStoreOrder.module.scss';
 import cn from 'classnames';
 import Router from 'next/router';
-import { devLog } from 'childs/lib/common/devLog';
-
-
+import { devLog } from 'lib/common/devLog';
 
 class SellerStoreOrder extends Component {
   render() {
@@ -16,7 +14,7 @@ class SellerStoreOrder extends Component {
         <div className={css.wrap}>
           <button
             className={css.close}
-            onClick={e => {
+            onClick={(e) => {
               e.stopPropagation();
               onClose();
             }}
@@ -27,7 +25,7 @@ class SellerStoreOrder extends Component {
               className={cn(css.item, {
                 [css.selected]: sellerStoreFilter === 'DATE',
               })}
-              onClick={e => {
+              onClick={(e) => {
                 getOrderDeal('DATE', e);
               }}
             >
@@ -37,7 +35,7 @@ class SellerStoreOrder extends Component {
               className={cn(css.item, {
                 [css.selected]: sellerStoreFilter === 'SCORE',
               })}
-              onClick={e => {
+              onClick={(e) => {
                 getOrderDeal('SCORE', e);
               }}
             >
@@ -47,7 +45,7 @@ class SellerStoreOrder extends Component {
               className={cn(css.item, {
                 [css.selected]: sellerStoreFilter === 'PRICE_ASC',
               })}
-              onClick={e => {                
+              onClick={(e) => {
                 getOrderDeal('PRICE_ASC', e);
               }}
             >
@@ -57,7 +55,7 @@ class SellerStoreOrder extends Component {
               className={cn(css.item, {
                 [css.selected]: sellerStoreFilter === 'PRICE_DESC',
               })}
-              onClick={e => {
+              onClick={(e) => {
                 getOrderDeal('PRICE_DESC', e);
               }}
             >

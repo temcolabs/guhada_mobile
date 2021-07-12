@@ -1,15 +1,15 @@
 import { observable, action, computed, toJS } from 'mobx';
 import _ from 'lodash';
-import API from 'childs/lib/API';
-import { isBrowser } from 'childs/lib/common/isServer';
-import { pushRoute } from 'childs/lib/router';
-import { devLog } from 'childs/lib/common/devLog';
-import isTruthy from 'childs/lib/common/isTruthy';
-import orderClaimTypes from 'childs/lib/constant/order/orderClaimTypes';
+import API from 'lib/API';
+import { isBrowser } from 'lib/common/isServer';
+import { pushRoute } from 'lib/router';
+import { devLog } from 'lib/common/devLog';
+import isTruthy from 'lib/common/isTruthy';
+import orderClaimTypes from 'lib/constant/order/orderClaimTypes';
 import moment from 'moment';
-import { dateFormat } from 'childs/lib/constant/date';
-import purchaseStatus from 'childs/lib/constant/order/purchaseStatus';
-import paymentMethod from 'childs/lib/constant/order/paymentMethod';
+import { dateFormat } from 'lib/constant/date';
+import purchaseStatus from 'lib/constant/order/purchaseStatus';
+import paymentMethod from 'lib/constant/order/paymentMethod';
 
 /**
  * 클레임(취소교환반품) 폼, 클레임 상세에서 사용할 데이터 관리.
@@ -176,8 +176,9 @@ export default class OrderClaimFormStore {
   @computed
   get claimReasonLabel() {
     return (
-      this.claimReasonOptionsByType?.find(o => o.value === this.claimReasonCode)
-        ?.label || ''
+      this.claimReasonOptionsByType?.find(
+        (o) => o.value === this.claimReasonCode
+      )?.label || ''
     );
   }
 
@@ -187,7 +188,7 @@ export default class OrderClaimFormStore {
   @computed
   get isClaimReasonUserFault() {
     return this.claimReasonOptionsByType.find(
-      o => o.value === this.claimReasonCode
+      (o) => o.value === this.claimReasonCode
     )?.userFault;
   }
 
@@ -199,7 +200,7 @@ export default class OrderClaimFormStore {
   get claimShippingChargeLabel() {
     // 사유 옵션
     const reason = this.claimReasonOptionsByType.find(
-      o => o.value === this.claimReasonCode
+      (o) => o.value === this.claimReasonCode
     );
 
     return isTruthy(reason)
@@ -228,7 +229,7 @@ export default class OrderClaimFormStore {
     }
 
     return (
-      this.shipCompanyOptions.find(o => o.value === shipCompanyCode)?.label ||
+      this.shipCompanyOptions.find((o) => o.value === shipCompanyCode)?.label ||
       `코드: ${shipCompanyCode}`
     );
   };
@@ -355,7 +356,7 @@ export default class OrderClaimFormStore {
   @computed
   get shipCompanyOptions() {
     return (
-      this.claimData?.shipCompanyList?.map(shipCompany => ({
+      this.claimData?.shipCompanyList?.map((shipCompany) => ({
         value: shipCompany.code,
         label: shipCompany.name,
       })) || []
@@ -365,7 +366,7 @@ export default class OrderClaimFormStore {
   @computed
   get bankCodeOptions() {
     return (
-      this.claimData?.banks?.map(bank => ({
+      this.claimData?.banks?.map((bank) => ({
         value: bank.bankCode,
         label: bank.bankName,
       })) || []
@@ -383,7 +384,7 @@ export default class OrderClaimFormStore {
    * memoize 적용해서 같은 아이디로 중복 호출 안함
    */
   @action
-  getOrderClaimRegisterForm = async orderProdGroupId => {
+  getOrderClaimRegisterForm = async (orderProdGroupId) => {
     try {
       const header = {
         'ACCEPT-VERSION': '1.1',
@@ -410,7 +411,7 @@ export default class OrderClaimFormStore {
    * memoize 적용해서 같은 아이디로 중복 호출 안함
    */
   @action
-  getOrderClaimUpdateForm = async orderClaimId => {
+  getOrderClaimUpdateForm = async (orderClaimId) => {
     try {
       const { data } = await API.claim.get(
         `/order-claim/claim-update-form/${orderClaimId}`
@@ -430,7 +431,7 @@ export default class OrderClaimFormStore {
    * orderClaimGroupId는 클레임 목록과 신청, 수정 API 리스펀스에서 가져올 수 있다.
    */
   @action
-  getOrderClaimCompleteForm = async orderClaimGroupId => {
+  getOrderClaimCompleteForm = async (orderClaimGroupId) => {
     try {
       const { data } = await API.claim.get(
         `/order-claim/claim-complete-form/${orderClaimGroupId}`

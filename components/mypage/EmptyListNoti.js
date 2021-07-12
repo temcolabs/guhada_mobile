@@ -14,7 +14,7 @@ export default function EmptyListNoti({ message = '결과가 없습니다' }) {
       <Centering mode="flex" className={css.mode}>
         <img
           className={css.noDataIcon}
-          src="/static/icon/mypage/icon-no-data@3x.png"
+          src="/public/icon/mypage/icon-no-data@3x.png"
           alt=""
         />
         {message}

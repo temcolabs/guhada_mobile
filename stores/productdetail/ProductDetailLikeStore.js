@@ -1,7 +1,7 @@
 import { observable, action, toJS } from 'mobx';
-import API from 'childs/lib/API';
+import API from 'lib/API';
 import _ from 'lodash';
-import { devLog } from 'childs/lib/common/devLog';
+import { devLog } from 'lib/common/devLog';
 
 const isServer = typeof window === 'undefined';
 
@@ -18,7 +18,7 @@ export default class ProductDetailLikeStore {
     const getUserLikeList = () => {
       this.userId = this.root.user.userInfo.id;
 
-      API.user.get(`/users/${this.root.user.userInfo.id}/likes`).then(res => {
+      API.user.get(`/users/${this.root.user.userInfo.id}/likes`).then((res) => {
         let { data } = res;
         if (data.resultCode === 200) {
           this.likeList = data.data.content;
@@ -55,12 +55,12 @@ export default class ProductDetailLikeStore {
   };
 
   @action
-  saveLike = id => {
+  saveLike = (id) => {
     devLog(id, 'id');
     if (this.currentLikeCheck) {
       API.user
         .delete(`/users/likes?target=PRODUCT&targetId=${id}`)
-        .then(res => {
+        .then((res) => {
           if (res.data.resultCode === 200) {
             this.currentLikeCheck = false;
             this.root.alert.showAlert({
@@ -68,7 +68,7 @@ export default class ProductDetailLikeStore {
             });
           }
         })
-        .catch(e => {
+        .catch((e) => {
           console.error(e);
         });
     } else {
@@ -77,7 +77,7 @@ export default class ProductDetailLikeStore {
           target: 'PRODUCT',
           targetId: id,
         })
-        .then(res => {
+        .then((res) => {
           if (res.data.resultCode === 200) {
             this.currentLikeCheck = true;
             this.root.alert.showAlert({
@@ -85,7 +85,7 @@ export default class ProductDetailLikeStore {
             });
           }
         })
-        .catch(e => {
+        .catch((e) => {
           console.error(e);
         });
     }

@@ -21,7 +21,7 @@
           "constant": "./constant",
           "js": "./js",
           "lib": "./lib",
-          "static": "./static",
+          "public": "./public",
           "stores": "./stores",
           "styles": "./styles",
           "template": "./template",

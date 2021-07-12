@@ -1,6 +1,6 @@
 import { observable, action, computed, runInAction } from 'mobx';
-import userClaimService from 'childs/lib/API/claim/userClaimService';
-import { isBrowser } from 'childs/lib/common/isServer';
+import userClaimService from 'lib/API/claim/userClaimService';
+import { isBrowser } from 'lib/common/isServer';
 
 /**
  * 구하다 문의하기 관련

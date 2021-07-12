@@ -1,6 +1,6 @@
 import { observable, action, computed } from 'mobx';
-import { isBrowser } from 'childs/lib/common/isServer';
-import API from 'childs/lib/API';
+import { isBrowser } from 'lib/common/isServer';
+import API from 'lib/API';
 
 class MyBBSStore {
   constructor(root, initialData = {}) {
@@ -26,7 +26,7 @@ class MyBBSStore {
   // 내가 쓴 글
   @computed
   get myArticles() {
-    return this.myActivities.filter(m => m.contentsType === 'BBS');
+    return this.myActivities.filter((m) => m.contentsType === 'BBS');
   }
 
   @computed
@@ -37,7 +37,7 @@ class MyBBSStore {
   // 내가 쓴 댓글
   @computed
   get myComments() {
-    return this.myActivities.filter(m => m.contentsType === 'COMMENT');
+    return this.myActivities.filter((m) => m.contentsType === 'COMMENT');
   }
 
   @computed

@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { useRouter } from 'next/router';
 import useStores from 'stores/useStores';
-import isServer from 'childs/lib/common/isServer';
+import isServer from 'lib/common/isServer';
 import { getLayoutInfo } from 'stores/LayoutStore';
-import HeadForSEO from 'childs/lib/components/HeadForSEO';
+import HeadForSEO from 'lib/components/HeadForSEO';
 import Search from 'template/Search';
 import MountLoading from 'components/atoms/Misc/MountLoading';
 

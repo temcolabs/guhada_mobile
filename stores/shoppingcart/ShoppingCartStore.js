@@ -1,11 +1,11 @@
 import React from 'react';
 import { observable, action } from 'mobx';
 import Router from 'next/router';
-import API from 'childs/lib/API';
+import API from 'lib/API';
 import _ from 'lodash';
-import { pushRoute } from 'childs/lib/router';
+import { pushRoute } from 'lib/router';
 import qs from 'qs';
-import { devLog } from 'childs/lib/common/devLog';
+import { devLog } from 'lib/common/devLog';
 const isServer = typeof window === 'undefined';
 
 export default class ShoppingCartStore {
@@ -44,8 +44,8 @@ export default class ShoppingCartStore {
     currentChangeSelectDealOption: {},
   };
   @observable selectedOptionIndex = 0;
-  @observable quantityMinusBtn = '/static/icon/quantity_minus_on.png';
-  @observable quantityPlusBtn = '/static/icon/quantity_plus_on.png';
+  @observable quantityMinusBtn = '/public/icon/quantity_minus_on.png';
+  @observable quantityPlusBtn = '/public/icon/quantity_plus_on.png';
   @observable cartAmount = 0;
   //--------------------- 장바구니 전체 데이터 가져오기 ---------------------
   @action
@@ -459,9 +459,7 @@ export default class ShoppingCartStore {
     if (!this.cartChangeOptions.currentChangeSelectDealOption) {
       API.order
         .post(
-          `/cart/changeQuantity?cartItemId=${
-            this.cartChangeOptions.willChangeCartItemId
-          }&quantity=${this.cartChangeOptions.willChangeQuantity}`
+          `/cart/changeQuantity?cartItemId=${this.cartChangeOptions.willChangeCartItemId}&quantity=${this.cartChangeOptions.willChangeQuantity}`
         )
         .then((res) => {
           this.getChangeShoppingCartList();
@@ -471,13 +469,7 @@ export default class ShoppingCartStore {
       if (this.cartChangeOptions.willChangeSelectDealOptionId !== 0) {
         API.order
           .post(
-            `/cart/changeSelectOption?cartItemId=${
-              this.cartChangeOptions.willChangeCartItemId
-            }&quantity=${
-              this.cartChangeOptions.willChangeQuantity
-            }&selectDealOptionId=${
-              this.cartChangeOptions.willChangeSelectDealOptionId
-            }`
+            `/cart/changeSelectOption?cartItemId=${this.cartChangeOptions.willChangeCartItemId}&quantity=${this.cartChangeOptions.willChangeQuantity}&selectDealOptionId=${this.cartChangeOptions.willChangeSelectDealOptionId}`
           )
           .then((res) => {
             let data = res.data;

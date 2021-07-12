@@ -1,16 +1,16 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useBBSStore } from 'stores/bbs';
 import { compose } from 'lodash/fp';
-import { pushRoute } from 'childs/lib/router';
+import { pushRoute } from 'lib/router';
 import _ from 'lodash';
-import filterObjByKey from 'childs/lib/object/filterObjByKey';
+import filterObjByKey from 'lib/object/filterObjByKey';
 import {
   ITEMS_PER_PAGE,
   MAX_ITEMS_PER_PAGE,
   DEFAULT_ORDER,
   DEFAULT_SEARCH_TYPE,
-} from 'childs/lib/constant/community/searchQuery';
-import { scrollToTarget } from 'childs/lib/common/scroll';
+} from 'lib/constant/community/searchQuery';
+import { scrollToTarget } from 'lib/common/scroll';
 
 // 페이지, 카테고리 변경시 스크롤 업할 타겟
 export const scrollUpTargetId = 'bbs-scrollup-on-change-page';
@@ -62,7 +62,7 @@ export default function useBBSSearchState({ query, asPath } = {}) {
   const searchQuery = useMemo(
     () =>
       compose(
-        q =>
+        (q) =>
           // 기본 쿼리에 덮어씌움
           _.merge({}, defaultQuery, q, {
             // 한번에 가져올 항목 수에는 최대치 제한을 둔다
@@ -73,11 +73,11 @@ export default function useBBSSearchState({ query, asPath } = {}) {
           }),
 
         // 숫자를 값으로 가져야 하는 키를 처리해준다
-        q =>
+        (q) =>
           _.merge(
             q,
             Object.keys(q)
-              .filter(key => keysWithNumber.includes(key))
+              .filter((key) => keysWithNumber.includes(key))
               .reduce((result, key) => {
                 const original = q[key];
                 const converted = parseInt(original, 10);
@@ -87,7 +87,7 @@ export default function useBBSSearchState({ query, asPath } = {}) {
           ),
 
         // 객체에서 검색 API에 사용할 수 있는 키만 필터링한다
-        q => filterObjByKey(q, searchKeys)
+        (q) => filterObjByKey(q, searchKeys)
       )(query),
     [query]
   );
@@ -127,7 +127,7 @@ export default function useBBSSearchState({ query, asPath } = {}) {
    * 카테고리 필터 선택
    */
   const handleChangeCategoryFilter = useCallback(
-    filterId => {
+    (filterId) => {
       pushRouteToSearch({ filterId, page: 1 });
     },
     [pushRouteToSearch]
@@ -137,7 +137,7 @@ export default function useBBSSearchState({ query, asPath } = {}) {
    * 정렬 순서
    */
   const handleChangeOrder = useCallback(
-    order => {
+    (order) => {
       if (!_.isNil(order)) {
         pushRouteToSearch({ order, page: 1 });
       }
@@ -178,7 +178,7 @@ export default function useBBSSearchState({ query, asPath } = {}) {
    * 카테고리(게시판) 선택
    */
   const handleChangeCategory = useCallback(
-    categoryId => {
+    (categoryId) => {
       // scrollToTarget(scrollUpTargetId);
 
       pushRouteToSearch(

@@ -53,11 +53,11 @@ class LoginInput extends Component {
             style={
               type === 'password'
                 ? {
-                    backgroundImage: `url(/static/icon/login-pw-off@3x.png)`,
+                    backgroundImage: `url(/public/icon/login-pw-off@3x.png)`,
                     right: field.error ? '30px' : '10px',
                   }
                 : {
-                    backgroundImage: `url(/static/icon/login-pw-on@3x.png)`,
+                    backgroundImage: `url(/public/icon/login-pw-on@3x.png)`,
                     right: field.error ? '30px' : '10px',
                   }
             }

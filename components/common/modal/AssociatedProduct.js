@@ -62,7 +62,7 @@ class AssociatedProduct extends React.Component {
                     }}
                   >
                     <img
-                      src="/static/icon/modal_close.png"
+                      src="/public/icon/modal_close.png"
                       alt="장바구니 모달창 닫기"
                     />
                   </div>

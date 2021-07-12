@@ -1,5 +1,5 @@
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
-import HeadForSEO from 'childs/lib/components/HeadForSEO';
+import HeadForSEO from 'lib/components/HeadForSEO';
 import ReviewHashtagDetail from 'template/Review/containers/HashtagDetail';
 
 function ReviewHashtagPage() {

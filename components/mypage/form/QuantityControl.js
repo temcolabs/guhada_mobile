@@ -1,6 +1,6 @@
 import React from 'react';
 import css from './QuantityControl.module.scss';
-import { devLog } from 'childs/lib/common/devLog';
+import { devLog } from 'lib/common/devLog';
 class QuantityControl extends React.Component {
   static propTypes = {};
 
@@ -28,7 +28,7 @@ class QuantityControl extends React.Component {
     }
   }
 
-  withOnChange = (mark = 'plus') => v => {
+  withOnChange = (mark = 'plus') => (v) => {
     const { value } = this.state;
     const { min, max, onChange } = this.props;
 

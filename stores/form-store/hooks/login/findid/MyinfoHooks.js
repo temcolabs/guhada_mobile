@@ -1,17 +1,17 @@
 import _ from 'lodash';
 import Router from 'next/router';
-import API from 'childs/lib/API';
+import API from 'lib/API';
 import { autoHypenTele, autoHypenPhone } from 'utils';
-import { devLog } from 'childs/lib/common/devLog';
+import { devLog } from 'lib/common/devLog';
 import { root } from 'store';
-import { pushRoute } from 'childs/lib/router';
+import { pushRoute } from 'lib/router';
 
 export default {
   onInit() {
     // override default bindings for all text inputs
     this.name === 'Register Material' &&
       this.each(
-        field =>
+        (field) =>
           field.type === 'text' && field.set('bindings', 'MaterialTextField')
       );
   },
@@ -36,7 +36,7 @@ export default {
 
         Router.push('/login/findidresult');
       })
-      .catch(e => {
+      .catch((e) => {
         if (_.get(e, 'data.resultCode') === 5004)
           root.alert.showConfirm({
             content: '해당 정보와 일치하는 아이디가 없습니다.',
@@ -85,7 +85,7 @@ export default {
   //   devLog('-> onFocus HOOK -', field.path, field.value);
   // },
 
-  onBlur: field => {
+  onBlur: (field) => {
     devLog('-> onBlur HOOK -', field.path, field.value);
 
     // 모바일 번호 입력시

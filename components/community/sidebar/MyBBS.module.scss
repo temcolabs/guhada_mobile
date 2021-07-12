@@ -29,7 +29,7 @@
 .avatar {
   background-size: cover;
   background-position: center;
-  background-image: url('/static/icon/community/profile-non@2x.png');
+  background-image: url('/public/icon/community/profile-non@2x.png');
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -140,7 +140,7 @@
     padding-top: 23px;
     padding-bottom: 22px;
     padding-left: 20px;
-    background: url('/static/icon/community/icon-notimark-grey@3x.png')
+    background: url('/public/icon/community/icon-notimark-grey@3x.png')
       no-repeat center left;
     background-size: 14px 15px;
     font-size: 13px;
@@ -154,7 +154,7 @@
   right: 0;
   width: 18px;
   height: 18px;
-  background: url('/static/icon/community/search-btn-word-del@3x.png') no-repeat
+  background: url('/public/icon/community/search-btn-word-del@3x.png') no-repeat
     center;
   background-size: contain;
 }

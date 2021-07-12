@@ -1,7 +1,7 @@
 import { observable, action, toJS } from 'mobx';
 import Cookies from 'js-cookie';
 import Router from 'next/router';
-import API from 'childs/lib/API';
+import API from 'lib/API';
 
 const isServer = typeof window === 'undefined';
 
@@ -10,20 +10,20 @@ export default class BookMarkStore {
     if (!isServer) this.root = root;
   }
 
-  @observable bookMarkImageSrc = '/static/icon/bookmark_btn_off.png';
+  @observable bookMarkImageSrc = '/public/icon/bookmark_btn_off.png';
   @observable currentUrl = document.location.href;
   @observable userInfo;
   @action
-  getBookMark = userInfo => {
+  getBookMark = (userInfo) => {
     this.userInfo = userInfo;
-    API.user.get(`/users/${this.userInfo.id}/bookmarks`).then(res => {
+    API.user.get(`/users/${this.userInfo.id}/bookmarks`).then((res) => {
       let data = res.data;
       if (res.data.resultCode === 200) {
         let bookMarkList = data.data;
 
-        bookMarkList.map(data => {
+        bookMarkList.map((data) => {
           if (data.bookmarkUrl === this.currentUrl) {
-            this.bookMarkImageSrc = '/static/icon/bookmark_btn_on.png';
+            this.bookMarkImageSrc = '/public/icon/bookmark_btn_on.png';
           }
         });
       }
@@ -36,12 +36,12 @@ export default class BookMarkStore {
       .post(`/users/${this.userInfo.id}/bookmarks`, {
         bookmarkUrl: this.currentUrl,
       })
-      .then(res => {
+      .then((res) => {
         if (res.data.resultCode === 200) {
-          this.bookMarkImageSrc = '/static/icon/bookmark_btn_on.png';
+          this.bookMarkImageSrc = '/public/icon/bookmark_btn_on.png';
         }
       })
-      .catch(e => {
+      .catch((e) => {
         console.error(e);
       });
   };

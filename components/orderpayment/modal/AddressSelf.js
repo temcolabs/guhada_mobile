@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './AddressSelf.module.scss';
-import addHyphenToMobile from 'childs/lib/string/addHyphenToMobile';
+import addHyphenToMobile from 'lib/string/addHyphenToMobile';
 @inject('orderpayment')
 @observer
 class AddressSelf extends Component {
@@ -14,7 +14,7 @@ class AddressSelf extends Component {
             <input
               type="text"
               placeholder="배송지명을 입력해주세요"
-              onChange={e => {
+              onChange={(e) => {
                 orderpayment.setNewShippingAddress(e, 'newShippingName', null);
               }}
               value={
@@ -89,7 +89,7 @@ class AddressSelf extends Component {
             <input
               type="text"
               placeholder="상세주소를 입력해주세요"
-              onChange={e => {
+              onChange={(e) => {
                 orderpayment.setNewShippingAddress(e, 'newDetailAddress', null);
               }}
               value={
@@ -103,7 +103,7 @@ class AddressSelf extends Component {
             <input
               type="text"
               placeholder="수령인을 입력해주세요"
-              onChange={e => {
+              onChange={(e) => {
                 orderpayment.setNewShippingAddress(e, 'newRecipientName', null);
               }}
               value={
@@ -119,7 +119,7 @@ class AddressSelf extends Component {
               type="text"
               placeholder="연락처를 입력해주세요"
               maxLength="13"
-              onChange={e => {
+              onChange={(e) => {
                 orderpayment.setNewShippingAddress(
                   e,
                   'newRecipientMobile',
@@ -139,7 +139,7 @@ class AddressSelf extends Component {
           <label>
             <input
               type="checkbox"
-              onChange={e => {
+              onChange={(e) => {
                 orderpayment.newAddressCheckbox(e, 'Notdefault');
               }}
               checked={orderpayment.orderShippingList.isAddShippingAddress}
@@ -153,7 +153,7 @@ class AddressSelf extends Component {
           <label>
             <input
               type="checkbox"
-              onChange={e => {
+              onChange={(e) => {
                 orderpayment.newAddressCheckbox(e, 'default');
               }}
               checked={orderpayment.orderShippingList.newAddress.defaultAddress}

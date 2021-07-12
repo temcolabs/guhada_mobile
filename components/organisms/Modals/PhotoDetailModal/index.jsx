@@ -2,17 +2,17 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 import css from './Styles.module.scss';
-import setScrollability from 'childs/lib/dom/setScrollability';
+import setScrollability from 'lib/dom/setScrollability';
 
 import ModalWrapper from 'components/molecules/Modal/ModalMobileWrapper';
 import Image from 'components/atoms/Image';
 
 const IMAGE_PATH = {
-  closeBtn: '/static/icons/button/close_btn_small/close_btn_small_3x.png',
+  closeBtn: '/public/icons/button/close_btn_small/close_btn_small_3x.png',
   prevBtn:
-    '/static/icons/arrow/photo_arrow_prev_small/photo_arrow_prev_small_3x.png',
+    '/public/icons/arrow/photo_arrow_prev_small/photo_arrow_prev_small_3x.png',
   nextBtn:
-    '/static/icons/arrow/photo_arrow_next_small/photo_arrow_next_small_3x.png',
+    '/public/icons/arrow/photo_arrow_next_small/photo_arrow_next_small_3x.png',
 };
 
 /**

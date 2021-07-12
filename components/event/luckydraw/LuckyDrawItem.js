@@ -5,9 +5,9 @@ import cn from 'classnames';
 import { Transition } from 'react-transition-group';
 import useStores from 'stores/useStores';
 import anime from 'animejs';
-import addCommaToNum from 'childs/lib/common/addCommaToNum';
-import { luckyDrawStatus } from 'childs/lib/API/product/luckyDrawService';
-import { loginStatus } from 'childs/lib/constant';
+import addCommaToNum from 'lib/common/addCommaToNum';
+import { luckyDrawStatus } from 'lib/API/product/luckyDrawService';
+import { loginStatus } from 'lib/constant';
 
 /**
   * 데이터 바인딩 가이드는 zeplin 참조

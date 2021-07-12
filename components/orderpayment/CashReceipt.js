@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './CashReceipt.module.scss';
 import Select from 'react-select';
-import { devLog } from 'childs/lib/common/devLog';
+import { devLog } from 'lib/common/devLog';
 
 @inject('orderpayment')
 @observer
@@ -13,7 +13,7 @@ class CashReceipt extends Component {
     typePhone: true,
   };
 
-  receiptHandler = value => {
+  receiptHandler = (value) => {
     if (value === 'request') {
       this.setState({
         cashReceiptRequest: true,
@@ -27,7 +27,7 @@ class CashReceipt extends Component {
     }
   };
 
-  receiptTypeHandler = value => {
+  receiptTypeHandler = (value) => {
     this.setState({
       typePhone: true,
     });
@@ -41,7 +41,7 @@ class CashReceipt extends Component {
     this.props.orderpayment.setCashReceiptUsage(value);
   };
 
-  personalHandler = value => {
+  personalHandler = (value) => {
     value.value === 'phone'
       ? this.setState({
           typePhone: true,
@@ -51,7 +51,7 @@ class CashReceipt extends Component {
         });
   };
 
-  receiphoneHandler = value => {
+  receiphoneHandler = (value) => {
     devLog(value, 'value');
     this.props.orderpayment.receiptPhone(value, 'first');
   };
@@ -67,7 +67,7 @@ class CashReceipt extends Component {
                 type="radio"
                 name="receiptStatus"
                 value="request"
-                onChange={e => {
+                onChange={(e) => {
                   this.receiptHandler(e.target.value);
                 }}
               />
@@ -98,7 +98,7 @@ class CashReceipt extends Component {
                     name="receiptType"
                     value="PERSONAL"
                     defaultChecked
-                    onChange={e => {
+                    onChange={(e) => {
                       this.receiptTypeHandler(e.target.value);
                     }}
                   />
@@ -119,14 +119,16 @@ class CashReceipt extends Component {
                 <div className={css.inputValue}>
                   <div>
                     <SelectReceiptPhone
-                      receiphoneHandler={value => this.receiphoneHandler(value)}
+                      receiphoneHandler={(value) =>
+                        this.receiphoneHandler(value)
+                      }
                     />
                   </div>
                   <div>-</div>
                   <div>
                     <input
                       type="text"
-                      onChange={event => {
+                      onChange={(event) => {
                         orderpayment.receiptPhone(event, 'middle');
                       }}
                       value={orderpayment.cashReceiptPhone.middle || ''}
@@ -138,7 +140,7 @@ class CashReceipt extends Component {
                     <input
                       type="text"
                       maxLength="4"
-                      onChange={event => {
+                      onChange={(event) => {
                         orderpayment.receiptPhone(event, 'last');
                       }}
                       value={orderpayment.cashReceiptPhone.last || ''}
@@ -155,7 +157,7 @@ class CashReceipt extends Component {
                     type="radio"
                     name="receiptType"
                     value="BUSINESS"
-                    onChange={e => {
+                    onChange={(e) => {
                       this.receiptTypeHandler(e.target.value);
                     }}
                   />
@@ -183,7 +185,7 @@ class CashReceipt extends Component {
                   <div>
                     <input
                       type="text"
-                      onChange={event => {
+                      onChange={(event) => {
                         orderpayment.receiptEntrepreneur(event, 'first');
                       }}
                       value={orderpayment.cashReceiptEntrepreneur.first || ''}
@@ -194,7 +196,7 @@ class CashReceipt extends Component {
                   <div>
                     <input
                       type="text"
-                      onChange={event => {
+                      onChange={(event) => {
                         orderpayment.receiptEntrepreneur(event, 'middle');
                       }}
                       value={orderpayment.cashReceiptEntrepreneur.middle || ''}
@@ -205,7 +207,7 @@ class CashReceipt extends Component {
                   <div>
                     <input
                       type="text"
-                      onChange={event => {
+                      onChange={(event) => {
                         orderpayment.receiptEntrepreneur(event, 'last');
                       }}
                       value={orderpayment.cashReceiptEntrepreneur.last || ''}
@@ -237,7 +239,7 @@ class SelectReceiptType extends Component {
         paddingLeft: 10,
         color: '#777',
       }),
-      control: provided => ({
+      control: (provided) => ({
         ...provided,
         height: 45,
         border: '1px solid #eee',
@@ -246,7 +248,7 @@ class SelectReceiptType extends Component {
         paddingLeft: 0,
         color: '#777',
       }),
-      placeholder: provided => ({
+      placeholder: (provided) => ({
         ...provided,
         color: '#777',
         fontSize: 13,
@@ -291,7 +293,7 @@ class SelectReceiptType extends Component {
           // },
         ]}
         placeholder="휴대폰번호"
-        onChange={value => {
+        onChange={(value) => {
           this.props.personalHandler(value);
         }}
         isSearchable={false}
@@ -311,7 +313,7 @@ class SelectReceiptPhone extends Component {
       valueContainer: () => ({
         paddingLeft: 10,
       }),
-      control: provided => ({
+      control: (provided) => ({
         ...provided,
         height: 45,
         border: '1px solid #eee',
@@ -319,7 +321,7 @@ class SelectReceiptPhone extends Component {
         boxShadow: 0,
         paddingLeft: 0,
       }),
-      placeholder: provided => ({
+      placeholder: (provided) => ({
         ...provided,
         color: '#777',
         fontSize: 12,
@@ -386,7 +388,7 @@ class SelectReceiptPhone extends Component {
           value: '010',
           label: '010',
         }}
-        onChange={value => {
+        onChange={(value) => {
           this.props.receiphoneHandler(value);
         }}
         isSearchable={false}

@@ -14,7 +14,7 @@ import { Image } from 'components/atoms';
 
 // TODO : Styled-components Sprite
 const IMAGE_PATH = {
-  title: '/static/icons/text/text_category/text_category_kr@3x.png',
+  title: '/public/icons/text/text_category/text_category_kr@3x.png',
 };
 
 function ReviewCategories({ categories, onClickCategory }) {

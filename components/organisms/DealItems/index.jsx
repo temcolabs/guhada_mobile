@@ -2,7 +2,7 @@ import css from './DealItems.module.scss';
 import { memo } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
-import { LinkRoute } from 'childs/lib/router';
+import { LinkRoute } from 'lib/router';
 import DataEmpty from 'components/common/DataEmpty';
 import DealItem, { dealShape } from './DealItem';
 

@@ -5,7 +5,7 @@ import useStores from 'stores/useStores';
 import RankingHeader from './RankingHeader';
 import RankingSection from './RankingSection';
 import FilterModal from './FilterModal';
-import { pushRoute } from 'childs/lib/router';
+import { pushRoute } from 'lib/router';
 
 function Ranking() {
   /**

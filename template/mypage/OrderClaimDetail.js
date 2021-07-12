@@ -6,15 +6,14 @@ import cn from 'classnames';
 import ClaimOrderItemTable from 'components/mypage/order/ClaimOrderItemTable';
 import { inject, observer } from 'mobx-react';
 import RefundInfo from 'components/mypage/orderCancel/RefundInfo';
-import addHyphenToMobile from 'childs/lib/string/addHyphenToMobile';
-import { dateFormat } from 'childs/lib/constant';
+import addHyphenToMobile from 'lib/string/addHyphenToMobile';
+import { dateFormat } from 'lib/constant';
 import ClaimPaymentInfo from 'components/mypage/order/ClaimPaymentInfo';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
-import purchaseStatus from 'childs/lib/constant/order/purchaseStatus';
+import purchaseStatus from 'lib/constant/order/purchaseStatus';
 import DetailPageLayout from 'components/layout/DetailPageLayout';
 import MypageSectionTitle from 'components/mypage/MypageSectionTitle';
 import withReviewModal from 'components/mypage/review/withReviewModal';
-
 
 /**
  * 주문 취소 ・ 교환 ・ 반품 상세

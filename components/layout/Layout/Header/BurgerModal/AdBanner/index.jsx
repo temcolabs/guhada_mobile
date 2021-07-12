@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import Slider from 'react-slick';
 // import './AdBannerSlick.scss';
 import useStores from 'stores/useStores';
-import { pushRoute } from 'childs/lib/router';
+import { pushRoute } from 'lib/router';
 
 const AdImage = ({ backgroundColor, src, onClick }) => (
   <div

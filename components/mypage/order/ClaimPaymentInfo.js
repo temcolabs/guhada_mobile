@@ -1,8 +1,8 @@
 import React from 'react';
 import css from './PaymentInfo.module.scss';
 import cn from 'classnames';
-import addCommaToNum from 'childs/lib/common/addCommaToNum';
-import nilToZero from 'childs/lib/common/nilToZero';
+import addCommaToNum from 'lib/common/addCommaToNum';
+import nilToZero from 'lib/common/nilToZero';
 import MypageSectionTitle from 'components/mypage/MypageSectionTitle';
 import PaymentAccountInfo from './PaymentAccountInfo';
 

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import BBSArticleView from 'template/community/BBSArticleView';
-import HeadForSEO from 'childs/lib/components/HeadForSEO';
-import API from 'childs/lib/API';
+import HeadForSEO from 'lib/components/HeadForSEO';
+import API from 'lib/API';
 import Router from 'next/router';
-import isServer from 'childs/lib/common/isServer';
-import getIpAddrress from 'childs/lib/common/getIpAddrress';
+import isServer from 'lib/common/isServer';
+import getIpAddrress from 'lib/common/getIpAddrress';
 import striptags from 'striptags';
 import { observer, inject } from 'mobx-react';
 
@@ -38,7 +38,7 @@ class BBSArticleViewPage extends Component {
     }
   }
 
-  static makeMetaFromArticle = articleData => {
+  static makeMetaFromArticle = (articleData) => {
     return {
       pageName: articleData.title,
       description: striptags(articleData.contents)

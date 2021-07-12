@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './OrderCustomer.module.scss';
 import AuthenticationModal from './modal/AuthenticationModal';
-import addHyphenToMobile from 'childs/lib/string/addHyphenToMobile';
+import addHyphenToMobile from 'lib/string/addHyphenToMobile';
 @inject('orderpayment', 'authmobile', 'customerauthentication')
 @observer
 class OrderCustomer extends Component {
@@ -31,8 +31,7 @@ class OrderCustomer extends Component {
           <div className={css.title}>주문자 정보</div>
           {customerauthentication.userVerify ? (
             orderpayment.orderUserInfo
-              .emailVerify ? null : //   className={css.identification} // <div // 이메일 인증 기능 제거(19.11.27)
-            //   onClick={() => {
+              .emailVerify ? null : //   onClick={() => { //   className={css.identification} // <div // 이메일 인증 기능 제거(19.11.27)
             //     this.modalShow();
             //   }}
             // >

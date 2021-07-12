@@ -26,10 +26,10 @@ import _ from 'lodash';
 import CommonPopup from 'components/common/modal/CommonPopup';
 import SellerReview from 'components/productdetail/SellerReview/SellerReview';
 import LoadingPortal from 'components/common/loading/Loading';
-import { sendBackToLogin } from 'childs/lib/router';
+import { sendBackToLogin } from 'lib/router';
 
 import AppLinkPopup from 'components/event/popup/AppLinkPopup';
-import localStorage from 'childs/lib/common/localStorage';
+import localStorage from 'lib/common/localStorage';
 
 @withScrollToTopOnMount
 @inject(
@@ -260,9 +260,7 @@ class ProductDetail extends React.Component {
         {this.state.isInternationalPopup && (
           <CommonPopup
             isOpen={this.state.isInternationalPopup}
-            backgroundImage={`${
-              process.env.API_CLOUD
-            }/images/web/common/notice_delivery@3x.png`}
+            backgroundImage={`${process.env.API_CLOUD}/images/web/common/notice_delivery@3x.png`}
             cancelButtonText={'취소'}
             submitButtonText={'동의'}
             onCancel={() => {

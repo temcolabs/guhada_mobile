@@ -1,20 +1,20 @@
 .wrap {
-    width: 100%;
-    height: 250px;
-    background-color: #ffffff;
-    padding-top: 80px;
-    text-align: center;
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 1.11;
-    color: #444444;
+  width: 100%;
+  height: 250px;
+  background-color: #ffffff;
+  padding-top: 80px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.11;
+  color: #444444;
 }
 
 .infoIcon {
-    width: 60px;
-    height: 60px;
-    background-size: 60px;
-    background-repeat: no-repeat;
-    background-image: url('/static/icon/icon_no_data.png');
-    margin: 0 auto 15px auto;
+  width: 60px;
+  height: 60px;
+  background-size: 60px;
+  background-repeat: no-repeat;
+  background-image: url('/public/icon/icon_no_data.png');
+  margin: 0 auto 15px auto;
 }

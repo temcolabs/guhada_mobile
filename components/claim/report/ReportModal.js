@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import _ from 'lodash';
 import useReportState from './useReportState';
-import { default as reportTargetEnum } from 'childs/lib/constant/reportTarget';
+import { default as reportTargetEnum } from 'lib/constant/reportTarget';
 import css from './ReportModal.module.scss';
 import Input from 'components/claim/report/form/Input';
 import Checkbox from 'components/mypage/form/Checkbox';

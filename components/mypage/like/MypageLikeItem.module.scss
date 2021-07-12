@@ -4,7 +4,9 @@ $itemsPerRow: 2;
 
 .wrap {
   float: left;
-  width: calc((100% - #{$listItemGap} * #{$itemsPerRow} - 6px) / #{$itemsPerRow});
+  width: calc(
+    (100% - #{$listItemGap} * #{$itemsPerRow} - 6px) / #{$itemsPerRow}
+  );
   margin-left: 10px;
   margin-top: 0;
   overflow: hidden;
@@ -17,7 +19,7 @@ $itemsPerRow: 2;
 .item__back__image {
   position: relative;
   width: 100%;
-height: 200px;
+  height: 200px;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -71,7 +73,7 @@ height: 200px;
     position: absolute;
     top: 0;
     right: 0;
-    background: url('/static/icon/like_item_delete.png') no-repeat;
+    background: url('/public/icon/like_item_delete.png') no-repeat;
     background-size: cover;
     background-position: center;
     cursor: pointer;

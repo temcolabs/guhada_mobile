@@ -1,12 +1,10 @@
 import { observable, action, computed } from 'mobx';
-import { isBrowser } from 'childs/lib/common/isServer';
-import API from 'childs/lib/API';
+import { isBrowser } from 'lib/common/isServer';
+import API from 'lib/API';
 import _ from 'lodash';
 import moment from 'moment';
-import userLikeService, {
-  bbsTargetTypes,
-} from 'childs/lib/API/user/userLikeService';
-import { sendBackToLogin } from 'childs/lib/router';
+import userLikeService, { bbsTargetTypes } from 'lib/API/user/userLikeService';
+import { sendBackToLogin } from 'lib/router';
 
 export default class CommentsStore {
   constructor(root, initialData = {}) {

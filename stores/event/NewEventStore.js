@@ -1,8 +1,8 @@
 import { observable, action, computed } from 'mobx';
-import API from 'childs/lib/API';
-import { isBrowser } from 'childs/lib/common/isServer';
+import API from 'lib/API';
+import { isBrowser } from 'lib/common/isServer';
 import { isEmpty as _isEmpty, get as _get } from 'lodash';
-import { dateFormat } from 'childs/lib/constant';
+import { dateFormat } from 'lib/constant';
 import moment from 'moment';
 
 class EventStore {

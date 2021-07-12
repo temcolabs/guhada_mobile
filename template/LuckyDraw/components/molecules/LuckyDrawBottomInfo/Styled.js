@@ -8,7 +8,7 @@ export const LuckyDrawTopBannerSection = styled.div`
 `;
 
 export const LuckyDrawInfoBanner = styled.div`
-  background-image: url('/static/images/luckydraw/bottom_info/luckydraw_info/luckydraw_info@3x.png');
+  background-image: url('/public/images/luckydraw/bottom_info/luckydraw_info/luckydraw_info@3x.png');
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -18,7 +18,7 @@ export const LuckyDrawInfoBanner = styled.div`
 `;
 
 export const LuckyDrawAttendBanner = styled.div`
-  background-image: url('/static/images/luckydraw/bottom_info/attend_info/attend_info@3x.png');
+  background-image: url('/public/images/luckydraw/bottom_info/attend_info/attend_info@3x.png');
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;

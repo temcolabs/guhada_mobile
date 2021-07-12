@@ -1,16 +1,16 @@
 import { observable, action, computed, toJS } from 'mobx';
-import API from 'childs/lib/API';
-import { devLog } from 'childs/lib/common/devLog';
-import bookmarkTarget from 'childs/lib/constant/user/bookmarkTarget';
-import { isBrowser } from 'childs/lib/common/isServer';
+import API from 'lib/API';
+import { devLog } from 'lib/common/devLog';
+import bookmarkTarget from 'lib/constant/user/bookmarkTarget';
+import { isBrowser } from 'lib/common/isServer';
 import _ from 'lodash';
-import { loginStatus } from 'childs/lib/constant';
-import { pushRoute } from 'childs/lib/router';
+import { loginStatus } from 'lib/constant';
+import { pushRoute } from 'lib/router';
 import qs from 'qs';
 import Router from 'next/router';
 import { getCategoryKey, getCategoryTitle } from 'utils';
-import isTruthy from 'childs/lib/common/isTruthy';
-import addCommaToArray from 'childs/lib/string/addCommaToArray';
+import isTruthy from 'lib/common/isTruthy';
+import addCommaToArray from 'lib/string/addCommaToArray';
 
 export default class SellerStore {
   constructor(root) {

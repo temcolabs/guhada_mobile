@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import css from './MyPageOrder.module.scss';
 import cn from 'classnames';
 
-import { pushRoute } from 'childs/lib/router';
+import { pushRoute } from 'lib/router';
 import Image from 'components/atoms/Image';
 import OrderDashboard from 'components/mypage/order/OrderDashboard';
 
 const IMAGE_PATH = {
-  linkArrow: '/static/icon/payment_link_arrow.png',
-  mypageArrow: '/static/icon/mypage/mypages-orderdashboard-arrow-m@3x.png',
+  linkArrow: '/public/icon/payment_link_arrow.png',
+  mypageArrow: '/public/icon/mypage/mypages-orderdashboard-arrow-m@3x.png',
 };
 
 /**
@@ -27,7 +27,6 @@ function MyPageOrder({
     deliveryComplete: 0,
   },
 }) {
-
   return (
     <div
       className={cn(css.myPageOrder)}

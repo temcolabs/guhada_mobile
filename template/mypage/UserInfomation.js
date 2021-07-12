@@ -9,12 +9,12 @@ import SubmitButton, {
   SubmitButtonWrapper,
   CancelButton,
 } from 'components/mypage/form/SubmitButton';
-import { devLog, devGroup, devGroupEnd } from 'childs/lib/common/devLog';
+import { devLog, devGroup, devGroupEnd } from 'lib/common/devLog';
 import { Form } from 'react-final-form';
-import userService from 'childs/lib/API/user/userService';
-import isTruthy from 'childs/lib/common/isTruthy';
-import isDev from 'childs/lib/common/isDev';
-import entryService from 'childs/lib/API/user/entryService';
+import userService from 'lib/API/user/userService';
+import isTruthy from 'lib/common/isTruthy';
+import isDev from 'lib/common/isDev';
+import entryService from 'lib/API/user/entryService';
 
 // final form 관련 값들을 공유할 컨텍스트
 export const UserEditFormContext = React.createContext({});

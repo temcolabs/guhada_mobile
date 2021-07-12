@@ -1,6 +1,6 @@
 .next
 .vscode
 .DS_Store
-static
+public
 build
 node_modules

@@ -1,6 +1,6 @@
 import React from 'react';
 import css from './ProductTable.module.scss';
-import checkNullAndEmpty from 'childs/lib/common/checkNullAndEmpty';
+import checkNullAndEmpty from 'lib/common/checkNullAndEmpty';
 export default function ProductInfo({
   deals = [
     {

@@ -6,10 +6,10 @@ import Navigation from './Layout/Navigation';
 import Router from 'next/router';
 import { inject, observer } from 'mobx-react';
 import memoize from 'memoize-one';
-import openPopupCenter from 'childs/lib/common/openPopupCenter';
-import isTruthy from 'childs/lib/common/isTruthy';
+import openPopupCenter from 'lib/common/openPopupCenter';
+import isTruthy from 'lib/common/isTruthy';
 
-import { pushRoute } from 'childs/lib/router';
+import { pushRoute } from 'lib/router';
 
 const topLayouts = {
   main: 'main',

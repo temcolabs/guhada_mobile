@@ -5,15 +5,15 @@ import css from './UserEditForm.module.scss';
 import { Field } from 'react-final-form';
 import Input, { inputStatTypes } from 'components/mypage/form/Input';
 import Select from 'components/mypage/form/Select';
-import { composeValidators } from 'childs/lib/common/finalFormValidators';
+import { composeValidators } from 'lib/common/finalFormValidators';
 import FormButton, {
   formButtonColors,
 } from 'components/mypage/form/FormButton';
 import ErrorMessage from 'components/mypage/form/ErrorMessage';
 import { UserEditFormContext } from 'template/mypage/UserInfomation';
-import bankService from 'childs/lib/API/user/bankService';
-import isTruthy from 'childs/lib/common/isTruthy';
-import accountService from 'childs/lib/API/order/accountService';
+import bankService from 'lib/API/user/bankService';
+import isTruthy from 'lib/common/isTruthy';
+import accountService from 'lib/API/order/accountService';
 import useStores from 'stores/useStores';
 
 /**
@@ -29,7 +29,7 @@ export default function RefundBankAccountForm() {
   const [bankOptions, setbankOptions] = useState([]);
 
   useEffect(() => {
-    bankService.getBanks().then(banks => {
+    bankService.getBanks().then((banks) => {
       banks.splice(0, 0, {
         label: '(선택 없음)',
         value: null,
@@ -62,7 +62,7 @@ export default function RefundBankAccountForm() {
           alertStore.showAlert('계좌를 확인할 수 없습니다.');
         }
       })
-      .catch(e => {
+      .catch((e) => {
         console.error(e);
         formApi.change(fields.isAccountVerified, false);
       })
@@ -86,7 +86,7 @@ export default function RefundBankAccountForm() {
                 <div className={css.formInput} data-type="defaultSize">
                   <Select
                     options={bankOptions}
-                    value={bankOptions?.find(o => o.value === input.value)}
+                    value={bankOptions?.find((o) => o.value === input.value)}
                     onChange={({ value, label }) => {
                       formApi.batch(() => {
                         // 은행 코드
@@ -121,7 +121,7 @@ export default function RefundBankAccountForm() {
                 <div className={css.formInput} data-type="defaultSize">
                   <Input
                     initialValue={meta.initial}
-                    onChange={v => {
+                    onChange={(v) => {
                       input.onChange(v);
                       formApi.change(fields.isAccountVerified, false);
                     }}
@@ -148,7 +148,7 @@ export default function RefundBankAccountForm() {
                     {/* NOTE: 이름은 입력받지 않는다 */}
                     <Input
                       initialValue={input.value}
-                      onChange={v => {
+                      onChange={(v) => {
                         input.onChange(v);
                         formApi.change(fields.isAccountVerified, false);
                       }}
@@ -183,7 +183,7 @@ export default function RefundBankAccountForm() {
 
           <Field
             name={fields.isAccountVerified}
-            validate={isAccountVerified => {
+            validate={(isAccountVerified) => {
               const { values } = formApi.getState();
               const { bankCode, accountNumber, accountHolder } = values;
 

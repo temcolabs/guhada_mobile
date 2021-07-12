@@ -1,5 +1,5 @@
 require('dotenv').config();
-const API = require('../../childs/lib/API');
+const API = require('../../lib/API');
 
 module.exports = {
   method: 'post',

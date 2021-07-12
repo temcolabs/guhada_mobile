@@ -11,12 +11,12 @@
     &.banner--main {
       min-height: 230px;
       background-color: #a5b2bc;
-      background-image: url('/static/gift/gift_main_banner_mob.png');
+      background-image: url('/public/gift/gift_main_banner_mob.png');
       background-size: cover;
       margin-bottom: 8px;
 
       @media screen and (min-width: 370px) {
-        background-image: url('/static/gift/gift_main_banner_tab.png');
+        background-image: url('/public/gift/gift_main_banner_tab.png');
       }
       @media screen and (min-width: 500px) {
         min-height: 400px;
@@ -26,7 +26,7 @@
     &.banner--sub {
       min-height: 55px;
       background-color: #f0d8c8;
-      background-image: url('/static/gift/gift_banner_mob.png');
+      background-image: url('/public/gift/gift_banner_mob.png');
       background-size: cover;
 
       @media screen and (min-width: 370px) {
@@ -34,7 +34,7 @@
         background-size: contain;
       }
       @media screen and (min-width: 500px) {
-        background-image: url('/static/gift/gift_banner_tab.png');
+        background-image: url('/public/gift/gift_banner_tab.png');
       }
     }
   }

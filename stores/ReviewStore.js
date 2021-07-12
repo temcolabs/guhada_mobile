@@ -1,7 +1,7 @@
 import { observable, action } from 'mobx';
 import { stringify } from 'qs';
-import API from 'childs/lib/API';
-import bookmarkTarget from 'childs/lib/constant/user/bookmarkTarget';
+import API from 'lib/API';
+import bookmarkTarget from 'lib/constant/user/bookmarkTarget';
 
 import { toJS } from 'mobx';
 const isServer = typeof window === 'undefined';
@@ -73,7 +73,7 @@ export default class ReviewStore {
     this.reviewHashtagDetailList = [];
     this.reviewAutoCompleteList = [];
   };
-  
+
   @action
   setSearchForm = (search) => (this.searchForm = search);
 

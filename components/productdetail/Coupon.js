@@ -34,7 +34,7 @@ class Coupon extends Component {
                   <div
                     className={css.coupon__down}
                     style={{
-                      backgroundImage: `url('/static/icon/m_coupon_download_off.png')`,
+                      backgroundImage: `url('/public/icon/m_coupon_download_off.png')`,
                     }}
                   />
                 </div>
@@ -61,7 +61,7 @@ class Coupon extends Component {
                   <div
                     className={css.coupon__down}
                     style={{
-                      backgroundImage: `url('/static/icon/m_coupon_download_on.png')`,
+                      backgroundImage: `url('/public/icon/m_coupon_download_on.png')`,
                     }}
                   />
                 </div>

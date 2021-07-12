@@ -5,7 +5,7 @@ import { UserEditFormContext } from 'template/mypage/UserInfomation';
 import useStores from 'stores/useStores';
 import { useObserver } from 'mobx-react';
 import Text from 'components/mypage/form/Text';
-import { pushRoute } from 'childs/lib/router';
+import { pushRoute } from 'lib/router';
 
 export default function ShippingAddressForm() {
   const { alert: alertStore } = useStores();

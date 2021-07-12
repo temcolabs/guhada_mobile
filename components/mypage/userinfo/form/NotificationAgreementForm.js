@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import css from './UserEditForm.module.scss';
 import { Field } from 'react-final-form';
-import { mustBeBoolean } from 'childs/lib/common/finalFormValidators';
+import { mustBeBoolean } from 'lib/common/finalFormValidators';
 import { UserEditFormContext } from 'template/mypage/UserInfomation';
 import { useObserver } from 'mobx-react';
 import Checkbox from 'components/mypage/form/Checkbox';

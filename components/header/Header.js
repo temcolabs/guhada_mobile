@@ -1,8 +1,8 @@
 import { useState, memo } from 'react';
 import Router from 'next/router';
 import css from './Header.module.scss';
-import sessionStorage from 'childs/lib/common/sessionStorage';
-import { LinkRoute } from 'childs/lib/router';
+import sessionStorage from 'lib/common/sessionStorage';
+import { LinkRoute } from 'lib/router';
 import cn from 'classnames';
 import BurgerModal from 'components/layout/Layout/Header/BurgerModal';
 import SearchModal from 'components/layout/Layout/Header/SearchModal';

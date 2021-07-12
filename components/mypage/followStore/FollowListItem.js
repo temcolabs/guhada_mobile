@@ -5,7 +5,7 @@ import { inject, observer } from 'mobx-react';
 import Image from 'components/atoms/Image';
 
 const IMAGE_PATH = {
-  new: '/static/icon/community/icon-new-red.png',
+  new: '/public/icon/community/icon-new-red.png',
 };
 @inject('mypageFollow', 'seller')
 @observer

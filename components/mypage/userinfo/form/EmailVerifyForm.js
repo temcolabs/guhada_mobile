@@ -4,22 +4,22 @@ import Input, { inputStatTypes } from 'components/mypage/form/Input';
 import FormButton, {
   formButtonColors,
 } from 'components/mypage/form/FormButton';
-import CountdownTimer from 'childs/lib/components/CountdownTimer';
+import CountdownTimer from 'lib/components/CountdownTimer';
 import { Field } from 'react-final-form';
 import {
   composeValidators,
   mustBeEmail,
   mustBeBoolean,
   mustBeTrue,
-} from 'childs/lib/common/finalFormValidators';
-import debouncePromise from 'childs/lib/common/debouncePromise';
-import userService from 'childs/lib/API/user/userService';
-import notificationService from 'childs/lib/API/user/notificationService';
+} from 'lib/common/finalFormValidators';
+import debouncePromise from 'lib/common/debouncePromise';
+import userService from 'lib/API/user/userService';
+import notificationService from 'lib/API/user/notificationService';
 import { UserEditFormContext } from 'template/mypage/UserInfomation';
 import useStores from 'stores/useStores';
 import { useObserver } from 'mobx-react';
-import verifyService from 'childs/lib/API/user/verifyService';
-import { devLog } from 'childs/lib/common/devLog';
+import verifyService from 'lib/API/user/verifyService';
+import { devLog } from 'lib/common/devLog';
 import ErrorMessage from 'components/mypage/form/ErrorMessage';
 
 export default function EmailVerifyForm() {

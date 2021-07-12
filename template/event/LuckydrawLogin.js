@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import ModalWrapper from 'components/common/modal/ModalWrapper';
 import { LoginWrapper, LoginInput, LoginButton } from 'components/login';
 import css from './LuckydrawLogin.module.scss';
-import { LinkRoute, pushRoute } from 'childs/lib/router';
+import { LinkRoute, pushRoute } from 'lib/router';
 import SaveIdCheckBox from 'components/login/SaveIdCheckBox';
 import Form from 'stores/form-store/_.forms';
-import { snsAppKey } from 'childs/lib/constant/sns';
+import { snsAppKey } from 'lib/constant/sns';
 import KakaoLogin from 'react-kakao-login';
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
@@ -13,7 +13,7 @@ import Cookies from 'js-cookie';
 import { observer, inject } from 'mobx-react';
 import NaverLogin from 'components/login/NaverLogin';
 import _ from 'lodash';
-import gtagTracker from 'childs/lib/tracking/google/gtagTracker';
+import gtagTracker from 'lib/tracking/google/gtagTracker';
 
 let userId = Cookies.get('userId');
 
@@ -147,7 +147,7 @@ class LuckydrawLogin extends Component {
                         className={css.icon}
                         style={{
                           backgroundImage:
-                            "url('/static/icon/social/login_btn_kakao.png')",
+                            "url('/public/icon/social/login_btn_kakao.png')",
                         }}
                       />
                       <div className={css.text}>
@@ -180,7 +180,7 @@ class LuckydrawLogin extends Component {
                         className={css.icon}
                         style={{
                           backgroundImage:
-                            "url('/static/icon/social/login_btn_facebook.png')",
+                            "url('/public/icon/social/login_btn_facebook.png')",
                         }}
                       />
                       <div className={css.text}>
@@ -206,7 +206,7 @@ class LuckydrawLogin extends Component {
                         className={css.icon}
                         style={{
                           backgroundImage:
-                            "url('/static/icon/social/login_btn_google.png')",
+                            "url('/public/icon/social/login_btn_google.png')",
                         }}
                       />
                       <div className={css.text}>

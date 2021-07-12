@@ -8,7 +8,7 @@ $mainHoriPad: 20px;
   margin: calc(#{$guhadaMainHeaderHeight} + #{$categorySliderWrapHeight}) auto 0;
   color: #fff;
   background-color: #13182e;
-  background-image: url('/static/icon/event/luckdraw-background.png');
+  background-image: url('/public/icon/event/luckdraw-background.png');
   background-size: contain;
   background-position: center top;
   background-repeat: no-repeat;
@@ -54,7 +54,7 @@ $mainHoriPad: 20px;
 .sharingButton__text {
   @include centered;
   padding-right: 40px;
-  background: url('/static/icon/event/sharing-arrow-r-line@2x.png') no-repeat
+  background: url('/public/icon/event/sharing-arrow-r-line@2x.png') no-repeat
     right center;
   background-size: 30px;
   font-size: 30px;

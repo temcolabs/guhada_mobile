@@ -44,7 +44,7 @@ app
     });
 
     const robotsOptions = {
-      root: __dirname + '/static/',
+      root: __dirname + '/public/',
       headers: {
         'Content-Type': 'text/plain;charset=UTF-8',
       },
@@ -54,7 +54,7 @@ app
     );
 
     const sitemapOptions = {
-      root: __dirname + '/static/',
+      root: __dirname + '/public/',
       headers: {
         'Content-Type': 'text/xml;charset=UTF-8',
       },
@@ -72,7 +72,7 @@ app
       // 리다이렉트 하지 않을 경로
       const pathToIgnore = [
         /^\/_next/, // 리소스
-        /^\/static/, // 리소스
+        /^\/public/, // 리소스
       ];
 
       const isRedirectRequired =

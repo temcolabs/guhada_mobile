@@ -1,8 +1,8 @@
 import { observable, action, toJS } from 'mobx';
-import { isBrowser } from 'childs/lib/common/isServer';
-import localStorage from 'childs/lib/common/localStorage';
-import key from 'childs/lib/constant/key';
-import API from 'childs/lib/API';
+import { isBrowser } from 'lib/common/isServer';
+import localStorage from 'lib/common/localStorage';
+import key from 'lib/constant/key';
+import API from 'lib/API';
 
 export default class KeywordStore {
   constructor(root) {

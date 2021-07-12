@@ -15,7 +15,7 @@ function LuckyDrawCardFrame({ imageUrl, statusCode }) {
       <SectionImage imageUrl={imageUrl} zIndex={1} />
       {(statusCode === 'NORMAL' || statusCode === 'READY') && (
         <SectionImage
-          imageUrl={'/static/icon/luckydraw/comming_soon.png'}
+          imageUrl={'/public/icon/luckydraw/comming_soon.png'}
           zIndex={2}
         />
       )}

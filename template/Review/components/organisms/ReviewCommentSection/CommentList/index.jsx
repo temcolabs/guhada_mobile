@@ -2,8 +2,8 @@ import React, { memo, useState } from 'react';
 import dynamic from 'next/dynamic';
 import PropTypes from 'prop-types';
 import moment, { duration } from 'moment';
-import { getTimeDiff } from 'childs/lib/common/getTimeDiff';
-import { default as reportTargetEnum } from 'childs/lib/constant/reportTarget';
+import { getTimeDiff } from 'lib/common/getTimeDiff';
+import { default as reportTargetEnum } from 'lib/constant/reportTarget';
 
 import Image from 'components/atoms/Image';
 import {
@@ -146,7 +146,7 @@ function CommentList({
                   src={
                     o.profileImageUrl
                       ? o.profileImageUrl
-                      : '/static/icon/profile_non_square.png'
+                      : '/public/icon/profile_non_square.png'
                   }
                 />
               </Avatar>

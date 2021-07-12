@@ -4,8 +4,8 @@ import css from './PeriodSelector.module.scss';
 import cn from 'classnames';
 import moment from 'moment';
 import { SingleDatePickerWrapper } from 'components/common/DatePicker';
-import { dateUnit, dateFormat } from 'childs/lib/constant/date';
-import isTruthy, { isFalsey } from 'childs/lib/common/isTruthy';
+import { dateUnit, dateFormat } from 'lib/constant/date';
+import isTruthy, { isFalsey } from 'lib/common/isTruthy';
 
 // 날짜 선택 탭 종류. 기본 탭, 월 선택 탭, 기간 선택 탭
 
@@ -126,7 +126,7 @@ export default function PeriodSelector({
    * 기본 탭 버튼 클릭
    */
   const handleClickDefaultTab = useCallback(
-    selectedIndex => {
+    (selectedIndex) => {
       const tabItem = defaultTabItems[selectedIndex];
 
       const periodToUpdate = {

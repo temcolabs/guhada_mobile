@@ -5,9 +5,9 @@ import cn from 'classnames';
 import Slider from 'react-slick';
 // import 'slick-carousel/slick/slick.scss';
 // import 'slick-carousel/slick/slick-theme.scss';
-import { pushRoute } from 'childs/lib/router';
+import { pushRoute } from 'lib/router';
 import { inject, observer } from 'mobx-react';
-import isTruthy from 'childs/lib/common/isTruthy';
+import isTruthy from 'lib/common/isTruthy';
 
 function NextArrow(props) {
   return null;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import BBSEditor from 'template/community/BBSEditor';
 import withAuth from 'components/common/hoc/withAuth';
-import HeadForSEO from 'childs/lib/components/HeadForSEO';
+import HeadForSEO from 'lib/components/HeadForSEO';
 
 class BBSEditorPage extends Component {
   static async getInitialProps(ctx) {

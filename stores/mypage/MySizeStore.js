@@ -1,9 +1,9 @@
 import { observable, action, computed } from 'mobx';
 import _ from 'lodash';
 
-import API from 'childs/lib/API';
-import { isBrowser } from 'childs/lib/common/isServer';
-import { devLog } from 'childs/lib/common/devLog';
+import API from 'lib/API';
+import { isBrowser } from 'lib/common/isServer';
+import { devLog } from 'lib/common/devLog';
 /**
  * 내 사이즈 관리
  */

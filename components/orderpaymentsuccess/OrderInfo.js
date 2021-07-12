@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './OrderInfo.module.scss';
-import addHyphenToMobile from 'childs/lib/string/addHyphenToMobile';
+import addHyphenToMobile from 'lib/string/addHyphenToMobile';
 import copy from 'copy-to-clipboard';
 @inject('orderpaymentsuccess', 'user', 'alert')
 @observer
@@ -35,12 +35,8 @@ class OrderInfo extends Component {
           <div>주소</div>
           <div>
             {orderSuccessShipping.roadAddress
-              ? `[${orderSuccessShipping.zipcode}] ${
-                  orderSuccessShipping.roadAddress
-                } ${orderSuccessShipping.addressDetail}`
-              : `[${orderSuccessShipping.zipcode}] ${
-                  orderSuccessShipping.addressBasic
-                } ${orderSuccessShipping.addressDetail}`}
+              ? `[${orderSuccessShipping.zipcode}] ${orderSuccessShipping.roadAddress} ${orderSuccessShipping.addressDetail}`
+              : `[${orderSuccessShipping.zipcode}] ${orderSuccessShipping.addressBasic} ${orderSuccessShipping.addressDetail}`}
           </div>
         </div>
         <div className={css.orderInfoSection}>
@@ -69,9 +65,7 @@ class OrderInfo extends Component {
             <div>
               <div className={css.paymentMethod}>무통장입금</div>
               <div className={css.paymentInfo}>
-                {`${successInfo.payment.vbankBankName} ${
-                  successInfo.payment.vbankNo
-                }`}
+                {`${successInfo.payment.vbankBankName} ${successInfo.payment.vbankNo}`}
               </div>
               <div className={css.paymentInfo}>예금주 : (주)구하다</div>
               <div className={css.paymentDate}>

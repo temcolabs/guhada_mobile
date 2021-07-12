@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import MypageLayout from 'components/mypage/MypageLayout';
 import FollowStoreDashboard from 'components/mypage/followStore/FollowStoreDashboard';
 import FollowListItem from 'components/mypage/followStore/FollowListItem';
-import { isBrowser } from 'childs/lib/common/isServer';
+import { isBrowser } from 'lib/common/isServer';
 import { inject, observer } from 'mobx-react';
 import css from './FollowStoreList.module.scss';
 import MypageDataEmpty from 'components/mypage/MypageDataEmpty';

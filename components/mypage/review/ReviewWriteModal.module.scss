@@ -24,7 +24,7 @@
 .close {
   width: 29px;
   height: 29px;
-  background-image: url('/static/icon/modal_close.png');
+  background-image: url('/public/icon/modal_close.png');
   background-size: 29px;
   background-repeat: no-repeat;
   background-position: center;
@@ -345,7 +345,7 @@
   font-size: 13px;
   font-weight: normal;
   color: #444;
-  background: url('/static/icon/community_icon_photo.png') no-repeat center;
+  background: url('/public/icon/community_icon_photo.png') no-repeat center;
   background-position-x: left;
   background-size: 21px 18px;
   width: auto;

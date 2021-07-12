@@ -5,13 +5,13 @@ import Cookies from 'js-cookie';
 import LoginLayout from 'components/layout/LoginLayout';
 import { LoginInput, LoginButton, SaveIdCheckBox } from 'components/login';
 import { observer } from 'mobx-react';
-import { LinkRoute } from 'childs/lib/router';
+import { LinkRoute } from 'lib/router';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 import GoogleLogin from 'react-google-login';
 import KakaoLogin from 'react-kakao-login';
 import NaverLogin from 'components/login/NaverLogin';
 import ErrorToast from 'components/common/ErrorToast';
-import { snsAppKey } from 'childs/lib/constant/sns';
+import { snsAppKey } from 'lib/constant/sns';
 import { useRouter } from 'next/router';
 import useStores from 'stores/useStores';
 

@@ -51,13 +51,13 @@
 
     &.arrow--left {
       left: 0;
-      background-image: url('/static/icon/btn-arrow2.png');
+      background-image: url('/public/icon/btn-arrow2.png');
       -webkit-transform: scaleX(-1);
       transform: scaleX(-1);
     }
     &.arrow--right {
       right: 0;
-      background-image: url('/static/icon/btn-arrow2.png');
+      background-image: url('/public/icon/btn-arrow2.png');
     }
   }
 }

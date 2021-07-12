@@ -11,11 +11,11 @@
   }
 
   &--checked {
-    background: url('/static/icon/filter_btn_check_w@3x.png') no-repeat center;
+    background: url('/public/icon/filter_btn_check_w@3x.png') no-repeat center;
     background-size: 16px;
 
     &.item--fff {
-      background: url('/static/icon/filter_btn_check_b@3x.png') no-repeat center;
+      background: url('/public/icon/filter_btn_check_b@3x.png') no-repeat center;
       background-size: 16px;
     }
   }

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import SlideUpOptions from '../form/SlideUpOptions';
 import css from './DealSearch.module.scss';
 import TextInput from '../form/TextInput';
-import addCommaToNum from 'childs/lib/common/addCommaToNum';
+import addCommaToNum from 'lib/common/addCommaToNum';
 
 /**
  * 글쓰기 화면에서 게시판 선택

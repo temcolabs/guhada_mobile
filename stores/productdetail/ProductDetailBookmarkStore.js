@@ -1,8 +1,8 @@
 import { observable, action } from 'mobx';
-import API from 'childs/lib/API';
-import { devLog } from 'childs/lib/common/devLog';
+import API from 'lib/API';
+import { devLog } from 'lib/common/devLog';
 import _ from 'lodash';
-import { sendBackToLogin } from 'childs/lib/router';
+import { sendBackToLogin } from 'lib/router';
 const isServer = typeof window === 'undefined';
 
 export default class ProductDetailLikeStore {

@@ -1,7 +1,7 @@
 import { observable, action, computed } from 'mobx';
-import { isBrowser } from 'childs/lib/common/isServer';
-import API from 'childs/lib/API';
-import isFunction from 'childs/lib/common/isFunction';
+import { isBrowser } from 'lib/common/isServer';
+import API from 'lib/API';
+import isFunction from 'lib/common/isFunction';
 import {
   ALL_CATEGORY_ID,
   POPULAR_CATEGORY_ID,
@@ -63,7 +63,7 @@ export default class CategoryStore {
 
   @computed
   get allCategoryOptions() {
-    return this.allCategories.map(category => ({
+    return this.allCategories.map((category) => ({
       label: category.name,
       value: category.id,
     }));
@@ -98,7 +98,7 @@ export default class CategoryStore {
   getCategories = async (communities = []) => {
     try {
       let categories = [];
-      const communityIds = communities.map(c => c.id);
+      const communityIds = communities.map((c) => c.id);
 
       // 커뮤니티별 카테고리 데이터를 가져온다
       for (const communityId of communityIds) {
@@ -115,11 +115,11 @@ export default class CategoryStore {
       this.allCategories = categories;
 
       // 커뮤니티 아이디로 카테고리를 가져올 수 있도록 데이터를 병합
-      this.categoriesByCommunity = communities.map(community => {
+      this.categoriesByCommunity = communities.map((community) => {
         return {
           community,
           categories: categories.filter(
-            category => category.communityId === community.id
+            (category) => category.communityId === community.id
           ),
         };
       });
@@ -149,7 +149,7 @@ export default class CategoryStore {
 
         default:
           const target =
-            this.allCategories.find(c => c.id === parseInt(categoryId)) || {};
+            this.allCategories.find((c) => c.id === parseInt(categoryId)) || {};
           return target;
       }
     } else {

@@ -1,13 +1,13 @@
 import React, { useRef } from 'react';
 import css from './ModalForm.module.scss';
-import { devLog } from 'childs/lib/common/devLog';
+import { devLog } from 'lib/common/devLog';
 /**
  * 파일첨부 영역
  */
 export default function ModalFormAttachment({
-  onDeleteImage = index => {},
+  onDeleteImage = (index) => {},
   imageUrls = [], //  이미지 url 배열
-  onChangeFile = e => devLog(e.target?.files), // 이미지 선택 이벤트 콜백
+  onChangeFile = (e) => devLog(e.target?.files), // 이미지 선택 이벤트 콜백
 }) {
   // 첨부파일 input ref
   const attachFileInputRef = useRef();

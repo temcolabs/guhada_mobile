@@ -64,7 +64,7 @@
       width: 19px;
       height: 19px;
       background-size: 19px;
-      background-image: url('/static/icon/arrow_r_line.png');
+      background-image: url('/public/icon/arrow_r_line.png');
       background-repeat: no-repeat;
       margin-left: 4px;
       cursor: pointer;
@@ -126,7 +126,7 @@
       height: 60px;
       width: 60px;
       border-radius: 60px;
-      background: url('/static/icon/profile_non_square.png') no-repeat center;
+      background: url('/public/icon/profile_non_square.png') no-repeat center;
       background-size: cover;
       margin-right: 12px;
       float: left;
@@ -235,7 +235,7 @@
 
       & .good {
         height: 20px;
-        background-image: url('/static/icon/grade_good.png');
+        background-image: url('/public/icon/grade_good.png');
         background-repeat: no-repeat;
         background-size: 20px;
         padding-left: 22px;
@@ -244,7 +244,7 @@
 
       & .usual {
         height: 20px;
-        background-image: url('/static/icon/grade_usual.png');
+        background-image: url('/public/icon/grade_usual.png');
         background-repeat: no-repeat;
         background-size: 20px;
         padding-left: 22px;
@@ -253,7 +253,7 @@
 
       & .bad {
         height: 20px;
-        background-image: url('/static/icon/grade_bad.png');
+        background-image: url('/public/icon/grade_bad.png');
         background-repeat: no-repeat;
         background-size: 20px;
         padding-left: 22px;

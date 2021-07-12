@@ -2,8 +2,8 @@ import React, { Component, Fragment } from 'react';
 import { inject, observer } from 'mobx-react';
 import cn from 'classnames';
 import css from './TextButton.module.scss';
-import { priceOption } from 'childs/lib/constant/filter/price';
-import isTruthy from 'childs/lib/common/isTruthy';
+import { priceOption } from 'lib/constant/filter/price';
+import isTruthy from 'lib/common/isTruthy';
 import _ from 'lodash';
 
 @inject('searchitem', 'alert')

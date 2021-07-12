@@ -1,7 +1,7 @@
 import Form from 'stores/form-store/_.forms';
-import API from 'childs/lib/API';
+import API from 'lib/API';
 import _ from 'lodash';
-import { devLog } from 'childs/lib/common/devLog';
+import { devLog } from 'lib/common/devLog';
 import { root } from 'store';
 
 export default {
@@ -41,12 +41,12 @@ export default {
     };
     API.user
       .put(`/event/users`, body)
-      .then(res => {
+      .then((res) => {
         root.luckyDraw.luckydrawModifyModal = false;
         root.luckyDraw.getEventUser();
         // root.alert.showAlert('럭키드로우 시도');
       })
-      .catch(err => {
+      .catch((err) => {
         let resultCode = _.get(err, 'data.resultCode');
         let message = _.get(err, 'data.message');
         devLog(resultCode, message, 'message', 'resultCode');

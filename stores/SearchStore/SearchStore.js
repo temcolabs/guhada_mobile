@@ -1,5 +1,5 @@
 import { observable, computed, action } from 'mobx';
-import { isBrowser } from 'childs/lib/common/isServer';
+import { isBrowser } from 'lib/common/isServer';
 import { CancelToken } from 'axios';
 
 /** API endpoint enum */

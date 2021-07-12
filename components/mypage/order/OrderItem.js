@@ -2,7 +2,7 @@ import React from 'react';
 import css from './OrderItem.module.scss';
 import moment from 'moment';
 import { object, func, bool } from 'prop-types';
-import { dateFormat } from 'childs/lib/constant/date';
+import { dateFormat } from 'lib/constant/date';
 import OrderActionButtonConductor from './OrderActionButtonConductor';
 import DealOrdered from '../DealOrdered';
 import SellerClaimModal, {
@@ -56,24 +56,26 @@ class OrderItem extends React.Component {
 
     return (
       <div className={css.wrap}>
-        {order.hasOwnProperty('hasSamePurchseId') && order.hasSamePurchseId === true
-        ? null
-        : <div className={css.orderInfoWrapper}>
-          {/* 주문정보 + 판매자 정보 */}
-          <div className={css.orderInfo} onClick={redirectToDetail}>
-            <div className={css.orderInfo__date}>
-              {moment(order.orderTimestamp).format(dateFormat.YYYYMMDD_UI)}
-            </div>
+        {order.hasOwnProperty('hasSamePurchseId') &&
+        order.hasSamePurchseId === true ? null : (
+          <div className={css.orderInfoWrapper}>
+            {/* 주문정보 + 판매자 정보 */}
+            <div className={css.orderInfo} onClick={redirectToDetail}>
+              <div className={css.orderInfo__date}>
+                {moment(order.orderTimestamp).format(dateFormat.YYYYMMDD_UI)}
+              </div>
 
-            {/* 주문 상세로 이동 */}
-            <div className={css.orderInfo__id}>
-              <span>주문번호</span>
-              <span>&nbsp;</span>
-              <span className={css.orderInfo__idValue}>{order.purchaseId}</span>
+              {/* 주문 상세로 이동 */}
+              <div className={css.orderInfo__id}>
+                <span>주문번호</span>
+                <span>&nbsp;</span>
+                <span className={css.orderInfo__idValue}>
+                  {order.purchaseId}
+                </span>
+              </div>
             </div>
           </div>
-        </div>
-        }
+        )}
         <div className={css.productInfoWrapper}>
           <div className={css.dealOrderdWrapper}>
             <DealOrdered

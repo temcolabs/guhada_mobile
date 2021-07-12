@@ -22,7 +22,7 @@ function LuckyDrawWarnModal({ isOpen, onClose }) {
     <ModalWrapper isOpen={isOpen} onClose={onClose}>
       <Wrapper>
         <CloseButton
-          imageUrl={'/static/icon/modal_close.png'}
+          imageUrl={'/public/icon/modal_close.png'}
           onClick={onClose}
         />
         <SectionInfo>

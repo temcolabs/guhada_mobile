@@ -1,11 +1,11 @@
 import { observable, action, computed } from 'mobx';
-import API from 'childs/lib/API';
-import { isBrowser } from 'childs/lib/common/isServer';
+import API from 'lib/API';
+import { isBrowser } from 'lib/common/isServer';
 import moment from 'moment';
-import openPopupCenter from 'childs/lib/common/openPopupCenter';
-import { dateFormat } from 'childs/lib/constant/date';
-import orderService from 'childs/lib/API/order/orderService';
-import { devLog } from 'childs/lib/common/devLog';
+import openPopupCenter from 'lib/common/openPopupCenter';
+import { dateFormat } from 'lib/constant/date';
+import orderService from 'lib/API/order/orderService';
+import { devLog } from 'lib/common/devLog';
 /**
  * 주문 데이터
  */
@@ -18,7 +18,7 @@ export default class OrderCompleteDetailStore {
 
   @observable data = {}; // purhcaseId 기반 주문 완료 정보. 결제 정보, orderList 포함
   @observable receiptUrl = ''; // 영수증 주소
-  
+
   // 주문 완료 데이터에는 상품 목록(orderProdGroup)이 있음.
   @computed get orderList() {
     return this.data.orderList || [];
@@ -30,7 +30,7 @@ export default class OrderCompleteDetailStore {
    */
   @observable orderProdGroupId = null;
 
-  @action setOrderProdGroupId = id => {
+  @action setOrderProdGroupId = (id) => {
     this.orderProdGroupId = parseInt(id, 10); // 숫자로 저장
   };
 
@@ -40,7 +40,7 @@ export default class OrderCompleteDetailStore {
   @computed get orderProdGroup() {
     return (
       this.orderList.find(
-        order => order.orderProdGroupId === this.orderProdGroupId
+        (order) => order.orderProdGroupId === this.orderProdGroupId
       ) || {}
     );
   }
@@ -82,15 +82,15 @@ export default class OrderCompleteDetailStore {
    * 주문 상세 조회
    */
   @action
-  getOrderComplete = async purchaseId => {
+  getOrderComplete = async (purchaseId) => {
     try {
       // 주문 완료 데이터 가져오기
       const { data } = await orderService.getOrderComplete({ purchaseId });
 
       this.data = data.data;
-      let pgKind = this.pgKind = data.data.payment.pgKind;      
+      let pgKind = (this.pgKind = data.data.payment.pgKind);
       this.receiptUrl = await this.getReceitUrl(data.data?.pgTid, pgKind);
-      
+
       devLog(this.data, 'getOrderComplete');
     } catch (e) {
       console.error(e);
@@ -100,9 +100,9 @@ export default class OrderCompleteDetailStore {
   /**
    * 주문 완료 데이터 내에서 orderProdGroupId 에 매칭되는 항목을 가져온다.
    */
-  getOrderItemByGroupId = orderProdGroupId => {
+  getOrderItemByGroupId = (orderProdGroupId) => {
     return this.orderList.find(
-      orderListItem => orderListItem.orderProdGroupId === orderProdGroupId
+      (orderListItem) => orderListItem.orderProdGroupId === orderProdGroupId
     );
   };
 

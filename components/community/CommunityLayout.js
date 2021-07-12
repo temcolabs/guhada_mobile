@@ -6,8 +6,8 @@ import DefaultLayout from 'components/layout/DefaultLayout';
 import CommunitySidebar from './sidebar/CommunitySidebar';
 import { inject, observer } from 'mobx-react';
 import BoardMenus from 'components/community/sidebar/BoardMenus';
-import { pushRoute } from 'childs/lib/router';
-import { devWarn } from 'childs/lib/common/devLog';
+import { pushRoute } from 'lib/router';
+import { devWarn } from 'lib/common/devLog';
 import Footer from 'components/footer/Footer';
 @withRouter
 @inject((store) => ({

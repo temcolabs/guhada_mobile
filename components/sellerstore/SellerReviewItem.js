@@ -3,7 +3,7 @@ import useStores from 'stores/useStores';
 import _ from 'lodash';
 import ReviewReply from 'components/productdetail/ReviewReply';
 import moment from 'moment';
-import { dateFormat } from 'childs/lib/constant';
+import { dateFormat } from 'lib/constant';
 import { toJS } from 'mobx';
 import StarItem from 'components/mypage/review/StarItem';
 import css from './SellerReviewItem.module.scss';
@@ -56,9 +56,7 @@ function SellerReviewItem(props) {
                 <div className={css.itemValue}>
                   {reviewItem.productOption.color &&
                   reviewItem.productOption.size
-                    ? `${reviewItem.productOption.color} , ${
-                        reviewItem.productOption.size
-                      }`
+                    ? `${reviewItem.productOption.color} , ${reviewItem.productOption.size}`
                     : `${reviewItem.productOption.color ||
                         reviewItem.productOption.size ||
                         ''}`}
@@ -103,9 +101,7 @@ function SellerReviewItem(props) {
                       <div
                         className={css.photo}
                         style={{
-                          backgroundImage: `url("${
-                            photo.reviewPhotoUrl
-                          }?w=375")`,
+                          backgroundImage: `url("${photo.reviewPhotoUrl}?w=375")`,
                         }}
                         key={index}
                       />

@@ -1,16 +1,16 @@
 import { observable, action, computed } from 'mobx';
-import API from 'childs/lib/API';
-import { isBrowser } from 'childs/lib/common/isServer';
+import API from 'lib/API';
+import { isBrowser } from 'lib/common/isServer';
 import moment from 'moment';
-import { dateFormat } from 'childs/lib/constant/date';
-import { pushRoute } from 'childs/lib/router';
+import { dateFormat } from 'lib/constant/date';
+import { pushRoute } from 'lib/router';
 import { DEFAULT_PERIOD } from 'components/mypage/PeriodSelector';
-import orderClaimService from 'childs/lib/API/claim/orderClaimService';
-import pointProcessService from 'childs/lib/API/benefit/pointProcessService';
-import isTruthy from 'childs/lib/common/isTruthy';
+import orderClaimService from 'lib/API/claim/orderClaimService';
+import pointProcessService from 'lib/API/benefit/pointProcessService';
+import isTruthy from 'lib/common/isTruthy';
 import qs from 'qs';
-import { devLog } from 'childs/lib/common/devLog';
-import isFunction from 'childs/lib/common/isFunction';
+import { devLog } from 'lib/common/devLog';
+import isFunction from 'lib/common/isFunction';
 
 /**
  * 취소 ・ 교환 ・ 반품 목록
@@ -129,7 +129,7 @@ export default class OrderClaimListStore {
       console.error(e);
     }
   };
- 
+
   /**
    * 주문 취소 목록
    * 전달되지 않은 파라미터는 store의 값을 그대로 사용한다.
@@ -214,16 +214,16 @@ export default class OrderClaimListStore {
 
       // 구매 확정시 포인트
       dueSavePointOnConfirm: dueSavePointList?.find(
-        item => item.dueSaveType === 'BUY'
+        (item) => item.dueSaveType === 'BUY'
       )?.totalPoint,
 
       // 리뷰 작성시 포인트
       dueSavePointOnReview: dueSavePointList?.find(
-        item => item.dueSaveType === 'REVIEW'
+        (item) => item.dueSaveType === 'REVIEW'
       )?.totalPoint,
 
       dueSavePointOnFirstPurchase: dueSavePointList?.find(
-        item => item.dueSaveType === 'FIRST_ORDER'
+        (item) => item.dueSaveType === 'FIRST_ORDER'
       )?.totalPoint,
 
       onConfirm: async () => {
@@ -280,12 +280,11 @@ export default class OrderClaimListStore {
   };
 
   @action
-  toggleOrderConfirmModal = isOpen => {
+  toggleOrderConfirmModal = (isOpen) => {
     if (_.isNil(isOpen)) {
       this.isOrderConfirmModalOpen = !this.isOrderConfirmModalOpen;
     } else {
       this.isOrderConfirmModalOpen = isOpen;
     }
   };
-
 }

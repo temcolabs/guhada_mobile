@@ -1,6 +1,6 @@
 import { observable, action, toJS } from 'mobx';
 import { searchCategoryName, getCategory } from '../utils';
-import API from 'childs/lib/API';
+import API from 'lib/API';
 
 export default class CategoryStore {
   @observable category = [];
@@ -21,7 +21,7 @@ export default class CategoryStore {
     this.hover = false;
   };
 
-  @action setCategory = category => {
+  @action setCategory = (category) => {
     this.category = [];
     this.category = category;
   };
@@ -31,17 +31,17 @@ export default class CategoryStore {
     if (this.category.length === 0) {
       API.search
         .get('/ps/search/all')
-        .then(res => {
+        .then((res) => {
           this.setCategory(res.data.data.categories);
         })
-        .catch(e => {
+        .catch((e) => {
           console.error(e);
         });
     }
   }
 
   @action
-  searchCategory = title => {
+  searchCategory = (title) => {
     var regexp = /^[가-힣\*]+$/;
     var checkTitle = regexp.test(title);
     if (checkTitle && title.length >= 2) {
@@ -57,7 +57,7 @@ export default class CategoryStore {
   @observable categoryList = [];
 
   @action
-  returnCategory = id => {
+  returnCategory = (id) => {
     this.categoryList = [];
     // if (this.category.length === 0) {
     //   API.search

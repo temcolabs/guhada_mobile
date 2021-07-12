@@ -24,12 +24,12 @@ import {
   required,
   notEmptyString,
   mustBeNumber,
-} from 'childs/lib/common/finalFormValidators';
-import { devLog, devGroup, devGroupEnd } from 'childs/lib/common/devLog';
-import isTruthy from 'childs/lib/common/isTruthy';
-import { pushRoute } from 'childs/lib/router';
+} from 'lib/common/finalFormValidators';
+import { devLog, devGroup, devGroupEnd } from 'lib/common/devLog';
+import isTruthy from 'lib/common/isTruthy';
+import { pushRoute } from 'lib/router';
 import striptags from 'striptags';
-import categoryViewType from 'childs/lib/constant/community/categoryViewType';
+import categoryViewType from 'lib/constant/community/categoryViewType';
 import Router from 'next/router';
 
 const enhancer = compose(withRouter, observer);

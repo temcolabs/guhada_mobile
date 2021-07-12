@@ -18,18 +18,18 @@ const SortableItem = SortableElement(
         >
           <img
             className={css.reviewIcon}
-            src="/static/icon/icon_review_pencil.png"
+            src="/public/icon/icon_review_pencil.png"
             alt=""
           />
           <input
             type="file"
-            onChange={e => changeImageFile(e, index)}
+            onChange={(e) => changeImageFile(e, index)}
             id={`photo_upload_item` + index}
           />
         </label>
         <img
           className={css.reviewIcon}
-          src="/static/icon/icon_review_del.png"
+          src="/public/icon/icon_review_del.png"
           alt=""
           onClick={() => {
             deleteImage(index);
@@ -41,7 +41,7 @@ const SortableItem = SortableElement(
 );
 
 const SortableList = SortableContainer(
-  ({ items, changeImageFile = (e, i) => {}, deleteImage = i => {} }) => {
+  ({ items, changeImageFile = (e, i) => {}, deleteImage = (i) => {} }) => {
     return (
       <div className={css.imageList}>
         {items.map((value, index) => (
@@ -65,7 +65,7 @@ class ReviewImageUpload extends Component {
     let files = event.target.files;
     const { mypagereview } = this.props;
     let reader = new FileReader();
-    reader.onload = e => {
+    reader.onload = (e) => {
       let newImageList = toJS(mypagereview.newReviewPhotos);
       let newDeleteList = toJS(mypagereview.deletedReviewPhotos);
       newImageList[index].imageStatus = 'DELETED';
@@ -89,7 +89,7 @@ class ReviewImageUpload extends Component {
     if (files[0]) reader.readAsDataURL(files[0]);
   };
 
-  deleteImage = index => {
+  deleteImage = (index) => {
     const { mypagereview } = this.props;
     let newImageList = toJS(mypagereview.newReviewPhotos);
     let newImageFile = Array.from(mypagereview.reviewPhotosFile);

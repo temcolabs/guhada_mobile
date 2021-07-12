@@ -1,10 +1,10 @@
 import { observable, action, toJS } from 'mobx';
-import API from 'childs/lib/API';
-import { isBrowser } from 'childs/lib/common/isServer';
+import API from 'lib/API';
+import { isBrowser } from 'lib/common/isServer';
 import { getUserAgent } from '../../utils';
-import { dateFormat } from 'childs/lib/constant/date';
+import { dateFormat } from 'lib/constant/date';
 import moment from 'moment';
-import { devLog } from 'childs/lib/common/devLog';
+import { devLog } from 'lib/common/devLog';
 
 export default class MypagePointChargeStore {
   constructor(root) {
@@ -67,7 +67,7 @@ export default class MypagePointChargeStore {
   };
 
   @action
-  chargePointSelect = point => {
+  chargePointSelect = (point) => {
     if (!this.chargePoint) {
       this.chargePoint = 0;
     }
@@ -93,7 +93,7 @@ export default class MypagePointChargeStore {
 
   //--------------------- 결제방법변경 ---------------------
   @action
-  setPaymentMethod = targetMethod => {
+  setPaymentMethod = (targetMethod) => {
     this.paymentMethod = targetMethod;
     this.methodChange();
   };
@@ -178,7 +178,7 @@ export default class MypagePointChargeStore {
 
     API.order
       .post(`/payment/payment-point-request`, forms)
-      .then(res => {
+      .then((res) => {
         if (res.data.resultCode === 200) {
           this.paymentProceed = true;
           let data = res.data.data;
@@ -232,7 +232,7 @@ export default class MypagePointChargeStore {
           sessionStorage.setItem('paymentInfoPoint', JSON.stringify(forms));
         }
       })
-      .catch(error => {
+      .catch((error) => {
         if (this.root.login.loginStatus === 'logout') {
           this.root.alert.showAlert({
             content: '로그인 을 해주세요.',

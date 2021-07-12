@@ -56,7 +56,7 @@ $wrapperSidePad: 15px;
   &.error {
     border-color: #ce2525;
     &::after {
-      background-image: url('/static/icon/mypage/input-error-icon.png');
+      background-image: url('/public/icon/mypage/input-error-icon.png');
     }
   }
 
@@ -64,7 +64,7 @@ $wrapperSidePad: 15px;
   &.ok {
     border-color: #5d2ed1;
     &::after {
-      background-image: url('/static/icon/mypage/input-ok-icon.png');
+      background-image: url('/public/icon/mypage/input-ok-icon.png');
     }
   }
 

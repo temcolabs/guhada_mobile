@@ -1,9 +1,9 @@
 import { observable, action } from 'mobx';
-import API from 'childs/lib/API';
-import { isBrowser } from 'childs/lib/common/isServer';
-import { dateFormat } from 'childs/lib/constant/date';
+import API from 'lib/API';
+import { isBrowser } from 'lib/common/isServer';
+import { dateFormat } from 'lib/constant/date';
 import moment from 'moment';
-import { devLog } from 'childs/lib/common/devLog';
+import { devLog } from 'lib/common/devLog';
 
 export default class MypagePointStore {
   constructor(root) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import css from './MypageAddressList.module.scss';
 import { inject, observer } from 'mobx-react';
-import addHyphenToMobile from 'childs/lib/string/addHyphenToMobile';
+import addHyphenToMobile from 'lib/string/addHyphenToMobile';
 
 @inject('mypageAddress')
 @observer

@@ -1,7 +1,7 @@
 import React, { Fragment, Component } from 'react';
 import css from './MypageRecentlySeenItem.module.scss';
 import { inject, observer } from 'mobx-react';
-import { LinkRoute } from 'childs/lib/router';
+import { LinkRoute } from 'lib/router';
 
 @inject('mypageRecentlySeen')
 @observer
@@ -21,7 +21,7 @@ class MypageRecentlySeenItem extends Component {
         >
           <div
             className={css.item__delete__btn}
-            onClick={e => {
+            onClick={(e) => {
               mypageRecentlySeen.removeItem(e, data.dealsId);
             }}
           />

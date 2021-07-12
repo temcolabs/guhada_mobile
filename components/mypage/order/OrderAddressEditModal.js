@@ -8,16 +8,16 @@ import {
   mustBeBoolean,
   required,
   mustBeMobile,
-} from 'childs/lib/common/finalFormValidators';
+} from 'lib/common/finalFormValidators';
 import Input from 'components/mypage/form/Input';
 import Checkbox from '../form/Checkbox';
-import openDaumAddressSearch from 'childs/lib/common/openDaumAddressSearch';
+import openDaumAddressSearch from 'lib/common/openDaumAddressSearch';
 import { useObserver } from 'mobx-react';
 import FormButton from '../form/FormButton';
 import ModalLayout, {
   useModalLayoutState,
 } from 'components/layout/ModalLayout';
-import addHyphenToMobile from 'childs/lib/string/addHyphenToMobile';
+import addHyphenToMobile from 'lib/string/addHyphenToMobile';
 
 /**
  * 주문 배송지 수정 모달

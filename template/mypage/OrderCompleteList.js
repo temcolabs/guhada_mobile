@@ -8,12 +8,12 @@ import PeriodSelector, {
   DEFAULT_PERIOD,
   DEFAULT_TAB_IN_USE,
 } from 'components/mypage/PeriodSelector';
-import { dateUnit } from 'childs/lib/constant';
+import { dateUnit } from 'lib/constant';
 import OrderDashboard from 'components/mypage/order/OrderDashboard';
 import { inject, observer } from 'mobx-react';
-import { scrollToTarget } from 'childs/lib/common/scroll';
+import { scrollToTarget } from 'lib/common/scroll';
 import moment from 'moment';
-import { pushRoute } from 'childs/lib/router';
+import { pushRoute } from 'lib/router';
 import _ from 'lodash';
 import { LoadingSpinner } from 'components/common/loading/Loading';
 import EmptyListNoti from 'components/mypage/EmptyListNoti';

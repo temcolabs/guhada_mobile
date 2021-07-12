@@ -8,24 +8,20 @@ import SubmitButton, {
   SubmitButtonWrapper,
 } from 'components/mypage/form/SubmitButton';
 import Link from 'next/link';
-import getRouteHref from 'childs/lib/router/getRouteHref';
+import getRouteHref from 'lib/router/getRouteHref';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
 import { withRouter } from 'next/router';
 import { compose } from 'lodash/fp';
 import useStores from 'stores/useStores';
-import purchaseStatus from 'childs/lib/constant/order/purchaseStatus';
+import purchaseStatus from 'lib/constant/order/purchaseStatus';
 import ClaimOrderTableAtDone from 'components/mypage/claim/ClaimOrderTableAtDone';
 import { observer } from 'mobx-react';
 import Router from 'next/router';
 import MypageSectionTitle from 'components/mypage/MypageSectionTitle';
-import addHyphenToMobile from 'childs/lib/string/addHyphenToMobile';
-import addCommaToNum from 'childs/lib/common/addCommaToNum';
+import addHyphenToMobile from 'lib/string/addHyphenToMobile';
+import addCommaToNum from 'lib/common/addCommaToNum';
 
-const enhancer = compose(
-  withScrollToTopOnMount,
-  withRouter,
-  observer
-);
+const enhancer = compose(withScrollToTopOnMount, withRouter, observer);
 
 function OrderCancelDone({ router }) {
   const { orderClaimId, orderClaimGroupId } = router.query;

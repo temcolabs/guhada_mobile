@@ -1,11 +1,11 @@
 import { observable, action, computed, toJS } from 'mobx';
 import _ from 'lodash';
-import API from 'childs/lib/API';
+import API from 'lib/API';
 import { reviewModalType } from 'components/mypage/review/ReviewWriteModal';
-import { isBrowser } from 'childs/lib/common/isServer';
-import isFunction from 'childs/lib/common/isFunction';
-import { uploadImagePath } from 'childs/lib/API/gateway/fileUploadService';
-import { devLog } from 'childs/lib/common/devLog';
+import { isBrowser } from 'lib/common/isServer';
+import isFunction from 'lib/common/isFunction';
+import { uploadImagePath } from 'lib/API/gateway/fileUploadService';
+import { devLog } from 'lib/common/devLog';
 
 export default class MypageReviewStore {
   @observable star;

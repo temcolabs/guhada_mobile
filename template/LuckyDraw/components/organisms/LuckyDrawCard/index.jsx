@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef, memo } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import addCommaToNum from 'childs/lib/common/addCommaToNum';
-import { getTimeDiff } from 'childs/lib/common/getTimeDiff';
+import addCommaToNum from 'lib/common/addCommaToNum';
+import { getTimeDiff } from 'lib/common/getTimeDiff';
 
 import {
   LuckyDrawButton,

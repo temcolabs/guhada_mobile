@@ -1,9 +1,9 @@
 import { observable, action, computed } from 'mobx';
-import { isBrowser } from 'childs/lib/common/isServer';
-import API from 'childs/lib/API';
+import { isBrowser } from 'lib/common/isServer';
+import API from 'lib/API';
 import _ from 'lodash';
-import isFunction from 'childs/lib/common/isFunction';
-import { default as reportTargetEnum } from 'childs/lib/constant/reportTarget';
+import isFunction from 'lib/common/isFunction';
+import { default as reportTargetEnum } from 'lib/constant/reportTarget';
 
 class ReportStore {
   constructor(root, initialData = {}) {
@@ -28,7 +28,7 @@ class ReportStore {
   reportTypes = [];
 
   @action
-  setReportTypes = a => {
+  setReportTypes = (a) => {
     this.reportTypes = a;
   };
 
@@ -55,7 +55,7 @@ class ReportStore {
   // 상품 신고 유형
   @computed
   get productReportTypes() {
-    return this.reportTypes.filter(type =>
+    return this.reportTypes.filter((type) =>
       type.targets?.includes(reportTargetEnum.PRODUCT)
     );
   }
@@ -63,7 +63,7 @@ class ReportStore {
   // 회원 신고 유형
   @computed
   get userReportTypes() {
-    return this.reportTypes.filter(type =>
+    return this.reportTypes.filter((type) =>
       type.targets?.includes(reportTargetEnum.USER)
     );
   }
@@ -71,7 +71,7 @@ class ReportStore {
   // 게시글 신고 유형
   @computed
   get boardReportTypes() {
-    return this.reportTypes.filter(type =>
+    return this.reportTypes.filter((type) =>
       type.targets?.includes(reportTargetEnum.BOARD)
     );
   }
@@ -79,7 +79,7 @@ class ReportStore {
   // 댓글 신고 유형
   @computed
   get commentReportTypes() {
-    return this.reportTypes.filter(type =>
+    return this.reportTypes.filter((type) =>
       type.targets?.includes(reportTargetEnum.COMMENT)
     );
   }
@@ -87,14 +87,14 @@ class ReportStore {
   // 리뷰 신고 유형
   @computed
   get reviewReportTypes() {
-    return this.reportTypes.filter(type =>
+    return this.reportTypes.filter((type) =>
       type.targets?.includes(reportTargetEnum.REVIEW)
     );
   }
 
-  getReportTypeOptions = reportTarget => {
+  getReportTypeOptions = (reportTarget) => {
     // 서버 신고 유형을 컴포넌트에 사용할 수 있는 객체 형태로 변경
-    const mapReportTypeToOption = type => ({
+    const mapReportTypeToOption = (type) => ({
       label: type.description,
       value: type.name,
     });
@@ -153,7 +153,7 @@ class ReportStore {
     }
   };
 
-  validateReportData = reportData => {
+  validateReportData = (reportData) => {
     if (!reportData.reportType) {
       return '신고 유형을 선택하세요';
     }

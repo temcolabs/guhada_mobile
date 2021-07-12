@@ -1,12 +1,12 @@
 import { observable, action } from 'mobx';
-import API from 'childs/lib/API';
-import { isBrowser } from 'childs/lib/common/isServer';
-import { loginStatus } from 'childs/lib/constant';
+import API from 'lib/API';
+import { isBrowser } from 'lib/common/isServer';
+import { loginStatus } from 'lib/constant';
 import Router from 'next/router';
 import React from 'react';
 import _ from 'lodash';
-import { devLog } from 'childs/lib/common/devLog';
-import orderService from 'childs/lib/API/order/orderService';
+import { devLog } from 'lib/common/devLog';
+import orderService from 'lib/API/order/orderService';
 export default class MypageLikeStore {
   constructor(root) {
     if (isBrowser) {
@@ -22,8 +22,8 @@ export default class MypageLikeStore {
   @observable pageStatus = false;
   @observable optionModalShoppingCart = false;
   @observable optionModalPurchase = false;
-  @observable quantityMinusBtn = '/static/icon/quantity_minus_off.png';
-  @observable quantityPlusBtn = '/static/icon/quantity_plus_on.png';
+  @observable quantityMinusBtn = '/public/icon/quantity_minus_off.png';
+  @observable quantityPlusBtn = '/public/icon/quantity_plus_on.png';
   @observable selectedOption = null;
   @observable selectedQuantity = 1;
   @observable selectedTotalPrice = 0;
@@ -40,9 +40,7 @@ export default class MypageLikeStore {
     devLog(pageNo, 'pageNopageNo');
     API.gateway
       .get(
-        `/my-page/bookmark-products?size=${
-          this.itemsCountPerPage
-        }&page=${pageNo}&target=PRODUCT`
+        `/my-page/bookmark-products?size=${this.itemsCountPerPage}&page=${pageNo}&target=PRODUCT`
       )
       .then((res) => {
         this.likeProductList = [];
@@ -228,13 +226,13 @@ export default class MypageLikeStore {
     if (this.selectedOption) {
       if (this.selectedOption.id !== value.id) {
         this.selectedOption = value;
-        this.quantityMinusBtn = '/static/icon/quantity_minus_off.png';
+        this.quantityMinusBtn = '/public/icon/quantity_minus_off.png';
         this.selectedQuantity = 1;
         this.getTotalPrice();
       }
     } else {
       this.selectedOption = value;
-      this.quantityMinusBtn = '/static/icon/quantity_minus_off.png';
+      this.quantityMinusBtn = '/public/icon/quantity_minus_off.png';
       this.selectedQuantity = 1;
       this.getTotalPrice();
     }
@@ -256,22 +254,22 @@ export default class MypageLikeStore {
 
   @action
   quantityMinusHoverOn = () => {
-    this.quantityMinusBtn = '/static/icon/quantity_minus_on.png';
+    this.quantityMinusBtn = '/public/icon/quantity_minus_on.png';
   };
 
   @action
   quantityMinusHoverOut = () => {
-    this.quantityMinusBtn = '/static/icon/quantity_minus_off.png';
+    this.quantityMinusBtn = '/public/icon/quantity_minus_off.png';
   };
 
   @action
   quantityPlusHoverOn = () => {
-    this.quantityPlusBtn = '/static/icon/quantity_plus_on.png';
+    this.quantityPlusBtn = '/public/icon/quantity_plus_on.png';
   };
 
   @action
   quantityPlusHoverOut = () => {
-    this.quantityPlusBtn = '/static/icon/quantity_plus_off.png';
+    this.quantityPlusBtn = '/public/icon/quantity_plus_off.png';
   };
 
   @action
@@ -285,15 +283,15 @@ export default class MypageLikeStore {
     }
     if (this.selectedQuantity <= 1) {
       this.selectedQuantity = 1;
-      this.quantityMinusBtn = '/static/icon/quantity_minus_off.png';
+      this.quantityMinusBtn = '/public/icon/quantity_minus_off.png';
       return false;
     }
 
     if (this.selectedQuantity === 2) {
-      this.quantityMinusBtn = '/static/icon/quantity_minus_off.png';
+      this.quantityMinusBtn = '/public/icon/quantity_minus_off.png';
     }
 
-    this.quantityPlusBtn = '/static/icon/quantity_plus_on.png';
+    this.quantityPlusBtn = '/public/icon/quantity_plus_on.png';
     this.selectedQuantity = this.selectedQuantity - 1;
     this.getTotalPrice();
   };
@@ -315,9 +313,9 @@ export default class MypageLikeStore {
       return false;
     }
     if (this.selectedQuantity === this.selectedOption.stock - 1) {
-      this.quantityPlusBtn = '/static/icon/quantity_plus_off.png';
+      this.quantityPlusBtn = '/public/icon/quantity_plus_off.png';
     }
-    this.quantityMinusBtn = '/static/icon/quantity_minus_on.png';
+    this.quantityMinusBtn = '/public/icon/quantity_minus_on.png';
     this.selectedQuantity = this.selectedQuantity + 1;
 
     this.getTotalPrice();
@@ -337,23 +335,23 @@ export default class MypageLikeStore {
       });
       this.selectedQuantity = this.selectedOption.stock;
       this.getTotalPrice();
-      this.quantityPlusBtn = '/static/icon/quantity_plus_off.png';
-      this.quantityMinusBtn = '/static/icon/quantity_minus_on.png';
+      this.quantityPlusBtn = '/public/icon/quantity_plus_off.png';
+      this.quantityMinusBtn = '/public/icon/quantity_minus_on.png';
       return false;
     } else if (value < 0) {
       return false;
     } else {
       if (value === 0) {
-        this.quantityMinusBtn = '/static/icon/quantity_minus_off.png';
+        this.quantityMinusBtn = '/public/icon/quantity_minus_off.png';
         this.selectedQuantity = 1;
         this.getTotalPrice();
         return false;
       }
       value === this.selectedOption.stock
-        ? (this.quantityPlusBtn = '/static/icon/quantity_plus_off.png')
-        : (this.quantityPlusBtn = '/static/icon/quantity_plus_on.png');
+        ? (this.quantityPlusBtn = '/public/icon/quantity_plus_off.png')
+        : (this.quantityPlusBtn = '/public/icon/quantity_plus_on.png');
 
-      this.quantityMinusBtn = '/static/icon/quantity_minus_on.png';
+      this.quantityMinusBtn = '/public/icon/quantity_minus_on.png';
       this.selectedQuantity = value;
       this.getTotalPrice();
     }
@@ -364,8 +362,8 @@ export default class MypageLikeStore {
     let value = e.target.value;
     value = parseInt(value);
     if (isNaN(value) || value <= 0) {
-      this.quantityMinusBtn = '/static/icon/quantity_minus_off.png';
-      this.quantityPlusBtn = '/static/icon/quantity_plus_on.png';
+      this.quantityMinusBtn = '/public/icon/quantity_minus_off.png';
+      this.quantityPlusBtn = '/public/icon/quantity_plus_on.png';
       this.selectedQuantity = 1;
       this.getTotalPrice();
     }
@@ -414,9 +412,7 @@ export default class MypageLikeStore {
         this.root.shoppingcart.globalGetUserShoppingCartList();
         API.product
           .get(
-            `/deals?brandId=${
-              this.likeOptionModalItem.brandId
-            }&pageIndex=0&unitPerPage=3`
+            `/deals?brandId=${this.likeOptionModalItem.brandId}&pageIndex=0&unitPerPage=3`
           )
           .then((res) => {
             let data = res.data;

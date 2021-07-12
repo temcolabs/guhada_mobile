@@ -1,7 +1,7 @@
 import React from 'react';
 import css from './TextInput.module.scss';
 import useChangeInput from 'hooks/useChangeInput';
-import { nilToEmptyStr } from 'childs/lib/common/nilToZero';
+import { nilToEmptyStr } from 'lib/common/nilToZero';
 import cn from 'classnames';
 
 export default function SearchInput({

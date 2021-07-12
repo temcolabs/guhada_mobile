@@ -30,37 +30,37 @@
     }
 
     &.button--brand {
-      background-image: url('/static/icon/toolbar/btn-tool-brand.png');
+      background-image: url('/public/icon/toolbar/btn-tool-brand.png');
 
       &.selected {
-        background-image: url('/static/icon/toolbar/btn-tool-brand-on.png');
+        background-image: url('/public/icon/toolbar/btn-tool-brand-on.png');
         color: #5d2ed1;
       }
     }
 
     &.button--home {
-      background-image: url('/static/icon/toolbar/btn-tool-home.png');
+      background-image: url('/public/icon/toolbar/btn-tool-home.png');
 
       &.selected {
-        background-image: url('/static/icon/toolbar/btn-tool-home-on.png');
+        background-image: url('/public/icon/toolbar/btn-tool-home-on.png');
         color: #5d2ed1;
       }
     }
 
     &.button--community {
-      background-image: url('/static/icon/toolbar/btn-tool-community.png');
+      background-image: url('/public/icon/toolbar/btn-tool-community.png');
 
       &.selected {
-        background-image: url('/static/icon/toolbar/btn-tool-community-on.png');
+        background-image: url('/public/icon/toolbar/btn-tool-community-on.png');
         color: #5d2ed1;
       }
     }
 
     &.button--mypage {
-      background-image: url('/static/icon/toolbar/btn-tool-mypage.png');
+      background-image: url('/public/icon/toolbar/btn-tool-mypage.png');
 
       &.selected {
-        background-image: url('/static/icon/toolbar/btn-tool-mypage-on.png');
+        background-image: url('/public/icon/toolbar/btn-tool-mypage-on.png');
         color: #5d2ed1;
       }
     }

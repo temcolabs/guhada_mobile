@@ -47,7 +47,7 @@ class SearchCategorySlider extends Component {
           );
         })}
         <img
-          src={'/static/icon/btn-arrow2.png'}
+          src={'/public/icon/btn-arrow2.png'}
           className={css.arrowIcon}
           alt=""
         />

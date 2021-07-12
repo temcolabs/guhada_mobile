@@ -1,14 +1,14 @@
 import React from 'react';
 import { observable, action, toJS } from 'mobx';
-import { isBrowser } from 'childs/lib/common/isServer';
-import localStorage from 'childs/lib/common/localStorage';
-import key from 'childs/lib/constant/key';
+import { isBrowser } from 'lib/common/isServer';
+import localStorage from 'lib/common/localStorage';
+import key from 'lib/constant/key';
 import _ from 'lodash';
-import { loginStatus } from 'childs/lib/constant';
-import API from 'childs/lib/API';
+import { loginStatus } from 'lib/constant';
+import API from 'lib/API';
 import Router from 'next/router';
-import { devLog } from 'childs/lib/common/devLog';
-import orderService from 'childs/lib/API/order/orderService';
+import { devLog } from 'lib/common/devLog';
+import orderService from 'lib/API/order/orderService';
 export default class MypageRecentlySeenStore {
   constructor(root) {
     if (isBrowser) {
@@ -22,8 +22,8 @@ export default class MypageRecentlySeenStore {
 
   @observable optionModalShoppingCart = false;
   @observable optionModalPurchase = false;
-  @observable quantityMinusBtn = '/static/icon/quantity_minus_off.png';
-  @observable quantityPlusBtn = '/static/icon/quantity_plus_on.png';
+  @observable quantityMinusBtn = '/public/icon/quantity_minus_off.png';
+  @observable quantityPlusBtn = '/public/icon/quantity_plus_on.png';
   @observable selectedOption = null;
   @observable selectedQuantity = 1;
   @observable selectedTotalPrice = 0;
@@ -285,13 +285,13 @@ export default class MypageRecentlySeenStore {
     if (this.selectedOption) {
       if (this.selectedOption.id !== value.id) {
         this.selectedOption = value;
-        this.quantityMinusBtn = '/static/icon/quantity_minus_off.png';
+        this.quantityMinusBtn = '/public/icon/quantity_minus_off.png';
         this.selectedQuantity = 1;
         this.getTotalPrice();
       }
     } else {
       this.selectedOption = value;
-      this.quantityMinusBtn = '/static/icon/quantity_minus_off.png';
+      this.quantityMinusBtn = '/public/icon/quantity_minus_off.png';
       this.selectedQuantity = 1;
       this.getTotalPrice();
     }
@@ -313,22 +313,22 @@ export default class MypageRecentlySeenStore {
 
   @action
   quantityMinusHoverOn = () => {
-    this.quantityMinusBtn = '/static/icon/quantity_minus_on.png';
+    this.quantityMinusBtn = '/public/icon/quantity_minus_on.png';
   };
 
   @action
   quantityMinusHoverOut = () => {
-    this.quantityMinusBtn = '/static/icon/quantity_minus_off.png';
+    this.quantityMinusBtn = '/public/icon/quantity_minus_off.png';
   };
 
   @action
   quantityPlusHoverOn = () => {
-    this.quantityPlusBtn = '/static/icon/quantity_plus_on.png';
+    this.quantityPlusBtn = '/public/icon/quantity_plus_on.png';
   };
 
   @action
   quantityPlusHoverOut = () => {
-    this.quantityPlusBtn = '/static/icon/quantity_plus_off.png';
+    this.quantityPlusBtn = '/public/icon/quantity_plus_off.png';
   };
 
   @action
@@ -342,15 +342,15 @@ export default class MypageRecentlySeenStore {
     }
     if (this.selectedQuantity <= 1) {
       this.selectedQuantity = 1;
-      this.quantityMinusBtn = '/static/icon/quantity_minus_off.png';
+      this.quantityMinusBtn = '/public/icon/quantity_minus_off.png';
       return false;
     }
 
     if (this.selectedQuantity === 2) {
-      this.quantityMinusBtn = '/static/icon/quantity_minus_off.png';
+      this.quantityMinusBtn = '/public/icon/quantity_minus_off.png';
     }
 
-    this.quantityPlusBtn = '/static/icon/quantity_plus_on.png';
+    this.quantityPlusBtn = '/public/icon/quantity_plus_on.png';
     this.selectedQuantity = this.selectedQuantity - 1;
     this.getTotalPrice();
   };
@@ -372,9 +372,9 @@ export default class MypageRecentlySeenStore {
       return false;
     }
     if (this.selectedQuantity === this.selectedOption.stock - 1) {
-      this.quantityPlusBtn = '/static/icon/quantity_plus_off.png';
+      this.quantityPlusBtn = '/public/icon/quantity_plus_off.png';
     }
-    this.quantityMinusBtn = '/static/icon/quantity_minus_on.png';
+    this.quantityMinusBtn = '/public/icon/quantity_minus_on.png';
     this.selectedQuantity = this.selectedQuantity + 1;
 
     this.getTotalPrice();
@@ -394,23 +394,23 @@ export default class MypageRecentlySeenStore {
       });
       this.selectedQuantity = this.selectedOption.stock;
       this.getTotalPrice();
-      this.quantityPlusBtn = '/static/icon/quantity_plus_off.png';
-      this.quantityMinusBtn = '/static/icon/quantity_minus_on.png';
+      this.quantityPlusBtn = '/public/icon/quantity_plus_off.png';
+      this.quantityMinusBtn = '/public/icon/quantity_minus_on.png';
       return false;
     } else if (value < 0) {
       return false;
     } else {
       if (value === 0) {
-        this.quantityMinusBtn = '/static/icon/quantity_minus_off.png';
+        this.quantityMinusBtn = '/public/icon/quantity_minus_off.png';
         this.selectedQuantity = 1;
         this.getTotalPrice();
         return false;
       }
       value === this.selectedOption.stock
-        ? (this.quantityPlusBtn = '/static/icon/quantity_plus_off.png')
-        : (this.quantityPlusBtn = '/static/icon/quantity_plus_on.png');
+        ? (this.quantityPlusBtn = '/public/icon/quantity_plus_off.png')
+        : (this.quantityPlusBtn = '/public/icon/quantity_plus_on.png');
 
-      this.quantityMinusBtn = '/static/icon/quantity_minus_on.png';
+      this.quantityMinusBtn = '/public/icon/quantity_minus_on.png';
       this.selectedQuantity = value;
       this.getTotalPrice();
     }
@@ -421,8 +421,8 @@ export default class MypageRecentlySeenStore {
     let value = e.target.value;
     value = parseInt(value);
     if (isNaN(value) || value <= 0) {
-      this.quantityMinusBtn = '/static/icon/quantity_minus_off.png';
-      this.quantityPlusBtn = '/static/icon/quantity_plus_on.png';
+      this.quantityMinusBtn = '/public/icon/quantity_minus_off.png';
+      this.quantityPlusBtn = '/public/icon/quantity_plus_on.png';
       this.selectedQuantity = 1;
       this.getTotalPrice();
     }
@@ -462,9 +462,7 @@ export default class MypageRecentlySeenStore {
         this.root.shoppingcart.getUserShoppingCartList();
         API.product
           .get(
-            `/deals?brandId=${
-              this.recentlySeenOptionModalItem.brandId
-            }&pageIndex=0&unitPerPage=3`
+            `/deals?brandId=${this.recentlySeenOptionModalItem.brandId}&pageIndex=0&unitPerPage=3`
           )
           .then((res) => {
             let data = res.data;

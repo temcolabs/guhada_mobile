@@ -1,17 +1,17 @@
 import termForm from 'stores/form-store/_.forms';
-import API from 'childs/lib/API';
-import feedService from 'childs/lib/API/user/feedService';
+import API from 'lib/API';
+import feedService from 'lib/API/user/feedService';
 import { root } from 'store';
-import { devLog } from 'childs/lib/common/devLog';
+import { devLog } from 'lib/common/devLog';
 import { get as _get } from 'lodash';
-import daumTracker from 'childs/lib/tracking/daum/daumTracker';
-import naverShoppingTrakers from 'childs/lib/tracking/navershopping/naverShoppingTrakers';
-import momentTracker from 'childs/lib/tracking/kakaomoment/momentTracker';
+import daumTracker from 'lib/tracking/daum/daumTracker';
+import naverShoppingTrakers from 'lib/tracking/navershopping/naverShoppingTrakers';
+import momentTracker from 'lib/tracking/kakaomoment/momentTracker';
 import ReactPixel from 'react-facebook-pixel';
-import gtagTracker from 'childs/lib/tracking/google/gtagTracker';
-import criteoTracker from 'childs/lib/tracking/criteo/criteoTracker';
-import sessionStorage from 'childs/lib/common/sessionStorage';
-import { setCookie } from 'childs/lib/common/cookieUtils';
+import gtagTracker from 'lib/tracking/google/gtagTracker';
+import criteoTracker from 'lib/tracking/criteo/criteoTracker';
+import sessionStorage from 'lib/common/sessionStorage';
+import { setCookie } from 'lib/common/cookieUtils';
 import qs from 'querystring';
 
 export default {

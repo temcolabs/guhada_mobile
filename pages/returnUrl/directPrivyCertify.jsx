@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
-import API from 'childs/lib/API';
-import isServer from 'childs/lib/common/isServer';
-import sessionStorage from 'childs/lib/common/sessionStorage';
+import API from 'lib/API';
+import isServer from 'lib/common/isServer';
+import sessionStorage from 'lib/common/sessionStorage';
 import PaymentLoading from 'components/orderpayment/modal/PaymentLoading';
 import { useRouter } from 'next/router';
 

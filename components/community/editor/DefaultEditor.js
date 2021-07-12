@@ -2,10 +2,10 @@ import React from 'react';
 import _ from 'lodash';
 import memoize from 'memoize-one';
 import css from './DefaultEditor.module.scss';
-import { isBrowser } from 'childs/lib/common/isServer';
-import { uploadImageFile } from 'childs/lib/API/gateway/fileUploadService';
-import loadScript from 'childs/lib/dom/loadScript';
-import loadLink from 'childs/lib/dom/loadLink';
+import { isBrowser } from 'lib/common/isServer';
+import { uploadImageFile } from 'lib/API/gateway/fileUploadService';
+import loadScript from 'lib/dom/loadScript';
+import loadLink from 'lib/dom/loadLink';
 
 const summernoteLink = [
   'summernote-css',
@@ -20,7 +20,7 @@ const summernoteScriptsList = [
     'summernote',
     'https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js',
   ],
-  ['summernote-lang', '/static/js/summernote-lang/ko-KR.js'],
+  ['summernote-lang', '/public/js/summernote-lang/ko-KR.js'],
 ];
 
 /**

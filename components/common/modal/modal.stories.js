@@ -6,7 +6,7 @@ import ModalWrapper from './ModalWrapper';
 import Alert from './Alert';
 import Confirm from './Confirm';
 import Mask, { WhiteMask } from './Mask';
-import scrollY from 'childs/lib/dom/scrollY';
+import scrollY from 'lib/dom/scrollY';
 import LoadingPortal from '../loading/Loading';
 
 const stories = storiesOf('common/modal', module);

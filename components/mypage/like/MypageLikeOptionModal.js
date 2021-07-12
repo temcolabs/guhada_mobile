@@ -22,7 +22,7 @@ class MypageLikeOptionModal extends Component {
                 mypageLike.optionModalClose();
               }}
             >
-              <img src="/static/icon/modal_close.png" alt="모달창 닫기" />
+              <img src="/public/icon/modal_close.png" alt="모달창 닫기" />
             </div>
           </div>
 
@@ -52,9 +52,9 @@ class MypageLikeOptionModal extends Component {
                       data?.sellPrice ? data?.sellPrice?.toLocaleString() : null
                     }원`}
                   </div>
-                  <div className={css.product__discountRate}>{`${
-                    data.discountRate
-                  }%`}</div>
+                  <div
+                    className={css.product__discountRate}
+                  >{`${data.discountRate}%`}</div>
                 </div>
               </div>
             </div>
@@ -95,10 +95,10 @@ class MypageLikeOptionModal extends Component {
                   <input
                     type="text"
                     value={mypageLike.selectedQuantity}
-                    onChange={e => {
+                    onChange={(e) => {
                       mypageLike.quantityChange(e);
                     }}
-                    onBlur={e => {
+                    onBlur={(e) => {
                       mypageLike.quantityChangeOutFocus(e);
                     }}
                   />

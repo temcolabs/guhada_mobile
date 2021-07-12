@@ -2,7 +2,7 @@ import React from 'react';
 import css from './ProductTable.module.scss';
 import cn from 'classnames';
 import _ from 'lodash';
-import checkNullAndEmpty from 'childs/lib/common/checkNullAndEmpty';
+import checkNullAndEmpty from 'lib/common/checkNullAndEmpty';
 
 // type PolicyKey = 'return' | 'exchange'
 const getPolicyHelper = (deals, policyKey) => {

@@ -1,10 +1,10 @@
 import React from 'react';
 import css from './PaymentAccountInfo.module.scss';
 import moment from 'moment';
-import { dateFormat } from 'childs/lib/constant';
+import { dateFormat } from 'lib/constant';
 import paymentMethod, {
   paymentMethodOptions,
-} from 'childs/lib/constant/order/paymentMethod';
+} from 'lib/constant/order/paymentMethod';
 
 /**
  * 결제정보 섹션에서 결제 수단별 상세정보
@@ -40,8 +40,8 @@ const PaymentAccountInfo = ({
   },
 }) => {
   const paymentMethodText =
-    paymentMethodOptions.find(o => o.value === payment?.parentMethod)?.label ||
-    '';
+    paymentMethodOptions.find((o) => o.value === payment?.parentMethod)
+      ?.label || '';
 
   return (
     <div className={css.wrap} style={wrapperStyle}>
@@ -100,7 +100,7 @@ const PaymentAccountInfo = ({
         </>
       )}
 
-      {/* 간편 결제 */}      
+      {/* 간편 결제 */}
       {payment.parentMethod === paymentMethod.EASY_PAYMENT.code && (
         <>
           <div className={css.row}>
@@ -112,7 +112,7 @@ const PaymentAccountInfo = ({
             </span>
           </div>
         </>
-      )}       
+      )}
     </div>
   );
 };

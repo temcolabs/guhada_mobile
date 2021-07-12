@@ -94,7 +94,7 @@ function CommentWrite({
             src={
               profileImageUrl
                 ? profileImageUrl
-                : '/static/icon/profile_non_square.png'
+                : '/public/icon/profile_non_square.png'
             }
           />
         </Avatar>

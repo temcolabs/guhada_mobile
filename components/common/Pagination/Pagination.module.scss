@@ -53,40 +53,40 @@
 
   &.toFirst {
     @include navButtonStyle;
-    background-image: url('/static/icon/prev2_n_icon.png');
+    background-image: url('/public/icon/prev2_n_icon.png');
     margin-right: 6px;
 
     &:hover {
-      background-image: url('/static/icon/prev2_h_icon.png');
+      background-image: url('/public/icon/prev2_h_icon.png');
     }
   }
 
   &.toPrev {
     @include navButtonStyle;
-    background-image: url('/static/icon/prev_n_icon.png');
+    background-image: url('/public/icon/prev_n_icon.png');
     margin-right: 12px;
 
     &:hover {
-      background-image: url('/static/icon/prev_h_icon.png');
+      background-image: url('/public/icon/prev_h_icon.png');
     }
   }
 
   &.toNext {
     @include navButtonStyle;
-    background-image: url('/static/icon/next_n_icon.png');
+    background-image: url('/public/icon/next_n_icon.png');
     margin: 0 6px;
 
     &:hover {
-      background-image: url('/static/icon/next_h_icon.png');
+      background-image: url('/public/icon/next_h_icon.png');
     }
   }
 
   &.toLast {
     @include navButtonStyle;
-    background-image: url('/static/icon/next2_n_icon.png');
+    background-image: url('/public/icon/next2_n_icon.png');
 
     &:hover {
-      background-image: url('/static/icon/next2_h_icon.png');
+      background-image: url('/public/icon/next2_h_icon.png');
     }
   }
 }

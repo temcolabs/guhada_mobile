@@ -4,7 +4,7 @@ import { withRouter } from 'next/router';
 import { useBBSStore } from 'stores/bbs';
 import searchOrder, {
   searchOrderOptions,
-} from 'childs/lib/constant/community/searchOrder';
+} from 'lib/constant/community/searchOrder';
 import SortButton from './SortButton';
 import css from './BoardTitle.module.scss';
 import BoardCategoryFilter from 'components/community/list/BoardCategoryFilter';

@@ -1,5 +1,5 @@
 import { observable, action, computed } from 'mobx';
-import API from 'childs/lib/API';
+import API from 'lib/API';
 import _ from 'lodash';
 import { root } from 'store';
 

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import css from './MyBBS.module.scss';
 import cn from 'classnames';
-import { LinkRoute } from 'childs/lib/router';
+import { LinkRoute } from 'lib/router';
 import { useBBSStore } from 'stores/bbs';
 import { useObserver } from 'mobx-react';
 import DeletedMyActivityItem from './myArticles/DeletedMyActivityItem';

@@ -3,11 +3,11 @@ import css from './ProfileImageForm.module.scss';
 import { UserEditFormContext } from 'template/mypage/UserInfomation';
 import useStores from 'stores/useStores';
 import { useObserver } from 'mobx-react';
-import { isImageFile } from 'childs/lib/common/isImageFile';
+import { isImageFile } from 'lib/common/isImageFile';
 import {
   uploadProfileFile,
   deleteProfileFile,
-} from 'childs/lib/API/user/profileService';
+} from 'lib/API/user/profileService';
 import cn from 'classnames';
 export default function ProfileImageForm() {
   const { user: userStore, alert: alertStore } = useStores();

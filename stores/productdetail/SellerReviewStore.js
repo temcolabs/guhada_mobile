@@ -1,7 +1,7 @@
 import { observable, action, toJS } from 'mobx';
-import API from 'childs/lib/API';
-import { devLog } from 'childs/lib/common/devLog';
-import bookmarkTarget from 'childs/lib/constant/user/bookmarkTarget';
+import API from 'lib/API';
+import { devLog } from 'lib/common/devLog';
+import bookmarkTarget from 'lib/constant/user/bookmarkTarget';
 import _ from 'lodash';
 const isServer = typeof window === 'undefined';
 
@@ -66,13 +66,13 @@ export default class SellerReviewStore {
   };
 
   @action
-  setRating = rating => {
+  setRating = (rating) => {
     this.rating = rating;
     this.getProductReview();
   };
 
-  @observable reviewPage = 0;  
-  @observable unitPerPage = 5;  
+  @observable reviewPage = 0;
+  @observable unitPerPage = 5;
 
   @action
   getProductReview = (reviewPage = 0) => {
@@ -88,7 +88,7 @@ export default class SellerReviewStore {
           rating: this.rating,
         },
       })
-      .then(res => {
+      .then((res) => {
         let data = res.data;
 
         if (data.resultCode === 200) {
@@ -100,13 +100,13 @@ export default class SellerReviewStore {
         if (this.root.login.loginStatus === 'LOGIN_DONE')
           this.getProductReviewBookmarks();
       })
-      .catch(e => {
+      .catch((e) => {
         this.review = [];
       });
   };
 
   @action
-  getMoreReview = () => {    
+  getMoreReview = () => {
     API.user
       .get(`/reviews`, {
         params: {
@@ -117,7 +117,7 @@ export default class SellerReviewStore {
           rating: this.rating,
         },
       })
-      .then(res => {
+      .then((res) => {
         let temp = this.review;
         let data = res.data;
 
@@ -126,7 +126,7 @@ export default class SellerReviewStore {
         this.totalElements = data.data.totalElements;
         this.reviewPage = data.data.number + 1;
       })
-      .catch(e => {
+      .catch((e) => {
         this.review = [];
       });
   };
@@ -140,33 +140,33 @@ export default class SellerReviewStore {
           target: bookmarkTarget.REVIEW,
         },
       })
-      .then(res => {
+      .then((res) => {
         this.reviewBookMarks = res.data.data.content;
       })
-      .catch(e => {
+      .catch((e) => {
         console.error('e', e);
       });
   };
 
   @action
-  setProductReviewBookmarks = id => {
+  setProductReviewBookmarks = (id) => {
     API.user
       .post(`/users/bookmarks`, {
         target: bookmarkTarget.REVIEW,
         targetId: id,
       })
-      .then(res => {
+      .then((res) => {
         // this.changeReview();
         if (this.root.login.loginStatus === 'LOGIN_DONE')
           this.getProductReviewBookmarks();
       })
-      .catch(e => {
+      .catch((e) => {
         console.error('e', e);
       });
   };
 
   @action
-  delProductReviewBookmarks = id => {
+  delProductReviewBookmarks = (id) => {
     API.user
       .delete(`/users/bookmarks`, {
         params: {
@@ -174,12 +174,12 @@ export default class SellerReviewStore {
           targetId: id,
         },
       })
-      .then(res => {
+      .then((res) => {
         // this.changeReview();
         if (this.root.login.loginStatus === 'LOGIN_DONE')
           this.getProductReviewBookmarks();
       })
-      .catch(e => {
+      .catch((e) => {
         console.error('e', e);
       });
   };
@@ -204,7 +204,7 @@ export default class SellerReviewStore {
           },
         }
       )
-      .then(res => {
+      .then((res) => {
         let data = res.data;
         devLog('data', data);
         if (data.resultCode === 200) {
@@ -229,14 +229,14 @@ export default class SellerReviewStore {
           sort: this.sort,
         },
       })
-      .then(res => {
+      .then((res) => {
         let data = res.data;
         this.review = data.data;
 
         if (this.root.login.loginStatus === 'LOGIN_DONE')
           this.getProductReviewBookmarks();
       })
-      .catch(e => {
+      .catch((e) => {
         this.review = [];
       });
   };
@@ -252,14 +252,14 @@ export default class SellerReviewStore {
           sort: this.sort,
         },
       })
-      .then(res => {
+      .then((res) => {
         let data = res.data;
         this.review = data.data;
 
         if (this.root.login.loginStatus === 'LOGIN_DONE')
           this.getProductReviewBookmarks();
       })
-      .catch(e => {
+      .catch((e) => {
         this.review = [];
       });
   };
@@ -270,13 +270,13 @@ export default class SellerReviewStore {
 
     API.user
       .get(`/reviews/summary`, { params: { productId: productId } })
-      .then(res => {
+      .then((res) => {
         let data = res.data;
         if (data.resultCode === 200) {
           this.reviewSummary = data.data;
         }
       })
-      .catch(e => {
+      .catch((e) => {
         if (_.get(e, 'data.resultCode') === 5004) {
           this.reviewSummary = null;
         }
@@ -290,16 +290,16 @@ export default class SellerReviewStore {
         pointType: 'REVIEW',
         serviceType: 'FRONT',
       })
-      .then(res => {
+      .then((res) => {
         let data = res.data.data;
         this.reviewPoint = data.dueSavePointList;
         let pointTemp = data.dueSavePointList.find(
-          o => o.pointType === 'IMG_REVIEW'
+          (o) => o.pointType === 'IMG_REVIEW'
         );
         this.photoPoint = pointTemp.totalPoint;
 
         pointTemp = data.dueSavePointList.find(
-          o => o.pointType === 'TEXT_REVIEW'
+          (o) => o.pointType === 'TEXT_REVIEW'
         );
 
         this.textPoint = pointTemp.totalPoint;

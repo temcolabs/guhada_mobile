@@ -1,6 +1,6 @@
 import { observable, action } from 'mobx';
-import { isBrowser } from 'childs/lib/common/isServer';
-import API from 'childs/lib/API';
+import { isBrowser } from 'lib/common/isServer';
+import API from 'lib/API';
 
 export default class MypageDashboardStore {
   constructor(root) {

@@ -18,7 +18,7 @@
       position: absolute;
       left: 10px;
       background-size: 30px;
-      background-image: url('/static/icon/btn-prevpage.png');
+      background-image: url('/public/icon/btn-prevpage.png');
       background-repeat: no-repeat;
     }
 
@@ -101,7 +101,7 @@
         width: 200px;
         height: 30px;
         padding-left: 32px;
-        background: url('/static/icon/com-btn-photo@3x.png') no-repeat left
+        background: url('/public/icon/com-btn-photo@3x.png') no-repeat left
           center;
         background-size: 30px 30px;
 
@@ -130,7 +130,7 @@
         .attachImageDelete {
           width: 25px;
           height: 25px;
-          background: url('/static/icon/like_item_delete.png') no-repeat;
+          background: url('/public/icon/like_item_delete.png') no-repeat;
           background-size: cover;
           background-position: center;
           position: absolute;

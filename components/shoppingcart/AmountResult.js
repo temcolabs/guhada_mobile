@@ -10,9 +10,9 @@ class ShoppingCartResult extends Component {
     return (
       <div className={css.wrap}>
         <div className={css.inner__top}>
-          <div className={css.total__itemNumber}>{`총 ${
-            shoppingcart.selectedCheckNumber.length
-          }개 상품`}</div>
+          <div
+            className={css.total__itemNumber}
+          >{`총 ${shoppingcart.selectedCheckNumber.length}개 상품`}</div>
           <div className={css.total__orderPrice}>
             <div className={css.title}>상품금액</div>
             <div
@@ -29,7 +29,7 @@ class ShoppingCartResult extends Component {
             <div className={css.title}>
               할인금액
               {/* <span>
-                <img src="/static/icon/m_cart_arrow.png" alt="탭 화살표" />
+                <img src="/public/icon/m_cart_arrow.png" alt="탭 화살표" />
               </span> */}
             </div>
             <div

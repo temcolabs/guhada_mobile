@@ -5,7 +5,7 @@ import Slider from 'react-slick';
 // import './SlideBannerSlick.scss';
 import useStores from 'stores/useStores';
 import Image from 'components/atoms/Image/HomeImage';
-import { pushRoute } from 'childs/lib/router';
+import { pushRoute } from 'lib/router';
 
 function SlideBanner() {
   /**

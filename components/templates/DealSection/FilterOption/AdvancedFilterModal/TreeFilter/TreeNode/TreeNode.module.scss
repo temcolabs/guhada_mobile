@@ -51,13 +51,13 @@ $guhadaColorLight: #8c6ed5;
         padding-right: 5px;
         width: 16px;
         height: 16px;
-        background-image: url('/static/icon/filter_checkbox_inactive.png');
+        background-image: url('/public/icon/filter_checkbox_inactive.png');
         background-size: 16px;
         background-repeat: no-repeat;
       }
 
       &.checked::before {
-        background-image: url('/static/icon/filter_checkbox_selected.png');
+        background-image: url('/public/icon/filter_checkbox_selected.png');
       }
     }
 

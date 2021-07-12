@@ -5,9 +5,9 @@ import CommentItem from './CommentItem';
 import CommentInput from './CommentInput';
 import { useObserver } from 'mobx-react';
 import { useBBSStore } from 'stores/bbs';
-import jumpToAnchor from 'childs/lib/dom/jumpToAnchor';
+import jumpToAnchor from 'lib/dom/jumpToAnchor';
 import ReportModal from 'components/claim/report/ReportModal';
-import { default as reportTargetEnum } from 'childs/lib/constant/reportTarget';
+import { default as reportTargetEnum } from 'lib/constant/reportTarget';
 import { ArticleIdContext } from 'template/community/BBSArticleView';
 import MoreButton from 'components/common/MoreButton';
 /**

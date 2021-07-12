@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import css from './Loading.module.scss';
-import { isBrowser } from 'childs/lib/common/isServer';
+import { isBrowser } from 'lib/common/isServer';
 import cn from 'classnames';
 
 export const LoadingSpinner = ({ isAbsolute = false }) => {

@@ -1,6 +1,6 @@
-import API from 'childs/lib/API';
+import API from 'lib/API';
 import _ from 'lodash';
-import { devLog, devGroup, devGroupEnd } from 'childs/lib/common/devLog';
+import { devLog, devGroup, devGroupEnd } from 'lib/common/devLog';
 import { root } from 'store';
 
 export default {

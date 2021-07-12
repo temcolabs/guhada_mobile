@@ -16,7 +16,7 @@ import SubmitButton, {
 import KeyValueTable from 'components/mypage/form/KeyValueTable';
 import RadioGroup from 'components/mypage/form/RadioGroup';
 import tableCSS from 'components/mypage/form/KeyValueTable.module.scss';
-import addCommaToNum from 'childs/lib/common/addCommaToNum';
+import addCommaToNum from 'lib/common/addCommaToNum';
 import NoInvoiceWarning from 'components/mypage/orderCancel/NoInvoiceWarning';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
 import { Form, Field } from 'react-final-form';
@@ -26,23 +26,23 @@ import {
   required,
   requiredWithMessage,
   maxValue,
-} from 'childs/lib/common/finalFormValidators';
-import addHyphenToMobile from 'childs/lib/string/addHyphenToMobile';
+} from 'lib/common/finalFormValidators';
+import addHyphenToMobile from 'lib/string/addHyphenToMobile';
 import {
   claimShippingPriceTypes,
   claimShippingPriceOptions,
-} from 'childs/lib/constant/order/claimShippingPrice';
-import isDev from 'childs/lib/common/isDev';
-import { devLog } from 'childs/lib/common/devLog';
+} from 'lib/constant/order/claimShippingPrice';
+import isDev from 'lib/common/isDev';
+import { devLog } from 'lib/common/devLog';
 import {
   alreadySentTypes,
   alreadySentOptions,
-} from 'childs/lib/constant/order/alreadySent';
+} from 'lib/constant/order/alreadySent';
 import RefundInfo from 'components/mypage/orderCancel/RefundInfo';
-import paymentMethod from 'childs/lib/constant/order/paymentMethod';
+import paymentMethod from 'lib/constant/order/paymentMethod';
 import FormButton from 'components/mypage/form/FormButton';
-import accountService from 'childs/lib/API/order/accountService';
-import { isFalsey } from 'childs/lib/common/isTruthy';
+import accountService from 'lib/API/order/accountService';
+import { isFalsey } from 'lib/common/isTruthy';
 import RefundAccountInfoForm from 'components/mypage/orderCancel/RefundAccountInfoForm';
 import TextArea from 'components/mypage/form/TextArea';
 import _ from 'lodash';
@@ -254,7 +254,7 @@ class OrderReturnForm extends Component {
   /**
    * 수량 변경
    */
-  handleChangeQuantity = quantity => {
+  handleChangeQuantity = (quantity) => {
     // 샹금액 변경
     this.props.orderClaimForm.getRefundResponse({
       orderProdGroupId: this.orderProdGroupId,
@@ -557,7 +557,7 @@ class OrderReturnForm extends Component {
           devLog(`formState errors`, errors);
 
           const returnReasonLabel = orderClaimForm.returnReasonOptions.find(
-            o => o.value === values[this.fields.returnReason]
+            (o) => o.value === values[this.fields.returnReason]
           )?.label;
 
           return (
@@ -608,7 +608,7 @@ class OrderReturnForm extends Component {
                                 maxValue(claimData?.quantity)
                               )}
                             >
-                              {props => {
+                              {(props) => {
                                 return (
                                   <QuantityControl
                                     initialValue={
@@ -617,7 +617,7 @@ class OrderReturnForm extends Component {
                                       ]
                                     }
                                     max={claimData?.quantity}
-                                    onChange={value => {
+                                    onChange={(value) => {
                                       props.input.onChange(value);
                                       this.handleChangeQuantity(value);
                                     }}
@@ -650,7 +650,7 @@ class OrderReturnForm extends Component {
                                 placeholder="반품 사유를 선택해주세요."
                                 options={orderClaimForm.returnReasonOptions}
                                 value={orderClaimForm.returnReasonOptions.find(
-                                  o =>
+                                  (o) =>
                                     o.value === values[this.fields.returnReason]
                                 )}
                                 onChange={({ value, userFault }) => {
@@ -718,12 +718,12 @@ class OrderReturnForm extends Component {
 
                       <div className={css.radioWrapper}>
                         <Field name={this.fields.isAlreadySent}>
-                          {props => {
+                          {(props) => {
                             return (
                               <RadioGroup
                                 name={this.fields.isAlreadySent}
                                 options={alreadySentOptions}
-                                onChange={value => {
+                                onChange={(value) => {
                                   props.input.onChange(value);
 
                                   this.handleChangeIsAlreadySent({
@@ -753,15 +753,15 @@ class OrderReturnForm extends Component {
                                   : undefined
                               }
                             >
-                              {props => (
+                              {(props) => (
                                 <Select
                                   placeholder="택배사를 선택해주세요"
                                   options={orderClaimForm.shipCompanyOptions}
-                                  onChange={option => {
+                                  onChange={(option) => {
                                     props.input.onChange(option.value);
                                   }}
                                   value={orderClaimForm.shipCompanyOptions.find(
-                                    o => o.value === props.input.value
+                                    (o) => o.value === props.input.value
                                   )}
                                 />
                               )}
@@ -777,7 +777,7 @@ class OrderReturnForm extends Component {
                                   : undefined
                               }
                             >
-                              {props => (
+                              {(props) => (
                                 <Input
                                   placeholder="송장번호를 입력해주세요."
                                   type="number"
@@ -831,7 +831,7 @@ class OrderReturnForm extends Component {
                           name={this.fields.claimShippingPriceType}
                           validate={required}
                         >
-                          {props => (
+                          {(props) => (
                             <RadioGroup
                               name={this.fields.claimShippingPriceType}
                               options={claimShippingPriceOptions}
@@ -857,12 +857,11 @@ class OrderReturnForm extends Component {
                         formApi={formApi}
                       />
                       <div className={css.refundWarning}>
-                        &middot; 무통장 입금 후 주문취소 또는 반품이 발생할 경우 취소/반품
-                        완료일로부터 1~2영업일(주말, 공휴일 제외)이내에 입력하신
-                        계좌로 환불처리 됩니다.
+                        &middot; 무통장 입금 후 주문취소 또는 반품이 발생할 경우
+                        취소/반품 완료일로부터 1~2영업일(주말, 공휴일
+                        제외)이내에 입력하신 계좌로 환불처리 됩니다.
                       </div>
                     </div>
-                    
                   )}
 
                   <RefundInfo />

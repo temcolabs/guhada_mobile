@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import cn from 'classnames';
 import { useHorizontalArrows } from 'hooks';
-import { pushRoute } from 'childs/lib/router';
+import { pushRoute } from 'lib/router';
 
 const defaultMenuList = [
   ['홈', '/'],

@@ -1,16 +1,16 @@
 import React from 'react';
 import css from './ReviewModifyItem.module.scss';
-import addCommaToNum from 'childs/lib/common/addCommaToNum';
+import addCommaToNum from 'lib/common/addCommaToNum';
 import StarItem from './StarItem';
 import moment from 'moment';
-import { dateFormat } from 'childs/lib/constant';
+import { dateFormat } from 'lib/constant';
 import { toJS } from 'mobx';
 import StarCount from './StarCount';
-import { pushRoute } from 'childs/lib/router';
+import { pushRoute } from 'lib/router';
 import cn from 'classnames';
-import isTruthy from 'childs/lib/common/isTruthy';
+import isTruthy from 'lib/common/isTruthy';
 import ReviewReply from 'components/productdetail/ReviewReply';
-import API from 'childs/lib/API';
+import API from 'lib/API';
 export default function ReviewModifyItem({
   productReview = {
     // 내가 작성한 리뷰
@@ -219,7 +219,7 @@ export default function ReviewModifyItem({
           <div className={css.contents}>
             {Array.isArray(toJS(productReview.reviewPhotos))
               ? productReview.reviewPhotos
-                  .filter(p => p.photoOrder === 0)
+                  .filter((p) => p.photoOrder === 0)
                   .slice(0, 1)
                   .map((photo, photoIndex) => (
                     <div

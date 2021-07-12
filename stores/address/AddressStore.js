@@ -1,10 +1,10 @@
 /* eslint-disable no-undef */
 import { observable, action } from 'mobx';
 import { autoHypenPhone } from '../../utils';
-import API from 'childs/lib/API';
+import API from 'lib/API';
 import _ from 'lodash';
 import Router from 'next/router';
-import { devLog } from 'childs/lib/common/devLog';
+import { devLog } from 'lib/common/devLog';
 
 const isServer = typeof window === 'undefined';
 export default class AddressStore {
@@ -43,10 +43,10 @@ export default class AddressStore {
 
       API.user
         .get(`/users/${this.userId}/shipping-addresses`)
-        .then(res => {
+        .then((res) => {
           if (res.status === 200) {
             this.addressList.list = res.data.data;
-            this.addressList.list = this.addressList.list.map(address => {
+            this.addressList.list = this.addressList.list.map((address) => {
               return Object.assign({}, address, {
                 recipientMobile: autoHypenPhone(address.recipientMobile),
               });
@@ -55,7 +55,7 @@ export default class AddressStore {
             this.status.pageStatus = true;
           }
         })
-        .catch(err => {
+        .catch((err) => {
           this.root.alert.showAlert({
             content: err.data.message,
           });
@@ -82,7 +82,7 @@ export default class AddressStore {
 
   // 배송지 수정
   @action
-  addressEditStart = id => {
+  addressEditStart = (id) => {
     this.addressList.currentUseAddressId = id;
     this.addressList.currentEditAddressId = id;
 
@@ -136,19 +136,17 @@ export default class AddressStore {
 
   //--------------------- 배송지 목록 수정 저장(DB) ---------------------
   @action
-  addressEditSave = id => {
+  addressEditSave = (id) => {
     this.addressList.currentEditAddressId = 0;
     let targetId = id;
     let data = this.addressList.tempEditAddress;
 
     API.user
       .put(
-        `/users/${
-          this.userId
-        }/shipping-addresses?shippingAddressId=${targetId}`,
+        `/users/${this.userId}/shipping-addresses?shippingAddressId=${targetId}`,
         data
       )
-      .then(res => {
+      .then((res) => {
         this.addressList.list.map((list, index) => {
           if (list.id === data.id) {
             this.addressList.list[index] = data;
@@ -161,7 +159,7 @@ export default class AddressStore {
           content: '배송지 수정완료',
         });
       })
-      .catch(res => {
+      .catch((res) => {
         devLog(res);
         this.root.alert.showAlert({
           content: res.data.message,
@@ -205,7 +203,7 @@ export default class AddressStore {
 
   //--------------------- 배송지 목록 삭제(DB) ---------------------
   @action
-  addressDeleteConfirm = id => {
+  addressDeleteConfirm = (id) => {
     let targetId = id;
 
     this.root.alert.showConfirm({
@@ -218,12 +216,12 @@ export default class AddressStore {
     });
   };
 
-  addressDelete = targetId => {
+  addressDelete = (targetId) => {
     API.user
       .delete(
         `/users/${this.userId}/shipping-addresses?shippingAddressId=${targetId}`
       )
-      .then(res => {
+      .then((res) => {
         this.root.alert.showAlert({
           content: '배송지 삭제완료.',
         });
@@ -243,7 +241,7 @@ export default class AddressStore {
           }
         });
       })
-      .catch(err => {
+      .catch((err) => {
         devLog(err);
         this.root.alert.showAlert({
           content: res.data.message,

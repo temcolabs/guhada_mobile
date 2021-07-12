@@ -1,8 +1,8 @@
 import { observable, action, computed, reaction } from 'mobx';
 import _ from 'lodash';
-import { isBrowser } from 'childs/lib/common/isServer';
-import API from 'childs/lib/API';
-import { devWarn } from 'childs/lib/common/devLog';
+import { isBrowser } from 'lib/common/isServer';
+import API from 'lib/API';
+import { devWarn } from 'lib/common/devLog';
 import {
   ALL_CATEGORY_ID,
   POPULAR_CATEGORY_ID,
@@ -28,7 +28,7 @@ export default class CategoryFiterStore {
   // 옵션 객체 형태로 변경. array of { label: string, value: any }
   @computed
   get categoryFilterOptions() {
-    const options = this.categoryFilters.map(filter => ({
+    const options = this.categoryFilters.map((filter) => ({
       value: filter.id,
       label: filter.name,
       communityCategoryId: filter.communityCategoryId,
@@ -55,7 +55,7 @@ export default class CategoryFiterStore {
    * 카테고리(게시판)의 필터를 가져온다
    */
   @action
-  getCategoryFilters = async communityCategoryId => {
+  getCategoryFilters = async (communityCategoryId) => {
     this.communityCategoryId = communityCategoryId;
 
     // 커뮤니티(게시판 카테고리) 아이디는 숫자
@@ -78,9 +78,10 @@ export default class CategoryFiterStore {
   /**
    * 아이디로 카테고리 필터 가져오기
    */
-  getCategoryFilterById = categoryFilterId => {
+  getCategoryFilterById = (categoryFilterId) => {
     const target =
-      this.categoryFilters.find(c => c.id === parseInt(categoryFilterId)) || {};
+      this.categoryFilters.find((c) => c.id === parseInt(categoryFilterId)) ||
+      {};
     return target;
   };
 

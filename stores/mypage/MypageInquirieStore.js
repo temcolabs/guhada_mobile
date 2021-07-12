@@ -1,6 +1,6 @@
 import { observable, action, computed } from 'mobx';
-import API from 'childs/lib/API';
-import { isBrowser } from 'childs/lib/common/isServer';
+import API from 'lib/API';
+import { isBrowser } from 'lib/common/isServer';
 
 export default class MypageInquirieStore {
   @observable isOnRequest = false;
@@ -19,12 +19,12 @@ export default class MypageInquirieStore {
   @observable status = '';
 
   @action
-  setPage = page => {
+  setPage = (page) => {
     this.page = page;
   };
 
   @action
-  setStatus = status => {
+  setStatus = (status) => {
     this.status = status;
   };
 
@@ -36,7 +36,7 @@ export default class MypageInquirieStore {
         `/users/my-page/inquiries?page=${page -
           1}&size=5&sort=id,desc&status=${status}`
       )
-      .then(res => {
+      .then((res) => {
         this.inquiries = res.data.data;
       })
       .finally(() => {
@@ -53,11 +53,11 @@ export default class MypageInquirieStore {
         content,
         private: isPrivate,
       })
-      .then(res => {
+      .then((res) => {
         this.root.alert.showAlert('등록되었습니다.');
         onSuccess();
       })
-      .catch(e => {
+      .catch((e) => {
         this.root.alert.showAlert('오류가 발생했습니다.');
       });
   };
@@ -70,7 +70,7 @@ export default class MypageInquirieStore {
         inquiryId: inquiry.id,
         privateInquiry: inquiry.private,
       })
-      .then(res => {
+      .then((res) => {
         close();
         this.getInquirie();
       });
@@ -80,7 +80,7 @@ export default class MypageInquirieStore {
   deleteInquiry = (inquiry, onSuccess = () => {}) => {
     API.claim
       .delete(`/products/${inquiry.productId}/inquiries/${inquiry.id}`)
-      .then(res => {
+      .then((res) => {
         onSuccess();
         this.getInquirie();
       });

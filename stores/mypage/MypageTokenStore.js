@@ -1,11 +1,11 @@
 import { observable, action, computed } from 'mobx';
 import _ from 'lodash';
 
-import API from 'childs/lib/API';
+import API from 'lib/API';
 
-import blockchainWalletService from 'childs/lib/API/blockchain/blockchainWalletService';
-import { devLog } from 'childs/lib/common/devLog';
-import { isBrowser } from 'childs/lib/common/isServer';
+import blockchainWalletService from 'lib/API/blockchain/blockchainWalletService';
+import { devLog } from 'lib/common/devLog';
+import { isBrowser } from 'lib/common/isServer';
 /**
  * 내 사이즈 관리
  */
@@ -43,7 +43,7 @@ export default class MypageTokenStore {
   @observable tokenHistory;
 
   @action
-  setPage = page => {
+  setPage = (page) => {
     this.page = page;
   };
 

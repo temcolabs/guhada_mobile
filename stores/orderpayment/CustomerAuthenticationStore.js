@@ -1,7 +1,7 @@
 import { observable, action } from 'mobx';
-import API from 'childs/lib/API';
+import API from 'lib/API';
 import _ from 'lodash';
-import { devLog } from 'childs/lib/common/devLog';
+import { devLog } from 'lib/common/devLog';
 const isServer = typeof window === 'undefined';
 
 export default class CustomerAuthentication {
@@ -39,13 +39,13 @@ export default class CustomerAuthentication {
           email,
           name,
         })
-        .then(res => {
+        .then((res) => {
           this.root.alert.showAlert({
             content: '인증메일을 발송했습니다.',
           });
           this.sendMailSuccess = true;
         })
-        .catch(err => {
+        .catch((err) => {
           devLog(`/verify/sendEmail err ${err}`);
           // this.root.alert.showAlert({
           //   content: `${_.get(err, 'data.message') || 'ERROR'}`,
@@ -55,7 +55,7 @@ export default class CustomerAuthentication {
   };
 
   @action
-  emailAuthenticationCode = e => {
+  emailAuthenticationCode = (e) => {
     this.emailVerifyCode = e.target.value;
   };
 
@@ -67,13 +67,13 @@ export default class CustomerAuthentication {
         verificationTarget: this.email,
         verificationTargetType: 'EMAIL',
       })
-      .then(res => {
+      .then((res) => {
         API.user
           .put(`users/email-verify`, {
             email: this.email,
             verificationNumber: this.emailVerifyCode,
           })
-          .then(res => {
+          .then((res) => {
             this.emailAuthentication = true;
             this.root.orderpayment.orderUserInfo.emailVerify = true;
             this.emailValid = true;
@@ -82,7 +82,7 @@ export default class CustomerAuthentication {
             });
             this.sendMailSuccess = false;
           })
-          .catch(err => {
+          .catch((err) => {
             let resultCode = _.get(err, 'data.resultCode');
             devLog(err, 'users/email-verify err');
             if (resultCode) {
@@ -92,7 +92,7 @@ export default class CustomerAuthentication {
             }
           });
       })
-      .catch(err => {
+      .catch((err) => {
         let resultCode = _.get(err, 'data.resultCode');
         devLog(err, 'verify err');
         if (resultCode) {
@@ -104,7 +104,7 @@ export default class CustomerAuthentication {
   };
 
   @action
-  emailInput = e => {
+  emailInput = (e) => {
     this.email = e.target.value;
   };
   @action

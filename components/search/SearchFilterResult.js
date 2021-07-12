@@ -6,13 +6,13 @@ import { inject } from 'mobx-react';
 import { useObserver } from 'mobx-react';
 import { compose } from 'lodash/fp';
 import { withRouter } from 'next/router';
-import isTruthy from 'childs/lib/common/isTruthy';
+import isTruthy from 'lib/common/isTruthy';
 import { toJS } from 'mobx';
 import { getCategory } from 'utils';
-import addCommaToArray from 'childs/lib/string/addCommaToArray';
+import addCommaToArray from 'lib/string/addCommaToArray';
 import { isArray } from 'util';
-import { devLog } from 'childs/lib/common/devLog';
-import { priceOption } from 'childs/lib/constant/filter/price';
+import { devLog } from 'lib/common/devLog';
+import { priceOption } from 'lib/constant/filter/price';
 
 const enhancer = compose(inject('searchitem', 'seller'), withRouter);
 
@@ -233,7 +233,7 @@ function SearchFilterResult({ searchitem, router, seller }) {
               </button>
             )}
             <img
-              src={'/static/icon/btn_filter_reset@3x.png'}
+              src={'/public/icon/btn_filter_reset@3x.png'}
               width={93}
               height={27}
               onClick={() => clearFilter()}

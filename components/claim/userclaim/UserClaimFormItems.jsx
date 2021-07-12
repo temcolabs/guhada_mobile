@@ -14,7 +14,7 @@ import {
   composeValidators,
   required,
   notEmptyString,
-} from 'childs/lib/common/finalFormValidators';
+} from 'lib/common/finalFormValidators';
 
 const UserClaimFormItemsWithProps = (props) => {
   const {

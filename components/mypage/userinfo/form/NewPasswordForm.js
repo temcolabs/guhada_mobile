@@ -8,11 +8,11 @@ import {
   mustBePassword,
   delayedValidation,
   validateStringHasLength,
-} from 'childs/lib/common/finalFormValidators';
+} from 'lib/common/finalFormValidators';
 import { UserEditFormContext } from 'template/mypage/UserInfomation';
 import { useObserver } from 'mobx-react';
 import ErrorMessage from 'components/mypage/form/ErrorMessage';
-import isTruthy from 'childs/lib/common/isTruthy';
+import isTruthy from 'lib/common/isTruthy';
 
 /**
  * 새 비밀번호 확인

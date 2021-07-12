@@ -4,7 +4,7 @@ import cn from 'classnames';
 import ToolbarCategory from './ToolbarCategory';
 import ToolbarBrand from './ToolbarBrand';
 import { useObserver } from 'mobx-react';
-import { pushRoute } from 'childs/lib/router';
+import { pushRoute } from 'lib/router';
 import useStores from 'stores/useStores';
 
 function ToolBar() {

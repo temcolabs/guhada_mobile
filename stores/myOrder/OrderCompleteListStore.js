@@ -1,16 +1,16 @@
 import React from 'react';
 import _ from 'lodash';
 import { observable, action, computed } from 'mobx';
-import API from 'childs/lib/API';
-import { isBrowser } from 'childs/lib/common/isServer';
+import API from 'lib/API';
+import { isBrowser } from 'lib/common/isServer';
 import moment from 'moment';
-import { pushRoute } from 'childs/lib/router';
+import { pushRoute } from 'lib/router';
 import qs from 'qs';
-import isFunction from 'childs/lib/common/isFunction';
-import orderService from 'childs/lib/API/order/orderService';
-import { devLog } from 'childs/lib/common/devLog';
-import isTruthy from 'childs/lib/common/isTruthy';
-import pointProcessService from 'childs/lib/API/benefit/pointProcessService';
+import isFunction from 'lib/common/isFunction';
+import orderService from 'lib/API/order/orderService';
+import { devLog } from 'lib/common/devLog';
+import isTruthy from 'lib/common/isTruthy';
+import pointProcessService from 'lib/API/benefit/pointProcessService';
 
 const reviewModalType = {
   WRITE: 'Write',
@@ -68,7 +68,7 @@ export default class OrderListStore {
   @computed
   get targetOrderItem() {
     return this.list.find(
-      item => item.orderProdGroupId === this.targetOrderProdGroupId
+      (item) => item.orderProdGroupId === this.targetOrderProdGroupId
     );
   }
 
@@ -139,7 +139,7 @@ export default class OrderListStore {
   };
 
   @action
-  getMyOrderStatus = async params => {
+  getMyOrderStatus = async (params) => {
     try {
       const { data } = await API.order.get(`/order/my-orders-status`, {
         params,
@@ -176,10 +176,10 @@ export default class OrderListStore {
         });
         const result = data.data;
         const { orderItemList, count, page, totalPage } = result;
-        
+
         let purchaseIdLst = [];
-        orderItemList.forEach(function(item, index){
-          if(purchaseIdLst.includes(item.purchaseId)){
+        orderItemList.forEach(function(item, index) {
+          if (purchaseIdLst.includes(item.purchaseId)) {
             item.hasSamePurchseId = true;
           }
           purchaseIdLst.push(item.purchaseId);
@@ -218,7 +218,7 @@ export default class OrderListStore {
   };
 
   @action
-  toggleOrderConfirmModal = isOpen => {
+  toggleOrderConfirmModal = (isOpen) => {
     if (_.isNil(isOpen)) {
       this.isOrderConfirmModalOpen = !this.isOrderConfirmModalOpen;
     } else {
@@ -247,16 +247,16 @@ export default class OrderListStore {
 
       // 구매 확정시 포인트
       dueSavePointOnConfirm: dueSavePointList?.find(
-        item => item.dueSaveType === 'BUY'
+        (item) => item.dueSaveType === 'BUY'
       )?.totalPoint,
 
       // 리뷰 작성시 포인트
       dueSavePointOnReview: dueSavePointList?.find(
-        item => item.dueSaveType === 'REVIEW'
+        (item) => item.dueSaveType === 'REVIEW'
       )?.totalPoint,
 
       dueSavePointOnFirstPurchase: dueSavePointList?.find(
-        item => item.dueSaveType === 'FIRST_ORDER'
+        (item) => item.dueSaveType === 'FIRST_ORDER'
       )?.totalPoint,
 
       onConfirm: async () => {
@@ -464,8 +464,8 @@ export default class OrderListStore {
    * 주문 목록 중에서 상품 데이터 1건 가져옴
    */
   @action
-  getOrderProdGroupById = orderProdGroupId => {
-    return this.list.find(item => item.orderProdGroupId === orderProdGroupId);
+  getOrderProdGroupById = (orderProdGroupId) => {
+    return this.list.find((item) => item.orderProdGroupId === orderProdGroupId);
   };
 
   /**

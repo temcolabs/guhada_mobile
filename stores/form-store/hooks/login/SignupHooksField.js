@@ -1,8 +1,8 @@
 import _ from 'lodash';
-import API from 'childs/lib/API';
+import API from 'lib/API';
 import Form from '../../_.forms';
-import { devLog } from 'childs/lib/common/devLog';
-import { passwordValidMessage } from 'childs/lib/string/isValidPasswordStr';
+import { devLog } from 'lib/common/devLog';
+import { passwordValidMessage } from 'lib/string/isValidPasswordStr';
 
 const debounceCheckEmail = _.debounce(async (email, initiation, callback) => {
   initiation();
@@ -18,7 +18,7 @@ const debounceCheckEmail = _.debounce(async (email, initiation, callback) => {
   }
 }, 400);
 
-const debounceValidate = _.debounce(validateFunc => {
+const debounceValidate = _.debounce((validateFunc) => {
   validateFunc();
 }, 500);
 
@@ -26,7 +26,7 @@ export default {
   onInit() {
     // override default bindings for all text inputs
     this.name === 'Register Material' &&
-      this.each(field => {
+      this.each((field) => {
         field.type === 'text' && field.set('bindings', 'MaterialTextField');
       });
   },
@@ -63,7 +63,7 @@ export default {
 
     if (field.path === 'email') {
       form.$('emailCheck').set('value', '');
-      field.validate({ showErrors: false }).then(field => {
+      field.validate({ showErrors: false }).then((field) => {
         if (field.value.length === 0) {
           debounceCheckEmail.cancel();
           field.validate({ showErrors: true });

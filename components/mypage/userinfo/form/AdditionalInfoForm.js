@@ -5,19 +5,16 @@ import KeyValueTable from 'components/mypage/form/KeyValueTable';
 import Select from 'components/mypage/form/Select';
 import RadioGroup from 'components/mypage/form/RadioGroup';
 import FormButton from 'components/mypage/form/FormButton';
-import getRangeSelectOptions from 'childs/lib/common/getRangeSelectOptions';
+import getRangeSelectOptions from 'lib/common/getRangeSelectOptions';
 import MySizePanel from './MySizePanel';
 import moment from 'moment';
 import isNil from 'lodash/isNil';
 import { inject, observer } from 'mobx-react';
-import { devLog } from 'childs/lib/common/devLog';
+import { devLog } from 'lib/common/devLog';
 import { UserEditFormContext } from 'template/mypage/UserInfomation';
 import { Field } from 'react-final-form';
-import {
-  composeValidators,
-  required,
-} from 'childs/lib/common/finalFormValidators';
-import padZeroToSingleDigit from 'childs/lib/string/padZeroToSingleDigit';
+import { composeValidators, required } from 'lib/common/finalFormValidators';
+import padZeroToSingleDigit from 'lib/string/padZeroToSingleDigit';
 
 /**
  * component state 기반으로 만들었다가 final form 적용하는 과정에서 코드가 필요 이상으로 지저분해진 컴포넌트.
@@ -142,7 +139,7 @@ class AdditionalInfoForm extends Component {
     DAY: 'day',
   };
 
-  getPartialBirth = part => birth => {
+  getPartialBirth = (part) => (birth) => {
     const partials = birth.split('-');
 
     if (partials.length !== 3) {
@@ -197,13 +194,13 @@ class AdditionalInfoForm extends Component {
                             options={yearOptions}
                             placeholder="년도"
                             value={yearOptions.find(
-                              o =>
+                              (o) =>
                                 o.value ===
                                 this.getPartialBirth(this.birthPartials.YEAR)(
                                   input.value
                                 )
                             )}
-                            onChange={option => {
+                            onChange={(option) => {
                               this.handleChangeBirth(this.birthPartials.YEAR)({
                                 value: option.value,
                                 prevBirth: input.value,
@@ -221,13 +218,13 @@ class AdditionalInfoForm extends Component {
                             options={monthOptions}
                             placeholder="월"
                             value={monthOptions.find(
-                              o =>
+                              (o) =>
                                 o.value ===
                                 this.getPartialBirth(this.birthPartials.MONTH)(
                                   input.value
                                 )
                             )}
-                            onChange={option =>
+                            onChange={(option) =>
                               this.handleChangeBirth(this.birthPartials.MONTH)({
                                 value: option.value,
                                 prevBirth: input.value,
@@ -242,13 +239,13 @@ class AdditionalInfoForm extends Component {
                             options={dateOptions}
                             placeholder="일"
                             value={dateOptions.find(
-                              o =>
+                              (o) =>
                                 o.value ===
                                 this.getPartialBirth(this.birthPartials.DAY)(
                                   input.value
                                 )
                             )}
-                            onChange={option =>
+                            onChange={(option) =>
                               this.handleChangeBirth(this.birthPartials.DAY)({
                                 value: option.value,
                                 prevBirth: input.value,

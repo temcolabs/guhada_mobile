@@ -1,9 +1,9 @@
 import { useReducer, useCallback } from 'react';
 import _ from 'lodash';
 import useStores from 'stores/useStores';
-import { devLog, devGroup, devGroupEnd } from 'childs/lib/common/devLog';
-import { isImageFile } from 'childs/lib/common/isImageFile';
-import { uploadImagePath } from 'childs/lib/API/gateway/fileUploadService';
+import { devLog, devGroup, devGroupEnd } from 'lib/common/devLog';
+import { isImageFile } from 'lib/common/isImageFile';
+import { uploadImagePath } from 'lib/API/gateway/fileUploadService';
 
 // 참조) https://dev.claim.guhada.com/swagger-ui.html#/REPORT/reportUsingPOST
 const defaultEditingState = {

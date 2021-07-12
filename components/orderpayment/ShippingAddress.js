@@ -3,8 +3,8 @@ import { inject, observer } from 'mobx-react';
 import css from './ShippingAddress.module.scss';
 import ShippingMessageSelect from './ShippingMessageSelect';
 import AddressChangeModal from './modal/AddressChangeModal';
-import addHyphenToMobile from 'childs/lib/string/addHyphenToMobile';
-import { devLog } from 'childs/lib/common/devLog';
+import addHyphenToMobile from 'lib/string/addHyphenToMobile';
+import { devLog } from 'lib/common/devLog';
 import _ from 'lodash';
 @inject('orderpayment')
 @observer
@@ -60,7 +60,7 @@ class ShippingAddress extends Component {
             {orderpayment.status.shppingRequestSelfStatus ? (
               <div className={css.shippingMessageRequest}>
                 <textarea
-                  onChange={event => {
+                  onChange={(event) => {
                     orderpayment.selfShippingRequestOption(event, '기본배송');
                   }}
                   placeholder="50자 내외로 입력해주세요"

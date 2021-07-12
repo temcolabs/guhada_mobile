@@ -6,7 +6,7 @@ export default function NoMyArticles() {
     <div className={css.wrap}>
       <div>
         <img
-          src="/static/icon/community/icon-wirte-non@3x.png"
+          src="/public/icon/community/icon-wirte-non@3x.png"
           alt="icon-wirte-non@3x.png"
           className={css.notiImage}
         />

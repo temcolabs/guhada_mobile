@@ -10,9 +10,9 @@ import {
   delayedValidation,
   validateStringHasLength,
   nickNameLength,
-} from 'childs/lib/common/finalFormValidators';
-import debouncePromise from 'childs/lib/common/debouncePromise';
-import userService from 'childs/lib/API/user/userService';
+} from 'lib/common/finalFormValidators';
+import debouncePromise from 'lib/common/debouncePromise';
+import userService from 'lib/API/user/userService';
 import { UserEditFormContext } from 'template/mypage/UserInfomation';
 // import useStores from 'stores/useStores';
 import { useObserver } from 'mobx-react';

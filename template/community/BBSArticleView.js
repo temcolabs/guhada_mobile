@@ -13,14 +13,11 @@ import { compose } from 'lodash/fp';
 import ArticleContents from 'components/community/article/ArticleContents';
 import useStores from 'stores/useStores';
 import useBBSSearchState from 'components/community/list/useBBSSearchState';
-import { pushRoute } from 'childs/lib/router';
+import { pushRoute } from 'lib/router';
 import RelatedArticleList from 'components/community/article/RelatedArticleList';
 import BoardSearch from 'components/community/list/BoardSearch';
 import Footer from 'components/footer/Footer';
-const enhancer = compose(
-  withRouter,
-  observer
-);
+const enhancer = compose(withRouter, observer);
 
 export const ArticleIdContext = React.createContext(null);
 

@@ -1,4 +1,4 @@
-import { pushRoute } from 'childs/lib/router';
+import { pushRoute } from 'lib/router';
 import React from 'react';
 import css from './SignUpSuccess.module.scss';
 

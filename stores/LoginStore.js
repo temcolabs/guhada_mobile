@@ -1,20 +1,20 @@
 import { computed, observable, action } from 'mobx';
 import Cookies from 'js-cookie';
-import API from 'childs/lib/API';
-import localStorage from 'childs/lib/common/localStorage';
-import sessionStorage from 'childs/lib/common/sessionStorage';
+import API from 'lib/API';
+import localStorage from 'lib/common/localStorage';
+import sessionStorage from 'lib/common/sessionStorage';
 import Router from 'next/router';
-import { loginStatus } from 'childs/lib/constant';
-import key from 'childs/lib/constant/key';
-import { isBrowser } from 'childs/lib/common/isServer';
-import { pushRoute } from 'childs/lib/router';
-import { snsTypes } from 'childs/lib/constant/sns';
+import { loginStatus } from 'lib/constant';
+import key from 'lib/constant/key';
+import { isBrowser } from 'lib/common/isServer';
+import { pushRoute } from 'lib/router';
+import { snsTypes } from 'lib/constant/sns';
 import _ from 'lodash';
-import { devLog } from 'childs/lib/common/devLog';
-import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
-import entryService from 'childs/lib/API/user/entryService';
-import isDev from 'childs/lib/common/isDev';
-import isTruthy from 'childs/lib/common/isTruthy';
+import { devLog } from 'lib/common/devLog';
+import widerplanetTracker from 'lib/tracking/widerplanet/widerplanetTracker';
+import entryService from 'lib/API/user/entryService';
+import isDev from 'lib/common/isDev';
+import isTruthy from 'lib/common/isTruthy';
 const isServer = typeof window === 'undefined';
 
 export default class LoginStore {

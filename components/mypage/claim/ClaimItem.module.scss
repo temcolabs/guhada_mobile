@@ -34,7 +34,7 @@ $imageBoxSize: 80px;
   right: 0;
   width: 25px;
   height: 25px;
-  background: url('/static/icon/mypage-icon-delete@2x.png') no-repeat center;
+  background: url('/public/icon/mypage-icon-delete@2x.png') no-repeat center;
   background-size: 20px;
 }
 
@@ -151,7 +151,7 @@ $imageBoxSize: 80px;
       right: 0;
       width: 19px;
       height: 19px;
-      background: url('/static/icon/detail_icon_arrow_open.png') no-repeat
+      background: url('/public/icon/detail_icon_arrow_open.png') no-repeat
         center;
       background-size: contain;
     }
@@ -196,7 +196,7 @@ $imageBoxSize: 80px;
   flex: 0 0 56px;
   color: $blue-purple;
   padding-left: 12px;
-  background: url('/static/icon/mypage/indentgrid-blue-purple.png') no-repeat
+  background: url('/public/icon/mypage/indentgrid-blue-purple.png') no-repeat
     top left;
   background-size: 12px;
   font-size: 13px;

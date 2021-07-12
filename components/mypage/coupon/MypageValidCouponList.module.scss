@@ -85,7 +85,7 @@
         position: relative;
         height: 140px;
         min-width: 100px;
-        background: url('/static/icon/mypage/coupon@3x.png') no-repeat;
+        background: url('/public/icon/mypage/coupon@3x.png') no-repeat;
         background-size: cover;
         background-position: center;
 
@@ -121,7 +121,7 @@
           position: absolute;
           top: 5px;
           right: 5px;
-          background: url('/static/icon/mypage/coupon-del-icon@3x.png')
+          background: url('/public/icon/mypage/coupon-del-icon@3x.png')
             no-repeat;
           background-position: center;
           background-size: cover;
@@ -154,7 +154,7 @@
     margin-top: 40px;
     .detailBtn {
       margin-left: 4px;
-      background: url('/static/icon/detail_btn_more_open.png') no-repeat;
+      background: url('/public/icon/detail_btn_more_open.png') no-repeat;
       background-size: cover;
       background-position: center;
       width: 16px;

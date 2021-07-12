@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const BannerImage = styled.div`
-  background-image: url('/static/images/luckydraw/luckydraw_top.png');
+  background-image: url('/public/images/luckydraw/luckydraw_top.png');
   background-position: center;
   background-repeat: no-repeat;
   height: 320px;
@@ -18,4 +18,3 @@ export const BannerIcon = styled.img`
   left: 50%;
   transform: translate(-50%, -50%);
 `;
-

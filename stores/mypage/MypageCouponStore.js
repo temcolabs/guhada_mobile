@@ -1,7 +1,7 @@
 import { observable, action, toJS } from 'mobx';
-import API from 'childs/lib/API';
-import { isBrowser } from 'childs/lib/common/isServer';
-import { devLog } from 'childs/lib/common/devLog';
+import API from 'lib/API';
+import { isBrowser } from 'lib/common/isServer';
+import { devLog } from 'lib/common/devLog';
 
 export default class MypageCouponStore {
   constructor(root) {
@@ -33,9 +33,7 @@ export default class MypageCouponStore {
   getVaildCoupon = ({ page = 1 }) => {
     API.benefit
       .get(
-        `/coupon/wallet?isAvailable=true&page=${page}&unitPerPage=${
-          this.itemsCountPerPage
-        }`
+        `/coupon/wallet?isAvailable=true&page=${page}&unitPerPage=${this.itemsCountPerPage}`
       )
       .then((res) => {
         let data = res.data.data;
@@ -81,9 +79,7 @@ export default class MypageCouponStore {
   getInvaildCoupon = ({ page = 1 }) => {
     API.benefit
       .get(
-        `/coupon/wallet?isAvailable=false&page=${page}&unitPerPage=${
-          this.itemsCountPerPage
-        }`
+        `/coupon/wallet?isAvailable=false&page=${page}&unitPerPage=${this.itemsCountPerPage}`
       )
       .then((res) => {
         let data = res.data.data;

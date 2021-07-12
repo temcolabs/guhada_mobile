@@ -1,10 +1,10 @@
 import { observable, action, toJS, computed } from 'mobx';
-import API from 'childs/lib/API';
-import { isBrowser } from 'childs/lib/common/isServer';
+import API from 'lib/API';
+import { isBrowser } from 'lib/common/isServer';
 import { autoHypenPhone } from '../../utils';
 import _ from 'lodash';
-import openDaumAddressSearch from 'childs/lib/common/openDaumAddressSearch';
-import { devLog } from 'childs/lib/common/devLog';
+import openDaumAddressSearch from 'lib/common/openDaumAddressSearch';
+import { devLog } from 'lib/common/devLog';
 import { applyInitialData } from 'store';
 
 export default class MypageAddressStore {
@@ -67,12 +67,12 @@ export default class MypageAddressStore {
 
       API.user
         .get(`/users/${this.userId}/shipping-addresses`)
-        .then(res => {
+        .then((res) => {
           let { data } = res;
           this.addressList = data.data;
           this.pageStatus = true;
         })
-        .catch(err => {
+        .catch((err) => {
           console.error(err);
           this.addressList = [];
           // this.root.alert.showAlert({
@@ -91,7 +91,7 @@ export default class MypageAddressStore {
   };
 
   @action
-  changeAddress = id => {
+  changeAddress = (id) => {
     for (let i = 0; i < this.addressList.length; i++) {
       if (this.addressList[i].id === id) {
         this.currentCheckedId = this.addressList[i].id;
@@ -100,11 +100,11 @@ export default class MypageAddressStore {
   };
 
   @action
-  editAddressModal = id => {
+  editAddressModal = (id) => {
     this.isModalOpen = true;
     this.isNewAdressModal = false;
 
-    this.addressList.forEach(address => {
+    this.addressList.forEach((address) => {
       if (address.id === id) {
         this.editAddress = { ...address };
       }
@@ -112,7 +112,7 @@ export default class MypageAddressStore {
   };
 
   @action
-  deleteAddress = id => {
+  deleteAddress = (id) => {
     this.root.alert.showConfirm({
       content: '해당 배송지를 삭제하시겠습니까?',
       onConfirm: () => {
@@ -120,15 +120,13 @@ export default class MypageAddressStore {
 
         API.user
           .delete(
-            `/users/${
-              this.userId
-            }/shipping-addresses?shippingAddressId=${targetId}`
+            `/users/${this.userId}/shipping-addresses?shippingAddressId=${targetId}`
           )
-          .then(res => {
+          .then((res) => {
             // 목록 새로고침
             this.getAddressList();
           })
-          .catch(err => {
+          .catch((err) => {
             console.error(err);
             this.root.alert.showAlert({
               content: `${_.get(err, 'data.message') ||
@@ -200,11 +198,11 @@ export default class MypageAddressStore {
 
     API.user
       .post(`/users/${this.userId}/shipping-addresses`, this.newAddress)
-      .then(res => {
+      .then((res) => {
         this.getAddressList();
         this.addressModalClose();
       })
-      .catch(err => {
+      .catch((err) => {
         this.root.alert.showAlert({
           content: `${_.get(err, 'data.message') || '오류가 발생했습니다.'}`,
         });
@@ -293,12 +291,10 @@ export default class MypageAddressStore {
 
     API.user
       .put(
-        `/users/${this.userId}/shipping-addresses?shippingAddressId=${
-          this.editAddress.id
-        }`,
+        `/users/${this.userId}/shipping-addresses?shippingAddressId=${this.editAddress.id}`,
         this.editAddress
       )
-      .then(res => {
+      .then((res) => {
         this.getAddressList();
         this.addressModalClose();
       });
@@ -355,14 +351,14 @@ export default class MypageAddressStore {
    */
   @computed
   get myDefaultAddress() {
-    return this.addressList?.find(address => address.defaultAddress === true);
+    return this.addressList?.find((address) => address.defaultAddress === true);
   }
 
   //--------------------- 우편번호 검색 ---------------------
   @action
-  searchZipcode = path => {
+  searchZipcode = (path) => {
     openDaumAddressSearch({
-      onComplete: data => {
+      onComplete: (data) => {
         switch (path) {
           // 신규
           case 'new':
@@ -456,9 +452,7 @@ export default class MypageAddressStore {
 
     try {
       await API.order.post(
-        `/order/order-update/shipping-address?purchaseId=${
-          this.orderAddressPurchaseId
-        }`,
+        `/order/order-update/shipping-address?purchaseId=${this.orderAddressPurchaseId}`,
         postData
       );
       this.root.alert.showAlert('배송지가 변경되었습니다.');

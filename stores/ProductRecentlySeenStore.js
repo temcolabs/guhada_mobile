@@ -1,7 +1,7 @@
 import { observable, action, toJS } from 'mobx';
-import { isBrowser } from 'childs/lib/common/isServer';
-import localStorage from 'childs/lib/common/localStorage';
-import key from 'childs/lib/constant/key';
+import { isBrowser } from 'lib/common/isServer';
+import localStorage from 'lib/common/localStorage';
+import key from 'lib/constant/key';
 import _ from 'lodash';
 
 export default class ProductRecentlySeenStore {
@@ -43,7 +43,7 @@ export default class ProductRecentlySeenStore {
       console.error('[addItem] dealsId가 없습니다.');
     } else {
       const isDuplicate =
-        this.list.findIndex(item => item.dealsId === deals.dealsId) > -1;
+        this.list.findIndex((item) => item.dealsId === deals.dealsId) > -1;
 
       if (!isDuplicate) {
         const listItem = Object.assign({}, toJS(deals));
@@ -59,7 +59,7 @@ export default class ProductRecentlySeenStore {
    * 목록에서 전달된 아이디에 매칭되는 아이템 삭제
    */
   removeItem = (dealsId = '') => {
-    const targetIndex = this.list.findIndex(item => item.dealsId === dealsId);
+    const targetIndex = this.list.findIndex((item) => item.dealsId === dealsId);
 
     if (targetIndex > -1) {
       this.list.splice(targetIndex, 1);

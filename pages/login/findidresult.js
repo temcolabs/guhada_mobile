@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import Form from '../../stores/form-store/_.forms';
 import FindIdResult from 'template/signin/FindIdResult';
-import { pushRoute } from 'childs/lib/router';
-import HeadForSEO from 'childs/lib/components/HeadForSEO';
+import { pushRoute } from 'lib/router';
+import HeadForSEO from 'lib/components/HeadForSEO';
 
 @inject('authmobile')
 @observer

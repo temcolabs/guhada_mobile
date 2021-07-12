@@ -1,19 +1,19 @@
 /* eslint-disable no-undef */
 import { observable, action, toJS } from 'mobx';
 import { autoHypenPhone, getUserAgent } from '../../utils';
-import API from 'childs/lib/API';
+import API from 'lib/API';
 import qs from 'qs';
 import moment from 'moment';
 import { getParameterByName } from 'utils';
-import { HOSTNAME } from 'childs/lib/constant/hostname';
-import { devLog } from 'childs/lib/common/devLog';
-import { pushRoute } from 'childs/lib/router';
-import isEmailString from 'childs/lib/string/isEmailString';
-import accountService from 'childs/lib/API/order/accountService';
-import sessionStorageImpl from 'childs/lib/common/sessionStorage';
-import loadScript from 'childs/lib/dom/loadScript';
-import isDev from 'childs/lib/common/isDev';
-import isServer from 'childs/lib/common/isServer';
+import { HOSTNAME } from 'lib/constant/hostname';
+import { devLog } from 'lib/common/devLog';
+import { pushRoute } from 'lib/router';
+import isEmailString from 'lib/string/isEmailString';
+import accountService from 'lib/API/order/accountService';
+import sessionStorageImpl from 'lib/common/sessionStorage';
+import loadScript from 'lib/dom/loadScript';
+import isDev from 'lib/common/isDev';
+import isServer from 'lib/common/isServer';
 
 export default class OrderPaymentStore {
   constructor(root) {
@@ -153,42 +153,42 @@ export default class OrderPaymentStore {
   @observable easyPaymentMap = {
     DIRECT_NAVER: {
       label: '네이버페이',
-      iconUrl: '/static/icon/payment/order_payment_naverpay.png',
+      iconUrl: '/public/icon/payment/order_payment_naverpay.png',
       width: '78px',
     },
     NAVER: {
       label: '네이버페이',
-      iconUrl: '/static/icon/payment/order_payment_naverpay.png',
+      iconUrl: '/public/icon/payment/order_payment_naverpay.png',
       width: '78px',
     },
     KAKAO: {
       label: '카카오페이',
-      iconUrl: '/static/icon/payment/order_payment_kakaopay.png',
+      iconUrl: '/public/icon/payment/order_payment_kakaopay.png',
       width: '57px',
     },
     PAYCO: {
       label: '페이코페이',
-      iconUrl: '/static/icon/payment/payco_icon.png',
+      iconUrl: '/public/icon/payment/payco_icon.png',
       width: '60px',
     },
     SAMSUNG: {
       label: '삼성페이',
-      iconUrl: '/static/icon/payment/samsungpay_icon_01.png',
+      iconUrl: '/public/icon/payment/samsungpay_icon_01.png',
       width: '117px',
     },
     LPAY: {
       label: 'L.페이',
-      iconUrl: '/static/icon/payment/lpay_icon.png',
+      iconUrl: '/public/icon/payment/lpay_icon.png',
       width: '51px',
     },
     SSGPAY: {
       label: 'SSG페이',
-      iconUrl: '/static/icon/payment/ssgpay_icon.png',
+      iconUrl: '/public/icon/payment/ssgpay_icon.png',
       width: '67px',
     },
     TOSS: {
       label: '토스',
-      iconUrl: '/static/icon/payment/toss_icon.png',
+      iconUrl: '/public/icon/payment/toss_icon.png',
       width: '59px',
     },
   };
@@ -669,9 +669,7 @@ export default class OrderPaymentStore {
 
     API.user
       .put(
-        `/users/${
-          this.orderUserInfo.id
-        }/shipping-addresses?shippingAddressId=${targetId}`,
+        `/users/${this.orderUserInfo.id}/shipping-addresses?shippingAddressId=${targetId}`,
         data
       )
       .then((res) => {
@@ -715,9 +713,7 @@ export default class OrderPaymentStore {
   addressDelete = (targetId) => {
     API.user
       .delete(
-        `/users/${
-          this.orderUserInfo.id
-        }/shipping-addresses?shippingAddressId=${targetId}`
+        `/users/${this.orderUserInfo.id}/shipping-addresses?shippingAddressId=${targetId}`
       )
       .then((res) => {
         this.root.alert.showAlert({

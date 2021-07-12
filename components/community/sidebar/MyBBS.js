@@ -2,12 +2,12 @@ import React from 'react';
 import css from './MyBBS.module.scss';
 import cn from 'classnames';
 import { inject, observer } from 'mobx-react';
-import { pushRoute } from 'childs/lib/router';
+import { pushRoute } from 'lib/router';
 import MyArticles from './MyArticles';
 import MyBookmarks from './MyBookmarks';
 import LoginNoti from './LoginNoti';
 import { withRouter } from 'next/router';
-import { devWarn } from 'childs/lib/common/devLog';
+import { devWarn } from 'lib/common/devLog';
 
 const tab = {
   WRITING: 'WRITING', // 나의 활동
@@ -30,7 +30,7 @@ class MyBBS extends React.Component {
     };
   }
 
-  handleClickTab = tab => () => {
+  handleClickTab = (tab) => () => {
     this.setState({ tab });
   };
 

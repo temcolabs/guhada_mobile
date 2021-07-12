@@ -30,16 +30,16 @@
       }
 
       &.button--back {
-        background-image: url('/static/icons/btn_top_back/btn_top_back@3x.png');
+        background-image: url('/public/icons/btn_top_back/btn_top_back@3x.png');
       }
 
       &.button--delete {
-        background-image: url('/static/icon/icon_keyword_delete.png');
+        background-image: url('/public/icon/icon_keyword_delete.png');
         background-size: 20px;
       }
 
       &.button--search {
-        background-image: url('/static/icon/btn-search@3x.png');
+        background-image: url('/public/icon/btn-search@3x.png');
         background-size: 35px;
       }
     }

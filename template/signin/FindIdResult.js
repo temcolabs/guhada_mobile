@@ -4,9 +4,9 @@ import LoginLayout from 'components/layout/LoginLayout';
 import { LoginWrapper, LoginButton } from 'components/login';
 import { observer, inject } from 'mobx-react';
 import css from './FindIdResult.module.scss';
-import { LinkRoute } from 'childs/lib/router';
+import { LinkRoute } from 'lib/router';
 import copy from 'copy-to-clipboard';
-import API from 'childs/lib/API';
+import API from 'lib/API';
 @inject('alert')
 @observer
 class FindIdResult extends Component {
@@ -21,7 +21,7 @@ class FindIdResult extends Component {
         .then(function(res) {
           alert.showAlert('아이디가 휴대폰으로 발송되었습니다.');
         })
-        .catch(e => {
+        .catch((e) => {
           console.error(e);
         });
     } else {
@@ -34,7 +34,7 @@ class FindIdResult extends Component {
         .then(function(res) {
           alert.showAlert('아이디가 휴대폰으로 발송되었습니다.');
         })
-        .catch(e => {
+        .catch((e) => {
           console.error(e);
         });
     }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './Benefit.module.scss';
 import CouponSelectModal from './modal/CouponSelectModal';
-import { devLog } from 'childs/lib/common/devLog';
+import { devLog } from 'lib/common/devLog';
 @inject('orderpayment', 'orderPaymentBenefit', 'alert')
 @observer
 class Benefit extends Component {
@@ -10,7 +10,7 @@ class Benefit extends Component {
     sellerList: [],
     couponProductList: [],
   };
-  pointHandler = e => {
+  pointHandler = (e) => {
     let checkValue = e.target.value.replace(/[0-9]|,/g, '');
     checkValue = Number(checkValue);
     if (isNaN(checkValue)) {
@@ -22,9 +22,7 @@ class Benefit extends Component {
     value = Number(value);
     devLog(value, 'value');
 
-    if (
-      value > orderpayment.orderSidetabTotalInfo?.availablePoint
-    ) {
+    if (value > orderpayment.orderSidetabTotalInfo?.availablePoint) {
       alert.showAlert({
         content: '최대 사용 가능 포인트 초과 입니다.',
       });
@@ -42,8 +40,7 @@ class Benefit extends Component {
   pointfullUse = () => {
     let { orderpayment } = this.props;
     let myPoint = orderpayment.orderInfo.totalPoint;
-    let availablePoint =
-      orderpayment.orderSidetabTotalInfo?.availablePoint;
+    let availablePoint = orderpayment.orderSidetabTotalInfo?.availablePoint;
 
     if (myPoint > 0) {
       if (myPoint >= availablePoint) {
@@ -79,9 +76,9 @@ class Benefit extends Component {
             }장)`}</span>
           </div>
           <div className={css.couponSelectBox}>
-            <div className={css.couponInput}>              
+            <div className={css.couponInput}>
               <div>
-                {`${orderpayment.totalCouponDiscount }원 (${orderpayment.totalCouponUsedCount}장)`}
+                {`${orderpayment.totalCouponDiscount}원 (${orderpayment.totalCouponUsedCount}장)`}
               </div>
             </div>
             {orderpayment.orderCouponInfo?.savedCouponCount ? (
@@ -117,7 +114,7 @@ class Benefit extends Component {
               <input
                 type="text"
                 value={orderpayment.usePoint?.toLocaleString()}
-                onChange={e => {
+                onChange={(e) => {
                   this.pointHandler(e);
                 }}
               />

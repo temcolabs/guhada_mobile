@@ -15,7 +15,7 @@
     z-index: 10;
     width: 41px;
     height: 41px;
-    background: url('/static/icon/btn-top.png') no-repeat;
+    background: url('/public/icon/btn-top.png') no-repeat;
     background-size: 41px;
     position: absolute;
     right: 15px;
@@ -41,46 +41,46 @@
     background-repeat: no-repeat;
 
     &.category {
-      background-image: url('/static/icon/toolbar/btn-tool-category.png');
+      background-image: url('/public/icon/toolbar/btn-tool-category.png');
 
       &.selected {
-        background-image: url('/static/icon/toolbar/btn-tool-category-on.png');
+        background-image: url('/public/icon/toolbar/btn-tool-category-on.png');
         color: #5d2ed1;
       }
     }
 
     &.brand {
-      background-image: url('/static/icon/toolbar/btn-tool-brand.png');
+      background-image: url('/public/icon/toolbar/btn-tool-brand.png');
 
       &.selected {
-        background-image: url('/static/icon/toolbar/btn-tool-brand-on.png');
+        background-image: url('/public/icon/toolbar/btn-tool-brand-on.png');
         color: #5d2ed1;
       }
     }
 
     &.home {
-      background-image: url('/static/icon/toolbar/btn-tool-home.png');
+      background-image: url('/public/icon/toolbar/btn-tool-home.png');
 
       &.selected {
-        background-image: url('/static/icon/toolbar/btn-tool-home-on.png');
+        background-image: url('/public/icon/toolbar/btn-tool-home-on.png');
         color: #5d2ed1;
       }
     }
 
     &.community {
-      background-image: url('/static/icon/toolbar/btn-tool-community.png');
+      background-image: url('/public/icon/toolbar/btn-tool-community.png');
 
       &.selected {
-        background-image: url('/static/icon/toolbar/btn-tool-community-on.png');
+        background-image: url('/public/icon/toolbar/btn-tool-community-on.png');
         color: #5d2ed1;
       }
     }
 
     &.mypage {
-      background-image: url('/static/icon/toolbar/btn-tool-mypage.png');
+      background-image: url('/public/icon/toolbar/btn-tool-mypage.png');
 
       &.selected {
-        background-image: url('/static/icon/toolbar/btn-tool-mypage-on.png');
+        background-image: url('/public/icon/toolbar/btn-tool-mypage-on.png');
         color: #5d2ed1;
       }
     }

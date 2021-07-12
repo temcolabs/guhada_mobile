@@ -7,15 +7,15 @@ import _ from 'lodash';
 import css from './OrderCompleteList.module.scss';
 import moment from 'moment';
 import { inject, observer } from 'mobx-react';
-import { dateUnit } from 'childs/lib/constant/date';
-import { pushRoute } from 'childs/lib/router';
+import { dateUnit } from 'lib/constant/date';
+import { pushRoute } from 'lib/router';
 import OrderItem from 'components/mypage/order/OrderItem';
 import Pagination from 'components/common/Pagination';
 import PeriodSelector, {
   DEFAULT_TAB_IN_USE,
   DEFAULT_PERIOD,
 } from 'components/mypage/PeriodSelector';
-import { scrollToTarget } from 'childs/lib/common/scroll';
+import { scrollToTarget } from 'lib/common/scroll';
 import OrderCancelDashboard from 'components/mypage/orderCancel/OrderCancelDashboard';
 import EmptyListNoti from 'components/mypage/EmptyListNoti';
 import { LoadingSpinner } from 'components/common/loading/Loading';

@@ -11,12 +11,12 @@ import { withRouter } from 'next/router';
 import { useObserver } from 'mobx-react';
 import useStores from 'stores/useStores';
 import copy from 'copy-to-clipboard';
-import { devLog } from 'childs/lib/common/devLog';
+import { devLog } from 'lib/common/devLog';
 import LuckydrawLogin from './LuckydrawLogin';
 import LuckydrawSignup from './LuckydrawSignup';
 import LuckydrawModify from './LuckydrawModify';
 import CategorySlider from 'components/common/CategorySlider';
-import { mainCategory } from 'childs/lib/constant/category';
+import { mainCategory } from 'lib/constant/category';
 import LoadingPortal from 'components/common/loading/Loading';
 import LuckyEventPopup from 'components/event/popup/LuckyEventPopup';
 
@@ -91,21 +91,21 @@ function LuckyDraw({ router }) {
           <div className={css.luckyDrawHowToBox}>
             <div className={css.imgBox}>
               <img
-                src="/static/icon/event/lucky-con-intro@3x.png"
+                src="/public/icon/event/lucky-con-intro@3x.png"
                 alt="럭키드로우"
               />
             </div>
 
             <div className={css.imgBox}>
               <img
-                src="/static/icon/event/lucky-con-howto@3x.png"
+                src="/public/icon/event/lucky-con-howto@3x.png"
                 alt="럭키드로우"
               />
             </div>
           </div>
           <div className={css.notificationBox}>
             <img
-              src="/static/icon/event/luckydraw-notification.png"
+              src="/public/icon/event/luckydraw-notification.png"
               alt="공지사항"
             />
           </div>

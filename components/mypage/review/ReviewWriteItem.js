@@ -1,10 +1,10 @@
 import React from 'react';
 import css from './ReviewWriteItem.module.scss';
-import addCommaToNum from 'childs/lib/common/addCommaToNum';
+import addCommaToNum from 'lib/common/addCommaToNum';
 import moment from 'moment';
-import { dateFormat } from 'childs/lib/constant';
-import { pushRoute } from 'childs/lib/router';
-import API from 'childs/lib/API';
+import { dateFormat } from 'lib/constant';
+import { pushRoute } from 'lib/router';
+import API from 'lib/API';
 
 export default function ReviewWriteItem({
   orderItem = {

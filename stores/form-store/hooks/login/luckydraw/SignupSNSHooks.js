@@ -1,12 +1,12 @@
 import Router from 'next/router';
 import Form from 'stores/form-store/_.forms';
-import API from 'childs/lib/API';
+import API from 'lib/API';
 import _ from 'lodash';
-import { devLog, devGroup, devGroupEnd } from 'childs/lib/common/devLog';
-import naverShoppingTrakers from 'childs/lib/tracking/navershopping/naverShoppingTrakers';
-import daumTracker from 'childs/lib/tracking/daum/daumTracker';
+import { devLog, devGroup, devGroupEnd } from 'lib/common/devLog';
+import naverShoppingTrakers from 'lib/tracking/navershopping/naverShoppingTrakers';
+import daumTracker from 'lib/tracking/daum/daumTracker';
 import { root } from 'store';
-import { snsTypes } from 'childs/lib/constant/sns';
+import { snsTypes } from 'lib/constant/sns';
 
 export default {
   onInit(form) {},
@@ -39,7 +39,7 @@ export default {
     };
     API.user
       .post(`/event/sns-users`, body)
-      .then(res => {
+      .then((res) => {
         if (login.snsType === snsTypes.KAKAO) {
           login.loginKakao(login.email);
         } else if (login.snsType === snsTypes.GOOGLE) {
@@ -50,7 +50,7 @@ export default {
           login.loginFacebook(login.email);
         }
       })
-      .catch(err => {
+      .catch((err) => {
         let resultCode = _.get(err, 'data.resultCode');
         let message = _.get(err, 'data.message');
         devLog(resultCode, message, 'message', 'resultCode');

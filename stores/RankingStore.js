@@ -1,6 +1,6 @@
 import { observable, action, computed, toJS } from 'mobx';
 import { isEqual as _isEqual } from 'lodash';
-import API from 'childs/lib/API';
+import API from 'lib/API';
 
 class Ranking {
   /**
@@ -12,7 +12,11 @@ class Ranking {
       ['sell', '판매량 인기'],
       ['view', '브랜드 조회수'],
     ]),
-    topCat: new Map([['all', '전체'], ['women', '여성'], ['men', '남성']]),
+    topCat: new Map([
+      ['all', '전체'],
+      ['women', '여성'],
+      ['men', '남성'],
+    ]),
     cat: new Map([
       ['all', '전체'],
       ['clothing', '의류'],

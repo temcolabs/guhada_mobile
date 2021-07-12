@@ -1,71 +1,68 @@
 .wrap {
-    margin-top: 30px;
-    padding: 20px 20px 0;
-    border-top: 8px solid #f7f9f9;
-    
-    .top {
-        display: flex;
-        justify-content: space-between;
-        .title {
-            font-size: 15px;
-            font-weight: bold;
-            color: #111;
-        }        
+  margin-top: 30px;
+  padding: 20px 20px 0;
+  border-top: 8px solid #f7f9f9;
 
-        .link{
-            font-family: Roboto;
-            font-size: 12px;
-            text-decoration: underline;
-            color: #999999;
-        }
+  .top {
+    display: flex;
+    justify-content: space-between;
+    .title {
+      font-size: 15px;
+      font-weight: bold;
+      color: #111;
     }
 
-    .bottom{
-        input[type='checkbox']{
-            display: inline-block;
-            width: 15px;
-            height: 15px;
-            border: 1px solid #dddddd;
-            margin-right: 7px;            
-            background-image: none;
-            background-size: 0;
-        }
-    
-        input[type='checkbox']:checked {
-            display: inline-block;
-            width: 15px;
-            height: 15px;
-            margin-right: 7px;            
-            background-image: url('/static/icon/checkbox_checked_20.png');
-            background-size: 15px 15px;
-            background-position: center;
-            background-repeat: no-repeat;
-            border-color: #ffffff;
-        }
-
-        label{
-            font-family: Roboto;
-            font-size: 13px;
-            color: #444444;            
-        }
-    }
-
-    
-    
-    .otherRequest {
-      margin-top: 20px;
-      margin-bottom: 15px;
-      width: 100%;
-      border: 1px solid #eee;
-      input {
-        width: 100%;
-        height: 45px;
-        line-height: 45px;
-        padding: 0 15px;
-        font-size: 13px;
-        color: #777;
-        font-weight: normal;
-      }
+    .link {
+      font-family: Roboto;
+      font-size: 12px;
+      text-decoration: underline;
+      color: #999999;
     }
   }
-  
+
+  .bottom {
+    input[type='checkbox'] {
+      display: inline-block;
+      width: 15px;
+      height: 15px;
+      border: 1px solid #dddddd;
+      margin-right: 7px;
+      background-image: none;
+      background-size: 0;
+    }
+
+    input[type='checkbox']:checked {
+      display: inline-block;
+      width: 15px;
+      height: 15px;
+      margin-right: 7px;
+      background-image: url('/public/icon/checkbox_checked_20.png');
+      background-size: 15px 15px;
+      background-position: center;
+      background-repeat: no-repeat;
+      border-color: #ffffff;
+    }
+
+    label {
+      font-family: Roboto;
+      font-size: 13px;
+      color: #444444;
+    }
+  }
+
+  .otherRequest {
+    margin-top: 20px;
+    margin-bottom: 15px;
+    width: 100%;
+    border: 1px solid #eee;
+    input {
+      width: 100%;
+      height: 45px;
+      line-height: 45px;
+      padding: 0 15px;
+      font-size: 13px;
+      color: #777;
+      font-weight: normal;
+    }
+  }
+}

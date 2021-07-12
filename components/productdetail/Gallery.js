@@ -39,16 +39,14 @@ class Gallery extends Component {
           })}
         </Slider>
         <div className={css.index__box}>
-          {`${this.state.activeSlide} / ${
-            productdetail.deals.imageUrls?.length
-          } `}
+          {`${this.state.activeSlide} / ${productdetail.deals.imageUrls?.length} `}
         </div>
 
         {productDetailBookmark.bookMarkAdd === 'on' ? (
           <div className={css.bookmark}>
             <i
               style={{
-                backgroundImage: `url('/static/icon/bookmark-w-btn-on@3x.png')`,
+                backgroundImage: `url('/public/icon/bookmark-w-btn-on@3x.png')`,
               }}
             />
             <p className={css.text}>찜하기 완료</p>
@@ -59,7 +57,7 @@ class Gallery extends Component {
           <div className={css.bookmark}>
             <i
               style={{
-                backgroundImage: `url('/static/icon/bookmark-w-btn-off@3x.png')`,
+                backgroundImage: `url('/public/icon/bookmark-w-btn-off@3x.png')`,
               }}
             />
             <p className={css.text}>찜하기 해제</p>

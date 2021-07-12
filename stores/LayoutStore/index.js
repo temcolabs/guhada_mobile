@@ -1,4 +1,4 @@
-import { isBrowser } from 'childs/lib/common/isServer';
+import { isBrowser } from 'lib/common/isServer';
 import { observable, computed, action, toJS } from 'mobx';
 import { LAYOUT_TYPE, layouts } from './constants';
 import { searchConditionMap } from '../SearchStore/SearchByFilterStore';

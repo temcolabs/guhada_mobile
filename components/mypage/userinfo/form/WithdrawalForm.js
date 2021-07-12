@@ -2,8 +2,8 @@ import React, { useCallback } from 'react';
 import css from './UserEditForm.module.scss';
 import FormButton from 'components/mypage/form/FormButton';
 import useStores from 'stores/useStores';
-import userService from 'childs/lib/API/user/userService';
-import { pushRoute } from 'childs/lib/router';
+import userService from 'lib/API/user/userService';
+import { pushRoute } from 'lib/router';
 
 /**
  * 회원탈퇴 버튼

@@ -1,6 +1,6 @@
 import React from 'react';
-import { isBrowser } from 'childs/lib/common/isServer';
-import { pushRoute } from 'childs/lib/router';
+import { isBrowser } from 'lib/common/isServer';
+import { pushRoute } from 'lib/router';
 import { ALL_CATEGORY_ID } from 'components/community/list/useBBSSearchState';
 
 function communityIndexPage() {

@@ -168,13 +168,13 @@ export default function ReviewSummary({
               {fold ? (
                 <>
                   {`닫기`}
-                  <img src={'/static/icon/minors_icon.png'} alt={'icon'} />
+                  <img src={'/public/icon/minors_icon.png'} alt={'icon'} />
                 </>
               ) : (
                 <>
                   {`자세히 보기`}
                   <img
-                    src={'/static/icon/detail_btn_more_open.png'}
+                    src={'/public/icon/detail_btn_more_open.png'}
                     alt={'icon'}
                   />
                 </>

@@ -1,5 +1,5 @@
 import { observable, action } from 'mobx';
-import API from 'childs/lib/API';
+import API from 'lib/API';
 
 export default class GiftStore {
   /**

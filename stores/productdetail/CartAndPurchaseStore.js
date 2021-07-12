@@ -1,13 +1,13 @@
 import { observable, action, toJS } from 'mobx';
-import { loginStatus } from 'childs/lib/constant';
-import API from 'childs/lib/API';
+import { loginStatus } from 'lib/constant';
+import API from 'lib/API';
 import Router from 'next/router';
-import { sendBackToLogin, pushRoute } from 'childs/lib/router';
+import { sendBackToLogin, pushRoute } from 'lib/router';
 import qs from 'qs';
-import naverShoppingTrakers from 'childs/lib/tracking/navershopping/naverShoppingTrakers';
-import daumTracker from 'childs/lib/tracking/daum/daumTracker';
-import criteoTracker from 'childs/lib/tracking/criteo/criteoTracker';
-import kochavaTracker from 'childs/lib/tracking/kochava/kochavaTracker';
+import naverShoppingTrakers from 'lib/tracking/navershopping/naverShoppingTrakers';
+import daumTracker from 'lib/tracking/daum/daumTracker';
+import criteoTracker from 'lib/tracking/criteo/criteoTracker';
+import kochavaTracker from 'lib/tracking/kochava/kochavaTracker';
 import _ from 'lodash';
 import ReactPixel from 'react-facebook-pixel';
 const isServer = typeof window === 'undefined';
@@ -40,7 +40,7 @@ export default class CartAndPurchaseStore {
               },
             }
           )
-          .then(res => {
+          .then((res) => {
             API.product
               .get(
                 `/deals`,
@@ -55,7 +55,7 @@ export default class CartAndPurchaseStore {
                   },
                 }
               )
-              .then(res => {
+              .then((res) => {
                 let data = res.data;
                 this.associatedProduct = data.data;
                 this.root.shoppingCartSuccessModal.showModal({
@@ -126,7 +126,7 @@ export default class CartAndPurchaseStore {
               discountPrice: this.root.productdetail.deals.discountPrice,
             });
           })
-          .catch(err => {
+          .catch((err) => {
             if (this.root.login.loginStatus === loginStatus.LOGOUT) {
               sendBackToLogin();
             }
@@ -161,7 +161,7 @@ export default class CartAndPurchaseStore {
               },
             }
           )
-          .then(res => {
+          .then((res) => {
             let data = res.data;
 
             Router.push({
@@ -175,7 +175,7 @@ export default class CartAndPurchaseStore {
             this.addCartStatus = false;
             this.isProductOptionModal = false;
           })
-          .catch(err => {
+          .catch((err) => {
             if (this.root.login.loginStatus === loginStatus.LOGOUT) {
               sendBackToLogin();
             }

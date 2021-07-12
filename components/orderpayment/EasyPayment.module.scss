@@ -45,7 +45,7 @@
           height: 20px;
           border: none;
           border-radius: 0px;
-          background-image: url('/static/icon/m_radio_btn_off.png');
+          background-image: url('/public/icon/m_radio_btn_off.png');
           background-size: 20px 20px;
           background-position: center;
           background-repeat: no-repeat;
@@ -54,7 +54,7 @@
 
         input[type='radio']:checked + .radioBtn {
           border: none;
-          background-image: url('/static/icon/m_radio_btn_on.png');
+          background-image: url('/public/icon/m_radio_btn_on.png');
           background-size: 20px 20px;
           background-position: center;
           background-repeat: no-repeat;

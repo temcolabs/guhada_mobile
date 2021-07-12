@@ -3,10 +3,10 @@ import { useState, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { useRouter } from 'next/router';
 import useStores from 'stores/useStores';
-import sessionStorage from 'childs/lib/common/sessionStorage';
-import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
-import isTruthy from 'childs/lib/common/isTruthy';
-import { pushRoute } from 'childs/lib/router';
+import sessionStorage from 'lib/common/sessionStorage';
+import widerplanetTracker from 'lib/tracking/widerplanet/widerplanetTracker';
+import isTruthy from 'lib/common/isTruthy';
+import { pushRoute } from 'lib/router';
 import { dealOptions } from 'stores/NewMainStore';
 
 import SlideBanner from './SlideBanner';

@@ -10,14 +10,14 @@ import cn from 'classnames';
 import KakaoLogin from 'react-kakao-login';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 import GoogleLogin from 'react-google-login';
-import { snsAppKey } from 'childs/lib/constant/sns';
-import { devLog } from 'childs/lib/common/devLog';
+import { snsAppKey } from 'lib/constant/sns';
+import { devLog } from 'lib/common/devLog';
 import useStores from 'stores/useStores';
-import entryService from 'childs/lib/API/user/entryService';
+import entryService from 'lib/API/user/entryService';
 import { observer } from 'mobx-react';
 import NaverLogin from 'components/login/NaverLogin';
 import NaverLoginCheckPassword from 'components/login/NaverLoginCheckPassword';
-import { key } from 'childs/lib/constant';
+import { key } from 'lib/constant';
 import Cookies from 'js-cookie';
 
 function CheckPassword({

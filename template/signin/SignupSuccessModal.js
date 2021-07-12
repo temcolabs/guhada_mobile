@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import css from './SignupSuccessModal.module.scss';
 import ModalWrapper from 'components/common/modal/ModalWrapper';
 import Router from 'next/router';
-import { LinkRoute } from 'childs/lib/router';
+import { LinkRoute } from 'lib/router';
 
 export class SignupSuccessModal extends Component {
   onClose = () => {

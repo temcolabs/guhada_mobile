@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react';
 import useStores from 'stores/useStores';
-import isServer from 'childs/lib/common/isServer';
+import isServer from 'lib/common/isServer';
 import { getLayoutInfo } from 'stores/LayoutStore';
-import HeadForSEO from 'childs/lib/components/HeadForSEO';
+import HeadForSEO from 'lib/components/HeadForSEO';
 import Footer from 'components/footer/Footer';
 import MountLoading from 'components/atoms/Misc/MountLoading';
 import Review from 'template/Review';

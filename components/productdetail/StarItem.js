@@ -51,7 +51,7 @@ export default function StarItem(item, reviewSummary) {
       if (i % 2 === 0)
         starItems.push(
           <img
-            src="/static/icon/ministar_yellow_l.png"
+            src="/public/icon/ministar_yellow_l.png"
             width={6}
             height={14}
             key={i}
@@ -61,7 +61,7 @@ export default function StarItem(item, reviewSummary) {
       else
         starItems.push(
           <img
-            src="/static/icon/ministar_yellow_r.png"
+            src="/public/icon/ministar_yellow_r.png"
             width={6}
             height={14}
             key={i}
@@ -71,7 +71,7 @@ export default function StarItem(item, reviewSummary) {
     } else if (i % 2 === 0)
       starItems.push(
         <img
-          src="/static/icon/ministar_grey_l.png"
+          src="/public/icon/ministar_grey_l.png"
           width={6}
           height={14}
           key={i}
@@ -81,7 +81,7 @@ export default function StarItem(item, reviewSummary) {
     else
       starItems.push(
         <img
-          src="/static/icon/ministar_grey_r.png"
+          src="/public/icon/ministar_grey_r.png"
           width={6}
           height={14}
           key={i}

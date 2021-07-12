@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactJsPagination from 'react-js-pagination';
 import css from './Pagination.module.scss';
 import { number, func, object } from 'prop-types';
-import { devLog } from 'childs/lib/common/devLog';
+import { devLog } from 'lib/common/devLog';
 
 /**
  * 페이지는 1부터 시작한다. (0으로 시작하는 API 사용할 때 주의)
@@ -21,7 +21,7 @@ export default class Pagination extends Component {
     pageRangeDisplayed: 10,
   };
 
-  handlePageChange = pageNumber => {
+  handlePageChange = (pageNumber) => {
     devLog(`active page is ${pageNumber}`);
     this.props.onChangePage(pageNumber);
   };

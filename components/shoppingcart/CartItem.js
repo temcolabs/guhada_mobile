@@ -67,7 +67,7 @@ class CartItem extends Component {
                   </div>
                   <div
                     className={css.purchase__button}
-                    onClick={e => {
+                    onClick={(e) => {
                       shoppingcart.shoppingCartimmediatePurchase(
                         e,
                         data.cartItemId
@@ -107,7 +107,7 @@ class CartItem extends Component {
                     : { transform: 'rotateX(0deg)' }
                 }
               >
-                <img src="/static/icon/m_cart_arrow.png" alt="탭 화살표" />
+                <img src="/public/icon/m_cart_arrow.png" alt="탭 화살표" />
               </span>
             </div>
           </div>

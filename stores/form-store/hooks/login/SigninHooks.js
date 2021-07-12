@@ -1,10 +1,10 @@
 import { root } from 'store';
-import API from 'childs/lib/API';
+import API from 'lib/API';
 import qs from 'qs';
-import { pushRoute } from 'childs/lib/router';
-import { devLog } from 'childs/lib/common/devLog';
+import { pushRoute } from 'lib/router';
+import { devLog } from 'lib/common/devLog';
 import _ from 'lodash';
-import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
+import widerplanetTracker from 'lib/tracking/widerplanet/widerplanetTracker';
 export default {
   onInit(form) {},
 

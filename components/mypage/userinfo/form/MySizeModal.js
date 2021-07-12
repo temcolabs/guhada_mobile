@@ -11,10 +11,10 @@ import SubmitButton, {
   SubmitButtonWrapper,
 } from 'components/mypage/form/SubmitButton';
 import Checkbox from 'components/mypage/form/Checkbox';
-import getRangeSelectOptions from 'childs/lib/common/getRangeSelectOptions';
+import getRangeSelectOptions from 'lib/common/getRangeSelectOptions';
 import memoize from 'memoize-one';
 import SectionHeading from 'components/common/SectionHeading';
-import { devLog } from 'childs/lib/common/devLog';
+import { devLog } from 'lib/common/devLog';
 import ModalLayout from 'components/layout/ModalLayout';
 
 /**
@@ -70,7 +70,7 @@ class MySizeModal extends React.Component {
 
   get topOptions() {
     const values = ['XS', 'S', 'M', 'L', 'XL'];
-    return values.map(v => ({
+    return values.map((v) => ({
       label: v,
       value: v,
     }));
@@ -196,24 +196,24 @@ class MySizeModal extends React.Component {
   setMySizeToForm = memoize((mySize = {}) => {
     if (mySize) {
       this.form.$('height').value = this.heightOptions.find(
-        o => o.value === mySize.height
+        (o) => o.value === mySize.height
       );
       this.form.$('weight').value = this.weightOptions.find(
-        o => o.value === mySize.weight
+        (o) => o.value === mySize.weight
       );
       this.form.$('shoe').value = this.shoeOptions.find(
-        o => o.value === mySize.shoe
+        (o) => o.value === mySize.shoe
       );
       this.form.$('top').value = mySize.top;
       this.form.$('bottom').value = mySize.bottom;
     }
   });
 
-  handleClickTop = v => {
+  handleClickTop = (v) => {
     this.form.$('top').value = v;
   };
 
-  handleClickBottom = v => {
+  handleClickBottom = (v) => {
     this.form.$('bottom').value = v;
   };
 
@@ -279,7 +279,7 @@ class MySizeModal extends React.Component {
                 {this.form.$('top').label}
               </div>
               <div className={cn(css.buttonGrid)}>
-                {this.form.$('top').extra.map(option => {
+                {this.form.$('top').extra.map((option) => {
                   return (
                     <button
                       key={option.label}
@@ -304,7 +304,7 @@ class MySizeModal extends React.Component {
                 {this.form.$('bottom').label}
               </div>
               <div className={cn(css.buttonGrid)}>
-                {this.form.$('bottom').extra.map(option => {
+                {this.form.$('bottom').extra.map((option) => {
                   return (
                     <button
                       key={option.value}

@@ -6,7 +6,7 @@ import cn from 'classnames';
 import Image from 'components/atoms/Image';
 
 const IMAGE_PATH = {
-  profileNon: '/static/icon/community/profile-non@2x.png',
+  profileNon: '/public/icon/community/profile-non@2x.png',
 };
 
 /**

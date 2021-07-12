@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import css from './ClaimItem.module.scss';
 import moment from 'moment';
-import { dateFormat } from 'childs/lib/constant';
+import { dateFormat } from 'lib/constant';
 import cn from 'classnames';
 
 function ClaimItemSeller({
@@ -25,7 +25,7 @@ function ClaimItemSeller({
   const [isFolded, setFold] = useState(true);
 
   const toggleIsFolded = useCallback(() => {
-    setFold(status => !status);
+    setFold((status) => !status);
   }, []);
 
   const isAnswered = useMemo(() => !!claim.reply, [claim.reply]);

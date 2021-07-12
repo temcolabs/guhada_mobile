@@ -5,7 +5,7 @@ import MypageCouponTab from 'components/mypage/coupon/MypageCouponTab';
 import MypageCouponEnrollment from 'components/mypage/coupon/MypageCouponEnrollment';
 import MypageValidCouponList from 'components/mypage/coupon/MypageValidCouponList';
 import MypageInvalidCouponList from 'components/mypage/coupon/MypageInvalidCouponList';
-import { isBrowser } from 'childs/lib/common/isServer';
+import { isBrowser } from 'lib/common/isServer';
 import { inject, observer } from 'mobx-react';
 /**
  * 마이페이지 - 쿠폰

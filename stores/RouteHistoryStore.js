@@ -1,6 +1,6 @@
 import { observable, action } from 'mobx';
 import Router from 'next/router';
-import sessionStorage from 'childs/lib/common/sessionStorage';
+import sessionStorage from 'lib/common/sessionStorage';
 
 export default class RouteHistoryStore {
   @observable urls = [];
@@ -11,7 +11,7 @@ export default class RouteHistoryStore {
 
   @action
   routeChangeStart = () => {
-    Router.events.on('routeChangeStart', url => {
+    Router.events.on('routeChangeStart', (url) => {
       sessionStorage.set('urlHistory', url);
     });
   };

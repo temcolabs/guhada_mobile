@@ -1,6 +1,6 @@
 import React from 'react';
 import css from './SellerClaimModal.module.scss';
-import { dateFormat } from 'childs/lib/constant';
+import { dateFormat } from 'lib/constant';
 import moment from 'moment';
 
 /**

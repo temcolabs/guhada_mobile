@@ -12,7 +12,7 @@ import {
 import withMobxDeco from '.storybook/decorators/withMobxDeco';
 import withCenteredDeco from '.storybook/decorators/withCenteredDeco';
 import ReportModal from './ReportModal';
-import reportTarget from 'childs/lib/constant/reportTarget';
+import reportTarget from 'lib/constant/reportTarget';
 
 const stories = storiesOf('claim/report', module);
 

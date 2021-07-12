@@ -1,100 +1,100 @@
 .tree {
-    color: #393939;
-    margin-top: 10px;
+  color: #393939;
+  margin-top: 10px;
+
+  & li {
+    margin-bottom: 40px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  & ul {
+    list-style: none;
+    -moz-transition: height 0.5s;
+    -ms-transition: height 0.5s;
+    -o-transition: height 0.5s;
+    -webkit-transition: height 0.5s;
+    transition: height 0.5s;
+    height: 0;
+    overflow: hidden;
 
     & li {
-        margin-bottom: 40px;
-
-        &:last-child {
-            margin-bottom: 0;
-        }
+      font-size: 14px;
+      font-weight: normal;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.71;
+      letter-spacing: 0.42px;
+      text-align: left;
+      color: #111111;
+      padding: 9px 0 8px 40px;
+      margin: 0;
     }
 
-    & ul {
-        list-style: none;
-        -moz-transition: height .5s;
-        -ms-transition: height .5s;
-        -o-transition: height .5s;
-        -webkit-transition: height .5s;
-        transition: height .5s;
-        height: 0;
-        overflow: hidden;
-
-        & li {
-            font-size: 14px;
-            font-weight: normal;
-            font-style: normal;
-            font-stretch: normal;
-            line-height: 1.71;
-            letter-spacing: 0.42px;
-            text-align: left;
-            color: #111111;
-            padding: 9px 0 8px 40px;
-            margin: 0;
-        }
-
-        & .categorySecond {
-            padding: 9px 0 8px 60px;
-            margin: 0;
-        }
-
-        & .categoryLast {
-            padding: 9px 0 8px 80px;
-            margin: 0;
-        }
-
-        & .categoryItem {
-            padding-left: 20px;
-            margin: 0;
-        }
-
-        & .plus {
-            background-image: url('/static/icon/plus_icon.png');
-            background-size: 19px;
-            background-repeat: no-repeat;
-            background-position: right 30px center;
-        }
+    & .categorySecond {
+      padding: 9px 0 8px 60px;
+      margin: 0;
     }
 
-    & label {
-        display: inherit;
-        font-size: 14px;
-        font-weight: normal;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: 1.71;
-        letter-spacing: 0.42px;
-        text-align: left;
-        color: #111111;
-        margin: 0;
-        width: 100%;
+    & .categoryLast {
+      padding: 9px 0 8px 80px;
+      margin: 0;
     }
 
-    & .mainCheckboxLabel {
-        font-size: 16px;
-        font-weight: 500;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: 1.5;
-        letter-spacing: 0.48px;
-        text-align: left;
-        color: #111111;
-        cursor: pointer;
-        padding: 16px 0 15px 30px;
-        margin-bottom: 0;
-        width: 100%;
+    & .categoryItem {
+      padding-left: 20px;
+      margin: 0;
     }
 
-    & input[type="checkbox"] {
-        display: none;
+    & .plus {
+      background-image: url('/public/icon/plus_icon.png');
+      background-size: 19px;
+      background-repeat: no-repeat;
+      background-position: right 30px center;
     }
+  }
 
-    & input[type="checkbox"]:checked~label {
-        color: #5d2ed1;
-        background-image: url('/static/icon/minus_icon.png');
+  & label {
+    display: inherit;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.71;
+    letter-spacing: 0.42px;
+    text-align: left;
+    color: #111111;
+    margin: 0;
+    width: 100%;
+  }
 
-        &.mainCheckboxLabel {
-            background-image: none;
-        }
+  & .mainCheckboxLabel {
+    font-size: 16px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.5;
+    letter-spacing: 0.48px;
+    text-align: left;
+    color: #111111;
+    cursor: pointer;
+    padding: 16px 0 15px 30px;
+    margin-bottom: 0;
+    width: 100%;
+  }
+
+  & input[type='checkbox'] {
+    display: none;
+  }
+
+  & input[type='checkbox']:checked ~ label {
+    color: #5d2ed1;
+    background-image: url('/public/icon/minus_icon.png');
+
+    &.mainCheckboxLabel {
+      background-image: none;
     }
+  }
 }

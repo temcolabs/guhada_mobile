@@ -1,5 +1,5 @@
 import { observable, action, computed } from 'mobx';
-import API from 'childs/lib/API';
+import API from 'lib/API';
 import SearchStore, { ENDPOINT, STATE } from './SearchStore';
 
 // 정렬
@@ -101,9 +101,7 @@ export class SearchByAllStore extends SearchStore {
         const {
           data: { data },
         } = await API.search.post(
-          `${ENDPOINT.FILTER}?page=${this.params.currentPage}&unitPerPage=${
-            this.params.unitPerPage
-          }`,
+          `${ENDPOINT.FILTER}?page=${this.params.currentPage}&unitPerPage=${this.params.unitPerPage}`,
           this.filter
         );
 

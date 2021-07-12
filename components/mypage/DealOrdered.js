@@ -3,9 +3,9 @@ import dynamic from 'next/dynamic';
 import css from './DealOrdered.module.scss';
 import cn from 'classnames';
 import moment from 'moment';
-import addCommaToNum from 'childs/lib/common/addCommaToNum';
-import { pushRoute } from 'childs/lib/router';
-import { ORDER_LIST_ITEM_SAMPLE } from 'childs/lib/constant/order/orderModel';
+import addCommaToNum from 'lib/common/addCommaToNum';
+import { pushRoute } from 'lib/router';
+import { ORDER_LIST_ITEM_SAMPLE } from 'lib/constant/order/orderModel';
 
 /** 발송지연 상세 모달 */
 const DeliveryDelayModal = dynamic(

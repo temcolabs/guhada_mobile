@@ -4,7 +4,7 @@ import cn from 'classnames';
 import PropTypes from 'prop-types';
 import memoize from 'memoize-one';
 import moment from 'moment';
-import { dateFormat } from 'childs/lib/constant';
+import { dateFormat } from 'lib/constant';
 import _ from 'lodash';
 export class InquiryItem extends Component {
   static propTypes = {
@@ -37,7 +37,7 @@ export class InquiryItem extends Component {
     this.initComponent(inquiry);
   }
 
-  initComponent = memoize(inquiry => {
+  initComponent = memoize((inquiry) => {
     if (inquiry) this.setState({ folded: true });
   });
 

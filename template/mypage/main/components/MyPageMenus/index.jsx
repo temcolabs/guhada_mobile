@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import css from './MyPageMenus.module.scss';
 import cn from 'classnames';
 
-import { pushRoute } from 'childs/lib/router';
+import { pushRoute } from 'lib/router';
 import Image from 'components/atoms/Image';
 
 const MENUS = [
@@ -14,7 +14,7 @@ const MENUS = [
 ];
 
 const IMAGE_PATH = {
-  arrowBtn: '/static/icon/btn-arrow.png',
+  arrowBtn: '/public/icon/btn-arrow.png',
 };
 
 function MyPageMenus() {

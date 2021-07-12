@@ -1,7 +1,7 @@
 .wrap {
   margin-top: 37px;
   padding: 0 20px 60px;
-  background: url('/static/icon/m_result_bg.png');
+  background: url('/public/icon/m_result_bg.png');
   background-size: cover;
   width: 100%;
   .resultWrap {
@@ -125,7 +125,7 @@
           display: flex;
           align-items: center;
           div {
-            background: url('/static/icon/m_dropdown_arrow.png') no-repeat;
+            background: url('/public/icon/m_dropdown_arrow.png') no-repeat;
             background-size: cover;
             background-position: center;
             margin-left: 6px;

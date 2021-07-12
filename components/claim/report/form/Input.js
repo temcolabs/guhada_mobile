@@ -2,7 +2,7 @@ import React from 'react';
 import css from './Input.module.scss';
 import cn from 'classnames';
 import useChangeInput from 'hooks/useChangeInput';
-import { nilToEmptyStr } from 'childs/lib/common/nilToZero';
+import { nilToEmptyStr } from 'lib/common/nilToZero';
 
 export const inputStatTypes = {
   NORMAL: 'normal',

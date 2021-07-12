@@ -21,13 +21,15 @@
 
     &.error {
       border: 1px solid #ce2525;
-      background: url('/static/icon/mypage/input-error-icon.png') no-repeat right 9px center;
+      background: url('/public/icon/mypage/input-error-icon.png') no-repeat
+        right 9px center;
       background-size: 17px;
     }
 
     &.success {
       border: 1px solid #5d2ed1;
-      background: url('/static/icon/mypage/input-ok-icon.png') no-repeat right 9px center;
+      background: url('/public/icon/mypage/input-ok-icon.png') no-repeat right
+        9px center;
       background-size: 17px;
     }
   }

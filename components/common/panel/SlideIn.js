@@ -3,9 +3,9 @@ import ReactDom from 'react-dom';
 import css from './SlideIn.module.scss';
 import { Transition } from 'react-transition-group';
 import anime from 'animejs';
-import { isBrowser } from 'childs/lib/common/isServer';
+import { isBrowser } from 'lib/common/isServer';
 import Mask from '../modal/Mask';
-import setScrollability from 'childs/lib/dom/setScrollability';
+import setScrollability from 'lib/dom/setScrollability';
 import { useScrollPosition } from 'hooks';
 
 /**

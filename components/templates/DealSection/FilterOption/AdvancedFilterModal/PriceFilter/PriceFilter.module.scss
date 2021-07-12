@@ -26,12 +26,12 @@
 
       &__check {
         &.checked {
-          background-image: url('/static/icon/filter_checkbox_selected.png');
+          background-image: url('/public/icon/filter_checkbox_selected.png');
         }
 
         width: 16px;
         height: 16px;
-        background: url('/static/icon/filter_checkbox_inactive.png') no-repeat
+        background: url('/public/icon/filter_checkbox_inactive.png') no-repeat
           center left;
         background-size: 16px;
         padding-right: 22px;

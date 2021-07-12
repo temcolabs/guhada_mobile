@@ -1,15 +1,15 @@
 import Axios from 'axios';
-import API from 'childs/lib/API';
+import API from 'lib/API';
 import { root } from 'store';
 import Router from 'next/router';
-import { devLog } from 'childs/lib/common/devLog';
+import { devLog } from 'lib/common/devLog';
 
 export default {
   onInit() {
     // override default bindings for all text inputs
     this.name === 'Register Material' &&
       this.each(
-        field =>
+        (field) =>
           field.type === 'text' && field.set('bindings', 'MaterialTextField')
       );
   },
@@ -71,7 +71,7 @@ export default {
   //   devLog('-> onFocus HOOK -', field.path, field.value);
   // },
 
-  onBlur: field => {
+  onBlur: (field) => {
     devLog('-> onBlur HOOK -', field.path, field.value);
 
     // 모바일 번호 입력시

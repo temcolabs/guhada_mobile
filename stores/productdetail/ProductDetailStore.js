@@ -1,12 +1,12 @@
 import { observable, action } from 'mobx';
 import Axios from 'axios';
-import API from 'childs/lib/API';
+import API from 'lib/API';
 import { get as _get, isNil as _isNil } from 'lodash';
-import { devLog } from 'childs/lib/common/devLog';
-import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
+import { devLog } from 'lib/common/devLog';
+import widerplanetTracker from 'lib/tracking/widerplanet/widerplanetTracker';
 import Cookies from 'js-cookie';
-import key from 'childs/lib/constant/key';
-import { isBrowser } from 'childs/lib/common/isServer';
+import key from 'lib/constant/key';
+import { isBrowser } from 'lib/common/isServer';
 import Router from 'next/router';
 import ReactPixel from 'react-facebook-pixel';
 const isServer = typeof window === 'undefined';
@@ -471,9 +471,7 @@ export default class ProductDetailStore {
     if (this.deals.sellerId && this.deals.shipping.claimAddressId) {
       API.user
         .get(
-          `/sellers/${this.deals.sellerId}/departures-and-returns/${
-            this.deals.shipping.claimAddressId
-          }`
+          `/sellers/${this.deals.sellerId}/departures-and-returns/${this.deals.shipping.claimAddressId}`
         )
         .then((res) => {
           let data = res.data;
@@ -555,9 +553,7 @@ export function getHeadData(deals) {
     pageName: `${_isNil(deals.season) === false ? `${deals.season} ` : ''}${
       deals.name
     }`,
-    description: `${deals.brandName} - ${deals.name} - ${
-      deals.discountPrice
-    }원`,
+    description: `${deals.brandName} - ${deals.name} - ${deals.discountPrice}원`,
     image: _get(deals, 'imageUrls.0'),
   };
 }

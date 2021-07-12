@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import ModalWrapper from 'components/common/modal/ModalWrapper';
 import { inject } from 'mobx-react';
-import API from 'childs/lib/API';
-import isTruthy from 'childs/lib/common/isTruthy';
+import API from 'lib/API';
+import isTruthy from 'lib/common/isTruthy';
 import _ from 'lodash';
 /**
  * 상품 문의 등록하기 모달
@@ -28,7 +28,7 @@ function ClaimRegisterModal({
         .then(({ data }) => {
           setDeals(data.data);
         })
-        .catch(e => {
+        .catch((e) => {
           console.error(e);
         });
     }
@@ -44,7 +44,7 @@ function ClaimRegisterModal({
         <div className="productInquiry__modal-header">
           <div>상품 문의하기</div>
           <img
-            src="/static/icon/modal_close.png"
+            src="/public/icon/modal_close.png"
             width={29}
             height={29}
             onClick={onCloseModal}
@@ -55,7 +55,7 @@ function ClaimRegisterModal({
             className="productInquiry__modal-textarea"
             placeholder="문의하실 내용을 입력하세요"
             value={content}
-            onChange={e => setContent(e.target.value)}
+            onChange={(e) => setContent(e.target.value)}
           />
         </div>
         <div className="productInquiry__modal-checkBoxWrap">
@@ -64,7 +64,7 @@ function ClaimRegisterModal({
               type="checkbox"
               id="askproduct"
               value={isPrivate}
-              onChange={e => setIsPrivate(e.target.checked)}
+              onChange={(e) => setIsPrivate(e.target.checked)}
             />
             <label htmlFor="askproduct">
               <span>비공개글 설정</span>

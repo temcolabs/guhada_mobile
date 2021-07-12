@@ -13,14 +13,14 @@ import {
 } from '@storybook/addon-knobs';
 import BoardMenus from './BoardMenus';
 import MyBBS from './MyBBS';
-import { loginStatus } from 'childs/lib/constant';
+import { loginStatus } from 'lib/constant';
 import DeletedMyActivityItem from './myArticles/DeletedMyActivityItem';
 import NoMyArticles from './myArticles/NoMyArticles';
 import NoMyBookmarks from './myArticles/NoMyBookmarks';
 
 const stories = storiesOf('community', module);
 
-const SidebarWrapper = fn => (
+const SidebarWrapper = (fn) => (
   <div style={{ width: '300px', margin: '0 auto' }}>{fn()}</div>
 );
 

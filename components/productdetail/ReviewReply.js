@@ -1,7 +1,7 @@
 import React from 'react';
 import css from './ReviewReply.module.scss';
 import moment from 'moment';
-import { dateFormat } from 'childs/lib/constant';
+import { dateFormat } from 'lib/constant';
 
 const ReviewReply = ({ reviewItem = {}, wrapStyle = {} }) => {
   return reviewItem.review.reply ? (
@@ -13,9 +13,9 @@ const ReviewReply = ({ reviewItem = {}, wrapStyle = {} }) => {
         ...wrapStyle,
       }}
     >
-      <div className={css.seller__name}>{`${
-        reviewItem.review.sellerNickname
-      }`}</div>
+      <div
+        className={css.seller__name}
+      >{`${reviewItem.review.sellerNickname}`}</div>
       <div className={css.seller__reply}>{`${reviewItem.review.reply}`}</div>
       <div className={css.seller__create}>
         {moment(reviewItem.review.replyAt).format(dateFormat.YYYYMMDD_UI)}

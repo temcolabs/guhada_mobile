@@ -1,7 +1,7 @@
 import { observable, action } from 'mobx';
-import API from 'childs/lib/API';
-import { isBrowser } from 'childs/lib/common/isServer';
-import { ORDER_COMPLETE_SAMPLE } from 'childs/lib/constant/order/orderModel';
+import API from 'lib/API';
+import { isBrowser } from 'lib/common/isServer';
+import { ORDER_COMPLETE_SAMPLE } from 'lib/constant/order/orderModel';
 
 // 상태 진행 표시를 위해 CSS 컨트롤에 사용할 값.
 export const statusClassName = {
@@ -42,7 +42,7 @@ export default class MypageDeliveryStore {
   ];
 
   @action
-  getCurrentShippingStatus = level => {
+  getCurrentShippingStatus = (level) => {
     return this.shippingStatus.map((status = {}, statusIndex) => {
       if (level > status.level) {
         return Object.assign(status, { className: statusClassName.PASS });
@@ -80,10 +80,10 @@ export default class MypageDeliveryStore {
         this.isDeliveyTrackingModalOpen = false;
         console.error(e);
       }
-    } else if(order.shipMethod === 'QUICK'){      
-      this.deliveryInfo = await this.getQuickDeliveryInfo({shipId});              
+    } else if (order.shipMethod === 'QUICK') {
+      this.deliveryInfo = await this.getQuickDeliveryInfo({ shipId });
       this.isQuickDeliveyTrackingModalOpen = true;
-    }else{
+    } else {
       this.root.alert.showAlert('송장 정보가 없습니다.');
     }
   };
@@ -110,7 +110,7 @@ export default class MypageDeliveryStore {
   };
 
   /**
-   * @param shipId shpping 코드   
+   * @param shipId shpping 코드
    */
   @action
   getQuickDeliveryInfo = async ({ shipId }) => {
@@ -121,5 +121,4 @@ export default class MypageDeliveryStore {
   resetDeliveryInfo = () => {
     this.deliveryInfo = {};
   };
-  
 }

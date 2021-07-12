@@ -3,19 +3,19 @@ import OrderPaymentSuccess from '../../template/orderpaymentsuccess/OrderPayment
 import { inject, observer } from 'mobx-react';
 import Loading from '../../components/common/loading/Loading';
 import { getParameterByName } from '../../utils';
-import criteoTracker from 'childs/lib/tracking/criteo/criteoTracker';
+import criteoTracker from 'lib/tracking/criteo/criteoTracker';
 import Cookies from 'js-cookie';
-import key from 'childs/lib/constant/key';
-import { isBrowser } from 'childs/lib/common/isServer';
-import widerplanetTracker from 'childs/lib/tracking/widerplanet/widerplanetTracker';
-import daumTracker from 'childs/lib/tracking/daum/daumTracker';
-import kochavaTracker from 'childs/lib/tracking/kochava/kochavaTracker';
-import naverShoppingTrakers from 'childs/lib/tracking/navershopping/naverShoppingTrakers';
-import HeadForSEO from 'childs/lib/components/HeadForSEO';
-import momentTracker from 'childs/lib/tracking/kakaomoment/momentTracker';
+import key from 'lib/constant/key';
+import { isBrowser } from 'lib/common/isServer';
+import widerplanetTracker from 'lib/tracking/widerplanet/widerplanetTracker';
+import daumTracker from 'lib/tracking/daum/daumTracker';
+import kochavaTracker from 'lib/tracking/kochava/kochavaTracker';
+import naverShoppingTrakers from 'lib/tracking/navershopping/naverShoppingTrakers';
+import HeadForSEO from 'lib/components/HeadForSEO';
+import momentTracker from 'lib/tracking/kakaomoment/momentTracker';
 import ReactPixel from 'react-facebook-pixel';
-import gtagTracker from 'childs/lib/tracking/google/gtagTracker';
-import mobonTracker from 'childs/lib/tracking/mobon/mobonTracker';
+import gtagTracker from 'lib/tracking/google/gtagTracker';
+import mobonTracker from 'lib/tracking/mobon/mobonTracker';
 
 @inject('orderpaymentsuccess', 'user')
 @observer
@@ -27,7 +27,7 @@ class index extends React.Component {
       .then((successInfo) /* the whole response */ => {
         // 로그인 상태라면 화원정보를 가져온 후에 트래커 실행. 아니면 그냥 실행
         if (isBrowser && Cookies.get(key.ACCESS_TOKEN)) {
-          this.props.user.pushJobForUserInfo(userInfo => {
+          this.props.user.pushJobForUserInfo((userInfo) => {
             this.executeTracker({ userInfo, successInfo });
           });
         } else {
@@ -58,7 +58,7 @@ class index extends React.Component {
     criteoTracker.purchaseComplete({
       email: userInfo?.email,
       transaction_id: successInfo.orderNumber,
-      items: successInfo.orderList?.map(orderItem => ({
+      items: successInfo.orderList?.map((orderItem) => ({
         id: orderItem.dealId,
         price: orderItem.discountPrice,
         quantity: orderItem.quantity,
@@ -67,7 +67,7 @@ class index extends React.Component {
 
     widerplanetTracker.purchaseComplete({
       userId: userInfo?.id,
-      items: successInfo.orderList?.map(orderItem => ({
+      items: successInfo.orderList?.map((orderItem) => ({
         i: orderItem.dealId,
         t: orderItem.prodName,
         p: orderItem.discountPrice,

@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import css from './LoginLayout.module.scss';
-import { LinkRoute } from 'childs/lib/router';
+import { LinkRoute } from 'lib/router';
 
 export class LoginLayout extends Component {
   static propTypes = {

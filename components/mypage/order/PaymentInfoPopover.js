@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import css from './PaymentInfoPopover.module.scss';
 import moment from 'moment';
-import { dateFormat } from 'childs/lib/constant';
+import { dateFormat } from 'lib/constant';
 import cn from 'classnames';
 import paymentMethod, {
   paymentMethodOptions,
-} from 'childs/lib/constant/order/paymentMethod';
-import { devLog } from 'childs/lib/common/devLog';
+} from 'lib/constant/order/paymentMethod';
+import { devLog } from 'lib/common/devLog';
 /**
  * 결제정보 i 아이콘 팝오버. 결제 정보를 포함한다.
  * order-complete API 의 결제 정보 객체
@@ -51,7 +51,7 @@ const PaymentInfoPopover = ({
     <div className={css.wrap} style={wrapperStyle}>
       <div
         className={css.infoIcon}
-        onClick={e => {
+        onClick={(e) => {
           e.stopPropagation();
           setIsVisible(true);
         }}
@@ -62,7 +62,7 @@ const PaymentInfoPopover = ({
           <div className={css.title}>결제정보</div>
           <div className={css.closeBtn} onClick={() => setIsVisible(false)}>
             <img
-              src="/static/icon/payment_info_close.png"
+              src="/public/icon/payment_info_close.png"
               alt="결제정보 닫기버튼"
             />
           </div>
@@ -70,7 +70,7 @@ const PaymentInfoPopover = ({
         <div className={css.paymentInfoBody}>
           <div className={css.paymentMethod}>
             {
-              paymentMethodOptions.find(o => o.value === payment.parentMethod)
+              paymentMethodOptions.find((o) => o.value === payment.parentMethod)
                 ?.label
             }
           </div>

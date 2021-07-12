@@ -20,7 +20,7 @@
       height: 30px;
       position: absolute;
       right: 10px;
-      background: url('/static/icon/burger-top-close@3x.png') no-repeat;
+      background: url('/public/icon/burger-top-close@3x.png') no-repeat;
       background-position: center;
       background-size: cover;
     }
@@ -112,7 +112,7 @@
 
           input[type='checkbox']:checked + .checkBox {
             border: none;
-            background-image: url('/static/icon/checkbox_checked_20.png');
+            background-image: url('/public/icon/checkbox_checked_20.png');
             background-size: 16px 16px;
             background-position: center;
             background-repeat: no-repeat;

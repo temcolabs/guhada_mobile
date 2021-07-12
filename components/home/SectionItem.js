@@ -2,10 +2,10 @@ import React from 'react';
 import { toJS } from 'mobx';
 import css from './SectionItem.module.scss';
 import cn from 'classnames';
-import isTruthy from 'childs/lib/common/isTruthy';
+import isTruthy from 'lib/common/isTruthy';
 import _ from 'lodash';
-import brandNew from 'childs/lib/constant/filter/brandNew';
-import internationalShipping from 'childs/lib/constant/filter/internationalShipping';
+import brandNew from 'lib/constant/filter/brandNew';
+import internationalShipping from 'lib/constant/filter/internationalShipping';
 import LazyLoad from 'react-lazyload';
 import { Field } from 'react-final-form';
 

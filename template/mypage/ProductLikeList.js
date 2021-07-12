@@ -3,10 +3,10 @@ import { withRouter } from 'next/router';
 import MypageLayout from 'components/mypage/MypageLayout';
 import MypageLikeDashboard from 'components/mypage/like/MypageLikeDashboard';
 import { inject, observer } from 'mobx-react';
-import { isBrowser } from 'childs/lib/common/isServer';
+import { isBrowser } from 'lib/common/isServer';
 import MypageDataEmpty from 'components/mypage/MypageDataEmpty';
 import SectionItem from 'components/home/SectionItem';
-import { LinkRoute } from 'childs/lib/router';
+import { LinkRoute } from 'lib/router';
 import css from './ProductLikeList.module.scss';
 
 @withRouter

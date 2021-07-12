@@ -1,13 +1,16 @@
 import Axios from 'axios';
 import { observable } from 'mobx';
-import API from 'childs/lib/API';
+import API from 'lib/API';
 
 let customOption = observable({
   country: [
     { value: 'resident', label: '내국인' },
     { value: 'foreigner', label: '외국인' },
   ],
-  gender: [{ value: 'MALE', label: '남' }, { value: 'FEMALE', label: '여' }],
+  gender: [
+    { value: 'MALE', label: '남' },
+    { value: 'FEMALE', label: '여' },
+  ],
   mailorderBusiness: [
     { value: 'true', label: '신고' },
     { value: 'false', label: '미신고' },

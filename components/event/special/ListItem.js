@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import css from './ListItem.module.scss';
 import moment from 'moment';
-import { pushRoute } from 'childs/lib/router';
+import { pushRoute } from 'lib/router';
 
 function ListItem({ data }) {
   const [startDate, setStartDate] = useState('');

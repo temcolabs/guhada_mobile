@@ -1,8 +1,8 @@
-import API from 'childs/lib/API';
+import API from 'lib/API';
 import Form from '../../../_.forms';
 import { root } from 'store';
-import autoTelNumber from 'childs/lib/common/autoTelNumber';
-import { devLog } from 'childs/lib/common/devLog';
+import autoTelNumber from 'lib/common/autoTelNumber';
+import { devLog } from 'lib/common/devLog';
 import _ from 'lodash';
 
 export default {
@@ -10,7 +10,7 @@ export default {
     // override default bindings for all text inputs
     this.name === 'Register Material' &&
       this.each(
-        field =>
+        (field) =>
           field.type === 'text' && field.set('bindings', 'MaterialTextField')
       );
   },
@@ -29,7 +29,7 @@ export default {
           mobile: form.values().mobile.replace(/-/gi, ''),
           name: form.values().name,
         })
-        .then(res => {
+        .then((res) => {
           let data = res.data;
 
           if (data.resultCode === 200) {
@@ -42,7 +42,7 @@ export default {
           } else if (data.resultCode === 6005) {
           }
         })
-        .catch(e => {
+        .catch((e) => {
           form.$('email').invalidate(' ');
           form.$('mobile').invalidate(_.get(e, 'data.message'));
           form.$('name').invalidate(' ');
@@ -72,7 +72,7 @@ export default {
     autoTelNumber(field);
   },
 
-  onBlur: field => {
+  onBlur: (field) => {
     devLog('-> onBlur HOOK -', field.path, field.value);
   },
 };

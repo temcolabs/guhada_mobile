@@ -2,13 +2,13 @@ import { memo } from 'react';
 import css from './MyPageHistory.module.scss';
 import cn from 'classnames';
 
-import { pushRoute } from 'childs/lib/router';
+import { pushRoute } from 'lib/router';
 import Image from 'components/atoms/Image';
 
 const IMAGE_PATH = {
-  followStore: '/static/icon/followstore_icon.png',
-  like: '/static/icon/like_icon.png',
-  review: '/static/icon/review_icon.png',
+  followStore: '/public/icon/followstore_icon.png',
+  like: '/public/icon/like_icon.png',
+  review: '/public/icon/review_icon.png',
 };
 
 const MyPageHistoryList = [

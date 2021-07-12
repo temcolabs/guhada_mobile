@@ -1,5 +1,5 @@
 import { observable, action, toJS } from 'mobx';
-import { isBrowser } from 'childs/lib/common/isServer';
+import { isBrowser } from 'lib/common/isServer';
 
 export default class ToastStore {
   constructor(root) {
@@ -12,14 +12,14 @@ export default class ToastStore {
   @observable status = false;
 
   @action
-  getToast = error => {
+  getToast = (error) => {
     this.error = error;
     this.status = true;
     setTimeout(() => this.setStatus(false), 2000);
   };
 
   @action
-  setStatus = bool => {
+  setStatus = (bool) => {
     this.status = bool;
   };
 }

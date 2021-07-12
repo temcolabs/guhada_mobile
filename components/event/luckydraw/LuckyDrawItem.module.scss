@@ -19,7 +19,7 @@ $wrapperHoriPad: 20px;
 .startDateHeader {
   @include centeredX;
   top: -20px;
-  background: url('/static/icon/event/today-ribbon@2x.png') no-repeat center;
+  background: url('/public/icon/event/today-ribbon@2x.png') no-repeat center;
   background-size: contain;
   width: 177px;
   height: 47px;
@@ -52,7 +52,7 @@ $wrapperHoriPad: 20px;
   width: calc(100% + #{$wrapperHoriPad} * 2);
   height: 240px;
   margin: 0 calc(-1 * #{$wrapperHoriPad});
-  background: url('/static/icon/event/luckdraw-item-bg.png') no-repeat center;
+  background: url('/public/icon/event/luckdraw-item-bg.png') no-repeat center;
   background-size: contain;
 }
 
@@ -235,7 +235,7 @@ $requestButtonHeight: 55px;
     right: 0;
     width: 18px;
     height: 18px;
-    background: url('/static/icon/event/arrow-r-line@2x.png') no-repeat center;
+    background: url('/public/icon/event/arrow-r-line@2x.png') no-repeat center;
     background-size: contain;
     transform: translateY(-50%) rotate(180deg);
   }

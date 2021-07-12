@@ -1,6 +1,6 @@
 import React from 'react';
 import css from './OrderConfirmModal.module.scss';
-import addCommaToNum from 'childs/lib/common/addCommaToNum';
+import addCommaToNum from 'lib/common/addCommaToNum';
 import SubmitButton, {
   SubmitButtonWrapper,
   CancelButton,
@@ -75,15 +75,14 @@ export default function OrderConfirmModal({
                   포인트 최대 {addCommaToNum(dueSavePointOnReview)}원
                 </div>
               </div>
-              {dueSavePointOnFirstPurchase > 0
-                ? <div className={css.pointGuide__item}>
-                    <div className={css.pointGuide__condition}>첫 구매 시</div>
-                    <div className={css.pointGuide__result}>
-                      포인트 {addCommaToNum(dueSavePointOnFirstPurchase)}원
-                    </div>
+              {dueSavePointOnFirstPurchase > 0 ? (
+                <div className={css.pointGuide__item}>
+                  <div className={css.pointGuide__condition}>첫 구매 시</div>
+                  <div className={css.pointGuide__result}>
+                    포인트 {addCommaToNum(dueSavePointOnFirstPurchase)}원
                   </div>
-              : null
-              }
+                </div>
+              ) : null}
             </div>
           </div>
         </div>
@@ -93,13 +92,14 @@ export default function OrderConfirmModal({
           <span>포인트 적립 유의사항</span>
         </h3>
         <ul className={css.pointCaution_list}>
-        <li></li>
+          <li></li>
           <li>
             텍스트 리뷰와 포토 리뷰 작성시 적립금은 중복 지급되지 않습니다.
           </li>
           <li>
-            해당 상품과 무관한 리뷰는 통보없이 삭제 및 적립 혜택이 회수될 수 있습니다.
-          </li>          
+            해당 상품과 무관한 리뷰는 통보없이 삭제 및 적립 혜택이 회수될 수
+            있습니다.
+          </li>
         </ul>
       </div>
       <SubmitButtonWrapper

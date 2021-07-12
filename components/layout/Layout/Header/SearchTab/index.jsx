@@ -5,7 +5,7 @@ import { observer } from 'mobx-react';
 import useStores from 'stores/useStores';
 import SearchMenu from './SearchMenu';
 import AutocompleteSearchMenu from './AutocompleteSearchMenu';
-import { pushRoute } from 'childs/lib/router';
+import { pushRoute } from 'lib/router';
 import ModalPortal from 'components/templates/ModalPortal';
 
 const SearchTab = () => {

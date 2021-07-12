@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './MypageAddressModal.module.scss';
 import cn from 'classnames';
-import addHyphenToMobile from 'childs/lib/string/addHyphenToMobile';
+import addHyphenToMobile from 'lib/string/addHyphenToMobile';
 import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 @inject('mypageAddress')
 @observer

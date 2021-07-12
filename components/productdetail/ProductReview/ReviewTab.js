@@ -23,7 +23,9 @@ function ReviewTab({
     { label: '2점 만', value: 'TWO' },
     { label: '1점 만', value: 'ONE' },
   ];
-  let rating = ratingList.find(rating => rating.value === productreview.rating);
+  let rating = ratingList.find(
+    (rating) => rating.value === productreview.rating
+  );
   return (
     <div className={css.wrap}>
       <div className={css.tabHeader}>
@@ -36,7 +38,7 @@ function ReviewTab({
             <div>{orderLabel}</div>
             <img
               className={css.icon}
-              src={'/static/icon/arrow_down_line.png'}
+              src={'/public/icon/arrow_down_line.png'}
               alt={'icon'}
             />
           </div>
@@ -47,7 +49,7 @@ function ReviewTab({
             <div>{rating.label}</div>
             <img
               className={css.icon}
-              src={'/static/icon/arrow_down_line.png'}
+              src={'/public/icon/arrow_down_line.png'}
               alt={'icon'}
             />
           </div>

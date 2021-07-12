@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
-import { SPECIAL_DETAIL_ORDER } from 'childs/lib/constant/event/FilterOption';
+import { SPECIAL_DETAIL_ORDER } from 'lib/constant/event/FilterOption';
 import { inject, observer } from 'mobx-react';
 import Router from 'next/router';
 
@@ -16,7 +16,7 @@ class Filter extends Component {
       valueContainer: () => ({
         padding: 0,
       }),
-      control: provided => ({
+      control: (provided) => ({
         ...provided,
         minHeight: 30,
         border: 'none',
@@ -25,7 +25,7 @@ class Filter extends Component {
         fontSize: 13,
         fontWeight: 500,
       }),
-      placeholder: provided => ({
+      placeholder: (provided) => ({
         ...provided,
         color: '#333',
         fontSize: 13,
@@ -62,7 +62,7 @@ class Filter extends Component {
         styles={selectStyles}
         placeholder={`신상품순`}
         options={SPECIAL_DETAIL_ORDER}
-        onChange={value => {
+        onChange={(value) => {
           special.getSpecialDetail({
             id: query.id,
             page: 1,

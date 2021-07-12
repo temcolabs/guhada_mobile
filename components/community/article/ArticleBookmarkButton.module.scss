@@ -3,7 +3,7 @@
   width: 45px;
   height: 45px;
   border-radius: 50%;
-  background-image: url('/static/icon/community/icon-bookmark-off.png');
+  background-image: url('/public/icon/community/icon-bookmark-off.png');
   background-size: 25px;
   background-position: center;
   background-repeat: no-repeat;
@@ -14,7 +14,7 @@
   text-align: center;
 
   &.isOn {
-    background-image: url('/static/icon/community/icon-bookmark-on.png');
+    background-image: url('/public/icon/community/icon-bookmark-on.png');
     border-color: #5d2ed1;
     color: #5d2ed1;
   }

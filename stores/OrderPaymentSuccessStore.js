@@ -1,8 +1,8 @@
 import { observable, action, toJS } from 'mobx';
-import API from 'childs/lib/API';
+import API from 'lib/API';
 import Router from 'next/router';
 import moment from 'moment';
-import { devLog } from 'childs/lib/common/devLog';
+import { devLog } from 'lib/common/devLog';
 
 const isServer = typeof window === 'undefined';
 export default class OrderPaymentStore {
@@ -25,7 +25,7 @@ export default class OrderPaymentStore {
   };
 
   @action
-  getOrderPaymentSuccessInfo = id => {
+  getOrderPaymentSuccessInfo = (id) => {
     return API.order
       .get(`/order/order-complete/${id}`)
       .then(({ data }) => {
@@ -47,7 +47,7 @@ export default class OrderPaymentStore {
 
         return successInfo;
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err, 'orderpayment success err');
       })
       .finally(() => {
@@ -58,7 +58,7 @@ export default class OrderPaymentStore {
     Router.push('/');
   };
 
-  decodeLoginData = accessToken => {
+  decodeLoginData = (accessToken) => {
     devLog(accessToken);
     let loginInfoKey;
     if (accessToken) {

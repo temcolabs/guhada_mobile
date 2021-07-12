@@ -1,5 +1,5 @@
 import { observable, action } from 'mobx';
-import placeholderService from 'childs/lib/API/settle/placeholderService';
+import placeholderService from 'lib/API/settle/placeholderService';
 
 export class SearchPlaceholderStore {
   // constructor() {
