@@ -10,6 +10,7 @@ import {
   DEFAULT_SEARCH_TYPE,
 } from 'lib/constant/community/searchQuery';
 import { scrollToTarget } from 'lib/common/scroll';
+import _ from 'lodash';
 
 // 페이지, 카테고리 변경시 스크롤 업할 타겟
 export const scrollUpTargetId = 'bbs-scrollup-on-change-page';

@@ -1,31 +1,25 @@
-import { useState, useEffect, memo } from 'react';
+import { useEffect, memo } from 'react';
 import { pushRoute } from 'lib/router';
 import CommunityLayout from 'components/community/CommunityLayout';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';
 import css from './BBSList.module.scss';
 import cn from 'classnames';
 import { withRouter } from 'next/router';
-import { compose } from 'lodash/fp';
 import BoardTitle from 'components/community/list/BoardTitle';
 import BoardSearch from 'components/community/list/BoardSearch';
 import BoardListItem from 'components/community/list/BoardListItem';
 import useStores from 'stores/useStores';
-// import AdBanner from 'components/community/AdBanner';
 import CommunityContentWrap from 'components/community/CommunityContentWrap';
 import { useBBSStore } from 'stores/bbs';
 import useBBSSearchState from 'components/community/list/useBBSSearchState';
-import { ITEMS_PER_PAGE } from 'lib/constant/community/searchQuery';
 import { useObserver } from 'mobx-react';
 import BoardGridItem, {
   BoardGridContainer,
 } from 'components/community/list/BoardGridItem';
 import categoryViewType from 'lib/constant/community/categoryViewType';
 import MoreButton from 'components/common/MoreButton';
-import DataEmpty from 'components/common/DataEmpty.js';
 import Slider from 'components/molecules/Slider';
 import Image from 'components/atoms/Image';
-
-const enhancer = compose(withScrollToTopOnMount, withRouter);
 
 const settings = {
   dots: true,
@@ -38,7 +32,7 @@ const settings = {
 /**
  * 게시판. 게시글 목록
  */
-const BBSList = enhancer(({ router }) => {
+const BBSList = ({ router }) => {
   const {
     searchQuery,
     boardTitle,
@@ -55,8 +49,6 @@ const BBSList = enhancer(({ router }) => {
 
   const { search: searchStore, category: categoryStore } = useBBSStore();
   const { eventmain: eventMainStore } = useStores();
-
-  const [isBanner, setIsBanner] = useState(false);
 
   // 배너 초기화
   useEffect(() => {
@@ -104,7 +96,7 @@ const BBSList = enhancer(({ router }) => {
         {eventMainStore.eventBannerList.length ? (
           <div className={cn(css.bannerListContainer)}>
             {eventMainStore.eventBannerList.map((o) => (
-              <Slider settings={settings}>
+              <Slider key={o.id} settings={settings}>
                 <div onClick={() => pushRoute(o.detailPageUrl)}>
                   <Image src={o.bannerImageUrl} height={'68px'} />
                 </div>
@@ -181,6 +173,6 @@ const BBSList = enhancer(({ router }) => {
       </CommunityLayout>
     </>
   ));
-});
+};
 
-export default memo(BBSList);
+export default withRouter(withScrollToTopOnMount(memo(BBSList)));

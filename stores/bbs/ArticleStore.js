@@ -1,5 +1,5 @@
 import { isBrowser } from 'lib/common/isServer';
-import { observable, action, computed, toJS } from 'mobx';
+import { observable, action, computed } from 'mobx';
 import API from 'lib/API';
 import _ from 'lodash';
 import qs from 'qs';
@@ -9,6 +9,7 @@ import userLikeService from 'lib/API/user/userLikeService';
 import { sendBackToLogin } from 'lib/router';
 import { bbsTargetTypes } from 'lib/API/user/userLikeService';
 import { devLog } from 'lib/common/devLog';
+
 class ArticleStore {
   constructor(root, initialState = {}) {
     if (isBrowser) {
@@ -64,11 +65,14 @@ class ArticleStore {
     if (this.root) {
       const category = _.get(this.root, 'bbs.category');
 
-      const articleCategory = category.allCategories.find(
-        (c) => c.id === this.data.categoryId
-      );
+      if (category) {
+        const articleCategory = category.allCategories.find(
+          (c) => c.id === this.data.categoryId
+        );
 
-      return articleCategory ? articleCategory.name : '';
+        return articleCategory ? articleCategory.name : '';
+      }
+      return '';
     } else {
       return '';
     }

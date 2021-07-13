@@ -1,14 +1,10 @@
 import { useRef, useEffect } from 'react';
-import { toJS } from 'mobx';
 import css from './BoardMenus.module.scss';
 import cn from 'classnames';
 import { useBBSStore } from 'stores/bbs';
 import { observer } from 'mobx-react';
 import useBBSSearchState from '../list/useBBSSearchState';
 import { withRouter } from 'next/router';
-import { compose } from 'lodash/fp';
-
-const enhancer = compose(withRouter, observer);
 
 /**
  * 사이드바 게시판 선택 버튼 그리드
@@ -115,4 +111,4 @@ const BoardMenus = ({ router }) => {
   );
 };
 
-export default enhancer(BoardMenus);
+export default withRouter(observer(BoardMenus));

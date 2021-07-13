@@ -1,6 +1,5 @@
 import { useState, useMemo, useEffect } from 'react';
 import useStores from 'stores/useStores';
-import { compose as _compose } from 'lodash/fp';
 import { withRouter } from 'next/router';
 import { observer } from 'mobx-react';
 import { loginStatus } from 'lib/constant';
@@ -23,7 +22,6 @@ import {
   LuckyDrawHistory,
 } from 'template/LuckyDraw/components/organisms';
 
-const enhancer = _compose(withRouter);
 const initialStateLuckyDrawModal = {
   status: '',
   contents: '',
@@ -261,4 +259,4 @@ function LuckyDrawTemplate() {
   );
 }
 
-export default enhancer(observer(LuckyDrawTemplate));
+export default withRouter(observer(LuckyDrawTemplate));

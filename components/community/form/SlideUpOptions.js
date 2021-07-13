@@ -3,6 +3,7 @@ import css from './SlideUpOptions.module.scss';
 import anime from 'animejs';
 import { Transition } from 'react-transition-group';
 import { func, arrayOf, shape, string, any } from 'prop-types';
+import _ from 'lodash';
 
 export const slideOptionsPropType = arrayOf(
   shape({ label: string, value: any })

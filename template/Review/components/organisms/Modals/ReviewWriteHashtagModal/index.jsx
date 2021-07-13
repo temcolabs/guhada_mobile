@@ -110,7 +110,7 @@ function ReviewWriteHashtagModal({ isOpen, onClose, delHashtag }) {
    */
 
   // 연관 해시태그 조회 debounce
-  const debounceSomethingFunc = debounce((hashtag) => {
+  const debounceSomethingFunc = _.debounce((hashtag) => {
     reviewStore.getReviewAutoComplete({ hashtag });
   }, 100);
 

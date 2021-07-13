@@ -52,7 +52,7 @@ export default class CommentsStore {
 
   @computed
   get list() {
-    return _.get(this, 'data.content');
+    return _.get(this, 'data.content') || [];
   }
 
   @observable

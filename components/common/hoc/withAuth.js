@@ -6,6 +6,7 @@ import { loginStatus } from 'lib/constant';
 import { isBrowser } from 'lib/common/isServer';
 import Loading from '../loading/Loading';
 import qs from 'qs';
+import _ from 'lodash';
 
 /**
  * isAuthRequired 옵션에 따라 현재 페이지에서 redirectTo로 지정된 페이지로 이동시킴

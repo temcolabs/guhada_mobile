@@ -36,7 +36,11 @@ module.exports = withBundleAnalyzer({
      * plugins
      */
     const customPlugins = [
-      new LodashModuleReplacementPlugin(),
+      new LodashModuleReplacementPlugin({
+        currying: true,
+        flattening: true,
+        paths: true,
+      }),
       new webpack.ContextReplacementPlugin(/moment[\/\\]locale/, /en|ko/),
       new webpack.IgnorePlugin(
         /^.\/(?!ko)(.+)$/,

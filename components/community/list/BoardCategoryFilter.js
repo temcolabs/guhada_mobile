@@ -4,12 +4,7 @@ import { withRouter } from 'next/router';
 import useBBSSearchState from 'components/community/list/useBBSSearchState';
 import { useBBSStore } from 'stores/bbs';
 import { useObserver } from 'mobx-react';
-import SlideUpOptions, { slideOptionsPropType } from '../form/SlideUpOptions';
-
-BoardCategoryFilter.propTypes = {
-  options: slideOptionsPropType,
-  onChange: func,
-};
+import SlideUpOptions from '../form/SlideUpOptions';
 
 function BoardCategoryFilter({
   router = {},
