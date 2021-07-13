@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import css from './CardInterestModal.module.scss';
 import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 
@@ -38,9 +38,9 @@ function CardInterestModal({ isVisible, onClose, cardinterest }) {
                       style={{ backgroundImage: `url(${data.imgUrl})` }}
                     />
                     <div className={css.cardInfo}>
-                      <div className={css.interestDate}>{`${
-                        data.startEventDate
-                      }~${data.endEventDate}`}</div>
+                      <div
+                        className={css.interestDate}
+                      >{`${data.startEventDate}~${data.endEventDate}`}</div>
                       <div className={css.interestNote}>{`${data.note}`}</div>
                       <div className={css.interestEtc}>
                         {data.etc ? `※ ${data.etc}` : null}

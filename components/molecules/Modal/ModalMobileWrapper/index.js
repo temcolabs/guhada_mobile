@@ -1,4 +1,4 @@
-import React from 'react';
+import { Component } from 'react';
 import ReactModal from 'react-modal';
 import css from './ModalWrapper.module.scss';
 import cn from 'classnames';
@@ -19,7 +19,7 @@ export const ModalContentWrap = ({ children }) => (
 /**
  * 컨텐츠를 전달할 수 있는 모달 컨테이너
  */
-class ModalWrapper extends React.Component {
+class ModalWrapper extends Component {
   state = {
     scrollPosition: 0,
   };

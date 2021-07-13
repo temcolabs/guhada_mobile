@@ -1,7 +1,7 @@
 import { observable, action } from 'mobx';
 import Axios from 'axios';
 import API from 'lib/API';
-import { get as _get, isNil as _isNil } from 'lodash';
+import _ from 'lodash';
 import { devLog } from 'lib/common/devLog';
 import widerplanetTracker from 'lib/tracking/widerplanet/widerplanetTracker';
 import Cookies from 'js-cookie';
@@ -107,12 +107,12 @@ export default class ProductDetailStore {
         this.isInitial = false;
       })
       .catch((e) => {
-        const data = _get(e, 'data');
+        const data = _.get(e, 'data');
 
         if (data?.resultCode === 8404) {
           devLog('object', data.message);
           this.root.alert.showAlert({
-            content: _get(e, 'data.message'),
+            content: _.get(e, 'data.message'),
             onConfirm: () => {
               Router.back();
             },
@@ -355,7 +355,7 @@ export default class ProductDetailStore {
         this.inquiryList.content = newInquiry.concat(data.data.content);
       })
       .catch((e) => {
-        if (_get(e, `data.resultCode`) === 5004) {
+        if (_.get(e, `data.resultCode`) === 5004) {
           this.root.alert.showAlert({
             content: '문의 데이터가 더 이상 존재하지 않습니다.',
           });
@@ -550,10 +550,10 @@ export default class ProductDetailStore {
 
 export function getHeadData(deals) {
   return {
-    pageName: `${_isNil(deals.season) === false ? `${deals.season} ` : ''}${
+    pageName: `${_.isNil(deals.season) === false ? `${deals.season} ` : ''}${
       deals.name
     }`,
     description: `${deals.brandName} - ${deals.name} - ${deals.discountPrice}원`,
-    image: _get(deals, 'imageUrls.0'),
+    image: _.get(deals, 'imageUrls.0'),
   };
 }

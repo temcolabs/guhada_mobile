@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './MainHotKeyword.module.scss';
 
 export default function MainHotKeyword({
@@ -18,7 +17,7 @@ export default function MainHotKeyword({
     <div className={css.wrap}>
       <div className={css.header}>HOT KEYWORD</div>
       <div>
-        {hotKeyword.map(hot => {
+        {hotKeyword.map((hot) => {
           return (
             <div
               className={css.item}

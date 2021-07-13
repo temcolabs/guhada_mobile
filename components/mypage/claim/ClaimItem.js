@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import css from './ClaimItem.module.scss';
 import cn from 'classnames';
 import moment from 'moment';

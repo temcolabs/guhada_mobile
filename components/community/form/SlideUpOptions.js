@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import _ from 'lodash';
+import { useState } from 'react';
 import css from './SlideUpOptions.module.scss';
 import anime from 'animejs';
 import { Transition } from 'react-transition-group';
@@ -39,7 +38,7 @@ export default function SlideUpOptions({
 }) {
   const DURATION = duration;
   const optionsAnime = {
-    onEnter: node => {
+    onEnter: (node) => {
       anime({
         targets: node,
         easing: 'easeInOutQuad',
@@ -51,12 +50,12 @@ export default function SlideUpOptions({
         },
       });
     },
-    onEntered: node => {
+    onEntered: (node) => {
       anime({
         targets: node,
       });
     },
-    onExit: node => {
+    onExit: (node) => {
       anime({
         targets: node,
         easing: 'easeInOutQuad',
@@ -110,7 +109,7 @@ export default function SlideUpOptions({
         onExit={optionsAnime.onExit}
         timeout={DURATION}
       >
-        {state =>
+        {(state) =>
           isOptionsVisible ? (
             <div
               key="options"

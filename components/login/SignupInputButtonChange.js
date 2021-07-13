@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import { Component, Fragment } from 'react';
 import { observer } from 'mobx-react';
 import css from './SignupInputButtonChange.module.scss';
 import cn from 'classnames';

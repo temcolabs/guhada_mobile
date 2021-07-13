@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { withRouter } from 'next/router';
 import { compose } from 'lodash/fp';
 import { useObserver } from 'mobx-react';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { storiesOf } from '@storybook/react';
 import {
   withKnobs,
@@ -21,7 +20,7 @@ stories.add('QuickDeliveryTrackingModal', () => {
     <div>
       <QuickDeliveryTrackingModal
         myDelivery={Object.assign(new MypageDeliveryStore({}), {
-            isQuickDeliveyTrackingModalOpen: true,
+          isQuickDeliveyTrackingModalOpen: true,
         })}
       />
     </div>

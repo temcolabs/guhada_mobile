@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { createRef, Component } from 'react';
 import cn from 'classnames';
 import css from './ProductTab.module.scss';
 class ProductTab extends Component {
@@ -10,8 +10,8 @@ class ProductTab extends Component {
       tabSize: 52,
     };
 
-    this.tabRef = React.createRef();
-    this.tabBoundaryRef = React.createRef();
+    this.tabRef = createRef();
+    this.tabBoundaryRef = createRef();
   }
 
   componentDidMount() {
@@ -52,7 +52,7 @@ class ProductTab extends Component {
       });
   };
 
-  selectTab = selected => {
+  selectTab = (selected) => {
     const { tabRefMap } = this.props;
     this.setState({
       selected,

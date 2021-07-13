@@ -1,10 +1,6 @@
-import React from 'react';
 import css from './RelatedAndRecommend.module.scss';
 import cn from 'classnames';
 import { pushRoute } from 'lib/router';
-import _ from 'lodash';
-import internationalShipping from 'lib/constant/filter/internationalShipping';
-import brandNew from 'lib/constant/filter/brandNew';
 
 export default function RelatedAndRecommend({
   dealsOfSameBrand = [

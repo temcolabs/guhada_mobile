@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './ProductReviewEmpty.module.scss';
 
 export default function ProductReviewEmpty({ alert, productreview }) {

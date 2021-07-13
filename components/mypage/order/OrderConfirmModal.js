@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './OrderConfirmModal.module.scss';
 import addCommaToNum from 'lib/common/addCommaToNum';
 import SubmitButton, {

@@ -1,4 +1,4 @@
-import React, { Fragment, Component } from 'react';
+import { Fragment, Component } from 'react';
 import css from './MypageRecentlySeenItem.module.scss';
 import { inject, observer } from 'mobx-react';
 import { LinkRoute } from 'lib/router';

@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './SellerClaimModal.module.scss';
 import { dateFormat } from 'lib/constant';
 import moment from 'moment';

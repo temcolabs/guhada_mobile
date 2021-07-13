@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import moment from 'moment';
 import { withRouter } from 'next/router';
 import css from './OrderCompleteDetail.module.scss'; // NOTE: 주문 상세와 스타일 공유

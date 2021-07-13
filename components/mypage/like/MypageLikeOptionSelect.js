@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import Select from 'react-select';
 import { inject, observer } from 'mobx-react';
 
@@ -15,7 +15,7 @@ class MypageLikeOptionSelect extends Component {
       valueContainer: () => ({
         padding: 0,
       }),
-      control: provided => ({
+      control: (provided) => ({
         ...provided,
         height: 50,
         border: 'solid 1px #dfe3e9',
@@ -23,7 +23,7 @@ class MypageLikeOptionSelect extends Component {
         boxShadow: 0,
         padding: '0 15px 0 15px',
       }),
-      placeholder: provided => ({
+      placeholder: (provided) => ({
         ...provided,
         color: '#354052',
         fontSize: 13,
@@ -63,7 +63,7 @@ class MypageLikeOptionSelect extends Component {
           .likeItemTempOptions[0]?.label3 || ''}  `}
         options={mypageLike.likeItemRealOptions}
         formatOptionLabel={mypageLike.getLabelColor}
-        onChange={value => {
+        onChange={(value) => {
           mypageLike.selectOption(value);
         }}
         value={mypageLike.selectedOption}

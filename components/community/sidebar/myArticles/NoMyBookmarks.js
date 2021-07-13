@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './NoMyActivity.module.scss';
 
 export default function NoMyBookmarks() {

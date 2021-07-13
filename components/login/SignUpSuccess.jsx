@@ -1,5 +1,5 @@
 import { pushRoute } from 'lib/router';
-import React from 'react';
+
 import css from './SignUpSuccess.module.scss';
 
 const SignUpSuccess = ({ email }) => {

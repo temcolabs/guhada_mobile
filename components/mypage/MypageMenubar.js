@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './MypageMenubar.module.scss';
 import mypageRouteObj from 'routes/mypageRouteObj';
 import MenubarSection from './MenubarSection';
@@ -208,7 +207,7 @@ function MypageMenubar({ userInfo = {}, pathname = '/', router = {} }) {
           <MenubarSection
             key={index}
             index={index}
-            links={section.links.map(link => {
+            links={section.links.map((link) => {
               // 링크가 하이라이팅 시킬 경로와 매칭되는지 확인
               return link.targetPaths.includes(window.location.pathname)
                 ? Object.assign({}, link, { isSelected: true })

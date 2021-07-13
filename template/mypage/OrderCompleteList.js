@@ -1,13 +1,10 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { withRouter } from 'next/router';
 import css from './OrderCompleteList.module.scss';
 import MypageLayout, {
   MypageContentsWrap,
 } from 'components/mypage/MypageLayout';
-import PeriodSelector, {
-  DEFAULT_PERIOD,
-  DEFAULT_TAB_IN_USE,
-} from 'components/mypage/PeriodSelector';
+
 import { dateUnit } from 'lib/constant';
 import OrderDashboard from 'components/mypage/order/OrderDashboard';
 import { inject, observer } from 'mobx-react';
@@ -30,6 +27,15 @@ import PointSavingModal, {
 } from 'components/mypage/point/PointSavingModal';
 import OrderConfirmModal from 'components/mypage/order/OrderConfirmModal';
 import withReviewModal from 'components/mypage/review/withReviewModal';
+import {
+  DEFAULT_PERIOD,
+  DEFAULT_TAB_IN_USE,
+} from 'components/mypage/PeriodSelector';
+
+import dynamic from 'next/dynamic';
+const PeriodSelector = dynamic(() =>
+  import('components/mypage/PeriodSelector')
+);
 
 /**
  * 마이페이지 - 주문 배송 (주문 완료 목록)

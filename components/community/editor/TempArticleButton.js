@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import css from './TempArticleButton.module.scss';
 import SlideUpOptions from '../form/SlideUpOptions';
 import moment from 'moment';
@@ -11,7 +11,7 @@ import { observer } from 'mobx-react';
 const TempArticleButton = ({
   wrapperStyle = {},
   onClickTempArticle = ({ data }) => {},
-  onDeleteTempArticle = id => {},
+  onDeleteTempArticle = (id) => {},
 }) => {
   const { tempArticle } = useBBSStore();
 

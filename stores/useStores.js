@@ -1,4 +1,4 @@
-import React from 'react';
+import { useContext } from 'react';
 import { MobXProviderContext } from 'mobx-react';
 
 /**
@@ -6,7 +6,7 @@ import { MobXProviderContext } from 'mobx-react';
  * @returns {import('./Root').default} the singleton Root store
  */
 function useStores() {
-  return React.useContext(MobXProviderContext);
+  return useContext(MobXProviderContext);
 }
 
 export default useStores;

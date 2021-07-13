@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import css from './ClaimOrderItemTable.module.scss';
 import OrderItemForDetail from './OrderItemForDetail';
 

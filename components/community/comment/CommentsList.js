@@ -1,11 +1,9 @@
-import React, { useEffect, useState, useContext } from 'react';
-import _ from 'lodash';
+import { useEffect, useState, useContext } from 'react';
 import css from './CommentsList.module.scss';
 import CommentItem from './CommentItem';
 import CommentInput from './CommentInput';
 import { useObserver } from 'mobx-react';
 import { useBBSStore } from 'stores/bbs';
-import jumpToAnchor from 'lib/dom/jumpToAnchor';
 import ReportModal from 'components/claim/report/ReportModal';
 import { default as reportTargetEnum } from 'lib/constant/reportTarget';
 import { ArticleIdContext } from 'template/community/BBSArticleView';
@@ -21,7 +19,6 @@ import MoreButton from 'components/common/MoreButton';
  */
 const CommentsList = ({ commentCount }) => {
   const articleId = useContext(ArticleIdContext);
-  const ITEMS_PER_PAGE = 10;
   const { comments: commentsStore } = useBBSStore();
   const [currentPage, setCurrentPage] = useState(1);
   const listElementId = `${articleId}-comment-list`;
@@ -52,14 +49,14 @@ const CommentsList = ({ commentCount }) => {
     };
   }, [articleId, commentsStore, currentPage]);
 
-  /**
-   * 페이지 클릭
-   * @param {} page
-   */
-  const handleClickPage = (page) => {
-    setCurrentPage(page);
-    jumpToAnchor(listElementId);
-  };
+  // /**
+  //  * 페이지 클릭
+  //  * @param {} page
+  //  */
+  // const handleClickPage = (page) => {
+  //   setCurrentPage(page);
+  //   jumpToAnchor(listElementId);
+  // };
 
   const handleSubmitComment = ({ contents, imageList }) => {
     commentsStore.createComment({

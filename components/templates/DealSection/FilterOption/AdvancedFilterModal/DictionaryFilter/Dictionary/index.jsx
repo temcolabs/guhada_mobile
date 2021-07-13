@@ -1,7 +1,7 @@
 import css from './Dictionary.module.scss';
 import { useState, useEffect, useRef, memo } from 'react';
 import PropTypes from 'prop-types';
-import { debounce as _debounce } from 'lodash';
+import _ from 'lodash';
 import { useMountAndUpdate } from 'lib/hooks';
 import DictionaryNode from './DictionaryNode';
 
@@ -22,7 +22,7 @@ const Dictionary = ({
   /**
    * handlers
    */
-  const debouncedSetDictMap = _debounce((value) => {
+  const debouncedSetDictMap = _.debounce((value) => {
     const upperCasedValue = value.toUpperCase();
     const regex = new RegExp(`^${upperCasedValue}| ${upperCasedValue}`);
     const accessor = prop === 'nameEn' ? 'nameEnCap' : prop;

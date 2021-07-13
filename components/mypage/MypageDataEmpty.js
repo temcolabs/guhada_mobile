@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './MypageDataEmpty.module.scss';
 
 function MypageDataEmpty({ text }) {

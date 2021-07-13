@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import SectionWrap from '../SectionWrap';
 import css from './SellerReview.module.scss';
 import { inject, observer } from 'mobx-react';

@@ -1,5 +1,3 @@
-import React from 'react';
-import _ from 'lodash';
 import css from './ArticleTitle.module.scss';
 import moment from 'moment';
 import { useObserver } from 'mobx-react';

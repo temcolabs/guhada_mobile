@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactSlider from 'react-slick';
 // import 'slick-carousel/slick/slick.scss';
 // import 'slick-carousel/slick/slick-theme.scss';

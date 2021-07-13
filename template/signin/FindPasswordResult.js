@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import LoginLayout from 'components/layout/LoginLayout';
 import { LoginWrapper, LoginInput, LoginButton } from 'components/login';
 import css from './FindPasswordResult.module.scss';
@@ -13,6 +13,7 @@ import _ from 'lodash';
 class FindPasswordResult extends Component {
   newPassword = () => {
     const { form, formValue, verificationTargetType } = this.props;
+
     form.validate({ showErrors: true }).then(({ isValid }) => {
       if (isValid === true) {
         // 이메일, 핸드폰인증으로 비밀번호 바꾸기

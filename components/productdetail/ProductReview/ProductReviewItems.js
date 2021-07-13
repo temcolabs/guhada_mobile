@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import dynamic from 'next/dynamic';
 import css from './ProductReviewItems.module.scss';
 import _ from 'lodash';
@@ -6,7 +6,7 @@ import StarItem from '../StarItem';
 import moment from 'moment';
 import { dateFormat, loginStatus } from 'lib/constant';
 import { inject, observer } from 'mobx-react';
-import { pushRoute, sendBackToLogin } from 'lib/router';
+import { sendBackToLogin } from 'lib/router';
 import isTruthy from 'lib/common/isTruthy';
 import cn from 'classnames';
 import ReviewReply from 'components/productdetail/ReviewReply';
@@ -16,7 +16,7 @@ import { toJS } from 'mobx';
 
 /**
  * 이미지 확대 모달
- * @returns { React.Component } PhotoDetailModal
+ * @returns { Component } PhotoDetailModal
  */
 const PhotoDetailModal = dynamic(() =>
   import('components/organisms/Modals/PhotoDetailModal')

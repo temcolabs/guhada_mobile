@@ -1,11 +1,11 @@
-import React, { Component, Fragment } from 'react';
+import { Component, Fragment } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './ShippingAddress.module.scss';
 import ShippingMessageSelect from './ShippingMessageSelect';
 import AddressChangeModal from './modal/AddressChangeModal';
 import addHyphenToMobile from 'lib/string/addHyphenToMobile';
-import { devLog } from 'lib/common/devLog';
 import _ from 'lodash';
+
 @inject('orderpayment')
 @observer
 class ShippingAddress extends Component {

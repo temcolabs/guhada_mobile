@@ -1,9 +1,9 @@
-import React from 'react';
+import { Component } from 'react';
 import css from './FollowStoreDashboard.module.scss';
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 
 @observer
-class FollowStoreDashboard extends React.Component {
+class FollowStoreDashboard extends Component {
   render() {
     let { followListLength } = this.props;
     return <div className={css.wrap}>{`총 ${followListLength}개`}</div>;

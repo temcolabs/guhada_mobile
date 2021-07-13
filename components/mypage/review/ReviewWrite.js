@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import ReviewWriteItem from './ReviewWriteItem';
 import MypageDataEmpty from '../MypageDataEmpty';
 import { inject, observer } from 'mobx-react';
@@ -21,11 +21,11 @@ class ReviewWrite extends Component {
 
   listTop = 'listTop';
 
-  handleClickWriteReviewButton = orderItem => {
+  handleClickWriteReviewButton = (orderItem) => {
     this.props.orderCompleteList.handleClickWriteReviewButton(orderItem);
   };
 
-  handleChangePage = page => {
+  handleChangePage = (page) => {
     const { mypagereview: mypageReviewStore } = this.props;
 
     mypageReviewStore.availableReviewPage += 1;

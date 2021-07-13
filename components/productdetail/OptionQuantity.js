@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './OptionQuantity.module.scss';
 import { observer } from 'mobx-react';
 
@@ -24,10 +23,10 @@ const OptionQuantity = observer(
                 <div className={css.quantity}>
                   <input
                     value={productoption.options.selectedQuantity}
-                    onChange={e => {
+                    onChange={(e) => {
                       productoption.quantityChange(e);
                     }}
-                    onBlur={e => {
+                    onBlur={(e) => {
                       productoption.quantityChangeOutFocus(e);
                     }}
                   />

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import Select from 'react-select';
 import { SPECIAL_FILTER } from 'lib/constant/event/FilterOption';
 class Filter extends Component {

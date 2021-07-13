@@ -1,4 +1,3 @@
-import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs, boolean, text, object } from '@storybook/addon-knobs';
 import ReviewCommentSection from './index';

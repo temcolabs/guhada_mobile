@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useRef, useContext } from 'react';
 import css from './ProfileImageForm.module.scss';
 import { UserEditFormContext } from 'template/mypage/UserInfomation';
 import useStores from 'stores/useStores';
@@ -9,12 +9,13 @@ import {
   deleteProfileFile,
 } from 'lib/API/user/profileService';
 import cn from 'classnames';
+
 export default function ProfileImageForm() {
   const { user: userStore, alert: alertStore } = useStores();
   const { fields, values, updateInitialValues } = useContext(
     UserEditFormContext
   );
-  const attachFileInputRef = React.useRef();
+  const attachFileInputRef = useRef();
 
   const handleChangeAttachFile = async (e) => {
     const { files } = e.target;

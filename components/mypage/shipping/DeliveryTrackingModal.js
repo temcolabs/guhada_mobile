@@ -1,4 +1,3 @@
-import React, { Component, useCallback } from 'react';
 import css from './DeliveryTrackingModal.module.scss';
 import cn from 'classnames';
 import { observer, inject } from 'mobx-react';
@@ -6,9 +5,7 @@ import moment from 'moment';
 import { dateFormat } from 'lib/constant/date';
 import { statusClassName } from 'stores/mypage/MypageDeliveryStore';
 import { compose } from 'lodash/fp';
-import ModalLayout, {
-  useModalLayoutState,
-} from 'components/layout/ModalLayout';
+import ModalLayout from 'components/layout/ModalLayout';
 
 const enhancer = compose(inject('myDelivery'), observer);
 
@@ -20,12 +17,6 @@ function DeliveryTrackingModal({ myDelivery, isModalOpen }) {
   const shippingStatus = myDelivery.getCurrentShippingStatus(
     deliveryInfo?.level // level은 2~6. .store 참조
   );
-
-  const { isModalLayoutOpen, closeModalLayout } = useModalLayoutState({
-    isModalOpen,
-    isOpenOnMount: false,
-    onClose: useCallback(() => {}, []),
-  });
 
   return (
     <ModalLayout

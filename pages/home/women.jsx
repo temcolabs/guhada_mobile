@@ -1,8 +1,7 @@
 import { observer } from 'mobx-react';
 import isServer from 'lib/common/isServer';
 import { getLayoutInfo } from 'stores/LayoutStore';
-import HeadForSEO from 'lib/components/HeadForSEO';
-import Layout from 'components/layout/Layout';
+import HeadForSEO from 'components/head/HeadForSEO';
 import Footer from 'components/footer/Footer';
 import Home from 'template/Home/Home';
 

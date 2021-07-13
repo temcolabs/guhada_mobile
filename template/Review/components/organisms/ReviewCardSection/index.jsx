@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import { memo, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';

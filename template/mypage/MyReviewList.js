@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import MypageLayout from 'components/mypage/MypageLayout';
 import { inject, observer } from 'mobx-react';
 import MypageReviewHeading from 'components/mypage/review/MypageReviewHeading';

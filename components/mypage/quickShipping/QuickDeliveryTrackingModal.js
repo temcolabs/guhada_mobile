@@ -1,4 +1,4 @@
-import React, { Component, useCallback } from 'react';
+import { Component, useCallback } from 'react';
 import css from './QuickDeliveryTrackingModal.module.scss';
 import cn from 'classnames';
 import { observer, inject } from 'mobx-react';

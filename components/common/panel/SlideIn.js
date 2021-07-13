@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import ReactDom from 'react-dom';
 import css from './SlideIn.module.scss';
 import { Transition } from 'react-transition-group';

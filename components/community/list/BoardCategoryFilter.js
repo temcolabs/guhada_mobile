@@ -1,16 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import _ from 'lodash';
-import cn from 'classnames';
+import { useState, useEffect } from 'react';
 import css from './BoardCategoryFilter.module.scss';
 import { withRouter } from 'next/router';
 import useBBSSearchState from 'components/community/list/useBBSSearchState';
 import { useBBSStore } from 'stores/bbs';
 import { useObserver } from 'mobx-react';
 import SlideUpOptions, { slideOptionsPropType } from '../form/SlideUpOptions';
-import useChangeOption from 'lib/hooks/useChangeOption';
-import { func } from 'prop-types';
 
-BoardCategoryFilter.prototype = {
+BoardCategoryFilter.propTypes = {
   options: slideOptionsPropType,
   onChange: func,
 };

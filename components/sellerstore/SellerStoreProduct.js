@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import css from './SellerStoreProduct.module.scss';
 import SectionItem from 'components/home/SectionItem';
 import _ from 'lodash';

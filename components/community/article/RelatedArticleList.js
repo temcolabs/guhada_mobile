@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import CommunityContentWrap from 'components/community/CommunityContentWrap';
 import { useBBSStore } from 'stores/bbs';
 import useBBSSearchState from 'components/community/list/useBBSSearchState';
@@ -67,7 +67,7 @@ export default function RelatedArticleList({
   return useObserver(() => (
     <CommunityContentWrap key="list">
       {/* 게시글 목록 */}
-      {searchStore.bbsList.map(bbs => {
+      {searchStore.bbsList.map((bbs) => {
         return (
           <BoardListItem
             key={bbs.bbsId}

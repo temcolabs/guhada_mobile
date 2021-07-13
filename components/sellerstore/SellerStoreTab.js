@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './SellerStoreTab.module.scss';
 import cn from 'classnames';
 

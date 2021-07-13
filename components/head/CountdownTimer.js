@@ -1,11 +1,5 @@
-import React, {
-  useCallback,
-  useReducer,
-  useState,
-  useEffect,
-  useRef,
-} from 'react';
-import padZeroToSingleDigit from '../string/padZeroToSingleDigit';
+import { useCallback, useReducer, useState, useEffect, useRef } from 'react';
+import padZeroToSingleDigit from '../../lib/string/padZeroToSingleDigit';
 
 const hourInSec = 60 * 60;
 const minuteInSec = 60;
@@ -29,7 +23,7 @@ export default function CountdownTimer({
       setTimeLeft(initialTimeLeft);
 
       timerId.current = setInterval(() => {
-        setTimeLeft(current => {
+        setTimeLeft((current) => {
           const next = --current;
 
           // 타이머를 멈추는 로직

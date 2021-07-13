@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './ToolbarBrand.module.scss';
 import Brand from './Brand';
 import { inject } from 'mobx-react';

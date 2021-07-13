@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import css from './ProductDetailOption.module.scss';
 import { inject, observer } from 'mobx-react';
 import ProductDetailOptionSelectbox from './ProductDetailOptionSelectbox';

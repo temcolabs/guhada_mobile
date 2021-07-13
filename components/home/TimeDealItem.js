@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import css from './TimeDealItem.module.scss';
 import cn from 'classnames';
 import moment from 'moment';
 import timeDeal from 'lib/constant/home/timeDeal';
 import { dateFormat } from 'lib/constant';
-import CountdownTimer from 'lib/components/CountdownTimer';
+import CountdownTimer from 'components/head/CountdownTimer';
 import { pushRoute } from 'lib/router';
 
 export default function TimeDealItem({

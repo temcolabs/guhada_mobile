@@ -1,12 +1,7 @@
 import Form from '../../../_.forms';
-import _ from 'lodash';
 import API from 'lib/API';
 import { root } from 'stores';
 import { devLog } from 'lib/common/devLog';
-import userService from 'lib/API/user/userService';
-import notificationService from 'lib/API/user/notificationService';
-import { isBrowser } from 'lib/common/isServer';
-import verifyService from 'lib/API/user/verifyService';
 
 export default {
   onInit() {
@@ -139,11 +134,11 @@ export default {
     devLog('-> onChange HOOK -', field.path, field.value);
     let form = Form.modifyLuckydraw;
 
-    function allAgreement(bool) {
-      // form.$('agreeSaleTos').set(bool);
-      form.$('agreeEmailReception').set(bool);
-      form.$('agreeSmsReception').set(bool);
-    }
+    // function allAgreement(bool) {
+    //   // form.$('agreeSaleTos').set(bool);
+    //   form.$('agreeEmailReception').set(bool);
+    //   form.$('agreeSmsReception').set(bool);
+    // }
 
     if (field.path === 'email') {
       form.$('emailCheck').set('label', '중복확인');

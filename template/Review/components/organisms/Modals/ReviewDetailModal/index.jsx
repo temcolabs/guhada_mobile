@@ -1,4 +1,4 @@
-import React, { useEffect, memo } from 'react';
+import { useEffect, memo } from 'react';
 import { observer } from 'mobx-react';
 import useStores from 'stores/useStores';
 import moment from 'moment';

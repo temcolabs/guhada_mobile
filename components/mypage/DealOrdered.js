@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import css from './DealOrdered.module.scss';
 import cn from 'classnames';

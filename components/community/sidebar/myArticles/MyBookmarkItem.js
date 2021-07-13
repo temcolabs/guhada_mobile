@@ -1,4 +1,3 @@
-import React from 'react';
 import css from '../MyBBS.module.scss';
 import { pushRoute } from 'lib/router';
 import moment from 'moment';

@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import ModalWrapper from 'components/common/modal/ModalWrapper';
 import Form from 'stores/form-store/_.forms';
 import css from './LuckydrawModify.module.scss';
 import { LoginInput, LoginCheckBox, LoginButton } from 'components/login';
 import SignupInputButtonChange from 'components/login/SignupInputButtonChange';
 import { observer, inject } from 'mobx-react';
-import { isNil as _isNil } from 'lodash';
+import _ from 'lodash';
 import gtagTracker from 'lib/tracking/google/gtagTracker';
 
 @inject('countdown', 'authmobile')
@@ -15,7 +15,7 @@ class LuckydrawModify extends Component {
     const form = Form.modifyLuckydraw;
     let value;
 
-    if (_isNil(form)) {
+    if (_.isNil(form)) {
       return null;
     } else {
       value = form.get('value');

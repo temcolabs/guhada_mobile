@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo } from 'react';
+import { useState, useEffect, memo } from 'react';
 import Router from 'next/router';
 import dynamic from 'next/dynamic';
 import { observer } from 'mobx-react';

@@ -1,4 +1,4 @@
-import React from 'react';
+import { Component } from 'react';
 import { pushRoute } from 'lib/router';
 import { withRouter } from 'next/router';
 import { inject, observer } from 'mobx-react';
@@ -6,7 +6,6 @@ import { loginStatus } from 'lib/constant';
 import { isBrowser } from 'lib/common/isServer';
 import Loading from '../loading/Loading';
 import qs from 'qs';
-import _ from 'lodash';
 
 /**
  * isAuthRequired 옵션에 따라 현재 페이지에서 redirectTo로 지정된 페이지로 이동시킴
@@ -25,7 +24,7 @@ function withAuth({ isAuthRequired = true, redirectTo } = {}) {
     @withRouter
     @inject('login')
     @observer
-    class ComponentWithAuth extends React.Component {
+    class ComponentWithAuth extends Component {
       render() {
         const { login, router } = this.props;
         const { loginStatus: status } = login;

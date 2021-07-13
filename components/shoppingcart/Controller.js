@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './Controller.module.scss';
 
@@ -20,9 +20,9 @@ class ShoppingCartController extends Component {
             />
             <div />
           </label>
-          <div className={css.total__select}>{`${
-            shoppingcart.selectedCheckNumber.length
-          }개 선택`}</div>
+          <div
+            className={css.total__select}
+          >{`${shoppingcart.selectedCheckNumber.length}개 선택`}</div>
         </div>
         <div
           className={css.selected__delete}

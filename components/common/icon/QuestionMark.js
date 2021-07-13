@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './QuestionMark.module.scss';
 
 export default function QuestionMark({ wrapperStyle = {} }) {

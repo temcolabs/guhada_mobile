@@ -1,4 +1,4 @@
-import React, { useMemo, useReducer } from 'react';
+import { useMemo, useReducer } from 'react';
 import css from './RefundInfo.module.scss';
 import cn from 'classnames';
 import addCommaToNum from 'lib/common/addCommaToNum';

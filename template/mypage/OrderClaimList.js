@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { withRouter } from 'next/router';
 import MypageLayout, {
   MypageContentsWrap,
@@ -11,10 +11,6 @@ import { dateUnit } from 'lib/constant/date';
 import { pushRoute } from 'lib/router';
 import OrderItem from 'components/mypage/order/OrderItem';
 import Pagination from 'components/common/Pagination';
-import PeriodSelector, {
-  DEFAULT_TAB_IN_USE,
-  DEFAULT_PERIOD,
-} from 'components/mypage/PeriodSelector';
 import { scrollToTarget } from 'lib/common/scroll';
 import OrderCancelDashboard from 'components/mypage/orderCancel/OrderCancelDashboard';
 import EmptyListNoti from 'components/mypage/EmptyListNoti';
@@ -30,6 +26,15 @@ import PointSavingModal, {
 } from 'components/mypage/point/PointSavingModal';
 import DeliveryTrackingModal from 'components/mypage/shipping/DeliveryTrackingModal';
 import OrderConfirmModal from 'components/mypage/order/OrderConfirmModal';
+import {
+  DEFAULT_TAB_IN_USE,
+  DEFAULT_PERIOD,
+} from 'components/mypage/PeriodSelector';
+
+import dynamic from 'next/dynamic';
+const PeriodSelector = dynamic(() =>
+  import('components/mypage/PeriodSelector')
+);
 
 /**
  * 마이페이지 - 주문 배송 (주문 취소 ・ 교환 ・ 반품 목록)

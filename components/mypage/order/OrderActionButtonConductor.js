@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './OrderActionButtonConductor.module.scss';
 import cn from 'classnames';
 import { default as purchaseStatusType } from 'lib/constant/order/purchaseStatus';

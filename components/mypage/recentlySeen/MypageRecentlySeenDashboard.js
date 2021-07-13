@@ -1,10 +1,10 @@
-import React from 'react';
+import { Component } from 'react';
 import css from './MypageRecentlySeenDashboard.module.scss';
 import { inject, observer } from 'mobx-react';
 
 @inject('mypageRecentlySeen')
 @observer
-class MypageRecentlySeenDashboard extends React.Component {
+class MypageRecentlySeenDashboard extends Component {
   render() {
     let { mypageRecentlySeen } = this.props;
     return (
@@ -15,7 +15,7 @@ class MypageRecentlySeenDashboard extends React.Component {
 
         <div
           className={css.total__delete}
-          onClick={e => {
+          onClick={(e) => {
             e.stopPropagation();
             mypageRecentlySeen.removeItemAll();
           }}

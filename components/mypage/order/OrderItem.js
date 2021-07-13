@@ -1,4 +1,4 @@
-import React from 'react';
+import { Component } from 'react';
 import css from './OrderItem.module.scss';
 import moment from 'moment';
 import { object, func, bool } from 'prop-types';
@@ -13,7 +13,7 @@ import SellerClaimModal, {
  * 주문 목록의 아이템
  */
 @withSellerClaimModal
-class OrderItem extends React.Component {
+class OrderItem extends Component {
   static propTypes = {
     order: object,
     onClickInquire: func, // 문의하기 버튼 클릭

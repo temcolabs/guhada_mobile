@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './TextInput.module.scss';
 import useChangeInput from 'lib/hooks/useChangeInput';
 

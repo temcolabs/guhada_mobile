@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './ReviewReply.module.scss';
 import moment from 'moment';
 import { dateFormat } from 'lib/constant';

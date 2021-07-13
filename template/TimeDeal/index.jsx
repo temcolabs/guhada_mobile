@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import css from './TimeDeal.module.scss';
 import { observer, inject } from 'mobx-react';
 import { withRouter } from 'next/router';
@@ -16,9 +16,7 @@ class TimeDeal extends Component {
           <div
             className={css.bg}
             style={{
-              backgroundImage: `url(${
-                process.env.API_CLOUD
-              }/images/background/timedeal/time_deal_bg_mobile.png)`,
+              backgroundImage: `url(${process.env.API_CLOUD}/images/background/timedeal/time_deal_bg_mobile.png)`,
             }}
           >
             {timedeal.timeDeal.map((deal, index) => {

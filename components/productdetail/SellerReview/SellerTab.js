@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import css from './SellerTab.module.scss';
 import cn from 'classnames';
 import SellerOrder from './SellerOrder';
 import SellerRating from './SellerRating';
 import _ from 'lodash';
 import { inject } from 'mobx-react';
+
 function SellerTab({
   setReviewTab = () => {},
   setOrder,

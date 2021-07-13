@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import SlideUpOptions from '../form/SlideUpOptions';
 import css from './BoardSelector.module.scss';
 import useChangeOption from 'lib/hooks/useChangeOption';

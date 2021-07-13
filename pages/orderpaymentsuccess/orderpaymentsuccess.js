@@ -1,7 +1,7 @@
-import React from 'react';
-import OrderPaymentSuccess from '../../template/orderpaymentsuccess/OrderPaymentSuccess';
+import { Component } from 'react';
+import OrderPaymentSuccess from 'template/orderpaymentsuccess/OrderPaymentSuccess';
 import { inject, observer } from 'mobx-react';
-import Loading from '../../components/common/loading/Loading';
+import Loading from 'components/common/loading/Loading';
 import { getParameterByName } from '../../lib/utils';
 import criteoTracker from 'lib/tracking/criteo/criteoTracker';
 import Cookies from 'js-cookie';
@@ -11,7 +11,7 @@ import widerplanetTracker from 'lib/tracking/widerplanet/widerplanetTracker';
 import daumTracker from 'lib/tracking/daum/daumTracker';
 import kochavaTracker from 'lib/tracking/kochava/kochavaTracker';
 import naverShoppingTrakers from 'lib/tracking/navershopping/naverShoppingTrakers';
-import HeadForSEO from 'lib/components/HeadForSEO';
+import HeadForSEO from 'components/head/HeadForSEO';
 import momentTracker from 'lib/tracking/kakaomoment/momentTracker';
 import ReactPixel from 'react-facebook-pixel';
 import gtagTracker from 'lib/tracking/google/gtagTracker';
@@ -19,7 +19,7 @@ import mobonTracker from 'lib/tracking/mobon/mobonTracker';
 
 @inject('orderpaymentsuccess', 'user')
 @observer
-class index extends React.Component {
+class index extends Component {
   componentDidMount() {
     let id = getParameterByName('id');
     this.props.orderpaymentsuccess

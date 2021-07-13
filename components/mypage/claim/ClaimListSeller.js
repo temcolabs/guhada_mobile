@@ -1,15 +1,9 @@
-import React, { Component } from 'react';
-import _ from 'lodash';
-import PeriodSelector from 'components/mypage/PeriodSelector';
-import { dateUnit } from 'lib/constant';
+import { Component } from 'react';
 import css from './ClaimListProduct.module.scss';
 import ClaimItemSeller from 'components/mypage/claim/ClaimItemSeller';
 import MypageDataEmpty from 'components/mypage/MypageDataEmpty';
 import { inject, observer } from 'mobx-react';
 import Pagination from 'components/common/Pagination';
-import ClaimAnswerSelect from 'components/mypage/claim/ClaimAnswerSelect';
-import SellerClaimModal from 'components/claim/sellerclaim/SellerClaimModal';
-import { scrollToTarget } from 'lib/common/scroll';
 
 /**
  * 판매자 문의 목록

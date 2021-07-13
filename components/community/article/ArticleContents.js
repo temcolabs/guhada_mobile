@@ -1,4 +1,3 @@
-import React from 'react';
 import jsxTextLineBreak from 'lib/common/jsxTextLineBreak';
 import css from './ArticleContents.module.scss';
 import { useBBSStore } from 'stores/bbs';

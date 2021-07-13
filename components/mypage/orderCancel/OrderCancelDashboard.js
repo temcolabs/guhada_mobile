@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './OrderCancelDashboard.module.scss';
 
 function OrderCancelDashboard({

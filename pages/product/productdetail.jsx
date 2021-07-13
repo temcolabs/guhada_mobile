@@ -9,7 +9,7 @@ import mobonTracker from 'lib/tracking/mobon/mobonTracker';
 import criteoTracker from 'lib/tracking/criteo/criteoTracker';
 import { getHeadData } from 'stores/productdetail/ProductDetailStore';
 import { getLayoutInfo } from 'stores/LayoutStore';
-import HeadForSEO from 'lib/components/HeadForSEO';
+import HeadForSEO from 'components/head/HeadForSEO';
 import ProductDetail from 'template/product/ProductDetail';
 import MountLoading from 'components/atoms/Misc/MountLoading';
 

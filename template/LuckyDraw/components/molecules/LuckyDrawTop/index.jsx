@@ -1,4 +1,3 @@
-import React from 'react';
 import { LuckyDrawTopBannerSection } from './Styled';
 
 /**

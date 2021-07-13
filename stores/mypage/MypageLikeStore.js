@@ -3,7 +3,7 @@ import API from 'lib/API';
 import { isBrowser } from 'lib/common/isServer';
 import { loginStatus } from 'lib/constant';
 import Router from 'next/router';
-import React from 'react';
+
 import _ from 'lodash';
 import { devLog } from 'lib/common/devLog';
 import orderService from 'lib/API/order/orderService';

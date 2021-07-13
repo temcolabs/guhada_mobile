@@ -1,4 +1,3 @@
-import React from 'react';
 import _ from 'lodash';
 import css from './TextArea.module.scss';
 import cn from 'classnames';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Wrapper, Section, Title, Contents } from './Styled';
 
 /**

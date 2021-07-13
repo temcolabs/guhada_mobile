@@ -1,6 +1,6 @@
 import css from './FindPasswordMobile.module.scss';
 import { LoginInput, LoginButton } from 'components/login';
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import LoginInputButton from '../LoginInputButton';
 

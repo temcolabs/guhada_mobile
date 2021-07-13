@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import { Component, Fragment } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './OptionChange.module.scss';
 import Select from 'react-select';
@@ -18,7 +18,7 @@ class OptionChange extends Component {
       valueContainer: () => ({
         padding: 0,
       }),
-      control: provided => ({
+      control: (provided) => ({
         ...provided,
         height: 40,
         border: 'none',
@@ -27,7 +27,7 @@ class OptionChange extends Component {
         padding: '0 15px',
         backgroundColor: '#fff',
       }),
-      placeholder: provided => ({
+      placeholder: (provided) => ({
         ...provided,
         color: '#111',
         fontSize: 14,
@@ -74,10 +74,10 @@ class OptionChange extends Component {
               <div className={css.quantity}>
                 <input
                   value={shoppingcart.cartChangeOptions.willChangeQuantity}
-                  onChange={e => {
+                  onChange={(e) => {
                     shoppingcart.quantityChange(data.cartItemId, e);
                   }}
-                  onBlur={e => {
+                  onBlur={(e) => {
                     shoppingcart.quantityChangeOutFocus(data.cartItemId, e);
                   }}
                 />
@@ -108,7 +108,7 @@ class OptionChange extends Component {
               placeholder="옵션을 선택해주세요"
               options={shoppingcart.cartChangeOptions.realOptions}
               formatOptionLabel={shoppingcart.getLabelColor}
-              onChange={value => {
+              onChange={(value) => {
                 shoppingcart.setChangeItemData(value);
               }}
               defaultValue={
@@ -134,10 +134,10 @@ class OptionChange extends Component {
                 <div className={css.quantity}>
                   <input
                     value={shoppingcart.cartChangeOptions.willChangeQuantity}
-                    onChange={e => {
+                    onChange={(e) => {
                       shoppingcart.quantityChange(data.cartItemId, e);
                     }}
-                    onBlur={e => {
+                    onBlur={(e) => {
                       shoppingcart.quantityChangeOutFocus(data.cartItemId, e);
                     }}
                   />
@@ -153,9 +153,9 @@ class OptionChange extends Component {
               </div>
               {shoppingcart.selectedOptions ? (
                 shoppingcart.selectedOptions.stock > 10 ? null : (
-                  <div className={css.stock}>{`${
-                    shoppingcart.selectedOptions.stock
-                  }개 남음`}</div>
+                  <div
+                    className={css.stock}
+                  >{`${shoppingcart.selectedOptions.stock}개 남음`}</div>
                 )
               ) : null}
 

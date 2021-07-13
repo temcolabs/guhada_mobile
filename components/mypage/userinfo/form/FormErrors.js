@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import css from './UserEditForm.module.scss';
 import ErrorMessage from 'components/mypage/form/ErrorMessage';
 import {
@@ -16,7 +16,7 @@ export default function FormErrors() {
 
   return submitFailed && error ? (
     <div className={css.formGroup}>
-      {_.keys(errors).map(field => (
+      {_keys(errors).map((field) => (
         <ErrorMessage key={field}>
           [{fieldNames[field]}] {errors[field]} {/* [label] message */}
         </ErrorMessage>

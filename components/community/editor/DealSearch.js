@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import SlideUpOptions from '../form/SlideUpOptions';
 import css from './DealSearch.module.scss';
 import TextInput from '../form/TextInput';

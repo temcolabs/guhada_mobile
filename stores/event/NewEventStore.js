@@ -1,7 +1,7 @@
 import { observable, action, computed } from 'mobx';
 import API from 'lib/API';
 import { isBrowser } from 'lib/common/isServer';
-import { isEmpty as _isEmpty, get as _get } from 'lodash';
+import _ from 'lodash';
 import { dateFormat } from 'lib/constant';
 import moment from 'moment';
 
@@ -40,7 +40,7 @@ class EventStore {
             )
           : ''
       }`,
-      image: _get(this.eventDetail, 'imgUrlM'),
+      image: _.get(this.eventDetail, 'imgUrlM'),
     };
   }
 
@@ -48,7 +48,10 @@ class EventStore {
    * actions
    */
   @action async fetchEventDetail(eventId = this.eventId) {
-    if (!eventId || (!_isEmpty(this.eventDetail) && this.eventId === eventId)) {
+    if (
+      !eventId ||
+      (!_.isEmpty(this.eventDetail) && this.eventId === eventId)
+    ) {
       return;
     }
 

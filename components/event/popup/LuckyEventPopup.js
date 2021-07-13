@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './AppEventPopup.module.scss';
 import ModalWrapper from 'components/common/modal/ModalWrapper';
 

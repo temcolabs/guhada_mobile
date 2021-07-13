@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { withRouter } from 'next/router';
 import css from './AddressManagement.module.scss';
 import DefaultLayout from 'components/layout/DefaultLayout';

@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react';
-import _ from 'lodash';
+import { useState, useEffect, useContext } from 'react';
 import KeyValueTable from 'components/mypage/form/KeyValueTable';
 import css from './UserEditForm.module.scss';
 import { Field } from 'react-final-form';
-import Input, { inputStatTypes } from 'components/mypage/form/Input';
+import Input from 'components/mypage/form/Input';
 import Select from 'components/mypage/form/Select';
 import { composeValidators } from 'lib/common/finalFormValidators';
 import FormButton, {

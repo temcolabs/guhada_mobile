@@ -1,4 +1,4 @@
-import React from 'react';
+import { Component } from 'react';
 import DefaultLayout from 'components/layout/DefaultLayout';
 import Greeting from 'components/orderpaymentsuccess/Greeting';
 import ProductInfo from 'components/orderpaymentsuccess/ProductInfo';
@@ -9,7 +9,7 @@ import { inject, observer } from 'mobx-react';
 
 @inject('orderpaymentsuccess', 'user')
 @observer
-class OrderPaymentSuccess extends React.Component {
+class OrderPaymentSuccess extends Component {
   render() {
     return (
       <DefaultLayout

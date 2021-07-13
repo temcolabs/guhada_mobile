@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import { Component, Fragment } from 'react';
 import css from './FollowListItem.module.scss';
 import { inject, observer } from 'mobx-react';
 
@@ -9,7 +9,7 @@ const IMAGE_PATH = {
 };
 @inject('mypageFollow', 'seller')
 @observer
-class FollowListItem extends React.Component {
+class FollowListItem extends Component {
   render() {
     let { mypageFollow, data, seller } = this.props;
     return (

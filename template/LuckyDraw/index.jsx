@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import useStores from 'stores/useStores';
 import { compose as _compose } from 'lodash/fp';
 import { withRouter } from 'next/router';

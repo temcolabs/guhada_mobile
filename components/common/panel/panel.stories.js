@@ -1,4 +1,3 @@
-import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, boolean, select, number } from '@storybook/addon-knobs';
@@ -16,7 +15,7 @@ stories.add('default', () => {
       isVisible={boolean('isVisible', false)}
       direction={select(
         'direction',
-        Object.keys(slideDirection).map(k => slideDirection[k]),
+        Object.keys(slideDirection).map((k) => slideDirection[k]),
         slideDirection.LEFT
       )}
       zIndex={number('zIndex', null)}

@@ -1,4 +1,4 @@
-import React from 'react';
+import { Component } from 'react';
 import { object } from 'prop-types';
 import KeyValueTable from 'components/mypage/form/KeyValueTable';
 import { observer, inject } from 'mobx-react';
@@ -21,7 +21,7 @@ import ProfileImageForm from './ProfileImageForm';
 
 @inject('user', 'alert')
 @observer
-class UserEditForm extends React.Component {
+class UserEditForm extends Component {
   static propTypes = {
     userInfo: object, // 원본 데이터
   };

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import css from './UserEditForm.module.scss';
 import { Field } from 'react-final-form';
 import { mustBeBoolean } from 'lib/common/finalFormValidators';

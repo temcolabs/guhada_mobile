@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import { Component, Fragment } from 'react';
 import css from '../../template/signin/Login/Login.module.scss';
 import { observer, inject } from 'mobx-react';
 import loadScript from 'lib/dom/loadScript';
@@ -11,7 +11,7 @@ let redirectURI = encodeURI(`${HOSTNAME}/callbacknaver`);
 
 @inject('luckyDraw')
 @observer
-class NaverLogin extends React.Component {
+class NaverLogin extends Component {
   componentDidMount() {
     if (isBrowser) {
       this.loadNaverLogin();

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './EasyPayment.module.scss';
 
@@ -31,9 +31,7 @@ class EasyPayment extends Component {
                   className={css.payIcon}
                   style={{
                     width: `${orderpayment.easyPaymentMap[data].width}`,
-                    backgroundImage: `url(${
-                      orderpayment.easyPaymentMap[data].iconUrl
-                    })`,
+                    backgroundImage: `url(${orderpayment.easyPaymentMap[data].iconUrl})`,
                   }}
                 />
                 <div className={css.radioTxt}>

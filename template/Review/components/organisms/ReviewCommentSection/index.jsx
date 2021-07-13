@@ -1,4 +1,4 @@
-import React, { useState, memo } from 'react';
+import { useState, memo } from 'react';
 import { observer } from 'mobx-react';
 import useStores from 'stores/useStores';
 import PropTypes from 'prop-types';

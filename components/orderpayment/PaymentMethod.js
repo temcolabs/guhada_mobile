@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { createRef, Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './PaymentMethod.module.scss';
 import CardInterestModal from 'components/common/modal/CardInterestModal';
@@ -7,7 +7,7 @@ import CardInterestModal from 'components/common/modal/CardInterestModal';
 class PaymentMethod extends Component {
   constructor(props) {
     super(props);
-    this.textInput = React.createRef();
+    this.textInput = createRef();
   }
   componentDidUpdate() {
     let { orderpayment } = this.props;

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import Select from 'react-select';
 
@@ -17,7 +17,7 @@ class ProductOptionSelectbox extends Component {
       valueContainer: () => ({
         padding: '0',
       }),
-      control: provided => ({
+      control: (provided) => ({
         ...provided,
         height: 50,
         borderRadius: 'none',
@@ -25,7 +25,7 @@ class ProductOptionSelectbox extends Component {
         boxShadow: 0,
         padding: '0 15px',
       }),
-      placeholder: provided => ({
+      placeholder: (provided) => ({
         ...provided,
         color: '#111',
         fontSize: 14,
@@ -74,7 +74,7 @@ class ProductOptionSelectbox extends Component {
         } ${productdetail.deals.options[0]?.label2 || ''} ${
           productdetail.deals.options[0]?.label3 ? ',' : ''
         }  ${productdetail.deals.options[0]?.label3 || ''}  `}
-        onChange={value => {
+        onChange={(value) => {
           productoption.selectOption(value);
         }}
         value={productoption.options.selectedOption}

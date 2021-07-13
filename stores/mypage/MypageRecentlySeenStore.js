@@ -1,4 +1,3 @@
-import React from 'react';
 import { observable, action, toJS } from 'mobx';
 import { isBrowser } from 'lib/common/isServer';
 import localStorage from 'lib/common/localStorage';

@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './ProductTable.module.scss';
 import cn from 'classnames';
 

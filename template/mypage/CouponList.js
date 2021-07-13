@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import { Component, Fragment } from 'react';
 import { withRouter } from 'next/router';
 import MypageLayout from 'components/mypage/MypageLayout';
 import MypageCouponTab from 'components/mypage/coupon/MypageCouponTab';
@@ -13,7 +13,7 @@ import { inject, observer } from 'mobx-react';
 @withRouter
 @inject('mypageCoupon')
 @observer
-class CouponList extends React.Component {
+class CouponList extends Component {
   constructor(props) {
     super(props);
     this.state = {};

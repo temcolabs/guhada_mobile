@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import { Component, Fragment } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './RealTimePopularityProducts.module.scss';
 import Link from 'next/link';

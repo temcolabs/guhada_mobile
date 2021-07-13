@@ -1,4 +1,4 @@
-import React from 'react';
+import { Component, createRef } from 'react';
 import { withRouter } from 'next/router';
 import Gallery from 'components/productdetail/Gallery';
 import ProductDetailName from 'components/productdetail/ProductDetailName';
@@ -27,8 +27,6 @@ import CommonPopup from 'components/common/modal/CommonPopup';
 import SellerReview from 'components/productdetail/SellerReview/SellerReview';
 import LoadingPortal from 'components/common/loading/Loading';
 import { sendBackToLogin } from 'lib/router';
-
-import AppLinkPopup from 'components/event/popup/AppLinkPopup';
 import localStorage from 'lib/common/localStorage';
 
 @withScrollToTopOnMount
@@ -45,7 +43,7 @@ import localStorage from 'lib/common/localStorage';
   'shoppingCartSuccessModal'
 )
 @observer
-class ProductDetail extends React.Component {
+class ProductDetail extends Component {
   static propTypes = {};
 
   constructor(props) {
@@ -57,10 +55,10 @@ class ProductDetail extends React.Component {
       isDeepLinkModalOn: false,
     };
     this.tabRefMap = {
-      detailTab: React.createRef(),
-      inquiryTab: React.createRef(),
-      sellerstoreTab: React.createRef(),
-      reviewTab: React.createRef(),
+      detailTab: createRef(),
+      inquiryTab: createRef(),
+      sellerstoreTab: createRef(),
+      reviewTab: createRef(),
     };
   }
 

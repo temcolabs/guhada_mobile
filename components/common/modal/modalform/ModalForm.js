@@ -1,4 +1,3 @@
-import React from 'react';
 import ModalWrapper from '../ModalWrapper';
 import css from './ModalForm.module.scss';
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import { Component } from 'react';
 import css from './MypageValidCouponList.module.scss';
 import DataEmpty from 'components/common/DataEmpty';
 
@@ -6,7 +6,7 @@ import { inject, observer } from 'mobx-react';
 
 @inject('mypageCoupon')
 @observer
-class MypageValidCouponList extends React.Component {
+class MypageValidCouponList extends Component {
   render() {
     let { mypageCoupon } = this.props;
 
@@ -23,9 +23,9 @@ class MypageValidCouponList extends React.Component {
                       <div className={css.coupon__title}>
                         {data.couponTitle}
                       </div>
-                      <div className={css.coupon__expireDueDay}>{`D-${
-                        data.expireDueDay
-                      }`}</div>
+                      <div
+                        className={css.coupon__expireDueDay}
+                      >{`D-${data.expireDueDay}`}</div>
                     </div>
                     <div className={css.coupon__amount}>
                       {data.discountType === 'RATE' ? (

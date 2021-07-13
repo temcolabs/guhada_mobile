@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './OrderCustomer.module.scss';
 import AuthenticationModal from './modal/AuthenticationModal';
@@ -31,8 +31,7 @@ class OrderCustomer extends Component {
           <div className={css.title}>주문자 정보</div>
           {customerauthentication.userVerify ? (
             orderpayment.orderUserInfo
-              .emailVerify ? null : //   onClick={() => { //   className={css.identification} // <div // 이메일 인증 기능 제거(19.11.27)
-            //     this.modalShow();
+              .emailVerify ? null : //     this.modalShow(); //   onClick={() => { //   className={css.identification} // <div // 이메일 인증 기능 제거(19.11.27)
             //   }}
             // >
             //   <span>[필수] </span> 이메일인증

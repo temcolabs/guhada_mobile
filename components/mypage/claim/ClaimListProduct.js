@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import _ from 'lodash';
 import css from './ClaimListProduct.module.scss';
 import ClaimItem from 'components/mypage/claim/ClaimItem';
@@ -16,7 +16,7 @@ class ClaimListProduct extends Component {
     modalData: {},
   };
 
-  handleModifyModal = modalItem => {
+  handleModifyModal = (modalItem) => {
     this.setState({ isOpen: true, modalData: modalItem });
   };
 
@@ -29,7 +29,7 @@ class ClaimListProduct extends Component {
     mypageInquiry.getInquirie();
   }
 
-  handleChangePage = page => {
+  handleChangePage = (page) => {
     const { mypageInquiry } = this.props;
     mypageInquiry.setPage(page);
     this.props.mypageInquiry.getInquirie(
@@ -40,7 +40,7 @@ class ClaimListProduct extends Component {
     window.scroll(0, 0);
   };
 
-  handleDeleteModalOpen = inquiry => {
+  handleDeleteModalOpen = (inquiry) => {
     this.props.alert.showConfirm({
       content: () => (
         <div>
@@ -68,7 +68,7 @@ class ClaimListProduct extends Component {
           </div>
           <div className={css.answerWrap}>
             <ClaimAnswerSelect
-              onChange={option => {
+              onChange={(option) => {
                 mypageInquiry.setStatus(option.value);
                 mypageInquiry.getInquirie(
                   mypageInquiry.page,
@@ -79,7 +79,7 @@ class ClaimListProduct extends Component {
           </div>
         </div>
 
-        {_.size(inquiries.content) > 0 ? (
+        {_size(inquiries.content) > 0 ? (
           inquiries.content.map((contentItem, index) => {
             return (
               <ClaimItem

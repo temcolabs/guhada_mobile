@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './Checkbox.module.scss';
 import cn from 'classnames';
 import useChangeInput from 'lib/hooks/useChangeInput';

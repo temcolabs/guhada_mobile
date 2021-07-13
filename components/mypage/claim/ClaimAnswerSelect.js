@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import { Component, Fragment } from 'react';
 import Select from 'react-select';
 import { inject, observer } from 'mobx-react';
 import inquiryStatus from 'lib/constant/inquiry/inquiryStatus';

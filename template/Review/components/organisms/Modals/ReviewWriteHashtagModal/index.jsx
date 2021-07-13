@@ -1,7 +1,7 @@
-import React, { useEffect, useState, memo } from 'react';
+import { useEffect, useState, memo } from 'react';
 import PropTypes from 'prop-types';
 import { toJS } from 'mobx';
-import { debounce } from 'lodash';
+import _ from 'lodash';
 import { observer } from 'mobx-react';
 import useStores from 'stores/useStores';
 

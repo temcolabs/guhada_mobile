@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import Select from 'react-select';
 
 export class ReviewWriteOption extends Component {
@@ -11,7 +11,7 @@ export class ReviewWriteOption extends Component {
     valueContainer: () => ({
       padding: 0,
     }),
-    control: provided => ({
+    control: (provided) => ({
       ...provided,
       height: 36,
       border: 'solid 1px #eeeeee',
@@ -19,7 +19,7 @@ export class ReviewWriteOption extends Component {
       boxShadow: 0,
       paddingLeft: 15,
     }),
-    placeholder: provided => ({
+    placeholder: (provided) => ({
       ...provided,
       color: '#444444',
       fontSize: 13,

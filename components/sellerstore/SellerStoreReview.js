@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import useStores from 'stores/useStores';
 import SellerReviewItem from './SellerReviewItem';
 import MoreButton from 'components/common/MoreButton';

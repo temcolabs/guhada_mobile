@@ -1,11 +1,11 @@
-import React from 'react';
+import { Component } from 'react';
 import css from './MypageAddressList.module.scss';
 import { inject, observer } from 'mobx-react';
 import addHyphenToMobile from 'lib/string/addHyphenToMobile';
 
 @inject('mypageAddress')
 @observer
-class MypageAddressList extends React.Component {
+class MypageAddressList extends Component {
   render() {
     let { mypageAddress, data } = this.props;
 

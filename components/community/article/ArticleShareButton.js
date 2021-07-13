@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './ArticleShareButton.module.scss';
 import SlideUpOptions from '../form/SlideUpOptions';
 import copy from 'copy-to-clipboard';
@@ -21,7 +20,7 @@ const ArticleShareButton = ({ onClick = () => {}, url = 'https://' }) => {
             <div className={css.shareSlideArea_title}>공유하기</div>
             <div
               className={css.urlBox}
-              onClick={e => {
+              onClick={(e) => {
                 e.stopPropagation();
                 copy(url);
                 alert.showAlert('게시글 주소가 클립보드에 복사되었습니다.');

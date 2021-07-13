@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import _ from 'lodash';
 import CommunityLayout from 'components/community/CommunityLayout';
 import css from './BBSEditor.module.scss';

@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './ModalForm.module.scss';
 
 export default function ModalFormSubmit({

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import css from './ArticleLikeButton.module.scss';
 import cn from 'classnames';
 

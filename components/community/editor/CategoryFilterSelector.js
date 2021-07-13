@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './CategoryFilterSelector.module.scss';
 import SlideUpOptions from '../form/SlideUpOptions';
 import useChangeOption from 'lib/hooks/useChangeOption';

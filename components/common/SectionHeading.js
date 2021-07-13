@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './SectionHeading.module.scss';
 import classnames from 'classnames';
 

@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import { createRef, Component, Fragment } from 'react';
 import css from './CategorySlider.module.scss';
 import { inject, observer } from 'mobx-react';
 import { toJS } from 'mobx';
@@ -6,7 +6,6 @@ import cn from 'classnames';
 import Router from 'next/router';
 import { mainCategory } from 'lib/constant/category';
 import { pushRoute } from 'lib/router';
-import _ from 'lodash';
 
 @inject('searchitem', 'category')
 @observer
@@ -16,7 +15,7 @@ class CategorySlider extends Component {
     isVisibleSubCategory: false,
   };
 
-  scrollWrapRef = React.createRef(null);
+  scrollWrapRef = createRef(null);
 
   componentDidMount() {
     let asPath = Router.router.asPath;

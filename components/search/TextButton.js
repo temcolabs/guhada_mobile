@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './TextButton.module.scss';
 import cn from 'classnames';
 import { inject } from 'mobx-react';
@@ -25,7 +24,7 @@ function TextButton({
     <div className={css.wrap}>
       <div className={css.header}>{filter.name}</div>
       <div className={css.itemWrap}>
-        {filter.attributes.map(item => {
+        {filter.attributes.map((item) => {
           return (
             <div
               className={cn(css.item, {

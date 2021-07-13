@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import css from './SearchFilterResult.module.scss';
 // import './SearchCategory.scss';
 import cn from 'classnames';
@@ -11,7 +11,7 @@ import { toJS } from 'mobx';
 import { getCategory } from 'lib/utils';
 import addCommaToArray from 'lib/string/addCommaToArray';
 import { priceOption } from 'lib/constant/filter/price';
-import { isArray } from 'lodash';
+import _ from 'lodash';
 
 const enhancer = compose(inject('searchitem', 'seller'), withRouter);
 
@@ -121,9 +121,11 @@ function SearchFilterResult({ searchitem, router, seller }) {
 
     searchitem.toSearch({
       category: queryCategory,
-      brand: isArray(queryBrand) ? addCommaToArray(queryBrand) : queryBrand,
-      filter: isArray(queryFilter) ? addCommaToArray(queryFilter) : queryFilter,
-      subcategory: isArray(querySubcategory)
+      brand: _.isArray(queryBrand) ? addCommaToArray(queryBrand) : queryBrand,
+      filter: _.isArray(queryFilter)
+        ? addCommaToArray(queryFilter)
+        : queryFilter,
+      subcategory: _.isArray(querySubcategory)
         ? addCommaToArray(querySubcategory)
         : querySubcategory,
       keyword: query.keyword,

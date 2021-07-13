@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import Router from 'next/router';
 import useStores from 'stores/useStores';
@@ -37,9 +37,7 @@ function LuckyDrawBottomInfo() {
   const [isActiveLuckyDrawModal, setIsActiveLuckyDrawModal] = useState(false); // 럭키드로우 모달 Flag
 
   const onClickShareButton = () => {
-    const luckyDrawUrl = `${window.location.protocol}//${window.location.host}${
-      router.asPath
-    }`;
+    const luckyDrawUrl = `${window.location.protocol}//${window.location.host}${router.asPath}`;
     copy(luckyDrawUrl);
     setIsActiveLuckyDrawModal(true);
   };

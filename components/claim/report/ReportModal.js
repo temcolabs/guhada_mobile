@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from 'react';
-import _ from 'lodash';
+import { useEffect } from 'react';
 import useReportState from './useReportState';
+import _ from 'lodash';
 import { default as reportTargetEnum } from 'lib/constant/reportTarget';
 import css from './ReportModal.module.scss';
 import Input from 'components/claim/report/form/Input';
@@ -8,15 +8,12 @@ import Checkbox from 'components/mypage/form/Checkbox';
 import TextArea from 'components/claim/report/form/TextArea';
 import Select from 'components/claim/report/Select';
 import useStores from 'stores/useStores';
-import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 import ModalForm, {
   ModalFormField,
-  ModalFormLabel,
   ModalFormValue,
 } from 'components/common/modal/modalform/ModalForm';
 import ModalFormTitle from 'components/common/modal/modalform/ModalFormTitle';
 import ModalFormSubmit from 'components/common/modal/modalform/ModalFormSubmit';
-// import ModalFormAttachment from 'components/common/modal/modalform/ModalFormAttachment';
 
 /**
  * 신고 모달 타이틀
@@ -103,7 +100,6 @@ export default function ReportModal({
   ]);
 
   return (
-    // <SlideIn direction={slideDirection.RIGHT} isVisible={isOpen}>
     <ModalForm isOpen={isOpen} onClose={onClose}>
       <ModalFormTitle onClose={onClose}>
         <span>{getReportModalName(reportTarget)} 신고</span>
@@ -251,6 +247,5 @@ export default function ReportModal({
         onSubmit={handleSubmitReport}
       />
     </ModalForm>
-    // </SlideIn>
   );
 }

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import Head from 'next/head';
 import OrderExchangeForm from 'template/mypage/OrderExchangeForm';
 import withAuth from 'components/common/hoc/withAuth';

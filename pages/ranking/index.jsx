@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import useStores from 'stores/useStores';
 import isServer from 'lib/common/isServer';
 import { getLayoutInfo } from 'stores/LayoutStore';
-import HeadForSEO from 'lib/components/HeadForSEO';
+import HeadForSEO from 'components/head/HeadForSEO';
 import Footer from 'components/footer/Footer';
 import Ranking from 'template/Ranking';
 

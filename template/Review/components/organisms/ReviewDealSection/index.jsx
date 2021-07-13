@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
 import css from './DealSection.module.scss';
 import PropTypes from 'prop-types';
 import cn from 'classnames';

@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './PointDashboard.module.scss';
 const PointDashboard = ({ props }) => {
   return (

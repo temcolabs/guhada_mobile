@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import Head from 'next/head';
 import OrderClaimList from 'template/mypage/OrderClaimList';
 import withAuth from 'components/common/hoc/withAuth';

@@ -1,4 +1,4 @@
-import React from 'react';
+import { Component } from 'react';
 import { withRouter } from 'next/router';
 import MypageLayout from 'components/mypage/MypageLayout';
 import MypageLikeDashboard from 'components/mypage/like/MypageLikeDashboard';
@@ -12,7 +12,7 @@ import css from './ProductLikeList.module.scss';
 @withRouter
 @inject('mypageLike')
 @observer
-class ProductLikeList extends React.Component {
+class ProductLikeList extends Component {
   componentDidMount() {
     if (isBrowser) {
       this.props.mypageLike.getLikeList({

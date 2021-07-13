@@ -1,5 +1,3 @@
-import Axios from 'axios';
-import API from 'lib/API';
 import { devLog } from 'lib/common/devLog';
 
 export default {

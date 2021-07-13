@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './FinalAmountBenefit.module.scss';
 
@@ -133,7 +133,7 @@ class FinalAmountBenefit extends Component {
 
 export default FinalAmountBenefit;
 
-const DiscountInfo = props => {
+const DiscountInfo = (props) => {
   return (
     <div className={css.discountInfoWrap}>
       {props.data.discountInfoResponseList.map((data, index) => {
@@ -174,7 +174,7 @@ const DiscountInfo = props => {
   );
 };
 
-const BenefitInfo = props => {
+const BenefitInfo = (props) => {
   return (
     <div className={css.benefitInfoWrap}>
       {props.data.totalDueSavePointResponseList.map((data, index) => {

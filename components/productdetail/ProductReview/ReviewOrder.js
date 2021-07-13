@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 import css from './NormalSlide.module.scss';
 import cn from 'classnames';
 
 class ReviewOrder extends Component {
-  changeOrder = item => {
+  changeOrder = (item) => {
     const { onClose, setOrder, setOrderLabel } = this.props;
 
     setOrder(item.sort, item.dir);

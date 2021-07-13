@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './ProductTable.module.scss';
 import checkNullAndEmpty from 'lib/common/checkNullAndEmpty';
 export default function ProductInfo({

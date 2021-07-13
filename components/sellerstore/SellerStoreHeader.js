@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 import css from './SellerStoreHeader.module.scss';
 import cn from 'classnames';
 import { loginStatus } from 'lib/constant';

@@ -1,5 +1,4 @@
-import React from 'react';
-import DefaultLayout from 'components/layout/DefaultLayout';
+import { Component } from 'react';
 import Controller from 'components/orderpayment/Controller';
 import OrderProduct from 'components/orderpayment/OrderProduct';
 import OrderCustomer from 'components/orderpayment/OrderCustomer';
@@ -20,7 +19,7 @@ import css from './OrderPayment.module.scss';
 
 @inject('orderpayment', 'customerauthentication')
 @observer
-class OrderPayment extends React.Component {
+class OrderPayment extends Component {
   componentWillUnmount() {
     sessionStorage.removeItem('paymentInfo'); //임시
     this.props.orderpayment.orderpaymentInit();

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import css from './CartAndPurchaseButton.module.scss';
 import { inject, observer } from 'mobx-react';
 import { sendBackToLogin } from 'lib/router';

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { observer } from 'mobx-react';
 import qs from 'qs';
 import { pushRoute } from 'lib/router';
-import HeadForSEO from 'lib/components/HeadForSEO';
+import HeadForSEO from 'components/head/HeadForSEO';
 import Error from 'template/Error';
 import useStores from 'stores/useStores';
 

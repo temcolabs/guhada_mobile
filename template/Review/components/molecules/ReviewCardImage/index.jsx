@@ -5,7 +5,6 @@ import Image from 'components/atoms/Image';
 import Slider from 'components/molecules/Slider';
 
 import { Wrapper, ImageSection } from './Styled';
-import React from 'react';
 
 const settings = {
   arrows: false,

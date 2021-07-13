@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './SellerStoreInfomation.module.scss';
 import SellerStoreMap from './SellerStoreMap';
 import _ from 'lodash';
@@ -12,7 +11,7 @@ export default function SellerStoreInfomation({ sellerStore }) {
     { label: '사업장소재지', key: 'offlineStoreAddress' },
   ];
   let renderTable = [];
-  sellerInfo.map(info => {
+  sellerInfo.map((info) => {
     if (
       _.isNil(sellerStore[info.key]) !== true &&
       sellerStore[info.key] !== ''
@@ -41,15 +40,20 @@ export default function SellerStoreInfomation({ sellerStore }) {
               return (
                 <tr key={i}>
                   <td className={css.tableHeader}>{item.label}</td>
-                  <td className={css.tableValue}>{(_.isNil(sellerStore.offlineStoreAddress.trim()) || sellerStore.offlineStoreAddress.trim() === 'null') ? '' : item.value}</td>
+                  <td className={css.tableValue}>
+                    {_.isNil(sellerStore.offlineStoreAddress.trim()) ||
+                    sellerStore.offlineStoreAddress.trim() === 'null'
+                      ? ''
+                      : item.value}
+                  </td>
                 </tr>
               );
             })}
           </tbody>
         </table>
       </div>
-      {(_.isNil(sellerStore.offlineStoreAddress.trim()) || sellerStore.offlineStoreAddress.trim() === 'null') ? null
-        :
+      {_.isNil(sellerStore.offlineStoreAddress.trim()) ||
+      sellerStore.offlineStoreAddress.trim() === 'null' ? null : (
         <div className={css.storeInfoWrap}>
           <div className={css.infoHeader}>오프라인 스토어</div>
           <div className={css.map}>
@@ -62,7 +66,7 @@ export default function SellerStoreInfomation({ sellerStore }) {
             <div className={css.infoStoreTime}>{sellerStore.businessHours}</div>
           )}
         </div>
-      }
+      )}
     </div>
   );
 }

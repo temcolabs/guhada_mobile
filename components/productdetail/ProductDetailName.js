@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import dynamic from 'next/dynamic';
 import css from './ProductDetailName.module.scss';
 import { inject, observer } from 'mobx-react';

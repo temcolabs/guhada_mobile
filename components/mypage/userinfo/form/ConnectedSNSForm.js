@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './UserEditForm.module.scss';
 import { useObserver, observer } from 'mobx-react';
 import Checkbox from 'components/mypage/form/Checkbox';

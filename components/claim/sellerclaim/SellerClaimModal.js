@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect, useRef } from 'react';
+import { Component, useCallback, useState, useEffect, useRef } from 'react';
 import css from './SellerClaimModal.module.scss';
 import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 import MyDealSelect from './MyDealSelect';
@@ -248,7 +248,7 @@ function SellerClaimModal({ isOpen = false, sellerId, onClose = () => {} }) {
 export const withSellerClaimModal = (BaseComponent) => {
   @inject('sellerClaim')
   @observer
-  class wrappedComponent extends React.Component {
+  class wrappedComponent extends Component {
     constructor(props) {
       super(props);
 

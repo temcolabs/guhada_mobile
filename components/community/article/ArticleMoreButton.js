@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './ArticleMoreButton.module.scss';
 import cn from 'classnames';
 import SlideUpOptions from '../form/SlideUpOptions';
@@ -34,7 +33,7 @@ const ArticleMoreButton = ({
 }) => {
   const { alert: alertStore } = useStores();
 
-  const handleClickOption = value => {
+  const handleClickOption = (value) => {
     switch (value) {
       case optionValue.MODIFY:
         if (isCreatedOnMobile) {
@@ -59,7 +58,7 @@ const ArticleMoreButton = ({
     }
   };
 
-  const filterButtonsByOwnership = o =>
+  const filterButtonsByOwnership = (o) =>
     o.authority === (isMyArticle ? authority.ME : authority.OTHERS);
 
   // 옵션 버튼

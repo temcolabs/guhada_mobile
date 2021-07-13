@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import { Component, Fragment } from 'react';
 import Select from 'react-select';
 import { inject, observer } from 'mobx-react';
 
@@ -7,7 +7,7 @@ import { inject, observer } from 'mobx-react';
 class RefundAccountBankSelect extends Component {
   render() {
     let { orderpayment } = this.props;
-    let bankOptions = orderpayment.orderInfo.bankList.map(data => {
+    let bankOptions = orderpayment.orderInfo.bankList.map((data) => {
       return {
         label: data.bankName,
         value: data.bankCode,
@@ -29,14 +29,14 @@ class RefundAccountBankSelect extends Component {
         position: 'relative',
         width: '100%',
       }),
-      
+
       /** -- 무통장 결제에서 ios safari에서 dropdown indicator가 select box 바깥에 위치함 --
       valueContainer: () => ({
         padding: 0,
       }),
        */
-    
-      control: provided => ({
+
+      control: (provided) => ({
         ...provided,
         height: 45,
         border: 'solid 1px #eee',
@@ -44,7 +44,7 @@ class RefundAccountBankSelect extends Component {
         boxShadow: 0,
         padding: '0 15px 0 15px',
       }),
-      placeholder: provided => ({
+      placeholder: (provided) => ({
         ...provided,
         color: '#777',
         fontSize: 13,
@@ -92,7 +92,7 @@ class RefundAccountBankSelect extends Component {
         styles={selectStyles}
         placeholder="은행명을 선택해주세요."
         options={bankOptions}
-        onChange={value => {
+        onChange={(value) => {
           orderpayment.bankNameSelect(value);
         }}
         defaultValue={getDefaultBank()}

@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './SellerReviewEmpty.module.scss';
 
 export default function SellerReviewEmpty() {

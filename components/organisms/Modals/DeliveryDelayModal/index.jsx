@@ -1,4 +1,4 @@
-import React from 'react';
+import { Component } from 'react';
 import css from './Styles.module.scss';
 import ModalWrapper from 'components/common/modal/ModalWrapper';
 import PropTypes from 'prop-types';
@@ -9,7 +9,7 @@ import moment from 'moment';
  * @param {Boolean} isOpen : 모달 on / off
  * @param {Function} onClose : 모달 Close
  * @param {Object} Order : OrderComplete
- * @returns {React.Component} DeliveryDelayModal
+ * @returns {Component} DeliveryDelayModal
  */
 function DeliveryDelayModal({ isOpen, onClose, order }) {
   const delayDeadlineDate = order?.delayDeadlineTimestamp

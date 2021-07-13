@@ -1,4 +1,4 @@
-import React from 'react';
+import { Component } from 'react';
 import { bool, object, func } from 'prop-types';
 import ModalWrapper from 'components/common/modal/ModalWrapper';
 import css from './MySizeModal.module.scss';
@@ -21,7 +21,7 @@ import { devLog } from 'lib/common/devLog';
  */
 @inject('mySize')
 @observer
-class MySizeModal extends React.Component {
+class MySizeModal extends Component {
   static propTypes = {
     isOpen: bool,
     mySize: object, // 서버에 저장되어 있는 내 사이즈

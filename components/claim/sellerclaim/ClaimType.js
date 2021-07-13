@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import Select from 'react-select';
 import { inject, observer } from 'mobx-react';
 @inject('sellerClaim')

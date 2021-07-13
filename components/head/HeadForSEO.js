@@ -1,6 +1,5 @@
-import React from 'react';
 import Head from 'next/head';
-import seo from '../constant/seo';
+import seo from '../../lib/constant/seo';
 
 /**
  * 검색엔진 최적화를 위한 헤더

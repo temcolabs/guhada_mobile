@@ -1,8 +1,8 @@
-import React, { Component, Fragment } from 'react';
+import { Component, Fragment } from 'react';
 import css from './CouponSelectModal.module.scss';
 import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 import { inject, observer } from 'mobx-react';
-import _ from 'lodash';
+
 @inject('orderpayment')
 @observer
 class CouponModal extends Component {
@@ -78,9 +78,9 @@ class CouponModal extends Component {
 
             <div className={css.couponResultWrap}>
               <div className={css.totalSummary}>
-                <div className={css.couponTotal}>{`총 ${
-                  orderpayment.orderProductInfo.length
-                }개 상품`}</div>
+                <div
+                  className={css.couponTotal}
+                >{`총 ${orderpayment.orderProductInfo.length}개 상품`}</div>
                 <div className={css.totalOrderPrice}>
                   <div>상품 할인 적용금액</div>
                   <div>{`${orderpayment.orderCouponInfo?.totalProductPrice?.toLocaleString()}원`}</div>
@@ -115,7 +115,7 @@ class CouponModal extends Component {
 
 export default CouponModal;
 
-const Product = props => {
+const Product = (props) => {
   let { product } = props;
   return (
     <div className={css.product}>
@@ -149,7 +149,7 @@ const Product = props => {
   );
 };
 
-const CouponDetailList = props => {
+const CouponDetailList = (props) => {
   let { coupon, cartId, setSelectCoupon } = props;
   return (
     <div className={css.couponDetailList}>

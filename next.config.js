@@ -1,15 +1,15 @@
-// next.config.js
 const path = require('path');
-const webpack = require('webpack');
 const loaderUtils = require('loader-utils');
-// const withBundleAnalyzer = require('@next/bundle-analyzer');
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: !!process.env.ANALYZE,
+});
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
-// const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
 
-module.exports = {
-  enabled: false,
-  // exptend webpack settings
-  webpack: (config) => {
+module.exports = withBundleAnalyzer({
+  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+    /**
+     * rules
+     */
     config.module.rules.push({
       test: /\.(eot|woff|woff2|ttf|svg|png|jpg|gif)$/,
       use: {
@@ -20,7 +20,6 @@ module.exports = {
         },
       },
     });
-
     config.module.rules.push({
       test: /\.(png|jpe?g|gif|svg)$/,
       use: {
@@ -33,38 +32,24 @@ module.exports = {
       },
     });
 
-    // config.plugins.push(
-    //   new FilterWarningsPlugin({
-    //     exclude: /mini-css-extract-plugin[^]*Conflicting order between:/,
-    //   })
-    // );
-
-    config.plugins.push(new LodashModuleReplacementPlugin());
-    config.plugins.push(
-      new webpack.ContextReplacementPlugin(/moment[\/\\]locale/, /en|ko/)
-    );
-    config.plugins.push(
-      new webpack.ContextReplacementPlugin(
-        /moment[\/\\]src[\/\\]locale/,
-        /en|ko/
-      )
-    );
-    config.plugins.push(
-      new webpack.ContextReplacementPlugin(
-        /validatorjs[\/\\]src[\/\\]lang/,
-        /en|ko/
-      )
-    );
-    config.plugins.push(
+    /**
+     * plugins
+     */
+    const customPlugins = [
+      new LodashModuleReplacementPlugin(),
+      new webpack.ContextReplacementPlugin(/moment[\/\\]locale/, /en|ko/),
       new webpack.IgnorePlugin(
-        /^.\/(?!en|ko)(.+)$/,
+        /^.\/(?!ko)(.+)$/,
         /validatorjs[\/\\]src[\/\\]lang/
-      )
-    );
+      ),
+    ];
 
+    /**
+     * set webpack config
+     */
+    config.plugins = [...config.plugins, ...customPlugins];
     return config;
   },
-
   // sass, css loader options
   // sassLoaderOptions: {
   //   includePaths: [path.resolve(__dirname, 'node_modules')],
@@ -102,18 +87,4 @@ module.exports = {
       );
     },
   },
-
-  // webpack bundle analyzer
-  analyzeServer: ['server', 'both'].includes(process.env.BUNDLE_ANALYZE),
-  analyzeBrowser: ['browser', 'both'].includes(process.env.BUNDLE_ANALYZE),
-  bundleAnalyzerConfig: {
-    server: {
-      analyzerMode: 'static',
-      reportFilename: './bundles/server.html',
-    },
-    browser: {
-      analyzerMode: 'static',
-      reportFilename: './bundles/client.html',
-    },
-  },
-};
+});

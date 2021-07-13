@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import _ from 'lodash';
 import css from './ClaimModifyModal.module.scss';
@@ -29,16 +29,16 @@ class ClaimModifyModal extends Component {
       }
   }
 
-  setInquiryContents = value => {
-    if (_.size(value) <= 1000) {
-      this.setState(prevState => ({
+  setInquiryContents = (value) => {
+    if (_size(value) <= 1000) {
+      this.setState((prevState) => ({
         inquiry: {
           ...prevState.inquiry,
           inquiry: value,
         },
       }));
     } else {
-      this.setState(prevState => ({
+      this.setState((prevState) => ({
         inquiry: {
           ...prevState.inquiry,
           inquiry: value.substring(0, 1000),
@@ -47,8 +47,8 @@ class ClaimModifyModal extends Component {
     }
   };
 
-  setSecretInquiry = value => {
-    this.setState(prevState => ({
+  setSecretInquiry = (value) => {
+    this.setState((prevState) => ({
       inquiry: {
         ...prevState.inquiry,
         private: value,
@@ -70,11 +70,11 @@ class ClaimModifyModal extends Component {
             <textarea
               className={css.textarea}
               placeholder="내용을 입력해주세요."
-              onChange={e => this.setInquiryContents(e.target.value)}
+              onChange={(e) => this.setInquiryContents(e.target.value)}
               value={this.state.inquiry.inquiry}
             />
             <div className={css.textCount}>
-              {_.size(this.state.inquiry.inquiry)}/1000
+              {_size(this.state.inquiry.inquiry)}/1000
             </div>
           </div>
 

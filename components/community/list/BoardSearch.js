@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import _ from 'lodash';
+import { useState } from 'react';
 import css from './BoardSearch.module.scss';
 import SearchInputOption from './SearchInputOption';
 import SearchInput from '../form/SearchInput';

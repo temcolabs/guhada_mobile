@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import { Component, Fragment } from 'react';
 import css from './Category.module.scss';
 import { inject, observer } from 'mobx-react';
 import { toJS } from 'mobx';

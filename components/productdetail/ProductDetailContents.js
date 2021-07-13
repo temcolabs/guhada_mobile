@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import css from './ProductDetailContents.module.scss';
 class ProductDetailContents extends Component {
   render() {

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import FindLoginInfoHeader from 'components/login/FindLoginInfoHeader';
 import LoginLayout from 'components/layout/LoginLayout';
 import { LoginWrapper, LoginButton } from 'components/login';

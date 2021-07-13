@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import loadScript from 'lib/dom/loadScript';
 
 export class SellerStoreMap extends Component {

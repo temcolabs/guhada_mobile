@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './KeyValueTable.module.scss';
 
 export default function KeyValueTable({ children, wrapperStyle = {} }) {

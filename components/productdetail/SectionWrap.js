@@ -1,7 +1,7 @@
-import React from 'react';
+import { Component } from 'react';
 import css from './SectionWrap.module.scss';
 
-class SectionWrap extends React.Component {
+class SectionWrap extends Component {
   render() {
     return (
       <div className={css.wrap} style={this.props.style}>

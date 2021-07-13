@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import css from './ReviewSummary.module.scss';
 import cn from 'classnames';
 import StarItem from '../StarItem';

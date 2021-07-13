@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import Select from 'react-select';
 import { SPECIAL_DETAIL_ORDER } from 'lib/constant/event/FilterOption';
 import { inject, observer } from 'mobx-react';

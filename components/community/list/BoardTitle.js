@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import useBBSSearchState from 'components/community/list/useBBSSearchState';
 import { withRouter } from 'next/router';
 import { useBBSStore } from 'stores/bbs';

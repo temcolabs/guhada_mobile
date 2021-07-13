@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import css from '../common/CategorySlider.module.scss';
 import { inject, observer } from 'mobx-react';
 import { toJS } from 'mobx';

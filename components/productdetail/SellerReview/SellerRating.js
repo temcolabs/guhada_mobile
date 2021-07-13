@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 import css from './NormalSlide.module.scss';
 import cn from 'classnames';

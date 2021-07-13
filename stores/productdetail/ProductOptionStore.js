@@ -1,4 +1,3 @@
-import React from 'react';
 import { observable, action, toJS } from 'mobx';
 import { isServer } from 'lib/common/isServer';
 import API from 'lib/API';

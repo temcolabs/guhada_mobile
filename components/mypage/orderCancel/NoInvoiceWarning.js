@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './NoInvoiceWarning.module.scss';
 
 export default function NoInvoiceWarning() {

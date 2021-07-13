@@ -1,8 +1,7 @@
 import css from './SlideBanner.module.scss';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import Slider from 'react-slick';
-// import './SlideBannerSlick.mcss';
 import useStores from 'stores/useStores';
 import Image from 'components/atoms/Image/HomeImage';
 import { pushRoute } from 'lib/router';

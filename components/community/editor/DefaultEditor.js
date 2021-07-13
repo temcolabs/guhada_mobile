@@ -1,5 +1,4 @@
-import React from 'react';
-import _ from 'lodash';
+import { Component } from 'react';
 import memoize from 'memoize-one';
 import css from './DefaultEditor.module.scss';
 import { isBrowser } from 'lib/common/isServer';
@@ -30,7 +29,7 @@ const summernoteScriptsList = [
  *
  * summernote doc(https://summernote.org/deep-dive/)
  */
-export default class CommunityDefaultEditor extends React.Component {
+export default class CommunityDefaultEditor extends Component {
   static defaultProps = {
     id: 'summernote-community-default',
     initialContents: '<p></p>',

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import Select from 'react-select';
 import DealsOption from './DealsOption';
 import { inject, observer } from 'mobx-react';
@@ -17,7 +17,7 @@ class MyDealSelect extends Component {
       valueContainer: () => ({
         padding: '0',
       }),
-      control: provided => ({
+      control: (provided) => ({
         ...provided,
         height: 50,
         borderRadius: 'none',
@@ -25,7 +25,7 @@ class MyDealSelect extends Component {
         boxShadow: 0,
         padding: '0 20px',
       }),
-      placeholder: provided => ({
+      placeholder: (provided) => ({
         ...provided,
         color: '#ccc',
         fontSize: 15,
@@ -67,7 +67,7 @@ class MyDealSelect extends Component {
           Option: DealsOption, // 커스텀 옵션 컴포넌트
         }}
         isSearchable={false}
-        onChange={value => {
+        onChange={(value) => {
           setMyDealHandler(value);
         }}
         value={value}

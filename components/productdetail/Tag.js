@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './Tag.module.scss';
 
 export default function Tag({ tags = [], toSearch = () => {} }) {

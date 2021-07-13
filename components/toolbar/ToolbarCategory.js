@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './ToolbarCategory.module.scss';
 import ModalPortal from 'components/templates/ModalPortal';
 import Category from './Category';

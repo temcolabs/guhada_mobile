@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './SubmitButton.module.scss';
 
 export default function SubmitButton({ children, style, ...rest }) {

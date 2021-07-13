@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import ModalWrapper from 'components/common/modal/ModalWrapper';
 import css from './PointSavingModal.module.scss';
 import cn from 'classnames';

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import css from './LoginInput.module.scss';
 import cn from 'classnames';
 import { observer } from 'mobx-react';

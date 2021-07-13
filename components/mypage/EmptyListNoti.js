@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './EmptyListNoti.module.scss';
 import Centering from 'components/common/Centering';
 

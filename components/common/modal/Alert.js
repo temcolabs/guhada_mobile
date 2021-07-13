@@ -1,4 +1,4 @@
-import React from 'react';
+import { Component, Fragment } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import PropTypes from 'prop-types';
 import ModalWrapper from './ModalWrapper';
@@ -32,7 +32,7 @@ const ConfirmBtns = ({
   );
 };
 
-class Alert extends React.Component {
+class Alert extends Component {
   static defaultProps = {
     onConfirm: () => {},
     onCancel: () => {},
@@ -67,7 +67,7 @@ class Alert extends React.Component {
             {children ? (
               <div className={css.alertBody}>{children()}</div>
             ) : (
-              <React.Fragment>
+              <Fragment>
                 {typeof content === 'function' ? ( // if react component
                   <div className={css.alertBody}>{content()}</div>
                 ) : (
@@ -84,7 +84,7 @@ class Alert extends React.Component {
                   ) : (
                     <ConfirmBtns {...this.props} />
                   ))}
-              </React.Fragment>
+              </Fragment>
             )}
           </div>
         </div>

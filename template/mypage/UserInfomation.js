@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { createContext, Component } from 'react';
 import moment from 'moment';
 import _ from 'lodash';
 import MyPageLayout from 'components/mypage/MypageLayout';
@@ -17,7 +17,7 @@ import isDev from 'lib/common/isDev';
 import entryService from 'lib/API/user/entryService';
 
 // final form 관련 값들을 공유할 컨텍스트
-export const UserEditFormContext = React.createContext({});
+export const UserEditFormContext = createContext({});
 
 const fields = {
   name: 'name', // 이름

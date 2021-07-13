@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import { Component, Fragment } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './CartItem.module.scss';
 import OptionChange from 'components/shoppingcart/OptionChange';

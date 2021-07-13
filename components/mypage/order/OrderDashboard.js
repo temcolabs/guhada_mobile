@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './OrderDashboard.module.scss';
 import cn from 'classnames';
 import Image from 'components/atoms/Image';

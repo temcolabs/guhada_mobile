@@ -3,7 +3,7 @@ import API from 'lib/API';
 import feedService from 'lib/API/user/feedService';
 import { root } from 'stores';
 import { devLog } from 'lib/common/devLog';
-import { get as _get } from 'lodash';
+import _ from 'lodash';
 import daumTracker from 'lib/tracking/daum/daumTracker';
 import naverShoppingTrakers from 'lib/tracking/navershopping/naverShoppingTrakers';
 import momentTracker from 'lib/tracking/kakaomoment/momentTracker';
@@ -86,7 +86,7 @@ export default {
         }
       })
       .catch((e) => {
-        let data = _get(e, 'data');
+        let data = _.get(e, 'data');
         if (data) {
           if (data.resultCode === 6001) {
             root.toast.getToast(data.message);

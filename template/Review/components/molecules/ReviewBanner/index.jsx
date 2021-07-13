@@ -1,4 +1,4 @@
-import React from 'react';
+import { memo } from 'react';
 import PropTypes from 'prop-types';
 import API from 'lib/API';
 
@@ -40,4 +40,4 @@ ReviewBanner.getInitialProps = async (ctx) => {
   return result;
 };
 
-export default React.memo(ReviewBanner);
+export default memo(ReviewBanner);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import DefaultLayout from 'components/layout/DefaultLayout';
 import css from './LuckyDraw.module.scss';
 import LuckydrawTimer from 'components/event/luckydraw/LuckydrawTimer';

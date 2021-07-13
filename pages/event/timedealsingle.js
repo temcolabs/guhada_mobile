@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import TimeDealSingle from 'template/event/timedeal/TimeDealSingle';
 function TimedealSingle() {
   const [dev, setDev] = useState(0);

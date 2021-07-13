@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import ModalWrapper from 'components/common/modal/ModalWrapper';
 import { LoginWrapper, LoginInput, LoginButton } from 'components/login';
 import css from './LuckydrawLogin.module.scss';

@@ -1,7 +1,6 @@
-import React from 'react';
 import cn from 'classnames';
 import css from './LuckydrawTimer.module.scss';
-import CountdownTimer from 'lib/components/CountdownTimer';
+import CountdownTimer from 'components/head/CountdownTimer';
 
 const Digit = ({ num }) => {
   return (

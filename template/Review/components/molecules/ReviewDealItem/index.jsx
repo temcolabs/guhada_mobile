@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './DealItem.module.scss';
 import PropTypes from 'prop-types';
 import cn from 'classnames';

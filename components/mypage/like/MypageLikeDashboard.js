@@ -1,11 +1,10 @@
-import React from 'react';
+import { Component } from 'react';
 import css from './MypageLikeDashboard.module.scss';
 import { inject, observer } from 'mobx-react';
-import MypageLikeSortSelect from './MypageLikeSortSelect';
 
 @inject('mypageLike')
 @observer
-class MypageLikeDashboard extends React.Component {
+class MypageLikeDashboard extends Component {
   render() {
     let { mypageLike } = this.props;
     return (
@@ -15,7 +14,7 @@ class MypageLikeDashboard extends React.Component {
         </div>
         <div
           className={css.total__delete}
-          onClick={e => {
+          onClick={(e) => {
             e.stopPropagation();
             mypageLike.totalDelete();
           }}

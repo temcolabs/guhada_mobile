@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './SizeGuideModal.module.scss';
 import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 

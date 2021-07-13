@@ -1,13 +1,8 @@
-import React from 'react';
-import { toJS } from 'mobx';
 import css from './SectionItem.module.scss';
 import cn from 'classnames';
 import isTruthy from 'lib/common/isTruthy';
-import _ from 'lodash';
 import brandNew from 'lib/constant/filter/brandNew';
-import internationalShipping from 'lib/constant/filter/internationalShipping';
 import LazyLoad from 'react-lazyload';
-import { Field } from 'react-final-form';
 
 export default function SectionItem({
   item = {

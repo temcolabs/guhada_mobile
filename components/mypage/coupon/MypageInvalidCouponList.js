@@ -1,11 +1,11 @@
-import React from 'react';
+import { Component } from 'react';
 import css from './MypageInvalidCouponList.module.scss';
 import DataEmpty from 'components/common/DataEmpty';
 import { inject, observer } from 'mobx-react';
 
 @inject('mypageCoupon')
 @observer
-class MypageInvalidCouponList extends React.Component {
+class MypageInvalidCouponList extends Component {
   render() {
     let { mypageCoupon } = this.props;
 

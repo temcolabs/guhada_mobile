@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './MyBBS.module.scss';
 import { LinkRoute } from 'lib/router';
 import qs from 'qs';

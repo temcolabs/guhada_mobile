@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import css from './InquiryItem.module.scss';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
@@ -6,6 +6,7 @@ import memoize from 'memoize-one';
 import moment from 'moment';
 import { dateFormat } from 'lib/constant';
 import _ from 'lodash';
+
 export class InquiryItem extends Component {
   static propTypes = {
     // createdAt: [2019, 7, 4, 7, 3, 56],

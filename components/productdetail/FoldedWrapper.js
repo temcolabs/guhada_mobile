@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import css from './FoldedWrapper.module.scss';
 import cn from 'classnames';
 

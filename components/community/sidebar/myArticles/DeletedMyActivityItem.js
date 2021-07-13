@@ -1,4 +1,3 @@
-import React from 'react';
 import css from '../MyBBS.module.scss';
 import cn from 'classnames';
 import isFunction from 'lib/common/isFunction';

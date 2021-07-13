@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import ModalWrapper from 'components/common/modal/ModalWrapper';
 import Form from 'stores/form-store/_.forms';
 import css from './LuckydrawSignup.module.scss';

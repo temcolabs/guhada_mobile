@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import { Component, Fragment } from 'react';
 import css from './MypageLikeOptionModal.module.scss';
 import MypageLikeOptionSelect from './MypageLikeOptionSelect';
 import { inject, observer } from 'mobx-react';

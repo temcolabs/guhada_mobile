@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './ArticleBookmarkButton.module.scss';
 import cn from 'classnames';
 

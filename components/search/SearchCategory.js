@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import css from './SearchCategory.module.scss';
 // import './SearchCategory.scss';
 import cn from 'classnames';

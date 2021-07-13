@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import css from './MyBBS.module.scss';
 import { LinkRoute } from 'lib/router';
 import { useBBSStore } from 'stores/bbs';

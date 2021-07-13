@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 import css from './BBSArticleView.module.scss';
 import DefaultLayout from 'components/layout/DefaultLayout';
@@ -19,7 +19,7 @@ import BoardSearch from 'components/community/list/BoardSearch';
 import Footer from 'components/footer/Footer';
 const enhancer = compose(withRouter, observer);
 
-export const ArticleIdContext = React.createContext(null);
+export const ArticleIdContext = createContext(null);
 
 /**
  * 게시판 글보기

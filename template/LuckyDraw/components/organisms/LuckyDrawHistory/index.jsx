@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 import { LuckyDrawHistoryItem } from 'template/LuckyDraw/components/molecules';

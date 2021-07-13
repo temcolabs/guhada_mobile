@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import ModalWrapper from 'components/common/modal/ModalWrapper';
 import { observer, inject } from 'mobx-react';
 import css from './ReviewModal.module.scss';

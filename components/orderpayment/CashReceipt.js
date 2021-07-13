@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './CashReceipt.module.scss';
 import Select from 'react-select';

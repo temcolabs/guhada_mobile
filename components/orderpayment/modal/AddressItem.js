@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './AddressItem.module.scss';
 import addHyphenToMobile from 'lib/string/addHyphenToMobile';

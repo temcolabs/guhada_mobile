@@ -1,18 +1,16 @@
-import React from 'react';
 import { withRouter } from 'next/router';
+import { Component } from 'react';
 import MypageLayout from 'components/mypage/MypageLayout';
 import { inject, observer } from 'mobx-react';
 import css from './RecentlySeenList.module.scss';
 import MypageRecentlySeenDashboard from '../../components/mypage/recentlySeen/MypageRecentlySeenDashboard';
 import MypageRecentlySeenItem from '../../components/mypage/recentlySeen/MypageRecentlySeenItem';
 import MypageDataEmpty from 'components/mypage/MypageDataEmpty';
-import { LinkRoute } from 'lib/router';
-import SectionItem from 'components/home/SectionItem';
 
 @withRouter
 @inject('mypageRecentlySeen')
 @observer
-class RecentlySeenList extends React.Component {
+class RecentlySeenList extends Component {
   componentDidMount() {
     this.props.mypageRecentlySeen.init();
   }

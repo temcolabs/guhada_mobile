@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './LuckyDrawApplyModal.module.scss';
 import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 import moment from 'moment';

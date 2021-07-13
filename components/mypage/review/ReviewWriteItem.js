@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './ReviewWriteItem.module.scss';
 import addCommaToNum from 'lib/common/addCommaToNum';
 import moment from 'moment';

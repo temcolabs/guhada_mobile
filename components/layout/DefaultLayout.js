@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import css from './DefaultLayout.module.scss';
 import Header from 'components/header/Header';
 // import ToolBar from 'components/toolbar/ToolBar';

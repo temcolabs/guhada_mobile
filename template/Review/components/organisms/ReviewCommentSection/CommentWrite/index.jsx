@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { toJS } from 'mobx';
 import { MentionsInput, Mention } from 'react-mentions';
 import PropTypes from 'prop-types';

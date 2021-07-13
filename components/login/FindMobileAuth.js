@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import css from './FindMobileAuth.module.scss';
 import LoginButton from './LoginButton';
 

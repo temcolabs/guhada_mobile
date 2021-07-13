@@ -1,10 +1,10 @@
-import React from 'react';
+import { Component } from 'react';
 import css from './MypageCouponTab.module.scss';
 import { inject, observer } from 'mobx-react';
 
 @inject('mypageCoupon')
 @observer
-class MypageCouponTab extends React.Component {
+class MypageCouponTab extends Component {
   render() {
     let { mypageCoupon } = this.props;
 

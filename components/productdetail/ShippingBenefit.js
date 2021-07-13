@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import css from './ShippingBenefit.module.scss';
 import StarItem from './StarItem';
 import { inject, observer } from 'mobx-react';
 import _ from 'lodash';
 import cn from 'classnames';
-import { pushRoute, sendBackToLogin } from 'lib/router';
+import { sendBackToLogin } from 'lib/router';
 import { loginStatus } from 'lib/constant';
 import CardInterestModal from 'components/common/modal/CardInterestModal';
 

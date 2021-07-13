@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import css from './ReviewTab.module.scss';
 import cn from 'classnames';
 import ReviewOrder from './ReviewOrder';

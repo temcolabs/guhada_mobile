@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import css from './TimeDealSingle.module.scss';
 import { item } from 'components/event/timedeal/strTimeDealItem';
 

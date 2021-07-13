@@ -1,10 +1,10 @@
-import React, { useState, useCallback, useContext, useEffect } from 'react';
+import { useState, useCallback, useContext, useEffect } from 'react';
 import css from './UserEditForm.module.scss';
 import Input, { inputStatTypes } from 'components/mypage/form/Input';
 import FormButton, {
   formButtonColors,
 } from 'components/mypage/form/FormButton';
-import CountdownTimer from 'lib/components/CountdownTimer';
+import CountdownTimer from 'components/head/CountdownTimer';
 import { Field } from 'react-final-form';
 import {
   composeValidators,

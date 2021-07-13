@@ -1,8 +1,8 @@
-import React, { Fragment, useRef, useState, useEffect } from 'react';
+import { Fragment, useRef, useState, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import css from './Brand.module.scss';
 import cn from 'classnames';
-import { isNil as _isNil, debounce as _debounce } from 'lodash';
+import _ from 'lodash';
 import { sendBackToLogin } from 'lib/router';
 import useStores from 'stores/useStores';
 import Image from 'components/atoms/Image';
@@ -59,7 +59,7 @@ function Brand({ isVisible, fromHeader, onClose, onCloseMenu, routerPush }) {
     const brandHeader = 70;
     const _fromHeader = fromHeader === true ? 0 : 60;
 
-    if (_isNil(target) === false) {
+    if (_.isNil(target) === false) {
       const clientRect = target.getBoundingClientRect(); // DomRect 구하기 (각종 좌표값이 들어있는 객체)
       const relativeTop = clientRect.top; // Viewport의 시작지점을 기준으로한 상대좌표 Y 값.
       const scrolledTopLength = brandScrollRef.current.scrollTop; // 스크롤된 길이
@@ -123,7 +123,7 @@ function Brand({ isVisible, fromHeader, onClose, onCloseMenu, routerPush }) {
    * Case2 : scrollTop < target
    * Case3 : nextTarget < scrollTop
    */
-  const toScrollFilterLabel = _debounce(
+  const toScrollFilterLabel = _.debounce(
     (e) =>
       setBrandLabel((prevLabel) => {
         const curLabel = `brand${prevLabel}`;
@@ -212,7 +212,7 @@ function Brand({ isVisible, fromHeader, onClose, onCloseMenu, routerPush }) {
             {brands.selectedLanguage === 'english'
               ? brands.enFilter.map((enbind, enIndex) => {
                   if (
-                    _isNil(brands.enList[enbind]) === false &&
+                    _.isNil(brands.enList[enbind]) === false &&
                     brands.enList[enbind].length > 0
                   )
                     return (
@@ -265,7 +265,7 @@ function Brand({ isVisible, fromHeader, onClose, onCloseMenu, routerPush }) {
                 })
               : brands.koFilter.map((kobind, koIndex) => {
                   if (
-                    _isNil(brands.koList[kobind]) === false &&
+                    _.isNil(brands.koList[kobind]) === false &&
                     brands.koList[kobind].length > 0
                   )
                     return (

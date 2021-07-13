@@ -1,14 +1,10 @@
-import React, { Component } from 'react';
-// import OrderPeriodSelector from '../order/OrderPeriodSelector';
+import { Component } from 'react';
 import ReviewModifyItem from './ReviewModifyItem';
-// import Pagination from 'components/common/Pagination';
 import { observer, inject } from 'mobx-react';
 import ReviewDeleteModal from './ReviewDeleteModal';
 import MypageDataEmpty from '../MypageDataEmpty';
 import { toJS } from 'mobx';
-import { scrollToTarget } from 'lib/common/scroll';
 import { devLog } from 'lib/common/devLog';
-import _ from 'lodash';
 import css from './ReviewModifyItem.module.scss';
 import isTruthy from 'lib/common/isTruthy';
 

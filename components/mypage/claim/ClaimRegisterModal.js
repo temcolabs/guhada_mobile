@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import ModalWrapper from 'components/common/modal/ModalWrapper';
 import { inject } from 'mobx-react';
 import API from 'lib/API';
@@ -71,7 +71,7 @@ function ClaimRegisterModal({
             </label>
           </div>
           <div className="productInquiry__modal-textCount">
-            <span>{_.size(content)}</span>/1000
+            <span>{_size(content)}</span>/1000
           </div>
         </div>
         <div className="productInquiry__modal-contents">

@@ -1,14 +1,17 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import _ from 'lodash';
 import css from './PeriodSelector.module.scss';
 import cn from 'classnames';
 import moment from 'moment';
-import { SingleDatePickerWrapper } from 'components/common/DatePicker';
 import { dateUnit, dateFormat } from 'lib/constant/date';
 import isTruthy, { isFalsey } from 'lib/common/isTruthy';
 
-// 날짜 선택 탭 종류. 기본 탭, 월 선택 탭, 기간 선택 탭
+import dynamic from 'next/dynamic';
+const SingleDatePickerWrapper = dynamic(() =>
+  import('components/common/DatePicker')
+);
 
+// 날짜 선택 탭 종류. 기본 탭, 월 선택 탭, 기간 선택 탭
 export const periodTab = {
   TAB_DEFAULT: 'TAB_DEFAULT',
   TAB_MONTH: 'TAB_MONTH',
@@ -76,7 +79,7 @@ export default function PeriodSelector({
   );
 
   const onChangePeriodThrottled = useCallback(
-    _.throttle(onChangePeriod, 400),
+    _throttle(onChangePeriod, 400),
     []
   );
 

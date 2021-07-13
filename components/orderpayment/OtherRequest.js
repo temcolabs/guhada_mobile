@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { inject } from 'mobx-react';
 import css from './OtherRequest.module.scss';
 
@@ -11,7 +11,7 @@ function OtherRequest({ orderpayment, request }) {
         <input
           type="text"
           placeholder="옵션이 필요한 상품의 경우, 사이즈, 색상을 기재"
-          onChange={e => {
+          onChange={(e) => {
             orderpayment.addOtherRequest(e);
           }}
           value={request || ''}

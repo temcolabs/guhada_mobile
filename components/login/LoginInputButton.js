@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import css from './LoginInputButton.module.scss';
 import cn from 'classnames';
 export class LoginInputButton extends Component {

@@ -2,7 +2,6 @@ import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useBBSStore } from 'stores/bbs';
 import { compose } from 'lodash/fp';
 import { pushRoute } from 'lib/router';
-import _ from 'lodash';
 import filterObjByKey from 'lib/object/filterObjByKey';
 import {
   ITEMS_PER_PAGE,
@@ -81,7 +80,7 @@ export default function useBBSSearchState({ query, asPath } = {}) {
               .reduce((result, key) => {
                 const original = q[key];
                 const converted = parseInt(original, 10);
-                result[key] = _.isNaN(converted) ? original : converted;
+                result[key] = _.isNan(converted) ? original : converted;
                 return result;
               }, {})
           ),

@@ -1,11 +1,11 @@
-import React from 'react';
+import { Component } from 'react';
 import css from './PointItem.module.scss';
 import moment from 'moment';
 import { dateFormat } from 'lib/constant/date';
 import { withRouter } from 'next/router';
 
 @withRouter
-class PointItem extends React.Component {
+class PointItem extends Component {
   render() {
     const {
       data = {

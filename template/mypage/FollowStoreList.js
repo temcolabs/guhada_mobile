@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import MypageLayout from 'components/mypage/MypageLayout';
 import FollowStoreDashboard from 'components/mypage/followStore/FollowStoreDashboard';
 import FollowListItem from 'components/mypage/followStore/FollowListItem';

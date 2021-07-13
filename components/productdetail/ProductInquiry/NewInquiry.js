@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import css from './NewInquiry.module.scss';
 import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 import { inject } from 'mobx-react';

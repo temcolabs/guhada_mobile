@@ -5,7 +5,7 @@ import useStores from 'stores/useStores';
 import { getLayoutInfo } from 'stores/LayoutStore';
 import API from 'lib/API';
 import isServer from 'lib/common/isServer';
-import HeadForSEO from 'lib/components/HeadForSEO';
+import HeadForSEO from 'components/head/HeadForSEO';
 import EventDetail from 'template/event/EventDetail';
 import MountLoading from 'components/atoms/Misc/MountLoading';
 

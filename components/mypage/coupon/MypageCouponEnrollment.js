@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import css from './MypageCouponEnrollment.module.scss';
 import { inject } from 'mobx-react';
 function MypageCouponEnrollment({ mypageCoupon }) {
   const [couponNumber, setCouponNumber] = useState('');
 
-  const couponRegisterHandle = e => {
+  const couponRegisterHandle = (e) => {
     setCouponNumber(e.target.value);
   };
 
@@ -26,7 +26,7 @@ function MypageCouponEnrollment({ mypageCoupon }) {
         <div className={css.couponInput}>
           <input
             type="text"
-            onChange={e => {
+            onChange={(e) => {
               couponRegisterHandle(e);
             }}
             placeholder="쿠폰번호 입력"

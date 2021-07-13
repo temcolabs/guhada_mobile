@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function MypageSectionTitle({ wrapperStyle, title, children }) {
   return (
     <h2

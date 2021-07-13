@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import { Fragment, Component } from 'react';
 import Controller from 'components/shoppingcart/Controller';
 import CartItem from 'components/shoppingcart/CartItem';
 import AmountResult from 'components/shoppingcart/AmountResult';
@@ -8,9 +8,10 @@ import CartEmpty from 'components/shoppingcart/CartEmpty';
 import RealTimePopularityProducts from 'components/shoppingcart/RealTimePopularityProducts';
 import { inject, observer } from 'mobx-react';
 import css from './ShoppingCart.module.scss';
+
 @inject('shoppingcart')
 @observer
-class ShoppingCart extends React.Component {
+class ShoppingCart extends Component {
   componentDidMount() {
     if (!this.props.shoppingcart.cartList.length) {
       this.props.shoppingcart.getRealTimePopularityProducts();

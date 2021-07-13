@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import { Component, Fragment } from 'react';
 import css from './CouponDownModal.module.scss';
 import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 import { inject, observer } from 'mobx-react';
@@ -19,11 +19,11 @@ class CouponDownModal extends Component {
                     productoption.couponDownModalClose();
                   }}
                 />
-              </div>              
+              </div>
               <div className={css.title}>
                 <div>현재 발급 가능한 쿠폰</div>
                 <div>발급받은 쿠폰은 마이페이지에서 확인할 수 있습니다.</div>
-              </div>              
+              </div>
               <div className={css.couponContainer}>
                 {productoption.dueSavebenefitCoupon.map((data, index) => {
                   return data.alreadySaved ? null : (
@@ -65,10 +65,11 @@ class CouponDownModal extends Component {
               </div>
               <div
                 className={css.confirmButton}
-                onClick={() => {                  
+                onClick={() => {
                   productoption.couponDown();
-                }}>                
-                모든 쿠폰 받기                  
+                }}
+              >
+                모든 쿠폰 받기
               </div>
             </div>
           </div>

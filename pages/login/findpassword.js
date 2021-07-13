@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { inject, observer } from 'mobx-react';
-import Form from '../../stores/form-store/_.forms';
+import { Component } from 'react';
+import { observer } from 'mobx-react';
+import Form from 'stores/form-store/_.forms';
 import FindPassword from 'template/signin/FindPassword';
-import HeadForSEO from 'lib/components/HeadForSEO';
+import HeadForSEO from 'components/head/HeadForSEO';
 
 @observer
 class findpassword extends Component {

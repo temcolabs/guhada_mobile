@@ -1,7 +1,5 @@
-import React, { Fragment } from 'react';
-import css from './NaverLogin.module.scss';
-
-import { observer, inject } from 'mobx-react';
+import { Component, Fragment } from 'react';
+import { observer } from 'mobx-react';
 import loadScript from 'lib/dom/loadScript';
 import { snsAppKey } from 'lib/constant/sns';
 import { isBrowser } from 'lib/common/isServer';
@@ -12,7 +10,7 @@ const client_id = snsAppKey.NAVER;
 const redirectURI = encodeURI(`${HOSTNAME}/callbacknaver`);
 
 @observer
-class NaverLoginCheckPassword extends React.Component {
+class NaverLoginCheckPassword extends Component {
   componentDidMount() {
     if (isBrowser) {
       this.loadNaverLogin();

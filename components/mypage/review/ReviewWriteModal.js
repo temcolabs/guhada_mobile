@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import css from './ReviewWriteModal.module.scss';
-// import ReviewWriteOption from './ReviewWriteOption';
 import ReviewWriteModalScore from './ReviewWriteModalScore';
 import { inject, observer } from 'mobx-react';
 import { toJS } from 'mobx';
@@ -23,9 +22,6 @@ import pointProcessService from 'lib/API/benefit/pointProcessService';
 import { ReviewWriteHashtagModal } from 'template/Review/components/organisms';
 import { HashtagLabel } from 'template/Review/components/atoms';
 
-// const color = ['BRIGHTER', 'SAME', 'DARKER'];
-// const length = ['SHORT', 'REGULAR', 'LONG'];
-// const size = ['SMALL', 'JUST_FIT', 'LARGE'];
 const rating = [
   'HALF',
   'ONE',

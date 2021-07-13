@@ -1,4 +1,4 @@
-import React from 'react';
+import { Component } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import PropTypes from 'prop-types';
 import ModalWrapper from './ModalWrapper';
@@ -12,7 +12,7 @@ const AlertBtns = ({ onConfirm = () => {}, confirmText }) => (
 
 @inject('cartAndPurchase', 'shoppingCartSuccessModal')
 @observer
-class AssociatedProduct extends React.Component {
+class AssociatedProduct extends Component {
   static defaultProps = {
     onConfirm: () => {},
     onCancel: () => {},

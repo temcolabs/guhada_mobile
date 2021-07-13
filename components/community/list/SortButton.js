@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './SortButton.module.scss';
 import { func } from 'prop-types';
 import SlideUpOptions, { slideOptionsPropType } from '../form/SlideUpOptions';

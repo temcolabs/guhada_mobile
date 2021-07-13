@@ -1,4 +1,4 @@
-import { observable, action, toJS } from 'mobx';
+import { observable, action } from 'mobx';
 import { loginStatus } from 'lib/constant';
 import API from 'lib/API';
 import Router from 'next/router';

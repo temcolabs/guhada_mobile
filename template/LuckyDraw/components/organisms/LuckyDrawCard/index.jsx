@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, memo } from 'react';
+import { useEffect, useState, useRef, memo } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import addCommaToNum from 'lib/common/addCommaToNum';
@@ -61,7 +61,7 @@ function LuckyDrawCard({
   /**
    * states
    */
-  const MemoSectionForm = React.memo(SectionForm);
+  const MemoSectionForm = memo(SectionForm);
   const timer = useRef(null); // 럭키드로우 타이머 Interval
   const [deadLine, setDeadLine] = useState(null); // 럭키드로우 타이머 String
 

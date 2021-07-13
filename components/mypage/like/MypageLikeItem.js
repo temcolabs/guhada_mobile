@@ -1,11 +1,11 @@
-import React, { Fragment } from 'react';
+import { Component, Fragment } from 'react';
 import css from './MypageLikeItem.module.scss';
 import { inject, observer } from 'mobx-react';
 import { LinkRoute } from 'lib/router';
 
 @inject('mypageLike')
 @observer
-class MypageLikeItem extends React.Component {
+class MypageLikeItem extends Component {
   render() {
     let { mypageLike, data } = this.props;
     return (

@@ -1,4 +1,3 @@
-import React from 'react';
 import _ from 'lodash';
 import { observable, action, computed } from 'mobx';
 import API from 'lib/API';

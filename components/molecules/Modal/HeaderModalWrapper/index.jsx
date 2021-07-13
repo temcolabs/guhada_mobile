@@ -1,4 +1,3 @@
-import React from 'react';
 import ModalMobileWrapper from 'components/molecules/Modal/ModalMobileWrapper';
 
 import PropTypes from 'prop-types';

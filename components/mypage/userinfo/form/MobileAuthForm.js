@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import css from './UserEditForm.module.scss';
 import Input, { inputStatTypes } from 'components/mypage/form/Input';
 import FormButton from 'components/mypage/form/FormButton';

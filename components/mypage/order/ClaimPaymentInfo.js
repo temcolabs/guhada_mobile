@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './PaymentInfo.module.scss';
 import cn from 'classnames';
 import addCommaToNum from 'lib/common/addCommaToNum';

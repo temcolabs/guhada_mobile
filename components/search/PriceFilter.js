@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import cn from 'classnames';
 import css from './TextButton.module.scss';

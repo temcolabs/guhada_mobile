@@ -13,9 +13,9 @@ import widerplanetTracker from 'lib/tracking/widerplanet/widerplanetTracker';
 import Cookies from 'js-cookie';
 import key from 'lib/constant/key';
 import getIpAddrress from 'lib/common/getIpAddrress';
-import { merge as _merge } from 'lodash';
+import _ from 'lodash';
 import getIsProdHost from 'lib/tracking/getIsProdHost';
-import CommonHead from 'lib/components/CommonHead';
+import CommonHead from 'components/head/CommonHead';
 import momentTracker from 'lib/tracking/kakaomoment/momentTracker';
 import ReactPixel from 'react-facebook-pixel';
 import gtagTracker from 'lib/tracking/google/gtagTracker';
@@ -52,7 +52,7 @@ class GuhadaMobileWeb extends App {
 
     // page 컴포넌트의 getInitialProps에서 리턴한 객체에 initialState가 있다면 병합
     if (initialProps.initialState) {
-      initialState = _merge(initialState, initialProps.initialState);
+      initialState = _.merge(initialState, initialProps.initialState);
     }
 
     // Get or Create the store with `undefined` as initialState
@@ -221,8 +221,4 @@ class GuhadaMobileWeb extends App {
   }
 }
 
-export async function getServerSideProps(context) {
-  console.log('yoman');
-  return {};
-}
 export default GuhadaMobileWeb;

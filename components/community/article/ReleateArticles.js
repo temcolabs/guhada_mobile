@@ -1,4 +1,3 @@
-import React from 'react';
 import CommunityContentWrap from 'components/community/CommunityContentWrap';
 import Pagination from 'components/common/Pagination';
 import BoardListItem from 'components/community/list/BoardListItem';

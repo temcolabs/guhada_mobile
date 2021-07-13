@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './DealOrdered.module.scss';
 import cn from 'classnames';
 import addCommaToNum from 'lib/common/addCommaToNum';

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import Input from 'components/mypage/form/Input';
 import Select from 'components/mypage/form/Select';
 import css from './RefundAccountInfoForm.module.scss';

@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './ReviewModifyItem.module.scss';
 import addCommaToNum from 'lib/common/addCommaToNum';
 import StarItem from './StarItem';

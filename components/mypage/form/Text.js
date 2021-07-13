@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './Text.module.scss';
 import cn from 'classnames';
 

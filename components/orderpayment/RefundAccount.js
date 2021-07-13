@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import css from './RefundAccount.module.scss';
-import _ from 'lodash';
 import { useObserver } from 'mobx-react';
 import useStores from 'stores/useStores';
 import RefundAccountBankSelect from './RefundAccountBankSelect';
@@ -38,7 +37,7 @@ const RefundAccount = () => {
             value={
               orderPaymentStore.orderUserInfo?.refundBankAccountNumber || ''
             }
-            onChange={e => {
+            onChange={(e) => {
               orderPaymentStore.setAccountInfo(e);
             }}
           />
@@ -77,9 +76,9 @@ const RefundAccount = () => {
         ) : null}
       </div>
       <div className={css.refundWarning}>
-      &middot; 무통장 입금 후 주문취소 또는 반품이 발생할 경우 취소/반품
-        완료일로부터 1~2영업일(주말, 공휴일 제외)이내에 입력하신
-        계좌로 환불처리 됩니다.
+        &middot; 무통장 입금 후 주문취소 또는 반품이 발생할 경우 취소/반품
+        완료일로부터 1~2영업일(주말, 공휴일 제외)이내에 입력하신 계좌로 환불처리
+        됩니다.
       </div>
     </div>
   ));

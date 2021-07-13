@@ -1,4 +1,3 @@
-import React from 'react';
 import { observable, action } from 'mobx';
 import Router from 'next/router';
 import API from 'lib/API';

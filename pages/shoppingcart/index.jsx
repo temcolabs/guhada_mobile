@@ -4,7 +4,7 @@ import useStores from 'stores/useStores';
 import Cookies from 'js-cookie';
 import key from 'lib/constant/key';
 import isServer, { isBrowser } from 'lib/common/isServer';
-import HeadForSEO from 'lib/components/HeadForSEO';
+import HeadForSEO from 'components/head/HeadForSEO';
 import widerplanetTracker from 'lib/tracking/widerplanet/widerplanetTracker';
 import mobonTracker from 'lib/tracking/mobon/mobonTracker';
 import momentTracker from 'lib/tracking/kakaomoment/momentTracker';

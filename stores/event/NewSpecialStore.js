@@ -1,7 +1,7 @@
 import { observable, action, computed } from 'mobx';
 import API from 'lib/API';
 import { isBrowser } from 'lib/common/isServer';
-import { isEmpty as _isEmpty, get as _get } from 'lodash';
+import _ from 'lodash';
 import { dateFormat } from 'lib/constant';
 import moment from 'moment';
 
@@ -40,7 +40,7 @@ class SpecialStore {
             )
           : ''
       }`,
-      image: _get(this.specialDetail, 'mediumImageUrl'),
+      image: _.get(this.specialDetail, 'mediumImageUrl'),
     };
   }
 
@@ -50,7 +50,7 @@ class SpecialStore {
   @action async fetchSpecialDetail(eventId = this.eventId) {
     if (
       this.root.searchByFilter.deals.length &&
-      (!eventId || (!_isEmpty(this.specialDetail) && this.eventId === eventId))
+      (!eventId || (!_.isEmpty(this.specialDetail) && this.eventId === eventId))
     ) {
       return;
     }

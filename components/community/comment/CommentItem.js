@@ -1,6 +1,5 @@
-import React, { useState, useMemo, useContext } from 'react';
+import { useState, useMemo, useContext } from 'react';
 import striptags from 'striptags';
-import _ from 'lodash';
 import css from './CommentItem.module.scss';
 import cn from 'classnames';
 import CommentInput from './CommentInput';

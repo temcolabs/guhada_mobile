@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import css from './SignupSuccessModal.module.scss';
 import ModalWrapper from 'components/common/modal/ModalWrapper';
 import Router from 'next/router';

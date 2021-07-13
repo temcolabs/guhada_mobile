@@ -1,4 +1,3 @@
-import React from 'react';
 import SlideUpOptions from '../form/SlideUpOptions';
 import css from './BrandSearch.module.scss';
 import TextInput from '../form/TextInput';
@@ -7,7 +6,7 @@ import TextInput from '../form/TextInput';
  * 글쓰기 화면에서 게시판 선택
  */
 const BrandSearch = ({
-  onChangeBrandName = name => {}, // 브랜드 변경
+  onChangeBrandName = (name) => {}, // 브랜드 변경
   initialBrandName = null,
 }) => {
   return (

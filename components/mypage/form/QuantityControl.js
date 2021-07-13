@@ -1,7 +1,7 @@
-import React from 'react';
+import { Component } from 'react';
 import css from './QuantityControl.module.scss';
-import { devLog } from 'lib/common/devLog';
-class QuantityControl extends React.Component {
+
+class QuantityControl extends Component {
   static propTypes = {};
 
   static defaultProps = {

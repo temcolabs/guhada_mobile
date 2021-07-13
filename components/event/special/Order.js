@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import SlideIn, { slideDirection } from 'components/common/panel/SlideIn';
 import css from './Order.module.scss';
 import cn from 'classnames';
@@ -11,7 +11,7 @@ class Order extends Component {
         <div className={css.wrap}>
           <button
             className={css.close}
-            onClick={e => {
+            onClick={(e) => {
               e.stopPropagation();
               onClose();
             }}
@@ -22,7 +22,7 @@ class Order extends Component {
               className={cn(css.item, {
                 [css.selected]: sellerStoreFilter === 'DATE',
               })}
-              onClick={e => {
+              onClick={(e) => {
                 getOrderDeal('DATE', e);
               }}
             >
@@ -32,7 +32,7 @@ class Order extends Component {
               className={cn(css.item, {
                 [css.selected]: sellerStoreFilter === 'SCORE',
               })}
-              onClick={e => {
+              onClick={(e) => {
                 getOrderDeal('SCORE', e);
               }}
             >
@@ -42,7 +42,7 @@ class Order extends Component {
               className={cn(css.item, {
                 [css.selected]: sellerStoreFilter === 'PRICE_ASC',
               })}
-              onClick={e => {
+              onClick={(e) => {
                 getOrderDeal('PRICE_ASC', e);
               }}
             >
@@ -52,7 +52,7 @@ class Order extends Component {
               className={cn(css.item, {
                 [css.selected]: sellerStoreFilter === 'PRICE_DESC',
               })}
-              onClick={e => {
+              onClick={(e) => {
                 getOrderDeal('PRICE_DESC', e);
               }}
             >

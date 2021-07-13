@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import css from './CommentInput.module.scss';
 import useStores from 'stores/useStores';
 import { useObserver } from 'mobx-react';

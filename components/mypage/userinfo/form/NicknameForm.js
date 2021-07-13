@@ -1,39 +1,22 @@
-import React, { useState, useCallback, useContext, useEffect } from 'react';
-import _ from 'lodash';
+import { useState, useCallback, useContext, useEffect } from 'react';
 import css from './UserEditForm.module.scss';
 import Input, { inputStatTypes } from 'components/mypage/form/Input';
 import { Field } from 'react-final-form';
 import {
   composeValidators,
-  notEmptyString,
   validateWithValue,
   delayedValidation,
   validateStringHasLength,
   nickNameLength,
 } from 'lib/common/finalFormValidators';
-import debouncePromise from 'lib/common/debouncePromise';
-import userService from 'lib/API/user/userService';
 import { UserEditFormContext } from 'template/mypage/UserInfomation';
-// import useStores from 'stores/useStores';
 import { useObserver } from 'mobx-react';
 
 export default function NicknameVerifyForm() {
-  const { fields, initialValues, runAfterFormInit } = useContext(
-    UserEditFormContext
-  );
+  const { fields, initialValues } = useContext(UserEditFormContext);
 
   // 마지막 입력값. 밸리데이션 중복 실행을 방지
   const [lastValue, setLastValue] = useState(null);
-
-  /**
-   * 닉네임 중복 확인
-   */
-  const checkIsNicknameDup = useCallback(
-    debouncePromise(async (nickname) => {
-      return await userService.isNicknameExist({ nickname });
-    }, 300),
-    []
-  );
 
   const onChange = useCallback(
     (v, { input }) => {
@@ -43,26 +26,6 @@ export default function NicknameVerifyForm() {
       setLastValue(nickname);
     },
     [setLastValue]
-  );
-
-  const validator = useCallback(
-    runAfterFormInit(
-      composeValidators(notEmptyString, async (v) => {
-        if (lastValue !== v) {
-          // 초기값과 같으면 문제없음
-          if (initialValues[fields.nickname] === v) {
-            return undefined;
-          } else {
-            if (await checkIsNicknameDup(v)) {
-              return '이미 사용중인 닉네임입니다.';
-            } else {
-              return undefined;
-            }
-          }
-        }
-      })
-    ),
-    [lastValue]
   );
 
   // setLastValue 최초 1회 실행

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import ArticleTitle from './ArticleTitle';
 import ArticleContents from './ArticleContents';
 import css from './ArticlePreviewModal.module.scss';
@@ -25,15 +25,15 @@ export default function ArticlePreviewModal({
   const [titleWrapEl, settitleWrapEl] = useState(null);
   const [closeButtonWrapEl, setcloseButtonWrapEl] = useState(null);
 
-  const modalWrapRefCb = el => {
+  const modalWrapRefCb = (el) => {
     setmodalWrapEl(el);
   };
 
-  const titleWrapRefCb = el => {
+  const titleWrapRefCb = (el) => {
     settitleWrapEl(el);
   };
 
-  const closeButtonWrapRefCb = el => {
+  const closeButtonWrapRefCb = (el) => {
     setcloseButtonWrapEl(el);
   };
 

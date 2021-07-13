@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import cn from 'classnames';
 import css from './LuckyDrawMainSlider.module.scss';
 import anime from 'animejs';
@@ -35,7 +35,7 @@ export default function LuckyDrawMainSlider({ imageList = [] }) {
   }, [currentIndex, imageList.length, isInTransition]);
 
   const showPrevSlide = useCallback(
-    index => {
+    (index) => {
       const next =
         currentIndex - 1 < 0 ? imageList.length - 1 : currentIndex - 1;
 
@@ -46,16 +46,16 @@ export default function LuckyDrawMainSlider({ imageList = [] }) {
     [currentIndex, imageList.length, isInTransition]
   );
 
-  const handleClickSlideIndex = useCallback(index => {
+  const handleClickSlideIndex = useCallback((index) => {
     setIndex(index);
   }, []);
 
-  const handleTouchStartSlideImage = useCallback(e => {
+  const handleTouchStartSlideImage = useCallback((e) => {
     setTouchStartX(e.touches[0]?.pageX);
   }, []);
 
   const handleTouchEndSlideImage = useCallback(
-    e => {
+    (e) => {
       const currentX = e.changedTouches[0]?.pageX;
       const isSwipeLeft = currentX <= touchStartX;
 
@@ -85,7 +85,7 @@ export default function LuckyDrawMainSlider({ imageList = [] }) {
                 timeout={DURATION}
                 mountOnEnter
                 in={index === currentIndex}
-                onEnter={node => {
+                onEnter={(node) => {
                   anime({
                     delay: DELAY_ENTER,
                     targets: node,
@@ -93,20 +93,20 @@ export default function LuckyDrawMainSlider({ imageList = [] }) {
                     opacity: 1,
                     duration: DURATION,
                     left: '40px',
-                    begin: anim => {
+                    begin: (anim) => {
                       node.style.left = '240px';
                       setIsInTransition(true);
                     },
                   });
                 }}
-                onExit={node => {
+                onExit={(node) => {
                   anime({
                     targets: node,
                     easing: EASING,
                     duration: DURATION,
                     opacity: 0,
                     left: '150px',
-                    complete: anim => {
+                    complete: (anim) => {
                       // 딜레이 후에 전환이 가능하도록 설정
                       setTimeout(() => {
                         setIsInTransition(false);
@@ -115,7 +115,7 @@ export default function LuckyDrawMainSlider({ imageList = [] }) {
                   });
                 }}
               >
-                {state => {
+                {(state) => {
                   return (
                     <div
                       className={cn(css.productImage, css.transitionEl, {
@@ -135,7 +135,7 @@ export default function LuckyDrawMainSlider({ imageList = [] }) {
                 timeout={DURATION}
                 mountOnEnter
                 in={index === currentIndex}
-                onEnter={node => {
+                onEnter={(node) => {
                   anime({
                     delay: DELAY_ENTER - 20,
                     targets: node,
@@ -148,7 +148,7 @@ export default function LuckyDrawMainSlider({ imageList = [] }) {
                     },
                   });
                 }}
-                onExit={node => {
+                onExit={(node) => {
                   anime({
                     targets: node,
                     easing: EASING,
@@ -159,7 +159,7 @@ export default function LuckyDrawMainSlider({ imageList = [] }) {
                   });
                 }}
               >
-                {state => {
+                {(state) => {
                   return (
                     <div
                       className={cn(css.startDate, css.transitionEl, {
@@ -179,7 +179,7 @@ export default function LuckyDrawMainSlider({ imageList = [] }) {
                 timeout={DURATION}
                 mountOnEnter
                 in={index === currentIndex}
-                onEnter={node => {
+                onEnter={(node) => {
                   anime({
                     delay: DELAY_ENTER - 40,
                     targets: node,
@@ -193,7 +193,7 @@ export default function LuckyDrawMainSlider({ imageList = [] }) {
                     },
                   });
                 }}
-                onExit={node => {
+                onExit={(node) => {
                   anime({
                     targets: node,
                     easing: EASING,
@@ -204,7 +204,7 @@ export default function LuckyDrawMainSlider({ imageList = [] }) {
                   });
                 }}
               >
-                {state => {
+                {(state) => {
                   return (
                     <div
                       className={cn(css.title, css.transitionEl, {

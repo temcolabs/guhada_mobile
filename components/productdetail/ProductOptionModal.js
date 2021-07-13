@@ -1,4 +1,3 @@
-import React from 'react';
 import ProductDetailOptionSelectbox from './ProductDetailOptionSelectbox';
 import OptionQuantity from './OptionQuantity';
 import css from './ProductOptionModal.module.scss';

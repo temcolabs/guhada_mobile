@@ -4,7 +4,7 @@ import Router from 'next/router';
 import Form from 'stores/form-store/_.forms';
 import { root } from 'stores';
 import { pushRoute } from 'lib/router';
-import { get as _get } from 'lodash';
+import _ from 'lodash';
 
 /**
  * 인증 요청 위치.
@@ -108,7 +108,7 @@ export default class AuthMobileStore {
         }
 
         function afterException(e) {
-          root.alert.showAlert(_get(e, 'data.message'));
+          root.alert.showAlert(_.get(e, 'data.message'));
         }
       } else if (location === 'findid') {
         let data = event.data;
@@ -129,7 +129,7 @@ export default class AuthMobileStore {
             Router.push('/login/findidresult');
           })
           .catch((e) => {
-            let resultCode = _get(e, 'data.resultCode');
+            let resultCode = _.get(e, 'data.resultCode');
             if (resultCode === 5004)
               root.alert.showConfirm({
                 content: '해당 정보와 일치하는 아이디가 없습니다.',
@@ -161,8 +161,8 @@ export default class AuthMobileStore {
             });
           })
           .catch((err) => {
-            let resultCode = _get(err, 'data.resultCode');
-            let message = _get(err, 'data.message');
+            let resultCode = _.get(err, 'data.resultCode');
+            let message = _.get(err, 'data.message');
 
             if (resultCode) {
               root.alert.showAlert({
@@ -187,7 +187,7 @@ export default class AuthMobileStore {
         }
 
         function afterException(e) {
-          let resultCode = _get(e, 'data.resultCode');
+          let resultCode = _.get(e, 'data.resultCode');
           if (resultCode === 5004) {
             let form = Form.modifyLuckydraw;
 
@@ -225,7 +225,7 @@ export default class AuthMobileStore {
         }
 
         function afterException(e) {
-          let resultCode = _get(e, 'data.resultCode');
+          let resultCode = _.get(e, 'data.resultCode');
           if (resultCode === 5004) {
             let form;
 

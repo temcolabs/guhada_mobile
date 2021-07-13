@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import useStores from 'stores/useStores';
 import _ from 'lodash';
 import ReviewReply from 'components/productdetail/ReviewReply';
@@ -10,7 +10,7 @@ import css from './SellerReviewItem.module.scss';
 function SellerReviewItem(props) {
   const reviewItem = props.review;
 
-  const { seller, sellerReview, login } = useStores();
+  const { sellerReview, login } = useStores();
   const { reviewBookMarks } = sellerReview;
   const [isSellerReplied, setIsSellerReplied] = useState(false);
   let checkBookmarks = false;

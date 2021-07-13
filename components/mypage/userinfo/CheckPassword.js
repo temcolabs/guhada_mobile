@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import css from './CheckPassword.module.scss';
 import Input from '../form/Input';
 import SubmitButton, {

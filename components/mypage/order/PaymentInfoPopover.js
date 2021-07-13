@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import css from './PaymentInfoPopover.module.scss';
 import moment from 'moment';
 import { dateFormat } from 'lib/constant';

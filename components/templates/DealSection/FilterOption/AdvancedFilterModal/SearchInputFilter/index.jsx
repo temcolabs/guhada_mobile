@@ -1,7 +1,7 @@
 import css from './SearchInputFilter.module.scss';
 import { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { debounce as _debounce } from 'lodash';
+import _ from 'lodash';
 
 const SearchInputFilter = ({ searchQueries, handleSetSearchQuery }) => {
   /**
@@ -22,7 +22,7 @@ const SearchInputFilter = ({ searchQueries, handleSetSearchQuery }) => {
    * handlers
    */
   const debouncedSetSearchQuery = useCallback(
-    _debounce((value) => {
+    _.debounce((value) => {
       if (value === '') {
         handleSetSearchQuery([]);
       } else {

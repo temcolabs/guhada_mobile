@@ -1,12 +1,10 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import css from './ProductInquiry.module.scss';
 import cn from 'classnames';
 import InquiryItem from './InquiryItem';
 import { inject, observer } from 'mobx-react';
 import NewInquiry from './NewInquiry';
-import SellerClaimModal, {
-  withSellerClaimModal,
-} from 'components/claim/sellerclaim/SellerClaimModal';
+import { withSellerClaimModal } from 'components/claim/sellerclaim/SellerClaimModal';
 import _ from 'lodash';
 import { loginStatus } from 'lib/constant';
 import { sendBackToLogin } from 'lib/router';

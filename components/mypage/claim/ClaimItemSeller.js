@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import css from './ClaimItem.module.scss';
 import moment from 'moment';
 import { dateFormat } from 'lib/constant';

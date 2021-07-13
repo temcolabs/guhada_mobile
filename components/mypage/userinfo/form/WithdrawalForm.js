@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import css from './UserEditForm.module.scss';
 import FormButton from 'components/mypage/form/FormButton';
 import useStores from 'stores/useStores';

@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './BoardListItem.module.scss';
 import { LinkRoute } from 'lib/router';
 import moment from 'moment';

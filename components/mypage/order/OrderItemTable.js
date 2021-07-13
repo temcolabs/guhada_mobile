@@ -1,8 +1,8 @@
-import React from 'react';
+import { Component } from 'react';
 import css from './OrderItemTable.module.scss';
 import OrderItemForDetail from './OrderItemForDetail';
 
-export default class OrderItemTable extends React.Component {
+export default class OrderItemTable extends Component {
   constructor(props) {
     super(props);
     this.state = {

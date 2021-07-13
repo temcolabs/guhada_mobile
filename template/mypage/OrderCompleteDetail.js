@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { withRouter } from 'next/router';
 import css from './OrderCompleteDetail.module.scss';
 import cn from 'classnames';

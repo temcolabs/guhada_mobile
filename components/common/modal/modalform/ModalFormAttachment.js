@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import css from './ModalForm.module.scss';
 import { devLog } from 'lib/common/devLog';
 /**

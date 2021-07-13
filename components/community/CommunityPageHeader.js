@@ -1,8 +1,8 @@
-import React from 'react';
+import { Component } from 'react';
 import css from './CommunityPageHeader.module.scss';
 import cn from 'classnames';
 
-class CommunityPageHeader extends React.Component {
+class CommunityPageHeader extends Component {
   render() {
     const { isBorderHidden, children } = this.props;
     return (

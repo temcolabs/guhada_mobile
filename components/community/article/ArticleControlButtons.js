@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useContext } from 'react';
+import { useState, useMemo, useContext } from 'react';
 import css from './ArticleControlButtons.module.scss';
 import ArticleBookmarkButton from 'components/community/article/ArticleBookmarkButton';
 import ArticleMoreButton from 'components/community/article/ArticleMoreButton';

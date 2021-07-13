@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import css from './SearchCategory.module.scss';
 import cn from 'classnames';
 import { inject } from 'mobx-react';

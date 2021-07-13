@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import withMobxDeco from '.storybook/decorators/withMobxDeco';
@@ -17,7 +17,7 @@ import TextInput from './TextInput';
 
 const stories = storiesOf('community/form', module);
 
-const BBSWrapper = fn => (
+const BBSWrapper = (fn) => (
   <div style={{ width: '970px', margin: '0 auto' }}>{fn()}</div>
 );
 
@@ -51,7 +51,7 @@ stories.add('SlideUpOptions with slideUpContent', () => {
   return (
     <SlideUpOptions
       isVisible={boolean('isVisible', false)}
-      renderButton={slideArea => {
+      renderButton={(slideArea) => {
         return (
           <div style={{ width: '300px', position: 'relative' }}>
             <button>test</button>

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import LoginLayout from 'components/layout/LoginLayout';
 import { LoginWrapper } from 'components/login';
 import css from './FindId.module.scss';

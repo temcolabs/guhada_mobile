@@ -1,4 +1,3 @@
-import React from 'react';
 import ModalWrapper from './ModalWrapper';
 import css from './CommonPopup.module.scss';
 export default function CommonPopup({

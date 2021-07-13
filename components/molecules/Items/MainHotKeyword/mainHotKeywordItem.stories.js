@@ -1,4 +1,3 @@
-import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs, array } from '@storybook/addon-knobs';
 import withMobxDeco from '.storybook/decorators/withMobxDeco';

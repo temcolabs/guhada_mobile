@@ -1,19 +1,16 @@
-import React, { Component, useState, useEffect } from 'react';
+import { Component } from 'react';
 import css from './UserEditForm.module.scss';
-import cn from 'classnames';
 import KeyValueTable from 'components/mypage/form/KeyValueTable';
 import Select from 'components/mypage/form/Select';
 import RadioGroup from 'components/mypage/form/RadioGroup';
-import FormButton from 'components/mypage/form/FormButton';
 import getRangeSelectOptions from 'lib/common/getRangeSelectOptions';
 import MySizePanel from './MySizePanel';
 import moment from 'moment';
-import isNil from 'lodash/isNil';
+import _ from 'lodash';
 import { inject, observer } from 'mobx-react';
-import { devLog } from 'lib/common/devLog';
 import { UserEditFormContext } from 'template/mypage/UserInfomation';
 import { Field } from 'react-final-form';
-import { composeValidators, required } from 'lib/common/finalFormValidators';
+import { composeValidators } from 'lib/common/finalFormValidators';
 import padZeroToSingleDigit from 'lib/string/padZeroToSingleDigit';
 
 /**
@@ -45,7 +42,7 @@ class AdditionalInfoForm extends Component {
     const { birth, gender = 'male' } = userInfoForm;
 
     // 생일 UI 초기화
-    const now = moment(isNil(birth) ? new Date() : birth);
+    const now = moment(_.isNil(birth) ? new Date() : birth);
     const year = now.year();
     const month = now.month() + 1; // month as 0~11
     const date = now.date();

@@ -2,14 +2,13 @@ import validatorjs from 'validatorjs';
 import MobxReactForm from 'mobx-react-form';
 import dvr from 'mobx-react-form/lib/validators/DVR';
 import message from './validatorMessage';
+validatorjs.useLang('ko');
 
 export default class Form extends MobxReactForm {
   plugins() {
-    validatorjs.useLang('ko');
-    validatorjs.setMessages('ko', message);
     return {
       dvr: dvr({
-        package: validatorjs,
+        package: validatorjs.setMessages('ko', message),
         extend: ({ validator, form }) => {
           /**
            * custom rules 및 error text 정의 방법
@@ -22,7 +21,6 @@ export default class Form extends MobxReactForm {
            *     rules: 'required|password',
            *  }
            */
-
           let rules = {
             password: {
               function: function(val) {

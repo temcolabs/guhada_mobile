@@ -1,4 +1,4 @@
-import React, { memo, Component } from 'react';
+import { memo, Component } from 'react';
 import css from './AdBanner.module.scss';
 import cn from 'classnames';
 import Slider from 'react-slick';

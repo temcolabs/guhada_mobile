@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import css from './DataEmpty.module.scss';
 
 function DataEmpty({ children, MARGINTOP = '0', PADDING = '0' }) {

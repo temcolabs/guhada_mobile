@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import Router from 'next/router';
 import SignUpSuccess from 'components/login/SignUpSuccess';
-import HeadForSEO from 'lib/components/HeadForSEO';
+import HeadForSEO from 'components/head/HeadForSEO';
 import { isBrowser } from 'lib/common/isServer';
 import { getCookie } from 'lib/common/cookieUtils';
 

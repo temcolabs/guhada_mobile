@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import { Component, Fragment } from 'react';
 import Select from 'react-select';
 import { inject, observer } from 'mobx-react';
 
@@ -25,7 +25,7 @@ class FollowStoreSortSelect extends Component {
       valueContainer: () => ({
         padding: 0,
       }),
-      control: provided => ({
+      control: (provided) => ({
         ...provided,
         minHeight: 30,
         border: 'solid 1px #ddd',
@@ -34,7 +34,7 @@ class FollowStoreSortSelect extends Component {
         borderRadius: 'none',
         fontSize: 12,
       }),
-      placeholder: provided => ({
+      placeholder: (provided) => ({
         ...provided,
         color: '#aaa',
         fontWeight: 'normal',
@@ -75,7 +75,7 @@ class FollowStoreSortSelect extends Component {
           styles={selectStyles}
           options={likeSortOption}
           defaultValue={likeSortOption[0]}
-          onChange={likeSortOption => {
+          onChange={(likeSortOption) => {
             mypageFollow.likeSortChange(likeSortOption);
           }}
           isSearchable={false}

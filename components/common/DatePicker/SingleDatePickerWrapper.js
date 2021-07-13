@@ -1,23 +1,16 @@
 /**
  * https://github.com/airbnb/react-dates/blob/master/examples/SingleDatePickerWrapper.jsx
  */
-import React from 'react';
+import { Component } from 'react';
 import { string, bool, any, func } from 'prop-types';
 import moment from 'moment';
-import omit from 'lodash/omit';
+import _ from 'lodash';
 import 'react-dates/initialize'; // react-dates
 import SingleDatePicker from 'react-dates/lib/components/SingleDatePicker';
 import { SingleDatePickerPhrases } from 'react-dates/lib/defaultPhrases';
 import { HORIZONTAL_ORIENTATION, ANCHOR_LEFT } from './calendarConstants';
 // import './DateRangePickerStyle.scss';
 import memoize from 'memoize-one';
-
-const propTypes = {
-  id: string,
-  autoFocus: bool,
-  onSelect: func,
-  initialDate: any, // moment object.
-};
 
 const defaultProps = {
   autoFocus: false,
@@ -73,7 +66,13 @@ const defaultProps = {
   phrases: SingleDatePickerPhrases,
 };
 
-export class SingleDatePickerWrapper extends React.Component {
+export class SingleDatePickerWrapper extends Component {
+  static propTypes = {
+    id: string,
+    autoFocus: bool,
+    onSelect: func,
+    initialDate: any,
+  };
   static defaultProps = defaultProps;
 
   constructor(props) {
@@ -106,7 +105,7 @@ export class SingleDatePickerWrapper extends React.Component {
     const { focused, date } = this.state;
 
     // wrapper의 props는 제거한다
-    const props = omit(this.props, ['autoFocus', 'initialDate', 'onSelect']);
+    const props = _.omit(this.props, ['autoFocus', 'initialDate', 'onSelect']);
 
     return (
       <SingleDatePicker
@@ -122,8 +121,5 @@ export class SingleDatePickerWrapper extends React.Component {
     );
   }
 }
-
-SingleDatePickerWrapper.propTypes = propTypes;
-SingleDatePickerWrapper.defaultProps = defaultProps;
 
 export default SingleDatePickerWrapper;

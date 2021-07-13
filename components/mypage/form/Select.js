@@ -1,4 +1,4 @@
-import React from 'react';
+import { Component } from 'react';
 import ReactSelect from 'react-select'; // https://react-select.com/
 import { devLog } from 'lib/common/devLog';
 // import './Select.scss';
@@ -63,7 +63,7 @@ const customStyles = {
   }),
 };
 
-export default class SingleSelect extends React.Component {
+export default class SingleSelect extends Component {
   static defaultProps = {
     name: 'select-name',
     options: null, // Array<{ label: string, value: any }>

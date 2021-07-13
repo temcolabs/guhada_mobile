@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import css from './ArticleContents.module.scss';
 import { useBBSStore } from 'stores/bbs';
 import * as loadImage from 'blueimp-load-image';
@@ -13,7 +13,7 @@ import * as loadImage from 'blueimp-load-image';
  */
 export default function ArticleImages({ imageList = [], wrapperStyle = {} }) {
   const { article: articleStore } = useBBSStore();
-  const listRef = React.useRef(null);
+  const listRef = useRef(null);
 
   useEffect(() => {
     const listEl = listRef.current;

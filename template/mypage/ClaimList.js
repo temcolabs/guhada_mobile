@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import MypageLayout from 'components/mypage/MypageLayout';
 import css from './ClaimList.module.scss';
 import ClaimListProduct from 'components/mypage/claim/ClaimListProduct';

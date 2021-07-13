@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import BBSArticleView from 'template/community/BBSArticleView';
-import HeadForSEO from 'lib/components/HeadForSEO';
+import HeadForSEO from 'components/head/HeadForSEO';
 import API from 'lib/API';
 import Router from 'next/router';
 import isServer from 'lib/common/isServer';

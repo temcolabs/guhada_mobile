@@ -1,4 +1,4 @@
-import React from 'react';
+import { Component } from 'react';
 import css from './OrderItem.module.scss';
 import { object, func, bool } from 'prop-types';
 import DealOrderedForDetail from '../DealOrderedForDetail';
@@ -6,7 +6,7 @@ import DealOrderedForDetail from '../DealOrderedForDetail';
 /**
  * 주문 목록의 아이템
  */
-class OrderItemForDetail extends React.Component {
+class OrderItemForDetail extends Component {
   static propTypes = {
     order: object,
     onClickInquire: func, // 문의하기 버튼 클릭

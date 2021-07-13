@@ -1,5 +1,5 @@
 import css from './FilterTags.module.scss';
-import { isEqual as _isEqual } from 'lodash';
+import _ from 'lodash';
 import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
 import useStores from 'stores/useStores';
@@ -30,7 +30,7 @@ const FilterTags = () => {
       <div className={css['filter-tags']}>
         <div className={css['tags']}>
           {body.categoryIds.length > 0 &&
-            !_isEqual(
+            !_.isEqual(
               toJS(body.categoryIds),
               toJS(defaultBody.categoryIds)
             ) && (

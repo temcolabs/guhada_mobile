@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import css from './SellerStoreInfo.module.scss';
 import cn from 'classnames';
 import _ from 'lodash';
@@ -6,8 +5,6 @@ import { useObserver } from 'mobx-react';
 import { pushRoute, sendBackToLogin } from 'lib/router';
 import { loginStatus } from 'lib/constant';
 import isTruthy from 'lib/common/isTruthy';
-import internationalShipping from 'lib/constant/filter/internationalShipping';
-import brandNew from 'lib/constant/filter/brandNew';
 import { inject } from 'mobx-react';
 
 function SellerStoreInfo({

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useBBSStore } from 'stores/bbs';
 import css from './CommunitySidebar.module.scss';
 import BoardMenus from './BoardMenus';
@@ -14,14 +14,14 @@ const CommunitySidebar = ({ router }) => {
     asPath: router.asPath,
   });
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault(); // blocks refresh
     handleSubmitSidebarSearch({
       query: input,
     });
   };
 
-  const handleChangeInput = value => {
+  const handleChangeInput = (value) => {
     setInput(value);
   };
 

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import css from './FindIdMyInfo.module.scss';
 import { LoginInput, LoginButton } from 'components/login';
 import { observer } from 'mobx-react';

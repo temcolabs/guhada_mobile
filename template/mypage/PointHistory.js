@@ -1,18 +1,22 @@
-import React from 'react';
+import { Component } from 'react';
 import { withRouter } from 'next/router';
 import DefaultLayout from 'components/layout/DefaultLayout';
 import css from './PointHistory.module.scss';
 import MypageLayout from 'components/mypage/MypageLayout';
 import PointDashboard from 'components/mypage/point/PointDashboard';
-import PeriodSelector from 'components/mypage/PeriodSelector';
 import { dateUnit } from 'lib/constant/date';
 import { inject, observer } from 'mobx-react';
 import PointItem from 'components/mypage/point/PointItem';
 
+import dynamic from 'next/dynamic';
+const PeriodSelector = dynamic(() =>
+  import('components/mypage/PeriodSelector')
+);
+
 @withRouter
 @inject('mypagePoint')
 @observer
-class PointHistory extends React.Component {
+class PointHistory extends Component {
   componentDidMount() {
     this.handleChangePeriod();
     this.getPointSummary();

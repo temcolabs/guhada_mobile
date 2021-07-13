@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import css from './FindLoginInfoHeader.module.scss';
 import cn from 'classnames';
 import { LinkRoute } from 'lib/router';

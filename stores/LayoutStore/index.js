@@ -2,7 +2,7 @@ import { isBrowser } from 'lib/common/isServer';
 import { observable, computed, action, toJS } from 'mobx';
 import { LAYOUT_TYPE, layouts } from './constants';
 import { searchConditionMap } from '../SearchStore/SearchByFilterStore';
-import { isEmpty as _isEmpty } from 'lodash';
+import _ from 'lodash';
 import qs from 'querystring';
 
 /**
@@ -35,7 +35,7 @@ class LayoutStore {
       if (this.type.length === 0) {
         this.type = initialState.layout.type;
       }
-      if (_isEmpty(this.headerFlags)) {
+      if (_.isEmpty(this.headerFlags)) {
         this.headerFlags = initialState.layout.headerFlags;
       }
     }

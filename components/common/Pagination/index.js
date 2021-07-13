@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import ReactJsPagination from 'react-js-pagination';
 import css from './Pagination.module.scss';
 import { number, func, object } from 'prop-types';

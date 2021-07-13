@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import css from './OrderProduct.module.scss';
 
 class OrderProduct extends Component {

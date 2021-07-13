@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './MypageReviewHeading.module.scss';
 
 export default function MypageReviewHeading({

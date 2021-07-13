@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './MoreButton.module.scss';
 function MoreButton({ getMoreContent = () => {}, wrapStyle = {} }) {
   return (

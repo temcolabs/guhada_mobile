@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import { Component, Fragment } from 'react';
 import { inject, observer } from 'mobx-react';
 import css from './FilterBrand.module.scss';
 import cn from 'classnames';
@@ -11,7 +11,7 @@ class FilterBrand extends Component {
     brandLabel: 'A',
   };
 
-  handleFilterLabel = filter => {
+  handleFilterLabel = (filter) => {
     if (filter === 'en') {
       this.setState({ brandLabel: 'A' });
     } else {
@@ -19,7 +19,7 @@ class FilterBrand extends Component {
     }
   };
 
-  filterBrand = brand => {
+  filterBrand = (brand) => {
     let { searchitem } = this.props;
     searchitem.setFilterBrand(brand);
   };
@@ -33,7 +33,7 @@ class FilterBrand extends Component {
             <input
               type="text"
               placeholder="브랜드명을 검색해주세요."
-              onChange={e => brands.searchBrand(e.target.value)}
+              onChange={(e) => brands.searchBrand(e.target.value)}
               value={brands.searchBrandText}
             />
           </div>

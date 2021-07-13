@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo } from 'react';
+import { useState, useEffect, memo } from 'react';
 import { pushRoute } from 'lib/router';
 import CommunityLayout from 'components/community/CommunityLayout';
 import withScrollToTopOnMount from 'components/common/hoc/withScrollToTopOnMount';

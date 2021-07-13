@@ -1,4 +1,4 @@
-import React from 'react';
+import { Component } from 'react';
 import css from './MyBBS.module.scss';
 import cn from 'classnames';
 import { inject, observer } from 'mobx-react';
@@ -20,7 +20,7 @@ const tab = {
 @withRouter
 @inject('user', 'login')
 @observer
-class MyBBS extends React.Component {
+class MyBBS extends Component {
   static propTypes = {};
 
   constructor(props) {

@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './MenubarSection.module.scss';
 import { LinkRoute } from 'lib/router';
 
