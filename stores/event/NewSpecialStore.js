@@ -59,6 +59,7 @@ class SpecialStore {
     this.isLoading = true;
 
     this.root.searchByFilter.initializeSearch({
+      searchResultOrder: 'DATE',
       eventIds: [eventId],
     });
 

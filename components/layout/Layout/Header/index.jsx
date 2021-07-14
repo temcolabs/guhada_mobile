@@ -1,9 +1,10 @@
 import css from './Header.module.scss';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import cn from 'classnames';
 import { useRouter } from 'next/router';
+import sessionStorage from 'childs/lib/common/sessionStorage';
 import MenuTab from './MenuTab';
 import SubmenuTab from './SubmenuTab';
 import CategoryTab from './CategoryTab';
@@ -36,6 +37,19 @@ const Header = ({
   const [isModalOpen, setIsModalOpen] = useState(0);
 
   /**
+   * handlers
+   */
+  const backHandler = () => {
+    if (document.referrer && !sessionStorage.get('init')) {
+      sessionStorage.set('init', 1);
+      const currentState = JSON.stringify(window.history.state);
+      window.history.replaceState({ as: '/', url: '/' }, '', '/');
+      const prevState = JSON.parse(currentState);
+      window.history.pushState(prevState, '', prevState.as);
+    }
+  };
+
+  /**
    * render
    */
   return (
@@ -48,7 +62,13 @@ const Header = ({
         ) : (
           <div className={css['tab']}>
             <div className={css['tab__buttons']}>
-              {back && <div className={'icon back'} onClick={router.back} />}
+              {back && (
+                <div
+                  ref={backHandler}
+                  className={'icon back'}
+                  onClick={router.back}
+                />
+              )}
               {burger && (
                 <div
                   className={'icon burger'}

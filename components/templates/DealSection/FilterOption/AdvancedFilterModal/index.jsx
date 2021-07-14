@@ -17,7 +17,11 @@ import {
   priceArrangeMap,
 } from 'stores/SearchStore/SearchByFilterStore';
 
-const AdvancedFilterModal = ({ filterName = '상세검색', handleCloseModal }) => {
+const AdvancedFilterModal = ({
+  filterName = '상세검색',
+  handleCloseModal,
+  specialFilterTags,
+}) => {
   /**
    * states
    */
@@ -47,12 +51,14 @@ const AdvancedFilterModal = ({ filterName = '상세검색', handleCloseModal }) 
     <ModalPortal handleClose={handleCloseModal} slide={1} gutter>
       <div className={css['modal__header']}>{filterName}</div>
       <div className={css['modal__filters']}>
-        <TreeFilter
-          title={'카테고리'}
-          dataList={searchByFilterStore.unfungibleCategories}
-          currentIds={searchByFilterStore.abstractBody.categoryIds}
-          setIds={(categoryIds) => handleSetAbstractFilter({ categoryIds })}
-        />
+        {!specialFilterTags && (
+          <TreeFilter
+            title={'카테고리'}
+            dataList={searchByFilterStore.unfungibleCategories}
+            currentIds={searchByFilterStore.abstractBody.categoryIds}
+            setIds={(categoryIds) => handleSetAbstractFilter({ categoryIds })}
+          />
+        )}
         <DictionaryFilter
           title={'브랜드'}
           dataList={searchByFilterStore.brands}
@@ -148,6 +154,7 @@ const AdvancedFilterModal = ({ filterName = '상세검색', handleCloseModal }) 
 AdvancedFilterModal.propTypes = {
   filterName: PropTypes.string,
   handleCloseModal: PropTypes.func,
+  specialFilterTags: PropTypes.bool,
 };
 
 export default observer(AdvancedFilterModal);

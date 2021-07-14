@@ -7,9 +7,9 @@ import FilterOption from './FilterOption';
 import LoadMoreButton from './LoadMoreButton';
 import Spinner, { SpinnerDiv } from 'components/atoms/Misc/Spinner';
 import FilterTags from './FilterTags';
+import SpecialFilterTags from './SpecialFilterTags';
 
 const DealSection = ({
-  title,
   deals,
   isLoading,
   moreToLoad,
@@ -17,6 +17,8 @@ const DealSection = ({
   thumbnail = 0,
   filter = false,
   filterTags = false,
+  specialFilterTags = false,
+  filterOptionSticky = false,
   isInfiniteScroll = true,
   displaySeller = false,
   displayTags = true,
@@ -32,9 +34,14 @@ const DealSection = ({
    */
   return (
     <div className={css['deal-section']}>
-      {title && <div className={css['deal-section__title']}>{title}</div>}
-      {filter && <FilterOption />}
-      {filterTags && <FilterTags />}
+      {specialFilterTags && <SpecialFilterTags />}
+      {filter && (
+        <FilterOption
+          sticky={filterOptionSticky}
+          specialFilterTags={specialFilterTags}
+        />
+      )}
+      {filterTags && <FilterTags specialFilterTags={specialFilterTags} />}
       {isLoading ? (
         <Spinner />
       ) : (
@@ -67,6 +74,8 @@ DealSection.propTypes = {
   thumbnail: PropTypes.number,
   filter: PropTypes.bool,
   filterTags: PropTypes.bool,
+  specialFilterTags: PropTypes.bool,
+  filterOptionSticky: PropTypes.bool,
   isInfiniteScroll: PropTypes.bool,
   displaySeller: PropTypes.bool,
   displayTags: PropTypes.bool,

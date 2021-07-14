@@ -46,7 +46,7 @@ export default class SellerStore {
   @observable countOfDeals;
   @observable page = 1;
   @observable unitPerPage = 14;
-  @observable order = 'DATE';
+  @observable order = 'SCORE';
   @observable sellerStoreFollow = [];
   @observable storeFollowBool = false;
   @observable nickname;
