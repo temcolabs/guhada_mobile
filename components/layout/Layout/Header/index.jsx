@@ -1,5 +1,5 @@
 import css from './Header.module.scss';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import cn from 'classnames';

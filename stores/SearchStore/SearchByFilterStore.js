@@ -125,6 +125,16 @@ export class SearchByFilterStore extends SearchStore {
     const { searchResultOrder, ...copiedDefaultBody } = toJS(this.defaultBody);
     return !_isEqual(copiedBody, copiedDefaultBody);
   }
+  /** Check if search result is filtered (without category) */
+  @computed get isFilteredExceptCategory() {
+    const { searchResultOrder: s, categoryIds: c, ...copiedBody } = toJS(
+      this.body
+    );
+    const { searchResultOrder, categoryIds, ...copiedDefaultBody } = toJS(
+      this.defaultBody
+    );
+    return !_isEqual(copiedBody, copiedDefaultBody);
+  }
 
   /**
    * actions

@@ -45,6 +45,8 @@ function SpecialDetail() {
         thumbnail={searchByFilterStore.thumbnail}
         filter
         filterTags
+        specialFilterTags
+        filterOptionSticky
       />
     </div>
   );

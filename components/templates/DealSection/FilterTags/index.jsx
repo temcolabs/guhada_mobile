@@ -1,4 +1,5 @@
 import css from './FilterTags.module.scss';
+import PropTypes from 'prop-types';
 import { isEqual as _isEqual } from 'lodash';
 import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
@@ -9,7 +10,7 @@ import {
 } from 'stores/SearchStore/SearchByFilterStore';
 import TagFactory, { CategorySearchTag } from './TagFactory';
 
-const FilterTags = () => {
+const FilterTags = ({ specialFilterTags }) => {
   /**
    * states
    */
@@ -26,10 +27,13 @@ const FilterTags = () => {
    * render
    */
   return (
-    searchByFilterStore.isFiltered && (
+    (specialFilterTags
+      ? searchByFilterStore.isFilteredExceptCategory
+      : searchByFilterStore.isFiltered) && (
       <div className={css['filter-tags']}>
         <div className={css['tags']}>
-          {body.categoryIds.length > 0 &&
+          {!specialFilterTags &&
+            body.categoryIds.length > 0 &&
             !_isEqual(
               toJS(body.categoryIds),
               toJS(defaultBody.categoryIds)
@@ -75,6 +79,10 @@ const FilterTags = () => {
       </div>
     )
   );
+};
+
+FilterTags.propTypes = {
+  specialFilterTags: PropTypes.bool,
 };
 
 export default observer(FilterTags);

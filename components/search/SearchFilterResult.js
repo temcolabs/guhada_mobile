@@ -225,17 +225,16 @@ function SearchFilterResult({ searchitem, router, seller }) {
                 );
               })}
 
-            {/* 
-              * 가격 태그
-              * - query, searchItem.maxPrice 값비교
-              * - TODO : 상단 컴포넌트들은 API 응답 값으로 사용
-            */}
-            {maxPrice && maxPrice === searchitem.maxPrice &&
-              <button
-                onClick={() => toSearch({})}>
-                {priceOption.find(o => o.max === parseInt(maxPrice))?.label}
+            {/*
+             * 가격 태그
+             * - query, searchItem.maxPrice 값비교
+             * - TODO : 상단 컴포넌트들은 API 응답 값으로 사용
+             */}
+            {maxPrice && maxPrice === searchitem.maxPrice && (
+              <button onClick={() => toSearch({})}>
+                {priceOption.find((o) => o.max === parseInt(maxPrice))?.label}
               </button>
-            }
+            )}
             <img
               src={'/static/icon/btn_filter_reset@3x.png'}
               width={93}

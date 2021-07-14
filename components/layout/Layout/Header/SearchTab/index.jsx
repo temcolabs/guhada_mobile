@@ -113,7 +113,7 @@ const SearchTab = () => {
         />
       </div>
       {isExpand > 0 && (
-        <ModalPortal shade={false} gutter>
+        <ModalPortal shade={false} gutter minHeight>
           <SearchMenu handleSearch={handleSearch} />
           {isExpand === 2 && (
             <AutocompleteSearchMenu

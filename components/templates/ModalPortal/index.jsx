@@ -14,6 +14,7 @@ function ModalPortal({
   slide,
   background = true,
   center = false,
+  minHeight = false,
 }) {
   /**
    * states
@@ -35,6 +36,7 @@ function ModalPortal({
     window.addEventListener('resize', resizeHandler, true);
 
     return () => {
+      handleClose();
       document.body.style.removeProperty('overflow');
       window.removeEventListener('resize', resizeHandler, true);
     };
@@ -46,7 +48,7 @@ function ModalPortal({
   return (
     typeof document === 'object' &&
     createPortal(
-      <div className={css['modal-portal']}>
+      <div className={cn(css['modal-portal'], minHeight && css['min-height'])}>
         {shade && (
           <div className={css['shade']} onClick={handleClose}>
             {closeButton && <div className="icon close--light" />}
@@ -84,6 +86,8 @@ ModalPortal.propTypes = {
   closeButton: PropTypes.bool,
   slide: PropTypes.number,
   background: PropTypes.bool,
+  center: PropTypes.bool,
+  minHeight: PropTypes.bool,
 };
 
 export default ModalPortal;

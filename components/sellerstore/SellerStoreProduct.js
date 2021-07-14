@@ -43,7 +43,7 @@ function SellerStoreProduct({
       Object.assign(
         {},
         query,
-        { order: order || 'DATE' },
+        { order: order || 'SCORE' },
         { searchSourceFrom: SearchEnum.SELLER_STORE }
       )
     );
