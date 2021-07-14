@@ -9,7 +9,6 @@ import Spinner, { SpinnerDiv } from 'components/atoms/Misc/Spinner';
 import FilterTags from './FilterTags';
 
 const DealSection = ({
-  title,
   deals,
   isLoading,
   moreToLoad,
@@ -32,7 +31,6 @@ const DealSection = ({
    */
   return (
     <div className={css['deal-section']}>
-      {title && <div className={css['deal-section__title']}>{title}</div>}
       {filter && <FilterOption />}
       {filterTags && <FilterTags />}
       {isLoading ? (

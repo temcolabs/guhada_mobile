@@ -20,7 +20,7 @@ function SellerStoreProduct({
 }) {
   const [orderHover, setOrderHover] = useState(false);
   const [sellerStoreFilter, setSellerStoreFilter] = useState('DATE');
-  
+
   const orderList = [
     { label: '신상품순', value: 'DATE' },
     { label: '평점순', value: 'SCORE' },
@@ -28,18 +28,25 @@ function SellerStoreProduct({
     { label: '높은가격순', value: 'PRICE_DESC' },
   ];
 
-  const orderLabel = orderList.map(order => {
+  const orderLabel = orderList.map((order) => {
     return order.value === seller.order ? order.label : '';
   });
 
   function getOrderDeal(order, e) {
     let query = Router.router.query;
-    devLog('[SellerStoreProduct] : getOrderDeal called.')
+    devLog('[SellerStoreProduct] : getOrderDeal called.');
     e.stopPropagation();
     setOrderHover(false);
     setSellerStoreFilter(order);
-    seller.order = order;    
-    searchitem.toSearch(Object.assign({}, query, { order: 'DATE' }, {order: order}, {searchSourceFrom: SearchEnum.SELLER_STORE}));
+    seller.order = order;
+    searchitem.toSearch(
+      Object.assign(
+        {},
+        query,
+        { order: order || 'DATE' },
+        { searchSourceFrom: SearchEnum.SELLER_STORE }
+      )
+    );
   }
 
   const handleMoreItemBtn =
@@ -50,7 +57,7 @@ function SellerStoreProduct({
       <div className={css.headerWrap}>
         <div
           className={css.detail}
-          onClick={e => {
+          onClick={(e) => {
             e.stopPropagation();
             setIsFilterVisible(true);
           }}

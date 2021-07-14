@@ -38,7 +38,6 @@ function SpecialDetail() {
         handleCopyUrlToClipboard={handleCopyUrlToClipboard}
       />
       <DealSection
-        title={'기획전 ITEM'}
         deals={searchByFilterStore.deals}
         isLoading={searchByFilterStore.isInitial}
         moreToLoad={searchByFilterStore.moreToLoad}
