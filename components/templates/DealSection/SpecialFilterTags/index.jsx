@@ -69,16 +69,18 @@ const SpecialFilterTags = () => {
   return (
     <div className={css['special-filter']}>
       <ul className={css['special-filter__tags']} ref={scrollRef}>
-        <li
-          key="전체보기"
-          className={cn(
-            css['tag'],
-            !searchByFilterStore.isFiltered && css['selected']
-          )}
-          onClick={handleAllFilterTagClick}
-        >
-          전체보기
-        </li>
+        {filterTags.size > 1 && (
+          <li
+            key="전체보기"
+            className={cn(
+              css['tag'],
+              !searchByFilterStore.isFiltered && css['selected']
+            )}
+            onClick={handleAllFilterTagClick}
+          >
+            전체보기
+          </li>
+        )}
         {Array.from(filterTags).map(([title, idList]) => (
           <li
             key={title}
