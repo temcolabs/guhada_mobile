@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
-import { Button } from './Styled';
+import css from './LuckyDrawButton.module.scss';
 
 /**
  * 럭키드로우 Submit
@@ -11,9 +11,14 @@ import { Button } from './Styled';
  */
 function LuckyDrawButton({ isActive, contents, onClick }) {
   return (
-    <Button disabled={!isActive} onClick={onClick} isActive={isActive}>
+    <button
+      style={{ backgroundColor: isActive ? '#232323' : '#ccc' }}
+      className={css.button}
+      disabled={!isActive}
+      onClick={onClick}
+    >
       {contents}
-    </Button>
+    </button>
   );
 }
 

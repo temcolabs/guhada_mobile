@@ -1,6 +1,4 @@
-import styled from 'styled-components';
-
-export const BannerImage = styled.div`
+.banner-image {
   background-image: url('/public/images/luckydraw/luckydraw_top.png');
   background-position: center;
   background-repeat: no-repeat;
@@ -8,13 +6,13 @@ export const BannerImage = styled.div`
   max-width: 100%;
   position: relative;
   margin-bottom: 80px;
-`;
+}
 
-export const BannerIcon = styled.img`
+.banner-icon {
   width: 318px;
   height: 82px;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-`;
+}

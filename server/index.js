@@ -89,26 +89,6 @@ app
       }
     });
 
-    /**
-     * 일부 라우트는 production 모드에서 접근했을 때 인덱스(/) 라우트로 보낸다
-     */
-
-    // server.use(function(req, res, next) {
-    //   const isProd = process.env.NODE_ENV === 'production';
-    //   const host = req.headers.host;
-    //   const isProdHost = isProd && host === 'm.guhada.com';
-
-    //   const routeRegexToBlock = [/^\/mypage/];
-    //   const isRedirectRequired =
-    //     routeRegexToBlock.findIndex(r => r.test(req.path)) > -1;
-
-    //   if (isProdHost && isRedirectRequired) {
-    //     res.redirect('/');
-    //   } else {
-    //     next();
-    //   }
-    // });
-
     // return urls
     for (const route of returnUrls) {
       server[route.method](route.url, route.handler);

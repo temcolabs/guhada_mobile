@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
-
-import { Wrapper, SpanWrapper } from './Styled';
+import css from './LuckyDrawTimer.module.scss';
 
 /**
  * 럭키드로우 Card > Header > Time (day, date)
@@ -11,26 +10,26 @@ import { Wrapper, SpanWrapper } from './Styled';
  */
 function LuckyDrawTimer({ day, date, text }) {
   return (
-    <Wrapper>
+    <div className={css.wrapper}>
       {text ? (
-        <SpanWrapper>
+        <span className={css.spanWrapper}>
           <span>{text}</span>
           <span />
-        </SpanWrapper>
+        </span>
       ) : (
         <>
           {' '}
-          <SpanWrapper>
+          <span className={css.spanWrapper}>
             <span>{day}</span>
             <span>일</span>
-          </SpanWrapper>
-          <SpanWrapper>
+          </span>
+          <span className={css.spanWrapper}>
             <span>{date}</span>
             <span>남음</span>
-          </SpanWrapper>
+          </span>
         </>
       )}
-    </Wrapper>
+    </div>
   );
 }
 

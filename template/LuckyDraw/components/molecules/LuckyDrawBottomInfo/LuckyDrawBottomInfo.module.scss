@@ -1,13 +1,11 @@
-import styled from 'styled-components';
-
-export const LuckyDrawTopBannerSection = styled.div`
+.LuckyDrawTopBannerSection {
   height: 865px;
   padding-top: 80px;
   padding-bottom: 70px;
   text-align: center;
-`;
+}
 
-export const LuckyDrawInfoBanner = styled.div`
+.LuckyDrawInfoBanner {
   background-image: url('/public/images/luckydraw/bottom_info/luckydraw_info/luckydraw_info@3x.png');
   background-position: center;
   background-repeat: no-repeat;
@@ -15,18 +13,18 @@ export const LuckyDrawInfoBanner = styled.div`
   height: 239px;
   margin: 0 15px;
   margin-bottom: 60px;
-`;
+}
 
-export const LuckyDrawAttendBanner = styled.div`
+.LuckyDrawAttendBanner {
   background-image: url('/public/images/luckydraw/bottom_info/attend_info/attend_info@3x.png');
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
   height: 253px;
   margin-bottom: 60px;
-`;
+}
 
-export const LuckyDrawWarnInfo = styled.div`
+.LuckyDrawWarnInfo {
   color: #999999;
   display: flex;
   justify-content: center;
@@ -37,4 +35,4 @@ export const LuckyDrawWarnInfo = styled.div`
   line-height: 0.79;
   margin-top: 20px;
   cursor: pointer;
-`;
+}

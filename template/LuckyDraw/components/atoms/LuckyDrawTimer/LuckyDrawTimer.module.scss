@@ -1,16 +1,13 @@
-import styled from 'styled-components';
-
-/**
- * LuckyDraw Card Timer
- */
-export const Wrapper = styled.div`
+.wrapper {
   color: #fd4900;
   text-align: center;
-  
-  > span:first-child { margin-right: 10px; }
-`;
 
-export const SpanWrapper = styled.span`
+  > span:first-child {
+    margin-right: 10px;
+  }
+}
+
+.spanWrapper {
   > span:first-child {
     font-family: 'BebasNeue-Book';
     font-size: 30px;
@@ -22,4 +19,4 @@ export const SpanWrapper = styled.span`
     line-height: 2.33;
     letter-spacing: 0.18px;
   }
-`;
+}

@@ -4,14 +4,8 @@ import Router from 'next/router';
 import useStores from 'stores/useStores';
 import PropTypes from 'prop-types';
 import copy from 'copy-to-clipboard';
-
+import css from './LuckyDrawBottomInfo.module.scss';
 import { LuckyDrawButton } from 'template/LuckyDraw/components/atoms';
-import {
-  LuckyDrawTopBannerSection,
-  LuckyDrawInfoBanner,
-  LuckyDrawAttendBanner,
-  LuckyDrawWarnInfo,
-} from './Styled';
 
 // Modals
 const LuckyDrawWarnModal = dynamic(
@@ -62,9 +56,9 @@ function LuckyDrawBottomInfo() {
           }}
         />
       )}
-      <LuckyDrawTopBannerSection>
-        <LuckyDrawInfoBanner />
-        <LuckyDrawAttendBanner />
+      <div className={css.LuckyDrawTopBannerSection}>
+        <div className={css.LuckyDrawInfoBanner} />
+        <div className={css.LuckyDrawAttendBanner} />
         <div style={{ margin: '0 20px' }}>
           <LuckyDrawButton
             isActive={true}
@@ -72,10 +66,13 @@ function LuckyDrawBottomInfo() {
             onClick={onClickShareButton}
           />
         </div>
-        <LuckyDrawWarnInfo onClick={() => setIsActiveWarnModal(true)}>
+        <div
+          className={css.LuckyDrawWarnInfo}
+          onClick={() => setIsActiveWarnModal(true)}
+        >
           유의사항
-        </LuckyDrawWarnInfo>
-      </LuckyDrawTopBannerSection>
+        </div>
+      </div>
     </>
   );
 }
